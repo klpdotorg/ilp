@@ -48,4 +48,5 @@ class AcademicYear(models.Model):
 
 class PinCode(models.Model):
     """ Pincodes """
+    id = models.IntegerField(primary_key=True)
     geom = models.GeometryField()
