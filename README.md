@@ -23,7 +23,7 @@ Finally source .bashrc using the following command
 
 Create and activate the virtualenv
 
-    mkvirtualenv ilp
+    mkvirtualenv --python=/usr/local/bin/python3 ilp
     workon ilp
    
 ### Install requirements
