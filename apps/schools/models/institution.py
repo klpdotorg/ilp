@@ -1,6 +1,7 @@
-from django.contrib.gis.db import models
+from django.db import models
 from .boundary import Boundary, ElectionBoundary
 from .choices import *
+from .common import *
 
 class InstitutionCategory(models.Model):
     """ Category for institution """
@@ -22,23 +23,10 @@ class Management(models.Model):
     name = models.CharField(max_length=300)
 
 
-class AcademicYear(models.Model):
-    """ Academic years in Schools """
-    char_id = models.CharField(max_length=300, primary_key=True)
-    year = models.CharField(max_length=10)
-    active = models.ForeignKey('Status')
-
-
-class Status(models.Model):
-    """ Academic year status """
-    char_id = models.CharField(max_length=300, primary_key=True)
-    name = models.CharField(max_length=300)
-
-
 class PinCode(models.Model):
     """ Pincodes """
     id = models.IntegerField(primary_key=True)
-    geom = models.GeometryField()
+    #geom = models.GeometryField()
 
 
 class Institution(models.Model):
@@ -75,6 +63,6 @@ class Institution(models.Model):
     gp = models.ForeignKey('ElectionBoundary', related_name='institution_gp')
     ward = models.ForeignKey(
         'ElectionBoundary', related_name='institution_ward')
-    coord = models.GeometryField()
+    #coord = models.GeometryField()
     last_verified_year = models.ForeignKey('AcademicYear')
     status = models.ForeignKey('Status')

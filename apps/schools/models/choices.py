@@ -1,4 +1,4 @@
-from django.contrib.gis.db import models
+from django.db import models
 
 # Choices
 
@@ -11,4 +11,15 @@ INSTITUTION_GENDER = (
 INSTITUTION_TYPE = (
     ('pre', 'Pre'),
     ('primary', 'Primary'),
+)
+
+GENDER = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+    ('O', 'Other'),
+)
+
+GROUP_TYPE = (
+    ('Class', 'Class'),
+    ('Center', 'Center')
 )

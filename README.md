@@ -52,11 +52,12 @@ To:
 
     sudo apt-get install postgresql-9.3
     sudo apt-get install postgresql-9.3-postgis-2.1
-    sudo -u postgres createdb -E UTF8 -O klp -T template0 klpproduction
+    Make sure the postgres application is running.
+    sudo -u postgres createdb -E UTF8 -O klp -T template0 ilpproduction
 
 ### Create a Local settings file
 
-    touch tada/local_settings.py
+    touch ilp/local_settings.py
 
 ### Setup your database
 
