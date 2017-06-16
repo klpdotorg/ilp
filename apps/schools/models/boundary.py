@@ -18,7 +18,7 @@ class Boundary(models.Model):
     institution_type = models.CharField(
         max_length=20, choices=INSTITUTION_TYPE)
     dise_slug = models.CharField(max_length=300)
-    #geom = models.GeometryField()
+    geom = models.GeometryField()
     status = models.ForeignKey('Status')
 
 
