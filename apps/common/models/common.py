@@ -13,3 +13,9 @@ class Status(models.Model):
     name = models.CharField(max_length=300)
 
 
+class Language(models.Model):
+    """ Languages used in School """
+    char_id = models.CharField(max_length=300, primary_key=True)
+    name = models.CharField(max_length=300)
+
+

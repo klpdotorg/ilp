@@ -1,6 +1,5 @@
+from common.models.choices import *
 from django.contrib.gis.db import models
-from .choices import *
-from .common import *
 
 
 class BoundaryType(models.Model):
@@ -19,7 +18,7 @@ class Boundary(models.Model):
         max_length=20, choices=INSTITUTION_TYPE)
     dise_slug = models.CharField(max_length=300)
     geom = models.GeometryField()
-    status = models.ForeignKey('Status')
+    status = models.ForeignKey('common.Status')
 
 
 class ElectionBoundary(models.Model):
@@ -32,7 +31,7 @@ class ElectionBoundary(models.Model):
     const_ward_type = models.ForeignKey('BoundaryType')
     current_elected_rep = models.CharField(max_length=300)
     current_elected_party = models.ForeignKey('ElectionParty')
-    status = models.ForeignKey('Status')
+    status = models.ForeignKey('common.Status')
 
 
 class BoundaryNeighbours(models.Model):

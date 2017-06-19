@@ -1,5 +1,4 @@
-from .choices import *
-from .common  import *
-from .boundary import *
-from .institution import *
-from .student_staff import *
+from .institution import Institution
+from .student_staff import (Student, StudentGroup,
+                StudentStudentGroupRelation,
+                Staff, StaffStudentGroupRelation)

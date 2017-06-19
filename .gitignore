@@ -40,3 +40,7 @@ Desktop.ini
 
 #Secret key
 secret.txt
+
+#local settings
+local_settings.py
+local_test_settings.py

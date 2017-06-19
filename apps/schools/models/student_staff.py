@@ -1,7 +1,6 @@
 from django.db import models
-from .choices import *
-from .common import *
-from .institution import Language,Institution
+from common.models.choices import GENDER, GROUP_TYPE, INSTITUTION_TYPE
+from .institution import Institution
 
 class StudentReligion(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -30,14 +29,14 @@ class Student(models.Model):
     dob = models.DateField(max_length=20,null=True)
     gender = models.CharField(max_length=10, choices=GENDER,
                               default='M')
-    mt = models.ForeignKey(Language, default='kan')
+    mt = models.ForeignKey('common.Language', default='kan')
     religion = models.ForeignKey(StudentReligion, null=True)
     category = models.ForeignKey(StudentCategory, null=True)
     enrollment_id = models.CharField(max_length=100, blank=True, null=True)
     mother_name = models.CharField(max_length=50, blank=True, null=True)
     father_name = models.CharField(max_length=50, blank=True, null=True)
     institution = models.ForeignKey(Institution)
-    status = models.ForeignKey(Status)
+    status = models.ForeignKey('common.Status')
 
     def __unicode__(self):
         return "%s" % self.first_name
@@ -46,14 +45,14 @@ class StudentGroup(models.Model):
     id = models.IntegerField(primary_key=True)
     institution = models.ForeignKey(Institution)
     name = models.CharField(max_length=50)
-    status = models.ForeignKey(Status)
+    status = models.ForeignKey('common.Status')
     section = models.CharField(max_length=10, blank=True, null=True)
     group_type = models.CharField(
         max_length=10,
         choices=GROUP_TYPE,
         default='Class'
     )
-    status = models.ForeignKey(Status)
+    status = models.ForeignKey('common.Status')
 
     class Meta:
         unique_together = (('institution', 'name', 'section'), )
@@ -67,8 +66,8 @@ class StudentStudentGroupRelation(models.Model):
     id = models.IntegerField(primary_key=True)
     student = models.ForeignKey(Student)
     student_group = models.ForeignKey(StudentGroup)
-    academic_year = models.ForeignKey(AcademicYear)
-    status = models.ForeignKey(Status)
+    academic_year = models.ForeignKey('common.AcademicYear')
+    status = models.ForeignKey('common.Status')
 
     class Meta:
         unique_together = (('student', 'student_group', 'academic_year'), )
@@ -97,9 +96,9 @@ class Staff(models.Model):
     doj = models.DateField(max_length=20,null=True)
     gender = models.CharField(max_length=10, choices=GENDER,
                               default='F')
-    mt = models.ForeignKey(Language, default='kan')
+    mt = models.ForeignKey('common.Language', default='kan')
     staff_type = models.ForeignKey(StaffType)
-    status = models.ForeignKey(Status)
+    status = models.ForeignKey('common.Status')
 
     def __unicode__(self):
         return "%s" % self.first_name
@@ -122,8 +121,8 @@ class StaffStudentGroupRelation(models.Model):
     id = models.IntegerField(primary_key=True)
     staff = models.ForeignKey(Staff)
     student_group = models.ForeignKey(StudentGroup)
-    academic_year = models.ForeignKey(AcademicYear)
-    status = models.ForeignKey(Status)
+    academic_year = models.ForeignKey('common.AcademicYear')
+    status = models.ForeignKey('common.Status')
 
     class Meta:
         unique_together = (('staff', 'student_group', 'academic_year'), )

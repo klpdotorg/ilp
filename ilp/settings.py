@@ -63,7 +63,7 @@ WSGI_APPLICATION = 'ilp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'ilpproduction',
         'USER': 'klp',
         'PASSWORD': 'klp',
@@ -93,7 +93,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "/static")
 
+
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
