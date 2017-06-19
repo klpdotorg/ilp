@@ -55,6 +55,9 @@ To:
     Make sure the postgres application is running.
     sudo -u postgres createdb -E UTF8 -O klp -T template0 ilpproduction
 
+### Install postgis extensions in the created database
+    psql -d ilpproduction -c "CREATE EXTENSION postgis;"
+
 ### Create a Local settings file
 
     touch ilp/local_settings.py
