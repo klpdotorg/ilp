@@ -40,7 +40,10 @@ INSTALLED_APPS = (
     'django.contrib.gis',
 
     # ILP apps
+    'common',
+    'boundary',
     'schools',
+
 )
 
 MIDDLEWARE = [
