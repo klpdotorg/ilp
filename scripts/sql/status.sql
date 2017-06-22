@@ -1,4 +1,3 @@
-DELETE FROM common_status;
 INSERT INTO common_status (char_id, name) VALUES ('AC', 'Active');
 INSERT INTO common_status (char_id, name) VALUES('IA', 'Inactive');
 INSERT INTO common_status (char_id, name) VALUES('DL', 'Deleted');

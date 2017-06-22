@@ -1,0 +1,18 @@
+INSERT INTO common_language (char_id, name) VALUES
+('kan', 'Kannada'),
+('urd', 'Urdu'),
+('tam', 'Tamil'),
+('eng', 'English'),
+('mar', 'Marathi'),
+('hin', 'Hindi'),
+('kon', 'Konkani'),
+('sin', 'Sindhi'),
+('oth', 'Other'),
+('guj', 'Gujarati'),
+('Unknown', 'Not Known'),
+('Multi Lang', 'Multi Lang'),
+('nep', 'Nepali'),
+('ori', 'Oriya'),
+('ben', 'Bengali'),
+('mal', 'Malayalam'),
+('san', 'Sanskrit');

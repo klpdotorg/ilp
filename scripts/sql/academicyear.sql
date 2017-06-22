@@ -1,4 +1,3 @@
-DELETE from common_academicyear;
 INSERT INTO common_academicyear (char_id, year, active_id) 
 VALUES ('0708', '2007-2008', 'IA'),
 ('0809', '2008-2009', 'IA'),

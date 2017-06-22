@@ -1,4 +1,3 @@
-DELETE from schools_management;
 INSERT INTO schools_management (id, name) VALUES
 (1, 'Department of Education'),
 (2, 'SWD'),

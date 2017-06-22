@@ -10,6 +10,11 @@ echo "######################"
 dbname="$1";
 #First give permissions to all the other scripts to run
 chmod 777 *.sh
+
+#Delete all values first
+echo "Deleting existing values in tables"
+psql -U klp -d $dbname -f sql/deleteFromTables.sql
+echo "Done deleting values..Populating tables now..."
 sh createEnums.sh $dbname
 sh populateStatusTable.sh $dbname
 sh populateAcademicYear.sh $dbname

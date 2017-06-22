@@ -1,4 +1,3 @@
-DELETE from schools_institutioncategory;
 INSERT INTO schools_institutioncategory (id, name, institution_type) VALUES
 (9, 'Model Primary', 'Primary'),
 (13, 'Lower Primary', 'Primary'),
