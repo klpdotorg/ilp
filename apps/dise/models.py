@@ -3,7 +3,7 @@ from django.contrib.gis.db import models
 # Create your models here.
 
 class BasicData(models.Model):
-    #Basic model for DISE data
+    """Basic model for DISE data"""
     academic_id = models.ForeignKey('common.AcademicYear')
     district = models.CharField(max_length=50, blank=True)
     school_code = models.IntegerField(primary_key=True)

@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'boundary',
     'schools',
     'dise',
+    'assessments',
 
 )
 

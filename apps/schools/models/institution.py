@@ -4,27 +4,32 @@ from django.contrib.gis.db import models
 
 class InstitutionCategory(models.Model):
     """ Category for institution """
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=300)
     institution_type = models.CharField(
         max_length=20, choices=INSTITUTION_TYPE)
 
+    def __unicode__(self):
+        return "%s" % self.name
+
 
 class Management(models.Model):
     """ The school management """
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=300)
+
+    def __unicode__(self):
+        return "%s" % self.name
 
 
 class PinCode(models.Model):
     """ Pincodes """
-    id = models.IntegerField(primary_key=True)
     geom = models.GeometryField()
+
+    def __unicode__(self):
+        return "%s" % self.geom
 
 
 class Institution(models.Model):
     """ An educational institution """
-    id = models.IntegerField(primary_key=True)
     dise_code = models.CharField(max_length=300)
     name = models.CharField(max_length=300)
     category = models.ForeignKey('InstitutionCategory')
@@ -47,15 +52,28 @@ class Institution(models.Model):
         max_length=1000, null=True, blank=True)
     route_information = models.CharField(
         max_length=1000, null=True, blank=True)
-    admin3 = models.ForeignKey('boundary.Boundary', related_name='institution_admin3')
-    admin2 = models.ForeignKey('boundary.Boundary', related_name='institution_admin2')
-    admin1 = models.ForeignKey('boundary.Boundary', related_name='institution_admin1')
-    admin0 = models.ForeignKey('boundary.Boundary', related_name='institution_admin0')
-    mp = models.ForeignKey('boundary.ElectionBoundary', related_name='institution_mp')
-    mla = models.ForeignKey('boundary.ElectionBoundary', related_name='institution_mla')
-    gp = models.ForeignKey('boundary.ElectionBoundary', related_name='institution_gp')
+    admin3 = models.ForeignKey(
+            'boundary.Boundary', related_name='institution_admin3')
+    admin2 = models.ForeignKey(
+            'boundary.Boundary', related_name='institution_admin2')
+    admin1 = models.ForeignKey(
+            'boundary.Boundary', related_name='institution_admin1')
+    admin0 = models.ForeignKey(
+            'boundary.Boundary', related_name='institution_admin0')
+    mp = models.ForeignKey(
+            'boundary.ElectionBoundary', related_name='institution_mp')
+    mla = models.ForeignKey(
+            'boundary.ElectionBoundary', related_name='institution_mla')
+    gp = models.ForeignKey(
+            'boundary.ElectionBoundary', related_name='institution_gp')
     ward = models.ForeignKey(
-        'boundary.ElectionBoundary', related_name='institution_ward')
+            'boundary.ElectionBoundary', related_name='institution_ward')
     coord = models.GeometryField()
     last_verified_year = models.ForeignKey('common.AcademicYear')
     status = models.ForeignKey('common.Status')
+
+    class Meta:
+        unique_together = (('dise_code'), )
+
+    def __unicode__(self):
+        return "%s" % self.name
