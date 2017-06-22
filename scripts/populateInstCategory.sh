@@ -5,11 +5,11 @@ if [ $# -eq 0 ]; then
     exit 1;
 fi
 echo "######################"
-echo "STARTING SCRIPT - POPULATE STATUS TABLE"
+echo "STARTING SCRIPT - POPULATE INSTITUTION CATEGORY"
 echo "######################"
 dbname="$1";
 echo $1
-psql -U klp -d $dbname -f sql/status.sql
+psql -U klp -d $dbname -f sql/institutioncategory.sql
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     echo "SQL script execution failed with error";
@@ -17,5 +17,5 @@ if [ $exit_status -eq 1 ]; then
 fi
 echo "Script executed successfully";
 echo "######################"
-echo "ENDING SCRIPT - POPULATE STATUS TABLE"
+echo "ENDING SCRIPT - POPULATE INSTITUTION CATEGORY"
 echo "######################"
