@@ -1,8 +1,8 @@
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'ilpproduction',
-        'USER': 'klp',
+        'NAME': 'ilp',
+        'USER': '',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
