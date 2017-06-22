@@ -9,7 +9,10 @@ class InstitutionCategory(models.Model):
     institution_type = models.CharField(
         max_length=20, choices=INSTITUTION_TYPE)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> institution_model
 class Management(models.Model):
     """ The school management """
     id = models.IntegerField(primary_key=True)
