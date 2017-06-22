@@ -9,10 +9,6 @@ class InstitutionCategory(models.Model):
     institution_type = models.CharField(
         max_length=20, choices=INSTITUTION_TYPE)
 
-class Language(models.Model):
-    """ Medium of instruction from EMS """
-    char_id = models.CharField(max_length=3, primary_key=True)
-    name=models.CharField(max_length=300)
 
 class Management(models.Model):
     """ The school management """
