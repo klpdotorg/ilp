@@ -2,26 +2,25 @@ from django.db import models
 from common.models.choices import GENDER, GROUP_TYPE, INSTITUTION_TYPE
 from .institution import Institution
 
+
 class StudentReligion(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """Religiion"""
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
         return "%s" % self.name
+
 
 class StudentCategory(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """ Category of students"""
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
         return "%s" % self.name
-
-
 
 
 class Student(models.Model):
-    """ Category for institution """
-    id = models.IntegerField(primary_key=True)
+    """ Student information """
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
@@ -41,8 +40,9 @@ class Student(models.Model):
     def __unicode__(self):
         return "%s" % self.first_name
 
+
 class StudentGroup(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """ StudentGroup information per school"""
     institution = models.ForeignKey(Institution)
     name = models.CharField(max_length=50)
     status = models.ForeignKey('common.Status')
@@ -63,7 +63,7 @@ class StudentGroup(models.Model):
 
 
 class StudentStudentGroupRelation(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """Student and StudentGroup mapping per year"""
     student = models.ForeignKey(Student)
     student_group = models.ForeignKey(StudentGroup)
     academic_year = models.ForeignKey('common.AcademicYear')
@@ -76,8 +76,9 @@ class StudentStudentGroupRelation(models.Model):
         return "%s: %s in %s" % (self.student, self.student_group,
                                  self.academic_year,)
 
+
 class StaffType(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """ Type of staff"""
     staff_type = models.CharField(max_length=100)
     institution_type = models.CharField(
         max_length=20, choices=INSTITUTION_TYPE)
@@ -87,7 +88,7 @@ class StaffType(models.Model):
 
 
 class Staff(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """ Staff information"""
     institution = models.ForeignKey(Institution)
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50, blank=True, null=True)
@@ -103,22 +104,25 @@ class Staff(models.Model):
     def __unicode__(self):
         return "%s" % self.first_name
 
+
 class Qualification(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """Qualifications of Staff"""
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
         return "%s" % self.name
+
 
 class Training(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """Training imparted to Staff"""
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
         return "%s" % self.name
 
+
 class StaffStudentGroupRelation(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """Staff to StudentGroup mapping per year"""
     staff = models.ForeignKey(Staff)
     student_group = models.ForeignKey(StudentGroup)
     academic_year = models.ForeignKey('common.AcademicYear')
@@ -133,7 +137,7 @@ class StaffStudentGroupRelation(models.Model):
 
 
 class StaffQualification(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """Staff to Qualification mapping"""
     staff = models.ForeignKey(Staff)
     qualification = models.ForeignKey(Qualification)
 
@@ -142,11 +146,9 @@ class StaffQualification(models.Model):
 
 
 class StaffTraining(models.Model):
-    id = models.IntegerField(primary_key=True)
+    """Staff to Training mapping"""
     staff = models.ForeignKey(Staff)
     training = models.ForeignKey(Training)
 
     def __unicode__(self):
         return "%s: %s" % (self.staff, self.training)
-
-

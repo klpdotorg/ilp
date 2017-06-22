@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'common',
     'boundary',
     'schools',
+    'dise',
+    'assessments',
 
 )
 
