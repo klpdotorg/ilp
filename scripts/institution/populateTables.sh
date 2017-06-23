@@ -15,9 +15,6 @@ chmod 777 *.sh
 echo "Deleting existing values in tables"
 psql -U klp -d $dbname -f sql/deleteFromTables.sql
 echo "Done deleting values..Populating tables now..."
-sh createEnums.sh $dbname
-sh populateStatusTable.sh $dbname
-sh populateAcademicYear.sh $dbname
 sh populateInstCategory.sh $dbname
 sh populateInstMgmt.sh $dbname
 
