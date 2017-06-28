@@ -1,0 +1,121 @@
+[
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "kan",
+            "name": "Kannada"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "urd",
+            "name": "Urdu"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "tam",
+            "name": "Tamil"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "eng",
+            "name": "English"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "mar",
+            "name": "Marathi"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "hin",
+            "name": "Hindi"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "kon",
+            "name": "Konkani"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "sin",
+            "name": "Sindhi"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "oth",
+            "name": "Other"
+        }
+   },
+   {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "guj",
+            "name": "Gujarati"
+        }
+   },
+   {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "unknown",
+            "name": "Not Known"
+        }
+   },
+   {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "multi",
+            "name": "Multiple Language"
+        }
+   },
+   {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "nep",
+            "name": "Nepali"
+        }
+    }, 
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "ori",
+            "name": "Oriya"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "ben",
+            "name": "Bengali"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "mal",
+            "name": "Malayalam"
+        }
+    },
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "san",
+            "name": "Sanskrit"
+        }
+    }
+]

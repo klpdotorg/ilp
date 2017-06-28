@@ -1,0 +1,177 @@
+[
+    {
+        "model": "schools.Management",
+        "fields":{
+            "id": 1,
+            "name": "Department of Education"
+        }
+    },
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 2,
+            "name": "SWD"
+        }
+    },
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 3,
+			"name": "Local Body"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 4,
+			"name": "Pvt. Aided"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 5,
+			"name": "Pvt. Unaided"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 6,
+			"name": "Others"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 7,
+			"name": "Approved"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 8,
+			"name": "SSA"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 9,
+			"name": "KGBV"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 10,
+			"name": "Pvt. Aided SC"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 11,
+			"name": "Pvt. Aided ST"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 12,
+			"name": "Jawahar"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 13,
+			"name": "Central"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 14,
+			"name": "Sainik"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 15,
+			"name": "Central Govt."
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 16,
+			"name": "NRI"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 17,
+			"name": "Madrasa-Aided"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 18,
+			"name": "Madrasa-Unaided"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 19,
+			"name": "Arabic-Aided"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 20,
+			"name": "Arabic-Unaided"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 21,
+			"name": "Sanskrit-Aided"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 22,
+			"name": "Pvt. Unaided SC"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 23,
+			"name": "Pvt. Aided ST"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 24,
+			"name": "Un-Recognized"
+		}
+	},
+	{
+		"model": "schools.Management",
+		"fields":{
+			"id": 25,
+			"name": "Tribal/Social Welfare Dept."
+        }
+    }
+]

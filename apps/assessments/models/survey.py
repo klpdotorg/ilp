@@ -1,4 +1,4 @@
-import datetime
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -31,8 +31,7 @@ class Survey(models.Model):
     updated_at = models.DateField(max_length=20)
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=20, choices=SURVEY_TYPE)
-    start_date = models.DateField(max_length=20,
-                                 default=datetime.date.today())
+    start_date = models.DateField(max_length=20)
     end_date = models.DateField(max_length=20, default="common.default_end_date")
     academic_year = models.ForeignKey('common.AcademicYear')
     partner = models.ForeignKey('Partner')
@@ -45,8 +44,7 @@ class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
     verison = models.IntegerField(blank=True, null=True)
     source = models.ForeignKey("Source")
-    start_date = models.DateField(max_length=20,
-                                 default=datetime.date.today)
+    start_date = models.DateField(max_length=20)
     end_date = models.DateField(max_length=20, default="common.default_end_date")
     name = models.CharField(max_length=100)
     created_at = models.DateField(max_length=20)

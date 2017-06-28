@@ -1,0 +1,23 @@
+[
+    {
+        "model": "common.InstitutionGender",
+        "fields":{
+            "char_id": "boys",
+            "name": "Boys"
+        }
+    },
+    {
+        "model": "common.InstitutionGender",
+        "fields":{
+            "char_id": "girls",
+            "name": "Girls"
+        }
+    },
+    {
+        "model": "common.InstitutionGender",
+        "fields":{
+            "char_id": "coed",
+            "name": "Co-ed"
+        }
+    }
+]

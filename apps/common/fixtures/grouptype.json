@@ -1,0 +1,17 @@
+[
+    {
+        "model": "common.GroupType",
+        "fields":{
+            "char_id": "class",
+            "name": "Class"
+        }
+    },
+    {
+        "model": "common.GroupType",
+        "fields":{
+            "char_id": "center",
+            "name": "Center"
+        }
+    }
+]
+ 
