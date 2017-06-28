@@ -81,6 +81,9 @@ Run:
 
     python manage.py migrate
 
+### Fill static data
+    python manage.py loaddata apps/*/fixtures/*.json
+
 ### To import old data refer to README.md in imports directory
 
 

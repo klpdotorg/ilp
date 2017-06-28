@@ -1,0 +1,146 @@
+[
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "0708",
+            "year": "2007-2008",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "0809",
+            "year": "2008-2009",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "0910",
+            "year": "2009-2010",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1011",
+            "year": "2010-2011",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1112",
+            "year": "2011-2012",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1213",
+            "year": "2012-2013",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1314",
+            "year": "2013-2014",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1415",
+            "year": "2014-205",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1516",
+            "year": "2015-2016",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1617",
+            "year": "2016-2017",
+            "active": "AC"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1718",
+            "year": "2017-2018",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1819",
+            "year": "2018-2019",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "1920",
+            "year": "2019-2020",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "2021",
+            "year": "2020-2021",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "2122",
+            "year": "2021-2022",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "2223",
+            "year": "2022-2023",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "2324",
+            "year": "2023-2024",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
+            "char_id": "2425",
+            "year": "2024-2025",
+            "active": "IA"
+        }
+    }
+]

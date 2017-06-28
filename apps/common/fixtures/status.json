@@ -1,0 +1,51 @@
+[
+    {
+        "model": "common.Status",
+        "fields":{
+            "char_id": "AC",
+            "name": "Active"
+        }
+    },
+    {
+        "model": "common.Status",
+        "fields":{
+            "char_id": "IA",
+            "name": "Inactive"
+        }
+    },
+    {
+        "model": "common.Status",
+        "fields":{
+            "char_id": "DL",
+            "name": "Deleted"
+        }
+    },
+    {
+        "model": "common.Status",
+        "fields":{
+            "char_id": "PS",
+            "name": "Promotion Success"
+        }
+    },
+    {
+        "model": "common.Status",
+        "fields":{
+            "char_id": "PF",
+            "name": "Promotion Failed"
+        }
+    },
+    {
+        "model": "common.Status",
+        "fields":{
+            "char_id": "PO",
+            "name": "Passed Out"
+        }
+    },
+    {
+        "model": "common.Status",
+        "fields":{
+            "char_id": "D",
+            "name": "Detained"
+        }
+    }
+]

@@ -1,0 +1,58 @@
+[
+    {
+        "model": "schools.InstitutionCategory",
+        "fields":{
+            "id": 9,
+            "name": "Model Primary",
+            "institution_type": "primary"
+        }
+    },
+    {
+        "model": "schools.InstitutionCategory",
+        "fields":{
+            "id": 13,
+            "name": "Lower Primary",
+            "institution_type": "primary"
+        }
+    },
+    {
+        "model": "schools.InstitutionCategory",
+        "fields":{
+            "id": 14,
+            "name": "Upper Primary",
+            "institution_type": "primary"
+        }
+    },
+    {
+        "model": "schools.InstitutionCategory",
+        "fields":{
+            "id": 15,
+            "name": "Secondary",
+            "institution_type": "primary"
+        }
+    },
+    {
+        "model": "schools.InstitutionCategory",
+        "fields":{
+            "id": 10,
+            "name": "Anganwadi",
+            "institution_type": "pre"
+        }
+    },
+    {
+        "model": "schools.InstitutionCategory",
+        "fields":{
+            "id": 11,
+            "name": "Akshara Balwadi",
+            "institution_type": "pre"
+        }
+    },
+    {
+        "model": "schools.InstitutionCategory",
+        "fields":{
+            "id": 12,
+            "name": "Independent Balwadi",
+            "institution_type": "pre"
+        }
+    }
+]
