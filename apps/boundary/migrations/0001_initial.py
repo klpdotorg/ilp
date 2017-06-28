@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
             name='ElectionParty',
             fields=[
                 ('char_id', models.CharField(max_length=300, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=300, primary_key=True)),
+                ('name', models.CharField(max_length=300)),
             ],
         ),
         migrations.AlterUniqueTogether(

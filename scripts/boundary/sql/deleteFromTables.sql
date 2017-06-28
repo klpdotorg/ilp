@@ -1,0 +1,1 @@
+DELETE from boundary_boundarytype;
