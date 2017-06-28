@@ -1,5 +1,4 @@
 import datetime
-from common.models.choices import INSTITUTION_TYPE
 from django.db import models
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -37,7 +36,7 @@ class Survey(models.Model):
     end_date = models.DateField(max_length=20, default="common.default_end_date")
     academic_year = models.ForeignKey('common.AcademicYear')
     partner = models.ForeignKey('Partner')
-    inst_type = models.CharField(max_length=20, choices=INSTITUTION_TYPE)
+    inst_type = models.ForeignKey('common.InstitutionType')
     desc = models.CharField(max_length=200)
     status = models.ForeignKey('common.Status')
 

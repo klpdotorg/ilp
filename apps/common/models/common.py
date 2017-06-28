@@ -1,5 +1,9 @@
 import datetime
+import inspect
+from enum import Enum
+import sys
 from django.db import models
+
 
 class AcademicYear(models.Model):
     """ Academic years in Schools """
@@ -32,7 +36,7 @@ class Language(models.Model):
 def current_academic():
     ''' To select current academic year'''
     try:
-        academicObj = AcademicYear.objects.get(active=2)
+        academicObj = AcademicYear.objects.get(active='AC')
         return academicObj
     except AcademicYear.DoesNotExist:
         return 1
@@ -51,3 +55,35 @@ def default_end_date():
     else:
         academic_end_date = datetime.date(currentYear, 5, 30)
     return academic_end_date
+
+
+class InstitutionGender(models.Model):
+    char_id = models.CharField(max_length=300, primary_key=True)
+    name = models.CharField(max_length=300)
+
+    class Meta:
+        unique_together = (('name'), )
+
+
+class InstitutionType(models.Model):
+    char_id = models.CharField(max_length=300, primary_key=True)
+    name = models.CharField(max_length=300)
+
+    class Meta:
+        unique_together = (('name'), )
+
+
+class Gender(models.Model):
+    char_id = models.CharField(max_length=300, primary_key=True)
+    name = models.CharField(max_length=300)
+
+    class Meta:
+        unique_together = (('name'), )
+
+
+class GroupType(models.Model):
+    char_id = models.CharField(max_length=300, primary_key=True)
+    name = models.CharField(max_length=300)
+
+    class Meta:
+        unique_together = (('name'), )

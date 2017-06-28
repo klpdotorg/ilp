@@ -1,12 +1,10 @@
-from common.models.choices import INSTITUTION_TYPE, INSTITUTION_GENDER
 from django.contrib.gis.db import models
 
 
 class InstitutionCategory(models.Model):
     """ Category for institution """
     name = models.CharField(max_length=300)
-    institution_type = models.CharField(
-        max_length=20, choices=INSTITUTION_TYPE)
+    institution_type = models.ForeignKey('common.InstitutionType')
 
     def __unicode__(self):
         return "%s" % self.name
@@ -33,10 +31,9 @@ class Institution(models.Model):
     dise_code = models.CharField(max_length=300)
     name = models.CharField(max_length=300)
     category = models.ForeignKey('InstitutionCategory')
-    gender = models.CharField(max_length=10, choices=INSTITUTION_GENDER)
+    gender = models.ForeignKey('common.Gender')
     moi = models.ForeignKey('common.Language')
-    institution_type = models.CharField(
-        max_length=20, choices=INSTITUTION_TYPE)
+    institution_type = models.ForeignKey('common.InstitutionType')
     management = models.ForeignKey('Management')
     year_established = models.CharField(max_length=5, null=True, blank=True)
     rural_urban = models.CharField(max_length=50, null=True, blank=True)
@@ -61,15 +58,15 @@ class Institution(models.Model):
     admin0 = models.ForeignKey(
             'boundary.Boundary', related_name='institution_admin0')
     mp = models.ForeignKey(
-            'boundary.ElectionBoundary', related_name='institution_mp')
+            'boundary.ElectionBoundary', related_name='institution_mp', null=True)
     mla = models.ForeignKey(
-            'boundary.ElectionBoundary', related_name='institution_mla')
+            'boundary.ElectionBoundary', related_name='institution_mla', null=True)
     gp = models.ForeignKey(
-            'boundary.ElectionBoundary', related_name='institution_gp')
+            'boundary.ElectionBoundary', related_name='institution_gp', null=True)
     ward = models.ForeignKey(
-            'boundary.ElectionBoundary', related_name='institution_ward')
-    coord = models.GeometryField()
-    last_verified_year = models.ForeignKey('common.AcademicYear')
+            'boundary.ElectionBoundary', related_name='institution_ward', null=True)
+    coord = models.GeometryField(null=True)
+    last_verified_year = models.ForeignKey('common.AcademicYear', null=True)
     status = models.ForeignKey('common.Status')
 
     class Meta:

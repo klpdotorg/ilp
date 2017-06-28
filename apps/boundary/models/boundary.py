@@ -1,4 +1,4 @@
-from common.models.choices import *
+from common.models import common
 from django.contrib.gis.db import models
 
 
@@ -10,13 +10,12 @@ class BoundaryType(models.Model):
 
 class Boundary(models.Model):
     """ educational boundaries """
-    parent = models.ForeignKey('self')
+    parent = models.ForeignKey('self', null=True)
     name = models.CharField(max_length=300)
     boundary_type = models.ForeignKey('BoundaryType')
-    institution_type = models.CharField(
-        max_length=20, choices=INSTITUTION_TYPE)
-    dise_slug = models.CharField(max_length=300)
-    geom = models.GeometryField()
+    type = models.ForeignKey('common.InstitutionType')
+    dise_slug = models.CharField(max_length=300, blank=True)
+    geom = models.GeometryField(null=True)
     status = models.ForeignKey('common.Status')
 
     class Meta:
@@ -29,11 +28,11 @@ class Boundary(models.Model):
 class ElectionBoundary(models.Model):
     """ Election boundaries """
     state = models.ForeignKey('self')
-    dise_slug = models.CharField(max_length=300)
+    dise_slug = models.CharField(max_length=300, blank=True)
     elec_comm_code = models.IntegerField()
     const_ward_name = models.CharField(max_length=300)
     const_ward_type = models.ForeignKey('BoundaryType')
-    current_elected_rep = models.CharField(max_length=300)
+    current_elected_rep = models.CharField(max_length=300, blank=True)
     current_elected_party = models.ForeignKey('ElectionParty')
     status = models.ForeignKey('common.Status')
 
@@ -67,10 +66,8 @@ class ElectionNeighbours(models.Model):
 class ElectionParty(models.Model):
     """Election Party"""
     char_id = models.CharField(max_length=300, primary_key=True)
-    elect_boundary = models.ForeignKey('ElectionBoundary')
-    neighbour = models.ForeignKey(
-        'ElectionBoundary', related_name='electionparty_neighbour')
+    name = models.CharField(max_length=300, primary_key=True)
 
     class Meta:
-        unique_together = (('elect_boundary'), )
+        unique_together = (('name'), )
 

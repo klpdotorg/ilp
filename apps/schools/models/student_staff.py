@@ -1,5 +1,4 @@
 from django.db import models
-from common.models.choices import GENDER, GROUP_TYPE, INSTITUTION_TYPE
 from .institution import Institution
 
 
@@ -26,8 +25,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=50, blank=True, null=True)
     uid = models.CharField(max_length=100, blank=True, null=True)
     dob = models.DateField(max_length=20,null=True)
-    gender = models.CharField(max_length=10, choices=GENDER,
-                              default='M')
+    gender = models.ForeignKey('common.Gender',default='m')
     mt = models.ForeignKey('common.Language', default='kan')
     religion = models.ForeignKey(StudentReligion, null=True)
     category = models.ForeignKey(StudentCategory, null=True)
@@ -47,11 +45,7 @@ class StudentGroup(models.Model):
     name = models.CharField(max_length=50)
     status = models.ForeignKey('common.Status')
     section = models.CharField(max_length=10, blank=True, null=True)
-    group_type = models.CharField(
-        max_length=10,
-        choices=GROUP_TYPE,
-        default='Class'
-    )
+    group_type = models.ForeignKey('common.GroupType',default='class')
     status = models.ForeignKey('common.Status')
 
     class Meta:
@@ -80,8 +74,7 @@ class StudentStudentGroupRelation(models.Model):
 class StaffType(models.Model):
     """ Type of staff"""
     staff_type = models.CharField(max_length=100)
-    institution_type = models.CharField(
-        max_length=20, choices=INSTITUTION_TYPE)
+    institution_type = models.ForeignKey('common.InstitutionType')
 
     def __unicode__(self):
         return "%s" % self.staff_type
@@ -95,8 +88,7 @@ class Staff(models.Model):
     last_name = models.CharField(max_length=50, blank=True, null=True)
     uid = models.CharField(max_length=100, blank=True, null=True)
     doj = models.DateField(max_length=20,null=True)
-    gender = models.CharField(max_length=10, choices=GENDER,
-                              default='F')
+    gender = models.ForeignKey('common.Gender',default='f')
     mt = models.ForeignKey('common.Language', default='kan')
     staff_type = models.ForeignKey(StaffType)
     status = models.ForeignKey('common.Status')
