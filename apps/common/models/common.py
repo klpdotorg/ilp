@@ -87,3 +87,18 @@ class GroupType(models.Model):
 
     class Meta:
         unique_together = (('name'), )
+
+class Religion(models.Model):
+    """Religion"""
+    name = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return "%s" % self.name
+
+
+class StudentCategory(models.Model):
+    """ Category of students"""
+    name = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return "%s" % self.name
