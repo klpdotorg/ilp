@@ -28,7 +28,7 @@ class PinCode(models.Model):
 
 class Institution(models.Model):
     """ An educational institution """
-    dise_code = models.CharField(max_length=300)
+    dise_code = models.CharField(max_length=300, null=True, blank=True)
     name = models.CharField(max_length=300)
     category = models.ForeignKey('InstitutionCategory')
     gender = models.ForeignKey('common.Gender')
@@ -38,10 +38,10 @@ class Institution(models.Model):
     year_established = models.CharField(max_length=5, null=True, blank=True)
     rural_urban = models.CharField(max_length=50, null=True, blank=True)
     phone_number = models.CharField(max_length=50, null=True, blank=True)
-    address = models.CharField(max_length=1000)
-    area = models.CharField(max_length=1000)
-    village = models.CharField(max_length=1000)
-    pincode = models.ForeignKey('PinCode')
+    address = models.CharField(max_length=1000, null=True, blank=True)
+    area = models.CharField(max_length=1000, null=True, blank=True)
+    village = models.CharField(max_length=1000, null=True, blank=True)
+    pincode = models.ForeignKey('PinCode', null=True, blank=True)
     landmark = models.CharField(max_length=1000, null=True, blank=True)
     instidentification = models.CharField(
         max_length=1000, null=True, blank=True)
@@ -70,7 +70,24 @@ class Institution(models.Model):
     status = models.ForeignKey('common.Status')
 
     class Meta:
-        unique_together = (('dise_code'), )
+        unique_together = (('name', 'admin3'), ) #Check
 
     def __unicode__(self):
         return "%s" % self.name
+
+
+class InstitutionAggregation(models.Model):
+    """Data aggregation per institution"""
+    sid = models.ForeignKey('Institution')
+    name = models.CharField(max_length=300)
+    academic_year = models.ForeignKey('common.AcademicYear')
+    gender = models.ForeignKey('common.Gender')
+    moi = models.ForeignKey('common.Language', related_name='inst_agg_moi')
+    mt = models.ForeignKey('common.Language', related_name='inst_agg_mt')
+    religion = models.ForeignKey('common.Religion')
+    category = models.ForeignKey('common.StudentCategory')
+    num = models.IntegerField()
+
+    class Meta:
+        unique_together = (('id','academic_year','gender','moi','mt','religion',
+            'category'), )
