@@ -1,1 +1,1 @@
-DELETE from boundary_boundarytype;
+DELETE from boundary_boundary;

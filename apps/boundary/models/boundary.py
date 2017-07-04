@@ -19,7 +19,7 @@ class Boundary(models.Model):
     status = models.ForeignKey('common.Status')
 
     class Meta:
-        unique_together = (('name', 'parent'), )
+        unique_together = (('name', 'parent', 'type'), )
 
     def __unicode__(self):
         return '%s' % self.name
