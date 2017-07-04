@@ -2,22 +2,6 @@ from django.db import models
 from .institution import Institution
 
 
-class StudentReligion(models.Model):
-    """Religiion"""
-    name = models.CharField(max_length=100)
-
-    def __unicode__(self):
-        return "%s" % self.name
-
-
-class StudentCategory(models.Model):
-    """ Category of students"""
-    name = models.CharField(max_length=100)
-
-    def __unicode__(self):
-        return "%s" % self.name
-
-
 class Student(models.Model):
     """ Student information """
     first_name = models.CharField(max_length=50)
@@ -27,8 +11,8 @@ class Student(models.Model):
     dob = models.DateField(max_length=20,null=True)
     gender = models.ForeignKey('common.Gender',default='m')
     mt = models.ForeignKey('common.Language', default='kan')
-    religion = models.ForeignKey(StudentReligion, null=True)
-    category = models.ForeignKey(StudentCategory, null=True)
+    religion = models.ForeignKey('common.Religion', null=True)
+    category = models.ForeignKey('common.StudentCategory', null=True)
     enrollment_id = models.CharField(max_length=100, blank=True, null=True)
     mother_name = models.CharField(max_length=50, blank=True, null=True)
     father_name = models.CharField(max_length=50, blank=True, null=True)

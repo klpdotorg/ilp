@@ -1,1 +1,2 @@
-from .boundary import Boundary, ElectionBoundary
+from .boundary import Boundary, BoundaryAggregation
+from .electionboundary import ElectionBoundary, ElectionBoundaryAggregation
