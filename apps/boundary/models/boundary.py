@@ -13,7 +13,7 @@ class Boundary(models.Model):
     parent = models.ForeignKey('self', null=True)
     name = models.CharField(max_length=300)
     boundary_type = models.ForeignKey('BoundaryType')
-    type = models.ForeignKey('common.InstitutionType')
+    type = models.ForeignKey('common.InstitutionType', null=True)
     dise_slug = models.CharField(max_length=300, blank=True)
     geom = models.GeometryField(null=True)
     status = models.ForeignKey('common.Status')

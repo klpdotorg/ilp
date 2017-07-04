@@ -1,0 +1,100 @@
+[
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "SD",
+            "name": "School District"
+        }
+    },
+   {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "SB",
+            "name": "School Block"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "SC",
+            "name": "School Cluster"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "PD",
+            "name": "Preschool District"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "PP",
+            "name": "Preschool Project"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "PC",
+            "name": "Preschool Circle"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "VI",
+            "name": "Village"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "PI",
+            "name": "Pincode"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "GP",
+            "name": "Gram Panchayat"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "MW",
+            "name": "Municipal Ward"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "ZP",
+            "name": "Zilla Panchayat"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "TA",
+            "name": "Taluk"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "MP",
+            "name": "Parliament Constituency"
+        }
+    },
+    {
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "ML",
+            "name": "Assembly Constituency"
+        }
+    }
+]
