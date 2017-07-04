@@ -1,16 +1,15 @@
 #!/bin/sh
 # Call this script with the database name
 if [ $# -eq 0 ]; then
-    echo "Please supply database name as argument. USAGE: `basename $0` databasename"
+    echo "Please supply database names as argument. USAGE: `basename $0` olddatabasename newdatabasename"
     exit 1;
 fi
 echo "######################"
-echo "STARTING SCRIPT - POPULATE BOUNDARY TYPES"
+echo "STARTING SCRIPT - UPDATE DISE SLUGS"
 echo "######################"
 dbname="$1";
 echo $1
-psql -U klp -d $dbname -f sql/deleteFromTables.sql
-psql -U klp -d $dbname -f sql/boundaryType.sql
+psql -U klp -d $dbname -f sql/updatediseslugs.sql
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     echo "SQL script execution failed with error";
@@ -18,5 +17,5 @@ if [ $exit_status -eq 1 ]; then
 fi
 echo "Script executed successfully";
 echo "######################"
-echo "ENDING SCRIPT - POPULATE BOUNDARY TYPES"
+echo "ENDING SCRIPT - UPDATE DISE SLUGS"
 echo "######################"

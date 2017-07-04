@@ -12,7 +12,11 @@ COPY(SELECT boundary.id, boundary.name,
         WHEN boundary.hid=14 THEN 'PP' 
         WHEN boundary.hid=15 THEN 'PC' 
     END as boundary_type, 
-    boundary.parent, 
+    CASE
+        WHEN boundary.parent IS NULL THEN 2
+        WHEN boundary.parent=1 THEN 2
+        WHEN boundary.parent IS NOT NULL THEN boundary.parent
+    END AS parent, 
     CASE 
         WHEN status=2 THEN 'AC' 
         WHEN status=1 THEN 'IA' 
