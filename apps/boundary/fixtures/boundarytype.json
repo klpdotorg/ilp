@@ -98,18 +98,18 @@
         }
     },
     {
-		"model": "boundary.BoundaryType",
-		"fields":{
-			"char_id":"ST",
-			"name":"State"
-		}
-	},
+        "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "C",
+            "name": "Country"
+        }
+    },
     {
-		"model": "boundary.BoundaryType",
-		"fields":{
-			"char_id":"C",
-			"name":"Country"
-		}
-	}
+     "model": "boundary.BoundaryType",
+        "fields":{
+            "char_id": "ST",
+            "name": "State"
+        }
+    }
 ]
 

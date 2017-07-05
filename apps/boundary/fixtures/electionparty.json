@@ -1,0 +1,37 @@
+[
+{
+    "model": "boundary.ElectionParty",
+    "fields": {
+            "char_id": "BJP",
+            "name": "Bharatiya Janata Party"
+        } 
+},
+{
+    "model" : "boundary.ElectionParty",
+    "fields":{
+        "char_id": "I",
+        "name": "Independent"
+    }
+},
+{
+    "model" : "boundary.ElectionParty",
+    "fields":{
+        "char_id": "KJP",
+        "name": "Karnataka Jantha Paksha"
+    }
+},
+{
+    "model" : "boundary.ElectionParty",
+    "fields":{
+        "char_id": "O",
+        "name": "Others"
+    }
+},
+{
+    "model" : "boundary.ElectionParty",
+    "fields":{
+        "char_id": "JD(S)",
+        "name": "Janata Dal (Secular)"
+    }
+}
+]

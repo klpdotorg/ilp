@@ -1,3 +1,4 @@
+\set filename :outputdir '/boundaries.csv'
 COPY(SELECT boundary.id, boundary.name, 
     CASE 
         WHEN boundary.dise_slug IS NULL THEN 'Default' 
@@ -26,5 +27,6 @@ COPY(SELECT boundary.id, boundary.name,
         WHEN boundary.type=1 THEN 'primary' 
         WHEN boundary.type=2 THEN 'pre' 
     END  as inst_type
-    FROM tb_boundary boundary LEFT JOIN mvw_boundary_coord coord ON boundary.id=coord.id_bndry WHERE boundary.status=2) TO '/Users/Subha/SubhaWork/UnifyDB/OutputCSVs/boundaries.csv' CSV HEADER DELIMITER ',';
+    FROM tb_boundary boundary LEFT JOIN mvw_boundary_coord coord 
+    ON boundary.id=coord.id_bndry WHERE boundary.status=2) TO :'filename' CSV HEADER DELIMITER ',';
 
