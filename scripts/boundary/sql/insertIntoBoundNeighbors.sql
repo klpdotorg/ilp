@@ -1,0 +1,1 @@
+INSERT INTO boundary_boundayneighbours(boundary_id,neighbour_id) VALUES(:boundaryid,:neighborid);
