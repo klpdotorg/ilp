@@ -96,6 +96,20 @@
             "char_id": "ML",
             "name": "Assembly Constituency"
         }
-    }
+    },
+    {
+		"model": "boundary.BoundaryType",
+		"fields":{
+			"char_id":"ST",
+			"name":"State"
+		}
+	},
+    {
+		"model": "boundary.BoundaryType",
+		"fields":{
+			"char_id":"C",
+			"name":"Country"
+		}
+	}
 ]
 
