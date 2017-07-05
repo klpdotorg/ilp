@@ -27,5 +27,5 @@ COPY(SELECT boundary.id, boundary.name,
         WHEN boundary.type=2 THEN 'pre' 
     END  as inst_type
     FROM tb_boundary boundary LEFT JOIN mvw_boundary_coord coord 
-    ON boundary.id=coord.id_bndry WHERE boundary.status=2) TO '' CSV HEADER DELIMITER ',';
+    ON boundary.id=coord.id_bndry WHERE boundary.status=2) TO '/Users/Subha/boundaries.csv' CSV HEADER DELIMITER ',';
 

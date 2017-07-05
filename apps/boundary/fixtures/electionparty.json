@@ -1,44 +1,37 @@
 [
 {
-    "model": "electionboundary.ElectionParty",
+    "model": "boundary.ElectionParty",
     "fields": {
             "char_id": "BJP",
             "name": "Bharatiya Janata Party"
         } 
 },
 {
-    "model" : "electionboundary.ElectionParty",
+    "model" : "boundary.ElectionParty",
     "fields":{
         "char_id": "I",
         "name": "Independent"
     }
 },
 {
-    "model" : "electionboundary.ElectionParty",
+    "model" : "boundary.ElectionParty",
     "fields":{
         "char_id": "KJP",
         "name": "Karnataka Jantha Paksha"
     }
 },
 {
-    "model" : "electionboundary.ElectionParty",
+    "model" : "boundary.ElectionParty",
     "fields":{
         "char_id": "O",
         "name": "Others"
     }
 },
 {
-    "model" : "electionboundary.ElectionParty",
+    "model" : "boundary.ElectionParty",
     "fields":{
         "char_id": "JD(S)",
         "name": "Janata Dal (Secular)"
     }
-},
-{
-    "model" : "electionboundary.ElectionParty",
-    "fields":{
-        "char_id": "I",
-        "name": "Independent"
-    }
-},
+}
 ]
