@@ -69,7 +69,7 @@ class Institution(models.Model):
     status = models.ForeignKey('common.Status')
 
     class Meta:
-        unique_together = (('name', 'admin3'), ) #Check
+        unique_together = (('name', 'dise_code', 'admin3'), )
 
     def __unicode__(self):
         return "%s" % self.name
