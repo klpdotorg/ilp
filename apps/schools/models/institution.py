@@ -31,8 +31,7 @@ class Institution(models.Model):
     dise_code = models.CharField(max_length=300, null=True, blank=True)
     name = models.CharField(max_length=300)
     category = models.ForeignKey('InstitutionCategory')
-    gender = models.ForeignKey('common.Gender')
-    moi = models.ForeignKey('common.Language')
+    gender = models.ForeignKey('common.InstitutionGender')
     institution_type = models.ForeignKey('common.InstitutionType')
     management = models.ForeignKey('Management')
     year_established = models.CharField(max_length=5, null=True, blank=True)
@@ -70,15 +69,23 @@ class Institution(models.Model):
     status = models.ForeignKey('common.Status')
 
     class Meta:
-        unique_together = (('name', 'admin3'), ) #Check
+        unique_together = (('name', 'dise_code', 'admin3'), )
 
     def __unicode__(self):
         return "%s" % self.name
 
 
+class InstitutionLanguage(models.Model):
+    institution = models.ForeignKey('Institution')
+    moi = models.ForeignKey('common.Language')
+
+    class Meta:
+        unique_together = (('institution', 'moi'), )
+
+
 class InstitutionAggregation(models.Model):
     """Data aggregation per institution"""
-    sid = models.ForeignKey('Institution')
+    institution = models.ForeignKey('Institution')
     name = models.CharField(max_length=300)
     academic_year = models.ForeignKey('common.AcademicYear')
     gender = models.ForeignKey('common.Gender')

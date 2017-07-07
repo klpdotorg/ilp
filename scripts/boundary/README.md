@@ -1,21 +1,22 @@
-###Prerequisites:
+### Pre-requisites
 
-This script assumes that the dubdubdub DB is present and loaded as well as the new unified DB is created. Please run:
+This script assumes that the dubdubdub DB is present. Please see dubdubdub setup instructions as to how to create DB from a dump. Latest dubdubdub dumps are available on klp.org.in /home/vamsee/backups/. The script also assumes that the new unified DB is created. Pull latest code from 'master'. Please run:
 
-python manage.py migrate
-python manage.py loaddata apps/*/fixtures/*.json
+    python manage.py migrate
+    python manage.py loaddata apps/*/fixtures/*.json
 
 before running this script.
 
 Also KLP user is assumed for postgres.
 
-###To run:
+### To run:
 
-TEMP BUG: Open scripts/boundary/sql/exportBoundaryData.sql and importBoundaryTable.sql. At the end of the copy command, please fill out an appropriate file path for your machine. Trying to fix bug with passing file paths to psql from shell scripts. Till then, this workaround has to be done before running scripts.
+Run:
+    
+    chmod 777 *.sh
+    ./populateBoundaryTables.sh <dubdubdub dbname> <ilp db name> <temp dir to store files>
 
-Run ./populateBoundaryTables.sh <dubdubdub dbname> <ilp db name>
-
-Example: ./populateBoundaryTables.sh dubdubdub ilp
+Example: ./populateBoundaryTables.sh dubdubdub ilp /Users/johndoe/csvs
 
 Then run:
 

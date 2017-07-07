@@ -16,7 +16,7 @@
     {
         "model": "common.InstitutionGender",
         "fields":{
-            "char_id": "coed",
+            "char_id": "co-ed",
             "name": "Co-ed"
         }
     }
