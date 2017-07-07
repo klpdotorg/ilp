@@ -5,10 +5,10 @@ from django.contrib.gis.db import models
 
 class ElectionBoundary(models.Model):
     """ Election boundaries """
-    state = models.ForeignKey('self')
+    state = models.ForeignKey('Boundary')
     dise_slug = models.CharField(max_length=300, blank=True)
     elec_comm_code = models.IntegerField()
-    const_ward_name = models.CharField(max_length=300)
+    const_ward_name = models.CharField(max_length=300, null=True)
     const_ward_type = models.ForeignKey('BoundaryType')
     current_elected_rep = models.CharField(max_length=300, blank=True)
     current_elected_party = models.ForeignKey('ElectionParty')
