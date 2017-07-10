@@ -68,12 +68,5 @@
         "char_id": "SP",
         "name": "Samajwadi Party"
     }
-},
-{
-    "model": "boundary.ElectionParty",
-    "fields":{
-        "char_id": "IND",
-        "name": "IND"
-    }
 }
 ]
