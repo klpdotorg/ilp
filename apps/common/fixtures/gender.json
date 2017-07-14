@@ -2,21 +2,21 @@
     {
         "model": "common.Gender",
         "fields":{
-            "char_id": "m",
+            "char_id": "male",
             "name": "Male"
         }
     },
     {
         "model": "common.Gender",
         "fields":{
-            "char_id": "f",
+            "char_id": "female",
             "name": "Female"
         }
     },
     {
         "model": "common.Gender",
         "fields":{
-            "char_id": "o",
+            "char_id": "other",
             "name": "Other"
         }
     }
