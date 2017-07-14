@@ -2,6 +2,14 @@
     {
         "model": "common.AcademicYear",
         "fields":{
+            "char_id": "0607",
+            "year": "2006-2007",
+            "active": "IA"
+        }
+    },
+    {
+        "model": "common.AcademicYear",
+        "fields":{
             "char_id": "0708",
             "year": "2007-2008",
             "active": "IA"
