@@ -14,9 +14,9 @@ Also KLP user is assumed for postgres.
 Run:
     
     chmod 777 *.sh
-    ./populateBoundaryTables.sh <dubdubdub dbname> <ilp db name> <temp dir to store files>
+    ./populateBoundaryTables.sh <dubdubdub dbname> <electedrep dbname> <ilp db name> <temp dir to store files>
 
-Example: ./populateBoundaryTables.sh dubdubdub ilp /Users/johndoe/csvs
+Example: ./populateBoundaryTables.sh dubdubdub electrep_new ilp /Users/johndoe/csvs
 
 Then run:
 
