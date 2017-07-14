@@ -5,17 +5,17 @@ from django.contrib.gis.db import models
 
 class ElectionBoundary(models.Model):
     """ Election boundaries """
-    state = models.ForeignKey('self')
+    state = models.ForeignKey('Boundary')
     dise_slug = models.CharField(max_length=300, blank=True)
-    elec_comm_code = models.IntegerField()
-    const_ward_name = models.CharField(max_length=300)
+    elec_comm_code = models.IntegerField(null=True)
+    const_ward_name = models.CharField(max_length=300, null=True)
     const_ward_type = models.ForeignKey('BoundaryType')
-    current_elected_rep = models.CharField(max_length=300, blank=True)
-    current_elected_party = models.ForeignKey('ElectionParty')
+    current_elected_rep = models.CharField(max_length=300, null=True)
+    current_elected_party = models.ForeignKey('ElectionParty', null=True)
     status = models.ForeignKey('common.Status')
 
-    class Meta:
-        unique_together = (('elec_comm_code'), )
+    #class Meta:
+     #   unique_together = (('elec_comm_code'), )
 
     def __unicode__(self):
         return '%s' % self.name

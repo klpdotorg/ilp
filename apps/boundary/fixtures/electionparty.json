@@ -33,5 +33,40 @@
         "char_id": "JD(S)",
         "name": "Janata Dal (Secular)"
     }
+},
+{
+    "model": "boundary.ElectionParty",
+    "fields":{
+        "char_id": "KMP",
+        "name": "Karnataka Makkala Paksha"
+    }
+},
+{
+    "model": "boundary.ElectionParty",
+    "fields":{
+        "char_id": "INC",
+        "name": "Indian National Congress"
+    }
+},
+{
+    "model": "boundary.ElectionParty",
+    "fields":{
+        "char_id": "SKP",
+        "name": "Sarvodaya Karnataka Paksha"
+    }
+},
+{
+    "model": "boundary.ElectionParty",
+    "fields":{
+        "char_id": "BSRCP",
+        "name": "Badavara Shramikara Raitara Congress Party"
+    }
+},
+{
+    "model": "boundary.ElectionParty",
+    "fields":{
+        "char_id": "SP",
+        "name": "Samajwadi Party"
+    }
 }
 ]
