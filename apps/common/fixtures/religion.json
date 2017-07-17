@@ -1,0 +1,58 @@
+[
+    {
+        "model": "common.Religion",
+        "fields":{
+            "id": "1",
+            "name": "Muslim"
+        }
+    },
+    {
+        "model": "common.Religion",
+        "fields":{
+            "id": "2",
+            "name": "Christian"
+        }
+    },
+    {
+        "model": "common.Religion",
+        "fields":{
+            "id": "3",
+            "name": "Sikh"
+        }
+    },
+    {
+        "model": "common.Religion",
+        "fields":{
+            "id": "4",
+            "name": "Buddhist"
+        }
+    },
+    {
+        "model": "common.Religion",
+        "fields":{
+            "id": "5",
+            "name": "Parsi"
+        }
+    },
+    {
+        "model": "common.Religion",
+        "fields":{
+            "id": "6",
+            "name": "Jain"
+        }
+    },
+    {
+        "model": "common.Religion",
+        "fields":{
+            "id": "7",
+            "name": "Other"
+        }
+    },
+    {
+        "model": "common.Religion",
+        "fields":{
+            "id": "8",
+            "name": "Hindu"
+        }
+    }
+]
