@@ -46,9 +46,6 @@ INSTALLED_APPS = (
     'schools',
     'dise',
     'assessments',
-
-    'rest_framework',
-
 )
 
 REST_FRAMEWORK = {
@@ -70,7 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-        }, 
+        },
     },
 ]
 
