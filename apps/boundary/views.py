@@ -18,7 +18,7 @@ class Admin1sBoundary(views.KLPListAPIView):
             queryset = queryset.filter(type=school_type)
         if school_type == 'pre':
             boundarytype='PD'
-        queryset = queryset.filter(boundary_type=boundarytype)
+        queryset = queryset.filter(boundary_type=boundarytype).order_by()
         return queryset
 
 '''class Admin1s(KLPListAPIView, CacheMixin):

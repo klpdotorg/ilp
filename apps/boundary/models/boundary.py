@@ -20,7 +20,7 @@ class Boundary(models.Model):
 
     class Meta:
         unique_together = (('name', 'parent', 'type'), )
-
+        ordering = ['name',]
     def __unicode__(self):
         return '%s' % self.name
 
