@@ -4,7 +4,7 @@ from django.contrib.gis.db import models
 
 class BasicData(models.Model):
     """Basic model for DISE data"""
-    academic_id = models.ForeignKey('common.AcademicYear')
+    academic_year = models.ForeignKey('common.AcademicYear')
     district = models.CharField(max_length=50, blank=True)
     school_code = models.IntegerField(primary_key=True)
     school_name = models.CharField(max_length=200, blank=True)
@@ -16,7 +16,7 @@ class BasicData(models.Model):
     medium_of_instruction = models.IntegerField(null=True, blank=True)
     distance_brc = models.FloatField(null=True, blank=True)
     distance_crc = models.FloatField(null=True, blank=True)
-    yeur_estd = models.IntegerField(null=True, blank=True)
+    year_estd = models.IntegerField(null=True, blank=True)
     pre_pry_yn = models.IntegerField(null=True, blank=True)
     residential_sch_yn = models.IntegerField(null=True, blank=True)
     sch_management = models.IntegerField( null=True, blank=True)

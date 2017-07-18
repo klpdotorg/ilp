@@ -1,2 +1,0 @@
-DELETE from schools_institutioncategory;
-DELETE from schools_management;
