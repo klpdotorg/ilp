@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """ilp URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,7 +16,19 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 
+=======
+from django.conf.urls import url, include
+from django.contrib import admin
+>>>>>>> routing to InstitutionListView
+
 
 urlpatterns = [
+<<<<<<< HEAD
     url(r'^api/v1/', include('ilp.api_urls')),
+=======
+    url(r'^admin/', admin.site.urls),
+
+    # API URLs.
+    url(r'^api/v1/schools/', include('schools.urls')), 
+>>>>>>> routing to InstitutionListView
 ]
