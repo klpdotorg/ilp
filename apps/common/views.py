@@ -1,12 +1,12 @@
-from django.shortcuts import render
-from django import http
 from django.views.generic.base import TemplateView
-from django.core.exceptions import PermissionDenied
-from common.pagination import KLPPaginationSerializer
+
+from rest_framework.settings import api_settings
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+from common.pagination import KLPPaginationSerializer
 from common.filters import KLPInBBOXFilter
 
 
@@ -29,7 +29,11 @@ class KLPListAPIView(generics.ListAPIView):
 
     def __init__(self, *args, **kwargs):
         super(KLPListAPIView, self).__init__(*args, **kwargs)
-        if hasattr(self, 'bbox_filter_field') and self.bbox_filter_field and KLPInBBOXFilter not in self.filter_backends:
+        if (
+                hasattr(self, 'bbox_filter_field') and
+                self.bbox_filter_field and
+                KLPInBBOXFilter not in self.filter_backends
+        ):
             self.filter_backends += (KLPInBBOXFilter,)
 
     def get_paginate_by(self, *args, **kwargs):
@@ -40,8 +44,11 @@ class KLPListAPIView(generics.ListAPIView):
         if self.request.accepted_renderer.format == 'csv':
             return None
 
-        #FIXME: Number should come from settings
-        per_page = int(self.request.GET.get('per_page', 50))
+        per_page = int(
+            self.request.GET.get(
+                'per_page', api_settings.KLPLISTVIEW_PAGE_SIZE
+            )
+        )
         if per_page == 0:
             return None
         return per_page
@@ -56,16 +63,17 @@ class KLPDetailAPIView(generics.RetrieveAPIView):
 
 
 class URLConfigView(APIView):
-    def get(self, *args, **kwargs):
-        from dubdubdub.api_urls import urlpatterns
 
-        ALLOWED_PATTERNS = (
+    def get(self):
+        from ilp.api_urls import urlpatterns
+        allowed_patterns = (
             'api_merge', 'api_school_info', 'api_donationuser_view'
         )
 
         patterns = []
         for pattern in urlpatterns:
-            if pattern.name in ALLOWED_PATTERNS:
-                patterns.append(dict(name=pattern.name, pattern=pattern.regex.pattern))
-
+            if pattern.name in allowed_patterns:
+                patterns.append(
+                    dict(name=pattern.name, pattern=pattern.regex.pattern)
+                )
         return Response(dict(patterns=patterns))
