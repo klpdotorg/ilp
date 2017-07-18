@@ -1,11 +1,9 @@
-from rest_framework.generics import ListAPIView
+from common.views import KLPListAPIView
+
 from schools.serializers import InstitutionListSerializer
 from schools.models import Institution
 
 
-class InstitutionListView(ListAPIView):
+class InstitutionListView(KLPListAPIView):
+    queryset = Institution.objects.all()
     serializer_class = InstitutionListSerializer
-
-    def get_queryset(self):
-        qset = Institution.objects.all()
-        return qset

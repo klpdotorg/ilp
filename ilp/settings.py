@@ -53,6 +53,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'PAGE_SIZE': 10
+    'KLPLISTVIEW_PAGE_SIZE': 50
 }
 
 TEMPLATES = [

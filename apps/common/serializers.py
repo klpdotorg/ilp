@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from rest_framework.renderers import JSONRenderer
+
 from drf_compound_fields.fields import DictField
+
+from common.models import InstitutionType
 
 
 class KLPSerializer(serializers.ModelSerializer):
@@ -29,4 +31,13 @@ class KLPSimpleGeoSerializer(serializers.ModelSerializer):
                 self.fields['geometry'] = DictField(source='get_geometry')
 
             if geometry == 'yes' and simplify == 'yes':
-                self.fields['geometry'] = DictField(source='get_simple_geometry')
+                self.fields['geometry'] = \
+                    DictField(source='get_simple_geometry')
+
+
+class InstitutionTypeSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source='char_id')
+
+    class Meta:
+        model = InstitutionType
+        fields = ['id', 'name']
