@@ -28,7 +28,7 @@ class Admin2sBoundary(views.KLPListAPIView):
     serializer_class=BoundarySerializer
     pagination_class=pagination.KLPPaginationSerializer
     def get_queryset(self):
-        queryset = Boundary.objects.all()
+        queryset = Boundary.objects.all().filter(Q(boundary_type='SB')|Q(boundary_type='PP'))
         school_type = self.request.query_params.get('school_type', None)
         boundarytype=BoundaryType.SCHOOL_BLOCK
         if school_type is not None:
@@ -36,9 +36,6 @@ class Admin2sBoundary(views.KLPListAPIView):
             if school_type == InstitutionType.PRESCHOOL:
                 boundarytype=BoundaryType.PRESCHOOL_PROJECT
             queryset = queryset.filter(boundary_type__exact=boundarytype)
-        else:
-            print("no school type in query")
-            queryset = queryset.filter(Q(boundary_type=BoundaryType.SCHOOL_BLOCK)| Q(boundary_type=BoundaryType.PRESCHOOL_PROJECT))
         return queryset
 
 class Admin3sBoundary(views.KLPListAPIView):
