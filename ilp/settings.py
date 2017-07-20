@@ -38,7 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+
     'rest_framework',
+    'django_extensions',
 
     # ILP apps
     'common',
@@ -118,6 +120,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "/static")
+
+# ILP SETTINGS
+DEFAULT_ACADEMIC_YEAR = '2014-2015'
 
 
 try:
