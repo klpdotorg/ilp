@@ -29,6 +29,7 @@ tramp
 .\#*
 *.swp
 *.swo
+.vscode/
 
 # Mac
 .DS_Store
