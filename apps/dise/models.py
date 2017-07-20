@@ -4,19 +4,19 @@ from django.contrib.gis.db import models
 
 class BasicData(models.Model):
     """Basic model for DISE data"""
-    academic_id = models.ForeignKey('common.AcademicYear')
+    academic_year = models.ForeignKey('common.AcademicYear')
     district = models.CharField(max_length=50, blank=True)
-    school_code = models.IntegerField(primary_key=True)
+    school_code = models.BigIntegerField()
     school_name = models.CharField(max_length=200, blank=True)
     block_name = models.CharField(max_length=50, blank=True)
     cluster_name = models.CharField(max_length=50, blank=True)
-    village_name = models.CharField(max_length=50, blank=True)
+    village_name = models.CharField(max_length=50, blank=True, null=True)
     pincode = models.IntegerField(null=True, blank=True)
     rural_urban = models.IntegerField(null=True, blank=True)
     medium_of_instruction = models.IntegerField(null=True, blank=True)
     distance_brc = models.FloatField(null=True, blank=True)
     distance_crc = models.FloatField(null=True, blank=True)
-    yeur_estd = models.IntegerField(null=True, blank=True)
+    year_estd = models.IntegerField(null=True, blank=True)
     pre_pry_yn = models.IntegerField(null=True, blank=True)
     residential_sch_yn = models.IntegerField(null=True, blank=True)
     sch_management = models.IntegerField( null=True, blank=True)
@@ -72,8 +72,8 @@ class BasicData(models.Model):
     days_involved_in_non_tch_assgn = models.IntegerField(null=True, blank=True)
     teachers_involved_in_non_tch_assgn = models.IntegerField(null=True, blank=True)
     centroid = models.GeometryField(blank=True, null=True)
-    assembly_name = models.CharField(max_length=35, blank=True)
-    parliament_name = models.CharField(max_length=35, blank=True)
+    assembly_name = models.CharField(max_length=35, blank=True, null=True)
+    parliament_name = models.CharField(max_length=35, blank=True, null=True)
     class1_total_enr_boys = models.IntegerField(blank=True, null=True)
     class2_total_enr_boys = models.IntegerField(blank=True, null=True)
     class3_total_enr_boys = models.IntegerField(blank=True, null=True)
@@ -98,3 +98,6 @@ class BasicData(models.Model):
 
     def __unicode__(self):
         return self.school_name
+
+    class Meta:
+        unique_together = (('school_code', 'academic_year'), )
