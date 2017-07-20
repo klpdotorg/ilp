@@ -14,8 +14,10 @@ from common.models import Status, InstitutionType
 
 class BoundaryApiTests(IlpTestCase):
 
+    '''setupTestData is invoked in the parent class which sets up fixtures just once for all the tests.
+    So this test case should essentially be just reads/fetches. If we require a pristine DB each time for
+    writes, please write another class '''
     def setUp(self):
-        super(BoundaryApiTests, self).setUp()
         #setup a test user
         self.user = get_user_model().objects.create_user('admin', 'admin@klp.org.in', 'admin')
         self.view = Admin1sBoundary.as_view()
@@ -48,7 +50,7 @@ class BoundaryApiTests(IlpTestCase):
         print("Response is: ", data)
         print("End test ===============================================")
        
-    def test_list_auth(self):
+    def test_list_admin1s_boundaries(self):
         url = '/api/v1/ka/boundary/admin1s'
         print("=======================================================")
         print("Test listing all admin1s boundaries - ", url)
@@ -59,12 +61,13 @@ class BoundaryApiTests(IlpTestCase):
         response.render()
         data = json.loads(response.content)
         self.assertIsNotNone(data)
-        self.assertEqual(data['count'],34)
+        self.assertNotEqual(data['count'],0)
+        self.assertEqual(data['count'],38)
         print("Response is : ", data)
         print("End test ===============================================")
 
-    def test_filter_schooltype(self):
-        url = '/api/v1/ka/boundary/admin1s'
+    def test_admin1s_preschool_districts(self):
+        url = '/api/v1/ka/boundary/admin1s?school_type=pre'
         print("=======================================================")
         print("Testing listing admin1s boundaries filter by school type ", url)
         request=self.factory.get(url)
@@ -72,5 +75,98 @@ class BoundaryApiTests(IlpTestCase):
         response = self.view(request, type='pre')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
-        print("Response is : ", json.loads(response.content))
+        data = json.loads(response.content)
+        self.assertEqual(data['count'],4)
+        print("Response is : ", data)
+        print("End test ===============================================")
+    
+    def test_admin1s_primaryschool_districts(self):
+        url = '/api/v1/ka/boundary/admin1s?school_type=primary'
+        print("=======================================================")
+        print("Testing listing primary school admin1s boundaries ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response = self.view(request)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        print("Response is : ", data)
+        print("End test ===============================================")
+    
+    def test_admin2s_boundaries(self):
+        url = '/api/v1/ka/boundary/admin2s'
+        print("=======================================================")
+        print("Testing list all admin2s boundaries ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response = self.view(request)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        print("Response is : ", data)
+        print("End test ===============================================")
+
+    def test_admin2s_preschool_districts(self):
+        url = '/api/v1/ka/boundary/admin2s?school_type=pre'
+        print("=======================================================")
+        print("Testing listing admin2s preschool boundaries ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response = self.view(request, type='pre')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        print("Response is : ", data)
+        print("End test ===============================================")
+    
+    def test_admin2s_primaryschool_districts(self):
+        url = '/api/v1/ka/boundary/admin2s?school_type=primary'
+        print("=======================================================")
+        print("Testing listing primary school admin2s boundaries ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response = self.view(request)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        print("Response is : ", data)
+        print("End test ===============================================")
+
+    def test_admin3s_boundaries(self):
+        url = '/api/v1/ka/boundary/admin3s'
+        print("=======================================================")
+        print("Testing list all admin3s boundaries ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response = self.view(request)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        print("Response is : ", data)
+        print("End test ===============================================")
+
+    def test_admin3s_preschool_districts(self):
+        url = '/api/v1/ka/boundary/admin3s?school_type=pre'
+        print("=======================================================")
+        print("Testing listing admin3s preschool boundaries ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response = self.view(request, type='pre')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        print("Response is : ", data)
+        print("End test ===============================================")
+    
+    def test_admin3s_primaryschool_districts(self):
+        url = '/api/v1/ka/boundary/admin3s?school_type=primary'
+        print("=======================================================")
+        print("Testing listing primary school admin3s boundaries ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response = self.view(request)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        print("Response is : ", data)
         print("End test ===============================================")

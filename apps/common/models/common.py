@@ -66,6 +66,11 @@ class InstitutionGender(models.Model):
 
 
 class InstitutionType(models.Model):
+    '''Aligned to constants defined in the DB models. When those change, these will also have to
+    change '''
+    PRIMARY_SCHOOL='primary'
+    PRESCHOOL='pre'
+
     char_id = models.CharField(max_length=300, primary_key=True)
     name = models.CharField(max_length=300)
 
