@@ -17,6 +17,9 @@ class AcademicYear(models.Model):
 
 class Status(models.Model):
     """ Status of the data"""
+    ACTIVE='AC'
+    INACTIVE='IA'
+    DELETED='DL'
     char_id = models.CharField(max_length=300, primary_key=True)
     name = models.CharField(max_length=300)
 

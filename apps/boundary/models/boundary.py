@@ -1,7 +1,6 @@
 from django.contrib.gis.db import models
 from common.models import common
 
-
 class BoundaryType(models.Model):
     '''Aligned to constants defined in the DB models. When those change, these will also have to
     change '''

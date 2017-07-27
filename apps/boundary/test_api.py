@@ -8,7 +8,8 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from tests import IlpTestCase
 # Create your tests here.
-from .views import Admin1sBoundary
+from .views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
+Admin2sInsideAdmin1, Admin3sInsideAdmin1, Admin3sInsideAdmin2)
 from boundary.models import Boundary, BoundaryType
 from common.models import Status, InstitutionType
 
@@ -21,6 +22,11 @@ class BoundaryApiTests(IlpTestCase):
         #setup a test user
         self.user = get_user_model().objects.create_user('admin', 'admin@klp.org.in', 'admin')
         self.view = Admin1sBoundary.as_view()
+        self.admin2sView = Admin2sBoundary.as_view()
+        self.admin3sView = Admin3sBoundary.as_view()
+        self.admin2InsideAdmin1=Admin2sInsideAdmin1.as_view()
+        self.admin3InsideAdmin1=Admin3sInsideAdmin1.as_view()
+        self.admin3InsideAdmin2=Admin3sInsideAdmin2.as_view()
         self.factory = APIRequestFactory()
         # country, created = BoundaryType.objects.get_or_create(char_id="C", name="Country")
         # state, created = BoundaryType.objects.get_or_create(char_id="ST", name="State")
@@ -90,6 +96,8 @@ class BoundaryApiTests(IlpTestCase):
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
+        self.assertTrue(data['count']>0)
+        self.assertEqual(data['count'], 34)
         print("Response is : ", data)
         print("End test ===============================================")
     
@@ -99,10 +107,13 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing list all admin2s boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request)
+        response = self.admin2sView(request)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
+        self.assertTrue(data['count']>0)
+        self.assertEqual(data['count'],214)
+        self.assertTrue(data['results'][0]['boundary_type']== 'SB')
         print("Response is : ", data)
         print("End test ===============================================")
 
@@ -112,10 +123,12 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing listing admin2s preschool boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request, type='pre')
+        response = self.admin2sView(request, type='pre')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
+        self.assertTrue(data['count']>0)
+        self.assertEqual(data['count'], 11)
         print("Response is : ", data)
         print("End test ===============================================")
     
@@ -125,10 +138,12 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing listing primary school admin2s boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request)
+        response = self.admin2sView(request)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
+        self.assertTrue(data['count']>0)
+        self.assertEqual(data['count'], 203)
         print("Response is : ", data)
         print("End test ===============================================")
 
@@ -138,10 +153,12 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing list all admin3s boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request)
+        response = self.admin3sView(request)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
+        self.assertTrue(data['count']>0)
+        self.assertEqual(data['count'], 4212)
         print("Response is : ", data)
         print("End test ===============================================")
 
@@ -151,10 +168,14 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing listing admin3s preschool boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request, type='pre')
+        response = self.admin3sView(request, type='pre')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
+        self.assertTrue(data['count']>0)
+        self.assertEqual(data['count'],151)
+        self.assertTrue(data['results'][0]['boundary_type']== 'PC')
+        self.assertTrue(data['results'][0]['type']=='pre')
         print("Response is : ", data)
         print("End test ===============================================")
     
@@ -164,9 +185,63 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing listing primary school admin3s boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request)
+        response = self.admin3sView(request)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        self.assertTrue(data['count']>0)
+        self.assertEqual(data['count'],4061)
+        self.assertTrue(data['results'][0]['boundary_type']== 'SC')
+        self.assertTrue(data['results'][0]['type']=='primary')
+        print("Response is : ", data)
+        print("End test ===============================================")
+
+    def test_getadmin2s_admin1(self):
+        url='/api/v1/ka/boundary/admin1/414/admin2'
+        print("=======================================================")
+        print("Testing fetch admin2s boundaries for district ID: 414 ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response=self.admin2InsideAdmin1(request,id=414)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
         print("Response is : ", data)
+
+        '''Assert that blocks are returned and the parent is 414'''
+        self.assertTrue(data['count']>0)
+        self.assertTrue(data['results'][0]['boundary_type']== 'SB')
+        self.assertTrue(data['results'][0]['parent']==414)
+        print("End test ===============================================")
+    
+    def test_getadmin3s_admin1(self):
+        url='/api/v1/ka/boundary/admin1/414/admin3'
+        print("=======================================================")
+        print("Testing fetch admin3s boundaries for district ID: 414 ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response=self.admin3InsideAdmin1(request,id=414)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        self.assertTrue(data['count']>0)
+        self.assertTrue(data['results'][0]['boundary_type']== 'SC')
+        print("Response is : ", data)
+        print("End test ===============================================")
+
+    def test_getadmin3s_admin2(self):
+        url='/api/v1/ka/boundary/admin2/467/admin3'
+        print("=======================================================")
+        print("Testing fetch admin2s boundaries for district ID: 467 ", url)
+        request=self.factory.get(url)
+        force_authenticate(request,user=self.user)
+        response=self.admin3InsideAdmin2(request, id=467)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        response.render()
+        data = json.loads(response.content)
+        print("Response is : ", data)
+        '''Assert that blocks are returned and the parent is 467'''
+        self.assertTrue(data['count']>0)
+        self.assertTrue(data['results'][0]['boundary_type']== 'SC')
+        self.assertTrue(data['results'][0]['parent']==467)
         print("End test ===============================================")

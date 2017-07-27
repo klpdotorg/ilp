@@ -7,5 +7,5 @@ class KLPPaginationSerializer(pagination.PageNumberPagination):
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
             'count': self.page.paginator.count,
-            'features': data
+            'results': data
         })
