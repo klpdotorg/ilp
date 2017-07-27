@@ -6,3 +6,4 @@ geojson>1.0.1
 psycopg2==2.7
 python-dateutil==2.3
 pytz==2017.2
+drf-compound-fields
