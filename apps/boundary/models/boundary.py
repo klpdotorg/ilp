@@ -25,7 +25,7 @@ class Boundary(models.Model):
     dise_slug = models.CharField(max_length=300, blank=True)
     geom = models.GeometryField(null=True)
     status = models.ForeignKey('common.Status')
-
+    objects = common.StatusManager()
     class Meta:
         unique_together = (('name', 'parent', 'type'), )
         ordering = ['name',]

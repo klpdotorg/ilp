@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from boundary.serializers import BoundarySerializer
+from boundary.serializers import BoundarySerializer, BoundaryWithParentSerializer
 from boundary.models import Boundary, BoundaryType
 from common import views, pagination
 from common.models import InstitutionType, Status
@@ -14,8 +14,7 @@ class Admin1sBoundary(views.KLPListAPIView):
     pagination_class=pagination.KLPPaginationSerializer
     def get_queryset(self):
         state = self.kwargs.get('state','None');
-        print("State is ", state)
-        queryset = Boundary.objects.all()
+        queryset = Boundary.objects.filter(Q(parent=state))
         school_type = self.request.query_params.get('school_type', None)
         boundarytype=BoundaryType.SCHOOL_DISTRICT
         if school_type is not None:
@@ -86,3 +85,16 @@ class Admin3sInsideAdmin2(views.KLPListAPIView):
         return Boundary.objects.all().filter(
             parent=admin2_id,status='AC'
         )
+
+#Note: need to add cachemixin later in the params. COmmenting because of error in console about cache setting not enabled
+class AdminDetails(views.KLPDetailAPIView):
+    """Returns details for a particular admin level
+
+    bbox -- Bounding box to search within e.g. 77.349415,12.822471,77.904224,14.130930
+    """
+    serializer_class = BoundaryWithParentSerializer
+    bbox_filter_field = 'boundarycoord__coord'
+    lookup_url_kwarg = 'id'
+
+    def get_queryset(self):
+        return Boundary.objects.all_active()
