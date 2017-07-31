@@ -5,6 +5,16 @@ import sys
 from django.db import models
 
 
+class StatusManager(models.Manager):
+    def all_active(self):
+        return self.filter(status=Status.ACTIVE)
+
+    def all_inactive(self):
+        return self.filter(status=Status.INACTIVE)
+
+    def all_deleted(self):
+        return self.filter(status=Status.DELETED)
+
 class AcademicYear(models.Model):
     """ Academic years in Schools """
     char_id = models.CharField(max_length=300, primary_key=True)
