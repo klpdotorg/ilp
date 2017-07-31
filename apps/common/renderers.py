@@ -1,7 +1,7 @@
 from rest_framework.renderers import JSONRenderer
 
 
-class KLPJSONRenderer(JSONRenderer):
+class ILPJSONRenderer(JSONRenderer):
     '''
         Sub-classes JSONRenderer to render GeoJSON where appropriate.
         If the request contains a geometry=yes parameter, it converts features
@@ -60,7 +60,7 @@ class KLPJSONRenderer(JSONRenderer):
         else:
             pass
 
-        return super(KLPJSONRenderer, self).\
+        return super(ILPJSONRenderer, self).\
             render(data, accepted_media_type, renderer_context)
 
     def get_feature(self, elem):

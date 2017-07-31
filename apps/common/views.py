@@ -6,8 +6,8 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from common.pagination import KLPPaginationSerializer
-from common.filters import KLPInBBOXFilter
+from common.pagination import ILPPaginationSerializer
+from common.filters import ILPInBBOXFilter
 
 
 class StaticPageView(TemplateView):
@@ -19,22 +19,22 @@ class StaticPageView(TemplateView):
         return context
 
 
-class KLPAPIView(APIView):
+class ILPAPIView(APIView):
     pass
 
 
-class KLPListAPIView(generics.ListAPIView):
+class ILPListAPIView(generics.ListAPIView):
 
-    pagination_serializer_class = KLPPaginationSerializer
+    pagination_serializer_class = ILPPaginationSerializer
 
     def __init__(self, *args, **kwargs):
-        super(KLPListAPIView, self).__init__(*args, **kwargs)
+        super(ILPListAPIView, self).__init__(*args, **kwargs)
         if (
                 hasattr(self, 'bbox_filter_field') and
                 self.bbox_filter_field and
-                KLPInBBOXFilter not in self.filter_backends
+                ILPInBBOXFilter not in self.filter_backends
         ):
-            self.filter_backends += (KLPInBBOXFilter,)
+            self.filter_backends += (ILPInBBOXFilter,)
 
     def get_paginate_by(self):
         '''
@@ -46,7 +46,7 @@ class KLPListAPIView(generics.ListAPIView):
 
         per_page = int(
             self.request.GET.get(
-                'per_page', api_settings.KLPLISTVIEW_PAGE_SIZE
+                'per_page', api_settings.ILPLISTVIEW_PAGE_SIZE
             )
         )
         if per_page == 0:
@@ -54,11 +54,11 @@ class KLPListAPIView(generics.ListAPIView):
         return per_page
 
 
-class KLPModelViewSet(viewsets.ModelViewSet):
+class ILPModelViewSet(viewsets.ModelViewSet):
     pass
 
 
-class KLPDetailAPIView(generics.RetrieveAPIView):
+class ILPDetailAPIView(generics.RetrieveAPIView):
     pass
 
 

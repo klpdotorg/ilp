@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from schools.models import Institution
 
-from common.serializers import KLPSerializer, InstitutionTypeSerializer
+from common.serializers import ILPSerializer, InstitutionTypeSerializer
 from boundary.serializers import (
     BoundarySerializer, ElectionBoundarySerializer
 )
 
 
-class InstitutionListSerializer(KLPSerializer):
+class InstitutionListSerializer(ILPSerializer):
     boundary = BoundarySerializer(source='admin3')
     admin1 = serializers.CharField(source='admin1.name')
     admin2 = serializers.CharField(source='admin2.name')
@@ -22,7 +22,7 @@ class InstitutionListSerializer(KLPSerializer):
         )
 
 
-class InstitutionInfoSerializer(KLPSerializer):
+class InstitutionInfoSerializer(ILPSerializer):
     mgmt = serializers.CharField(source='management.name')
     cat = serializers.CharField(source='category.name')
     admin1 = BoundarySerializer('admin1')

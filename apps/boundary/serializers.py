@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
-from common.serializers import KLPSerializer
+from common.serializers import ILPSerializer
 from boundary.models import Boundary, ElectionBoundary
 
 
-class BoundarySerializer(KLPSerializer):
+class BoundarySerializer(ILPSerializer):
     class Meta:
         model = Boundary
         fields = (

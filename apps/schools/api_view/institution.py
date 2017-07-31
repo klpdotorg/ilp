@@ -1,8 +1,6 @@
-from django.conf import settings
-
-from common.views import KLPListAPIView
+from common.views import ILPListAPIView
 from common.models import Status, InstitutionType
-from common.renderers import KLPJSONRenderer
+from common.renderers import ILPJSONRenderer
 
 from schools.serializers import (
     InstitutionListSerializer, InstitutionInfoSerializer
@@ -10,21 +8,22 @@ from schools.serializers import (
 from schools.models import Institution
 
 
-class InstitutionListView(KLPListAPIView):
+class InstitutionListView(ILPListAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionListSerializer
     bbox_filter_field = "coord"
-    renderer_classes = (KLPJSONRenderer, )    
+    renderer_classes = (ILPJSONRenderer, )
+    # filter_class = SchoolFilter
 
     def get_queryset(self):
-        qset = Institution.objects.filter(status=Status.ACTIVE)  
+        qset = Institution.objects.filter(status=Status.ACTIVE)
         s_type = self.request.GET.get('school_type', 'both')
 
         if s_type == 'preschools':
-            qset = qset.filter(institution_type__pk=InstitutionType.PRESCHOOL)
+            qset = qset.filter(institution_type__pk=InstitutionType.PRE_SCHOOL)
         elif s_type == 'primaryschools':
             qset = qset.filter(
-                institution_type__pk=InstitutionType.PRIMARYSCHOOL)
+                institution_type__pk=InstitutionType.PRIMARY_SCHOOL)
 
         if self.request.GET.get('admin1', ''):
             admin1 = self.request.GET.get('admin1')
@@ -40,12 +39,12 @@ class InstitutionListView(KLPListAPIView):
         # Need to do filter for:
         # ac_year = self.request.GET.get(
         #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
-        # geometery
         # partner_id
         # programmes
         return qset
 
 
-class InstitutionInfoView(KLPListAPIView):
+class InstitutionInfoView(ILPListAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionInfoSerializer
+    # filter_class = SchoolFilter

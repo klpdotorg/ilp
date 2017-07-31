@@ -4,7 +4,7 @@ from rest_framework import filters
 from rest_framework.exceptions import ParseError
 
 
-class KLPInBBOXFilter(filters.BaseFilterBackend):
+class ILPInBBOXFilter(filters.BaseFilterBackend):
     """
     Filter that only sends objects inside given bbox
     """
