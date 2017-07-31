@@ -1,16 +1,20 @@
 from django.conf import settings
+
 from common.views import KLPListAPIView
+from common.models import Status, InstitutionType
+from common.renderers import KLPJSONRenderer
 
 from schools.serializers import (
     InstitutionListSerializer, InstitutionInfoSerializer
 )
-from common.models import Status, InstitutionType
 from schools.models import Institution
 
 
 class InstitutionListView(KLPListAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionListSerializer
+    bbox_filter_field = "coord"
+    renderer_classes = (KLPJSONRenderer, )    
 
     def get_queryset(self):
         qset = Institution.objects.filter(status=Status.ACTIVE)  
@@ -31,14 +35,14 @@ class InstitutionListView(KLPListAPIView):
         elif self.request.GET.get('admin3', ''):
             admin3 = self.request.GET.get('admin3')
             qset = qset.filter(admin3__id=admin3)
+
         # TODO :
-        # ac_year = self.request.GET.get(
-        #     'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
         # Need to do filter for:
+        # ac_year = self.request.GET.get(
+        #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
         # geometery
         # partner_id
         # programmes
-        # meeting_report
         return qset
 
 

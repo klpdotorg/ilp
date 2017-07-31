@@ -36,7 +36,7 @@ class KLPListAPIView(generics.ListAPIView):
         ):
             self.filter_backends += (KLPInBBOXFilter,)
 
-    def get_paginate_by(self, *args, **kwargs):
+    def get_paginate_by(self):
         '''
             If per_page = 0, don't paginate.
             If format == csv, don't paginate.
