@@ -4,19 +4,20 @@ from boundary.serializers import (
     BoundarySerializer, BoundaryWithParentSerializer
 )
 from boundary.models import Boundary, BoundaryType
-from common.views import ILPListAPIView
+from common.views import ILPListAPIView, ILPDetailAPIView
 from common.pagination import ILPPaginationSerializer
 from common.models import InstitutionType, Status
+from common.mixins import ILPStateMixin
 
 
-class Admin1sBoundary(ILPListAPIView):
+class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
 
     serializer_class = BoundarySerializer
     pagination_class = ILPPaginationSerializer
 
     def get_queryset(self):
-        state = self.kwargs.get('state', 'None')
-        queryset = Boundary.objects.filter(Q(parent=state))
+        state = self.get_state()
+        queryset = Boundary.objects.filter(parent=state)
         school_type = self.request.query_params.get('school_type', None)
         boundarytype = BoundaryType.SCHOOL_DISTRICT
         if school_type is not None:

@@ -1,6 +1,7 @@
 from common.views import ILPListAPIView
 from common.models import Status, InstitutionType
 from common.renderers import ILPJSONRenderer
+from common.mixins import ILPStateMixin
 
 from schools.serializers import (
     InstitutionListSerializer, InstitutionInfoSerializer
@@ -8,7 +9,7 @@ from schools.serializers import (
 from schools.models import Institution
 
 
-class InstitutionListView(ILPListAPIView):
+class InstitutionListView(ILPListAPIView, ILPStateMixin):
     queryset = Institution.objects.all()
     serializer_class = InstitutionListSerializer
     bbox_filter_field = "coord"
@@ -16,7 +17,10 @@ class InstitutionListView(ILPListAPIView):
     # filter_class = SchoolFilter
 
     def get_queryset(self):
-        qset = Institution.objects.filter(status=Status.ACTIVE)
+        state = self.get_state()
+        qset = Institution.objects.filter(
+            admin0=state, status=Status.ACTIVE
+        )
         s_type = self.request.GET.get('school_type', 'both')
 
         if s_type == 'preschools':

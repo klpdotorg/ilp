@@ -6,6 +6,8 @@ from schools.api_view import (
 
 
 urlpatterns = [
-    url(r'^list/$', InstitutionListView.as_view(), name='institution-list'),
-    url(r'^info/$', InstitutionInfoView.as_view(), name='institution-info'),
+    url(r'^schools/list/$',
+        InstitutionListView.as_view(), name='institution-list'),
+    url(r'^schools/info/$',
+        InstitutionInfoView.as_view(), name='institution-info'),
 ]

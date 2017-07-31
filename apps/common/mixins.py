@@ -1,6 +1,10 @@
 from django.views.decorators.cache import cache_page
-from rest_framework.views import APIView
 from django.conf import settings
+
+from rest_framework.views import APIView
+
+from common.state_code_dict import STATE_CODES
+from boundary.models import BoundaryType, Boundary
 
 
 class CacheMixin(APIView):
@@ -10,5 +14,14 @@ class CacheMixin(APIView):
 
         if settings.CACHE_ENABLED:
             return cache_page(settings.CACHE_TIMEOUT)(view)
-        else:
-            return view
+        return view
+
+
+class ILPStateMixin(object):
+
+    def get_state(self):
+        state_code = self.kwargs.get('state', None)
+        state_name = STATE_CODES.get(state_code, None)
+        state = Boundary.objects.get(
+            name__iexact=state_name, boundary_type__name='State')
+        return state
