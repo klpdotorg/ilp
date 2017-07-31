@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+
+{% block page_title %}School Map: Volunteer{% endblock %}
+{% block endbody %}
+    {% compress js %}
+		 	<script type="text/javascript" src="{% static 'js/lib/leaflet-0.7.3/leaflet.js' %}"></script>
+		 	<script type="text/javascript" src="{% static 'js/common/volunteer_here.js' %}"></script>
+		 	<script type="text/javascript" src="{% static 'js/volunteer_map/init.js' %}"></script>
+		 	<script type="text/javascript" src="{% static 'js/volunteer_map/volunteer_map.js' %}"></script>
+			<script type="text/javascript" src="{% static 'js/lib/moment.js' %}"></script>
+    {% endcompress %}
+    <link rel="stylesheet" href="{% static 'js/lib/leaflet-0.7.3/leaflet.css' %}" />
+{% endblock %}
+
+{% block subheader %}
+	<div class="map-subheader-wrapper subheader-wrapper js-show-volunteer-filters">
+		<div class="form-base subheader-content">
+			<div class="filter-item">
+				<input type="text" name="search" placeholder="Search for a location" class="search-input input-text">
+				<a class="button-filter-volunteer js-toggle-filters">Filters</a>
+			</div>
+
+			<div class="volunteer-filters-wrapper js-volunteer-filters-wrapper">
+				<!-- <div class="label fl">Location</div>
+				<div class="filter-item fl phn-fr">
+					<select name="location" class="dropdown">
+						<option>Banaswadi</option>
+						<option>Malleswaram</option>
+						<option>Banaswadi</option>
+						<option>Malleswaram</option>
+					</select>
+				</div> -->
+				<!-- <div class="hide phn-block phn-clr"></div> -->
+				
+				<span class="filter-item">
+					<span class="filter-label">Date</span>	
+					<input type="date" class="input-text js-vol-input-date" id="vol-date-input" name="date" placeholder="Pick a date">				
+				</span>
+				<!--<div class="filter-item fl phn-fr">
+					<span class="js-volunter-date-input-wrapper">
+						<input type="text" name="date" readonly="readonly" value="15-07-2014" class="input date-input" id="vol-date-input">
+					</span>
+
+					<div class="calendar-wrapper js-volunteer-cal">
+						<div class="cal">
+		    				<div id="vol-datepicker-wrapper"></div>
+		    			</div>
+					</div>
+
+				</div>-->
+				<!-- <div class="hide phn-block phn-clr"></div> -->
+
+				<span class="filter-item">
+					<span class="filter-label">Organization</span>
+						<select name="organization" id="filterOrganization">
+						<option value="" selected>All</option>
+						{% for org in organizations %}
+						<option value="{{ org.id }}">{{ org.name }}</option>
+						{% endfor %}
+					</select>
+				</span>
+				<!-- <div class="hide phn-block phn-clr"></div> -->
+
+				<span class="filter-item">
+					<span class="filter-label">Opportunity</span>
+					<select name="activity" id="filterActivityType">
+						<option value="" selected>All</option>
+						{% for typ in activity_types %}
+						<option value="{{ typ.id }}">{{ typ.name }}</option>
+						{% endfor %}
+					</select>
+				</span>
+			</div> <!-- /volunteer-filters-wrapper -->
+		</div> <!-- /subheader-content -->
+	</div> <!-- /map-subheader-wrapper -->
+
+
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="map_page page-volunteer-map">
+		<section class="sidebar-volunteer-map">
+			<ul id="volunteerActivityList">
+			</ul>
+		</section>
+
+		<section class="map-canvas-full map-volunteer-canvas-full">
+			<div id="js-map-canvas"></div>
+		</section>
+	</div>
+		<!-- <div id="modal_overlay" class="modal-overlay show"></div>
+		<div id="modal_wrapper">
+				<div id="modal_volunteer_flow" class="modal volunteer-flow modal-volunteer jsVolunteerDateModal">
+			    	<a href="" class="button-close fr btn-modal-close"></a>
+			    	<div class="content">
+			    		<h2 class="modal-heading">Volunteer</h2>
+			    		<div class="steps-wrapper">
+					    	<div class="step-item fadein visible" data-step="1">
+					    		<div class="step-date">
+					    			<h3 class="bordered-heading blue">Select Date<span></span></h3>
+					    			<div class="cal">
+					    				<input id="datepicker-modal-input" type="hidden" readonly="readonly">
+					    				<div id="datepicker-modal-wrapper"></div>
+					    			</div>
+					    		</div> 
+					    	</div>
+						</div>
+					</div>
+				</div>
+		</div>
+ -->
+	{% include 'frontend_templates/volunteer_map.html' %}
+	{% include 'frontend_templates/volunteer_here.html' %}
+{% endblock %}

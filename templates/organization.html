@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+
+{% block page_title %}Organisation Profile: {{ object.name }}{% endblock %}
+{% block endbody %}
+	{% compress js %}
+  <script type="text/javascript" src="{% static 'js/organization/init.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/common/volunteer_here.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/common/basic_tabs.js' %}"></script>
+  {% endcompress %}
+  <script>
+  	ORGANIZATION_ID = {{ object.id }};
+  </script>
+{% endblock %}
+
+{% block content %}
+
+	<section class="page-org-profile">
+		<div class="container">
+			<div class="org-meta-block">
+				<div class="org-meta-each org-meta-edit">
+					<h3 class="heading-tertiary brand-turquoise">{{ object.name }}</h3>
+					{% if object.url %}
+					<p><a class="heading-tiny" href="{{ object.url }}" target="_blank">{{ object.url }}</a></p>
+					{% endif %}
+					<div>
+						<a href="/organisation/{{ object.id }}/edit" class="button-hollow button--sm" id="editOrganizationBtn">Edit Profile</a>				
+					</div>
+
+					<div>
+						<div class="base-spacing"></div>
+						{% if object.about %}
+						<p class="font-small">
+						{{ object.about }}
+						</p>
+						{% endif %}
+							{% if object.has_links %}
+							<div class="social-link-block">
+								<div class="heading-tiny-uppercase">Links</div>
+								<div>
+									{% if object.twitter_handle %}
+									<a href="https://twitter.com/{{ object.twitter_handle }}" target="_blank" class="icon-button-round tooltip" aria-label="Twitter">
+										<span class="fa fa-twitter"></span>
+									</a>
+									{% endif %}
+									{% if object.fb_url %}
+									<a href="{{ object.fb_url }}" target="_blank" class="icon-button-round tooltip" aria-label="Facebook">
+										<span class="fa fa-facebook"></span>
+									</a>
+									{% endif %}
+									{% if object.website %}
+									<a href="{{ object.website }}" target="_blank" class="icon-button-round tooltip" aria-label="Website">
+										<span class="fa fa-laptop"></span>
+									</a>
+									{% endif %}
+									{% if object.photos_url %}
+									<a href="{{ object.photos_url }}" target="_blank" class="icon-button-round tooltip" aria-label="Photos">
+										<span class="fa fa-image"></span>
+									</a>
+									{% endif %}
+									{% if object.youtube_url %}
+									<a href="{{ object.youtube_url }}" target="_blank" class="icon-button-round tooltip" aria-label="Videos">
+										<span class="fa fa-video-camera"></span>
+									</a>
+									{% endif %}
+								</div> <!--/social-link-block -->
+
+							</div>
+							{% endif %}
+					</div>
+				</div> <!-- /org-meta-edit -->
+
+			  <div class="org-meta-each org-meta-activities">
+					{% if object.logo %}
+					<div><img src="{{ object.logo.url }}" class="org-profile-img"></div>				
+					{% endif %}
+
+					<div class="heading-tiny-uppercase">Total Opportunities</div>
+					
+					<!--
+					<div class="module-stats-icon">
+						<img src="/static/images/icon_donation@2x.png" width="50">
+						<div class="module-stats-info">
+							<div>Donation</div>
+							<p class="module-stats-label" id="donationCount"></p>
+						</div>
+					</div>
+					-->
+
+					<div class="module-stats-icon">
+						<img src="/static/images/icon_volunteer@2x.png" width="50">
+						<div class="module-stats-info">
+							<div>Volunteer</div>
+							<p class="module-stats-label" id="volunteerCount"></p>
+						</div>
+					</div>
+
+			  </div> <!--/org-meta-activities -->
+				
+			</div> <!-- /org-meta-block -->
+
+		</div> <!-- /container -->
+
+		<div class="js-tab-wrap tab-wrap">
+			<div class="tab-wrap-widescreen">
+		    <div data-tab="volunteer" class="js-tabs-link tab-heading tab-heading-active">Volunteer</div>
+		    <!-- <div data-tab="donate" class="js-tabs-link tab-heading">Donate</div> -->				
+			</div>
+
+		  <div class="tab-each">
+		    <div data-tab="volunteer" class="js-tab-content tab-content tab-active">
+		    	<div class="container" id="volunteerActivitiesList">
+						<div class="heading-tiny-uppercase">Volunteering opportunties</div>
+		    	</div> <!-- /container -->
+		    </div> <!-- /tab-content -->
+		  </div> <!-- /tab-each -->
+
+		  <div class="tab-each">
+		    <div data-tab="donate" class="js-tab-content tab-content">
+		    	<div class="container" id="donationRequirementsList">
+						<div class="heading-tiny-uppercase">Donate</div>
+		    	</div> <!-- /container -->
+		    </div> <!-- /tab-content -->
+		  </div> <!-- /tab-each -->
+			
+		</div> <!-- /tab-wrap -->
+
+<!-- 			<ul class="tabs phn-hide">
+				<li data-tab="volunteer" class="js-tab-link current">Volunteer</li>
+				<li data-tab="donation" class="js-tab-link">Donation</li>
+			</ul> -->
+					<!--
+					<div class="profile-title bold uppercase mb-20">Filters</div>
+					<div class="page-section-menu">
+						<div class="options-wrapper">
+							<div class="option-item mb-20">
+								<span class="option-label bold">District</span>
+								<select name="type" class="dropdown">
+									<option>Davangere</option>
+									<option>Other</option>
+								</select>
+							</div>
+							<div class="option-item">
+								<span class="option-label bold">Opportunties</span>
+								<select name="type" class="dropdown">
+									<option>Teaching</option>
+									<option>Other</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					-->
+	</section>
+	{% include 'frontend_templates/organization.html' %}
+	{% include 'frontend_templates/volunteer_here.html' %}
+
+{% endblock %}

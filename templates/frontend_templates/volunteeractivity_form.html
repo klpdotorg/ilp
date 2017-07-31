@@ -1,0 +1,43 @@
+{% verbatim %}
+<script type="text/html" id="tpl-activityDetails">
+  <div class="clearfix">
+    <div class="type-activity">
+      <div class="h5 brand-red">{{ activity_type_details.name }}</div>
+      <div class="font-smallest">
+        <span class="grey-silver">For </span>
+        <span class="uppercase brand-turquoise"> {{ organization_details.name }}</span>
+      </div>
+    </div>
+    <div class="type-school">
+      <div class="brand-green uppercase font-larger">{{ school_details.name }}</div>
+      {% if school_details.address_full %}
+        <div class="grey-steel font-smaller">{{ school_details.address_full }}</div>
+      {% endif %}
+    </div>
+  </div>
+</script>
+<script type="text/html" id="tpl-volunteerDetails">
+  <tr class="js-volunteerTR" data-id="{{ user_details.id }}">
+    <td class="font-small">
+      <!-- <img class="profile-img" src="images/thumb_reading_programme.jpg"> -->
+      <a href="/profile/{{ user_details.id }}" class="bold">
+        {{ user_details.first_name }} {{ user_details.last_name }} 
+      </a>
+    </td>
+    <td class="font-small">
+      Status:
+      {% if status == 1 %}
+      Verified / Complete
+      {% else %}
+      Unverified
+      {% endif %}
+      <!-- <div class="bold uppercase">Mohali, Punjab, India</div> -->
+    </td>
+    <td>
+      <a class="button button--sm js-volunteerVerify" data-status="{{ status }}" href="#">
+        {% if status == 1 %}Cancel{% else %}Attended{% endif %}
+      </a>
+    </td>
+  </tr>
+</script>
+{% endverbatim %}
