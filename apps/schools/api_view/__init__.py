@@ -1,1 +1,1 @@
-from .institution import InstitutionListView
+from .institution import *

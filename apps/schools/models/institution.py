@@ -49,21 +49,22 @@ class Institution(models.Model):
     route_information = models.CharField(
         max_length=1000, null=True, blank=True)
     admin3 = models.ForeignKey(
-            'boundary.Boundary', related_name='institution_admin3')
+        'boundary.Boundary', related_name='institution_admin3')
     admin2 = models.ForeignKey(
-            'boundary.Boundary', related_name='institution_admin2')
+        'boundary.Boundary', related_name='institution_admin2')
     admin1 = models.ForeignKey(
-            'boundary.Boundary', related_name='institution_admin1')
+        'boundary.Boundary', related_name='institution_admin1')
     admin0 = models.ForeignKey(
-            'boundary.Boundary', related_name='institution_admin0')
+        'boundary.Boundary', related_name='institution_admin0')
     mp = models.ForeignKey(
-            'boundary.ElectionBoundary', related_name='institution_mp', null=True)
+        'boundary.ElectionBoundary', related_name='institution_mp', null=True)
     mla = models.ForeignKey(
-            'boundary.ElectionBoundary', related_name='institution_mla', null=True)
+        'boundary.ElectionBoundary', related_name='institution_mla', null=True)
     gp = models.ForeignKey(
-            'boundary.ElectionBoundary', related_name='institution_gp', null=True)
+        'boundary.ElectionBoundary', related_name='institution_gp', null=True)
     ward = models.ForeignKey(
-            'boundary.ElectionBoundary', related_name='institution_ward', null=True)
+        'boundary.ElectionBoundary', related_name='institution_ward',
+        null=True)
     coord = models.GeometryField(null=True)
     last_verified_year = models.ForeignKey('common.AcademicYear', null=True)
     status = models.ForeignKey('common.Status')
@@ -73,6 +74,9 @@ class Institution(models.Model):
 
     def __unicode__(self):
         return "%s" % self.name
+
+    def get_geometry(self):
+        pass
 
 
 class InstitutionLanguage(models.Model):

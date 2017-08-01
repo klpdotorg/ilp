@@ -3,14 +3,17 @@ from common.models import common
 
 
 class BoundaryType(models.Model):
-    '''Aligned to constants defined in the DB models. When those change, these will also have to
-    change '''
-    SCHOOL_DISTRICT='SD'
-    SCHOOL_BLOCK='SB'
-    SCHOOL_CLUSTER='SC'
-    PRESCHOOL_DISTRICT='PD'
-    PRESCHOOL_PROJECT='PP'
-    PRESCHOOL_CIRCLE='PC'
+    '''
+    Aligned to constants defined in the DB models. When those change,
+    these will also have to
+    change
+    '''
+    SCHOOL_DISTRICT = 'SD'
+    SCHOOL_BLOCK = 'SB'
+    SCHOOL_CLUSTER = 'SC'
+    PRESCHOOL_DISTRICT = 'PD'
+    PRESCHOOL_PROJECT = 'PP'
+    PRESCHOOL_CIRCLE = 'PC'
 
     """ Boundary type """
     char_id = models.CharField(max_length=300, primary_key=True)
@@ -26,10 +29,12 @@ class Boundary(models.Model):
     dise_slug = models.CharField(max_length=300, blank=True)
     geom = models.GeometryField(null=True)
     status = models.ForeignKey('common.Status')
+    objects = common.StatusManager()
 
     class Meta:
         unique_together = (('name', 'parent', 'type'), )
-        ordering = ['name',]
+        ordering = ['name', ]
+
     def __unicode__(self):
         return '%s' % self.name
 
