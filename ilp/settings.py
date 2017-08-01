@@ -122,7 +122,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "/static")
 
 # ILP SETTINGS
-DEFAULT_ACADEMIC_YEAR = '2014-2015'
+DEFAULT_ACADEMIC_YEAR = '1415'
 
 
 try:
