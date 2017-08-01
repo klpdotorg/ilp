@@ -1,12 +1,13 @@
 from django.conf.urls import url
-from .views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
-                    Admin2sInsideAdmin1, Admin3sInsideAdmin1,
-                    Admin3sInsideAdmin2, AdminDetails)
+from .api_views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
+                        Admin2sInsideAdmin1, Admin3sInsideAdmin1,
+                        Admin3sInsideAdmin2, AdminDetails,
+                        Admin2sBoundaryWithState)
 
 urlpatterns = [
     url(r'^boundary/admin1s$', Admin1sBoundary.as_view(),
         name='admin1s-boundary'),
-    url(r'^boundary/admin2s$', Admin2sBoundary.as_view(),
+    url(r'^boundary/admin2s$', Admin2sBoundaryWithState.as_view(),
         name='admin2s-boundary'),
     url(r'^boundary/admin3s$', Admin3sBoundary.as_view(),
         name='admin3s-boundary'),

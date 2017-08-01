@@ -1,9 +1,10 @@
 from django.db.models import Q
 
 from boundary.serializers import (
-    BoundarySerializer, BoundaryWithParentSerializer
+    BoundarySerializer, BoundaryWithParentSerializer,
+    BoundaryHierarchySerializer
 )
-from boundary.models import Boundary, BoundaryType
+from boundary.models import Boundary, BoundaryType, BoundaryHierarchy
 from common.views import ILPListAPIView, ILPDetailAPIView
 from common.pagination import ILPPaginationSerializer
 from common.models import InstitutionType, Status
@@ -17,7 +18,7 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
 
     def get_queryset(self):
         state = self.get_state()
-        queryset = Boundary.objects.filter(parent=state)
+        queryset = Boundary.objects.filter(parent=state.id)
         school_type = self.request.query_params.get('school_type', None)
         boundarytype = BoundaryType.SCHOOL_DISTRICT
         if school_type is not None:
@@ -33,12 +34,27 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
         return queryset
 
 
-class Admin2sBoundary(ILPListAPIView):
+class Admin2sBoundaryWithState(ILPListAPIView, ILPStateMixin):
+    serializer_class = BoundaryHierarchySerializer
+    pagination_class = ILPPaginationSerializer
+
+    def get_queryset(self):
+        state = self.get_state()
+        queryset = BoundaryHierarchy.objects.all()
+        return queryset
+
+
+class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
 
     serializer_class = BoundarySerializer
     pagination_class = ILPPaginationSerializer
 
     def get_queryset(self):
+        state = self.get_state()
+        print("State name is: ", state.name)
+        queryset = BoundaryHierarchy.objects.all()
+        queryset = queryset.filter(admin0_name=state.name)
+        print("Selected all boundary objects for the state of KA", queryset)
         queryset = Boundary.objects.all().filter(
             Q(boundary_type=BoundaryType.SCHOOL_BLOCK) |
             Q(boundary_type=BoundaryType.PRESCHOOL_PROJECT)
