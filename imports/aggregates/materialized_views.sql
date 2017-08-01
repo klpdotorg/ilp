@@ -27,34 +27,6 @@ GROUP BY academic_year_id,
     category;
 
 
-DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_aggregations CASCADE;
-CREATE MATERIALIZED VIEW mvw_boundary_aggregations AS
-SELECT format('A%sS%s', stusg.academic_year_id, b.id) as id,
-    stusg.academic_year_id AS academic_year_id,
-    b.id AS boundary_id,
-    b.name AS boundary_name,
-    stu.gender_id AS gender,
-    stu.mt_id AS mt,
-    stu.religion_id as religion,
-    stu.category_id as category,
-    count(DISTINCT stu.id) AS num
-FROM schools_student stu,
-    schools_studentgroup sg,
-    schools_studentstudentgrouprelation stusg,
-    schools_institution s
-WHERE 
-    stusg.student_group_id = sg.id
-    AND sg.institution_id = s.id
-    AND stusg.student_id = stu.id
-    AND s.status_id = 'AC'
-GROUP BY academic_year_id,
-    s.id,
-    gender,
-    mt,
-    religion,
-    category;
-
-
 ---Materialized view for getting gender count per school per year
 DROP MATERIALIZED VIEW IF EXISTS mvw_institution_stu_gender_count CASCADE;
 CREATE MATERIALIZED VIEW mvw_institution_stu_gender_count AS
@@ -70,7 +42,8 @@ SELECT
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_institution_class_year_stucount CASCADE;
 CREATE MATERIALIZED VIEW mvw_institution_class_year_stucount AS
-SELECT sg.institution_id AS institution_id,
+SELECT format('A%sS%sC%s', stusg.academic_year_id, sg.institution_id,btrim(sg.name)) as id,
+    sg.institution_id AS institution_id,
     btrim(sg.name::text) AS studentgroup,
     count(DISTINCT stu.id) AS num,
     stusg.academic_year_id AS academic_year
@@ -99,6 +72,4 @@ WHERE b3.parent_id = b2.id
     AND b2.parent_id = b1.id
     AND b1.parent_id = b0.id
     AND b0.parent_id=1;
-
-
 

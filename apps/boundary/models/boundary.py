@@ -67,7 +67,7 @@ class BoundaryAggregation(models.Model):
 
 class BoundaryHierarchy(models.Model):
     """boundary hierarchy details"""
-    admin3_id = models.ForeignKey('Boundary', related_name='admin3_id', db_column='admin3_id')
+    admin3_id = models.OneToOneField('Boundary', related_name='admin3_id', primary_key=True)
     admin3_name = models.CharField(max_length=300)
     admin2_id = models.ForeignKey('Boundary', related_name='admin2_id', db_column='admin2_id')
     admin2_name = models.CharField(max_length=300)
