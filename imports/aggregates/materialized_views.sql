@@ -27,7 +27,6 @@ GROUP BY academic_year_id,
     category;
 
 
-
 ---Materialized view for getting gender count per school per year
 DROP MATERIALIZED VIEW IF EXISTS mvw_institution_stu_gender_count CASCADE;
 CREATE MATERIALIZED VIEW mvw_institution_stu_gender_count AS
@@ -43,7 +42,8 @@ SELECT
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_institution_class_year_stucount CASCADE;
 CREATE MATERIALIZED VIEW mvw_institution_class_year_stucount AS
-SELECT sg.institution_id AS institution_id,
+SELECT format('A%sS%sC%s', stusg.academic_year_id, sg.institution_id,btrim(sg.name)) as id,
+    sg.institution_id AS institution_id,
     btrim(sg.name::text) AS studentgroup,
     count(DISTINCT stu.id) AS num,
     stusg.academic_year_id AS academic_year
@@ -72,6 +72,4 @@ WHERE b3.parent_id = b2.id
     AND b2.parent_id = b1.id
     AND b1.parent_id = b0.id
     AND b0.parent_id=1;
-
-
 
