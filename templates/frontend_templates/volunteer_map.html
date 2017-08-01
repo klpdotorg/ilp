@@ -1,0 +1,84 @@
+{% verbatim %}
+<script type="text/template" id="tplVolunteerMapPopup">
+	<div class="map-pin-details">
+		<div class="content">
+			<div>
+				<div class="icon-number">S</div>
+				<h3 class="map-heading-main"><a href="/school/{{ features[0].school_details.id }}" class="brand-green">
+						{{ features[0].school_details.name }}</a></h3>
+				<div class="grey-steel font-smaller">
+					{% if features[0].school_details.full_address %}
+						{{ features[0].school_details.full_address }}
+					{% endif %}
+				</div>
+				<div class="base-spacing-sm"></div>
+			</div>
+			<div class="vol-oppor-wrapper">
+				{% if features.length == 1 %}
+				<div class="vol-oppor-count">1 opportunity available</div>
+				{% else %}
+				<div class="vol-oppor-count">{{ features.length }} opportunities available</div>
+				{% endif %}
+				{% for f in features %}
+				<div class="vol-oppor-item">
+					<div class="clearfix">
+						<img class="vol-oppor-icon" src="{{ f.activity_type_details.image }}">
+						<span class="vertical-inline-top">
+							<span class="h5 brand-{{ f.activity_type_details.color }}">
+								<strong>{{ f.activity_type_details.name }}</strong>
+							</span>
+							<br>
+							<span class="font-small">
+								<span class="grey-steel">For</span> 
+								<a href="/organisation/{{ f.organization_details.id }}" class="uppercase brand-turquoise">
+									{{ f.organization_details.name }}
+								</a>
+							</span>
+						</span>
+						
+						<a class="button float-right js-volunteerHereBtn" data-id="{{ f.id }}">Volunteer</a>
+					</div>
+
+					<div class="base-spacing-sm"></div>
+
+					<div class="grey-steel">
+						{{ f.text }}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/html" id="tplVolunteerListItem">
+	<li class="list-sidebar js-volunteerHereBtn" data-id="{{ id }}">
+		<div class="bold brand-{{ activity_type_details.color }}">
+			{{ activity_type_details.name }}
+		</div>
+		<!--
+		<div class="stats">
+			<span class="distance">800m</span>
+		</div>
+		-->
+		<div class="font-smallest"> 
+			<span class="grey-steel">For</span> 
+				<a href="/organisation/{{ f.organization_details.id }}" class="uppercase brand-turquoise">
+					{{ organization_details.name }}
+				</a>
+		</div>
+		<div class="brand-green uppercase font-smaller"><strong>{{ school_details.name }}</strong></div>
+		<div class="base-spacing-sm"></div>
+
+		<div class="font-smaller grey-steel">
+			{{ text|striptags|nl2br|autolink|safe }}
+		</div>
+	</li>
+</script>
+
+<script type="text/html" id="tplVolunteerEmptyList">
+	<li class="list-sidebar">
+		<div class="font-smaller grey-steel">Sorry, we did not find any volunteer opportunities that match your query.</div>
+	</li>
+</script>
+{% endverbatim %}

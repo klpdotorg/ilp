@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from common.serializers import ILPSerializer
-from boundary.models import Boundary, ElectionBoundary
+from boundary.models import Boundary, ElectionBoundary, BoundaryHierarchy
 
 
 class BoundarySerializer(ILPSerializer):
@@ -23,6 +23,14 @@ class BoundaryWithParentSerializer(ILPSerializer):
             'parent_boundary'
         )
 
+
+class BoundaryHierarchySerializer(ILPSerializer):
+    class Meta:
+        model = BoundaryHierarchy
+        fields = (
+            'admin0_name', 'admin1_name',
+            'admin2_name', 'admin3_name'
+        )
 # class AssemblySerializer(KLPSimpleGeoSerializer):
 #     class Meta:
 #         model = Assembly

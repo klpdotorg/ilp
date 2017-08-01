@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}Edit Profile{% endblock %}
+
+{% block endbody %}
+	<script type="text/javascript" src="{% static 'js/profile_edit/init.js' %}"></script>
+  <script>
+  	USER_ID = {{ object.id }}
+  </script>
+{% endblock %}
+
+{% block content %}
+
+	<section>
+		<div class="container">
+			<h1 class="heading-primary brand-blue">Edit Profile</h1>
+			<div class="edit-profile-block">
+				<div class="edit-profile-each">
+					<form class="form-base form-edit-profile" id="userProfileForm">
+						<div class="form-field-wrap">
+							<label>First Name</label>
+							<input class="input-text" id="firstName" data-required="true" type="text">
+						</div>
+						<div class="form-field-wrap">
+							<label>Last Name</label>
+							<input class="input-text" id="lastName" type="text">
+						</div>
+						<div class="form-field-wrap">
+							<label>Email</label>
+							<input class="input-text" id="email" data-required="true" type="email">
+						</div>
+						<div class="form-field-wrap">
+							<label>Mobile</label>
+							<input class="input-text" id="mobileNo" data-required="true" type="tel">
+						</div>
+						<div class="form-field-wrap">
+							<label>
+								Image
+								<span class="form-optional-text">(optional)</span>
+							</label>
+							<input type="file" id="image" data-type="image">
+							<img class="form-file-preview js-image-preview" width="100">
+						</div>
+						<div class="form-field-wrap">
+							<label>
+								About Me
+								<span class="form-optional-text">(optional)</span>
+							</label>
+							<textarea class="input-text" id="about"></textarea>
+						</div>
+						
+						<div class="form-field-wrap">
+							<label>
+								<span class="fa fa-twitter icon-left"></span>Twitter Handle
+								<span class="form-optional-text">(optional)</span>
+							</label>
+							<input class="input-text" id="twitterHandle" type="text">
+						</div>
+						<div class="form-field-wrap">
+							<label>
+								<span class="fa fa-facebook icon-left"></span>Facebook URL
+								<span class="form-optional-text">(optional)</span>
+							</label>
+							<input class="input-text" id="fbURL" type="url">
+						</div>
+						<div class="form-field-wrap">
+							<label>
+								<span class="fa fa-laptop icon-left"></span>Website URL
+								<span class="form-optional-text">(optional)</span>
+							</label>
+							<input class="input-text" id="website" type="url">
+						</div>
+						<div class="form-field-wrap">
+							<label>
+								<span class="fa fa-flickr icon-left"></span>Flickr / Photo Site URL
+								<span class="form-optional-text">(optional)</span>
+							</label>
+							<input class="input-text" id="photosURL" type="url">
+						</div>
+						<div class="form-field-wrap">
+							<label>
+								<span class="fa fa-youtube icon-left"></span>Youtube URL
+								<span class="form-optional-text">(optional)</span>
+							</label>
+							<input class="input-text" id="youtubeURL" type="url">
+						</div>
+						<!--
+						<div class="mb-30">
+							<label class="block bold mb-5">Address</label>
+							<textarea class="input textarea"></textarea>
+						</div>
+						<div class="mb-30">
+							<label class="block bold mb-5">Country</label>
+							<select class="select2">
+								<option>India</option>
+								<option>USA</option>
+								<option>Canada</option>
+								<option>Australia</option>
+								<option>Brazil</option>
+							</select>
+						</div>
+						-->
+						<div class="form-field-wrap center-text">
+							<a class="button" id="submitBtn" href="#">Submit</a>
+						</div>
+					</form>
+				</div> <!-- /edit-profile-each -->
+
+				<div class="edit-profile-each">
+					<!--
+					<form class="edit-profile-form grey-bg ma mb-20">
+						<div class="pad-30">
+							<div class="edit-img">
+								<img class="profile-img fl mr-20" src="/static/images/thumb_reading_programme.jpg">
+								<input type="submit" value="Select Image" class="button-hollow small fl">
+								<div class="img-path fr">C:/img.jpg</div>
+								<div class="clr"></div>
+							</div>
+						</div>
+					</form>
+					-->
+					<form class="form-base form-edit-profile form-edit-password" id="changePasswordForm">
+						<h2 class="form-edit-heading">Change password</h2>
+						<div class="form-field-wrap">
+							<label>Old Password</label>
+							<input class="input-text" id="oldPassword" type="Password" data-required="true">
+						</div>							
+						<div class="form-field-wrap">
+							<label>New Password</label>
+							<input class="input-text" id="newPassword1" type="Password" data-required="true">
+						</div>
+						<div class="form-field-wrap">
+							<label>Confirm New Password</label>
+							<input class="input-text" id="newPassword2" type="Password" data-required="true">
+						</div>
+						<div class="form-field-wrap center-text">
+							<a class="button" id="submitPassword" href="#">Submit</a>
+						</div>
+					</form>
+				</div>  <!-- /edit-profile-each -->
+			</div> <!-- /edit-profile-block -->			
+		</div> <!-- /container -->
+	</section>
+
+	
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% verbatim %}
+<script type="text/html" id="tpl-volunteerOpportunity">
+  <tr>
+    <td>
+      <div class="brand-red bold">{{ activity_type_details.name }}</div>
+      <div>{{ text }}</div>
+    </td>
+    <td>
+      <div class="brand-green td-label-school"><strong>{{ school_details.name }}</strong></div>
+      {% if school_details.address_full %}
+      <div class="grey-steel font-small">{{ school_details.address_full }}</div>
+      {% endif %}
+    </td>
+    <td>
+      <a href="/organisation/{{ organization }}/volunteer_activity/{{ id }}" class="brand-blue">{{ users.length }} volunteers</a>
+    </td>
+    <td>
+      <a href="/organisation/{{ organization }}/volunteer_activity/{{ id }}" class="button--sm button-hollow">Edit</a>
+    </td>
+  </tr>
+</script>
+<script type="text/html" id="tpl-donationRequirement">
+  <tr>
+    <td>
+      <div class="brand-red bold">{{ title }}</div>
+      <div>
+          {{ description }}
+      </div>
+    </td>
+    <td>
+      <div class="brand-green td-label-school">
+        <strong>{{ school_details.name }}</strong>
+      </div>
+      <div class="grey-steel font-small">
+        {{ school_details.address_full }}
+      </div>
+    </td>
+      <td>
+        {% for item in items %}
+        <div>
+          {{ item.quantity }} {{ item.unit }} x 
+          <span>{{ item.name }}</span>{% if not loop.last %},{% endif %}
+        </div>
+        {% endfor %}
+      </td>
+      <td>
+        <div class="form-base">
+          <div class="form-field-wrap">
+            <select>
+              <option>Some text here</option>
+            </select>
+          </div>
+          <a href="/organisation/{{ organization_details.id }}/donation_requirement/{{ id }}" class="button-hollow button--sm">
+            Edit
+          </a>
+        </div> <!-- /form-base -->
+      </td>
+  </tr>
+</script>
+{% endverbatim %}

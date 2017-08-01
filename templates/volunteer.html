@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block page_title %}Volunteer{% endblock %}
+
+{% block css_extra %}
+<style>
+  .main-footer {
+    margin-top: 0;
+  }
+</style>
+{% endblock %}
+
+{% block endbody %}
+  <script type="text/javascript" src="{% static 'js/volunteer_page/init.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+  <div class="page-volunteer">
+    <section class="banner-full banner-volunteer">
+      <div class="container">
+        <div class="base-spacing-lg">  
+          <img src="{% static 'images/volunteer_header_text.png' %}" alt="Got some free time? Teach kids in nearby schools" width="528" height="164">
+
+          <div class="base-spacing-lg"></div>
+
+          <div class="banner-volunteer-info">
+            <img src="/static/images/volunteer_child_1_left@2x.png" width="180" class="banner-volunteer-girl">
+            <img src="/static/images/volunteer_child_2_right@2x.png" width="155" class="banner-volunteer-boy">
+            <div class="box-info">
+              <div class="heading-border heading-volunteer-box">Volunteer to help</div>
+              <div class="base-spacing-lg">    
+                <p class="h2 font-light">You can make a difference. Find volunteering opportunities where you can make a difference.</p>
+              </div>    
+              <a href="/volunteer-map" class="button js-trigger-volunteer">Volunteer Now</a>
+            </div>
+          </div> <!-- /base-spacing-lg -->
+        </div> <!-- /banner-volunteer-info -->
+      </div>
+    </section>
+
+    <section class="module-img-wrapper volunteer-works-block">
+      <div class="container">
+        <h2 class="heading-secondary heading-border">How volunteering works</h2>
+
+        <ul class="volunteer-works module-img-block">
+          <li class="module-img-each volunteer-works-each volunteer-works-locate">
+            <div class="icon-number">1</div>
+            <div class="module-img volunteer-works-img">
+              <img src="/static/images/volunteer_locate.png" width="55" height="80" alt="Volunteer locate icon">
+            </div>
+            <h3 class="">Find a volunteer <br> activity near you! </h3>
+            <p>Use the volunteer tool to find organisations and schools that need volunteers.</p>
+          <li class="module-img-each volunteer-works-each volunteer-works-teach">
+            <div class="icon-number">2</div>
+            <div class="module-img volunteer-works-img">
+              <img src="/static/images/volunteer_teach.png" width="107" height="80" alt="Volunteer teach icon">
+            </div>
+            <h3>Volunteer <br> your skills!</h3>
+            <p>Teach children or help out with other activities organisations and schools need help with.</p>
+          <li class="module-img-each volunteer-works-each volunteer-works-share">
+            <div class="icon-number">3</div>
+            <div class="module-img volunteer-works-img">            
+              <img src="/static/images/volunteer_share.png" width="87" height="80" alt="Volunteer share icon">
+            </div>
+            <h3>Share <br> your story!</h3>
+            <p>Come back and share your experience with rest of the community.</p>
+        </ul> <!-- /volunteer-works -->
+      </div> <!-- /container -->
+    </section>
+
+    <!--
+    <section class="volunteer-section donate-items">
+      <div class="container">
+        <h2>Can't find the time to volunteer?<span></span></h2>
+        <p class="ta_c">Help out by donating items to schools near you</p>
+
+        <div class="column_item">
+          <a href="" class="donate_option">
+            <img src="{% static 'images/donate_computers.png' %}"/><br/>
+            Computers<br/>(4)
+          </a>
+        </div>
+
+        <div class="column_item">
+          <a href="" class="donate_option">
+            <img src="{% static 'images/donate_books.png' %}"/><br/>
+            Books<br/>(4)
+          </a>
+        </div>
+
+        <div class="column_item">
+          <a href="" class="donate_option">
+            <img src="{% static 'images/donate_lego_sets.png' %}"/><br/>
+            Lego Sets<br/>(4)
+          </a>
+        </div>
+
+        <div class="column_item">
+          <a href="" class="donate_option">
+            <img src="{% static 'images/donate_chairs.png' %}"/><br/>
+            Chairs<br/>(4)
+          </a>
+        </div>
+
+        <div class="column_item">
+          <a href="" class="donate_option">
+            <img src="{% static 'images/donate_desks.png' %}"/><br/>
+            Desks<br/>(4)
+          </a>
+        </div>
+
+        <div class="column_item">
+          <a href="" class="donate_option">
+            <img src="{% static 'images/donate_bicycles.png' %}"/><br/>
+            Bicyles<br/>(4)
+          </a>
+        </div>
+        <div class="clr"></div>
+      </div>
+    </section>
+    -->
+
+    <section class="volunteer-stories base-spacing-lg-2x" id="jsRecentlySharedStories">
+    </section>
+  </div>
+
+  <!--<div id="modal_volunteer_flow" class="modal modal-volunteer-flow" style="display:none;">
+      <a href="" class="button-close fr btn-modal-close"></a>
+      <div class="content">
+        <h2 class="modal-heading">Volunteer</h2>
+
+        <div class="steps-wrapper">
+          <div class="step-item fadein visible" data-step="1">
+            <div class="step-date">
+              <h3 class="bordered-heading blue">Select Date &amp; Location<span></span></h3>
+              <div class="input-wrapper">
+                <input type="text" class="input-text width-100p" placeholder="Whitefield, Bangalore">
+                <a href="" class="icon-location"></a>
+              </div>
+              <div class="cal">
+                <input id="datepicker-input" type="hidden" readonly="readonly">
+                <div id="datepicker-wrapper"></div>
+              </div>
+              <div class="ta-c">
+                <a href="" class="button blue clickable js-volunteer-next-step">Next</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-item" data-step="2">
+            <div class="step-opportunities">
+            <h3 class="bordered-heading blue">Select Organization<span></span></h3>
+            <div class="opportunities-list">
+              <a class="list-item teaching js-volunteer-next-step">
+                <div class="left-col fl">
+                  <div class="title">Teaching Based</div>
+                  <p>
+                    Truffaut occupy Vice you probably haven't heard of them, selfies roof.
+                  </p>
+                </div>
+                <div class="available fr">
+                  <span>Available</span>
+                  26
+                </div>
+                <div class="clr"></div>
+              </a>
+
+              <a class="list-item activity js-volunteer-next-step">
+                <div class="left-col fl">
+                  <div class="title">Activity Based</div>
+                  <p>
+                    Truffaut occupy Vice you probably haven't heard of them, selfies roof.
+                  </p>
+                </div>
+                <div class="available fr">
+                  <span>Available</span>
+                  26
+                </div>
+                <div class="clr"></div>
+              </a>
+
+              <a class="list-item skill js-volunteer-next-step">
+                <div class="left-col fl">
+                  <div class="title">Skill Based</div>
+                  <p>
+                    Truffaut occupy Vice you probably haven't heard of them, selfies roof.
+                  </p>
+                </div>
+                <div class="available fr">
+                  <span>Available</span>
+                  26
+                </div>
+                <div class="clr"></div>
+              </a>
+
+              <p class="or-text">or</p>
+
+              <a class="list-item show-all js-volunteer-next-step">Show all</a>
+
+              <div class="ta-c">
+                <a href="" class="button blue js-volunteer-next-step">Show Selected</a>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="step-item" data-step="3">
+            <div class="step-opportunities">
+            <h3 class="bordered-heading blue">Opportunities Available <span></span></h3>
+            <div class="opportunities-list">
+              <a class="list-item teaching js-volunteer-next-step">
+                <div class="left-col fl">
+                  <div class="title">Teaching Based</div>
+                  <p>
+                    Truffaut occupy Vice you probably haven't heard of them, selfies roof.
+                  </p>
+                </div>
+                <div class="available fr">
+                  <span>Available</span>
+                  26
+                </div>
+                <div class="clr"></div>
+              </a>
+
+              <a class="list-item activity js-volunteer-next-step">
+                <div class="left-col fl">
+                  <div class="title">Activity Based</div>
+                  <p>
+                    Truffaut occupy Vice you probably haven't heard of them, selfies roof.
+                  </p>
+                </div>
+                <div class="available fr">
+                  <span>Available</span>
+                  26
+                </div>
+                <div class="clr"></div>
+              </a>
+
+              <a class="list-item skill js-volunteer-next-step">
+                <div class="left-col fl">
+                  <div class="title">Skill Based</div>
+                  <p>
+                    Truffaut occupy Vice you probably haven't heard of them, selfies roof.
+                  </p>
+                </div>
+                <div class="available fr">
+                  <span>Available</span>
+                  26
+                </div>
+                <div class="clr"></div>
+              </a>
+
+              <p class="or-text">or</p>
+
+              <a class="list-item show-all js-volunteer-next-step">Show all</a>
+
+              <div class="ta-c">
+                <a href="" class="button blue js-volunteer-next-step">Show Selected</a>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="step-item" data-step="4">
+            <div class="step-details">
+              <h3 class="bordered-heading blue">Fill Details<span></span></h3>
+              <input type="text" class="input-text width-100p" placeholder="Name">
+              <input type="text" class="input-text width-100p mar_top_30" placeholder="Email">
+              <input type="text" class="input-text width-100p mar_top_30" placeholder="Qualification">
+              <input type="text" class="input-text width-100p mar_top_30" placeholder="Phone Number">
+              <div class="ta-c mar_top_100">
+                <a href="" class="button blue js-volunteer-next-step">Next</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-item" data-step="5">
+            <div class="step-confirmation ta-c">
+              <h3 class="bordered-heading blue">Teacher Based<span></span></h3>
+              <div class="address en-school">
+                <div class="en-icon bigger en-school">s</div>
+                <div class="name">Govt. School for Girls</div>
+                <div class="details">
+                  27th Street, Koramangala,<br>
+                  Bangalore
+                </div>
+              </div>
+              <div class="date">
+                <div class="icon-cal"></div>
+                <div class="value">7th June, 2014</div>
+              </div>
+              <div class="message">
+                Thank You  for Volunteering.
+                <div class="text">You will soon receive a confirmation email and sms.</div>
+              </div>
+              <div class="mar_top_40">
+                <a href="" class="button blue">Confirm</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  -->
+
+  <!-- <div id="modal_overlay" class="modal-overlay"></div>
+  <div id="modal_wrapper"></div> -->
+
+  <!-- <div class="modal modal-login show">
+        <a class="button-close btn-modal-close"></a>
+        <div class="sign-in-form">
+            <form class="sign-in">
+              <h3 class="modal-heading">Login</h3>
+
+                <label class="width-grid-one ma block color-black bold mt-20 mb-5">Email</label>
+                <input class="width-grid-one ma block input" type="text">
+
+                <label class="width-grid-one ma block color-black bold mt-30 mb-5">Password</label>
+
+                <input class="width-grid-one ma block input" type="password">
+
+                <div class="btn-submit-wrapper">
+                    <input class="btn-submit" type="submit" value="Login">
+                </div>
+            </form>
+        </div>
+    </div> -->
+
+  {% include 'frontend_templates/volunteer.html' %}
+  {% include 'frontend_templates/volunteer_page.html' %}
+  
+{% endblock %}
+

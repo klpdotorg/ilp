@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+{% block page_title %}Volunteer Opportunities {{ action }}{% endblock %}
+{% block endbody %}
+{% compress js %}
+<script type="text/javascript" src="{% static 'js/common/basic_tabs.js' %}"></script>
+{% endcompress %}
+{% block endbody_extra %} {% endblock %}
+{% endblock %}
+{% block content %}
+<section>
+  <div class="container">
+    <h1 class="heading-primary brand-blue">Volunteer Opportunities {{ action }}</h1>
+    <div id="activityDetails">
+    </div>  
+  </div>
+</section>
+
+<div class="js-tab-wrap tab-wrap tab-org-edit">
+  <div class="tab-wrap-widescreen">
+    <div data-tab="details" class="js-tabs-link tab-heading tab-heading-active">{{ action }} Details</div>
+    {% if action != 'Add' %}
+    <div data-tab="volunteers" class="js-tabs-link tab-heading">Volunteers</div>
+    {% endif %}
+  </div>
+
+  <div class="tab-each">
+    <div data-tab="details" class="js-tab-content tab-content tab-active">
+      <div class="container">
+        <form class="form-base form-volunteer-oppor-edit" id="activityForm">
+          <div class="form-field-wrap">
+            <label>Activity Type</label>
+            <select id="activityType">
+              <option value="">Please select an activity type</option>
+              {% for typ in activity_types %}
+              <option value="{{ typ.id }}">{{ typ.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-field-wrap">
+            <label>School</label>
+            <input id="school" class="select2">
+          </div>
+          <div class="form-field-wrap">
+            <label>Date</label>
+            <input type="date" id="date" data-required="true" class="input-text js-input-date">
+          </div>
+          <div class="form-field-wrap">
+            <label>Text</label>
+            <textarea id="text" class="input-text"></textarea>
+          </div>
+          <input type="hidden" id="organization" />
+          <div class="form-field-wrap center-text">
+            <input type="submit" value="Submit" class="button">
+          </div>
+        </form>
+      </div> <!-- /container -->
+    </div> <!-- /tab-content -->
+  </div> <!-- /tab-each -->
+
+  {% if action != 'Add' %}
+  <div class="tab-each">
+    <div data-tab="volunteers" class="js-tab-content tab-content">
+      <div class="container" data-tab="volunteers">
+        <table class="table-base table-list-view table-volunteer-oppor" id="jsVolunteerTable">
+          <tr class="table-base-heading">
+            <th>Name</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </table>
+      </div> <!-- /container -->
+    </div> <!-- /tab-content -->
+  </div> <!-- /tab-each -->
+  {% endif %}
+</div> <!-- /tab-wrap -->
+
+{% include 'frontend_templates/volunteeractivity_form.html' %}
+{% endblock %}
