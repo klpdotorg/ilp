@@ -123,8 +123,10 @@ class InstitutionAggregation(models.Model):
 class InstitutionStuGenderCount(models.Model):
     institution = models.ForeignKey('Institution')
     academic_year = models.ForeignKey('common.AcademicYear')
-    num_boys = models.IntegerField(blank=True, null=True, db_column='num_boys')
-    num_girls = models.IntegerField(blank=True, null=True, db_column='num_girls')
+    num_boys = models.IntegerField(
+        blank=True, null=True, db_column='num_boys')
+    num_girls = models.IntegerField(
+        blank=True, null=True, db_column='num_girls')
 
     class Meta:
         managed = False

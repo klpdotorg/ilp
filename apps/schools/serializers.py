@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from rest_framework import serializers
 from schools.models import Institution
 
@@ -25,6 +27,10 @@ class InstitutionListSerializer(ILPSerializer):
 class InstitutionInfoSerializer(ILPSerializer):
     mgmt = serializers.CharField(source='management.name')
     cat = serializers.CharField(source='category.name')
+    moi = serializers.SerializerMethodField()
+    sex = serializers.CharField(source='gender.name')
+    address_full = serializers.CharField(source='address')
+    identifiers = serializers.SerializerMethodField()
     admin1 = BoundarySerializer('admin1')
     admin2 = BoundarySerializer('admin2')
     admin3 = BoundarySerializer('admin3')
@@ -32,21 +38,42 @@ class InstitutionInfoSerializer(ILPSerializer):
     assembly = serializers.SerializerMethodField()
     ward = serializers.SerializerMethodField()
     type = InstitutionTypeSerializer(source='institution_type')
+    num_boys = serializers.SerializerMethodField()
+    num_girls = serializers.SerializerMethodField()
+
+    # TODO: Add
+    # buses.
+    # images.
+    # basic_facilities
+    # has_volunteer_activities
 
     class Meta:
         model = Institution
         fields = (
-            'id', 'name', 'address', 'cat', 'mgmt', 'landmark', 'admin1',
-            'admin2', 'admin3', 'parliament', 'assembly', 'ward', 'type'
+            'id', 'name', 'address_full', 'cat', 'mgmt', 'moi', 'sex',
+            'landmark', 'identifiers', 'admin1', 'admin2', 'admin3',
+            'parliament', 'dise_code', 'assembly', 'ward', 'type',
+            'num_boys', 'num_girls'
         )
 
+    def get_moi(self, obj):
+        lang = obj.institutionlanguage_set.first()
+        if lang:
+            return lang.moi
+        return None
+
+    def get_identifiers(self, obj):
+        return ', '.join(filter(None, [
+            obj.instidentification, obj.instidentification2
+        ])) or None
+
     def get_parliament(self, obj):
-        if obj.ward is None:
+        if obj.mp is None:
             return None
         return ElectionBoundarySerializer(obj.mp).data
 
     def get_assembly(self, obj):
-        if obj.ward is None:
+        if obj.mla is None:
             return None
         return ElectionBoundarySerializer(obj.mla).data
 
@@ -54,3 +81,19 @@ class InstitutionInfoSerializer(ILPSerializer):
         if obj.ward is None:
             return None
         return ElectionBoundarySerializer(obj.ward).data
+
+    def get_gender_counts(self, obj):
+        return obj.institutionstugendercount_set.\
+            filter(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
+
+    def get_num_boys(self, obj):
+        gender_count = self.get_gender_counts(obj)
+        if gender_count:
+            return gender_count.num_boys
+        return None
+
+    def get_num_girls(self, obj):
+        gender_count = self.get_gender_counts(obj)
+        if gender_count:
+            return gender_count.num_girls
+        return None
