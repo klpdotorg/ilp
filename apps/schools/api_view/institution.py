@@ -13,6 +13,7 @@ class InstitutionListView(ILPListAPIView, ILPStateMixin):
     queryset = Institution.objects.all()
     serializer_class = InstitutionListSerializer
     bbox_filter_field = "coord"
+    renderer_classes = (ILPJSONRenderer, )
     # filter_class = SchoolFilter
 
     def get_queryset(self):
