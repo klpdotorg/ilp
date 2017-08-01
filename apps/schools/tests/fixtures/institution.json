@@ -1,0 +1,358 @@
+[
+{
+    "model": "boundary.boundarytype",
+    "pk": "C",
+    "fields": {
+        "name": "Country"
+    }
+},
+{
+    "model": "boundary.electionparty",
+    "pk": "JD(S)",
+    "fields": {
+        "name": "Janata Dal (Secular)"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "MW",
+    "fields": {
+        "name": "Municipal Ward"
+    }
+},
+{
+    "model": "boundary.electionparty",
+    "pk": "BJP",
+    "fields": {
+        "name": "Bharatiya Janata Party"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ML",
+    "fields": {
+        "name": "Assembly Constituency"
+    }
+},
+{
+    "model": "boundary.electionparty",
+    "pk": "INC",
+    "fields": {
+        "name": "Indian National Congress"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "MP",
+    "fields": {
+        "name": "Parliament Constituency"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ST",
+    "fields": {
+        "name": "State"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "name": "India",
+        "boundary_type": "C",
+        "type": null,
+        "dise_slug": "India",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "PD",
+    "fields": {
+        "name": "Preschool District"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "PP",
+    "fields": {
+        "name": "Preschool Project"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "PC",
+    "fields": {
+        "name": "Preschool Circle"
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 442,
+    "fields": {
+        "state": 2,
+        "dise_slug": "",
+        "elec_comm_code": 95,
+        "const_ward_name": "Subhash Nagar",
+        "const_ward_type": "MW",
+        "current_elected_rep": "T.Mallesh",
+        "current_elected_party": "INC",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 217,
+    "fields": {
+        "state": 2,
+        "dise_slug": "gandhi-nagar",
+        "elec_comm_code": 164,
+        "const_ward_name": "Gandhi Nagar",
+        "const_ward_type": "ML",
+        "current_elected_rep": "DINESH GUNDU RAO",
+        "current_elected_party": "INC",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 264,
+    "fields": {
+        "state": 2,
+        "dise_slug": "bangalore-central",
+        "elec_comm_code": 25,
+        "const_ward_name": "Bangalore Central",
+        "const_ward_type": "MP",
+        "current_elected_rep": "P. C. Mohan",
+        "current_elected_party": "BJP",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 8778,
+    "fields": {
+        "parent": 8773,
+        "name": "bangalore state",
+        "boundary_type": "PP",
+        "type": "pre",
+        "dise_slug": "Default",
+        "geom": "SRID=4326;POINT (77.57455471951226 12.95440351219513)",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 8829,
+    "fields": {
+        "parent": 8778,
+        "name": "yashwanthpura",
+        "boundary_type": "PC",
+        "type": "pre",
+        "dise_slug": "Default",
+        "geom": "SRID=4326;POINT (77.56016700000001 13.00687231578947)",
+        "status": "AC"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 286,
+    "fields": {
+        "state": 2,
+        "dise_slug": "",
+        "elec_comm_code": 192,
+        "const_ward_name": "Begur",
+        "const_ward_type": "MW",
+        "current_elected_rep": "M.Srinivas",
+        "current_elected_party": "JD(S)",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 260,
+    "fields": {
+        "state": 2,
+        "dise_slug": "bangalore-south",
+        "elec_comm_code": 176,
+        "const_ward_name": "Bangalore South",
+        "const_ward_type": "ML",
+        "current_elected_rep": "M. KRISHNAPPA",
+        "current_elected_party": "BJP",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 263,
+    "fields": {
+        "state": 2,
+        "dise_slug": "bangalore-rural",
+        "elec_comm_code": 23,
+        "const_ward_name": "Bangalore Rural",
+        "const_ward_type": "MP",
+        "current_elected_rep": "D. K. Suresh",
+        "current_elected_party": "INC",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 2,
+    "fields": {
+        "parent": 1,
+        "name": "Karnataka",
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 8773,
+    "fields": {
+        "parent": 2,
+        "name": "bangalore",
+        "boundary_type": "PD",
+        "type": "pre",
+        "dise_slug": "Default",
+        "geom": "SRID=4326;POINT (77.59773614292784 12.95423918496539)",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 8779,
+    "fields": {
+        "parent": 8773,
+        "name": "bangalore south(banashankari)",
+        "boundary_type": "PP",
+        "type": "pre",
+        "dise_slug": "Default",
+        "geom": "SRID=4326;POINT (77.58928424766358 12.93085240887849)",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 8820,
+    "fields": {
+        "parent": 8779,
+        "name": "begure",
+        "boundary_type": "PC",
+        "type": "pre",
+        "dise_slug": "Default",
+        "geom": "SRID=4326;POINT (77.64143864864864 12.87578937837838)",
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.management",
+    "pk": 1,
+    "fields": {
+        "name": "Department of Education"
+    }
+},
+{
+    "model": "common.institutiontype",
+    "pk": "pre",
+    "fields": {
+        "name": "Pre School"
+    }
+},
+{
+    "model": "common.institutiongender",
+    "pk": "co-ed",
+    "fields": {
+        "name": "Co-ed"
+    }
+},
+{
+    "model": "schools.institutioncategory",
+    "pk": 10,
+    "fields": {
+        "name": "Anganwadi",
+        "institution_type": "pre"
+    }
+},
+{
+    "model": "schools.institution",
+    "pk": 29612,
+    "fields": {
+        "dise_code": "AN00147",
+        "name": "CHRISTIAN COLONY",
+        "category": 10,
+        "gender": "co-ed",
+        "institution_type": "pre",
+        "management": 1,
+        "year_established": null,
+        "rural_urban": null,
+        "phone_number": null,
+        "address": "4th Cross, 5th Main Road, Okalipuram Main Road, Srirampuram, Bangalore",
+        "area": "Christian Colony ",
+        "village": null,
+        "pincode": null,
+        "landmark": "Beside G.T.H.P.S Bharatiya Vidya Bhavan",
+        "instidentification": "Green Colour Building",
+        "instidentification2": "Blue Colour Door",
+        "route_information": "52",
+        "admin3": 8829,
+        "admin2": 8778,
+        "admin1": 8773,
+        "admin0": 2,
+        "mp": 264,
+        "mla": 217,
+        "gp": null,
+        "ward": 442,
+        "coord": null,
+        "last_verified_year": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.institution",
+    "pk": 29539,
+    "fields": {
+        "dise_code": "AN0025",
+        "name": "BEGURE",
+        "category": 10,
+        "gender": "co-ed",
+        "institution_type": "pre",
+        "management": 1,
+        "year_established": null,
+        "rural_urban": null,
+        "phone_number": null,
+        "address": "Begure Post, Begur Main Road, Begur Hobli",
+        "area": "Begure",
+        "village": null,
+        "pincode": null,
+        "landmark": "Near Begure Bus Stop",
+        "instidentification": "Cream Colour Building",
+        "instidentification2": "",
+        "route_information": "343, 362, 344, 345",
+        "admin3": 8820,
+        "admin2": 8779,
+        "admin1": 8773,
+        "admin0": 2,
+        "mp": 263,
+        "mla": 260,
+        "gp": null,
+        "ward": 286,
+        "coord": null,
+        "last_verified_year": null,
+        "status": "AC"
+    }
+}
+]
