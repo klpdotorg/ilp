@@ -50,11 +50,28 @@ class BoundaryAggregation(models.Model):
     name = models.CharField(max_length=300)
     academic_year = models.ForeignKey('common.AcademicYear')
     gender = models.ForeignKey('common.Gender')
-    moi = models.ForeignKey('common.Language', related_name='b_agg_moi')
     mt = models.ForeignKey('common.Language', related_name='b_agg_mt')
     religion = models.ForeignKey('common.Religion')
     category = models.ForeignKey('common.StudentCategory')
     num = models.IntegerField()
 
     class Meta:
-        unique_together = (('id','academic_year','gender','moi','mt','religion','category'), )
+        managed = False
+        db_table = 'mvw_boundary_aggregation'
+
+
+class BoundaryHierarchy(models.Model):
+    """boundary hierarchy details"""
+    admin3_id = models.ForeignKey('Boundary', related_name='admin3_id')
+    admin3_name = models.CharField(max_length=300)
+    admin2_id = models.ForeignKey('Boundary', related_name='admin2_id')
+    admin2_name = models.CharField(max_length=300)
+    admin1_id = models.ForeignKey('Boundary', related_name='admin1_id')
+    admin1_name = models.CharField(max_length=300)
+    admin0_id = models.ForeignKey('Boundary', related_name='admin0_id')
+    admin0_name = models.CharField(max_length=300)
+    type_id = models.ForeignKey('common.InstitutionType')
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_boundary_hierarchy'

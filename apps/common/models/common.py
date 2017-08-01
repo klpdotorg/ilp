@@ -1,6 +1,6 @@
 import datetime
 import inspect
-from enum import Enum
+#from enum import Enum
 import sys
 from django.db import models
 
