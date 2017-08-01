@@ -1,5 +1,5 @@
 from django.db import models
-from .institution import Institution
+from .institution import Institution, StudentGroup
 
 
 class Student(models.Model):
@@ -8,8 +8,8 @@ class Student(models.Model):
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     uid = models.CharField(max_length=100, blank=True, null=True)
-    dob = models.DateField(max_length=20,null=True)
-    gender = models.ForeignKey('common.Gender',default='m')
+    dob = models.DateField(max_length=20, null=True)
+    gender = models.ForeignKey('common.Gender', default='m')
     mt = models.ForeignKey('common.Language', default='kan')
     religion = models.ForeignKey('common.Religion', null=True)
     category = models.ForeignKey('common.StudentCategory', null=True)
@@ -21,23 +21,6 @@ class Student(models.Model):
 
     def __unicode__(self):
         return "%s" % self.first_name
-
-
-class StudentGroup(models.Model):
-    """ StudentGroup information per school"""
-    institution = models.ForeignKey(Institution)
-    name = models.CharField(max_length=50)
-    status = models.ForeignKey('common.Status')
-    section = models.CharField(max_length=10, blank=True, null=True)
-    group_type = models.ForeignKey('common.GroupType',default='class')
-    status = models.ForeignKey('common.Status')
-
-    class Meta:
-        unique_together = (('institution', 'name', 'section'), )
-        ordering = ['name', 'section']
-
-    def __unicode__(self):
-        return '%s' % self.name
 
 
 class StudentStudentGroupRelation(models.Model):
@@ -71,8 +54,8 @@ class Staff(models.Model):
     middle_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     uid = models.CharField(max_length=100, blank=True, null=True)
-    doj = models.DateField(max_length=20,null=True)
-    gender = models.ForeignKey('common.Gender',default='f')
+    doj = models.DateField(max_length=20, null=True)
+    gender = models.ForeignKey('common.Gender', default='f')
     mt = models.ForeignKey('common.Language', default='kan')
     staff_type = models.ForeignKey(StaffType)
     status = models.ForeignKey('common.Status')

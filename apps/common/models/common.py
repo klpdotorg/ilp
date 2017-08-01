@@ -1,7 +1,4 @@
 import datetime
-import inspect
-from enum import Enum
-import sys
 from django.db import models
 
 
@@ -27,9 +24,14 @@ class AcademicYear(models.Model):
 
 class Status(models.Model):
     """ Status of the data"""
-    ACTIVE='AC'
-    INACTIVE='IA'
-    DELETED='DL'
+    ACTIVE = 'AC'
+    INACTIVE = 'IA'
+    DELETED = 'DL'
+    PROMOTION_SUCCESS = 'PS'
+    PROMOTION_FAILED = 'PF'
+    PASSED_OUT = 'PO'
+    DETAINED = 'D'
+
     char_id = models.CharField(max_length=300, primary_key=True)
     name = models.CharField(max_length=300)
 
@@ -79,10 +81,13 @@ class InstitutionGender(models.Model):
 
 
 class InstitutionType(models.Model):
-    '''Aligned to constants defined in the DB models. When those change, these will also have to
-    change '''
-    PRIMARY_SCHOOL='primary'
-    PRESCHOOL='pre'
+    '''
+    Aligned to constants defined in the DB models. When those change,
+    these will also have to
+    change
+    '''
+    PRIMARY_SCHOOL = 'primary'
+    PRE_SCHOOL = 'pre'
 
     char_id = models.CharField(max_length=300, primary_key=True)
     name = models.CharField(max_length=300)
@@ -105,6 +110,7 @@ class GroupType(models.Model):
 
     class Meta:
         unique_together = (('name'), )
+
 
 class Religion(models.Model):
     """Religion"""

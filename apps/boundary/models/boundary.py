@@ -1,15 +1,19 @@
 from django.contrib.gis.db import models
 from common.models import common
 
+
 class BoundaryType(models.Model):
-    '''Aligned to constants defined in the DB models. When those change, these will also have to
-    change '''
-    SCHOOL_DISTRICT='SD'
-    SCHOOL_BLOCK='SB'
-    SCHOOL_CLUSTER='SC'
-    PRESCHOOL_DISTRICT='PD'
-    PRESCHOOL_PROJECT='PP'
-    PRESCHOOL_CIRCLE='PC'
+    '''
+    Aligned to constants defined in the DB models. When those change,
+    these will also have to
+    change
+    '''
+    SCHOOL_DISTRICT = 'SD'
+    SCHOOL_BLOCK = 'SB'
+    SCHOOL_CLUSTER = 'SC'
+    PRESCHOOL_DISTRICT = 'PD'
+    PRESCHOOL_PROJECT = 'PP'
+    PRESCHOOL_CIRCLE = 'PC'
 
     """ Boundary type """
     char_id = models.CharField(max_length=300, primary_key=True)
@@ -26,9 +30,11 @@ class Boundary(models.Model):
     geom = models.GeometryField(null=True)
     status = models.ForeignKey('common.Status')
     objects = common.StatusManager()
+
     class Meta:
         unique_together = (('name', 'parent', 'type'), )
-        ordering = ['name',]
+        ordering = ['name', ]
+
     def __unicode__(self):
         return '%s' % self.name
 
@@ -49,11 +55,28 @@ class BoundaryAggregation(models.Model):
     name = models.CharField(max_length=300)
     academic_year = models.ForeignKey('common.AcademicYear')
     gender = models.ForeignKey('common.Gender')
-    moi = models.ForeignKey('common.Language', related_name='b_agg_moi')
     mt = models.ForeignKey('common.Language', related_name='b_agg_mt')
     religion = models.ForeignKey('common.Religion')
     category = models.ForeignKey('common.StudentCategory')
     num = models.IntegerField()
 
     class Meta:
-        unique_together = (('id','academic_year','gender','moi','mt','religion','category'), )
+        managed = False
+        db_table = 'mvw_boundary_aggregation'
+
+
+class BoundaryHierarchy(models.Model):
+    """boundary hierarchy details"""
+    admin3_id = models.ForeignKey('Boundary', related_name='admin3_id')
+    admin3_name = models.CharField(max_length=300)
+    admin2_id = models.ForeignKey('Boundary', related_name='admin2_id')
+    admin2_name = models.CharField(max_length=300)
+    admin1_id = models.ForeignKey('Boundary', related_name='admin1_id')
+    admin1_name = models.CharField(max_length=300)
+    admin0_id = models.ForeignKey('Boundary', related_name='admin0_id')
+    admin0_name = models.CharField(max_length=300)
+    type_id = models.ForeignKey('common.InstitutionType')
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_boundary_hierarchy'
