@@ -35,3 +35,28 @@ class InstitutionAPITests(APITestCase):
         self.assertTrue(
             set(['type', 'geometry', 'properties']).issubset(results[0].keys())
         )
+
+    def test_list_api_admin_filters(self):
+        # test admin1 filter
+        url = (
+            reverse('institution-list', kwargs={'state': 'ka'}) +
+            "?admin1=0101"
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # test admin2 filter
+        url = (
+            reverse('institution-list', kwargs={'state': 'ka'}) +
+            "?admin2=0101"
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # test admin2 filter
+        url = (
+            reverse('institution-list', kwargs={'state': 'ka'}) +
+            "?admin3=0101"
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
