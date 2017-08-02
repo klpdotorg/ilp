@@ -1,2 +1,4 @@
 # Test dependencies.
 -r base.txt
+
+coverage==4.4.1

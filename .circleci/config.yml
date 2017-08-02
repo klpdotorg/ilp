@@ -22,7 +22,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             sudo apt-get install libgdal-dev
-            pip install -r requirements.txt
+            pip install -r requirements/test.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
@@ -30,4 +30,7 @@ jobs:
       - run:
           command: |
             . venv/bin/activate
-            python manage.py test
+            python manage.py loaddata apps/common/fixtures/*.json
+            python manage.py loaddata apps/*/tests/fixtures/*.json
+            coverage run --source='.' manage.py test schools
+            coverage report
