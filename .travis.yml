@@ -8,7 +8,7 @@ before_install:
 install:
   - "pip install -r requirements.txt"
 before_script:
-  - psql -U postgres -c "createdb -E UTF8 -T template0 test_ilp"
-  - psql -U postgres -c "create extension postgis"
+  - psql -U postgres createdb -E UTF8 -T template0 test_ilp
+  - psql -U postgres -d test_ilp -c "create extension postgis;"
 script:
   - python manage.py test 
