@@ -13,6 +13,9 @@ build
 # Logs:
 *.log
 
+# Coverage
+.coverage
+
 # Eclipse
 .project
 .pydevproject
