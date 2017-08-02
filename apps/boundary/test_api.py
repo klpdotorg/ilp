@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from tests import IlpTestCase
 # Create your tests here.
-from .views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
+from .api_views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
 Admin2sInsideAdmin1, Admin3sInsideAdmin1, Admin3sInsideAdmin2)
 from boundary.models import Boundary, BoundaryType
 from common.models import Status, InstitutionType
