@@ -133,6 +133,7 @@ except ImportError:
 
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 if TESTING:
+    print("Hello")
     try:
         from .test_settings import *
     except ImportError:

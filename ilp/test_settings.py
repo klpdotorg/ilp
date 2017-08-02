@@ -4,7 +4,7 @@ DATABASES = {
         'NAME': 'test_ilp',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '',
     }
 }
