@@ -7,6 +7,9 @@ class IlpTestCase(APITestCase):
     def setUpTestData(self):
         #Load fixtures
         print ("loading fixtures")
-        call_command('loaddata', 'apps/tests/fixtures/common', verbosity=0)
-        call_command('loaddata', 'apps/tests/fixtures/test_boundary', verbosity=0)
+        call_command('loaddata', 'apps/tests/test_fixtures/common', verbosity=0)
+        call_command('loaddata', 'apps/tests/test_fixtures/test_boundary', verbosity=0)
+        '''This is a custom django admin command created under boundary/
+         management/commands.
+        It can be used to create more matviews by modifying the py file '''
         call_command('creatematviews', verbosity=3)
