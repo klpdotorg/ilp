@@ -9,7 +9,7 @@ jobs:
     working_directory: ~/ilp
     docker:
       - image: circleci/python:3.6.1
-      - image: mdillon/postgis:9.3
+      - image: postgres:9.4
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: test_ilp
@@ -20,6 +20,10 @@ jobs:
             mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py  
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          name: Setup postgres and postgis
+          command: |
+            sudo -u postgres psql -d test_ilp -c "CREATE EXTENSION postgis;"
       - run:
           command: |
             python3 -m venv venv
@@ -42,7 +46,7 @@ jobs:
           name: Running tests.
           command: |
             . venv/bin/activate
-            coverage run --source='.' manage.py test schools
+            coverage run --source='.' --omit='venv/*' manage.py test schools
       - run:
           name: Coverage report.
           command: |

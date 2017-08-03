@@ -87,21 +87,6 @@ ROOT_URLCONF = 'ilp.urls'
 WSGI_APPLICATION = 'ilp.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'ilpproduction',
-        'USER': 'klp',
-        'PASSWORD': 'klp',
-        'HOST': '127:0:0:1',
-        'PORT': '5432',
-    }
-}
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
