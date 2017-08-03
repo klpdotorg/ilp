@@ -42,9 +42,10 @@ tramp
 Thumbs.db
 Desktop.ini
 
-#Secret key
+# Secret key
 secret.txt
 
-#local settings
+# Local settings
 local_settings.py
-local_test_settings.py
+test_settings.py
+prod_settings.py

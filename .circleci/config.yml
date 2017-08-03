@@ -15,6 +15,9 @@ jobs:
           POSTGRES_DB: test_ilp
     steps:
       - checkout
+      - run:
+          command: |
+            mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py  
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:

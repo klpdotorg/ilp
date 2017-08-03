@@ -126,16 +126,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, "/static")
 DEFAULT_ACADEMIC_YEAR = '1415'
 
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
-TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
-if TESTING:
-    print("Hello")
-    try:
-        from .test_settings import *
-    except ImportError:
-        pass
-
