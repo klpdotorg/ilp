@@ -93,7 +93,7 @@
     {
         "model": "boundary.BoundaryType",
         "fields":{
-            "char_id": "ML",
+            "char_id": "MLA",
             "name": "Assembly Constituency"
         }
     },

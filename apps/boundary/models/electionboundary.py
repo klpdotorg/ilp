@@ -13,6 +13,7 @@ class ElectionBoundary(models.Model):
     current_elected_rep = models.CharField(max_length=300, null=True)
     current_elected_party = models.ForeignKey('ElectionParty', null=True)
     status = models.ForeignKey('common.Status')
+    geom = models.GeometryField(null=True)
 
     #class Meta:
      #   unique_together = (('elec_comm_code'), )
