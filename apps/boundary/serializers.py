@@ -26,11 +26,12 @@ class BoundaryWithParentSerializer(ILPSerializer):
 
 class BoundaryHierarchySerializer(ILPSerializer):
     class Meta:
-        model = BoundaryHierarchy
+        model = BoundaryHierarchy()
         fields = (
-            'admin0_name', 'admin1_name',
-            'admin2_name', 'admin3_name'
+            'admin0_name', 'admin0_id', 'admin1_name', 'admin1_id',
+            'admin2_name', 'admin2_id', 'admin3_name', 'admin3_id'
         )
+        
 # class AssemblySerializer(KLPSimpleGeoSerializer):
 #     class Meta:
 #         model = Assembly

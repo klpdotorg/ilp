@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from tests import IlpTestCase
 # Create your tests here.
-from .views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
+from .api_views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
 Admin2sInsideAdmin1, Admin3sInsideAdmin1, Admin3sInsideAdmin2)
 from boundary.models import Boundary, BoundaryType
 from common.models import Status, InstitutionType
@@ -45,24 +45,24 @@ class BoundaryApiTests(IlpTestCase):
     
 
     def test_list_noauth(self):
-        url = '/api/v1/ka/boundary/admin1s'
+        url = reverse('admin1s-boundary', kwargs={'state':'ka'})
         print("=======================================================")
         print("Test unauthorized access of URL - ",url)
         request = self.factory.get(url)
-        response = self.view(request)
-        self.assertEqual(response.status_code,403)
+        response = self.view(request, state='ka')
+        self.assertEqual(response.status_code,200)
         response.render()
         data = json.loads(response.content)
         print("Response is: ", data)
         print("End test ===============================================")
        
     def test_list_admin1s_boundaries(self):
-        url = '/api/v1/ka/boundary/admin1s'
+        url = reverse('admin1s-boundary', kwargs={'state':'ka'})
         print("=======================================================")
         print("Test listing all admin1s boundaries - ", url)
         request = self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request)
+        response = self.view(request, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -73,12 +73,13 @@ class BoundaryApiTests(IlpTestCase):
         print("End test ===============================================")
 
     def test_admin1s_preschool_districts(self):
-        url = '/api/v1/ka/boundary/admin1s?school_type=pre'
+        url=reverse('admin1s-boundary', kwargs={'state': 'ka'})
+        url=url + '?school_type=pre'
         print("=======================================================")
         print("Testing listing admin1s boundaries filter by school type ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request, type='pre')
+        response = self.view(request, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -87,12 +88,13 @@ class BoundaryApiTests(IlpTestCase):
         print("End test ===============================================")
     
     def test_admin1s_primaryschool_districts(self):
-        url = '/api/v1/ka/boundary/admin1s?school_type=primary'
+        url=reverse('admin1s-boundary', kwargs={'state': 'ka'})
+        url = url + '?school_type=primary'
         print("=======================================================")
         print("Testing listing primary school admin1s boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.view(request)
+        response = self.view(request,state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -102,12 +104,13 @@ class BoundaryApiTests(IlpTestCase):
         print("End test ===============================================")
     
     def test_admin2s_boundaries(self):
-        url = '/api/v1/ka/boundary/admin2s'
+        url=reverse('admin2s-boundary', kwargs={'state': 'ka'})
+        #url = '/api/v1/ka/boundary/admin2s'
         print("=======================================================")
         print("Testing list all admin2s boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.admin2sView(request)
+        response = self.admin2sView(request, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -118,12 +121,13 @@ class BoundaryApiTests(IlpTestCase):
         print("End test ===============================================")
 
     def test_admin2s_preschool_districts(self):
-        url = '/api/v1/ka/boundary/admin2s?school_type=pre'
+        url=reverse('admin2s-boundary', kwargs={'state': 'ka'})
+        url = url + '?school_type=pre'
         print("=======================================================")
         print("Testing listing admin2s preschool boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.admin2sView(request, type='pre')
+        response = self.admin2sView(request, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -133,12 +137,13 @@ class BoundaryApiTests(IlpTestCase):
         print("End test ===============================================")
     
     def test_admin2s_primaryschool_districts(self):
-        url = '/api/v1/ka/boundary/admin2s?school_type=primary'
+        url = reverse('admin2s-boundary', kwargs={'state': 'ka'})
+        url = url + '?school_type=primary'
         print("=======================================================")
         print("Testing listing primary school admin2s boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.admin2sView(request)
+        response = self.admin2sView(request, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -148,12 +153,12 @@ class BoundaryApiTests(IlpTestCase):
         print("End test ===============================================")
 
     def test_admin3s_boundaries(self):
-        url = '/api/v1/ka/boundary/admin3s'
+        url = reverse('admin3s-boundary', kwargs={'state': 'ka'})
         print("=======================================================")
         print("Testing list all admin3s boundaries ", url)
-        request=self.factory.get(url)
+        request = self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.admin3sView(request)
+        response = self.admin3sView(request, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -163,12 +168,13 @@ class BoundaryApiTests(IlpTestCase):
         print("End test ===============================================")
 
     def test_admin3s_preschool_districts(self):
-        url = '/api/v1/ka/boundary/admin3s?school_type=pre'
+        url = reverse('admin3s-boundary', kwargs={'state': 'ka'})
+        url = url + '?school_type=pre'
         print("=======================================================")
         print("Testing listing admin3s preschool boundaries ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.admin3sView(request, type='pre')
+        response = self.admin3sView(request,state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -180,12 +186,13 @@ class BoundaryApiTests(IlpTestCase):
         print("End test ===============================================")
     
     def test_admin3s_primaryschool_districts(self):
-        url = '/api/v1/ka/boundary/admin3s?school_type=primary'
+        url = reverse('admin3s-boundary', kwargs={'state': 'ka'})
+        url = url + '?school_type=primary'
         print("=======================================================")
         print("Testing listing primary school admin3s boundaries ", url)
-        request=self.factory.get(url)
+        request = self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response = self.admin3sView(request)
+        response = self.admin3sView(request, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -202,7 +209,7 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing fetch admin2s boundaries for district ID: 414 ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response=self.admin2InsideAdmin1(request,id=414)
+        response=self.admin2InsideAdmin1(request,id=414, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -220,7 +227,7 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing fetch admin3s boundaries for district ID: 414 ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response=self.admin3InsideAdmin1(request,id=414)
+        response=self.admin3InsideAdmin1(request,id=414, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
@@ -235,7 +242,7 @@ class BoundaryApiTests(IlpTestCase):
         print("Testing fetch admin2s boundaries for district ID: 467 ", url)
         request=self.factory.get(url)
         force_authenticate(request,user=self.user)
-        response=self.admin3InsideAdmin2(request, id=467)
+        response=self.admin3InsideAdmin2(request, id=467, state='ka')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
