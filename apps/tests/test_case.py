@@ -8,4 +8,5 @@ class IlpTestCase(APITestCase):
         #Load fixtures
         print ("loading fixtures")
         call_command('loaddata', 'apps/tests/fixtures/common', verbosity=0)
-        call_command('loaddata', 'apps/tests/fixtures/boundary', verbosity=0)
+        call_command('loaddata', 'apps/tests/fixtures/test_boundary', verbosity=0)
+        call_command('creatematviews', verbosity=3)
