@@ -6,7 +6,7 @@ except ImportError:
     pass
 
 try:
-    from .test_settings import *
+    from .ci_settings import *
 except ImportError:
     pass
     
