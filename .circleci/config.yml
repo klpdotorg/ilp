@@ -33,6 +33,7 @@ jobs:
       - run:
           command: |
             . venv/bin/activate
+            python manage.py migrate
             python manage.py loaddata apps/common/fixtures/*.json
             python manage.py loaddata apps/*/tests/fixtures/*.json
             python manage.py test schools
