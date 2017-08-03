@@ -31,12 +31,24 @@ jobs:
           paths:
             - "venv"
       - run:
+          name: Running migration and loading up fixtures.
           command: |
             . venv/bin/activate
             python manage.py migrate
             python manage.py loaddata apps/common/fixtures/*.json
             python manage.py loaddata apps/*/tests/fixtures/*.json
-            python manage.py test schools
             mkdir -p /tmp/artifacts
+      - run:
+          name: Running tests.
+          command: |
+            . venv/bin/activate
+            coverage run --source='.' manage.py test schools
+      - run:
+          name: Coverage report.
+          command: |
+            . venv/bin/activate
+            coverage report
+            coverage html
+            mv htmlcov /tmp/artifacts
       - store_artifacts:
           path: /tmp/artifacts
