@@ -4,14 +4,15 @@ from django.core.management import call_command
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from schools.tests.fixtures.meta import INSTITUTION_COUNT
+from schools.tests.test_fixtures.meta import INSTITUTION_COUNT
 
 
 class InstitutionAPITests(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
-        call_command('loaddata', 'apps/schools/tests/fixtures/institution')
+        call_command('loaddata',
+                     'apps/schools/tests/test_fixtures/institution')
         call_command('run_materialized_view')
 
     def test_list_api(self):
