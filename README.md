@@ -1,4 +1,4 @@
-ILP
+ILP [![CircleCI](https://circleci.com/gh/klpdotorg/ilp.svg?style=svg)](https://circleci.com/gh/klpdotorg/ilp)
 ====
 
 
