@@ -31,11 +31,6 @@ jobs:
           paths:
             - "venv"
       - run:
-          name: Running migration and loading up fixtures.
-          command: |
-            . venv/bin/activate
-            psql -h localhost -U circleci -d test_ilp -f imports/aggregates/materialized_views.sql
-      - run:
           name: Running tests.
           command: |
             . venv/bin/activate

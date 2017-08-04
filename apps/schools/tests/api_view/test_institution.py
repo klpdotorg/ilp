@@ -12,6 +12,7 @@ class InstitutionAPITests(APITestCase):
     @classmethod
     def setUpTestData(cls):
         call_command('loaddata', 'apps/schools/tests/fixtures/institution')
+        call_command('run_materialized_view')
 
     def test_list_api(self):
         url = reverse('institution-list', kwargs={'state': 'ka'})
