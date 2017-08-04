@@ -60,7 +60,11 @@ To:
 
 ### Create a Local settings file
 
-    touch ilp/local_settings.py
+    mv ilp/settings/local_settings.py.sample ilp/settings/local_settings.py
+
+    OR
+
+    mv ilp/settings/prod_settings.py.sample ilp/settings/prod_settings.py
 
 ### Setup your database
 
