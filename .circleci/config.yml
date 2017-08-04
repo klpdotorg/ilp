@@ -3,7 +3,7 @@ general:
   branches:
     only:
       - master
-      - /*-test/
+      - /*/
 jobs:
   build:
     working_directory: ~/ilp
