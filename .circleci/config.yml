@@ -18,10 +18,13 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
+          name: Basic project setup
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
             sudo apt-get install libgdal-dev
+            sudo apt-get install -y postgresql-client
             pip install -r requirements/test.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
@@ -31,10 +34,7 @@ jobs:
           name: Running migration and loading up fixtures.
           command: |
             . venv/bin/activate
-            python manage.py migrate
-            python manage.py loaddata apps/common/fixtures/*.json
-            python manage.py loaddata apps/*/tests/fixtures/*.json
-            sudo -u circleci psql -h localhost -U circleci -d test_ilp -f imports/aggregates/materialized_views.sql
+            psql -h localhost -U circleci -d test_ilp -f imports/aggregates/materialized_views.sql
       - run:
           name: Running tests.
           command: |
