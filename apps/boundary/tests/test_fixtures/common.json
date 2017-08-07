@@ -1,0 +1,384 @@
+[
+{
+    "model": "common.academicyear",
+    "pk": "0708",
+    "fields": {
+        "year": "2007-2008",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "0809",
+    "fields": {
+        "year": "2008-2009",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "0910",
+    "fields": {
+        "year": "2009-2010",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1011",
+    "fields": {
+        "year": "2010-2011",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1112",
+    "fields": {
+        "year": "2011-2012",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1213",
+    "fields": {
+        "year": "2012-2013",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1314",
+    "fields": {
+        "year": "2013-2014",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1415",
+    "fields": {
+        "year": "2014-205",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1516",
+    "fields": {
+        "year": "2015-2016",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1617",
+    "fields": {
+        "year": "2016-2017",
+        "active": "AC"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1718",
+    "fields": {
+        "year": "2017-2018",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1819",
+    "fields": {
+        "year": "2018-2019",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1920",
+    "fields": {
+        "year": "2019-2020",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "2021",
+    "fields": {
+        "year": "2020-2021",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "2122",
+    "fields": {
+        "year": "2021-2022",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "2223",
+    "fields": {
+        "year": "2022-2023",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "2324",
+    "fields": {
+        "year": "2023-2024",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "2425",
+    "fields": {
+        "year": "2024-2025",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "D",
+    "fields": {
+        "name": "Detained"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "DL",
+    "fields": {
+        "name": "Deleted"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "IA",
+    "fields": {
+        "name": "Inactive"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "PF",
+    "fields": {
+        "name": "Promotion Failed"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "PO",
+    "fields": {
+        "name": "Passed Out"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "PS",
+    "fields": {
+        "name": "Promotion Success"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "ben",
+    "fields": {
+        "name": "Bengali"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "eng",
+    "fields": {
+        "name": "English"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "guj",
+    "fields": {
+        "name": "Gujarati"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "hin",
+    "fields": {
+        "name": "Hindi"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "kan",
+    "fields": {
+        "name": "Kannada"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "kon",
+    "fields": {
+        "name": "Konkani"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "mal",
+    "fields": {
+        "name": "Malayalam"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "mar",
+    "fields": {
+        "name": "Marathi"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "multi",
+    "fields": {
+        "name": "Multiple Language"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "nep",
+    "fields": {
+        "name": "Nepali"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "ori",
+    "fields": {
+        "name": "Oriya"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "oth",
+    "fields": {
+        "name": "Other"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "san",
+    "fields": {
+        "name": "Sanskrit"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "sin",
+    "fields": {
+        "name": "Sindhi"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "tam",
+    "fields": {
+        "name": "Tamil"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "unknown",
+    "fields": {
+        "name": "Not Known"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "urd",
+    "fields": {
+        "name": "Urdu"
+    }
+},
+{
+    "model": "common.institutiongender",
+    "pk": "boys",
+    "fields": {
+        "name": "Boys"
+    }
+},
+{
+    "model": "common.institutiongender",
+    "pk": "coed",
+    "fields": {
+        "name": "Co-ed"
+    }
+},
+{
+    "model": "common.institutiongender",
+    "pk": "girls",
+    "fields": {
+        "name": "Girls"
+    }
+},
+{
+    "model": "common.institutiontype",
+    "pk": "pre",
+    "fields": {
+        "name": "Pre School"
+    }
+},
+{
+    "model": "common.institutiontype",
+    "pk": "primary",
+    "fields": {
+        "name": "Primary School"
+    }
+},
+{
+    "model": "common.gender",
+    "pk": "f",
+    "fields": {
+        "name": "Female"
+    }
+},
+{
+    "model": "common.gender",
+    "pk": "m",
+    "fields": {
+        "name": "Male"
+    }
+},
+{
+    "model": "common.gender",
+    "pk": "o",
+    "fields": {
+        "name": "Other"
+    }
+},
+{
+    "model": "common.grouptype",
+    "pk": "center",
+    "fields": {
+        "name": "Center"
+    }
+},
+{
+    "model": "common.grouptype",
+    "pk": "class",
+    "fields": {
+        "name": "Class"
+    }
+}
+]

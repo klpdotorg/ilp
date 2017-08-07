@@ -14,10 +14,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         dsettings = settings.DATABASES['default']
+        dbname = dsettings['NAME']
+        print("DB name is: ", dbname)
         command = (
             "psql -h {} -U {} -d {} -f "
             "imports/aggregates/materialized_views.sql".format(
-               dsettings['HOST'], dsettings['USER'], dsettings['NAME']
+               dsettings['HOST'], dsettings['USER'], dbname
             )
         )
         os.system(command)
