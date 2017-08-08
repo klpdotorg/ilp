@@ -8,7 +8,7 @@ COPY(SELECT id,
     elec_comm_code,
     const_ward_name,
     CASE
-        WHEN const_ward_type='MLA Constituency' THEN 'ML'
+        WHEN const_ward_type='MLA Constituency' THEN 'MLA'
         WHEN const_ward_type='Ward' THEN 'MW'
         WHEN const_ward_type='MP Constituency' THEN 'MP'
         WHEN const_ward_type='Centre' THEN 'C'

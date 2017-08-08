@@ -27,9 +27,9 @@ class BoundaryApiTests(APITestCase):
         #Load fixtures
         print("loading fixtures")
         call_command('loaddata', 'apps/boundary/tests/test_fixtures/common', 
-                     verbosity=0)
+                     verbosity=3)
         call_command('loaddata', 'apps/boundary/tests/test_fixtures/test_boundary', 
-                     verbosity=0)
+                     verbosity=3)
         '''This is a custom django admin command created under boundary/
          management/commands.
         It can be used to create more matviews by modifying the py file '''
