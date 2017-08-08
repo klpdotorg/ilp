@@ -7,9 +7,10 @@
     Run updateinstitutiondata.py script:
     python updateinstitutiondata.py <dubdubudb db> <unified db>
 
-3. Import StudentGroup data from EMS
+3. Update coords in the institution table. It expects a csv file with:dise code, latitude, longitude
+    Run updateinstitutiondcoords.py script:
+    python updateinstitutioncoords.py <full path of the coords.csv> <unified db>
+
+4. Import StudentGroup data from EMS
     Run import_studentgroup_data.py script:
     python import_inst_data.py <EMS db> <unified db>
-
-TODO:-
-1. Update mp/mla data
