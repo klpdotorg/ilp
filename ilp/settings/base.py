@@ -42,7 +42,7 @@ INSTALLED_APPS = (
 
     'rest_framework',
     'django_extensions',
-    'django-filter',
+    'django_filters',
 
     # ILP apps
     'common',
