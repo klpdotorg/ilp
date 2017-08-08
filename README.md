@@ -88,8 +88,18 @@ Run:
 ### Fill static data
     python manage.py loaddata apps/*/fixtures/*.json
 
-### To import old data refer to README.md in imports directory
+### Setting up to build ILP DB from scratch
 
+Databases required before beginning imports :
+
+EMS - Get dump from one of the devs
+dubdubdub - get gz file from /home/vamsee @ dev.klp.org.in
+klp-coord - get gz file from /home/vamsee @ dev.klp.org.in
+electrep_new - get gz file from /home/vamsee @dev.klp.org.in
+
+More to come (TBD)
+
+Once the DBs are set up, run all the scripts per app in the imports directory. Please refer to READMEs there under each folder.
 
 ### Run the application
 
