@@ -33,7 +33,7 @@ class BoundaryApiTests(APITestCase):
         '''This is a custom django admin command created under boundary/
          management/commands.
         It can be used to create more matviews by modifying the py file '''
-        call_command('run_materialized_view', verbosity=3)
+        call_command('creatematviews', verbosity=3)
 
     def setUp(self):
         #setup a test user
@@ -61,6 +61,11 @@ class BoundaryApiTests(APITestCase):
         # Boundary.objects.get_or_create(id=3, parent=boundary_karnataka, name="Test District",boundary_type=school_district, type=preschool_type, dise_slug="Test District", status=active_status)
     
 
+    def test_print(self):
+        print("Testing print...")
+        pass
+        boundaries = Boundary.objects.all()
+        print("Boundaries exist, ", boundaries)
     def test_list_noauth(self):
         url = reverse('admin1s-boundary', kwargs={'state':'ka'})
         print("=======================================================")
@@ -213,6 +218,7 @@ class BoundaryApiTests(APITestCase):
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
+        print("Data count is: ", data['count'])
         self.assertTrue(data['count']>0)
         self.assertEqual(data['count'],4061)
         self.assertTrue(data['results'][0]['boundary_type']== 'SC')
