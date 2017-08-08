@@ -92,10 +92,10 @@ Run:
 
 Databases required before beginning imports :
 
-EMS - Get dump from one of the devs
-dubdubdub - get gz file from /home/vamsee @ dev.klp.org.in
-klp-coord - get gz file from /home/vamsee @ dev.klp.org.in
-electrep_new - get gz file from /home/vamsee @dev.klp.org.in
+* EMS - Get dump from one of the devs
+* dubdubdub - get gz file from /home/vamsee @ dev.klp.org.in
+* klp-coord - get gz file from /home/vamsee @ dev.klp.org.in
+* electrep_new - get gz file from /home/vamsee @dev.klp.org.in
 
 More to come (TBD)
 
