@@ -6,27 +6,44 @@ import json
 import base64
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from tests import IlpTestCase
 # Create your tests here.
-from .api_views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
-Admin2sInsideAdmin1, Admin3sInsideAdmin1, Admin3sInsideAdmin2)
+from boundary.api_views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
+                        Admin2sInsideAdmin1, Admin3sInsideAdmin1, 
+                        Admin3sInsideAdmin2)
 from boundary.models import Boundary, BoundaryType
 from common.models import Status, InstitutionType
 
-class BoundaryApiTests(IlpTestCase):
+
+class BoundaryApiTests(APITestCase):
 
     '''setupTestData is invoked in the parent class which sets up fixtures just once for all the tests.
     So this test case should essentially be just reads/fetches. If we require a pristine DB each time for
     writes, please write another class '''
+
+    @classmethod
+    def setUpTestData(self):
+        #Load fixtures
+        print("loading fixtures")
+        call_command('loaddata', 'apps/boundary/tests/test_fixtures/common', 
+                     verbosity=3)
+        call_command('loaddata', 'apps/boundary/tests/test_fixtures/test_boundary', 
+                     verbosity=3)
+        '''This is a custom django admin command created under boundary/
+         management/commands.
+        It can be used to create more matviews by modifying the py file '''
+        call_command('creatematviews', verbosity=3)
+
     def setUp(self):
         #setup a test user
         self.user = get_user_model().objects.create_user('admin', 'admin@klp.org.in', 'admin')
         self.view = Admin1sBoundary.as_view()
         self.admin2sView = Admin2sBoundary.as_view()
         self.admin3sView = Admin3sBoundary.as_view()
-        self.admin2InsideAdmin1=Admin2sInsideAdmin1.as_view()
-        self.admin3InsideAdmin1=Admin3sInsideAdmin1.as_view()
-        self.admin3InsideAdmin2=Admin3sInsideAdmin2.as_view()
+        self.admin2InsideAdmin1 = Admin2sInsideAdmin1.as_view()
+        self.admin3InsideAdmin1 = Admin3sInsideAdmin1.as_view()
+        self.admin3InsideAdmin2 = Admin3sInsideAdmin2.as_view()
         self.factory = APIRequestFactory()
         # country, created = BoundaryType.objects.get_or_create(char_id="C", name="Country")
         # state, created = BoundaryType.objects.get_or_create(char_id="ST", name="State")
@@ -44,6 +61,11 @@ class BoundaryApiTests(IlpTestCase):
         # Boundary.objects.get_or_create(id=3, parent=boundary_karnataka, name="Test District",boundary_type=school_district, type=preschool_type, dise_slug="Test District", status=active_status)
     
 
+    def test_print(self):
+        print("Testing print...")
+        pass
+        boundaries = Boundary.objects.all()
+        print("Boundaries exist, ", boundaries)
     def test_list_noauth(self):
         url = reverse('admin1s-boundary', kwargs={'state':'ka'})
         print("=======================================================")
@@ -196,6 +218,7 @@ class BoundaryApiTests(IlpTestCase):
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         response.render()
         data = json.loads(response.content)
+        print("Data count is: ", data['count'])
         self.assertTrue(data['count']>0)
         self.assertEqual(data['count'],4061)
         self.assertTrue(data['results'][0]['boundary_type']== 'SC')
