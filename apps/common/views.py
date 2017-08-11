@@ -1,6 +1,7 @@
 from django.views.generic.base import TemplateView
 
 from rest_framework.settings import api_settings
+from rest_framework.viewsets import ModelViewSet
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.views import APIView
@@ -20,6 +21,10 @@ class StaticPageView(TemplateView):
 
 
 class ILPAPIView(APIView):
+    pass
+
+
+class ILPViewSet(ModelViewSet):
     pass
 
 
