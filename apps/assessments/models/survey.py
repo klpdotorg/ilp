@@ -1,57 +1,51 @@
-from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
-SURVEY_TYPE = (
-    ('assessment', 'Assessment'),
-    ('perception', 'Perception'),
-    ('monitor', 'Monitor'),
-)
 
-RESPONSE_TYPE = (
-    ('text', 'Text'),
-    ('score', 'Score'),
-    ('boolean', 'Boolean'),
-    ('grade', 'Grade'),
-    ('choice_set', 'Choice_Set'),
-)
+class SurveyType(models.Model):
+    """Type of Survey"""
+    char_id = models.CharField(max_length=20, primary_key=True)
+    desc = models.CharField(max_length=50)
 
-DISPLAY_TYPE = (
-    ('TextArea', 'TextArea'),
-    ('TextBox', 'TextBox'),
-    ('Radio', 'Radio'),
-    ('Select', 'Select'),
-    ('Checkbox', 'Checkbox'),
-)
+
+class ResponseType(models.Model):
+    """Type of input expected"""
+    char_id = models.CharField(max_length=20, primary_key=True)
+    desc = models.CharField(max_length=50)
+
+
+class DisplayType(models.Model):
+    """Display type to be used"""
+    char_id = models.CharField(max_length=20, primary_key=True)
+    desc = models.CharField(max_length=50)
+
 
 class Survey(models.Model):
     """Survey/Programme"""
-    created_at = models.DateField(max_length=20)
-    updated_at = models.DateField(max_length=20)
     name = models.CharField(max_length=100)
-    type = models.CharField(max_length=20, choices=SURVEY_TYPE)
-    start_date = models.DateField(max_length=20)
-    end_date = models.DateField(max_length=20, default="common.default_end_date")
-    academic_year = models.ForeignKey('common.AcademicYear')
-    partner = models.ForeignKey('Partner')
-    inst_type = models.ForeignKey('common.InstitutionType')
-    desc = models.CharField(max_length=200)
+    created_at = models.DateField(max_length=20)
+    updated_at = models.DateField(max_length=20, null=True)
+    partner = models.ForeignKey('Partner', null=True)
+    desc = models.CharField(max_length=200, null=True)
     status = models.ForeignKey('common.Status')
 
 
 class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
-    verison = models.IntegerField(blank=True, null=True)
-    source = models.ForeignKey("Source")
-    start_date = models.DateField(max_length=20)
-    end_date = models.DateField(max_length=20, default="common.default_end_date")
     name = models.CharField(max_length=100)
-    created_at = models.DateField(max_length=20)
-    updated_at = models.DateField(max_length=20)
-    double_entry = models.BooleanField(default=True)
     survey = models.ForeignKey('Survey')
-    created_by = models.ForeignKey(User)
+    type = models.ForeignKey('SurveyType')
+    inst_type = models.ForeignKey('common.InstitutionType')
+    start_date = models.DateField(max_length=20)
+    end_date = models.DateField(max_length=20, null=True)
+    academic_year = models.ForeignKey('common.AcademicYear', null=True)
+    verison = models.IntegerField(blank=True, null=True)
+    source = models.ForeignKey("Source", null=True)
+    double_entry = models.BooleanField(default=True)
+    created_by = models.ForeignKey(User, null=True)
+    created_at = models.DateField(max_length=20)
+    updated_at = models.DateField(max_length=20, null=True)
     status = models.ForeignKey('common.Status')
 
 
@@ -60,14 +54,15 @@ class Question(models.Model):
     question_text = models.CharField(max_length=100)
     display_text = models.CharField(max_length=100)
     key = models.CharField(max_length=50)
-    question_type = models.ForeignKey('QuestionType')
-    options = models.CharField(max_length=100)
+    question_type = models.ForeignKey('QuestionType', null=True)
+    options = models.CharField(max_length=100, null=True)
     is_featured = models.BooleanField()
     status = models.ForeignKey('common.Status')
 
 
 class Partner(models.Model):
     """Boundary that partner is associated with"""
+    char_id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=100)
     admin0 = models.ForeignKey('boundary.Boundary')
 
@@ -79,8 +74,8 @@ class Source(models.Model):
 
 class QuestionType(models.Model):
     """Different response and display choices for questions"""
-    type = models.CharField(max_length=20, choices=RESPONSE_TYPE)
-    display = models.CharField(max_length=20, choices=DISPLAY_TYPE)
+    type = models.ForeignKey('ResponseType')
+    display = models.ForeignKey('DisplayType')
 
 
 class QuestionGroupQuestions(models.Model):
@@ -120,4 +115,3 @@ class GuardianUserObjectPermission(models.Model):
     content_type_id = models.ForeignKey(ContentType)
     user_id = models.ForeignKey(User)
     permission_id = models.ForeignKey(Permission)
-
