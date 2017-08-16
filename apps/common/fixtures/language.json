@@ -23,6 +23,13 @@
     {
         "model": "common.Language",
         "fields":{
+            "char_id": "tel",
+            "name": "Telugu"
+        }
+    }
+    {
+        "model": "common.Language",
+        "fields":{
             "char_id": "eng",
             "name": "English"
         }

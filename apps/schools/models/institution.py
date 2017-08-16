@@ -94,7 +94,6 @@ class StudentGroup(models.Model):
     status = models.ForeignKey('common.Status')
     section = models.CharField(max_length=10, blank=True, null=True)
     group_type = models.ForeignKey('common.GroupType', default='class')
-    status = models.ForeignKey('common.Status')
 
     class Meta:
         unique_together = (('institution', 'name', 'section'), )
