@@ -1,0 +1,190 @@
+[
+{
+    "model": "boundary.boundarytype",
+    "pk": "C",
+    "fields": {
+        "name": "Country"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ST",
+    "fields": {
+        "name": "State"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "name": "India",
+        "boundary_type": "C",
+        "type": null,
+        "dise_slug": "India",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "SD",
+    "fields": {
+        "name": "School District"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "SB",
+    "fields": {
+        "name": "School Block"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "SC",
+    "fields": {
+        "name": "School Cluster"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 2,
+    "fields": {
+        "parent": 1,
+        "name": "Karnataka",
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 433,
+    "fields": {
+        "parent": 2,
+        "name": "bengaluru rural",
+        "boundary_type": "SD",
+        "type": "primary",
+        "dise_slug": "bangalore-rural",
+        "geom": "SRID=4326;POINT (77.83026257600002 13.11876424799999)",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 586,
+    "fields": {
+        "parent": 433,
+        "name": "devanahalli",
+        "boundary_type": "SB",
+        "type": "primary",
+        "dise_slug": "bangalore-rural-devanahalli",
+        "geom": "SRID=4326;POINT (77.71915364999998 13.20899746666667)",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 9092,
+    "fields": {
+        "parent": 586,
+        "name": "boodigere",
+        "boundary_type": "SC",
+        "type": "primary",
+        "dise_slug": "devanahalli-boodigere",
+        "geom": "SRID=4326;POINT (77.75238833333333 13.15186916666667)",
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.management",
+    "pk": 1,
+    "fields": {
+        "name": "Department of Education"
+    }
+},
+{
+    "model": "common.institutiontype",
+    "pk": "primary",
+    "fields": {
+        "name": "Primary School"
+    }
+},
+{
+    "model": "common.institutiongender",
+    "pk": "co-ed",
+    "fields": {
+        "name": "Co-ed"
+    }
+},
+{
+    "model": "schools.institutioncategory",
+    "pk": 14,
+    "fields": {
+        "name": "Upper Primary",
+        "institution_type": "primary"
+    }
+},
+{
+    "model": "common.grouptype",
+    "pk": "class",
+    "fields": {
+        "name": "Class"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "schools.institution",
+    "pk": 36172,
+    "fields": {
+        "dise_code": "29210316801",
+        "name": "G HPS SOMATHANAHALLI",
+        "category": 14,
+        "gender": "co-ed",
+        "institution_type": "primary",
+        "management": 1,
+        "year_established": null,
+        "rural_urban": null,
+        "phone_number": null,
+        "address": null,
+        "area": null,
+        "village": null,
+        "pincode": null,
+        "landmark": null,
+        "instidentification": null,
+        "instidentification2": null,
+        "route_information": null,
+        "admin3": 9092,
+        "admin2": 586,
+        "admin1": 433,
+        "admin0": 2,
+        "mp": null,
+        "mla": null,
+        "gp": null,
+        "ward": null,
+        "coord": null,
+        "last_verified_year": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.studentgroup",
+    "pk": 3486429,
+    "fields": {
+        "institution": 36172,
+        "name": "1",
+        "status": "AC",
+        "section": "",
+        "group_type": "class"
+    }
+}
+]
