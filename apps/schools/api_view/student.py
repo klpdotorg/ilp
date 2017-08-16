@@ -4,15 +4,16 @@ from rest_framework import viewsets
 from rest_framework.exceptions import APIException
 from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework_bulk import BulkCreateModelMixin
+from rest_framework.response import Response
 
 from schools.models import (
     Student, StudentGroup, StudentStudentGroupRelation
 )
 from schools.serializers import (
-    StudentSerializer
+    StudentSerializer, StudentGroupSerializer, StudentStudentGroupSerializer
 )
 from schools.filters import (
-    StudentFilter
+    StudentFilter, StudentGroupFilter
 )
 
 
@@ -51,9 +52,38 @@ class StudentViewSet(
             return queryset
 
 
-class StudentGroupViewSet(object):
-    pass
+class StudentGroupViewSet(viewsets.ModelViewSet):
+    #permission_classes = (WorkUnderInstitutionPermission,)
+    #queryset = StudentGroup.objects.all()
+    #print("Query set is: ", queryset)
+    serializer_class = StudentGroupSerializer
+    filter_class = StudentGroupFilter
+
+    def get_queryset():
+        
 
 
-class StudentStudentGroupViewSet(object):
+class StudentStudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     pass
+    queryset = StudentStudentGroupRelation.objects.all()
+    serializer_class = StudentStudentGroupSerializer
+
+    # M2M query returns duplicates. Overrode this function
+    # from NestedViewSetMixin to implement the .distinct()
+    def filter_queryset_by_parents_lookups(self, queryset):
+        parents_query_dict = self.get_parents_query_dict()
+        if parents_query_dict:
+            try:
+                return queryset.filter(
+                    **parents_query_dict
+                ).order_by().distinct('id')
+            except ValueError:
+                raise Http404
+        else:
+            return queryset
+
+#     def destroy(self, request, *args, **kwargs):
+#         instance = self.get_object()
+#         instance.active = 0
+#         instance.save()
+#         return Response(status=status.HTTP_204_NO_CONTENT)

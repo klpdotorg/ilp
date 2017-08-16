@@ -75,3 +75,19 @@ class StudentSerializer(BulkSerializerMixin, serializers.ModelSerializer):
             pass
         instance.save()
         return instance
+
+class StudentGroupSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = StudentGroup
+        fields = (
+            'id', 'institution', 'name', 'section', 'status', 'group_type'
+        )
+
+class StudentStudentGroupSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = StudentStudentGroupRelation
+        fields = (
+            'id','student','student_group','academic_year','status'
+        )
