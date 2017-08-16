@@ -1,0 +1,10 @@
+[
+    {
+        "model": "assessments.Partner",
+        "fields":{
+            "char_id": "akshara",
+            "name": "Akshara Foundation",
+            "admin0": "2"
+        }
+    }
+]

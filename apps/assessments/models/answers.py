@@ -18,17 +18,18 @@ class AnswerInstitution(models.Model):
     question = models.ForeignKey("Question")
     questiongroup = models.ForeignKey("QuestionGroup")
     double_entry = models.IntegerField()
-    created_by = models.ForeignKey(User)
+    created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateField(max_length=20)
-    respondent_type = models.ForeignKey("RespondentType")
-    comments = models.CharField(max_length=200)
+    respondent_type = models.ForeignKey("RespondentType", null=True)
+    comments = models.CharField(max_length=200, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
-    sysid = models.IntegerField()
+    sysid = models.IntegerField(null=True)
     entered_at = models.DateField(max_length=20)
 
     class Meta:
-        unique_together = (('question','questiongroup','institution'), )
+        unique_together = (('question', 'questiongroup', 'institution',
+                            'date_of_visit'), )
 
 
 class AnswerStudentGroup(models.Model):
@@ -38,15 +39,16 @@ class AnswerStudentGroup(models.Model):
     question = models.ForeignKey("Question")
     questiongroup = models.ForeignKey("QuestionGroup")
     double_entry = models.IntegerField()
-    created_by = models.ForeignKey(User)
+    created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateField(max_length=20)
-    respondent_type = models.ForeignKey("RespondentType")
-    comments = models.CharField(max_length=200)
+    respondent_type = models.ForeignKey("RespondentType", null=True)
+    comments = models.CharField(max_length=200, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
 
     class Meta:
-        unique_together = (('question','questiongroup','studentgroup'), )
+        unique_together = (('question', 'questiongroup', 'studentgroup',
+                            'date_of_visit'), )
 
 
 class AnswerStudent(models.Model):
@@ -56,15 +58,15 @@ class AnswerStudent(models.Model):
     question = models.ForeignKey("Question")
     questiongroup = models.ForeignKey("QuestionGroup")
     double_entry = models.IntegerField()
-    created_by = models.ForeignKey(User)
+    created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateField(max_length=20)
-    respondent_type = models.ForeignKey("RespondentType")
-    comments = models.CharField(max_length=200)
+    respondent_type = models.ForeignKey("RespondentType", null=True)
+    comments = models.CharField(max_length=200, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
 
     class Meta:
-        unique_together = (('question','questiongroup','student'), )
+        unique_together = (('question', 'questiongroup', 'student'), )
 
 
 class InstitutionImages(models.Model):

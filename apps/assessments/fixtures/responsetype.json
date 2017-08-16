@@ -1,0 +1,37 @@
+[
+    {
+        "model": "assessments.ResponseType",
+        "fields":{
+            "char_id": "text",
+            "desc": "Text"
+        }
+    },
+    {
+        "model": "assessments.ResponseType",
+        "fields":{
+            "char_id": "score",
+            "desc": "Score"
+        }
+    },
+    {
+        "model": "assessments.ResponseType",
+        "fields":{
+            "char_id": "boolean",
+            "desc": "Boolean"
+        }
+    },
+    {
+        "model": "assessments.ResponseType",
+        "fields":{
+            "char_id": "grade",
+            "desc": "Grade"
+        }
+    },
+    {
+        "model": "assessments.ResponseType",
+        "fields":{
+            "char_id": "choice",
+            "desc": "Choice"
+        }
+    }
+]
