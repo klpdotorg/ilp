@@ -1,4 +1,4 @@
-from common.views import ILPListAPIView
+from common.views import ILPListAPIView, ILPViewSet
 from common.models import Status, InstitutionType
 from common.renderers import ILPJSONRenderer
 from common.mixins import ILPStateMixin
@@ -9,7 +9,7 @@ from schools.serializers import (
 from schools.models import Institution
 
 
-class InstitutionListView(ILPListAPIView, ILPStateMixin):
+class InstitutionBasicViewSet(ILPViewSet, ILPStateMixin):
     queryset = Institution.objects.all()
     serializer_class = InstitutionListSerializer
     bbox_filter_field = "coord"
@@ -48,7 +48,7 @@ class InstitutionListView(ILPListAPIView, ILPStateMixin):
         return qset
 
 
-class InstitutionInfoView(ILPListAPIView):
+class InstitutionInfoViewSet(ILPViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionInfoSerializer
     # filter_class = SchoolFilter

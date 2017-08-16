@@ -52,15 +52,27 @@ class StudentViewSet(
             return queryset
 
 
-class StudentGroupViewSet(viewsets.ModelViewSet):
+class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     #permission_classes = (WorkUnderInstitutionPermission,)
-    #queryset = StudentGroup.objects.all()
-    #print("Query set is: ", queryset)
+    queryset = StudentGroup.objects.all()
+    print("Query set is: ", queryset)
     serializer_class = StudentGroupSerializer
     filter_class = StudentGroupFilter
 
-    def get_queryset():
-        
+    # M2M query returns duplicates. Overrode this function
+    # from NestedViewSetMixin to implement the .distinct()
+    def filter_queryset_by_parents_lookups(self, queryset):
+        parents_query_dict = self.get_parents_query_dict()
+        print("Parents query dict is: ", parents_query_dict)
+        if parents_query_dict:
+            try:
+                return queryset.filter(
+                    **parents_query_dict
+                ).order_by().distinct('id')
+            except ValueError:
+                raise Http404
+        else:
+            return queryset        
 
 
 class StudentStudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):

@@ -34,7 +34,7 @@ jobs:
           name: Running tests.
           command: |
             . venv/bin/activate
-            coverage run --source='.' --omit='venv/*' manage.py test schools
+            coverage run --source='.' --omit='venv/*' manage.py test schools boundary
       - run:
           name: Coverage report.
           command: |

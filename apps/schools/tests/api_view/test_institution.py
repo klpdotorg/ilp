@@ -16,7 +16,7 @@ class InstitutionAPITests(APITestCase):
         call_command('run_materialized_view')
 
     def test_list_api(self):
-        url = reverse('institution-list', kwargs={'state': 'ka'})
+        url = reverse('institution:basic-list', kwargs={'state': 'ka'})
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -24,7 +24,7 @@ class InstitutionAPITests(APITestCase):
 
     def test_list_api_with_geometry(self):
         url = (
-            reverse('institution-list', kwargs={'state': 'ka'}) +
+            reverse('institution:basic-list', kwargs={'state': 'ka'}) +
             "?geometry=yes"
         )
         response = self.client.get(url)
@@ -41,7 +41,7 @@ class InstitutionAPITests(APITestCase):
     def test_list_api_admin_filters(self):
         # test admin1 filter
         url = (
-            reverse('institution-list', kwargs={'state': 'ka'}) +
+            reverse('institution:basic-list', kwargs={'state': 'ka'}) +
             "?admin1=0101"
         )
         response = self.client.get(url)
@@ -49,7 +49,7 @@ class InstitutionAPITests(APITestCase):
 
         # test admin2 filter
         url = (
-            reverse('institution-list', kwargs={'state': 'ka'}) +
+            reverse('institution:basic-list', kwargs={'state': 'ka'}) +
             "?admin2=0101"
         )
         response = self.client.get(url)
@@ -57,8 +57,9 @@ class InstitutionAPITests(APITestCase):
 
         # test admin2 filter
         url = (
-            reverse('institution-list', kwargs={'state': 'ka'}) +
+            reverse('institution:basic-list', kwargs={'state': 'ka'}) +
             "?admin3=0101"
         )
+ 
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

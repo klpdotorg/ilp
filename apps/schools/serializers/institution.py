@@ -59,7 +59,7 @@ class InstitutionInfoSerializer(ILPSerializer):
     def get_moi(self, obj):
         lang = obj.institutionlanguage_set.first()
         if lang:
-            return lang.moi
+            return lang.moi.name
         return None
 
     def get_identifiers(self, obj):
@@ -83,8 +83,13 @@ class InstitutionInfoSerializer(ILPSerializer):
         return ElectionBoundarySerializer(obj.ward).data
 
     def get_gender_counts(self, obj):
-        return obj.institutionstugendercount_set.\
-            filter(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
+        if (
+            obj.institutionstugendercount_set.filter(
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists()
+        ):
+            return obj.institutionstugendercount_set.\
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
+        return None
 
     def get_num_boys(self, obj):
         gender_count = self.get_gender_counts(obj)
