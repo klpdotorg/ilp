@@ -29,9 +29,9 @@ nested_router.register(
         ).register(
             r'students',
             StudentViewSet,
-            base_name='institutions-studentgroups-students',
+            base_name='students',
             parents_query_lookups=['studentgroups__institution',
-            'studentgroups']
+            'institution']
         )
 
 urlpatterns = router.urls + nested_router.urls
