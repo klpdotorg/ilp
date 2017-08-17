@@ -1,6 +1,24 @@
 from django.db import models
-from .institution import Institution, StudentGroup
+from .institution import Institution
 
+class StudentGroup(models.Model):
+    """ StudentGroup information per school"""
+    institution = models.ForeignKey(Institution)
+    name = models.CharField(max_length=50)
+    status = models.ForeignKey('common.Status')
+    section = models.CharField(max_length=10, blank=True, null=True)
+    group_type = models.ForeignKey('common.GroupType', default='class')
+    students = models.ManyToManyField(
+        'Student',
+        related_name='studentgroups',
+        through='StudentStudentGroupRelation'
+    )
+    class Meta:
+        unique_together = (('institution', 'name', 'section'), )
+        ordering = ['name', 'section']
+
+    def __unicode__(self):
+        return '%s' % self.name
 
 class Student(models.Model):
     """ Student information """

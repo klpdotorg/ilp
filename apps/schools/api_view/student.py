@@ -32,6 +32,7 @@ class StudentViewSet(
     # from NestedViewSetMixin to implement the .distinct()
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
+        logger.debug("Arguments passed into StudentViewSet is: %s", parents_query_dict)
         if parents_query_dict.get('assessment', None):
             try:
                 # assessment_id = parents_query_dict.get('assessment')
@@ -44,9 +45,12 @@ class StudentViewSet(
                 raise APIException(ex)
         elif parents_query_dict:
             try:
-                return queryset.filter(
-                    **parents_query_dict
+                logger.debug("Filtering students for studentgroup id: %s ",
+                             parents_query_dict.get('studentgroups'))
+                results = queryset.filter(
+                    studentgroups__id=parents_query_dict.get('studentgroups')
                 ).order_by().distinct('id')
+                return results
             except ValueError:
                 raise Http404
         else:

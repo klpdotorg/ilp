@@ -87,20 +87,6 @@ class InstitutionLanguage(models.Model):
         unique_together = (('institution', 'moi'), )
 
 
-class StudentGroup(models.Model):
-    """ StudentGroup information per school"""
-    institution = models.ForeignKey(Institution)
-    name = models.CharField(max_length=50)
-    status = models.ForeignKey('common.Status')
-    section = models.CharField(max_length=10, blank=True, null=True)
-    group_type = models.ForeignKey('common.GroupType', default='class')
-
-    class Meta:
-        unique_together = (('institution', 'name', 'section'), )
-        ordering = ['name', 'section']
-
-    def __unicode__(self):
-        return '%s' % self.name
 
 
 class InstitutionAggregation(models.Model):
