@@ -26,7 +26,7 @@ tables=[
         'name': 'schools_student_primary',
         'table_name': 'schools_student',
         'columns': 'id, first_name, middle_name, last_name, uid, dob, gender_id, mt_id, institution_id, status_id',
-        'query': "COPY(select stu.id, c.first_name, c.middle_name, c.last_name, c.uid, c.dob, c.gender, case c.mt_id "+mt_case+" end, stu.sid,  'AC' from schools_child c ,(select stu.id as id,stu.child_id as child_id,  s.id as sid from schools_student stu, schools_student_studentgrouprelation stusg, schools_studentgroup sg, schools_institution s, schools_boundary b where stu.active=2 and stu.id = stusg.student_id and stusg.active=2 and stusg.academic_id=104 and stusg.student_group_id = sg.id and sg.active=2 and sg.institution_id=s.id and s.active=2 and s.boundary_id=b.id and b.boundary_type_id = 1)stu where stu.child_id = c.id)TO '$PWD/load/schools_student_pre.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'query': "COPY(select stu.id, c.first_name, c.middle_name, c.last_name, c.uid, c.dob, c.gender, case c.mt_id "+mt_case+" end, stu.sid,  'AC' from schools_child c ,(select stu.id as id,stu.child_id as child_id,  s.id as sid from schools_student stu, schools_student_studentgrouprelation stusg, schools_studentgroup sg, schools_institution s, schools_boundary b where stu.active=2 and stu.id = stusg.student_id and stusg.active=2 and stusg.academic_id=104 and stusg.student_group_id = sg.id and sg.active=2 and sg.institution_id=s.id and s.active=2 and s.boundary_id=b.id and b.boundary_type_id = 1)stu where stu.child_id = c.id)TO '$PWD/load/schools_student_primary.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
     },
     {
         'name': 'schools_student_pre',
@@ -76,4 +76,4 @@ def loaddata():
 init()
 create_sqlfiles()
 getdata()
-#loaddata()
+loaddata()
