@@ -23,6 +23,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
+            sudo apt-get update
             sudo apt-get install libgdal-dev
             sudo apt-get install -y postgresql-client
             pip install -r requirements/test.txt

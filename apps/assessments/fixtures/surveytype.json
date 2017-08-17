@@ -1,0 +1,23 @@
+[
+    {
+        "model": "assessments.SurveyType",
+        "fields":{
+            "char_id": "assessment",
+            "desc": "Assessment"
+        }
+    },
+    {
+        "model": "assessments.SurveyType",
+        "fields":{
+            "char_id": "perception",
+            "desc": "Perception"
+        }
+    },
+    {
+        "model": "assessments.SurveyType",
+        "fields":{
+            "char_id": "monitor",
+            "desc": "Monitor"
+        }
+    }
+]
