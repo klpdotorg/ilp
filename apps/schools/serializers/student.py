@@ -18,7 +18,7 @@ class StudentSerializer(BulkSerializerMixin, serializers.ModelSerializer):
         model = Student
         fields = (
             'id', 'first_name', 'middle_name', 'last_name', 'uid', 'dob',
-            'gender', 'mt', 'status',
+            'gender', 'mt', 'status'
             # 'relations'
         )
         list_serializer_class = BulkListSerializer

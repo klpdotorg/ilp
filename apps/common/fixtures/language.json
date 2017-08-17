@@ -124,5 +124,12 @@
             "char_id": "san",
             "name": "Sanskrit"
         }
+    }, 
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "lam",
+            "name": "Lamba"
+        }
     }
 ]
