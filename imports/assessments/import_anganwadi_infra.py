@@ -74,7 +74,7 @@ def create_sql_files():
         filename=os.getcwd()+'/load/'+table['name']+'.csv'
         open(filename,'wb',0)
         os.chmod(filename,0o666)
-        command='echo "'+table["query"].replace('replacetable',table["name"]).replace('replacename', table["name"])+'">>'+table['db']+'_query.sql'
+        command='echo "'+table["query"].replace('replacetable',table["name"]).replace('replacename', table["name"])+'">>'+basename+'_'+table['db']+'_query.sql'
         #print(command)
         system(command)
 
