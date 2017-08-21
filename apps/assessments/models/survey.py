@@ -9,6 +9,12 @@ class SurveyType(models.Model):
     description = models.CharField(max_length=50)
 
 
+class SurveyOnType(models.Model):
+    """Type of entity survey is conducted on"""
+    char_id = models.CharField(max_length=20, primary_key=True)
+    description = models.CharField(max_length=50)
+
+
 class ResponseType(models.Model):
     """Type of input expected"""
     char_id = models.CharField(max_length=20, primary_key=True)
@@ -37,6 +43,7 @@ class QuestionGroup(models.Model):
     survey = models.ForeignKey('Survey')
     type = models.ForeignKey('SurveyType')
     inst_type = models.ForeignKey('common.InstitutionType')
+    survey_on = models.ForeignKey('SurveyOnType')
     start_date = models.DateField(max_length=20)
     end_date = models.DateField(max_length=20, null=True)
     academic_year = models.ForeignKey('common.AcademicYear', null=True)
