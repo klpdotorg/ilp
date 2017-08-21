@@ -4,14 +4,17 @@ from common.renderers import ILPJSONRenderer
 from common.mixins import ILPStateMixin
 
 from schools.serializers import (
-    InstitutionListSerializer, InstitutionInfoSerializer
+    InstitutionSerializer, InstitutionInfoSerializer
 )
 from schools.models import Institution
 
 
-class InstitutionBasicViewSet(ILPViewSet, ILPStateMixin):
+class InstitutionViewSet(ILPViewSet, ILPStateMixin):
+    """
+    GET: Lists basic details of institutions
+    """
     queryset = Institution.objects.all()
-    serializer_class = InstitutionListSerializer
+    serializer_class = InstitutionSerializer
     bbox_filter_field = "coord"
     renderer_classes = (ILPJSONRenderer, )
     # filter_class = SchoolFilter
