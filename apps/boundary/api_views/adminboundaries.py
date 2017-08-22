@@ -21,7 +21,6 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
         state = self.get_state()
         queryset = Boundary.objects.filter(parent=state.id)
         school_type = self.request.query_params.get('school_type', None)
-        print("School type is: ", school_type)
         boundarytype = BoundaryType.SCHOOL_DISTRICT
         if school_type is not None:
             queryset = queryset.filter(type=school_type)
@@ -42,9 +41,7 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
 
     def get_queryset(self):
         # Get all the admin2 boundary ids for a particular state as a list     
-        print("Self kwargs is -------- ", self.kwargs)   
         admin2boundaries = self.get_state_boundaries().values_list('admin2_id', flat=True).distinct()
-        print("Retrieved admin2boundaries: ====== ", admin2boundaries)
         # Now, filter boundary table ids which are there in the above list and 
         # then look for Blocks or clusters
         result = Boundary.objects.filter(id__in=admin2boundaries).filter(

@@ -33,5 +33,37 @@ nested_router.register(
             parents_query_lookups=['institution',
             'studentgroups']
         )
-
+## StudentGroups -> Students -> StudentStudentGroupRelation
+nested_router.register(
+    r'studentgroups',
+    StudentGroupViewSet,
+    base_name='studentgroup',
+    ).register(
+        r'students',
+        StudentViewSet,
+        base_name='nested_students',
+        parents_query_lookups=['studentgroups']
+        ).register(
+            r'enrollment',
+            StudentStudentGroupViewSet,
+            base_name='studentstudentgrouprelation',
+            parents_query_lookups=['student__studentgroups', 'student']
+        )
+        
+##  Students -> StudentGroups -> StudentStudentGroupRelation
+nested_router.register(
+    r'students',
+    StudentViewSet,
+    base_name='students',
+    ).register(
+        r'studentgroups',
+        StudentGroupViewSet,
+        base_name='nested_students',
+        parents_query_lookups=['students']
+        ).register(
+            r'enrollment',
+            StudentStudentGroupViewSet,
+            base_name='studentstudentgrouprelation',
+            parents_query_lookups=['student_id', 'student_group']
+        )
 urlpatterns = router.urls + nested_router.urls

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from common.serializers import ILPSerializer
-from boundary.models import Boundary, ElectionBoundary, BoundaryHierarchy
+from boundary.models import Boundary, ElectionBoundary, BoundaryHierarchy, BoundaryType
 
 
 class BoundarySerializer(ILPSerializer):
@@ -50,3 +50,9 @@ class ElectionBoundarySerializer(ILPSerializer):
     class Meta:
         model = ElectionBoundary
         fields = ('id', 'name')
+
+class BoundaryTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BoundaryType
+        fields = ('char_id', 'name')
