@@ -3,21 +3,21 @@
         "model": "assessments.SurveyType",
         "fields":{
             "char_id": "assessment",
-            "desc": "Assessment"
+            "description": "Assessment"
         }
     },
     {
         "model": "assessments.SurveyType",
         "fields":{
             "char_id": "perception",
-            "desc": "Perception"
+            "description": "Perception"
         }
     },
     {
         "model": "assessments.SurveyType",
         "fields":{
             "char_id": "monitor",
-            "desc": "Monitor"
+            "description": "Monitor"
         }
     }
 ]

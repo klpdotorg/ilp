@@ -1,0 +1,23 @@
+[
+    {
+        "model": "assessments.SurveyOnType",
+        "fields":{
+            "char_id": "institution",
+            "description": "Institution"
+        }
+    },
+    {
+        "model": "assessments.SurveyOnType",
+        "fields":{
+            "char_id": "studentgroup",
+            "description": "StudentGroup"
+        }
+    },
+    {
+        "model": "assessments.SurveyOnType",
+        "fields":{
+            "char_id": "student",
+            "description": "Student"
+        }
+    }
+]

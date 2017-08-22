@@ -40,7 +40,7 @@ tables=[
     {
         'name': 'assessments_questiongroup',
         'db': todatabase,
-        'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, type_id) values(1,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',1,'monitor');"
+        'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, survey_on_id, type_id) values(1,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',1,'institution','monitor');"
     },
     {
         'name': 'assessments_question',
@@ -70,18 +70,19 @@ def create_sql_files():
     for table in tables:
         if table["db"] not in dbs:
             dbs.append(table["db"])
-            system('>'+table['db']+'_query.sql')
+            system('>'+basename+'_'+table['db']+'_query.sql')
         filename=os.getcwd()+'/load/'+table['name']+'.csv'
         open(filename,'wb',0)
         os.chmod(filename,0o666)
-        command='echo "'+table["query"].replace('replacetable',table["name"]).replace('replacename', table["name"])+'">>'+table['db']+'_query.sql'
+        command='echo "'+table["query"].replace('replacetable',table["name"]).replace('replacename', table["name"])+'">>'+basename+'_'+table['db']+'_query.sql'
         #print(command)
         system(command)
 
 
 def loaddata():
+    print(dbs)
     for db in dbs:
-        system('psql -U klp -d '+db+' -f '+db+'_query.sql')
+        system('psql -U klp -d '+db+' -f '+basename+'_'+db+'_query.sql')
 
 
 #order in which function should be called.

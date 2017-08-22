@@ -3,35 +3,35 @@
         "model": "assessments.ResponseType",
         "fields":{
             "char_id": "text",
-            "desc": "Text"
+            "description": "Text"
         }
     },
     {
         "model": "assessments.ResponseType",
         "fields":{
             "char_id": "score",
-            "desc": "Score"
+            "description": "Score"
         }
     },
     {
         "model": "assessments.ResponseType",
         "fields":{
             "char_id": "boolean",
-            "desc": "Boolean"
+            "description": "Boolean"
         }
     },
     {
         "model": "assessments.ResponseType",
         "fields":{
             "char_id": "grade",
-            "desc": "Grade"
+            "description": "Grade"
         }
     },
     {
         "model": "assessments.ResponseType",
         "fields":{
             "char_id": "choice",
-            "desc": "Choice"
+            "description": "Choice"
         }
     }
 ]

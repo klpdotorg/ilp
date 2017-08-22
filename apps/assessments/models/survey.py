@@ -6,19 +6,25 @@ from django.contrib.contenttypes.models import ContentType
 class SurveyType(models.Model):
     """Type of Survey"""
     char_id = models.CharField(max_length=20, primary_key=True)
-    desc = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
+
+
+class SurveyOnType(models.Model):
+    """Type of entity survey is conducted on"""
+    char_id = models.CharField(max_length=20, primary_key=True)
+    description = models.CharField(max_length=50)
 
 
 class ResponseType(models.Model):
     """Type of input expected"""
     char_id = models.CharField(max_length=20, primary_key=True)
-    desc = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
 
 
 class DisplayType(models.Model):
     """Display type to be used"""
     char_id = models.CharField(max_length=20, primary_key=True)
-    desc = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
 
 
 class Survey(models.Model):
@@ -27,7 +33,7 @@ class Survey(models.Model):
     created_at = models.DateField(max_length=20)
     updated_at = models.DateField(max_length=20, null=True)
     partner = models.ForeignKey('Partner', null=True)
-    desc = models.CharField(max_length=200, null=True)
+    description = models.CharField(max_length=200, null=True)
     status = models.ForeignKey('common.Status')
 
 
@@ -37,6 +43,7 @@ class QuestionGroup(models.Model):
     survey = models.ForeignKey('Survey')
     type = models.ForeignKey('SurveyType')
     inst_type = models.ForeignKey('common.InstitutionType')
+    survey_on = models.ForeignKey('SurveyOnType')
     start_date = models.DateField(max_length=20)
     end_date = models.DateField(max_length=20, null=True)
     academic_year = models.ForeignKey('common.AcademicYear', null=True)
