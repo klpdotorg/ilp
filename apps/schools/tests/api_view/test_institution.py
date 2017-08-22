@@ -16,18 +16,18 @@ class InstitutionAPITests(APITestCase):
         call_command('run_materialized_view')
 
     def test_list_api(self):
-        url = reverse('institution:basic-list', kwargs={'state': 'ka'})
-        response = self.client.get(url)
+        url = reverse('institution:basic-list')
+        response = self.client.get(url, {'state': 'ka'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], INSTITUTION_COUNT)
 
     def test_list_api_with_geometry(self):
         url = (
-            reverse('institution:basic-list', kwargs={'state': 'ka'}) +
+            reverse('institution:basic-list') +
             "?geometry=yes"
         )
-        response = self.client.get(url)
+        response = self.client.get(url, {'state': 'ka'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(
@@ -41,25 +41,24 @@ class InstitutionAPITests(APITestCase):
     def test_list_api_admin_filters(self):
         # test admin1 filter
         url = (
-            reverse('institution:basic-list', kwargs={'state': 'ka'}) +
-            "?admin1=0101"
+            reverse('institution:basic-list')
         )
-        response = self.client.get(url)
+        response = self.client.get(url, {'state': 'ka', 'admin1': '0101'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # test admin2 filter
         url = (
-            reverse('institution:basic-list', kwargs={'state': 'ka'}) +
+            reverse('institution:basic-list') +
             "?admin2=0101"
         )
-        response = self.client.get(url)
+        response = self.client.get(url, {'state': 'ka'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # test admin2 filter
         url = (
-            reverse('institution:basic-list', kwargs={'state': 'ka'}) +
+            reverse('institution:basic-list') +
             "?admin3=0101"
         )
  
-        response = self.client.get(url)
+        response = self.client.get(url, {'state': 'ka'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)

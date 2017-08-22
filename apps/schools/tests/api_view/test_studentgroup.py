@@ -39,12 +39,12 @@ class StudentGroupApiTests(APITestCase):
 
    
     def test_list_studentgroups(self):
-        url = reverse('institution:studentgroup-list', kwargs={'state':'ka', 'parent_lookup_institution': '36172'})
+        url = reverse('institution:studentgroup-list', kwargs={'parent_lookup_institution': '36172'})
         print("=======================================================")
         print("Test listing all student groups under institution - ", url)
-        request = self.factory.get(url)
+        request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request,user=self.user)
-        response = self.listView(request, state='ka', parent_lookup_institution=36172, pk=36172)
+        response = self.listView(request, parent_lookup_institution=36172, pk=36172)
         response.render()
         data = json.loads(response.content)
         print("Response is : ", data)
@@ -54,12 +54,12 @@ class StudentGroupApiTests(APITestCase):
         print("End test ===============================================")
 
     def test_getdetails_studentgroup(self):
-        url = reverse('institution:studentgroup-detail', kwargs={'state':'ka', 'parent_lookup_institution': '36172', 'pk': '3486429'})
+        url = reverse('institution:studentgroup-detail', kwargs={'parent_lookup_institution': '36172', 'pk': '3486429'})
         print("=======================================================")
         print("Test getting student group details under institution - ", url)
-        request = self.factory.get(url)
+        request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request,user=self.user)
-        response = self.detailView(request, state='ka', parent_lookup_institution=36172, pk=3486429)
+        response = self.detailView(request, parent_lookup_institution=36172, pk=3486429)
         response.render()
         data = json.loads(response.content)
         print("Response is : ", data)
