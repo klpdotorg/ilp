@@ -1,9 +1,11 @@
 from django.conf import settings
 
 from rest_framework import serializers
-from schools.models import Institution
+
+from schools.models import Institution, Management
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
+from common.models import InstitutionGender, Status
 from boundary.serializers import (
     BoundarySerializer, ElectionBoundarySerializer
 )
@@ -21,6 +23,39 @@ class InstitutionSerializer(ILPSerializer):
         fields = (
             'id', 'name', 'address', 'boundary', 'admin1', 'admin2',
             'admin3', 'type'
+        )
+
+
+class InstitutionCreateSerializer(ILPSerializer):
+    dise_code = serializers.CharField(default="")
+    status = serializers.PrimaryKeyRelatedField(
+        queryset=Status.objects.all()
+    )
+    gender = serializers.PrimaryKeyRelatedField(
+        queryset=InstitutionGender.objects.all()
+    )
+    management = serializers.PrimaryKeyRelatedField(
+        queryset=Management.objects.all()
+    )
+    pincode = serializers.CharField(required=False)
+
+    class Meta:
+        model = Institution
+        fields = (
+            'id', 'admin3', 'dise_code', 'name', 'category', 'gender',
+            'management', 'address', 'area', 'pincode', 'landmark',
+            'status', 'institution_type'
+        )
+
+    def save(self, **kwargs):
+        admin3 = self.validated_data['admin3']
+        admin3_heirarchy = admin3.admin3_id
+        admin0_id = admin3_heirarchy.admin0_id
+        admin1_id = admin3_heirarchy.admin1_id
+        admin2_id = admin3_heirarchy.admin2_id
+        return Institution.objects.create(
+            **self.validated_data, admin0=admin0_id, admin1=admin1_id,
+            admin2=admin2_id
         )
 
 

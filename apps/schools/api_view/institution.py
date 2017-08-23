@@ -1,10 +1,14 @@
-from common.views import ILPListAPIView, ILPViewSet
+from rest_framework import status
+from rest_framework.response import Response
+
+from common.views import ILPViewSet
 from common.models import Status, InstitutionType
 from common.renderers import ILPJSONRenderer
 from common.mixins import ILPStateMixin
 
 from schools.serializers import (
-    InstitutionSerializer, InstitutionInfoSerializer
+    InstitutionSerializer, InstitutionInfoSerializer,
+    InstitutionCreateSerializer
 )
 from schools.models import Institution
 
@@ -42,13 +46,24 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
             admin3 = self.request.GET.get('admin3')
             qset = qset.filter(admin3__id=admin3)
 
-        # TODO :
+        # TODO
         # Need to do filter for:
         # ac_year = self.request.GET.get(
         #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
         # partner_id
         # programmes
         return qset
+
+    def create(self, request, *args, **kwargs):
+        serializer = InstitutionCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        # TODO
+        # self._assign_permissions(serializer.instance)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
 
 class InstitutionInfoViewSet(ILPViewSet):

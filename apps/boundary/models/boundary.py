@@ -46,7 +46,7 @@ class BoundaryNeighbours(models.Model):
             'Boundary', related_name='boundary_neighbour')
 
     class Meta:
-        unique_together = (('boundary','neighbour'), )
+        unique_together = (('boundary', 'neighbour'), )
 
 
 class BoundaryAggregation(models.Model):
@@ -67,14 +67,24 @@ class BoundaryAggregation(models.Model):
 
 class BoundaryHierarchy(models.Model):
     """boundary hierarchy details"""
-    admin3_id = models.OneToOneField('Boundary', related_name='admin3_id', db_column='admin3_id', primary_key=True)
+    admin3_id = models.OneToOneField(
+        'Boundary', related_name='admin3_id',
+        db_column='admin3_id', primary_key=True)
     admin3_name = models.CharField(max_length=300)
-    admin2_id = models.ForeignKey('Boundary', related_name='admin2_id', db_column='admin2_id')
+
+    admin2_id = models.ForeignKey(
+        'Boundary', related_name='admin2_id',
+        db_column='admin2_id')
     admin2_name = models.CharField(max_length=300)
-    admin1_id = models.ForeignKey('Boundary', related_name='admin1_id', db_column='admin1_id')
+
+    admin1_id = models.ForeignKey(
+        'Boundary', related_name='admin1_id', db_column='admin1_id')
     admin1_name = models.CharField(max_length=300)
-    admin0_id = models.ForeignKey('Boundary', related_name='admin0_id', db_column='admin0_id')
+
+    admin0_id = models.ForeignKey(
+        'Boundary', related_name='admin0_id', db_column='admin0_id')
     admin0_name = models.CharField(max_length=300)
+
     type_id = models.ForeignKey('common.InstitutionType', db_column='type_id')
 
     class Meta:
