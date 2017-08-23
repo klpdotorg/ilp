@@ -2,7 +2,7 @@ from django.conf import settings
 
 from rest_framework import serializers
 
-from schools.models import Institution, Management
+from schools.models import Institution, Management, PinCode
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
 from common.models import InstitutionGender, Status
@@ -27,7 +27,7 @@ class InstitutionSerializer(ILPSerializer):
 
 
 class InstitutionCreateSerializer(ILPSerializer):
-    dise_code = serializers.CharField(default="")
+    dise_code = serializers.CharField(default=None)
     status = serializers.PrimaryKeyRelatedField(
         queryset=Status.objects.all()
     )
@@ -37,14 +37,19 @@ class InstitutionCreateSerializer(ILPSerializer):
     management = serializers.PrimaryKeyRelatedField(
         queryset=Management.objects.all()
     )
-    pincode = serializers.CharField(required=False)
+    address = serializers.CharField(default=None)
+    area = serializers.CharField(default=None)
+    pincode = serializers.PrimaryKeyRelatedField(
+        queryset=PinCode.objects.all(), default=None
+    )
+    landmark = serializers.CharField(default=None)
 
     class Meta:
         model = Institution
         fields = (
             'id', 'admin3', 'dise_code', 'name', 'category', 'gender',
-            'management', 'address', 'area', 'pincode', 'landmark',
-            'status', 'institution_type'
+            'status', 'institution_type', 'management', 'address',
+            'area', 'pincode', 'landmark'
         )
 
     def save(self, **kwargs):
