@@ -2,10 +2,12 @@ from django.conf.urls import url
 from rest_framework import routers
 from .api_views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
                         Admin2sInsideAdmin1, Admin3sInsideAdmin1,
-                        Admin3sInsideAdmin2, AdminDetails, BoundaryViewSet
+                        Admin3sInsideAdmin2, AdminDetails, BoundaryViewSet,
+                        BoundaryTypeViewSet
                         )
 router = routers.DefaultRouter()
 router.register(r'boundaries', BoundaryViewSet, base_name='boundary')
+router.register(r'boundarytype', BoundaryTypeViewSet, base_name='boundarytype')
 urlpatterns = [
     url(r'^boundary/admin1s$', Admin1sBoundary.as_view(),
         name='admin1s-boundary'),

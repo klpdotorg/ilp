@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 from common.pagination import ILPPaginationSerializer
 from common.filters import ILPInBBOXFilter
-
+from common.mixins import ILPStateMixin
 
 class StaticPageView(TemplateView):
     extra_context = {}
@@ -24,7 +24,7 @@ class ILPAPIView(APIView):
     pass
 
 
-class ILPViewSet(ModelViewSet):
+class ILPViewSet(ILPStateMixin, ModelViewSet):
     pass
 
 

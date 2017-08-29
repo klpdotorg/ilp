@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from tests import IlpTestCase
-from boundary.api_views import (BoundaryViewSet)
+from boundary.api_views import (BoundaryViewSet, BoundaryTypeViewSet)
 from boundary.models import Boundary, BoundaryType
 from common.models import Status, InstitutionType
 
@@ -39,6 +39,8 @@ class BoundaryApiTests(APITestCase):
         self.detailView = BoundaryViewSet.as_view(actions={'get': 'retrieve'})
         self.createView = BoundaryViewSet.as_view(actions={'post': 'create'})
         self.updateView = BoundaryViewSet.as_view(actions={'patch': 'partial_update', 'put': 'update', 'delete': 'destroy'})
+        self.boundarytypeListView = BoundaryTypeViewSet.as_view(actions={'get': 'list'})
+        self.boundarytypeDetailView = BoundaryTypeViewSet.as_view(actions={'get': 'retrieve'})
         self.factory = APIRequestFactory()
     
     def test_boundary_list(self):
@@ -112,6 +114,26 @@ class BoundaryApiTests(APITestCase):
             self.assertEqual(boundary['boundary_type'], 'SB')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(data['count']>0)
+        self.assertIsNotNone(data)
+
+    def test_boundary_types_list(self):
+        url = reverse('boundarytype-list')
+        print(url)
+        request = self.factory.get(url)
+        force_authenticate(request, user=self.user)
+        response = self.boundarytypeListView(request)
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNotNone(data)
+        
+    def test_boundary_types_detail(self):
+        url = reverse('boundarytype-detail',kwargs={'pk': 'SD'})
+        print(url)
+        request = self.factory.get(url)
+        force_authenticate(request, user=self.user)
+        response = self.boundarytypeDetailView(request, pk='SD')
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(data)
 
     def test_boundary_create(self):
