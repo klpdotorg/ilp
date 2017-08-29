@@ -4,8 +4,8 @@ from .api_views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
                         Admin2sInsideAdmin1, Admin3sInsideAdmin1,
                         Admin3sInsideAdmin2, AdminDetails, BoundaryViewSet
                         )
-router = routers.SimpleRouter()
-router.register(r'^boundaries', BoundaryViewSet, base_name='boundary')
+router = routers.DefaultRouter()
+router.register(r'boundaries', BoundaryViewSet, base_name='boundary')
 urlpatterns = [
     url(r'^boundary/admin1s$', Admin1sBoundary.as_view(),
         name='admin1s-boundary'),

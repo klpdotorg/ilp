@@ -35,6 +35,7 @@ class StudentGroupApiTests(APITestCase):
         self.user = get_user_model().objects.create_user('admin', 'admin@klp.org.in', 'admin')
         self.listView = StudentGroupViewSet.as_view(actions={'get': 'list'})
         self.detailView = StudentGroupViewSet.as_view(actions={'get': 'retrieve'})
+        self.cudView = StudentGroupViewSet.as_view(actions={'post' : 'create', 'put': 'update', 'patch': 'partial_update'})
         self.factory = APIRequestFactory()
 
    
@@ -67,3 +68,56 @@ class StudentGroupApiTests(APITestCase):
         self.assertIsNotNone(data)
         #self.assertNotEqual(data['count'],0)
         print("End test ===============================================")
+    
+    def test_studentgroup_create(self):
+        #request = factory.post('/notes/', {'title': 'new idea'}, format='json')
+        request = self.factory.post('/institution/studentgroups/', {'institution': '36172', 'name': 'test_class_1A', 'section': 'A',
+        'group_type': 'class','status': 'AC'}, format='json')
+        response = self.cudView(request)
+        response.render()
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(
+            set(['id', 'name', 'institution','status', 'group_type']).issubset(response.data.keys())
+        )
+        self.assertEqual(data['name'], 'test_class_1A')
+        self.assertEqual(data['institution'], 36172)
+
+    def test_studentgroup_partial_update(self):
+        # Create a test student group first
+        request = self.factory.post('/institution/studentgroups/', {'institution': '36172', 'name': 'test_class_1A', 'section': 'A',
+        'group_type': 'class','status': 'AC'}, format='json')
+        response = self.cudView(request)
+        response.render()
+        data = response.data
+        id = data['id']
+        instId = data['institution']
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        # Now update the student group
+        request = self.factory.patch('/institution/'+ str(instId) + '/studentgroups/' + str(id), {'name': 'test_updated_class_1A'}, format='json')
+        response = self.cudView(request, pk=id)
+        response.render()
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(data['name'], 'test_updated_class_1A')
+
+    def test_studentgroup_update(self):
+        # Create a test student group first
+        request = self.factory.post('/institution/studentgroups/', {'institution': '36172', 'name': 'test_class_1A', 'section': 'A',
+        'group_type': 'class','status': 'AC'}, format='json')
+        response = self.cudView(request)
+        response.render()
+        data = response.data
+        id = data['id']
+        instId = data['institution']
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        # Now update the student group
+        request = self.factory.patch('/institution/'+ str(instId) + '/studentgroups/' + str(id), {'name': 'test_updated_class_1A', 'section': 'B', 'institution': '36172',
+        'group_type': 'class', 'status': 'AC'}, format='json')
+        response = self.cudView(request, pk=id)
+        response.render()
+        data = response.data
+        print(data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(data['name'], 'test_updated_class_1A')
+        self.assertEqual(data['section'], 'B')
