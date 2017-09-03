@@ -1,10 +1,11 @@
+import logging
+
 from django.http import Http404
 
 from rest_framework import viewsets
 from rest_framework.exceptions import APIException
 from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework_bulk import BulkCreateModelMixin
-from rest_framework.response import Response
 
 from schools.models import (
     Student, StudentGroup, StudentStudentGroupRelation
@@ -15,8 +16,9 @@ from schools.serializers import (
 from schools.filters import (
     StudentFilter, StudentGroupFilter
 )
-import logging
+
 logger = logging.getLogger(__name__)
+
 
 class StudentViewSet(
         NestedViewSetMixin,
@@ -32,7 +34,9 @@ class StudentViewSet(
     # from NestedViewSetMixin to implement the .distinct()
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
-        logger.debug("Arguments passed into StudentViewSet is: %s", parents_query_dict)
+        logger.debug(
+            "Arguments passed into StudentViewSet is: %s",
+            parents_query_dict)
         if parents_query_dict.get('assessment', None):
             try:
                 # assessment_id = parents_query_dict.get('assessment')
@@ -58,12 +62,13 @@ class StudentViewSet(
 
 
 class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    #permission_classes = (WorkUnderInstitutionPermission,)
+    # permission_classes = (WorkUnderInstitutionPermission,)
     queryset = StudentGroup.objects.all()
     serializer_class = StudentGroupSerializer
     filter_class = StudentGroupFilter
     # M2M query returns duplicates. Overrode this function
     # from NestedViewSetMixin to implement the .distinct()
+
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
         logger.debug("Arguments passed into view is: %s", parents_query_dict)
@@ -71,9 +76,12 @@ class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             try:
                 queryset = queryset.filter(
                     **parents_query_dict
-                ).order_by().distinct('id')                
+                ).order_by().distinct('id')
             except ValueError:
-                logger.exception("Exception while filtering queryset based on dictionary. Params: %s, Queryset is: %s", parents_query_dict, queryset)
+                logger.exception(
+                    ("Exception while filtering queryset based on dictionary."
+                     "Params: %s, Queryset is: %s"),
+                    parents_query_dict, queryset)
                 raise Http404
 
         return queryset.order_by('id')
