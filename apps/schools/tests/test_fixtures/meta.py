@@ -2,6 +2,7 @@
 INSTITUTION_COUNT = 2
 INSTITUTION_ID_1 = 29539
 INSTITUTION_ID_2 = 36172
+ADMIN3_ID = 9092
 
 # ./manage.py dump_object schools.StudentGroup 3486429 > studentgroup.json
 # (Institution_id=INSTITUTION_ID_2)

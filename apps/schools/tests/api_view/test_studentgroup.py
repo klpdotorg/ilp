@@ -39,7 +39,7 @@ class StudentGroupApiTests(APITestCase):
         self.factory = APIRequestFactory()
 
     def test_list_studentgroups(self):
-        url = reverse('institution:studentgroup-list', kwargs={'parent_lookup_institution': '36172'})
+        url = reverse('institution:institution-studentgroup-list', kwargs={'parent_lookup_institution': '36172'})
         print("=======================================================")
         print("Test listing all student groups under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})
@@ -53,7 +53,7 @@ class StudentGroupApiTests(APITestCase):
         print("End test ===============================================")
 
     def test_getdetails_studentgroup(self):
-        url = reverse('institution:studentgroup-detail', kwargs={'parent_lookup_institution': '36172', 'pk': '3486429'})
+        url = reverse('institution:institution-studentgroup-detail', kwargs={'parent_lookup_institution': '36172', 'pk': '3486429'})
         print("=======================================================")
         print("Test getting student group details under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})

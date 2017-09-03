@@ -4,7 +4,9 @@ from django.core.management import call_command
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from schools.tests.test_fixtures.meta import INSTITUTION_COUNT
+from schools.tests.test_fixtures.meta import (
+    INSTITUTION_COUNT, ADMIN3_ID
+)
 
 
 class InstitutionAPITests(APITestCase):
@@ -55,12 +57,12 @@ class InstitutionAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_institution(self):
-        url = reverse('institution:basic-list')
+        url = reverse('institution:institution-list')
         response = self.client.post(
             url, {
                 "name": "GULPS EMMIGANUR",
                 "languages": "1",
-                "admin3": 8829,
+                "admin3": ADMIN3_ID,
                 "gender": "co-ed",
                 "category": "10",
                 "institution_type": "primary",
