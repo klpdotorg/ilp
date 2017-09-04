@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
@@ -18,7 +18,7 @@ from users.views import (
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns(
+urlpatterns = [
     '',
     # share your story form
     url(r'^sys/(?P<pk>[0-9]+)$', SYSView.as_view(), name='sys'),
@@ -273,7 +273,7 @@ urlpatterns = patterns(
 
     url(r'^api/v1/', include('dubdubdub.api_urls')),
     url(r'^api/docs/', include('rest_framework_swagger.urls')),
-)
+]
 
 if settings.DEBUG:
     urlpatterns += patterns(
