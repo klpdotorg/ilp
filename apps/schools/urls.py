@@ -7,7 +7,8 @@ from schools.api_view import (
     InstitutionViewSet, InstitutionInfoViewSet
 )
 from schools.api_view import (
-    StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet
+    StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet, 
+    ProgrammeViewSet
 )
 
 nested_router = ExtendedSimpleRouter()
@@ -68,4 +69,11 @@ nested_router.register(
             base_name='studentstudentgrouprelation',
             parents_query_lookups=['student_id', 'student_group']
         )
+
+## Programme
+nested_router.register(
+    r'programmes',
+    ProgrammeViewSet,
+    base_name='programme'
+    )
 urlpatterns = router.urls + nested_router.urls

@@ -19,6 +19,9 @@ class BoundaryType(models.Model):
     char_id = models.CharField(max_length=300, primary_key=True)
     name = models.CharField(max_length=300)
 
+    class Meta:
+        ordering = ['char_id', ]
+
 
 class Boundary(models.Model):
     """ educational boundaries """

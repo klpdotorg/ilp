@@ -25,14 +25,23 @@ class ILPStateMixin(object):
 
     def get_state(self):
         state_code = self.request.query_params.get('state', None)
+        logger.debug("State code passed in via args is: ", state_code)
         state_name = STATE_CODES.get(state_code, None)
-        state = Boundary.objects.get(
-            name__iexact=state_name, boundary_type__name='State')
+        logger.debug("State code translates to: ", state_name)
+        state = None
+        if state_code:
+            state = Boundary.objects.get(
+                    name__iexact=state_name, boundary_type__name='State')
         return state
 
     def get_state_boundaries(self):
         state_code = self.request.query_params.get('state', None)
+        logger.debug("State code passed in via args is: ", state_code)
         state_name = STATE_CODES.get(state_code, None)
-        state = Boundary.objects.get(
-            name__iexact=state_name, boundary_type__name='State')
-        return BoundaryHierarchy.objects.filter(admin0_id=state.id)
+        logger.debug("State code translates to: ", state_name)
+        boundaries = BoundaryHierarchy.objects.all()
+        if state_code:
+            state = Boundary.objects.get(
+                name__iexact=state_name, boundary_type__name='State')
+            boundaries = boundaries.filter(admin0_id=state.id)
+        return boundaries

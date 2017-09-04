@@ -5,12 +5,18 @@ from common.views import ILPViewSet
 from common.models import Status, InstitutionType
 from common.renderers import ILPJSONRenderer
 from common.mixins import ILPStateMixin
+from rest_framework_extensions.mixins import NestedViewSetMixin
+from rest_framework import viewsets
 
 from schools.serializers import (
     InstitutionSerializer, InstitutionInfoSerializer,
     InstitutionCreateSerializer
 )
 from schools.models import Institution
+
+
+class ProgrammeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    pass
 
 
 class InstitutionViewSet(ILPViewSet, ILPStateMixin):
