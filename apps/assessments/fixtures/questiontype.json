@@ -1,0 +1,34 @@
+[
+    {
+        "model": "assessments.QuestionType",
+        "fields":{
+            "id": 1,
+            "display_id": "Radio",
+            "type_id": "choice"
+        }
+    },
+    {
+        "model": "assessments.QuestionType",
+        "fields":{
+            "id": 2,
+            "display_id": "CheckBox",
+            "type_id": "choice"
+        }
+    },
+    {
+        "model": "assessments.QuestionType",
+        "fields":{
+            "id": 3,
+            "display_id": "TextBox",
+            "type_id": "score"
+        }
+    },
+    {
+        "model": "assessments.QuestionType",
+        "fields":{
+            "id": 4,
+            "display_id": "TextBox",
+            "type_id": "choice"
+        }
+    }
+]

@@ -7,6 +7,27 @@
     }
 },
 {
+    "model": "boundary.boundarytype",
+    "pk": "SD",
+    "fields": {
+        "name": "School District"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "SB",
+    "fields": {
+        "name": "School Block"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "SC",
+    "fields": {
+        "name": "School Cluster"
+    }
+},
+{
     "model": "boundary.electionparty",
     "pk": "JD(S)",
     "fields": {
@@ -90,71 +111,57 @@
     }
 },
 {
-    "model": "boundary.electionboundary",
-    "pk": 442,
+    "model": "boundary.boundary",
+    "pk": 433,
     "fields": {
-        "state": 2,
-        "dise_slug": "",
-        "elec_comm_code": 95,
-        "const_ward_name": "Subhash Nagar",
-        "const_ward_type": "MW",
-        "current_elected_rep": "T.Mallesh",
-        "current_elected_party": "INC",
-        "status": "AC"
-    }
-},
-{
-    "model": "boundary.electionboundary",
-    "pk": 217,
-    "fields": {
-        "state": 2,
-        "dise_slug": "gandhi-nagar",
-        "elec_comm_code": 164,
-        "const_ward_name": "Gandhi Nagar",
-        "const_ward_type": "ML",
-        "current_elected_rep": "DINESH GUNDU RAO",
-        "current_elected_party": "INC",
-        "status": "AC"
-    }
-},
-{
-    "model": "boundary.electionboundary",
-    "pk": 264,
-    "fields": {
-        "state": 2,
-        "dise_slug": "bangalore-central",
-        "elec_comm_code": 25,
-        "const_ward_name": "Bangalore Central",
-        "const_ward_type": "MP",
-        "current_elected_rep": "P. C. Mohan",
-        "current_elected_party": "BJP",
+        "parent": 2,
+        "name": "bengaluru rural",
+        "boundary_type": "SD",
+        "type": "primary",
+        "dise_slug": "Karnataka-bengaluru rural",
+        "geom": "SRID=4326;POINT (77.83026257600002 13.11876424799999)",
         "status": "AC"
     }
 },
 {
     "model": "boundary.boundary",
-    "pk": 8778,
+    "pk": 586,
     "fields": {
-        "parent": 8773,
-        "name": "bangalore state",
-        "boundary_type": "PP",
-        "type": "pre",
-        "dise_slug": "Default",
-        "geom": "SRID=4326;POINT (77.57455471951226 12.95440351219513)",
+        "parent": 433,
+        "name": "devanahalli",
+        "boundary_type": "SB",
+        "type": "primary",
+        "dise_slug": "bengaluru rural-devanahalli",
+        "geom": "SRID=4326;POINT (77.71915364999998 13.20899746666667)",
         "status": "AC"
     }
 },
 {
     "model": "boundary.boundary",
-    "pk": 8829,
+    "pk": 9092,
     "fields": {
-        "parent": 8778,
-        "name": "yashwanthpura",
-        "boundary_type": "PC",
-        "type": "pre",
-        "dise_slug": "Default",
-        "geom": "SRID=4326;POINT (77.56016700000001 13.00687231578947)",
+        "parent": 586,
+        "name": "boodigere",
+        "boundary_type": "SC",
+        "type": "primary",
+        "dise_slug": "devanahalli-boodigere",
+        "geom": "SRID=4326;POINT (77.75238833333333 13.15186916666667)",
         "status": "AC"
+    }
+},
+{
+    "model": "common.institutiontype",
+    "pk": "primary",
+    "fields": {
+        "name": "Primary School"
+    }
+},
+{
+    "model": "schools.institutioncategory",
+    "pk": 14,
+    "fields": {
+        "name": "Upper Primary",
+        "institution_type": "primary"
     }
 },
 {
@@ -175,7 +182,8 @@
         "const_ward_type": "MW",
         "current_elected_rep": "M.Srinivas",
         "current_elected_party": "JD(S)",
-        "status": "AC"
+        "status": "AC",
+        "geom": null
     }
 },
 {
@@ -189,7 +197,8 @@
         "const_ward_type": "ML",
         "current_elected_rep": "M. KRISHNAPPA",
         "current_elected_party": "BJP",
-        "status": "AC"
+        "status": "AC",
+        "geom": null
     }
 },
 {
@@ -203,7 +212,8 @@
         "const_ward_type": "MP",
         "current_elected_rep": "D. K. Suresh",
         "current_elected_party": "INC",
-        "status": "AC"
+        "status": "AC",
+        "geom": null
     }
 },
 {
@@ -228,7 +238,7 @@
         "boundary_type": "PD",
         "type": "pre",
         "dise_slug": "Default",
-        "geom": "SRID=4326;POINT (77.59773614292784 12.95423918496539)",
+        "geom": "SRID=4326;POINT (77.59773614292784 12.95423918496538)",
         "status": "AC"
     }
 },
@@ -240,8 +250,8 @@
         "name": "bangalore south(banashankari)",
         "boundary_type": "PP",
         "type": "pre",
-        "dise_slug": "Default",
-        "geom": "SRID=4326;POINT (77.58928424766358 12.93085240887849)",
+        "dise_slug": "bangalore-bangalore south(banashankari)",
+        "geom": "SRID=4326;POINT (77.58928424766358 12.9308524088785)",
         "status": "AC"
     }
 },
@@ -253,7 +263,7 @@
         "name": "begure",
         "boundary_type": "PC",
         "type": "pre",
-        "dise_slug": "Default",
+        "dise_slug": "bangalore south(banashankari)-begure",
         "geom": "SRID=4326;POINT (77.64143864864864 12.87578937837838)",
         "status": "AC"
     }
@@ -289,33 +299,33 @@
 },
 {
     "model": "schools.institution",
-    "pk": 29612,
+    "pk": 36172,
     "fields": {
-        "dise_code": "AN00147",
-        "name": "CHRISTIAN COLONY",
-        "category": 10,
+        "dise_code": "29210316801",
+        "name": "G HPS SOMATHANAHALLI",
+        "category": 14,
         "gender": "co-ed",
-        "institution_type": "pre",
+        "institution_type": "primary",
         "management": 1,
-        "year_established": null,
-        "rural_urban": null,
-        "phone_number": null,
-        "address": "4th Cross, 5th Main Road, Okalipuram Main Road, Srirampuram, Bangalore",
-        "area": "Christian Colony ",
-        "village": null,
+        "year_established": "1940",
+        "rural_urban": "Rural",
+        "phone_number": "9481202373",
+        "address": null,
+        "area": null,
+        "village": "SOMATHANAHALLI",
         "pincode": null,
-        "landmark": "Beside G.T.H.P.S Bharatiya Vidya Bhavan",
-        "instidentification": "Green Colour Building",
-        "instidentification2": "Blue Colour Door",
-        "route_information": "52",
-        "admin3": 8829,
-        "admin2": 8778,
-        "admin1": 8773,
+        "landmark": null,
+        "instidentification": null,
+        "instidentification2": null,
+        "route_information": null,
+        "admin3": 9092,
+        "admin2": 586,
+        "admin1": 433,
         "admin0": 2,
-        "mp": 264,
-        "mla": 217,
+        "mp": null,
+        "mla": null,
         "gp": null,
-        "ward": 442,
+        "ward": null,
         "coord": null,
         "last_verified_year": null,
         "status": "AC"

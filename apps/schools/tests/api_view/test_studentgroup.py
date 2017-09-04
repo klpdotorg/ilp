@@ -38,31 +38,28 @@ class StudentGroupApiTests(APITestCase):
         self.cudView = StudentGroupViewSet.as_view(actions={'post' : 'create', 'put': 'update', 'patch': 'partial_update'})
         self.factory = APIRequestFactory()
 
-   
     def test_list_studentgroups(self):
-        url = reverse('institution:studentgroup-list', kwargs={'parent_lookup_institution': '36172'})
+        url = reverse('institution:institution-studentgroup-list', kwargs={'parent_lookup_institution': '36172'})
         print("=======================================================")
         print("Test listing all student groups under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request,user=self.user)
+        force_authenticate(request, user=self.user)
         response = self.listView(request, parent_lookup_institution=36172, pk=36172)
-        response.render()
-        data = json.loads(response.content)
+        data = response.data
         print("Response is : ", data)
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(data)
-        self.assertNotEqual(data['count'],0)
+        self.assertNotEqual(data['count'], 0)
         print("End test ===============================================")
 
     def test_getdetails_studentgroup(self):
-        url = reverse('institution:studentgroup-detail', kwargs={'parent_lookup_institution': '36172', 'pk': '3486429'})
+        url = reverse('institution:institution-studentgroup-detail', kwargs={'parent_lookup_institution': '36172', 'pk': '3486429'})
         print("=======================================================")
         print("Test getting student group details under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request,user=self.user)
         response = self.detailView(request, parent_lookup_institution=36172, pk=3486429)
-        response.render()
-        data = json.loads(response.content)
+        data = response.data
         print("Response is : ", data)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertIsNotNone(data)
@@ -115,9 +112,7 @@ class StudentGroupApiTests(APITestCase):
         request = self.factory.patch('/institution/'+ str(instId) + '/studentgroups/' + str(id), {'name': 'test_updated_class_1A', 'section': 'B', 'institution': '36172',
         'group_type': 'class', 'status': 'AC'}, format='json')
         response = self.cudView(request, pk=id)
-        response.render()
         data = response.data
-        print(data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data['name'], 'test_updated_class_1A')
         self.assertEqual(data['section'], 'B')
