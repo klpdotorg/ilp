@@ -44,10 +44,11 @@ class QuestionGroup(models.Model):
     type = models.ForeignKey('SurveyType')
     inst_type = models.ForeignKey('common.InstitutionType')
     survey_on = models.ForeignKey('SurveyOnType')
+    group_text = models.CharField(max_length=100, null=True)
     start_date = models.DateField(max_length=20)
     end_date = models.DateField(max_length=20, null=True)
     academic_year = models.ForeignKey('common.AcademicYear', null=True)
-    verison = models.IntegerField(blank=True, null=True)
+    version = models.IntegerField(blank=True, null=True)
     source = models.ForeignKey("Source", null=True)
     double_entry = models.BooleanField(default=True)
     created_by = models.ForeignKey(User, null=True)
@@ -58,11 +59,11 @@ class QuestionGroup(models.Model):
 
 class Question(models.Model):
     """pool of questions"""
-    question_text = models.CharField(max_length=100)
-    display_text = models.CharField(max_length=100)
-    key = models.CharField(max_length=50)
+    question_text = models.CharField(max_length=300)
+    display_text = models.CharField(max_length=300)
+    key = models.CharField(max_length=50, null=True)
     question_type = models.ForeignKey('QuestionType', null=True)
-    options = models.CharField(max_length=100, null=True)
+    options = models.CharField(max_length=300, null=True)
     is_featured = models.BooleanField()
     status = models.ForeignKey('common.Status')
 
@@ -85,7 +86,7 @@ class QuestionType(models.Model):
     display = models.ForeignKey('DisplayType')
 
 
-class QuestionGroupQuestions(models.Model):
+class QuestionGroup_Questions(models.Model):
     """Mapping of questions to a question group"""
     questiongroup = models.ForeignKey('QuestionGroup')
     question = models.ForeignKey('Question')
@@ -95,7 +96,7 @@ class QuestionGroupQuestions(models.Model):
         unique_together = (('question', 'questiongroup'), )
 
 
-class QuestionGroupInstitutionAssociation(models.Model):
+class QuestionGroup_Institution_Association(models.Model):
     """Mapping of question group to different institutions
         for institution assessments"""
     institution = models.ForeignKey('schools.Institution')
@@ -106,7 +107,7 @@ class QuestionGroupInstitutionAssociation(models.Model):
         unique_together = (('institution', 'questiongroup'), )
 
 
-class QuestionGroupStudentGroupAssociation(models.Model):
+class QuestionGroup_StudentGroup_Association(models.Model):
     """Mapping of student groups to question groups for student
         and studentgroup assessments"""
     studentgroup = models.ForeignKey('schools.StudentGroup')

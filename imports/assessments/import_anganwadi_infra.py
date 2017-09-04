@@ -35,12 +35,13 @@ tables=[
     {
         'name': 'assessments_survey',
         'db': todatabase,
-        'query': "insert into replacetable(id, name,created_at,partner_id,status_id) values(1, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA');"
+        'query': "insert into replacetable(id, name,created_at,partner_id,status_id) values(2, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA');"
     },
     {
+        #Setting id as 30
         'name': 'assessments_questiongroup',
         'db': todatabase,
-        'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, survey_on_id, type_id) values(1,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',1,'institution','monitor');"
+        'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, survey_on_id, type_id) values(30,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',2,'institution','monitor');"
     },
     {
         'name': 'assessments_question',
@@ -48,14 +49,19 @@ tables=[
         'query': "ALTER SEQUENCE assessments_question_id_seq RESTART WITH 1; insert into replacetable(question_text, display_text, key, is_featured, status_id) select distinct  ai_metric, description, ai_group, true, 'IA' from temp_anginfra;"
     },
     {
-        'name': 'assessments_questiongroupquestions',
+        'name': 'assessments_questiongroup_questions',
         'db': todatabase,
-        'query': "insert into replacetable(sequence, question_id, questiongroup_id) select row_number() over(), id, 1 from assessments_question;"
+        'query': "insert into replacetable(sequence, question_id, questiongroup_id) select row_number() over(), id, 30 from assessments_question;"
+    },
+    {
+        'name': 'assessments_answergroup_institution',
+        'db': todatabase,
+        'query': "insert into replacetable(double_entry, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id) select distinct 0, to_date('2014-02-03', 'YYYY-MM-DD'), true, to_date('2014-02-03', 'YYYY-MM-DD'),sid, 30, 'IA' from temp_anginfra, schools_institution s where temp_anginfra.sid=s.id;"
     },
     {
         'name': 'assessments_answerinstitution',
         'db': todatabase,
-        'query': "insert into replacetable(answer, double_entry, date_of_visit, is_verified, entered_at, institution_id, question_id, questiongroup_id, status_id) select perc_score,0, to_date('2014-02-03', 'YYYY-MM-DD'), true, to_date('2014-02-03', 'YYYY-MM-DD'),sid, (select id from assessments_question where question_text=ai_metric),1, 'IA' from temp_anginfra, schools_institution s where temp_anginfra.sid=s.id;"
+        'query': "insert into replacetable(answergroup_id, answer, question_id) select answergroup.id, perc_score,(select id from assessments_question where question_text=ai_metric) from temp_anginfra, schools_institution s, assessments_answergroup_institution answergroup where temp_anginfra.sid=s.id and temp_anginfra.sid=answergroup.institution_id;"
     }
 ]
 
