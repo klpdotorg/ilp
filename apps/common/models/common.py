@@ -12,6 +12,7 @@ class StatusManager(models.Manager):
     def all_deleted(self):
         return self.filter(status=Status.DELETED)
 
+
 class AcademicYear(models.Model):
     """ Academic years in Schools """
     char_id = models.CharField(max_length=300, primary_key=True)

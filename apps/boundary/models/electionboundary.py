@@ -15,8 +15,8 @@ class ElectionBoundary(models.Model):
     status = models.ForeignKey('common.Status')
     geom = models.GeometryField(null=True)
 
-    #class Meta:
-     #   unique_together = (('elec_comm_code'), )
+    class Meta:
+        ordering = ['const_ward_name', ]
 
     def __unicode__(self):
         return '%s' % self.name

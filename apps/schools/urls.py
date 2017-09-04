@@ -4,22 +4,25 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 
 from schools.api_view import (
-    InstitutionBasicViewSet, InstitutionInfoViewSet
+    InstitutionViewSet, InstitutionInfoViewSet
 )
 from schools.api_view import (
-    StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet
+    StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet, 
+    ProgrammeViewSet
 )
 
 nested_router = ExtendedSimpleRouter()
 router = DefaultRouter()
 
-router.register(r'schools/list', InstitutionBasicViewSet, base_name='basic')
-router.register(r'schools/info', InstitutionInfoViewSet, base_name='info')
+router.register(
+    r'institutions/list', InstitutionViewSet, base_name='basic')
+router.register(
+    r'institutions/info', InstitutionInfoViewSet, base_name='info')
 
-## Institution -> StudentGroup -> Students
+# Institution -> StudentGroup -> Students
 nested_router.register(
     r'institutions',
-    InstitutionBasicViewSet,
+    InstitutionViewSet,
     base_name='institution'
     ).register(
         r'studentgroups',
@@ -66,4 +69,11 @@ nested_router.register(
             base_name='studentstudentgrouprelation',
             parents_query_lookups=['student_id', 'student_group']
         )
+
+## Programme
+nested_router.register(
+    r'programmes',
+    ProgrammeViewSet,
+    base_name='programme'
+    )
 urlpatterns = router.urls + nested_router.urls

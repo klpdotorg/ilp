@@ -1,15 +1,17 @@
 from django.conf import settings
 
 from rest_framework import serializers
-from schools.models import Institution
+
+from schools.models import Institution, Management, PinCode
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
+from common.models import InstitutionGender, Status
 from boundary.serializers import (
     BoundarySerializer, ElectionBoundarySerializer
 )
 
 
-class InstitutionListSerializer(ILPSerializer):
+class InstitutionSerializer(ILPSerializer):
     boundary = BoundarySerializer(source='admin3')
     admin1 = serializers.CharField(source='admin1.name')
     admin2 = serializers.CharField(source='admin2.name')
@@ -21,6 +23,44 @@ class InstitutionListSerializer(ILPSerializer):
         fields = (
             'id', 'name', 'address', 'boundary', 'admin1', 'admin2',
             'admin3', 'type'
+        )
+
+
+class InstitutionCreateSerializer(ILPSerializer):
+    dise_code = serializers.CharField(default=None)
+    status = serializers.PrimaryKeyRelatedField(
+        queryset=Status.objects.all()
+    )
+    gender = serializers.PrimaryKeyRelatedField(
+        queryset=InstitutionGender.objects.all()
+    )
+    management = serializers.PrimaryKeyRelatedField(
+        queryset=Management.objects.all()
+    )
+    address = serializers.CharField(default=None)
+    area = serializers.CharField(default=None)
+    pincode = serializers.PrimaryKeyRelatedField(
+        queryset=PinCode.objects.all(), default=None
+    )
+    landmark = serializers.CharField(default=None)
+
+    class Meta:
+        model = Institution
+        fields = (
+            'id', 'admin3', 'dise_code', 'name', 'category', 'gender',
+            'status', 'institution_type', 'management', 'address',
+            'area', 'pincode', 'landmark'
+        )
+
+    def save(self, **kwargs):
+        admin3 = self.validated_data['admin3']
+        admin3_heirarchy = admin3.admin3_id
+        admin0_id = admin3_heirarchy.admin0_id
+        admin1_id = admin3_heirarchy.admin1_id
+        admin2_id = admin3_heirarchy.admin2_id
+        return Institution.objects.create(
+            **self.validated_data, admin0=admin0_id, admin1=admin1_id,
+            admin2=admin2_id
         )
 
 

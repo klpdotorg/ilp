@@ -49,7 +49,7 @@ class ElectionBoundarySerializer(ILPSerializer):
 
     class Meta:
         model = ElectionBoundary
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'const_ward_type')
 
 class BoundaryTypeSerializer(serializers.ModelSerializer):
 
