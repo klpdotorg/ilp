@@ -11,62 +11,81 @@ EVENT_TYPE = (
 )
 
 
-class AnswerInstitution(models.Model):
-    """Answers for institution assessments"""
+class AnswerGroup_Institution(models.Model):
+    """Stores common value for the answers to a particular QuestionGroup for a
+    group value"""
     institution = models.ForeignKey("schools.Institution")
-    answer = models.CharField(max_length=200)
-    question = models.ForeignKey("Question")
     questiongroup = models.ForeignKey("QuestionGroup")
+    group_value = models.CharField(max_length=100, null=True)
     double_entry = models.IntegerField()
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateField(max_length=20)
     respondent_type = models.ForeignKey("RespondentType", null=True)
-    comments = models.CharField(max_length=200, null=True)
+    comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
     sysid = models.IntegerField(null=True)
-    entered_at = models.DateField(max_length=20)
+    entered_at = models.DateField(max_length=20, null=True)
+
+
+class AnswerInstitution(models.Model):
+    """Answers for institution assessments"""
+    answergroup = models.ForeignKey("AnswerGroup_Institution")
+    question = models.ForeignKey("Question")
+    answer = models.CharField(max_length=200)
 
     class Meta:
-        unique_together = (('question', 'questiongroup', 'institution',
-                            'date_of_visit'), )
+        unique_together = (('answergroup', 'question'), )
+
+
+class AnswerGroup_StudentGroup(models.Model):
+    """Stores common value for the answers to a particular QuestionGroup for a
+    group value"""
+    studentgroup = models.ForeignKey("schools.StudentGroup")
+    questiongroup = models.ForeignKey("QuestionGroup")
+    group_value = models.CharField(max_length=100, null=True)
+    double_entry = models.IntegerField()
+    created_by = models.ForeignKey(User, null=True)
+    date_of_visit = models.DateField(max_length=20)
+    respondent_type = models.ForeignKey("RespondentType", null=True)
+    comments = models.CharField(max_length=2000, null=True)
+    is_verified = models.BooleanField(default=False)
+    status = models.ForeignKey("common.Status")
 
 
 class AnswerStudentGroup(models.Model):
-    """Stores the answers of a survey for studentgroup"""
-    studentgroup = models.ForeignKey("schools.StudentGroup")
-    answer = models.CharField(max_length=200)
+    """Answers for studentgroup assessments"""
+    answergroup = models.ForeignKey("AnswerGroup_StudentGroup")
     question = models.ForeignKey("Question")
+    answer = models.CharField(max_length=200)
+
+    class Meta:
+        unique_together = (('answergroup', 'question'), )
+
+
+class AnswerGroup_Student(models.Model):
+    """Stores common value for the answers to a particular QuestionGroup for a
+    group value"""
+    student = models.ForeignKey("schools.Student")
     questiongroup = models.ForeignKey("QuestionGroup")
+    group_value = models.CharField(max_length=100, null=True)
     double_entry = models.IntegerField()
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateField(max_length=20)
     respondent_type = models.ForeignKey("RespondentType", null=True)
-    comments = models.CharField(max_length=200, null=True)
+    comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
-
-    class Meta:
-        unique_together = (('question', 'questiongroup', 'studentgroup',
-                            'date_of_visit'), )
 
 
 class AnswerStudent(models.Model):
-    """Stores the answers of a survey for student"""
-    student = models.ForeignKey("schools.Student")
-    answer = models.CharField(max_length=200)
+    """Answers for studentgroup assessments"""
+    answergroup = models.ForeignKey("AnswerGroup_Student")
     question = models.ForeignKey("Question")
-    questiongroup = models.ForeignKey("QuestionGroup")
-    double_entry = models.IntegerField()
-    created_by = models.ForeignKey(User, null=True)
-    date_of_visit = models.DateField(max_length=20)
-    respondent_type = models.ForeignKey("RespondentType", null=True)
-    comments = models.CharField(max_length=200, null=True)
-    is_verified = models.BooleanField(default=False)
-    status = models.ForeignKey("common.Status")
+    answer = models.CharField(max_length=200)
 
     class Meta:
-        unique_together = (('question', 'questiongroup', 'student'), )
+        unique_together = (('answergroup', 'question'), )
 
 
 class InstitutionImages(models.Model):
@@ -78,6 +97,7 @@ class InstitutionImages(models.Model):
 
 
 class RespondentType(models.Model):
+    char_id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=100)
 
 

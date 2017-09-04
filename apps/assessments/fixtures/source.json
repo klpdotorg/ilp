@@ -1,0 +1,52 @@
+[
+    {
+        "model": "assessments.Source",
+        "fields":{
+            "id": "1",
+            "name": "csv"
+        }
+    },
+    {
+        "model": "assessments.Source",
+        "fields":{
+            "id": "2",
+            "name": "web"
+        }
+    },
+    {
+        "model": "assessments.Source",
+        "fields":{
+            "id": "3",
+            "name": "ivrs"
+        }
+    },
+    {
+        "model": "assessments.Source",
+        "fields":{
+            "id": "4",
+            "name": "mobile"
+        }
+    },
+    {
+        "model": "assessments.Source",
+        "fields":{
+            "id": "5",
+            "name": "community"
+        }
+    },
+    {
+        "model": "assessments.Source",
+        "fields":{
+            "id": "6",
+            "name": "anganwadi"
+        }
+    },
+    {
+        "model": "assessments.Source",
+        "fields":{
+            "id": "7",
+            "name": "sms"
+        }
+    }
+]
+ 
