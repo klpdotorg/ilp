@@ -25,6 +25,6 @@ class ParliamentBoundariesViewSet(ILPStateMixin, viewsets.ModelViewSet):
         state = self.get_state()
         queryset = ElectionBoundary.objects.filter(const_ward_type__char_id="MP")
         if state:
-            queryset = queryset.filter(staet_id=state.id)
+            queryset = queryset.filter(state_id=state.id)
         return queryset
 
