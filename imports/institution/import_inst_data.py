@@ -23,8 +23,8 @@ loaddatafile = basename+"_loaddata.sql"
 tables=[
     {
         'name': 'schools_institution',
-        'columns': 'id, dise_code, name, admin0_id,admin1_id,admin2_id, admin3_id, category_id, gender_id, institution_type_id, management_id, status_id, address, area, landmark, instidentification,instidentification2, route_information',
-        'query': "COPY(select s.id, s.dise_code, s.name, 2, admin1.id, admin2.id, admin3.id, s.cat_id, s.institution_gender, case admin3.boundary_type_id when 1 then 'primary' when 2 then 'pre' end, s.mgmt_id, 'AC', add.address, add.area, add.landmark, add.instidentification, add.instidentification2, add.route_information  from schools_institution s left outer join schools_institution_address add on (s.inst_address_id = add.id), schools_boundary admin3, schools_boundary admin2, schools_boundary admin1 where s.boundary_id=admin3.id and admin3.parent_id=admin2.id and admin2.parent_id=admin1.id and s.active=2) TO '$PWD/load/schools_institution.csv' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
+        'columns': 'id, name, admin0_id,admin1_id,admin2_id, admin3_id, category_id, gender_id, institution_type_id, management_id, status_id, address, area, landmark, instidentification,instidentification2, route_information',
+        'query': "COPY(select s.id, s.name, 2, admin1.id, admin2.id, admin3.id, s.cat_id, s.institution_gender, case admin3.boundary_type_id when 1 then 'primary' when 2 then 'pre' end, s.mgmt_id, 'AC', add.address, add.area, add.landmark, add.instidentification, add.instidentification2, add.route_information  from schools_institution s left outer join schools_institution_address add on (s.inst_address_id = add.id), schools_boundary admin3, schools_boundary admin2, schools_boundary admin1 where s.boundary_id=admin3.id and admin3.parent_id=admin2.id and admin2.parent_id=admin1.id and s.active=2) TO '$PWD/load/schools_institution.csv' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
     },
     {
         'name': 'schools_institutionlanguage',

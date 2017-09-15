@@ -28,7 +28,7 @@ class PinCode(models.Model):
 
 class Institution(models.Model):
     """ An educational institution """
-    dise_code = models.CharField(max_length=300, null=True, blank=True)
+    dise = models.ForeignKey('dise.BasicData',null=True, blank=True)
     name = models.CharField(max_length=300)
     category = models.ForeignKey('InstitutionCategory')
     gender = models.ForeignKey('common.InstitutionGender')
@@ -70,7 +70,7 @@ class Institution(models.Model):
     status = models.ForeignKey('common.Status')
 
     class Meta:
-        unique_together = (('name', 'dise_code', 'admin3'), )
+        unique_together = (('name', 'dise', 'admin3'), )
 
     def __unicode__(self):
         return "%s" % self.name
