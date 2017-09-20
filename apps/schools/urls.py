@@ -1,5 +1,3 @@
-from django.conf.urls import url
-
 from rest_framework.routers import DefaultRouter
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 
@@ -7,7 +5,7 @@ from schools.api_view import (
     InstitutionViewSet, InstitutionInfoViewSet
 )
 from schools.api_view import (
-    StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet, 
+    StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
     ProgrammeViewSet
 )
 

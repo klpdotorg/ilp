@@ -1,12 +1,13 @@
 from django.conf.urls import url
 from rest_framework import routers
-from .api_views import (Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
-                        Admin2sInsideAdmin1, Admin3sInsideAdmin1,
-                        Admin3sInsideAdmin2, AdminDetails, BoundaryViewSet,
-                        BoundaryTypeViewSet,
-                        AssemblyBoundariesViewSet,
-                        ParliamentBoundariesViewSet
-                        )
+from .api_views import (
+    Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
+    Admin2sInsideAdmin1, Admin3sInsideAdmin1,
+    Admin3sInsideAdmin2, AdminDetails, BoundaryViewSet,
+    BoundaryTypeViewSet, AssemblyBoundariesViewSet,
+    ParliamentBoundariesViewSet
+)
+
 assembliesListView = AssemblyBoundariesViewSet.as_view({'get': 'list'})
 assemblyDetailView = AssemblyBoundariesViewSet.as_view({'get': 'retrieve'})
 parliamentaryBoundariesListView = ParliamentBoundariesViewSet.as_view({'get': 'list'})
