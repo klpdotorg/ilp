@@ -59,8 +59,8 @@ class InstitutionCreateSerializer(ILPSerializer):
         admin1_id = admin3_heirarchy.admin1_id
         admin2_id = admin3_heirarchy.admin2_id
         return Institution.objects.create(
-            **self.validated_data, admin0=admin0_id, admin1=admin1_id,
-            admin2=admin2_id
+            admin0=admin0_id, admin1=admin1_id, admin2=admin2_id,
+            **self.validated_data
         )
 
 
