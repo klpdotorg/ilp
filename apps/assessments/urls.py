@@ -1,8 +1,9 @@
 from django.conf.urls import url
 
-from assessments.api_views import StoryMetaView
+from assessments.api_views import QGroupAnswerAPIView
 
 
 urlpatterns = [
-    url(r'stories/meta/', StoryMetaView.as_view())   
+    url(r'survey/(?P<survey_id>[0-9]+)/qgroup_institution/answers',
+        QGroupAnswerAPIView.as_view()),
 ]
