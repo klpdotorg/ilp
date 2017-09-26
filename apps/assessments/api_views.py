@@ -18,7 +18,9 @@ from rest_framework.exceptions import APIException
 
 
 class StoryMetaView(ILPListAPIView):
+
     def get(self, request):
+        # Will be survery_id as kwargs
         survey = self.request.query_params.get('survey', None)
         source = self.request.query_params.get('source', None)
         versions = self.request.query_params.getlist('version', None)
@@ -35,7 +37,7 @@ class StoryMetaView(ILPListAPIView):
         )
         top_summary = self.request.query_params.get('top_summary', None)
         date = Date()
-        
+
         if start_date:
             sane = date.check_date_sanity(start_date)
             if not sane:
@@ -56,6 +58,11 @@ class StoryMetaView(ILPListAPIView):
         ans_grp_inst_qs = AnswerGroup_Institution.objects.filter(
             institution__in=institution_qs
         ).values('id')
+
+        if survey:
+            ans_grp_inst_qs = ans_grp_inst_qs.filter(
+                questiongroup__survery__name=survey
+            )
 
         if admin1_id:
             institution_qs = institution_qs.filter(admin1_id=admin1_id)
@@ -110,16 +117,17 @@ class StoryMetaView(ILPListAPIView):
                 date_of_visit__lte=end_date
             )
 
+        institution_count = institution_qs.count()
+
         response_json = {}
         response_json['total'] = {}
-        response_json['total']['schools'] = institution_qs.count()
+        response_json['total']['schools'] = institution_count
         response_json['total']['stories'] = ans_grp_inst_qs.count()
         response_json['total']['schools_with_stories'] = \
             ans_grp_inst_qs.distinct('institution').count()
-
-        if survey:
-            ans_grp_inst_qs = ans_grp_inst_qs.filter(
-                questiongroup__survery__name=survey
+        response_json['top_summary'] = \
+            self.get_total_summary(
+                institution_count, institution_qs, admin1_id
             )
 
         if source:
@@ -172,6 +180,46 @@ class StoryMetaView(ILPListAPIView):
         response_json['users'] = self.get_users(ans_grp_inst_qs)
 
         return Response(response_json)
+
+    def get_total_summary(self, inst_count, inst_qs, admin1_id):
+        # programme = Survey.objects.get(name='Ganitha Kanika Andolana')
+        # gka_school_q = inst_qs.filter(programmes=programme)
+
+        # admin1 = None
+        # if admin1_id:
+        #     admin1 = Boundary.objects.get(hierarchy__name='district', id=admin1_id)
+        # elif admin2_id:
+        #     admin1 = Boundary.objects.get(hierarchy__name='block', id=admin2_id).parent
+        # elif admin3_id:
+        #     admin1 = Boundary.objects.get(hierarchy__name='cluster', id=admin3_id).parent.parent
+
+        # edu_vol_group = Group.objects.get(name="EV")
+        # edu_volunteers = BoundaryUsers.objects.filter(user__groups=edu_vol_group)
+        # if admin1:
+        #     edu_volunteers = edu_volunteers.filter(boundary=admin1)
+
+        # academic_year = AcademicYear.objects.latest('id')
+        # num_boys = SchoolExtra.objects.filter(
+        #     academic_year=academic_year,
+        #     school__in=gka_school_q
+        # ).aggregate(Sum('num_boys'))['num_boys__sum']
+        # num_girls = SchoolExtra.objects.filter(
+        #     academic_year=academic_year,
+        #     school__in=gka_school_q
+        # ).aggregate(Sum('num_girls'))['num_girls__sum']
+
+        # if not num_boys:
+        #     num_boys = 0
+
+        # if not num_girls:
+        #     num_girls = 0
+
+        # return {
+        #     'total_schools': inst_count,
+        #     'gka_schools': gka_school_q.count(),
+        #     'children_impacted': num_boys + num_girls,
+        #     'education_volunteers': edu_volunteers.count()
+        # }
 
     def get_json(self, source, ans_grp_inst_qs, inst_counts):
         json = {}
