@@ -44,7 +44,7 @@ class BoundaryApiTests(APITestCase):
         self.factory = APIRequestFactory()
     
     def test_boundary_list(self):
-        url = reverse('boundary-list')
+        url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request, user=self.user)
         response = self.listView(request)
@@ -54,7 +54,7 @@ class BoundaryApiTests(APITestCase):
         self.assertIsNotNone(data)
     
     def test_boundary_detail(self):
-        url = reverse('boundary-detail', kwargs={'pk': '414'})
+        url = reverse('boundary:boundary-detail', kwargs={'pk': '414'})
         request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request, user=self.user)
         response = self.detailView(request, pk=414)
@@ -67,7 +67,7 @@ class BoundaryApiTests(APITestCase):
         self.assertIsNotNone(data)
     
     def test_boundary_primary_only(self):
-        url = reverse('boundary-list')
+        url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka', 'type': 'primary'})
         force_authenticate(request, user=self.user)
         response = self.listView(request)
@@ -79,7 +79,7 @@ class BoundaryApiTests(APITestCase):
         self.assertIsNotNone(data)
 
     def test_boundary_pre_only(self):
-        url = reverse('boundary-list')
+        url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka', 'type': 'pre'})
         force_authenticate(request, user=self.user)
         response = self.listView(request)
@@ -91,7 +91,7 @@ class BoundaryApiTests(APITestCase):
         self.assertIsNotNone(data)
 
     def test_boundary_pd_only(self):
-        url = reverse('boundary-list')
+        url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka', 'boundary_type': 'PD'})
         force_authenticate(request, user=self.user)
         response = self.listView(request)
@@ -104,7 +104,7 @@ class BoundaryApiTests(APITestCase):
         self.assertIsNotNone(data)
     
     def test_boundary_sb_only(self):
-        url = reverse('boundary-list')
+        url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka', 'boundary_type': 'SB'})
         force_authenticate(request, user=self.user)
         response = self.listView(request)
@@ -117,7 +117,7 @@ class BoundaryApiTests(APITestCase):
         self.assertIsNotNone(data)
 
     def test_boundary_types_list(self):
-        url = reverse('boundarytype-list')
+        url = reverse('boundary:boundarytype-list')
         print(url)
         request = self.factory.get(url)
         force_authenticate(request, user=self.user)
@@ -127,7 +127,7 @@ class BoundaryApiTests(APITestCase):
         self.assertIsNotNone(data)
         
     def test_boundary_types_detail(self):
-        url = reverse('boundarytype-detail',kwargs={'pk': 'SD'})
+        url = reverse('boundary:boundarytype-detail',kwargs={'pk': 'SD'})
         print(url)
         request = self.factory.get(url)
         force_authenticate(request, user=self.user)

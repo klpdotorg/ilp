@@ -62,7 +62,7 @@ class AdminBoundaryApiTests(APITestCase):
     
 
     def test_list_noauth(self):
-        url = reverse('admin1s-boundary')
+        url = reverse('boundary:admin1s-boundary')
         print("=======================================================")
         print("Test unauthorized access of URL - ",url)
         request = self.factory.get(url, {'state': 'ka'})
@@ -74,7 +74,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
        
     def test_list_admin1s_boundaries(self):
-        url = reverse('admin1s-boundary')
+        url = reverse('boundary:admin1s-boundary')
         print("=======================================================")
         print("Test listing all admin1s boundaries - ", url)
         request = self.factory.get(url, {'state': 'ka'})
@@ -90,7 +90,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
 
     def test_admin1s_preschool_districts(self):
-        url=reverse('admin1s-boundary')
+        url=reverse('boundary:admin1s-boundary')
         print("=======================================================")
         print("Testing listing admin1s boundaries filter by school type ", url)
         request=self.factory.get(url, {'state': 'ka', 'school_type': 'pre'})
@@ -104,7 +104,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
     
     def test_admin1s_primaryschool_districts(self):
-        url=reverse('admin1s-boundary')
+        url=reverse('boundary:admin1s-boundary')
         #url = url + '?school_type=primary'
         print("=======================================================")
         print("Testing listing primary school admin1s boundaries ", url)
@@ -120,7 +120,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
     
     def test_admin2s_boundaries(self):
-        url=reverse('admin2s-boundary')
+        url=reverse('boundary:admin2s-boundary')
         #url = '/api/v1/ka/boundary/admin2s'
         print("=======================================================")
         print("Testing list all admin2s boundaries ", url)
@@ -137,7 +137,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
 
     def test_admin2s_preschool_districts(self):
-        url=reverse('admin2s-boundary')
+        url=reverse('boundary:admin2s-boundary')
         #url = url + '?school_type=pre'
         print("=======================================================")
         print("Testing listing admin2s preschool boundaries ", url)
@@ -153,7 +153,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
     
     def test_admin2s_primaryschool_districts(self):
-        url = reverse('admin2s-boundary')
+        url = reverse('boundary:admin2s-boundary')
         #url = url + '?school_type=primary'
         print("=======================================================")
         print("Testing listing primary school admin2s boundaries ", url)
@@ -169,7 +169,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
 
     def test_admin3s_boundaries(self):
-        url = reverse('admin3s-boundary')
+        url = reverse('boundary:admin3s-boundary')
         print("=======================================================")
         print("Testing list all admin3s boundaries ", url)
         request = self.factory.get(url, {'state': 'ka'})
@@ -184,7 +184,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
 
     def test_admin3s_preschool_districts(self):
-        url = reverse('admin3s-boundary')
+        url = reverse('boundary:admin3s-boundary')
         #url = url + '?school_type=pre'
         print("=======================================================")
         print("Testing listing admin3s preschool boundaries ", url)
@@ -201,7 +201,7 @@ class AdminBoundaryApiTests(APITestCase):
         print("End test ===============================================")
     
     def test_admin3s_primaryschool_districts(self):
-        url = reverse('admin3s-boundary')
+        url = reverse('boundary:admin3s-boundary')
         #url = url + '?school_type=primary'
         print("=======================================================")
         print("Testing listing primary school admin3s boundaries ", url)

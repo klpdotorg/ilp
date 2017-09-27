@@ -29,7 +29,7 @@ class ElectionBoundaryTests(APITestCase):
     
 
     def test_list_assemblies(self):
-        url = reverse('assemblyListView')
+        url = reverse('boundary:assemblyListView')
         request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request, user=self.user)
         response = self.assemblylistView(request)
@@ -39,7 +39,7 @@ class ElectionBoundaryTests(APITestCase):
         self.assertIsNotNone(data)
     
     def test_list_parliamentary_bounds(self):
-        url = reverse('parliamentsListView')
+        url = reverse('boundary:parliamentsListView')
         request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request, user=self.user)
         response = self.parliamentlistView(request)
