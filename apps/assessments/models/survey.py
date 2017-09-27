@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User, Permission
+from django.conf import settings
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 
 
@@ -51,7 +52,7 @@ class QuestionGroup(models.Model):
     version = models.IntegerField(blank=True, null=True)
     source = models.ForeignKey("Source", null=True)
     double_entry = models.BooleanField(default=True)
-    created_by = models.ForeignKey(User, null=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
     created_at = models.DateField(max_length=20)
     updated_at = models.DateField(max_length=20, null=True)
     status = models.ForeignKey('common.Status')
@@ -121,5 +122,5 @@ class QuestionGroup_StudentGroup_Association(models.Model):
 class GuardianUserObjectPermission(models.Model):
     object_pk = models.CharField(max_length=100)
     content_type_id = models.ForeignKey(ContentType)
-    user_id = models.ForeignKey(User)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
     permission_id = models.ForeignKey(Permission)
