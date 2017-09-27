@@ -61,6 +61,7 @@ class InstitutionAPITests(APITestCase):
         response = self.client.post(
             url, {
                 "name": "GULPS EMMIGANUR",
+                "dise": 599419,
                 "languages": "1",
                 "admin3": ADMIN3_ID,
                 "gender": "co-ed",

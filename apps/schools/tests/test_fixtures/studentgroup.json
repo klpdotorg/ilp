@@ -7,6 +7,13 @@
     }
 },
 {
+    "model": "common.status",
+    "pk": "IA",
+    "fields": {
+        "name": "Inactive"
+    }
+},
+{
     "model": "boundary.boundarytype",
     "pk": "ST",
     "fields": {
@@ -48,6 +55,14 @@
     }
 },
 {
+    "model": "common.academicyear",
+    "pk": "1516",
+    "fields": {
+        "year": "2015-2016",
+        "active": "IA"
+    }
+},
+{
     "model": "boundary.boundary",
     "pk": 2,
     "fields": {
@@ -55,7 +70,7 @@
         "name": "Karnataka",
         "boundary_type": "ST",
         "type": null,
-        "dise_slug": "Karnataka",
+        "dise_slug": "India-Karnataka",
         "geom": null,
         "status": "AC"
     }
@@ -129,6 +144,103 @@
     }
 },
 {
+    "model": "dise.basicdata",
+    "pk": 599419,
+    "fields": {
+        "academic_year": "1516",
+        "district": "BENGALURU RURAL",
+        "school_code": 29210316801,
+        "school_name": "G HPS SOMATHANAHALLI",
+        "block_name": "DEVANAHALLI",
+        "cluster_name": "BOODIGERE",
+        "village_name": "SOMATHANAHALLI",
+        "pincode": 562129,
+        "rural_urban": 1,
+        "medium_of_instruction": 5,
+        "distance_brc": null,
+        "distance_crc": null,
+        "year_estd": 1940,
+        "pre_pry_yn": 2,
+        "residential_sch_yn": 2,
+        "sch_management": 1,
+        "lowest_class": 1,
+        "highest_class": 7,
+        "sch_category": 2,
+        "pre_pry_students": 0,
+        "school_type": 3,
+        "shift_school_yn": 2,
+        "no_of_working_days": 232,
+        "no_of_acad_inspection": 0,
+        "residential_sch_type": 9,
+        "pre_pry_teachers": 0,
+        "visits_by_brc": 5,
+        "visits_by_crc": 12,
+        "school_dev_grant_recd": 12000.0,
+        "school_dev_grant_expnd": 12000.0,
+        "tlm_grant_recd": null,
+        "tlm_grant_expnd": null,
+        "funds_from_students_recd": 12000.0,
+        "funds_from_students_expnd": 12000.0,
+        "building_status": 3,
+        "tot_clrooms": 5,
+        "classrooms_in_good_condition": 1,
+        "classrooms_require_major_repair": 1,
+        "classrooms_require_minor_repair": 3,
+        "other_rooms_in_good_cond": null,
+        "other_rooms_need_major_rep": null,
+        "other_rooms_need_minor_rep": null,
+        "toilet_common": null,
+        "toilet_boys": 1,
+        "toilet_girls": 1,
+        "kitchen_devices_grant": null,
+        "status_of_mdm": 2,
+        "computer_aided_learnin_lab": 2,
+        "separate_room_for_headmaster": 2,
+        "electricity": 1,
+        "boundary_wall": 8,
+        "library_yn": 1,
+        "playground": 2,
+        "blackboard": null,
+        "books_in_library": 985,
+        "drinking_water": 3,
+        "medical_checkup": 1,
+        "ramps": 1,
+        "no_of_computers": 0,
+        "male_tch": 1,
+        "female_tch": 3,
+        "noresp_tch": 0,
+        "head_teacher": 1,
+        "graduate_teachers": 0,
+        "tch_with_professional_qualification": 4,
+        "days_involved_in_non_tch_assgn": 0,
+        "teachers_involved_in_non_tch_assgn": 0,
+        "centroid": "SRID=4326;POINT (77.76824333333333 13.16836266666667)",
+        "assembly_name": "Devanahalli",
+        "parliament_name": "Chikkballapur",
+        "class1_total_enr_boys": 2,
+        "class2_total_enr_boys": 4,
+        "class3_total_enr_boys": 7,
+        "class4_total_enr_boys": 4,
+        "class5_total_enr_boys": 3,
+        "class6_total_enr_boys": 3,
+        "class7_total_enr_boys": 2,
+        "class8_total_enr_boys": 0,
+        "class1_total_enr_girls": 5,
+        "class2_total_enr_girls": 2,
+        "class3_total_enr_girls": 5,
+        "class4_total_enr_girls": 4,
+        "class5_total_enr_girls": 2,
+        "class6_total_enr_girls": 9,
+        "class7_total_enr_girls": 8,
+        "class8_total_enr_girls": 0,
+        "total_boys": 25,
+        "total_girls": 35,
+        "new_pincode": null,
+        "infered_assembly": null,
+        "infered_parliament": null
+    }
+},
+{
     "model": "common.grouptype",
     "pk": "class",
     "fields": {
@@ -146,7 +258,7 @@
     "model": "schools.institution",
     "pk": 36172,
     "fields": {
-        "dise_code": "29210316801",
+        "dise": 599419,
         "name": "G HPS SOMATHANAHALLI",
         "category": 14,
         "gender": "co-ed",
@@ -171,7 +283,7 @@
         "mla": null,
         "gp": null,
         "ward": null,
-        "coord": null,
+        "coord": "SRID=4326;POINT (77.76826 13.16838)",
         "last_verified_year": null,
         "status": "AC"
     }
