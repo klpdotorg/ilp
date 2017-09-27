@@ -36,6 +36,9 @@ class Survey(models.Model):
     description = models.CharField(max_length=200, null=True)
     status = models.ForeignKey('common.Status')
 
+    class Meta:
+        ordering = ['name', ]
+
 
 class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
