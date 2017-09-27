@@ -15,13 +15,20 @@ from rest_framework.exceptions import APIException
 logger = logging.getLogger(__name__)
 
 
-class BoundaryViewSet(viewsets.ModelViewSet):
+class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
     '''Boundary endpoint'''
     queryset = Boundary.objects.all()
     serializer_class = BoundarySerializer
     filter_class = BoundaryFilter
-    #filter_fields = ('boundary_type__char_id')
-
+    def get_queryset(self):
+        state = self.get_state()
+        if state:
+            boundaries = Boundary.objects.filter(Q(parent=state) |
+                                             Q(parent__parent=state) |
+                                             Q(parent__parent__parent=state))
+        else:
+            boundaries = Boundary.objects.all()
+        return boundaries
 
 class BoundaryTypeViewSet(viewsets.ModelViewSet):
     queryset = BoundaryType.objects.all()

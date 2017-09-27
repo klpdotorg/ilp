@@ -1,0 +1,711 @@
+[
+{
+    "model": "boundary.boundarytype",
+    "pk": "C",
+    "fields": {
+        "name": "Country"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ST",
+    "fields": {
+        "name": "State"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "name": "India",
+        "boundary_type": "C",
+        "type": null,
+        "dise_slug": "India",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "SD",
+    "fields": {
+        "name": "School District"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "SB",
+    "fields": {
+        "name": "School Block"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "SC",
+    "fields": {
+        "name": "School Cluster"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 2,
+    "fields": {
+        "parent": 1,
+        "name": "Karnataka",
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 433,
+    "fields": {
+        "parent": 2,
+        "name": "bengaluru rural",
+        "boundary_type": "SD",
+        "type": "primary",
+        "dise_slug": "Karnataka-bengaluru rural",
+        "geom": "SRID=4326;POINT (77.83026257600002 13.11876424799999)",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 586,
+    "fields": {
+        "parent": 433,
+        "name": "devanahalli",
+        "boundary_type": "SB",
+        "type": "primary",
+        "dise_slug": "bengaluru rural-devanahalli",
+        "geom": "SRID=4326;POINT (77.71915364999998 13.20899746666667)",
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 9092,
+    "fields": {
+        "parent": 586,
+        "name": "boodigere",
+        "boundary_type": "SC",
+        "type": "primary",
+        "dise_slug": "devanahalli-boodigere",
+        "geom": "SRID=4326;POINT (77.75238833333333 13.15186916666667)",
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.management",
+    "pk": 1,
+    "fields": {
+        "name": "Department of Education"
+    }
+},
+{
+    "model": "common.institutiontype",
+    "pk": "primary",
+    "fields": {
+        "name": "Primary School"
+    }
+},
+{
+    "model": "common.institutiongender",
+    "pk": "co-ed",
+    "fields": {
+        "name": "Co-ed"
+    }
+},
+{
+    "model": "schools.institutioncategory",
+    "pk": 14,
+    "fields": {
+        "name": "Upper Primary",
+        "institution_type": "primary"
+    }
+},
+{
+    "model": "common.gender",
+    "pk": "female",
+    "fields": {
+        "name": "Female"
+    }
+},
+{
+    "model": "common.grouptype",
+    "pk": "class",
+    "fields": {
+        "name": "Class"
+    }
+},
+{
+    "model": "schools.institution",
+    "pk": 36172,
+    "fields": {
+        "dise_code": "29210316801",
+        "name": "G HPS SOMATHANAHALLI",
+        "category": 14,
+        "gender": "co-ed",
+        "institution_type": "primary",
+        "management": 1,
+        "year_established": "1940",
+        "rural_urban": "Rural",
+        "phone_number": "9481202373",
+        "address": null,
+        "area": null,
+        "village": "SOMATHANAHALLI",
+        "pincode": null,
+        "landmark": null,
+        "instidentification": null,
+        "instidentification2": null,
+        "route_information": null,
+        "admin3": 9092,
+        "admin2": 586,
+        "admin1": 433,
+        "admin0": 2,
+        "mp": null,
+        "mla": null,
+        "gp": null,
+        "ward": null,
+        "coord": null,
+        "last_verified_year": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "kan",
+    "fields": {
+        "name": "Kannada"
+    }
+},
+{
+    "model": "common.gender",
+    "pk": "male",
+    "fields": {
+        "name": "Male"
+    }
+},
+{
+    "model": "schools.studentgroup",
+    "pk": 3486433,
+    "fields": {
+        "institution": 36172,
+        "name": "5",
+        "status": "AC",
+        "section": "",
+        "group_type": "class"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1617",
+    "fields": {
+        "year": "2016-2017",
+        "active": "AC"
+    }
+},
+{
+    "model": "schools.studentgroup",
+    "pk": 3486683,
+    "fields": {
+        "institution": 36172,
+        "name": "6",
+        "status": "AC",
+        "section": "",
+        "group_type": "class"
+    }
+},
+{
+    "model": "schools.studentgroup",
+    "pk": 3486431,
+    "fields": {
+        "institution": 36172,
+        "name": "3",
+        "status": "AC",
+        "section": "",
+        "group_type": "class"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1112",
+    "fields": {
+        "year": "2011-2012",
+        "active": "IA"
+    }
+},
+{
+    "model": "schools.studentgroup",
+    "pk": 3486429,
+    "fields": {
+        "institution": 36172,
+        "name": "1",
+        "status": "AC",
+        "section": "",
+        "group_type": "class"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1516",
+    "fields": {
+        "year": "2015-2016",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1415",
+    "fields": {
+        "year": "2014-205",
+        "active": "IA"
+    }
+},
+{
+    "model": "schools.studentgroup",
+    "pk": 3486432,
+    "fields": {
+        "institution": 36172,
+        "name": "4",
+        "status": "AC",
+        "section": "",
+        "group_type": "class"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1667626,
+    "fields": {
+        "first_name": "NISHA",
+        "middle_name": "",
+        "last_name": "",
+        "uid": "",
+        "dob": "2006-02-12",
+        "gender": "female",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "SARITHA None None",
+        "father_name": "BALAJI None None",
+        "institution": 36172,
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1667630,
+    "fields": {
+        "first_name": "LOKESH",
+        "middle_name": "",
+        "last_name": "",
+        "uid": "",
+        "dob": "2005-07-01",
+        "gender": "male",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "MANJULA None None",
+        "father_name": "DEVARAJ None None",
+        "institution": 36172,
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1667629,
+    "fields": {
+        "first_name": "NAVYASHREE",
+        "middle_name": "",
+        "last_name": "",
+        "uid": "",
+        "dob": "2006-04-18",
+        "gender": "female",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "BEBAMMA None None",
+        "father_name": "RAMACHADNRAPPA None None",
+        "institution": 36172,
+        "status": "AC"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1314",
+    "fields": {
+        "year": "2013-2014",
+        "active": "IA"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1668934,
+    "fields": {
+        "first_name": "HEMANTHA",
+        "middle_name": "",
+        "last_name": "N",
+        "uid": "",
+        "dob": "2007-07-04",
+        "gender": "male",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "LAKSHMAMMA  ",
+        "father_name": "NAGARAJU  ",
+        "institution": 36172,
+        "status": "AC"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "IA",
+    "fields": {
+        "name": "Inactive"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1213",
+    "fields": {
+        "year": "2012-2013",
+        "active": "IA"
+    }
+},
+{
+    "model": "schools.studentgroup",
+    "pk": 3486430,
+    "fields": {
+        "institution": 36172,
+        "name": "2",
+        "status": "AC",
+        "section": "",
+        "group_type": "class"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1667628,
+    "fields": {
+        "first_name": "SUMANTHA",
+        "middle_name": "",
+        "last_name": "",
+        "uid": "",
+        "dob": "2005-04-19",
+        "gender": "male",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "SHYLAJA None None",
+        "father_name": "NAGESHAPPA None None",
+        "institution": 36172,
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 15801595,
+    "fields": {
+        "student": 1667626,
+        "student_group": 3486433,
+        "academic_year": "1516",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 15801592,
+    "fields": {
+        "student": 1667630,
+        "student_group": 3486433,
+        "academic_year": "1516",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 15801593,
+    "fields": {
+        "student": 1667629,
+        "student_group": 3486433,
+        "academic_year": "1516",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 16524326,
+    "fields": {
+        "student": 1668934,
+        "student_group": 3486433,
+        "academic_year": "1617",
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 15801594,
+    "fields": {
+        "student": 1667628,
+        "student_group": 3486433,
+        "academic_year": "1516",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 16524322,
+    "fields": {
+        "student": 1667626,
+        "student_group": 3486683,
+        "academic_year": "1617",
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 11274750,
+    "fields": {
+        "student": 1667626,
+        "student_group": 3486431,
+        "academic_year": "1314",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 8291849,
+    "fields": {
+        "student": 1667626,
+        "student_group": 3486429,
+        "academic_year": "1112",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 16524325,
+    "fields": {
+        "student": 1667630,
+        "student_group": 3486683,
+        "academic_year": "1617",
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 11274746,
+    "fields": {
+        "student": 1667630,
+        "student_group": 3486431,
+        "academic_year": "1314",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 8291853,
+    "fields": {
+        "student": 1667630,
+        "student_group": 3486429,
+        "academic_year": "1112",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 16524324,
+    "fields": {
+        "student": 1667629,
+        "student_group": 3486683,
+        "academic_year": "1617",
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 11274747,
+    "fields": {
+        "student": 1667629,
+        "student_group": 3486431,
+        "academic_year": "1314",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 8291852,
+    "fields": {
+        "student": 1667629,
+        "student_group": 3486429,
+        "academic_year": "1112",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 16524323,
+    "fields": {
+        "student": 1667628,
+        "student_group": 3486683,
+        "academic_year": "1617",
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 13387328,
+    "fields": {
+        "student": 1668934,
+        "student_group": 3486431,
+        "academic_year": "1415",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 11274748,
+    "fields": {
+        "student": 1667628,
+        "student_group": 3486431,
+        "academic_year": "1314",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 9422574,
+    "fields": {
+        "student": 1668934,
+        "student_group": 3486429,
+        "academic_year": "1213",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 8291851,
+    "fields": {
+        "student": 1667628,
+        "student_group": 3486429,
+        "academic_year": "1112",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 13444817,
+    "fields": {
+        "student": 1667626,
+        "student_group": 3486432,
+        "academic_year": "1415",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 13444820,
+    "fields": {
+        "student": 1667630,
+        "student_group": 3486432,
+        "academic_year": "1415",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 13444819,
+    "fields": {
+        "student": 1667629,
+        "student_group": 3486432,
+        "academic_year": "1415",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 15702610,
+    "fields": {
+        "student": 1668934,
+        "student_group": 3486432,
+        "academic_year": "1516",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 13444818,
+    "fields": {
+        "student": 1667628,
+        "student_group": 3486432,
+        "academic_year": "1415",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 9737191,
+    "fields": {
+        "student": 1667626,
+        "student_group": 3486430,
+        "academic_year": "1213",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 9737195,
+    "fields": {
+        "student": 1667630,
+        "student_group": 3486430,
+        "academic_year": "1213",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 9737194,
+    "fields": {
+        "student": 1667629,
+        "student_group": 3486430,
+        "academic_year": "1213",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 11570466,
+    "fields": {
+        "student": 1668934,
+        "student_group": 3486430,
+        "academic_year": "1314",
+        "status": "IA"
+    }
+},
+{
+    "model": "schools.studentstudentgrouprelation",
+    "pk": 9737193,
+    "fields": {
+        "student": 1667628,
+        "student_group": 3486430,
+        "academic_year": "1213",
+        "status": "IA"
+    }
+}
+]

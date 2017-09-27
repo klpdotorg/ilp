@@ -129,10 +129,10 @@
     }
 },
 {
-    "model": "common.grouptype",
-    "pk": "class",
+    "model": "common.gender",
+    "pk": "male",
     "fields": {
-        "name": "Class"
+        "name": "Male"
     }
 },
 {
@@ -177,14 +177,117 @@
     }
 },
 {
-    "model": "schools.studentgroup",
-    "pk": 3486429,
+    "model": "common.language",
+    "pk": "kan",
     "fields": {
+        "name": "Kannada"
+    }
+},
+{
+    "model": "common.gender",
+    "pk": "female",
+    "fields": {
+        "name": "Female"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1668934,
+    "fields": {
+        "first_name": "HEMANTHA",
+        "middle_name": "",
+        "last_name": "N",
+        "uid": "",
+        "dob": "2007-07-04",
+        "gender": "male",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "LAKSHMAMMA  ",
+        "father_name": "NAGARAJU  ",
         "institution": 36172,
-        "name": "1",
-        "status": "AC",
-        "section": "",
-        "group_type": "class"
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1667630,
+    "fields": {
+        "first_name": "LOKESH",
+        "middle_name": "",
+        "last_name": "",
+        "uid": "",
+        "dob": "2005-07-01",
+        "gender": "male",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "MANJULA None None",
+        "father_name": "DEVARAJ None None",
+        "institution": 36172,
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1667629,
+    "fields": {
+        "first_name": "NAVYASHREE",
+        "middle_name": "",
+        "last_name": "",
+        "uid": "",
+        "dob": "2006-04-18",
+        "gender": "female",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "BEBAMMA None None",
+        "father_name": "RAMACHADNRAPPA None None",
+        "institution": 36172,
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1667628,
+    "fields": {
+        "first_name": "SUMANTHA",
+        "middle_name": "",
+        "last_name": "",
+        "uid": "",
+        "dob": "2005-04-19",
+        "gender": "male",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "SHYLAJA None None",
+        "father_name": "NAGESHAPPA None None",
+        "institution": 36172,
+        "status": "AC"
+    }
+},
+{
+    "model": "schools.student",
+    "pk": 1667626,
+    "fields": {
+        "first_name": "NISHA",
+        "middle_name": "",
+        "last_name": "",
+        "uid": "",
+        "dob": "2006-02-12",
+        "gender": "female",
+        "mt": "kan",
+        "religion": null,
+        "category": null,
+        "enrollment_id": null,
+        "mother_name": "SARITHA None None",
+        "father_name": "BALAJI None None",
+        "institution": 36172,
+        "status": "AC"
     }
 }
 ]

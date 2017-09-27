@@ -87,8 +87,6 @@ class InstitutionLanguage(models.Model):
         unique_together = (('institution', 'moi'), )
 
 
-
-
 class InstitutionAggregation(models.Model):
     """Data aggregation per institution"""
     institution = models.ForeignKey('Institution')

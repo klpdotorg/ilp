@@ -93,13 +93,12 @@ Run:
 Databases required before beginning imports :
 
 * EMS - Get dump from one of the devs
-* dubdubdub - get gz file from /home/vamsee @ dev.klp.org.in
-* klp-coord - get gz file from /home/vamsee @ dev.klp.org.in
-* electrep_new - get gz file from /home/vamsee @dev.klp.org.in
+* dubdubdub - get gz file from /home/ubuntu/backups/db @ dev.klp.org.in
+* klp-coord - get gz file from /home/ubuntu/backups/db @ dev.klp.org.in
+* electrep_new - get gz file from /home/ubuntu/backups/db @dev.klp.org.in
+* spatial - get gz file from /home/ubuntu/backups/db @ dev.klp.org.in
 
-More to come (TBD)
-
-Once the DBs are set up, run all the scripts per app in the imports directory. Please refer to READMEs there under each folder.
+Once the DBs are set up, go to the imports directory. Run all the scripts per app in the imports directory. General order to follow would be boundary, institution, spatial, student-staff, dise, assessments, aggregates. Please refer to READMEs there under each folder for detailed instructions on commands. 
 
 ### Run the application
 
