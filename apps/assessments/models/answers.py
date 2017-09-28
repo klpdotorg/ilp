@@ -1,6 +1,6 @@
 from .survey import Question, QuestionGroup
+from users.models import User
 from django.db import models
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 
 
@@ -18,7 +18,7 @@ class AnswerGroup_Institution(models.Model):
     questiongroup = models.ForeignKey("QuestionGroup")
     group_value = models.CharField(max_length=100, null=True)
     double_entry = models.IntegerField()
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+    created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateField(max_length=20)
     respondent_type = models.ForeignKey("RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True)
@@ -45,7 +45,7 @@ class AnswerGroup_StudentGroup(models.Model):
     questiongroup = models.ForeignKey("QuestionGroup")
     group_value = models.CharField(max_length=100, null=True)
     double_entry = models.IntegerField()
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+    created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateField(max_length=20)
     respondent_type = models.ForeignKey("RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True)
@@ -70,7 +70,7 @@ class AnswerGroup_Student(models.Model):
     questiongroup = models.ForeignKey("QuestionGroup")
     group_value = models.CharField(max_length=100, null=True)
     double_entry = models.IntegerField()
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+    created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateField(max_length=20)
     respondent_type = models.ForeignKey("RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True)
@@ -108,4 +108,4 @@ class EasyAuditCRUDEvent(models.Model):
     object_json_repr = models.CharField(max_length=100)
     datetime = models.DateField(max_length=20)
     content_type_id = models.ForeignKey(ContentType)
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user_id = models.ForeignKey(User)
