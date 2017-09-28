@@ -42,7 +42,7 @@ class ElectionBoundaryTests(APITestCase):
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(data)
-                   
+
     def test_list_parliamentary_bounds(self):
         url = reverse('boundary:parliamentsListView')
         request = self.factory.get(url, {'state': 'ka'})

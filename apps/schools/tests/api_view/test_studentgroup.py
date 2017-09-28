@@ -54,7 +54,7 @@ class StudentGroupApiTests(APITestCase):
         print("Test listing all student groups under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request, user=self.user)
-        response = self.listView(request,           parent_lookup_institution=36172,
+        response = self.listView(request, parent_lookup_institution=36172,
                                  pk=36172)
         data = response.data
         print("Response is : ", data)
@@ -147,7 +147,8 @@ class StudentGroupApiTests(APITestCase):
                            {
                     'name': 'test_updated_class_1A',
                     'section': 'B',
-                    'institution': '36172',               'group_type': 'class',
+                    'institution': '36172',
+                    'group_type': 'class',
                     'status': 'AC'}, format='json')
         response = self.cudView(request, pk=id)
         data = response.data

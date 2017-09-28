@@ -26,7 +26,8 @@ class AdminBoundaryApiTests(APITestCase):
         print("loading fixtures")
         call_command('loaddata', 'apps/boundary/tests/test_fixtures/common',
                      verbosity=3)
-        call_command('loaddata', 'apps/boundary/tests/test_fixtures/test_boundary',
+        call_command('loaddata', 'apps/boundary/tests/ \
+        test_fixtures/test_boundary',
                      verbosity=3)
         '''This is a custom django admin command created under boundary/
          management/commands.
