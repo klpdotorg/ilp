@@ -11,7 +11,7 @@ from .choices import USER_TYPE_CHOICES
 
 
 class UserManager(BaseUserManager):
-    def create(self, email, password=None, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         user = self.model(
             email=UserManager.normalize_email(email),
             **extra_fields
