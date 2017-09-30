@@ -114,7 +114,7 @@ USE_TZ = True
 # Authentication model
 # TODO: Uncomment the below line to use users.User
 # as default auth model
-# AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

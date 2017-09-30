@@ -5,12 +5,13 @@ from rest_framework import status
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+
 # Create your tests here.
-from boundary.api_views import (Admin1sBoundary, Admin2sBoundary,
-                                Admin3sBoundary,
-                                Admin2sInsideAdmin1,
-                                Admin3sInsideAdmin1,
-                                Admin3sInsideAdmin2)
+from boundary.api_views import (
+    Admin1sBoundary, Admin2sBoundary, Admin3sBoundary,
+    Admin2sInsideAdmin1, Admin3sInsideAdmin1,
+    Admin3sInsideAdmin2
+)
 
 
 class AdminBoundaryApiTests(APITestCase):
