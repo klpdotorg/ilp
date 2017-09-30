@@ -18,13 +18,13 @@ class BoundaryApiTests(APITestCase):
     writes, please write another class '''
 
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         # Load fixtures
         print("loading fixtures")
         call_command('loaddata', 'apps/boundary/tests/test_fixtures/common',
                      verbosity=0)
-        call_command('loaddata', 'apps/boundary/tests/ \
-        test_fixtures/test_boundary',
+        call_command('loaddata',
+                     'apps/boundary/tests/test_fixtures/test_boundary',
                      verbosity=0)
         '''This is a custom django admin command created under boundary/
          management/commands.
@@ -145,8 +145,8 @@ class BoundaryApiTests(APITestCase):
     def test_boundary_create(self):
         request = self.factory.post('/boundaries',
                                     {'parent': '2',
-                                     'name': 'test_SD',                      'boundary_type':
-                                     'SD',
+                                     'name': 'test_SD',
+                                     'boundary_type': 'SD',
                                      'type': 'primary',
                                      'status': 'AC'}, format='json')
         response = self.createView(request)

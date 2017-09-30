@@ -40,9 +40,10 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
     pagination_class = ILPPaginationSerializer
 
     def get_queryset(self):
-        # Get all the admin2 boundary ids for a particular state as a list     
-        admin2boundaries = self.get_state_boundaries().values_list('admin2_id', flat=True).distinct()
-        # Now, filter boundary table ids which are there in the above list and 
+        # Get all the admin2 boundary ids for a particular state as a list
+        admin2boundaries = self.get_state_boundaries().\
+            values_list('admin2_id', flat=True).distinct()
+        # Now, filter boundary table ids which are there in the above list and
         # then look for Blocks or clusters
         result = Boundary.objects.filter(id__in=admin2boundaries).filter(
             Q(boundary_type=BoundaryType.SCHOOL_BLOCK) |
@@ -64,11 +65,12 @@ class Admin3sBoundary(ILPStateMixin, ILPListAPIView):
     pagination_class = ILPPaginationSerializer
 
     def get_queryset(self):
-        # Get all the admin2 boundary ids for a particular state as a list        
-        admin3boundaries = self.get_state_boundaries().values_list('admin3_id', flat=True)
+        # Get all the admin2 boundary ids for a particular state as a list
+        admin3boundaries = self.get_state_boundaries()\
+            .values_list('admin3_id', flat=True)
 
-        # Now, filter boundary table ids which are there in the above list and 
-        # then look for Blocks or clusters
+        # Now, filter boundary table ids which are there in the above list
+        # and then look for Blocks or clusters
         queryset = Boundary.objects.filter(id__in=admin3boundaries)
         school_type = self.request.query_params.get('school_type', None)
         boundary_type = BoundaryType.SCHOOL_CLUSTER

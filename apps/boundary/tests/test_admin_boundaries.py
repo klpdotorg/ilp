@@ -21,13 +21,13 @@ class AdminBoundaryApiTests(APITestCase):
     each time for writes, please write another class '''
 
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         '''Load fixtures'''
         print("loading fixtures")
         call_command('loaddata', 'apps/boundary/tests/test_fixtures/common',
                      verbosity=3)
-        call_command('loaddata', 'apps/boundary/tests/ \
-        test_fixtures/test_boundary',
+        call_command('loaddata',
+                     'apps/boundary/tests/test_fixtures/test_boundary',
                      verbosity=3)
         '''This is a custom django admin command created under boundary/
          management/commands.
@@ -36,10 +36,8 @@ class AdminBoundaryApiTests(APITestCase):
 
     def setUp(self):
         '''setup a test user'''
-        self.user = get_user_model().objects               .create_user(
-            'admin',
-            'admin@klp.org.in',
-            'admin')
+        self.user = get_user_model().objects.create_user(
+            'admin', 'admin@klp.org.in', 'admin')
         self.view = Admin1sBoundary.as_view()
         self.admin2sView = Admin2sBoundary.as_view()
         self.admin3sView = Admin3sBoundary.as_view()

@@ -138,18 +138,21 @@ class StudentGroupApiTests(APITestCase):
         response.render()
         data = response.data
         id = data['id']
-        instId = data['institution']
+        inst_id = data['institution']
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # Now update the student group
-        request =
-        self.factory.patch('/institution/' + str(instId) +
-                           '/studentgroups/' + str(id),
-                           {
-                    'name': 'test_updated_class_1A',
-                    'section': 'B',
-                    'institution': '36172',
-                    'group_type': 'class',
-                    'status': 'AC'}, format='json')
+        patch_data = {
+            'name': 'test_updated_class_1A',
+            'section': 'B',
+            'institution': '36172',
+            'group_type': 'class',
+            'status': 'AC'
+        }
+        request = self.factory.patch(
+            '/institution/' + str(inst_id) +
+            '/studentgroups/' + str(id),
+            patch_data, format='json'
+        )
         response = self.cudView(request, pk=id)
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
