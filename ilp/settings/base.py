@@ -42,8 +42,10 @@ INSTALLED_APPS = (
 
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_swagger',
     'django_extensions',
     'django_filters',
+    'compressor',
 
     # ILP apps
     'users',
@@ -69,7 +71,7 @@ REST_FRAMEWORK = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,9 +120,12 @@ AUTH_USER_MODEL = 'users.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "/static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'assets', 'static'),
+)
+
 LOG_ROOT = os.path.join(BASE_DIR, "/logs")
 # ILP SETTINGS
 DEFAULT_ACADEMIC_YEAR = '1415'

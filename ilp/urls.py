@@ -1,11 +1,80 @@
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic.base import RedirectView
+
+from rest_framework_swagger.views import get_swagger_view
+
+from common.views import StaticPageView
+
+
+api_docs_view = get_swagger_view(title='ILP API')
 
 
 urlpatterns = [
-            url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
 
-                # API URLs.
-                    url(r'^api/v1/', include('ilp.api_urls')),
-                    ]
+    # Static views (pages)
+    # home page
+    url(r'^$', StaticPageView.as_view(
+        template_name='home.html',
+    ), name='home'),
 
+    # Map
+    url(r'^map/$', StaticPageView.as_view(
+        template_name='map.html',
+        extra_context={
+            'hide_footer': True,
+        }),
+        name='map'),
+
+    # Data page
+    url(r'^data/$', StaticPageView.as_view(
+        template_name='data.html',
+    ), name='data'),
+    url(r'text/data$', RedirectView.as_view(url='/data')),
+    url(r'listFiles/2$', RedirectView.as_view(url='/data')),
+
+    # Partner pages
+    url(r'^partners/akshara/reading/$', StaticPageView.as_view(
+        template_name='partners/akshara/reading.html',
+    ), name='reading_programme'),
+
+    url(r'^partners/sikshana/reading/$', StaticPageView.as_view(
+        template_name='partners/sikshana/reading.html',
+    ), name='sikshana_programme'),
+
+    url(r'^partners/pratham/learn-out-of-the-box/$', StaticPageView.as_view(
+        template_name='partners/pratham/learn.html',
+    ), name='partners_pratham_learn'),
+
+    url(r'^volunteer/$', StaticPageView.as_view(
+        template_name='volunteer.html',
+    ), name='volunteer'),
+    url(r'text/volunteer/$', RedirectView.as_view(url='/volunteer/')),
+
+    # Reports page
+    url(r'^reports/$', StaticPageView.as_view(
+        template_name='reports.html',
+    ), name='reports'),
+    url(r'text/reports/$', RedirectView.as_view(url='/reports')),
+
+    # About pages
+    url(r'^about/$', StaticPageView.as_view(
+        template_name='aboutus.html',
+    ), name='aboutus'),
+    url(r'text/aboutus/$', RedirectView.as_view(url='/about')),
+
+    url(r'^partners/$', StaticPageView.as_view(
+        template_name='partners.html',
+    ), name='partners'),
+    url(r'text/partners/$', RedirectView.as_view(url='/partners')),
+
+    url(r'^disclaimer/$', StaticPageView.as_view(
+        template_name='disclaimer.html',
+    ), name='disclaimer'),
+    url(r'text/disclaimer/$', RedirectView.as_view(url='/disclaimer')),
+
+    # API URLs.
+    url(r'^api/v1/', include('ilp.api_urls')),
+    url(r'^api/docs/', api_docs_view, name='api_docs'),
+]
