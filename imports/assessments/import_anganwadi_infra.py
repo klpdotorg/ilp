@@ -1,22 +1,19 @@
-from os import system,sys
+from os import system, sys
 import os
 
 
 if len(sys.argv) != 3:
-    print("Please give database names as arguments. USAGE: python import_anganwadi_infra.py ang_infra ilp", file=sys.stderr)
+    print("Please give database names as arguments. USAGE: python import_anganwadi_infra.py ang_infra ilp")
     sys.exit()
 
-#Before running this script
-#change this to point to the ems database that is used for getting the data
 fromdatabase = sys.argv[1]
 
-#change this to ilp db to be populated with
 todatabase = sys.argv[2]
 
 basename = "anginfra"
 dbs = []
 
-tables=[
+tables = [
     {
         'name': 'temp_anginfra',
         'db': fromdatabase,
@@ -38,7 +35,7 @@ tables=[
         'query': "insert into replacetable(id, name,created_at,partner_id,status_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA');"
     },
     {
-        #Setting id as 30
+        # Setting id as 30
         'name': 'assessments_questiongroup',
         'db': todatabase,
         'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, survey_on_id, type_id) values(30,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',4,'institution','monitor');"
@@ -65,33 +62,32 @@ tables=[
     }
 ]
 
-#Create directory and files
+
+# Create directory and files
 def init():
     if not os.path.exists("load"):
-    	os.makedirs("load")
+        os.makedirs("load")
 
 
 def create_sql_files():
-    #Loop through the tables
+    # Loop through the tables
     for table in tables:
         if table["db"] not in dbs:
             dbs.append(table["db"])
             system('>'+basename+'_'+table['db']+'_query.sql')
-        filename=os.getcwd()+'/load/'+table['name']+'.csv'
-        open(filename,'wb',0)
-        os.chmod(filename,0o666)
-        command='echo "'+table["query"].replace('replacetable',table["name"]).replace('replacename', table["name"])+'">>'+basename+'_'+table['db']+'_query.sql'
-        #print(command)
+        filename = os.getcwd()+'/load/'+table['name']+'.csv'
+        open(filename, 'wb', 0)
+        os.chmod(filename, 0o666)
+        command = 'echo "'+table["query"].replace('replacetable', table["name"]).replace('replacename', table["name"])+'">>'+basename+'_'+table['db']+'_query.sql'
         system(command)
 
 
 def loaddata():
-    print(dbs)
     for db in dbs:
         system('psql -U klp -d '+db+' -f '+basename+'_'+db+'_query.sql')
 
 
-#order in which function should be called.
+# order in which function should be called.
 init()
 create_sql_files()
 loaddata()
