@@ -23,9 +23,7 @@ class AGroupInstitutionViewset(APITestCase):
                      ('apps/assessments/tests/test_fixtures/'
                       'answergroup_institution.json'))
 
-    @patch('assessments.api_views.QGroupAnswerAPIView.get_respondents',
-           return_value={})
-    def test_list_api(self, get_respondents):
+    def test_get(self):
         url = reverse('assessment:answergroup_institution',
                       kwargs={'survey_id': 6})
         response = self.client.get(url, {'state': 'ka'})
