@@ -2,9 +2,14 @@ import logging
 
 from common.views import ILPListAPIView
 from common.utils import Date
-from assessments.models import ( Survey, QuestionGroup)
+from assessments.models import (Survey, QuestionGroup,
+                                Question, QuestionGroup_Questions,
+                                QuestionGroup_Institution_Association)
 from assessments.serializers import (SurveySerializer,
-    QuestionGroupSerializer)
+                                     QuestionGroupSerializer,
+                                     QuestionSerializer,
+                                     QuestionGroupQuestionSerializer,
+                                     AnswerSerializer)
 from rest_framework import viewsets
 from rest_framework.exceptions import APIException
 from rest_framework_extensions.mixins import NestedViewSetMixin
@@ -47,6 +52,74 @@ class QuestionGroupViewSet(NestedViewSetMixin, ILPStateMixin,
                 raise Http404
         return queryset.order_by('id')
 
+
+class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
+    '''Return all questions'''
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class QuestionGroupQuestions(NestedViewSetMixin, ILPStateMixin,                                             viewsets.ModelViewSet):
+    '''Returns all questions belonging to a questiongroup'''
+    queryset = QuestionGroup_Questions.objects.all()
+    serializer_class = QuestionGroupQuestionSerializer
+    
+    # M2M query returns duplicates. Overrode this function
+    # from NestedViewSetMixin to implement the .distinct()
+    def filter_queryset_by_parents_lookups(self, queryset):
+        parents_query_dict = self.get_parents_query_dict()
+        print("Arguments passed into QuestionGroupQuestions view is: %s",               parents_query_dict)
+        questiongroup = parents_query_dict.get('questiongroup_id')
+        print("Question group id is: ", questiongroup)
+        if parents_query_dict:
+            try:
+                queryset = queryset.filter(
+                    questiongroup_id=questiongroup
+                ).order_by().distinct('id')
+            except ValueError:
+                logger.exception(
+                    ("Exception while filtering queryset based on dictionary."
+                     "Params: %s, Queryset is: %s"),
+                    parents_query_dict, queryset)
+                raise Http404
+        return queryset.order_by('id')
+
+
+class QuestionGroupAnswers(NestedViewSetMixin, ILPStateMixin,
+                           viewsets.ModelViewSet):
+    queryset = QuestionGroup.objects.all()
+    serializer_class = AnswerSerializer
+    
+    # M2M query returns duplicates. Overrode this function
+    # from NestedViewSetMixin to implement the .distinct()
+    def filter_queryset_by_parents_lookups(self, queryset):
+        parents_query_dict = self.get_parents_query_dict()
+        try:
+            questiongroup = parents_query_dict.get('questiongroup_id')
+            print("Question group id is: ", questiongroup)
+            qnGroup = QuestionGroup.objects.get(id=questiongroup)
+            surveyon = qnGroup.survey_on;
+            print('SurveyOnType object is: ', surveyon)
+            if surveyon == 'institution':
+                # Query the institution answergroup table
+                print("Querying the institution answergroup table")
+                answergroupinstitution = qnGroup.answergroup_institution
+                queryset = answergroupinstitution.answerinstitution_set.all()
+                print("Answers is: ", queryset.count())
+            elif surveyon == 'studentgroup':
+                pass
+            
+            elif surveyon == 'student':
+                # Query the student answergroup table
+                pass   
+        except ValueError:
+                logger.exception(
+                    ("Exception while filtering queryset based on dictionary."
+                     "Params: %s, Queryset is: %s"),
+                    parents_query_dict, queryset)
+                raise Http404  
+        return queryset.order_by("id")
+    
 
 class StoryMetaView(ILPListAPIView):
 
