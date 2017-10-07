@@ -149,6 +149,7 @@ class BoundaryApiTests(APITestCase):
                                      'boundary_type': 'SD',
                                      'type': 'primary',
                                      'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.createView(request)
         response.render()
         data = response.data
