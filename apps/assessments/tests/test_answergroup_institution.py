@@ -18,8 +18,8 @@ class AGroupInstitutionViewset(APITestCase):
                       'answergroup_institution.json'))
 
     def test_answergroup_institution_list(self):
-        url = reverse('assessment:answergroup_institution',
-                      kwargs={'survey_id': 7})
+        url = reverse('assessment:qgroup-answer-meta',
+                      kwargs={'survey_id': 7, 'qgroup_id': 20})
         response = self.client.get(url, {'state': 'ka'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)

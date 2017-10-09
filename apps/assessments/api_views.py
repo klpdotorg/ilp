@@ -17,8 +17,12 @@ from rest_framework.exceptions import APIException
 
 
 class QGroupAnswerAPIView(ILPListAPIView):
+    """
+    Returns total number of stories and schools with stories
+    along with respondent types.
+    """
 
-    def get(self, request, survey_id):
+    def get(self, request, survey_id, qgroup_id):
         # Will be survery_id as kwargs
         source = self.request.query_params.get('source', None)
         versions = self.request.query_params.getlist('version', None)
@@ -52,9 +56,11 @@ class QGroupAnswerAPIView(ILPListAPIView):
         institution_qs = Institution.objects.filter(
             admin3__type=institution_type, status=Status.ACTIVE
         )
+        qgroup = QuestionGroup.objects.get(
+            id=qgroup_id, survey_id=survey_id
+        )
         agroup_inst_qs = AnswerGroup_Institution.objects.filter(
-            questiongroup__survey_id=survey_id,
-            institution__in=institution_qs
+            questiongroup=qgroup, institution__in=institution_qs
         ).values('id')
 
         if admin1_id:
