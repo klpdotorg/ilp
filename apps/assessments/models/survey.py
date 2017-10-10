@@ -1,6 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User, Permission
+from users.models import User
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
 
 
 class SurveyType(models.Model):
@@ -30,8 +32,8 @@ class DisplayType(models.Model):
 class Survey(models.Model):
     """Survey/Programme"""
     name = models.CharField(max_length=100)
-    created_at = models.DateField(max_length=20)
-    updated_at = models.DateField(max_length=20, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
     partner = models.ForeignKey('Partner', null=True)
     description = models.CharField(max_length=200, null=True)
     status = models.ForeignKey('common.Status')
@@ -55,8 +57,8 @@ class QuestionGroup(models.Model):
     source = models.ForeignKey("Source", null=True)
     double_entry = models.BooleanField(default=True)
     created_by = models.ForeignKey(User, null=True)
-    created_at = models.DateField(max_length=20)
-    updated_at = models.DateField(max_length=20, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now, null=True)
     status = models.ForeignKey('common.Status')
 
 
@@ -93,7 +95,7 @@ class QuestionGroup_Questions(models.Model):
     """Mapping of questions to a question group"""
     questiongroup = models.ForeignKey('QuestionGroup')
     question = models.ForeignKey('Question')
-    sequence = models.IntegerField()
+    sequence = models.IntegerField(null=True)
 
     class Meta:
         unique_together = (('question', 'questiongroup'), )

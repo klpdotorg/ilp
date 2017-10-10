@@ -7,11 +7,8 @@ if len(sys.argv) != 3:
           "python import_sys.py dubdubdub ilp")
     sys.exit()
 
-# Before running this script
-# change this to point to the ems database that is used for getting the data
 fromdatabase = sys.argv[1]
 
-# change this to ilp db to be populated with
 todatabase = sys.argv[2]
 
 basename = "sys"
@@ -25,12 +22,9 @@ tables = [
         'insertquery': "COPY replacetablename(id, name, created_at, updated_at, partner_id, status_id) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
-        #TODO created_by_id to be added.
         'name': 'assessments_questiongroup',
         'getquery': "COPY(select id, 'SYS', to_date('2014-05-13', 'YYYY-MM-DD'), version, 0, to_date('2014-05-13', 'YYYY-MM-DD'), case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, case(status) when 2 then 'AC' when 1 then 'IA' else 'AC' end,    source_id, survey_id, 'institution', 'perception', 'name' from stories_questiongroup where survey_id=5) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'insertquery': "COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, survey_on_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
-        #'getquery': "COPY(select id, name, start_date, end_date, version, 0, start_date, updated_at, case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, case(status) when 2 then 'AC' when 1 then 'IA' else 'AC' end,    source_id, survey_id, 'insititution', 'perception', 'name', created_by_id from stories_questiongroup where survey_id=5) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        #'insertquery': "COPY replacetablename(id, name, start_date, end_date,version, double_entry, created_at, updated_at, inst_type_id, status_id, source_id,survey_id, survey_on_id, type_id, group_text, created_by_id) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'name': 'assessments_question',
@@ -48,9 +42,6 @@ tables = [
         'getquery': "COPY(select distinct stories.id, 0, stories.date_of_visit, stories.comments, stories.is_verified, stories.sysid, stories.entered_timestamp, stories.school_id, stories.group_id, case qg.status when 1 then 'IA' when 2 then 'AC' else 'AC' end, usertype.name, stories.name from stories_story stories, stories_questiongroup qg, stories_usertype usertype where stories.group_id = qg.id and qg.survey_id=5 and stories.user_type_id = usertype.id) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, double_entry integer, date_of_visit timestamp, comments text, is_verified boolean, sysid integer, entered_at timestamp, school_id integer, questiongroup_id integer, status_id text, user_type_id text, group_value text); COPY temp_replacetablename(id, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, school_id,questiongroup_id, status_id, user_type_id, group_value) FROM 'replacefilename' with csv NULL 'null';",
         'insertquery': "INSERT INTO replacetablename(id, group_value, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id) select temp.id, temp.group_value, temp.double_entry, temp.date_of_visit, temp.comments, temp.is_verified, temp.sysid, temp.entered_at, temp.school_id, temp.questiongroup_id, temp.status_id,temp.user_type_id from temp_replacetablename temp, schools_institution s where temp.school_id=s.id;"
-        #'getquery': "COPY(select distinct stories.id, 0, stories.date_of_visit, stories.comments, stories.is_verified, stories.sysid, stories.entered_timestamp, stories.school_id, stories.group_id, case qg.status when 1 then 'IA' when 2 then 'AC' else 'AC' end, usertype.name, stories.name, stories.user_id from stories_story stories, stories_questiongroup qg, stories_usertype usertype where stories.group_id = qg.id and qg.survey_id=5 and stories.user_type_id = usertype.id) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        #'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, double_entry integer, date_of_visit timestamp, comments text, is_verified boolean, sysid integer, entered_at timestamp, school_id integer, questiongroup_id integer, status_id text, user_type_id text, group_value text, user_id integer); COPY temp_replacetablename(id, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, school_id,questiongroup_id, status_id, user_type_id, group_value, user_id) FROM 'replacefilename' with csv NULL 'null';",
-        #'insertquery': "INSERT INTO replacetablename(id, group_value, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id,created_by_id) select temp.id, temp.group_value, temp.double_entry, temp.date_of_visit, temp.comments, temp.is_verified, temp.sysid, temp.entered_at, temp.school_id, temp.questiongroup_id, temp.status_id,temp.user_type_id, temp.user_id from temp_replacetablename temp, schools_institution s where temp.school_id=s.id;"
     },
     {
         'name': 'assessments_answerinstitution',

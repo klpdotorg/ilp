@@ -11,25 +11,30 @@ from tests import IlpTestCase
 from boundary.api_views import (AssemblyBoundariesViewSet,
                                 ParliamentBoundariesViewSet)
 
+
 class ElectionBoundaryTests(APITestCase):
 
     @classmethod
     def setUpTestData(self):
         call_command('loaddata',
-                        'apps/boundary/tests/test_fixtures/election_boundaries',
-                        verbosity=0)
+                     'apps/boundary/tests/test_fixtures/election_boundaries',
+                     verbosity=0)
 
     def setUp(self):
-        self.user = get_user_model().objects.create_user('admin', 'admin@klp.org.in', 'admin')
-        self.assemblylistView = AssemblyBoundariesViewSet.as_view(actions={'get': 'list'})
-        self.assemblydetailView = AssemblyBoundariesViewSet.as_view(actions={'get': 'retrieve'})
-        self.parliamentlistView = ParliamentBoundariesViewSet.as_view(actions={'get': 'list'})
-        self.parliamentDetailView = ParliamentBoundariesViewSet.as_view(actions={'get':'retrieve'})
+        self.user = get_user_model().objects.create_user(
+            'admin@klp.org.in', 'admin')
+        self.assemblylistView = AssemblyBoundariesViewSet.as_view(
+            actions={'get': 'list'})
+        self.assemblydetailView = AssemblyBoundariesViewSet.as_view(
+            actions={'get': 'retrieve'})
+        self.parliamentlistView = ParliamentBoundariesViewSet.as_view(
+            actions={'get': 'list'})
+        self.parliamentDetailView = ParliamentBoundariesViewSet.as_view(
+            actions={'get': 'retrieve'})
         self.factory = APIRequestFactory()
-    
 
     def test_list_assemblies(self):
-        url = reverse('assemblyListView')
+        url = reverse('boundary:assemblyListView')
         request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request, user=self.user)
         response = self.assemblylistView(request)
@@ -37,9 +42,9 @@ class ElectionBoundaryTests(APITestCase):
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(data)
-    
+
     def test_list_parliamentary_bounds(self):
-        url = reverse('parliamentsListView')
+        url = reverse('boundary:parliamentsListView')
         request = self.factory.get(url, {'state': 'ka'})
         force_authenticate(request, user=self.user)
         response = self.parliamentlistView(request)

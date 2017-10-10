@@ -7,11 +7,8 @@ if len(sys.argv) != 3:
           "python import_klpkonnect.py dubdubdub ilp")
     sys.exit()
 
-# Before running this script
-# change this to point to the ems database that is used for getting the data
 fromdatabase = sys.argv[1]
 
-# change this to ilp db to be populated with
 todatabase = sys.argv[2]
 
 basename = "klpkonnect"
@@ -45,9 +42,6 @@ tables = [
         'getquery': "COPY(select distinct stories.id, 0, stories.date_of_visit, stories.comments, stories.is_verified, stories.sysid, stories.entered_timestamp, stories.school_id, stories.group_id, case qg.status when 1 then 'IA' when 2 then 'AC' else 'AC' end, usertype.name, stories.name from stories_story stories, stories_questiongroup qg, stories_usertype usertype where stories.group_id = qg.id and qg.id=20 and stories.user_type_id = usertype.id) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, double_entry integer, date_of_visit timestamp, comments text, is_verified boolean, sysid integer, entered_at timestamp, school_id integer, questiongroup_id integer, status_id text, user_type_id text, group_value text); COPY temp_replacetablename(id, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, school_id,questiongroup_id, status_id, user_type_id, group_value) FROM 'replacefilename' with csv NULL 'null';",
         'insertquery': "INSERT INTO replacetablename(id, group_value, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id) select temp.id, temp.group_value, temp.double_entry, temp.date_of_visit, temp.comments, temp.is_verified, temp.sysid, temp.entered_at, temp.school_id, temp.questiongroup_id, temp.status_id,temp.user_type_id from temp_replacetablename temp, schools_institution s where temp.school_id=s.id;"
-        #'getquery': "COPY(select distinct stories.id, 0, stories.date_of_visit, stories.comments, stories.is_verified, stories.sysid, stories.entered_timestamp, stories.school_id, stories.group_id, case qg.status when 1 then 'IA' when 2 then 'AC' else 'AC' end, usertype.name, stories.name, stories.user_id from stories_story stories, stories_questiongroup qg, stories_usertype usertype where stories.group_id = qg.id and qg.survey_id=7 and stories.user_type_id = usertype.id) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        #'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, double_entry integer, date_of_visit timestamp, comments text, is_verified boolean, sysid integer, entered_at timestamp, school_id integer, questiongroup_id integer, status_id text, user_type_id text, group_value text, user_id integer); COPY temp_replacetablename(id, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, school_id,questiongroup_id, status_id, user_type_id, group_value, user_id) FROM 'replacefilename' with csv NULL 'null';",
-        #'insertquery': "INSERT INTO replacetablename(id, group_value, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id,created_by_id) select temp.id, temp.group_value, temp.double_entry, temp.date_of_visit, temp.comments, temp.is_verified, temp.sysid, temp.entered_at, temp.school_id, temp.questiongroup_id, temp.status_id,temp.user_type_id, temp.user_id from temp_replacetablename temp, schools_institution s where temp.school_id=s.id;"
     },
     {
         'name': 'assessments_answerinstitution',

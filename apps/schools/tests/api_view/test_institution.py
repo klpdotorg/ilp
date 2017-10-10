@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 
 from rest_framework import status
@@ -19,6 +20,11 @@ class InstitutionAPITests(APITestCase):
         call_command('loaddata', 'apps/common/fixtures/status')
         call_command('loaddata', 'apps/common/fixtures/institutiontype')
         call_command('creatematviews')
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            'admin@klp.org.in', 'admin'
+        )
 
     def test_list_api(self):
         url = reverse('institution:basic-list')
@@ -58,9 +64,11 @@ class InstitutionAPITests(APITestCase):
 
     def test_post_institution(self):
         url = reverse('institution:institution-list')
+        self.client.force_authenticate(user=self.user)
         response = self.client.post(
             url, {
                 "name": "GULPS EMMIGANUR",
+                "dise": 599419,
                 "languages": "1",
                 "admin3": ADMIN3_ID,
                 "gender": "co-ed",

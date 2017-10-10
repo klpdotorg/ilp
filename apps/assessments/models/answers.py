@@ -1,7 +1,8 @@
 from .survey import Question, QuestionGroup
+from users.models import User
 from django.db import models
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
 
 
 EVENT_TYPE = (
@@ -19,13 +20,13 @@ class AnswerGroup_Institution(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     double_entry = models.IntegerField()
     created_by = models.ForeignKey(User, null=True)
-    date_of_visit = models.DateField(max_length=20)
+    date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey("RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
     sysid = models.IntegerField(null=True)
-    entered_at = models.DateField(max_length=20, null=True)
+    entered_at = models.DateTimeField(default=timezone.now, null=True)
 
 
 class AnswerInstitution(models.Model):
@@ -46,7 +47,7 @@ class AnswerGroup_StudentGroup(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     double_entry = models.IntegerField()
     created_by = models.ForeignKey(User, null=True)
-    date_of_visit = models.DateField(max_length=20)
+    date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey("RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
@@ -71,7 +72,7 @@ class AnswerGroup_Student(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     double_entry = models.IntegerField()
     created_by = models.ForeignKey(User, null=True)
-    date_of_visit = models.DateField(max_length=20)
+    date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey("RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
@@ -106,6 +107,6 @@ class EasyAuditCRUDEvent(models.Model):
     object_id = models.IntegerField()
     object_repr = models.CharField(max_length=100)
     object_json_repr = models.CharField(max_length=100)
-    datetime = models.DateField(max_length=20)
+    datetime = models.DateTimeField(default=timezone.now)
     content_type_id = models.ForeignKey(ContentType)
     user_id = models.ForeignKey(User)

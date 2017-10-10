@@ -41,10 +41,14 @@ INSTALLED_APPS = (
     'django.contrib.gis',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
     'django_extensions',
     'django_filters',
+    'compressor',
 
     # ILP apps
+    'users',
     'common',
     'boundary',
     'schools',
@@ -55,13 +59,21 @@ INSTALLED_APPS = (
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'ILPLISTVIEW_PAGE_SIZE': 50,
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend'
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    )
 }
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,11 +115,19 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Authentication model
+# TODO: Uncomment the below line to use users.User
+# as default auth model
+AUTH_USER_MODEL = 'users.User'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "/static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'assets', 'static'),
+)
+
 LOG_ROOT = os.path.join(BASE_DIR, "/logs")
 # ILP SETTINGS
 DEFAULT_ACADEMIC_YEAR = '1415'

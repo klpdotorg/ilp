@@ -7,11 +7,8 @@ if len(sys.argv) != 3:
           "python import_gp_contest.py dubdubdub ilp")
     sys.exit()
 
-# Before running this script
-# change this to point to the ems database that is used for getting the data
 fromdatabase = sys.argv[1]
 
-# change this to ilp db to be populated with
 todatabase = sys.argv[2]
 
 basename = "gpcontest"

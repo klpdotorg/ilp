@@ -27,7 +27,6 @@ class InstitutionSerializer(ILPSerializer):
 
 
 class InstitutionCreateSerializer(ILPSerializer):
-    dise_code = serializers.CharField(default=None)
     status = serializers.PrimaryKeyRelatedField(
         queryset=Status.objects.all()
     )
@@ -47,7 +46,7 @@ class InstitutionCreateSerializer(ILPSerializer):
     class Meta:
         model = Institution
         fields = (
-            'id', 'admin3', 'dise_code', 'name', 'category', 'gender',
+            'id', 'admin3', 'dise', 'name', 'category', 'gender',
             'status', 'institution_type', 'management', 'address',
             'area', 'pincode', 'landmark'
         )

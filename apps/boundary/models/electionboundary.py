@@ -1,5 +1,3 @@
-from common.models import common
-from .boundary import BoundaryType
 from django.contrib.gis.db import models
 
 
@@ -29,7 +27,7 @@ class ElectionNeighbours(models.Model):
         'ElectionBoundary', related_name='electionboundary_neighbour')
 
     class Meta:
-        unique_together = (('elect_boundary','neighbour'), )
+        unique_together = (('elect_boundary', 'neighbour'), )
 
 
 class ElectionParty(models.Model):
@@ -54,4 +52,7 @@ class ElectionBoundaryAggregation(models.Model):
     num = models.IntegerField()
 
     class Meta:
-        unique_together = (('id','academic_year','gender','moi','mt','religion','category'), )
+        unique_together = (
+            ('id', 'academic_year', 'gender', 'moi', 'mt',
+             'religion', 'category'),
+        )
