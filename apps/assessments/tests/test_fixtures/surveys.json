@@ -1,0 +1,112 @@
+[
+{
+    "model": "boundary.boundarytype",
+    "pk": "C",
+    "fields": {
+        "name": "Country"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ST",
+    "fields": {
+        "name": "State"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "name": "India",
+        "boundary_type": "C",
+        "type": null,
+        "dise_slug": "India",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 2,
+    "fields": {
+        "parent": 1,
+        "name": "Karnataka",
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "India-Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "IA",
+    "fields": {
+        "name": "Inactive"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "assessments.partner",
+    "pk": "akshara",
+    "fields": {
+        "name": "Akshara Foundation",
+        "admin0": 2
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 2,
+    "fields": {
+        "name": "GP Contest",
+        "created_at": "2017-06-06",
+        "updated_at": "2017-06-06",
+        "partner": "akshara",
+        "description": "GP Contest",
+        "status": "IA"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 7,
+    "fields": {
+        "name": "ILP Konnect Community Survey",
+        "created_at": "2016-05-19",
+        "updated_at": "2016-05-19",
+        "partner": "akshara",
+        "description": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 5,
+    "fields": {
+        "name": " SYS",
+        "created_at": "2016-05-19",
+        "updated_at": "2016-05-19",
+        "partner": "akshara",
+        "description": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 6,
+    "fields": {
+        "name": " Mahiti IVRS",
+        "created_at": "2016-05-19",
+        "updated_at": "2016-05-19",
+        "partner": "akshara",
+        "description": null,
+        "status": "AC"
+    }
+}
+]

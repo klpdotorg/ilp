@@ -1,3 +1,4 @@
+import logging
 from django.contrib.auth.models import Group
 from django.db.models import Count, Max
 
@@ -5,17 +6,133 @@ from common.views import ILPListAPIView
 from common.utils import Date
 from common.models import InstitutionType, Status
 
-from assessments.models import (
-    AnswerGroup_Institution, QuestionGroup, Source,
-    RespondentType
-)
-
 from schools.models import Institution
 
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException
 
 
+from assessments.models import (Survey, QuestionGroup,
+                                Question, QuestionGroup_Questions,
+                                QuestionGroup_Institution_Association,
+                                AnswerGroup_Institution,
+                                AnswerInstitution, Source,
+                                RespondentType)
+from assessments.serializers import (SurveySerializer,
+                                     QuestionGroupSerializer,
+                                     QuestionSerializer,
+                                     QuestionGroupQuestionSerializer,
+                                     AnswerSerializer)
+from rest_framework import viewsets
+from rest_framework_extensions.mixins import NestedViewSetMixin
+from common.mixins import ILPStateMixin
+from common.views import ILPViewSet
+
+logger = logging.getLogger(__name__)
+
+
+class SurveysViewSet(ILPViewSet, ILPStateMixin):
+    '''Returns all surveys'''
+    queryset = Survey.objects.all()
+    serializer_class = SurveySerializer
+    #filter_class = StudentGroupFilter
+
+
+class QuestionGroupViewSet(NestedViewSetMixin, ILPStateMixin, 
+                           viewsets.ModelViewSet):
+    '''Returns all questiongroups belonging to a survey'''
+    queryset = QuestionGroup.objects.all()
+    serializer_class = QuestionGroupSerializer
+
+    # M2M query returns duplicates. Overrode this function
+    # from NestedViewSetMixin to implement the .distinct()
+    def filter_queryset_by_parents_lookups(self, queryset):
+        parents_query_dict = self.get_parents_query_dict()
+        logger.debug("Arguments passed into view is: %s", parents_query_dict)
+        if parents_query_dict:
+            try:
+                queryset = queryset.filter(
+                    **parents_query_dict
+                ).order_by().distinct('id')
+            except ValueError:
+                logger.exception(
+                    ("Exception while filtering queryset based on dictionary."
+                     "Params: %s, Queryset is: %s"),
+                    parents_query_dict, queryset)
+                raise Http404
+        return queryset.order_by('id')
+
+
+class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
+    '''Return all questions'''
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class QuestionGroupQuestions(NestedViewSetMixin, ILPStateMixin,                                             viewsets.ModelViewSet):
+    '''Returns all questions belonging to a questiongroup'''
+    queryset = QuestionGroup_Questions.objects.all()
+    serializer_class = QuestionGroupQuestionSerializer
+    
+    # M2M query returns duplicates. Overrode this function
+    # from NestedViewSetMixin to implement the .distinct()
+    def filter_queryset_by_parents_lookups(self, queryset):
+        parents_query_dict = self.get_parents_query_dict()
+        print("Arguments passed into QuestionGroupQuestions view is: %s",               parents_query_dict)
+        questiongroup = parents_query_dict.get('questiongroup_id')
+        print("Question group id is: ", questiongroup)
+        if parents_query_dict:
+            try:
+                queryset = queryset.filter(
+                    questiongroup_id=questiongroup
+                ).order_by().distinct('id')
+            except ValueError:
+                logger.exception(
+                    ("Exception while filtering queryset based on dictionary."
+                     "Params: %s, Queryset is: %s"),
+                    parents_query_dict, queryset)
+                raise Http404
+        return queryset.order_by('id')
+
+
+# class QuestionGroupAnswers(NestedViewSetMixin, ILPStateMixin,
+#                            viewsets.ModelViewSet):
+#     queryset = QuestionGroup.objects.all()
+#     serializer_class = AnswerSerializer
+    
+#     # M2M query returns duplicates. Overrode this function
+#     # from NestedViewSetMixin to implement the .distinct()
+#     def filter_queryset_by_parents_lookups(self, queryset):
+#         parents_query_dict = self.get_parents_query_dict()
+#         try:
+#             questiongroup = parents_query_dict.get('questiongroup_id')
+#             print("Question group id is: ", questiongroup)
+#             qnGroup = QuestionGroup.objects.get(id=questiongroup)
+#             surveyon = qnGroup.survey_on;
+#             print('SurveyOnType object is: ', surveyon)
+#             for x in surveyon.__dict__.keys():
+#                 print(x)
+#             if surveyon.char_id == 'institution':
+#                 # Query the institution answergroup table
+#                 print("Querying the institution answergroup table")
+#                 answergroupinstitution = AnswerGroup_Institution.objects.filter(questiongroup=qnGroup)
+#                 queryset = AnswerInstitution.objects.filter             (answergroup__in=answergroupinstitution)
+#                 # queryset = answergroupinstitution.answerinstitution.all()
+#                 print("Answer Groups is: ", answergroupinstitution.count())
+#             elif surveyon.char_id == 'studentgroup':
+#                 pass
+            
+#             elif surveyon.char_id == 'student':
+#                 # Query the student answergroup table
+#                 pass   
+#         except ValueError:
+#                 logger.exception(
+#                     ("Exception while filtering queryset based on dictionary."
+#                      "Params: %s, Queryset is: %s"),
+#                     parents_query_dict, queryset)
+#                 raise Http404  
+#         return queryset.order_by("id")
+    
 class QGroupAnswerAPIView(ILPListAPIView):
     """
     Returns total number of stories(surverys) and schools with stories
