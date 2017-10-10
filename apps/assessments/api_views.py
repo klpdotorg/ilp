@@ -4,7 +4,9 @@ from common.views import ILPListAPIView
 from common.utils import Date
 from assessments.models import (Survey, QuestionGroup,
                                 Question, QuestionGroup_Questions,
-                                QuestionGroup_Institution_Association)
+                                QuestionGroup_Institution_Association,
+                                AnswerGroup_Institution,
+                                AnswerInstitution)
 from assessments.serializers import (SurveySerializer,
                                      QuestionGroupSerializer,
                                      QuestionSerializer,
@@ -100,16 +102,19 @@ class QuestionGroupAnswers(NestedViewSetMixin, ILPStateMixin,
             qnGroup = QuestionGroup.objects.get(id=questiongroup)
             surveyon = qnGroup.survey_on;
             print('SurveyOnType object is: ', surveyon)
-            if surveyon == 'institution':
+            for x in surveyon.__dict__.keys():
+                print(x)
+            if surveyon.char_id == 'institution':
                 # Query the institution answergroup table
                 print("Querying the institution answergroup table")
-                answergroupinstitution = qnGroup.answergroup_institution
-                queryset = answergroupinstitution.answerinstitution_set.all()
-                print("Answers is: ", queryset.count())
-            elif surveyon == 'studentgroup':
+                answergroupinstitution = AnswerGroup_Institution.objects.filter(questiongroup=qnGroup)
+                queryset = AnswerInstitution.objects.filter             (answergroup__in=answergroupinstitution)
+                # queryset = answergroupinstitution.answerinstitution.all()
+                print("Answer Groups is: ", answergroupinstitution.count())
+            elif surveyon.char_id == 'studentgroup':
                 pass
             
-            elif surveyon == 'student':
+            elif surveyon.char_id == 'student':
                 # Query the student answergroup table
                 pass   
         except ValueError:

@@ -59,7 +59,7 @@ class AnswerGroupInstSerializer(ILPSerializer):
     class Meta:
         model = AnswerGroup_Institution
         fields = (
-            'institution', 'group_value',
+            'id', 'questiongroup', 'institution', 'group_value',
             'double_entry', 'created_by', 'date_of_visit',
             'respondent_type', 'comments', 'is_verified',
             'status', 'sysid', 'entered_at'
