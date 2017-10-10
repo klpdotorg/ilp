@@ -60,7 +60,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'ILPLISTVIEW_PAGE_SIZE': 50,
     'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework.filters.DjangoFilterBackend'
+        'django_filters.rest_framework.DjangoFilterBackend'
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',

@@ -15,9 +15,6 @@ csvdirname="$4";
 #Delete from tables
 psql -U klp -d $ilpdbname -f sql/deleteFromTables.sql
 
-#Add entries for India and Karnataka in the boundary table. Need to add more states here as we go along
-psql -U klp -d $ilpdbname -f sql/fillBoundaryStatics.sql
-
 #Export the boundary table data
 psql -U klp -d $legacydb --set=outputdir="$csvdirname" -f sql/exportBoundaryData.sql
 
