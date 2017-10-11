@@ -1,32 +1,31 @@
 import logging
+
 from django.contrib.auth.models import Group
+from django.http import Http404
 from django.db.models import Count, Max
 
 from common.views import ILPListAPIView
 from common.utils import Date
 from common.models import InstitutionType, Status
+from common.mixins import ILPStateMixin
+from common.views import ILPViewSet
 
 from schools.models import Institution
 
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException
-
-
-from assessments.models import (Survey, QuestionGroup,
-                                Question, QuestionGroup_Questions,
-                                QuestionGroup_Institution_Association,
-                                AnswerGroup_Institution,
-                                AnswerInstitution, Source,
-                                RespondentType)
-from assessments.serializers import (SurveySerializer,
-                                     QuestionGroupSerializer,
-                                     QuestionSerializer,
-                                     QuestionGroupQuestionSerializer,
-                                     AnswerSerializer)
 from rest_framework import viewsets
 from rest_framework_extensions.mixins import NestedViewSetMixin
-from common.mixins import ILPStateMixin
-from common.views import ILPViewSet
+
+from assessments.models import (
+    Survey, QuestionGroup, Question,
+    QuestionGroup_Questions, AnswerGroup_Institution,
+    AnswerInstitution, Source, RespondentType
+)
+from assessments.serializers import (
+    SurveySerializer, QuestionGroupSerializer,
+    QuestionSerializer, QuestionGroupQuestionSerializer
+)
 
 logger = logging.getLogger(__name__)
 
@@ -35,11 +34,12 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
-    #filter_class = StudentGroupFilter
+    # filter_class = StudentGroupFilter
 
 
-class QuestionGroupViewSet(NestedViewSetMixin, ILPStateMixin, 
-                           viewsets.ModelViewSet):
+class QuestionGroupViewSet(
+    NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
+):
     '''Returns all questiongroups belonging to a survey'''
     queryset = QuestionGroup.objects.all()
     serializer_class = QuestionGroupSerializer
@@ -69,16 +69,21 @@ class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
 
 
-class QuestionGroupQuestions(NestedViewSetMixin, ILPStateMixin,                                             viewsets.ModelViewSet):
+class QuestionGroupQuestions(
+    NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
+):
     '''Returns all questions belonging to a questiongroup'''
     queryset = QuestionGroup_Questions.objects.all()
     serializer_class = QuestionGroupQuestionSerializer
-    
+
     # M2M query returns duplicates. Overrode this function
     # from NestedViewSetMixin to implement the .distinct()
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
-        print("Arguments passed into QuestionGroupQuestions view is: %s",               parents_query_dict)
+        print(
+            "Arguments passed into QuestionGroupQuestions view is: %s",
+            parents_query_dict
+        )
         questiongroup = parents_query_dict.get('questiongroup_id')
         print("Question group id is: ", questiongroup)
         if parents_query_dict:
@@ -99,7 +104,7 @@ class QuestionGroupQuestions(NestedViewSetMixin, ILPStateMixin,                 
 #                            viewsets.ModelViewSet):
 #     queryset = QuestionGroup.objects.all()
 #     serializer_class = AnswerSerializer
-    
+#
 #     # M2M query returns duplicates. Overrode this function
 #     # from NestedViewSetMixin to implement the .distinct()
 #     def filter_queryset_by_parents_lookups(self, queryset):
@@ -115,24 +120,27 @@ class QuestionGroupQuestions(NestedViewSetMixin, ILPStateMixin,                 
 #             if surveyon.char_id == 'institution':
 #                 # Query the institution answergroup table
 #                 print("Querying the institution answergroup table")
-#                 answergroupinstitution = AnswerGroup_Institution.objects.filter(questiongroup=qnGroup)
-#                 queryset = AnswerInstitution.objects.filter             (answergroup__in=answergroupinstitution)
+#                 answergroupinstitution = \
+#                   AnswerGroup_Institution.objects.filter(questiongroup=qnGroup)
+#                 queryset = AnswerInstitution.objects.filter(
+#                       answergroup__in=answergroupinstitution
+#                 )
 #                 # queryset = answergroupinstitution.answerinstitution.all()
 #                 print("Answer Groups is: ", answergroupinstitution.count())
 #             elif surveyon.char_id == 'studentgroup':
 #                 pass
-            
 #             elif surveyon.char_id == 'student':
 #                 # Query the student answergroup table
-#                 pass   
+#                 pass
 #         except ValueError:
 #                 logger.exception(
-#                     ("Exception while filtering queryset based on dictionary."
-#                      "Params: %s, Queryset is: %s"),
+#                     ("Exception while filtering queryset based on dictionary"
+#                      ". Params: %s, Queryset is: %s"),
 #                     parents_query_dict, queryset)
-#                 raise Http404  
+#                 raise Http404
 #         return queryset.order_by("id")
-    
+
+
 class QGroupAnswerAPIView(ILPListAPIView):
     """
     Returns total number of stories(surverys) and schools with stories
@@ -293,14 +301,18 @@ class QGroupAnswerAPIView(ILPListAPIView):
 
         # admin1 = None
         # if admin1_id:
-        #     admin1 = Boundary.objects.get(hierarchy__name='district', id=admin1_id)
+        #     admin1 = Boundary.objects.get(hierarchy__name='district',
+        #                                   id=admin1_id)
         # elif admin2_id:
-        #     admin1 = Boundary.objects.get(hierarchy__name='block', id=admin2_id).parent
+        #     admin1 = Boundary.objects.get(hierarchy__name='block',
+        #                                   id=admin2_id).parent
         # elif admin3_id:
-        #     admin1 = Boundary.objects.get(hierarchy__name='cluster', id=admin3_id).parent.parent
+        #     admin1 = Boundary.objects.get(hierarchy__name='cluster',
+        #                                   id=admin3_id).parent.parent
 
         # edu_vol_group = Group.objects.get(name="EV")
-        # edu_volunteers = BoundaryUsers.objects.filter(user__groups=edu_vol_group)
+        # edu_volunteers = BoundaryUsers.objects.filter(
+        #   user__groups=edu_vol_group)
         # if admin1:
         #     edu_volunteers = edu_volunteers.filter(boundary=admin1)
 
