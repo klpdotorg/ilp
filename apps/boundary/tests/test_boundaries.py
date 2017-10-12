@@ -170,6 +170,7 @@ class BoundaryApiTests(APITestCase):
             'type': 'primary',
             'status': 'AC'},
                                     format='json')
+        force_authenticate(request, user=self.user)
         response = self.createView(request)
         response.render()
         data = response.data
@@ -180,6 +181,7 @@ class BoundaryApiTests(APITestCase):
             '/boundaries/' + str(id), {
                 'name': 'test_updated_name'
                 }, format='json')
+        force_authenticate(request, user=self.user)
         response = self.updateView(request, pk=id)
         response.render()
         data = response.data
@@ -194,6 +196,7 @@ class BoundaryApiTests(APITestCase):
             'boundary_type': 'SD',
             'type': 'primary',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.createView(request)
         response.render()
         data = response.data
@@ -206,9 +209,9 @@ class BoundaryApiTests(APITestCase):
             'boundary_type': 'PD',
             'type': 'pre',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.updateView(request, pk=id)
         response.render()
         data = response.data
-        print(data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data['name'], 'test_SD_Update2')

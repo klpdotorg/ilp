@@ -108,6 +108,7 @@ class StudentGroupApiTests(APITestCase):
             'section': 'A',
             'group_type': 'class',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.cudView(request)
         response.render()
         data = response.data
@@ -122,6 +123,7 @@ class StudentGroupApiTests(APITestCase):
                                      {
                                          'name': 'test_updated_class_1A'},
                                      format='json')
+        force_authenticate(request, user=self.user)
         response = self.cudView(request, pk=id)
         response.render()
         data = response.data
@@ -136,6 +138,7 @@ class StudentGroupApiTests(APITestCase):
             'section': 'A',
             'group_type': 'class',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.cudView(request)
         response.render()
         data = response.data
@@ -155,6 +158,7 @@ class StudentGroupApiTests(APITestCase):
             '/studentgroups/' + str(id),
             patch_data, format='json'
         )
+        force_authenticate(request, user=self.user)
         response = self.cudView(request, pk=id)
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
