@@ -164,5 +164,4 @@ class QGroupAnswersVolumeAPIView(ILPListAPIView):
             for month in months:
                 ordered_per_month_json[year][month] = \
                     per_month_json[year].get(month, 0)
-
         return ordered_per_month_json
