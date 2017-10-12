@@ -9,7 +9,7 @@ from assessments.tests.test_fixtures.meta import (
 )
 
 
-class AGroupInstitutionViewset(APITestCase):
+class QGroupAnsMetaTestAPI(APITestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -17,8 +17,8 @@ class AGroupInstitutionViewset(APITestCase):
                      ('apps/assessments/tests/test_fixtures/'
                       'answergroup_institution.json'))
 
-    def test_answergroup_institution_list(self):
-        url = reverse('assessment:qgroup-answer-meta',
+    def test_survey_answers_meta_response(self):
+        url = reverse('surveys:qgroup-answers-meta',
                       kwargs={'survey_id': 7, 'qgroup_id': 20})
         response = self.client.get(url, {'state': 'ka'})
 

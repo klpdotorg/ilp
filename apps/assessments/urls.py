@@ -1,17 +1,20 @@
 from django.conf.urls import url
 from assessments.api_views import(
-         SurveysViewSet,
-         QuestionGroupViewSet, QuestionViewSet, QuestionGroupQuestions,
-         QGroupAnswerAPIView, QGroupAnswerVolumeAPIView)
+    SurveysViewSet, QuestionGroupViewSet,
+    QuestionViewSet, QuestionGroupQuestions,
+    QGroupAnswersMetaAPIView, QGroupAnswersVolumeAPIView
+)
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 
 nested_router = ExtendedSimpleRouter()
 simple_router = routers.DefaultRouter()
 
-simple_router.register(r'surveys/questions', QuestionViewSet, base_name='survey-questions')
+simple_router.register(
+    r'surveys/questions', QuestionViewSet, base_name='survey-questions')
 
-# surveys -> questiongroup -> questions maps to earlier programs -> # assessments -> questions
+# surveys -> questiongroup -> questions
+# maps to earlier programs -> # assessments -> questions
 
 nested_router.register(
     r'surveys',
@@ -45,9 +48,9 @@ urlpatterns = [
     url(
         r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
         '/answers/meta/',
-        QGroupAnswerAPIView.as_view(), name='qgroup-answer-meta'),
+        QGroupAnswersMetaAPIView.as_view(), name='qgroup-answers-meta'),
     url(
         r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
         '/answers/volume/',
-        QGroupAnswerVolumeAPIView.as_view(), name='qgroup-answer-meta'),
+        QGroupAnswersVolumeAPIView.as_view(), name='qgroup-answers-volume'),
 ] + simple_router.urls + nested_router.urls
