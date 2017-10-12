@@ -59,7 +59,7 @@ for row in fromcursor.fetchall():
     sqlselect = "select exists(select 1 from schools_student where id=%s);"
     tocursor.execute(sqlselect, [student_id])
     if not tocursor.fetchall()[0][0]:
-        print('student id not present :'+student_id)
+        print('student id not present :', student_id)
         continue
 
     # Check if questiongroup is present

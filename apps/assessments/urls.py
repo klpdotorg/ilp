@@ -2,14 +2,14 @@ from django.conf.urls import url
 from assessments.api_views import(
          SurveysViewSet,
          QuestionGroupViewSet, QuestionViewSet, QuestionGroupQuestions,
-         QGroupAnswerAPIView)
+         QGroupAnswerAPIView, QGroupAnswerVolumeAPIView)
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 
 nested_router = ExtendedSimpleRouter()
 simple_router = routers.DefaultRouter()
 
-simple_router.register(r'surveys/questions',       QuestionViewSet, base_name='survey-questions')
+simple_router.register(r'surveys/questions', QuestionViewSet, base_name='survey-questions')
 
 # surveys -> questiongroup -> questions maps to earlier programs -> # assessments -> questions
 
@@ -46,4 +46,8 @@ urlpatterns = [
         r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
         '/answers/meta/',
         QGroupAnswerAPIView.as_view(), name='qgroup-answer-meta'),
+    url(
+        r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
+        '/answers/volume/',
+        QGroupAnswerVolumeAPIView.as_view(), name='qgroup-answer-meta'),
 ] + simple_router.urls + nested_router.urls
