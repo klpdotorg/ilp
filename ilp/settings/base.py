@@ -127,7 +127,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets', 'static'),
 )
-
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder'
+]
 LOG_ROOT = os.path.join(BASE_DIR, "/logs")
 # ILP SETTINGS
 DEFAULT_ACADEMIC_YEAR = '1415'
