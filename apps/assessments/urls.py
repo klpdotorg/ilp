@@ -46,8 +46,8 @@ nested_router.register(
 #        )
 
 urlpatterns = [
-    url(r'survey/(?P<survey_id>[0-9]+)/storiesinfo',
-        QGroupStoriesInfoView.as_view(), name='stories-info')
+    url(r'surveys/storiesinfo',
+        QGroupStoriesInfoView.as_view(), name='stories-info'),
     url(
         r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
         '/answers/meta/',
