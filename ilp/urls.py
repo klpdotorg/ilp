@@ -4,7 +4,7 @@ from django.views.generic.base import RedirectView
 
 from rest_framework_swagger.views import get_swagger_view
 
-from common.views import StaticPageView
+from common.views import StaticPageView, BlogFeedView
 
 
 api_docs_view = get_swagger_view(title='ILP API')
@@ -56,23 +56,29 @@ urlpatterns = [
     url(r'^reports/$', StaticPageView.as_view(
         template_name='reports.html',
     ), name='reports'),
+
     url(r'text/reports/$', RedirectView.as_view(url='/reports')),
 
     # About pages
     url(r'^about/$', StaticPageView.as_view(
         template_name='aboutus.html',
     ), name='aboutus'),
+
     url(r'text/aboutus/$', RedirectView.as_view(url='/about')),
 
     url(r'^partners/$', StaticPageView.as_view(
         template_name='partners.html',
     ), name='partners'),
+
     url(r'text/partners/$', RedirectView.as_view(url='/partners')),
 
     url(r'^disclaimer/$', StaticPageView.as_view(
         template_name='disclaimer.html',
     ), name='disclaimer'),
+
     url(r'text/disclaimer/$', RedirectView.as_view(url='/disclaimer')),
+
+    url(r'blog-feed/$', BlogFeedView.as_view(), name='blog_feed'),
 
     # API URLs.
     url(r'^api/v1/', include('ilp.api_urls')),
