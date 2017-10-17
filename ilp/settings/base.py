@@ -74,7 +74,6 @@ REST_FRAMEWORK = {
 }
 
 
-
 # Template settings
 TEMPLATES = [
     {
@@ -93,7 +92,6 @@ TEMPLATES = [
 ]
 
 
-
 # Middlewares
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -104,7 +102,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 
 # Root URL Config
@@ -143,6 +140,12 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder'
 ]
+
+
+# Swagger
+SWAGGER_SETTINGS = {
+    'enabled_methods': ['get', ]
+}
 
 
 # ILP SETTINGS
