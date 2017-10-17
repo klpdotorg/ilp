@@ -144,7 +144,12 @@ STATICFILES_FINDERS = [
 
 # Swagger
 SWAGGER_SETTINGS = {
-    'enabled_methods': ['get', ]
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+    'JSON_EDITOR': True
 }
 
 
