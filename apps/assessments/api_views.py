@@ -379,6 +379,20 @@ class QGroupAnswerAPIView(ILPListAPIView):
         return respondents
 
 
+class QGroupStoriesInfoView(ILPListAPIView):
+    """
+    Returns total number of stories for the home page
+    """
+    def get(self, request):
+        return Response({
+            'total_stories': AnswerGroup_Institution.objects.filter(
+                questiongroup__survey__id=5).count(),
+            'total_verified_stories': AnswerGroup_Institution.objects.filter(
+                questiongroup__survey__id=5).filter(is_verified=True).count(),
+            'total_images': 0            
+        })
+
+
 class QGroupAnswerVolumeAPIView(ILPListAPIView):
     """
     Returns the number of stories per month per year.

@@ -2,7 +2,8 @@ from django.conf.urls import url
 from assessments.api_views import(
     SurveysViewSet, QuestionGroupViewSet,
     QuestionViewSet, QuestionGroupQuestions,
-    QGroupAnswersMetaAPIView, QGroupAnswersVolumeAPIView
+    QGroupAnswersMetaAPIView, QGroupAnswersVolumeAPIView,
+    QGroupStoriesInfoView
 )
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
@@ -45,6 +46,8 @@ nested_router.register(
 #        )
 
 urlpatterns = [
+    url(r'survey/(?P<survey_id>[0-9]+)/storiesinfo',
+        QGroupStoriesInfoView.as_view(), name='stories-info')
     url(
         r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
         '/answers/meta/',
