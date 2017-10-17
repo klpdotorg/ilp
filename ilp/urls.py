@@ -43,14 +43,50 @@ urlpatterns = [
         template_name='partners/sikshana/reading.html',
     ), name='sikshana_programme'),
 
+    url(r'^partners/akshara/maths/$', StaticPageView.as_view(
+        template_name='partners/akshara/maths.html',
+    ), name='maths_programme'),
+
     url(r'^partners/pratham/learn-out-of-the-box/$', StaticPageView.as_view(
         template_name='partners/pratham/learn.html',
     ), name='partners_pratham_learn'),
+    
+    url(r'^partners/akshara/preschool/$', StaticPageView.as_view(
+        template_name='partners/akshara/preschool.html',
+    ), name='preschool_programme'),
+
+    url(r'^partners/akshara/library/$', StaticPageView.as_view(
+        template_name='partners/akshara/library.html',
+    ), name='library_programme'),
 
     url(r'^volunteer/$', StaticPageView.as_view(
         template_name='volunteer.html',
     ), name='volunteer'),
     url(r'text/volunteer/$', RedirectView.as_view(url='/volunteer/')),
+
+    # Programme -> partners redirect pages
+    #Akshara reading programme
+    url(r'^programmes/reading/$', RedirectView.as_view  (url='/partners/akshara/reading/')),
+
+    url(r'text/reading/$', RedirectView.as_view(url='/partners/akshara/reading/')),
+
+    #Akshara Math programme
+
+    url(r'^text/maths/$', RedirectView.as_view(url='/partners/akshara/maths/')),
+
+    #Akshara preschool
+
+    url(r'^text/preschool/$', RedirectView.as_view(url='/partners/akshara/preschool/')),
+
+    # Akshara library
+
+    url(r'^text/library/$', RedirectView.as_view(url='/partners/akshara/library/')),
+    
+    #Sikshana reading
+
+    url(r'^programmes/sikshana/$', RedirectView.as_view(url='/partners/sikshana/reading/')),
+
+    url(r'^text/sikshana/$', RedirectView.as_view(url='/partners/sikshana/reading/')),
 
     # Reports page
     url(r'^reports/$', StaticPageView.as_view(
