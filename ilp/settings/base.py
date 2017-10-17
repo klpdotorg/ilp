@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -23,14 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'oj!h50gzzm1)!-znsv&fx2b6@#=bqxl3^i&lv6qqx5a$eu)74#'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,20 +53,29 @@ INSTALLED_APPS = (
     'assessments',
 )
 
+
+# DRF Settings
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
+
     'ILPLISTVIEW_PAGE_SIZE': 50,
+
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
+
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     )
 }
 
+
+
+# Template settings
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -86,6 +92,9 @@ TEMPLATES = [
     },
 ]
 
+
+
+# Middlewares
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -96,29 +105,31 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+
+# Root URL Config
 ROOT_URLCONF = 'ilp.urls'
 
+
+# WSGI
 WSGI_APPLICATION = 'ilp.wsgi.application'
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'Asia/Kolkata'
-
 USE_I18N = True
-
 USE_L10N = True
 
+
+# Time zone
+TIME_ZONE = 'Asia/Kolkata'
 USE_TZ = True
 
 
 # Authentication model
-# TODO: Uncomment the below line to use users.User
-# as default auth model
 AUTH_USER_MODEL = 'users.User'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -132,10 +143,17 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder'
 ]
-LOG_ROOT = os.path.join(BASE_DIR, "/logs")
+
+
 # ILP SETTINGS
+
 DEFAULT_ACADEMIC_YEAR = '1415'
 
+BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
+
+
+# Logging
+LOG_ROOT = os.path.join(BASE_DIR, "/logs")
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,

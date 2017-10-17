@@ -49,3 +49,7 @@ secret.txt
 local_settings.py
 test_settings.py
 prod_settings.py
+
+
+# Collected static
+collected-static/
