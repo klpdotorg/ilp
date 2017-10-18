@@ -3,7 +3,7 @@ from assessments.api_views import(
     SurveysViewSet, QuestionGroupViewSet,
     QuestionViewSet, QuestionGroupQuestions,
     QGroupAnswersMetaAPIView, QGroupAnswersVolumeAPIView,
-    QGroupStoriesInfoView
+    QGroupStoriesInfoView, QGroupAnswersDetailAPIView
 )
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
@@ -56,4 +56,8 @@ urlpatterns = [
         r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
         '/answers/volume/',
         QGroupAnswersVolumeAPIView.as_view(), name='qgroup-answers-volume'),
+    url(
+        r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
+        '/answers/detail/',
+        QGroupAnswersDetailAPIView.as_view(), name='qgroup-answers-detail'),
 ] + simple_router.urls + nested_router.urls

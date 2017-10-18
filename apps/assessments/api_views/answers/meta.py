@@ -27,7 +27,7 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         admin1_id = self.request.query_params.get('admin1', None)
         source = self.request.query_params.get('source', None)
         versions = self.request.query_params.getlist('version', None)
-        institution_qs, agroup_inst_qs = \
+        institution_qs, agroup_inst_ids = \
             self.get_querysets(survey_id, qgroup_id)
 
         sources = Source.objects.all()
@@ -35,7 +35,7 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
             sources = sources.filter(name=source)
         sources = sources.values_list('name', flat=True)
 
-        unique_inst_counts_per_source = agroup_inst_qs.values(
+        unique_inst_counts_per_source = agroup_inst_ids.values(
             'questiongroup__source__name'
         ).annotate(
             institution_count=Count('institution', distinct=True)
@@ -44,27 +44,27 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         response_source = {}
         for source in sources:
             groups = QuestionGroup.objects.filter(source__name=source)
-            source_agroup_inst_qs = agroup_inst_qs.filter(
+            source_agroup_inst_ids = agroup_inst_qs.filter(
                 questiongroup__in=groups)
 
             if versions:
                 versions = map(int, versions)
-                agroup_inst_qs = agroup_inst_qs.filter(
+                agroup_inst_ids = agroup_inst_qs.filter(
                     questiongroup__version__in=versions)
 
             response_source[source] = self.get_json(
-                source, source_agroup_inst_qs, unique_inst_counts_per_source
+                source, source_agroup_inst_ids, unique_inst_counts_per_source
             )
 
         response_json = {}
         response_json['total'] = {
             'schools': institution_qs.count(),
-            'stories': agroup_inst_qs.count(),
+            'stories': agroup_inst_ids.count(),
             'schools_with_stories':
-                agroup_inst_qs.distinct('institution').count()
+                agroup_inst_ids.distinct('institution').count()
         }
-        response_json['respondents'] = self.get_respondents(agroup_inst_qs)
-        response_json['users'] = self.get_users(agroup_inst_qs)
+        response_json['respondents'] = self.get_respondents(agroup_inst_ids)
+        response_json['users'] = self.get_users(agroup_inst_ids)
         response_json['top_summary'] = \
             self.get_total_summary(
                 institution_qs.count(), institution_qs, admin1_id
@@ -107,65 +107,65 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         qgroup = QuestionGroup.objects.get(
             id=qgroup_id, survey_id=survey_id
         )
-        agroup_inst_qs = AnswerGroup_Institution.objects.filter(
+        agroup_inst_ids = AnswerGroup_Institution.objects.filter(
             questiongroup=qgroup, institution__in=institution_qs
         ).values('id')
 
         if admin1_id:
             institution_qs = institution_qs.filter(admin1_id=admin1_id)
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 institution__admin1_id=admin1_id
             ).all()
 
         if admin2_id:
             institution_qs = institution_qs.filter(admin2_id=admin2_id)
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 institution__admin2_id=admin2_id
             ).all()
 
         if admin3_id:
             institution_qs = institution_qs.filter(admin3_id=admin3_id)
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 institution__admin3_id=admin3_id
             ).all()
 
         if mp_id:
             institution_qs = institution_qs.filter(admin2_id=admin2_id)
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 institution__admin2_id=admin2_id
             ).all()
 
         if school_id:
             institution_qs = institution_qs.filter(id=school_id)
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 institution_id=school_id
             )
 
         if mla_id:
             institution_qs = institution_qs.filter(mla_id=mla_id)
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 institution__mla_id=mla_id
             ).all()
 
         if mp_id:
             institution_qs = institution_qs.filter(mp_id=mp_id)
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 institution__mp_id=mp_id
             ).all()
 
         # todo: Returns empty qs, need to look through,
         # maybe issue with the migrated data.
         if start_date:
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 date_of_visit__gte=start_date
             )
 
         if end_date:
-            agroup_inst_qs = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 date_of_visit__lte=end_date
             )
 
-        return (institution_qs, agroup_inst_qs)
+        return (institution_qs, agroup_inst_ids)
 
     def get_total_summary(self, inst_count, inst_qs, admin1_id):
         pass
@@ -214,7 +214,7 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         #     'education_volunteers': edu_volunteers.count()
         # }
 
-    def get_json(self, source, agroup_inst_qs, inst_counts):
+    def get_json(self, source, agroup_inst_ids, inst_counts):
         json = {}
 
         institution_count = 0
@@ -226,18 +226,18 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
                 institution_count = 0
                 continue
 
-        json['stories'] = agroup_inst_qs.count()
+        json['stories'] = agroup_inst_ids.count()
         json['schools'] = institution_count
 
-        if agroup_inst_qs:
-            json['last_story'] = agroup_inst_qs.aggregate(
+        if agroup_inst_ids:
+            json['last_story'] = agroup_inst_ids.aggregate(
                 Max('date_of_visit')
             )['date_of_visit__max']
         else:
             json['last_story'] = None
 
         if source == "web":
-            json['verified_stories'] = agroup_inst_qs.filter(
+            json['verified_stories'] = agroup_inst_ids.filter(
                 is_verified=True,
             ).count()
         elif source == "sms":
@@ -262,21 +262,21 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
 
         return json
 
-    def get_users(self, agroup_inst_qs):
+    def get_users(self, agroup_inst_ids):
         users = {}
         groups = Group.objects.all()
         for group in groups:
             group_users = group.user_set.all()
-            users[group.name] = agroup_inst_qs.filter(
+            users[group.name] = agroup_inst_ids.filter(
                 created_by__in=group_users
             ).count()
 
         return users
 
-    def get_respondents(self, agroup_inst_qs):
+    def get_respondents(self, agroup_inst_ids):
         respondents = {}
 
-        respondent_type_with_counts = agroup_inst_qs.values(
+        respondent_type_with_counts = agroup_inst_ids.values(
             'respondent_type__name').annotate(Count('respondent_type'))
 
         for respondent in respondent_type_with_counts:
