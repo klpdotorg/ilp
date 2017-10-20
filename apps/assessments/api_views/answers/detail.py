@@ -1,4 +1,4 @@
-from django.db.models import Count, Max
+from django.db.models import Count
 
 from common.views import ILPListAPIView
 from common.models import InstitutionType
@@ -15,6 +15,8 @@ from assessments.models import (
     Source, Question, AnswerInstitution,
     QuestionGroup_Questions
 )
+
+from .gp_contest import GPContest
 
 
 class QGroupAnswersDetailAPIView(ILPListAPIView):
@@ -119,22 +121,23 @@ class QGroupAnswersDetailAPIView(ILPListAPIView):
 
         response_json = {}
 
-        if gka_comparison:
-            gka = GKA(start_date, end_date)
-            response_json = gka.generate_report(
-                boundary, chosen_school)
-        elif survey == "GP Contest":
-            gp_contest = GPContest()
-            response_json = gp_contest.generate_report(stories)
-        # Sources and filters
-        elif source:
+        # if gka_comparison:
+        #     gka = GKA(start_date, end_date)
+        #     response_json = gka.generate_report(
+        #     j    boundary, chosen_school)
+        # elif survey == "GPContest":
+        #     gp_contest = GPContest()
+        #     response_json = gp_contest.generate_report(agroup_inst_ids)
+        # else:
+
+        sources = Source.objects.all()
+        if source:
+            sources = sources.filter(name=source)
+        sources = sources.values_list('name', flat=True)
+
+        for source in sources:
             response_json[source] = get_que_and_ans(
                 agroup_inst_ids, source, institution_type, versions)
-        else:
-            sources = Source.objects.values_list('name', flat=True)
-            for source in sources:
-                response_json[source] = get_que_and_ans(
-                    agroup_inst_ids, source, institution_type, versions)
 
         return Response(response_json)
 
@@ -153,10 +156,10 @@ def get_que_and_ans(agroup_inst_ids, source, institution_type, versions):
         qgroup_questions = qgroup_questions.filter(
             questiongroup__version__in=versions)
 
-    if institution_type:
-        qgroup_questions = qgroup_questions.filter(
-            questiongroup__inst_type__name=institution_type
-        )
+    # if institution_type:
+    #     qgroup_questions = qgroup_questions.filter(
+    #         questiongroup__inst_type__name=institution_type
+    #     )
 
     answers = AnswerInstitution.objects.filter(
         answergroup__in=agroup_inst_ids)
@@ -187,8 +190,6 @@ def get_que_and_ans(agroup_inst_ids, source, institution_type, versions):
                         entry['answer']: entry['answer__count']
                     }
                 }
-        else:
-            continue
 
     for qgroup_question in qgroup_questions:
         j = {}

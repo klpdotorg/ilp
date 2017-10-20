@@ -25,5 +25,6 @@ class SurveysAPITests(APITestCase):
         url = reverse('surveys:surveys-detail', kwargs={'pk': 5})
         response = self.client.get(url)
         print("URL is -", url)
+        import ipdb; ipdb.set_trace()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(response.data)

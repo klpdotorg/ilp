@@ -27,6 +27,7 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         admin1_id = self.request.query_params.get('admin1', None)
         source = self.request.query_params.get('source', None)
         versions = self.request.query_params.getlist('version', None)
+
         institution_qs, agroup_inst_ids = \
             self.get_querysets(survey_id, qgroup_id)
 
@@ -44,16 +45,16 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         response_source = {}
         for source in sources:
             groups = QuestionGroup.objects.filter(source__name=source)
-            source_agroup_inst_ids = agroup_inst_qs.filter(
+            agroup_inst_ids = agroup_inst_ids.filter(
                 questiongroup__in=groups)
 
             if versions:
                 versions = map(int, versions)
-                agroup_inst_ids = agroup_inst_qs.filter(
+                agroup_inst_ids = agroup_inst_ids.filter(
                     questiongroup__version__in=versions)
 
             response_source[source] = self.get_json(
-                source, source_agroup_inst_ids, unique_inst_counts_per_source
+                source, agroup_inst_ids, unique_inst_counts_per_source
             )
 
         response_json = {}
@@ -77,7 +78,7 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         admin1_id = self.request.query_params.get('admin1', None)
         admin2_id = self.request.query_params.get('admin2', None)
         admin3_id = self.request.query_params.get('admin3', None)
-        school_id = self.request.query_params.get('school_id', None)
+        institution_id = self.request.query_params.get('school_id', None)
         mp_id = self.request.query_params.get('mp_id', None)
         mla_id = self.request.query_params.get('mla_id', None)
         start_date = self.request.query_params.get('from', None)
@@ -135,10 +136,10 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
                 institution__admin2_id=admin2_id
             ).all()
 
-        if school_id:
-            institution_qs = institution_qs.filter(id=school_id)
+        if institution_id:
+            institution_qs = institution_qs.filter(id=institution_id)
             agroup_inst_ids = agroup_inst_ids.filter(
-                institution_id=school_id
+                institution_id=institution_id
             )
 
         if mla_id:
