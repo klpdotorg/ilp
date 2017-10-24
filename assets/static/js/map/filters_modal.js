@@ -60,13 +60,13 @@
         $select_type.on("change", function(selected) {
             console.log("select type changed");
             if (selected.val == 'Primary School') {
-                districtsXHR('primaryschools').done(function (data) {
+                districtsXHR('primary').done(function (data) {
                     populateSelect($select_district, data);
                 });
             }
 
             if (selected.val == 'Preschool') {
-                districtsXHR('preschools').done(function (data) {
+                districtsXHR('pre').done(function (data) {
                     populateSelect($select_district, data);
                 });
             }

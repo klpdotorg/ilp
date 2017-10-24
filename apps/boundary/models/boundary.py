@@ -1,5 +1,8 @@
 from django.contrib.gis.db import models
 from common.models import common
+from django.contrib.gis.db.models.functions import AsGeoJSON
+
+import json
 
 
 class BoundaryType(models.Model):
@@ -33,7 +36,13 @@ class Boundary(models.Model):
     geom = models.GeometryField(null=True)
     status = models.ForeignKey('common.Status')
     objects = common.StatusManager()
-
+    
+    def get_geometry(self):
+        if hasattr(self, 'geom') and self.geom is not None:
+            print(" Geojson for boundary is: ", self.geom.geojson)
+            return json.loads(self.geom.geojson)
+        else:
+            return {}
     class Meta:
         unique_together = (('name', 'parent', 'type'), )
         ordering = ['name', ]

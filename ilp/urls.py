@@ -1,11 +1,9 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic.base import RedirectView
-
 from rest_framework_swagger.views import get_swagger_view
-
 from common.views import StaticPageView, BlogFeedView
-
+from schools.views import AdvancedMapView
 
 api_docs_view = get_swagger_view(title='ILP API')
 
@@ -26,6 +24,9 @@ urlpatterns = [
             'hide_footer': True,
         }),
         name='map'),
+    
+    url(r'^advanced-map/$', AdvancedMapView.as_view(), name='advanced_map'),
+
 
     # Data page
     url(r'^data/$', StaticPageView.as_view(

@@ -86,7 +86,7 @@
             Filters out empty geometries from a geojson
          */
         filterGeoJSON: function(geojson) {
-            return geojson.features.filter(emptyGeom);
+            return geojson.results.filter(emptyGeom);
 
             function emptyGeom(feature) {
                 return !_.isEmpty(feature.geometry);

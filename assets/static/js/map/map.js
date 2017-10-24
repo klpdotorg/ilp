@@ -323,17 +323,17 @@
             return new L.DivIcon({ className:'marker-cluster marker-cluster-school', style:'style="margin-left: -20px; margin-top: -20px; width: 40px; height: 40px; transform: translate(293px, 363px); z-index: 363;"', html: "<div><span>" + cluster.getChildCount() + "</span></div>" });
             }}).addTo(enabledLayers);
 
-        var districtXHR = klp.api.do('boundary/admin1s', {'school_type':'primaryschools', 'geometry': 'yes', 'per_page': 0});
+        var districtXHR = klp.api.do('boundary/admin1s', {'school_type':'primary', 'geometry': 'yes', 'per_page': 0});
 
-        var preschoolDistrictXHR = klp.api.do('boundary/admin1s', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0});
+        var preschoolDistrictXHR = klp.api.do('boundary/admin1s', {'school_type': 'pre', 'geometry': 'yes', 'per_page': 0});
 
-        var blockXHR = klp.api.do('boundary/admin2s', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0});
+        var blockXHR = klp.api.do('boundary/admin2s', {'school_type': 'primary', 'geometry': 'yes', 'per_page': 0});
 
-        var projectXHR = klp.api.do('boundary/admin2s', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0});
+        var projectXHR = klp.api.do('boundary/admin2s', {'school_type': 'pre', 'geometry': 'yes', 'per_page': 0});
 
-        var clusterXHR = klp.api.do('boundary/admin3s', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0});
+        var clusterXHR = klp.api.do('boundary/admin3s', {'school_type': 'primary', 'geometry': 'yes', 'per_page': 0});
 
-        var circleXHR = klp.api.do('boundary/admin3s', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0});
+        var circleXHR = klp.api.do('boundary/admin3s', {'school_type': 'pre', 'geometry': 'yes', 'per_page': 0});
 
         function onEachSchool(feature, layer) {
             if (feature.properties) {
@@ -354,12 +354,12 @@
         }
 
         function setMarkerURL(feature) {
-            var typeID = feature.properties.type.id;
+            var typeID = feature.properties.type;
             var schoolID = feature.properties.id;
             var opts = {
                 trigger: false,
             }
-            if (typeID === 1) {
+            if (typeID === "primary") {
                 var markerParam = 'primaryschool-' + schoolID;
             } else {
                 var markerParam = 'preschool-' + schoolID;
@@ -397,7 +397,7 @@
 
             if (enabledLayers.hasLayer(preschoolCluster)) {
                 t.startLoading();
-                preschoolXHR = klp.api.do('schools/list', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                preschoolXHR = klp.api.do('institutions/list', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 preschoolXHR.done(function (data) {
                     t.stopLoading();
                     preschoolCluster.clearLayers();
@@ -412,7 +412,7 @@
 
             if (enabledLayers.hasLayer(schoolCluster)) {
                 t.startLoading();
-                schoolXHR = klp.api.do('schools/list', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                schoolXHR = klp.api.do('institutions/list', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 schoolXHR.done(function (data) {
                     t.stopLoading();
                     schoolCluster.clearLayers();

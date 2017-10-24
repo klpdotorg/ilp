@@ -2,14 +2,16 @@ from rest_framework import serializers
 
 from common.serializers import ILPSerializer
 from boundary.models import Boundary, ElectionBoundary, BoundaryHierarchy, BoundaryType
+from rest_framework_gis.serializers import (GeoFeatureModelSerializer,                                                     GeometrySerializerMethodField)
 
 
 class BoundarySerializer(ILPSerializer):
+    
     class Meta:
         model = Boundary
         fields = (
             'id', 'name', 'parent', 'dise_slug', 'boundary_type', 'type',
-            'status'
+            'status',
         )
 
 

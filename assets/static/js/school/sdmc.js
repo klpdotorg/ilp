@@ -9,7 +9,7 @@ var boundaries = {"districts" : {}, "pre_districts": {},
         klp.router.init();
         klp.router.start();
         initEduSearch("preschool");
-        var dataURL = "schools/list/?meetingreport=yes;"//&per_page=20";
+        var dataURL = "institutions/list/?meetingreport=yes;"//&per_page=20";
         loadData(dataURL);      
     }
 
@@ -185,18 +185,18 @@ var boundaries = {"districts" : {}, "pre_districts": {},
         
         $select_district.on("change", function(selected) {
             populateSelect($select_block, getSubset(selected.added.school_type=="preschool"?"projects":"blocks",selected.val));
-            var dataURL = "schools/list/?admin1=" + selected.val + "&meetingreport=yes&per_page=20";
+            var dataURL = "institutions/list/?admin1=" + selected.val + "&meetingreport=yes&per_page=20";
             loadData(dataURL);
         });
 
         $select_block.on("change", function(selected) {
             populateSelect($select_cluster, getSubset(selected.added.school_type=="preschool"?"circles":"clusters",selected.val));
-            var dataURL = "schools/list/?admin2=" + selected.val + "&meetingreport=yes&per_page=20";
+            var dataURL = "institutions/list/?admin2=" + selected.val + "&meetingreport=yes&per_page=20";
             loadData(dataURL);
         });
 
         $select_cluster.on("change", function(selected) {
-            var dataURL = "schools/list/?admin3=" + selected.val + "&meetingreport=yes&per_page=20";
+            var dataURL = "institutions/list/?admin3=" + selected.val + "&meetingreport=yes&per_page=20";
             loadData(dataURL);
         });
     }
