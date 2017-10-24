@@ -360,17 +360,17 @@
 
         var bbox = map.getBounds().toBBoxString();
 
-        var districtXHR = klp.api.do('boundary/admin1s', {'school_type':'primaryschools', 'geometry': 'yes', 'per_page': 0});
+        var districtXHR = klp.api.do('boundary/admin1s', {'school_type':'primary', 'geometry': 'yes', 'per_page': 0});
 
-        var preschoolDistrictXHR = klp.api.do('boundary/admin1s', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0});
+        var preschoolDistrictXHR = klp.api.do('boundary/admin1s', {'school_type': 'pre', 'geometry': 'yes', 'per_page': 0});
 
-        var blockXHR = klp.api.do('boundary/admin2s', {'school_type': 'primaryschools', 'geometry': 'yes', 'bbox': bbox});
+        var blockXHR = klp.api.do('boundary/admin2s', {'school_type': 'primary', 'geometry': 'yes', 'bbox': bbox});
 
-        var projectXHR = klp.api.do('boundary/admin2s', {'school_type': 'preschools', 'geometry': 'yes', 'bbox': bbox});
+        var projectXHR = klp.api.do('boundary/admin2s', {'school_type': 'pre', 'geometry': 'yes', 'bbox': bbox});
 
-        var clusterXHR = klp.api.do('boundary/admin3s', {'school_type': 'primaryschools', 'geometry': 'yes', 'bbox': bbox});
+        var clusterXHR = klp.api.do('boundary/admin3s', {'school_type': 'primary', 'geometry': 'yes', 'bbox': bbox});
 
-        var circleXHR = klp.api.do('boundary/admin3s', {'school_type': 'preschools', 'geometry': 'yes', 'bbox': bbox});
+        var circleXHR = klp.api.do('boundary/admin3s', {'school_type': 'pre', 'geometry': 'yes', 'bbox': bbox});
 
         function onEachSchool(feature, layer) {
             if (feature.properties) {
@@ -527,7 +527,7 @@
 
                 options['school_type'] = 'preschools';
 
-                preschoolXHR = klp.api.do('schools/list', options);
+                preschoolXHR = klp.api.do('institutions/list', options);
                 preschoolXHR.done(function (data) {
                     t.stopLoading();
                     preschoolCluster.clearLayers();
@@ -551,7 +551,7 @@
 
                 options['school_type'] = 'primaryschools';
 
-                schoolXHR = klp.api.do('schools/list', options);
+                schoolXHR = klp.api.do('institutions/list', options);
                 schoolXHR.done(function (data) {
                     t.stopLoading();
                     schoolCluster.clearLayers();
