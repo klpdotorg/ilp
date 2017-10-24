@@ -212,7 +212,7 @@ class AdminBoundaryApiTests(APITestCase):
         # Assert that blocks are returned and the parent is 414
         self.assertTrue(data['count'] > 0)
         self.assertTrue(data['results'][0]['boundary_type'] == 'SB')
-        self.assertTrue(data['results'][0]['parent'] == 414)
+        self.assertTrue(data['results'][0]['parent_boundary']['id'] == 414)
         print("End test ===============================================")
 
     def test_getadmin3s_admin1(self):
@@ -244,5 +244,5 @@ class AdminBoundaryApiTests(APITestCase):
         # Assert that blocks are returned and the parent is 467
         self.assertTrue(data['count'] > 0)
         self.assertTrue(data['results'][0]['boundary_type'] == 'SC')
-        self.assertTrue(data['results'][0]['parent'] == 467)
+        self.assertTrue(data['results'][0]['parent_boundary']['id'] == 467)
         print("End test ===============================================")

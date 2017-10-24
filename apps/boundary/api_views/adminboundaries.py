@@ -44,7 +44,7 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
 
 
 class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
-    serializer_class = BoundarySerializer
+    serializer_class = BoundaryWithParentSerializer
     pagination_class = ILPPaginationSerializer
     renderer_classes = (ILPJSONRenderer, )
 
@@ -76,7 +76,7 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
 
 class Admin3sBoundary(ILPListAPIView, ILPStateMixin):
 
-    serializer_class = BoundarySerializer
+    serializer_class = BoundaryWithParentSerializer
     pagination_class = ILPPaginationSerializer
     renderer_classes = (ILPJSONRenderer, )
 
@@ -111,7 +111,7 @@ class Admin3sBoundary(ILPListAPIView, ILPStateMixin):
 class Admin2sInsideAdmin1(ILPListAPIView):
     ''' Returns a list of all blocks/projects inside a given district id '''
 
-    serializer_class = BoundarySerializer
+    serializer_class = BoundaryWithParentSerializer
     renderer_classes = (ILPJSONRenderer, )
 
     def get_queryset(self):
@@ -127,7 +127,7 @@ class Admin3sInsideAdmin1(ILPListAPIView):
     Returns a list of all clusters/circles inside a given pre or
     primary district.
     '''
-    serializer_class = BoundarySerializer
+    serializer_class = BoundaryWithParentSerializer
     renderer_classes = (ILPJSONRenderer, )
 
     def get_queryset(self):
@@ -142,7 +142,7 @@ class Admin3sInsideAdmin2(ILPListAPIView):
     '''
     Returns a list of all clusters/circles inside a given block/project id
     '''
-    serializer_class = BoundarySerializer
+    serializer_class = BoundaryWithParentSerializer
     renderer_classes = (ILPJSONRenderer, )
 
     def get_queryset(self):
