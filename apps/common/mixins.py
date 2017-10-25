@@ -40,6 +40,9 @@ class ILPStateMixin(object):
     def get_state_boundaries(self):
         state_code = self.request.query_params.get('state', None)
         logger.debug("State code passed in via args is: ", state_code)
+        # Once again, if no state is passed, default to 'ka'. 
+        if state_code is None:
+            state_code = 'ka'
         state_name = STATE_CODES.get(state_code, None)
         logger.debug("State code translates to: ", state_name)
         boundaries = BoundaryHierarchy.objects.all()
