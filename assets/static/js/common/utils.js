@@ -355,7 +355,7 @@
                     }
                 },
                 ajax: {
-                    url: "/api/v1/schools/info",
+                    url: "/api/v1/institutions/info",
                     quietMillis: 300,
                     allowClear: true,
                     data: function (term, page) {

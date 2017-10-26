@@ -1,5 +1,5 @@
 from django.contrib.gis.db import models
-
+import json
 
 class InstitutionCategory(models.Model):
     """ Category for institution """
@@ -69,14 +69,19 @@ class Institution(models.Model):
     last_verified_year = models.ForeignKey('common.AcademicYear', null=True)
     status = models.ForeignKey('common.Status')
 
+    def get_geometry(self):
+        if hasattr(self, 'coord') and self.coord is not None:
+            print(" Geojson for institution is: ", self.coord.geojson)
+            return json.loads(self.coord.geojson)
+        else:
+            return {}
+    
     class Meta:
         unique_together = (('name', 'dise', 'admin3'), )
 
     def __unicode__(self):
         return "%s" % self.name
 
-    def get_geometry(self):
-        pass
 
 
 class InstitutionLanguage(models.Model):

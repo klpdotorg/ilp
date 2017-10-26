@@ -87,7 +87,7 @@
         });
 
         $select_cluster.on("change", function(selected) {
-            var schoolXHR = klp.api.do('schools/info', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
+            var schoolXHR = klp.api.do('institutions/info', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
             $search_button.attr('href', '/gka/#searchmodal?admin3='+selected.val);
             schoolXHR.done(function (data) {
                 // console.log('schools', data);
