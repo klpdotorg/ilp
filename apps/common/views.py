@@ -29,7 +29,17 @@ class ILPAPIView(APIView):
 
 
 class ILPViewSet(ILPStateMixin, ModelViewSet):
-    pass
+    
+    pagination_serializer_class = ILPPaginationSerializer
+
+    def __init__(self, *args, **kwargs):
+        super(ILPViewSet, self).__init__(*args, **kwargs)
+        if (
+                hasattr(self, 'bbox_filter_field') and
+                self.bbox_filter_field and
+                ILPInBBOXFilter not in self.filter_backends
+        ):
+            self.filter_backends += (ILPInBBOXFilter,)
 
 
 class ILPListAPIView(generics.ListAPIView):
