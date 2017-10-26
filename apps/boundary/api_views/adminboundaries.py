@@ -12,12 +12,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 from common.renderers import ILPJSONRenderer
+from common.filters import ILPInBBOXFilter
 
 class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
 
     serializer_class = BoundarySerializer
     pagination_class = ILPPaginationSerializer
     renderer_classes = (ILPJSONRenderer, )
+    filter_backends = (ILPInBBOXFilter,)
 
     def get_queryset(self):
         state = self.get_state()
@@ -47,7 +49,8 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
     serializer_class = BoundaryWithParentSerializer
     pagination_class = ILPPaginationSerializer
     renderer_classes = (ILPJSONRenderer, )
-
+    filter_backends = (ILPInBBOXFilter,)
+    
     def get_queryset(self):
         # Get all the admin2 boundary ids for a particular state as a list
         admin2boundaries = self.get_state_boundaries().\
