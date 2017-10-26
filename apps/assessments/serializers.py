@@ -1,10 +1,9 @@
-from rest_framework import serializers
 from common.serializers import ILPSerializer
-from assessments.models import (Survey, QuestionGroup,
-                                Question, QuestionGroup_Questions,
-                                AnswerGroup_Institution,
-                                AnswerInstitution,
-                                SurveyOnType)
+from assessments.models import (
+    Survey, QuestionGroup, Question,
+    QuestionGroup_Questions, AnswerGroup_Institution,
+    AnswerInstitution, SurveyOnType
+)
 
 
 class SurveyOnTypeSerializer(ILPSerializer):
