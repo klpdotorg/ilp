@@ -1,5 +1,8 @@
+from django.conf import settings
+
 from rest_framework import pagination
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 
 class ILPPaginationSerializer(pagination.PageNumberPagination):
@@ -10,3 +13,9 @@ class ILPPaginationSerializer(pagination.PageNumberPagination):
             'count': self.page.paginator.count,
             'results': data
         })
+
+
+class LargeResultsSetPagination(PageNumberPagination):
+    page_size = settings.LARGESETPAGINATION
+    page_size_query_param = 'page_size'
+    max_page_size = settings.LARGESETPAGINATION

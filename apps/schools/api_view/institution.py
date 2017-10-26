@@ -1,12 +1,13 @@
 from rest_framework import status
+from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from common.views import ILPViewSet
 from common.models import Status, InstitutionType
 from common.renderers import ILPJSONRenderer
 from common.mixins import ILPStateMixin
-from rest_framework_extensions.mixins import NestedViewSetMixin
-from rest_framework import viewsets
+from common.pagination import LargeResultsSetPagination
 
 from schools.serializers import (
     InstitutionSerializer, InstitutionInfoSerializer,
@@ -26,6 +27,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
     bbox_filter_field = "coord"
+    pagination_class = LargeResultsSetPagination
     renderer_classes = (ILPJSONRenderer, )
     # filter_class = SchoolFilter
 
