@@ -4,10 +4,6 @@ from django.core.management import call_command
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from assessments.tests.test_fixtures.meta import (
-    ANSWERGROUP_INSTITUTION_IDS
-)
-
 
 class QGroupAnsDetailTestAPI(APITestCase):
 
