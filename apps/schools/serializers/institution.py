@@ -53,12 +53,10 @@ class InstitutionCreateSerializer(ILPSerializer):
 
     def save(self, **kwargs):
         admin3 = self.validated_data['admin3']
-        admin3_heirarchy = admin3.admin3_id
-        admin0_id = admin3_heirarchy.admin0_id
-        admin1_id = admin3_heirarchy.admin1_id
-        admin2_id = admin3_heirarchy.admin2_id
         return Institution.objects.create(
-            admin0=admin0_id, admin1=admin1_id, admin2=admin2_id,
+            admin0=admin3.parent.parent.parent,
+            admin1=admin3.parent.parent,
+            admin2=admin3.parent,
             **self.validated_data
         )
 
