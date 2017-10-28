@@ -5,7 +5,8 @@ from django.contrib.auth.models import Group
 from schools.api_views.ekstep_gka import EkStepGKA
 
 from schools.models import (
-    AssessmentsV2, Boundary, BoundaryHierarchy
+    AnswerGroup_Student, Boundary, BoundaryHierarchy,
+    BoundaryType
 )
 from assessments.models import (
     QuestionGroup, AnswerGroup_Institution,
@@ -54,11 +55,11 @@ class GKA(object):
         9540: [431, 433, 444, 9541],
         9541: [431, 433, 444, 9540],
     }
-    
+
     def __init__(self, start_date, end_date):
         self.agroup_inst_ids = \
             AnswerGroup_Institution.objects.values('id')
-        # self.assessments = AssessmentsV2.objects.values('assess_uid')
+        self.assessments = AnswerGroup_Student.objects.values('assess_uid')
 
         if start_date:
             self.agroup_inst_ids = self.agroup_inst_ids.filter(
@@ -93,7 +94,7 @@ class GKA(object):
             summary['chosen'] = False
 
         boundary_schools = boundary.schools()
-            
+
         summary['boundary_name'] = boundary.name
         summary['boundary_type'] = boundary.hierarchy.name
         summary['schools'] = boundary_schools.count()
@@ -269,32 +270,33 @@ class GKA(object):
 
     def get_competency_comparison(self, chosen_boundary, chosen_school):
         summary = {}
-        districts = BoundaryHierarchy.objects.filter(name='district')
-        block = BoundaryHierarchy.objects.get(name='block')
-        cluster = BoundaryHierarchy.objects.get(name='cluster')
+        btype = BoundaryType.objects.get(char_id=BoundaryType.SCHOOL_DISTRICT)
+        districts = Boundary.objects.filter(boundary_type=btype)
 
         if chosen_school:
-            summary = self.get_hierarchy_competency(chosen_school=chosen_school)
-        elif chosen_boundary == 'GKA' or chosen_boundary.hierarchy in districts:
-            summary = self.get_neighbour_competency(chosen_boundary=chosen_boundary)
+            summary = self.get_hierarchy_competency(
+                chosen_school=chosen_school)
+        elif (chosen_boundary == 'GKA' or
+              chosen_boundary.hierarchy in districts):
+            summary = self.get_neighbour_competency(
+                chosen_boundary=chosen_boundary)
         else:
-            summary = self.get_hierarchy_competency(chosen_boundary=chosen_boundary)
-
+            summary = self.get_hierarchy_competency(
+                chosen_boundary=chosen_boundary)
         return summary
 
-    def generate_report(self, chosen_boundary, chosen_school):
+    def generate_report(self, chosen_boundary, chosen_inst):
         response = {}
         response['summary_comparison'] = {}
         response['competency_comparison'] = {}
-        
-        if chosen_school:
-            chosen_boundary = chosen_school.admin3
+
+        if chosen_inst:
+            chosen_boundary = chosen_inst.admin3
         elif not chosen_boundary:
             chosen_boundary = 'GKA'
 
         response['summary_comparison'] = self.get_summary_comparison(
-            chosen_boundary, chosen_school)
+            chosen_boundary, chosen_inst)
         response['competency_comparison'] = self.get_competency_comparison(
-            chosen_boundary, chosen_school)
-
-        return response    
+            chosen_boundary, chosen_inst)
+        return response
