@@ -2,7 +2,8 @@ from urllib.request import urlopen
 
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
-from rest_framework.settings import api_settings
+from django.conf import settings
+
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import generics
 from rest_framework import viewsets
@@ -12,7 +13,6 @@ from rest_framework.response import Response
 from common.pagination import ILPPaginationSerializer
 from common.filters import ILPInBBOXFilter
 from common.mixins import ILPStateMixin
-from django.conf import settings
 
 
 class StaticPageView(TemplateView):
@@ -29,7 +29,6 @@ class ILPAPIView(APIView):
 
 
 class ILPViewSet(ILPStateMixin, ModelViewSet):
-    
     pagination_serializer_class = ILPPaginationSerializer
 
     def __init__(self, *args, **kwargs):
@@ -66,7 +65,7 @@ class ILPListAPIView(generics.ListAPIView):
         print("per_page in request is: ", hasattr(self, 'per_page'))
         per_page = int(
             self.request.GET.get(
-                'per_page', api_settings.ILPLISTVIEW_PAGE_SIZE
+                'per_page', settings.LARGESETPAGINATION
             )
         )
         if per_page == 0:

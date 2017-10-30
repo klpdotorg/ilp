@@ -54,12 +54,10 @@ INSTALLED_APPS = (
     'assessments',
 )
 
-
 # DRF Settings
+LARGESETPAGINATION = 1000
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
-
-    'ILPLISTVIEW_PAGE_SIZE': 50,
 
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
