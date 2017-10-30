@@ -2,7 +2,8 @@ from rest_framework import serializers
 
 from drf_compound_fields.fields import DictField
 
-from common.models import InstitutionType
+from common.models import (InstitutionType,
+                            Language)
 from rest_framework_gis.serializers import GeoFeatureModelSerializer, GeometrySerializerMethodField
 
 
@@ -47,3 +48,10 @@ class InstitutionTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = InstitutionType
         fields = ['id', 'name']
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Language
+        fields = ['char_id', 'name']

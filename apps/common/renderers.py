@@ -20,7 +20,7 @@ class ILPJSONRenderer(JSONRenderer):
         # Only try and fetch geometries if response status is 200
         if render_geometry == 'yes' and status == 200:
             self.render_geometry = True
-
+        print("Data inside render method is: ", data)
         # if data is a list, that means pagination was turned off
         # with per_page=0
         # then we first need to convert the list to a dict so that

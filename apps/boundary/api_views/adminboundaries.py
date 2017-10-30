@@ -19,7 +19,7 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
     serializer_class = BoundarySerializer
     pagination_class = ILPPaginationSerializer
     renderer_classes = (ILPJSONRenderer, )
-    filter_backends = (ILPInBBOXFilter,)
+    
 
     def get_queryset(self):
         state = self.get_state()
@@ -164,7 +164,7 @@ class AdminDetails(ILPDetailAPIView):
         e.g. 77.349415,12.822471,77.904224,14.130930
     """
     serializer_class = BoundaryWithParentSerializer
-    bbox_filter_field = 'boundarycoord__coord'
+    bbox_filter_field = 'geom'
     lookup_url_kwarg = 'id'
 
     def get_queryset(self):

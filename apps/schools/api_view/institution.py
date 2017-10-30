@@ -1,9 +1,10 @@
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework import generics
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-from common.views import ILPViewSet
+from common.views import (ILPViewSet, ILPListAPIView)
 from common.models import Status, InstitutionType
 from common.renderers import ILPJSONRenderer
 from common.mixins import ILPStateMixin
@@ -11,9 +12,10 @@ from common.pagination import LargeResultsSetPagination
 
 from schools.serializers import (
     InstitutionSerializer, InstitutionInfoSerializer,
-    InstitutionCreateSerializer
+    InstitutionCreateSerializer, InstitutionCategorySerializer, InstitutionManagementSerializer
 )
-from schools.models import Institution
+from schools.models import (Institution, InstitutionCategory,
+                            Management)
 
 
 class ProgrammeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -39,7 +41,9 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         s_type = self.request.GET.get('school_type', 'both')
 
         if s_type == 'preschools':
+            print("School type is preschools")
             qset = qset.filter(institution_type__pk=InstitutionType.PRE_SCHOOL)
+            print("Query set count is: ", qset.count())
         elif s_type == 'primaryschools':
             qset = qset.filter(
                 institution_type__pk=InstitutionType.PRIMARY_SCHOOL)
@@ -60,6 +64,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
         # partner_id
         # programmes
+        print("Final qset count is: ", qset.count())
         return qset
 
     def create(self, request, *args, **kwargs):
@@ -78,3 +83,21 @@ class InstitutionInfoViewSet(ILPViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionInfoSerializer
     # filter_class = SchoolFilter
+
+
+class InstitutionCategoryListView(generics.ListAPIView):
+    serializer_class = InstitutionCategorySerializer
+    paginator = None
+
+    def get_queryset(self):
+        return InstitutionCategory.objects.all()
+
+
+class InstitutionManagementListView(generics.ListAPIView):
+    serializer_class = InstitutionManagementSerializer
+    # paginate_by = None
+    # paginate_by_param = None
+    paginator = None
+
+    def get_queryset(self):
+        return Management.objects.all()

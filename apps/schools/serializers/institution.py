@@ -2,7 +2,8 @@ from django.conf import settings
 
 from rest_framework import serializers
 
-from schools.models import Institution, Management, PinCode
+from schools.models import (Institution, Management, PinCode,
+                            InstitutionCategory, Management)
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
 from common.models import InstitutionGender, Status
@@ -139,3 +140,19 @@ class InstitutionInfoSerializer(ILPSerializer):
         if gender_count:
             return gender_count.num_girls
         return None
+
+
+class InstitutionCategorySerializer(ILPSerializer):
+    type = InstitutionTypeSerializer(source='institution_type')
+    class Meta:
+        model = InstitutionCategory
+        fields = (
+            'name', 'type'
+        )
+
+class InstitutionManagementSerializer(ILPSerializer):
+    class Meta:
+        model = Management
+        fields = (
+            'id', 'name'
+        )

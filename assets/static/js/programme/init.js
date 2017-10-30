@@ -141,7 +141,7 @@
 
     function fetchSchoolDetails(id) {
         //console.log("school", id);
-        var url = "schools/school/" + id;
+        var url = "institutions/" + id;
         var $schoolXHR = klp.api.do(url, {});
         $schoolXHR.done(function(data) {
             var context = getSchoolContext(data);
