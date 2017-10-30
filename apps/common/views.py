@@ -41,7 +41,8 @@ class ILPViewSet(ILPStateMixin, ModelViewSet):
         ):
             self.filter_backends += (ILPInBBOXFilter,)
 
-
+    
+    
 class ILPListAPIView(generics.ListAPIView):
 
     pagination_serializer_class = ILPPaginationSerializer
@@ -62,7 +63,7 @@ class ILPListAPIView(generics.ListAPIView):
         '''
         if self.request.accepted_renderer.format == 'csv':
             return None
-
+        print("per_page in request is: ", hasattr(self, 'per_page'))
         per_page = int(
             self.request.GET.get(
                 'per_page', api_settings.ILPLISTVIEW_PAGE_SIZE

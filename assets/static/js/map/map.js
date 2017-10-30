@@ -247,7 +247,7 @@
             selectedLayers.clearLayers();
 
             if (entityType === 'primaryschool' || entityType === 'preschool') {
-                var thisSchoolXHR = klp.api.do('schools/school/'+entityID, {'geometry': 'yes'});
+                var thisSchoolXHR = klp.api.do('institutions/'+entityID, {'geometry': 'yes'});
                 thisSchoolXHR.done(function(data) {
                     var thisSchoolMarker = L.geoJson(data, {
                         pointToLayer: function(feature, latlng) {
@@ -359,12 +359,12 @@
             var opts = {
                 trigger: false,
             }
-            if (typeID === "primary") {
+            if (type.id === "primary") {
                 var markerParam = 'primaryschool-' + schoolID;
             } else {
                 var markerParam = 'preschool-' + schoolID;
             }
-            if (typeID === 1) {
+            if (type.id === "primary") {
                 klp.router.setHash(null, {marker: markerParam}, opts);
             } else {
                 klp.router.setHash(null, {marker: markerParam}, opts);
@@ -553,7 +553,7 @@
 
         function markerPopup(marker, feature) {
             var duplicateMarker;
-            if (feature.properties.type.id === 1) {
+            if (feature.properties.type.id === "primary") {
                 duplicateMarker = L.marker(marker._latlng, {icon: mapIcon('school')});
             } else {
                 duplicateMarker = L.marker(marker._latlng, {icon: mapIcon('preschool')});
@@ -563,7 +563,7 @@
                 state.addPopupCloseHistory = false;
             }
             t.startLoading();
-            popupInfoXHR = klp.api.do('schools/school/'+feature.properties.id, {});
+            popupInfoXHR = klp.api.do('institutions/'+feature.properties.id, {});
             popupInfoXHR.done(function(data) {
                 //To fetch additional facilities data from the DISE API.
                 var facilitiesXHR = fetchBasicFacilities(data);
@@ -741,7 +741,7 @@
             radiusXHR.done(function (data) {
                 radiusLayer = L.geoJson(filterGeoJSON(data), {
                     pointToLayer: function(feature, latlng) {
-                        if (feature.properties.type.id == 1) {
+                        if (feature.properties.type.id == "primary") {
                             return L.marker(latlng, {icon: mapIcon('primaryschool')});
                         } else {
                             return L.marker(latlng, {icon: mapIcon('preschool')});

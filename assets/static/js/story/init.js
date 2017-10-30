@@ -1005,7 +1005,7 @@
         }
         if (paramKey == 'school_id') {
             var entityType = 'school';
-            var entityURL = 'schools/school/' + paramValue;
+            var entityURL = 'institutions/' + paramValue;
         } else {
             var entityType = 'boundary';
             var entityURL = 'boundary/admin/' + paramValue;

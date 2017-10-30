@@ -20,7 +20,9 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
     queryset = Boundary.objects.all()
     serializer_class = BoundarySerializer
     filter_class = BoundaryFilter
-
+    bbox_filter_field = "geom"
+    
+    
     def get_queryset(self):
         state = self.get_state()
         if state:

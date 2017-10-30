@@ -17,7 +17,7 @@
             var tabName = $this.attr("data-tab");
             $('.tab-content[data-tab=' + tabName + ']').before($clone);
         });
-        schoolInfoURL = 'schools/school/' + SCHOOL_ID;
+        schoolInfoURL = 'institutions/' + SCHOOL_ID;
         schoolType = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
         tabs = {
             'info': {
