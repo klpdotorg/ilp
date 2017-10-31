@@ -17,6 +17,7 @@ from assessments.models import (
 )
 
 from .gp_contest import GPContest
+from .gka import GKA
 
 
 class QGroupAnswersDetailAPIView(ILPListAPIView):
@@ -60,6 +61,7 @@ class QGroupAnswersDetailAPIView(ILPListAPIView):
             else:
                 end_date = date.get_datetime(end_date)
 
+        boundary, institution = None, None
         qgroup = QuestionGroup.objects.get(
             id=qgroup_id, survey_id=survey_id
         )
@@ -121,6 +123,8 @@ class QGroupAnswersDetailAPIView(ILPListAPIView):
 
         response_json = {}
 
+        sources = Source.objects.values_list('name', flat=True)
+
         if gka_comparison:
             gka = GKA(start_date, end_date)
             response_json = gka.generate_report(
@@ -129,10 +133,8 @@ class QGroupAnswersDetailAPIView(ILPListAPIView):
             gp_contest = GPContest()
             response_json = gp_contest.generate_report(agroup_inst_ids)
         else:
-            sources = Source.objects.all()
             if source:
                 sources = sources.filter(name=source)
-            sources = sources.values_list('name', flat=True)
 
         for source in sources:
             response_json[source] = get_que_and_ans(
