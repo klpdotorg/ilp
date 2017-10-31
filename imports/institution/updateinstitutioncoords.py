@@ -22,7 +22,7 @@ tables=[
             'temptablename': 'temp_coords',
             'createcolumns': 'dise_code text, latitude text, longitude text',
             'columns': 'dise_code, latitude, longitude',
-            'update_query': "UPDATE schools_institution set coord=ST_GeomFromText('POINT(' || coords.longitude || ' ' || coords.latitude || ')', 4326) from temp_coords coords where schools_institution.dise_code = coords.dise_code;"
+            'update_query': "UPDATE schools_institution set coord=ST_GeomFromText('POINT(' || coords.longitude || ' ' || coords.latitude || ')', 4326) from temp_coords coords,dise_basicdata where coords.dise_code::bigint = dise_basicdata.school_code and dise_basicdata.academic_year_id = '1516' and dise_basicdata.id = schools_institution.dise_id;"
         }
 ]
 

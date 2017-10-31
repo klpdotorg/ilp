@@ -1,4 +1,4 @@
-from os import sys
+from os import sys, system
 import os
 
 

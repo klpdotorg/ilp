@@ -32,10 +32,10 @@ tables=[
         'name': 'schools_studentstudentgrouprelation',
         'temptablename': 'temp_stustudentgrouprelation',
         'table_name': 'schools_studentstudentgrouprelation',
-        'tempcolumns': 'id integer, academic_year_id text, status_id text, student_id integer, student_group_id integer',
-        'columns': 'id, academic_year_id, status_id, student_id, student_group_id',
-        'tempquery': "COPY(select stusg.id, concat(substr(split_part(ay.name, '-',1),3,4), substr(split_part(ay.name,'-',2),3,4)), case stusg.active when 2 then 'AC' when 1 then 'IA' when 0 then 'DEL' end,stusg.student_id, stusg.student_group_id from schools_student_studentgrouprelation stusg, schools_academic_year ay where stusg.academic_id=ay.id) TO '$PWD/load/schools_studentstudentgrouprelation.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "INSERT into schools_studentstudentgrouprelation(id, academic_year_id, status_id, student_id, student_group_id) select temp.id,temp.academic_year_id,temp.status_id,temp.student_id,temp.student_group_id from temp_stustudentgrouprelation temp,schools_student stu, schools_studentgroup sg where temp.student_id=stu.id and temp.student_group_id=sg.id;"
+        'tempcolumns': 'academic_year_id text, status_id text, student_id integer, student_group_id integer',
+        'columns': 'academic_year_id, status_id, student_id, student_group_id',
+        'tempquery': "COPY(select concat(substr(split_part(ay.name, '-',1),3,4), substr(split_part(ay.name,'-',2),3,4)), case stusg.active when 2 then 'AC' when 1 then 'IA' when 0 then 'DEL' end,stusg.student_id, stusg.student_group_id from schools_student_studentgrouprelation stusg, schools_academic_year ay,schools_studentgroup sg where stusg.academic_id=ay.id and stusg.student_group_id=sg.id and stusg.active in (0,1,2)) TO '$PWD/load/schools_studentstudentgrouprelation.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'insertquery': "INSERT into schools_studentstudentgrouprelation(academic_year_id, status_id, student_id, student_group_id) select distinct temp.academic_year_id,temp.status_id,temp.student_id,temp.student_group_id from temp_stustudentgrouprelation temp,schools_student stu, schools_studentgroup sg where temp.student_id=stu.id and temp.student_group_id=sg.id;"
     }
 
 ]
