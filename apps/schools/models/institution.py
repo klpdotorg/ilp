@@ -28,7 +28,7 @@ class PinCode(models.Model):
 
 class Institution(models.Model):
     """ An educational institution """
-    dise = models.ForeignKey('dise.BasicData',null=True, blank=True)
+    dise = models.ForeignKey('dise.BasicData', null=True, blank=True)
     name = models.CharField(max_length=300)
     category = models.ForeignKey('InstitutionCategory')
     gender = models.ForeignKey('common.InstitutionGender')
@@ -81,7 +81,6 @@ class Institution(models.Model):
 
     def __unicode__(self):
         return "%s" % self.name
-
 
 
 class InstitutionLanguage(models.Model):

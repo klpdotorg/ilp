@@ -18,12 +18,18 @@ class InstitutionSerializer(ILPSerializer):
     admin2 = serializers.CharField(source='admin2.name')
     admin3 = serializers.CharField(source='admin3.name')
     type = InstitutionTypeSerializer(source='institution_type')
+    languages = serializers.SerializerMethodField()
 
     class Meta:
         model = Institution
         fields = (
             'id', 'name', 'address', 'boundary', 'admin1', 'admin2',
-            'admin3', 'type'
+            'admin3', 'type', 'category', 'languages'
+        )
+
+    def get_languages(self, obj):
+        return obj.institutionlanguage_set.values_list(
+            'moi', flat=True
         )
 
 
