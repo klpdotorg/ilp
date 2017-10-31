@@ -147,7 +147,7 @@ class InstitutionCategorySerializer(ILPSerializer):
     class Meta:
         model = InstitutionCategory
         fields = (
-            'name', 'type'
+            'id', 'name', 'type'
         )
 
 class InstitutionManagementSerializer(ILPSerializer):
