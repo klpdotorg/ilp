@@ -1,3 +1,9 @@
+#
+#import files
+imports/*/load
+*_getdata.sql
+*_loaddata.sql
+*_tempdata.sql
 # Python bytecode:
 *.py[co]
 

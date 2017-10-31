@@ -87,4 +87,4 @@ def loaddata():
 init()
 create_sqlfiles()
 getdata()
-#loaddata()
+loaddata()
