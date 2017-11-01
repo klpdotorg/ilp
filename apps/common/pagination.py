@@ -16,40 +16,44 @@ class ILPPaginationSerializer(pagination.PageNumberPagination):
         })
 
 
-class TestPagination(PageNumberPagination):
+class ILPDefaultPagination(PageNumberPagination):
     
     def get_paginated_response(self, data):
-        print("Data in get_paginated_response is: ", data)
-        per_page = self.request.query_params.get("per_page")
-        if per_page is not None:
+        ''' This method determines the basic JSON structure of the response. 
+        The output of this is passed onto the ILPJSONRenderer which then further formats the output to the desired format '''
+        per_page = int(self.request.query_params.get(
+            "per_page",
+            settings.LARGESETPAGINATION))
+        # length = None
+        # if isinstance(data, list):
+        #     length = len(data)
+        print("Length of results is: ", len(data))
+        # If per_page is a number greater than zero, then
+        # pagination is desired.
+        if per_page > 0:
             return Response({
                 'next': self.get_next_link(),
                 'previous': self.get_previous_link(),
                 'count': self.page.paginator.count,
                 'results': data
             })
+        # Pagination is not desired. Return everything in one shot
         else:
             return Response({
-                'results': data
+                    'results': data
             })
+         
 
     def get_page_size(self, request):
-        print("Inside get_page_size")
-        per_page = request.query_params.get("per_page")
-        if per_page is not None:
-            print("per_page is Not NONE")
-            page_size = request.query_params.get(self.page_size_query_param,                self.page_size)
-            print("Page size is: ", page_size)
-            if page_size > 0:
-                return page_size
-            elif page_size == 0:
-                return None
-            else:
-                return None
-        else:
-            print("per_page is NONE")
+        per_page = int(request.query_params.get(
+            "per_page",
+            settings.LARGESETPAGINATION))
+        if per_page > 0:
+            return max(per_page, int(settings.LARGESETPAGINATION))
+        elif per_page == 0:
             return None
-        
+        else:
+            return settings.LARGESETPAGINATION
 
 
 class LargeResultsSetPagination(PageNumberPagination):

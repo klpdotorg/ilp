@@ -39,9 +39,9 @@ class InstitutionAPITests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(
-            set(['type', 'count', 'results']).issubset(response.data.keys())
+            set(['type', 'count', 'features']).issubset(response.data.keys())
         )
-        results = response.data['results']
+        results = response.data['features']
         self.assertTrue(
             set(['type', 'geometry', 'properties']).issubset(results[0].keys())
         )

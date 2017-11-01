@@ -20,13 +20,13 @@ class ILPJSONRenderer(JSONRenderer):
         # Only try and fetch geometries if response status is 200
         if render_geometry == 'yes' and status == 200:
             self.render_geometry = True
-        print("Data inside render method is: ", data)
         # if data is a list, that means pagination was turned off
         # with per_page=0
         # then we first need to convert the list to a dict so that
         # we have same data structure:
         if isinstance(data, list):
             data = {
+                'count': len(data),
                 'results': data
             }
 
@@ -42,7 +42,7 @@ class ILPJSONRenderer(JSONRenderer):
                 isinstance(data['results'], list):
             data['type'] = 'FeatureCollection'
             features = data.pop('results')
-            data['results'] = [self.get_feature(elem) for elem in features]
+            data['features'] = [self.get_feature(elem) for elem in features]
 
         # If geometry=yes and is a single feature, convert data to geojson
         elif self.render_geometry and not is_omni:
@@ -53,7 +53,7 @@ class ILPJSONRenderer(JSONRenderer):
                 arr = data[key]
                 data[key] = {}
                 data[key]['type'] = 'FeatureCollection'
-                data[key]['results'] = [
+                data[key]['features'] = [
                     self.get_feature(elem) for elem in arr]
 
         # If geometry=no, just convert data as is to JSON
