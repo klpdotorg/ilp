@@ -2,7 +2,7 @@ from os import system,sys
 import os
 
 if len(sys.argv) != 3:
-    print("Please give database names as arguments. USAGE: python updatespatialdata.py spatial ilp", file=sys.stderr)
+    print("Please give database names as arguments. USAGE: python updatespatialdata.py spatial ilp")
     sys.exit()
 
 

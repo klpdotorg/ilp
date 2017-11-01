@@ -32,8 +32,8 @@ class Student(models.Model):
     religion = models.ForeignKey('common.Religion', null=True)
     category = models.ForeignKey('common.StudentCategory', null=True)
     enrollment_id = models.CharField(max_length=100, blank=True, null=True)
-    mother_name = models.CharField(max_length=50, blank=True, null=True)
-    father_name = models.CharField(max_length=50, blank=True, null=True)
+    mother_name = models.CharField(max_length=100, blank=True, null=True)
+    father_name = models.CharField(max_length=100, blank=True, null=True)
     institution = models.ForeignKey(Institution)
     status = models.ForeignKey('common.Status')
 
