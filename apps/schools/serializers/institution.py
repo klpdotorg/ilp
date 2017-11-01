@@ -2,8 +2,9 @@ from django.conf import settings
 
 from rest_framework import serializers
 
-from schools.models import (Institution, Management, PinCode,
-                            InstitutionCategory, Management)
+from schools.models import (
+    Institution, Management, PinCode, InstitutionCategory
+)
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
 from common.models import InstitutionGender, Status
@@ -24,7 +25,8 @@ class InstitutionSerializer(ILPSerializer):
         model = Institution
         fields = (
             'id', 'name', 'address', 'boundary', 'admin1', 'admin2',
-            'admin3', 'type', 'category', 'languages'
+            'admin3', 'type', 'category', 'languages', 'dise', 'area',
+            'landmark', 'pincode', 'gender', 'management'
         )
 
     def get_languages(self, obj):
