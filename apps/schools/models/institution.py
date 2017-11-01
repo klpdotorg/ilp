@@ -71,7 +71,6 @@ class Institution(models.Model):
 
     def get_geometry(self):
         if hasattr(self, 'coord') and self.coord is not None:
-            print(" Geojson for institution is: ", self.coord.geojson)
             return json.loads(self.coord.geojson)
         else:
             return {}

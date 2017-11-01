@@ -62,7 +62,6 @@ class ILPListAPIView(generics.ListAPIView):
         '''
         if self.request.accepted_renderer.format == 'csv':
             return None
-        print("per_page in request is: ", hasattr(self, 'per_page'))
         per_page = int(
             self.request.GET.get(
                 'per_page', settings.LARGESETPAGINATION

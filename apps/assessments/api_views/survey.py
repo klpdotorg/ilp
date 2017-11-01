@@ -84,12 +84,6 @@ class QuestionGroupQuestions(
     # from NestedViewSetMixin to implement the .distinct()
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
-        print(
-            "Arguments passed into QuestionGroupQuestions view is: %s",
-            parents_query_dict
-        )
-        questiongroup = parents_query_dict.get('questiongroup_id')
-        print("Question group id is: ", questiongroup)
         if parents_query_dict:
             try:
                 queryset = queryset.filter(

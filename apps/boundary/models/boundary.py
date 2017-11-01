@@ -39,7 +39,6 @@ class Boundary(models.Model):
     
     def get_geometry(self):
         if hasattr(self, 'geom') and self.geom is not None:
-            print(" Geojson for boundary is: ", self.geom.geojson)
             return json.loads(self.geom.geojson)
         else:
             return {}

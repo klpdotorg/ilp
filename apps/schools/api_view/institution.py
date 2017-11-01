@@ -41,9 +41,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         s_type = self.request.GET.get('school_type', 'both')
 
         if s_type == 'preschools':
-            print("School type is preschools")
             qset = qset.filter(institution_type__pk=InstitutionType.PRE_SCHOOL)
-            print("Query set count is: ", qset.count())
         elif s_type == 'primaryschools':
             qset = qset.filter(
                 institution_type__pk=InstitutionType.PRIMARY_SCHOOL)
@@ -64,7 +62,6 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
         # partner_id
         # programmes
-        print("Final qset count is: ", qset.count())
         return qset
 
     def create(self, request, *args, **kwargs):
