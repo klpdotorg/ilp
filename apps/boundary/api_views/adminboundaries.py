@@ -5,7 +5,8 @@ from boundary.serializers import (
 )
 from boundary.models import Boundary, BoundaryType, BoundaryHierarchy
 from common.views import ILPListAPIView, ILPDetailAPIView
-from common.pagination import ILPPaginationSerializer
+from common.pagination import ( ILPPaginationSerializer,
+                                TestPagination)
 from common.models import InstitutionType, Status
 from common.mixins import ILPStateMixin
 import logging
@@ -44,7 +45,35 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
             )
         return queryset
 
+class TestAdmin1sBoundary(ILPListAPIView, ILPStateMixin):
 
+    serializer_class = BoundarySerializer
+    pagination_class = TestPagination
+    renderer_classes = (ILPJSONRenderer, )
+    
+
+    def get_queryset(self):
+        state = self.get_state()
+        queryset = Boundary.objects.filter(parent=state.id)
+        school_type = self.request.query_params.get('school_type', None)
+        boundarytype = BoundaryType.SCHOOL_DISTRICT
+        if school_type is not None:
+            # Hack to accomodate KLP dubdubdub URLs
+            if school_type == "primaryschools":
+                school_type = InstitutionType.PRIMARY_SCHOOL
+            elif school_type == "preschools":
+                school_type = InstitutionType.PRE_SCHOOL
+            # End of hack
+            queryset = queryset.filter(type=school_type)
+            if school_type == InstitutionType.PRE_SCHOOL:
+                boundarytype = BoundaryType.PRESCHOOL_DISTRICT
+            queryset = queryset.filter(boundary_type__exact=boundarytype)
+        else:
+            queryset = queryset.filter(
+                Q(boundary_type=BoundaryType.SCHOOL_DISTRICT) |
+                Q(boundary_type=BoundaryType.PRESCHOOL_DISTRICT)
+            )
+        return queryset
 class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
     serializer_class = BoundaryWithParentSerializer
     pagination_class = ILPPaginationSerializer

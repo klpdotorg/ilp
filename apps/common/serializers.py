@@ -16,10 +16,10 @@ class ILPSerializer(serializers.ModelSerializer):
         if 'context' in kwargs:
             request = kwargs['context']['request']
             geometry = request.GET.get('geometry', 'no')
-            print("Geometry is: ", geometry)
+            # print("Geometry is: ", geometry)
             # add geometry to fields if geometry=yes in query params
             if geometry == 'yes':
-                print("Geometry is YES")
+                # print("Geometry is YES")
                 self.fields['geometry'] = DictField(source='get_geometry')
 
     
