@@ -7,7 +7,6 @@ from rest_framework.pagination import PageNumberPagination
 
 class ILPPaginationSerializer(pagination.PageNumberPagination):
     def get_paginated_response(self, data):
-        print("Data in get_paginated_response is: ", data)
         return Response({
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
@@ -27,7 +26,6 @@ class ILPDefaultPagination(PageNumberPagination):
         # length = None
         # if isinstance(data, list):
         #     length = len(data)
-        print("Length of results is: ", len(data))
         # If per_page is a number greater than zero, then
         # pagination is desired.
         if per_page > 0:
