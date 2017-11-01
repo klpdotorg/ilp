@@ -29,8 +29,8 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
     bbox_filter_field = "coord"
-    pagination_class = LargeResultsSetPagination
-    renderer_classes = (ILPJSONRenderer, )
+    # pagination_class = LargeResultsSetPagination
+    # renderer_classes = (ILPJSONRenderer, )
     # filter_class = SchoolFilter
 
     def get_queryset(self):

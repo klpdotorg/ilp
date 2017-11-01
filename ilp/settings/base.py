@@ -55,7 +55,7 @@ INSTALLED_APPS = (
 )
 
 # DRF Settings
-LARGESETPAGINATION = 1000
+LARGESETPAGINATION = 10
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 
@@ -69,7 +69,15 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
+
+    'DEFAULT_RENDERER_CLASSES': (
+        'common.renderers.ILPJSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    ),
+
+    'DEFAULT_PAGINATION_CLASS': 'apps.common.pagination.ILPDefaultPagination'
+    
 }
 
 

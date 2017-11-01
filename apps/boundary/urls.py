@@ -5,7 +5,7 @@ from .api_views import (
     Admin2sInsideAdmin1, Admin3sInsideAdmin1,
     Admin3sInsideAdmin2, AdminDetails, BoundaryViewSet,
     BoundaryTypeViewSet, AssemblyBoundariesViewSet,
-    ParliamentBoundariesViewSet
+    ParliamentBoundariesViewSet, TestAdmin1sBoundary
 )
 
 assembliesListView = AssemblyBoundariesViewSet.as_view({'get': 'list'})
@@ -17,6 +17,8 @@ router = routers.DefaultRouter()
 router.register(r'boundaries', BoundaryViewSet, base_name='boundary')
 router.register(r'boundarytype', BoundaryTypeViewSet, base_name='boundarytype')
 urlpatterns = [
+     url(r'^boundary/test$', TestAdmin1sBoundary.as_view(),
+        name='test-admin1s-boundary'),
     url(r'^boundary/admin1s$', Admin1sBoundary.as_view(),
         name='admin1s-boundary'),
     url(r'^boundary/admin2s$', Admin2sBoundary.as_view(),

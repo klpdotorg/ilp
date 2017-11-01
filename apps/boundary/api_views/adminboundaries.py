@@ -5,20 +5,44 @@ from boundary.serializers import (
 )
 from boundary.models import Boundary, BoundaryType, BoundaryHierarchy
 from common.views import ILPListAPIView, ILPDetailAPIView
-from common.pagination import ILPPaginationSerializer
+
 from common.models import InstitutionType, Status
 from common.mixins import ILPStateMixin
 import logging
 logger = logging.getLogger(__name__)
 
-from common.renderers import ILPJSONRenderer
 from common.filters import ILPInBBOXFilter
 
 class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
 
     serializer_class = BoundarySerializer
-    pagination_class = ILPPaginationSerializer
-    renderer_classes = (ILPJSONRenderer, )
+    
+    def get_queryset(self):
+        state = self.get_state()
+        queryset = Boundary.objects.filter(parent=state.id)
+        school_type = self.request.query_params.get('school_type', None)
+        boundarytype = BoundaryType.SCHOOL_DISTRICT
+        if school_type is not None:
+            # Hack to accomodate KLP dubdubdub URLs
+            if school_type == "primaryschools":
+                school_type = InstitutionType.PRIMARY_SCHOOL
+            elif school_type == "preschools":
+                school_type = InstitutionType.PRE_SCHOOL
+            # End of hack
+            queryset = queryset.filter(type=school_type)
+            if school_type == InstitutionType.PRE_SCHOOL:
+                boundarytype = BoundaryType.PRESCHOOL_DISTRICT
+            queryset = queryset.filter(boundary_type__exact=boundarytype)
+        else:
+            queryset = queryset.filter(
+                Q(boundary_type=BoundaryType.SCHOOL_DISTRICT) |
+                Q(boundary_type=BoundaryType.PRESCHOOL_DISTRICT)
+            )
+        return queryset
+
+class TestAdmin1sBoundary(ILPListAPIView, ILPStateMixin):
+
+    serializer_class = BoundarySerializer
     
 
     def get_queryset(self):
@@ -47,8 +71,6 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
 
 class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
     serializer_class = BoundaryWithParentSerializer
-    pagination_class = ILPPaginationSerializer
-    renderer_classes = (ILPJSONRenderer, )
     filter_backends = (ILPInBBOXFilter,)
     
     def get_queryset(self):
@@ -80,8 +102,6 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
 class Admin3sBoundary(ILPListAPIView, ILPStateMixin):
 
     serializer_class = BoundaryWithParentSerializer
-    pagination_class = ILPPaginationSerializer
-    renderer_classes = (ILPJSONRenderer, )
 
     def get_queryset(self):
         # Get all the admin2 boundary ids for a particular state as a list
@@ -115,7 +135,6 @@ class Admin2sInsideAdmin1(ILPListAPIView):
     ''' Returns a list of all blocks/projects inside a given district id '''
 
     serializer_class = BoundaryWithParentSerializer
-    renderer_classes = (ILPJSONRenderer, )
 
     def get_queryset(self):
         parent_district_id = self.kwargs.get('id', 0)
@@ -131,7 +150,6 @@ class Admin3sInsideAdmin1(ILPListAPIView):
     primary district.
     '''
     serializer_class = BoundaryWithParentSerializer
-    renderer_classes = (ILPJSONRenderer, )
 
     def get_queryset(self):
         parent_district_id = self.kwargs.get('id', 0)
@@ -146,7 +164,6 @@ class Admin3sInsideAdmin2(ILPListAPIView):
     Returns a list of all clusters/circles inside a given block/project id
     '''
     serializer_class = BoundaryWithParentSerializer
-    renderer_classes = (ILPJSONRenderer, )
 
     def get_queryset(self):
         admin2_id = self.kwargs.get('id', 0)
