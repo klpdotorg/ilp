@@ -15,8 +15,6 @@ nested_router = ExtendedSimpleRouter()
 router = DefaultRouter()
 
 router.register(
-    r'institutions/list', InstitutionViewSet, base_name='basic')
-router.register(
     r'institutions/info', InstitutionInfoViewSet, base_name='info')
 
 # Institution -> StudentGroup -> Students

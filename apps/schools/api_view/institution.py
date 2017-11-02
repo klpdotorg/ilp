@@ -4,11 +4,9 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-from common.views import (ILPViewSet, ILPListAPIView)
+from common.views import ILPViewSet
 from common.models import Status, InstitutionType
-from common.renderers import ILPJSONRenderer
 from common.mixins import ILPStateMixin
-from common.pagination import LargeResultsSetPagination
 
 from schools.serializers import (
     InstitutionSerializer, InstitutionInfoSerializer,
