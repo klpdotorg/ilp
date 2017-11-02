@@ -12,7 +12,8 @@ from common.pagination import LargeResultsSetPagination
 
 from schools.serializers import (
     InstitutionSerializer, InstitutionInfoSerializer,
-    InstitutionCreateSerializer, InstitutionCategorySerializer, InstitutionManagementSerializer
+    InstitutionCreateSerializer, InstitutionCategorySerializer,
+    InstitutionManagementSerializer
 )
 from schools.models import (Institution, InstitutionCategory,
                             Management)
@@ -56,7 +57,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
             admin3 = self.request.GET.get('admin3')
             qset = qset.filter(admin3__id=admin3)
 
-        # TODO
+        # todo
         # Need to do filter for:
         # ac_year = self.request.GET.get(
         #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
@@ -68,8 +69,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         serializer = InstitutionCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        # TODO
-        # self._assign_permissions(serializer.instance)
+        # todo self._assign_permissions(serializer.instance)
         headers = self.get_success_headers(serializer.data)
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers

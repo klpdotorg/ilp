@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 import json
 
+
 class InstitutionCategory(models.Model):
     """ Category for institution """
     name = models.CharField(max_length=300)
