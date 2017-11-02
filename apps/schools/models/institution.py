@@ -1,4 +1,7 @@
 from django.contrib.gis.db import models
+
+from common.models import Status
+
 import json
 
 
@@ -68,14 +71,15 @@ class Institution(models.Model):
         null=True)
     coord = models.GeometryField(null=True)
     last_verified_year = models.ForeignKey('common.AcademicYear', null=True)
-    status = models.ForeignKey('common.Status')
+    status = models.ForeignKey(
+        'common.Status', default=Status.ACTIVE)
 
     def get_geometry(self):
         if hasattr(self, 'coord') and self.coord is not None:
             return json.loads(self.coord.geojson)
         else:
             return {}
-    
+
     class Meta:
         unique_together = (('name', 'dise', 'admin3'), )
 

@@ -75,6 +75,7 @@ class InstitutionAPITests(APITestCase):
                 "category": "10",
                 "institution_type": "primary",
                 "management": "1",
+                "status": "AC",
                 "last_verified_year": "1516"
             }
         )

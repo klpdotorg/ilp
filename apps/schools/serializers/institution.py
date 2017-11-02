@@ -48,9 +48,6 @@ class InstitutionCreateSerializer(ILPSerializer):
         queryset=Management.objects.all()
     )
     address = serializers.CharField(default=None)
-    status = serializers.PrimaryKeyRelatedField(
-        queryset=Status.objects.all(),
-        default=Status.objects.get(char_id='AC'))
     area = serializers.CharField(default=None)
     pincode = serializers.PrimaryKeyRelatedField(
         queryset=PinCode.objects.all(), default=None
