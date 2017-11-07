@@ -527,7 +527,7 @@
 
                 options['school_type'] = 'preschools';
 
-                preschoolXHR = klp.api.do('institutions/list', options);
+                preschoolXHR = klp.api.do('institutions/', options);
                 preschoolXHR.done(function (data) {
                     t.stopLoading();
                     preschoolCluster.clearLayers();
@@ -551,7 +551,7 @@
 
                 options['school_type'] = 'primaryschools';
 
-                schoolXHR = klp.api.do('institutions/list', options);
+                schoolXHR = klp.api.do('institutions/', options);
                 schoolXHR.done(function (data) {
                     t.stopLoading();
                     schoolCluster.clearLayers();

@@ -397,7 +397,7 @@
 
             if (enabledLayers.hasLayer(preschoolCluster)) {
                 t.startLoading();
-                preschoolXHR = klp.api.do('institutions/list', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                preschoolXHR = klp.api.do('institutions/', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 preschoolXHR.done(function (data) {
                     t.stopLoading();
                     preschoolCluster.clearLayers();
@@ -412,7 +412,7 @@
 
             if (enabledLayers.hasLayer(schoolCluster)) {
                 t.startLoading();
-                schoolXHR = klp.api.do('institutions/list', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                schoolXHR = klp.api.do('institutions/', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 schoolXHR.done(function (data) {
                     t.stopLoading();
                     schoolCluster.clearLayers();
@@ -623,7 +623,7 @@
 
         function fetchBasicFacilities(data) {
             var $deferred = $.Deferred();
-            if (data.type.id === 2) { //is a preschool
+            if (data.type.id === "pre") { //is a preschool
                 setTimeout(function() {
                     $deferred.resolve(data.basic_facilities);
                 }, 0);
