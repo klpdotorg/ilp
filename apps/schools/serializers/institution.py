@@ -7,7 +7,9 @@ from schools.models import (
 )
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
-from common.models import InstitutionGender, Status
+from common.models import (
+    InstitutionGender, Status, AcademicYear
+)
 from boundary.serializers import (
     BoundarySerializer, ElectionBoundarySerializer
 )
@@ -51,13 +53,15 @@ class InstitutionCreateSerializer(ILPSerializer):
         queryset=PinCode.objects.all(), default=None
     )
     landmark = serializers.CharField(default=None)
+    last_verified_year = serializers.PrimaryKeyRelatedField(
+        queryset=AcademicYear.objects.all(), required=True)
 
     class Meta:
         model = Institution
         fields = (
             'id', 'admin3', 'dise', 'name', 'category', 'gender',
             'status', 'institution_type', 'management', 'address',
-            'area', 'pincode', 'landmark'
+            'area', 'pincode', 'landmark', 'last_verified_year'
         )
 
     def save(self, **kwargs):
