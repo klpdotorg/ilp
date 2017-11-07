@@ -39,3 +39,7 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
 class BoundaryTypeViewSet(viewsets.ModelViewSet):
     queryset = BoundaryType.objects.all()
     serializer_class = BoundaryTypeSerializer
+
+
+class BoundarySchoolAggView(viewsets.ModelViewSet):
+    pass

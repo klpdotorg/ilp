@@ -3,7 +3,9 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 from rest_framework_swagger.views import get_swagger_view
 from common.views import StaticPageView, BlogFeedView
-from schools.views import AdvancedMapView
+from schools.views import ( 
+    AdvancedMapView, BoundaryPageView,
+    NewBoundaryPageView, SchoolPageView)
 
 api_docs_view = get_swagger_view(title='ILP API')
 
@@ -116,6 +118,14 @@ urlpatterns = [
     url(r'text/disclaimer/$', RedirectView.as_view(url='/disclaimer')),
 
     url(r'blog-feed/$', BlogFeedView.as_view(), name='blog_feed'),
+
+    # boundary page
+    url(r'^boundary/(?P<pk>[0-9]+)/$', BoundaryPageView.as_view(), name='boundary_page'),
+
+    url(r'^(?P<boundary_type>preschool-district|primary-district|circle|cluster|project|block)/(?P<pk>[0-9]+)/$', NewBoundaryPageView.as_view(), name='boundary_page_new'),
+
+    url(r'^school/(?P<pk>[0-9]+)/$',
+                    SchoolPageView.as_view(), name='school_page'),
 
     # API URLs.
     url(r'^api/v1/', include('ilp.api_urls')),
