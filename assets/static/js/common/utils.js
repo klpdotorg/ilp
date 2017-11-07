@@ -381,7 +381,7 @@
             Get school type as a string when passed a type id
          */
         getSchoolType: function(id) {
-            return id === 1 ? 'school' : 'preschool';
+            return id === "primary" ? 'school' : 'preschool';
         },
 
         /*

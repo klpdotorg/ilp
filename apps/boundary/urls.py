@@ -5,7 +5,8 @@ from .api_views import (
     Admin2sInsideAdmin1, Admin3sInsideAdmin1,
     Admin3sInsideAdmin2, AdminDetails, BoundaryViewSet,
     BoundaryTypeViewSet, AssemblyBoundariesViewSet,
-    ParliamentBoundariesViewSet, TestAdmin1sBoundary
+    ParliamentBoundariesViewSet, BoundarySchoolAggView,
+    TestAdmin1sBoundary
 )
 
 assembliesListView = AssemblyBoundariesViewSet.as_view({'get': 'list'})
@@ -35,5 +36,7 @@ urlpatterns = [
     url(r'^boundary/admin/(?P<id>[0-9]+)$',
         AdminDetails.as_view(), name="api_admin_details"),
     url(r'^boundary/assemblies', assembliesListView, name="assemblyListView"),
-    url(r'^boundary/parliaments', parliamentaryBoundariesListView, name='parliamentsListView')
+    url(r'^boundary/parliaments', parliamentaryBoundariesListView, name='parliamentsListView'),
+    url(r'^aggregation/boundary/(?P<id>[0-9]+)/schools/$',
+        BoundarySchoolAggView.as_view({'get': 'list'}), name='api_aggregation_boundary_schools'),
     ] +  router.urls

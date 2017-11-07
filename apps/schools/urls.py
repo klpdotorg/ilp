@@ -10,6 +10,7 @@ from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
     ProgrammeViewSet
 )
+from schools.views import SchoolPageView
 
 nested_router = ExtendedSimpleRouter()
 router = DefaultRouter()
