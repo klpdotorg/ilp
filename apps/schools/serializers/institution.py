@@ -2,10 +2,14 @@ from django.conf import settings
 
 from rest_framework import serializers
 
-from schools.models import Institution, Management, PinCode
+from schools.models import (
+    Institution, Management, PinCode, InstitutionCategory
+)
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
-from common.models import InstitutionGender, Status
+from common.models import (
+    InstitutionGender, Status, AcademicYear
+)
 from boundary.serializers import (
     BoundarySerializer, ElectionBoundarySerializer
 )
@@ -17,12 +21,19 @@ class InstitutionSerializer(ILPSerializer):
     admin2 = serializers.CharField(source='admin2.name')
     admin3 = serializers.CharField(source='admin3.name')
     type = InstitutionTypeSerializer(source='institution_type')
+    languages = serializers.SerializerMethodField()
 
     class Meta:
         model = Institution
         fields = (
             'id', 'name', 'address', 'boundary', 'admin1', 'admin2',
-            'admin3', 'type'
+            'admin3', 'type', 'category', 'languages', 'dise', 'area',
+            'landmark', 'pincode', 'gender', 'management'
+        )
+
+    def get_languages(self, obj):
+        return obj.institutionlanguage_set.values_list(
+            'moi', flat=True
         )
 
 
@@ -42,23 +53,23 @@ class InstitutionCreateSerializer(ILPSerializer):
         queryset=PinCode.objects.all(), default=None
     )
     landmark = serializers.CharField(default=None)
+    last_verified_year = serializers.PrimaryKeyRelatedField(
+        queryset=AcademicYear.objects.all(), required=True)
 
     class Meta:
         model = Institution
         fields = (
             'id', 'admin3', 'dise', 'name', 'category', 'gender',
             'status', 'institution_type', 'management', 'address',
-            'area', 'pincode', 'landmark'
+            'area', 'pincode', 'landmark', 'last_verified_year'
         )
 
     def save(self, **kwargs):
         admin3 = self.validated_data['admin3']
-        admin3_heirarchy = admin3.admin3_id
-        admin0_id = admin3_heirarchy.admin0_id
-        admin1_id = admin3_heirarchy.admin1_id
-        admin2_id = admin3_heirarchy.admin2_id
         return Institution.objects.create(
-            admin0=admin0_id, admin1=admin1_id, admin2=admin2_id,
+            admin0=admin3.parent.parent.parent,
+            admin1=admin3.parent.parent,
+            admin2=admin3.parent,
             **self.validated_data
         )
 
@@ -141,3 +152,19 @@ class InstitutionInfoSerializer(ILPSerializer):
         if gender_count:
             return gender_count.num_girls
         return None
+
+
+class InstitutionCategorySerializer(ILPSerializer):
+    type = InstitutionTypeSerializer(source='institution_type')
+    class Meta:
+        model = InstitutionCategory
+        fields = (
+            'id', 'name', 'type'
+        )
+
+class InstitutionManagementSerializer(ILPSerializer):
+    class Meta:
+        model = Management
+        fields = (
+            'id', 'name'
+        )

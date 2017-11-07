@@ -344,7 +344,7 @@
                 initSelection: function(element, callback) {
                     var id = $(element).val();
                     if (id !== '') {
-                        var url = "schools/school/" + id;
+                        var url = "institutions/" + id;
                         var $xhr = klp.api.do(url);
                         $xhr.done(function(response) {
                             callback({
@@ -355,7 +355,7 @@
                     }
                 },
                 ajax: {
-                    url: "/api/v1/schools/info",
+                    url: "/api/v1/institutions/info",
                     quietMillis: 300,
                     allowClear: true,
                     data: function (term, page) {

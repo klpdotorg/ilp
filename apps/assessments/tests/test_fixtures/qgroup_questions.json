@@ -1,0 +1,361 @@
+[
+{
+    "model": "boundary.boundarytype",
+    "pk": "C",
+    "fields": {
+        "name": "Country"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ST",
+    "fields": {
+        "name": "State"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "name": "India",
+        "boundary_type": "C",
+        "type": null,
+        "dise_slug": "India",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 2,
+    "fields": {
+        "parent": 1,
+        "name": "Karnataka",
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "India-Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.displaytype",
+    "pk": "CheckBox",
+    "fields": {
+        "description": "CheckBox"
+    }
+},
+{
+    "model": "assessments.responsetype",
+    "pk": "choice",
+    "fields": {
+        "description": "Choice"
+    }
+},
+{
+    "model": "assessments.partner",
+    "pk": "akshara",
+    "fields": {
+        "name": "Akshara Foundation",
+        "admin0": 2
+    }
+},
+{
+    "model": "assessments.questiontype",
+    "pk": 2,
+    "fields": {
+        "type": "choice",
+        "display": "CheckBox"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "assessments.source",
+    "pk": 1,
+    "fields": {
+        "name": "csv"
+    }
+},
+{
+    "model": "assessments.surveyontype",
+    "pk": "institution",
+    "fields": {
+        "description": "Institution"
+    }
+},
+{
+    "model": "common.institutiontype",
+    "pk": "both",
+    "fields": {
+        "name": "All Schools"
+    }
+},
+{
+    "model": "assessments.surveytype",
+    "pk": "perception",
+    "fields": {
+        "description": "Perception"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 7,
+    "fields": {
+        "name": "ILP Konnect Community Survey",
+        "created_at": "2016-05-19",
+        "updated_at": "2016-05-19",
+        "partner": "akshara",
+        "description": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 270,
+    "fields": {
+        "question_text": "Did you participate in 'Sammudaya Datta Shaale' last time?",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": false,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 150,
+    "fields": {
+        "question_text": "Do you think your child can do subtraction?",
+        "display_text": "How many responses indicate that children can do subtraction?",
+        "key": "mob-subtraction",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 149,
+    "fields": {
+        "question_text": "Do you think your child can do addition?",
+        "display_text": "How many responses indicate that children can do addition?",
+        "key": "mob-addition",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 148,
+    "fields": {
+        "question_text": "Do you think your child can read English?",
+        "display_text": "How many responses indicate that children can read in English?",
+        "key": "mob-read-english",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 147,
+    "fields": {
+        "question_text": "Do you think your child can read Kannada?",
+        "display_text": "How many responses indicate that children can read in Kannada?",
+        "key": "mob-read-kannada",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 269,
+    "fields": {
+        "question_text": "Does the SDMC meet every month?",
+        "display_text": "How many responses indicate SDMC meetings happen monthly?",
+        "key": "mob-sdmc-meet",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 145,
+    "fields": {
+        "question_text": "Is there a teacher shortage in the school?",
+        "display_text": "How many responses indicate a teacher shortage in schools?",
+        "key": "mob-teacher-shortage",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 144,
+    "fields": {
+        "question_text": "Are you satisfied with the Mid Day Meal served in your child's school?",
+        "display_text": "How many responses indicate that the mid day meal is satisfactory?",
+        "key": "mob-mdm-satisfactory",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 138,
+    "fields": {
+        "question_text": "Does the school have a separate functional toilet for girls?",
+        "display_text": "How many schools have separate toilets for boys and girls?",
+        "key": "ivrss-functional-toilets-girls",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 143,
+    "fields": {
+        "question_text": "Have you visited your child's school in the last month?",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": false,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.questiongroup",
+    "pk": 20,
+    "fields": {
+        "name": "KLP Konnect Paper",
+        "survey": 7,
+        "type": "perception",
+        "inst_type": "both",
+        "survey_on": "institution",
+        "group_text": "name",
+        "start_date": "2016-06-01",
+        "end_date": null,
+        "academic_year": null,
+        "version": 1,
+        "source": 1,
+        "double_entry": false,
+        "created_by": null,
+        "created_at": "2016-12-13",
+        "updated_at": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3230,
+    "fields": {
+        "questiongroup": 20,
+        "question": 270,
+        "sequence": 10
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3229,
+    "fields": {
+        "questiongroup": 20,
+        "question": 150,
+        "sequence": 9
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3228,
+    "fields": {
+        "questiongroup": 20,
+        "question": 149,
+        "sequence": 8
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3227,
+    "fields": {
+        "questiongroup": 20,
+        "question": 148,
+        "sequence": 7
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3226,
+    "fields": {
+        "questiongroup": 20,
+        "question": 147,
+        "sequence": 6
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3225,
+    "fields": {
+        "questiongroup": 20,
+        "question": 269,
+        "sequence": 5
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3224,
+    "fields": {
+        "questiongroup": 20,
+        "question": 145,
+        "sequence": 4
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3223,
+    "fields": {
+        "questiongroup": 20,
+        "question": 144,
+        "sequence": 3
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3222,
+    "fields": {
+        "questiongroup": 20,
+        "question": 138,
+        "sequence": 2
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 3221,
+    "fields": {
+        "questiongroup": 20,
+        "question": 143,
+        "sequence": 1
+    }
+}
+]

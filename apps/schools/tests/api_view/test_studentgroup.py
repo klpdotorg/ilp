@@ -36,7 +36,8 @@ class StudentGroupApiTests(APITestCase):
     def setUp(self):
         # setup a test user
         self.user = get_user_model().objects.create_user(
-            'admin@klp.org.in', 'admin')
+            'admin@klp.org.in', 'admin'
+        )
         self.listView = StudentGroupViewSet.as_view(
             actions={'get': 'list'})
         self.detailView = StudentGroupViewSet.as_view(
@@ -87,6 +88,7 @@ class StudentGroupApiTests(APITestCase):
             'section': 'A',
             'group_type': 'class',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.cudView(request)
         response.render()
         data = response.data
@@ -106,6 +108,7 @@ class StudentGroupApiTests(APITestCase):
             'section': 'A',
             'group_type': 'class',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.cudView(request)
         response.render()
         data = response.data
@@ -120,6 +123,7 @@ class StudentGroupApiTests(APITestCase):
                                      {
                                          'name': 'test_updated_class_1A'},
                                      format='json')
+        force_authenticate(request, user=self.user)
         response = self.cudView(request, pk=id)
         response.render()
         data = response.data
@@ -134,6 +138,7 @@ class StudentGroupApiTests(APITestCase):
             'section': 'A',
             'group_type': 'class',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.cudView(request)
         response.render()
         data = response.data
@@ -153,6 +158,7 @@ class StudentGroupApiTests(APITestCase):
             '/studentgroups/' + str(id),
             patch_data, format='json'
         )
+        force_authenticate(request, user=self.user)
         response = self.cudView(request, pk=id)
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)

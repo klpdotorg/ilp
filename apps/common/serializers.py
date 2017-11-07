@@ -2,20 +2,27 @@ from rest_framework import serializers
 
 from drf_compound_fields.fields import DictField
 
-from common.models import InstitutionType
+from common.models import (InstitutionType,
+                            Language)
+from rest_framework_gis.serializers import GeoFeatureModelSerializer, GeometrySerializerMethodField
 
 
 class ILPSerializer(serializers.ModelSerializer):
     # geometry = DictField(source='get_geometry')
+    # geometry = GeometrySerializerMethodField()
+
     def __init__(self, *args, **kwargs):
         super(ILPSerializer, self).__init__(*args, **kwargs)
         if 'context' in kwargs:
             request = kwargs['context']['request']
             geometry = request.GET.get('geometry', 'no')
+            # print("Geometry is: ", geometry)
             # add geometry to fields if geometry=yes in query params
             if geometry == 'yes':
+                # print("Geometry is YES")
                 self.fields['geometry'] = DictField(source='get_geometry')
 
+    
 
 class ILPSimpleGeoSerializer(serializers.ModelSerializer):
 
@@ -41,3 +48,10 @@ class InstitutionTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = InstitutionType
         fields = ['id', 'name']
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Language
+        fields = ['char_id', 'name']

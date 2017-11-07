@@ -8,7 +8,8 @@
         });
 
         //get and show SYS info
-        var url = "stories/info/";
+        // var url = "stories/info/";
+        var url = "surveys/storiesinfo/";
         var sysCountsXHR = klp.api.do(url);
         var tplSysCounts = swig.compile($('#tpl-sysCounts').html());
         sysCountsXHR.done(function(data) {

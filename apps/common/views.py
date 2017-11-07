@@ -1,6 +1,9 @@
-from django.views.generic.base import TemplateView
+from urllib.request import urlopen
 
-from rest_framework.settings import api_settings
+from django.views.generic.base import TemplateView
+from django.http import HttpResponse
+from django.conf import settings
+
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import generics
 from rest_framework import viewsets
@@ -10,6 +13,7 @@ from rest_framework.response import Response
 from common.pagination import ILPPaginationSerializer
 from common.filters import ILPInBBOXFilter
 from common.mixins import ILPStateMixin
+
 
 class StaticPageView(TemplateView):
     extra_context = {}
@@ -25,9 +29,19 @@ class ILPAPIView(APIView):
 
 
 class ILPViewSet(ILPStateMixin, ModelViewSet):
-    pass
+    pagination_serializer_class = ILPPaginationSerializer
 
+    def __init__(self, *args, **kwargs):
+        super(ILPViewSet, self).__init__(*args, **kwargs)
+        if (
+                hasattr(self, 'bbox_filter_field') and
+                self.bbox_filter_field and
+                ILPInBBOXFilter not in self.filter_backends
+        ):
+            self.filter_backends += (ILPInBBOXFilter,)
 
+    
+    
 class ILPListAPIView(generics.ListAPIView):
 
     pagination_serializer_class = ILPPaginationSerializer
@@ -48,10 +62,9 @@ class ILPListAPIView(generics.ListAPIView):
         '''
         if self.request.accepted_renderer.format == 'csv':
             return None
-
         per_page = int(
             self.request.GET.get(
-                'per_page', api_settings.ILPLISTVIEW_PAGE_SIZE
+                'per_page', settings.LARGESETPAGINATION
             )
         )
         if per_page == 0:
@@ -82,3 +95,12 @@ class URLConfigView(APIView):
                     dict(name=pattern.name, pattern=pattern.regex.pattern)
                 )
         return Response(dict(patterns=patterns))
+
+
+class BlogFeedView(APIView):
+    """ Returns blog entries packed into a JSON object """
+
+    def get(self, request):
+        url = settings.BLOG_FEED_URL
+        json = urlopen(url).read()
+        return HttpResponse(json)

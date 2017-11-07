@@ -1,8 +1,10 @@
 from rest_framework.routers import DefaultRouter
 from rest_framework_extensions.routers import ExtendedSimpleRouter
+from django.conf.urls import url
 
 from schools.api_view import (
-    InstitutionViewSet, InstitutionInfoViewSet
+    InstitutionViewSet, InstitutionInfoViewSet, InstitutionCategoryListView,
+    InstitutionManagementListView
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
@@ -12,8 +14,6 @@ from schools.api_view import (
 nested_router = ExtendedSimpleRouter()
 router = DefaultRouter()
 
-router.register(
-    r'institutions/list', InstitutionViewSet, base_name='basic')
 router.register(
     r'institutions/info', InstitutionInfoViewSet, base_name='info')
 
@@ -74,4 +74,12 @@ nested_router.register(
     ProgrammeViewSet,
     base_name='programme'
     )
-urlpatterns = router.urls + nested_router.urls
+
+urlpatterns = [
+                url(r'^institution/categories$', 
+                    InstitutionCategoryListView.as_view(),
+                    name='inst-category'),
+                url(r'^institution/managements$',
+                    InstitutionManagementListView.as_view(),
+                    name='inst-management'),
+              ] + router.urls + nested_router.urls

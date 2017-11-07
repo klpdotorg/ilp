@@ -60,13 +60,13 @@
         $select_type.on("change", function(selected) {
             console.log("select type changed");
             if (selected.val == 'Primary School') {
-                districtsXHR('primaryschools').done(function (data) {
+                districtsXHR('primary').done(function (data) {
                     populateSelect($select_district, data);
                 });
             }
 
             if (selected.val == 'Preschool') {
-                districtsXHR('preschools').done(function (data) {
+                districtsXHR('pre').done(function (data) {
                     populateSelect($select_district, data);
                 });
             }
@@ -90,8 +90,8 @@
 
         $select_cluster.on("change", function(selected) {
             setMapView(selected, 10);
-            var schoolXHR = klp.api.do('schools/info', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
-            $download_button.attr('href', '/api/v1/schools/info?admin3='+selected.val+'&format=csv');
+            var schoolXHR = klp.api.do('institutions/info', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
+            $download_button.attr('href', '/api/v1/institutions/info?admin3='+selected.val+'&format=csv');
             $download_button.removeClass('hide');
             schoolXHR.done(function (data) {
                 // console.log('schools', data);

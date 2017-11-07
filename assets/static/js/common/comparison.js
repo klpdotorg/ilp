@@ -31,7 +31,7 @@
         var $deferred = $.Deferred();
         var isPreschool = entity.type.id === 2;
         if (isPreschool) {
-            var $xhr = klp.api.do("/schools/school/" + entity.id + "/infrastructure");
+            var $xhr = klp.api.do("/institutions/" + entity.id + "/infrastructure");
             $xhr.done(function(data) {
                 $deferred.resolve(data);
             });
@@ -57,7 +57,7 @@
 
     var fetchData = function(entity) {
         console.log("compare entity", entity);
-        var schoolURL = '/schools/school/' + entity.id;
+        var schoolURL = '/institutions/' + entity.id;
         var endpoints = [
             //schoolURL + '/infrastructure',
             schoolURL + '/finance',
@@ -203,8 +203,8 @@
             //invalid URL Hash, must be like "3537,4219"
             return;
         }
-        var $xhr1 = klp.api.do("schools/school/" + entities[0]);
-        var $xhr2 = klp.api.do("schools/school/" + entities[1]);
+        var $xhr1 = klp.api.do("institutions/" + entities[0]);
+        var $xhr2 = klp.api.do("institutions/" + entities[1]);
         $.when($xhr1, $xhr2).done(function(school1, school2) {
             open(school1);
             selectOptionRight(school2);
@@ -301,7 +301,7 @@
             quietMillis: 300,
             allowClear: true,
             ajax: {
-                url: "/api/v1/schools/info",
+                url: "/api/v1/institutions/info",
                 quietMillis: 300,
                 allowClear: true,
                 data: function (term, page) {

@@ -1,0 +1,23 @@
+[
+    {
+        "model": "boundary.Boundary",
+        "fields":{
+            "id": 1,
+            "name": "India",
+            "dise_slug": "India",
+            "boundary_type_id": "C",
+            "status_id": "AC"
+        }
+    },
+    {
+        "model": "boundary.Boundary",
+        "fields":{
+            "id": 2,
+            "name": "Karnataka",
+            "dise_slug": "Karnataka",
+            "parent_id": 1,
+            "boundary_type_id": "ST",
+            "status_id": "AC"
+        } 
+    }
+]

@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 
 from rest_framework import status
@@ -20,44 +21,50 @@ class InstitutionAPITests(APITestCase):
         call_command('loaddata', 'apps/common/fixtures/institutiontype')
         call_command('creatematviews')
 
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            'admin@klp.org.in', 'admin'
+        )
+
     def test_list_api(self):
-        url = reverse('institution:basic-list')
+        url = reverse('institution:institution-list')
         response = self.client.get(url, {'state': 'ka'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], INSTITUTION_COUNT)
 
     def test_list_api_with_geometry(self):
-        url = reverse('institution:basic-list')
+        url = reverse('institution:institution-list')
         response = self.client.get(url, {'state': 'ka', 'geometry': 'yes'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(
-            set(['type', 'count', 'results']).issubset(response.data.keys())
+            set(['type', 'count', 'features']).issubset(response.data.keys())
         )
-        results = response.data['results']
+        results = response.data['features']
         self.assertTrue(
             set(['type', 'geometry', 'properties']).issubset(results[0].keys())
         )
 
     def test_list_api_admin_filters(self):
         # test admin1 filter
-        url = reverse('institution:basic-list')
+        url = reverse('institution:institution-list')
         response = self.client.get(url, {'state': 'ka', 'admin1': '0101'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # test admin2 filter
-        url = reverse('institution:basic-list')
+        url = reverse('institution:institution-list')
         response = self.client.get(url, {'state': 'ka', 'admin2': '0101'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # test admin2 filter
-        url = reverse('institution:basic-list')
+        url = reverse('institution:institution-list')
         response = self.client.get(url, {'state': 'ka', 'admin3': '0101'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_institution(self):
         url = reverse('institution:institution-list')
+        self.client.force_authenticate(user=self.user)
         response = self.client.post(
             url, {
                 "name": "GULPS EMMIGANUR",
@@ -68,7 +75,8 @@ class InstitutionAPITests(APITestCase):
                 "category": "10",
                 "institution_type": "primary",
                 "management": "1",
-                "status": "AC"
+                "status": "AC",
+                "last_verified_year": "1516"
             }
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

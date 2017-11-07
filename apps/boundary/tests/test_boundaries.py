@@ -149,6 +149,7 @@ class BoundaryApiTests(APITestCase):
                                      'boundary_type': 'SD',
                                      'type': 'primary',
                                      'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.createView(request)
         response.render()
         data = response.data
@@ -160,6 +161,46 @@ class BoundaryApiTests(APITestCase):
         self.assertEqual(data['name'], 'test_SD')
         self.assertEqual(data['boundary_type'], 'SD')
 
+    def test_boundary_block_create(self):
+        request = self.factory.post('/boundaries',
+                                    {'parent': '2',
+                                     'name': 'test_SD',
+                                     'boundary_type': 'SD',
+                                     'type': 'primary',
+                                     'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
+        response = self.createView(request)
+        response.render()
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(
+            set(['id', 'name', 'parent', 'dise_slug', 'boundary_type',
+                 'type', 'status']).issubset(response.data.keys())
+        )
+        self.assertEqual(data['name'], 'test_SD')
+        self.assertEqual(data['boundary_type'], 'SD')
+
+        # Now create a block under this test district
+
+        request = self.factory.post('/boundaries',
+                                    {'parent': data['id'],
+                                     'name': 'test_Block',
+                                     'boundary_type': 'SB',
+                                     'type': 'primary',
+                                     'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
+        response = self.createView(request)
+        response.render()
+        data = response.data
+        print("Block created: ------", data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(
+            set(['id', 'name', 'parent', 'dise_slug', 'boundary_type',
+                 'type', 'status']).issubset(response.data.keys())
+        )
+        self.assertEqual(data['name'], 'test_Block')
+        self.assertEqual(data['boundary_type'], 'SB')
+
     def test_boundary_partial_update(self):
         # Create the boundary first
         request = self.factory.post('/boundaries', {
@@ -169,6 +210,7 @@ class BoundaryApiTests(APITestCase):
             'type': 'primary',
             'status': 'AC'},
                                     format='json')
+        force_authenticate(request, user=self.user)
         response = self.createView(request)
         response.render()
         data = response.data
@@ -179,6 +221,7 @@ class BoundaryApiTests(APITestCase):
             '/boundaries/' + str(id), {
                 'name': 'test_updated_name'
                 }, format='json')
+        force_authenticate(request, user=self.user)
         response = self.updateView(request, pk=id)
         response.render()
         data = response.data
@@ -193,6 +236,7 @@ class BoundaryApiTests(APITestCase):
             'boundary_type': 'SD',
             'type': 'primary',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.createView(request)
         response.render()
         data = response.data
@@ -205,9 +249,9 @@ class BoundaryApiTests(APITestCase):
             'boundary_type': 'PD',
             'type': 'pre',
             'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.user)
         response = self.updateView(request, pk=id)
         response.render()
         data = response.data
-        print(data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data['name'], 'test_SD_Update2')

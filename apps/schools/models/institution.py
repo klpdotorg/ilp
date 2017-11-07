@@ -1,5 +1,9 @@
 from django.contrib.gis.db import models
 
+from common.models import Status
+
+import json
+
 
 class InstitutionCategory(models.Model):
     """ Category for institution """
@@ -28,7 +32,7 @@ class PinCode(models.Model):
 
 class Institution(models.Model):
     """ An educational institution """
-    dise = models.ForeignKey('dise.BasicData',null=True, blank=True)
+    dise = models.ForeignKey('dise.BasicData', null=True, blank=True)
     name = models.CharField(max_length=300)
     category = models.ForeignKey('InstitutionCategory')
     gender = models.ForeignKey('common.InstitutionGender')
@@ -67,16 +71,20 @@ class Institution(models.Model):
         null=True)
     coord = models.GeometryField(null=True)
     last_verified_year = models.ForeignKey('common.AcademicYear', null=True)
-    status = models.ForeignKey('common.Status')
+    status = models.ForeignKey(
+        'common.Status', default=Status.ACTIVE)
+
+    def get_geometry(self):
+        if hasattr(self, 'coord') and self.coord is not None:
+            return json.loads(self.coord.geojson)
+        else:
+            return {}
 
     class Meta:
         unique_together = (('name', 'dise', 'admin3'), )
 
     def __unicode__(self):
         return "%s" % self.name
-
-    def get_geometry(self):
-        pass
 
 
 class InstitutionLanguage(models.Model):

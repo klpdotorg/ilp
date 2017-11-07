@@ -140,7 +140,7 @@ var entityDetails = {};
             if(params.hasOwnProperty('admin3'))
                 entityType = 'admin3';
             if(params.hasOwnProperty('school_id')){
-                var $schoolXHR = klp.api.do('schools/school/'+params['school_id']);
+                var $schoolXHR = klp.api.do('institutions/'+params['school_id']);
                 $schoolXHR.done(function(data){getDistrict(data,true)});
             }
             if(entityType != 'All') {

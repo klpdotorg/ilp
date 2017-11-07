@@ -285,7 +285,7 @@
             selectedLayers.clearLayers();
 
             if (entityType === 'primaryschool' || entityType === 'preschool') {
-                var thisSchoolXHR = klp.api.do('schools/school/'+entityID, {'geometry': 'yes'});
+                var thisSchoolXHR = klp.api.do('institutions/'+entityID, {'geometry': 'yes'});
                 thisSchoolXHR.done(function(data) {
                     var thisSchoolMarker = L.geoJson(data, {
                         pointToLayer: function(feature, latlng) {
@@ -360,17 +360,17 @@
 
         var bbox = map.getBounds().toBBoxString();
 
-        var districtXHR = klp.api.do('boundary/admin1s', {'school_type':'primaryschools', 'geometry': 'yes', 'per_page': 0});
+        var districtXHR = klp.api.do('boundary/admin1s', {'school_type':'primary', 'geometry': 'yes', 'per_page': 0});
 
-        var preschoolDistrictXHR = klp.api.do('boundary/admin1s', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0});
+        var preschoolDistrictXHR = klp.api.do('boundary/admin1s', {'school_type': 'pre', 'geometry': 'yes', 'per_page': 0});
 
-        var blockXHR = klp.api.do('boundary/admin2s', {'school_type': 'primaryschools', 'geometry': 'yes', 'bbox': bbox});
+        var blockXHR = klp.api.do('boundary/admin2s', {'school_type': 'primary', 'geometry': 'yes', 'bbox': bbox});
 
-        var projectXHR = klp.api.do('boundary/admin2s', {'school_type': 'preschools', 'geometry': 'yes', 'bbox': bbox});
+        var projectXHR = klp.api.do('boundary/admin2s', {'school_type': 'pre', 'geometry': 'yes', 'bbox': bbox});
 
-        var clusterXHR = klp.api.do('boundary/admin3s', {'school_type': 'primaryschools', 'geometry': 'yes', 'bbox': bbox});
+        var clusterXHR = klp.api.do('boundary/admin3s', {'school_type': 'primary', 'geometry': 'yes', 'bbox': bbox});
 
-        var circleXHR = klp.api.do('boundary/admin3s', {'school_type': 'preschools', 'geometry': 'yes', 'bbox': bbox});
+        var circleXHR = klp.api.do('boundary/admin3s', {'school_type': 'pre', 'geometry': 'yes', 'bbox': bbox});
 
         function onEachSchool(feature, layer) {
             if (feature.properties) {
@@ -527,7 +527,7 @@
 
                 options['school_type'] = 'preschools';
 
-                preschoolXHR = klp.api.do('schools/list', options);
+                preschoolXHR = klp.api.do('institutions/list', options);
                 preschoolXHR.done(function (data) {
                     t.stopLoading();
                     preschoolCluster.clearLayers();
@@ -551,7 +551,7 @@
 
                 options['school_type'] = 'primaryschools';
 
-                schoolXHR = klp.api.do('schools/list', options);
+                schoolXHR = klp.api.do('institutions/list', options);
                 schoolXHR.done(function (data) {
                     t.stopLoading();
                     schoolCluster.clearLayers();
@@ -647,7 +647,7 @@
 
         function markerPopup(marker, feature) {
             var duplicateMarker;
-            if (feature.properties.type.id === 1) {
+            if (feature.properties.type.id === "primary") {
                 duplicateMarker = L.marker(marker._latlng, {icon: mapIcon('school')});
             } else {
                 duplicateMarker = L.marker(marker._latlng, {icon: mapIcon('preschool')});
@@ -657,7 +657,7 @@
                 state.addPopupCloseHistory = false;
             }
             t.startLoading();
-            popupInfoXHR = klp.api.do('schools/school/'+feature.properties.id, {});
+            popupInfoXHR = klp.api.do('institutions/'+feature.properties.id, {});
             popupInfoXHR.done(function(data) {
                 var facilitiesXHR = fetchBasicFacilities(data);
                 facilitiesXHR.done(function(basicFacilities) {
@@ -828,11 +828,11 @@
                 bboxString = bbox.toBBoxString();
 
             map.fitBounds(bbox);
-            var radiusXHR = klp.api.do('schools/info', {'bbox':bboxString, 'geometry': 'yes', 'per_page': 0});
+            var radiusXHR = klp.api.do('institutions/info', {'bbox':bboxString, 'geometry': 'yes', 'per_page': 0});
             radiusXHR.done(function (data) {
                 radiusLayer = L.geoJson(filterGeoJSON(data), {
                     pointToLayer: function(feature, latlng) {
-                        if (feature.properties.type.id == 1) {
+                        if (feature.properties.type.id == "primary") {
                             return L.marker(latlng, {icon: mapIcon('primaryschool')});
                         } else {
                             return L.marker(latlng, {icon: mapIcon('preschool')});
