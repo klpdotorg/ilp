@@ -9,7 +9,7 @@ echo "STARTING SCRIPT - POPULATE BOUNDARY TABLES"
 echo "######################"
 legacydb="$1";
 ilpdbname="$3";
-electedrepdbname="$2"
+electedrepdbname="$2";
 csvdirname="$4";
 sqldir="$5";
 
@@ -18,11 +18,11 @@ mkdir -p $csvdirname
 #Delete from tables
 psql -U klp -d $ilpdbname -f $sqldir/deleteFromTables.sql
 
-#Add entries for India and Karnataka in the boundary table. Need to add more states here as we go along
-psql -U klp -d $ilpdbname -f $sqldir/fillBoundaryStatics.sql
-
 #Export the boundary table data
-psql -U klp -d $legacydb --set=outputdir="$csvdirname" -f $sqldir/exportBoundaryData.sql
+query=`cat $sqldir/exportBoundarydata.sql`
+boundaryfile=$csvdirname"/boundaries.csv"
+query="${query/replacefilename/$boundaryfile}"
+psql -U klp -d $legacydb -c "$query"
 
 #Import the boundary table data
 psql -U klp -d $ilpdbname --set=inputdir="$csvdirname" -f $sqldir/importBoundaryTable.sql
