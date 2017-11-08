@@ -36,12 +36,13 @@ class Boundary(models.Model):
     geom = models.GeometryField(null=True)
     status = models.ForeignKey('common.Status')
     objects = common.StatusManager()
-    
+
     def get_geometry(self):
         if hasattr(self, 'geom') and self.geom is not None:
             return json.loads(self.geom.geojson)
         else:
             return {}
+
     class Meta:
         unique_together = (('name', 'parent', 'type'), )
         ordering = ['name', ]

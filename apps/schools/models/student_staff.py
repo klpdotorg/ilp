@@ -1,6 +1,7 @@
 from django.db import models
 from .institution import Institution
 
+
 class StudentGroup(models.Model):
     """ StudentGroup information per school"""
     institution = models.ForeignKey(Institution)
@@ -13,12 +14,14 @@ class StudentGroup(models.Model):
         related_name='studentgroups',
         through='StudentStudentGroupRelation'
     )
+
     class Meta:
         unique_together = (('institution', 'name', 'section'), )
         ordering = ['name', 'section']
 
     def __unicode__(self):
         return '%s' % self.name
+
 
 class Student(models.Model):
     """ Student information """
