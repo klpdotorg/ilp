@@ -41,7 +41,6 @@ class ILPViewSet(ILPStateMixin, ModelViewSet):
             self.filter_backends += (ILPInBBOXFilter,)
 
     
-    
 class ILPListAPIView(generics.ListAPIView):
 
     pagination_serializer_class = ILPPaginationSerializer

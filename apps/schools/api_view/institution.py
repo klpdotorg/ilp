@@ -21,7 +21,7 @@ class ProgrammeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     pass
 
 
-class InstitutionViewSet(ILPViewSet, ILPStateMixin):
+class InstitutionViewSet(ILPViewSet):
     """
     GET: Lists basic details of institutions
     """
@@ -66,11 +66,12 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     def create(self, request, *args, **kwargs):
         serializer = InstitutionCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        institution = serializer.save()
         # todo self._assign_permissions(serializer.instance)
         headers = self.get_success_headers(serializer.data)
         return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+            InstitutionCreateSerializer(institution).data,
+            status=status.HTTP_201_CREATED, headers=headers
         )
 
 

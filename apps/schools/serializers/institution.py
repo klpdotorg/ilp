@@ -31,19 +31,23 @@ class InstitutionSerializer(ILPSerializer):
     num_girls = serializers.SerializerMethodField()
     sex = serializers.CharField(source='gender.name')
     identifiers = serializers.SerializerMethodField()
+
     class Meta:
         model = Institution
         fields = (
             'id', 'name', 'address', 'boundary', 'admin1', 'admin2',
-            'admin3', 'type', 'category', 'languages', 'dise_code', 'area',
-            'landmark', 'pincode', 'gender', 'management', 'moi', 'sex','identifiers', 'admin1','admin2', 'admin3','parliament', 'dise_code', 'assembly', 'ward', 'type','num_boys', 'num_girls'
+            'admin3', 'type', 'category', 'languages', 'dise', 'dise_code',
+            'area', 'landmark', 'pincode', 'gender', 'management',
+            'moi', 'sex', 'identifiers', 'admin1', 'admin2', 'admin3',
+            'parliament', 'assembly', 'ward', 'type', 'num_boys', 'num_girls',
+            'last_verified_year'
         )
 
     def get_languages(self, obj):
         return obj.institutionlanguage_set.values_list(
             'moi', flat=True
         )
-    
+
     def get_moi(self, obj):
         lang = obj.institutionlanguage_set.first()
         if lang:
@@ -72,8 +76,8 @@ class InstitutionSerializer(ILPSerializer):
 
     def get_gender_counts(self, obj):
         if (
-            obj.institutionstugendercount_set.filter(
-                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists()
+                obj.institutionstugendercount_set.filter(
+                    academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists()
         ):
             return obj.institutionstugendercount_set.\
                 get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
