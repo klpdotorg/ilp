@@ -1,8 +1,8 @@
+import json
+
 from django.contrib.gis.db import models
 from common.models import common
 from django.contrib.gis.db.models.functions import AsGeoJSON
-
-import json
 
 
 class BoundaryType(models.Model):

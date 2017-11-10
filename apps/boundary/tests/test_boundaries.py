@@ -29,7 +29,7 @@ class BoundaryApiTests(APITestCase):
         '''This is a custom django admin command created under boundary/
          management/commands.
         It can be used to create more matviews by modifying the py file '''
-        call_command('creatematviews', verbosity=0)
+        call_command('creatematviews')
 
     def setUp(self):
         # setup a test user
