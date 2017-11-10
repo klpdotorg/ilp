@@ -3,7 +3,7 @@ from django.conf import settings
 from rest_framework import serializers
 
 from schools.models import (
-    Institution, Management, PinCode, InstitutionCategory
+    Institution, Management, PinCode, InstitutionCategory,
 )
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
@@ -21,7 +21,6 @@ class InstitutionSerializer(ILPSerializer):
     admin2 = serializers.CharField(source='admin2.name')
     admin3 = serializers.CharField(source='admin3.name')
     type = InstitutionTypeSerializer(source='institution_type')
-    languages = serializers.SerializerMethodField()
     dise_code = serializers.CharField(source="dise.school_code")
     moi = serializers.SerializerMethodField()
     parliament = serializers.SerializerMethodField()
@@ -36,20 +35,15 @@ class InstitutionSerializer(ILPSerializer):
         model = Institution
         fields = (
             'id', 'name', 'address', 'boundary', 'admin1', 'admin2',
-            'admin3', 'type', 'category', 'languages', 'dise', 'dise_code',
+            'admin3', 'type', 'category', 'dise', 'dise_code',
             'area', 'landmark', 'pincode', 'gender', 'management',
             'moi', 'sex', 'identifiers', 'admin1', 'admin2', 'admin3',
             'parliament', 'assembly', 'ward', 'type', 'num_boys', 'num_girls',
-            'last_verified_year'
-        )
-
-    def get_languages(self, obj):
-        return obj.institutionlanguage_set.values_list(
-            'moi', flat=True
+            'last_verified_year', 'institution_languages'
         )
 
     def get_moi(self, obj):
-        lang = obj.institutionlanguage_set.first()
+        lang = obj.institution_languages.first()
         if lang:
             return lang.moi.name
         return None
@@ -75,10 +69,8 @@ class InstitutionSerializer(ILPSerializer):
         return ElectionBoundarySerializer(obj.ward).data
 
     def get_gender_counts(self, obj):
-        if (
-                obj.institutionstugendercount_set.filter(
-                    academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists()
-        ):
+        if obj.institutionstugendercount_set.filter(
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
             return obj.institutionstugendercount_set.\
                 get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
         return None
@@ -120,7 +112,7 @@ class InstitutionCreateSerializer(ILPSerializer):
         fields = (
             'id', 'admin3', 'dise', 'name', 'category', 'gender',
             'status', 'institution_type', 'management', 'address',
-            'area', 'pincode', 'landmark', 'last_verified_year'
+            'area', 'pincode', 'landmark', 'last_verified_year',
         )
 
     def save(self, **kwargs):
