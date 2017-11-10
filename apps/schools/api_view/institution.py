@@ -6,12 +6,10 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from common.views import ILPViewSet
 from common.models import Status, InstitutionType
-from common.mixins import ILPStateMixin
 
 from schools.serializers import (
-    InstitutionSerializer, InstitutionInfoSerializer,
-    InstitutionCreateSerializer, InstitutionCategorySerializer,
-    InstitutionManagementSerializer
+    InstitutionSerializer, InstitutionCreateSerializer,
+    InstitutionCategorySerializer, InstitutionManagementSerializer
 )
 from schools.models import (Institution, InstitutionCategory,
                             Management)

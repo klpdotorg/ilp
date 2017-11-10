@@ -88,7 +88,8 @@ class Institution(models.Model):
 
 
 class InstitutionLanguage(models.Model):
-    institution = models.ForeignKey('Institution')
+    institution = models.ForeignKey(
+        'Institution', related_name='institution_languages')
     moi = models.ForeignKey('common.Language')
 
     class Meta:
