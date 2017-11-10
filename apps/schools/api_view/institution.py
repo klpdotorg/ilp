@@ -73,12 +73,6 @@ class InstitutionViewSet(ILPViewSet):
         )
 
 
-class InstitutionInfoViewSet(ILPViewSet):
-    queryset = Institution.objects.all()
-    serializer_class = InstitutionInfoSerializer
-    # filter_class = SchoolFilter
-
-
 class InstitutionCategoryListView(generics.ListAPIView):
     serializer_class = InstitutionCategorySerializer
     paginator = None

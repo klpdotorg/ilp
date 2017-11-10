@@ -1,8 +1,8 @@
+import json
+
 from django.contrib.gis.db import models
 
 from common.models import Status
-
-import json
 
 
 class InstitutionCategory(models.Model):

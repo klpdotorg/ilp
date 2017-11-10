@@ -3,7 +3,7 @@ from rest_framework_extensions.routers import ExtendedSimpleRouter
 from django.conf.urls import url
 
 from schools.api_view import (
-    InstitutionViewSet, InstitutionInfoViewSet, InstitutionCategoryListView,
+    InstitutionViewSet, InstitutionCategoryListView,
     InstitutionManagementListView
 )
 from schools.api_view import (
@@ -15,8 +15,6 @@ from schools.views import SchoolPageView
 nested_router = ExtendedSimpleRouter()
 router = DefaultRouter()
 
-router.register(
-    r'institutions/info', InstitutionInfoViewSet, base_name='info')
 
 # Institution -> StudentGroup -> Students
 nested_router.register(
