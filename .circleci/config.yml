@@ -1,48 +1,62 @@
-version: 2
+machine:
+  timezone:
+    Asia/Kolkata
+  python:
+    version:
+      3.6.1
+  environment:
+    DATABASE_URL: postgresql://circleci:@127.0.0.1:5432/test_ilp
+    POSTGRES_USER: circleci
+    POSTGRES_DB: test_ilp
+
+
 general:
   branches:
     only:
       - master
       - /*/
-jobs:
-  build:
-    working_directory: ~/ilp
-    docker:
-      - image: circleci/python:3.6.1
-      - image: mdillon/postgis:9.3
-        environment:
-          POSTGRES_USER: circleci
-          POSTGRES_DB: test_ilp
-    steps:
-      - checkout
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-      - run:
-          name: Basic project setup
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
-            sudo apt-get update
-            sudo apt-get install libgdal-dev
-            sudo apt-get install -y postgresql-client
-            pip install -r requirements/test.txt
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "venv"
-      - run:
-          name: Running tests.
-          command: |
-            . venv/bin/activate
-            coverage run --source='.' --omit='venv/*' manage.py test schools boundary users assessments
-      - run:
-          name: Coverage report.
-          command: |
-            . venv/bin/activate
-            coverage report
-            coverage html
-            mkdir -p /tmp/artifacts
-            mv htmlcov /tmp/artifacts
-      - store_artifacts:
-          path: /tmp/artifacts
+  build_dir: ~/ilp
+  artifacts:
+    - /tmp/artifacts
+
+
+dependencies:
+  pre:
+    - sudo apt-get update
+    - sudo apt-get install -y libgdal-dev
+    - sudo apt-get install -y postgis
+    - sudo apt-get install -y postgresql-client
+    - sudo apt-get install -y python-virtualenv
+    - python -m venv venv
+    - source venv/bin/activate && pip install -r requirements/test.txt
+  
+  cache_directories:
+    - "venv"   # relative to the build directory
+
+checkout:
+  post:
+    - mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
+
+
+test:
+  override:
+    - . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test schools boundary users assessments
+    - . venv/bin/activate && coverage report
+    - . venv/bin/activate && coverage html
+    - mkdir -p /tmp/artifacts
+    - mv htmlcov /tmp/artifacts
+
+
+deployment:
+  development:
+    branch: master
+    codedeploy:
+      ilpdev:
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: klpdeployments
+            key_pattern: ilpdev/{BRANCH}
+          region: ap-south-1
+          deployment_group: ilpdev-group
+          deployment_config: CodeDeployDefault.OneAtATime
