@@ -1,7 +1,7 @@
 #!/bin/sh
 # Call this script with the database name
 if [ $# -eq 0 ]; then
-    echo "Please supply database names as argument. USAGE: `basename $0` klpdbname electedrepdbname newdatabasename pathtostorecsvs"
+    echo "Please supply database names as argument. USAGE: `basename $0` klpdbname electedrepdbname newdatabasename pathtostorecsvs pathtosqls"
     exit 1;
 fi
 echo "######################"
@@ -9,17 +9,23 @@ echo "STARTING SCRIPT - POPULATE BOUNDARY TABLES"
 echo "######################"
 legacydb="$1";
 ilpdbname="$3";
-electedrepdbname="$2"
+electedrepdbname="$2";
 csvdirname="$4";
+sqldir="$5";
+
+mkdir -p $csvdirname
 
 #Delete from tables
-psql -U klp -d $ilpdbname -f sql/deleteFromTables.sql
+psql -U klp -d $ilpdbname -f $sqldir/deleteFromTables.sql
 
 #Export the boundary table data
-psql -U klp -d $legacydb --set=outputdir="$csvdirname" -f sql/exportBoundaryData.sql
+query=`cat $sqldir/exportBoundarydata.sql`
+boundaryfile=$csvdirname"/boundaries.csv"
+query="${query/replacefilename/$boundaryfile}"
+psql -U klp -d $legacydb -c "$query"
 
 #Import the boundary table data
-psql -U klp -d $ilpdbname --set=inputdir="$csvdirname" -f sql/importBoundaryTable.sql
+psql -U klp -d $ilpdbname --set=inputdir="$csvdirname" -f $sqldir/importBoundaryTable.sql
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     echo "SQL script execution failed with error";
@@ -35,10 +41,10 @@ if [ $exit_status -eq 1 ]; then
 fi
 
 #Export the election boundary data from electrep_new DB
-psql -U klp -d $electedrepdbname --set=outputdir="$csvdirname" -f sql/exportElectionBoundary.sql
+psql -U klp -d $electedrepdbname --set=outputdir="$csvdirname" -f $sqldir/exportElectionBoundary.sql
 
 #Import the election boundary data from the CSV into boundary_electionboundary table
-psql -U klp -d $ilpdbname --set=inputdir="$csvdirname" -f sql/importElectionBoundary.sql
+psql -U klp -d $ilpdbname --set=inputdir="$csvdirname" -f $sqldir/importElectionBoundary.sql
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     echo "SQL script execution failed with error";

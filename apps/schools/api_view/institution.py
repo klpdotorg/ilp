@@ -6,12 +6,10 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from common.views import ILPViewSet
 from common.models import Status, InstitutionType
-from common.mixins import ILPStateMixin
 
 from schools.serializers import (
-    InstitutionSerializer, InstitutionInfoSerializer,
-    InstitutionCreateSerializer, InstitutionCategorySerializer,
-    InstitutionManagementSerializer
+    InstitutionSerializer, InstitutionCreateSerializer,
+    InstitutionCategorySerializer, InstitutionManagementSerializer
 )
 from schools.models import (Institution, InstitutionCategory,
                             Management)
@@ -21,7 +19,7 @@ class ProgrammeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     pass
 
 
-class InstitutionViewSet(ILPViewSet, ILPStateMixin):
+class InstitutionViewSet(ILPViewSet):
     """
     GET: Lists basic details of institutions
     """
@@ -66,18 +64,13 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     def create(self, request, *args, **kwargs):
         serializer = InstitutionCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        institution = serializer.save()
         # todo self._assign_permissions(serializer.instance)
         headers = self.get_success_headers(serializer.data)
         return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+            InstitutionCreateSerializer(institution).data,
+            status=status.HTTP_201_CREATED, headers=headers
         )
-
-
-class InstitutionInfoViewSet(ILPViewSet):
-    queryset = Institution.objects.all()
-    serializer_class = InstitutionInfoSerializer
-    # filter_class = SchoolFilter
 
 
 class InstitutionCategoryListView(generics.ListAPIView):

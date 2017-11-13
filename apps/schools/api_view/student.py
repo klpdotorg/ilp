@@ -30,36 +30,6 @@ class StudentViewSet(
     serializer_class = StudentSerializer
     filter_class = StudentFilter
 
-    # M2M query returns duplicates. Overrode this function
-    # from NestedViewSetMixin to implement the .distinct()
-    def filter_queryset_by_parents_lookups(self, queryset):
-        parents_query_dict = self.get_parents_query_dict()
-        logger.debug(
-            "Arguments passed into StudentViewSet is: %s",
-            parents_query_dict)
-        if parents_query_dict.get('assessment', None):
-            try:
-                # assessment_id = parents_query_dict.get('assessment')
-                # assessment = Assessment.objects.get(id=assessment_id)
-                # studentgroups = assessment.studentgroups.all()
-                return queryset.filter(
-                    # studentstudentgrouprelation__student_group__in=studentgroups
-                ).distinct('id')
-            except Exception as ex:
-                raise APIException(ex)
-        elif parents_query_dict:
-            try:
-                logger.debug("Filtering students for studentgroup id: %s ",
-                             parents_query_dict.get('studentgroups'))
-                results = queryset.filter(
-                    studentgroups__id=parents_query_dict.get('studentgroups')
-                ).order_by().distinct('id')
-                return results
-            except ValueError:
-                raise Http404
-        else:
-            return queryset
-
 
 class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     # permission_classes = (WorkUnderInstitutionPermission,)

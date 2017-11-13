@@ -1,8 +1,8 @@
+import json
+
 from django.contrib.gis.db import models
 
 from common.models import Status
-
-import json
 
 
 class InstitutionCategory(models.Model):
@@ -88,7 +88,8 @@ class Institution(models.Model):
 
 
 class InstitutionLanguage(models.Model):
-    institution = models.ForeignKey('Institution')
+    institution = models.ForeignKey(
+        'Institution', related_name='institution_languages')
     moi = models.ForeignKey('common.Language')
 
     class Meta:
