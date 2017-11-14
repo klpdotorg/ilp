@@ -19,7 +19,7 @@ class SurveysAPITests(APITestCase):
         url = reverse('surveys:surveys-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 4)
+        self.assertEqual(response.data['count'], 5)
 
     def test_detail_survey(self):
         url = reverse('surveys:surveys-detail', kwargs={'pk': 5})

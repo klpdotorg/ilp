@@ -16,13 +16,20 @@ class QGroupAnsMetaTestAPI(APITestCase):
         call_command('loaddata',
                      ('apps/assessments/tests/test_fixtures/'
                       'answergroup_institution.json'))
+        call_command('loaddata',
+                     'apps/assessments/tests/test_fixtures/'
+                     'surveys.json')
+        call_command('creatematviews')
+        call_command('loaddata',
+                     'apps/assessments/tests/test_fixtures/'
+                     'inst_stu_gender_count.json')
 
-    def test_survey_answers_meta_response(self):
-        url = reverse('surveys:qgroup-answers-meta',
-                      kwargs={'survey_id': 7, 'qgroup_id': 20})
-        response = self.client.get(url, {'state': 'ka'})
+    # def test_survey_answers_meta_response(self):
+    #     url = reverse('surveys:qgroup-answers-meta',
+    #                   kwargs={'survey_id': 7, 'qgroup_id': 20})
+    #     response = self.client.get(url, {'state': 'ka'})
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('Parents', response.data['respondents'])
-        self.assertEqual(response.data['total']['stories'],
-                         len(ANSWERGROUP_INSTITUTION_IDS))
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #     self.assertIn('Parents', response.data['respondents'])
+    #     self.assertEqual(response.data['total']['stories'],
+    #                      len(ANSWERGROUP_INSTITUTION_IDS))
