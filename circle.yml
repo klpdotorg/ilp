@@ -15,7 +15,6 @@ general:
     only:
       - master
       - /*/
-  build_dir: ~/ilp
   artifacts:
     - /tmp/artifacts
 
