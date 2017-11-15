@@ -7,6 +7,8 @@ var topSummaryData = {};
 
 (function() {
     var premodalQueryParams = {};
+    var surveyId = 1;
+    var questionGroupId = 7;
 
     klp.init = function() {
         klp.accordion.init();
@@ -249,7 +251,7 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
-        var metaURL = "stories/meta/?source=sms";
+        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?source=sms";
         var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
         $metaXHR.done(function(data) {
@@ -436,7 +438,7 @@ var topSummaryData = {};
 
 
     function loadTopSummary(params) {
-        var metaURL = "/api/v1/surveys/1/questiongroup/7/answers/meta/?top_summary=true";
+        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/";
         var $metaXHR = klp.api.do(metaURL, params);
         startSummaryLoading();
         $metaXHR.done(function(data)
