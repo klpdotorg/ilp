@@ -49,15 +49,15 @@ urlpatterns = [
     url(r'surveys/storiesinfo',
         QGroupStoriesInfoView.as_view(), name='stories-info'),
     url(
-        r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
+        r'surveys/(?P<survey_id>[0-9]+)/questiongroup/(?P<qgroup_id>[0-9]+)'
         '/answers/meta/',
         QGroupAnswersMetaAPIView.as_view(), name='qgroup-answers-meta'),
     url(
-        r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
+        r'surveys/(?P<survey_id>[0-9]+)/questiongroup/(?P<qgroup_id>[0-9]+)'
         '/answers/volume/',
         QGroupAnswersVolumeAPIView.as_view(), name='qgroup-answers-volume'),
     url(
-        r'survey/(?P<survey_id>[0-9]+)/qgroup/(?P<qgroup_id>[0-9]+)'
+        r'surveys/(?P<survey_id>[0-9]+)/questiongroup/(?P<qgroup_id>[0-9]+)'
         '/answers/detail/',
         QGroupAnswersDetailAPIView.as_view(), name='qgroup-answers-detail'),
 ] + simple_router.urls + nested_router.urls

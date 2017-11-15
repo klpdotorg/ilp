@@ -1,18 +1,22 @@
 from django.contrib.auth.models import Group
-from django.db.models import Count, Max
+from django.db.models import Count, Max, Sum
 
 from common.views import ILPListAPIView
 from common.utils import Date
-from common.models import InstitutionType, Status
+from common.models import (
+    InstitutionType, Status, AcademicYear,
+)
 
-from schools.models import Institution
+from schools.models import (
+    Institution, InstitutionStuGenderCount
+)
 
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException
 
 from assessments.models import (
     QuestionGroup, AnswerGroup_Institution,
-    Source, RespondentType
+    Source, RespondentType, Survey
 )
 
 
@@ -68,7 +72,7 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         response_json['users'] = self.get_users(agroup_inst_ids)
         response_json['top_summary'] = \
             self.get_total_summary(
-                institution_qs.count(), institution_qs, admin1_id
+                institution_qs.count(), agroup_inst_ids, admin1_id
             )
         response_json.update(response_source)
 
@@ -168,23 +172,23 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
 
         return (institution_qs, agroup_inst_ids)
 
-    def get_total_summary(self, inst_count, inst_qs, admin1_id):
-        pass
-        # todo: Need to do once gka assessment is migrated.
+    def get_total_summary(
+            self, inst_count, agroup_inst_ids,
+            admin1_id=None, admin2_id=None, admin3_id=None
+    ):
 
-        # programme = Survey.objects.get(name='Ganitha Kanika Andolana')
-        # gka_school_q = inst_qs.filter(programmes=programme)
+        survey = Survey.objects.get(name='Ganitha Kalika Andolana')
+        gka_inst_ids = agroup_inst_ids.filter(questiongroup__survey=survey)
 
-        # admin1 = None
+        # TODO:
         # if admin1_id:
-        #     admin1 = Boundary.objects.get(hierarchy__name='district',
-        #                                   id=admin1_id)
+        #     admin1 = Boundary.objects.get(id=admin1_id)
         # elif admin2_id:
-        #     admin1 = Boundary.objects.get(hierarchy__name='block',
-        #                                   id=admin2_id).parent
+        #     admin1 = Boundary.objects.get(id=admin2_id).parent
         # elif admin3_id:
-        #     admin1 = Boundary.objects.get(hierarchy__name='cluster',
-        #                                   id=admin3_id).parent.parent
+        #     admin1 = Boundary.objects.get(id=admin3_id).parent.parent
+        # else:
+        #     admin1 = None
 
         # edu_vol_group = Group.objects.get(name="EV")
         # edu_volunteers = BoundaryUsers.objects.filter(
@@ -192,28 +196,26 @@ class QGroupAnswersMetaAPIView(ILPListAPIView):
         # if admin1:
         #     edu_volunteers = edu_volunteers.filter(boundary=admin1)
 
-        # academic_year = AcademicYear.objects.latest('id')
-        # num_boys = SchoolExtra.objects.filter(
-        #     academic_year=academic_year,
-        #     school__in=gka_school_q
-        # ).aggregate(Sum('num_boys'))['num_boys__sum']
-        # num_girls = SchoolExtra.objects.filter(
-        #     academic_year=academic_year,
-        #     school__in=gka_school_q
-        # ).aggregate(Sum('num_girls'))['num_girls__sum']
+        academic_year = AcademicYear.objects.latest('char_id')
+        num_boys = InstitutionStuGenderCount.objects.filter(
+            academic_year=academic_year, institution__in=gka_inst_ids
+        ).aggregate(Sum('num_boys'))['num_boys__sum']
+        num_girls = InstitutionStuGenderCount.objects.filter(
+            academic_year=academic_year, institution__in=gka_inst_ids
+        ).aggregate(Sum('num_girls'))['num_girls__sum']
 
-        # if not num_boys:
-        #     num_boys = 0
+        if not num_boys:
+            num_boys = 0
 
-        # if not num_girls:
-        #     num_girls = 0
+        if not num_girls:
+            num_girls = 0
 
-        # return {
-        #     'total_schools': inst_count,
-        #     'gka_schools': gka_school_q.count(),
-        #     'children_impacted': num_boys + num_girls,
-        #     'education_volunteers': edu_volunteers.count()
-        # }
+        return {
+            'total_schools': inst_count,
+            'gka_schools': gka_inst_ids.count(),
+            'children_impacted': num_boys + num_girls,
+            # 'education_volunteers': edu_volunteers.count()
+        }
 
     def get_json(self, source, agroup_inst_ids, inst_counts):
         json = {}

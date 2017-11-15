@@ -13,10 +13,11 @@ from rest_framework.exceptions import APIException
 from assessments.models import (
     QuestionGroup, AnswerGroup_Institution,
     Source, Question, AnswerInstitution,
-    QuestionGroup_Questions
+    QuestionGroup_Questions, AnswerGroup_StudentGroup
 )
 
 from .gp_contest import GPContest
+from .gka import GKA
 
 
 class QGroupAnswersDetailAPIView(ILPListAPIView):
@@ -60,20 +61,28 @@ class QGroupAnswersDetailAPIView(ILPListAPIView):
             else:
                 end_date = date.get_datetime(end_date)
 
+        boundary, institution = None, None
         qgroup = QuestionGroup.objects.get(
             id=qgroup_id, survey_id=survey_id
         )
         agroup_inst_ids = AnswerGroup_Institution.objects.filter(
             questiongroup=qgroup
         ).values('id')
+        agroup_studgroup_ids = AnswerGroup_StudentGroup.objects.filter(
+            questiongroup=qgroup
+        ).values('id')
 
         if source:
             agroup_inst_ids = agroup_inst_ids.filter(
+                questiongroup__source__name=source)
+            agroup_studgroup_ids = agroup_studgroup_ids.filter(
                 questiongroup__source__name=source)
 
         if versions:
             versions = map(int, versions)
             agroup_inst_ids = agroup_inst_ids.filter(
+                questiongroup__version__in=versions)
+            agroup_studgroup_ids = agroup_studgroup_ids.filter(
                 questiongroup__version__in=versions)
 
         if institution_type:
@@ -114,26 +123,30 @@ class QGroupAnswersDetailAPIView(ILPListAPIView):
         if start_date:
             agroup_inst_ids = agroup_inst_ids.filter(
                 date_of_visit__gte=start_date)
+            agroup_studgroup_ids = agroup_studgroup_ids.filter(
+                date_of_visit__gte=start_date)
 
         if end_date:
             agroup_inst_ids = agroup_inst_ids.filter(
                 date_of_visit__lte=end_date)
+            agroup_studgroup_ids = agroup_studgroup_ids.filter(
+                date_of_visit__lte=end_date)
 
         response_json = {}
 
-        # if gka_comparison:
-        #     gka = GKA(start_date, end_date)
-        #     response_json = gka.generate_report(
-        #     j    boundary, chosen_school)
-        # elif survey == "GPContest":
-        #     gp_contest = GPContest()
-        #     response_json = gp_contest.generate_report(agroup_inst_ids)
-        # else:
+        sources = Source.objects.values_list('name', flat=True)
 
-        sources = Source.objects.all()
-        if source:
-            sources = sources.filter(name=source)
-        sources = sources.values_list('name', flat=True)
+        if gka_comparison:
+            gka = GKA(start_date, end_date)
+            response_json = gka.generate_report(
+                boundary, institution)
+        elif survey == "GPContest":
+            gp_contest = GPContest()
+            response_json = gp_contest.generate_report(
+                agroup_inst_ids, agroup_studgroup_ids)
+        else:
+            if source:
+                sources = sources.filter(name=source)
 
         for source in sources:
             response_json[source] = get_que_and_ans(
