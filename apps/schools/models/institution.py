@@ -2,7 +2,8 @@ import json
 
 from django.contrib.gis.db import models
 
-from common.models import Status
+from common.models import (Status, AcademicYear)
+from django.conf import settings
 
 
 class InstitutionCategory(models.Model):
@@ -79,6 +80,19 @@ class Institution(models.Model):
             return json.loads(self.coord.geojson)
         else:
             return {}
+    
+    def get_mt_profile(self):
+        profile = {}
+        aggregation = self.institutionaggregation_set.filter(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
+        # print("Inside institution model, printing inst aggregation",# aggregation)
+        for agg in aggregation:
+            if agg.mt in profile:
+                profile[agg.mt.name] += agg.num
+            else:
+                profile[agg.mt.name] = agg.num
+        # print("Profile is: ", profile)
+        return profile
+
 
     class Meta:
         unique_together = (('name', 'dise', 'admin3'), )
@@ -99,12 +113,12 @@ class InstitutionLanguage(models.Model):
 class InstitutionAggregation(models.Model):
     """Data aggregation per institution"""
     institution = models.ForeignKey('Institution')
-    name = models.CharField(max_length=300)
+    institution_name = models.CharField(max_length=300, db_column="institution_name")
     academic_year = models.ForeignKey('common.AcademicYear')
-    gender = models.ForeignKey('common.Gender')
-    mt = models.ForeignKey('common.Language', related_name='inst_agg_mt')
-    religion = models.ForeignKey('common.Religion')
-    category = models.ForeignKey('common.StudentCategory')
+    gender = models.ForeignKey('common.Gender', db_column="gender")
+    mt = models.ForeignKey('common.Language', related_name='inst_agg_mt', db_column="mt")
+    religion = models.ForeignKey('common.Religion', db_column="religion")
+    inst_category = models.ForeignKey('common.StudentCategory', db_column="category")
     num = models.IntegerField()
 
     class Meta:

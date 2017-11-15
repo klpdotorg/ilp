@@ -4,7 +4,7 @@ from django.conf.urls import url
 
 from schools.api_view import (
     InstitutionViewSet, InstitutionCategoryListView,
-    InstitutionManagementListView
+    InstitutionManagementListView, InstitutionDemographics
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
@@ -81,4 +81,7 @@ urlpatterns = [
                 url(r'^institution/managements$',
                     InstitutionManagementListView.as_view(),
                     name='inst-management'),
+                url(r'^institutions/(?P<pk>[0-9]+)/demographics$',
+                    InstitutionDemographics.as_view(),
+                    name='inst-demographics'),
               ] + router.urls + nested_router.urls

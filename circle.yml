@@ -5,8 +5,8 @@ machine:
     version:
       3.6.1
   environment:
-    DATABASE_URL: postgresql://circleci:@127.0.0.1:5432/test_ilp
-    POSTGRES_USER: circleci
+    DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
+    POSTGRES_USER: ubuntu 
     POSTGRES_DB: test_ilp
 
 
@@ -15,7 +15,6 @@ general:
     only:
       - master
       - /*/
-  build_dir: ~/ilp
   artifacts:
     - /tmp/artifacts
 

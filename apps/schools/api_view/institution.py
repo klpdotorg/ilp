@@ -4,12 +4,13 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-from common.views import ILPViewSet
+from common.views import (ILPViewSet, ILPDetailAPIView)
 from common.models import Status, InstitutionType
 
 from schools.serializers import (
     InstitutionSerializer, InstitutionCreateSerializer,
-    InstitutionCategorySerializer, InstitutionManagementSerializer
+    InstitutionCategorySerializer, InstitutionManagementSerializer,
+    SchoolDemographicsSerializer
 )
 from schools.models import (Institution, InstitutionCategory,
                             Management)
@@ -89,3 +90,11 @@ class InstitutionManagementListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Management.objects.all()
+
+class InstitutionDemographics(ILPDetailAPIView):
+    serializer_class = SchoolDemographicsSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'pk'
+
+    def get_queryset(self):
+        return Institution.objects.filter(status='AC')
