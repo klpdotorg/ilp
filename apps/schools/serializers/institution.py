@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from schools.models import (
     Institution, Management, PinCode, InstitutionCategory,
+    InstitutionAggregation
 )
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
@@ -142,3 +143,47 @@ class InstitutionManagementSerializer(ILPSerializer):
         fields = (
             'id', 'name'
         )
+
+
+class SchoolDemographicsSerializer(ILPSerializer):
+    num_boys = serializers.SerializerMethodField()
+    num_girls = serializers.SerializerMethodField()
+    mt_profile = serializers.DictField(source='get_mt_profile')
+    acyear = serializers.IntegerField(source='dise.academic_year.char_id')
+    num_boys_dise = serializers.SerializerMethodField()
+    num_girls_dise = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Institution
+        fields = ('id', 'name', 'gender', 'mt_profile', 'management', 'num_boys_dise',
+                  'num_girls_dise', 'num_boys', 'num_girls', 'acyear')
+
+   
+    def get_gender_counts(self, obj):
+        print("get_gender_counts", obj.institutionstugendercount_set)
+        if obj.institutionstugendercount_set.filter(
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
+            return obj.institutionstugendercount_set.\
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
+        return None
+
+    def get_num_boys(self, obj):
+        gender_count = self.get_gender_counts(obj)
+        if gender_count:
+            return gender_count.num_boys
+        return None
+
+    def get_num_girls(self, obj):
+        gender_count = self.get_gender_counts(obj)
+        if gender_count:
+            return gender_count.num_girls
+        return None
+
+    def get_num_boys_dise(self, obj):
+        print("get_num_boys_dise obj is: ", obj.dise)
+        num_boys = obj.dise.total_boys
+        return num_boys
+    
+    def get_num_girls_dise(self, obj):
+        num_girls = obj.dise.total_girls
+        return num_girls
