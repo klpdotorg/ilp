@@ -436,7 +436,7 @@ var topSummaryData = {};
 
 
     function loadTopSummary(params) {
-        var metaURL = "stories/meta/?top_summary=true";
+        var metaURL = "/api/v1/surveys/1/questiongroup/7/answers/meta/?top_summary=true";
         var $metaXHR = klp.api.do(metaURL, params);
         startSummaryLoading();
         $metaXHR.done(function(data)
