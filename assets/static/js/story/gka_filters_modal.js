@@ -5,6 +5,9 @@
         $trigger,
         template;
 
+    var surveyId = 1;
+    var questionGroupId = 7;
+
     t.init = function() {
         $('.btn-modal-close').click();
         $trigger = $('<div />');
@@ -28,8 +31,10 @@
        
         //$select_type.select2();
         // $select_district.select2();
+
+        var url = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?source=sms";
         
-        var districtsXHR = klp.api.do('stories/meta?source=sms');
+        var districtsXHR = klp.api.do(url);
         districtsXHR.done(function(data) {
             var districts = {"features": []}
             for (var each in data["sms"]["gka_districts"])

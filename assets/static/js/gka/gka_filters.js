@@ -7,6 +7,9 @@
         $trigger,
         template;
 
+    var surveyId = 1;
+    var questionGroupId = 7;
+
     t.init = function() {
         klp.router = new KLPRouter();
         klp.router.init();
@@ -67,7 +70,8 @@
         $select_cluster.select2("val","");
         $select_school.select2("val","");
 
-        var districtsXHR = klp.api.do('stories/meta?source=sms');
+        var url = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?source=sms";
+        var districtsXHR = klp.api.do(url);
         districtsXHR.done(function(data) {
             var districts = {"features": []}
             for (var each in data["sms"]["gka_districts"])
