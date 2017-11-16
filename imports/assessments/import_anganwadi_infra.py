@@ -44,12 +44,7 @@ tables = [
     {
         'name': 'assessments_question',
         'db': todatabase,
-        'query': "ALTER SEQUENCE assessments_question_id_seq RESTART WITH 1; insert into replacetable(question_text, display_text, key, is_featured, status_id) select distinct  ai_metric, description, ai_group, true, 'IA' from temp_anginfra;"
-    },
-    {
-        'name': 'assessments_questiongroup_questions',
-        'db': todatabase,
-        'query': "insert into replacetable(sequence, question_id, questiongroup_id) select row_number() over(), id, 30 from assessments_question;"
+        'query': "insert into replacetable(question_text, display_text, key, is_featured, status_id) select distinct  ai_metric, description, ai_group, true, 'IA' from temp_anginfra;"
     },
     {
         'name': 'assessments_answergroup_institution',
@@ -60,6 +55,11 @@ tables = [
         'name': 'assessments_answerinstitution',
         'db': todatabase,
         'query': "insert into replacetable(answergroup_id, answer, question_id) select answergroup.id, perc_score,(select id from assessments_question where question_text=ai_metric) from temp_anginfra, schools_institution s, assessments_answergroup_institution answergroup where temp_anginfra.sid=s.id and temp_anginfra.sid=answergroup.institution_id;"
+    },
+    {
+        'name': 'assessments_questiongroup_questions',
+        'db': todatabase,
+        'query': "insert into replacetable(question_id, questiongroup_id) select distinct ans.question_id,30 from assessments_answerinstitution ans, assessments_answergroup_institution ansgroup where ans.answergroup_id=ansgroup.id and ansgroup.questiongroup_id=30;"
     }
 ]
 

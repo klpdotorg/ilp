@@ -58,7 +58,7 @@ python assessments/import_gp_contest.py dubdubdub $ilp
 #Import Community data
 #IVRS
 python assessments/import_community_basic_ivrs.py dubdubdub $ilp
-#Run import_communityfromcsv.py script:
+#Run import_communityfromcsv15_16.py script:
 #2015-2016
 python assessments/import_communityfromcsv15_16.py `pwd`/assessments/community_survey $ilp
 #2014-2015 TBD
