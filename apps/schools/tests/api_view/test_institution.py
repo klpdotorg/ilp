@@ -19,7 +19,7 @@ class InstitutionAPITests(APITestCase):
         call_command('loaddata', 'apps/common/fixtures/institutiongender')
         call_command('loaddata', 'apps/common/fixtures/status')
         call_command('loaddata', 'apps/common/fixtures/institutiontype')
-        call_command('creatematviews')
+        call_command('run_materialized_view')
 
     def setUp(self):
         self.user = get_user_model().objects.create_user(
