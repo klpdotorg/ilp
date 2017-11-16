@@ -1,5 +1,5 @@
 from os import system,sys
-import os
+import os, inspect
 
 if len(sys.argv) != 3:
     print("Please give database names as arguments. USAGE: python updatespatialdata.py spatial ilp")
@@ -14,9 +14,10 @@ fromdatabase = sys.argv[1]
 todatabase = sys.argv[2]
 
 basename = "spatialupdate"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
-inputdatafile = basename+"_getdata.sql"
-tempdatafile = basename+"_tempdata.sql"
+inputdatafile = scriptdir+"/"+basename+"_getdata.sql"
+tempdatafile = scriptdir+"/"+basename+"_tempdata.sql"
 
 tables = [
     {
@@ -25,7 +26,7 @@ tables = [
         'temptablename': 'temp_mlainfo',
         'createcolumns': 'ac_no integer, state_ut text, the_geom geometry',
         'columns': 'ac_no, state_ut, the_geom',
-        'query': "COPY(select replacecolumns from assembly) TO '$PWD/load/replacefile.csv' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
+        'query': "\COPY (select replacecolumns from assembly) TO '"+scriptdir+"/load/replacefile.csv' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
         'update_query': "UPDATE replacetablename set geom=temp.the_geom from replacetemptable temp where elec_comm_code = temp.ac_no and const_ward_type_id='MLA' and status_id='AC' ;"
     },
     {
@@ -34,7 +35,7 @@ tables = [
         'temptablename': 'temp_mpinfo',
         'createcolumns': 'pc_no integer, state_ut text, the_geom geometry',
         'columns': 'pc_no, state_ut, the_geom',
-        'query': "COPY(select replacecolumns from parliament) TO '$PWD/load/replacefile.csv' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
+        'query': "\COPY (select replacecolumns from parliament) TO '"+scriptdir+"/load/replacefile.csv' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
         'update_query': "UPDATE replacetablename set geom=temp.the_geom from replacetemptable temp where elec_comm_code = temp.pc_no and const_ward_type_id='MP' and status_id='AC' ;"
     }
 
@@ -42,8 +43,8 @@ tables = [
 
 #Create directory and files
 def init():
-    if not os.path.exists("load"):
-    	os.makedirs("load")
+    if not os.path.exists(scriptdir+"/load"):
+    	os.makedirs(scriptdir+"/load")
     inputfile=open(inputdatafile,'wb',0)
     tempfile=open(tempdatafile,'wb',0)
 
@@ -58,11 +59,11 @@ def create_sqlfiles():
         system('echo "'+table['query'].replace('replacecolumns',table['columns']).replace('replacefile',table['name'])+'\">>'+inputdatafile)
 
         #create temp table
-        filename=os.getcwd()+'/load/'+table['name']+'.csv'
+        filename = scriptdir+'/load/'+table['name']+'.csv'
         system('echo "CREATE TEMP TABLE '+table['temptablename']+'('+table['createcolumns']+');"'+'>>'+tempdatafile)
 
         #create sql file to copy into the temp table and then update
-        system('echo "COPY '+table['temptablename']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+tempdatafile)
+        system('echo "\COPY '+table['temptablename']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+tempdatafile)
         system('echo "'+table['update_query'].replace('replacetablename',table['tablename']).replace('replacetemptable',table['temptablename'])+'">>'+tempdatafile)
 
 

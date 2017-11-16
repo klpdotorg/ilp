@@ -16,7 +16,7 @@ ilp="$1";
 
 # Populate Boundaries 
 ./boundary/populateBoundaryTables.sh dubdubdub electrep_new $ilp `pwd`/boundary/temp `pwd`/boundary/sql
-./boundary/updatediseslugs.sh $ilp
+./boundary/updateDiseSlugs.sh $ilp
 
 #Populate dise tables
 python dise/import_dise_data.py klpdise_olap $ilp

@@ -76,21 +76,23 @@ WHERE b3.parent_id = b2.id
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_basic_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_basic_agg AS
-SELECT distinct b.id as boundary_id,
+SELECT distinct stusg.academic_year_id as year, b.id as boundary_id,
     count(distinct s.id) as num_schools,
     count(distinct stu.id) as num_students,
     sum(case(stu.gender_id) when 'male' then 1 else 0 end) as num_boys,
     sum(case(stu.gender_id) when 'female' then 1 else 0 end) as num_girls
 FROM schools_student stu, 
      schools_institution s, 
-     boundary_boundary b 
-WHERE stu.institution_id = s.id and  
+     boundary_boundary b,
+     schools_studentstudentgrouprelation stusg
+WHERE stu.institution_id = s.id and 
+    stu.id = stusg.student_id and 
     (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    and stu.status_id = 'AC' group by b.id;
+    and stu.status_id = 'AC' group by stusg.academic_year_id, b.id;
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_gender_agg AS
-SELECT distinct b.id as boundary_id,
+SELECT distinct stusg.academic_year_id as year, b.id as boundary_id,
     instgender.name as gender,
     count(distinct s.id) as num_schools,
     count(distinct stu.id) as num_students,
@@ -98,14 +100,16 @@ SELECT distinct b.id as boundary_id,
     sum(case(stu.gender_id) when 'female' then 1 else 0 end) as num_girls
 FROM schools_student stu, 
      schools_institution s, 
-     boundary_boundary b, common_institutiongender instgender
+     boundary_boundary b, common_institutiongender instgender,
+     schools_studentstudentgrouprelation stusg
 WHERE stu.institution_id = s.id and s.gender_id =  instgender.char_id and
+    stu.id = stusg.student_id and
     (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    and stu.status_id = 'AC' group by b.id, instgender.name;
+    and stu.status_id = 'AC' group by stusg.academic_year_id, b.id, instgender.name;
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_category_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_category_agg AS
-SELECT distinct b.id as boundary_id,
+SELECT distinct stusg.academic_year_id as year, b.id as boundary_id,
     category.name as category,
     count(distinct s.id) as num_schools,
     count(distinct stu.id) as num_students,
@@ -114,14 +118,16 @@ SELECT distinct b.id as boundary_id,
 FROM schools_student stu, 
      schools_institution s, 
      schools_institutioncategory category,
-     boundary_boundary b 
+     boundary_boundary b,
+     schools_studentstudentgrouprelation stusg 
 WHERE stu.institution_id = s.id and s.category_id =  category.id and
+    stu.id = stusg.student_id and
     (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    and stu.status_id = 'AC' group by b.id, category.name;
+    and stu.status_id = 'AC' group by stusg.academic_year_id, b.id, category.name;
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_mgmt_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_mgmt_agg AS
-SELECT distinct b.id as boundary_id,
+SELECT distinct stusg.academic_year_id as year, b.id as boundary_id,
     management.name as management,
     count(distinct s.id) as num_schools,
     count(distinct stu.id) as num_students,
@@ -130,16 +136,18 @@ SELECT distinct b.id as boundary_id,
 FROM schools_student stu, 
      schools_institution s, 
      schools_management management,
-     boundary_boundary b 
+     boundary_boundary b,
+     schools_studentstudentgrouprelation stusg 
 WHERE stu.institution_id = s.id and 
+    stu.id = stusg.student_id and
     s.management_id = management.id and 
     (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    and stu.status_id = 'AC' group by b.id, management.name;
+    and stu.status_id = 'AC' group by stusg.academic_year_id, b.id, management.name;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_student_mt_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_student_mt_agg AS
-SELECT distinct b.id as boundary_id,
+SELECT distinct stusg.academic_year_id as year, b.id as boundary_id,
     mt.name as mt,
     count(distinct s.id) as num_schools,
     count(distinct stu.id) as num_students,
@@ -148,16 +156,18 @@ SELECT distinct b.id as boundary_id,
 FROM schools_student stu, 
      schools_institution s, 
      common_language mt,
-     boundary_boundary b 
+     boundary_boundary b,
+     schools_studentstudentgrouprelation stusg 
 WHERE stu.institution_id = s.id and 
     stu.mt_id = mt.char_id and
+    stu.id = stusg.student_id and
     (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    and stu.status_id = 'AC' group by b.id, mt.name;
+    and stu.status_id = 'AC' group by stusg.academic_year_id, b.id, mt.name;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_moi_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_moi_agg AS
-SELECT distinct b.id as boundary_id,
+SELECT distinct stusg.academic_year_id as year, b.id as boundary_id,
     moi.name as moi,
     count(distinct s.id) as num_schools,
     count(distinct stu.id) as num_students,
@@ -167,15 +177,12 @@ FROM schools_student stu,
      schools_institution s, 
      schools_institutionlanguage instlang,
      common_language moi,
-     boundary_boundary b 
+     boundary_boundary b,
+     schools_studentstudentgrouprelation stusg 
 WHERE stu.institution_id = s.id and 
+    stu.id = stusg.student_id and
     s.id = instlang.institution_id and
     instlang.moi_id = moi.char_id and 
     (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    and stu.status_id = 'AC' group by b.id, moi.name;
+    and stu.status_id = 'AC' group by stusg.academic_year_id, b.id, moi.name;
 
-
-
-
-
-    

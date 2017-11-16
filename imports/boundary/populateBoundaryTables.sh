@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Call this script with the database name
 if [ $# -eq 0 ]; then
     echo "Please supply database names as argument. USAGE: `basename $0` klpdbname electedrepdbname newdatabasename pathtostorecsvs pathtosqls"
@@ -19,13 +19,16 @@ mkdir -p $csvdirname
 psql -U klp -d $ilpdbname -f $sqldir/deleteFromTables.sql
 
 #Export the boundary table data
-query=`cat $sqldir/exportBoundarydata.sql`
 boundaryfile=$csvdirname"/boundaries.csv"
+query=`cat $sqldir/exportBoundaryData.sql`
 query="${query/replacefilename/$boundaryfile}"
 psql -U klp -d $legacydb -c "$query"
 
 #Import the boundary table data
-psql -U klp -d $ilpdbname --set=inputdir="$csvdirname" -f $sqldir/importBoundaryTable.sql
+query=`cat $sqldir/importBoundaryTable.sql`
+query="${query/replacefilename/$boundaryfile}"
+psql -U klp -d $ilpdbname --set=inputdir="$csvdirname" -c "$query"
+
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     echo "SQL script execution failed with error";
@@ -33,7 +36,7 @@ if [ $exit_status -eq 1 ]; then
 fi
 
 #Populate the boundary neighbors table
-python loadBoundaryNeighbors.py $ilpdbname
+python `dirname $0`"/"loadBoundaryNeighbors.py $ilpdbname
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     echo "Python script execution failed with error";
@@ -41,10 +44,25 @@ if [ $exit_status -eq 1 ]; then
 fi
 
 #Export the election boundary data from electrep_new DB
-psql -U klp -d $electedrepdbname --set=outputdir="$csvdirname" -f $sqldir/exportElectionBoundary.sql
+electionboundaryfile=$csvdirname"/electionboundary.csv"
+electionneighboursfile=$csvdirname"/electboundneighbours.csv"
+
+query=`cat $sqldir/exportElectionBoundary.sql`
+query="${query/replacefilename/$electionboundaryfile}"
+psql -U klp -d $electedrepdbname -c "$query"
+
+query=`cat $sqldir/exportElectionNeighbours.sql`
+query="${query/replacefilename/$electionneighboursfile}"
+psql -U klp -d $electedrepdbname -c "$query"
 
 #Import the election boundary data from the CSV into boundary_electionboundary table
-psql -U klp -d $ilpdbname --set=inputdir="$csvdirname" -f $sqldir/importElectionBoundary.sql
+query=`cat $sqldir/importElectionBoundary.sql`
+query="${query/replacefilename/$electionboundaryfile}"
+psql -U klp -d $ilpdbname -c "$query"
+
+query=`cat $sqldir/importElectionNeighbours.sql`
+query="${query/replacefilename/$electionneighboursfile}"
+psql -U klp -d $ilpdbname -c "$query"
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     echo "SQL script execution failed with error";

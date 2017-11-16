@@ -1,6 +1,7 @@
 from os import sys
 import csv
 import psycopg2
+import os, inspect
 
 if len(sys.argv) != 2:
     print("Please give database name as arguments. USAGE: " +
@@ -11,8 +12,9 @@ questionfile = 'EkStepQuestions.csv'
 todatabase = sys.argv[1]
 
 basename = "gka"
-inputsqlfile = basename+"_getdata.sql"
-loadsqlfile = basename+"_loaddata.sql"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+inputsqlfile = scriptdir+"/"+basename+"_getdata.sql"
+loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 
 
 connectionstring = "dbname=%s user=klp" % todatabase
@@ -42,8 +44,8 @@ questiongroup = {'do_30048087': {'text': 'Class 4 and 5', 'year': '1617',
                                                 'status': 'AC', 'options': '{0,1}'}}
 
 
-sqlinsert = "insert into assessments_survey (id, name, created_at, status_id) values(%s, %s, %s, %s);"
-cursor.execute(sqlinsert, (3, 'Ganitha Kalika Andolana', '2016-05-19', 'AC'))
+sqlinsert = "insert into assessments_survey (id, name, created_at, status_id, admin0_id) values(%s, %s, %s, %s);"
+cursor.execute(sqlinsert, (3, 'Ganitha Kalika Andolana', '2016-05-19', 'AC', 2))
 
 count = 0
 for row in csv_f:

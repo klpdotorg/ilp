@@ -1,5 +1,5 @@
 from os import system, sys
-import os
+import os, inspect
 
 
 if len(sys.argv) != 3:
@@ -11,13 +11,14 @@ fromdatabase = sys.argv[1]
 todatabase = sys.argv[2]
 
 basename = "anginfra"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 dbs = []
 
 tables = [
     {
         'name': 'temp_anginfra',
         'db': fromdatabase,
-        'query': "COPY(select sid, ai_metric, perc_score, ai_group, value from tb_ang_infra_agg agg, tb_display_master master where agg.ai_metric=master.key) TO '$PWD/load/replacename.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;"
+        'query': "\COPY (select sid, ai_metric, perc_score, ai_group, value from tb_ang_infra_agg agg, tb_display_master master where agg.ai_metric=master.key) TO '"+scriptdir+"/load/replacename.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;"
     },
     {
         'name': 'temp_anginfra',
@@ -27,12 +28,12 @@ tables = [
     {
         'name': 'temp_anginfra',
         'db': todatabase,
-        'query': "COPY replacetable(sid, ai_metric, perc_score, ai_group, description) from '$PWD/load/replacename.csv' with csv NULL 'null';"
+        'query': "\COPY replacetable(sid, ai_metric, perc_score, ai_group, description) from '"+scriptdir+"/load/replacename.csv' with csv NULL 'null';"
     },
     {
         'name': 'assessments_survey',
         'db': todatabase,
-        'query': "insert into replacetable(id, name,created_at,partner_id,status_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA');"
+        'query': "insert into replacetable(id, name,created_at,partner_id,status_id, admin0_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA', 2);"
     },
     {
         # Setting id as 30
@@ -65,8 +66,8 @@ tables = [
 
 # Create directory and files
 def init():
-    if not os.path.exists("load"):
-        os.makedirs("load")
+    if not os.path.exists(scriptdir+"/load"):
+        os.makedirs(scriptdir+"/load")
 
 
 def create_sql_files():
@@ -75,7 +76,7 @@ def create_sql_files():
         if table["db"] not in dbs:
             dbs.append(table["db"])
             system('>'+basename+'_'+table['db']+'_query.sql')
-        filename = os.getcwd()+'/load/'+table['name']+'.csv'
+        filename = scriptdir+'/load/'+table['name']+'.csv'
         open(filename, 'wb', 0)
         os.chmod(filename, 0o666)
         command = 'echo "'+table["query"].replace('replacetable', table["name"]).replace('replacename', table["name"])+'">>'+basename+'_'+table['db']+'_query.sql'

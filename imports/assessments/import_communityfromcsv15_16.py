@@ -1,5 +1,5 @@
 from os import sys
-import os
+import os, inspect
 import csv
 import datetime
 import psycopg2
@@ -7,7 +7,7 @@ import psycopg2
 
 if len(sys.argv) != 3:
     print("Please give database names as arguments. USAGE: " +
-          "python import_communityfromcsv.py pathtofilesdir ilp")
+          "python import_communityfromcsv15_16.py pathtofilesdir ilp")
     sys.exit()
 
 fromdir = sys.argv[1]
@@ -15,8 +15,9 @@ fromdir = sys.argv[1]
 todatabase = sys.argv[2]
 
 basename = "communityfile"
-inputsqlfile = basename+"_getdata.sql"
-loadsqlfile = basename+"_loaddata.sql"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+inputsqlfile = scriptdir+"/"+basename+"_getdata.sql"
+loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 
 
 def parse_date(previous_date,  day, month, year):

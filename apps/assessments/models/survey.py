@@ -36,6 +36,7 @@ class Survey(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     partner = models.ForeignKey('Partner', null=True)
     description = models.CharField(max_length=200, null=True)
+    admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
 
     class Meta:

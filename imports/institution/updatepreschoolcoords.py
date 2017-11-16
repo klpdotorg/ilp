@@ -1,5 +1,5 @@
 from os import sys, system
-import os
+import os, inspect
 
 
 if len(sys.argv) != 3:
@@ -12,14 +12,16 @@ fromdatabase = sys.argv[1]
 todatabase = sys.argv[2]
 
 basename = "preschoolcoords"
-inputsqlfile = basename+"_getdata.sql"
-loadsqlfile = basename+"_loaddata.sql"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+inputsqlfile = scriptdir+"/"+basename+"_getdata.sql"
+loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 
 tables = [
     {
         'name': 'schools_institution',
-        'getquery': "COPY(select instid, coord from mvw_inst_coord where instid in (select s.id from tb_school s,tb_boundary b where s.status=2 and s.bid=b.id and b.type=2 )) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'tempquery': "CREATE TEMP TABLE temp_replacetablename(instid integer, coord geometry); COPY temp_replacetablename(instid, coord) FROM 'replacefilename' with csv NULL 'null';",
+        'getquery': "\COPY (select instid, coord from mvw_inst_coord where instid in (select s.id from tb_school s,tb_boundary b where s.status=2 and s.bid=b.id and b.type=2 )) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'tempquery': "CREATE TEMP TABLE temp_replacetablename(instid integer, coord geometry); \COPY temp_replacetablename(instid, coord) FROM 'replacefilename' with csv NULL 'null';",
         'updatequery': "UPDATE replacetablename set coord=temp.coord from temp_replacetablename temp where temp.instid=replacetablename.id;"
     }
 ]
@@ -27,8 +29,8 @@ tables = [
 
 # Create directory and files
 def init():
-    if not os.path.exists("load"):
-        os.makedirs("load")
+    if not os.path.exists(scriptdir+"/load"):
+        os.makedirs(scriptdir+"/load")
     open(inputsqlfile, 'wb', 0)
     open(loadsqlfile, 'wb', 0)
 
@@ -36,7 +38,7 @@ def init():
 def create_sqlfiles():
     # Loop through the tables
     for table in tables:
-        filename = os.getcwd()+'/load/'+basename+'_'+table['name']+'.csv'
+        filename = scriptdir+'/load/'+basename+'_'+table['name']+'.csv'
         open(filename, 'wb', 0)
         os.chmod(filename, 0o666)
         if 'getquery' in table:
