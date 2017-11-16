@@ -32,8 +32,9 @@ dependencies:
   cache_directories:
     - "venv"   # relative to the build directory
 
-checkout:
-  post:
+
+database:
+  pre:
     - mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
 
 
@@ -56,6 +57,6 @@ deployment:
           s3_location:
             bucket: klpdeployments
             key_pattern: ilpdev/{BRANCH}
-          region: ap-south-1
-          deployment_group: ilpdev-group
-          deployment_config: CodeDeployDefault.OneAtATime
+        region: ap-south-1
+        deployment_group: ilpdev-group
+        deployment_config: CodeDeployDefault.OneAtATime
