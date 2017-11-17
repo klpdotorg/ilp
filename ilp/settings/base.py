@@ -169,6 +169,8 @@ BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
 
 EMAIL_DEFAULT_FROM = 'India Learning Partnership <dev@ilp.org.in>'
 
+SITE_ID = 1
+
 
 # Logging
 LOG_ROOT = os.path.join(BASE_DIR, "/logs")

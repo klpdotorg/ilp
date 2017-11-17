@@ -48,7 +48,6 @@ def send_templated_mail(
     """ Sends html/text email with content rendered from a template """
     plaintext = get_template('email_templates/{}.txt'.format(template_name))
     html = get_template('email_templates/{}.html'.format(template_name))
-    context = Context(context)
     text_content = plaintext.render(context)
     html_content = html.render(context)
     msg = EmailMultiAlternatives(subject, text_content, from_email, to_emails)

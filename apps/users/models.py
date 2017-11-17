@@ -96,16 +96,18 @@ class User(AbstractBaseUser):
         #     email=self.email
         # )
 
+        context = {
+            'user': self,
+            'site_url': Site.objects.get_current().domain,
+            'url': "TODO"
+        }
+
         send_templated_mail(
             from_email=settings.EMAIL_DEFAULT_FROM,
             to_emails=[self.email],
             subject='Please verify your email address',
             template_name='register',
-            context={
-                'user': self,
-                'site_url': Site.objects.get_current().domain,
-                'url': "TODO"
-            }
+            context=context
         )
 
         self.save()
