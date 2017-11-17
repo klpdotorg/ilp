@@ -34,26 +34,18 @@ class UserLoginSerializer(serializers.Serializer):
         self.user = None
 
     def validate(self, attrs):
-        # TODO: Uncomment the below line once users.User is set
-        # as default auth model
-        # self.user = authenticate(
-        #     email=attrs.get('email'),
-        #     password=attrs.get('password')
-        # )
-        email = attrs.get('email')
-        password = attrs.get('password')
-        try:
-            self.user = User.objects.get(email=email, password=password)
-        except User.DoesNotExist:
-            self.user = None
+        self.user = authenticate(
+            email=attrs.get('email'),
+            password=attrs.get('password')
+        )
         self._validate_user_exists(self.user)
         self._validate_user_is_active(self.user)
         return attrs
 
     def _validate_user_exists(self, user):
         if not user:
-            raise serializers.ValidationError('invalid email/password')
+            raise serializers.ValidationError('Invalid email/password')
 
     def _validate_user_is_active(self, user):
         if not user.is_active:
-            raise serializers.ValidationError('user account is inactive')
+            raise serializers.ValidationError('User account is inactive')
