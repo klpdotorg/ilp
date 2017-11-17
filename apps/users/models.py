@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import uuid
+import random
+from rest_framework.authtoken.models import Token
+
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager,
     AbstractBaseUser
 )
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+# from django.core.urlresolvers import reverse
+from common.utils import send_templated_mail
+from django.contrib.sites.models import Site
+# from django.utils.text import slugify
+from django.conf import settings
 
 from .choices import USER_TYPE_CHOICES
 
@@ -17,7 +28,6 @@ class UserManager(BaseUserManager):
             **extra_fields
         )
         user.set_password(password)
-        user.password = password
         user.is_active = True
         user.save()
         return user
@@ -53,3 +63,65 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.generate_email_token()
+            self.generate_sms_pin()
+        self.set_password(self.password)
+        return super(User, self).save(*args, **kwargs)
+
+    def generate_email_token(self):
+        self.email_verification_code = uuid.uuid4().hex
+
+    def generate_sms_pin(self):
+        pin = ''.join([str(random.choice(range(1, 9))) for i in range(4)])
+        self.sms_verification_pin = int(pin)
+
+    def get_token(self):
+        return Token.objects.get(user=self).key
+
+    def get_short_name(self):
+        return self.first_name or ''
+
+    def get_full_name(self):
+        return ' '.join(
+            filter(None, [self.first_name, self.last_name])) or self.email
+
+    def send_verification_email(self):
+        self.generate_email_token()
+        # url = reverse(
+        #     'user_email_verify') + '?token={token}&email={email}'.format(
+        #     token=email_verification_code,
+        #     email=self.email
+        # )
+
+        send_templated_mail(
+            from_email=settings.EMAIL_DEFAULT_FROM,
+            to_emails=[self.email],
+            subject='Please verify your email address',
+            template_name='register',
+            context={
+                'user': self,
+                'site_url': Site.objects.get_current().domain,
+                'url': "TODO"
+            }
+        )
+
+        self.save()
+
+    def __unicode__(self):
+        return self.email
+
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        pass
+        # Token.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def user_created_verify_email(sender, instance=None, created=False, **kwargs):
+    if created:
+        instance.send_verification_email()

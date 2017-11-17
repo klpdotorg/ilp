@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'django.contrib.sites',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -165,6 +166,8 @@ SWAGGER_SETTINGS = {
 DEFAULT_ACADEMIC_YEAR = '1516'
 
 BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
+
+EMAIL_DEFAULT_FROM = 'India Learning Partnership <dev@ilp.org.in>'
 
 
 # Logging
