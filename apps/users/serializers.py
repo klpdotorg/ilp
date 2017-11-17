@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate
-from rest_framework import exceptions, serializers
+from rest_framework import serializers
 
 from .models import User
 
@@ -35,7 +35,7 @@ class UserLoginSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         self.user = authenticate(
-            email=attrs.get('email'),
+            username=attrs.get('email'),
             password=attrs.get('password')
         )
         self._validate_user_exists(self.user)

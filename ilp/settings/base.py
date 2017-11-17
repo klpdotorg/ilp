@@ -77,8 +77,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer'
     ),
 
-    'DEFAULT_PAGINATION_CLASS': 'apps.common.pagination.ILPDefaultPagination'
-    
+    'DEFAULT_PAGINATION_CLASS': 'apps.common.pagination.ILPDefaultPagination',
 }
 
 
@@ -134,6 +133,9 @@ USE_TZ = True
 
 # Authentication model
 AUTH_USER_MODEL = 'users.User'
+AUTHENTICATION_BACKENDS = ['users.backends.EmailMobileUsernameBackend']
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 
 # Static files (CSS, JavaScript, Images)

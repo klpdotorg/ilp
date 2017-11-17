@@ -22,14 +22,24 @@ from .choices import USER_TYPE_CHOICES
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create(self, email, password=None, **extra_fields):
+        print ('CALLED')
+        if not email:
+            raise ValueError('Users must have an email address')
+
         user = self.model(
             email=UserManager.normalize_email(email),
             **extra_fields
         )
+
         user.set_password(password)
-        user.is_active = True
-        user.save()
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        user = self.create_user(email, password=password, **extra_fields)
+        user.is_admin = True
+        user.save(using=self._db)
         return user
 
 
@@ -68,7 +78,6 @@ class User(AbstractBaseUser):
         if not self.id:
             self.generate_email_token()
             self.generate_sms_pin()
-        self.set_password(self.password)
         return super(User, self).save(*args, **kwargs)
 
     def generate_email_token(self):
@@ -114,13 +123,6 @@ class User(AbstractBaseUser):
 
     def __unicode__(self):
         return self.email
-
-
-@receiver(post_save, sender=User)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        pass
-        # Token.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)

@@ -35,11 +35,12 @@ class UserLoginView(generics.GenericAPIView):
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        # token = login_user(self.request, serializer.user)
-        # token_serializer_class = settings.SERIALIZERS.token
-        # return Response(
-        #     data=token_serializer_class(token).data,
-        #     status=status.HTTP_200_OK,
-        # )
-        # print (token)
+        token = login_user(self.request, serializer.user)
+        return Response(
+            data={
+                'token': token.key
+            },
+            status=status.HTTP_200_OK,
+        )
+        print (token)
         return Response({'success': 'your token will be sent to you soon!'})
