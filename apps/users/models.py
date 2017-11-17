@@ -31,8 +31,9 @@ class User(AbstractBaseUser):
     user_type = models.CharField(
         max_length=50, choices=USER_TYPE_CHOICES, null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    email_verification_code = models.CharField(max_length=128)
-    sms_verification_pin = models.IntegerField()
+    email_verification_code = models.CharField(
+        max_length=128, null=True, blank=True)
+    sms_verification_pin = models.IntegerField(null=True, blank=True)
     is_email_verified = models.BooleanField(default=False)
     is_mobile_verified = models.BooleanField(default=False)
     dob = models.DateField(null=True, blank=True)
@@ -42,13 +43,13 @@ class User(AbstractBaseUser):
         null=True, editable=False, auto_now_add=True)
     opted_email = models.BooleanField(
         default=False, help_text="Opted in to receive emails")
-    image = models.ImageField(upload_to='profile_pics', blank=True)
-    about = models.TextField(blank=True)
-    twitter_handle = models.CharField(max_length=255, blank=True)
-    fb_url = models.URLField(blank=True)
-    website = models.URLField(blank=True)
-    photos_url = models.URLField(blank=True)
-    youtube_url = models.URLField(blank=True)
+    image = models.ImageField(upload_to='profile_pics', blank=True, null=True)
+    about = models.TextField(blank=True, null=True)
+    twitter_handle = models.CharField(max_length=255, blank=True, null=True)
+    fb_url = models.URLField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    photos_url = models.URLField(blank=True, null=True)
+    youtube_url = models.URLField(blank=True, null=True)
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
