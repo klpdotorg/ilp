@@ -10,7 +10,8 @@ from common.models import Status, InstitutionType
 from schools.serializers import (
     InstitutionSerializer, InstitutionCreateSerializer,
     InstitutionCategorySerializer, InstitutionManagementSerializer,
-    SchoolDemographicsSerializer
+    SchoolDemographicsSerializer, SchoolInfraSerializer,
+    SchoolFinanceSerializer
 )
 from schools.models import (Institution, InstitutionCategory,
                             Management)
@@ -93,6 +94,23 @@ class InstitutionManagementListView(generics.ListAPIView):
 
 class InstitutionDemographics(ILPDetailAPIView):
     serializer_class = SchoolDemographicsSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'pk'
+
+    def get_queryset(self):
+        return Institution.objects.filter(status='AC')
+
+
+class InstitutionInfra(ILPDetailAPIView):
+    serializer_class = SchoolInfraSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'pk'
+
+    def get_queryset(self):
+        return Institution.objects.filter(status='AC')
+
+class InstitutionFinance(ILPDetailAPIView):
+    serializer_class = SchoolFinanceSerializer
     lookup_field = 'id'
     lookup_url_kwarg = 'pk'
 

@@ -1,0 +1,71 @@
+# Dise MDM codes
+MDM_NOT_APPLICABLE = 0
+MDM_NOT_PROVIDED=1
+MDM_PROVIDED_PREP_SCHOOL=2
+MDM_PROVIDED_NOTPREP_SCHOOL=3
+
+#DISE MDM human-readable text for above codes
+
+MDM_TXT_NOT_APPLICABLE = "Not Applicable"
+MDM_TXT_NOT_PROVIDED = "Not Provided"
+MDM_TXT_PROVIDED_PREP_SCHOOL = "Provided and prepared in school premises"
+MDM_TXT_PROVIDED_NOTPREP_SCHOOL = "Provided but not prepared in school premises"
+
+# Dise building status codes
+
+BLDG_PRIVATE=1
+BLDG_RENTED=2
+BLDG_GOVT=3
+BLDG_GOVT_RENTFREE = 4
+BLDG_NONE=5
+BLDG_DILAPIDATED=6
+BLDG_UNDER_CONST=7
+
+#Text for building status codes
+
+BLDG_TXT_PRIVATE="Private"
+BLDG_TXT_RENTED="Rented"
+BLDG_TXT_GOVT="Goverment"
+BLDG_TXT_GOVT_RENTFREE="Government school in a rent-free building"
+BLDG_TXT_BLDG_NONE = "No Building"
+BLDG_TXT_BLDG_DILAPIDATED="Dilapidated"
+BLDG_TXT_BLDG_UNDER_CONST="Under Construction"
+
+AVAILABLE = 1
+NA = 2
+AVAIL_NOT_FUNC =3
+
+YES="Yes"
+NO="No"
+NOT_FUNC = "Yes but not functional"
+
+#Boundary wall status
+
+BOUND_WALL_NA = 0
+BOUND_WALL_PUCCA = 1
+BOUND_WALL_PUCCABROKEN=2
+BOUND_WALL_BARBEDWIRE=3
+BOUND_WALL_HEDGES=4
+BOUND_WALL_NONE=5
+BOUND_WALL_OTHERS=6
+BOUND_WALL_PARTIAL=7
+BOUND_WALL_UNDER_CONST=8
+
+BOUND_WALL_TXT_NA="Not applicable"
+BOUND_WALL_TXT_PUCCA = "Pucca"
+BOUND_WALL_TXT_PUCCABROKEN = "Pucca but broken"
+BOUND_WALL_TXT_BARBEDWIRE = "Barbed wire fencing"
+BOUND_WALL_TXT_HEDGES = "Hedges"
+BOUND_WALL_TXT_NONE = "No boundary wall"
+BOUND_WALL_TXT_OTHER = "Other"
+BOUND_WALL_TXT_PARTIAL = "Partial"
+BOUND_WALL_TXT_UNDER_CONST = "Under Construction"
+
+
+
+
+
+
+
+
+
