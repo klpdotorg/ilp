@@ -16,6 +16,10 @@ class QGroupAnsMetaTestAPI(APITestCase):
         call_command('loaddata',
                      ('apps/assessments/tests/test_fixtures/'
                       'answergroup_institution.json'))
+        call_command('loaddata',
+                     'apps/assessments/tests/test_fixtures/'
+                     'surveys.json')
+        call_command('run_materialized_view')
 
     def test_survey_answers_meta_response(self):
         url = reverse('surveys:qgroup-answers-meta',
