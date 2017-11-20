@@ -9,8 +9,8 @@ permissions:
     group: ubuntu
 hooks:
   AfterInstall:
-    location: scripts/install_deps.sh
-    timeout: 180
+    - location: scripts/install_deps.sh
+      timeout: 180
   ApplicationStart:
-    location: scripts/restart_services.sh
-    timeout: 180
+    - location: scripts/restart_services.sh
+      timeout: 180
