@@ -82,11 +82,22 @@ num_to_user_type = {
     '5': 'CM'
 }
 
+connectionstring = "dbname=%s user=klp" % todatabase
+
+def reset_sequences():
+    conn = psycopg2.connect(connectionstring)
+    cursor = conn.cursor()
+    query = "SELECT setval('assessments_questiongroup_id_seq', COALESCE((SELECT MAX(id)+1 FROM assessments_questiongroup), 1), false); SELECT setval('assessments_question_id_seq', COALESCE((SELECT MAX(id)+1 FROM assessments_question), 1), false); SELECT setval('assessments_answergroup_institution_id_seq', COALESCE((SELECT MAX(id)+1 FROM assessments_answergroup_institution), 1), false); SELECT setval('assessments_answerinstitution_id_seq', COALESCE((SELECT MAX(id)+1 FROM assessments_answerinstitution), 1), false);"
+    cursor.execute(query)
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
 for filename in os.listdir(fromdir):
     if not filename.endswith(".csv"):
         continue
     print(filename)
-    connectionstring = "dbname=%s user=klp" % todatabase
     conn = psycopg2.connect(connectionstring)
     cursor = conn.cursor()
     f = open(fromdir+"/"+filename, 'r')
@@ -97,6 +108,9 @@ for filename in os.listdir(fromdir):
     count = 0
 
     previous_date = ""
+
+    #reset sequences
+    reset_sequences()
 
     for row in csv_f:
         if count < 2:

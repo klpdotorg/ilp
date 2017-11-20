@@ -75,20 +75,21 @@ def create_sql_files():
     for table in tables:
         if table["db"] not in dbs:
             dbs.append(table["db"])
-            system('>'+basename+'_'+table['db']+'_query.sql')
+	    queryfile = scriptdir+'/'+basename+'_'+table['db']+'_query.sql'
+            open(queryfile, 'wb', 0)
         filename = scriptdir+'/load/'+table['name']+'.csv'
         open(filename, 'wb', 0)
         os.chmod(filename, 0o666)
-        command = 'echo "'+table["query"].replace('replacetable', table["name"]).replace('replacename', table["name"])+'">>'+basename+'_'+table['db']+'_query.sql'
+        command = 'echo "'+table["query"].replace('replacetable', table["name"]).replace('replacename', table["name"])+'">>'+queryfile
         system(command)
 
 
 def loaddata():
     for db in dbs:
-        system('psql -U klp -d '+db+' -f '+basename+'_'+db+'_query.sql')
+        system('psql -U klp -d '+db+' -f '+scriptdir+'/'+basename+'_'+db+'_query.sql')
 
 
 # order in which function should be called.
 init()
 create_sql_files()
-loaddata()
+#loaddata()

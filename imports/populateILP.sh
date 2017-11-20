@@ -15,34 +15,47 @@ fi
 ilp="$1";
 
 # Populate Boundaries 
-./boundary/populateBoundaryTables.sh dubdubdub electrep_new $ilp `pwd`/boundary/temp `pwd`/boundary/sql
+echo "Populating Boundaries"
+./boundary/populateBoundaryTables.sh dubdubdub electedrep_new $ilp `pwd`/boundary/temp `pwd`/boundary/sql
 ./boundary/updateDiseSlugs.sh $ilp
+echo "Boundaries done"
 
 #Populate dise tables
+echo "Populating Dise tables"
 python dise/import_dise_data.py klpdise_olap $ilp
+echo "DISE tables done"
 
 #Populate Institutions
+echo "Populating Institution tables"
 python institution/import_inst_data.py ems $ilp 
 python institution/updateinstitution_disecode.py ems $ilp 
 python institution/updateinstitutiondata.py dubdubdub `pwd`/institution/ssa_details.csv $ilp 
 python institution/updateinstitutioncoords.py `pwd`/institution/ssa_latlong.csv $ilp 
 python institution/import_studentgroup_data.py ems $ilp 
 python institution/updatepreschoolcoords.py dubdubdub $ilp 
+echo "Institution tables done"
 
 #Populate Student and Staff data
+echo "Populating Student and staff data"
 python student-staff/import_student_data.py ems $ilp 
 python student-staff/updatechildrelations.py ems $ilp 
 python student-staff/import_staff_data.py ems $ilp 
 python student-staff/import_studentgrouprelations_data.py ems $ilp
+echo "Student and Staff tables done"
 
 
 #Populate spatial Procedure for updating spatial data ino the election boundary tables
+echo "Populating spatial data"
 python spatial/updatespatialdata.py spatial $ilp 
+echo "Spatial done"
 
 #Populate aggregates
+echo "Running aggregates"
 psql -U klp -d $ilp -f aggregates/materialized_views.sql 
+echo "Aggregates Done"
 
 #Populate assessments
+echo "Running Assessments"
 #Import SYS data
 python assessments/import_sys.py dubdubdub $ilp
 
@@ -73,3 +86,4 @@ python assessments/import_gkaassessmentdata.py dubdubdub $ilp
 
 #Import Anganwadi Infrastructure Data:
 python assessments/import_anganwadi_infra.py ang_infra $ilp
+echo "Assessments Done"

@@ -47,7 +47,6 @@ def init():
 def create_sqlfiles():
     #Loop through the tables
     for table in tables:
-	print("Running queries")
         #create the "copy to" file to get data from ems
         system('echo "'+table['query']+'\">>'+inputdatafile)
 
@@ -58,21 +57,16 @@ def create_sqlfiles():
 
         #create the "copy from" file to load data into db
         system('echo "\COPY '+table['table_name']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+loaddatafile)
-    print("finished creating files")
 
 
 #Running the "copy to" commands to populate the csvs.
 def getdata():
-    print("in get data")
     system("psql -U klp -d "+fromdatabase+" -f "+inputdatafile)
-    print("Finished get data")
 
 
 #Running the "copy from" commands for loading the db.
 def loaddata():
-    print("in loaddata")
     system("psql -U klp -d "+todatabase+" -f "+loaddatafile)
-    print("finshed loading data")
 
 
 #order in which function should be called.
