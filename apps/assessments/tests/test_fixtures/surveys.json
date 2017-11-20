@@ -47,13 +47,6 @@
     }
 },
 {
-    "model": "common.status",
-    "pk": "AC",
-    "fields": {
-        "name": "Active"
-    }
-},
-{
     "model": "assessments.partner",
     "pk": "akshara",
     "fields": {
@@ -62,27 +55,10 @@
     }
 },
 {
-    "model": "assessments.survey",
-    "pk": 2,
+    "model": "common.status",
+    "pk": "AC",
     "fields": {
-        "name": "GP Contest",
-        "created_at": "2017-06-06",
-        "updated_at": "2017-06-06",
-        "partner": "akshara",
-        "description": "GP Contest",
-        "status": "IA"
-    }
-},
-{
-    "model": "assessments.survey",
-    "pk": 7,
-    "fields": {
-        "name": "ILP Konnect Community Survey",
-        "created_at": "2016-05-19",
-        "updated_at": "2016-05-19",
-        "partner": "akshara",
-        "description": null,
-        "status": "AC"
+        "name": "Active"
     }
 },
 {
@@ -90,8 +66,8 @@
     "pk": 5,
     "fields": {
         "name": " SYS",
-        "created_at": "2016-05-19",
-        "updated_at": "2016-05-19",
+        "created_at": "2016-05-19T00:00:00Z",
+        "updated_at": "2016-05-19T00:00:00Z",
         "partner": "akshara",
         "description": null,
         "status": "AC"
@@ -102,9 +78,45 @@
     "pk": 6,
     "fields": {
         "name": " Mahiti IVRS",
-        "created_at": "2016-05-19",
-        "updated_at": "2016-05-19",
+        "created_at": "2016-05-19T00:00:00Z",
+        "updated_at": "2016-05-19T00:00:00Z",
         "partner": "akshara",
+        "description": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 7,
+    "fields": {
+        "name": "ILP Konnect Community Survey",
+        "created_at": "2016-05-19T00:00:00Z",
+        "updated_at": "2016-05-19T00:00:00Z",
+        "partner": "akshara",
+        "description": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 2,
+    "fields": {
+        "name": "GP Contest",
+        "created_at": "2017-06-06T00:00:00Z",
+        "updated_at": "2017-06-06T00:00:00Z",
+        "partner": "akshara",
+        "description": "GP Contest",
+        "status": "IA"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 3,
+    "fields": {
+        "name": "Ganitha Kalika Andolana",
+        "created_at": "2016-05-18T18:30:00Z",
+        "updated_at": null,
+        "partner": null,
         "description": null,
         "status": "AC"
     }

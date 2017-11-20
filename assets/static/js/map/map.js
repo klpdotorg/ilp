@@ -397,7 +397,7 @@
 
             if (enabledLayers.hasLayer(preschoolCluster)) {
                 t.startLoading();
-                preschoolXHR = klp.api.do('institutions/list', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                preschoolXHR = klp.api.do('institutions/', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 preschoolXHR.done(function (data) {
                     t.stopLoading();
                     preschoolCluster.clearLayers();
@@ -412,7 +412,7 @@
 
             if (enabledLayers.hasLayer(schoolCluster)) {
                 t.startLoading();
-                schoolXHR = klp.api.do('institutions/list', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                schoolXHR = klp.api.do('institutions/', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 schoolXHR.done(function (data) {
                     t.stopLoading();
                     schoolCluster.clearLayers();
@@ -506,10 +506,44 @@
             circleLayer.addTo(disabledLayers);
         });
 
+        function getSchoolType(feature) {
+            var schoolType = feature.properties.type;
+            if(schoolType == 'primary') {
+                schoolType = 'primaryschool'
+            }
+            else {
+                schoolType = 'preschool'
+            }
+            return schoolType
+        }
+
+        function getBoundaryType(feature) {
+            var boundary_type = feature.properties.boundary_type;
+            var modified_boundary_type = boundary_type;
+            if(boundary_type == 'SD' || boundary_type == "PD") {
+                modified_boundary_type = "district";
+            }            
+            else if(boundary_type == 'SB') {
+                modified_boundary_type = "block"
+            }
+            else if(boundary_type == 'SC') {
+                modified_boundary_type = "cluster"
+            }
+            else if(boundary_type == 'PP') {
+                modified_boundary_type = "project"
+            }
+            else if(boundary_type == 'PC') {
+                modified_boundary_type = "circle"
+            }
+            return modified_boundary_type;
+        }
+
         function markerBoundary(marker, feature) {
             var duplicatemarker;
-            var boundary_type = feature.properties.type;
-            var schoolType = feature.properties.school_type;
+            //Since boundary type and school type have changed, need to map new
+            //types to old for the sake of icon names. Revisit later if needed // simplify
+            var boundary_type = getBoundaryType(feature)
+            var schoolType = getSchoolType(feature)
             duplicatemarker = L.marker(marker._latlng, {icon: mapIcon(schoolType +'_' + boundary_type)});
 
             selectedLayers.addLayer(duplicatemarker);
@@ -589,7 +623,7 @@
 
         function fetchBasicFacilities(data) {
             var $deferred = $.Deferred();
-            if (data.type.id === 2) { //is a preschool
+            if (data.type.id === "pre") { //is a preschool
                 setTimeout(function() {
                     $deferred.resolve(data.basic_facilities);
                 }, 0);

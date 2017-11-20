@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/ilp
+permissions:
+  - object: /home/ubuntu/ilp
+    owner: ubuntu
+    group: ubuntu

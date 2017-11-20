@@ -7,6 +7,8 @@ var topSummaryData = {};
 
 (function() {
     var premodalQueryParams = {};
+    var surveyId = 1;
+    var questionGroupId = 7;
 
     klp.init = function() {
         klp.accordion.init();
@@ -104,7 +106,7 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
-        var url = "stories/details/?gka_comparison=true";
+        var url = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?gka_comparison=true";
         var $metaXHR = klp.api.do(url, params);
         startDetailLoading();
         $metaXHR.done(function(data)
@@ -249,7 +251,7 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
-        var metaURL = "stories/meta/?source=sms";
+        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?source=sms";
         var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
         $metaXHR.done(function(data) {
@@ -259,7 +261,7 @@ var topSummaryData = {};
 
 
         //GETTING SMS DETAILS
-        var detailURL = "stories/details/?source=sms";
+        var detailURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?source=sms";
         var $detailXHR = klp.api.do(detailURL, params);
         $detailXHR.done(function(data) {
             stopDetailLoading();
@@ -267,7 +269,7 @@ var topSummaryData = {};
         });
 
         // SMS Volume
-        var volumeURL = "stories/volume/?source=sms";
+        var volumeURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/volume/?source=sms";
         var $volumeXHR = klp.api.do(volumeURL, params);
         $volumeXHR.done(function(data) {
             stopDetailLoading();
@@ -276,7 +278,7 @@ var topSummaryData = {};
     }
 
     function loadSurveys(params) {
-        var metaURL = "stories/meta/?survey=Community&source=csv";
+        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?survey=Community&source=csv";
         var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
         $metaXHR.done(function(data)
@@ -286,13 +288,13 @@ var topSummaryData = {};
             renderRespondentChart(data);
         });
 
-        var volumeURL = "stories/volume/?survey=Community&source=csv";
+        var volumeURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/volume/?survey=Community&source=csv";
         var $volumeXHR = klp.api.do(volumeURL, params);
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
         });
 
-        var detailURL = "stories/details/?survey=Community&source=csv";
+        var detailURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?survey=Community&source=csv";
         var $detailXHR = klp.api.do(detailURL, params);
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data);
@@ -436,7 +438,7 @@ var topSummaryData = {};
 
 
     function loadTopSummary(params) {
-        var metaURL = "stories/meta/?top_summary=true";
+        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/";
         var $metaXHR = klp.api.do(metaURL, params);
         startSummaryLoading();
         $metaXHR.done(function(data)
@@ -737,7 +739,7 @@ var topSummaryData = {};
     }
 
     function loadGPContestData(params){
-        var metaURL = "stories/details/?survey=GP%20Contest";
+        var metaURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?survey=GP%20Contest";
         var $metaXHR = klp.api.do(metaURL, params);
         $metaXHR.done(function(data) {
             var dataSummary = {

@@ -106,6 +106,18 @@
 },
 {
     "model": "assessments.survey",
+    "pk": 2,
+    "fields": {
+        "name": "GP Contest",
+        "created_at": "2017-06-06T00:00:00Z",
+        "updated_at": "2017-06-06T00:00:00Z",
+        "partner": "akshara",
+        "description": "GP Contest",
+        "status": "IA"
+    }
+},
+{
+    "model": "assessments.survey",
     "pk": 7,
     "fields": {
         "name": "ILP Konnect Community Survey",

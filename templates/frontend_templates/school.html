@@ -291,10 +291,17 @@
 
 <script type="text/html" id="tpl-tab-finances">
   <div class="container">
+  <h4 class="heading-tiny-uppercase">GRANTS RECEIVED</h4>
+  <table class="table-data table-data-finances">
+          <tr>
+              <td>School grant received (SG)</td>
+              <td> {{ sg_amount }}
+          </tr>
+    </table>
     <h4 class="heading-tiny-uppercase">SSA GRANTS ALLOCATION</h4>
 
     <div class="center-text" id="pie_chart_finance">{ Chart here }</div>
-
+   
     <table class="table-data table-data-finances">
         <tr>
           <td>School Maintence Grant (SMG)</td>
@@ -375,7 +382,7 @@
     </table>
   </div> <!-- /container -->
 </script>
-<script type="text/html" id="tpl-tab-library">
+<!-- <script type="text/html" id="tpl-tab-library">
   <div class="container">
     <h4 class="heading-tiny-uppercase">Library</h4>
     <div class="hide no-data">
@@ -402,11 +409,11 @@
       </select>
 
       <!--<button class="styled hide" id="library_graph_table_switch">Switch to Table View</button-->
-      <div class="base-spacing-mid"></div>
+    <!--  <div class="base-spacing-mid"></div>
     </div> <!-- /form-base -->
 
-    <div id="graph_library">{ Graph here }</div>
-
+    <!--<div id="graph_library">{ Graph here }</div>
+ -->
     <!--<table id="table_library" class="table-data" style="display:none;">
       <tr>
         <th>Month</th>
@@ -527,7 +534,7 @@
       </tr>
     </table>-->
 
-    <h4 class="heading-tiny-uppercase">Akshara Library Details</h4>
+    <!-- <h4 class="heading-tiny-uppercase">Akshara Library Details</h4>
 
     <table class="table-data">
       {% for value in lib_infra %}
@@ -535,7 +542,7 @@
           <td>{{ loop.key }}</td>
           <td>{% if value %} {{ value }} {% else %} - {% endif %}</td>
         </tr>
-      {% endfor %}
+      {% endfor %} -->
         <!--
       <tr>
         <td>Number of Books</td>
@@ -562,7 +569,7 @@
         <td>-</td>
       </tr>
       -->
-    </table>
+    <!-- </table>
 
     <div>DISE Reports Number of Books as : <strong>{{ dise_books }}</strong></div>
 
@@ -575,8 +582,8 @@
     </table>
   </div> <!-- /container -->
 
-</script>
-
+<!--</script> 
+ -->
 <script type="text/html" id="tpl-tab-nutrition">
 
   <div class="container">
@@ -671,7 +678,7 @@
   </div> <!-- /container -->
 
 </script>
-
+<!--
 <script type="text/html" id="tpl-tab-volunteer">
   <div class="container">
     {% if features.length %}
@@ -686,13 +693,13 @@
             {{ f.organization_details.name }}
           </a>
         </span>
-      </div>
-      <div class="tab-items">              <!--
+      </div> 
+      <div class="tab-items">      -->        <!--
         <a href="#" class="font-20 color-green">Gian Jyoti Public School</a>
         <br/>
         <div class="color-grey-light-2 mb-5">Street No-4, Banasawadi, Bangalore</div>
   -->
-      </div>
+  <!--    </div>
       <p>
           {{ f.text|striptags|nl2br|autolink|safe }}
       </p>
@@ -718,9 +725,9 @@
     </div>
     {% endif %}
 
-  </div> <!-- /container -->
+  </div> 
 
-</script>
+</script>--><!-- /container -->
 <script type="text/html" id="tpl-share-story-form">
   <div class="container-sm">
     <div class="base-spacing-lg">
