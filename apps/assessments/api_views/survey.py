@@ -75,7 +75,7 @@ class QuestionGroupQuestions(
         if parents_query_dict:
             try:
                 queryset = queryset.filter(
-                    questiongroup_id=questiongroup
+                    questiongroup_id=parents_query_dict['questiongroup_id']
                 ).order_by().distinct('id')
             except ValueError:
                 logger.exception(
