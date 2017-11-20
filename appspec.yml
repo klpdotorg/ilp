@@ -15,4 +15,3 @@ hooks:
   ApplicationStart:
     - location: scripts/restart_services.sh
       timeout: 180
-      runas: ubuntu
