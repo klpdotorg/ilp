@@ -7,3 +7,10 @@ permissions:
   - object: /home/ubuntu/ilp
     owner: ubuntu
     group: ubuntu
+hooks:
+  AfterInstall:
+    location: scripts/install_deps.sh
+    timeout: 180
+  ApplicationStart:
+    location: scripts/restart_services.sh
+    timeout: 180
