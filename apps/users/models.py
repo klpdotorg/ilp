@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 import uuid
 import random
 from rest_framework.authtoken.models import Token
-
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager,
@@ -12,7 +11,7 @@ from django.contrib.auth.models import (
 )
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-# from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse
 from common.utils import send_templated_mail
 from django.contrib.sites.models import Site
 # from django.utils.text import slugify
@@ -99,16 +98,16 @@ class User(AbstractBaseUser):
 
     def send_verification_email(self):
         self.generate_email_token()
-        # url = reverse(
-        #     'user_email_verify') + '?token={token}&email={email}'.format(
-        #     token=email_verification_code,
-        #     email=self.email
-        # )
+        url = reverse(
+            'user_email_verify') + '?token={token}&email={email}'.format(
+            token=self.email_verification_code,
+            email=self.email
+        )
 
         context = {
             'user': self,
             'site_url': Site.objects.get_current().domain,
-            'url': "TODO"
+            'url': url
         }
 
         send_templated_mail(
