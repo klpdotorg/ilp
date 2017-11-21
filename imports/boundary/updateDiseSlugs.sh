@@ -9,7 +9,7 @@ echo "STARTING SCRIPT - UPDATE DISE SLUGS"
 echo "######################"
 dbname="$1";
 echo $1
-psql -U klp -d $dbname -f sql/updatediseslugs.sql
+psql -U klp -d $dbname -f `dirname $0`/sql/updatediseslugs.sql
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     echo "SQL script execution failed with error";

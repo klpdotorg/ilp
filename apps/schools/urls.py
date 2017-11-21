@@ -4,16 +4,19 @@ from django.conf.urls import url
 
 from schools.api_view import (
     InstitutionViewSet, InstitutionCategoryListView,
-    InstitutionManagementListView, InstitutionDemographics
+    InstitutionManagementListView, InstitutionDemographics,
+    InstitutionInfra, InstitutionFinance
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
-    ProgrammeViewSet
+    ProgrammeViewSet, StaffViewSet
 )
 from schools.views import SchoolPageView
 
 nested_router = ExtendedSimpleRouter()
 router = DefaultRouter()
+
+router.register(r'teachers', StaffViewSet, base_name='teacher')
 
 
 # Institution -> StudentGroup -> Students
@@ -84,4 +87,10 @@ urlpatterns = [
                 url(r'^institutions/(?P<pk>[0-9]+)/demographics$',
                     InstitutionDemographics.as_view(),
                     name='inst-demographics'),
+                url(r'^institutions/(?P<pk>[0-9]+)/infrastructure$',
+                    InstitutionInfra.as_view(),
+                    name='inst-infra'),
+                url(r'^institutions/(?P<pk>[0-9]+)/finance$',
+                    InstitutionFinance.as_view(),
+                    name='inst-finance'),
               ] + router.urls + nested_router.urls

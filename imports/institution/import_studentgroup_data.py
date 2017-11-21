@@ -1,5 +1,5 @@
 from os import system,sys
-import os
+import os, inspect
 
 
 if len(sys.argv) != 3:
@@ -7,32 +7,29 @@ if len(sys.argv) != 3:
     sys.exit()
 
 basename = "sg"
-#Before running this script
-#change this to point to the ems database that is used for getting the data
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 fromdatabase = sys.argv[1]
 
-#change this to ilp db to be populated with
 todatabase = sys.argv[2]
 
-inputdatafile = basename+"_getdata.sql"
-loaddatafile = basename+"_loaddata.sql"
+inputdatafile = scriptdir+"/"+basename+"_getdata.sql"
+loaddatafile = scriptdir+"/"+basename+"_loaddata.sql"
 
 tables=[
     {
         'name': 'schools_studentgroup',
         'table_name': 'schools_studentgroup',
         'columns': 'id, name, section, group_type_id, institution_id, status_id',
-        'query': "COPY(select id, name, section, lower(group_type), institution_id, 'AC' from schools_studentgroup where active=2 and institution_id in (select id from schools_institution where active=2)) TO '$PWD/load/schools_studentgroup.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'query': "\COPY (select id, name, section, lower(group_type), institution_id, 'AC' from schools_studentgroup where active=2 and institution_id in (select id from schools_institution where active=2)) TO '"+scriptdir+"/load/schools_studentgroup.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
     }
 ]
 
 #Create directory and files
 def init():
-    if not os.path.exists("load"):
-    	os.makedirs("load")
+    if not os.path.exists(scriptdir+"/load"):
+    	os.makedirs(scriptdir+"/load")
     inputfile = open(inputdatafile,'wb',0)
     loadfile = open(loaddatafile,'wb',0)
-    system("psql -U klp -d "+fromdatabase+" -f cleanems.sql")
 
 
 #Create the getdata.sql and loaddata.sql files
@@ -45,11 +42,11 @@ def create_sqlfiles():
       system('echo "'+table['query']+'\">>'+inputdatafile)
 
       #create the "copy from" file to load data into db
-      filename = os.getcwd()+'/load/'+table['name']+'.csv'
+      filename = scriptdir+'/load/'+table['name']+'.csv'
       open(filename,'wb',0)
       os.chmod(filename,0o666)
 
-      system('echo "COPY '+table['table_name']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+loaddatafile)
+      system('echo "\COPY '+table['table_name']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+loaddatafile)
 
 #Running the "copy to" commands to populate the csvs.
 def getdata():

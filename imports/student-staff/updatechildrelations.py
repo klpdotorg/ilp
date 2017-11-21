@@ -1,9 +1,9 @@
 from os import system,sys
-import os
+import os, inspect
 
 
 if len(sys.argv) != 3:
-    print("Please give database names as arguments. USAGE: python updatechildrelations.py ems ilp", file=sys.stderr)
+    print("Please give database names as arguments. USAGE: python updatechildrelations.py ems ilp")
     sys.exit()
 
 #Before running this script
@@ -14,9 +14,10 @@ fromdatabase = sys.argv[1]
 todatabase = sys.argv[2]
 
 basename = "rel"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
-inputdatafile = basename+"_getdata.sql"
-tempdatafile = basename+"_tempdata.sql"
+inputdatafile =  scriptdir+"/"+basename+"_getdata.sql"
+tempdatafile =  scriptdir+"/"+basename+"_tempdata.sql"
 
 # name stores the name of file where copy is done. temptablename is the name of temporary table that is created.
 # table_name is name of the table that is to be updated.
@@ -31,18 +32,18 @@ tables=[
         'table_name': 'schools_student',
         'tempcolumns': 'stuid integer, mothername text, fathername text',
         'columns': 'stuid, mothername, fathername',
-        'tempquery': "COPY(select stu.id,concat_ws('',trim(r.first_name),' ',trim(r.middle_name),' ',trim(r.last_name)) as mothername, concat_ws('',trim(r1.first_name),' ',trim(r1.middle_name),' ',trim(r1.last_name)) as fathername from schools_student stu left outer join schools_relations r on (stu.child_id=r.child_id and r.relation_type='Mother') left outer join schools_relations r1 on (stu.child_id=r1.child_id and r1.relation_type='Father') where trim(concat_ws('',r.first_name,' ',r.middle_name,' ',r.last_name))!='' or trim(concat_ws('',r1.first_name,' ',r1.middle_name,' ',r1.last_name)) !='') TO '$PWD/load/updaterel.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'tempquery': "\COPY (select stu.id,concat_ws('',trim(r.first_name),' ',trim(r.middle_name),' ',trim(r.last_name)) as mothername, concat_ws('',trim(r1.first_name),' ',trim(r1.middle_name),' ',trim(r1.last_name)) as fathername from schools_student stu left outer join schools_relations r on (stu.child_id=r.child_id and r.relation_type='Mother') left outer join schools_relations r1 on (stu.child_id=r1.child_id and r1.relation_type='Father') where trim(concat_ws('',r.first_name,' ',r.middle_name,' ',r.last_name))!='' or trim(concat_ws('',r1.first_name,' ',r1.middle_name,' ',r1.last_name)) !='') TO '"+scriptdir+"/load/updaterel.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'updatequery': "UPDATE schools_student set mother_name=temp_rel.mothername, father_name=temp_rel.fathername from temp_rel where id=temp_rel.stuid;"
     }
 ]
 
 #Create directory and files
 def init():
-    if not os.path.exists("load"):
-    	os.makedirs("load")
+    if not os.path.exists(scriptdir+"/load"):
+    	os.makedirs(scriptdir+"/load")
     inputfile = open(inputdatafile,'wb',0)
     tempfile = open(tempdatafile,'wb',0)
-    system('psql -U klp -d '+fromdatabase+' -f cleanems.sql')
+    system('psql -U klp -d '+fromdatabase+' -f '+scriptdir+'/cleanems.sql')
 
 
 #Create the getdata.sql and loaddata.sql files
@@ -55,13 +56,13 @@ def create_sqlfiles():
         system('echo "'+table['tempquery']+'\">>'+inputdatafile)
 
         #create the file where the data will be written into
-        filename = os.getcwd()+'/load/'+table['name']+'.csv'
+        filename = scriptdir+'/load/'+table['name']+'.csv'
         open(filename,'wb',0)
         os.chmod(filename,0o666)
 
         #write commands for creating temp table and copying data into it
         system('echo "CREATE TEMP TABLE '+table['temptablename']+'('+table['tempcolumns']+');"'+'>>'+tempdatafile)
-        system('echo "COPY '+table['temptablename']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+tempdatafile)
+        system('echo "\COPY '+table['temptablename']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+tempdatafile)
 
         #get data from temp table and fill only for students present in the db
         system('echo "'+table['updatequery']+'">>'+tempdatafile)

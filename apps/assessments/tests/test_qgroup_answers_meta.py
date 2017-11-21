@@ -27,6 +27,5 @@ class QGroupAnsMetaTestAPI(APITestCase):
         response = self.client.get(url, {'state': 'ka'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('Parents', response.data['respondents'])
         self.assertEqual(response.data['total']['stories'],
                          len(ANSWERGROUP_INSTITUTION_IDS))

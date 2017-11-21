@@ -81,9 +81,9 @@
                     return klp.api.do(schoolInfoURL + '/finance');
                 },
                 getContext: function(data) {
-                    data.sg_amount = data.sg_amount ? data.sg_amount : 0;
+                    data.sg_amount = data.sg_recd_dise ? data.sg_recd_dise : 0;
                     data.smg_amount = data.smg_amount ? data.smg_amount : 0;
-                    data.tlm_amount = data.tlm_amount ? data.tlm_amount : 0;
+                    data.tlm_amount = data.tlm_recd_dise ? data.tlm_recd_diset : 0;
                     data.total_amount = data.sg_amount + data.smg_amount + data.tlm_amount;
                     data.type_name = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
                     return data;
@@ -101,7 +101,7 @@
             },
             'infrastructure': {
                 getData: function() {
-                    if (SCHOOL_TYPE_ID === 2) { //is a preschool
+                    if (SCHOOL_TYPE_ID === "pre") { //is a preschool
                         return klp.api.do(schoolInfoURL + '/infrastructure');
                     }
                     //for primary schools, fetch infra data from DISE
@@ -117,7 +117,7 @@
                 },
                 getContext: function(data) {
                     data.type_name = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
-                    if (SCHOOL_TYPE_ID === 1) {
+                    if (SCHOOL_TYPE_ID === "primary") {
                         if (data.hasOwnProperty('properties')) {
                             data = data.properties;
                             data.facilities = klp.dise_infra.getFacilitiesData(data);
@@ -128,95 +128,95 @@
                     return data;
                 }
             },
-            'library': {
-                getData: function() {
-                    var $deferred = $.Deferred();
-                    var $klpXHR = klp.api.do(schoolInfoURL + "/library");
-                    $klpXHR.done(function(data) {
-                        var $diseXHR = klp.dise_api.fetchSchoolInfra(DISE_CODE);
-                        $diseXHR.done(function(diseData)  {
-                            data.dise_books = diseData.properties.books_in_library;
-                            $deferred.resolve(data);
-                        });
-                        $diseXHR.fail(function(err) {
-                            $deferred.resolve(data);
-                        });
-                    });
-                    return $deferred;
-                },
+        //    'library': {
+        //         getData: function() {
+        //             var $deferred = $.Deferred();
+        //             var $klpXHR = klp.api.do(schoolInfoURL + "/library");
+        //             $klpXHR.done(function(data) {
+        //                 var $diseXHR = klp.dise_api.fetchSchoolInfra(DISE_CODE);
+        //                 $diseXHR.done(function(diseData)  {
+        //                     data.dise_books = diseData.properties.books_in_library;
+        //                     $deferred.resolve(data);
+        //                 });
+        //                 $diseXHR.fail(function(err) {
+        //                     $deferred.resolve(data);
+        //                 });
+        //             });
+        //             return $deferred;
+        //         },
 
-                getContext: function(data) {
-                    // Step 0: Check if library data exists.
-                    data.years = [];
-                    data.klasses = [];
-                    data.lib_borrow_agg.forEach(function (element, index) {
-                        data.years.push(element.trans_year);
-                        data.klasses.push(element.class_name);
-                    });
-                    _.each(data.lib_lang_agg, function(element, index) {
-                        element.forEach(function(element, index) {
-                            data.years.push(element.year);
-                            data.klasses.push(element.class_name);
-                        });
-                    });
-                    _.each(data.lib_level_agg, function(element, index) {
-                        element.forEach(function(element, index) {
-                            data.years.push(element.year);
-                            data.klasses.push(element.class_name);
-                        });
-                    });
+        //         getContext: function(data) {
+        //             // Step 0: Check if library data exists.
+        //             data.years = [];
+        //             data.klasses = [];
+        //             data.lib_borrow_agg.forEach(function (element, index) {
+        //                 data.years.push(element.trans_year);
+        //                 data.klasses.push(element.class_name);
+        //             });
+        //             _.each(data.lib_lang_agg, function(element, index) {
+        //                 element.forEach(function(element, index) {
+        //                     data.years.push(element.year);
+        //                     data.klasses.push(element.class_name);
+        //                 });
+        //             });
+        //             _.each(data.lib_level_agg, function(element, index) {
+        //                 element.forEach(function(element, index) {
+        //                     data.years.push(element.year);
+        //                     data.klasses.push(element.class_name);
+        //                 });
+        //             });
 
-                    // Step 1: Array of years.
-                    data.years = _.uniq(data.years).sort();
+        //             // Step 1: Array of years.
+        //             data.years = _.uniq(data.years).sort();
 
-                    // Step 2: Array of classes.
-                    data.klasses = _.uniq(_.map(data.klasses, function (klass) {
-                        return String(klass);
-                    })).sort();
+        //             // Step 2: Array of classes.
+        //             data.klasses = _.uniq(_.map(data.klasses, function (klass) {
+        //                 return String(klass);
+        //             })).sort();
 
-                    // Step 2.1: Remove unfortunate null values from the klass array.
-                    data.klasses = _.without(data.klasses, 'null');
+        //             // Step 2.1: Remove unfortunate null values from the klass array.
+        //             data.klasses = _.without(data.klasses, 'null');
 
-                    // Step 3: Array of levels.
-                    data.levels = _.keys(data.lib_level_agg);
+        //             // Step 3: Array of levels.
+        //             data.levels = _.keys(data.lib_level_agg);
 
-                    // Step 4: Array of languages.
-                    data.languages = _.keys(data.lib_lang_agg);
+        //             // Step 4: Array of languages.
+        //             data.languages = _.keys(data.lib_lang_agg);
 
-                    data.aggregate = ['aggregate']
-                    // console.log('years', data.years);
-                    // console.log('klasses', data.klasses);
-                    // console.log('levels', data.levels);
-                    // console.log('languages', data.languages);
-                    data.type_name = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
-                    return data;
-                },
-                onRender: function(data) {
-                    if (data.years.length === 0 || data.klasses.length === 0 || data.levels.length === 0) {
-                        //FIXME: If no levels, still show chart, just hide level drop-down
-                        $(".options-wrapper").addClass('hide');
-                        $("#graph_library").addClass('hide');
-                        $('.no-data').removeClass('hide');
-                        return;
-                    }
-                    var $selectLibraryParam = $("#select_library_browse");
-                    var $selectLibraryYear = $("#select_library_year");
-                    var $selectLibraryClass = $("#select_library_class");
+        //             data.aggregate = ['aggregate']
+        //             // console.log('years', data.years);
+        //             // console.log('klasses', data.klasses);
+        //             // console.log('levels', data.levels);
+        //             // console.log('languages', data.languages);
+        //             data.type_name = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
+        //             return data;
+        //         },
+        //         onRender: function(data) {
+        //             if (data.years.length === 0 || data.klasses.length === 0 || data.levels.length === 0) {
+        //                 //FIXME: If no levels, still show chart, just hide level drop-down
+        //                 $(".options-wrapper").addClass('hide');
+        //                 $("#graph_library").addClass('hide');
+        //                 $('.no-data').removeClass('hide');
+        //                 return;
+        //             }
+        //             var $selectLibraryParam = $("#select_library_browse");
+        //             var $selectLibraryYear = $("#select_library_year");
+        //             var $selectLibraryClass = $("#select_library_class");
 
-                    $selectLibraryParam.on('change', drawChart);
-                    $selectLibraryYear.on('change', drawChart);
-                    $selectLibraryClass.on('change', drawChart);
+        //             $selectLibraryParam.on('change', drawChart);
+        //             $selectLibraryYear.on('change', drawChart);
+        //             $selectLibraryClass.on('change', drawChart);
 
-                    function drawChart() {
-                        var libraryParam = $selectLibraryParam.val();
-                        var libraryYear = $selectLibraryYear.val();
-                        var libraryClass = $selectLibraryClass.val();
-                        $('#graph_library').libraryChart(data, {'parameter': libraryParam, 'year': libraryYear, 'klass': libraryClass});
-                    }
+        //             function drawChart() {
+        //                 var libraryParam = $selectLibraryParam.val();
+        //                 var libraryYear = $selectLibraryYear.val();
+        //                 var libraryClass = $selectLibraryClass.val();
+        //                 $('#graph_library').libraryChart(data, {'parameter': libraryParam, 'year': libraryYear, 'klass': libraryClass});
+        //             }
 
-                    drawChart();
-                }
-            },
+        //             drawChart();
+        //         }
+        //     },
             'nutrition': {
                 getData: function() {
                     return klp.api.do(schoolInfoURL + '/nutrition');
@@ -394,18 +394,18 @@
                     });
                 }
             },
-            'volunteer': {
-                getData: function() {
-                    var url = "volunteer_activities";
-                    var params = {
-                        school: SCHOOL_ID
-                    };
-                    return klp.api.do(url, params);
-                },
-                onRender: function(data) {
-                    klp.volunteer_here.checkSelf(data.features);
-                }
-            }
+            // 'volunteer': {
+            //     getData: function() {
+            //         var url = "volunteer_activities";
+            //         var params = {
+            //             school: SCHOOL_ID
+            //         };
+            //         return klp.api.do(url, params);
+            //     },
+            //     onRender: function(data) {
+            //         klp.volunteer_here.checkSelf(data.features);
+            //     }
+            // }
 
         };
 

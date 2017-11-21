@@ -1,5 +1,5 @@
 from os import system, sys
-import os
+import os, inspect
 
 
 if len(sys.argv) != 3:
@@ -11,13 +11,14 @@ fromdatabase = sys.argv[1]
 todatabase = sys.argv[2]
 
 basename = "anginfra"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 dbs = []
 
 tables = [
     {
         'name': 'temp_anginfra',
         'db': fromdatabase,
-        'query': "COPY(select sid, ai_metric, perc_score, ai_group, value from tb_ang_infra_agg agg, tb_display_master master where agg.ai_metric=master.key) TO '$PWD/load/replacename.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;"
+        'query': "\COPY (select sid, ai_metric, perc_score, ai_group, value from tb_ang_infra_agg agg, tb_display_master master where agg.ai_metric=master.key) TO '"+scriptdir+"/load/replacename.csv' NULL 'null' DELIMITER ',' quote '\\\"' csv;"
     },
     {
         'name': 'temp_anginfra',
@@ -27,12 +28,12 @@ tables = [
     {
         'name': 'temp_anginfra',
         'db': todatabase,
-        'query': "COPY replacetable(sid, ai_metric, perc_score, ai_group, description) from '$PWD/load/replacename.csv' with csv NULL 'null';"
+        'query': "\COPY replacetable(sid, ai_metric, perc_score, ai_group, description) from '"+scriptdir+"/load/replacename.csv' with csv NULL 'null';"
     },
     {
         'name': 'assessments_survey',
         'db': todatabase,
-        'query': "insert into replacetable(id, name,created_at,partner_id,status_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA');"
+        'query': "insert into replacetable(id, name,created_at,partner_id,status_id, admin0_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA', 2);"
     },
     {
         # Setting id as 30
@@ -43,12 +44,7 @@ tables = [
     {
         'name': 'assessments_question',
         'db': todatabase,
-        'query': "ALTER SEQUENCE assessments_question_id_seq RESTART WITH 1; insert into replacetable(question_text, display_text, key, is_featured, status_id) select distinct  ai_metric, description, ai_group, true, 'IA' from temp_anginfra;"
-    },
-    {
-        'name': 'assessments_questiongroup_questions',
-        'db': todatabase,
-        'query': "insert into replacetable(sequence, question_id, questiongroup_id) select row_number() over(), id, 30 from assessments_question;"
+        'query': "insert into replacetable(question_text, display_text, key, is_featured, status_id) select distinct  ai_metric, description, ai_group, true, 'IA' from temp_anginfra;"
     },
     {
         'name': 'assessments_answergroup_institution',
@@ -59,14 +55,19 @@ tables = [
         'name': 'assessments_answerinstitution',
         'db': todatabase,
         'query': "insert into replacetable(answergroup_id, answer, question_id) select answergroup.id, perc_score,(select id from assessments_question where question_text=ai_metric) from temp_anginfra, schools_institution s, assessments_answergroup_institution answergroup where temp_anginfra.sid=s.id and temp_anginfra.sid=answergroup.institution_id;"
+    },
+    {
+        'name': 'assessments_questiongroup_questions',
+        'db': todatabase,
+        'query': "insert into replacetable(question_id, questiongroup_id) select distinct ans.question_id,30 from assessments_answerinstitution ans, assessments_answergroup_institution ansgroup where ans.answergroup_id=ansgroup.id and ansgroup.questiongroup_id=30;"
     }
 ]
 
 
 # Create directory and files
 def init():
-    if not os.path.exists("load"):
-        os.makedirs("load")
+    if not os.path.exists(scriptdir+"/load"):
+        os.makedirs(scriptdir+"/load")
 
 
 def create_sql_files():
@@ -74,20 +75,21 @@ def create_sql_files():
     for table in tables:
         if table["db"] not in dbs:
             dbs.append(table["db"])
-            system('>'+basename+'_'+table['db']+'_query.sql')
-        filename = os.getcwd()+'/load/'+table['name']+'.csv'
+	    queryfile = scriptdir+'/'+basename+'_'+table['db']+'_query.sql'
+            open(queryfile, 'wb', 0)
+        filename = scriptdir+'/load/'+table['name']+'.csv'
         open(filename, 'wb', 0)
         os.chmod(filename, 0o666)
-        command = 'echo "'+table["query"].replace('replacetable', table["name"]).replace('replacename', table["name"])+'">>'+basename+'_'+table['db']+'_query.sql'
+        command = 'echo "'+table["query"].replace('replacetable', table["name"]).replace('replacename', table["name"])+'">>'+queryfile
         system(command)
 
 
 def loaddata():
     for db in dbs:
-        system('psql -U klp -d '+db+' -f '+basename+'_'+db+'_query.sql')
+        system('psql -U klp -d '+db+' -f '+scriptdir+'/'+basename+'_'+db+'_query.sql')
 
 
 # order in which function should be called.
 init()
 create_sql_files()
-loaddata()
+#loaddata()

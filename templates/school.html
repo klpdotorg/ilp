@@ -20,7 +20,7 @@
   SCHOOL_ID = {{ object.id }};
   SCHOOL_TYPE_ID = "{{ object.institution_type_id }}";
   {% if object.dise_id %}
-    DISE_CODE = {{ object.dise_id }};
+    DISE_CODE = {{ object.dise.school_code }};
   {% else %}
     DISE_CODE = null;
   {% endif %}
@@ -64,12 +64,12 @@
       <div data-tab="finances" class="js-tab-link tab-heading">Finances</div>
       {% endif %}
       <div data-tab="infrastructure" class="js-tab-link tab-heading">Infrastructure</div>
-      {% if object.institution_type_id == "primary" %}
-      <div data-tab="library" class="js-tab-link tab-heading">Library</div>
+      <!--{% if object.institution_type_id == "primary" %}
+      <div data-tab="library" class="js-tab-link tab-heading">Library</div>-->
       <div data-tab="nutrition" class="js-tab-link tab-heading">Nutrition</div>
       {% endif %}
       <div data-tab="share-story" class="js-tab-link tab-heading">Share your story</div>
-      <div data-tab="volunteer" class="js-tab-link tab-heading">Volunteer</div>
+     <!-- <div data-tab="volunteer" class="js-tab-link tab-heading">Volunteer</div>-->
     </div> <!-- /tab-wrap-widescreen -->
 
     <div class="tab-each">
@@ -114,15 +114,14 @@
       </div>
       <!-- Infrastructure Tab END -->
     </div>
-    {% if object.institution_type_id == "primary" %}
+   <!-- {% if object.institution_type_id == "primary" %}
     <div class="tab-each">
       <div class="tab-content" data-tab="library">
         <div class="container">
           Loading...
         </div>
       </div>
-      <!-- Library Tab END -->
-    </div>
+    </div> Library Tab END -->
     <div class="tab-each">
       <div class="tab-content" data-tab="nutrition">
         <div class="container">
@@ -140,14 +139,16 @@
       </div>
       <!-- Share your story Tab END -->
     </div>
+    <!--
     <div class="tab-each">
       <div class="tab-content" data-tab="volunteer">
         <div class="container">
           Loading...
         </div>
       </div>
+      </div> -->
       <!-- Share your story Tab END -->
-    </div>
+    
 
   </div> <!-- /tab-wrap -->
 </section>

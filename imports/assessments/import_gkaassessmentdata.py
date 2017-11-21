@@ -1,6 +1,7 @@
 from os import sys
 import psycopg2
 import datetime
+import os, inspect
 
 if len(sys.argv) != 3:
     print("Please give database names as arguments. USAGE: " +
@@ -12,8 +13,9 @@ fromdatabase = sys.argv[1]
 todatabase = sys.argv[2]
 
 basename = "gkaassessment"
-inputsqlfile = basename+"_getdata.sql"
-loadsqlfile = basename+"_loaddata.sql"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+inputsqlfile = scriptdir+"/"+basename+"_getdata.sql"
+loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 
 fromconnectionstring = "dbname=%s user=klp" % fromdatabase
 fromconn = psycopg2.connect(fromconnectionstring)

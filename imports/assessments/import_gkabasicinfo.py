@@ -1,6 +1,7 @@
 from os import sys
 import csv
 import psycopg2
+import os, inspect
 
 if len(sys.argv) != 2:
     print("Please give database name as arguments. USAGE: " +
@@ -11,14 +12,15 @@ questionfile = 'EkStepQuestions.csv'
 todatabase = sys.argv[1]
 
 basename = "gka"
-inputsqlfile = basename+"_getdata.sql"
-loadsqlfile = basename+"_loaddata.sql"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+inputsqlfile = scriptdir+"/"+basename+"_getdata.sql"
+loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 
 
 connectionstring = "dbname=%s user=klp" % todatabase
 conn = psycopg2.connect(connectionstring)
 cursor = conn.cursor()
-f = open(questionfile, 'r')
+f = open(scriptdir+"/"+questionfile, 'r')
 csv_f = csv.reader(f)
 
 question_featured = True
@@ -42,8 +44,8 @@ questiongroup = {'do_30048087': {'text': 'Class 4 and 5', 'year': '1617',
                                                 'status': 'AC', 'options': '{0,1}'}}
 
 
-sqlinsert = "insert into assessments_survey (id, name, created_at, status_id) values(%s, %s, %s, %s);"
-cursor.execute(sqlinsert, (3, 'Ganitha Kalika Andolana', '2016-05-19', 'AC'))
+sqlinsert = "insert into assessments_survey (id, name, created_at, status_id, admin0_id) values(%s, %s, %s, %s, %s);"
+cursor.execute(sqlinsert, (3, 'Ganitha Kalika Andolana', '2016-05-19', 'AC', 2))
 
 count = 0
 for row in csv_f:
@@ -56,8 +58,6 @@ for row in csv_f:
     question_key = row[2]
     question_displaytext = row[3]
 
-    print(question_text)
-    print("select id from assessments_question where question_text=", question_text)
     sqlselect = "select id from assessments_question where question_text=%s;"
     cursor.execute(sqlselect, [question_text])
     if cursor.rowcount > 0:

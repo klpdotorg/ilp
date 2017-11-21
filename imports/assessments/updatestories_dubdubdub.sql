@@ -1,4 +1,4 @@
-COPY stories_survey(id,created_at, updated_at,name,partner_id) FROM '/Users/shivangidesai/Akshara/ilp/imports/assessments/stories_survey.csv' with csv NULL 'null';
+\COPY stories_survey(id,created_at, updated_at,name,partner_id) FROM 'stories_survey.csv' with csv NULL 'null';
 update stories_questiongroup set survey_id=5 where id in (1,6);
 update stories_questiongroup set survey_id=6 where id=2;
 update stories_questiongroup set survey_id=1 where id in (3,4,7,9);

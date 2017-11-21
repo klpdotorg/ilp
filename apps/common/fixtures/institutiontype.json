@@ -12,5 +12,12 @@
             "char_id": "primary",
             "name": "Primary School"
         }
+    },
+    {
+        "model": "common.InstitutionType",
+        "fields":{
+            "char_id": "both",
+            "name": "Both"
+        }
     }
 ]

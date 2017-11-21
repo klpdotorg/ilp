@@ -1,5 +1,5 @@
 from os import system,sys
-import os
+import os, inspect
 
 #SSA coords file is expected to have 3 columns in the order:- dise code, latitude and longitude
 if len(sys.argv) != 3:
@@ -7,13 +7,13 @@ if len(sys.argv) != 3:
     sys.exit()
 
 
-#Before running this script
+basename = "instcoord"
+scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
 fromfile = sys.argv[1]
 todatabase = sys.argv[2]
 
-basename = "instcoord"
-
-tempdatafile = basename+"_tempdata.sql"
+tempdatafile = scriptdir+"/"+basename+"_tempdata.sql"
 
 tables=[
         {
@@ -28,8 +28,8 @@ tables=[
 
 #Create directory and files
 def init():
-    if not os.path.exists("load"):
-    	os.makedirs("load")
+    if not os.path.exists(scriptdir+"/load"):
+    	os.makedirs(scriptdir+"/load")
     tempfile=open(tempdatafile,'wb',0)
 
 
@@ -44,7 +44,7 @@ def create_sqlfiles():
         system('echo "CREATE TEMP TABLE '+table['temptablename']+'('+table['createcolumns']+');"'+'>>'+tempdatafile)
 
         #create sql file to copy into the temp table and then update
-        system('echo "COPY '+table['temptablename']+"("+table['columns']+") from '"+fromfile+"' with csv NULL 'null';"+'\">>'+tempdatafile)
+        system('echo "\COPY '+table['temptablename']+"("+table['columns']+") from '"+fromfile+"' with csv NULL 'null';"+'\">>'+tempdatafile)
         system('echo "'+table['update_query']+'">>'+tempdatafile)
 
 
