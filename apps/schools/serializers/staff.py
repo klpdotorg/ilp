@@ -7,6 +7,7 @@ class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
         fields = (
-            'id','first_name', 'middle_name', 'last_name', 'institution',
-            'doj', 'gender', 'mt', 'status', 'uid'
+            'id', 'first_name', 'middle_name', 'last_name',
+            'institution', 'doj', 'gender', 'mt', 'staff_type',
+            'status', 'uid'
         )
