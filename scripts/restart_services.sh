@@ -1,4 +1,4 @@
 #!/bin/bash
 
-systemctl restart ilp.service
-systemctl restart nginx.service
+systemctl restart ilp.service || exit 1
+systemctl restart nginx.service || exit 1

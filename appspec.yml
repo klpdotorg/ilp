@@ -2,11 +2,11 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/ilp
+    destination: /home/ubuntu/ilp_deploy
 permissions:
-  - object: /home/ubuntu/ilp
+  - object: /home/ubuntu/ilp_deploy
     owner: ubuntu
-    group: ubuntu
+    group: www-data
 hooks:
   AfterInstall:
     - location: scripts/install_deps.sh
