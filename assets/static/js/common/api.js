@@ -101,7 +101,7 @@
             Login
          */
         'login': function(data) {
-            var url = base + 'users/login';
+            var url = base + 'users/login/';
             var $xhr = $.ajax({
                 url: url,
                 data: data,

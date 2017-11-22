@@ -2,7 +2,8 @@ from django.conf.urls import url
 
 from .views import (
     UserRegisterView,
-    UserLoginView
+    UserLoginView,
+    UserProfileView
 )
 
 urlpatterns = [
@@ -16,4 +17,6 @@ urlpatterns = [
         UserLoginView.as_view(),
         name='user-login'
     ),
+
+    url('^users/profile', UserProfileView.as_view(), name='api_user_profile'),
 ]
