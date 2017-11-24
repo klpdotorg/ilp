@@ -8,6 +8,9 @@ permissions:
     owner: ubuntu
     group: www-data
 hooks:
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      timeout: 180
   AfterInstall:
     - location: scripts/install_deps.sh
       timeout: 180
