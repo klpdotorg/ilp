@@ -12,9 +12,9 @@ hooks:
     - location: scripts/before_install.sh
       timeout: 180
   AfterInstall:
-    - location: scripts/install_deps.sh
+    - location: scripts/after_install.sh
       timeout: 180
       runas: ubuntu
   ApplicationStart:
-    - location: scripts/restart_services.sh
+    - location: scripts/application_start.sh
       timeout: 180
