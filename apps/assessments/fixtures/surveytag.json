@@ -12,5 +12,13 @@
             "char_id": "community",
             "description": "Community"
         }
+    },
+    {
+        "model": "assessments.SurveyTag",
+        "fields":{
+            "char_id": "infra",
+            "description": "Infrastructure"
+        }
     }
+
 ]
