@@ -91,7 +91,7 @@ class AnswerStudent(models.Model):
 
 class InstitutionImages(models.Model):
     """Images associated stories"""
-    reponseid = models.ForeignKey("AnswerInstitution")
+    answergroup = models.ForeignKey("AnswerGroup_Institution")
     image = models.CharField(max_length=100)
     is_verified = models.BooleanField(default=False)
     filename = models.CharField(max_length=300)
