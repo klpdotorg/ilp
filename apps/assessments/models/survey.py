@@ -29,6 +29,12 @@ class DisplayType(models.Model):
     description = models.CharField(max_length=50)
 
 
+class SurveyTag(models.Model):
+    """Tags to be used to group the Surveys"""
+    char_id = models.CharField(max_length=20, primary_key=True)
+    description = models.CharField(max_length=50)
+
+
 class Survey(models.Model):
     """Survey/Programme"""
     name = models.CharField(max_length=100)
@@ -41,6 +47,14 @@ class Survey(models.Model):
 
     class Meta:
         ordering = ['name', ]
+
+class SurveyTagMapping(models.Model):
+    """Association a tag with a survey"""
+    survey = models.ForeignKey('Survey')
+    tag = models.ForeignKey('SurveyTag')
+
+    class Meta:
+        unique_together = (('survey', 'tag'), )
 
 
 class QuestionGroup(models.Model):
