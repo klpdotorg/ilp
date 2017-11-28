@@ -49,12 +49,6 @@ echo "Populating spatial data"
 python spatial/updatespatialdata.py spatial $ilp 
 echo "Spatial done"
 
-#Populate aggregates
-echo "Running aggregates"
-psql -U klp -d $ilp -f aggregates/materialized_views.sql 
-psql -U klp -d $ilp -f aggregates/assessment_materialized_views.sql 
-echo "Aggregates Done"
-
 #Populate assessments
 echo "Running Assessments"
 #Import SYS data
@@ -88,5 +82,15 @@ python assessments/import_gkaassessmentdata.py dubdubdub $ilp
 #Import Anganwadi Infrastructure Data:
 python assessments/import_anganwadi_infra.py ang_infra $ilp
 
+#insert survey to surveytag mapping
 psql -U klp -d $ilp -f assessments/insert_survey_tag_mapping.sql
+
+#Mapping institutions to survey tags
+psql -U klp -d $ilp -f assessments/insert_surveytag_institution_mapping.sql
 echo "Assessments Done"
+
+#Populate aggregates
+echo "Running aggregates"
+psql -U klp -d $ilp -f aggregates/materialized_views.sql 
+psql -U klp -d $ilp -f aggregates/assessment_materialized_views.sql 
+echo "Aggregates Done"
