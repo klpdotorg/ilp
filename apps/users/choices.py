@@ -11,6 +11,7 @@ EDUCATED_YOUTH = "EY"
 EDUCATION_OFFICIAL = "EO"
 ELECTED_REPRESENTATIVE = "ER"
 GOVT_OFFICIAL = "GO"
+CRP = "CRP"
 
 USER_TYPE_CHOICES = (
     (PARENTS, 'Parents'),
@@ -26,4 +27,5 @@ USER_TYPE_CHOICES = (
     (EDUCATION_OFFICIAL, 'Education_Official'),
     (ELECTED_REPRESENTATIVE, 'Elected_Representative'),
     (GOVT_OFFICIAL, 'Government Official'),
+    (CRP, 'CRP'),
 )

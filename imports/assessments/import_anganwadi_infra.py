@@ -92,4 +92,4 @@ def loaddata():
 # order in which function should be called.
 init()
 create_sql_files()
-#loaddata()
+loaddata()
