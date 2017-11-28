@@ -1,0 +1,24 @@
+[
+    {
+        "model": "assessments.SurveyTag",
+        "fields":{
+            "char_id": "gka",
+            "description": "GKA"
+        }
+    },
+    {
+        "model": "assessments.SurveyTag",
+        "fields":{
+            "char_id": "community",
+            "description": "Community"
+        }
+    },
+    {
+        "model": "assessments.SurveyTag",
+        "fields":{
+            "char_id": "infra",
+            "description": "Infrastructure"
+        }
+    }
+
+]

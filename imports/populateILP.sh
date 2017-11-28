@@ -52,6 +52,7 @@ echo "Spatial done"
 #Populate aggregates
 echo "Running aggregates"
 psql -U klp -d $ilp -f aggregates/materialized_views.sql 
+psql -U klp -d $ilp -f aggregates/assessment_materialized_views.sql 
 echo "Aggregates Done"
 
 #Populate assessments
@@ -86,4 +87,6 @@ python assessments/import_gkaassessmentdata.py dubdubdub $ilp
 
 #Import Anganwadi Infrastructure Data:
 python assessments/import_anganwadi_infra.py ang_infra $ilp
+
+psql -U klp -d $ilp -f assessments/insert_survey_tag_mapping.sql
 echo "Assessments Done"
