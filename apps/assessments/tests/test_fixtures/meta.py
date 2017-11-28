@@ -11,3 +11,6 @@ ANSWERGROUP_INSTITUTION_IDS = [
 
 # to dump data of QuestionGroup_Questions; filtered by questiongroup_id 20.
 # ./manage.py dump_object assessments.QuestionGroup_Questions --query '{"questiongroup_id": 20}' > qgroup_questions.json
+
+# to dump data of Survey.
+# ./manage.py dump_object assessments.survey --query '{"id__in": [2, 3, 7, 6, 5]}' > surveys.json

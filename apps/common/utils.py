@@ -1,5 +1,9 @@
 import datetime
+
 from django.utils import timezone
+from django.template import Context
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
 
 
 class Date(object):
@@ -37,3 +41,15 @@ class Date(object):
 
     def is_year_correct(self, year):
         return (len(year) == 4 and int(year) <= timezone.now().year)
+
+
+def send_templated_mail(
+        from_email, to_emails, subject, template_name, context=None):
+    """ Sends html/text email with content rendered from a template """
+    plaintext = get_template('email_templates/{}.txt'.format(template_name))
+    html = get_template('email_templates/{}.html'.format(template_name))
+    text_content = plaintext.render(context)
+    html_content = html.render(context)
+    msg = EmailMultiAlternatives(subject, text_content, from_email, to_emails)
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

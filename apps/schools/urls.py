@@ -9,12 +9,14 @@ from schools.api_view import (
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
-    ProgrammeViewSet
+    ProgrammeViewSet, StaffViewSet
 )
 from schools.views import SchoolPageView
 
 nested_router = ExtendedSimpleRouter()
 router = DefaultRouter()
+
+router.register(r'teachers', StaffViewSet, base_name='teacher')
 
 
 # Institution -> StudentGroup -> Students

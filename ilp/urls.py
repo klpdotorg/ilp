@@ -2,10 +2,18 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 from rest_framework_swagger.views import get_swagger_view
+
 from common.views import StaticPageView, BlogFeedView
-from schools.views import ( 
+from schools.views import (
     AdvancedMapView, BoundaryPageView,
-    NewBoundaryPageView, SchoolPageView)
+    NewBoundaryPageView, SchoolPageView
+)
+from users.views import (
+    EmailVerificationView,
+    ProfilePageView,
+    ProfileEditPageView
+)
+
 
 api_docs_view = get_swagger_view(title='ILP API')
 
@@ -13,11 +21,21 @@ api_docs_view = get_swagger_view(title='ILP API')
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    # Static views (pages)
-    # home page
+    # Home page
     url(r'^$', StaticPageView.as_view(
         template_name='home.html',
     ), name='home'),
+
+    # Users/Auth related pages
+
+    url(r'^users/verify_email',
+        EmailVerificationView.as_view(), name='user_email_verify'),
+
+    url(r'^profile/(?P<pk>[0-9]+)/$',
+        ProfilePageView.as_view(), name='profile_page'),
+
+    url(r'^profile/(?P<pk>[0-9]+)/edit$',
+        ProfileEditPageView.as_view(), name='profile_edit_page'),
 
     # Map
     url(r'^map/$', StaticPageView.as_view(
@@ -28,7 +46,6 @@ urlpatterns = [
         name='map'),
 
     url(r'^advanced-map/$', AdvancedMapView.as_view(), name='advanced_map'),
-
 
     # Data page
     url(r'^data/$', StaticPageView.as_view(
