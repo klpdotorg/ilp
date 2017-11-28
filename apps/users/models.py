@@ -22,7 +22,7 @@ from .choices import USER_TYPE_CHOICES
 
 class UserManager(BaseUserManager):
     def create(self, email, password=None, **extra_fields):
-        print ('CALLED')
+
         if not email:
             raise ValueError('Users must have an email address')
 
