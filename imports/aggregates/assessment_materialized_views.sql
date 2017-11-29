@@ -70,7 +70,7 @@ WHERE
 GROUP BY survey.id,
     surveytag.tag_id,
     year_month,
-    qg.inst_type_id;
+    qg.inst_type_id
 union 
 SELECT format('A%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.inst_type_id,to_char(ag.date_of_visit,'YYYY-MM')) as id,
     survey.id as survey_id,
@@ -93,7 +93,7 @@ WHERE
     and survey.id in (3)
     and ag.student_id = stu.id
     and surveytag.tag_id = st_instmap.tag_id
-    and stu.instituion_id = st_instmap.institution_id
+    and stu.institution_id = st_instmap.institution_id
 GROUP BY survey.id,
     surveytag.tag_id,
     year_month,
