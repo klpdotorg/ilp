@@ -596,3 +596,77 @@ GROUP BY survey.id,
     qg.source_id,
     q.key;
 
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_gender_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_class_gender_agg AS
+SELECT format('A%s_%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.source_id,sg.name,stu.gender_id) as id,
+    survey.id as survey_id,
+    surveytag.tag_id as survey_tag,
+    qg.source_id as source,
+    to_char(ag.date_of_visit,'YYYY-MM') as year_month,
+    sg.name as sg_name,
+    stu.gender_id as gender,
+    count(ag) as num_assessments,
+    count(ag) as num_correct_assessments
+FROM assessments_survey survey,
+    assessments_questiongroup as qg,
+    assessments_answergroup_student as ag,
+    assessments_surveytagmapping as surveytag,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg
+WHERE 
+    survey.id = qg.survey_id
+    and qg.id = ag.questiongroup_id
+    and survey.id = surveytag.survey_id
+    and survey.id in (3)
+    and ag.student_id = stu.id
+    and stu.id = stusg.student_id
+    and stusg.student_group_id = sg.id
+    and stusg.academic_year_id = case when to_char(ag.date_of_visit,'MM')::int >5 then to_char(ag.date_of_visit,'YY')||to_char(ag.date_of_visit,'YY')::int+1 else to_char(ag.date_of_visit,'YY')::int-1||to_char(ag.date_of_visit,'YY') end
+GROUP BY survey.id,
+    surveytag.tag_id,
+    year_month,
+    qg.source_id,
+    sg.name,
+    stu.gender_id;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_ans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_class_ans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.source_id,sg.name,ans.question_id,ans.answer) as id,
+    survey.id as survey_id,
+    surveytag.tag_id as survey_tag,
+    qg.source_id as source,
+    to_char(ag.date_of_visit,'YYYY-MM') as year_month,
+    sg.name as sg_name,
+    ans.question_id as question_id,
+    ans.answer as answer_option,
+    count(ans) as num_answers
+FROM assessments_survey survey,
+    assessments_questiongroup as qg,
+    assessments_answergroup_student as ag,
+    assessments_answerstudent ans,
+    assessments_surveytagmapping as surveytag,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg
+WHERE 
+    survey.id = qg.survey_id
+    and qg.id = ag.questiongroup_id
+    and ag.id = ans.answergroup_id
+    and survey.id = surveytag.survey_id
+    and survey.id in (3)
+    and ag.student_id = stu.id
+    and stu.id = stusg.student_id
+    and stusg.student_group_id = sg.id
+    and stusg.academic_year_id = case when to_char(ag.date_of_visit,'MM')::int >5 then to_char(ag.date_of_visit,'YY')||to_char(ag.date_of_visit,'YY')::int+1 else to_char(ag.date_of_visit,'YY')::int-1||to_char(ag.date_of_visit,'YY') end
+GROUP BY survey.id,
+    surveytag.tag_id,
+    year_month,
+    qg.source_id,
+    sg.name,
+    ans.question_id,
+    ans.answer;
+
+
