@@ -95,4 +95,4 @@ def load_data():
 init()
 create_sqlfiles()
 get_data()
-#load_data()
+load_data()
