@@ -12,6 +12,31 @@ SELECT format('A%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.inst_type_id,to_char
 FROM assessments_survey survey,
     assessments_questiongroup as qg,
     assessments_answergroup_institution as ag,
+    assessments_surveytagmapping as surveytag,
+    assessments_surveytaginstitutionmapping as st_instmap
+WHERE 
+    survey.id = qg.survey_id
+    and qg.id = ag.questiongroup_id
+    and survey.id = surveytag.survey_id
+    and survey.id in (1,2, 4, 5, 6, 7)
+    and surveytag.tag_id = st_instmap.tag_id
+    and ag.institution_id = st_instmap.institution_id
+GROUP BY survey.id,
+    surveytag.tag_id,
+    qg.inst_type_id,
+    year_month
+union
+SELECT format('A%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.inst_type_id,to_char(ag.date_of_visit,'YYYY-MM')) as id,
+    survey.id as survey_id,
+    surveytag.tag_id as survey_tag,
+    qg.inst_type_id as institution_type,
+    to_char(ag.date_of_visit,'YYYY-MM') as year_month,
+    count(distinct ag.institution_id) as num_schools,
+    count(ag) as num_assessments,
+    case survey.id when 2 then count(ag) else 0 end as num_children
+FROM assessments_survey survey,
+    assessments_questiongroup as qg,
+    assessments_answergroup_institution as ag,
     assessments_surveytagmapping as surveytag
 WHERE 
     survey.id = qg.survey_id
@@ -22,7 +47,7 @@ GROUP BY survey.id,
     surveytag.tag_id,
     qg.inst_type_id,
     year_month
-union all
+union 
 SELECT format('A%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.inst_type_id,to_char(ag.date_of_visit,'YYYY-MM')) as id,
     survey.id as survey_id,
     surveytag.tag_id as survey_tag,
@@ -46,6 +71,34 @@ GROUP BY survey.id,
     surveytag.tag_id,
     year_month,
     qg.inst_type_id;
+union 
+SELECT format('A%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.inst_type_id,to_char(ag.date_of_visit,'YYYY-MM')) as id,
+    survey.id as survey_id,
+    surveytag.tag_id as survey_tag,
+    qg.inst_type_id as institution_type,
+    to_char(ag.date_of_visit,'YYYY-MM') as year_month,
+    count(distinct stu.institution_id) as num_schools,
+    count(ag) as num_assessments,
+    count(distinct ag.student_id) as num_children
+FROM assessments_survey survey,
+    assessments_questiongroup as qg,
+    assessments_answergroup_student as ag,
+    assessments_surveytagmapping as surveytag,
+    schools_student stu,
+    assessments_surveytaginstitutionmapping st_instmap
+WHERE 
+    survey.id = qg.survey_id
+    and qg.id = ag.questiongroup_id
+    and survey.id = surveytag.survey_id
+    and survey.id in (3)
+    and ag.student_id = stu.id
+    and surveytag.tag_id = st_instmap.tag_id
+    and stu.instituion_id = st_instmap.institution_id
+GROUP BY survey.id,
+    surveytag.tag_id,
+    year_month,
+    qg.inst_type_id;
+
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_details_agg CASCADE;
@@ -77,7 +130,7 @@ GROUP BY survey.id,
     qg.source_id,
     year_month,
     ag.is_verified
-union all
+union 
 SELECT format('A%s_%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.source_id,qg.inst_type_id,to_char(ag.date_of_visit,'YYYY-MM')) as id,
     survey.id as survey_id,
     surveytag.tag_id as survey_tag,
@@ -137,7 +190,7 @@ GROUP BY survey.id,
     year_month,
     ag.is_verified,
     ag.institution_id
-union all
+union 
 SELECT format('A%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.source_id,stu.institution_id) as id,
     survey.id as survey_id,
     surveytag.tag_id as survey_tag,
@@ -200,7 +253,7 @@ GROUP BY survey.id,
     year_month,
     ag.is_verified,
     b.id
-union all
+union
 SELECT format('A%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.source_id,b.id) as id,
     survey.id as survey_id,
     surveytag.tag_id as survey_tag,
@@ -267,7 +320,7 @@ GROUP BY survey.id,
     year_month,
     ag.is_verified,
     eb.id
-union all
+union 
 SELECT format('A%s_%s_%s_%s', survey.id,surveytag.tag_id,qg.source_id,eb.id) as id,
     survey.id as survey_id,
     surveytag.tag_id as survey_tag,
@@ -300,3 +353,5 @@ GROUP BY survey.id,
     qg.source_id,
     ag.is_verified,
     eb.id;
+
+
