@@ -1,3 +1,3 @@
 from .institution import *
 from .student import *
-from .staff import * 
+from .staff import *

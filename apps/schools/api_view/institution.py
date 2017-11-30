@@ -4,14 +4,15 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-from common.views import (ILPViewSet, ILPDetailAPIView)
+from common.views import (ILPViewSet, ILPListAPIView, ILPDetailAPIView)
 from common.models import Status, InstitutionType
+from common.mixins import ILPStateMixin
 
 from schools.serializers import (
     InstitutionSerializer, InstitutionCreateSerializer,
     InstitutionCategorySerializer, InstitutionManagementSerializer,
     SchoolDemographicsSerializer, SchoolInfraSerializer,
-    SchoolFinanceSerializer
+    SchoolFinanceSerializer, InstitutionSummarySerializer
 )
 from schools.models import (Institution, InstitutionCategory,
                             Management)
@@ -19,6 +20,33 @@ from schools.models import (Institution, InstitutionCategory,
 
 class ProgrammeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     pass
+
+
+# class InstitutionListView(ILPListAPIView):
+#     queryset = Institution.objects.all()
+#     serializer_class = InstitutionListSerializer
+#     bbox_filter_field = "coord"
+
+class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSummarySerializer
+    bbox_filter_field = "coord"
+
+    def get_queryset(self):
+        state = self.get_state()
+        qset = Institution.objects.filter(
+            admin0=state, status=Status.ACTIVE
+        )
+        s_type = self.request.GET.get('school_type', 'both')
+
+        # The front-end code sometimes passes in either of these. Checking both
+        # for backwards compatibility
+        if s_type == 'preschools' or s_type == 'pre':
+            qset = qset.filter(institution_type__pk=InstitutionType.PRE_SCHOOL)
+        elif s_type == 'primaryschools' or s_type == 'primary':
+            qset = qset.filter(
+                institution_type__pk=InstitutionType.PRIMARY_SCHOOL)
+        return qset
 
 
 class InstitutionViewSet(ILPViewSet):

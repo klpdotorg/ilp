@@ -67,18 +67,18 @@
 
   <script type="text/template" id="tpl-map-popup">
   <div class="map-pin-details">
-    <span class="icon-number">{% if type.id==1 %} S {% else %} P {% endif %}</span>
+    <span class="icon-number">{% if type.id=="primary" %} S {% else %} P {% endif %}</span>
     <h3 class="map-heading-main">{{ name }}</h3>
     <ul class="map-location-labels">  
       <li class="map-label-each">
         <div class="map-label-title">District</div>
-        <div class="map-label-name">{{ admin1.name|capitalize }}</div>
+        <div class="map-label-name">{{ admin1|capitalize }}</div>
       <li class="map-label-each">
-        <div class="map-label-title">{% if type.id==1 %}Block {% else %} Circle {% endif %}</div>
-        <div class="map-label-name">{{ admin2.name|capitalize }}</div>
+        <div class="map-label-title">{% if type.id=="primary" %}Block {% else %} Circle {% endif %}</div>
+        <div class="map-label-name">{{ admin2|capitalize }}</div>
       <li class="map-label-each">
-        <div class="map-label-title">{% if type.id==1 %}Cluster {% else %} Project {% endif %}</div>
-        <div class="map-label-name">{{ admin3.name|capitalize }}</div>
+        <div class="map-label-title">{% if type.id=="primary" %}Cluster {% else %} Project {% endif %}</div>
+        <div class="map-label-name">{{ admin3|capitalize }}</div>
     </ul>
     {% if num_boys or num_girls %}
     <h4 class="gender-icons-title">Students</h4>

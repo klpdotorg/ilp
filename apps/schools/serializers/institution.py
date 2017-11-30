@@ -18,6 +18,93 @@ from boundary.serializers import (
 from dise import dise_constants
 
 
+class InstitutionSummarySerializer(ILPSerializer):
+    ''' This class returns just a summarized list of institution info
+    to show in the schools popup of the maps page on the frontend '''
+    admin1 = serializers.CharField(source='admin1.name')
+    admin2 = serializers.CharField(source='admin2.name')
+    admin3 = serializers.CharField(source='admin3.name')
+    type = InstitutionTypeSerializer(source='institution_type')
+    dise_code = serializers.CharField(source="dise.school_code")
+    num_boys = serializers.SerializerMethodField()
+    num_girls = serializers.SerializerMethodField()
+    library_yn = serializers.SerializerMethodField()
+    playground = serializers.SerializerMethodField()
+    computer_aided_learnin_lab = serializers.SerializerMethodField()
+
+
+    class Meta:
+        model = Institution
+        fields = (
+            'id', 'dise_code', 'name', 'admin1', 'admin2',
+            'admin3', 'type', 'category', 'dise',
+            'type', 'num_boys', 'num_girls', 'library_yn',
+            'playground', 'computer_aided_learnin_lab'
+        )
+
+    def get_gender_counts(self, obj):
+        if obj.institutionstugendercount_set.filter(
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
+            return obj.institutionstugendercount_set.\
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
+        return None
+    
+    def get_num_boys(self, obj):
+        ''' This method always returns the num of boys from DISE if 
+        that exists. Else, it tries the KLP DB '''
+        num_boys=0;
+        if(obj.dise is not None):
+            num_boys = obj.dise.total_boys
+        else:
+            gender_count = self.get_gender_counts(obj)
+            if gender_count:
+                num_boys = gender_count.num_boys
+            else:
+                return None
+        return num_boys
+
+    def get_num_girls(self, obj):
+        ''' This method always returns the num of girls from DISE if that exists.
+        Else it tries the KLP DB (data may be outdated) '''
+        num_girls=0;
+        if(obj.dise is not None):
+            num_girls = obj.dise.total_girls
+        else:
+            gender_count = self.get_gender_counts(obj)
+            if gender_count:
+                num_girls = gender_count.num_girls
+            else:
+                return None
+        return num_girls
+    
+    def get_library_yn(self, obj):
+        if obj.dise is not None:
+            if obj.dise.library_yn == dise_constants.AVAILABLE:
+                return dise_constants.YES
+            else:
+                return dise_constants.NO
+        else:
+            return None
+
+    def get_playground(self, obj):
+        if obj.dise is not None:
+            if obj.dise.playground== dise_constants.AVAILABLE:
+                return dise_constants.YES
+            else:
+                return dise_constants.NO
+        else:
+            return None
+    
+    def get_computer_aided_learnin_lab(self, obj):
+        if obj.dise is not None:
+            if obj.dise.computer_aided_learnin_lab == dise_constants.AVAILABLE:
+                return dise_constants.YES
+            else:
+                return dise_constants.NO
+        else:
+            return None
+
+
 class InstitutionSerializer(ILPSerializer):
     boundary = BoundarySerializer(source='admin3')
     admin1 = serializers.CharField(source='admin1.name')
@@ -155,10 +242,11 @@ class SchoolDemographicsSerializer(ILPSerializer):
     num_boys_dise = serializers.SerializerMethodField()
     num_girls_dise = serializers.SerializerMethodField()
 
+    
     class Meta:
         model = Institution
         fields = ('id', 'name', 'gender', 'mt_profile', 'management', 'num_boys_dise',
-                  'num_girls_dise', 'num_boys', 'num_girls', 'acyear')
+                  'num_girls_dise', 'num_boys', 'num_girls', 'acyear',)
 
    
     def get_gender_counts(self, obj):
