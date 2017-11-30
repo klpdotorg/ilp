@@ -19,12 +19,11 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'getquery': "\COPY (select id, trim(name), created_at, updated_at, 'akshara', 'AC', 2 from stories_survey where id=6) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, name, created_at, updated_at, partner_id, status_id, admin0_id) FROM 'replacefilename' with csv NULL 'null';"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(6, 'Community IVRS', to_date('2016-05-19', 'YYYY-MM-DD'),'akshara','AC', 2);"
     },
     {
         'name': 'assessments_questiongroup',
-        'getquery': "\COPY (select id, 'Mahiti IVRS', to_date('2014-04-03', 'YYYY-MM-DD'), version, 0, to_date('2014-04-03', 'YYYY-MM-DD'), case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, case(status) when 2 then 'AC' when 1 then 'IA' else 'AC' end,    source_id, survey_id, 'institution', 'monitor', 'name' from stories_questiongroup where survey_id=6) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select id, 'Mahiti IVRS', to_date('2014-04-03', 'YYYY-MM-DD'), version, 0, to_date('2014-04-03', 'YYYY-MM-DD'), case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, case(status) when 2 then 'AC' when 1 then 'IA' else 'AC' end, source_id, survey_id, 'institution', 'monitor', 'name' from stories_questiongroup where survey_id=6) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, survey_on_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
     },
     {

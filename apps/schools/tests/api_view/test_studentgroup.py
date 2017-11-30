@@ -1,17 +1,13 @@
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APITestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
 from rest_framework import status
-import json
-import base64
+
 from rest_framework.reverse import reverse
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
-from tests import IlpTestCase
-# Create your tests here.
-from schools.api_view import (StudentGroupViewSet)
-from boundary.models import Boundary, BoundaryType
-from common.models import Status, InstitutionType
+
+from schools.api_view import StudentGroupViewSet
 
 
 class StudentGroupApiTests(APITestCase):
@@ -35,7 +31,7 @@ class StudentGroupApiTests(APITestCase):
 
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create_user(
+        self.user = get_user_model().objects.create(
             'admin@klp.org.in', 'admin'
         )
         self.listView = StudentGroupViewSet.as_view(
