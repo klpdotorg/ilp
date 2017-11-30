@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/ilp_deploy
+    destination: /home/ubuntu/ilp
 permissions:
-  - object: /home/ubuntu/ilp_deploy
+  - object: /home/ubuntu/ilp
     owner: ubuntu
     group: www-data
 hooks:

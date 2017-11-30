@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WORK_DIR=/home/ubuntu/ilp_deploy
+WORK_DIR=/home/ubuntu/ilp
 cd $WORK_DIR
 source venv/bin/activate || exit 1
 pip3 install -r requirements/base.txt || exit 1
