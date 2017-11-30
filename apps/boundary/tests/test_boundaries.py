@@ -33,7 +33,7 @@ class BoundaryApiTests(APITestCase):
 
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create_user(
+        self.user = get_user_model().objects.create(
             'admin@klp.org.in', 'admin')
         self.listView = BoundaryViewSet.as_view(actions={'get': 'list'})
         self.detailView = BoundaryViewSet.as_view(actions={'get': 'retrieve'})

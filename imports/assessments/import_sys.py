@@ -19,8 +19,7 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'getquery': "\COPY (select id, trim(name), created_at, updated_at, 'akshara', 'AC', 2 from stories_survey where id=5) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, name, created_at, updated_at, partner_id, status_id, admin0_id) FROM 'replacefilename' with csv NULL 'null';"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(5, 'SYS', to_date('2016-05-19', 'YYYY-MM-DD'),'akshara','AC', 2);"
     },
     {
         'name': 'assessments_questiongroup',
@@ -49,6 +48,12 @@ tables = [
         'getquery': "\COPY (select story_id, question_id, text from stories_answer answer, stories_story stories where answer.story_id=stories.id and stories.group_id in (select id from stories_questiongroup where survey_id =5)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'tempquery': "CREATE TEMP TABLE temp_replacetablename(story_id integer, question_id integer, answer text); \COPY temp_replacetablename(story_id, question_id, answer) FROM 'replacefilename' with csv NULL 'null';",
         'insertquery': "INSERT INTO replacetablename(answergroup_id, question_id, answer) select temp.story_id, temp.question_id, temp.answer from temp_replacetablename temp, assessments_answergroup_institution answergroup where temp.story_id=answergroup.id;"
+    },
+    {
+        'name': 'assessments_institutionimages',
+        'getquery': "\COPY (select image, is_verified, filename, story_id from stories_storyimage) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'tempquery': "CREATE TEMP TABLE temp_replacetablename(image text, is_verified boolean, filename text, story_id integer); \COPY temp_replacetablename(image, is_verified, filename, story_id) FROM 'replacefilename' with csv NULL 'null';",
+        'insertquery': "INSERT INTO replacetablename(image, is_verified, filename, answergroup_id) select temp.image, temp. is_verified, temp.filename, temp.story_id from temp_replacetablename temp, assessments_answergroup_institution answergroup where temp.story_id=answergroup.id;"
     }
 ]
 

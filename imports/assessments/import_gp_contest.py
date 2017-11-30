@@ -19,8 +19,7 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'getquery': "\COPY (select id, name, created_at, updated_at, name, 'akshara', 'IA',2 from stories_survey where id=2) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, name, created_at, updated_at, description, partner_id, status_id, admin0_id) FROM 'replacefilename' with csv NULL 'null';"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(2, 'GP Contest', to_date('2017-06-06', 'YYYY-MM-DD'),'akshara','AC', 2);"
     },
     {
         'name': 'assessments_questiongroup',

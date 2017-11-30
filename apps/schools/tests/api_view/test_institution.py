@@ -22,7 +22,7 @@ class InstitutionAPITests(APITestCase):
         call_command('run_materialized_view')
 
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
+        self.user = get_user_model().objects.create(
             'admin@klp.org.in', 'admin'
         )
 

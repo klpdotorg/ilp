@@ -21,7 +21,7 @@ class ElectionBoundaryTests(APITestCase):
                      verbosity=0)
 
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
+        self.user = get_user_model().objects.create(
             'admin@klp.org.in', 'admin')
         self.assemblylistView = AssemblyBoundariesViewSet.as_view(
             actions={'get': 'list'})
