@@ -60,4 +60,4 @@ deployment:
           revision_type: S3
           s3_location:
             bucket: klpdeployments
-            key_pattern: ilpdev/{BRANCH}
+            key_pattern: ilpdev
