@@ -5,7 +5,8 @@ from assessments.api_views import(
     QGroupAnswersMetaAPIView, QGroupAnswersVolumeAPIView,
     QGroupStoriesInfoView, QGroupAnswersDetailAPIView,
     SurveySummaryAPIView, SurveyInfoSourceAPIView,
-    SurveyInfoBoundarySourceAPIView, SurveyInfoUserAPIView
+    SurveyInfoBoundarySourceAPIView, SurveyInfoUserAPIView,
+    SurveyInfoRespondentAPIView
 )
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
@@ -57,6 +58,8 @@ urlpatterns = [
     url(r'survey/info/boundary/source',
         SurveyInfoBoundarySourceAPIView.as_view(),
         name='survey-info-boundary-source'),
+    url(r'survey/info/respondent', SurveyInfoRespondentAPIView.as_view(),
+        name='survey-info-respondent'),
     url(r'survey/info/users', SurveyInfoUserAPIView.as_view(),
         name='survey-info-user'),
     url(

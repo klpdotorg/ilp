@@ -10,7 +10,8 @@ from boundary.models import BoundaryType
 
 from assessments.models import (
     Survey, SurveySummaryAgg, SurveyDetailsAgg,
-    Source, SurveyBoundaryAgg, SurveyUserTypeAgg
+    Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
+    SurveyRespondentTypeAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -149,4 +150,24 @@ class SurveyInfoUserAPIView(ListAPIView, ILPStateMixin):
                 .aggregate(Sum('num_assessments'))
             user_response[user_type] = user_type_agg['num_assessments__sum']
         response['users'] = user_response
+        return Response(response)
+
+
+class SurveyInfoRespondentAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyRespondentTypeAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        response = {}
+        respondent_res = {}
+        respondent_types = queryset.distinct('respondent_type')\
+            .values_list('respondent_type', flat=True)
+        for respondent_type in respondent_types:
+            respondent_type_agg = queryset\
+                .filter(respondent_type=respondent_type)\
+                .aggregate(Sum('num_assessments'))
+            respondent_res[respondent_type] = respondent_type_agg[
+                'num_assessments__sum']
+        response['respondents'] = respondent_res
         return Response(response)
