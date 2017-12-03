@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
                 ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
-                ('last_assessment', models.DateField(db_column='last_asessment')),
+                ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
                 'db_table': 'mvw_survey_boundary_agg',
@@ -80,7 +80,7 @@ class Migration(migrations.Migration):
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
                 ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
-                ('last_assessment', models.DateField(db_column='last_asessment')),
+                ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
                 'db_table': 'mvw_survey_details_agg',
@@ -97,7 +97,7 @@ class Migration(migrations.Migration):
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
                 ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
-                ('last_assessment', models.DateField(db_column='last_asessment')),
+                ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
                 'db_table': 'mvw_survey_election_boundary_agg',
@@ -113,7 +113,7 @@ class Migration(migrations.Migration):
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
                 ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
-                ('last_assessment', models.DateField(db_column='last_asessment')),
+                ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
                 'db_table': 'mvw_survey_institution_agg',
@@ -143,7 +143,7 @@ class Migration(migrations.Migration):
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
-                ('last_assessment', models.DateField(db_column='last_asessment')),
+                ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
                 'db_table': 'mvw_survey_respondenttype_agg',
@@ -173,7 +173,7 @@ class Migration(migrations.Migration):
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
-                ('last_assessment', models.DateField(db_column='last_asessment')),
+                ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
                 'db_table': 'mvw_survey_usertype_agg',
