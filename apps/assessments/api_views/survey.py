@@ -6,7 +6,9 @@ from rest_framework.response import Response
 from common.mixins import ILPStateMixin
 from common.views import ILPViewSet
 
-from assessments.models import Survey, SurveySummaryAgg
+from assessments.models import (
+    Survey, SurveySummaryAgg, SurveyDetailsAgg, 
+    Source)
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
 
@@ -49,4 +51,37 @@ class SurveysSummaryAPIView(ListAPIView, ILPStateMixin):
             }
             res_surveys.append(res_survey)
         response['surveys'] = res_surveys
+        return Response(response)
+
+
+class SurveysInfoSourceAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyDetailsAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        source_ids = queryset.distinct(
+            'source').values_list('source', flat=True)
+
+        response = {}
+        source_res = {}
+        for source_id in source_ids:
+            source_name = "None"
+            if source_id:
+                source_name = Source.objects.get(id=source_id).name
+
+            qs_agg = queryset.filter(source=source_id).aggregate(
+                Sum('num_schools'), Sum('num_assessments'),
+                Sum('num_verified_assessment')
+            )
+            source_res[source_name] = {
+                "schools_impacted": qs_agg['num_schools__sum'],
+                "assessment_count": qs_agg['num_assessments__sum'],
+                # Todo
+                "last_assessment": None,
+                "verified_assessment_count": qs_agg[
+                    'num_verified_assessment__sum'
+                ]
+            }
+        response['source'] = source_res
         return Response(response)
