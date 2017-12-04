@@ -33,7 +33,7 @@ class AnswerInstitution(models.Model):
     answergroup = models.ForeignKey("AnswerGroup_Institution")
     question = models.ForeignKey("Question")
     answer = models.CharField(max_length=200)
-    double_entry = models.IntegerField()
+    double_entry = models.IntegerField(null=True)
 
     class Meta:
         unique_together = (('answergroup', 'question'), )
@@ -58,7 +58,7 @@ class AnswerStudentGroup(models.Model):
     answergroup = models.ForeignKey("AnswerGroup_StudentGroup")
     question = models.ForeignKey("Question")
     answer = models.CharField(max_length=200)
-    double_entry = models.IntegerField()
+    double_entry = models.IntegerField(null=True)
 
     class Meta:
         unique_together = (('answergroup', 'question'), )
@@ -83,7 +83,7 @@ class AnswerStudent(models.Model):
     answergroup = models.ForeignKey("AnswerGroup_Student")
     question = models.ForeignKey("Question")
     answer = models.CharField(max_length=200)
-    double_entry = models.IntegerField()
+    double_entry = models.IntegerField(null=True)
 
     class Meta:
         unique_together = (('answergroup', 'question'), )
