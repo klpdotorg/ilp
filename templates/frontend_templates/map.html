@@ -189,18 +189,18 @@
 <script type="text/template" id="tpl-map-boundary-popup">
   <div class="map-pin-details">
     <span class="icon-number">
-      {% if school_type == "primaryschool" %}
-        {% if type == "district" %} 
+      {% if school_type == "primary" %}
+        {% if type == "SD" %} 
           D 
-        {% elif type == "block" %} 
+        {% elif type == "SB" %} 
           B
         {% else %}
           C
         {% endif %}
       {% else %}
-        {% if type == "district" %} 
+        {% if type == "PD" %} 
           D
-        {% elif type == "project" %} 
+        {% elif type == "PP" %} 
           P
         {% else %}
           C
@@ -211,7 +211,7 @@
     <div class="map-label-name">{{ parentType|capitalize }}</div>
     <div class="heading-tiny-uppercase">{{ parentName|capitalize }}</div>
     {% if num_schools %}
-      {% if school_type == "primaryschool" %}
+      {% if school_type == "primary" %}
         <div class="heading-tiny-uppercase center-text">Schools</div>      
       {% else %}
         <div class="heading-tiny-uppercase center-text">Preschools</div>

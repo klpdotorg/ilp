@@ -24,9 +24,17 @@
 
         'queryBoundaryName': function(boundaryName,boundaryType, academicYear) {
             var url = base + academicYear + '/search/';
+            //Map the "new" ILP boundary types to the ones the DISE app is expecting
+            diseBoundType = ""
+            if(boundaryType == 'SD')
+                diseBoundType = "district"
+            else if(boundaryType == "SB")
+                diseBoundType = "block"
+            else if(boundaryType == "SC")
+                diseBoundType = "cluster"
             var params = {
                 'query': boundaryName,
-                'type': boundaryType
+                'type': diseBoundType
             };
             var $xhr = $.get(url, params);
             return $xhr;

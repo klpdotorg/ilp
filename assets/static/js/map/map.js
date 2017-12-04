@@ -558,17 +558,17 @@
                                     "id": props.boundary.id,
                                     "name": props.boundary.name,
                                     "type": props.boundary.type,
-                                    "school_type": props.boundary.school_type
+                                    "school_type": props.boundary.type
                                    };
-                if (props.boundary.type !== 'district') {
-                    boundaryData["parentType"] = props.boundary.parent.type;
-                    boundaryData["parentName"] = props.boundary.parent.name;
+                if (props.boundary.boundary_type !== 'SD') {
+                    boundaryData["parentType"] = props.boundary.parent_boundary.boundary_type;
+                    boundaryData["parentName"] = props.boundary.parent_boundary.name;
                 }
                 boundaryData["num_boys"] = props.num_boys;
                 boundaryData["num_girls"] = props.num_girls;
                 boundaryData["total_students"] = props.num_boys + props.num_girls;
                 boundaryData["num_schools"] = props.num_schools;
-
+                console.log(boundaryData)
                 var tpl_map_boundary_popup = swig.compile($("#tpl-map-boundary-popup").html());
                 duplicatemarker.bindPopup(tpl_map_boundary_popup(boundaryData),{maxWidth:300, minWidth:300}).openPopup();
 
