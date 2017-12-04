@@ -73,6 +73,7 @@ class QuestionGroup(models.Model):
     type = models.ForeignKey('SurveyType')
     inst_type = models.ForeignKey('common.InstitutionType')
     survey_on = models.ForeignKey('SurveyOnType')
+    description = models.CharField(max_length=100, null=True)
     group_text = models.CharField(max_length=100, null=True)
     start_date = models.DateField(max_length=20)
     end_date = models.DateField(max_length=20, null=True)
@@ -95,6 +96,8 @@ class Question(models.Model):
     options = models.CharField(max_length=300, null=True)
     is_featured = models.BooleanField()
     status = models.ForeignKey('common.Status')
+    max_score = models.IntegerField(null=True)
+    pass_score = models.IntegerField(null=True)
 
 
 class Partner(models.Model):
