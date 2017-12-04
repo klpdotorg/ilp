@@ -46,6 +46,8 @@ test:
     - mkdir -p /tmp/artifacts
     - mv htmlcov /tmp/artifacts
 
+  post:
+    - git clean -dxf            # clean up for deployment
 
 deployment:
   development:

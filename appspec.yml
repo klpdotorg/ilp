@@ -2,12 +2,15 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/ilp_deploy
+    destination: /home/ubuntu/ilp
 permissions:
-  - object: /home/ubuntu/ilp_deploy
+  - object: /home/ubuntu/ilp
     owner: ubuntu
     group: www-data
 hooks:
+  ApplicationStop:
+    - location: scripts/application_stop.sh
+      timeout: 180
   BeforeInstall:
     - location: scripts/before_install.sh
       timeout: 180
