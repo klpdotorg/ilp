@@ -11,7 +11,7 @@ from boundary.models import BoundaryType
 from assessments.models import (
     Survey, SurveySummaryAgg, SurveyDetailsAgg,
     Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
-    SurveyRespondentTypeAgg
+    SurveyRespondentTypeAgg, SurveyInstitutionAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -171,3 +171,27 @@ class SurveyInfoRespondentAPIView(ListAPIView, ILPStateMixin):
                 'num_assessments__sum']
         response['respondents'] = respondent_res
         return Response(response)
+
+
+class SurveyInfoSchoolAPIView(ListAPIView, ILPStateMixin):
+    serializer_class = SurveySerializer
+
+    def get_queryset(self):
+        queryset = SurveyInstitutionAgg.objects.all()
+        institution_id = self.request.query_params.get('school_id', None)
+        survey_ids = queryset\
+            .filter(institution_id=institution_id).distinct('survey_id')\
+            .values_list('survey_id', flat=True)
+        return Survey.objects.filter(id__in=survey_ids)
+
+
+class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
+    serializer_class = SurveySerializer
+
+    def get_queryset(self):
+        queryset = SurveyBoundaryAgg.objects.all()
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        survey_ids = queryset\
+            .filter(boundary_id=boundary_id).distinct('survey_id')\
+            .values_list('survey_id', flat=True)
+        return Survey.objects.filter(id__in=survey_ids)
