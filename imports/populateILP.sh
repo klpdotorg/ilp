@@ -71,13 +71,11 @@ python assessments/import_community_basic_ivrs.py dubdubdub $ilp
 python assessments/import_communityfromcsv15_16.py `pwd`/assessments/community_survey $ilp
 #2014-2015 TBD
 
-#2013-2014 TBD
 
 #Import GKA data
 #Basic
-python assessments/import_gkabasicinfo.py $ilp
+python assessments/import_gka_basicinfo.py $ilp
 python assessments/import_gkaassessmentdata.py dubdubdub $ilp
-#2016-2017 TBD
 
 #Import Anganwadi Infrastructure Data:
 python assessments/import_anganwadi_infra.py ang_infra $ilp
