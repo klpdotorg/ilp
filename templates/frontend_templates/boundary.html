@@ -2,15 +2,15 @@
 <script type="text/html" id="tpl-boundary-info">
   <h2 class="heading-secondary">
     <span class="icon-number">
-      {% if boundary.type == 'district' %} 
+      {% if boundary.boundary_type == 'SD' %} 
         D 
-      {% elif boundary.type =='block' %} 
+      {% elif boundary.boundary_type =='SB' %} 
         B
-      {% elif boundary.type =='cluster' %} 
+      {% elif boundary.boundary_type =='SC' %} 
         C
-      {% elif boundary.type =='project' %} 
+      {% elif boundary.boundary_type =='PP' %} 
         P
-      {% elif boundary.type =='circle' %} 
+      {% elif boundary.boundary_type =='PC' %} 
         C
       {% endif %}
     </span>
@@ -20,12 +20,12 @@
   <ul class="map-location-labels font-smallest">  
     {% if boundary.parent.parent %}
     <li class="map-label-each">
-      <div class="map-label-title">{{ boundary.parent.parent.type|capitalize }}</div>
+      <div class="map-label-title">{{ boundary.parent.parent.boundary_type|capitalize }}</div>
       <div class="map-label-name">{{ boundary.parent.parent.name|capitalize }}</div>    
     </li>
     {% endif %}
     <li class="map-label-each">
-      <div class="map-label-title">{{ boundary.parent.type|capitalize }}</div>
+      <div class="map-label-title">{{ boundary.parent.boundary_type|capitalize }}</div>
       <div class="map-label-name">{{ boundary.parent.name|capitalize }}</div>
     </li>   
   </ul>

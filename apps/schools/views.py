@@ -64,9 +64,7 @@ class NewBoundaryPageView(DetailView):
 
         try:
             boundary = queryset.get(
-                id=pk,
-                hierarchy__name=boundary_type.replace('preschool-', '').replace('primary-', '')
-            )
+                id=pk)
             return boundary
         except self.model.DoesNotExist:
             raise Http404
