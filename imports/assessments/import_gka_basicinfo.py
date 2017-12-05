@@ -23,7 +23,7 @@ tables = [
     },
     {
         'name': 'assessments_questiongroup',
-        'insertquery': "insert into replacetablename(description, name, academic_year_id, start_date, end_date,status_id,double_entry, created_at, inst_type_id,survey_id, survey_on_id, type_id, source_id) values FROM '"+scriptdir+"/EkStep_QuestionGroups.csv' with csv NULL 'null';"
+        'insertquery': "\COPY replacetablename(id,description, name, academic_year_id, start_date, end_date,status_id,double_entry, created_at, inst_type_id,survey_id, survey_on_id, type_id, source_id) FROM '"+scriptdir+"/EkStep_Concepts.csv' with csv NULL 'null';"
     },
     {
         'name': 'assessments_question',

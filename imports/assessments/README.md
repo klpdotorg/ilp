@@ -23,8 +23,8 @@
     python import_communityfromcsv15_16.py <directory of community survey csv files> <unified db>
 
 6. Import GKA data
-    Run import_gkabasic.py script:
-    python import_gkabasicinfo.py <unified db>
+    Run import_gka_basicinfo.py script:
+    python import_gka_basicinfo.py <unified db>
 
     Run import_gka.py script
     python import_gkaassessmentdata.py <dubdubdub db> <unified db>
