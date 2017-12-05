@@ -19,7 +19,7 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(3, 'Ganitha Kalika Andolana', '2016-05-19', 'AC', 2);"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(3, 'Ganitha Kalika Andolana', '2016-05-19', 'akshara','AC', 2);"
     },
     {
         'name': 'assessments_questiongroup',
