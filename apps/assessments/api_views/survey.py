@@ -12,7 +12,7 @@ from assessments.models import (
     Survey, SurveySummaryAgg, SurveyDetailsAgg,
     Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
     SurveyRespondentTypeAgg, SurveyInstitutionAgg,
-    SurveyAnsAgg, Question
+    SurveyAnsAgg, Question, SurveyQuestionKeyAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -247,4 +247,27 @@ class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
                 question_list.append(question_res)
             sources_res[source.name] = question_list
         response["source"] = sources_res
+        return Response(response)
+
+
+class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyQuestionKeyAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        response = {}
+        scores_res = {}
+        question_keys = queryset.distinct('question_key')\
+            .values_list('question_key', flat=True)
+        for q_key in question_keys:
+            key_agg = queryset.filter(question_key=q_key)\
+                .aggregate(
+                    Sum('num_assessments'),
+                    Sum('num_correct_assessments'))
+            scores_res[q_key] = {
+                "total": key_agg['num_assessments__sum'],
+                "score": key_agg['num_correct_assessments__sum']
+            }
+        response['scores'] = scores_res
         return Response(response)
