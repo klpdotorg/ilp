@@ -6,7 +6,8 @@ from assessments.api_views import(
     SurveyInfoSourceAPIView, SurveyInfoBoundarySourceAPIView,
     SurveyInfoUserAPIView, SurveyInfoRespondentAPIView,
     SurveyInfoSchoolAPIView, SurveyInfoBoundaryAPIView,
-    SurveyDetailSourceAPIView, SurveyDetailKeyAPIView
+    SurveyDetailSourceAPIView, SurveyDetailKeyAPIView,
+    SurveyInfoClassGenderAPIView, SurveyInfoEBoundaryAPIView
 )
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
@@ -69,5 +70,9 @@ urlpatterns = [
     url(r'survey/detail/source', SurveyDetailSourceAPIView.as_view(),
         name='survey-detail-source'),
     url(r'survey/detail/key', SurveyDetailKeyAPIView.as_view(),
-        name='survey-detail-key')
+        name='survey-detail-key'),
+    url(r'survey/info/class/gender', SurveyInfoClassGenderAPIView.as_view(),
+        name='survey-info-class-gender'),
+    url(r'survey/info/electionboundary', SurveyInfoEBoundaryAPIView.as_view(),
+        name='survey-info-class-gender'),
 ] + simple_router.urls + nested_router.urls

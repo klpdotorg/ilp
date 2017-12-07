@@ -12,7 +12,8 @@ from assessments.models import (
     Survey, SurveySummaryAgg, SurveyDetailsAgg,
     Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
     SurveyRespondentTypeAgg, SurveyInstitutionAgg,
-    SurveyAnsAgg, Question, SurveyQuestionKeyAgg
+    SurveyAnsAgg, Question, SurveyQuestionKeyAgg,
+    SurveyElectionBoundaryAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -270,4 +271,62 @@ class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
                 "score": key_agg['num_correct_assessments__sum']
             }
         response['scores'] = scores_res
+        return Response(response)
+
+
+class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
+    pass
+    # queryset = SurveyQuestionKeyAgg.objects.all()
+    # filter_backends = [SurveyFilter, ]  
+
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.filter_queryset(self.get_queryset())
+    #     response = {}
+    #     scores_res = {}
+    #     question_keys = queryset.distinct('question_key')\
+    #         .values_list('question_key', flat=True)
+    #     for q_key in question_keys:
+    #         key_agg = queryset.filter(question_key=q_key)\
+    #             .aggregate(
+    #                 Sum('num_assessments'),
+    #                 Sum('num_correct_assessments'))
+    #         scores_res[q_key] = {
+    #             "total": key_agg['num_assessments__sum'],
+    #             "score": key_agg['num_correct_assessments__sum']
+    #         }
+    #     response['scores'] = scores_res
+    #     return Response(response)
+
+
+class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyElectionBoundaryAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        response = {}
+        source_res = {}
+        boundary_type_ids = queryset\
+            .distinct('boundary_id__const_ward_type')\
+            .values_list('boundary_id__const_ward_type', flat=True)
+            
+        boundary_list = []
+        for b_type_id in boundary_type_ids:
+            boundary_qs_agg = queryset\
+                .filter(boundary_id__boundary_type=b_type_id)\
+                .aggregate(
+                    Sum('num_schools'),
+                    Sum('num_children'),
+                    Sum('num_assessments'),
+                )
+            boundary_res = {
+                "id": b_type_id,
+                "name": BoundaryType.objects.get(char_id=b_type_id).name,
+                "schools_impacted": boundary_qs_agg['num_schools__sum'],
+                "children_impacted": boundary_qs_agg['num_children__sum'],
+                "assessment_count": boundary_qs_agg['num_assessments__sum']
+            }
+            boundary_list.append({b_type_id: boundary_res})
+        response['boundaries'] = source_res
         return Response(response)
