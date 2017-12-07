@@ -5,7 +5,8 @@ from assessments.api_views import(
     QGroupStoriesInfoView, SurveySummaryAPIView,
     SurveyInfoSourceAPIView, SurveyInfoBoundarySourceAPIView,
     SurveyInfoUserAPIView, SurveyInfoRespondentAPIView,
-    SurveyInfoSchoolAPIView, SurveyInfoBoundaryAPIView
+    SurveyInfoSchoolAPIView, SurveyInfoBoundaryAPIView,
+    SharedAssessmentsView
 )
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
@@ -65,4 +66,6 @@ urlpatterns = [
         name='survey-info-respondent'),
     url(r'survey/info/users', SurveyInfoUserAPIView.as_view(),
         name='survey-info-user'),
+    url(r'surveys/shared-assessments', SharedAssessmentsView.as_view(),
+        name='survey-shared-assessments'),
 ] + simple_router.urls + nested_router.urls

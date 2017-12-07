@@ -1,8 +1,10 @@
 from common.serializers import ILPSerializer
+from rest_framework import serializers
 from assessments.models import (
     Survey, QuestionGroup, Question,
     QuestionGroup_Questions, AnswerGroup_Institution,
-    AnswerInstitution, SurveyOnType
+    AnswerInstitution, SurveyOnType,
+    AnswerGroup_StudentGroup, AnswerGroup_Student
 )
 
 
@@ -46,23 +48,32 @@ class QuestionSerializer(ILPSerializer):
 
 class QuestionGroupQuestionSerializer(ILPSerializer):
     question_details = QuestionSerializer(source='question')
-    
+
     class Meta:
         model = QuestionGroup_Questions
         fields = (
-            'question_details', 
+            'question_details',
         )
 
 
 class AnswerGroupInstSerializer(ILPSerializer):
+    created_by = serializers.CharField(source='created_by.username')
+
     class Meta:
         model = AnswerGroup_Institution
-        fields = (
-            'id', 'questiongroup', 'institution', 'group_value',
-            'double_entry', 'created_by', 'date_of_visit',
-            'respondent_type', 'comments', 'is_verified',
-            'status', 'sysid', 'entered_at'
-        )
+        fields = '__all__'
+
+
+class AnswerGroupStudentGroupSerializer(ILPSerializer):
+    class Meta:
+        model = AnswerGroup_StudentGroup
+        fields = '__all__'
+
+
+class AnswerGroupStudentSerializer(ILPSerializer):
+    class Meta:
+        model = AnswerGroup_Student
+        fields = '__all__'
 
 
 class AnswerSerializer(ILPSerializer):
