@@ -11,7 +11,8 @@ from boundary.models import BoundaryType
 from assessments.models import (
     Survey, SurveySummaryAgg, SurveyDetailsAgg,
     Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
-    SurveyRespondentTypeAgg, SurveyInstitutionAgg
+    SurveyRespondentTypeAgg, SurveyInstitutionAgg,
+    SurveyAnsAgg, Question
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -195,3 +196,55 @@ class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
             .filter(boundary_id=boundary_id).distinct('survey_id')\
             .values_list('survey_id', flat=True)
         return Survey.objects.filter(id__in=survey_ids)
+
+
+class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyAnsAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
+
+    def list(self, request, *args, **kwargs):
+        source_id = self.request.query_params.get('source', None)
+        queryset = self.filter_queryset(self.get_queryset())
+
+        source_ids = Source.objects.all()
+        if source_id:
+            source_ids = Source.objects.filter(id=source_id)
+        source_ids = source_ids.values_list('id', flat=True)
+
+        response = {}
+        sources_res = {}
+        for s_id in source_ids:
+            source = Source.objects.get(id=s_id)
+            source_agg = queryset.filter(source=s_id)
+            question_ids = source_agg\
+                .distinct('question_id').values_list('question_id', flat=True)
+            question_list = []
+            for q_id in question_ids:
+                question = Question.objects.get(id=q_id)
+                question_agg = source_agg.filter(question_id=q_id)
+                question_res = {
+                    "question": {}, "question_type": None, "answers": {}
+                }
+
+                question_res['question'] = {
+                    "display_text": question.display_text,
+                    "text": question.question_text,
+                    "key": question.key
+                }
+
+                if question.question_type:
+                    question_res["question_type"] = \
+                        question.question_type.display.char_id
+
+                ans_options = \
+                    question_agg.distinct('answer_option')\
+                    .values_list('answer_option', flat=True)
+                for ans in ans_options:
+                    question_res['answers'][ans] = \
+                        question_agg.filter(answer_option=ans)\
+                        .aggregate(Sum('num_answers'))['num_answers__sum']
+
+                question_list.append(question_res)
+            sources_res[source.name] = question_list
+        response["source"] = sources_res
+        return Response(response)
