@@ -3,7 +3,11 @@ from assessments.api_views import(
     SurveysViewSet, QuestionGroupViewSet,
     QuestionViewSet, QuestionGroupQuestions,
     QGroupAnswersMetaAPIView, QGroupAnswersVolumeAPIView,
-    QGroupStoriesInfoView, QGroupAnswersDetailAPIView
+    QGroupStoriesInfoView, QGroupAnswersDetailAPIView,
+    AnswersInstitutionViewSet
+)
+from schools.api_view import(
+    InstitutionViewSet
 )
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
@@ -32,18 +36,21 @@ nested_router.register(
 
 # surveys -> questiongroup -> answers maps to earlier programs ->
 # assessments -> answers
-# nested_router.register(
-#     r'surveys',
-#     SurveysViewSet,
-#     base_name='surveys').register(
-#         r'questiongroup',
-#         QuestionGroupViewSet,
-#         base_name="surveys-questiongroup",
-#         parents_query_lookups=['survey']).register(
-#             r'answers', QuestionGroupAnswers,
-#             base_name="surveys-questiongroup-answers",
-#             parents_query_lookups=['survey', 'questiongroup_id']
-#        ) 
+nested_router.register(
+    r'surveys',
+    SurveysViewSet,
+    base_name='survey').register(
+        r'qgroup',
+        QuestionGroupViewSet,
+        base_name="survey-qgroup",
+        parents_query_lookups=['survey']).register(
+            r'institution', InstitutionViewSet,
+            base_name='survey-qgroup-institution',
+            parents_query_lookups=['qgroup', 'qgroup__survey']).register(
+            r'answers', AnswersInstitutionViewSet,
+            base_name="survey-qgroup-institution-answers",
+            parents_query_lookups=['survey','questiongroup', 'institution']
+       ) 
 
 urlpatterns = [
     url(r'surveys/storiesinfo',

@@ -54,20 +54,26 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
         )
 
 
+class AnswerSerializer(ILPSerializer):
+   #  answergrpdetails = AnswerGroupInstSerializer(source='answergroup')
+
+    class Meta:
+        model = AnswerInstitution
+        fields = ('question', 'answer')
+
+    def create(self, validated_data):
+       pass
+
 class AnswerGroupInstSerializer(ILPSerializer):
+    answers = AnswerSerializer(many="True")
+    
     class Meta:
         model = AnswerGroup_Institution
         fields = (
             'id', 'questiongroup', 'institution', 'group_value',
             'double_entry', 'created_by', 'date_of_visit',
             'respondent_type', 'comments', 'is_verified',
-            'status', 'sysid', 'entered_at'
+            'status', 'sysid', 'entered_at', 'answers'
         )
 
 
-class AnswerSerializer(ILPSerializer):
-    answergrpdetails = AnswerGroupInstSerializer(source='answergroup')
-
-    class Meta:
-        model = AnswerInstitution
-        fields = ('question', 'answer', 'answergrpdetails')
