@@ -14,3 +14,106 @@ ANSWERGROUP_INSTITUTION_IDS = [
 
 # to dump data of Survey.
 # ./manage.py dump_object assessments.survey --query '{"id__in": [2, 3, 7, 6, 5]}' > surveys.json
+
+TEST_ANSWERGROUP_POST_DATA = {
+      "group_value": "Subhashini",
+      "double_entry": 0,
+      "created_by": "",
+      "date_of_visit": "2016-08-20T00:00:00Z",
+      "respondent_type": "",
+      "comments": "",
+      "is_verified": "true",
+      "status": "IA",
+      "sysid": "",
+      "entered_at": "2017-06-06T00:00:00Z",
+      "answers": [
+        {
+          "question": 271,
+          "answer": "Yes"
+        },
+        {
+          "question": 272,
+          "answer": "Yes"
+        },
+        {
+          "question": 273,
+          "answer": "No"
+        },
+        {
+          "question": 274,
+          "answer": "No"
+        },
+        {
+          "question": 275,
+          "answer": "Yes"
+        },
+        {
+          "question": 276,
+          "answer": "Yes"
+        },
+        {
+          "question": 277,
+          "answer": "Yes"
+        },
+        {
+          "question": 278,
+          "answer": "Yes"
+        },
+        {
+          "question": 279,
+          "answer": "Yes"
+        },
+        {
+          "question": 280,
+          "answer": "Yes"
+        },
+        {
+          "question": 281,
+          "answer": "No"
+        },
+        {
+          "question": 282,
+          "answer": "Yes"
+        },
+        {
+          "question": 283,
+          "answer": "Yes"
+        },
+        {
+          "question": 284,
+          "answer": "Yes"
+        },
+        {
+          "question": 285,
+          "answer": "Yes"
+        },
+        {
+          "question": 286,
+          "answer": "Yes"
+        },
+        {
+          "question": 287,
+          "answer": "Yes"
+        },
+        {
+          "question": 288,
+          "answer": "Yes"
+        },
+        {
+          "question": 289,
+          "answer": "Yes"
+        },
+        {
+          "question": 290,
+          "answer": "Yes"
+        },
+        {
+          "question": 130,
+          "answer": "4"
+        },
+        {
+          "question": 291,
+          "answer": "Female"
+        }
+      ]
+}

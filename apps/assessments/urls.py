@@ -4,7 +4,7 @@ from assessments.api_views import(
     QuestionViewSet, QuestionGroupQuestions,
     QGroupAnswersMetaAPIView, QGroupAnswersVolumeAPIView,
     QGroupStoriesInfoView, QGroupAnswersDetailAPIView,
-    AnswersInstitutionViewSet
+    AnswerGroupInstitutionViewSet, AnswersViewSet
 )
 from schools.api_view import(
     InstitutionViewSet
@@ -36,7 +36,7 @@ nested_router.register(
 
 # surveys -> questiongroup -> answers maps to earlier programs ->
 # assessments -> answers
-nested_router.register(
+surveyqgroup = nested_router.register(
     r'surveys',
     SurveysViewSet,
     base_name='survey').register(
@@ -46,10 +46,18 @@ nested_router.register(
         parents_query_lookups=['survey']).register(
             r'institution', InstitutionViewSet,
             base_name='survey-qgroup-institution',
-            parents_query_lookups=['qgroup', 'qgroup__survey']).register(
-            r'answers', AnswersInstitutionViewSet,
+            parents_query_lookups=['qgroup', 'qgroup__survey'])
+ 
+answergroup =  surveyqgroup.register(
+            r'answergroup', AnswerGroupInstitutionViewSet,
             base_name="survey-qgroup-institution-answers",
             parents_query_lookups=['survey','questiongroup', 'institution']
+       )
+       
+answers = surveyqgroup.register(
+           r'answers', AnswersViewSet,
+           base_name='survey-qgroup-institution-answer',
+           parents_query_lookups=['survey','questiongroup', 'institution']
        ) 
 
 urlpatterns = [

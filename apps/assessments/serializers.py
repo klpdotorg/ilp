@@ -4,6 +4,11 @@ from assessments.models import (
     QuestionGroup_Questions, AnswerGroup_Institution,
     AnswerInstitution, SurveyOnType
 )
+from common.mixins import (
+                           CompensationLogMixin,
+                           AnswerUpdateModelMixin)
+from rest_framework import serializers
+
 
 
 class SurveyOnTypeSerializer(ILPSerializer):
@@ -54,17 +59,18 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
         )
 
 
-class AnswerSerializer(ILPSerializer):
+class AnswerSerializer(ILPSerializer, CompensationLogMixin):
    #  answergrpdetails = AnswerGroupInstSerializer(source='answergroup')
 
     class Meta:
         model = AnswerInstitution
-        fields = ('question', 'answer')
+        fields = ('id', 'question', 'answer')
 
     def create(self, validated_data):
-       pass
+       print("Inside AnswerSerializer create")
+       return AnswerInstitution.objects.create(**validated_data)
 
-class AnswerGroupInstSerializer(ILPSerializer):
+class AnswerGroupInstSerializer(serializers.ModelSerializer):
     answers = AnswerSerializer(many="True")
     
     class Meta:
@@ -75,5 +81,20 @@ class AnswerGroupInstSerializer(ILPSerializer):
             'respondent_type', 'comments', 'is_verified',
             'status', 'sysid', 'entered_at', 'answers'
         )
-
-
+    
+    def create(self, validated_data):
+        # Remove the answers field first so we can create AnswerGroup_Institution object
+        answers = validated_data.pop('answers')
+        answergroup_obj = AnswerGroup_Institution.objects.create(**validated_data)
+        # Loop through the answers and create/link them properly
+        for answer in answers:
+            answerdata={
+                'answergroup': answergroup_obj,
+                'question': answer['question'],
+                'answer': answer['answer']
+            }
+            if(answergroup_obj.double_entry == True)
+                answerdata['double_entry'] = 1
+            AnswerSerializer.is_valid()
+            AnswerSerializer.create(**answerdata)
+        return answergroup_obj

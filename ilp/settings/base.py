@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'django_filters',
     'compressor',
+    'easyaudit',
 
     # ILP apps
     'users',
@@ -108,9 +109,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
+
 ]
-
-
+DJANGO_EASY_AUDIT_WATCH_AUTH_EVENTS = False
+DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False
+DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
+    'assessments.AnswerGroup_Institution',
+]
 # Root URL Config
 ROOT_URLCONF = 'ilp.urls'
 
