@@ -275,27 +275,32 @@ class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
-    pass
-    # queryset = SurveyQuestionKeyAgg.objects.all()
-    # filter_backends = [SurveyFilter, ]  
+    queryset = SurveyClassGenderAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
 
-    # def list(self, request, *args, **kwargs):
-    #     queryset = self.filter_queryset(self.get_queryset())
-    #     response = {}
-    #     scores_res = {}
-    #     question_keys = queryset.distinct('question_key')\
-    #         .values_list('question_key', flat=True)
-    #     for q_key in question_keys:
-    #         key_agg = queryset.filter(question_key=q_key)\
-    #             .aggregate(
-    #                 Sum('num_assessments'),
-    #                 Sum('num_correct_assessments'))
-    #         scores_res[q_key] = {
-    #             "total": key_agg['num_assessments__sum'],
-    #             "score": key_agg['num_correct_assessments__sum']
-    #         }
-    #     response['scores'] = scores_res
-    #     return Response(response)
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        sg_res = {}
+        sg_names = queryset\
+            .distinct('sg_name').values_list('sg_name', flat=True)
+        genders = queryset.distinct('gender').values_list('gender', flat=True)
+        for sg_name in sg_names:
+            sg_agg = queryset.filter(sg_name=sg_name)
+            gender_res = {}
+            for gender in genders:
+                sg_gender_agg = sg_agg.filter(gender=gender)\
+                    .aggregate(
+                        Sum('num_assessments'),
+                        Sum('num_correct_assessments'))
+                gender_res[gender] = {
+                    "total_count": sg_gender_agg['num_assessments__sum'],
+                    "perfect_score_count": sg_gender_agg[
+                        'num_correct_assessments__sum']
+                }
+            sg_res[sg_name] = {
+                "gender": gender_res
+            }
+        return Response(sg_res)
 
 
 class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
