@@ -93,7 +93,7 @@ class SurveyElectionBoundaryAgg(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'mvw_survey_election_boundary_agg'
+        db_table = 'mvw_survey_electionboundary_agg'
 
 
 class SurveyRespondentTypeAgg(models.Model):
@@ -175,7 +175,7 @@ class SurveyClassGenderAgg(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'mvw_survey_classs_gender_agg'
+        db_table = 'mvw_survey_class_gender_agg'
 
 
 class SurveyClassAnsAgg(models.Model):
@@ -191,4 +191,4 @@ class SurveyClassAnsAgg(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'mvw_survey_classs_ans_agg'
+        db_table = 'mvw_survey_class_ans_agg'
