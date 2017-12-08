@@ -13,7 +13,8 @@ from assessments.models import (
     Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
     SurveyRespondentTypeAgg, SurveyInstitutionAgg,
     SurveyAnsAgg, Question, SurveyQuestionKeyAgg,
-    SurveyElectionBoundaryAgg, SurveyClassGenderAgg
+    SurveyElectionBoundaryAgg, SurveyClassGenderAgg,
+    SurveyClassAnsAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -301,6 +302,52 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
                 "gender": gender_res
             }
         return Response(sg_res)
+
+
+class SurveyDetailClassAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyClassAnsAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        response = {}
+        sg_res = {}
+        sg_names = queryset.distinct('sg_name')\
+            .values_list('sg_name', flat=True)
+        for sg_name in sg_names:
+            sg_agg = queryset.filter(sg_name=sg_name)
+            question_ids = sg_agg\
+                .distinct('question_id').values_list('question_id', flat=True)
+            question_list = []
+            for q_id in question_ids:
+                question = Question.objects.get(id=q_id)
+                question_agg = sg_agg.filter(question_id=q_id)
+                question_res = {
+                    "question": {}, "question_type": None, "answers": {}
+                }
+
+                question_res['question'] = {
+                    "display_text": question.display_text,
+                    "text": question.question_text,
+                    "key": question.key
+                }
+
+                if question.question_type:
+                    question_res["question_type"] = \
+                        question.question_type.display.char_id
+
+                ans_options = \
+                    question_agg.distinct('answer_option')\
+                    .values_list('answer_option', flat=True)
+                for ans in ans_options:
+                    question_res['answers'][ans] = \
+                        question_agg.filter(answer_option=ans)\
+                        .aggregate(Sum('num_answers'))['num_answers__sum']
+
+                question_list.append(question_res)
+            sg_res[sg_name] = question_list
+        response["classes"] = sg_res
+        return Response(response)
 
 
 class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
