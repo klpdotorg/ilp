@@ -13,7 +13,7 @@ from assessments.models import (
     Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
     SurveyRespondentTypeAgg, SurveyInstitutionAgg,
     SurveyAnsAgg, Question, SurveyQuestionKeyAgg,
-    SurveyElectionBoundaryAgg
+    SurveyElectionBoundaryAgg, SurveyClassGenderAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -310,16 +310,17 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
         boundary_type_ids = queryset\
             .distinct('boundary_id__const_ward_type')\
             .values_list('boundary_id__const_ward_type', flat=True)
-            
+
         boundary_list = []
         for b_type_id in boundary_type_ids:
             boundary_qs_agg = queryset\
-                .filter(boundary_id__boundary_type=b_type_id)\
+                .filter(boundary_id__const_ward_type=b_type_id)\
                 .aggregate(
                     Sum('num_schools'),
                     Sum('num_children'),
                     Sum('num_assessments'),
                 )
+
             boundary_res = {
                 "id": b_type_id,
                 "name": BoundaryType.objects.get(char_id=b_type_id).name,
@@ -327,6 +328,7 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
                 "children_impacted": boundary_qs_agg['num_children__sum'],
                 "assessment_count": boundary_qs_agg['num_assessments__sum']
             }
-            boundary_list.append({b_type_id: boundary_res})
+            boundary_list.append(boundary_res)
+            source_res[b_type_id] = boundary_list
         response['boundaries'] = source_res
         return Response(response)
