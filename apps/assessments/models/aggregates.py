@@ -171,11 +171,11 @@ class SurveyClassGenderAgg(models.Model):
     sg_name = models.CharField(max_length=100, db_column="sg_name")
     gender = models.ForeignKey("common.Gender", db_column="gender")
     num_assessments = models.IntegerField(db_column="num_assessments")
-    num_perfectscore_assessments = models.IntegerField(db_column="num_perfectscore_assessments")
+    num_correct_assessments= models.IntegerField(db_column="num_correct_assessments")
 
     class Meta:
         managed = False
-        db_table = 'mvw_survey_classs_gender_agg'
+        db_table = 'mvw_survey_class_gender_agg'
 
 
 class SurveyClassAnsAgg(models.Model):
@@ -191,4 +191,4 @@ class SurveyClassAnsAgg(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'mvw_survey_classs_ans_agg'
+        db_table = 'mvw_survey_class_ans_agg'

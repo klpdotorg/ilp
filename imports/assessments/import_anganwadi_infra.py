@@ -49,7 +49,7 @@ tables = [
     {
         'name': 'assessments_answergroup_institution',
         'db': todatabase,
-        'query': "insert into replacetable(double_entry, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id) select distinct 0, to_date('2014-02-03', 'YYYY-MM-DD'), true, to_date('2014-02-03', 'YYYY-MM-DD'),sid, 30, 'IA' from temp_anginfra, schools_institution s where temp_anginfra.sid=s.id;"
+        'query': "insert into replacetable(date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id) select distinct to_date('2014-02-03', 'YYYY-MM-DD'), true, to_date('2014-02-03', 'YYYY-MM-DD'),sid, 30, 'AC' from temp_anginfra, schools_institution s where temp_anginfra.sid=s.id;"
     },
     {
         'name': 'assessments_answerinstitution',
@@ -75,7 +75,7 @@ def create_sql_files():
     for table in tables:
         if table["db"] not in dbs:
             dbs.append(table["db"])
-	    queryfile = scriptdir+'/'+basename+'_'+table['db']+'_query.sql'
+            queryfile = scriptdir+'/'+basename+'_'+table['db']+'_query.sql'
             open(queryfile, 'wb', 0)
         filename = scriptdir+'/load/'+table['name']+'.csv'
         open(filename, 'wb', 0)

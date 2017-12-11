@@ -97,7 +97,7 @@ class Question(models.Model):
     is_featured = models.BooleanField()
     status = models.ForeignKey('common.Status')
     max_score = models.IntegerField(null=True)
-    pass_score = models.IntegerField(null=True)
+    pass_score = models.CharField(max_length=100,null=True)
 
 
 class Partner(models.Model):

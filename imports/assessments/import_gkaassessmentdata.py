@@ -41,10 +41,8 @@ csv_f = csv.reader(f)
 for file_row in csv_f:
     sqlselect = "select stu.student_id, assess.question_id, assess.ekstep_tag, assess.pass , assess.assessed_ts from assessments_v2 assess, students_v2 stu where assess.student_uid=stu.uid and assess.ekstep_tag =  %s and not exists (select * from assessments_v2  as dup where dup.student_uid=assess.student_uid and dup.question_id=assess.question_id and dup.assessed_ts::date=assess.assessed_ts::date and dup.ekstep_tag=assess.ekstep_tag and dup.assessed_ts > assess.assessed_ts);"
     data = file_row[1].strip("'")
-    print(data)
     fromcursor.execute(sqlselect, (data,))
 
-    print(fromcursor.rowcount)
     for row in fromcursor.fetchall():
         student_id = row[0]
         question_text = row[1]
@@ -87,7 +85,6 @@ for file_row in csv_f:
         sqlselect = "select id from assessments_questiongroup_questions where question_id=%s and questiongroup_id=%s;"
         tocursor.execute(sqlselect, (question_id, questiongroup_id))
         if tocursor.rowcount == 0:
-            print('mapping is not present...inserting')
             sqlinsert = "insert into assessments_questiongroup_questions(question_id, questiongroup_id) values (%s, %s) returning id;"
             tocursor.execute(sqlinsert, (question_id, questiongroup_id))
 
@@ -125,7 +122,6 @@ for file_row in csv_f:
                 if old_score != score:
                     if enteredtimestamp < timestamp:
                         # Replace answer
-                        print("Replacing: present timestamp"+str(enteredtimestamp)+" new timestamp: "+str(timestamp)+" answergroup_id: "+str(answergroup_id)+" answer_id: "+str(answer_id)+" old score: "+str(old_score)+" new score: "+str(score))
                         sqlupdate = "Update assessments_answergroup_student set date_of_visit=%s where id=%s;"
                         tocursor.execute(sqlupdate, (timestamp, answergroup_id))
                         sqlupdate = "update assessments_answerstudent set answer=%s where id=%s;"
