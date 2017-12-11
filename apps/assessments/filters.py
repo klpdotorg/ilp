@@ -11,7 +11,7 @@ class AnswersSurveyTypeFilter(django_filters.FilterSet):
 
     class Meta:
         model = AnswerGroup_Institution
-        fields = ['survey_id', 'is_verified']
+        fields = ['id', 'survey_id', 'is_verified']
 
 
 class SurveyFilter(BaseFilterBackend):
@@ -29,3 +29,5 @@ class SurveyFilter(BaseFilterBackend):
             queryset = queryset.filter(institution_type=institution_type)
 
         return queryset
+
+
