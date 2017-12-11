@@ -116,6 +116,7 @@ DJANGO_EASY_AUDIT_WATCH_AUTH_EVENTS = False
 DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False
 DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
     'assessments.AnswerGroup_Institution',
+    'assessments.AnswerInstitution',
 ]
 # Root URL Config
 ROOT_URLCONF = 'ilp.urls'

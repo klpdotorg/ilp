@@ -18,7 +18,6 @@ class AnswerGroup_Institution(models.Model):
     institution = models.ForeignKey("schools.Institution")
     questiongroup = models.ForeignKey("QuestionGroup")
     group_value = models.CharField(max_length=100, null=True)
-    double_entry = models.IntegerField()
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey("RespondentType", null=True)
@@ -34,6 +33,7 @@ class AnswerInstitution(models.Model):
     answergroup = models.ForeignKey("AnswerGroup_Institution", related_name="answers")
     question = models.ForeignKey("Question")
     answer = models.CharField(max_length=200)
+    double_entry = models.IntegerField(null=True,default=0)
 
     class Meta:
         unique_together = (('answergroup', 'question'), )
@@ -44,7 +44,6 @@ class AnswerGroup_StudentGroup(models.Model):
     studentgroup = models.ForeignKey("schools.StudentGroup")
     questiongroup = models.ForeignKey("QuestionGroup")
     group_value = models.CharField(max_length=100, null=True)
-    double_entry = models.IntegerField()
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey("RespondentType", null=True)
@@ -58,6 +57,7 @@ class AnswerStudentGroup(models.Model):
     answergroup = models.ForeignKey("AnswerGroup_StudentGroup")
     question = models.ForeignKey("Question")
     answer = models.CharField(max_length=200)
+    double_entry = models.IntegerField(null=True)
 
     class Meta:
         unique_together = (('answergroup', 'question'), )
@@ -69,7 +69,6 @@ class AnswerGroup_Student(models.Model):
     student = models.ForeignKey("schools.Student")
     questiongroup = models.ForeignKey("QuestionGroup")
     group_value = models.CharField(max_length=100, null=True)
-    double_entry = models.IntegerField()
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey("RespondentType", null=True)
@@ -83,6 +82,7 @@ class AnswerStudent(models.Model):
     answergroup = models.ForeignKey("AnswerGroup_Student")
     question = models.ForeignKey("Question")
     answer = models.CharField(max_length=200)
+    double_entry = models.IntegerField(null=True)
 
     class Meta:
         unique_together = (('answergroup', 'question'), )

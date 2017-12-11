@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
                 ('year_month', models.CharField(db_column='year_month', max_length=10)),
                 ('sg_name', models.CharField(db_column='sg_name', max_length=100)),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
-                ('num_perfectscore_assessments', models.IntegerField(db_column='num_perfectscore_assessments')),
+                ('num_correct_assessments', models.IntegerField(db_column='num_correct_assessments')),
             ],
             options={
                 'db_table': 'mvw_survey_classs_gender_agg',
