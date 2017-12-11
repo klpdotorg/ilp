@@ -18,7 +18,7 @@
         });
 
         //get and show recent stories
-        var url = "stories/";
+        var url = "surveys/shared-assessments";
         var params = {
             per_page: 6,
             verified: 'yes'
@@ -27,7 +27,7 @@
         var tplSys = swig.compile($('#tpl-sysInfo').html());
         sysXHR.done(function(data) {
             var context = {
-                'stories': data.features
+                'stories': data.institutions
             };
             var html = tplSys(context);
             $('#sysInfo').html(html);

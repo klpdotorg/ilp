@@ -3,8 +3,8 @@
   <div>
     {% for s in stories %}
       <div class="stories-list-each">
-        <a href="{{ s.school_url }}#?tab=share-story">
-          {{ s.school_name }}
+        <a href="school/{{ s.institution }}#?tab=share-story">
+          {{ s.institution_name }}
         </a>:
           {{ s.name }}
       </div>
