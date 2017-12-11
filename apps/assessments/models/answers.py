@@ -30,14 +30,13 @@ class AnswerGroup_Institution(models.Model):
 
 class AnswerInstitution(models.Model):
     """Answers for institution assessments"""
-    answergroup = models.ForeignKey("AnswerGroup_Institution")
+    answergroup = models.ForeignKey("AnswerGroup_Institution", related_name="answers")
     question = models.ForeignKey("Question")
     answer = models.CharField(max_length=200)
-    double_entry = models.IntegerField(null=True)
+    double_entry = models.IntegerField(null=True,default=0)
 
     class Meta:
         unique_together = (('answergroup', 'question'), )
-
 
 class AnswerGroup_StudentGroup(models.Model):
     """Stores common value for the answers to a particular QuestionGroup for a
