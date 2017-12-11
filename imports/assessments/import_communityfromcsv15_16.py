@@ -1,5 +1,6 @@
 from os import sys
-import os, inspect
+import os
+import inspect
 import csv
 import datetime
 import psycopg2
@@ -84,6 +85,7 @@ num_to_user_type = {
 
 connectionstring = "dbname=%s user=klp" % todatabase
 
+
 def reset_sequences():
     conn = psycopg2.connect(connectionstring)
     cursor = conn.cursor()
@@ -109,7 +111,7 @@ for filename in os.listdir(fromdir):
 
     previous_date = ""
 
-    #reset sequences
+    # reset sequences
     reset_sequences()
 
     for row in csv_f:

@@ -1,16 +1,14 @@
-from os import system,sys
-import os, inspect
+from os import system, sys
+import os
+import inspect
 
 if len(sys.argv) != 3:
     print("Please give database names as arguments. USAGE: python updatespatialdata.py spatial ilp")
     sys.exit()
 
 
-#Before running this script
-#change this to point to the ems database that is used for getting the data
 fromdatabase = sys.argv[1]
 
-#change this to ilp db to be populated with
 todatabase = sys.argv[2]
 
 basename = "spatialupdate"
@@ -41,43 +39,44 @@ tables = [
 
 ]
 
-#Create directory and files
+
+# Create directory and files
 def init():
     if not os.path.exists(scriptdir+"/load"):
-    	os.makedirs(scriptdir+"/load")
-    inputfile=open(inputdatafile,'wb',0)
-    tempfile=open(tempdatafile,'wb',0)
+        os.makedirs(scriptdir+"/load")
+    open(inputdatafile, 'wb', 0)
+    open(tempdatafile, 'wb', 0)
 
 
-#Create the getdata.sql and loaddata.sql files
+# Create the getdata.sql and loaddata.sql files
 # getdata.sql file has the "Copy to" commands for populating the various csv files
 # loaddata.sql file has the "copy from" commands for loading the data into the db
 def create_sqlfiles():
-    #Loop through the tables
+    # Loop through the tables
     for table in tables:
-        #create the "copy to" file to get data from ems
-        system('echo "'+table['query'].replace('replacecolumns',table['columns']).replace('replacefile',table['name'])+'\">>'+inputdatafile)
+        # create the "copy to" file to get data from ems
+        system('echo "'+table['query'].replace('replacecolumns', table['columns']).replace('replacefile', table['name'])+'\">>'+inputdatafile)
 
-        #create temp table
+        # create temp table
         filename = scriptdir+'/load/'+table['name']+'.csv'
         system('echo "CREATE TEMP TABLE '+table['temptablename']+'('+table['createcolumns']+');"'+'>>'+tempdatafile)
 
-        #create sql file to copy into the temp table and then update
+        # create sql file to copy into the temp table and then update
         system('echo "\COPY '+table['temptablename']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+tempdatafile)
-        system('echo "'+table['update_query'].replace('replacetablename',table['tablename']).replace('replacetemptable',table['temptablename'])+'">>'+tempdatafile)
+        system('echo "'+table['update_query'].replace('replacetablename', table['tablename']).replace('replacetemptable', table['temptablename'])+'">>'+tempdatafile)
 
 
-#Running the "copy to" commands to populate the csvs.
+# Running the "copy to" commands to populate the csvs.
 def getdata():
     system("psql -U klp -d "+fromdatabase+" -f "+inputdatafile)
 
 
-#Running the "copy from" commands for loading the db.
+# Running the "copy from" commands for loading the db.
 def loaddata():
     system("psql -U klp -d "+todatabase+" -f "+tempdatafile)
 
 
-#order in which function should be called.
+# order in which function should be called.
 init()
 create_sqlfiles()
 getdata()

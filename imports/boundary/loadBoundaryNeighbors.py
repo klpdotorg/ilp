@@ -1,13 +1,11 @@
-from os import system
-import os
 import sys
 import psycopg2
 
-dbname=sys.argv[1]
+dbname = sys.argv[1]
 connectionstring = "dbname=%s user=klp" % dbname
-conn = psycopg2.connect(connectionstring);
+conn = psycopg2.connect(connectionstring)
 cur = conn.cursor()
-#This should be imported from a file, not hardcoded like this
+# This should be imported from a file, not hardcoded like this
 neighbours = {
         413: [414,  415,  420, 421, 422],
         414: [413, 415, 418, 419, 420],
@@ -44,10 +42,10 @@ neighbours = {
         9541: [431, 433, 444, 9540]
 }
 for i in neighbours:
-    list = neighbours[i];
+    list = neighbours[i]
     for value in list:
-        print(i,value);
-        cur.execute("INSERT INTO boundary_boundaryneighbours(boundary_id,neighbour_id) VALUES(%s,%s)", (i,value,));
+        print(i, value)
+        cur.execute("INSERT INTO boundary_boundaryneighbours(boundary_id,neighbour_id) VALUES(%s,%s)", (i, value,))
 conn.commit()
 cur.close()
 conn.close()

@@ -1,5 +1,6 @@
 from os import sys
-import os, inspect
+import os
+import inspect
 import csv
 import datetime
 import psycopg2
@@ -88,10 +89,11 @@ user_to_user_type = {
     'educated/localleader': 'ER',
     'cbomember': 'CM',
     'educatedyouth': 'EY',
-    'na':'PR'
+    'na': 'PR'
 }
 
 connectionstring = "dbname=%s user=klp" % todatabase
+
 
 def reset_sequences():
     conn = psycopg2.connect(connectionstring)
@@ -116,7 +118,7 @@ for filename in os.listdir(fromdir):
     missing_ids['schools'] = []
     count = 0
 
-    #reset sequences
+    # reset sequences
     reset_sequences()
 
     for row in csv_f:
@@ -137,15 +139,15 @@ for filename in os.listdir(fromdir):
             continue
         accepted_answers = {'Yes': 'Yes', 'No': 'No'}
 
-        user_type = user_to_user_type[row[7].strip().lower().replace(' ','')]
+        user_type = user_to_user_type[row[7].strip().lower().replace(' ', '')]
         date = row[6]
         if date == 'NA':
             date = '01/04/2015'
-        if re.match('^.*/14$',date):
-            date = re.sub('14','2014',date)
-        if re.match('^.*/15$',date):
-            date = re.sub('15','2015',date)
-        date_of_visit = datetime.datetime.strptime( date, '%d/%m/%Y')
+        if re.match('^.*/14$', date):
+            date = re.sub('14', '2014', date)
+        if re.match('^.*/15$', date):
+            date = re.sub('15', '2015', date)
+        date_of_visit = datetime.datetime.strptime(date, '%d/%m/%Y')
 
         question_sequence = [1, 2, 3, 4, 5, 6, 7, 8]
         answer_columns = [9, 10, 11, 12, 13, 14, 15, 16]
@@ -158,7 +160,7 @@ for filename in os.listdir(fromdir):
         if at_least_one_answer:
             sqlinsert = "insert into assessments_answergroup_institution(institution_id,group_value,is_verified,questiongroup_id,date_of_visit,respondent_type_id,status_id) values(%s, %s, %s, %s, %s, %s, %s) returning id;"
             cursor.execute(sqlinsert, (school_id, name, 'true', 4,
-                                       date_of_visit, user_type,'AC'))
+                                       date_of_visit, user_type, 'AC'))
             group_id = cursor.fetchone()[0]
 
             for sequence_number, answer_column in zip(question_sequence,

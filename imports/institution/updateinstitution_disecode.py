@@ -1,10 +1,10 @@
-from os import system,sys
-import os, inspect
+from os import system, sys
+import os
+import inspect
 
 if len(sys.argv) != 3:
-    print("Please give database names as arguments. USAGE: python updateinstitution_disecode.py ems ilp", file=sys.stderr)
+    print("Please give database names as arguments. USAGE: python updateinstitution_disecode.py ems ilp")
     sys.exit()
-
 
 fromdatabase = sys.argv[1]
 
@@ -16,8 +16,7 @@ scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe
 inputsqlfile = scriptdir+"/"+basename+"_getdata.sql"
 loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 
-
-tables=[
+tables = [
         {
             'name': 'schools_institution',
             'getquery': "\COPY (select id, dise_code::bigint from replacetablename where dise_code is not null and dise_code ~ '^[0-9]') TO 'replacefilename' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
@@ -26,7 +25,8 @@ tables=[
         },
 ]
 
-#Create directory and files
+
+# Create directory and files
 def init():
     if not os.path.exists(scriptdir+"/load"):
         os.makedirs(scriptdir+"/load")
@@ -34,11 +34,11 @@ def init():
     open(loadsqlfile, 'wb', 0)
 
 
-#Create the getdata.sql and loaddata.sql files
+# Create the getdata.sql and loaddata.sql files
 # getdata.sql file has the "Copy to" commands for populating the various csv files
 # loaddata.sql file has the "copy from" commands for loading the data into the db
 def create_sqlfiles():
-    #Loop through the tables
+    # Loop through the tables
     for table in tables:
         filename = scriptdir+'/load/'+basename+'_'+table['name']+'.csv'
         open(filename, 'wb', 0)
@@ -54,18 +54,17 @@ def create_sqlfiles():
             system(command)
 
 
-
-#Running the "copy to" commands to populate the csvs.
+# Running the "copy to" commands to populate the csvs.
 def getdata():
     system("psql -U klp -d "+fromdatabase+" -f "+inputsqlfile)
 
 
-#Running the "copy from" commands for loading the db.
+# Running the "copy from" commands for loading the db.
 def loaddata():
     system('psql -U klp -d '+todatabase+' -f '+loadsqlfile)
 
 
-#order in which function should be called.
+# order in which function should be called.
 init()
 create_sqlfiles()
 getdata()
