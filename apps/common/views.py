@@ -25,7 +25,15 @@ class StaticPageView(TemplateView):
 
 
 class ILPAPIView(APIView):
-    pass
+    def __init__(self, *args, **kwargs):
+        super(ILPAPIView, self).__init__(*args, **kwargs)
+        if (
+                hasattr(self, 'bbox_filter_field') and
+                self.bbox_filter_field and
+                ILPInBBOXFilter not in self.filter_backends
+        ):
+            self.filter_backends += (ILPInBBOXFilter,)
+
 
 
 class ILPViewSet(ILPStateMixin, ModelViewSet):

@@ -20,20 +20,20 @@
 
   function setAcadYear() {
     if (!window.location.hash) {
-      window.location.hash = '2014-2015'      
+      window.location.hash = '2015-2016'      
     } 
     selectedYear = window.location.hash.split('#').join('')
   }
 
   function render(boundaryID, academicYear) {
-    var acadYear = academicYear || '2014-2015';
+    var acadYear = academicYear || '2015-2016';
 
 
     /*------------------- WISH WASH FOR MAP-------------*/
 
     var $infoXHR = klp.api.do("aggregation/boundary/" + boundaryID + '/schools/', {
       geometry: 'yes',
-      year: acadYear,
+      year: acadYear.replace(/20/g, ''),
       school_type: 'PreSchool',
       source: 'anganwadi',
       from: acadYear.slice(0,4) + "-06-01", // Starts from Jun 1
@@ -44,8 +44,8 @@
     $('#map-canvas').css('zIndex', 1);
     $infoXHR.done(function(data) {
         var boundary = data.properties.boundary;
-        var boundaryType = boundary.school_type;
-        if (boundaryType === 'primaryschool') {
+        var boundaryType = boundary.type;
+        if (boundaryType === 'primary') {
           renderPrimarySchool(data, acadYear);
         } else {
           renderPreSchool(data, acadYear);
@@ -111,7 +111,7 @@
     var acadYear = academicYear.replace(/20/g, '')
     var queryParams = {};
     var boundaryName = data.properties.boundary.name;
-    var boundaryType = data.properties.boundary.type;
+    var boundaryType = data.properties.boundary.boundary_type;
     var boundaryID = data.properties.boundary.id;
     var adminLevel = ADMIN_LEVEL_MAP[data.properties.boundary.type];
     queryParams[adminLevel] = boundaryID;
@@ -119,7 +119,7 @@
     klp.dise_api.queryBoundaryName(boundaryName, boundaryType, acadYear)
       .done(function(diseData) {
         var boundary = diseData[0].children[0]
-        
+        //The boundary object here is what DISE app returns and boundary still has a type field
         klp.dise_api.getBoundaryData(boundary.id, boundary.type, acadYear)
           .done(function(diseData) {            
             renderSummary(utils.getPrimarySchoolSummary(data, diseData, academicYear), 'school');

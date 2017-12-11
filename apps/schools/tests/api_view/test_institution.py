@@ -49,6 +49,7 @@ class InstitutionAPITests(APITestCase):
     def test_list_api_admin_filters(self):
         # test admin1 filter
         url = reverse('institution:institution-list')
+        print(url)
         response = self.client.get(url, {'state': 'ka', 'admin1': '0101'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 

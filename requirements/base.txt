@@ -14,3 +14,5 @@ python-dateutil==2.3
 pytz==2017.2
 drf-compound-fields
 Pillow==4.3.0
+django-easy-audit==1.0
+
