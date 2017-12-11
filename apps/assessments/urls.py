@@ -9,7 +9,8 @@ from assessments.api_views import(
     AnswerGroupInstitutionViewSet, AnswersInstitutionViewSet,
     SurveyDetailSourceAPIView, SurveyDetailKeyAPIView,
     SurveyInfoClassGenderAPIView, SurveyInfoEBoundaryAPIView,
-    SurveyDetailClassAPIView, SharedAssessmentsView
+    SurveyDetailClassAPIView, SharedAssessmentsView,
+    SurveyVolumeAPIView
 )
 from schools.api_view import InstitutionViewSet
 from rest_framework import routers
@@ -85,6 +86,8 @@ urlpatterns = [
         name='survey-detail-source'),
     url(r'survey/detail/key', SurveyDetailKeyAPIView.as_view(),
         name='survey-detail-key'),
+    url(r'survey/volume', SurveyVolumeAPIView.as_view(),
+        name='survey-volume'),
     url(r'survey/detail/class', SurveyDetailClassAPIView.as_view(),
         name='survey-detail-class'),
     url(r'survey/info/class/gender', SurveyInfoClassGenderAPIView.as_view(),

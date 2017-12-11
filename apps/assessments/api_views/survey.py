@@ -61,6 +61,29 @@ class SurveySummaryAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
+class SurveyVolumeAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveySummaryAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
+
+    def list(self, request, *args, **kwargs):
+        years = range(2009, 2020)
+        months = {
+            "01": "Jan", "02": "Feb", "03": "Mar",
+            "04": "APR", "05": "MAY", "06": "JUN",
+            "07": "JUL", "08": "AUG", "09": "SEP",
+            "10": "OCT", "11": "NOV", "12": "DEC"
+        }
+        volume_res = {}
+        for year in years:
+            year_res = {}
+            y_agg = self.queryset.filter(year_month__startswith=year)
+            for month in months:
+                year_res[months[month]] = \
+                    y_agg.filter(year_month__endswith=month).count()
+            volume_res[year] = year_res
+        return Response(volume_res)
+
+
 class SurveyInfoSourceAPIView(ListAPIView, ILPStateMixin):
     queryset = SurveyDetailsAgg.objects.all()
     filter_backends = [SurveyFilter, ]
