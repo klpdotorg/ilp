@@ -1,9 +1,10 @@
-from os import system,sys
-import os, inspect
+from os import system, sys
+import os
+import inspect
 
-#SSA coords file is expected to have 3 columns in the order:- dise code, latitude and longitude
+# SSA coords file is expected to have 3 columns in the order:- dise code, latitude and longitude
 if len(sys.argv) != 3:
-    print("Please give csv filename and database name as arguments. USAGE: python updateinstitutioncoords.py ssa_coords.csv ilp", file=sys.stderr)
+    print("Please give csv filename and database name as arguments. USAGE: python updateinstitutioncoords.py ssa_coords.csv ilp")
     sys.exit()
 
 
@@ -15,7 +16,7 @@ todatabase = sys.argv[2]
 
 tempdatafile = scriptdir+"/"+basename+"_tempdata.sql"
 
-tables=[
+tables = [
         {
             'name': 'update_instcoord',
             'tablename': 'schools_institution',
@@ -26,35 +27,35 @@ tables=[
         }
 ]
 
-#Create directory and files
+
+# Create directory and files
 def init():
     if not os.path.exists(scriptdir+"/load"):
-    	os.makedirs(scriptdir+"/load")
-    tempfile=open(tempdatafile,'wb',0)
+        os.makedirs(scriptdir+"/load")
+    open(tempdatafile, 'wb', 0)
 
 
-#Create the temp sql files with the db commands for creating temp table, filling it
+# Create the temp sql files with the db commands for creating temp table, filling it
 # and updating the institution table accordingly.
 def create_sqlfiles():
-    #Loop through the tables
+    # Loop through the tables
     for table in tables:
 
-        #create temp table
-        filename = open(fromfile,'r')
+        # create temp table
+        open(fromfile, 'r')
         system('echo "CREATE TEMP TABLE '+table['temptablename']+'('+table['createcolumns']+');"'+'>>'+tempdatafile)
 
-        #create sql file to copy into the temp table and then update
+        # create sql file to copy into the temp table and then update
         system('echo "\COPY '+table['temptablename']+"("+table['columns']+") from '"+fromfile+"' with csv NULL 'null';"+'\">>'+tempdatafile)
         system('echo "'+table['update_query']+'">>'+tempdatafile)
 
 
-
-#Running the "copy from" commands for loading the db.
+# Running the "copy from" commands for loading the db.
 def loaddata():
     system("psql -U klp -d "+todatabase+" -f "+tempdatafile)
 
 
-#order in which function should be called.
+# order in which function should be called.
 init()
 create_sqlfiles()
 loaddata()

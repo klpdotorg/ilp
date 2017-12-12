@@ -4,18 +4,19 @@ import inspect
 import csv
 import datetime
 import psycopg2
+import re
 
 
 if len(sys.argv) != 3:
-    print("Please give database names as arguments. USAGE: " +
-          "python import_communityfromcsv15_16.py pathtofilesdir ilp")
+    print("Please give directory and database names as arguments. USAGE: " +
+          "python import_communityfromcsv14_15.py pathtofilesdir ilp")
     sys.exit()
 
 fromdir = sys.argv[1]
 
 todatabase = sys.argv[2]
 
-basename = "communityfile"
+basename = "community14_15"
 scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 inputsqlfile = scriptdir+"/"+basename+"_getdata.sql"
 loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
@@ -75,12 +76,20 @@ def is_year_correct(year):
         return (len(year) == 4 and int(year))
 
 
-num_to_user_type = {
-    '1': 'PR',
-    '2': 'SM',
-    '3': 'ER',
-    '4': 'CM',
-    '5': 'CM'
+user_to_user_type = {
+    'parent': 'PR',
+    'parents': 'PR',
+    'sdmc': 'SM',
+    'sdmc-1': 'SM',
+    'sdmc-2': 'SM',
+    'elected/localleader': 'ER',
+    'elected-localleader': 'ER',
+    'electedlocalleader': 'ER',
+    'localleader': 'ER',
+    'educated/localleader': 'ER',
+    'cbomember': 'CM',
+    'educatedyouth': 'EY',
+    'na': 'PR'
 }
 
 connectionstring = "dbname=%s user=klp" % todatabase
@@ -109,18 +118,16 @@ for filename in os.listdir(fromdir):
     missing_ids['schools'] = []
     count = 0
 
-    previous_date = ""
-
     # reset sequences
     reset_sequences()
 
     for row in csv_f:
-        if count < 2:
+        if count < 1:
             count += 1
             continue
 
-        name = row[7]
-        school_id = row[6].strip()
+        name = row[8]
+        school_id = row[4].strip()
         if school_id == '':
             print('School id is empty'+str(row))
             continue
@@ -130,43 +137,43 @@ for filename in os.listdir(fromdir):
         if not school_present:
             print('School id not present :'+school_id)
             continue
-        accepted_answers = {'1': 'Yes', '0': 'No', '99': 'Unknown', '88': 'Unknown'}
+        accepted_answers = {'Yes': 'Yes', 'No': 'No'}
 
-        user_type = num_to_user_type[row[8]]
-        day, month, year = row[26], row[27], row[28]
-        previous_date = date_of_visit = parse_date(
-                previous_date, day, month, year)
+        user_type = user_to_user_type[row[7].strip().lower().replace(' ', '')]
+        date = row[6]
+        if date == 'NA':
+            date = '01/04/2015'
+        if re.match('^.*/14$', date):
+            date = re.sub('14', '2014', date)
+        if re.match('^.*/15$', date):
+            date = re.sub('15', '2015', date)
+        date_of_visit = datetime.datetime.strptime(date, '%d/%m/%Y')
 
-        question_sequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-                             12, 13, 14, 15, 16, 17]
-        answer_columns = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-                          19, 20, 21, 22, 23, 24, 25]
+        question_sequence = [1, 2, 3, 4, 5, 6, 7, 8]
+        answer_columns = [9, 10, 11, 12, 13, 14, 15, 16]
 
         at_least_one_answer = False
         for answer_column in answer_columns:
-            if row[answer_column] in accepted_answers:
+            if row[answer_column].strip() in accepted_answers:
                 at_least_one_answer = True
-                break
 
         if at_least_one_answer:
             sqlinsert = "insert into assessments_answergroup_institution(institution_id,group_value,is_verified,questiongroup_id,date_of_visit,respondent_type_id,status_id) values(%s, %s, %s, %s, %s, %s, %s) returning id;"
-            cursor.execute(sqlinsert, (school_id, name, 'true', 7,
+            cursor.execute(sqlinsert, (school_id, name, 'true', 4,
                                        date_of_visit, user_type, 'AC'))
             group_id = cursor.fetchone()[0]
 
             for sequence_number, answer_column in zip(question_sequence,
                                                       answer_columns):
-                if row[answer_column] in accepted_answers:
-                    sqlselect = "select distinct question_id from assessments_questiongroup_questions where questiongroup_id=7 and sequence=%s;"
+                answer = row[answer_column].strip()
+                if answer in accepted_answers:
+                    sqlselect = "select distinct question_id from assessments_questiongroup_questions where questiongroup_id=4 and sequence=%s;"
                     cursor.execute(sqlselect, [sequence_number])
                     question_id = cursor.fetchall()[0]
                     # Create answer
                     sqlanswer = "insert into assessments_answerinstitution(answergroup_id, question_id, answer) values(%s, %s, %s)"
                     cursor.execute(sqlanswer, (group_id, question_id,
-                                               row[answer_column]))
-                else:
-                    print("No accepted answers")
-                    print(row)
+                                               answer))
 
     conn.commit()
     cursor.close()

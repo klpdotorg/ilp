@@ -52,39 +52,55 @@ echo "Spatial done"
 #Populate assessments
 echo "Running Assessments"
 #Import SYS data
+echo "SYS Assessments"
 python assessments/import_sys.py dubdubdub $ilp
 
-#Import Mahiti IVRS data
-python assessments/import_mahitiivrs.py dubdubdub $ilp
+#Import IVRS Community data
+echo "Community IVRS"
+python assessments/import_community_ivrs.py dubdubdub $ilp
 
 #Import KLP Konnect data
+echo "KLP Konnect"
 python assessments/import_klpkonnect.py dubdubdub $ilp
 
 #Import GP Contest data
+echo "GP Contest"
 python assessments/import_gp_contest.py dubdubdub $ilp
 
+#Import GKA Monitoring
+echo "GKA Monitoring"
+python assessments/import_gka_monitoring.py dubdubdub $ilp
+
 #Import Community data
-#IVRS
-python assessments/import_community_basic_ivrs.py dubdubdub $ilp
-#Run import_communityfromcsv15_16.py script:
+echo "Community data"
+python assessments/import_community_basic.py dubdubdub $ilp
 #2015-2016
-python assessments/import_communityfromcsv15_16.py `pwd`/assessments/community_survey $ilp
-#2014-2015 TBD
+python assessments/import_communityfromcsv15_16.py `pwd`/assessments/community_survey/15_16 $ilp
+#2014-2015 
+python assessments/import_communityfromcsv14_15.py `pwd`/assessments/community_survey/14_15 $ilp
 
 
 #Import GKA data
-#Basic
-python assessments/import_gka_basicinfo.py $ilp
+echo "GKA data"
+python assessments/import_gka_basicinfo.py dubdubdub $ilp
 python assessments/import_gkaassessmentdata.py dubdubdub $ilp
 
 #Import Anganwadi Infrastructure Data:
+echo "Anganwadi Infra"
 python assessments/import_anganwadi_infra.py ang_infra $ilp
+
+#Import images
+echo "Inst images"
+python assessments/import_institutionimages.py dubdubdub $ilp
 
 #insert survey to surveytag mapping
 psql -U klp -d $ilp -f assessments/insert_survey_tag_mapping.sql
 
 #Mapping institutions to survey tags
 psql -U klp -d $ilp -f assessments/insert_surveytag_institution_mapping.sql
+
+psql -U klp -d $ilp -f assessments/update_questionscores.sql
+
 echo "Assessments Done"
 
 #Populate aggregates

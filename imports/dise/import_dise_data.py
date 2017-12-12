@@ -1,9 +1,10 @@
-from os import system,sys
-import os, inspect
+from os import system, sys
+import os
+import inspect
 
 
 if len(sys.argv) != 3:
-    print("Please give database names as arguments. USAGE: python import_dise_data.py klpdise_olap ilp", file=sys.stderr)
+    print("Please give database names as arguments. USAGE: python import_dise_data.py klpdise_olap ilp")
     sys.exit()
 
 fromdatabase = sys.argv[1]
@@ -16,7 +17,7 @@ scriptdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe
 inputdatafile = scriptdir+"/"+basename+"_getdata.sql"
 loaddatafile = scriptdir+"/"+basename+"_loaddata.sql"
 
-tables=[
+tables = [
     {
         'name': 'dise_basicdata',
         'fixedcolumns': 'academic_year_id',
@@ -26,45 +27,46 @@ tables=[
     }
 ]
 
-years=["1213","1314", "1415", "1516"]
+years = ["1213", "1314", "1415", "1516"]
 
-#Create directory and files
+
+# Create directory and files
 def init():
     if not os.path.exists(scriptdir+"/load"):
-    	os.makedirs(scriptdir+"/load")
-    inputfile=open(inputdatafile,'wb',0)
-    loadfile=open(loaddatafile,'wb',0)
+        os.makedirs(scriptdir+"/load")
+    open(inputdatafile, 'wb', 0)
+    open(loaddatafile, 'wb', 0)
 
 
-#Create the getdata.sql and loaddata.sql files
+# Create the getdata.sql and loaddata.sql files
 # getdata.sql file has the "Copy to" commands for populating the various csv files
 # loaddata.sql file has the "copy from" commands for loading the data into the db
 def create_sqlfiles():
-    #Loop through the tables
+    # Loop through the tables
     for table in tables:
         for year in years:
-            #write into the "copy to" file to get data from ems
-            system('echo "'+table['query'].replace('replacecolumns',table['from_columns']).replace('replacefile',table['name']).replace('replaceyear',year)+'\">>'+inputdatafile)
+            # write into the "copy to" file to get data from ems
+            system('echo "'+table['query'].replace('replacecolumns', table['from_columns']).replace('replacefile', table['name']).replace('replaceyear', year)+'\">>'+inputdatafile)
 
-            #write into the "copy from" file to load data into db
+            # write into the "copy from" file to load data into db
             filename = scriptdir+'/load/'+table['name']+'_'+year+'.csv'
-            open(filename,'wb',0)
-            os.chmod(filename,0o666)
+            open(filename, 'wb', 0)
+            os.chmod(filename, 0o666)
 
             system('echo "\COPY '+table['name']+"("+table['fixedcolumns']+","+table['to_columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+loaddatafile)
 
 
-#Running the "copy to" commands to populate the csvs.
+# Running the "copy to" commands to populate the csvs.
 def getdata():
     system("psql -U klp -d "+fromdatabase+" -f "+inputdatafile)
 
 
-#Running the "copy from" commands for loading the db.
+# Running the "copy from" commands for loading the db.
 def loaddata():
     system("psql -U klp -d "+todatabase+" -f "+loaddatafile)
 
 
-#order in which function should be called.
+# order in which function should be called.
 init()
 create_sqlfiles()
 getdata()

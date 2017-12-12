@@ -1,5 +1,6 @@
 from os import system, sys
-import os, inspect
+import os
+import inspect
 
 
 if len(sys.argv) != 3:
@@ -23,25 +24,25 @@ tables = [
     },
     {
         'name': 'assessments_questiongroup',
-        'getquery': "\COPY (select id, case source_id when 4 then 'ILP Konnect Mobile' when 1 then 'ILP Konnect Paper' end, start_date, version, 0, created_at, case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, 'AC',source_id, survey_id, 'institution', 'perception', 'name' from stories_questiongroup where survey_id=7) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select id, case source_id when 4 then 'ILP Konnect Mobile' when 1 then 'ILP Konnect Paper' end, start_date, version, 0, created_at, case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, 'AC',source_id, 7, 'institution', 'perception', 'name' from stories_questiongroup where id in (18,20)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, survey_on_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'name': 'assessments_question',
-        'getquery': "\COPY (select distinct id, text, display_text, key, options, is_featured, question_type_id,case(is_active) when 't' then 'AC' when 'f' then 'IA' end from stories_question where id in (select question_id from stories_questiongroup_questions where questiongroup_id in (select id from stories_questiongroup where survey_id =7))) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select distinct id, text, display_text, key, options, is_featured, question_type_id,case(is_active) when 't' then 'AC' when 'f' then 'IA' end from stories_question where id in (select question_id from stories_questiongroup_questions where questiongroup_id in (18,20))) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, text text, display_text text, key text, options text, is_featured boolean, question_type_id integer, status text ); \COPY temp_replacetablename(id, text, display_text, key, options, is_featured, question_type_id,status) FROM 'replacefilename' with csv NULL 'null';",
         'insertquery': "INSERT INTO replacetablename(id, question_text, display_text, key, options, is_featured, question_type_id, status_id) select temp.id, temp.text, temp.display_text, temp.key, temp.options, temp.is_featured, temp.question_type_id, temp.status from temp_replacetablename temp where temp.id not in (select id from replacetablename);"
     },
     {
         'name': 'assessments_questiongroup_questions',
-        'getquery': "\COPY (select questiongroup_id, question_id, sequence from stories_questiongroup_questions where questiongroup_id in (select id from stories_questiongroup where survey_id =7)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select questiongroup_id, question_id, sequence from stories_questiongroup_questions where questiongroup_id in (18,20)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'insertquery': "\COPY replacetablename(questiongroup_id, question_id, sequence) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'name': 'assessments_answergroup_institution',
-        'getquery': "\COPY (select distinct stories.id, 0, stories.date_of_visit, stories.comments, stories.is_verified, stories.sysid, stories.entered_timestamp, stories.school_id, stories.group_id, case qg.status when 1 then 'IA' when 2 then 'AC' else 'AC' end, usertype.name, stories.name from stories_story stories, stories_questiongroup qg, stories_usertype usertype where stories.group_id = qg.id and qg.id=20 and stories.user_type_id = usertype.id) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, double_entry integer, date_of_visit timestamp, comments text, is_verified boolean, sysid integer, entered_at timestamp, school_id integer, questiongroup_id integer, status_id text, user_type_id text, group_value text); \COPY temp_replacetablename(id, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, school_id,questiongroup_id, status_id, user_type_id, group_value) FROM 'replacefilename' with csv NULL 'null';",
-        'insertquery': "INSERT INTO replacetablename(id, group_value, double_entry, date_of_visit, comments, is_verified, sysid, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id) select temp.id, temp.group_value, temp.double_entry, temp.date_of_visit, temp.comments, temp.is_verified, temp.sysid, temp.entered_at, temp.school_id, temp.questiongroup_id, temp.status_id,temp.user_type_id from temp_replacetablename temp, schools_institution s where temp.school_id=s.id;"
+        'getquery': "\COPY (select distinct stories.id, stories.date_of_visit, stories.comments, stories.is_verified, stories.sysid, stories.entered_timestamp, stories.school_id, stories.group_id, 'AC', usertype.name, stories.name from stories_story stories left outer join  stories_usertype usertype on (stories.user_type_id = usertype.id), stories_questiongroup qg where stories.group_id = qg.id and qg.id=20) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, date_of_visit timestamp, comments text, is_verified boolean, sysid integer, entered_at timestamp, school_id integer, questiongroup_id integer, status_id text, user_type_id text, group_value text); \COPY temp_replacetablename(id, date_of_visit, comments, is_verified, sysid, entered_at, school_id,questiongroup_id, status_id, user_type_id, group_value) FROM 'replacefilename' with csv NULL 'null';",
+        'insertquery': "INSERT INTO replacetablename(id, group_value, date_of_visit, comments, is_verified, sysid, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id) select temp.id, temp.group_value, temp.date_of_visit, temp.comments, temp.is_verified, temp.sysid, temp.entered_at, temp.school_id, temp.questiongroup_id, temp.status_id,temp.user_type_id from temp_replacetablename temp, schools_institution s where temp.school_id=s.id;"
     },
     {
         'name': 'assessments_answerinstitution',
