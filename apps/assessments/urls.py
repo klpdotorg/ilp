@@ -25,18 +25,22 @@ simple_router.register(
 # surveys -> questiongroup -> questions
 # maps to earlier programs -> # assessments -> questions
 
-nested_router.register(
-    r'surveys',
-    SurveysViewSet,
-    base_name='surveys').register(
+nested_router\
+    .register(
+        r'surveys',
+        SurveysViewSet,
+        base_name='surveys')\
+    .register(
         r'questiongroup',
         QuestionGroupViewSet,
         base_name="surveys-questiongroup",
-        parents_query_lookups=['survey']).register(
-            r'questions', QuestionGroupQuestions,
-            base_name="surveys-questiongroup-questions",
-            parents_query_lookups=['survey', 'questiongroup_id']
-        )
+        parents_query_lookups=['survey'])\
+    .register(
+        r'questions', QuestionGroupQuestions,
+        base_name="surveys-questiongroup-questions",
+        parents_query_lookups=[
+            'survey', 'questiongroup']
+    )
 
 # surveys -> questiongroup -> institution base route
 surveyqgroup = nested_router.register(

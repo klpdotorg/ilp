@@ -61,6 +61,15 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
             'question_details',
         )
 
+    def create(self, validated_data):
+        question_dict = validated_data['question']
+        questiongroup_id = self.context['questiongroup']
+        question = Question.objects.create(**question_dict)
+        return QuestionGroup_Questions.objects.create(
+            questiongroup_id=questiongroup_id, question=question
+        )
+
+
 class AnswerSerializer(ILPSerializer, CompensationLogMixin):
     answergroup = serializers.PrimaryKeyRelatedField(queryset=AnswerGroup_Institution.objects.all(), source="answergroup_id")
 

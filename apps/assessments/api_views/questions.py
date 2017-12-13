@@ -5,6 +5,7 @@ from django.http import Http404
 from common.views import ILPListAPIView
 from common.mixins import ILPStateMixin
 
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework_extensions.mixins import NestedViewSetMixin
@@ -22,29 +23,11 @@ logger = logging.getLogger(__name__)
 
 
 class QuestionGroupViewSet(
-    NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
+        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questiongroups belonging to a survey'''
     queryset = QuestionGroup.objects.all()
     serializer_class = QuestionGroupSerializer
-
-    # M2M query returns duplicates. Overrode this function
-    # from NestedViewSetMixin to implement the .distinct()
-    def filter_queryset_by_parents_lookups(self, queryset):
-        parents_query_dict = self.get_parents_query_dict()
-        logger.debug("Arguments passed into view is: %s", parents_query_dict)
-        if parents_query_dict:
-            try:
-                queryset = queryset.filter(
-                    **parents_query_dict
-                ).order_by().distinct('id')
-            except ValueError:
-                logger.exception(
-                    ("Exception while filtering queryset based on dictionary."
-                     "Params: %s, Queryset is: %s"),
-                    parents_query_dict, queryset)
-                raise Http404
-        return queryset.order_by('id')
 
 
 class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
@@ -54,28 +37,26 @@ class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
 
 
 class QuestionGroupQuestions(
-    NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
+        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questions belonging to a questiongroup'''
     queryset = QuestionGroup_Questions.objects.all()
     serializer_class = QuestionGroupQuestionSerializer
 
-    # M2M query returns duplicates. Overrode this function
-    # from NestedViewSetMixin to implement the .distinct()
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
-        if parents_query_dict:
-            try:
-                queryset = queryset.filter(
-                    questiongroup_id=parents_query_dict['questiongroup_id']
-                ).order_by().distinct('id')
-            except ValueError:
-                logger.exception(
-                    ("Exception while filtering queryset based on dictionary."
-                     "Params: %s, Queryset is: %s"),
-                    parents_query_dict, queryset)
-                raise Http404
-        return queryset.order_by('id')
+        survey_id = parents_query_dict['survey']
+        questiongroup_id = parents_query_dict['questiongroup']
+        return queryset.filter(
+            questiongroup__survey_id=survey_id,
+            questiongroup_id=questiongroup_id
+        )
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['questiongroup'] = \
+            self.kwargs['parent_lookup_questiongroup']
+        return context
 
 
 class QGroupStoriesInfoView(ILPListAPIView):
