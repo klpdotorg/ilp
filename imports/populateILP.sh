@@ -103,6 +103,12 @@ psql -U klp -d $ilp -f assessments/update_questionscores.sql
 
 echo "Assessments Done"
 
+#Populate Users
+echo "Users"
+python users/import_users.py dubdubdub $ilp
+python users/update_assessment_userid.py dubdubdub $ilp
+echo "Users Done"
+
 #Populate aggregates
 echo "Running aggregates"
 psql -U klp -d $ilp -f aggregates/materialized_views.sql 
