@@ -40,17 +40,21 @@ class QuestionGroupQuestions(
         NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questions belonging to a questiongroup'''
-    queryset = QuestionGroup_Questions.objects.all()
-    serializer_class = QuestionGroupQuestionSerializer
 
-    def filter_queryset_by_parents_lookups(self, queryset):
+    queryset = Question.objects.all()
+
+    def get_queryset(self):
         parents_query_dict = self.get_parents_query_dict()
-        survey_id = parents_query_dict['survey']
         questiongroup_id = parents_query_dict['questiongroup']
-        return queryset.filter(
-            questiongroup__survey_id=survey_id,
-            questiongroup_id=questiongroup_id
-        )
+        question_list = QuestionGroup_Questions.objects\
+            .filter(questiongroup_id=questiongroup_id)\
+            .values_list('question', flat=True)
+        return Question.objects.filter(id__in=question_list)
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return QuestionSerializer
+        return QuestionGroupQuestionSerializer
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
