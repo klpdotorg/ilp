@@ -171,6 +171,24 @@ class SurveyQuestionKeyAgg(models.Model):
         db_table = 'mvw_survey_questionkey_agg'
 
 
+class SurveyClassQuestionKeyAgg(models.Model):
+    """Survey QuestionKey Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    source = models.ForeignKey('Source', db_column="source")
+    sg_name = models.CharField(max_length=100, db_column="sg_name")
+    year =  models.IntegerField(db_column="year")
+    month =  models.IntegerField(db_column="month")
+    question_key = models.CharField(max_length=100, db_column="question_key")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+    num_correct_assessments = models.IntegerField(db_column="num_correct_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_class_questionkey_agg'
+
+
+
 class SurveyClassGenderAgg(models.Model):
     """Survey Class Gender Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
