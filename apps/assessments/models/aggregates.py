@@ -34,7 +34,6 @@ class SurveyDetailsAgg(models.Model):
     num_assessments = models.IntegerField(db_column="num_assessments")
     num_children = models.IntegerField(db_column="num_children")
     num_users = models.IntegerField(db_column="num_users")
-    num_verified_assessment = models.IntegerField(db_column="num_verified_assessments")
     last_assessment = models.DateField(db_column="last_assessment")
 
     class Meta:

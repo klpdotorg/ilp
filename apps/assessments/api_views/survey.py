@@ -102,16 +102,12 @@ class SurveyInfoSourceAPIView(ListAPIView, ILPStateMixin):
 
             qs_agg = queryset.filter(source=source_id).aggregate(
                 Sum('num_schools'), Sum('num_assessments'),
-                Sum('num_verified_assessment')
             )
             source_res[source_name] = {
                 "schools_impacted": qs_agg['num_schools__sum'],
                 "assessment_count": qs_agg['num_assessments__sum'],
                 # Todo
                 "last_assessment": None,
-                "verified_assessment_count": qs_agg[
-                    'num_verified_assessment__sum'
-                ]
             }
         response['source'] = source_res
         return Response(response)
