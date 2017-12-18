@@ -1582,6 +1582,189 @@ GROUP BY survey.id,
     year,month)data;
 
 
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_questionkey_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_questiongroup_questionkey_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,question_key,year, month) as id,
+    survey_id,
+    survey_tag,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    year,
+    month,
+    question_key,
+    num_assessments,
+    num_correct_assessments
+FROM(
+    SELECT
+    survey.id as survey_id,
+    surveytag.tag_id as survey_tag,
+    qg.source_id as source,
+    qg.id as questiongroup_id,
+    qg.name as questiongroup_name,
+    to_char(ag.date_of_visit,'YYYY')::int as year,
+    to_char(ag.date_of_visit,'MM')::int as month,
+    q.key as question_key,
+    count(distinct ag.id) as num_assessments,
+    0 as num_correct_assessments
+FROM assessments_survey survey,
+    assessments_questiongroup as qg,
+    assessments_answergroup_institution as ag,
+    assessments_surveytagmapping as surveytag,
+    assessments_answerinstitution ans,
+    assessments_question q
+WHERE 
+    survey.id = qg.survey_id
+    and qg.id = ag.questiongroup_id
+    and survey.id = surveytag.survey_id
+    and survey.id in (1, 2, 4, 5, 6, 7)
+    and ag.id = ans.answergroup_id
+    and ans.question_id = q.id
+GROUP BY survey.id,
+    surveytag.tag_id,
+    qg.source_id,
+    qg.name,qg.id,
+    q.key,
+    year,month)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,question_key,year, month) as id,
+    survey_id,
+    survey_tag,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    year,
+    month,
+    question_key,
+    num_assessments,
+    num_correct_assessments
+FROM(
+    SELECT
+    survey.id as survey_id,
+    surveytag.tag_id as survey_tag,
+    qg.source_id as source,
+    qg.id as questiongroup_id,
+    qg.name as questiongroup_name,
+    to_char(ag.date_of_visit,'YYYY')::int as year,
+    to_char(ag.date_of_visit,'MM')::int as month,
+    q.key as question_key,
+    count(distinct ag.id) as num_assessments,
+    0 as num_correct_assessments
+FROM assessments_survey survey,
+    assessments_questiongroup as qg,
+    assessments_answergroup_institution as ag,
+    assessments_surveytagmapping as surveytag,
+    assessments_answerinstitution ans,
+    assessments_question q,
+    assessments_surveytaginstitutionmapping as st_instmap
+WHERE 
+    survey.id = qg.survey_id
+    and qg.id = ag.questiongroup_id
+    and survey.id = surveytag.survey_id
+    and survey.id in (1, 2, 4, 5, 6, 7)
+    and ag.id = ans.answergroup_id
+    and ans.question_id = q.id
+    and surveytag.tag_id = st_instmap.tag_id
+    and ag.institution_id = st_instmap.institution_id
+GROUP BY survey.id,
+    surveytag.tag_id,
+    qg.source_id,
+    qg.name,qg.id,
+    q.key,
+    year,month)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,question_key,year, month) as id,
+    survey_id,
+    survey_tag,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    year,
+    month,
+    question_key,
+    num_assessments,
+    num_correct_assessments
+FROM(
+    SELECT
+    survey.id as survey_id,
+    surveytag.tag_id as survey_tag,
+    qg.source_id as source,
+    qg.id as questiongroup_id,
+    qg.name as questiongroup_name,
+    to_char(ag.date_of_visit,'YYYY')::int as year,
+    to_char(ag.date_of_visit,'MM')::int as month,
+    q.key as question_key,
+    count(distinct ag.id) as num_assessments,
+    count(correct.*) as num_correct_assessments
+FROM assessments_survey survey,
+    assessments_questiongroup as qg,
+    assessments_answergroup_student as ag left outer join (select distinct ans.answergroup_id id from assessments_answerstudent ans, assessments_question q where ans.question_id=q.id group by ans.answergroup_id having count(case ans.answer=q.pass_score when true then 1 end)=count(ans.*))correct on (correct.id=ag.id),
+    assessments_surveytagmapping as surveytag,
+    assessments_answerstudent ans,
+    assessments_question q
+WHERE 
+    survey.id = qg.survey_id
+    and qg.id = ag.questiongroup_id
+    and survey.id = surveytag.survey_id
+    and survey.id in (3)
+    and ag.id = ans.answergroup_id
+    and ans.question_id = q.id
+GROUP BY survey.id,
+    surveytag.tag_id,
+    qg.source_id,
+    qg.name,qg.id,
+    q.key,
+    year,month)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,question_key,year, month) as id,
+    survey_id,
+    survey_tag,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    year,
+    month,
+    question_key,
+    num_assessments,
+    num_correct_assessments
+FROM(
+    SELECT
+    survey.id as survey_id,
+    surveytag.tag_id as survey_tag,
+    qg.source_id as source,
+    qg.id as questiongroup_id,
+    qg.name as questiongroup_name,
+    to_char(ag.date_of_visit,'YYYY')::int as year,
+    to_char(ag.date_of_visit,'MM')::int as month,
+    q.key as question_key,
+    count(distinct ag.id) as num_assessments,
+    count(correct.*) as num_correct_assessments
+FROM assessments_survey survey,
+    assessments_questiongroup as qg,
+    assessments_answergroup_student as ag left outer join (select distinct ans.answergroup_id id from assessments_answerstudent ans, assessments_question q where ans.question_id=q.id group by ans.answergroup_id having count(case ans.answer=q.pass_score when true then 1 end)=count(ans.*))correct on (correct.id=ag.id),
+    assessments_surveytagmapping as surveytag,
+    assessments_answerstudent ans,
+    assessments_question q,
+    schools_student stu,
+    assessments_surveytaginstitutionmapping as st_instmap
+WHERE 
+    survey.id = qg.survey_id
+    and qg.id = ag.questiongroup_id
+    and survey.id = surveytag.survey_id
+    and survey.id in (3)
+    and ag.id = ans.answergroup_id
+    and ans.question_id = q.id
+    and surveytag.tag_id = st_instmap.tag_id
+    and ag.student_id = stu.id
+    and stu.institution_id = st_instmap.institution_id
+GROUP BY survey.id,
+    surveytag.tag_id,
+    qg.source_id,
+    qg.name,qg.id,
+    q.key,
+    year,month)data;
+
+
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_class_questionkey_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,question_key,year, month) as id,
@@ -1631,7 +1814,7 @@ GROUP BY survey.id,
     q.key,
     year,month)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,question_key,year, month) as id,
     survey_id,
     survey_tag,
     source,
@@ -1660,7 +1843,6 @@ FROM assessments_survey survey,
     assessments_question q,
     schools_student stu,
     assessments_surveytaginstitutionmapping st_instmap,
-    schools_student stu,
     schools_studentstudentgrouprelation stusg,
     schools_studentgroup sg
 WHERE 
@@ -1679,9 +1861,8 @@ WHERE
 GROUP BY survey.id,
     surveytag.tag_id,
     qg.source_id,
-    q.key,ag.name,
+    q.key,sg.name,
     year,month)data;
-
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_gender_agg CASCADE;
