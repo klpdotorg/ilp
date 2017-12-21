@@ -1,3 +1,5 @@
+{% load state_variables %}
+
 <script id="loginModalTemplate" type="text/html">
   <div class="modal-block" id="signupContainer" data-step-name="signup">
     <h3 class="heading-border">Signup</h3>
@@ -19,7 +21,7 @@
       </div>
       <div class="form-field-wrap">
         <input type="checkbox" name="opted_email" id="signupOptedEmail" class="input-checkbox" checked>
-        <label for="signupOptedEmail" class="input-checkbox-label heading-tiny">Receive updates from KLP and its partners</label>
+        <label for="signupOptedEmail" class="input-checkbox-label heading-tiny">Receive updates from {%get_state_value "short_form" %} and its partners</label>
       </div>
       <div class="form-field-wrap">
         <input type="submit" value="Submit" class="button js-submit-btn" id="signupFormSubmit">
