@@ -8,15 +8,23 @@ register = template.Library()
 # States and values
 
 STATE = {
+    'ilp': {
+        'name': 'Karnataka',
+        'short_form': 'KLP',
+        'long_form': 'Karnataka Learning Partnership',
+        'email': 'info@.ilp.org.in'
+    },
     'ka': {
         'name': 'Karnataka',
         'short_form': 'KLP',
-        'long_form': 'Karnataka Learning Partnership'
+        'long_form': 'Karnataka Learning Partnership',
+        'email': 'info@.klp.org.in'
     },
     'od': {
         'name': 'Odisha',
         'short_form': 'OLP',
-        'long_form': 'Odisha Learning Partnership'
+        'long_form': 'Odisha Learning Partnership',
+        'email': 'info@.olp.org.in'
     },
 }
 
