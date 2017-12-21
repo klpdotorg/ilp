@@ -1,0 +1,32 @@
+[
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$Jjh2aqSg2yV0$bzchhYOwb+Z8Gqj9oxyJULTw3ftlJMXAVwtdgN3xKko=",
+        "last_login": null,
+        "email": "subha@klp.org.in",
+        "mobile_no": "9741122310",
+        "first_name": "Subhashini",
+        "last_name": "Srinivasan",
+        "user_type": "AS",
+        "is_active": true,
+        "email_verification_code": "bb7272d738ed4756bb375eecbb345466",
+        "sms_verification_pin": 4833,
+        "is_email_verified": false,
+        "is_mobile_verified": false,
+        "dob": null,
+        "source": "",
+        "changed": "2017-12-07T04:53:58.834Z",
+        "created": "2017-12-07T04:53:58.834Z",
+        "opted_email": false,
+        "image": "",
+        "about": "",
+        "twitter_handle": "",
+        "fb_url": "",
+        "website": "",
+        "photos_url": "",
+        "youtube_url": ""
+    }
+}
+]
