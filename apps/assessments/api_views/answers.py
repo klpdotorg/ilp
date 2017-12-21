@@ -153,9 +153,11 @@ class AnswersInstitutionViewSet( NestedViewSetMixin,
             # Create new answer group
             # Insert questiongroup and institution info from kwargs into the data to pass
             # to the serializer
+            print("Creating new answergroup", data)
             data['questiongroup']=kwargs['parent_lookup_questiongroup']
             data['institution']=kwargs['parent_lookup_institution']
             serializer = AnswerGroupInstSerializer(data=data)
+            print("Checking validity of data")
             serializer.is_valid(raise_exception=True)
             answergroup_obj=serializer.save()
             for key, value in serializer.data.items():

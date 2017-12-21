@@ -89,6 +89,9 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
         return obj.questiongroup.double_entry
         
 
+class AnswerGroupCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerGroup_Institution
 # class AnswerSerializer(ILPSerializer, CompensationLogMixin):
 #    #  answergrpdetails = AnswerGroupInstSerializer(source='answergroup')
 

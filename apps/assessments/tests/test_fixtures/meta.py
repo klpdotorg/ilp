@@ -15,16 +15,19 @@ ANSWERGROUP_INSTITUTION_IDS = [
 # to dump data of Survey.
 # ./manage.py dump_object assessments.survey --query '{"id__in": [2, 3, 7, 6, 5]}' > surveys.json
 
+# to dump institution
+# ./manage.py dump_object schools.Institution --query '{"id": 4464}' > institution_id.json
+
 TEST_ANSWERGROUP_POST_DATA = {
       "group_value": "Subhashini",
       "double_entry": 0,
-      "created_by": "",
+      "created_by": 2,
       "date_of_visit": "2016-08-20T00:00:00Z",
-      "respondent_type": "",
-      "comments": "",
+      "respondent_type": "VR",
+      "comments": "Test this",
       "is_verified": "true",
       "status": "IA",
-      "sysid": "",
+      "sysid": None,
       "entered_at": "2017-06-06T00:00:00Z",
       "answers": [
         {
