@@ -26,8 +26,13 @@ tables = [
         'name': 'auth_group',
         'getquery': "\COPY (select id, name from auth_group) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'insertquery': "\COPY replacetablename(id,name) FROM 'replacefilename' with csv NULL 'null';"
+    },
+    {
+        'name': 'users_user_groups',
+        'getquery': "\COPY (select id, user_id, group_id from users_user_groups) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, user_id integer, group_id integer); \COPY temp_replacetablename(id, user_id, group_id) FROM 'replacefilename' with csv NULL 'null';",
+        'insertquery': "INSERT INTO replacetablename(id, user_id, group_id) select temp.id, temp.user_id, temp.group_id from temp_replacetablename temp, users_user user1, auth_group group1 where temp.user_id=user1.id and temp.group_id=group1.id;"
     }
-    # TODO users_user_groups
 ]
 
 
