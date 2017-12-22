@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'schools',
     'dise',
     'assessments',
+    'ivrs',
 )
 
 # DRF Settings
@@ -238,7 +239,7 @@ LOGGING = {
     'root': {
         'level': 'DEBUG',
         'handlers': ['console'],
-    },  
+    },
     'loggers': {
         'schools': {
             'handlers': ['console','development_logfile'],
