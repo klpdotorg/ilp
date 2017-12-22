@@ -118,3 +118,7 @@ echo "Running aggregates"
 psql -U klp -d $ilp -f aggregates/materialized_views.sql 
 psql -U klp -d $ilp -f aggregates/assessment_materialized_views.sql 
 echo "Aggregates Done"
+
+#Populate ivrs
+echo "IVRS tables"
+python ivrs/import_ivrs_data.py dubdubdub $ilp
