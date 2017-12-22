@@ -1,0 +1,15 @@
+{
+    "id": "ekstep.data_exhaust_authorize",
+    "ver": "1.0",
+    "ts": "2015-08-04T17:36:36+05:30",
+    "params": {
+                "requesterId": "", 
+                "did": "022c1e3f60c86fec38fd6c86cda18012dc8b2a74",
+                "key": "",
+                "msgid": "ff305d54-85b4-341b-da2f-eb6b9e5460fa"
+               },
+    "request": {
+                 "licensekey": "35783533-66f1-4d25-b9a8-0bbe72ec9c89"
+               }
+}
+
