@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% load compress %}
+{% load state_variables %}
+
 {% block page_title %}Boundary Details{% endblock %}
 
 {% block css_extra %}
@@ -58,7 +60,7 @@
     <div class="page-parent">
       <div class="half-column">
         <div class="heading-tiny-uppercase align-left" >Source</div>
-        <h2 class="heading-secondary brand-blue align-left">KLP</h2> 
+        <h2 class="heading-secondary brand-blue align-left">{%get_state_value "short_form" %}</h2> 
       </div>
       <div class="half-column">
         <div class="heading-tiny-uppercase align-right" >Source</div>
@@ -94,11 +96,11 @@
     <div class="page-parent">
       <div class="half-column">
         <div class="heading-tiny-uppercase align-left" >Source</div>
-        <h2 class="heading-secondary brand-blue align-left">KLP</h2> 
+        <h2 class="heading-secondary brand-blue align-left">{%get_state_value "short_form" %}</h2> 
       </div>
       <div class="half-column">
         <div class="heading-tiny-uppercase align-right" >Source</div>
-        <h2 class="heading-secondary brand-blue align-right">KLP</h2>
+        <h2 class="heading-secondary brand-blue align-right">{%get_state_value "short_form" %}</h2>
       </div>
     </div>
     <div class="page-parent">
@@ -159,7 +161,7 @@
     <h2 class="heading-border brand-turquoise">Demographics</h2> 
 
     <div class="heading-tiny-uppercase align-left" >Source</div>
-    <h2 class="heading-secondary brand-blue align-left">KLP</h2> 
+    <h2 class="heading-secondary brand-blue align-left">{%get_state_value "short_form" %}</h2> 
     <div class="base-spacing-mid"></div>
     <div class="page-parent">
       <div class="half-column">
@@ -185,7 +187,7 @@
     <hr/>
     <h2 class="heading-border brand-turquoise">Infrastructure</h2> 
     <div class="heading-tiny-uppercase align-left" >Source</div>
-    <h2 class="heading-secondary brand-blue align-left">KLP</h2> 
+    <h2 class="heading-secondary brand-blue align-left">{%get_state_value "short_form" %}</h2> 
     <div id="ang-infra-summary"></div>
     <hr/>
     <h2 class="heading-border brand-turquoise">Programmes</h2> 

@@ -7,7 +7,8 @@ from rest_framework.authtoken.models import Token
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager,
-    AbstractBaseUser
+    AbstractBaseUser,
+    PermissionsMixin
 )
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -42,7 +43,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     mobile_no = models.CharField(max_length=32, unique=True)
     first_name = models.CharField(max_length=64, blank=True)

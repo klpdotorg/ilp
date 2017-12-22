@@ -36,7 +36,6 @@ class Migration(migrations.Migration):
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -67,7 +66,6 @@ class Migration(migrations.Migration):
                 ('month', models.IntegerField(db_column='month')),
                 ('sg_name', models.CharField(db_column='sg_name', max_length=100)),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
-                ('num_correct_assessments', models.IntegerField(db_column='num_correct_assessments')),
             ],
             options={
                 'db_table': 'mvw_survey_classs_gender_agg',
@@ -84,7 +82,6 @@ class Migration(migrations.Migration):
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -102,7 +99,6 @@ class Migration(migrations.Migration):
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -119,7 +115,6 @@ class Migration(migrations.Migration):
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -135,7 +130,6 @@ class Migration(migrations.Migration):
                 ('month', models.IntegerField(db_column='month')),
                 ('question_key', models.CharField(db_column='question_key', max_length=100)),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
-                ('num_correct_assessments', models.IntegerField(db_column='num_correct_assessments')),
             ],
             options={
                 'db_table': 'mvw_survey_questionkey_agg',
@@ -151,7 +145,6 @@ class Migration(migrations.Migration):
                 ('num_schools', models.IntegerField(db_column='num_schools')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -183,7 +176,6 @@ class Migration(migrations.Migration):
                 ('num_schools', models.IntegerField(db_column='num_schools')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={

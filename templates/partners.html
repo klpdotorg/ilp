@@ -1,25 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
+{% load state_variables %}
+
 {% block page_title %}Partners{% endblock %}
 {% block content %}
 <section class="page-partners">
   <div class="container">
     <h1 class="heading-primary brand-red">Partners</h1>
     <div class="center-text">
-      <p>The Karnataka Learning Partnership is, fundamentally, built on a collaborative model with inputs from multiple partners. <br>Currently, the following organisations are partners and have shared data within the platform:</p>
+      <p>The {%get_state_value "long_form" %} is, fundamentally, built on a collaborative model with inputs from multiple partners. <br>Currently, the following organisations are partners and have shared data within the platform:</p>
 
       <div class="logo-wrapper">
         <img src="{% static 'images/partners_logo_akshara.png' %}" alt="Akshara Foundation">
-        <img src="{% static 'images/partners_logo_nuepa.png' %}" alt="NUEPA">
         <img src="{% static 'images/partners_logo_kseeb.png' %}" alt="KSEEB">
         <img src="{% static 'images/partners_logo_akshaya_patra.png' %}" alt="Akshaya Patra">
       </div>
 
       <div class="base-spacing-lg-x">
-        <p class="text-bordered center-text">If your organisation is interested in partnering with the <span>KLP</span>, please do write to us at <a href="mailto:team@klp.org.in">team@klp.org.in</a></p>
+        <p class="text-bordered center-text">If your organisation is interested in partnering with the <span>{%get_state_value "short_form" %}</span>, please do write to us at <a href="mailto:{%get_state_value "email" %}">{%get_state_value "email" %}</a></p>
       </div>
 
-      <p class="center-text">When the original KLP project was conceived, we had many local partners across Karnataka who helped with data collection and assessments across multiple districts in Karnataka. They are:</p>
+      <p class="center-text">When the original {%get_state_value "short_form" %} project was conceived, we had many local partners across {%get_state_value "name" %} who helped with data collection and assessments across multiple districts in {%get_state_value "name" %}. They are:</p>
 
       <div class="partners-list-block">
         <div class="partners-list">

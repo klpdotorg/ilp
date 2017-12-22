@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
                 ('month', models.IntegerField(db_column='month')),
                 ('question_key', models.CharField(db_column='question_key', max_length=100)),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
-                ('num_correct_assessments', models.IntegerField(db_column='num_correct_assessments')),
             ],
             options={
                 'db_table': 'mvw_survey_questiongroup_questionkey_agg',

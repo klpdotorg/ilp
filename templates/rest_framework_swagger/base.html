@@ -1,9 +1,11 @@
 {% load staticfiles %}
+{% load state_variables %}
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>ILP API Documentation</title>
+  <title>{%get_state_value "short_form" %} API Documentation</title>
   <link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
   <link rel="icon" type="image/png" href="{% static 'rest_framework_swagger/images/favicon-32x32.png' %}" sizes="32x32" />
   <link rel="icon" type="image/png" href="{% static 'rest_framework_swagger/images/favicon-16x16.png' %}" sizes="16x16" />
@@ -44,7 +46,7 @@
 <div id='header'>
   <div class="swagger-ui-wrap">
     {% block logo %}
-      <a id="logo" href="/"><img class="logo__img" alt="swagger" height="30" width="30" src="{% static 'rest_framework_swagger/images/logo_small.png' %}" /><span class="logo__title">ILP</span></a>
+      <a id="logo" href="/"><img class="logo__img" alt="swagger" height="30" width="30" src="{% static 'rest_framework_swagger/images/logo_small.png' %}" /><span class="logo__title">{%get_state_value "short_form" %}</span></a>
     {% endblock %}
     <form id='api_selector'>
       <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>

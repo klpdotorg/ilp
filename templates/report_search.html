@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load compress %}
+{% load state_variables %}
 
 {% block page_title %}Search for Reports{% endblock %}
 {% block endbody %}
@@ -25,7 +26,7 @@
 			<div id="src-type" class="filter-item">
 				<span class="filter-label">Report Type</span>	
 				<select>
-			      <option value="klp">KLP data only</option>
+			      <option value="klp">{%get_state_value "short_form" %} data only</option>
 			      <option value="dise">DISE data only</option>
 			    </select>	
 			</div>
