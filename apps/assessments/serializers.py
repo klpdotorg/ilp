@@ -4,7 +4,8 @@ from assessments.models import (
     Survey, QuestionGroup, Question,
     QuestionGroup_Questions, AnswerGroup_Institution,
     AnswerInstitution, SurveyOnType,
-    AnswerGroup_StudentGroup, AnswerGroup_Student
+    AnswerGroup_StudentGroup, AnswerGroup_Student,
+    QuestionGroup_Institution_Association
 )
 from common.mixins import (
                            CompensationLogMixin,
@@ -70,18 +71,28 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
         )
 
 
+class QuestionGroupInstitutionSerializer(ILPSerializer):
+    class Meta:
+        model = QuestionGroup_Institution_Association
+        fields = (
+            'questiongroup', 'institution', 'id', 'status'
+        )
+
+
 class AnswerSerializer(ILPSerializer, CompensationLogMixin):
-    answergroup = serializers.PrimaryKeyRelatedField(queryset=AnswerGroup_Institution.objects.all(), source="answergroup_id")
+    answergroup = serializers.PrimaryKeyRelatedField(
+        queryset=AnswerGroup_Institution.objects.all(),
+        source="answergroup_id")
 
     class Meta:
         model = AnswerInstitution
         fields = ('id', 'question', 'answer', 'answergroup', 'double_entry')
 
     def create(self, validated_data):
-       # This whole code block is a bit suspect. Not sure why this is needed!
-       answergroup = validated_data.pop('answergroup_id')
-       validated_data['answergroup_id'] = answergroup.id
-       return AnswerInstitution.objects.create(**validated_data)
+        # This whole code block is a bit suspect. Not sure why this is needed!
+        answergroup = validated_data.pop('answergroup_id')
+        validated_data['answergroup_id'] = answergroup.id
+        return AnswerInstitution.objects.create(**validated_data)
 
 
 class AnswerGroupInstSerializer(serializers.ModelSerializer):
