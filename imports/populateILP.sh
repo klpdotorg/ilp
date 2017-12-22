@@ -89,6 +89,10 @@ python assessments/import_gkaassessmentdata.py dubdubdub $ilp
 echo "Anganwadi Infra"
 python assessments/import_anganwadi_infra.py ang_infra $ilp
 
+#update location for answergroups
+echo "Updating Locations for AnswerGroups"
+python assessments/update_answerlocation.py dubdubdub $ilp
+
 #Import images
 echo "Inst images"
 python assessments/import_institutionimages.py dubdubdub $ilp
