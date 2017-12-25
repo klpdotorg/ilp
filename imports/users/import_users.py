@@ -19,8 +19,8 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'users_user',
-        'getquery': "\COPY (select id, password, last_login, email, mobile_no, first_name, last_name, user_type, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url from users_user) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, password, last_login, email, mobile_no, first_name, last_name, user_type, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url) FROM 'replacefilename' with csv NULL 'null';"
+        'getquery': "\COPY (select id, password, last_login, is_superuser, email, mobile_no, first_name, last_name, user_type, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url from users_user) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'insertquery': "\COPY replacetablename(id, password, last_login, is_superuser, email, mobile_no, first_name, last_name, user_type, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'name': 'auth_group',
