@@ -202,8 +202,8 @@ class SurveyQuetionGroupGenderAgg(models.Model):
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     source = models.ForeignKey('Source', db_column="source")
-    year =  models.IntegerField(db_column="year")
-    month =  models.IntegerField(db_column="month")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
     questiongroup_id = models.CharField(max_length=100, db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey("common.Gender", db_column="gender")
@@ -253,8 +253,8 @@ class SurveyQuestionKeyCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     source = models.ForeignKey('Source', db_column="source")
     question_key = models.CharField(max_length=100, db_column="question_key")
-    year =  models.IntegerField(db_column="year")
-    month =  models.IntegerField(db_column="month")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -269,8 +269,8 @@ class SurveyClassQuestionKeyCorrectAnsAgg(models.Model):
     source = models.ForeignKey('Source', db_column="source")
     sg_name = models.CharField(max_length=100, db_column="sg_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
-    year =  models.IntegerField(db_column="year")
-    month =  models.IntegerField(db_column="month")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -286,8 +286,8 @@ class SurveyQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     questiongroup_id = models.CharField(max_length=100, db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
-    year =  models.IntegerField(db_column="year")
-    month =  models.IntegerField(db_column="month")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -304,8 +304,8 @@ class SurveyQuetionGroupGenderCorrectAnsAgg(models.Model):
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey("common.Gender", db_column="gender")
     question_key = models.CharField(max_length=100, db_column="question_key")
-    year =  models.IntegerField(db_column="year")
-    month =  models.IntegerField(db_column="month")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -321,8 +321,8 @@ class SurveyClassGenderCorrectAnsAgg(models.Model):
     sg_name = models.CharField(max_length=100, db_column="sg_name")
     gender = models.ForeignKey("common.Gender", db_column="gender")
     question_key = models.CharField(max_length=100, db_column="question_key")
-    year =  models.IntegerField(db_column="year")
-    month =  models.IntegerField(db_column="month")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
