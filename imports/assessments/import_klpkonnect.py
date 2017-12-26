@@ -20,12 +20,12 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(7, 'ILP Konnect Community Survey', to_date('2016-05-19', 'YYYY-MM-DD'),'akshara','AC', 2);"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(7, 'ILP Konnect Community Survey', to_date('2016-05-19', 'YYYY-MM-DD'),'akshara','AC', 2, 'institution');"
     },
     {
         'name': 'assessments_questiongroup',
-        'getquery': "\COPY (select id, case source_id when 4 then 'ILP Konnect Mobile' when 1 then 'ILP Konnect Paper' end, start_date, version, 0, created_at, case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, 'AC',source_id, 7, 'institution', 'perception', 'name' from stories_questiongroup where id in (18,20)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, survey_on_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
+        'getquery': "\COPY (select id, case source_id when 4 then 'ILP Konnect Mobile' when 1 then 'ILP Konnect Paper' end, start_date, version, 0, created_at, case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, 'AC',source_id, 7, 'perception', 'name' from stories_questiongroup where id in (18,20)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'name': 'assessments_question',

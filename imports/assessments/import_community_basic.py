@@ -20,12 +20,12 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(1, 'Community', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','AC', 2);"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(1, 'Community', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','AC', 2, 'institution');"
     },
     {
         'name': 'assessments_questiongroup',
-        'getquery': "\COPY (select id, case id when 4 then 'Community(2014-2015)' when 7 then 'Community(2015-2016)' end, case id when 4 then to_date('2014-06-01', 'YYYY-MM-DD') when 7 then start_date end , version, 0, case id when 4 then to_date('2014-06-01', 'YYYY-MM-DD') when 7 then start_date end, case id when 7 then 'both' else 'primary' end, case(status) when 2 then 'AC' when 1 then 'IA' else 'IA' end,    source_id, 1, 'institution', 'monitor', 'name' from stories_questiongroup where id in (4,7)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, survey_on_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
+        'getquery': "\COPY (select id, case id when 4 then 'Community(2014-2015)' when 7 then 'Community(2015-2016)' end, case id when 4 then to_date('2014-06-01', 'YYYY-MM-DD') when 7 then start_date end , version, 0, case id when 4 then to_date('2014-06-01', 'YYYY-MM-DD') when 7 then start_date end, case id when 7 then 'both' else 'primary' end, case(status) when 2 then 'AC' when 1 then 'IA' else 'IA' end,    source_id, 1, 'monitor', 'name' from stories_questiongroup where id in (4,7)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'name': 'assessments_question',

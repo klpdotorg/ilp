@@ -20,11 +20,11 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(6, 'Community-IVRS', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA', 2);"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id,survey_on_id) values(6, 'Community-IVRS', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA', 2,'institution');"
     },
     {
         'name': 'assessments_questiongroup',
-        'insertquery': "INSERT INTO replacetablename(id,name,start_date,double_entry,created_at,inst_type_id,source_id,status_id,survey_id,survey_on_id,type_id) values(2,'Mahiti IVRS',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,'institution','monitor'),(5,'GKA IVRS v1',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,   'institution','monitor'),(8,'GKA IVRS v2',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,      'institution','monitor') ,(9,'Primary School IVRS',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,'institution','monitor'),(16,'GKA IVRS v3',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,'institution','monitor');"
+        'insertquery': "INSERT INTO replacetablename(id,name,start_date,double_entry,created_at,inst_type_id,source_id,status_id,survey_id,type_id) values(2,'Mahiti IVRS',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,'monitor'),(5,'GKA IVRS v1',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,'monitor'),(8,'GKA IVRS v2',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,'monitor') ,(9,'Primary School IVRS',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,'monitor'),(16,'GKA IVRS v3',to_date('2015-06-01', 'YYYY-MM-DD'),false,to_date('2015-06-01', 'YYYY-MM-DD'),'primary',3,'IA',6,'monitor');"
     },
     {
         'name': 'assessments_question',

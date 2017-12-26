@@ -20,11 +20,11 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(11, 'ILP Konnect GKA Monitoring', to_date('2016-06-06', 'YYYY-MM-DD'),'akshara','AC', 2);"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(11, 'ILP Konnect GKA Monitoring', to_date('2016-06-06', 'YYYY-MM-DD'),'akshara','AC', 2,'institution');"
     },
     {
         'name': 'assessments_questiongroup',
-        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, inst_type_id, status_id, survey_id, survey_on_id, type_id) values(17,'GKA SMS Monitoring',to_date('2016-07-12', 'YYYY-MM-DD'),false, to_date('2016-07-12', 'YYYY-MM-DD'),to_date('2016-07-12', 'YYYY-MM-DD'),'primary','AC',11,'institution','monitor'), (24,'GKA Konnect Monitoring',to_date('2017-11-04', 'YYYY-MM-DD'),false, to_date('2017-11-04','YYYY-MM-DD'),to_date('2017-11-04','YYYY-MM-DD'),'primary','AC',11,'institution','monitor');"
+        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, inst_type_id, status_id, survey_id, type_id) values(17,'GKA SMS Monitoring',to_date('2016-07-12', 'YYYY-MM-DD'),false, to_date('2016-07-12', 'YYYY-MM-DD'),to_date('2016-07-12', 'YYYY-MM-DD'),'primary','AC',11,'monitor'), (24,'GKA Konnect Monitoring',to_date('2017-11-04', 'YYYY-MM-DD'),false, to_date('2017-11-04','YYYY-MM-DD'),to_date('2017-11-04','YYYY-MM-DD'),'primary','AC',11,'monitor');"
     },
     {
         'name': 'assessments_question',

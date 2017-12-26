@@ -42,6 +42,7 @@ class Survey(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     partner = models.ForeignKey('Partner', null=True)
     description = models.CharField(max_length=200, null=True)
+    survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
 
@@ -72,7 +73,6 @@ class QuestionGroup(models.Model):
     survey = models.ForeignKey('Survey')
     type = models.ForeignKey('SurveyType')
     inst_type = models.ForeignKey('common.InstitutionType')
-    survey_on = models.ForeignKey('SurveyOnType')
     description = models.CharField(max_length=100, null=True)
     group_text = models.CharField(max_length=100, null=True)
     start_date = models.DateField(max_length=20)
