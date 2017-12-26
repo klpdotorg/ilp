@@ -286,10 +286,9 @@ class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
             key_agg = queryset.filter(question_key=q_key)\
                 .aggregate(
                     Sum('num_assessments'),
-                    Sum('num_correct_assessments'))
+                )
             scores_res[q_key] = {
-                "total": key_agg['num_assessments__sum'],
-                "score": key_agg['num_correct_assessments__sum']
+                "total": key_agg['num_assessments__sum']
             }
         response['scores'] = scores_res
         return Response(response)
@@ -313,10 +312,9 @@ class SurveyClassQuestionKeyAPIView(ListAPIView, ILPStateMixin):
                     sg_name=sg_name, question_key=q_key)\
                     .aggregate(
                         Sum('num_assessments'),
-                        Sum('num_correct_assessments'))
+                    )
                 q_res[q_key] = {
-                    "total": key_agg['num_assessments__sum'],
-                    "score": key_agg['num_correct_assessments__sum']
+                    "total": key_agg['num_assessments__sum']
                 }
             classes_res[sg_name] = q_res
         return Response(classes_res)
@@ -340,10 +338,9 @@ class SurveyQuestionGroupQuestionKeyAPIView(ListAPIView, ILPStateMixin):
                     questiongroup_id=qgroup_id, question_key=q_key)\
                     .aggregate(
                         Sum('num_assessments'),
-                        Sum('num_correct_assessments'))
+                    )
                 q_res[q_key] = {
-                    "total": key_agg['num_assessments__sum'],
-                    "score": key_agg['num_correct_assessments__sum']
+                    "total": key_agg['num_assessments__sum']
                 }
             qgroup_res[qgroup_id] = q_res
         return Response(qgroup_res)
@@ -366,11 +363,9 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
                 sg_gender_agg = sg_agg.filter(gender=gender)\
                     .aggregate(
                         Sum('num_assessments'),
-                        Sum('num_correct_assessments'))
+                    )
                 gender_res[gender] = {
                     "total_count": sg_gender_agg['num_assessments__sum'],
-                    "perfect_score_count": sg_gender_agg[
-                        'num_correct_assessments__sum']
                 }
             sg_res[sg_name] = {
                 "gender": gender_res

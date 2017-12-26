@@ -18,7 +18,7 @@ router = routers.DefaultRouter()
 router.register(r'boundaries', BoundaryViewSet, base_name='boundary')
 router.register(r'boundarytype', BoundaryTypeViewSet, base_name='boundarytype')
 urlpatterns = [
-     url(r'^boundary/test$', TestAdmin1sBoundary.as_view(),
+    url(r'^boundary/test$', TestAdmin1sBoundary.as_view(),
         name='test-admin1s-boundary'),
     url(r'^boundary/admin1s$', Admin1sBoundary.as_view(),
         name='admin1s-boundary'),

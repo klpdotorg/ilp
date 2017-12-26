@@ -12,11 +12,11 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
-    AnswerGroup_Institution
+    AnswerGroup_Institution, QuestionGroup_Institution_Association
 )
 from assessments.serializers import (
     QuestionGroupSerializer, QuestionSerializer,
-    QuestionGroupQuestionSerializer
+    QuestionGroupQuestionSerializer, QuestionGroupInstitutionSerializer
 )
 
 logger = logging.getLogger(__name__)
@@ -75,3 +75,8 @@ class QGroupStoriesInfoView(ILPListAPIView):
                 questiongroup__survey__id=5).filter(is_verified=True).count(),
             'total_images': 0
         })
+
+
+class QuestionGroupSchoolViewSet(viewsets.ModelViewSet):
+    queryset = QuestionGroup_Institution_Association.objects.all()
+    serializer_class = QuestionGroupInstitutionSerializer
