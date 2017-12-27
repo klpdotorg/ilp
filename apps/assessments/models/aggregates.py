@@ -197,7 +197,7 @@ class SurveyQuestionGroupQuestionKeyAgg(models.Model):
         db_table = 'mvw_survey_questiongroup_questionkey_agg'
 
 
-class SurveyQuetionGroupGenderAgg(models.Model):
+class SurveyQuestionGroupGenderAgg(models.Model):
     """Survey QuestionGroup Gender Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
@@ -295,7 +295,7 @@ class SurveyQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
         db_table = 'mvw_survey_questiongroup_questionkey_agg'
 
 
-class SurveyQuetionGroupGenderCorrectAnsAgg(models.Model):
+class SurveyQuestionGroupGenderCorrectAnsAgg(models.Model):
     """Survey QuestionGroup Gender CorrectAns Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
