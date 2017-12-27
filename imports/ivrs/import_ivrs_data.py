@@ -27,6 +27,11 @@ tables = [
         'name': 'ivrs_state',
         'getquery': "\COPY (select id, session_id, school_id, answers, date_of_visit, telephone, is_processed, is_invalid, qg_type_id, raw_data, comments, user_id from ivrs_state) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'insertquery': "\COPY replacetablename(id, session_id, school_id, answers, date_of_visit, telephone, is_processed, is_invalid, qg_type_id, raw_data, comments, user_id) FROM 'replacefilename' with csv NULL 'null';"
+    },
+    {
+        'name': 'ivrs_incomingnumber',
+        'getquery': "\COPY (select id, number, qg_type_id, name) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'insertquery': "\COPY replacetablename(id, number, qg_type_id, name) FROM 'replacefilename' with csv NULL 'null';"
     }
 ]
 
