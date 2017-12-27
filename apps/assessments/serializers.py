@@ -37,7 +37,7 @@ class QuestionGroupSerializer(ILPSerializer):
     class Meta:
         model = QuestionGroup
         fields = (
-            'id', 'name', 'survey', 'type', 'inst_type', 'survey_on',
+            'id', 'name', 'survey', 'type', 'inst_type',
             'group_text', 'start_date', 'end_date', 'academic_year',
             'version', 'source', 'double_entry', 'created_by', 'created_at',
             'updated_at', 'status'

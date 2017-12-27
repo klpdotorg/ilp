@@ -14,6 +14,7 @@ DATABASES = {
 }
 
 # Template settings
+ILP_STATE_ID = 'ka'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
