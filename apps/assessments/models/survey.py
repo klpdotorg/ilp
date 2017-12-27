@@ -49,6 +49,7 @@ class Survey(models.Model):
     class Meta:
         ordering = ['name', ]
 
+
 class SurveyTagMapping(models.Model):
     """Association a tag with a survey"""
     survey = models.ForeignKey('Survey')

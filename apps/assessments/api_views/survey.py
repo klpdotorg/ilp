@@ -15,7 +15,8 @@ from assessments.models import (
     SurveyAnsAgg, Question, SurveyQuestionKeyAgg,
     SurveyElectionBoundaryAgg, SurveyClassGenderAgg,
     SurveyClassAnsAgg, SurveyClassQuestionKeyAgg,
-    SurveyQuestionGroupQuestionKeyAgg
+    SurveyQuestionGroupQuestionKeyAgg, SurveyQuetionGroupGenderAgg,
+    SurveyQuetionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -347,30 +348,58 @@ class SurveyQuestionGroupQuestionKeyAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyClassGenderAgg.objects.all()
     filter_backends = [SurveyFilter, ]
 
+    def get_survey_type(self):
+        survey_id = self.request.query_params.get('survey_id', None)
+        return Survey.objects.get(id=survey_id).survey_on.char_id
+
+    def get_queryset(self):
+        survey_type = self.get_survey_type()
+        if survey_type == 'institution':
+            return SurveyQuetionGroupGenderAgg.objects.all()
+        return SurveyClassGenderAgg.objects.all()
+
+    def get_answer_queryset(self):
+        survey_type = self.get_survey_type()
+        if survey_type == 'institution':
+            return SurveyQuetionGroupGenderCorrectAnsAgg.objects.all()
+        return SurveyClassGenderCorrectAnsAgg.objects.all()
+    
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        sg_res = {}
-        sg_names = queryset\
-            .distinct('sg_name').values_list('sg_name', flat=True)
-        genders = queryset.distinct('gender').values_list('gender', flat=True)
-        for sg_name in sg_names:
-            sg_agg = queryset.filter(sg_name=sg_name)
+        qs = self.filter_queryset(self.get_queryset())
+        ans_qs = self.get_answer_queryset()
+
+        group_field = 'sg_name'
+        if self.get_survey_type() == 'institution':
+            group_field = 'questiongroup_name'
+
+        group_res = {}
+        group_names = qs\
+            .distinct(group_field).values_list(group_field, flat=True)
+        genders = qs.distinct('gender').values_list('gender', flat=True)
+
+        for group_name in group_names:
             gender_res = {}
             for gender in genders:
-                sg_gender_agg = sg_agg.filter(gender=gender)\
-                    .aggregate(
-                        Sum('num_assessments'),
-                    )
+                group_param = {'sg_name': group_name}
+                if group_field == 'questiongroup_name':
+                    group_param = {'questiongroup_name': group_name}
+
+                gender_agg = qs.filter(gender=gender, **group_param)\
+                    .aggregate(Sum('num_assessments'))
+                gender_ans_agg = ans_qs.filter(gender=gender, **group_param)\
+                    .aggregate(Sum('num_assessments'))
+
                 gender_res[gender] = {
-                    "total_count": sg_gender_agg['num_assessments__sum'],
+                    "total_count": gender_agg['num_assessments__sum'],
+                    "perfect_score_count": gender_ans_agg[
+                        'num_assessments__sum']
                 }
-            sg_res[sg_name] = {
+            group_res[group_name] = {
                 "gender": gender_res
             }
-        return Response(sg_res)
+        return Response(group_res)
 
 
 class SurveyDetailClassAPIView(ListAPIView, ILPStateMixin):
