@@ -15,8 +15,8 @@ from assessments.models import (
     SurveyAnsAgg, Question, SurveyQuestionKeyAgg,
     SurveyElectionBoundaryAgg, SurveyClassGenderAgg,
     SurveyClassAnsAgg, SurveyClassQuestionKeyAgg,
-    SurveyQuestionGroupQuestionKeyAgg, SurveyQuetionGroupGenderAgg,
-    SurveyQuetionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
+    SurveyQuestionGroupQuestionKeyAgg, SurveyQuestionGroupGenderAgg,
+    SurveyQuestionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
     SurveyQuestionKeyCorrectAnsAgg, SurveyClassQuestionKeyCorrectAnsAgg,
     SurveyQuestionGroupQuestionKeyCorrectAnsAgg
 )
@@ -387,13 +387,13 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
     def get_queryset(self):
         survey_type = self.get_survey_type()
         if survey_type == 'institution':
-            return SurveyQuetionGroupGenderAgg.objects.all()
+            return SurveyQuestionGroupGenderAgg.objects.all()
         return SurveyClassGenderAgg.objects.all()
 
     def get_answer_queryset(self):
         survey_type = self.get_survey_type()
         if survey_type == 'institution':
-            return SurveyQuetionGroupGenderCorrectAnsAgg.objects.all()
+            return SurveyQuestionGroupGenderCorrectAnsAgg.objects.all()
         return SurveyClassGenderCorrectAnsAgg.objects.all()
     
     def list(self, request, *args, **kwargs):
