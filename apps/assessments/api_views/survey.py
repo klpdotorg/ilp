@@ -16,7 +16,9 @@ from assessments.models import (
     SurveyElectionBoundaryAgg, SurveyClassGenderAgg,
     SurveyClassAnsAgg, SurveyClassQuestionKeyAgg,
     SurveyQuestionGroupQuestionKeyAgg, SurveyQuetionGroupGenderAgg,
-    SurveyQuetionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg
+    SurveyQuetionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
+    SurveyQuestionKeyCorrectAnsAgg, SurveyClassQuestionKeyCorrectAnsAgg,
+    SurveyQuestionGroupQuestionKeyCorrectAnsAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -274,22 +276,29 @@ class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyQuestionKeyAgg.objects.all()
     filter_backends = [SurveyFilter, ]
 
+    def get_queryset(self):
+        return SurveyQuestionKeyAgg.objects.all()
+
+    def get_answer_queryset(self):
+        return SurveyQuestionKeyCorrectAnsAgg.objects.all()
+
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+        qs = self.filter_queryset(self.get_queryset())
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
         response = {}
         scores_res = {}
-        question_keys = queryset.distinct('question_key')\
+        question_keys = qs.distinct('question_key')\
             .values_list('question_key', flat=True)
         for q_key in question_keys:
-            key_agg = queryset.filter(question_key=q_key)\
-                .aggregate(
-                    Sum('num_assessments'),
-                )
+            key_agg = qs.filter(question_key=q_key)\
+                .aggregate(Sum('num_assessments'))
+            key_ans_agg = ans_qs.filter(question_key=q_key)\
+                .aggregate(Sum('num_assessments'))
             scores_res[q_key] = {
-                "total": key_agg['num_assessments__sum']
+                "total": key_agg['num_assessments__sum'],
+                "score": key_ans_agg['num_assessments__sum']
             }
         response['scores'] = scores_res
         return Response(response)
