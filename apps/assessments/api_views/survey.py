@@ -341,26 +341,37 @@ class SurveyClassQuestionKeyAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyQuestionGroupQuestionKeyAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyQuestionGroupQuestionKeyAgg.objects.all()
     filter_backends = [SurveyFilter, ]
 
+    def get_queryset(self):
+        return SurveyQuestionGroupQuestionKeyAgg.objects.all()
+
+    def get_answer_queryset(self):
+        return SurveyQuestionGroupQuestionKeyCorrectAnsAgg.objects.all()
+
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+        qs = self.filter_queryset(self.get_queryset())
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
         qgroup_res = {}
-        qgroup_ids = queryset.distinct('questiongroup_id')\
+
+        qgroup_ids = qs.distinct('questiongroup_id')\
             .values_list('questiongroup_id', flat=True)
-        question_keys = queryset.distinct('question_key')\
+        question_keys = qs.distinct('question_key')\
             .values_list('question_key', flat=True)
+
         for qgroup_id in qgroup_ids:
             q_res = {}
             for q_key in question_keys:
-                key_agg = queryset.filter(
+                key_agg = qs.filter(
                     questiongroup_id=qgroup_id, question_key=q_key)\
-                    .aggregate(
-                        Sum('num_assessments'),
-                    )
+                    .aggregate(Sum('num_assessments'))
+                key_ans_agg = ans_qs.filter(
+                    questiongroup_id=qgroup_id, question_key=q_key)\
+                    .aggregate(Sum('num_assessments'))
+
                 q_res[q_key] = {
-                    "total": key_agg['num_assessments__sum']
+                    "total": key_agg['num_assessments__sum'],
+                    "score": key_ans_agg['num_assessments__sum']
                 }
             qgroup_res[qgroup_id] = q_res
         return Response(qgroup_res)
@@ -387,7 +398,7 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
     
     def list(self, request, *args, **kwargs):
         qs = self.filter_queryset(self.get_queryset())
-        ans_qs = self.get_answer_queryset()
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
 
         group_field = 'sg_name'
         if self.get_survey_type() == 'institution':
