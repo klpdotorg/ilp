@@ -305,26 +305,36 @@ class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyClassQuestionKeyAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyClassQuestionKeyAgg.objects.all()
     filter_backends = [SurveyFilter, ]
 
+    def get_queryset(self):
+        return SurveyClassQuestionKeyAgg.objects.all()
+
+    def get_answer_queryset(self):
+        return SurveyClassQuestionKeyCorrectAnsAgg.objects.all()
+
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+        qs = self.filter_queryset(self.get_queryset())
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
         classes_res = {}
-        classess = queryset.distinct('sg_name')\
+
+        classess = qs.distinct('sg_name')\
             .values_list('sg_name', flat=True)
-        question_keys = queryset.distinct('question_key')\
+        question_keys = qs.distinct('question_key')\
             .values_list('question_key', flat=True)
+
         for sg_name in classess:
             q_res = {}
             for q_key in question_keys:
-                key_agg = queryset.filter(
-                    sg_name=sg_name, question_key=q_key)\
-                    .aggregate(
-                        Sum('num_assessments'),
-                    )
+                key_agg = qs.filter(sg_name=sg_name, question_key=q_key)\
+                    .aggregate(Sum('num_assessments'))
+                key_ans_agg = ans_qs.filter(
+                    sg_name=sg_name, question_key=q_key
+                ).aggregate(Sum('num_assessments'))
+
                 q_res[q_key] = {
-                    "total": key_agg['num_assessments__sum']
+                    "total": key_agg['num_assessments__sum'],
+                    "score": key_ans_agg['num_assessments__sum']
                 }
             classes_res[sg_name] = q_res
         return Response(classes_res)
