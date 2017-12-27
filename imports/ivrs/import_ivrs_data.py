@@ -30,7 +30,7 @@ tables = [
     },
     {
         'name': 'ivrs_incomingnumber',
-        'getquery': "\COPY (select id, number, qg_type_id, name) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select id, number, qg_type_id, name from ivrs_incomingnumber) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'insertquery': "\COPY replacetablename(id, number, qg_type_id, name) FROM 'replacefilename' with csv NULL 'null';"
     }
 ]
