@@ -156,7 +156,8 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_type
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    last_assessment
 FROM(
     SELECT
         survey.id as survey_id,
@@ -197,7 +198,8 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_type
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    last_assessment
 FROM(
     SELECT
         survey.id as survey_id,
@@ -240,7 +242,8 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_type
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    last_assessment
 FROM(
     SELECT
         survey.id as survey_id,
@@ -283,7 +286,8 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_type
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    last_assessment
 FROM(
     SELECT
         survey.id as survey_id,
@@ -506,6 +510,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year
     year,
     month,
     num_assessments,
+    num_schools,
     num_children,
     num_users,
     last_assessment
@@ -552,6 +557,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year
     year,
     month,
     num_assessments,
+    num_schools,
     num_children,
     num_users,
     last_assessment
@@ -600,6 +606,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year
     year,
     month,
     num_assessments,
+    num_schools,
     num_children,
     num_users,
     last_assessment
@@ -648,6 +655,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year
     year,
     month,
     num_assessments,
+    num_schools,
     num_children,
     num_users,
     last_assessment
