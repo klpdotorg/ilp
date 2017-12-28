@@ -119,7 +119,7 @@ class SurveyUserTypeAgg(models.Model):
     """Survey UserType Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
-    user_type = models.ForeignKey(User, db_column="user_type")
+    user_type = models.CharField(max_length=100, db_column="user_type")
     source = models.ForeignKey('Source', db_column="source")
     year = models.IntegerField(db_column="year")
     month = models.IntegerField(db_column="month")
