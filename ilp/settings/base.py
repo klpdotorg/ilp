@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'schools',
     'dise',
     'assessments',
+    'ivrs',
 )
 
 # DRF Settings
@@ -80,24 +81,6 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PAGINATION_CLASS': 'apps.common.pagination.ILPDefaultPagination',
 }
-
-
-# Template settings
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates', ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 
 # Middlewares
@@ -240,7 +223,7 @@ LOGGING = {
     'root': {
         'level': 'DEBUG',
         'handlers': ['console'],
-    },  
+    },
     'loggers': {
         'schools': {
             'handlers': ['console','development_logfile'],

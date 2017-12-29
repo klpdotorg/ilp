@@ -28,24 +28,23 @@
 },
 {
     "model": "common.status",
-    "pk": "IA",
+    "pk": "AC",
     "fields": {
-        "name": "Inactive"
+        "name": "Active"
     }
 },
 {
-    "model": "assessments.partner",
-    "pk": "akshara",
+    "model": "assessments.surveyontype",
+    "pk": "student",
     "fields": {
-        "name": "Akshara Foundation",
-        "admin0": 2
+        "description": "Student"
     }
 },
 {
     "model": "common.status",
-    "pk": "AC",
+    "pk": "IA",
     "fields": {
-        "name": "Active"
+        "name": "Inactive"
     }
 },
 {
@@ -62,27 +61,30 @@
     }
 },
 {
-    "model": "assessments.survey",
-    "pk": 5,
+    "model": "assessments.surveyontype",
+    "pk": "institution",
     "fields": {
-        "name": " SYS",
-        "created_at": "2016-05-19T00:00:00Z",
-        "updated_at": "2016-05-19T00:00:00Z",
-        "partner": "akshara",
-        "description": null,
-        "admin0": 2,
-        "status": "AC"
+        "description": "Institution"
+    }
+},
+{
+    "model": "assessments.partner",
+    "pk": "akshara",
+    "fields": {
+        "name": "Akshara Foundation",
+        "admin0": 2
     }
 },
 {
     "model": "assessments.survey",
-    "pk": 6,
+    "pk": 5,
     "fields": {
-        "name": " Mahiti IVRS",
+        "name": "SYS",
         "created_at": "2016-05-19T00:00:00Z",
-        "updated_at": "2016-05-19T00:00:00Z",
+        "updated_at": null,
         "partner": "akshara",
         "description": null,
+        "survey_on": "institution",
         "admin0": 2,
         "status": "AC"
     }
@@ -93,9 +95,10 @@
     "fields": {
         "name": "ILP Konnect Community Survey",
         "created_at": "2016-05-19T00:00:00Z",
-        "updated_at": "2016-05-19T00:00:00Z",
+        "updated_at": null,
         "partner": "akshara",
         "description": null,
+        "survey_on": "institution",
         "admin0": 2,
         "status": "AC"
     }
@@ -106,11 +109,12 @@
     "fields": {
         "name": "GP Contest",
         "created_at": "2017-06-06T00:00:00Z",
-        "updated_at": "2017-06-06T00:00:00Z",
+        "updated_at": null,
         "partner": "akshara",
-        "description": "GP Contest",
+        "description": null,
+        "survey_on": "institution",
         "admin0": 2,
-        "status": "IA"
+        "status": "AC"
     }
 },
 {
@@ -118,12 +122,27 @@
     "pk": 3,
     "fields": {
         "name": "Ganitha Kalika Andolana",
-        "created_at": "2016-05-18T18:30:00Z",
+        "created_at": "2016-05-19T00:00:00Z",
         "updated_at": null,
-        "partner": null,
+        "partner": "akshara",
         "description": null,
+        "survey_on": "student",
         "admin0": 2,
         "status": "AC"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 6,
+    "fields": {
+        "name": "Community-IVRS",
+        "created_at": "2014-02-03T00:00:00Z",
+        "updated_at": null,
+        "partner": "akshara",
+        "description": null,
+        "survey_on": "institution",
+        "admin0": 2,
+        "status": "IA"
     }
 }
 ]

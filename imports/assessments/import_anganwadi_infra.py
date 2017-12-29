@@ -1,5 +1,6 @@
 from os import system, sys
-import os, inspect
+import os
+import inspect
 
 
 if len(sys.argv) != 3:
@@ -33,13 +34,13 @@ tables = [
     {
         'name': 'assessments_survey',
         'db': todatabase,
-        'query': "insert into replacetable(id, name,created_at,partner_id,status_id, admin0_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA', 2);"
+        'query': "insert into replacetable(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA', 2,'institution');"
     },
     {
         # Setting id as 30
         'name': 'assessments_questiongroup',
         'db': todatabase,
-        'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, survey_on_id, type_id) values(30,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',4,'institution','monitor');"
+        'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, type_id) values(30,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',4,'monitor');"
     },
     {
         'name': 'assessments_question',
@@ -49,7 +50,7 @@ tables = [
     {
         'name': 'assessments_answergroup_institution',
         'db': todatabase,
-        'query': "insert into replacetable(double_entry, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id) select distinct 0, to_date('2014-02-03', 'YYYY-MM-DD'), true, to_date('2014-02-03', 'YYYY-MM-DD'),sid, 30, 'IA' from temp_anginfra, schools_institution s where temp_anginfra.sid=s.id;"
+        'query': "insert into replacetable(date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id) select distinct to_date('2014-02-03', 'YYYY-MM-DD'), true, to_date('2014-02-03', 'YYYY-MM-DD'),sid, 30, 'AC' from temp_anginfra, schools_institution s where temp_anginfra.sid=s.id;"
     },
     {
         'name': 'assessments_answerinstitution',
@@ -75,7 +76,7 @@ def create_sql_files():
     for table in tables:
         if table["db"] not in dbs:
             dbs.append(table["db"])
-	    queryfile = scriptdir+'/'+basename+'_'+table['db']+'_query.sql'
+            queryfile = scriptdir+'/'+basename+'_'+table['db']+'_query.sql'
             open(queryfile, 'wb', 0)
         filename = scriptdir+'/load/'+table['name']+'.csv'
         open(filename, 'wb', 0)

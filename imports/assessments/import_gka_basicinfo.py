@@ -1,5 +1,6 @@
 from os import sys, system
-import os, inspect
+import os
+import inspect
 
 
 if len(sys.argv) != 3:
@@ -19,11 +20,11 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(3, 'Ganitha Kalika Andolana', '2016-05-19', 'akshara','AC', 2);"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(3, 'Ganitha Kalika Andolana', '2016-05-19', 'akshara','AC', 2, 'student');"
     },
     {
         'name': 'assessments_questiongroup',
-        'insertquery': "\COPY replacetablename(id,description, name, academic_year_id, start_date, end_date,status_id,double_entry, created_at, inst_type_id,survey_id, survey_on_id, type_id, source_id) FROM '"+scriptdir+"/EkStep_Concepts.csv' with csv NULL 'null';"
+        'insertquery': "\COPY replacetablename(id,description, name, academic_year_id, start_date, end_date,status_id,double_entry, created_at, inst_type_id,survey_id, type_id, source_id) FROM '"+scriptdir+"/EkStep_Concepts.csv' with csv NULL 'null';"
     },
     {
         'name': 'assessments_question',

@@ -4,12 +4,15 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework_extensions.mixins import NestedViewSetMixin
+from rest_framework.generics import ListAPIView
 
 from common.views import (ILPViewSet)
 from assessments.models import (AnswerGroup_Institution, 
                             AnswerInstitution,
                             AnswerStudent,
-                            AnswerGroup_Student)
+                            AnswerGroup_Student,
+                            AnswerGroup_StudentGroup,
+                            )
 from common.mixins import (ILPStateMixin, 
                            CompensationLogMixin,
                            AnswerUpdateModelMixin)
@@ -17,12 +20,43 @@ from assessments.serializers import (AnswerSerializer,
                                      AnswerGroupInstSerializer,
                                      AnswerGroupStudentSerializer,
                                      AnswerGroupStudentCreateSerializer,
-                                     StudentAnswerSerializer)
+                                     StudentAnswerSerializer,
+                                     AnswerGroupStudentGroupSerializer)
+from common.mixins import (ILPStateMixin, 
+                           CompensationLogMixin,
+                           AnswerUpdateModelMixin)
 from assessments.filters import AnswersSurveyTypeFilter
 import json
 from rest_framework.renderers import JSONRenderer
 
 logger = logging.getLogger(__name__)
+
+
+
+# TODO: The following three view sets have not been
+# linked to any URLs
+
+class AnswerGroupStudentGroupViewSet(ILPViewSet, ILPStateMixin):
+    queryset = AnswerGroup_StudentGroup.objects.all()
+    serializer_class = AnswerGroupStudentGroupSerializer
+
+class SharedAssessmentsView(ListAPIView):
+    """
+        This view returns recent 6 assessments from our three assesment groups.
+        The data is consumed in the ILP home page "Shared Stories" section.
+    """
+
+    def list(self, request, *args, **kwargs):
+        inst = AnswerGroup_Institution.objects.all().order_by('-pk')[:6]
+        st_group = AnswerGroup_StudentGroup.objects.all().order_by('-pk')[:6]
+        st = AnswerGroup_Student.objects.all().order_by('-pk')[:6]
+
+        return Response({
+            'institutions': AnswerGroupInstSerializer(inst, many=True).data,
+            'student_groups': AnswerGroupStudentGroupSerializer(
+                st_group, many=True).data,
+            'students': AnswerGroupStudentSerializer(st, many=True).data
+        })
 
 class AnswersStudentViewSet(NestedViewSetMixin, 
                                 ILPViewSet, CompensationLogMixin,

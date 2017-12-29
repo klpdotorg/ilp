@@ -1,5 +1,6 @@
 from os import sys
-import os, inspect
+import os
+import inspect
 import csv
 import datetime
 import psycopg2
@@ -84,6 +85,7 @@ num_to_user_type = {
 
 connectionstring = "dbname=%s user=klp" % todatabase
 
+
 def reset_sequences():
     conn = psycopg2.connect(connectionstring)
     cursor = conn.cursor()
@@ -109,7 +111,7 @@ for filename in os.listdir(fromdir):
 
     previous_date = ""
 
-    #reset sequences
+    # reset sequences
     reset_sequences()
 
     for row in csv_f:
@@ -147,9 +149,9 @@ for filename in os.listdir(fromdir):
                 break
 
         if at_least_one_answer:
-            sqlinsert = "insert into assessments_answergroup_institution(institution_id,group_value,is_verified,questiongroup_id,date_of_visit,respondent_type_id,double_entry,status_id) values(%s, %s, %s, %s, %s, %s, %s, %s) returning id;"
+            sqlinsert = "insert into assessments_answergroup_institution(institution_id,group_value,is_verified,questiongroup_id,date_of_visit,respondent_type_id,status_id) values(%s, %s, %s, %s, %s, %s, %s) returning id;"
             cursor.execute(sqlinsert, (school_id, name, 'true', 7,
-                                       date_of_visit, user_type, '0', 'IA'))
+                                       date_of_visit, user_type, 'AC'))
             group_id = cursor.fetchone()[0]
 
             for sequence_number, answer_column in zip(question_sequence,

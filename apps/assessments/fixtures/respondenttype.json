@@ -82,5 +82,12 @@
             "char_id": "ER",
             "name": "Elected Representative"
         }
+    },
+    {
+        "model": "assessments.RespondentType",
+        "fields":{
+            "char_id": "CRP",
+            "name": "Cluster Resource Person"
+        }
     }
 ]

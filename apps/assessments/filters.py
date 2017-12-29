@@ -18,15 +18,29 @@ class SurveyFilter(BaseFilterBackend):
 
     def filter_queryset(self, request, queryset, view):
         survey_tag = request.query_params.get('survey_tag', None)
-        survey_ids = request.query_params.getlist('survey_ids', None)
+        survey_id = request.query_params.get('survey_id', None)
         institution_type = request.query_params.get('school_type', None)
+        to_ = request.query_params.get('to', None)
+        from_ = request.query_params.get('from', None)
 
-        if survey_ids:
-            queryset = queryset.filter(survey_id__in=survey_ids)
-        if survey_tag:
+        if survey_id:
+            queryset = queryset.filter(survey_id=survey_id)
+        elif survey_tag:
             queryset = queryset.filter(survey_tag=survey_tag)
+
         if institution_type:
             queryset = queryset.filter(institution_type=institution_type)
+
+        if to_:
+            to_ = to_.split('-')
+            to_year, to_month = to_[0], to_[1]
+            queryset = queryset.filter(year__lte=to_year, month__lte=to_month)
+
+        if from_:
+            from_ = from_.split('-')
+            from_year, from_month = from_[0], from_[1]
+            queryset = queryset.filter(
+                year__gte=from_year, month__gte=from_month)
 
         return queryset
 

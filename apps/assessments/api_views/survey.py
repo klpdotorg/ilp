@@ -14,7 +14,11 @@ from assessments.models import (
     SurveyRespondentTypeAgg, SurveyInstitutionAgg,
     SurveyAnsAgg, Question, SurveyQuestionKeyAgg,
     SurveyElectionBoundaryAgg, SurveyClassGenderAgg,
-    SurveyClassAnsAgg
+    SurveyClassAnsAgg, SurveyClassQuestionKeyAgg,
+    SurveyQuestionGroupQuestionKeyAgg, SurveyQuestionGroupGenderAgg,
+    SurveyQuestionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
+    SurveyQuestionKeyCorrectAnsAgg, SurveyClassQuestionKeyCorrectAnsAgg,
+    SurveyQuestionGroupQuestionKeyCorrectAnsAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyFilter
@@ -61,6 +65,29 @@ class SurveySummaryAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
+class SurveyVolumeAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveySummaryAgg.objects.all()
+    filter_backends = [SurveyFilter, ]
+
+    def list(self, request, *args, **kwargs):
+        years = range(2009, 2020)
+        months = {
+            "01": "Jan", "02": "Feb", "03": "Mar",
+            "04": "APR", "05": "MAY", "06": "JUN",
+            "07": "JUL", "08": "AUG", "09": "SEP",
+            "10": "OCT", "11": "NOV", "12": "DEC"
+        }
+        volume_res = {}
+        for year in years:
+            year_res = {}
+            y_agg = self.queryset.filter(year_month__startswith=year)
+            for month in months:
+                year_res[months[month]] = \
+                    y_agg.filter(year_month__endswith=month).count()
+            volume_res[year] = year_res
+        return Response(volume_res)
+
+
 class SurveyInfoSourceAPIView(ListAPIView, ILPStateMixin):
     queryset = SurveyDetailsAgg.objects.all()
     filter_backends = [SurveyFilter, ]
@@ -79,16 +106,12 @@ class SurveyInfoSourceAPIView(ListAPIView, ILPStateMixin):
 
             qs_agg = queryset.filter(source=source_id).aggregate(
                 Sum('num_schools'), Sum('num_assessments'),
-                Sum('num_verified_assessment')
             )
             source_res[source_name] = {
                 "schools_impacted": qs_agg['num_schools__sum'],
                 "assessment_count": qs_agg['num_assessments__sum'],
                 # Todo
                 "last_assessment": None,
-                "verified_assessment_count": qs_agg[
-                    'num_verified_assessment__sum'
-                ]
             }
         response['source'] = source_res
         return Response(response)
@@ -253,55 +276,160 @@ class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyQuestionKeyAgg.objects.all()
     filter_backends = [SurveyFilter, ]
 
+    def get_queryset(self):
+        return SurveyQuestionKeyAgg.objects.all()
+
+    def get_answer_queryset(self):
+        return SurveyQuestionKeyCorrectAnsAgg.objects.all()
+
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+        qs = self.filter_queryset(self.get_queryset())
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
         response = {}
         scores_res = {}
-        question_keys = queryset.distinct('question_key')\
+        question_keys = qs.distinct('question_key')\
             .values_list('question_key', flat=True)
         for q_key in question_keys:
-            key_agg = queryset.filter(question_key=q_key)\
-                .aggregate(
-                    Sum('num_assessments'),
-                    Sum('num_correct_assessments'))
+            key_agg = qs.filter(question_key=q_key)\
+                .aggregate(Sum('num_assessments'))
+            key_ans_agg = ans_qs.filter(question_key=q_key)\
+                .aggregate(Sum('num_assessments'))
             scores_res[q_key] = {
                 "total": key_agg['num_assessments__sum'],
-                "score": key_agg['num_correct_assessments__sum']
+                "score": key_ans_agg['num_assessments__sum']
             }
         response['scores'] = scores_res
         return Response(response)
 
 
-class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyClassGenderAgg.objects.all()
+class SurveyClassQuestionKeyAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
 
+    def get_queryset(self):
+        return SurveyClassQuestionKeyAgg.objects.all()
+
+    def get_answer_queryset(self):
+        return SurveyClassQuestionKeyCorrectAnsAgg.objects.all()
+
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        sg_res = {}
-        sg_names = queryset\
-            .distinct('sg_name').values_list('sg_name', flat=True)
-        genders = queryset.distinct('gender').values_list('gender', flat=True)
-        for sg_name in sg_names:
-            sg_agg = queryset.filter(sg_name=sg_name)
+        qs = self.filter_queryset(self.get_queryset())
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
+        classes_res = {}
+
+        classess = qs.distinct('sg_name')\
+            .values_list('sg_name', flat=True)
+        question_keys = qs.distinct('question_key')\
+            .values_list('question_key', flat=True)
+
+        for sg_name in classess:
+            q_res = {}
+            for q_key in question_keys:
+                key_agg = qs.filter(sg_name=sg_name, question_key=q_key)\
+                    .aggregate(Sum('num_assessments'))
+                key_ans_agg = ans_qs.filter(
+                    sg_name=sg_name, question_key=q_key
+                ).aggregate(Sum('num_assessments'))
+
+                q_res[q_key] = {
+                    "total": key_agg['num_assessments__sum'],
+                    "score": key_ans_agg['num_assessments__sum']
+                }
+            classes_res[sg_name] = q_res
+        return Response(classes_res)
+
+
+class SurveyQuestionGroupQuestionKeyAPIView(ListAPIView, ILPStateMixin):
+    filter_backends = [SurveyFilter, ]
+
+    def get_queryset(self):
+        return SurveyQuestionGroupQuestionKeyAgg.objects.all()
+
+    def get_answer_queryset(self):
+        return SurveyQuestionGroupQuestionKeyCorrectAnsAgg.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        qs = self.filter_queryset(self.get_queryset())
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
+        qgroup_res = {}
+
+        qgroup_ids = qs.distinct('questiongroup_id')\
+            .values_list('questiongroup_id', flat=True)
+        question_keys = qs.distinct('question_key')\
+            .values_list('question_key', flat=True)
+
+        for qgroup_id in qgroup_ids:
+            q_res = {}
+            for q_key in question_keys:
+                key_agg = qs.filter(
+                    questiongroup_id=qgroup_id, question_key=q_key)\
+                    .aggregate(Sum('num_assessments'))
+                key_ans_agg = ans_qs.filter(
+                    questiongroup_id=qgroup_id, question_key=q_key)\
+                    .aggregate(Sum('num_assessments'))
+
+                q_res[q_key] = {
+                    "total": key_agg['num_assessments__sum'],
+                    "score": key_ans_agg['num_assessments__sum']
+                }
+            qgroup_res[qgroup_id] = q_res
+        return Response(qgroup_res)
+
+
+class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
+    filter_backends = [SurveyFilter, ]
+
+    def get_survey_type(self):
+        survey_id = self.request.query_params.get('survey_id', None)
+        return Survey.objects.get(id=survey_id).survey_on.char_id
+
+    def get_queryset(self):
+        survey_type = self.get_survey_type()
+        if survey_type == 'institution':
+            return SurveyQuestionGroupGenderAgg.objects.all()
+        return SurveyClassGenderAgg.objects.all()
+
+    def get_answer_queryset(self):
+        survey_type = self.get_survey_type()
+        if survey_type == 'institution':
+            return SurveyQuestionGroupGenderCorrectAnsAgg.objects.all()
+        return SurveyClassGenderCorrectAnsAgg.objects.all()
+    
+    def list(self, request, *args, **kwargs):
+        qs = self.filter_queryset(self.get_queryset())
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
+
+        group_field = 'sg_name'
+        if self.get_survey_type() == 'institution':
+            group_field = 'questiongroup_name'
+
+        group_res = {}
+        group_names = qs\
+            .distinct(group_field).values_list(group_field, flat=True)
+        genders = qs.distinct('gender').values_list('gender', flat=True)
+
+        for group_name in group_names:
             gender_res = {}
             for gender in genders:
-                sg_gender_agg = sg_agg.filter(gender=gender)\
-                    .aggregate(
-                        Sum('num_assessments'),
-                        Sum('num_correct_assessments'))
+                group_param = {'sg_name': group_name}
+                if group_field == 'questiongroup_name':
+                    group_param = {'questiongroup_name': group_name}
+
+                gender_agg = qs.filter(gender=gender, **group_param)\
+                    .aggregate(Sum('num_assessments'))
+                gender_ans_agg = ans_qs.filter(gender=gender, **group_param)\
+                    .aggregate(Sum('num_assessments'))
+
                 gender_res[gender] = {
-                    "total_count": sg_gender_agg['num_assessments__sum'],
-                    "perfect_score_count": sg_gender_agg[
-                        'num_correct_assessments__sum']
+                    "total_count": gender_agg['num_assessments__sum'],
+                    "perfect_score_count": gender_ans_agg[
+                        'num_assessments__sum']
                 }
-            sg_res[sg_name] = {
+            group_res[group_name] = {
                 "gender": gender_res
             }
-        return Response(sg_res)
+        return Response(group_res)
 
 
 class SurveyDetailClassAPIView(ListAPIView, ILPStateMixin):

@@ -1,5 +1,6 @@
 from os import system, sys
-import os, inspect
+import os
+import inspect
 
 
 if len(sys.argv) != 3:
@@ -19,16 +20,17 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(2, 'GP Contest', to_date('2017-06-06', 'YYYY-MM-DD'),'akshara','AC', 2);"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(2, 'GP Contest', to_date('2017-06-06', 'YYYY-MM-DD'),'akshara','AC', 2, 'institution');"
     },
     {
         'name': 'assessments_questiongroup',
-        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, survey_on_id, type_id, group_text) values(21,'Class 4 Assessment',to_date('2016-12-01', 'YYYY-MM-DD'),false, to_date('2017-04-28', 'YYYY-MM-DD'),to_date('2017-04-28', 'YYYY-MM-DD'),'1617','primary','IA',2,'institution','monitor', 'child_name'), (22,'Class 5 Assessment',to_date('2016-12-01', 'YYYY-MM-DD'),false, to_date('2017-04-28','YYYY-MM-DD'),to_date('2017-04-28','YYYY-MM-DD'),'1617','primary','IA',2,'institution','monitor', 'child_name'),(23,'Class 6 Assessment',to_date('2016-12-01','YYYY-MM-DD'),false, to_date('2017-04-28','YYYY-MM-DD'),to_date('2017-04-28','YYYY-MM-DD'),'1617','primary','IA',2,'institution','monitor', 'child_name');"
+        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, type_id, group_text) values(21,'Class 4 Assessment',to_date('2016-12-01', 'YYYY-MM-DD'),false, to_date('2017-04-28', 'YYYY-MM-DD'),to_date('2017-04-28', 'YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name'), (22,'Class 5 Assessment',to_date('2016-12-01', 'YYYY-MM-DD'),false, to_date('2017-04-28','YYYY-MM-DD'),to_date('2017-04-28','YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name'),(23,'Class 6 Assessment',to_date('2016-12-01','YYYY-MM-DD'),false, to_date('2017-04-28','YYYY-MM-DD'),to_date('2017-04-28','YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name');"
     },
     {
         'name': 'assessments_question',
-        'getquery': "\COPY (select distinct id, text, display_text, key, options, is_featured, question_type_id,'IA' from stories_question where id in (select question_id from stories_questiongroup_questions where questiongroup_id in (select id from stories_questiongroup where survey_id =2))) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, question_text, display_text, key, options, is_featured, question_type_id,status_id) FROM 'replacefilename' with csv NULL 'null';"
+        'getquery': "\COPY (select distinct id, text, display_text, key, options, is_featured, question_type_id,case(is_active) when 't' then 'AC' when 'f' then 'IA' end from stories_question where id in (select question_id from stories_questiongroup_questions where questiongroup_id in (select id from stories_questiongroup where   survey_id =2))) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, text text, display_text text, key text, options text, is_featured boolean, question_type_id integer, status text ); \COPY temp_replacetablename(id, text, display_text, key, options, is_featured, question_type_id,status) FROM 'replacefilename' with csv NULL 'null';",
+        'insertquery': "INSERT INTO replacetablename(id, question_text, display_text, key, options, is_featured, question_type_id, status_id) select temp.id, temp.text, temp.display_text, temp.key, temp.options, temp.is_featured, temp.question_type_id, temp.status from temp_replacetablename temp where temp.id not in (select id from replacetablename);"
     },
     {
         'name': 'assessments_questiongroup_questions',
@@ -37,9 +39,9 @@ tables = [
     },
     {
         'name': 'assessments_answergroup_institution',
-        'getquery': "\COPY (select distinct stories.id, 0, stories.date_of_visit,stories.is_verified,stories.entered_timestamp, stories.group_id, 'IA', stories.school_id, stories.name from stories_story stories,tb_school s where stories.group_id in (select id from stories_questiongroup where survey_id =2) and stories.school_id=s.id) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, double_entry integer, date_of_visit timestamp, is_verified boolean, entered_at timestamp, questiongroup_id integer, status_id text, institution_id integer, group_value text); \COPY temp_replacetablename(id, double_entry, date_of_visit, is_verified, entered_at,questiongroup_id, status_id, institution_id, group_value) FROM 'replacefilename' with csv NULL 'null';",
-        'insertquery': "INSERT INTO replacetablename(id, group_value, double_entry, date_of_visit, is_verified, institution_id, questiongroup_id, status_id,entered_at, respondent_type_id) select temp.id, temp.group_value, temp.double_entry, temp.date_of_visit, temp.is_verified, temp.institution_id, temp.questiongroup_id, temp.status_id,temp.entered_at,'CH' from temp_replacetablename temp, schools_institution s where institution_id=s.id;"
+        'getquery': "\COPY (select distinct stories.id, stories.date_of_visit,stories.is_verified,stories.entered_timestamp, stories.group_id, 'AC', stories.school_id, stories.name from stories_story stories,tb_school s where stories.group_id in (select id from stories_questiongroup where survey_id =2) and stories.school_id=s.id) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, date_of_visit timestamp, is_verified boolean, entered_at timestamp, questiongroup_id integer, status_id text, institution_id integer, group_value text); \COPY temp_replacetablename(id, date_of_visit, is_verified, entered_at,questiongroup_id, status_id, institution_id, group_value) FROM 'replacefilename' with csv NULL 'null';",
+        'insertquery': "INSERT INTO replacetablename(id, group_value, date_of_visit, is_verified, institution_id, questiongroup_id, status_id,entered_at, respondent_type_id) select temp.id, temp.group_value, temp.date_of_visit, temp.is_verified, temp.institution_id, temp.questiongroup_id, temp.status_id,temp.entered_at,'CH' from temp_replacetablename temp, schools_institution s where institution_id=s.id;"
     },
     {
         'name': 'assessments_answerinstitution',

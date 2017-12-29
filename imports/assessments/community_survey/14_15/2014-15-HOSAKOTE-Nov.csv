@@ -1,0 +1,621 @@
+Sl.No,District ,Block ,Cluster,School ID,School name,Date,Parent / SDMC-1 / SDMC-2 / Elected-Local Leader / CBO Member / Educated Youth,Name of the informant:,1.Are the teachers regular ?,2.Do the teachers take classes regularly ?,3.Are the children getting the required academic attention from the teachers ?,4.Is there any concern pertaining to the mid day meal ?,5.Are the SDMC members involved in the progress of the school ?,6.Does the school has safe drinking water ?,7.Does the school has functioning toilets for children ?,8.Does the school has sufficient Teacher ?
+1,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Ramanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+2,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Chandrappa,No ,No ,No ,Yes ,No ,Yes ,Yes ,No 
+3,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Krishnappa,No ,No ,No ,Yes ,No ,Yes ,Yes ,No 
+4,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Venkateshappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+5,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Jayamma,Yes ,Yes ,Yes ,Yes ,No ,Yes ,Yes ,No 
+6,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,SDMC-1,Rathnappa,No ,No ,No ,Yes ,Yes ,Yes ,Yes ,Yes 
+7,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,SDMC-2,Channakeshava,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+8,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Elected/ local leader,Kamalamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+9,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,CBO member,Venkatachalapathi,Yes ,Yes ,Yes ,Yes ,No ,Yes ,Yes ,Yes 
+10,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Educated Youth,Murali,No ,No ,No ,Yes ,No ,Yes ,Yes ,No 
+11,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,Ramegowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+12,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+13,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,Srinivas,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+14,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,Krishnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+15,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,Byregowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+16,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,SDMC-1,Nagaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+17,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,SDMC-2,Muniraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+18,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Elected-local leader,Muniyappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+19,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,CBO member,Kanthamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+20,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Educated Youth,Nagesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+21,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,Parent,Munikrishna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+22,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,Parent,Hanumappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+23,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,Parent,Ramanjanappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+24,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,Parent,Ravi kumar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+25,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,Parent,Chandrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+26,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,SDMC-1,Nagesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+27,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,SDMC-2,Murthi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+28,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,Elected-local leader,Manjunath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+29,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,CBO member,Shanthamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+30,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,21/11/2014,Educated Youth,Sowmya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+31,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,Parent,Chandara,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+32,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,Parent,Meenakshi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+33,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,Parent,Ramappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+34,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,Parent,Lakkappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+35,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,Parent,Kanthamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+36,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,SDMC-1,Chandru,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+37,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,SDMC-2,Ramesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+38,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,Elected-local leader,Ravindrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+39,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,CBO member,Varshini,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+40,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,21/11/2014,Educated Youth,Yadav,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+41,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,Parent,Thimmaryappa,No ,No ,No ,Yes ,No ,Yes ,Yes ,No 
+42,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,Parent,Channnakeshava,No ,No ,No ,Yes ,No ,Yes ,Yes ,No 
+43,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,Parent,Dyavappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+44,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,Parent,Rangaraju,No ,No ,Yes ,Yes ,No ,Yes ,Yes ,No 
+45,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,Parent,Munikrishna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+46,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,SDMC-1,Basvaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+47,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,SDMC-2,Anjinappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+48,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,Elected-local leader,Bhoja narayana,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+49,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,CBO member,Karthik,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+50,Bangalore rural,Hosakote,Sulibele,35881,GKLPS Valagerepura,12/11/2014,Educated Youth,Balu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+51,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,Parent,Appayappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+52,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,Parent,Kamalamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+53,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,Parent,Lakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+54,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,Parent,Chandrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+55,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,Parent,Roopa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+56,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,SDMC-1,Thyagaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+57,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,SDMC-2,Lakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+58,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,Elected-local leader,Ambulari,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+59,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,CBO member,Chithra,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+60,Bangalore rural,Hosakote,Sulibele,35882,GKHPS Attibele,12/11/2014,Educated Youth,Kamala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+61,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Dasegowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+62,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Ravi  ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+63,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Devaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+64,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Basavaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+65,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Muniyappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+66,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,SDMC-1,Mylara,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+67,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,SDMC-2,Gopal,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+68,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Elected-local leader,Ramappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+69,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,CBO member,Muniraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+70,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Educated Youth,Manjunath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+71,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Krishnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+72,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Ramanji,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+73,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Komala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+74,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Roopa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+75,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Parent ,Narasimha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+76,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,SDMC-1,Roopa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+77,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,SDMC-2,Ramachandra,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+78,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Elected/ local leader,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+79,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,CBO member,Rukmini,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+80,Bangalore rural,Hosakote,Sulibele,36138,GKLPS Kadirina pura,18/11/2014,Educated Youth,Nagesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+81,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+82,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+83,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+84,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+85,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Parent,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+86,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,SDMC-1,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+87,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,SDMC-2,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+88,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Elected-local leader,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+89,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,CBO member,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+90,Bangalore rural,Hosakote,Sulibele,36137,GKHPS Arasanahalli,18/11/2014,Educated Youth,NA,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+91,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Murthi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+92,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Rajanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+93,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Ravi  ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+94,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Muniyappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+95,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Parent,Dasegowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+96,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,SDMC-1,Radha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+97,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,SDMC-2,Lakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+98,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Elected-local leader,Danappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+99,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,CBO member,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+100,Bangalore rural,Hosakote,Sulibele,35876,GKHPS Kurubarahatti,20/11/2014,Educated Youth,Yashaswini,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+101,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,Parent,Basheer,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+102,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,Parent,Chandra prasad,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+103,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,Parent,Naveed,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+104,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,Parent,Moula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+105,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,Parent,Sumiulla,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+106,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,SDMC-1,Babajan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+107,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,SDMC-2,Siraj khan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+108,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,Elected-local leader,Sheer khan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+109,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,CBO member,Shahtaj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+110,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,14/11/2014,Educated Youth,Nameen Taj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+111,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,Parent,Babu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+112,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,Parent,Krishnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+113,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,Parent,kaleel,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+114,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,Parent,Chinnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+115,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,Parent,Manjunath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+116,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,SDMC-1,S M Moula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+117,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,SDMC-2,Deepa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+118,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,Elected-local leader,Babajan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+119,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,CBO member,Archana,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+120,Bangalore rural,Hosakote,Sulibele,35875,GKHPS Janatha colony,14/11/2014,Educated Youth,Vasantha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+121,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,Parent,Abdul baig,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+122,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,Parent,Intiyaz,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+123,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,Parent,Shakeer,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+124,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,Parent,Vilas,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+125,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,Parent,Waseem,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+126,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,SDMC-1,Mahboob,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+127,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,SDMC-2,Abdul Majad,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+128,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,Elected-local leader,Allah bakesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+129,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,CBO member,Syed,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+130,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,13/11/2014,Educated Youth,Wazeer,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+131,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,Parent,Narasimhaiah,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+132,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,Parent,Chalapathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+133,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,Parent,Narayana,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+134,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,Parent,Samiulla,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+135,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,Parent,Nagendra,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+136,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,SDMC-1,Narayana swamy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+137,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,SDMC-2,Manjunath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+138,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,Elected-local leader,Sameen taj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+139,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,CBO member,Ramesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+140,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,13/11/2014,Educated Youth,Santhosh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+141,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,Parent,Allah bakesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+142,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,Parent,Sadiq,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+143,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,Parent,Ismail,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+144,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,Parent,Rehmathulla,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+145,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,Parent,Chand pasha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+146,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,SDMC-1,Riyaz pasha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+147,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,SDMC-2,Roushan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+148,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,Elected-local leader,Rehaman,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+149,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,CBO member,Rukmini,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+150,Bangalore rural,Hosakote,Sulibele,35879,GKHPS Giddappanahalli,17/11/2014,Educated Youth,Rehmath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+151,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,Parent,Amjad khan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+152,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,Parent,Roja,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+153,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,Parent,Ruksana,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+154,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,Parent,Zabiullah,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+155,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,Parent,Kamanth,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+156,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,SDMC-1,Kaseem sab,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+157,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,SDMC-2,Zabi ulla,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+158,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,Elected-local leader,Ismail,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+159,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,CBO member,Chand pasha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+160,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,17/11/2014,Educated Youth,Javeed,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+161,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,Parent,Ravi  ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+162,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+163,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,Parent,Krishna ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+164,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,Parent,Roja,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+165,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,Parent,Thimmayrya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+166,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,SDMC-1,Kanthappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+167,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,SDMC-2,Pramila,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+168,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,Elected-local leader,Nagaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+169,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,CBO member,Magesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+170,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,19/11/2014,Educated Youth,Shashikala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+171,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,Parent,Gopal,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+172,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,Parent,Puttappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+173,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,Parent,Jairam,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+174,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,Parent,Balu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+175,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,Parent,Padma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+176,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,SDMC-1,Murthi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+177,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,SDMC-2,Nagesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+178,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,Elected-local leader,Kalappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+179,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,CBO member,Nirmala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+180,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,19/11/2014,Educated Youth,Sowmay,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+181,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,Parent,Krishnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+182,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,Parent,Venkateshappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+183,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,Parent,Roja,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+184,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+185,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,Parent,Thimmakka,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+186,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,SDMC-1,Kanthappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+187,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,SDMC-2,Pramila,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+188,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,Elected-local leader,Nagaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+189,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,CBO member,Nagaveni,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+190,Bangalore rural,Hosakote,Sulibele,35884,GKLPS Sadapanahalli,11/11/2014,Educated Youth,Shashikala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+191,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,Parent,Balakrishna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+192,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,Parent,Nagaaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+193,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,Parent,Jairam,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+194,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,Parent,Balu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+195,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,Parent,Erappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+196,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,SDMC-1,Nagesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+197,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,SDMC-2,Murthi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+198,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,Elected-local leader,Vasantha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+199,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,CBO member,Mune gowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+200,Bangalore rural,Hosakote,Sulibele,35883,GKHPS Yanagunte,11/11/2014,Educated Youth,Shantha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+201,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,Parent,Ameer khan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+202,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,Parent,Kaseem beg,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+203,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,Parent,Ismail,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+204,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,Parent,Javeed baig,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+205,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,Parent,Ayesha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+206,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,SDMC-1,Aalujan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+207,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,SDMC-2,Noorulla,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+208,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,Elected-local leader,Kamalesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+209,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,CBO member,Jameel Taj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+210,Bangalore rural,Hosakote,Sulibele,36141,GULPS Janatha colony,10/11/2014,Educated Youth,Ayesha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+211,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,Parent,Roshan beig,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+212,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,Parent,Salma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+213,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,Parent,Tulauddin,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+214,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,Parent,Chot sub,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+215,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,Parent,Tasleem,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+216,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,SDMC-1,Kaseem beg,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+217,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,SDMC-2,Neha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+218,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,Elected-local leader,Roopesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+219,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,CBO member,Asma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+220,Bangalore rural,Hosakote,Sulibele,35880,GULPS Giddappanahalli,10/11/2014,Educated Youth,Radha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+221,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,Parent,Manjunath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+222,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,Parent,Rajanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+223,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,Parent,Dharmesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+224,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,Parent,Munirathna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+225,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+226,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,SDMC-1,Venkat ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+227,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,SDMC-2,Yashodha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+228,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,Elected-local leader,Roopa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+229,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,CBO member,Sharada,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+230,Bangalore rural,Hosakote,Mugbala,36206,GKHPS Kombaligana Halli,10/11/2014,Educated Youth,chandu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+231,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+232,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,Parent,Indramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+233,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,Parent,Radha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+234,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,Parent,Naryanappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+235,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,Parent,Muniyappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+236,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,SDMC-1,Lakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+237,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,SDMC-2,Jadiyappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+238,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,Elected-local leader,Siddappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+239,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,CBO member,Channamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+240,Bangalore rural,Hosakote,Mugbala,36193,GKHPS Chikkanahalli,10/11/2014,Educated Youth,Bharath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+241,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,Parent,Lakshman,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+242,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,Parent,Manjunatha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+243,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,Parent,Nagarathna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+244,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,Parent,Narayanappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+245,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,Parent,Sarojamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+246,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,SDMC-1,Shrinivas,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+247,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,SDMC-2,Jayamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+248,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,Elected-local leader,Anand,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+249,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,CBO member,Karagamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+250,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,11/11/2014,Educated Youth,Pankaj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+251,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,Parent,Muniyappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+252,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,Parent,Lakshmamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+253,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,Parent,Jagadish,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+254,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,Parent,Vijaya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+255,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,Parent,Bhagya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+256,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,SDMC-1,Lakshman,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+257,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,SDMC-2,Nanjappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+258,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,Elected-local leader,Nagaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+259,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,CBO member,Kanthamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+260,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,11/11/2014,Educated Youth,Radha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+261,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,Parent,Jayamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+262,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,Parent,Amaravathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+263,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,Parent,Bhagyamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+264,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+265,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,Parent,Nagaraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+266,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,SDMC-1,Thimmaraju,Yes ,Yes ,Yes ,Yes ,Yes ,No ,Yes ,Yes 
+267,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,SDMC-2,Beeresh,No ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+268,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,Elected-local leader,Anjinappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+269,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,CBO member,Anand,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+270,Bangalore rural,Hosakote,Nandagudi,36081,GKHPS N Hosahalli,12/11/2014,Educated Youth,Raman,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+271,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,Parent,Anjinappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+272,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,Parent,Shankarappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+273,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,Parent,Shivamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+274,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,Parent,Naryanamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+275,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,Parent,Anithamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+276,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,SDMC-1,Nagesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+277,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,SDMC-2,Ramesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+278,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,Elected-local leader,Bhagya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+279,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,CBO member,Rathna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+280,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,12/11/2014,Educated Youth,Kanaka,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+281,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,Parent,Krishnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+282,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,Parent,Suma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+283,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,Parent,Muniraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+284,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,Parent,Manjunatha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+285,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,Parent,Nagarathna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+286,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,SDMC-1,Bhagya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+287,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,SDMC-2,Shriram,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+288,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,Elected-local leader,Gangaraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+289,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,CBO member,Renuka,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+290,Bangalore rural,Hosakote,Nandagudi,37163,GKLPS Giddanahalli,13/11/2014,Educated Youth,Naga,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+291,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,Parent,Chinnakeshva,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+292,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,Parent,Komala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+293,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,Parent,Muniraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+294,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,Parent,Shilpa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+295,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,Parent,Jayamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+296,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,SDMC-1,sharada,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+297,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,SDMC-2,Srinivas,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+298,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,Elected-local leader,Ramesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+299,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,CBO member,Gopamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+300,Bangalore rural,Hosakote,Nandagudi,36080,GKLPS Vaddahalli,13/11/2014,Educated Youth,Mani,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+301,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,Parent,Chikkapaya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+302,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,Parent,Lakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+303,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,Parent,Lokesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+304,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,Parent,Umesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+305,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,Parent,Geetha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+306,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,SDMC-1,Channarayappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+307,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,SDMC-2,Manthesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+308,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,Elected-local leader,Shashikala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+309,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,CBO member,Nagaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+310,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,14/11/2014,Educated Youth,Purvi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+311,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,Parent,Narayanaswamy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+312,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,Parent,Govindappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+313,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,Parent,Anand,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+314,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,Parent,Bhargavi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,No 
+315,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,Parent,Manjamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+316,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,SDMC-1,Somanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+317,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,SDMC-2,Lakshman,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+318,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,Elected-local leader,Manjunath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+319,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,CBO member,Shaylaja,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+320,Bangalore rural,Hosakote,Mugbala,36061,GKLPS Atturu,14/11/2014,Educated Youth,Raju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+321,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,Parent,Padamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+322,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,Parent,Narayan swamy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+323,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,Parent,Manjunath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+324,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,Parent,Shobha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+325,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,Parent,Anusuya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+326,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,SDMC-1,Gangadhar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+327,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,SDMC-2,Chandrakala,Yes ,Yes ,Yes ,Yes ,No ,Yes ,Yes ,Yes 
+328,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,Elected-local leader,Umesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+329,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,CBO member,Rajamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+330,Bangalore rural,Hosakote,Nandagudi,36087,GKLPS Thirthahalli,NA,Educated Youth,Kallesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+331,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,Parent,Saraswathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+332,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,Parent,Rathnamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+333,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,Parent,Kencharaju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+334,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,Parent,Venkatesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+335,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,Parent,Suresh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+336,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,SDMC-1,Munirajanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+337,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,SDMC-2,Manjappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+338,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,Elected-local leader,Roopesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+339,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,CBO member,Ramanamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+340,Bangalore rural,Hosakote,Nandagudi,36078,GKLPS Haleuru,15/11/2014,Educated Youth,Kantha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+341,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,Parent,Raju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+342,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,Parent,Muniraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+343,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,Parent,Gangappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+344,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+345,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,Parent,Nirmala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+346,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,SDMC-1,Madurappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+347,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,SDMC-2,Shobha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+348,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,Elected-local leader,Padma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+349,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,CBO member,Rajamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+350,Bangalore rural,Hosakote,Nandagudi,36086,GKLPS Naduvinapura,17/11/2014,Educated Youth,Raju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+351,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,Parent,Shankrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+352,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,Parent,Shreedevi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+353,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,Parent,Anjunappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+354,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,Parent,Narayanswami,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+355,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,Parent,Narayanswami,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+356,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,SDMC-1,Rukmini,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+357,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,SDMC-2,Saraswathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+358,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,Elected-local leader,Chandrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,No 
+359,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,CBO member,Roopa,Yes ,Yes ,No ,Yes ,Yes ,Yes ,Yes ,Yes 
+360,Bangalore rural,Hosakote,Nandagudi,36085,GKLPS Kondrahalli,17/11/2014,Educated Youth,Usha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+361,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,Parent,Subramani,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+362,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,Parent,Gowramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+363,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,Parent,Ramesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+364,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,Parent,Sharadamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+365,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,Parent,Bhagya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+366,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,SDMC-1,Anjinappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+367,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,SDMC-2,Narayanswami,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,No ,Yes 
+368,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,Elected-local leader,Rajanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+369,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,CBO member,Shilpa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,No 
+370,Bangalore rural,Hosakote,Nandagudi,36074,GKLPS Banahalli,18/11/2014,Educated Youth,Suresh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+371,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,Parent,Chandramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+372,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,Parent,Lakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+373,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,Parent,Rathnamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+374,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,Parent,Manjua,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+375,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,Parent,Bharathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+376,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,SDMC-1,Ravi kumar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+377,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,SDMC-2,Umesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+378,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,Elected-local leader,Guru,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+379,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,CBO member,Parvathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+380,Bangalore rural,Hosakote,Nandagudi,36084,GKLPS Chokkasandra,18/11/2014,Educated Youth,Rekha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+381,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,Parent,Subramani,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+382,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,Parent,Savithramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+383,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,Parent,Gayathri,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+384,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,Parent,Krishnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+385,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,Parent,Muniraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+386,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,SDMC-1,Govindappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+387,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,SDMC-2,Kalesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+388,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,Elected-local leader,Anand,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+389,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,CBO member,Kamala,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+390,Bangalore rural,Hosakote,Mugbala,35945,GKLPS Dabbaguntahalli,19/11/2014,Educated Youth,Pushpa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+391,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,Parent,Chandrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+392,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,Parent,Dhanalakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,No 
+393,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,Parent,Vijayamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+394,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,Parent,Nagarajappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+395,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,Parent,Rajanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+396,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,SDMC-1,Suresh,Yes ,Yes ,Yes ,Yes ,No ,Yes ,Yes ,Yes 
+397,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,SDMC-2,Bharathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+398,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,Elected-local leader,Pushpa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+399,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,CBO member,Roopa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+400,Bangalore rural,Hosakote,Mugbala,35943,GKLPS Chinnandahalli,19/11/2014,Educated Youth,Manju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+401,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,Parent,Muralidhar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+402,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,Parent,Shilpa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+403,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,Parent,Shankarappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+404,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,Parent,Munirathna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+405,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,Parent,Rakesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+406,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,SDMC-1,Susheela,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+407,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,SDMC-2,Muniraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,No ,Yes 
+408,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,Elected-local leader,Parmesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+409,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,CBO member,Rajashree,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+410,Bangalore rural,Hosakote,Mugbala,36223,GKLPS Mylapura,20/11/2014,Educated Youth,Kiran,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+411,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,Parent,Rathnamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+412,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,Parent,Prakash,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+413,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,Parent,Mamatha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+414,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,Parent,Kiranappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+415,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,Parent,Chandramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+416,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,SDMC-1,Prabhu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+417,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,SDMC-2,Radhamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+418,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,Elected-local leader,Srikanth,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+419,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,CBO member,Roopa devi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+420,Bangalore rural,Hosakote,Mugbala,36222,GKHPS Volagere Pura,20/11/2014,Educated Youth,Shantha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+421,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,Parent,Kanthamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+422,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,Parent,Radha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+423,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,Parent,Indramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+424,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+425,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,Parent,Deksha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+426,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,SDMC-1,Muniraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+427,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,SDMC-2,Chikkathayappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+428,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,Elected-local leader,Chandrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+429,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,CBO member,Bhagyamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+430,Bangalore rural,Hosakote,Mugbala,36224,GKLPS Mugabala,21/11/2014,Educated Youth,Supriya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+431,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,Parent,Chandrashekar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+432,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,Parent,Rajanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+433,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,Parent,Pankaja,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+434,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,Parent,Prakash,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+435,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,Parent,Narayanswamy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+436,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,SDMC-1,Chandrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+437,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,SDMC-2,Parvathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+438,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,Elected-local leader,Shobha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+439,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,CBO member,Shilpa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+440,Bangalore rural,Hosakote,Mugbala,36210,GKLPS Hosahalli,21/11/2014,Educated Youth,Raju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+441,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,Parent,Amaravathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+442,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,Parent,Channa Muri,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Yes 
+443,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,Parent,Manjunatha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+444,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,Parent,Savitha,Yes ,Yes ,Yes ,Yes ,Unaware,NA,Yes ,Yes 
+445,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,Parent,Subhashini,Yes ,Yes ,Yes ,Yes ,Yes ,NA,NA,NA
+446,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,SDMC-1,Shekar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+447,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,SDMC-2,Venkatesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+448,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,Elected-local leader,Prakash,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+449,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,CBO member,Anjanamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+450,Bangalore rural,Hosakote,Bilanarasapura,36196,GKLPS Dinnekorati,03/11/2014,Educated Youth,Manohar,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Yes 
+451,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,Parent,Narayanaswamy,Unaware,Unaware,Unaware,Yes ,No ,Yes ,No ,Yes 
+452,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,Parent,Srinivas,Yes ,Unaware,Unaware,Yes ,Unaware,Yes ,No ,Yes 
+453,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,Parent,Jayalakshmi,Yes ,No ,Unaware,Yes ,No ,Yes ,No ,Yes 
+454,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,Parent,Susheela,Yes ,Unaware,Unaware,Yes ,Unaware,Yes ,No ,Yes 
+455,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,Parent,Muni narayanappa,Unaware,Unaware,Unaware,Yes ,Unaware,Yes ,Unaware,Unaware
+456,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,SDMC-1,Nanjundappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+457,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,SDMC-2,Byre Gowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+458,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,Elected-local leader,Muniraju M,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+459,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,CBO member,NA,NA,NA,NA,NA,NA,NA,NA,NA
+460,Bangalore rural,Hosakote,Bilanarasapura,35916,GKHPS  Korati,03/11/2014,Educated Youth,Lokesh,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,No ,Yes 
+461,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,Parent,Savitha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+462,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,Parent,Gowramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+463,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,Parent,Narayanswamy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+464,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,Parent,Mamatha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+465,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,Parent,Venkateshappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+466,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,SDMC-1,Nagaraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+467,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,SDMC-2,Munirajanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+468,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,Elected-local leader,Munirathnamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+469,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,CBO member,NA,NA,NA,NA,NA,NA,NA,NA,NA
+470,Bangalore rural,Hosakote,Bilanarasapura,35925,GKLPS Gundrahalli,05/11/2014,Educated Youth,Naveen,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+471,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,Parent,Anjinappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+472,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,Parent,Lakshmamma,Unaware,Yes ,Unaware,Yes ,Yes ,Yes ,Yes ,Yes 
+473,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,Parent,Vasantha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+474,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,Parent,Shobha,Unaware,Unaware,Yes ,Yes ,Unaware,Yes ,Yes ,Yes 
+475,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,Parent,Yalle gowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+476,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,SDMC-1,Srinivas,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+477,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,SDMC-2,Sujatha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+478,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,Elected-local leader,Chandrappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+479,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,CBO member,Kempamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+480,Bangalore rural,Hosakote,Bilanarasapura,35922,GKHPS Hedakanahalli,05/11/2014,Educated Youth,Sonnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+481,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,Parent,Bache Gowda,Yes ,Unaware,Unaware,Yes ,Yes ,Yes ,Yes ,Yes 
+482,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,Parent,Manjuntha,Yes ,Yes ,NA,Yes ,Yes ,Yes ,Yes ,Yes 
+483,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,Parent,Lakshmamma,Unaware,Unaware,Unaware,Yes ,Unaware,Yes ,Yes ,Yes 
+484,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,Parent,Nagaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+485,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,Parent,Irugappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+486,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,SDMC-1,Narayanamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+487,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,SDMC-2,Ramesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+488,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,Elected-local leader,Muniraj ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+489,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,CBO member,NA,NA,NA,NA,NA,NA,NA,NA,NA
+490,Bangalore rural,Hosakote,Nelavagilu,35909,GKHPS Dalasagere,13/11/2014,Educated Youth,Srikantha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+491,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,Parent,Muniraj ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+492,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,Parent,Venkataramana,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+493,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,Parent,Sulthan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+494,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,Parent,Bhagyalakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+495,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,Parent,Sharadamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+496,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,SDMC-1,Chikkabairappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+497,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,SDMC-2,Muniraj ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+498,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,Elected-local leader,Savitha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+499,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,CBO member,Sarojamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+500,Bangalore rural,Hosakote,Nelavagilu,35908,GKHPS Chikkondahalli,13/11/2014,Educated Youth,Vijay,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+501,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,Parent,Gangalashmma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+502,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,Parent,Anjinappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+503,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,Parent,Sujatha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+504,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,Parent,Kumar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+505,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,Parent,Nagavini,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+506,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,SDMC-1,Chittibabu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+507,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,SDMC-2,Muniraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+508,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,Elected-local leader,Chittibabu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+509,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,CBO member,Lakshmamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+510,Bangalore rural,Hosakote,Nelavagilu,35906,GKLPS Lakshmi pura,12/11/2014,Educated Youth,Chaithra,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+511,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,Parent,Roopa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+512,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,Parent,Krishna murthy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+513,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,Parent,Malingappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+514,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,Parent,Srinivas,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+515,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,Parent,Bhagyalakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+516,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,SDMC-1,Lakshmayya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+517,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,SDMC-2,Lakshmidevi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+518,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,Elected-local leader,Devaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+519,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,CBO member,Ashwathappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+520,Bangalore rural,Hosakote,Nelavagilu,35928,GKLPS Tharabahalli,12/11/2014,Educated Youth,Anil Kumar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+521,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,Parent,Manjuntha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+522,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,Parent,Shekkudar,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+523,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,Parent,Susheelamma,Yes ,Unaware,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+524,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,Parent,venkatesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+525,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,Parent,Muniraj ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+526,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,SDMC-1,Prabhvathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+527,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,SDMC-2,Umadevi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+528,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,Elected-local leader,Ramchandra Gowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+529,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,CBO member,Kalavathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+530,Bangalore rural,Hosakote,Nelavagilu,36072,GKHPS Hindiganala,11/11/2014,Educated Youth,Govindraju,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+531,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,Parent,Abdulla,Yes ,Yes ,Unaware,Yes ,Yes ,Yes ,Yes ,Yes 
+532,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,Parent,Babu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+533,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,Parent,Babajan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+534,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,Parent,Haseena,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Unaware
+535,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,Parent,Jabeen,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+536,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,SDMC-1,Sohara,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+537,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,SDMC-2,Noorjan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+538,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,Elected-local leader,Azeem pasha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+539,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,CBO member,Shareen Taj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+540,Bangalore rural,Hosakote,Nelavagilu,36073,GUHPS Hindiganala,11/11/2014,Educated Youth,Ajaz pasha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+541,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,Parent,Shaziya Banu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+542,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,Parent,Shafiulla,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+543,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,Parent,Ansar Shariff,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+544,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,Parent,Murad Khan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+545,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,Parent,Amur Khan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+546,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,SDMC-1,Gouse peer,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+547,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,SDMC-2,Javeed Khan,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+548,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,Elected-local leader,Shafiulla,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+549,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,CBO member,NA,NA,NA,NA,NA,NA,NA,NA,NA
+550,Bangalore rural,Hosakote,Nelavagilu,35914,GKHPS K Shettihalli,10/11/2014,Educated Youth,Fayaz,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+551,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,Parent,Bhagyamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+552,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,Parent,Sharadamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,No 
+553,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,Parent,Chikkappayya,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+554,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,Parent,Narayan swamy D,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+555,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,Parent,Hanumappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+556,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,SDMC-1,Rajanna D,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+557,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,SDMC-2,Nagaraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+558,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,Elected-local leader,Shivanna,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+559,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,CBO member,Gowramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+560,Bangalore rural,Hosakote,Bilanarasapura,35915,GKHPS Karahalli,10/11/2014,Educated Youth,Suma,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Yes 
+561,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,Parent,Krishna murthy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+562,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,Parent,Nataraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+563,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,Parent,Manjula,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+564,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,Parent,Muniyappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+565,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,Parent,Ere Gowda,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+566,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,SDMC-1,Krishnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+567,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,SDMC-2,Muniraj ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+568,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,Elected-local leader,"Venkatesh, Govinda",Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+569,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,CBO member,Thippakka,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+570,Bangalore rural,Hosakote,Bilanarasapura,35927,GKLPS Marasandrahalli,14/11/2014,Educated Youth,Vijayalakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+571,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,Parent,Siddamma,Yes ,Yes ,Unaware,Yes ,Unaware,Yes ,Yes ,Yes 
+572,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,Parent,Ramswamy,Yes ,Yes ,Unaware,Yes ,No ,Yes ,Yes ,Yes 
+573,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,Parent,Nagaveni,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Yes 
+574,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,Parent,Srinivas,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+575,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,Parent,Basvaraju,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Yes 
+576,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,SDMC-1,Ram murthy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+577,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,SDMC-2,Kalavathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+578,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,Elected-local leader,Gopal,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+579,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,CBO member,Poornima,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+580,Bangalore rural,Hosakote,Bilanarasapura,35926,GKLPS Agasarahalli,14/11/2014,Educated Youth,Krishna Murthy,Yes ,Yes ,Unaware,Yes ,Unaware,Yes ,Yes ,Yes 
+581,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,Parent,Krishnappa,Yes ,Unaware,Unaware,Yes ,Unaware,Yes ,Yes ,Yes 
+582,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,Parent,Nanjappa,Yes ,Unaware,No ,Yes ,Unaware,Yes ,Unaware,Yes 
+583,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,Parent,Chowdesh,Yes ,No ,Unaware,Yes ,Yes ,Yes ,No ,Yes 
+584,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,Parent,Savitha,Yes ,Yes ,Unaware,Yes ,Yes ,Yes ,Unaware,Yes 
+585,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,Parent,Sumithra,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Unaware
+586,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,SDMC-1,Byatappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+587,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,SDMC-2,Mallikarjun,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+588,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,Elected-local leader,Rajappa K,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+589,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,CBO member,Venkatalakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+590,Bangalore rural,Hosakote,Bilanarasapura,36230,GKLPS Obalahalli,18/11/2014,Educated Youth,Murali,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+591,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,Parent,Venkatesh  ,Yes ,Yes ,Unaware,Yes ,Unaware,Yes ,Yes ,Yes 
+592,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,Parent,Manjula,Yes ,Yes ,No ,Yes ,No ,Yes ,Yes ,Yes 
+593,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,Parent,Muniyamma,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Yes 
+594,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,Parent,Rathnamma,Yes ,Yes ,Unaware,Yes ,Yes ,Yes ,Yes ,Yes 
+595,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,Parent,hanumanthappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Unaware,Unaware
+596,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,SDMC-1,Krishnappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+597,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,SDMC-2,Nagamuniyappa,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+598,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,Elected-local leader,Venkatesh M,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+599,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,CBO member,Kalavathi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+600,Bangalore rural,Hosakote,Bilanarasapura,36229,GKLPS Ulavanahalli,18/11/2014,Educated Youth,Manjunatha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+601,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,Parent,Ramesh,Yes ,Yes ,Yes ,Yes ,Unaware,Yes ,Yes ,Yes 
+602,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,Parent,Muniraju,Yes ,Yes ,Yes ,Yes ,No ,Yes ,Yes ,Yes 
+603,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,Parent,Kanthamma,Yes ,Yes ,Unaware,Yes ,Unaware,Yes ,Yes ,Yes 
+604,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,Parent,Narayan swamy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+605,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,Parent,Anuradha,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+606,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,SDMC-1,Venkatalakshmi,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+607,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,SDMC-2,Muddamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+608,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,Elected-local leader,Devraj,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+609,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,CBO member,Shivamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+610,Bangalore rural,Hosakote,Nelavagilu,35911,GKLPS Muddanahalli,19/11/2014,Educated Youth,Sharath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+611,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,Parent,Bhagyamma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+612,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,Parent,Ashwathappa,Yes ,Yes ,Unaware,Yes ,Yes ,Yes ,Yes ,Yes 
+613,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,Parent,Vishnu,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+614,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,Parent,Prakash,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+615,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,Parent,Srinivas,Yes ,Yes ,Unaware,Yes ,Unaware,Yes ,Yes ,Yes 
+616,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,SDMC-1,Narayan swamy,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+617,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,SDMC-2,Gowramma,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+618,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,Elected-local leader,Prakash,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+619,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,CBO member,venkatesh,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 
+620,Bangalore rural,Hosakote,Nelavagilu,35913,GKHPS Siddanahalli,19/11/2014,Educated Youth,Bharath,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes ,Yes 

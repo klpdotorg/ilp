@@ -1,6 +1,7 @@
 from .survey import Question, QuestionGroup
 from users.models import User
 from django.db import models
+from django.contrib.gis.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
@@ -26,6 +27,7 @@ class AnswerGroup_Institution(models.Model):
     status = models.ForeignKey("common.Status")
     sysid = models.IntegerField(null=True)
     entered_at = models.DateTimeField(default=timezone.now, null=True)
+    location = models.GeometryField(null=True)
 
 
 class AnswerInstitution(models.Model):
@@ -50,6 +52,7 @@ class AnswerGroup_StudentGroup(models.Model):
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
+    location = models.GeometryField(null=True)
 
 
 class AnswerStudentGroup(models.Model):
@@ -75,6 +78,7 @@ class AnswerGroup_Student(models.Model):
     comments = models.CharField(max_length=2000, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
+    location = models.GeometryField(null=True)
 
 
 class AnswerStudent(models.Model):

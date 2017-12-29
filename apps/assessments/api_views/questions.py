@@ -5,46 +5,29 @@ from django.http import Http404
 from common.views import ILPListAPIView
 from common.mixins import ILPStateMixin
 
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
-    AnswerGroup_Institution
+    AnswerGroup_Institution, QuestionGroup_Institution_Association
 )
 from assessments.serializers import (
     QuestionGroupSerializer, QuestionSerializer,
-    QuestionGroupQuestionSerializer
+    QuestionGroupQuestionSerializer, QuestionGroupInstitutionSerializer
 )
 
 logger = logging.getLogger(__name__)
 
 
 class QuestionGroupViewSet(
-    NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
+        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questiongroups belonging to a survey'''
     queryset = QuestionGroup.objects.all()
     serializer_class = QuestionGroupSerializer
-
-    # M2M query returns duplicates. Overrode this function
-    # from NestedViewSetMixin to implement the .distinct()
-    def filter_queryset_by_parents_lookups(self, queryset):
-        parents_query_dict = self.get_parents_query_dict()
-        logger.debug("Arguments passed into view is: %s", parents_query_dict)
-        if parents_query_dict:
-            try:
-                queryset = queryset.filter(
-                    **parents_query_dict
-                ).order_by().distinct('id')
-            except ValueError:
-                logger.exception(
-                    ("Exception while filtering queryset based on dictionary."
-                     "Params: %s, Queryset is: %s"),
-                    parents_query_dict, queryset)
-                raise Http404
-        return queryset.order_by('id')
 
 
 class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
@@ -54,28 +37,30 @@ class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
 
 
 class QuestionGroupQuestions(
-    NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
+        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questions belonging to a questiongroup'''
-    queryset = QuestionGroup_Questions.objects.all()
-    serializer_class = QuestionGroupQuestionSerializer
 
-    # M2M query returns duplicates. Overrode this function
-    # from NestedViewSetMixin to implement the .distinct()
-    def filter_queryset_by_parents_lookups(self, queryset):
+    queryset = Question.objects.all()
+
+    def get_queryset(self):
         parents_query_dict = self.get_parents_query_dict()
-        if parents_query_dict:
-            try:
-                queryset = queryset.filter(
-                    questiongroup_id=parents_query_dict['questiongroup_id']
-                ).order_by().distinct('id')
-            except ValueError:
-                logger.exception(
-                    ("Exception while filtering queryset based on dictionary."
-                     "Params: %s, Queryset is: %s"),
-                    parents_query_dict, queryset)
-                raise Http404
-        return queryset.order_by('id')
+        questiongroup_id = parents_query_dict['questiongroup']
+        question_list = QuestionGroup_Questions.objects\
+            .filter(questiongroup_id=questiongroup_id)\
+            .values_list('question', flat=True)
+        return Question.objects.filter(id__in=question_list)
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return QuestionSerializer
+        return QuestionGroupQuestionSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['questiongroup'] = \
+            self.kwargs['parent_lookup_questiongroup']
+        return context
 
 
 class QGroupStoriesInfoView(ILPListAPIView):
@@ -90,3 +75,8 @@ class QGroupStoriesInfoView(ILPListAPIView):
                 questiongroup__survey__id=5).filter(is_verified=True).count(),
             'total_images': 0
         })
+
+
+class QuestionGroupSchoolViewSet(viewsets.ModelViewSet):
+    queryset = QuestionGroup_Institution_Association.objects.all()
+    serializer_class = QuestionGroupInstitutionSerializer

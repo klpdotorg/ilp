@@ -1,9 +1,10 @@
-from os import system,sys
-import os, inspect
+from os import system, sys
+import os
+import inspect
 
 
 if len(sys.argv) != 3:
-    print("Please give database names as arguments. USAGE: python import_inst_data.py ems ilp", file=sys.stderr)
+    print("Please give database names as arguments. USAGE: python import_inst_data.py ems ilp")
     sys.exit()
 
 fromdatabase = sys.argv[1]
@@ -18,7 +19,7 @@ mt_conv = "when 1 then 'kan' when 2 then 'urd' when 3 then 'tam' when 4 then 'te
 inputdatafile = scriptdir+"/"+basename+"_getdata.sql"
 loaddatafile = scriptdir+"/"+basename+"_loaddata.sql"
 
-tables=[
+tables = [
     {
         'name': 'schools_institution',
         'columns': 'id, name, admin0_id,admin1_id,admin2_id, admin3_id, category_id, gender_id, institution_type_id, management_id, status_id, address, area, landmark, instidentification,instidentification2, route_information',
@@ -31,43 +32,44 @@ tables=[
     }
 ]
 
-#Create directory and files
+
+# Create directory and files
 def init():
     if not os.path.exists(scriptdir+"/load"):
-    	os.makedirs(scriptdir+"/load")
-    inputfile=open(inputdatafile,'wb',0)
-    loadfile=open(loaddatafile,'wb',0) 
+        os.makedirs(scriptdir+"/load")
+    open(inputdatafile, 'wb', 0)
+    open(loaddatafile, 'wb', 0)
     system("psql -U klp -d "+fromdatabase+" -f "+scriptdir+"/cleanems.sql")
 
 
-#Create the getdata.sql and loaddata.sql files
+# Create the getdata.sql and loaddata.sql files
 # getdata.sql file has the "Copy to" commands for populating the various csv files
 # loaddata.sql file has the "copy from" commands for loading the data into the db
 def create_sqlfiles():
-    #Loop through the tables
+    # Loop through the tables
     for table in tables:
-        #create the "copy to" file to get data from ems
+        # create the "copy to" file to get data from ems
         system('echo "'+table['query']+'\">>'+inputdatafile)
 
-        #create the "copy from" file to load data into db
+        # create the "copy from" file to load data into db
         filename = scriptdir+'/load/'+table['name']+'.csv'
-        open(filename,'wb',0)
-        os.chmod(filename,0o666)
+        open(filename, 'wb', 0)
+        os.chmod(filename, 0o666)
 
         system('echo "\COPY '+table['name']+"("+table['columns']+") from '"+filename+"' with csv NULL 'null';"+'\">>'+loaddatafile)
 
 
-#Running the "copy to" commands to populate the csvs.
+# Running the "copy to" commands to populate the csvs.
 def getdata():
     system("psql -U klp -d "+fromdatabase+" -f "+inputdatafile)
 
 
-#Running the "copy from" commands for loading the db.
+# Running the "copy from" commands for loading the db.
 def loaddata():
     system("psql -U klp -d "+todatabase+" -f "+loaddatafile)
 
 
-#order in which function should be called.
+# order in which function should be called.
 init()
 create_sqlfiles()
 getdata()

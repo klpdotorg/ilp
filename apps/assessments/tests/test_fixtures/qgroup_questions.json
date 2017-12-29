@@ -54,6 +54,13 @@
     }
 },
 {
+    "model": "assessments.surveyontype",
+    "pk": "institution",
+    "fields": {
+        "description": "Institution"
+    }
+},
+{
     "model": "assessments.partner",
     "pk": "akshara",
     "fields": {
@@ -84,17 +91,10 @@
     }
 },
 {
-    "model": "assessments.surveyontype",
-    "pk": "institution",
-    "fields": {
-        "description": "Institution"
-    }
-},
-{
     "model": "common.institutiontype",
     "pk": "both",
     "fields": {
-        "name": "All Schools"
+        "name": "Both"
     }
 },
 {
@@ -110,9 +110,10 @@
     "fields": {
         "name": "ILP Konnect Community Survey",
         "created_at": "2016-05-19T00:00:00Z",
-        "updated_at": "2016-05-19T00:00:00Z",
+        "updated_at": null,
         "partner": "akshara",
         "description": null,
+        "survey_on": "institution",
         "admin0": 2,
         "status": "AC"
     }
@@ -127,7 +128,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": false,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -140,7 +143,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -153,7 +158,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -166,7 +173,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -179,7 +188,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -192,7 +203,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -205,7 +218,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -218,7 +233,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -231,7 +248,9 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
@@ -244,34 +263,36 @@
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": false,
-        "status": "AC"
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
     }
 },
 {
     "model": "assessments.questiongroup",
     "pk": 20,
     "fields": {
-        "name": "KLP Konnect Paper",
+        "name": "ILP Konnect Paper",
         "survey": 7,
         "type": "perception",
         "inst_type": "both",
-        "survey_on": "institution",
+        "description": null,
         "group_text": "name",
-        "start_date": "2016-06-01",
+        "start_date": "2016-05-31",
         "end_date": null,
         "academic_year": null,
         "version": 1,
         "source": 1,
         "double_entry": false,
         "created_by": null,
-        "created_at": "2016-12-13T00:00:00Z",
+        "created_at": "2016-12-13T10:50:31.668Z",
         "updated_at": null,
         "status": "AC"
     }
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3230,
+    "pk": 131,
     "fields": {
         "questiongroup": 20,
         "question": 270,
@@ -280,7 +301,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3229,
+    "pk": 130,
     "fields": {
         "questiongroup": 20,
         "question": 150,
@@ -289,7 +310,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3228,
+    "pk": 129,
     "fields": {
         "questiongroup": 20,
         "question": 149,
@@ -298,7 +319,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3227,
+    "pk": 128,
     "fields": {
         "questiongroup": 20,
         "question": 148,
@@ -307,7 +328,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3226,
+    "pk": 127,
     "fields": {
         "questiongroup": 20,
         "question": 147,
@@ -316,7 +337,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3225,
+    "pk": 126,
     "fields": {
         "questiongroup": 20,
         "question": 269,
@@ -325,7 +346,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3224,
+    "pk": 125,
     "fields": {
         "questiongroup": 20,
         "question": 145,
@@ -334,7 +355,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3223,
+    "pk": 124,
     "fields": {
         "questiongroup": 20,
         "question": 144,
@@ -343,7 +364,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3222,
+    "pk": 123,
     "fields": {
         "questiongroup": 20,
         "question": 138,
@@ -352,7 +373,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3221,
+    "pk": 122,
     "fields": {
         "questiongroup": 20,
         "question": 143,

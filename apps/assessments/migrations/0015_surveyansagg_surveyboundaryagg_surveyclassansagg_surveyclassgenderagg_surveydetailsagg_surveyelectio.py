@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
             name='SurveyAnsAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('answer_option', models.CharField(db_column='answer_option', max_length=100)),
                 ('num_answers', models.IntegerField(db_column='num_answers')),
             ],
@@ -29,12 +30,12 @@ class Migration(migrations.Migration):
             name='SurveyBoundaryAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('num_schools', models.IntegerField(db_column='num_schools')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -46,7 +47,8 @@ class Migration(migrations.Migration):
             name='SurveyClassAnsAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('sg_name', models.CharField(db_column='sg_name', max_length=100)),
                 ('answer_option', models.CharField(db_column='answer_option', max_length=100)),
                 ('num_answers', models.IntegerField(db_column='num_answers')),
@@ -60,10 +62,10 @@ class Migration(migrations.Migration):
             name='SurveyClassGenderAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('sg_name', models.CharField(db_column='sg_name', max_length=100)),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
-                ('num_correct_assessments', models.IntegerField(db_column='num_correct_assessments')),
             ],
             options={
                 'db_table': 'mvw_survey_classs_gender_agg',
@@ -74,12 +76,12 @@ class Migration(migrations.Migration):
             name='SurveyDetailsAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('num_schools', models.IntegerField(db_column='num_schools')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -91,12 +93,12 @@ class Migration(migrations.Migration):
             name='SurveyElectionBoundaryAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('num_schools', models.IntegerField(db_column='num_schools')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -108,11 +110,11 @@ class Migration(migrations.Migration):
             name='SurveyInstitutionAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
                 ('num_users', models.IntegerField(db_column='num_users')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -124,10 +126,10 @@ class Migration(migrations.Migration):
             name='SurveyQuestionKeyAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('question_key', models.CharField(db_column='question_key', max_length=100)),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
-                ('num_correct_assessments', models.IntegerField(db_column='num_correct_assessments')),
             ],
             options={
                 'db_table': 'mvw_survey_questionkey_agg',
@@ -138,11 +140,11 @@ class Migration(migrations.Migration):
             name='SurveyRespondentTypeAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('num_schools', models.IntegerField(db_column='num_schools')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
@@ -154,7 +156,8 @@ class Migration(migrations.Migration):
             name='SurveySummaryAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('num_schools', models.IntegerField(db_column='num_schools')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
@@ -168,11 +171,11 @@ class Migration(migrations.Migration):
             name='SurveyUserTypeAgg',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('year_month', models.CharField(db_column='year_month', max_length=10)),
+                ('year', models.IntegerField(db_column='year')),
+                ('month', models.IntegerField(db_column='month')),
                 ('num_schools', models.IntegerField(db_column='num_schools')),
                 ('num_assessments', models.IntegerField(db_column='num_assessments')),
                 ('num_children', models.IntegerField(db_column='num_children')),
-                ('num_verified_assessment', models.IntegerField(db_column='num_verified_assessments')),
                 ('last_assessment', models.DateField(db_column='last_assessment')),
             ],
             options={
