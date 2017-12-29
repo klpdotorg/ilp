@@ -120,7 +120,7 @@ class SurveyInfoSourceAPIView(ListAPIView, ILPStateMixin):
 class SurveyInfoBoundarySourceAPIView(ListAPIView, ILPStateMixin):
     queryset = SurveyBoundaryAgg.objects.all()
     filter_backends = [SurveyFilter, ]
-
+    
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         source_ids = queryset.distinct(
