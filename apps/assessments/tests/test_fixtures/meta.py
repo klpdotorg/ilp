@@ -18,6 +18,10 @@ ANSWERGROUP_INSTITUTION_IDS = [
 # to dump institution
 # ./manage.py dump_object schools.Institution --query '{"id": 4464}' > institution_id.json
 
+# to dump answer_student.json data, query used was:
+# ./manage.py dump_object assessments.AnswerStudent --query '{"answergroup_id": 1}' > answer_student.json
+
+
 TEST_ANSWERGROUP_POST_DATA = {
       "group_value": "Subhashini",
       "double_entry": 0,
