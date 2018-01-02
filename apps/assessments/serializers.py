@@ -5,7 +5,8 @@ from assessments.models import (
     QuestionGroup_Questions, AnswerGroup_Institution,
     AnswerInstitution, SurveyOnType,
     AnswerGroup_StudentGroup, AnswerGroup_Student,
-    QuestionGroup_Institution_Association
+    QuestionGroup_Institution_Association, 
+    AnswerStudent
 )
 from common.mixins import (
                            CompensationLogMixin,
@@ -97,8 +98,8 @@ class AnswerSerializer(ILPSerializer, CompensationLogMixin):
 
 class AnswerGroupInstSerializer(serializers.ModelSerializer):
     double_entry = serializers.SerializerMethodField()
-    institution_name = serializers.CharField(source='institution.name')
-    name = serializers.CharField(source='created_by.username')
+    # institution_name = serializers.CharField(source='institution.name')
+    # name = serializers.CharField(source='created_by.email')
 
     class Meta:
         model = AnswerGroup_Institution
@@ -106,11 +107,15 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
             'id', 'double_entry','questiongroup', 'institution', 'group_value',
             'created_by', 'date_of_visit',
             'respondent_type', 'comments', 'is_verified',
-            'status', 'sysid', 'entered_at', 'name', 'institution_name'
+            'status', 'sysid', 'entered_at'
         )
 
     def get_double_entry(self, obj):
         return obj.questiongroup.double_entry
+        
+class AnswerGroupCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerGroup_Institution
 
 
 class AnswerGroupStudentGroupSerializer(ILPSerializer):
@@ -118,99 +123,44 @@ class AnswerGroupStudentGroupSerializer(ILPSerializer):
         model = AnswerGroup_StudentGroup
         fields = '__all__'
 
-
-class AnswerGroupStudentSerializer(ILPSerializer):
+class AnswerGroupStudentSerializer(serializers.ModelSerializer):
+    double_entry = serializers.SerializerMethodField(required=False)
+    comments = serializers.CharField(required=False)
+    
     class Meta:
         model = AnswerGroup_Student
-        fields = '__all__'
-
-
-# class AnswerSerializer(ILPSerializer, CompensationLogMixin):
-#    #  answergrpdetails = AnswerGroupInstSerializer(source='answergroup')
-
-#     class Meta:
-#         model = AnswerInstitution
-#         fields = ('id', 'question', 'answer', 'double_entry')
-
-#     def create(self, validated_data):
-#        print("Inside AnswerSerializer create:", validated_data)
-#        return AnswerInstitution.objects.create(**validated_data)
-
-# class AnswerGroupInstSerializer(serializers.ModelSerializer):
-#     answers = AnswerSerializer(many="True")
-#     double_entry = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = AnswerGroup_Institution
-#         fields = (
-#             'id', 'double_entry','questiongroup', 'institution', 'group_value',
-#             'created_by', 'date_of_visit',
-#             'respondent_type', 'comments', 'is_verified',
-#             'status', 'sysid', 'entered_at', 'answers'
-#         )
+        fields = (
+            'id', 'questiongroup', 'student', 'group_value',
+            'created_by', 'date_of_visit',
+            'respondent_type', 'comments', 'is_verified',
+            'status', 'double_entry'
+        )
     
-#     def get_double_entry(self, obj):
-#         return obj.questiongroup.double_entry
+    def get_double_entry(self, obj):
+        return obj.questiongroup.double_entry
+
         
-#     def create(self, validated_data):
-#         # Remove the answers field first so we can create AnswerGroup_Institution object
-#         print("Inside answergroup inst serializer CREATE")
-#         answers = validated_data.pop('answers')
-#         answergroup_obj = AnswerGroup_Institution.objects.create(**validated_data)
-#         print("Answer group object is: ", answergroup_obj)
-#         # Loop through the answers and create/link them properly
-#         for answer in answers:
-#             print("Quesiton id is: ", answer['question'].id)
-#             answerdata={
-#                 'answergroup': answergroup_obj,
-#                 'question': answer['question'].id,
-#                 'answer': answer['answer']
-#             }
-#             if(answergroup_obj.questiongroup.double_entry == True):
-#                 answerdata['double_entry'] = 1
-#                 print("Double entry is 1")
-#             print("Answer data to be created is: ", answerdata)
-#             answer = AnswerSerializer(data=answerdata)
-#             answer.is_valid(raise_exception=True)
-#             answer.save(answergroup=answergroup_obj)
-#             print("Answer object is:", answer.data)
-#         return answergroup_obj
 
-#     def update(self, instance, validated_data):
-#         instance.double_entry = validated_data.get('double_entry',instance.double_entry)
-#         instance.questiongroup = validated_data.get('questiongroup', instance.questiongroup)
-#         instance.institution = validated_data.get('institution', instance.institution)
-#         instance.group_value = validated_data.get('group_value', instance.group_value)
-#         #  'created_by', 'date_of_visit',
-#         # 'respondent_type', 'comments', 'is_verified',
-#         # 'status', 'sysid', 'entered_at', 'answers'
-#         instance.date_of_visit = validated_data.get('date_of_visit', instance.date_of_visit)
-#         instance.respondent_type = validated_data.get('respondent_type', instance.respondent_type)
-#         instance.comments = validated_data.get('comments', instance.comments)
-#         instance.is_verified = validated_data.get('is_verified', instance.is_verified)
-#         instance.status = validated_data.get('status', instance.status)
-#         instance.sysid = validated_data.get('sysid', instance.sysid)
-#         instance.entered_at = validated_data.get('entered_at', instance.entered_at)
-#         instance.save()
+class AnswerGroupStudentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerGroup_Student
+        fields = (
+            'student', 'questiongroup', 'group_value',
+            'created_by', 'date_of_visit', 'respondent_type',
+            'is_verified', 'status', 'comments'
+        )
 
-#         answers = validated_data.pop('answers')
+class StudentAnswerSerializer(ILPSerializer, CompensationLogMixin):
+    answergroup = serializers.PrimaryKeyRelatedField(queryset=AnswerGroup_Student.objects.all(), source="answergroup_id")
 
-#         # A new answer may be added for an existing answergroup
-#         for answer in answers:
-#             print("Quesiton id is: ", answer['question'].id)
-#             answerdata={
-#                 'answergroup': instance,
-#                 'question': answer['question'].id,
-#                 'answer': answer['answer']
-#             }
-#             answerObj, created = AnswerInstitution.objects.get_or_create(**answerdata)
-#             if not created:
-#                 print("Answer exists. Updating")
-#                 answerObj.answer = answer['answer']
-#                 answerObj.question = answer['question'].id
-#                 answerObj.save()
-#             else:
-#                 print("Answer created and linked")
-#                 pass
-        
+    class Meta:
+        model = AnswerStudent
+        fields = ('id', 'question', 'answer', 'answergroup', 'double_entry')
+
+    def create(self, validated_data):
+       # This whole code block is a bit suspect. Not sure why this is needed!
+       answergroup = validated_data.pop('answergroup_id')
+       validated_data['answergroup_id'] = answergroup.id
+       return AnswerStudent.objects.create(**validated_data)
+
 #         return instance

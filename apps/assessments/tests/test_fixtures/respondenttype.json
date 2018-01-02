@@ -1,0 +1,86 @@
+[
+{
+    "model": "assessments.respondenttype",
+    "pk": "ER",
+    "fields": {
+        "name": "Elected Representative"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "EO",
+    "fields": {
+        "name": "Educational Officer"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "EY",
+    "fields": {
+        "name": "Educated Youth"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "AS",
+    "fields": {
+        "name": "Akshara Staff"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "LL",
+    "fields": {
+        "name": "Local Leader"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "SM",
+    "fields": {
+        "name": "SDMC Member"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "HM",
+    "fields": {
+        "name": "Head Master"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "CM",
+    "fields": {
+        "name": "CBO Member"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "VR",
+    "fields": {
+        "name": "Volunteer"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "TR",
+    "fields": {
+        "name": "Teachers"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "CH",
+    "fields": {
+        "name": "Children"
+    }
+},
+{
+    "model": "assessments.respondenttype",
+    "pk": "PR",
+    "fields": {
+        "name": "Parents"
+    }
+}
+]
