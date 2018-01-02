@@ -793,7 +793,7 @@
         "student": 2112477,
         "questiongroup": 31,
         "group_value": null,
-        "created_by": 1,
+        "created_by": 2,
         "date_of_visit": "2016-12-09T14:20:01.211Z",
         "respondent_type": null,
         "comments": null,
@@ -899,16 +899,6 @@
         "answergroup": 1,
         "question": 405,
         "answer": "1",
-        "double_entry": null
-    }
-},
-{
-    "model": "assessments.answerstudent",
-    "pk": 9,
-    "fields": {
-        "answergroup": 1,
-        "question": 401,
-        "answer": "0",
         "double_entry": null
     }
 },

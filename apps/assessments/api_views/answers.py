@@ -266,7 +266,8 @@ class AnswersInstitutionViewSet( NestedViewSetMixin,
             data['institution']=kwargs['parent_lookup_institution']
             serializer = AnswerGroupInstSerializer(data=data)
             print("Checking validity of data")
-            serializer.is_valid(raise_exception=True)
+            serializer.is_valid()
+            print("Errors are: ", serializer.errors)
             answergroup_obj=serializer.save()
             for key, value in serializer.data.items():
                 print("Key is: ", key)
@@ -288,6 +289,7 @@ class AnswersInstitutionViewSet( NestedViewSetMixin,
             serializer = self.get_serializer(data=data)
             serializer.is_valid(raise_exception=True)
             # Invokes the CompensationLogMixin which sets double_entry correctly
+            print("Logged in user is: ", self.request.user)
             self.perform_create(serializer)
             return serializer.data
         else:

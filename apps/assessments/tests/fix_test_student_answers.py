@@ -19,8 +19,8 @@ class StudentAnswersApiTests(APITestCase):
                      'apps/assessments/tests/test_fixtures/respondenttype')
         call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/users')
-        call_command('loaddata',
-                     'apps/assessments/tests/test_fixtures/answer_student')
+        # call_command('loaddata',
+        #              'apps/assessments/tests/test_fixtures/answer_student')
 
     def setUp(self):
         # setup a test user
@@ -29,7 +29,8 @@ class StudentAnswersApiTests(APITestCase):
         self.base_url = '/api/v1/surveys/3/questiongroup/31/student/2112477/'
         self.post_answers = {
                              "questiongroup":31,"student":2112477,"group_value":"Subhashini",
-                             "created_by":1,"date_of_visit":"2016-12-09T14:20:01.211000Z","respondent_type":"VR",
+                             "created_by":2,
+                             "date_of_visit":"2016-12-09T14:20:01.211000Z","respondent_type":"VR",
                              "comments":"Test comment","is_verified":True,"status":"AC",
                              "answers":[
                              {"question":393,"answer":"1"},
