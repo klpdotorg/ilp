@@ -84,6 +84,13 @@
     }
 },
 {
+    "model": "assessments.surveyontype",
+    "pk": "institution",
+    "fields": {
+        "description": "Institution"
+    }
+},
+{
     "model": "assessments.partner",
     "pk": "akshara",
     "fields": {
@@ -329,13 +336,6 @@
     }
 },
 {
-    "model": "assessments.surveyontype",
-    "pk": "student",
-    "fields": {
-        "description": "Student"
-    }
-},
-{
     "model": "common.institutiontype",
     "pk": "primary",
     "fields": {
@@ -358,6 +358,7 @@
         "updated_at": null,
         "partner": "akshara",
         "description": null,
+        "survey_on": "institution",
         "admin0": 2,
         "status": "AC"
     }
@@ -431,6 +432,7 @@
     "fields": {
         "password": "pbkdf2_sha256$12000$NIxNt8nePYbx$UcjvSgrLNAzwNT7+6jZkL3mlM4KZkvqH+lfhkKtio7w=",
         "last_login": "2014-11-27T07:37:55.159Z",
+        "is_superuser": false,
         "email": "sajjad@klp.org.in",
         "mobile_no": "9742979601",
         "first_name": "Sajjad",
@@ -452,7 +454,9 @@
         "fb_url": "",
         "website": "",
         "photos_url": "",
-        "youtube_url": ""
+        "youtube_url": "",
+        "groups": [],
+        "user_permissions": []
     }
 },
 {
@@ -463,7 +467,6 @@
         "survey": 3,
         "type": "assessment",
         "inst_type": "primary",
-        "survey_on": "student",
         "description": "do_30048087",
         "group_text": null,
         "start_date": "2016-06-01",
@@ -795,7 +798,8 @@
         "respondent_type": null,
         "comments": null,
         "is_verified": true,
-        "status": "AC"
+        "status": "AC",
+        "location": null
     }
 },
 {

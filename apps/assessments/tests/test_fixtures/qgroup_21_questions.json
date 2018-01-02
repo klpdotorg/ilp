@@ -55,13 +55,6 @@
     }
 },
 {
-    "model": "common.status",
-    "pk": "AC",
-    "fields": {
-        "name": "Active"
-    }
-},
-{
     "model": "boundary.boundary",
     "pk": 2,
     "fields": {
@@ -72,6 +65,13 @@
         "dise_slug": "India-Karnataka",
         "geom": null,
         "status": "AC"
+    }
+},
+{
+    "model": "assessments.surveyontype",
+    "pk": "institution",
+    "fields": {
+        "description": "Institution"
     }
 },
 {
@@ -99,6 +99,13 @@
     }
 },
 {
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
     "model": "assessments.questiontype",
     "pk": 2,
     "fields": {
@@ -122,13 +129,6 @@
     }
 },
 {
-    "model": "assessments.surveyontype",
-    "pk": "institution",
-    "fields": {
-        "description": "Institution"
-    }
-},
-{
     "model": "common.institutiontype",
     "pk": "primary",
     "fields": {
@@ -137,9 +137,9 @@
 },
 {
     "model": "assessments.surveytype",
-    "pk": "monitor",
+    "pk": "assessment",
     "fields": {
-        "description": "Monitor"
+        "description": "Assessment"
     }
 },
 {
@@ -148,11 +148,27 @@
     "fields": {
         "name": "GP Contest",
         "created_at": "2017-06-06T00:00:00Z",
-        "updated_at": "2017-06-06T00:00:00Z",
+        "updated_at": null,
         "partner": "akshara",
-        "description": "GP Contest",
+        "description": null,
+        "survey_on": "institution",
         "admin0": 2,
-        "status": "IA"
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 278,
+    "fields": {
+        "question_text": "Subtraction 1",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
     }
 },
 {
@@ -165,7 +181,7 @@
         "question_type": 3,
         "options": "{1, 2, 3, 4, 5, 6, 7, 8}",
         "is_featured": true,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
         "pass_score": null
     }
@@ -180,9 +196,9 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
     }
 },
 {
@@ -195,144 +211,9 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 290,
-    "fields": {
-        "question_text": "Shapes and spatial understanding 3",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 288,
-    "fields": {
-        "question_text": "Shapes and spatial understanding 1",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 283,
-    "fields": {
-        "question_text": "Division 2",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 274,
-    "fields": {
-        "question_text": "Number concept 4",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 277,
-    "fields": {
-        "question_text": "Addition 2",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 275,
-    "fields": {
-        "question_text": "Number concept 5",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 289,
-    "fields": {
-        "question_text": "Shapes and spatial understanding 2",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 273,
-    "fields": {
-        "question_text": "Number concept 3",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
-    }
-},
-{
-    "model": "assessments.question",
-    "pk": 278,
-    "fields": {
-        "question_text": "Subtraction 1",
-        "display_text": "",
-        "key": null,
-        "question_type": 2,
-        "options": "{Yes,No}",
-        "is_featured": false,
-        "status": "IA",
-        "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
     }
 },
 {
@@ -345,9 +226,24 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 290,
+    "fields": {
+        "question_text": "Shapes and spatial understanding 3",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
     }
 },
 {
@@ -360,7 +256,7 @@
         "question_type": 4,
         "options": "{Male,Female}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
         "pass_score": null
     }
@@ -375,9 +271,9 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
     }
 },
 {
@@ -390,9 +286,24 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 288,
+    "fields": {
+        "question_text": "Shapes and spatial understanding 1",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
     }
 },
 {
@@ -405,9 +316,9 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
     }
 },
 {
@@ -420,9 +331,9 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
     }
 },
 {
@@ -435,9 +346,9 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
     }
 },
 {
@@ -450,9 +361,9 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
     }
 },
 {
@@ -465,9 +376,24 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 283,
+    "fields": {
+        "question_text": "Division 2",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
     }
 },
 {
@@ -480,9 +406,84 @@
         "question_type": 2,
         "options": "{Yes,No}",
         "is_featured": false,
-        "status": "IA",
+        "status": "AC",
         "max_score": null,
-        "pass_score": null
+        "pass_score": "Yes"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 274,
+    "fields": {
+        "question_text": "Number concept 4",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 277,
+    "fields": {
+        "question_text": "Addition 2",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 275,
+    "fields": {
+        "question_text": "Number concept 5",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 289,
+    "fields": {
+        "question_text": "Shapes and spatial understanding 2",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 273,
+    "fields": {
+        "question_text": "Number concept 3",
+        "display_text": "",
+        "key": null,
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "is_featured": false,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes"
     }
 },
 {
@@ -491,9 +492,8 @@
     "fields": {
         "name": "Class 4 Assessment",
         "survey": 2,
-        "type": "monitor",
+        "type": "assessment",
         "inst_type": "primary",
-        "survey_on": "institution",
         "description": null,
         "group_text": "child_name",
         "start_date": "2016-12-01",
@@ -510,106 +510,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3296,
-    "fields": {
-        "questiongroup": 21,
-        "question": 130,
-        "sequence": 21
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3295,
-    "fields": {
-        "questiongroup": 21,
-        "question": 272,
-        "sequence": 2
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3292,
-    "fields": {
-        "questiongroup": 21,
-        "question": 285,
-        "sequence": 15
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3289,
-    "fields": {
-        "questiongroup": 21,
-        "question": 290,
-        "sequence": 20
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3281,
-    "fields": {
-        "questiongroup": 21,
-        "question": 288,
-        "sequence": 18
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3275,
-    "fields": {
-        "questiongroup": 21,
-        "question": 283,
-        "sequence": 13
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3273,
-    "fields": {
-        "questiongroup": 21,
-        "question": 274,
-        "sequence": 4
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3272,
-    "fields": {
-        "questiongroup": 21,
-        "question": 277,
-        "sequence": 7
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3271,
-    "fields": {
-        "questiongroup": 21,
-        "question": 275,
-        "sequence": 5
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3269,
-    "fields": {
-        "questiongroup": 21,
-        "question": 289,
-        "sequence": 19
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3267,
-    "fields": {
-        "questiongroup": 21,
-        "question": 273,
-        "sequence": 3
-    }
-},
-{
-    "model": "assessments.questiongroup_questions",
-    "pk": 3264,
+    "pk": 197,
     "fields": {
         "questiongroup": 21,
         "question": 278,
@@ -618,7 +519,34 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3262,
+    "pk": 196,
+    "fields": {
+        "questiongroup": 21,
+        "question": 130,
+        "sequence": 21
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 195,
+    "fields": {
+        "questiongroup": 21,
+        "question": 272,
+        "sequence": 2
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 191,
+    "fields": {
+        "questiongroup": 21,
+        "question": 285,
+        "sequence": 15
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 190,
     "fields": {
         "questiongroup": 21,
         "question": 271,
@@ -627,7 +555,16 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3256,
+    "pk": 185,
+    "fields": {
+        "questiongroup": 21,
+        "question": 290,
+        "sequence": 20
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 176,
     "fields": {
         "questiongroup": 21,
         "question": 291,
@@ -636,7 +573,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3255,
+    "pk": 174,
     "fields": {
         "questiongroup": 21,
         "question": 281,
@@ -645,7 +582,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3251,
+    "pk": 169,
     "fields": {
         "questiongroup": 21,
         "question": 284,
@@ -654,7 +591,16 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3250,
+    "pk": 168,
+    "fields": {
+        "questiongroup": 21,
+        "question": 288,
+        "sequence": 18
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 167,
     "fields": {
         "questiongroup": 21,
         "question": 279,
@@ -663,7 +609,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3247,
+    "pk": 164,
     "fields": {
         "questiongroup": 21,
         "question": 287,
@@ -672,7 +618,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3244,
+    "pk": 161,
     "fields": {
         "questiongroup": 21,
         "question": 286,
@@ -681,7 +627,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3243,
+    "pk": 160,
     "fields": {
         "questiongroup": 21,
         "question": 276,
@@ -690,7 +636,7 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3238,
+    "pk": 150,
     "fields": {
         "questiongroup": 21,
         "question": 280,
@@ -699,11 +645,65 @@
 },
 {
     "model": "assessments.questiongroup_questions",
-    "pk": 3237,
+    "pk": 149,
+    "fields": {
+        "questiongroup": 21,
+        "question": 283,
+        "sequence": 13
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 147,
     "fields": {
         "questiongroup": 21,
         "question": 282,
         "sequence": 12
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 146,
+    "fields": {
+        "questiongroup": 21,
+        "question": 274,
+        "sequence": 4
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 145,
+    "fields": {
+        "questiongroup": 21,
+        "question": 277,
+        "sequence": 7
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 144,
+    "fields": {
+        "questiongroup": 21,
+        "question": 275,
+        "sequence": 5
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 142,
+    "fields": {
+        "questiongroup": 21,
+        "question": 289,
+        "sequence": 19
+    }
+},
+{
+    "model": "assessments.questiongroup_questions",
+    "pk": 140,
+    "fields": {
+        "questiongroup": 21,
+        "question": 273,
+        "sequence": 3
     }
 }
 ]
