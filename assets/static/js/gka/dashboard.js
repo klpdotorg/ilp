@@ -93,16 +93,16 @@ var topSummaryData = {};
 
     function loadData(params) {
         // As of August 1st, 2017, data from June 2017 is shown as default
-        if(!params.from && !params.to) {
-            params.from = '2017-06-01';
-            params.to = '2017-12-31';
-        }
+        // if(!params.from && !params.to) {
+        //     params.from = '2017-06-01';
+        //     params.to = '2017-12-31';
+        // }
         loadTopSummary(params);
         loadSmsData(params);
         loadAssmtData(params);
         loadGPContestData(params);
-        loadSurveys(params);
-        loadComparison(params);
+        // loadSurveys(params);
+        // loadComparison(params);
     }
 
     function loadComparison(params) {
@@ -251,17 +251,17 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
-        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?source=sms";
+        var metaURL = "survey/info/source/";
         var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
         $metaXHR.done(function(data) {
-            window.smsSummary = data;
+            window.smsSummary = data; // TODO: DO we need this?
             renderSmsSummary(data);
         });
 
 
         //GETTING SMS DETAILS
-        var detailURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?source=sms";
+        var detailURL = "survey/detail/source/";
         var $detailXHR = klp.api.do(detailURL, params);
         $detailXHR.done(function(data) {
             stopDetailLoading();
@@ -269,7 +269,7 @@ var topSummaryData = {};
         });
 
         // SMS Volume
-        var volumeURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/volume/?source=sms";
+        var volumeURL = "survey/volume/";
         var $volumeXHR = klp.api.do(volumeURL, params);
         $volumeXHR.done(function(data) {
             stopDetailLoading();
@@ -438,13 +438,13 @@ var topSummaryData = {};
 
 
     function loadTopSummary(params) {
-        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/";
+        var metaURL = "survey/summary/";
         var $metaXHR = klp.api.do(metaURL, params);
         startSummaryLoading();
         $metaXHR.done(function(data)
         {
-            var topSummary = data.top_summary
-            window.topSummaryData = topSummary
+            var topSummary = data.summary;
+            window.topSummaryData = topSummary; // TODO: Check if this is really needed
             renderTopSummary(topSummary);
         });
     }
@@ -457,9 +457,9 @@ var topSummaryData = {};
     }
 
     function renderSmsSummary(data) {
+        var summaryData = data.source;
         var tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
-        var summaryData = data;
-        summaryData["format_lastsms"] = formatLastStory(summaryData["sms"]["last_story"]);
+        summaryData["format_lastsms"] = formatLastStory(summaryData["mobile"]["last_assessment"]);
 
         // Percentage
         if (summaryData.sms && summaryData.sms.schools && window.topSummaryData && window.topSummaryData.gka_schools) {
@@ -483,11 +483,14 @@ var topSummaryData = {};
             "ivrss-group-work"
         ];
 
+        data = data.source;
+
         var questionObjects = _.map(SMSQuestionKeys, function(key) {
-            return getQuestion(data, 'sms', key);
+            return getQuestion(data, 'ivrs', key);
         });
+
         var questions = getQuestionsArray(questionObjects);
-        var regroup = {}
+        var regroup = {};
         var tplResponses = swig.compile($('#tpl-smsResponses').html());
         for (var each in questions)
             regroup[questions[each]["key"]] = questions[each];
@@ -598,7 +601,7 @@ var topSummaryData = {};
     }
 
     function loadAssmtData(params) {
-        var metaURL = "assessment/?ekstep_gka=true";
+        var metaURL = "survey/detail/key/";
         var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
         $metaXHR.done(function(data) {
@@ -622,7 +625,7 @@ var topSummaryData = {};
             renderAssmtCharts(data);
         });
 
-        var metaURL = "stories/volume/?response_type=gka";
+        var metaURL = "survey/volume/";
         var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
         $metaXHR.done(function(data) {
@@ -739,9 +742,10 @@ var topSummaryData = {};
     }
 
     function loadGPContestData(params){
-        var metaURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?survey=GP%20Contest";
+        var metaURL = "survey/info/class/gender/";
         var $metaXHR = klp.api.do(metaURL, params);
         $metaXHR.done(function(data) {
+
             var dataSummary = {
                 "summary": {
                     "schools":data.summary.schools,
@@ -1023,7 +1027,7 @@ var topSummaryData = {};
             option = 'Yes';
         }
         var options = answers.options;
-        if (options.hasOwnProperty(option)) {
+        if (options && options.hasOwnProperty(option)) {
             return options[option];
         } else {
             return 0;
