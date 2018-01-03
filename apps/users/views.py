@@ -1,9 +1,10 @@
 from django.http import Http404
+from django.views.generic.detail import DetailView
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from common.views import StaticPageView
-from django.views.generic.detail import DetailView
 from .models import User
 from .serializers import (
     UserSerializer,
@@ -29,7 +30,7 @@ class UserRegisterView(generics.CreateAPIView):
 
 class UserLoginView(generics.GenericAPIView):
     """
-    This end point login a user by creating a token object
+    This end point logins a user by creating a token object
     """
     serializer_class = UserLoginSerializer
     permission_classes = (
@@ -67,6 +68,10 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
 
 
 class EmailVerificationView(StaticPageView):
+    """
+        Verifies a user's email by matching it against a token in the db.
+    """
+
     template_name = 'email_verified.html'
 
     def get(self, request, **kwargs):
@@ -95,6 +100,10 @@ class EmailVerificationView(StaticPageView):
 
 
 class ProfilePageView(DetailView):
+    """
+        Renders user's profile page.
+    """
+
     model = User
     template_name = 'profile.html'
 
@@ -111,6 +120,10 @@ class ProfilePageView(DetailView):
 
 
 class ProfileEditPageView(DetailView):
+    """
+        Renders users's profile edit page
+    """
+
     model = User
     template_name = 'profile_edit.html'
 
@@ -128,3 +141,27 @@ class ProfileEditPageView(DetailView):
             }
         ]
         return context
+
+
+class KonnectMobileStatus(generics.GenericAPIView):
+    def get(self, request):
+        """
+        Returns information about a mobile number - whether its a new,
+        existing with/without password  dob etc
+        """
+        mobile_no = request.GET.get('mobile')
+        try:
+            user = User.objects.get(mobile_no=mobile_no)
+        except User.DoesNotExist:
+            return Response(
+                {'action': 'signup'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            if user.password and user.dob:
+                return Response({'action': 'login'}, status=status.HTTP_200_OK)
+            else:
+                return Response(
+                    {'action': 'update'},
+                    status=status.HTTP_206_PARTIAL_CONTENT
+                )
