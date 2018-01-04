@@ -3,7 +3,10 @@ from django.conf.urls import url
 from .views import (
     UserRegisterView,
     UserLoginView,
-    UserProfileView
+    UserProfileView,
+    KonnectMobileStatus,
+    KonnectUserUpdateWithMobile,
+    KonnectPasswordReset
 )
 
 urlpatterns = [
@@ -19,4 +22,16 @@ urlpatterns = [
     ),
 
     url('^users/profile', UserProfileView.as_view(), name='api_user_profile'),
+
+    url(r'^users/konnect-mobile-status/$',
+        KonnectMobileStatus.as_view(),
+        name="api_konnect_mobile_status"),
+
+    url(r'^users/konnect-user-update-with-mobile/$',
+        KonnectUserUpdateWithMobile.as_view(),
+        name="api_konnect_user_update_with_mobile"),
+
+    url(r'^users/konnect-password-reset/$',
+        KonnectPasswordReset.as_view(),
+        name="api_konnect_password_reset"),
 ]
