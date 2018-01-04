@@ -2,7 +2,8 @@ import django_filters
 
 from rest_framework.filters import BaseFilterBackend
 
-from .models import AnswerGroup_Institution
+from .models import (AnswerGroup_Institution,
+                     Survey)
 
 
 class AnswersSurveyTypeFilter(django_filters.FilterSet):
@@ -12,6 +13,12 @@ class AnswersSurveyTypeFilter(django_filters.FilterSet):
     class Meta:
         model = AnswerGroup_Institution
         fields = ['id', 'survey_id', 'is_verified']
+
+class SurveyTagFilter(django_filters.FilterSet):
+    tag = django_filters.CharFilter(name="surveytagmapping__tag")
+    class Meta:
+        model = Survey
+        fields = ['tag']
 
 
 class SurveyFilter(BaseFilterBackend):
