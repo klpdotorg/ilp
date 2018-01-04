@@ -64,12 +64,12 @@
             },
             'programmes': {
                 getData: function() {
-                    return klp.api.do('programme/', {
-                        'school': SCHOOL_ID
+                    return klp.api.do('survey/info/school/', {
+                        'school_id': SCHOOL_ID
                     });
                 },
                 getContext: function(data) {
-                    var programmes = data.features;
+                    var programmes = data.results;
                     return {
                         'programmes': programmes,
                         'school_id': SCHOOL_ID
