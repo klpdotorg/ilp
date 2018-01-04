@@ -342,7 +342,9 @@
 <script type="text/html" id="tpl-program-summary">
   {% if programs | length %}
     {% for p in programs %}
-      <i class="fa fa-external-link"></i><a class="program-list" href={{p.url}}>{{p.pname}}</a><br/>
+    <!-- Subha: Removing this temporarily until we figure out how to enable linking programs
+      <i class="fa fa-external-link"></i><a class="program-list" href={{p.url}}>{{p.pname}}</a><br/> -->
+      <a class="program-list">{{p.pname}}</a><br/>
     {% endfor %}
   {% else %}
     No Data
