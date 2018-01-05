@@ -329,4 +329,17 @@ class SurveyClassGenderCorrectAnsAgg(models.Model):
         managed = False
         db_table = 'mvw_survey_class_gender_correctans_agg'
 
+class SurveyInstitutionQuestionAgg(models.Model):
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
+    question_key = models.CharField(max_length=100, db_column="question_key")
+    question_id = models.ForeignKey('Question', db_column="question_id")
+    question_desc = models.CharField(max_length=200, db_column="question_desc")
+    score = models.BooleanField(db_column="score")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_question_agg'
+
 

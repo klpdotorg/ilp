@@ -205,9 +205,10 @@ class SurveyInfoSchoolAPIView(ListAPIView, ILPStateMixin):
     def get_queryset(self):
         queryset = SurveyInstitutionAgg.objects.all()
         institution_id = self.request.query_params.get('school_id', None)
+        if institution_id:
+            queryset = queryset.filter(institution_id=institution_id)
         survey_ids = queryset\
-            .filter(institution_id=institution_id).distinct('survey_id')\
-            .values_list('survey_id', flat=True)
+            .distinct('survey_id').values_list('survey_id', flat=True)
         return Survey.objects.filter(id__in=survey_ids)
 
 
@@ -217,9 +218,10 @@ class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
     def get_queryset(self):
         queryset = SurveyBoundaryAgg.objects.all()
         boundary_id = self.request.query_params.get('boundary_id', None)
+        if boundary_id:
+            queryset = queryset.filter(boundary_id=boundary_id)
         survey_ids = queryset\
-            .filter(boundary_id=boundary_id).distinct('survey_id')\
-            .values_list('survey_id', flat=True)
+            .distinct('survey_id').values_list('survey_id', flat=True)
         return Survey.objects.filter(id__in=survey_ids)
 
 

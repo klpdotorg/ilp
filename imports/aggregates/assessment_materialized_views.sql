@@ -2546,3 +2546,84 @@ FROM
     GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,stu.gender_id
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name,gender;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_question_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_question_agg AS
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,question_key,question_id) as id,
+	survey_id,
+    survey_tag,
+	institution_id,
+    question_key,
+	question_id,
+	question_desc,
+    score
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+		ag.institution_id as institution_id, 
+        q.key as question_key,
+		q.id as question_id,
+		q.display_text as question_desc,
+        bool_and(case when ans.answer::int=100 then true else false end) as score
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (4)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        surveytag.tag_id,
+		ag.institution_id,
+        q.key,q.id,q.display_text)data
+union 
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,question_key,question_id) as id,
+	survey_id,
+    survey_tag,
+	institution_id,
+    question_key,
+	question_id,
+	question_desc,
+    score
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+	ag.institution_id as institution_id, 
+        q.key as question_key,
+	q.id as question_id,
+	q.display_text as question_desc,
+        bool_and(case when ans.answer::int=100 then true else false end) as score
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q,
+        assessments_surveytaginstitutionmapping st_instmap
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (4)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and surveytag.tag_id = st_instmap.tag_id
+        and ag.institution_id = st_instmap.institution_id
+        and q.is_featured = true
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        surveytag.tag_id,
+	ag.institution_id,
+        q.key,q.id,q.display_text)data;

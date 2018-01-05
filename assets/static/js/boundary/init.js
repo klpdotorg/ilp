@@ -139,7 +139,7 @@
 
     renderLanguages(utils.getSchoolsByLanguage(data.properties), 'school');
 
-    klp.api.do('programme/', queryParams)
+    klp.api.do('survey/info/boundary/', {'boundary_id': boundaryID})
       .done(function(progData) {
         renderPrograms(utils.getSchoolPrograms(progData, boundaryID, adminLevel), 'primaryschool');
       })
