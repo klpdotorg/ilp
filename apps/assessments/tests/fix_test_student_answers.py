@@ -97,7 +97,7 @@ class StudentAnswersApiTests(APITestCase):
     
     def test_answergroup_patch(self):
         self.client.force_authenticate(user=self.user)
-        response = self.client.patch(self.base_url + 'answergroup/1/', 
+        response = self.client.patch(self.base_url + 'answergroup/1/ ', 
                                     '{"respondent_type": "PR"}',
                                     content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

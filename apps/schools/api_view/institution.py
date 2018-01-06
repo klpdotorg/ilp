@@ -12,7 +12,8 @@ from schools.serializers import (
     InstitutionSerializer, InstitutionCreateSerializer,
     InstitutionCategorySerializer, InstitutionManagementSerializer,
     SchoolDemographicsSerializer, SchoolInfraSerializer,
-    SchoolFinanceSerializer, InstitutionSummarySerializer
+    SchoolFinanceSerializer, InstitutionSummarySerializer,
+    PreschoolInfraSerializer
 )
 from schools.models import (Institution, InstitutionCategory,
                             Management)
@@ -130,9 +131,18 @@ class InstitutionDemographics(ILPDetailAPIView):
 
 
 class InstitutionInfra(ILPDetailAPIView):
-    serializer_class = SchoolInfraSerializer
+    # serializer_class = SchoolInfraSerializer
     lookup_field = 'id'
     lookup_url_kwarg = 'pk'
+
+    def get_serializer_class(self):
+        school_id =  self.kwargs.get('pk') if hasattr(self, 'kwargs') else None
+        if school_id:
+            institution = Institution.objects.get(pk=school_id)
+            if institution.institution_type.char_id == "pre":
+                return PreschoolInfraSerializer
+            else:
+                return SchoolInfraSerializer
 
     def get_queryset(self):
         return Institution.objects.filter(status='AC')
