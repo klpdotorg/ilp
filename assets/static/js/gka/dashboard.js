@@ -100,9 +100,13 @@ var topSummaryData = {};
         //     params.from = '2017-06-01';
         //     params.to = '2017-12-31';
         // }
-        // loadTopSummary(params);
-        loadSmsData(params);
-        // loadAssmtData(params);
+
+        // Parameters common across all calls
+        params.survey_tag = 'gka';
+
+        loadTopSummary(params);
+        // loadSmsData(params);
+        loadAssmtData(params);
         // loadGPContestData(params);
         // loadSurveys(params);
         // loadComparison(params);
@@ -620,39 +624,54 @@ var topSummaryData = {};
     }
 
     function loadAssmtData(params) {
-        var metaURL = "survey/detail/key/";
-        var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
-        $metaXHR.done(function(data) {
-            var topSummary = window.topSummaryData
-            var tot_gka_schools = topSummary.gka_schools
-            var schools_assessed = data.summary.schools
-            var schools_perc = getPercent(schools_assessed, tot_gka_schools)
-            var children = data.summary.children
-            var children_impacted = topSummary.children_impacted
-            var children_perc = getPercent(children, children_impacted)
-            var last_assmt = data.summary.last_assmt
-            var dataSummary = {
-                "count": data.summary.count,
-                "schools": schools_assessed,
-                "schools_perc": schools_perc,
-                "children": children,
-                "children_perc": children_perc,
-                "last_assmt": formatLastStory(last_assmt)
-            }
-            renderAssmtSummary(dataSummary);
-            renderAssmtCharts(data);
-        });
+        
+        // Load summary first
+        // TODO: Check if we need to pass the survey_tag=ekstep
+        // params.survey_tag = 'ekstep';
+        var $summaryXHR = klp.api.do("survey/summary/", params);
+        $summaryXHR.done(function(summaryData) {
+            summaryData = summaryData.summary;
 
-        var metaURL = "survey/volume/";
-        var $metaXHR = klp.api.do(metaURL, params);
-        startDetailLoading();
-        $metaXHR.done(function(data) {
-            renderAssmtVolumeChart(data, params);
+            // Load details next
+            var $keyXHR = klp.api.do("survey/detail/key/", params);
+            $keyXHR.done(function(detailKeydata) {
+
+                var topSummary = klp.GKA.topSummaryData;
+                var tot_gka_schools = topSummary.total_school;
+                var schools_assessed = summaryData.schools_impacted;
+                var schools_perc = getPercent(
+                    schools_assessed, tot_gka_schools
+                );
+                var children = summaryData.children_impacted;
+                var children_impacted = topSummary.children_impacted;
+                var children_perc = getPercent(children, children_impacted);
+                var last_assmt = summaryData.last_assessment;
+                var dataSummary = {
+                    "count": summaryData.total_assessments,
+                    "schools": schools_assessed,
+                    "schools_perc": schools_perc,
+                    "children": children,
+                    "children_perc": children_perc,
+                    "last_assmt": formatLastStory(last_assmt)
+                }
+                renderAssmtSummary(dataSummary);
+                renderAssmtCharts(detailKeydata);
+            });
+
+            return;
+
+            var metaURL = "survey/volume/";
+            var $metaXHR = klp.api.do(metaURL, params);
+            startDetailLoading();
+            $metaXHR.done(function(data) {
+                renderAssmtVolumeChart(data, params);
+            });
         });
     }
 
     function renderAssmtSummary(data) {
+        console.log(data)
         var tplAssmtSummary = swig.compile($('#tpl-assmtSummary').html());
         var assmtSummaryHTML = tplAssmtSummary({'assmt':data});
         $('#assmtSummary').html(assmtSummaryHTML);
