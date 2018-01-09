@@ -254,32 +254,38 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
+        // startDetailLoading();
 
         // Fetch SMS Summary
         // var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
-        // startDetailLoading();
         // $smsSummaryXHR.done(function(data) {
         //     klp.GKA.smsSummary = data;
         //     renderSmsSummary(data);
         // });
 
-        //GETTING SMS DETAILS
-        var detailURL = "survey/detail/source/";
-        var $detailXHR = klp.api.do(detailURL, params);
-        $detailXHR.done(function(data) {
-            stopDetailLoading();
-            renderSMSDetails(data);
+        // Fetch SMS Volume
+        // Fetch users first
+        var $usersXHR = klp.api.do("survey/info/users", params);
+        $usersXHR.done(function(userGroups) {
+
+            // Fetch volumes next
+            var $volumesXHR = klp.api.do("survey/volume/", params);
+            $volumesXHR.done(function(volumes) {
+                var data = {
+                    volumes: volumes,
+                    user_groups: userGroups.users
+                };
+                stopDetailLoading();
+                renderSMSUserVolumeCharts(data, params);
+            });
         });
 
-        return;
-
-        // SMS Volume
-        var volumeURL = "survey/volume/";
-        var $volumeXHR = klp.api.do(volumeURL, params);
-        $volumeXHR.done(function(data) {
-            stopDetailLoading();
-            renderSMSCharts(data, params);
-        });
+        //Fetch SMS Details
+        // var $detailXHR = klp.api.do("survey/detail/source/", params);
+        // $detailXHR.done(function(data) {
+        //     stopDetailLoading();
+        //     renderSMSDetails(data);
+        // });
     }
 
     function loadSurveys(params) {
@@ -509,10 +515,11 @@ var topSummaryData = {};
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
 
-    function renderSMSCharts(data, params)  {
+    function renderSMSUserVolumeCharts(data, params)  {
         var meta_values = [];
         var volumes = data.volumes;
 
+        // Set the expected values of line chart
         var expectedValue = 13680;
         if(typeof(params.admin1) !== 'undefined') {
             expectedValue = 2280;
@@ -520,6 +527,7 @@ var topSummaryData = {};
             expectedValue = 0;
         }
 
+        // Utility function for preparing volumes
         function prepareVolumes(year) {
             var values = [];
 
@@ -541,6 +549,7 @@ var topSummaryData = {};
             }
         }
 
+        // Build data for bar chart and render it
         var sms_sender = {
             labels: _.map(meta_values, function(m){ return m.meta; }),
             series: [
@@ -552,6 +561,7 @@ var topSummaryData = {};
         }
         renderBarChart('#smsSender', sms_sender);
 
+        // Build the data for line chart and render it
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var fromDate = '2017-01-01';
         if(params.from) {
@@ -607,8 +617,6 @@ var topSummaryData = {};
 
         renderLineChart('#smsVolume', sms_volume);
         $('#smsLegend').html(chartLabel);
-
-
     }
 
     function loadAssmtData(params) {
