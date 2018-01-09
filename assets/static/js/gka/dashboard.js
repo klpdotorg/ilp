@@ -100,8 +100,8 @@ var topSummaryData = {};
         //     params.from = '2017-06-01';
         //     params.to = '2017-12-31';
         // }
-        loadTopSummary(params);
-        // loadSmsData(params);
+        // loadTopSummary(params);
+        loadSmsData(params);
         // loadAssmtData(params);
         // loadGPContestData(params);
         // loadSurveys(params);
@@ -254,14 +254,14 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
-        var metaURL = "survey/info/source/";
-        var $metaXHR = klp.api.do(metaURL, params);
-        startDetailLoading();
-        $metaXHR.done(function(data) {
-            window.smsSummary = data; // TODO: DO we need this?
-            renderSmsSummary(data);
-        });
 
+        // Fetch SMS Summary
+        // var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
+        // startDetailLoading();
+        // $smsSummaryXHR.done(function(data) {
+        //     klp.GKA.smsSummary = data;
+        //     renderSmsSummary(data);
+        // });
 
         //GETTING SMS DETAILS
         var detailURL = "survey/detail/source/";
@@ -270,6 +270,8 @@ var topSummaryData = {};
             stopDetailLoading();
             renderSMS(data);
         });
+
+        return;
 
         // SMS Volume
         var volumeURL = "survey/volume/";
@@ -468,15 +470,14 @@ var topSummaryData = {};
     }
 
     function renderSmsSummary(data) {
-        var summaryData = data.source;
-        var tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
-        summaryData["format_lastsms"] = formatLastStory(summaryData["mobile"]["last_assessment"]);
-
-        // Percentage
-        if (summaryData.sms && summaryData.sms.schools && window.topSummaryData && window.topSummaryData.gka_schools) {
-            summaryData['smsPercentage'] = (summaryData.sms.schools / topSummaryData.gka_schools * 100).toFixed(2);
-        } else {
-            summaryData['smsPercentage'] = 0;
+        var summaryData = data.source.mobile,
+            tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
+        
+        summaryData.format_lastsms = summaryData.last_assessment ? summaryData.last_assessment : '';
+        summaryData.smsPercentage = 0;
+        if(summaryData.assessment_count && summaryData.schools_impacted) {
+            summaryData.smsPercentage = summaryData.schools_impacted / summaryData.assessment_count * 100;
+            summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
         }
 
         var smsSummaryHTML = tplSmsSummary(summaryData);
