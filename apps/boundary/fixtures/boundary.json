@@ -19,5 +19,16 @@
             "boundary_type_id": "ST",
             "status_id": "AC"
         } 
+    },
+    {
+        "model": "boundary.Boundary",
+        "fields":{
+            "id": 3,
+            "name": "Odisha",
+            "dise_slug": "Odisha",
+            "parent_id": 1,
+            "boundary_type_id": "ST",
+            "status_id": "AC"
+        } 
     }
 ]

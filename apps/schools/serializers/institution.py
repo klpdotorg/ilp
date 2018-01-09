@@ -278,6 +278,55 @@ class SchoolDemographicsSerializer(ILPSerializer):
         num_girls = obj.dise.total_girls
         return num_girls
 
+class PreschoolInfraSerializer(ILPSerializer):
+    
+    num_boys = serializers.SerializerMethodField()
+    num_girls = serializers.SerializerMethodField()
+    facilities = serializers.SerializerMethodField()
+
+    def get_facilities(self, obj):
+        data = {}
+        all_infra_details = obj.surveyinstitutionquestionagg_set.all()
+        for infra_group in all_infra_details:
+            if infra_group.question_key not in data:
+                data[infra_group.question_key] = {}
+            data[infra_group.question_key][infra_group.question_desc]=infra_group.score
+        return data
+    
+    # def get_ang_facility_details(self, obj):
+    #     data = {}
+    #     ang_infras = obj.anganwadiinfraagg_set.all().select_related('ai_metric')
+    #     for infra in ang_infras:
+    #         if infra.ai_group not in data:
+    #             data[infra.ai_group] = {}
+    #         data[infra.ai_group][infra.ai_metric.value.strip()] = (infra.perc_score == 100)
+    #     return data
+
+    def get_gender_counts(self, obj):
+        print("get_gender_counts", obj.institutionstugendercount_set)
+        if obj.institutionstugendercount_set.filter(
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
+            return obj.institutionstugendercount_set.\
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
+        return None
+
+    def get_num_boys(self, obj):
+        gender_count = self.get_gender_counts(obj)
+        if gender_count:
+            return gender_count.num_boys
+        return None
+
+    def get_num_girls(self, obj):
+        gender_count = self.get_gender_counts(obj)
+        if gender_count:
+            return gender_count.num_girls
+        return None
+
+    class Meta:
+        model = Institution
+        fields = ('id', 'name', 'num_boys', 'num_girls', 'facilities')
+
+
 class SchoolInfraSerializer(ILPSerializer):
    
     tot_clrooms = serializers.IntegerField(source='dise.tot_clrooms')

@@ -5,7 +5,7 @@ from django.conf import settings
 from rest_framework.mixins import CreateModelMixin, UpdateModelMixin
 from rest_framework.views import APIView
 from common.state_code_dict import STATE_CODES
-from boundary.models import Boundary, BoundaryHierarchy
+from boundary.models import (Boundary, BoundaryHierarchy, BoundaryStateCode)
 from easyaudit.models import CRUDEvent
 from rest_framework.response import Response
 
@@ -59,13 +59,11 @@ class ILPStateMixin(object):
         if state_code is None:
             state_code = 'ka'
         logger.debug("State code passed in via args is: ", state_code)
-        state_name = STATE_CODES.get(state_code, None)
-        logger.debug("State code translates to: ", state_name)
         state = None
         if state_code:
-            state = Boundary.objects.get(
-                    name__iexact=state_name, boundary_type__name='State')
-        return state
+            state = BoundaryStateCode.objects.get(
+                    char_id=state_code)
+        return state.boundary
 
     def get_state_boundaries(self):
         state_code = self.request.query_params.get('state', None)
@@ -73,11 +71,9 @@ class ILPStateMixin(object):
         # Once again, if no state is passed, default to 'ka'. 
         if state_code is None:
             state_code = 'ka'
-        state_name = STATE_CODES.get(state_code, None)
-        logger.debug("State code translates to: ", state_name)
         boundaries = BoundaryHierarchy.objects.all()
         if state_code:
-            state = Boundary.objects.get(
-                name__iexact=state_name, boundary_type__name='State')
-            boundaries = boundaries.filter(admin0_id=state.id)
+            state = BoundaryStateCode.objects.get(
+                char_id=state_code)
+            boundaries = boundaries.filter(admin0_id=state.boundary.id)
         return boundaries
