@@ -711,7 +711,6 @@ var topSummaryData = {};
     }
 
     function renderAssmtVolumeChart(volumes, params) {
-        // var volumes = data.volumes;
 
        var expectedValue = 68000;
         if(typeof(params.admin1) !== 'undefined') {
