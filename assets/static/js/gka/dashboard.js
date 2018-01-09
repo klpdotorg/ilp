@@ -291,11 +291,18 @@ var topSummaryData = {};
 
     function loadSurveys(params) {
         startDetailLoading();
-        var $metaXHR = klp.api.do("survey/info/source/", params);
-        $metaXHR.done(function(data) {
-            klp.GKA.surveySummaryData = data;
-            renderSurveySummary(data);
-            // renderRespondentChart(data);
+
+        // Load the source for csv summary
+        var $sourceXHR = klp.api.do("survey/info/source/", params);
+        $sourceXHR.done(function(sourceData) {
+            klp.GKA.surveySummaryData = sourceData;
+            renderSurveySummary(sourceData);
+
+            // Load the respondent summary
+            var $respondentXHR = klp.api.do("survey/info/respondent/", params);
+            $respondentXHR.done(function(respondentData) {
+                renderRespondentChart(respondentData);
+            });
         });
 
         return;
@@ -382,15 +389,16 @@ var topSummaryData = {};
 
     function renderRespondentChart(data) {
         var labelMap = {
-            'SDMC_Member': 'SDMC',
-            'CBO_Member': 'CBO',
+            'SDMC Member': 'SDMC',
+            'CBO Member': 'CBO',
             'Parents': 'Parent',
             'Teachers': 'Teacher',
             'Volunteer': 'Volunteer',
-            'Educated_Youth': 'Youth',
+            'Educated Youth': 'Youth',
             'Local Leader': 'Leader',
-            'Akshara_Staff': 'Akshara',
-            'Elected_Representative': 'Elected' ,
+            'Akshara Staff': 'Akshara',
+            'Elected Representative': 'Elected' ,
+            'Parents': 'Parents',
             'Children': 'Children'
         };
 
