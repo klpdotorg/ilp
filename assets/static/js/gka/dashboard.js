@@ -104,12 +104,9 @@ var topSummaryData = {};
         // Parameters common across all calls
         params.survey_tag = 'gka';
 
-        // loadTopSummary(params);
-        // loadSmsData(params);
-        // loadAssmtData(params);
-        // loadGPContestData(params);
-        // loadSurveys(params);
-        // loadComparison(params);
+        loadTopSummary(params);
+        // All other sections are loaded after loadTopSummary is loaded
+        // as they use data fetched by loadTopSummary
     }
 
     function loadComparison(params) {
@@ -293,15 +290,15 @@ var topSummaryData = {};
     }
 
     function loadSurveys(params) {
-        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?survey=Community&source=csv";
-        var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
-        $metaXHR.done(function(data)
-        {
-            window.surveySummaryData = data;
+        var $metaXHR = klp.api.do("survey/summary/", params);
+        $metaXHR.done(function(data) {
+            klp.surveySummaryData = data;
             renderSurveySummary(data);
-            renderRespondentChart(data);
+            // renderRespondentChart(data);
         });
+
+        return;
 
         var volumeURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/volume/?survey=Community&source=csv";
         var $volumeXHR = klp.api.do(volumeURL, params);
@@ -444,9 +441,11 @@ var topSummaryData = {};
     }
 
     function renderSurveySummary(data) {
+        data = data.summary;
+        console.log(data, klp.GKA.topSummaryData)
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
-        data["format_lastcsv"] = formatLastStory(data["csv"]["last_story"]);
-        data['schoolPerc'] = getPercent(data.csv.schools, window.topSummaryData.gka_schools);
+        data["format_lastcsv"] = formatLastStory(data.last_assessment);
+        data['schoolPerc'] = getPercent(data.total_school, klp.GKA.topSummaryData.schools_impacted);
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
     }
@@ -468,6 +467,13 @@ var topSummaryData = {};
 
                 klp.GKA.topSummaryData = topSummary;
                 renderTopSummary(topSummary);
+
+                // Load the rest of sections
+                // loadSmsData(params);
+                // loadAssmtData(params);
+                // loadGPContestData(params);
+                loadSurveys(params);
+                // loadComparison(params);
             });
         });
     }
