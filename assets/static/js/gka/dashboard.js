@@ -659,8 +659,6 @@ var topSummaryData = {};
                 renderAssmtCharts(detailKeydata);
             });
 
-            return;
-
             var metaURL = "survey/volume/";
             var $metaXHR = klp.api.do(metaURL, params);
             startDetailLoading();
@@ -671,7 +669,6 @@ var topSummaryData = {};
     }
 
     function renderAssmtSummary(data) {
-        console.log(data)
         var tplAssmtSummary = swig.compile($('#tpl-assmtSummary').html());
         var assmtSummaryHTML = tplAssmtSummary({'assmt':data});
         $('#assmtSummary').html(assmtSummaryHTML);
@@ -701,7 +698,7 @@ var topSummaryData = {};
         })
 
         var competencies = {
-            labels: labels, //["Addition","Area of shape","Carryover","Decimals","Division","Division fact","Double digit","Fractions","Place value","Regrouping with money","3D Shapes","Subtraction","Word problems"],
+            labels: labels,
             series: [
                 {
                     className: 'ct-series-i',
@@ -713,8 +710,8 @@ var topSummaryData = {};
         renderBarChart('#assmtCompetancy', competencies, "Percentage of Children");
     }
 
-    function renderAssmtVolumeChart(data, params) {
-        var volumes = data.volumes;
+    function renderAssmtVolumeChart(volumes, params) {
+        // var volumes = data.volumes;
 
        var expectedValue = 68000;
         if(typeof(params.admin1) !== 'undefined') {
