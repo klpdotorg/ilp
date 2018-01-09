@@ -657,13 +657,14 @@ var topSummaryData = {};
                 }
                 renderAssmtSummary(dataSummary);
                 renderAssmtCharts(detailKeydata);
-            });
 
-            var metaURL = "survey/volume/";
-            var $metaXHR = klp.api.do(metaURL, params);
-            startDetailLoading();
-            $metaXHR.done(function(data) {
-                renderAssmtVolumeChart(data, params);
+                var $volumeXHR = klp.api.do("survey/volume/", params);
+                startDetailLoading();
+                $volumeXHR.done(function(data) {
+                    stopDetailLoading();
+                    renderAssmtVolumeChart(data, params);
+                });
+
             });
         });
     }
