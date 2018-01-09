@@ -291,9 +291,9 @@ var topSummaryData = {};
 
     function loadSurveys(params) {
         startDetailLoading();
-        var $metaXHR = klp.api.do("survey/summary/", params);
+        var $metaXHR = klp.api.do("survey/info/source/", params);
         $metaXHR.done(function(data) {
-            klp.surveySummaryData = data;
+            klp.GKA.surveySummaryData = data;
             renderSurveySummary(data);
             // renderRespondentChart(data);
         });
@@ -441,11 +441,10 @@ var topSummaryData = {};
     }
 
     function renderSurveySummary(data) {
-        data = data.summary;
-        console.log(data, klp.GKA.topSummaryData)
+        data = data.source.csv;
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
         data["format_lastcsv"] = formatLastStory(data.last_assessment);
-        data['schoolPerc'] = getPercent(data.total_school, klp.GKA.topSummaryData.schools_impacted);
+        data['schoolPerc'] = getPercent(data.schools_impacted, klp.GKA.topSummaryData.schools_impacted);
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
     }
