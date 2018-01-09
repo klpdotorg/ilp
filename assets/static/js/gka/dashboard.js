@@ -305,13 +305,12 @@ var topSummaryData = {};
             });
         });
 
-        return;
-
-        var volumeURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/volume/?survey=Community&source=csv";
-        var $volumeXHR = klp.api.do(volumeURL, params);
+        var $volumeXHR = klp.api.do("survey/volume/", params);
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
         });
+
+        return;
 
         var detailURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?survey=Community&source=csv";
         var $detailXHR = klp.api.do(detailURL, params);
@@ -321,7 +320,7 @@ var topSummaryData = {};
     }
 
     function renderVolumeChart(data, params) {
-        var volumes = data.volumes;
+        var volumes = data;
 
         var expectedValue = 13680;
         if(typeof(params.admin1) !== 'undefined') {
