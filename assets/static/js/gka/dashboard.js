@@ -268,7 +268,7 @@ var topSummaryData = {};
         var $detailXHR = klp.api.do(detailURL, params);
         $detailXHR.done(function(data) {
             stopDetailLoading();
-            renderSMS(data);
+            renderSMSDetails(data);
         });
 
         return;
@@ -485,29 +485,28 @@ var topSummaryData = {};
     }
 
 
-    function renderSMS(data) {
-        var SMSQuestionKeys = [];
-        SMSQuestionKeys = [
-            "ivrss-gka-trained",
-            "ivrss-math-class-happening",
-            "ivrss-gka-tlm-in-use",
-            "ivrss-gka-rep-stage",
-            "ivrss-group-work"
-        ];
-
+    function renderSMSDetails(data) {
         data = data.source;
-
-        var questionObjects = _.map(SMSQuestionKeys, function(key) {
-            return getQuestion(data, 'ivrs', key);
-        });
-
-        var questions = getQuestionsArray(questionObjects);
-        var regroup = {};
-        var tplResponses = swig.compile($('#tpl-smsResponses').html());
-        for (var each in questions)
+        
+        var SMSQuestionKeys = [
+                "ivrss-gka-trained",
+                "ivrss-math-class-happening",
+                "ivrss-gka-tlm-in-use",
+                "ivrss-gka-rep-stage",
+                "ivrss-group-work"
+            ],
+            questionObjects = _.map(SMSQuestionKeys, function(key) {
+                return getQuestion(data, 'ivrs', key);
+            }),
+            questions = getQuestionsArray(questionObjects),
+            regroup = {},
+            tplResponses = swig.compile($('#tpl-smsResponses').html());
+        
+        for (var each in questions) {
             regroup[questions[each]["key"]] = questions[each];
-        var html = tplResponses({"questions":regroup})
-        $('#smsQuestions').html(html);
+        }
+
+        $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
 
     function renderSMSCharts(data, params)  {
@@ -1032,25 +1031,17 @@ var topSummaryData = {};
     }
 
     function getScore(answers, option) {
-        if (!answers) {
-            return 0;
-        }
-        if (typeof(option) == 'undefined') {
-            option = 'Yes';
-        }
-        var options = answers.options;
-        if (options && options.hasOwnProperty(option)) {
-            return options[option];
-        } else {
-            return 0;
-        }
+        if (!answers) { return 0; }
+        option = option ? option: 'Yes';
+        var score = answers[option] ? answers[option]: 0;
+        return score;
     }
 
     function getTotal(answers) {
         if (!answers) { return 0; }
-        return _.reduce(_.keys(answers.options), function(memo, answerKey) {
-            return memo + answers.options[answerKey];
-        }, 0);
+        var yes = answers['Yes'] ? answers['Yes'] : 0;
+        var no = answers['No'] ? answers['No'] : 0;
+        return yes + no;
     }
 
     function getPercent(score, total) {
@@ -1075,8 +1066,6 @@ var topSummaryData = {};
             var score = getScore(question.answers, 'Yes');
             var total = getTotal(question.answers);
             var percent = getPercent(score, total);
-            //var qObj = featuredQuestions[seq];
-            //var displayText = qObj.source_prefix + question.question.display_text;
             var questionObj = question.question;
             return {
                 'question': questionObj? questionObj.display_text: '',
