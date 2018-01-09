@@ -104,9 +104,9 @@ var topSummaryData = {};
         // Parameters common across all calls
         params.survey_tag = 'gka';
 
-        loadTopSummary(params);
+        // loadTopSummary(params);
         // loadSmsData(params);
-        loadAssmtData(params);
+        // loadAssmtData(params);
         // loadGPContestData(params);
         // loadSurveys(params);
         // loadComparison(params);
