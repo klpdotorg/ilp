@@ -86,8 +86,7 @@ class QuestionGroup(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     status = models.ForeignKey('common.Status')
 
-    questions = models.ManyToManyField(
-        'Question',
+    questions = models.ManyToManyField( 'Question',
         through='Questiongroup_Questions'
          )
 
