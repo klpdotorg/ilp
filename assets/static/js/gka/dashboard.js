@@ -254,14 +254,14 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
-        // startDetailLoading();
+        startDetailLoading();
 
         // Fetch SMS Summary
-        // var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
-        // $smsSummaryXHR.done(function(data) {
-        //     klp.GKA.smsSummary = data;
-        //     renderSmsSummary(data);
-        // });
+        var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
+        $smsSummaryXHR.done(function(data) {
+            klp.GKA.smsSummary = data;
+            renderSmsSummary(data);
+        });
 
         // Fetch SMS Volume
         // Fetch users first
@@ -281,11 +281,11 @@ var topSummaryData = {};
         });
 
         //Fetch SMS Details
-        // var $detailXHR = klp.api.do("survey/detail/source/", params);
-        // $detailXHR.done(function(data) {
-        //     stopDetailLoading();
-        //     renderSMSDetails(data);
-        // });
+        var $detailXHR = klp.api.do("survey/detail/source/", params);
+        $detailXHR.done(function(data) {
+            stopDetailLoading();
+            renderSMSDetails(data);
+        });
     }
 
     function loadSurveys(params) {
