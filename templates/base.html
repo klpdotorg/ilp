@@ -21,6 +21,7 @@
     {% block css_extra %}{% endblock %}
     <script>
         window.klp = {};
+        window.klp.STATE_CODE = '{%get_state_value "state_code"%}';
     </script>
     {% compress js %}
       <script type="text/javascript" src="{% static 'js/lib/jquery-1.11.3.min.js' %}"></script>
