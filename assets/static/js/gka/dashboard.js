@@ -256,9 +256,12 @@ var topSummaryData = {};
     function loadSmsData(params) {
         startDetailLoading();
 
+        delete params.survey_tag;
+
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
         $smsSummaryXHR.done(function(data) {
+            stopDetailLoading();
             klp.GKA.smsSummary = data;
             renderSmsSummary(data);
         });
@@ -634,7 +637,6 @@ var topSummaryData = {};
     }
 
     function loadAssmtData(params) {
-        startDetailLoading();
         
         // Load summary first
         // TODO: Check if we need to pass the survey_tag=ekstep
@@ -669,7 +671,6 @@ var topSummaryData = {};
                 renderAssmtCharts(detailKeydata);
 
                 var $volumeXHR = klp.api.do("survey/volume/", params);
-                startDetailLoading();
                 $volumeXHR.done(function(data) {
                     stopDetailLoading();
                     renderAssmtVolumeChart(data, params);
