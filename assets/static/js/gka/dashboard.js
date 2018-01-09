@@ -20,6 +20,9 @@ var topSummaryData = {};
         });
         klp.router.start();
 
+        // All GKA related data are stored in GKA
+        klp.GKA = {};
+
         $('#startDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2017']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2017']});
 
@@ -98,9 +101,9 @@ var topSummaryData = {};
         //     params.to = '2017-12-31';
         // }
         loadTopSummary(params);
-        loadSmsData(params);
-        loadAssmtData(params);
-        loadGPContestData(params);
+        // loadSmsData(params);
+        // loadAssmtData(params);
+        // loadGPContestData(params);
         // loadSurveys(params);
         // loadComparison(params);
     }
@@ -437,15 +440,23 @@ var topSummaryData = {};
     }
 
 
+    // Renders top summary of GKA dashboard
     function loadTopSummary(params) {
-        var metaURL = "survey/summary/";
-        var $metaXHR = klp.api.do(metaURL, params);
+
+        // Load the summary first
+        var $summaryXHR = klp.api.do("survey/summary/", params);
         startSummaryLoading();
-        $metaXHR.done(function(data)
-        {
+        $summaryXHR.done(function(data) {
             var topSummary = data.summary;
-            window.topSummaryData = topSummary; // TODO: Check if this is really needed
-            renderTopSummary(topSummary);
+
+            // Load the users Education volunteers count
+            var $usersXHR = klp.api.do("survey/info/users", params);
+            $usersXHR.done(function(data) {
+                topSummary.education_volunteers = (data.users && data.users.EV) ? data.users.EV: 0; 
+
+                klp.GKA.topSummaryData = topSummary;
+                renderTopSummary(topSummary);
+            });
         });
     }
 
