@@ -110,8 +110,7 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
-        var url = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?gka_comparison=true";
-        var $metaXHR = klp.api.do(url, params);
+        var $metaXHR = klp.api.do("survey/info/class/gender", params);
         startDetailLoading();
         $metaXHR.done(function(data)
         {
@@ -477,8 +476,8 @@ var topSummaryData = {};
                 // loadSmsData(params);
                 // loadAssmtData(params);
                 // loadGPContestData(params);
-                loadSurveys(params);
-                // loadComparison(params);
+                // loadSurveys(params);
+                loadComparison(params);
             });
         });
     }
