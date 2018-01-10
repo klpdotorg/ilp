@@ -9,11 +9,9 @@ from assessments.models import (
     AnswerStudent
 )
 from common.mixins import (
-                           CompensationLogMixin,
-                           AnswerUpdateModelMixin)
-from rest_framework import serializers
+    CompensationLogMixin, AnswerUpdateModelMixin
+)
 from easyaudit.models import CRUDEvent
-
 
 
 class SurveyOnTypeSerializer(ILPSerializer):
@@ -113,6 +111,7 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
     def get_double_entry(self, obj):
         return obj.questiongroup.double_entry
         
+
 class AnswerGroupCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerGroup_Institution
@@ -123,10 +122,11 @@ class AnswerGroupStudentGroupSerializer(ILPSerializer):
         model = AnswerGroup_StudentGroup
         fields = '__all__'
 
+
 class AnswerGroupStudentSerializer(serializers.ModelSerializer):
     double_entry = serializers.SerializerMethodField(required=False)
     comments = serializers.CharField(required=False)
-    
+
     class Meta:
         model = AnswerGroup_Student
         fields = (
@@ -135,11 +135,10 @@ class AnswerGroupStudentSerializer(serializers.ModelSerializer):
             'respondent_type', 'comments', 'is_verified',
             'status', 'double_entry'
         )
-    
+
     def get_double_entry(self, obj):
         return obj.questiongroup.double_entry
 
-        
 
 class AnswerGroupStudentCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -150,17 +149,18 @@ class AnswerGroupStudentCreateSerializer(serializers.ModelSerializer):
             'is_verified', 'status', 'comments'
         )
 
+
 class StudentAnswerSerializer(ILPSerializer, CompensationLogMixin):
-    answergroup = serializers.PrimaryKeyRelatedField(queryset=AnswerGroup_Student.objects.all(), source="answergroup_id")
+    answergroup = serializers.PrimaryKeyRelatedField(
+        queryset=AnswerGroup_Student.objects.all(), source="answergroup_id")
 
     class Meta:
         model = AnswerStudent
         fields = ('id', 'question', 'answer', 'answergroup', 'double_entry')
 
     def create(self, validated_data):
-       # This whole code block is a bit suspect. Not sure why this is needed!
-       answergroup = validated_data.pop('answergroup_id')
-       validated_data['answergroup_id'] = answergroup.id
-       return AnswerStudent.objects.create(**validated_data)
-
-#         return instance
+        # This whole code block is a bit suspect. Not sure why this is needed!
+        answergroup = validated_data.pop('answergroup_id')
+        validated_data['answergroup_id'] = answergroup.id
+        return AnswerStudent.objects.create(**validated_data)
+#       return instance
