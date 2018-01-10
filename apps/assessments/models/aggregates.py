@@ -22,6 +22,26 @@ class SurveySummaryAgg(models.Model):
         db_table = 'mvw_survey_summary_agg'
 
 
+class SurveyQuestionGroupDetailsAgg(models.Model):
+    """QuestionGroup details agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    institution_type = models.ForeignKey('common.InstitutionType', db_column="institution_type")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
+    num_schools = models.IntegerField(db_column="num_schools")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+    num_children = models.IntegerField(db_column="num_children")
+    num_users = models.IntegerField(db_column="num_users")
+    last_assessment = models.DateField(db_column="last_assessment")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_questiongroup_details_agg'
+
+
 class SurveyDetailsAgg(models.Model):
     """Survey Details Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
@@ -185,7 +205,7 @@ class SurveyQuestionGroupQuestionKeyAgg(models.Model):
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     source = models.ForeignKey('Source', db_column="source")
-    questiongroup_id = models.CharField(max_length=100, db_column="questiongroup_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     year = models.IntegerField(db_column="year")
     month = models.IntegerField(db_column="month")
@@ -204,7 +224,7 @@ class SurveyQuestionGroupGenderAgg(models.Model):
     source = models.ForeignKey('Source', db_column="source")
     year = models.IntegerField(db_column="year")
     month = models.IntegerField(db_column="month")
-    questiongroup_id = models.CharField(max_length=100, db_column="questiongroup_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey("common.Gender", db_column="gender")
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -283,7 +303,7 @@ class SurveyQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     source = models.ForeignKey('Source', db_column="source")
-    questiongroup_id = models.CharField(max_length=100, db_column="questiongroup_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
     year = models.IntegerField(db_column="year")
@@ -300,7 +320,7 @@ class SurveyQuestionGroupGenderCorrectAnsAgg(models.Model):
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     source = models.ForeignKey('Source', db_column="source")
-    questiongroup_id = models.CharField(max_length=100, db_column="questiongroup_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey("common.Gender", db_column="gender")
     question_key = models.CharField(max_length=100, db_column="question_key")
@@ -341,5 +361,58 @@ class SurveyInstitutionQuestionAgg(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_survey_institution_question_agg'
+
+
+class SurveyBoundaryQuestionGroupAnsAgg(models.Model):
+    """Survey Answer Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
+    question_id = models.ForeignKey('Question', db_column="question_id")
+    question_desc = models.CharField(max_length=200, db_column="question_desc")
+    answer_option = models.CharField(max_length=100, db_column="answer_option")
+    num_answers = models.IntegerField(db_column="num_answers")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_boundary_questiongroup_ans_agg'
+
+
+class SurveyInstitutionQuestionGroupAnsAgg(models.Model):
+    """Survey Answer Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    institution_id = models.ForeignKey('schools.Institution', db_column="boundary_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
+    question_id = models.ForeignKey('Question', db_column="question_id")
+    question_desc = models.CharField(max_length=200, db_column="question_desc")
+    answer_option = models.CharField(max_length=100, db_column="answer_option")
+    num_answers = models.IntegerField(db_column="num_answers")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_questiongroup_ans_agg'
+
+
+class SurveyQuestionGroupAnsAgg(models.Model):
+    """Survey Answer Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
+    question_id = models.ForeignKey('Question', db_column="question_id")
+    question_desc = models.CharField(max_length=200, db_column="question_desc")
+    answer_option = models.CharField(max_length=100, db_column="answer_option")
+    num_answers = models.IntegerField(db_column="num_answers")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_questiongroup_ans_agg'
 
 

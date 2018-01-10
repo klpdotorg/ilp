@@ -28,6 +28,7 @@ class AnswerGroup_Institution(models.Model):
     sysid = models.IntegerField(null=True)
     entered_at = models.DateTimeField(default=timezone.now, null=True)
     location = models.GeometryField(null=True)
+    mobile = models.CharField(max_length=32, null=True)
 
 
 class AnswerInstitution(models.Model):
@@ -53,6 +54,7 @@ class AnswerGroup_StudentGroup(models.Model):
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
     location = models.GeometryField(null=True)
+    mobile = models.CharField(max_length=32, null=True)
 
 
 class AnswerStudentGroup(models.Model):
@@ -79,6 +81,7 @@ class AnswerGroup_Student(models.Model):
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
     location = models.GeometryField(null=True)
+    mobile = models.CharField(max_length=32, null=True)
 
 
 class AnswerStudent(models.Model):
