@@ -110,6 +110,7 @@ echo "Assessments Done"
 #Populate Users
 echo "Users"
 python users/import_users.py dubdubdub $ilp
+psql -U klp -d $ilp -f users/insert_unknownuser.sql
 python users/update_assessment_userid.py dubdubdub $ilp
 echo "Users Done"
 
