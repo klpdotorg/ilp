@@ -70,31 +70,26 @@ nested_router.register(
             parents_query_lookups=['student_id', 'student_group']
         )
 
-## Programme
-nested_router.register(
-    r'programmes',
-    ProgrammeViewSet,
-    base_name='programme'
-    )
+# Programme
+nested_router.register(r'programmes', ProgrammeViewSet, base_name='programme')
 
 urlpatterns = [
-                url(r'^institution/categories$', 
-                    InstitutionCategoryListView.as_view(),
-                    name='inst-category'),
-                url(r'^institution/managements$',
-                    InstitutionManagementListView.as_view(),
-                    name='inst-management'),
-                url(r'^institutions/list$', 
-                    InstitutionSummaryView.as_view(),
-                    name='inst-list'),
-                url(r'^institutions/(?P<pk>[0-9]+)/demographics$',
-                    InstitutionDemographics.as_view(),
-                    name='inst-demographics'),
-                url(r'^institutions/(?P<pk>[0-9]+)/infrastructure$',
-                    InstitutionInfra.as_view(),
-                    name='inst-infra'),
-                url(r'^institutions/(?P<pk>[0-9]+)/finance$',
-                    InstitutionFinance.as_view(),
-                    name='inst-finance'),
-             
-              ] + router.urls + nested_router.urls
+    url(r'^institution/categories$',
+        InstitutionCategoryListView.as_view(),
+        name='inst-category'),
+    url(r'^institution/managements$',
+        InstitutionManagementListView.as_view(),
+        name='inst-management'),
+    url(r'^institutions/list$',
+        InstitutionSummaryView.as_view(),
+        name='inst-list'),
+    url(r'^institutions/(?P<pk>[0-9]+)/demographics$',
+        InstitutionDemographics.as_view(),
+        name='inst-demographics'),
+    url(r'^institutions/(?P<pk>[0-9]+)/infrastructure$',
+        InstitutionInfra.as_view(),
+        name='inst-infra'),
+    url(r'^institutions/(?P<pk>[0-9]+)/finance$',
+        InstitutionFinance.as_view(),
+        name='inst-finance'),
+] + router.urls + nested_router.urls

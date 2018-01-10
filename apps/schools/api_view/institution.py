@@ -15,8 +15,10 @@ from schools.serializers import (
     SchoolFinanceSerializer, InstitutionSummarySerializer,
     PreschoolInfraSerializer
 )
-from schools.models import (Institution, InstitutionCategory,
-                            Management)
+from schools.models import (
+    Institution, InstitutionCategory, Management
+)
+from schools.filters import InstitutionSurveyFilter
 
 
 class ProgrammeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -57,6 +59,7 @@ class InstitutionViewSet(ILPViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
     bbox_filter_field = "coord"
+    filter_backends = [InstitutionSurveyFilter, ]
     # pagination_class = LargeResultsSetPagination
     # renderer_classes = (ILPJSONRenderer, )
     # filter_class = SchoolFilter
@@ -84,12 +87,10 @@ class InstitutionViewSet(ILPViewSet):
             admin3 = self.request.GET.get('admin3')
             qset = qset.filter(admin3__id=admin3)
 
-        # todo
         # Need to do filter for:
         # ac_year = self.request.GET.get(
         #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
         # partner_id
-        # programmes
         return qset
 
     def create(self, request, *args, **kwargs):
@@ -121,6 +122,7 @@ class InstitutionManagementListView(generics.ListAPIView):
     def get_queryset(self):
         return Management.objects.all()
 
+
 class InstitutionDemographics(ILPDetailAPIView):
     serializer_class = SchoolDemographicsSerializer
     lookup_field = 'id'
@@ -146,6 +148,7 @@ class InstitutionInfra(ILPDetailAPIView):
 
     def get_queryset(self):
         return Institution.objects.filter(status='AC')
+
 
 class InstitutionFinance(ILPDetailAPIView):
     serializer_class = SchoolFinanceSerializer

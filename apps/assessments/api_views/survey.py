@@ -18,7 +18,7 @@ from assessments.models import (
     SurveyQuestionGroupQuestionKeyAgg, SurveyQuestionGroupGenderAgg,
     SurveyQuestionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
     SurveyQuestionKeyCorrectAnsAgg, SurveyClassQuestionKeyCorrectAnsAgg,
-    SurveyQuestionGroupQuestionKeyCorrectAnsAgg
+    SurveyQuestionGroupQuestionKeyCorrectAnsAgg,
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import (SurveyFilter, SurveyTagFilter)
