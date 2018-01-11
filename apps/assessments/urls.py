@@ -12,7 +12,7 @@ from assessments.api_views import(
     SurveyDetailClassAPIView, AnswerGroupStudentsViewSet,
     AnswersStudentViewSet, SharedAssessmentsView, SurveyVolumeAPIView,
     SurveyClassQuestionKeyAPIView, SurveyQuestionGroupQuestionKeyAPIView,
-    QuestionGroupSchoolViewSet
+    QuestionGroupSchoolViewSet, SurveyInstitutionDetailAPIView
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -77,7 +77,7 @@ answergroup = surveyqgroup.\
             'survey', 'questiongroup', 'institution', 'answergroup']
     )
 
-# surveys->questiongroup->institution->answers
+# surveys -> questiongroup -> institution -> answers
 answers = surveyqgroup.register(
         r'answers',
         AnswersInstitutionViewSet,
@@ -120,6 +120,9 @@ answers = surveyqgroup.register(
 urlpatterns = [
     url(r'surveys/storiesinfo',
         QGroupStoriesInfoView.as_view(), name='stories-info'),
+    url(r'survey/institution/detail/',
+        SurveyInstitutionDetailAPIView.as_view(),
+        name='survey-institution-detial'),
     url(r'survey/summary',
         SurveySummaryAPIView.as_view(), name='survey-summary'),
     url(r'survey/info/source',

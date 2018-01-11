@@ -11,6 +11,7 @@ from rest_framework.response import Response
 
 logger = logging.getLogger(__name__)
 
+
 class CompensationLogMixin(CreateModelMixin, UpdateModelMixin):
     def perform_create(self, serializer):
         logger.info("Inside compensationlog mixin")
@@ -28,6 +29,7 @@ class CompensationLogMixin(CreateModelMixin, UpdateModelMixin):
         else:
             double_entry = 2
         serializer.save(double_entry=double_entry)
+
 
 class AnswerUpdateModelMixin(UpdateModelMixin):
     def update(self, request, *args, **kwargs):
@@ -54,23 +56,14 @@ class CacheMixin(APIView):
 class ILPStateMixin(object):
 
     def get_state(self):
-        state_code = self.request.query_params.get('state', None)
-        # Once again, if no state is passed, default to 'ka'. 
-        if state_code is None:
-            state_code = 'ka'
-        logger.debug("State code passed in via args is: ", state_code)
+        state_code = self.request.query_params.get('state', 'ka')
         state = None
         if state_code:
-            state = BoundaryStateCode.objects.get(
-                    char_id=state_code)
+            state = BoundaryStateCode.objects.get(char_id=state_code)
         return state.boundary
 
     def get_state_boundaries(self):
-        state_code = self.request.query_params.get('state', None)
-        logger.debug("State code passed in via args is: ", state_code)
-        # Once again, if no state is passed, default to 'ka'. 
-        if state_code is None:
-            state_code = 'ka'
+        state_code = self.request.query_params.get('state', 'ka')
         boundaries = BoundaryHierarchy.objects.all()
         if state_code:
             state = BoundaryStateCode.objects.get(
