@@ -14,8 +14,10 @@ class AnswersSurveyTypeFilter(django_filters.FilterSet):
         model = AnswerGroup_Institution
         fields = ['id', 'survey_id', 'is_verified']
 
+
 class SurveyTagFilter(django_filters.FilterSet):
     tag = django_filters.CharFilter(name="surveytagmapping__tag")
+
     class Meta:
         model = Survey
         fields = ['tag']
