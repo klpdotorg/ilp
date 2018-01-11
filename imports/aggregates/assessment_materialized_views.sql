@@ -323,8 +323,8 @@ FROM(
         year,month)data;
 
 
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_details_agg CASCADE;
-CREATE MATERIALIZED VIEW mvw_survey_questiongroup_details_agg AS
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_info_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_questiongroup_info_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,institution_type,year, month) as id,
     survey_id,
     survey_tag,

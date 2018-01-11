@@ -25,7 +25,7 @@ class Management(models.Model):
 
 class PinCode(models.Model):
     """ Pincodes """
-    geom = models.GeometryField()
+    geom = models.GeometryField(null=True)
 
     def __unicode__(self):
         return "%s" % self.geom
