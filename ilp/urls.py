@@ -169,4 +169,30 @@ urlpatterns = [
     # API URLs.
     url(r'^api/v1/', include('ilp.api_urls')),
     url(r'^api/docs/', api_docs_view, name='api_docs'),
+
+    # report pages
+    url(r'^reports/search$', StaticPageView.as_view(
+        template_name='report_search.html'
+        ), name='report_search'),
+
+    url(r'^reports/demographics/(?P<report_type>electedrep|boundary)/(?P<language>english|kannada)/(?P<id>[0-9]+)/$', StaticPageView.as_view(
+        template_name='demographics.html'
+        ), name='demographics'),
+
+    url(r'^reports/demographics_dise/(?P<report_type>electedrep|boundary)/(?P<language>english|kannada)/(?P<id>[0-9]+)/$', StaticPageView.as_view(
+        template_name='demographics_dise.html'
+        ), name='demographics_dise'),
+
+    url(r'^reports/finance/(?P<report_type>electedrep|boundary)/(?P<language>english|kannada)/(?P<id>[0-9]+)/$', StaticPageView.as_view(
+        template_name='finance.html'
+        ), name='finance'),
+
+    url(r'^reports/infrastructure/(?P<report_type>electedrep|boundary)/(?P<language>english|kannada)/(?P<id>[0-9]+)/$', StaticPageView.as_view(
+        template_name='infrastructure.html'
+        ), name='infrastructure'),
+
+    url(r'^reports/surveys$', StaticPageView.as_view(
+        template_name='story_report.html'
+        ), name='stories'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,6 +9,7 @@ class BasicBoundaryAgg(models.Model):
     boundary = models.ForeignKey('Boundary', related_name="boundary_id", db_column="boundary_id")
     year = models.ForeignKey('common.AcademicYear', related_name="ac_year", db_column="year")
     num_schools = models.IntegerField(blank=True, null=True, db_column="num_schools")
+    num_students = models.IntegerField(blank=True, null=True, db_column="num_students")
     num_boys = models.IntegerField(blank=True, null=True, db_column="num_boys")
     num_girls = models.IntegerField(blank=True, null=True, db_column="num_girls")
 
@@ -20,7 +21,7 @@ class BasicBoundaryAgg(models.Model):
 class BoundaryInstitutionGenderAgg(models.Model):
     boundary = models.ForeignKey('Boundary')
     gender_ac_year = models.ForeignKey('common.AcademicYear', related_name="gender_ac_year", db_column="year")
-    gender = models.ForeignKey('common.Gender', db_column="gender", related_name="gender")
+    gender = models.CharField(max_length=100, db_column="gender")
     num_schools = models.IntegerField(blank=True, null=True, db_column="num_schools")
     num_boys = models.IntegerField(blank=True, null=True, db_column="num_boys")
     num_girls = models.IntegerField(blank=True, null=True, db_column="num_girls")
@@ -33,7 +34,7 @@ class BoundaryInstitutionGenderAgg(models.Model):
 class BoundaryStudentMotherTongueAgg(models.Model):
     boundary = models.ForeignKey('Boundary')
     mt_ac_year = models.ForeignKey('common.AcademicYear', related_name='mt_ac_year', db_column='year')
-    mt = models.ForeignKey('common.Language', db_column='mt')
+    mt = models.CharField(max_length=100, db_column='mt')
     num_schools = models.IntegerField(blank=True, null=True, db_column="num_schools")
     num_boys = models.IntegerField(blank=True, null=True, db_column="num_boys")
     num_girls = models.IntegerField(blank=True, null=True, db_column="num_girls")
@@ -60,7 +61,7 @@ class BoundarySchoolCategoryAgg(models.Model):
 class BoundarySchoolManagementAgg(models.Model):
     boundary = models.ForeignKey('Boundary')
     mgmt_ac_year = models.ForeignKey('common.AcademicYear', related_name='mgmt_ac_year', db_column='year')
-    management = models.ForeignKey('schools.Management', db_column='management')
+    management = models.CharField(max_length=100, db_column='management')
     num_schools = models.IntegerField(blank=True, null=True, db_column="num_schools")
     num_boys = models.IntegerField(blank=True, null=True, db_column="num_boys")
     num_girls = models.IntegerField(blank=True, null=True, db_column="num_girls")
@@ -73,7 +74,7 @@ class BoundarySchoolManagementAgg(models.Model):
 class BoundarySchoolMoiAgg(models.Model):
     boundary = models.ForeignKey('Boundary')
     moi_ac_year = models.ForeignKey('common.AcademicYear', related_name='moi_ac_year', db_column='year')
-    moi = models.ForeignKey('common.Language', db_column='moi')
+    moi = models.CharField(max_length=100, db_column='moi')
     num_schools = models.IntegerField(blank=True, null=True, db_column="num_schools")
     num_boys = models.IntegerField(blank=True, null=True, db_column="num_boys")
     num_girls = models.IntegerField(blank=True, null=True, db_column="num_girls")

@@ -14,6 +14,7 @@ class StudentGroup(models.Model):
         related_name='studentgroups',
         through='StudentStudentGroupRelation'
     )
+    staff = models.ManyToManyField("Staff", through="StaffStudentGroupRelation")
 
     class Meta:
         unique_together = (('institution', 'name', 'section'), )

@@ -32,7 +32,7 @@
     }
 
     var districtsXHR = function(school_type) {
-        return klp.api.do('boundary/admin1s', {'school_type':school_type, 'geometry': 'yes'});
+        return klp.api.do('boundary/admin1s', {'school_type':school_type});
     };
 
     function format(item) {
@@ -43,7 +43,7 @@
     }
 
     function populateSelect(container, data) {
-        data.features.forEach(function(d) {
+        data.results.forEach(function(d) {
             if(d.properties !=undefined)
                 d.id = d.properties.id;
         });
@@ -57,7 +57,7 @@
                 });
             },
             data: {
-                results: data.features,
+                results: data.results,
                 text: function(item) {
                     if (item.properties != undefined)
                         return item.properties.name;
@@ -127,7 +127,7 @@
 
         $select_district.on("change", function(selected) {
             showReport(selected,"boundary");
-            var blockXHR = klp.api.do('boundary/admin1/'+selected.val+'/admin2', {'geometry': 'yes', 'per_page': 0});
+            var blockXHR = klp.api.do('boundary/admin1/'+selected.val+'/admin2', {'per_page': 0});
             blockXHR.done(function (data) {
                 populateSelect($select_block, data);
             });
@@ -135,7 +135,7 @@
 
         $select_block.on("change", function(selected) {
             showReport(selected,"boundary");
-            var clusterXHR = klp.api.do('boundary/admin2/'+selected.val+'/admin3', {'geometry': 'yes', 'per_page': 0});
+            var clusterXHR = klp.api.do('boundary/admin2/'+selected.val+'/admin3', {'per_page': 0});
             clusterXHR.done(function (data) {
                 populateSelect($select_cluster, data);
             });
@@ -219,8 +219,7 @@
                 allowClear: true,
                 data: function(term, page) {
                     return {
-                        text: term,
-                        geometry: 'yes'
+                        text: term
                     };
                 },
                 results: function(data, page) {

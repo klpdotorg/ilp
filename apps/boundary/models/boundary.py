@@ -23,6 +23,7 @@ class BoundaryType(models.Model):
     """ Boundary type """
     char_id = models.CharField(max_length=300, primary_key=True)
     name = models.CharField(max_length=300)
+    level = models.IntegerField(null=True)
 
     class Meta:
         ordering = ['char_id', ]
