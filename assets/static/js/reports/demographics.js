@@ -95,17 +95,6 @@
         var url = "reports/demographics/"+repType+"/comparison/?id="+bid+"&language="+lang;
         var $xhr = klp.api.do(url);
         $xhr.done(function(data) {
-            //Adding data for current year to the 
-            data["comparison"]["year-wise"][0] = {
-                            "year": detailsData["report_info"]["year"],
-                             "avg_enrol_upper": detailsData["enrolment"]["Upper Primary"]["average_student_count"],
-                             "avg_enrol_lower": detailsData["enrolment"]["Lower Primary"]["average_student_count"],
-                             "student_count": summaryData["student_count"],
-                             "school_count": summaryData["school_count"],
-                             "school_perc": summaryData["school_perc"],
-                             "teacher_count": summaryData["teacher_count"],
-                             "ptr": summaryData["ptr"]
-            };
             data['comparison']['name'] = summaryData["info"]["name"];
             data['comparison']['type'] = summaryData["info"]["type"];
             renderComparison(data["comparison"]);

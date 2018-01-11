@@ -1,4 +1,4 @@
 from .boundary import *
-from .electionboundary import ElectionBoundary, ElectionBoundaryAggregation
+from .electionboundary import ElectionBoundary, ElectionBoundaryAggregation, ElectionNeighbours
 from .aggregates import *
 
