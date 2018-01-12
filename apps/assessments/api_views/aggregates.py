@@ -60,7 +60,8 @@ class SurveyVolumeAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
 
     def list(self, request, *args, **kwargs):
-        years = self.get_queryset().values_list('year', flat=True)
+        queryset = self.filter_queryset(self.get_queryset())
+        years = queryset.values_list('year', flat=True)
         months = {
             "01": "Jan", "02": "Feb", "03": "Mar",
             "04": "APR", "05": "MAY", "06": "JUN",
