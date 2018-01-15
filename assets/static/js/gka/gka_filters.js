@@ -71,16 +71,16 @@
         $select_school.select2("val","");
 
         var url = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?source=sms";
-        var districtsXHR = klp.api.do(url);
-        districtsXHR.done(function(data) {
-            var districts = {"features": []}
-            for (var each in data["sms"]["gka_districts"])
-            {
-                districts["features"].push(data["sms"]["gka_districts"][each])
-            } 
-            //console.log(districts);
-            populateSelect($select_district, districts);
-        });
+        // var districtsXHR = klp.api.do(url);
+        // districtsXHR.done(function(data) {
+        //     var districts = {"features": []}
+        //     for (var each in data["sms"]["gka_districts"])
+        //     {
+        //         districts["features"].push(data["sms"]["gka_districts"][each])
+        //     } 
+        //     //console.log(districts);
+        //     populateSelect($select_district, districts);
+        // });
 
         $select_district.on("change", function(selected) {
             $search_button.attr('href', '/gka/#searchmodal?admin1='+selected.val);

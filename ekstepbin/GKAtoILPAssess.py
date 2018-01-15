@@ -23,7 +23,7 @@ excpconnectionstring = "dbname=ekstep user=klp password=klp host=ilp-dev-db.cs6d
 excpconn = psycopg2.connect(excpconnectionstring)
 excpcursor = excpconn.cursor()
 
-sqlselect = "select stu.student_id, assess.question_id, assess.content_id, assess.pass , assess.assessed_ts from assess assess, students stu where assess.student_uid=stu.uid::varchar and assess.sync_ts > %s and assess.sync_ts < %s and not exists (select * from assess  as dup where dup.student_uid=assess.student_uid and dup.question_id=assess.question_id and dup.assessed_ts::date=assess.assessed_ts::date and dup.content_id=assess.content_id and dup.sync_ts = assess.sync_ts and dup.assessed_ts > assess.assessed_ts);" 
+sqlselect = "select stu.student_id, assess.question_id, assess.content_id, assess.pass , assess.assessed_ts  from ekstep_assess assess, students stu, gka_devices c, gka_content d where assess.student_uid=stu.uid::varchar and assess.sync_ts > %s and assess.sync_ts < %s and assess.device_id = c.device_id and assess.content_id = d.content_id and not exists (select * from ekstep_assess  as dup where dup.student_uid=assess.student_uid and dup.question_id=assess.question_id and dup.assessed_ts::date=assess.assessed_ts::date and dup.content_id=assess.content_id and dup.sync_ts = assess.sync_ts and dup.assessed_ts > assess.assessed_ts)"
 fromcursor.execute(sqlselect,(fromdate, todate))
 now = str(datetime.datetime.now())
 
@@ -37,12 +37,11 @@ for row in fromcursor.fetchall():
         score = 0
     timestamp = row[4]
     dateofvisit = datetime.datetime.date(row[4])
-    print (student_id, question_text, questiongroup_desc, score, timestamp, dateofvisit)
+    #print (student_id, question_text, questiongroup_desc, score, timestamp, dateofvisit)
 
     sqlselect = "select exists(select 1 from schools_student where id=%s);"
     tocursor.execute(sqlselect, [student_id])
     if not tocursor.fetchall()[0][0]:
-        print("student_id does not exist")
         sqlinsert = "insert into ilp_exception(datarow, excp_id, excp_data, update_date) values (%s, 1, %s, %s);"
         excpcursor.execute(sqlinsert, (row, student_id, now))
         excpconn.commit()
@@ -53,7 +52,6 @@ for row in fromcursor.fetchall():
     sqlselect = "select id from assessments_questiongroup where description=%s;"
     tocursor.execute(sqlselect, [questiongroup_desc])
     if tocursor.rowcount == 0:
-        print("question group does not exist")
         sqlinsert = "insert into ilp_exception(datarow, excp_id, excp_data, update_date) values (%s, 2, %s, %s);"
         excpcursor.execute(sqlinsert, (row, questiongroup_desc, now))
         excpconn.commit()
@@ -65,7 +63,6 @@ for row in fromcursor.fetchall():
     sqlselect = "select id from assessments_question where question_text=%s;"
     tocursor.execute(sqlselect, [question_text])
     if tocursor.rowcount == 0:
-        print("question does not exist")
         sqlinsert = "insert into ilp_exception(datarow, excp_id, excp_data, update_date) values (%s, 3, %s, %s);"
         excpcursor.execute(sqlinsert, (row, question_text, now))
         excpconn.commit()

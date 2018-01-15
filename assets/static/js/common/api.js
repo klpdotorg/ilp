@@ -20,6 +20,9 @@
             if (typeof(data) === 'undefined') {
                 data = {};
             }
+            if(typeof(data.state) === 'undefined') {
+                data.state = klp.STATE_CODE;
+            }
             var $deferred = $.Deferred();
             $deferred.abort = function() {
                 if ($xhr && $xhr.state() === 'pending') {

@@ -89,5 +89,12 @@
             "char_id": "CRP",
             "name": "Cluster Resource Person"
         }
+    },
+    {
+        "model": "assessments.RespondentType",
+        "fields":{
+            "char_id": "GO",
+            "name": "Government Official"
+        }
     }
 ]

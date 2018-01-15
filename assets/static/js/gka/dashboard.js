@@ -20,6 +20,9 @@ var topSummaryData = {};
         });
         klp.router.start();
 
+        // All GKA related data are stored in GKA
+        klp.GKA = {};
+
         $('#startDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2017']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2017']});
 
@@ -97,17 +100,17 @@ var topSummaryData = {};
             params.from = '2017-06-01';
             params.to = '2017-12-31';
         }
+
+        // Parameters common across all calls
+        params.survey_tag = 'gka';
+
         loadTopSummary(params);
-        loadSmsData(params);
-        loadAssmtData(params);
-        loadGPContestData(params);
-        loadSurveys(params);
-        loadComparison(params);
+        // All other sections are loaded after loadTopSummary is loaded
+        // as they use data fetched by loadTopSummary
     }
 
     function loadComparison(params) {
-        var url = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?gka_comparison=true";
-        var $metaXHR = klp.api.do(url, params);
+        var $metaXHR = klp.api.do("survey/info/class/gender", params);
         startDetailLoading();
         $metaXHR.done(function(data)
         {
@@ -251,58 +254,74 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
-        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?source=sms";
-        var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
-        $metaXHR.done(function(data) {
-            window.smsSummary = data;
+
+        delete params.survey_tag;
+
+        // Fetch SMS Summary
+        var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
+        $smsSummaryXHR.done(function(data) {
+            stopDetailLoading();
+            klp.GKA.smsSummary = data;
             renderSmsSummary(data);
         });
 
+        // Fetch SMS Volume
+        // Fetch users first
+        var $usersXHR = klp.api.do("survey/info/users", params);
+        $usersXHR.done(function(userGroups) {
 
-        //GETTING SMS DETAILS
-        var detailURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?source=sms";
-        var $detailXHR = klp.api.do(detailURL, params);
-        $detailXHR.done(function(data) {
-            stopDetailLoading();
-            renderSMS(data);
+            // Fetch volumes next
+            var $volumesXHR = klp.api.do("survey/volume/", params);
+            $volumesXHR.done(function(volumes) {
+                var data = {
+                    volumes: volumes,
+                    user_groups: userGroups.users
+                };
+                stopDetailLoading();
+                renderSMSUserVolumeCharts(data, params);
+            });
         });
 
-        // SMS Volume
-        var volumeURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/volume/?source=sms";
-        var $volumeXHR = klp.api.do(volumeURL, params);
-        $volumeXHR.done(function(data) {
+        //Fetch SMS Details
+        var $detailXHR = klp.api.do("survey/detail/source/", params);
+        $detailXHR.done(function(data) {
             stopDetailLoading();
-            renderSMSCharts(data, params);
+            renderSMSDetails(data);
         });
     }
 
     function loadSurveys(params) {
-        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?survey=Community&source=csv";
-        var $metaXHR = klp.api.do(metaURL, params);
         startDetailLoading();
-        $metaXHR.done(function(data)
-        {
-            window.surveySummaryData = data;
-            renderSurveySummary(data);
-            renderRespondentChart(data);
+
+        // Load the source for csv summary
+        var $sourceXHR = klp.api.do("survey/info/source/", params);
+        $sourceXHR.done(function(sourceData) {
+            klp.GKA.surveySummaryData = sourceData;
+            renderSurveySummary(sourceData);
+
+            // Load the respondent summary
+            var $respondentXHR = klp.api.do("survey/info/respondent/", params);
+            $respondentXHR.done(function(respondentData) {
+                renderRespondentChart(respondentData);
+            });
         });
 
-        var volumeURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/volume/?survey=Community&source=csv";
-        var $volumeXHR = klp.api.do(volumeURL, params);
+        // Load the volumes
+        var $volumeXHR = klp.api.do("survey/volume/", params);
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
         });
 
-        var detailURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?survey=Community&source=csv";
-        var $detailXHR = klp.api.do(detailURL, params);
+        // Load the detail section
+        var $detailXHR = klp.api.do("survey/detail/source/", params);
         $detailXHR.done(function(data) {
-            renderSurveyQuestions(data);
+            renderSurveyQuestions(data.source);
         });
     }
 
     function renderVolumeChart(data, params) {
-        var volumes = data.volumes;
+        var volumes = data;
 
         var expectedValue = 13680;
         if(typeof(params.admin1) !== 'undefined') {
@@ -370,15 +389,16 @@ var topSummaryData = {};
 
     function renderRespondentChart(data) {
         var labelMap = {
-            'SDMC_Member': 'SDMC',
-            'CBO_Member': 'CBO',
+            'SDMC Member': 'SDMC',
+            'CBO Member': 'CBO',
             'Parents': 'Parent',
             'Teachers': 'Teacher',
             'Volunteer': 'Volunteer',
-            'Educated_Youth': 'Youth',
+            'Educated Youth': 'Youth',
             'Local Leader': 'Leader',
-            'Akshara_Staff': 'Akshara',
-            'Elected_Representative': 'Elected' ,
+            'Akshara Staff': 'Akshara',
+            'Elected Representative': 'Elected' ,
+            'Parents': 'Parents',
             'Children': 'Children'
         };
 
@@ -429,23 +449,39 @@ var topSummaryData = {};
     }
 
     function renderSurveySummary(data) {
+        data = data.source.csv;
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
-        data["format_lastcsv"] = formatLastStory(data["csv"]["last_story"]);
-        data['schoolPerc'] = getPercent(data.csv.schools, window.topSummaryData.gka_schools);
+        data["format_lastcsv"] = formatLastStory(data.last_assessment);
+        data['schoolPerc'] = getPercent(data.schools_impacted, klp.GKA.topSummaryData.schools_impacted);
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
     }
 
 
+    // Renders top summary of GKA dashboard
     function loadTopSummary(params) {
-        var metaURL = "/api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/";
-        var $metaXHR = klp.api.do(metaURL, params);
+
+        // Load the summary first
+        var $summaryXHR = klp.api.do("survey/summary/", params);
         startSummaryLoading();
-        $metaXHR.done(function(data)
-        {
-            var topSummary = data.top_summary
-            window.topSummaryData = topSummary
-            renderTopSummary(topSummary);
+        $summaryXHR.done(function(data) {
+            var topSummary = data.summary;
+
+            // Load the users Education volunteers count
+            var $usersXHR = klp.api.do("survey/info/users", params);
+            $usersXHR.done(function(data) {
+                topSummary.education_volunteers = (data.users && data.users.EV) ? data.users.EV: 0; 
+
+                klp.GKA.topSummaryData = topSummary;
+                renderTopSummary(topSummary);
+
+                // Load the rest of sections
+                loadSmsData(params);
+                loadAssmtData(params);
+                // loadGPContestData(params);
+                loadSurveys(params);
+                // loadComparison(params);
+            });
         });
     }
 
@@ -457,15 +493,14 @@ var topSummaryData = {};
     }
 
     function renderSmsSummary(data) {
-        var tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
-        var summaryData = data;
-        summaryData["format_lastsms"] = formatLastStory(summaryData["sms"]["last_story"]);
-
-        // Percentage
-        if (summaryData.sms && summaryData.sms.schools && window.topSummaryData && window.topSummaryData.gka_schools) {
-            summaryData['smsPercentage'] = (summaryData.sms.schools / topSummaryData.gka_schools * 100).toFixed(2);
-        } else {
-            summaryData['smsPercentage'] = 0;
+        var summaryData = data.source.mobile,
+            tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
+        
+        summaryData.format_lastsms = summaryData.last_assessment ? summaryData.last_assessment : '';
+        summaryData.smsPercentage = 0;
+        if(summaryData.assessment_count && summaryData.schools_impacted) {
+            summaryData.smsPercentage = summaryData.schools_impacted / summaryData.assessment_count * 100;
+            summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
         }
 
         var smsSummaryHTML = tplSmsSummary(summaryData);
@@ -473,32 +508,35 @@ var topSummaryData = {};
     }
 
 
-    function renderSMS(data) {
-        var SMSQuestionKeys = [];
-        SMSQuestionKeys = [
-            "ivrss-gka-trained",
-            "ivrss-math-class-happening",
-            "ivrss-gka-tlm-in-use",
-            "ivrss-gka-rep-stage",
-            "ivrss-group-work"
-        ];
-
-        var questionObjects = _.map(SMSQuestionKeys, function(key) {
-            return getQuestion(data, 'sms', key);
-        });
-        var questions = getQuestionsArray(questionObjects);
-        var regroup = {}
-        var tplResponses = swig.compile($('#tpl-smsResponses').html());
-        for (var each in questions)
+    function renderSMSDetails(data) {
+        data = data.source;
+        
+        var SMSQuestionKeys = [
+                "ivrss-gka-trained",
+                "ivrss-math-class-happening",
+                "ivrss-gka-tlm-in-use",
+                "ivrss-gka-rep-stage",
+                "ivrss-group-work"
+            ],
+            questionObjects = _.map(SMSQuestionKeys, function(key) {
+                return getQuestion(data, 'ivrs', key);
+            }),
+            questions = getQuestionsArray(questionObjects),
+            regroup = {},
+            tplResponses = swig.compile($('#tpl-smsResponses').html());
+        
+        for (var each in questions) {
             regroup[questions[each]["key"]] = questions[each];
-        var html = tplResponses({"questions":regroup})
-        $('#smsQuestions').html(html);
+        }
+
+        $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
 
-    function renderSMSCharts(data, params)  {
+    function renderSMSUserVolumeCharts(data, params)  {
         var meta_values = [];
         var volumes = data.volumes;
 
+        // Set the expected values of line chart
         var expectedValue = 13680;
         if(typeof(params.admin1) !== 'undefined') {
             expectedValue = 2280;
@@ -506,6 +544,7 @@ var topSummaryData = {};
             expectedValue = 0;
         }
 
+        // Utility function for preparing volumes
         function prepareVolumes(year) {
             var values = [];
 
@@ -527,6 +566,7 @@ var topSummaryData = {};
             }
         }
 
+        // Build data for bar chart and render it
         var sms_sender = {
             labels: _.map(meta_values, function(m){ return m.meta; }),
             series: [
@@ -538,6 +578,7 @@ var topSummaryData = {};
         }
         renderBarChart('#smsSender', sms_sender);
 
+        // Build the data for line chart and render it
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var fromDate = '2017-01-01';
         if(params.from) {
@@ -593,40 +634,49 @@ var topSummaryData = {};
 
         renderLineChart('#smsVolume', sms_volume);
         $('#smsLegend').html(chartLabel);
-
-
     }
 
     function loadAssmtData(params) {
-        var metaURL = "assessment/?ekstep_gka=true";
-        var $metaXHR = klp.api.do(metaURL, params);
-        startDetailLoading();
-        $metaXHR.done(function(data) {
-            var topSummary = window.topSummaryData
-            var tot_gka_schools = topSummary.gka_schools
-            var schools_assessed = data.summary.schools
-            var schools_perc = getPercent(schools_assessed, tot_gka_schools)
-            var children = data.summary.children
-            var children_impacted = topSummary.children_impacted
-            var children_perc = getPercent(children, children_impacted)
-            var last_assmt = data.summary.last_assmt
-            var dataSummary = {
-                "count": data.summary.count,
-                "schools": schools_assessed,
-                "schools_perc": schools_perc,
-                "children": children,
-                "children_perc": children_perc,
-                "last_assmt": formatLastStory(last_assmt)
-            }
-            renderAssmtSummary(dataSummary);
-            renderAssmtCharts(data);
-        });
+        
+        // Load summary first
+        // TODO: Check if we need to pass the survey_tag=ekstep
+        // params.survey_tag = 'ekstep';
+        var $summaryXHR = klp.api.do("survey/summary/", params);
+        $summaryXHR.done(function(summaryData) {
+            summaryData = summaryData.summary;
 
-        var metaURL = "stories/volume/?response_type=gka";
-        var $metaXHR = klp.api.do(metaURL, params);
-        startDetailLoading();
-        $metaXHR.done(function(data) {
-            renderAssmtVolumeChart(data, params);
+            // Load details next
+            var $keyXHR = klp.api.do("survey/detail/key/", params);
+            $keyXHR.done(function(detailKeydata) {
+
+                var topSummary = klp.GKA.topSummaryData;
+                var tot_gka_schools = topSummary.total_school;
+                var schools_assessed = summaryData.schools_impacted;
+                var schools_perc = getPercent(
+                    schools_assessed, tot_gka_schools
+                );
+                var children = summaryData.children_impacted;
+                var children_impacted = topSummary.children_impacted;
+                var children_perc = getPercent(children, children_impacted);
+                var last_assmt = summaryData.last_assessment;
+                var dataSummary = {
+                    "count": summaryData.total_assessments,
+                    "schools": schools_assessed,
+                    "schools_perc": schools_perc,
+                    "children": children,
+                    "children_perc": children_perc,
+                    "last_assmt": formatLastStory(last_assmt)
+                }
+                renderAssmtSummary(dataSummary);
+                renderAssmtCharts(detailKeydata);
+
+                var $volumeXHR = klp.api.do("survey/volume/", params);
+                $volumeXHR.done(function(data) {
+                    stopDetailLoading();
+                    renderAssmtVolumeChart(data, params);
+                });
+
+            });
         });
     }
 
@@ -660,7 +710,7 @@ var topSummaryData = {};
         })
 
         var competencies = {
-            labels: labels, //["Addition","Area of shape","Carryover","Decimals","Division","Division fact","Double digit","Fractions","Place value","Regrouping with money","3D Shapes","Subtraction","Word problems"],
+            labels: labels,
             series: [
                 {
                     className: 'ct-series-i',
@@ -672,8 +722,7 @@ var topSummaryData = {};
         renderBarChart('#assmtCompetancy', competencies, "Percentage of Children");
     }
 
-    function renderAssmtVolumeChart(data, params) {
-        var volumes = data.volumes;
+    function renderAssmtVolumeChart(volumes, params) {
 
        var expectedValue = 68000;
         if(typeof(params.admin1) !== 'undefined') {
@@ -739,9 +788,10 @@ var topSummaryData = {};
     }
 
     function loadGPContestData(params){
-        var metaURL = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/detail/?survey=GP%20Contest";
+        var metaURL = "survey/info/class/gender/";
         var $metaXHR = klp.api.do(metaURL, params);
         $metaXHR.done(function(data) {
+
             var dataSummary = {
                 "summary": {
                     "schools":data.summary.schools,
@@ -1016,25 +1066,17 @@ var topSummaryData = {};
     }
 
     function getScore(answers, option) {
-        if (!answers) {
-            return 0;
-        }
-        if (typeof(option) == 'undefined') {
-            option = 'Yes';
-        }
-        var options = answers.options;
-        if (options.hasOwnProperty(option)) {
-            return options[option];
-        } else {
-            return 0;
-        }
+        if (!answers) { return 0; }
+        option = option ? option: 'Yes';
+        var score = answers[option] ? answers[option]: 0;
+        return score;
     }
 
     function getTotal(answers) {
         if (!answers) { return 0; }
-        return _.reduce(_.keys(answers.options), function(memo, answerKey) {
-            return memo + answers.options[answerKey];
-        }, 0);
+        var yes = answers['Yes'] ? answers['Yes'] : 0;
+        var no = answers['No'] ? answers['No'] : 0;
+        return yes + no;
     }
 
     function getPercent(score, total) {
@@ -1059,8 +1101,6 @@ var topSummaryData = {};
             var score = getScore(question.answers, 'Yes');
             var total = getTotal(question.answers);
             var percent = getPercent(score, total);
-            //var qObj = featuredQuestions[seq];
-            //var displayText = qObj.source_prefix + question.question.display_text;
             var questionObj = question.question;
             return {
                 'question': questionObj? questionObj.display_text: '',

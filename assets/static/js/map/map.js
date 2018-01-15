@@ -604,10 +604,12 @@
                 facilitiesXHR.done(function(basicFacilities) {
                     t.stopLoading();
                     data.basic_facilities = basicFacilities;
-                    data.has_basic_facilities = data.basic_facilities.computer_lab ||
-                                                data.basic_facilities.library ||
-                                                data.basic_facilities.playground ||
-                                                data.has_volunteer_activities;
+                    if(data.basic_facilities){
+                        data.has_basic_facilities = data.basic_facilities.computer_lab ||
+                                                    data.basic_facilities.library ||
+                                                    data.basic_facilities.playground ||
+                                                    data.has_volunteer_activities;
+                        }
                     data.total_students = getTotalStudents(data);
                     duplicateMarker.bindPopup(tpl_map_popup(data), {maxWidth:300, minWidth:300}).openPopup();
                     setMarkerURL(feature);

@@ -14,6 +14,20 @@
     }
 },
 {
+    "model": "boundary.BoundaryStateCode",
+    "pk": "ka",
+    "fields": {
+        "boundary_id": 2
+    }
+},
+{
+    "model": "boundary.BoundaryStateCode",
+    "pk": "od",
+    "fields":{
+        "boundary_id": 3
+    }
+},
+{
     "model": "boundary.boundarytype",
     "pk": "SD",
     "fields": {
@@ -337,6 +351,19 @@
         "boundary_type": "ST",
         "type": null,
         "dise_slug": "India-Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 3,
+    "fields": {
+        "parent": 1,
+        "name": "Odisha",
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "Odisha",
         "geom": null,
         "status": "AC"
     }

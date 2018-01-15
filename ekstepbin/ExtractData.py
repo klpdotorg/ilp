@@ -10,6 +10,7 @@ path_to_extract1 = os.path.join(dir,'../datapull/output1')
 path_to_extract2 = os.path.join(dir,'../datapull/output2')
 path_to_extract3 = os.path.join(dir,'../datapull/output3')
 
+
 print (path_to_zip_file)
 
 try:
@@ -32,8 +33,7 @@ if os.path.isdir(second_level_dir):
 if not os.path.exists(path_to_extract3):
     os.makedirs(path_extract3)
 
-partner_file = os.path.join(dir, '../datapull/output3/ge_partner_data.json')
-ge_partner_data_file  = open(partner_file, "w", encoding="utf-8")
+exdata_file  = open(os.path.join(dir,'../datapull/output3/exdata.json'), "w", encoding="utf-8")
 
 
 for foldername in os.listdir(path_to_extract2):
@@ -42,6 +42,6 @@ for foldername in os.listdir(path_to_extract2):
         with gzip.open(sub_sub_filename, "rb") as f:
             for line in f:
                 strline = str(line, encoding="utf-8")
-                if "GE_PARTNER_DATA" in strline:
-                    ge_partner_data_file.write(strline)
-ge_partner_data_file.close()
+                if "EXDATA" in strline:
+                    exdata_file.write(strline)
+exdata_file.close()

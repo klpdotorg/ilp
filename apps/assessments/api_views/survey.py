@@ -18,17 +18,17 @@ from assessments.models import (
     SurveyQuestionGroupQuestionKeyAgg, SurveyQuestionGroupGenderAgg,
     SurveyQuestionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
     SurveyQuestionKeyCorrectAnsAgg, SurveyClassQuestionKeyCorrectAnsAgg,
-    SurveyQuestionGroupQuestionKeyCorrectAnsAgg
+    SurveyQuestionGroupQuestionKeyCorrectAnsAgg,
 )
 from assessments.serializers import SurveySerializer
-from assessments.filters import SurveyFilter
+from assessments.filters import (SurveyFilter, SurveyTagFilter)
 
 
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
-    # filter_class = StudentGroupFilter
+    filter_class = SurveyTagFilter
 
 
 class SurveySummaryAPIView(ListAPIView, ILPStateMixin):
