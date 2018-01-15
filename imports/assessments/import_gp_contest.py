@@ -24,7 +24,7 @@ tables = [
     },
     {
         'name': 'assessments_questiongroup',
-        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, type_id, group_text) values(21,'Class 4 Assessment',to_date('2016-12-01', 'YYYY-MM-DD'),false, to_date('2017-04-28', 'YYYY-MM-DD'),to_date('2017-04-28', 'YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name'), (22,'Class 5 Assessment',to_date('2016-12-01', 'YYYY-MM-DD'),false, to_date('2017-04-28','YYYY-MM-DD'),to_date('2017-04-28','YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name'),(23,'Class 6 Assessment',to_date('2016-12-01','YYYY-MM-DD'),false, to_date('2017-04-28','YYYY-MM-DD'),to_date('2017-04-28','YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name');"
+        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, type_id, group_text, source_id) values(21,'Class 4 Assessment',to_date('2016-12-01', 'YYYY-MM-DD'),false, to_date('2017-04-28', 'YYYY-MM-DD'),to_date('2017-04-28', 'YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name',1), (22,'Class 5 Assessment',to_date('2016-12-01', 'YYYY-MM-DD'),false, to_date('2017-04-28','YYYY-MM-DD'),to_date('2017-04-28','YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name',1),(23,'Class 6 Assessment',to_date('2016-12-01','YYYY-MM-DD'),false, to_date('2017-04-28','YYYY-MM-DD'),to_date('2017-04-28','YYYY-MM-DD'),'1617','primary','IA',2,'assessment', 'child_name',1);"
     },
     {
         'name': 'assessments_question',
