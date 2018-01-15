@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+echo "Submitting ekstep v3 data request at: $(date) ..."
+
+dt1=$1
+dt2=$2
+echo "The date range is:" $1 $2
+progpath="/home/ubuntu/ilp/ekstepbin/"
+python3 $progpath"SubmitRequest.py" $dt1 $dt2
+
+echo "Data request submitted."
+exit 0
