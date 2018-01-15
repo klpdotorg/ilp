@@ -336,25 +336,29 @@
             'share-story': {
                 getData: function() {
                     //FIXME: replace with real SYS end-point
-                    var url ="stories/";
+                    var url ="institutionsurveys/";
                     var params = {
                         'school_id': SCHOOL_ID,
-                        'answers': 'yes',
-                        'verified': 'yes'
+                        'survey_id': 5,
                     };
                     return klp.api.do(url, params);
                 },
                 getContext: function(data) {
-                    var latestStory = getLatestStoryWithAnswers(data.features);
-                    if (latestStory) {
-                        data.latest_answers = getCleanedAnswers(latestStory.answers);
-                    } else {
-                        data.latest_answers = null;
-                    }
+                    data.answers = data.results
+                    // var latestStory = getLatestStoryWithAnswers(data.features);
+                    // if (latestStory) {
+                    //     data.latest_answers = getCleanedAnswers(latestStory.answers);
+                    // } else {
+                    //     data.latest_answers = null;
+                    // }
                     data['school_id'] = SCHOOL_ID;
-                    data['school_type_id'] = SCHOOL_TYPE_ID;
+                    //data['school_type_id'] = SCHOOL_TYPE_ID;
                     // console.log("sys data", data);
                     return data;
+
+                    function getQuestionsAndAnswers(stories) {
+
+                    }
 
                     function getLatestStoryWithAnswers(stories) {
                         for (var i=0; i < stories.length; i++) {

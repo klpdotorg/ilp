@@ -19,6 +19,7 @@ from assessments.models import (
     SurveyQuestionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
     SurveyQuestionKeyCorrectAnsAgg, SurveyClassQuestionKeyCorrectAnsAgg,
     SurveyQuestionGroupQuestionKeyCorrectAnsAgg,
+    SurveyInstitutionQuestionGroupAnsAgg
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import (SurveyFilter, SurveyTagFilter)
@@ -514,3 +515,30 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
             source_res[b_type_id] = boundary_list
         response['boundaries'] = source_res
         return Response(response)
+
+'''Returns all survey answers for a specific institution'''
+class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
+    queryset = SurveyInstitutionQuestionGroupAnsAgg.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        surveyid = self.request.query_params.get('survey_id', None)
+        schoolid = self.request.query_params.get('school_id', None)
+        questions_list=[]
+        if surveyid is not None and schoolid is not None:
+            question_answers = SurveyInstitutionQuestionGroupAnsAgg.objects.all().filter(survey_id=surveyid).filter(institution_id=schoolid).distinct('answer_option')
+            distinct_questions = SurveyInstitutionQuestionGroupAnsAgg.objects.all().filter(survey_id=surveyid).filter(institution_id=schoolid).distinct('question_desc')
+            for question in distinct_questions:
+                answers=question_answers.values('answer_option', 'num_answers')
+                answer_list={}
+                for answer in answers:
+                    answer_list[answer['answer_option']]= answer['num_answers']                    
+                answer = {"display_text": question.question_desc,
+                          "question_id": question.question_id.id,
+                          "answers": answer_list,
+                          }
+                questions_list.append(answer)
+                
+        return Response(questions_list)
+
+
+
