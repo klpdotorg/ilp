@@ -27,7 +27,7 @@ FROM(SELECT survey.id as survey_id,
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1,2, 4, 5, 6, 7)
+        and survey.id in (1,2, 4, 5, 6, 7, 11)
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
         and ag.is_verified=true
@@ -61,7 +61,7 @@ FROM(SELECT survey.id as survey_id,
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1,2, 4, 5, 6, 7)
+        and survey.id in (1,2, 4, 5, 6, 7, 11)
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -178,7 +178,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -221,7 +221,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
         and ag.is_verified=true
@@ -359,7 +359,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -405,7 +405,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
         and ag.is_verified=true
@@ -547,7 +547,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -589,7 +589,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
         and ag.is_verified=true
@@ -726,7 +726,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
@@ -774,7 +774,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         and surveytag.tag_id = st_instmap.tag_id
@@ -924,7 +924,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
@@ -971,7 +971,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
         and surveytag.tag_id = st_instmap.tag_id
@@ -1117,7 +1117,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.respondent_type_id = rt.char_id
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
@@ -1161,7 +1161,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.respondent_type_id = rt.char_id
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
@@ -1300,7 +1300,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.created_by_id = ut.id
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
@@ -1344,7 +1344,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.created_by_id = ut.id
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
@@ -1480,7 +1480,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -1523,7 +1523,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
@@ -1655,7 +1655,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -1695,7 +1695,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and surveytag.tag_id = st_instmap.tag_id
@@ -1824,7 +1824,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -1869,7 +1869,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and surveytag.tag_id = st_instmap.tag_id
@@ -2754,7 +2754,7 @@ FROM(
         ag.institution_id as institution_id, 
         q.key as question_key,
         q.id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         bool_and(case when ans.answer::int=100 then true else false end) as score
     FROM assessments_survey survey,
         assessments_questiongroup qg,
@@ -2775,6 +2775,7 @@ FROM(
     GROUP BY survey.id,
         surveytag.tag_id,
 		ag.institution_id,
+        q.question_text,
         q.key,q.id,q.display_text)data;
 
 
@@ -2800,7 +2801,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -2815,7 +2816,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -2828,6 +2829,7 @@ FROM(
         b.id,
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -2852,7 +2854,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -2868,7 +2870,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
@@ -2882,6 +2884,7 @@ FROM(
         b.id,
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -2906,7 +2909,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -2936,6 +2939,7 @@ FROM(
         b.id,       
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -2960,7 +2964,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -2992,6 +2996,7 @@ FROM(
         b.id,       
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data ;
@@ -3019,7 +3024,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3033,7 +3038,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -3045,6 +3050,7 @@ FROM(
         s.id,
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -3069,7 +3075,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3084,7 +3090,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
@@ -3097,6 +3103,7 @@ FROM(
         s.id,
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -3121,7 +3128,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3149,6 +3156,7 @@ FROM(
         s.id,       
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -3173,7 +3181,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3203,6 +3211,7 @@ FROM(
         s.id,       
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data ;
@@ -3228,7 +3237,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3241,7 +3250,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -3251,6 +3260,7 @@ FROM(
         surveytag.tag_id,
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -3273,7 +3283,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3287,7 +3297,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7)
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
@@ -3298,6 +3308,7 @@ FROM(
         surveytag.tag_id,
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -3320,7 +3331,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3345,6 +3356,7 @@ FROM(
         surveytag.tag_id,
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data
@@ -3367,7 +3379,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         ans.question_id as question_id,
-        q.display_text as question_desc,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3394,6 +3406,357 @@ FROM(
         surveytag.tag_id,
         qg.id,
         q.display_text,
+        q.question_text,
         ans.question_id,
         ans.answer,
         year,month)data ;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_agg AS
+SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
+    survey_id,
+    boundary_id,
+    questiongroup_id,
+    year,
+    month,
+    num_assessments,
+    num_schools,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        qg.id as questiongroup_id,
+        b.id as boundary_id,
+        to_char(ag.date_of_visit,'YYYY')::int as year,
+        to_char(ag.date_of_visit,'MM')::int as month,
+        count(distinct ag.id) as num_assessments,
+        count(distinct ag.institution_id) as num_schools,
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        schools_institution s,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        qg.id,
+        ag.is_verified,
+        b.id,
+        year,month)data
+union
+SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
+    survey_id,
+    boundary_id,
+    questiongroup_id,
+    year,
+    month,
+    num_assessments,
+    num_schools,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        qg.id as questiongroup_id,
+        b.id as boundary_id,
+        to_char(ag.date_of_visit,'YYYY')::int as year,
+        to_char(ag.date_of_visit,'MM')::int as month,
+        count(distinct ag.id) as num_assessments,
+        count(distinct ag.institution_id) as num_schools,
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        schools_institution s,
+        boundary_boundary b,
+        assessments_surveytaginstitutionmapping st_instmap
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and surveytag.tag_id = st_instmap.tag_id
+        and ag.institution_id = st_instmap.institution_id
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        qg.id,
+        ag.is_verified,
+        b.id,
+        year,month)data
+union
+SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
+    survey_id,
+    boundary_id,
+    questiongroup_id,
+    year,
+    month,
+    num_assessments,
+    num_schools,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        qg.id as questiongroup_id,
+        b.id as boundary_id,
+        to_char(ag.date_of_visit,'YYYY')::int as year,
+        to_char(ag.date_of_visit,'MM')::int as month,
+        count(distinct ag.id) as num_assessments,
+        count(distinct stu.institution_id) as num_schools,
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        schools_student stu,
+        schools_institution s,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        qg.id,
+        ag.is_verified,
+        b.id,
+        year,month)data
+union
+SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
+    survey_id,
+    boundary_id,
+    questiongroup_id,
+    year,
+    month,
+    num_assessments,
+    num_schools,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        qg.id as questiongroup_id,
+        b.id as boundary_id,
+        to_char(ag.date_of_visit,'YYYY')::int as year,
+        to_char(ag.date_of_visit,'MM')::int as month,
+        count(distinct ag.id) as num_assessments,
+        count(distinct stu.institution_id) as num_schools,
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        schools_student stu,
+        schools_institution s,
+        boundary_boundary b,
+        assessments_surveytaginstitutionmapping st_instmap
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and surveytag.tag_id = st_instmap.tag_id
+        and stu.institution_id = st_instmap.institution_id
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        qg.id,
+        ag.is_verified,
+        b.id,
+        year,month)data ;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_agg AS
+SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
+    survey_id,
+    institution_id,
+    questiongroup_id,
+    year,
+    month,
+    num_assessments,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        qg.id as questiongroup_id,
+        ag.institution_id as institution_id,
+        to_char(ag.date_of_visit,'YYYY')::int as year,
+        to_char(ag.date_of_visit,'MM')::int as month,
+        count(distinct ag.id) as num_assessments,
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        qg.id,
+        ag.is_verified,
+        ag.institution_id, 
+        year,month)data
+union 
+SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
+    survey_id,
+    institution_id,
+    questiongroup_id,
+    year,
+    month,
+    num_assessments,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        qg.id as questiongroup_id,
+        ag.institution_id as institution_id,
+        to_char(ag.date_of_visit,'YYYY')::int as year,
+        to_char(ag.date_of_visit,'MM')::int as month,
+        count(distinct ag.id) as num_assessments,
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_surveytaginstitutionmapping st_instmap
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and surveytag.tag_id = st_instmap.tag_id
+        and ag.institution_id = st_instmap.institution_id
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        qg.id,
+        ag.is_verified,
+        ag.institution_id, 
+        year,month)data
+union 
+SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
+    survey_id,
+    institution_id,
+    questiongroup_id,
+    year,
+    month,
+    num_assessments,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        qg.id as questiongroup_id,
+        stu.institution_id as institution_id,
+        to_char(ag.date_of_visit,'YYYY')::int as year,
+        to_char(ag.date_of_visit,'MM')::int as month,
+        count(distinct ag.id) as num_assessments,
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        schools_student stu
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.student_id = stu.id
+        and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        qg.id,
+        ag.is_verified,
+        stu.institution_id,
+        year,month)data
+union 
+SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
+    survey_id,
+    institution_id,
+    questiongroup_id,
+    year,
+    month,
+    num_assessments,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        qg.id as questiongroup_id,
+        stu.institution_id as institution_id,
+        to_char(ag.date_of_visit,'YYYY')::int as year,
+        to_char(ag.date_of_visit,'MM')::int as month,
+        count(distinct ag.id) as num_assessments,
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        schools_student stu,
+        assessments_surveytaginstitutionmapping st_instmap
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.student_id = stu.id
+        and surveytag.tag_id = st_instmap.tag_id
+        and stu.institution_id = st_instmap.institution_id
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        qg.id,
+        ag.is_verified,
+        stu.institution_id,
+        year,month)data;

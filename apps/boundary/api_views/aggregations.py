@@ -2,7 +2,7 @@ import logging
 from boundary.serializers import (
     BoundarySerializer, BoundaryWithParentSerializer
 )
-from boundary.models import (Boundary, 
+from boundary.models import (Boundary,
                              BasicBoundaryAgg,
                              BoundarySchoolCategoryAgg,
                              BoundarySchoolManagementAgg,
@@ -42,13 +42,13 @@ class BasicBoundaryAggView(ILPAPIView):
         try:
             academic_year = AcademicYear.objects.get(char_id=ac_year)
         except AcademicYear.DoesNotExist:
-            raise APIError('Academic year is not valid. It should be in the form of 2011-2012.', 404)
+            raise APIException('Academic year is not valid. It should be in the form of 2011-2012.', 404)
 
         try:
             boundary = Boundary.objects.get(id=boundaryId)
         except Exception:
-            raise APIError('Boundary not found', 404)
-        
+            raise APIException('Boundary not found', 404)
+
         boundaryAgg = BasicBoundaryAgg.objects.filter(boundary_id=boundaryId).get(year=ac_year)
 
         agg = {
@@ -67,7 +67,7 @@ class BasicBoundaryAggView(ILPAPIView):
                     'cat': aggregate.cat_id,
                     'num_boys': aggregate.num_boys,
                     'num_girls': aggregate.num_girls,
-                    'num_schools': aggregate.num_schools              
+                    'num_schools': aggregate.num_schools
                 }
                 cat.append(aggregate) # End of for-loop
             agg['cat'] = cat
