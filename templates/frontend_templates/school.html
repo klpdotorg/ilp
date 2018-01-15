@@ -615,15 +615,23 @@
           <p>This data is gathered from vistors sharing their experiences. It indicates whether or not the school has facilities under the headings below:</p>
 
           <table class="table-data table-data-key">
-            {% if latest_answers %}
-                {% for answer in latest_answers %}
+            {% if answers %}
+                {% for answer in answers %}
                   <tr>
-                    <td>{{ answer.question.text }}</td>
-                    <td>
-                      <div class="table-infra-key-color table-infra-icon-left brand-{% if answer.text == 'Yes' %}green{% else %}red{% endif %}">
-                      {{ answer.text }}
+                    <td>{{ answer.display_text }}</td>
+                  </tr>
+                  <tr>
+                        {% for key, value in answer.answers %}
+                        <td>
+                          {% if key == "Yes" %}
+                              <div class="table-infra-key-color table-infra-icon-left brand-green">
+                          {% elif key == "No" %}
+                            <div class="table-infra-key-color table-infra-icon-left brand-red">
+                          {% endif %}
+                          {{ key }} - {{ value}}
+                        </td>
+                        {% endfor %}
                       </div>
-                    </td>
                   </tr>
                   {% endfor %}
               {% else %}
@@ -653,7 +661,7 @@
 
         <div class="comments">
             <h4 class="heading-tiny-uppercase">Visitor Comments</h4>
-            {% for story in features %}
+            {% for story in results %}
             <div class="comment-item">
                 <p class="grey-gravel bold">
                   {% if story.name %}

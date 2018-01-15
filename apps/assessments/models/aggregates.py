@@ -385,7 +385,7 @@ class SurveyInstitutionQuestionGroupAnsAgg(models.Model):
     """Survey Answer Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
-    institution_id = models.ForeignKey('schools.Institution', db_column="boundary_id")
+    institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     year = models.IntegerField(db_column="year")
     month = models.IntegerField(db_column="month")
