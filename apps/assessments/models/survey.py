@@ -49,6 +49,7 @@ class Survey(models.Model):
     class Meta:
         ordering = ['name', ]
 
+
 class SurveyTagMapping(models.Model):
     """Association a tag with a survey"""
     survey = models.ForeignKey('Survey')
@@ -86,9 +87,9 @@ class QuestionGroup(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     status = models.ForeignKey('common.Status')
 
-    questions = models.ManyToManyField( 'Question',
-        through='Questiongroup_Questions'
-         )
+    questions = models.ManyToManyField(
+        'Question', through='Questiongroup_Questions'
+    )
 
 
 class Question(models.Model):

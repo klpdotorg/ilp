@@ -22,7 +22,7 @@ class SurveySummaryAgg(models.Model):
         db_table = 'mvw_survey_summary_agg'
 
 
-class SurveyQuestionGroupDetailsAgg(models.Model):
+class SurveyQuestionGroupInfoAgg(models.Model):
     """QuestionGroup details agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
@@ -39,7 +39,7 @@ class SurveyQuestionGroupDetailsAgg(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'mvw_survey_questiongroup_details_agg'
+        db_table = 'mvw_survey_questiongroup_info_agg'
 
 
 class SurveyDetailsAgg(models.Model):

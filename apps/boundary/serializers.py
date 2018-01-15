@@ -56,17 +56,20 @@ class ElectionBoundarySerializer(ILPSerializer):
         model = ElectionBoundary
         fields = ('id', 'name', 'const_ward_type')
 
+
 class BoundaryTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BoundaryType
         fields = ('char_id', 'name')
 
-class BoundaryAggregationSerializer(serializers.ModelSerializer):
 
+class BoundaryAggregationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BoundaryAggregation
-        fields=('bid', 'name', 'academic_year',
-                'gender', 'mt', 'religion', 'category',
-                'num')
+        fields = (
+            'bid', 'name', 'academic_year',
+            'gender', 'mt', 'religion', 'category',
+            'num'
+        )

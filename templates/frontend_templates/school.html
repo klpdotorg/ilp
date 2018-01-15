@@ -619,15 +619,19 @@
                 {% for answer in answers %}
                   <tr>
                     <td>{{ answer.display_text }}</td>
-                    <td>
-                      <div class="table-infra-key-color table-infra-icon-left brand-green">
-                        {% for key in answer.answers %}
-                            {{ answers[key] }}
-                            {{ key }} -- {{ answers[key]}}
-                          <br>
+                  </tr>
+                  <tr>
+                        {% for key, value in answer.answers %}
+                        <td>
+                          {% if key == "Yes" %}
+                              <div class="table-infra-key-color table-infra-icon-left brand-green">
+                          {% elif key == "No" %}
+                            <div class="table-infra-key-color table-infra-icon-left brand-red">
+                          {% endif %}
+                          {{ key }} - {{ value}}
+                        </td>
                         {% endfor %}
                       </div>
-                    </td>
                   </tr>
                   {% endfor %}
               {% else %}
