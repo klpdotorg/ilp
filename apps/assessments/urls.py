@@ -12,8 +12,8 @@ from assessments.api_views import(
     SurveyDetailClassAPIView, AnswerGroupStudentsViewSet,
     AnswersStudentViewSet, SharedAssessmentsView, SurveyVolumeAPIView,
     SurveyClassQuestionKeyAPIView, SurveyQuestionGroupQuestionKeyAPIView,
-    QuestionGroupSchoolViewSet, SurveyInstitutionAnsAggView,
-    SurveyInstitutionDetailAPIView
+    QuestionGroupSchoolViewSet, SurveyQuestionGroupDetailsAPIView,
+    SurveyInstitutionAnsAggView, SurveyInstitutionDetailAPIView
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -61,7 +61,7 @@ surveyqgroup = nested_router.register(
             r'institution', InstitutionViewSet,
             base_name='survey-qgroup-institution',
             parents_query_lookups=['qgroup', 'qgroup__survey'])
- 
+
 # Add-on to above base route.
 # surveys -> questiongroup -> institution -> answergroup -> answers
 answergroup = surveyqgroup.\
@@ -159,4 +159,6 @@ urlpatterns = [
         name='survey-info-class-gender'),
     url(r'surveys/shared-assessments', SharedAssessmentsView.as_view(),
         name='survey-shared-assessments'),
+    url(r'surveys/questiongroupdetails/$', SurveyQuestionGroupDetailsAPIView.as_view(),
+        name='survey-questiongroup-details'),
 ] + simple_router.urls + nested_router.urls
