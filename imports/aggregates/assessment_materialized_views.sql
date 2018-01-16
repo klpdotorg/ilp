@@ -3760,3 +3760,34 @@ FROM(
         ag.is_verified,
         stu.institution_id,
         year,month)data;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_tagmapping_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_tagmapping_agg AS
+SELECT format('A%s_%s_%s', instmap.tag_id, b.id, instmap.academic_year_id) as id,
+    instmap.tag_id as survey_tag,
+    b.id as boundary_id, 
+    instmap.academic_year_id as academic_year_id,
+    count(distinct instmap.institution_id) as num_schools,
+    count(distinct stu.id) as num_students
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    and instmap.tag_id = 'gka'
+    and sg.name in ('4','5')
+    and stusg.status_id !='DL' and stusg.student_id=stu.id 
+    and stu.status_id !='DL'
+GROUP BY
+    instmap.tag_id,
+    b.id,
+    instmap.academic_year_id;

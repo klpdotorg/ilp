@@ -450,3 +450,15 @@ class SurveyBoundaryQuestionGroupAgg(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_survey_boundary_questiongroup_agg'
+
+
+class SurveyTagMappingAgg(models.Model):
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    academic_year_id = models.ForeignKey('common.AcademicYear', db_column="academic_year_id")
+    num_schools = models.IntegerField(db_column="num_schools")
+    num_children = models.IntegerField(db_column="num_children")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_tagmapping_agg'
