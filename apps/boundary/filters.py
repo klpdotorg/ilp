@@ -20,10 +20,16 @@ class BoundarySurveyFilter(BaseFilterBackend):
 
     def filter_queryset(self, request, queryset, view):
         survey_id = request.query_params.get('survey_id', None)
-        if not survey_id:
-            return queryset
+        if survey_id:
+            boundary_ids = SurveyBoundaryAgg.objects.filter(
+                survey_id=survey_id).distinct('boundary_id')\
+                .values_list('boundary_id', flat=True)
+            return queryset.filter(id__in=boundary_ids)
 
-        boundary_ids = SurveyBoundaryAgg.objects.filter(survey_id=survey_id)\
-            .distinct('boundary_id')\
-            .values_list('boundary_id', flat=True)
-        return queryset.filter(id__in=boundary_ids)
+        survey_tag = request.query_params.get('survey_tag', None)
+        if survey_tag:
+            boundary_ids = SurveyBoundaryAgg.objects.filter(
+                survey_tag=survey_tag).distinct('boundary_id')\
+                .values_list('boundary_id', flat=True)
+            return queryset.filter(id__in=boundary_ids)
+        return queryset

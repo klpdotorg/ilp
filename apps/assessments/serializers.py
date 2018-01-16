@@ -1,17 +1,16 @@
-from common.serializers import ILPSerializer
 from rest_framework import serializers
+
+from common.serializers import ILPSerializer
+from common.mixins import CompensationLogMixin
+
 from assessments.models import (
     Survey, QuestionGroup, Question,
     QuestionGroup_Questions, AnswerGroup_Institution,
     AnswerInstitution, SurveyOnType,
     AnswerGroup_StudentGroup, AnswerGroup_Student,
-    QuestionGroup_Institution_Association, 
+    QuestionGroup_Institution_Association,
     AnswerStudent
 )
-from common.mixins import (
-    CompensationLogMixin, AnswerUpdateModelMixin
-)
-from easyaudit.models import CRUDEvent
 
 
 class SurveyOnTypeSerializer(ILPSerializer):
