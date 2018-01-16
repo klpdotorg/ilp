@@ -184,5 +184,3 @@ class SurveyQuestionGroupDetailsAPIView(APIView):
                                                                     row["answer_option"]: row["num_answers"]}
 
         return Response(self.response)
-=======
->>>>>>> master
