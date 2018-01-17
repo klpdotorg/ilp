@@ -349,6 +349,7 @@ class SurveyClassGenderCorrectAnsAgg(models.Model):
         managed = False
         db_table = 'mvw_survey_class_gender_correctans_agg'
 
+
 class SurveyInstitutionQuestionAgg(models.Model):
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
@@ -416,3 +417,48 @@ class SurveyQuestionGroupAnsAgg(models.Model):
         db_table = 'mvw_survey_questiongroup_ans_agg'
 
 
+class SurveyInstitutionQuestionGroupAgg(models.Model):
+    """Survey Institution QuestionGroup Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+    num_children = models.IntegerField(db_column="num_children")
+    num_users = models.IntegerField(db_column="num_users")
+    last_assessment = models.DateField(db_column="last_assessment")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_questiongroup_agg'
+
+
+class SurveyBoundaryQuestionGroupAgg(models.Model):
+    """Survey Boundary QuestionGroup Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    year = models.IntegerField(db_column="year")
+    month = models.IntegerField(db_column="month")
+    num_schools = models.IntegerField(db_column="num_schools")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+    num_children = models.IntegerField(db_column="num_children")
+    num_users = models.IntegerField(db_column="num_users")
+    last_assessment = models.DateField(db_column="last_assessment")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_boundary_questiongroup_agg'
+
+
+class SurveyTagMappingAgg(models.Model):
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    academic_year_id = models.ForeignKey('common.AcademicYear', db_column="academic_year_id")
+    num_schools = models.IntegerField(db_column="num_schools")
+    num_children = models.IntegerField(db_column="num_children")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_tagmapping_agg'

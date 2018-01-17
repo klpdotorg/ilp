@@ -158,6 +158,9 @@ class SurveyInfoUserAPIView(ListAPIView, ILPStateMixin):
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
+        sources = self.request.query_params.getlist('sources', [])
+        if sources:
+            queryset = queryset.filter(source__in=sources)
         response = {}
         user_response = {}
         user_types = queryset.distinct('user_type')\
