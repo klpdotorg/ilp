@@ -216,3 +216,62 @@ class SurveyQuestionGroupDetailsAPIView(APIView):
                     {"text": row["question_desc"],
                      row["answer_option"]: row["num_answers"]}
         return Response(self.response)
+
+
+class SurveyTagAggAPIView(APIView):
+    response = {}
+
+    def get_boundary_data(self, boundary_id, survey_tag, year):
+        queryset = SurveyTagMappingAgg.objects.\
+            filter(boundary_id=boundary_id, survey_tag=survey_tag, \
+                    academic_year = year).values("num_schools",\
+                                                      "num_students")
+        if queryset:
+            self.response["num_schools"] = queryset["num_schools"]
+            self.response["num_students"] = queryset["num_stuents"]
+
+        return
+
+    def get_institutuion_data(self, institution_id, survey_tag, year):
+        queryset = SurveyTagClassMapping.objects.\
+                filter(survey_tag=survey_tag, academic_year=year).values("sg_name")
+        if queryset:
+            sg_list = queryset["sg_name"]
+
+        queryset = InstitutionClassYearStuCount.objects.\
+            filter(institution_id=institution_id, academic_year = year,
+                    studentgroup__in sg_list)
+        qs_agg = queryset.aggregate(Sum('num'))
+        if queryset:
+            self.response["num_schools"] = 1
+            self.response["num_students"] = qs.agg["num__sum"]
+
+        return
+
+
+    def get(self, request):
+        if not self.request.GET.get('survey_tag'):
+            raise ParseError("Mandatory parameter survey_tag not passed")
+        survey_tag = self.request.GET.get('survey_tag')
+        boundary_id = self.request.GET.get('boundary')
+        institution_id = self.request.GET.get('institution')
+
+        year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
+        try:
+            academic_year = AcademicYear.objects.get(char_id=year)
+        except AcademicYear.DoesNotExist:
+            raise APIException('Academic year is not valid.\
+                    It should be in the form of 1112.', 404)
+
+        state_id = BoundaryStateCode.objects.filter(
+            char_id=settings.ILP_STATE_ID).\
+            values("boundary_id")[0]["boundary_id"]
+
+        if boundary_id:
+            self.get_boundary_data(boundary_id, survey_tag, year)
+        elif institution_id:
+            self.get_institution_data(institution_id, survey_tag, year)
+        else:
+            self.get_boundary_data(state_id, survey_tag, year)
+
+        return Response(self.response)
