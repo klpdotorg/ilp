@@ -85,9 +85,9 @@
         //FIXME: clear all the things, do a loading state.
         var queryParams = params.queryParams;
         if (!queryParams.school_type) {
-            loadData(preschoolString, queryParams);
+            // loadData(preschoolString, queryParams);
             loadData(schoolString, queryParams);
-            $('#preschoolContainer').show();
+            // $('#preschoolContainer').show();
             $('#primarySchoolContainer').show();
         } else {
             queryParams.school_type = window.decodeURIComponent(queryParams.school_type);
@@ -251,14 +251,18 @@
             params['school_type'] = schoolType;
             var $metaXHR = klp.api.do(metaURL, params);
             $metaXHR.done(function(data) {
+                console.log(data)
                 stopSummaryLoading(schoolType);
                 data.searchEntity = entityDetails;
                 data.year_from = params.hasOwnProperty('from') ? getYear(params.from) : DEFAULT_START_YEAR;
                 data.year_to = params.hasOwnProperty('to') ? getYear(params.to) : DEFAULT_END_YEAR;
                 renderSummary(data, schoolType);
                 renderRespondentChart(data, schoolType);
+                console.log(data, schoolType)
             });
         });
+
+        return;
 
         var detailURL = "stories/details/";
         var $detailXHR = klp.api.do(detailURL, params);
