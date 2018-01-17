@@ -111,6 +111,11 @@ urlpatterns = [
     url(r'^text/sikshana/$',
         RedirectView.as_view(url='/partners/sikshana/reading/')),
 
+    # story dashboard
+    url(r'^stories/$', StaticPageView.as_view(
+        template_name='story_dashboard.html'
+    ), name='story_dashboard'),
+
     # Reports page
     url(r'^reports/$', StaticPageView.as_view(
         template_name='reports.html',
