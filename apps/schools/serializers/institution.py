@@ -17,6 +17,14 @@ from boundary.serializers import (
 
 from dise import dise_constants
 
+class LeanInstitutionSummarySerializer(ILPSerializer):
+    ''' returns just id, name, dise_code and geo-locations'''
+
+    class Meta:
+        model=Institution
+        fields =(
+            'id', 'dise_code', 'name'
+        )
 
 class InstitutionSummarySerializer(ILPSerializer):
     ''' This class returns just a summarized list of institution info
@@ -54,6 +62,7 @@ class InstitutionSummarySerializer(ILPSerializer):
         that exists. Else, it tries the KLP DB '''
         num_boys=0;
         if(obj.dise is not None):
+            print("Obj.dise is not none: ", obj.dise)
             num_boys = obj.dise.total_boys
         else:
             gender_count = self.get_gender_counts(obj)
@@ -271,12 +280,18 @@ class SchoolDemographicsSerializer(ILPSerializer):
 
     def get_num_boys_dise(self, obj):
         print("get_num_boys_dise obj is: ", obj.dise)
-        num_boys = obj.dise.total_boys
-        return num_boys
+        if obj.dise is not None:
+            num_boys = obj.dise.total_boys
+            return num_boys
+        else:
+            return None
     
     def get_num_girls_dise(self, obj):
-        num_girls = obj.dise.total_girls
-        return num_girls
+        if obj.dise is not None:
+            num_girls = obj.dise.total_girls
+            return num_girls
+        else:
+            return None
 
 class PreschoolInfraSerializer(ILPSerializer):
     

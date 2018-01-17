@@ -40,7 +40,7 @@ database:
 
 test:
   override:
-    - . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test schools boundary users assessments
+    - . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
     - . venv/bin/activate && coverage report
     - . venv/bin/activate && coverage html
     - mkdir -p /tmp/artifacts

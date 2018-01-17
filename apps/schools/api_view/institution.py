@@ -13,7 +13,7 @@ from schools.serializers import (
     InstitutionCategorySerializer, InstitutionManagementSerializer,
     SchoolDemographicsSerializer, SchoolInfraSerializer,
     SchoolFinanceSerializer, InstitutionSummarySerializer,
-    PreschoolInfraSerializer
+    PreschoolInfraSerializer, LeanInstitutionSummarySerializer
 )
 from schools.models import (
     Institution, InstitutionCategory, Management
@@ -35,6 +35,14 @@ class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
     serializer_class = InstitutionSummarySerializer
     bbox_filter_field = "coord"
 
+    # def get_serializer_class(self):
+    #     school_id =  self.kwargs.get('lean') if hasattr(self, 'kwargs') else None
+    #     if school_id:
+    #         institution = Institution.objects.get(pk=school_id)
+    #         if institution.institution_type.char_id == "pre":
+    #             return PreschoolInfraSerializer
+    #         else:
+    #             return SchoolInfraSerializer
     def get_queryset(self):
         state = self.get_state()
         qset = Institution.objects.filter(
