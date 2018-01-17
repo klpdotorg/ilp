@@ -32,9 +32,9 @@ class InstitutionStuGenderCount(models.Model):
 
 
 class InstitutionClassYearStuCount(models.Model):
-    institution = models.ForeignKey('Institution')
-    studentgroup = models.ForeignKey('StudentGroup')
-    academic_year = models.ForeignKey('common.AcademicYear')
+    institution = models.ForeignKey('Institution', db_column="institution_id")
+    studentgroup = models.ForeignKey('StudentGroup', db_column="studentgroup")
+    academic_year = models.ForeignKey('common.AcademicYear', db_column="academic_year")
     num = models.IntegerField(blank=True, null=True, db_column='num')
 
     class Meta:

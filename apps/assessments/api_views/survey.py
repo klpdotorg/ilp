@@ -12,12 +12,15 @@ from common.models import AcademicYear
 
 from boundary.models import BasicBoundaryAgg, BoundaryStateCode
 
+from schools.models import InstitutionClassYearStuCount
+
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association,
     SurveyInstitutionQuestionGroupAnsAgg,
     SurveyBoundaryQuestionGroupAgg, SurveyBoundaryQuestionGroupAnsAgg,
-    SurveyInstitutionQuestionGroupAgg
+    SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
+    SurveyTagClassMapping
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyTagFilter
@@ -222,32 +225,34 @@ class SurveyTagAggAPIView(APIView):
     response = {}
 
     def get_boundary_data(self, boundary_id, survey_tag, year):
+        print(boundary_id)
+        print(survey_tag+" "+year)
         queryset = SurveyTagMappingAgg.objects.\
-            filter(boundary_id=boundary_id, survey_tag=survey_tag, \
-                    academic_year = year).values("num_schools",\
-                                                      "num_students")
+            filter(boundary_id=boundary_id, survey_tag=survey_tag,
+                   academic_year_id=year).values("num_schools",
+                                                 "num_students")
         if queryset:
-            self.response["num_schools"] = queryset["num_schools"]
-            self.response["num_students"] = queryset["num_stuents"]
+            print(queryset)
+            self.response["num_schools"] = queryset[0]["num_schools"]
+            self.response["num_students"] = queryset[0]["num_students"]
 
         return
 
-    def get_institutuion_data(self, institution_id, survey_tag, year):
-        queryset = SurveyTagClassMapping.objects.\
-                filter(survey_tag=survey_tag, academic_year=year).values("sg_name")
-        if queryset:
-            sg_list = queryset["sg_name"]
+    def get_institution_data(self, institution_id, survey_tag, year):
+
+        sg_names = SurveyTagClassMapping.objects.\
+                filter(tag=survey_tag, academic_year=year).\
+                values_list("sg_name", flat=True).distinct()
 
         queryset = InstitutionClassYearStuCount.objects.\
-            filter(institution_id=institution_id, academic_year = year,
-                    studentgroup__in sg_list)
+            filter(institution_id=institution_id, academic_year=year,
+                   studentgroup__in=sg_names)
         qs_agg = queryset.aggregate(Sum('num'))
         if queryset:
             self.response["num_schools"] = 1
-            self.response["num_students"] = qs.agg["num__sum"]
+            self.response["num_students"] = qs_agg["num__sum"]
 
         return
-
 
     def get(self, request):
         if not self.request.GET.get('survey_tag'):
