@@ -103,6 +103,7 @@ psql -U klp -d $ilp -f assessments/insert_survey_tag_mapping.sql
 
 #Mapping institutions to survey tags
 psql -U klp -d $ilp -f assessments/insert_surveytag_institution_mapping.sql
+psql -U klp -d $ilp -f assessments/insert_surveytag_class_mapping.sql
 
 psql -U klp -d $ilp -f assessments/update_questionscores.sql
 
