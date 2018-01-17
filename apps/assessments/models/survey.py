@@ -69,6 +69,16 @@ class SurveyTagInstitutionMapping(models.Model):
         unique_together = (('tag', 'institution', 'academic_year'), )
 
 
+class SurveyTagClassMapping(models.Model):
+    """Mapping SurveyTag to list of classes"""
+    tag = models.ForeignKey('SurveyTag')
+    sg_name = models.CharField(max_length=20)
+    academic_year = models.ForeignKey('common.AcademicYear', null=True)
+
+    class Meta:
+        unique_together = (('tag', 'sg_name', 'academic_year'), )
+
+
 class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
     name = models.CharField(max_length=100)

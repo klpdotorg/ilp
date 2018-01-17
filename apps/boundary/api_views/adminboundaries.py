@@ -1,4 +1,6 @@
 from django.db.models import Q
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from boundary.serializers import (
     BoundarySerializer, BoundaryWithParentSerializer
@@ -10,6 +12,7 @@ from common.views import ILPListAPIView, ILPDetailAPIView
 from common.models import InstitutionType, Status
 from common.mixins import ILPStateMixin
 from common.filters import ILPInBBOXFilter
+from common.state_codes import STATES
 
 
 class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
@@ -184,3 +187,14 @@ class AdminDetails(ILPDetailAPIView):
 
     def get_queryset(self):
         return Boundary.objects.all_active()
+
+
+class StateList(APIView):
+    """
+        Returns a list of states and their names, logos etc
+        A web/mobile client can use this info to dynamically brand
+        itself for different states.
+    """
+
+    def get(self, request):
+        return Response(STATES)
