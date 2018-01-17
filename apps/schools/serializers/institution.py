@@ -17,6 +17,14 @@ from boundary.serializers import (
 
 from dise import dise_constants
 
+class LeanInstitutionSummarySerializer(ILPSerializer):
+    ''' returns just id, name, dise_code and geo-locations'''
+
+    class Meta:
+        model=Institution
+        fields =(
+            'id', 'dise_code', 'name'
+        )
 
 class InstitutionSummarySerializer(ILPSerializer):
     ''' This class returns just a summarized list of institution info
