@@ -1,6 +1,8 @@
 # States and values
 # state_code is used in JS for state param in AJAX requests
 
+
+# TODO: Get the state info from DB
 STATES = {
     'ilp': {
         'name': 'Karnataka',
