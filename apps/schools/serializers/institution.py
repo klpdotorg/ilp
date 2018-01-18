@@ -19,12 +19,20 @@ from dise import dise_constants
 
 class LeanInstitutionSummarySerializer(ILPSerializer):
     ''' returns just id, name, dise_code and geo-locations'''
-
+    dise_code = serializers.SerializerMethodField()
+    type = serializers.CharField(source='institution_type.char_id')
     class Meta:
         model=Institution
         fields =(
-            'id', 'dise_code', 'name'
+            'id', 'dise_code', 'name', 'type'
         )
+    
+    def get_dise_code(self, obj):
+        if obj.dise is not None:
+            return obj.dise.school_code
+        else:
+            return None
+
 
 class InstitutionSummarySerializer(ILPSerializer):
     ''' This class returns just a summarized list of institution info
@@ -33,7 +41,7 @@ class InstitutionSummarySerializer(ILPSerializer):
     admin2 = serializers.CharField(source='admin2.name')
     admin3 = serializers.CharField(source='admin3.name')
     type = InstitutionTypeSerializer(source='institution_type')
-    dise_code = serializers.CharField(source="dise.school_code")
+    dise_code = serializers.SerializerMethodField()
     num_boys = serializers.SerializerMethodField()
     num_girls = serializers.SerializerMethodField()
     library_yn = serializers.SerializerMethodField()
@@ -50,6 +58,12 @@ class InstitutionSummarySerializer(ILPSerializer):
             'playground', 'computer_aided_learnin_lab'
         )
 
+    def get_dise_code(self, obj):
+        if obj.dise is not None:
+            return obj.dise.school_code
+        else:
+            return None
+
     def get_gender_counts(self, obj):
         if obj.institutionstugendercount_set.filter(
                 academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
@@ -62,7 +76,6 @@ class InstitutionSummarySerializer(ILPSerializer):
         that exists. Else, it tries the KLP DB '''
         num_boys=0;
         if(obj.dise is not None):
-            print("Obj.dise is not none: ", obj.dise)
             num_boys = obj.dise.total_boys
         else:
             gender_count = self.get_gender_counts(obj)
@@ -120,7 +133,7 @@ class InstitutionSerializer(ILPSerializer):
     admin2 = serializers.CharField(source='admin2.name')
     admin3 = serializers.CharField(source='admin3.name')
     type = InstitutionTypeSerializer(source='institution_type')
-    dise_code = serializers.CharField(source="dise.school_code")
+    dise_code = serializers.SerializerMethodField()
     moi = serializers.SerializerMethodField()
     parliament = serializers.SerializerMethodField()
     assembly = serializers.SerializerMethodField()
@@ -140,6 +153,12 @@ class InstitutionSerializer(ILPSerializer):
             'parliament', 'assembly', 'ward', 'type', 'num_boys', 'num_girls',
             'last_verified_year', 'institution_languages'
         )
+
+    def get_dise_code(self, obj):
+        if obj.dise is not None:
+            return obj.dise.school_code
+        else:
+            return None
 
     def get_moi(self, obj):
         lang = obj.institution_languages.first()
