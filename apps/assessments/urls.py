@@ -13,7 +13,8 @@ from assessments.api_views import(
     AnswersStudentViewSet, SharedAssessmentsView, SurveyVolumeAPIView,
     SurveyClassQuestionKeyAPIView, SurveyQuestionGroupQuestionKeyAPIView,
     QuestionGroupSchoolViewSet, SurveyQuestionGroupDetailsAPIView,
-    SurveyInstitutionAnsAggView, SurveyInstitutionDetailAPIView
+    SurveyInstitutionAnsAggView, SurveyInstitutionDetailAPIView,
+    SurveyTagAggAPIView,
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -160,5 +161,7 @@ urlpatterns = [
     url(r'surveys/shared-assessments', SharedAssessmentsView.as_view(),
         name='survey-shared-assessments'),
     url(r'surveys/questiongroupdetails/$', SurveyQuestionGroupDetailsAPIView.as_view(),
+        name='survey-questiongroup-details'),
+    url(r'surveys/tagmappingsummary/$', SurveyTagAggAPIView.as_view(),
         name='survey-questiongroup-details'),
 ] + simple_router.urls + nested_router.urls

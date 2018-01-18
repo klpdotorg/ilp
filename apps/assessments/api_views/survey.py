@@ -12,12 +12,15 @@ from common.models import AcademicYear
 
 from boundary.models import BasicBoundaryAgg, BoundaryStateCode
 
+from schools.models import InstitutionClassYearStuCount
+
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association,
     SurveyInstitutionQuestionGroupAnsAgg,
     SurveyBoundaryQuestionGroupAgg, SurveyBoundaryQuestionGroupAnsAgg,
-    SurveyInstitutionQuestionGroupAgg
+    SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
+    SurveyTagClassMapping
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyTagFilter
@@ -215,4 +218,65 @@ class SurveyQuestionGroupDetailsAPIView(APIView):
                 self.response["questions"][row["question_desc"]] = \
                     {"text": row["question_desc"],
                      row["answer_option"]: row["num_answers"]}
+        return Response(self.response)
+
+
+class SurveyTagAggAPIView(APIView):
+    response = {}
+
+    def get_boundary_data(self, boundary_id, survey_tag, year):
+        print(boundary_id)
+        print(survey_tag+" "+year)
+        queryset = SurveyTagMappingAgg.objects.\
+            filter(boundary_id=boundary_id, survey_tag=survey_tag,
+                   academic_year_id=year).values("num_schools",
+                                                 "num_students")
+        if queryset:
+            print(queryset)
+            self.response["num_schools"] = queryset[0]["num_schools"]
+            self.response["num_students"] = queryset[0]["num_students"]
+
+        return
+
+    def get_institution_data(self, institution_id, survey_tag, year):
+
+        sg_names = SurveyTagClassMapping.objects.\
+                filter(tag=survey_tag, academic_year=year).\
+                values_list("sg_name", flat=True).distinct()
+
+        queryset = InstitutionClassYearStuCount.objects.\
+            filter(institution_id=institution_id, academic_year=year,
+                   studentgroup__in=sg_names)
+        qs_agg = queryset.aggregate(Sum('num'))
+        if queryset:
+            self.response["num_schools"] = 1
+            self.response["num_students"] = qs_agg["num__sum"]
+
+        return
+
+    def get(self, request):
+        if not self.request.GET.get('survey_tag'):
+            raise ParseError("Mandatory parameter survey_tag not passed")
+        survey_tag = self.request.GET.get('survey_tag')
+        boundary_id = self.request.GET.get('boundary')
+        institution_id = self.request.GET.get('institution')
+
+        year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
+        try:
+            academic_year = AcademicYear.objects.get(char_id=year)
+        except AcademicYear.DoesNotExist:
+            raise APIException('Academic year is not valid.\
+                    It should be in the form of 1112.', 404)
+
+        state_id = BoundaryStateCode.objects.filter(
+            char_id=settings.ILP_STATE_ID).\
+            values("boundary_id")[0]["boundary_id"]
+
+        if boundary_id:
+            self.get_boundary_data(boundary_id, survey_tag, year)
+        elif institution_id:
+            self.get_institution_data(institution_id, survey_tag, year)
+        else:
+            self.get_boundary_data(state_id, survey_tag, year)
+
         return Response(self.response)

@@ -3776,7 +3776,8 @@ FROM
     schools_student stu,
     schools_studentstudentgrouprelation stusg,
     schools_studentgroup sg,
-    boundary_boundary b
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
 WHERE
     instmap.institution_id = s.id
     and s.id = sg.institution_id
@@ -3784,7 +3785,9 @@ WHERE
     and stusg.academic_year_id = instmap.academic_year_id
     and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     and instmap.tag_id = 'gka'
-    and sg.name in ('4','5')
+    and instmap.tag_id = sgmap.tag_id
+    and instmap.academic_year_id = sgmap.academic_year_id
+    and sg.name = sgmap.sg_name
     and stusg.status_id !='DL' and stusg.student_id=stu.id 
     and stu.status_id !='DL'
 GROUP BY
