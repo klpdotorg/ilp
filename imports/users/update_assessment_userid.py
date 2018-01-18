@@ -21,13 +21,13 @@ tables = [
             'name': 'assessments_answergroup_institution',
             'getquery': "\COPY (select id, user_id from stories_story where user_id is not null) TO 'replacefilename' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
             'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, user_id integer); \COPY temp_replacetablename(id, user_id) FROM 'replacefilename' with csv NULL 'null';",
-            'updatequery': "UPDATE replacetablename set created_by_id=temp.user_id from  temp_replacetablename temp where replacetablename.id=temp.id;"
+            'updatequery': "UPDATE replacetablename set created_by_id=temp.user_id from  temp_replacetablename temp, users_user users where replacetablename.id=temp.id and temp.user_id = users.id;"
         },
         {
             'name': 'assessments_answergroup_student',
             'getquery': "\COPY (select id, user_id from stories_story where user_id is not null) TO 'replacefilename' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
             'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, user_id integer); \COPY temp_replacetablename(id, user_id) FROM 'replacefilename' with csv NULL 'null';",
-            'updatequery': "UPDATE replacetablename set created_by_id=temp.user_id from  temp_replacetablename temp where replacetablename.id=temp.id;"
+            'updatequery': "UPDATE replacetablename set created_by_id=temp.user_id from  temp_replacetablename temp, users_user users where replacetablename.id=temp.id and temp.user_id = users.id;"
         }
 ]
 
