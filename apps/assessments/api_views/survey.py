@@ -1,7 +1,9 @@
 import json
+import datetime
 
 from django.conf import settings
 from django.db.models import Sum
+from django.contrib.gis.geos import Point
 
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
@@ -14,17 +16,18 @@ from common.views import ILPViewSet
 from common.models import AcademicYear
 
 from boundary.models import BasicBoundaryAgg, BoundaryStateCode
-
 from schools.models import InstitutionClassYearStuCount
-
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association,
     SurveyInstitutionQuestionGroupAnsAgg,
     SurveyBoundaryQuestionGroupAgg, SurveyBoundaryQuestionGroupAnsAgg,
     SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
-    SurveyTagClassMapping, InstitutionImages
+    SurveyTagClassMapping, InstitutionImages,
+    RespondentType, AnswerGroup_Institution, AnswerInstitution,
+    Question
 )
+from users.choices import USER_TYPE_CHOICES
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyTagFilter
 
@@ -303,75 +306,77 @@ class AssessmentSyncView(APIView):
             stories = json.loads(request.body.decode('utf-8'))
             print(stories)
         except ValueError as e:
-            print(e)
             response['error'] = 'Invalid JSON data'
 
-        # if response['error'] is None:
-        #     for story in stories.get('stories', []):
-        #         timestamp = int(story.get('created_at')) / 1000
-        #         sysid = None
+        if response['error'] is None:
+            for story in stories.get('stories', []):
+                timestamp = int(story.get('created_at')) / 1000
+                sysid = None
 
-        #         try:
-        #             sysid = int(story.get('sysid'))
-        #         except ValueError:
-        #             sysid = None
+                try:
+                    sysid = int(story.get('sysid'))
+                except ValueError:
+                    sysid = None
 
-        #         try:
-        #             if story.get('respondent_type') not in dict(UserType.USER_TYPE_CHOICES).keys():
-        #                 raise Exception("Invalid respondent type")
-        #             user_type = UserType.objects.get(name__iexact=story.get('respondent_type'))
-        #             new_story, created = Story.objects.get_or_create(
-        #                 user=request.user,
-        #                 school_id=story.get('school_id'),
-        #                 group_id=story.get('group_id'),
-        #                 user_type=user_type,
-        #                 date_of_visit=datetime.datetime.fromtimestamp(timestamp)
-        #             )
+                try:
+                    if story.get('respondent_type') not in dict(
+                            USER_TYPE_CHOICES).keys():
+                        raise Exception("Invalid respondent type")
+                    respondent_type = RespondentType.objects.get(
+                        name__iexact=story.get('respondent_type')
+                    )
+                    new_story, created = AnswerGroup_Institution.objects.get_or_create(
+                        created_by=request.user,
+                        institution_id=story.get('school_id'),
+                        questiongroup_id=story.get('group_id'),
+                        respondent_type=respondent_type,
+                        date_of_visit=datetime.datetime.fromtimestamp(
+                            timestamp
+                        )
+                    )
 
-        #             if created:
-        #                 new_story.sysid = sysid
-        #                 new_story.is_verified = True
-        #                 new_story.telephone = request.user.mobile_no
-        #                 new_story.name = request.user.get_full_name()
-        #                 new_story.email = request.user.email
-        #                 new_story.save()
+                    if created:
+                        new_story.sysid = sysid
+                        new_story.is_verified = True
+                        new_story.mobile = request.user.mobile_no
+                        new_story.save()
 
-        #             # Save location info
-        #             if story.get('lat', None) is not None and \
-        #                     story.get('lng', None) is not None:
-        #                 new_story.location = Point(
-        #                     story.get('lat'), story.get('lng'))
-        #                 new_story.save()
+                    # Save location info
+                    if story.get('lat', None) is not None and \
+                            story.get('lng', None) is not None:
+                        new_story.location = Point(
+                            story.get('lat'), story.get('lng'))
+                        new_story.save()
 
-        #             # Save the answers
-        #             for answer in story.get('answers', []):
-        #                 new_answer, created = Answer.objects.get_or_create(
-        #                     text=answer.get('text'),
-        #                     story=new_story,
-        #                     question=Question.objects.get(
-        #                         pk=answer.get('question_id')
-        #                     )
-        #                 )
+                    # Save the answers
+                    for answer in story.get('answers', []):
+                        new_answer, created = AnswerInstitution.objects.get_or_create(
+                            answer=answer.get('text'),
+                            answergroup=new_story,
+                            question=Question.objects.get(
+                                pk=answer.get('question_id')
+                            )
+                        )
 
-        #             # Save the image
-        #             image = story.get('image', None)
-        #             if image:
-        #                 image_type, data = image.split(',')
-        #                 image_data = b64decode(data)
-        #                 file_name = '{}_{}.png'.format(
-        #                     new_story.school.id, random.randint(0, 9999))
+                    # Save the image
+                    image = story.get('image', None)
+                    if image:
+                        image_type, data = image.split(',')
+                        image_data = b64decode(data)
+                        file_name = '{}_{}.png'.format(
+                            new_story.school.id, random.randint(0, 9999))
 
-        #                 saved_image = StoryImage(
-        #                     story=new_story,
-        #                     filename=file_name,
-        #                     image=ContentFile(image_data, file_name)
-        #                 )
-        #                 saved_image.save()
+                        saved_image = StoryImage(
+                            story=new_story,
+                            filename=file_name,
+                            image=ContentFile(image_data, file_name)
+                        )
+                        saved_image.save()
 
-        #             response['success'][story.get('_id')] = new_story.id
-        #         except Exception as e:
-        #             print "Error saving stories and answers:", e
-        #             response['failed'].append(story.get('_id'))
+                    response['success'][story.get('_id')] = new_story.id
+                except Exception as e:
+                    print("Error saving stories and answers:", e)
+                    response['failed'].append(story.get('_id'))
         return Response(response)
 
 
