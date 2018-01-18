@@ -26,7 +26,8 @@ tables = [
     {
         'name': 'ivrs_state',
         'getquery': "\COPY (select id, session_id, school_id, answers, date_of_visit, telephone, is_processed, is_invalid, qg_type_id, raw_data, comments, user_id from ivrs_state) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, session_id, school_id, answers, date_of_visit, telephone, is_processed, is_invalid, qg_type_id, raw_data, comments, user_id) FROM 'replacefilename' with csv NULL 'null';"
+        'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, session_id text, school_id integer, answers character varying[], date_of_visit timestamp, telephone text, is_processed boolean, is_invalid boolean, qg_type_id integer, raw_data text, comments text, user_id integer); \COPY temp_replacetablename(id, session_id, school_id, answers, date_of_visit, telephone, is_processed, is_invalid, qg_type_id, raw_data, comments, user_id) FROM 'replacefilename' with csv NULL 'null';",
+        'insertquery': "INSERT INTO replacetablename(id, session_id, school_id, answers, date_of_visit, telephone, is_processed, is_invalid, qg_type_id, raw_data, comments, user_id) select temp.id, temp.session_id, temp.school_id, temp.answers, temp.date_of_visit, temp.telephone, temp.is_processed, temp.is_invalid, temp.qg_type_id, temp.raw_data, temp.comments, temp.user_id FROM temp_replacetablename temp, users_user users where temp.user_id = users.id;"
     },
     {
         'name': 'ivrs_incomingnumber',

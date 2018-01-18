@@ -18,7 +18,11 @@ from common.mixins import ILPStateMixin
 from common.views import ILPViewSet
 from common.models import AcademicYear, Status
 
-from boundary.models import BasicBoundaryAgg, BoundaryStateCode
+from boundary.models import (
+        BasicBoundaryAgg, BoundaryStateCode,
+        BoundarySchoolCategoryAgg
+)
+
 from schools.models import InstitutionClassYearStuCount
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
@@ -234,32 +238,45 @@ class SurveyTagAggAPIView(APIView):
     response = {}
 
     def get_boundary_data(self, boundary_id, survey_tag, year):
-        print(boundary_id)
-        print(survey_tag+" "+year)
+        self.response = {"total_schools": 0,
+                         "num_schools": 0,
+                         "num_students": 0}
+
+        queryset = BoundarySchoolCategoryAgg.objects.\
+            filter(boundary_id=boundary_id, cat_ac_year=year,
+                   institution_type='primary')
+
+        if queryset:
+            qs_agg = queryset.aggregate(Sum('num_schools'))
+            self.response["total_schools"] = qs_agg["num_schools__sum"]
+
         queryset = SurveyTagMappingAgg.objects.\
             filter(boundary_id=boundary_id, survey_tag=survey_tag,
                    academic_year_id=year).values("num_schools",
                                                  "num_students")
         if queryset:
-            print(queryset)
             self.response["num_schools"] = queryset[0]["num_schools"]
             self.response["num_students"] = queryset[0]["num_students"]
 
         return
 
     def get_institution_data(self, institution_id, survey_tag, year):
+        self.response = {"total_schools": 1,
+                         "num_schools": 1,
+                         "num_students": 0}
 
         sg_names = SurveyTagClassMapping.objects.\
-                filter(tag=survey_tag, academic_year=year).\
-                values_list("sg_name", flat=True).distinct()
+            filter(tag=survey_tag, academic_year=year).\
+            values_list("sg_name", flat=True).distinct()
 
         queryset = InstitutionClassYearStuCount.objects.\
             filter(institution_id=institution_id, academic_year=year,
                    studentgroup__in=sg_names)
-        qs_agg = queryset.aggregate(Sum('num'))
         if queryset:
-            self.response["num_schools"] = 1
+            qs_agg = queryset.aggregate(Sum('num'))
             self.response["num_students"] = qs_agg["num__sum"]
+        else:
+            self.response["num_students"] = 0
 
         return
 
