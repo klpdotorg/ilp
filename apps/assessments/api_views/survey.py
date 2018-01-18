@@ -1,3 +1,5 @@
+import json
+
 from django.conf import settings
 from django.db.models import Sum
 
@@ -297,12 +299,12 @@ class AssessmentSyncView(APIView):
             'failed': [],
             'error': None
         }
-        # try:
-        #     stories = json.loads(request.body)
-        #     print(stories)
-        # except ValueError as e:
-        #     print(e)
-        #     response['error'] = 'Invalid JSON data'
+        try:
+            stories = json.loads(request.body.decode('utf-8'))
+            print(stories)
+        except ValueError as e:
+            print(e)
+            response['error'] = 'Invalid JSON data'
 
         # if response['error'] is None:
         #     for story in stories.get('stories', []):
