@@ -1,9 +1,12 @@
 import json
 import datetime
+import random
+from base64 import b64decode
 
 from django.conf import settings
 from django.db.models import Sum
 from django.contrib.gis.geos import Point
+from django.core.files.base import ContentFile
 
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
@@ -13,7 +16,7 @@ from rest_framework import authentication, permissions
 
 from common.mixins import ILPStateMixin
 from common.views import ILPViewSet
-from common.models import AcademicYear
+from common.models import AcademicYear, Status
 
 from boundary.models import BasicBoundaryAgg, BoundaryStateCode
 from schools.models import InstitutionClassYearStuCount
@@ -319,12 +322,14 @@ class AssessmentSyncView(APIView):
                     sysid = None
 
                 try:
-                    if story.get('respondent_type') not in dict(
-                            USER_TYPE_CHOICES).keys():
+
+                    try:
+                        respondent_type = RespondentType.objects.get(
+                            name__iexact=story.get('respondent_type')
+                        )
+                    except RespondentType.DoesNotExist:
                         raise Exception("Invalid respondent type")
-                    respondent_type = RespondentType.objects.get(
-                        name__iexact=story.get('respondent_type')
-                    )
+
                     new_story, created = AnswerGroup_Institution.objects.get_or_create(
                         created_by=request.user,
                         institution_id=story.get('school_id'),
@@ -332,7 +337,9 @@ class AssessmentSyncView(APIView):
                         respondent_type=respondent_type,
                         date_of_visit=datetime.datetime.fromtimestamp(
                             timestamp
-                        )
+                        ),
+                        # TODO: Check with Shivangi if the below is okay.
+                        status=Status.objects.get(char_id='AC')
                     )
 
                     if created:
@@ -363,15 +370,17 @@ class AssessmentSyncView(APIView):
                     if image:
                         image_type, data = image.split(',')
                         image_data = b64decode(data)
-                        file_name = '{}_{}.png'.format(
-                            new_story.school.id, random.randint(0, 9999))
+                        file_name = '{}_{}_{}.png'.format(
+                            new_story.created_by.id,
+                            new_story.institution.id,
+                            random.randint(0, 9999)
+                        )
 
-                        saved_image = StoryImage(
-                            story=new_story,
+                        InstitutionImages.objects.create(
+                            answergroup=new_story,
                             filename=file_name,
                             image=ContentFile(image_data, file_name)
                         )
-                        saved_image.save()
 
                     response['success'][story.get('_id')] = new_story.id
                 except Exception as e:
