@@ -397,7 +397,7 @@
 
             if (enabledLayers.hasLayer(preschoolCluster)) {
                 t.startLoading();
-                preschoolXHR = klp.api.do('institutions/list', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                preschoolXHR = klp.api.do('institutions/list', {'lean': 'true', 'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 preschoolXHR.done(function (data) {
                     t.stopLoading();
                     preschoolCluster.clearLayers();
@@ -412,7 +412,7 @@
 
             if (enabledLayers.hasLayer(schoolCluster)) {
                 t.startLoading();
-                schoolXHR = klp.api.do('institutions/list', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                schoolXHR = klp.api.do('institutions/list', {'lean': 'true', 'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 schoolXHR.done(function (data) {
                     t.stopLoading();
                     schoolCluster.clearLayers();
@@ -587,7 +587,7 @@
 
         function markerPopup(marker, feature) {
             var duplicateMarker;
-            if (feature.properties.type.id === "primary") {
+            if (feature.properties.type === "primary") {
                 duplicateMarker = L.marker(marker._latlng, {icon: mapIcon('school')});
             } else {
                 duplicateMarker = L.marker(marker._latlng, {icon: mapIcon('preschool')});
