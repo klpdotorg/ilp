@@ -102,6 +102,9 @@ class InstitutionImages(models.Model):
     is_verified = models.BooleanField(default=False)
     filename = models.CharField(max_length=300)
 
+    def __unicode__(self):
+        return "{}: {}".format(self.story.name, self.image)
+
 
 class RespondentType(models.Model):
     char_id = models.CharField(max_length=20, primary_key=True)

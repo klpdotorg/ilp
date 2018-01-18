@@ -20,7 +20,7 @@ from assessments.models import (
     SurveyInstitutionQuestionGroupAnsAgg,
     SurveyBoundaryQuestionGroupAgg, SurveyBoundaryQuestionGroupAnsAgg,
     SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
-    SurveyTagClassMapping
+    SurveyTagClassMapping, InstitutionImages
 )
 from assessments.serializers import SurveySerializer
 from assessments.filters import SurveyTagFilter
@@ -280,3 +280,31 @@ class SurveyTagAggAPIView(APIView):
             self.get_boundary_data(state_id, survey_tag, year)
 
         return Response(self.response)
+
+
+class AssessmentsImagesView(APIView):
+    """
+        Returns all images synced for a school
+    """
+
+    def get(self, request):
+        school_id = request.GET.get('school_id', 0)
+        from_date = request.GET.get('from', '')
+        to_date = request.GET.get('to', '')
+
+        images = InstitutionImages.objects.filter(
+            answergroup__institution__id=school_id
+        )
+        if from_date and to_date:
+            try:
+                images = images.filter(
+                    answergroup__date_of_visit__range=[from_date, to_date])
+            except Exception as e:
+                print(e)
+
+        images = [
+            {'url': '/media/' + str(i.image),
+                'date': i.answergroup.date_of_visit,
+                'school_id': school_id} for i in images
+        ]
+        return Response({'images': images})
