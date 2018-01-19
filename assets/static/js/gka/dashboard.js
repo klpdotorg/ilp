@@ -7,8 +7,6 @@ var topSummaryData = {};
 
 (function() {
     var premodalQueryParams = {};
-    var surveyId = 1;
-    var questionGroupId = 7;
 
     klp.init = function() {
         klp.accordion.init();
@@ -256,7 +254,9 @@ var topSummaryData = {};
     function loadSmsData(params) {
         startDetailLoading();
 
+        // For SMS, source=sms is needed
         delete params.survey_tag;
+        params.source = 'sms';
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
@@ -293,6 +293,9 @@ var topSummaryData = {};
 
     function loadSurveys(params) {
         startDetailLoading();
+
+        delete params.survey_tag;
+        params.survey_id = 7;
 
         // Load the source for csv summary
         var $sourceXHR = klp.api.do("survey/info/source/", params);
@@ -478,9 +481,9 @@ var topSummaryData = {};
                 // Load the rest of sections
                 loadSmsData(params);
                 loadAssmtData(params);
-                // loadGPContestData(params);
+                loadGPContestData(params);
                 loadSurveys(params);
-                // loadComparison(params);
+                loadComparison(params);
             });
         });
     }
@@ -637,6 +640,9 @@ var topSummaryData = {};
     }
 
     function loadAssmtData(params) {
+
+        delete params.survey_tag;
+        params.survey_id = 3;
         
         // Load summary first
         // TODO: Check if we need to pass the survey_tag=ekstep
@@ -788,6 +794,9 @@ var topSummaryData = {};
     }
 
     function loadGPContestData(params){
+        delete params.survey_tag;
+        params.survey_id = 2;
+
         var metaURL = "survey/info/class/gender/";
         var $metaXHR = klp.api.do(metaURL, params);
         $metaXHR.done(function(data) {
