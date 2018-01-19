@@ -465,26 +465,38 @@ var topSummaryData = {};
     function loadTopSummary(params) {
 
         // Load the summary first
-        var $summaryXHR = klp.api.do("survey/summary/", params);
+        var $summaryXHR = klp.api.do("surveys/tagmappingsummary/", params);
         startSummaryLoading();
         $summaryXHR.done(function(data) {
             var topSummary = data.summary;
 
+            console.log(topSummary);
+
+            renderTopSummary(topSummary);
+
+            // Load the rest of sections
+            loadSmsData(params);
+            loadAssmtData(params);
+            loadGPContestData(params);
+            loadSurveys(params);
+            loadComparison(params);
+
             // Load the users Education volunteers count
-            var $usersXHR = klp.api.do("survey/info/users", params);
-            $usersXHR.done(function(data) {
-                topSummary.education_volunteers = (data.users && data.users.EV) ? data.users.EV: 0; 
+            // var $usersXHR = klp.api.do("survey/info/users", params);
+            // $usersXHR.done(function(data) {
+            //     topSummary.education_volunteers = (data.users && data.users.EV) ? data.users.EV: 0; 
 
-                klp.GKA.topSummaryData = topSummary;
-                renderTopSummary(topSummary);
+            //     klp.GKA.topSummaryData = topSummary;
 
-                // Load the rest of sections
-                loadSmsData(params);
-                loadAssmtData(params);
-                loadGPContestData(params);
-                loadSurveys(params);
-                loadComparison(params);
-            });
+            //     renderTopSummary(topSummary);
+
+            //     // Load the rest of sections
+            //     loadSmsData(params);
+            //     loadAssmtData(params);
+            //     loadGPContestData(params);
+            //     loadSurveys(params);
+            //     loadComparison(params);
+            // });
         });
     }
 
