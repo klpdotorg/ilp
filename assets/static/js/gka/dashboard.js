@@ -468,9 +468,13 @@ var topSummaryData = {};
         var $summaryXHR = klp.api.do("surveys/tagmappingsummary/", params);
         startSummaryLoading();
         $summaryXHR.done(function(data) {
-            var topSummary = data.summary;
-
-            console.log(topSummary);
+            var topSummary = {
+                education_volunteers: 0,
+                total_school: data.total_schools,
+                children_impacted: num_students,
+                schools_impacted: num_schools
+            };
+            klp.GKA.topSummaryData = topSummary;
 
             renderTopSummary(topSummary);
 
