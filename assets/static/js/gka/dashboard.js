@@ -23,8 +23,8 @@ var topSummaryData = {};
         // All GKA related data are stored in GKA
         klp.GKA = {};
 
-        $('#startDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2017']});
-        $('#endDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2017']});
+        $('#startDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2018']});
+        $('#endDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2018']});
 
         //this is a bit of a hack to save query state when
         //triggering a modal, since modals over-ride the url
