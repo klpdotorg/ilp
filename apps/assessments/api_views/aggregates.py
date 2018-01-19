@@ -224,12 +224,12 @@ class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
 
     def list(self, request, *args, **kwargs):
-        source_id = self.request.query_params.get('source', None)
+        source_name = self.request.query_params.get('source', None)
         queryset = self.filter_queryset(self.get_queryset())
 
         source_ids = Source.objects.all()
-        if source_id:
-            source_ids = Source.objects.filter(id=source_id)
+        if source_name:
+            source_ids = Source.objects.filter(name=source_name)
         source_ids = source_ids.values_list('id', flat=True)
 
         response = {}
