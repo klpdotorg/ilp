@@ -42,7 +42,16 @@ class QuestionGroupSerializer(ILPSerializer):
         )
 
 
+class OptionField(serializers.Field):
+    "Custom optionfield: {Yes,No} -> [Yes, No]"
+
+    def to_representation(self, obj):
+        return obj.lstrip('{').rstrip('}').split(',')
+
+
 class QuestionSerializer(ILPSerializer):
+    options = OptionField()
+
     class Meta:
         model = Question
         fields = (
