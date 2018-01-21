@@ -51,6 +51,7 @@ class OptionField(serializers.Field):
 
 class QuestionSerializer(ILPSerializer):
     options = OptionField()
+    question_type = serializers.CharField(source='question_type.display.char_id')
 
     class Meta:
         model = Question
