@@ -5,9 +5,18 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    is_email_verified = serializers.BooleanField(read_only=True)
+    is_mobile_verified = serializers.BooleanField(read_only=True)
+
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = (
+            'password',
+            'email_verification_code',
+            'is_superuser',
+            'is_active',
+            'sms_verification_pin',
+        )
         read_only_fields = (User.USERNAME_FIELD,)
 
 

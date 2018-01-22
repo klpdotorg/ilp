@@ -43,8 +43,6 @@ class UserLoginView(generics.GenericAPIView):
         serializer = UserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = UserSerializer(serializer.user).data
-        # TODO: move this to serializer perhaps
-        del data['password']
         data['token'] = login_user(self.request, serializer.user).key
         return Response(data, status=status.HTTP_200_OK)
 
