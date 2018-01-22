@@ -1,10 +1,11 @@
 from django.db.models import Sum
+from django.conf import settings
 
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
 from common.mixins import ILPStateMixin
-from boundary.models import BoundaryType
+from boundary.models import BoundaryType, BoundaryStateCode
 from assessments.models import (
     Survey, SurveySummaryAgg, SurveyDetailsAgg,
     Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
@@ -22,15 +23,39 @@ from assessments.serializers import SurveySerializer
 
 
 class SurveySummaryAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveySummaryAgg.objects.all()
     filter_backends = [SurveyFilter, ]
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+    def get_queryset(self):
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionAgg.objects.filter(
+                institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryAgg.objects.filter(boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryAgg.objects.filter(boundary_id=state_id)
+
+    def get_summary_response(self, queryset):
+        institution_id = self.request.query_params.get('institution_id', None)
+        if institution_id:
+            qs_agg = queryset.aggregate(
+                Sum('num_children'), Sum('num_assessments'))
+            institution_summary_response = {
+                "summary": {
+                    "total_school": 1,
+                    "schools_impacted": 1,
+                    "children_impacted": qs_agg['num_children__sum'],
+                    "total_assessments": qs_agg['num_assessments__sum'],
+                }
+            }
+            return institution_summary_response
+
         qs_agg = queryset.aggregate(
             Sum('num_schools'), Sum('num_children'), Sum('num_assessments'))
-
-        response = {
+        boundary_summary_response = {
             "summary": {
                 "total_school": qs_agg['num_schools__sum'],
                 "schools_impacted": qs_agg['num_schools__sum'],
@@ -38,6 +63,15 @@ class SurveySummaryAPIView(ListAPIView, ILPStateMixin):
                 "total_assessments": qs_agg['num_assessments__sum'],
             }
         }
+        return boundary_summary_response
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        response = {}
+        summary_response = self.get_summary_response(queryset)
+        response.update(**summary_response)
+
         res_surveys = []
         for sid in queryset.distinct('survey_id').values_list(
                 'survey_id', flat=True
