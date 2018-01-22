@@ -90,8 +90,20 @@ class SurveySummaryAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyVolumeAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveySummaryAgg.objects.all()
     filter_backends = [SurveyFilter, ]
+
+    def get_queryset(self):
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionAgg.objects.filter(
+                institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryAgg.objects.filter(boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryAgg.objects.filter(boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -105,7 +117,7 @@ class SurveyVolumeAPIView(ListAPIView, ILPStateMixin):
         volume_res = {}
         for year in years:
             year_res = {}
-            y_agg = self.queryset.filter(year=year)
+            y_agg = queryset.filter(year=year)
             for month in months:
                 year_res[months[month]] = \
                     y_agg.filter(month=month).count()
