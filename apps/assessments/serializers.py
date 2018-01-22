@@ -9,7 +9,7 @@ from assessments.models import (
     AnswerInstitution, SurveyOnType,
     AnswerGroup_StudentGroup, AnswerGroup_Student,
     QuestionGroup_Institution_Association,
-    AnswerStudent
+    AnswerStudent, RespondentType
 )
 
 
@@ -173,3 +173,9 @@ class StudentAnswerSerializer(ILPSerializer, CompensationLogMixin):
         validated_data['answergroup_id'] = answergroup.id
         return AnswerStudent.objects.create(**validated_data)
 #       return instance
+
+
+class RespondentTypeSerializer(ILPSerializer):
+    class Meta:
+        model = RespondentType
+        fields = '__all__'
