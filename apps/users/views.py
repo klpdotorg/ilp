@@ -42,18 +42,11 @@ class UserLoginView(generics.GenericAPIView):
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        token = login_user(self.request, serializer.user)
-        return Response(
-            data={
-                'token': token.key,
-                'id': serializer.user.pk,
-                'email': serializer.user.email,
-                'firstName': serializer.user.first_name,
-                'lastName': serializer.user.last_name
-            },
-            status=status.HTTP_200_OK,
-        )
-        return Response({'success': 'your token will be sent to you soon!'})
+        data = UserSerializer(serializer.user).data
+        # TODO: move this to serializer perhaps
+        del data['password']
+        data['token'] = login_user(self.request, serializer.user).key
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
@@ -195,15 +188,6 @@ class KonnectUserUpdateWithMobile(APIView):
             return Response({
                 'error': 'invalid source'
             }, status=status.HTTP_400_BAD_REQUEST)
-
-        if email:
-            if User.objects.filter(
-                    email=email).exclude(mobile_no=mobile_no).count() != 0:
-                return Response({
-                    'error': 'email is already registered.'
-                }, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            email = '%s.konnectdummy@klp.org.in' % mobile_no
 
         try:
             user = User.objects.get(mobile_no=mobile_no)
