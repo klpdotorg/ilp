@@ -21,7 +21,7 @@ class AnswerGroup_Institution(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("RespondentType", null=True)
+    respondent_type = models.ForeignKey("common.RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
@@ -49,7 +49,7 @@ class AnswerGroup_StudentGroup(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("RespondentType", null=True)
+    respondent_type = models.ForeignKey("common.RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
@@ -76,7 +76,7 @@ class AnswerGroup_Student(models.Model):
     group_value = models.CharField(max_length=100, null=True, blank=True)
     created_by = models.ForeignKey(User, null=True, blank=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("RespondentType", null=True)
+    respondent_type = models.ForeignKey("common.RespondentType", null=True)
     comments = models.CharField(max_length=2000, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
@@ -101,11 +101,6 @@ class InstitutionImages(models.Model):
     image = models.CharField(max_length=100)
     is_verified = models.BooleanField(default=False)
     filename = models.CharField(max_length=300)
-
-
-class RespondentType(models.Model):
-    char_id = models.CharField(max_length=20, primary_key=True)
-    name = models.CharField(max_length=100)
 
 
 class EasyAuditCRUDEvent(models.Model):

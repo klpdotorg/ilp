@@ -127,3 +127,8 @@ class StudentCategory(models.Model):
 
     def __unicode__(self):
         return "%s" % self.name
+
+
+class RespondentType(models.Model):
+    char_id = models.CharField(max_length=20, primary_key=True)
+    name = models.CharField(max_length=100)
