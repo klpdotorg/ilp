@@ -19,6 +19,7 @@ from assessments.models import (
     SurveyQuestionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
     SurveyQuestionKeyCorrectAnsAgg, SurveyClassQuestionKeyCorrectAnsAgg,
     SurveyQuestionGroupQuestionKeyCorrectAnsAgg,
+    SurveyInstitutionQuestionGroupAnsAgg, SurveyBoundaryQuestionGroupAnsAgg
 )
 from assessments.filters import SurveyFilter
 from assessments.serializers import SurveySerializer
@@ -290,8 +291,22 @@ class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyAnsAgg.objects.all()
     filter_backends = [SurveyFilter, ]
+
+    def get_queryset(self):
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionQuestionGroupAnsAgg.objects.filter(
+                institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
+                boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
+            boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         source_name = self.request.query_params.get('source', None)
@@ -306,7 +321,9 @@ class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
         sources_res = {}
         for s_id in source_ids:
             source = Source.objects.get(id=s_id)
-            source_agg = queryset.filter(source=s_id)
+            # TODO
+            # source_agg = queryset.filter(source=s_id)
+            source_agg = queryset
             question_ids = source_agg\
                 .distinct('question_id').values_list('question_id', flat=True)
             question_list = []
