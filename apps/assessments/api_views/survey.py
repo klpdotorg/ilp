@@ -1,14 +1,22 @@
+import json
+import datetime
+import random
+from base64 import b64decode
+
 from django.conf import settings
 from django.db.models import Sum
+from django.contrib.gis.geos import Point
+from django.core.files.base import ContentFile
 
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError, APIException
+from rest_framework import authentication, permissions
 
 from common.mixins import ILPStateMixin
 from common.views import ILPViewSet
-from common.models import AcademicYear
+from common.models import AcademicYear, Status
 
 from boundary.models import (
         BasicBoundaryAgg, BoundaryStateCode,
@@ -16,16 +24,17 @@ from boundary.models import (
 )
 
 from schools.models import InstitutionClassYearStuCount
-
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association,
     SurveyInstitutionQuestionGroupAnsAgg,
     SurveyBoundaryQuestionGroupAgg, SurveyBoundaryQuestionGroupAnsAgg,
     SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
-    SurveyTagClassMapping
+    SurveyTagClassMapping, InstitutionImages,
+    RespondentType, AnswerGroup_Institution, AnswerInstitution,
+    Question
 )
-from assessments.serializers import SurveySerializer
+from assessments.serializers import SurveySerializer, RespondentTypeSerializer
 from assessments.filters import SurveyTagFilter
 
 
@@ -270,7 +279,7 @@ class SurveyTagAggAPIView(APIView):
 
         return
 
-    def get(self, request):
+    def get(self):
         if not self.request.GET.get('survey_tag'):
             raise ParseError("Mandatory parameter survey_tag not passed")
         survey_tag = self.request.GET.get('survey_tag')
@@ -284,9 +293,8 @@ class SurveyTagAggAPIView(APIView):
             raise APIException('Academic year is not valid.\
                     It should be in the form of 1112.', 404)
 
-        state_id = BoundaryStateCode.objects.filter(
-            char_id=settings.ILP_STATE_ID).\
-            values("boundary_id")[0]["boundary_id"]
+        state_id = BoundaryStateCode.objects.\
+            get(char_id=settings.ILP_STATE_ID).boundary_id
 
         if boundary_id:
             self.get_boundary_data(boundary_id, survey_tag, year)
@@ -296,3 +304,134 @@ class SurveyTagAggAPIView(APIView):
             self.get_boundary_data(state_id, survey_tag, year)
 
         return Response(self.response)
+
+
+class AssessmentSyncView(APIView):
+    """
+        Syncs a set of assessments from Konnect app
+    """
+    authentication_classes = (authentication.TokenAuthentication,
+                              authentication.SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        response = {
+            'success': dict(),
+            'failed': [],
+            'error': None
+        }
+        try:
+            stories = json.loads(request.body.decode('utf-8'))
+            print(stories)
+        except ValueError as e:
+            response['error'] = 'Invalid JSON data'
+
+        if response['error'] is None:
+            for story in stories.get('stories', []):
+                timestamp = int(story.get('created_at')) / 1000
+                sysid = None
+
+                try:
+                    sysid = int(story.get('sysid'))
+                except ValueError:
+                    sysid = None
+
+                try:
+
+                    try:
+                        respondent_type = RespondentType.objects.get(
+                            char_id__iexact=story.get('respondent_type')
+                        )
+                    except RespondentType.DoesNotExist:
+                        raise Exception("Invalid respondent type")
+
+                    new_story, created = AnswerGroup_Institution.objects.get_or_create(
+                        created_by=request.user,
+                        institution_id=story.get('school_id'),
+                        questiongroup_id=story.get('group_id'),
+                        respondent_type=respondent_type,
+                        date_of_visit=datetime.datetime.fromtimestamp(
+                            timestamp
+                        ),
+                        # TODO: Check with Shivangi if the below is okay.
+                        status=Status.objects.get(char_id='AC')
+                    )
+
+                    if created:
+                        new_story.sysid = sysid
+                        new_story.is_verified = True
+                        new_story.mobile = request.user.mobile_no
+                        new_story.save()
+
+                    # Save location info
+                    if story.get('lat', None) is not None and \
+                            story.get('lng', None) is not None:
+                        new_story.location = Point(
+                            story.get('lat'), story.get('lng'))
+                        new_story.save()
+
+                    # Save the answers
+                    for answer in story.get('answers', []):
+                        new_answer, created = AnswerInstitution.objects.get_or_create(
+                            answer=answer.get('text'),
+                            answergroup=new_story,
+                            question=Question.objects.get(
+                                pk=answer.get('question_id')
+                            )
+                        )
+
+                    # Save the image
+                    image = story.get('image', None)
+                    if image:
+                        image_type, data = image.split(',')
+                        image_data = b64decode(data)
+                        file_name = '{}_{}_{}.png'.format(
+                            new_story.created_by.id,
+                            new_story.institution.id,
+                            random.randint(0, 9999)
+                        )
+
+                        InstitutionImages.objects.create(
+                            answergroup=new_story,
+                            filename=file_name,
+                            image=ContentFile(image_data, file_name)
+                        )
+
+                    response['success'][story.get('_id')] = new_story.id
+                except Exception as e:
+                    print("Error saving stories and answers:", e)
+                    response['failed'].append(story.get('_id'))
+        return Response(response)
+
+
+class AssessmentsImagesView(APIView):
+    """
+        Returns all images synced for a school
+    """
+
+    def get(self, request):
+        school_id = request.GET.get('school_id', 0)
+        from_date = request.GET.get('from', '')
+        to_date = request.GET.get('to', '')
+
+        images = InstitutionImages.objects.filter(
+            answergroup__institution__id=school_id
+        )
+        if from_date and to_date:
+            try:
+                images = images.filter(
+                    answergroup__date_of_visit__range=[from_date, to_date])
+            except Exception as e:
+                print(e)
+
+        images = [
+            {'url': '/media/' + str(i.image),
+                'date': i.answergroup.date_of_visit,
+                'school_id': school_id} for i in images
+        ]
+        return Response({'images': images})
+
+
+class RespondentTypeList(ListAPIView):
+    queryset = RespondentType.objects.all()
+    serializer_class = RespondentTypeSerializer

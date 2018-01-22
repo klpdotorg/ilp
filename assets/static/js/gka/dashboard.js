@@ -7,8 +7,6 @@ var topSummaryData = {};
 
 (function() {
     var premodalQueryParams = {};
-    var surveyId = 1;
-    var questionGroupId = 7;
 
     klp.init = function() {
         klp.accordion.init();
@@ -23,8 +21,8 @@ var topSummaryData = {};
         // All GKA related data are stored in GKA
         klp.GKA = {};
 
-        $('#startDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2017']});
-        $('#endDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2017']});
+        $('#startDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2018']});
+        $('#endDate').yearMonthSelect("init", {validYears: ['2015', '2016', '2018']});
 
         //this is a bit of a hack to save query state when
         //triggering a modal, since modals over-ride the url
@@ -256,7 +254,9 @@ var topSummaryData = {};
     function loadSmsData(params) {
         startDetailLoading();
 
+        // For SMS, source=sms is needed
         delete params.survey_tag;
+        params.source = 'sms';
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
@@ -293,6 +293,9 @@ var topSummaryData = {};
 
     function loadSurveys(params) {
         startDetailLoading();
+
+        delete params.survey_tag;
+        params.survey_id = 7;
 
         // Load the source for csv summary
         var $sourceXHR = klp.api.do("survey/info/source/", params);
@@ -462,26 +465,42 @@ var topSummaryData = {};
     function loadTopSummary(params) {
 
         // Load the summary first
-        var $summaryXHR = klp.api.do("survey/summary/", params);
+        var $summaryXHR = klp.api.do("surveys/tagmappingsummary/", params);
         startSummaryLoading();
         $summaryXHR.done(function(data) {
-            var topSummary = data.summary;
+            var topSummary = {
+                education_volunteers: 0,
+                total_school: data.total_schools,
+                children_impacted: data.num_students,
+                schools_impacted: data.num_schools
+            };
+            klp.GKA.topSummaryData = topSummary;
+
+            renderTopSummary(topSummary);
+
+            // Load the rest of sections
+            loadSmsData(params);
+            loadAssmtData(params);
+            loadGPContestData(params);
+            loadSurveys(params);
+            loadComparison(params);
 
             // Load the users Education volunteers count
-            var $usersXHR = klp.api.do("survey/info/users", params);
-            $usersXHR.done(function(data) {
-                topSummary.education_volunteers = (data.users && data.users.EV) ? data.users.EV: 0; 
+            // var $usersXHR = klp.api.do("survey/info/users", params);
+            // $usersXHR.done(function(data) {
+            //     topSummary.education_volunteers = (data.users && data.users.EV) ? data.users.EV: 0; 
 
-                klp.GKA.topSummaryData = topSummary;
-                renderTopSummary(topSummary);
+            //     klp.GKA.topSummaryData = topSummary;
 
-                // Load the rest of sections
-                loadSmsData(params);
-                loadAssmtData(params);
-                // loadGPContestData(params);
-                loadSurveys(params);
-                // loadComparison(params);
-            });
+            //     renderTopSummary(topSummary);
+
+            //     // Load the rest of sections
+            //     loadSmsData(params);
+            //     loadAssmtData(params);
+            //     loadGPContestData(params);
+            //     loadSurveys(params);
+            //     loadComparison(params);
+            // });
         });
     }
 
@@ -637,6 +656,9 @@ var topSummaryData = {};
     }
 
     function loadAssmtData(params) {
+
+        delete params.survey_tag;
+        params.survey_id = 3;
         
         // Load summary first
         // TODO: Check if we need to pass the survey_tag=ekstep
@@ -788,6 +810,9 @@ var topSummaryData = {};
     }
 
     function loadGPContestData(params){
+        delete params.survey_tag;
+        params.survey_id = 2;
+
         var metaURL = "survey/info/class/gender/";
         var $metaXHR = klp.api.do(metaURL, params);
         $metaXHR.done(function(data) {

@@ -44,11 +44,11 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(null=True)
     mobile_no = models.CharField(max_length=32, unique=True)
     mobile_no1 = models.CharField(max_length=32, null=True)
     first_name = models.CharField(max_length=64, blank=True)
-    last_name = models.CharField(max_length=64, blank=True)
+    last_name = models.CharField(max_length=64, blank=True, null=True)
     user_type = models.CharField(
         max_length=50, choices=USER_TYPE_CHOICES, null=True, blank=True)
     is_active = models.BooleanField(default=True)
@@ -73,7 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     youtube_url = models.URLField(blank=True, null=True)
 
     objects = UserManager()
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'mobile_no'
 
     def save(self, *args, **kwargs):
         if not self.id:

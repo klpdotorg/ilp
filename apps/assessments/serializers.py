@@ -9,7 +9,7 @@ from assessments.models import (
     AnswerInstitution, SurveyOnType,
     AnswerGroup_StudentGroup, AnswerGroup_Student,
     QuestionGroup_Institution_Association,
-    AnswerStudent
+    AnswerStudent, RespondentType
 )
 
 
@@ -42,7 +42,17 @@ class QuestionGroupSerializer(ILPSerializer):
         )
 
 
+class OptionField(serializers.Field):
+    "Custom optionfield: {Yes,No} -> [Yes, No]"
+
+    def to_representation(self, obj):
+        return obj.lstrip('{').rstrip('}').split(',')
+
+
 class QuestionSerializer(ILPSerializer):
+    options = OptionField()
+    question_type = serializers.CharField(source='question_type.display.char_id')
+
     class Meta:
         model = Question
         fields = (
@@ -163,3 +173,9 @@ class StudentAnswerSerializer(ILPSerializer, CompensationLogMixin):
         validated_data['answergroup_id'] = answergroup.id
         return AnswerStudent.objects.create(**validated_data)
 #       return instance
+
+
+class RespondentTypeSerializer(ILPSerializer):
+    class Meta:
+        model = RespondentType
+        fields = '__all__'
