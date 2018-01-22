@@ -53,7 +53,6 @@ class UserLoginView(generics.GenericAPIView):
             },
             status=status.HTTP_200_OK,
         )
-        print (token)
         return Response({'success': 'your token will be sent to you soon!'})
 
 
