@@ -65,13 +65,14 @@ class QuestionGroupQuestionTests(APITestCase):
                 "question_text": "Is this a A, B or C grade school based on your observations?",
                 "display_text": "How are the schools in this boundary rated?",
                 "key": "ivrss-grade",
-                "question_type": QUESTIONGROUP_QTYPE,
+                "question_type_id": QUESTIONGROUP_QTYPE,
                 "is_featured": True,
                 "status": "AC"
             }
         }
         self.client.force_authenticate(user=self.user)
         response = self.client.post(url, post_data, format='json')
+        import ipdb; ipdb.set_trace()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         response = self.client.get(url)

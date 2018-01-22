@@ -4,7 +4,7 @@ from common.serializers import ILPSerializer
 from common.mixins import CompensationLogMixin
 
 from assessments.models import (
-    Survey, QuestionGroup, Question,
+    Survey, QuestionGroup, Question, QuestionType,
     QuestionGroup_Questions, AnswerGroup_Institution,
     AnswerInstitution, SurveyOnType,
     AnswerGroup_StudentGroup, AnswerGroup_Student,
@@ -50,14 +50,16 @@ class OptionField(serializers.Field):
 
 
 class QuestionSerializer(ILPSerializer):
-    options = OptionField()
-    question_type = serializers.CharField(source='question_type.display.char_id')
+    options = OptionField(required=False)
+    question_type_id = serializers.IntegerField(write_only=True)
+    question_type = serializers.CharField(
+        read_only=True, source="question_type.display.char_id")
 
     class Meta:
         model = Question
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
-            'options', 'is_featured', 'status', 'id'
+            'options', 'is_featured', 'status', 'id', 'question_type_id'
         )
 
 
