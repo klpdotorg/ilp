@@ -27,7 +27,9 @@ class UserRegisterView(generics.CreateAPIView):
     )
 
     def perform_create(self, serializer):
-        serializer.save()
+        # TODO: Remove this once
+        serializer.save(is_active=True)
+        # serializer.save()
 
 
 class UserLoginView(generics.GenericAPIView):
