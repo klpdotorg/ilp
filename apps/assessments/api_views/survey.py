@@ -34,8 +34,7 @@ from assessments.models import (
     RespondentType, AnswerGroup_Institution, AnswerInstitution,
     Question
 )
-from users.choices import USER_TYPE_CHOICES
-from assessments.serializers import SurveySerializer
+from assessments.serializers import SurveySerializer, RespondentTypeSerializer
 from assessments.filters import SurveyTagFilter
 
 
@@ -342,7 +341,7 @@ class AssessmentSyncView(APIView):
 
                     try:
                         respondent_type = RespondentType.objects.get(
-                            name__iexact=story.get('respondent_type')
+                            char_id__iexact=story.get('respondent_type')
                         )
                     except RespondentType.DoesNotExist:
                         raise Exception("Invalid respondent type")
@@ -432,3 +431,8 @@ class AssessmentsImagesView(APIView):
                 'school_id': school_id} for i in images
         ]
         return Response({'images': images})
+
+
+class RespondentTypeList(ListAPIView):
+    queryset = RespondentType.objects.all()
+    serializer_class = RespondentTypeSerializer
