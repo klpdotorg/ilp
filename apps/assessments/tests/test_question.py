@@ -72,7 +72,6 @@ class QuestionGroupQuestionTests(APITestCase):
         }
         self.client.force_authenticate(user=self.user)
         response = self.client.post(url, post_data, format='json')
-        import ipdb; ipdb.set_trace()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         response = self.client.get(url)
