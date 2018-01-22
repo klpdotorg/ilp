@@ -279,7 +279,7 @@ class SurveyTagAggAPIView(APIView):
 
         return
 
-    def get(self, request):
+    def get(self):
         if not self.request.GET.get('survey_tag'):
             raise ParseError("Mandatory parameter survey_tag not passed")
         survey_tag = self.request.GET.get('survey_tag')
@@ -293,9 +293,8 @@ class SurveyTagAggAPIView(APIView):
             raise APIException('Academic year is not valid.\
                     It should be in the form of 1112.', 404)
 
-        state_id = BoundaryStateCode.objects.filter(
-            char_id=settings.ILP_STATE_ID).\
-            values("boundary_id")[0]["boundary_id"]
+        state_id = BoundaryStateCode.objects.\
+            get(char_id=settings.ILP_STATE_ID).boundary_id
 
         if boundary_id:
             self.get_boundary_data(boundary_id, survey_tag, year)
