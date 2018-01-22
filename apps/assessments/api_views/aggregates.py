@@ -1,5 +1,7 @@
 from django.db.models import Sum
 from django.conf import settings
+from django.db.models.fields import IntegerField
+from django.db.models.expressions import Value
 
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -126,8 +128,32 @@ class SurveyVolumeAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyInfoSourceAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyDetailsAgg.objects.all()
     filter_backends = [SurveyFilter, ]
+
+    def get_queryset(self):
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionAgg.objects.filter(
+                institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryAgg.objects.filter(boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryAgg.objects.filter(boundary_id=state_id)
+
+    def get_qs_agg(self, queryset, source_id):
+        if self.request.query_params.get('institution_id', None):
+            qs_agg = queryset.filter(source=source_id).aggregate(
+                Sum('num_assessments')
+            )
+            qs_agg['num_schools__sum'] = 1
+            return qs_agg
+        qs_agg = queryset.filter(source=source_id).aggregate(
+            Sum('num_schools'), Sum('num_assessments'),
+        )
+        return qs_agg
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -140,10 +166,8 @@ class SurveyInfoSourceAPIView(ListAPIView, ILPStateMixin):
             source_name = "None"
             if source_id:
                 source_name = Source.objects.get(id=source_id).name
+            qs_agg = self.get_qs_agg(queryset, source_id)
 
-            qs_agg = queryset.filter(source=source_id).aggregate(
-                Sum('num_schools'), Sum('num_assessments'),
-            )
             source_res[source_name] = {
                 "schools_impacted": qs_agg['num_schools__sum'],
                 "assessment_count": qs_agg['num_assessments__sum'],
