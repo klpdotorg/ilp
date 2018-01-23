@@ -31,9 +31,10 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupAgg, SurveyBoundaryQuestionGroupAnsAgg,
     SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
     SurveyTagClassMapping, InstitutionImages,
-    RespondentType, AnswerGroup_Institution, AnswerInstitution,
+    AnswerGroup_Institution, AnswerInstitution,
     Question
 )
+from common.models import RespondentType
 from assessments.serializers import SurveySerializer, RespondentTypeSerializer
 from assessments.filters import SurveyTagFilter
 

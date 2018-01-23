@@ -9,8 +9,10 @@ from assessments.models import (
     AnswerInstitution, SurveyOnType,
     AnswerGroup_StudentGroup, AnswerGroup_Student,
     QuestionGroup_Institution_Association,
-    AnswerStudent, RespondentType
+    AnswerStudent
 )
+
+from common.models import RespondentType
 
 
 class SurveyOnTypeSerializer(ILPSerializer):
@@ -119,7 +121,7 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
 
     def get_double_entry(self, obj):
         return obj.questiongroup.double_entry
-        
+
 
 class AnswerGroupCreateSerializer(serializers.ModelSerializer):
     class Meta:

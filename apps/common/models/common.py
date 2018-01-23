@@ -132,3 +132,4 @@ class StudentCategory(models.Model):
 class RespondentType(models.Model):
     char_id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=100)
+    state_code = models.ForeignKey('boundary.BoundaryStateCode', null=True)
