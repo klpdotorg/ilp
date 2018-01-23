@@ -1,4 +1,5 @@
 from .survey import Question, QuestionGroup
+from common.models import RespondentType
 from users.models import User
 from django.db import models
 from django.contrib.gis.db import models
@@ -21,7 +22,7 @@ class AnswerGroup_Institution(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("common.RespondentType", null=True)
+    respondent_type = models.ForeignKey(RespondentType, null=True)
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
@@ -49,7 +50,7 @@ class AnswerGroup_StudentGroup(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("common.RespondentType", null=True)
+    respondent_type = models.ForeignKey(RespondentType, null=True)
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
@@ -76,7 +77,7 @@ class AnswerGroup_Student(models.Model):
     group_value = models.CharField(max_length=100, null=True, blank=True)
     created_by = models.ForeignKey(User, null=True, blank=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("common.RespondentType", null=True)
+    respondent_type = models.ForeignKey(RespondentType, null=True)
     comments = models.CharField(max_length=2000, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
