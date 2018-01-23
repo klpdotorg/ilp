@@ -98,9 +98,12 @@ class AnswerStudent(models.Model):
 class InstitutionImages(models.Model):
     """Images associated stories"""
     answergroup = models.ForeignKey("AnswerGroup_Institution")
-    image = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='sys_images')
     is_verified = models.BooleanField(default=False)
     filename = models.CharField(max_length=300)
+
+    def __unicode__(self):
+        return "{}: {}".format(self.story.name, self.image)
 
 
 class RespondentType(models.Model):

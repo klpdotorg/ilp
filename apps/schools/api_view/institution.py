@@ -35,14 +35,15 @@ class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
     serializer_class = InstitutionSummarySerializer
     bbox_filter_field = "coord"
 
-    # def get_serializer_class(self):
-    #     school_id =  self.kwargs.get('lean') if hasattr(self, 'kwargs') else None
-    #     if school_id:
-    #         institution = Institution.objects.get(pk=school_id)
-    #         if institution.institution_type.char_id == "pre":
-    #             return PreschoolInfraSerializer
-    #         else:
-    #             return SchoolInfraSerializer
+    def get_serializer_class(self):
+        lean =  self.request.GET.get('lean', False)
+        print("Lean is: ", lean)
+        if lean == "True" or lean == 'true':
+            print("Returning lean institution serializer")
+            return LeanInstitutionSummarySerializer
+        else:
+            return InstitutionSummarySerializer
+
     def get_queryset(self):
         state = self.get_state()
         qset = Institution.objects.filter(

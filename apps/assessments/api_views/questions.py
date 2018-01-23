@@ -32,8 +32,18 @@ class QuestionGroupViewSet(
 
 class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
     '''Return all questions'''
-    queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        queryset = Question.objects.all()
+        survey_id = self.request.query_params.get('survey_id', None)
+        if survey_id:
+            questiongroups = QuestionGroup.objects.filter(survey_id=survey_id)
+            question_ids = QuestionGroup_Questions.objects.filter(
+                questiongroup__in=questiongroups).values_list(
+                    'question_id', flat=True)
+            return queryset.filter(id__in=question_ids)
+        return queryset
 
 
 class QuestionGroupQuestions(
