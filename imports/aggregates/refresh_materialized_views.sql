@@ -31,41 +31,66 @@ REFRESH MATERIALIZED VIEW mvw_survey_boundary_agg;
 REFRESH MATERIALIZED VIEW mvw_survey_electionboundary_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_respondenttype_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_respondenttype_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_respondenttype_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_usertype_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_usertype_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_usertype_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_ans_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_questionkey_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_questionkey_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_questionkey_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_questiongroup_questionkey_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_questiongroup_questionkey_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_questiongroup_gender_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_questiongroup_gender_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_class_questionkey_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_class_questionkey_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_class_questionkey_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_class_gender_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boudary_class_gender_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_class_gender_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_class_ans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_class_ans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_class_ans_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_questionkey_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_questionkey_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_questionkey_correctans_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_questiongroup_questionkey_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_questiongroup_questionkey_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_insitution_questiongroup_questionkey_correctans_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_questiongroup_gender_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_insitution_questiongroup_gender_correctans_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_class_questionkey_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_class_questionkey_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_class_questionkey_correctans_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_class_gender_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_boundary_class_gender_correctans_agg;
+REFRESH MATERIALIZED VIEW mvw_survey_institution_class_gender_correctans_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_institution_question_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_boundary_questiongroup_ans_agg;
-
 REFRESH MATERIALIZED VIEW mvw_survey_institution_questiongroup_ans_agg;
 
 REFRESH MATERIALIZED VIEW mvw_survey_questiongroup_ans_agg;
-
 REFRESH MATERIALIZED VIEW mvw_survey_boundary_questiongroup_agg;
-
 REFRESH MATERIALIZED VIEW mvw_survey_institution_questiongroup_agg;
+
+REFRESH MATERIALIZED VIEW mvw_survey_tagmapping_agg;
