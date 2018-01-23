@@ -2,19 +2,20 @@ import json
 import os
 import sys
 import base64
+import io
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES, PKCS1_v1_5
 
 
 dir = os.path.dirname(__file__)
-json_file = os.path.join(dir,'../datapull/output3/exdata.json')
+json_file = os.path.join(dir,'../../datapull/output3/exdata.json')
 statinfo = os.stat(json_file)
 if statinfo.st_size == 0:
     sys.exit()
 else:
     print ("data in partner datafeed")
 
-stud_file = open(os.path.join(dir,'../datapull/output3/student_mapping.txt'), 'w',encoding='utf-8')
+stud_file =io.open(os.path.join(dir,'../../datapull/output3/student_mapping.txt'), 'w',encoding='utf-8')
 key_file = open(os.path.join(dir,'../.keys/ekstep-private.pem'), 'rb')
 private_key = RSA.importKey(key_file.read())
 cipher_rsa = PKCS1_v1_5.new(private_key)

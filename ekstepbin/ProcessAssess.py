@@ -6,11 +6,11 @@ import sys
 DeviceList = sys.argv[1] #this takes device list as argument
 
 dir = os.path.dirname(__file__)
-json_file = os.path.join(dir, '../datapull/ekstepv3data/data/ME_SESSION_SUMMARY.json')
-output_file = os.path.join(dir, '../datapull/assessment.txt')
+json_file = os.path.join(dir, '../../datapull/ekstepv3data/data/ME_SESSION_SUMMARY.json')
+output_file = os.path.join(dir, '../../datapull/assessment.txt')
 assess_file = open(output_file, 'w',encoding='utf-8')
 
-with open (os.path.join(dir, '../datapull/'+DeviceList)) as f:
+with open (os.path.join(dir, '../../datapull/'+DeviceList)) as f:
     device_list = [line.rstrip() for line in f]
 
 for line in open(json_file, 'r', encoding='utf8'):

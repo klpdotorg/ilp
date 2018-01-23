@@ -11,7 +11,8 @@ echo $PATH
 echo "Running public exhaust ekstep esl feed at: $(date) ..."
 
 dt1=`date -d "2 days ago" +"%Y-%m-%d"`
-datapath="/home/ubuntu/ilp/datapull/"
+dt2=`date -d "1 day ago" +"%Y-%m-%d"`
+datapath="/home/ubuntu/datapull/"
 progpath="/home/ubuntu/ilp/ekstepbin/"
 
 echo "Get partner user data"
@@ -64,7 +65,7 @@ cat $datapath"assessment.txt" | psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.a
 psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select insert_ekstep_assess();"
 echo "assessment data processed."
 
-python3 $progpath"GKAtoILPAssess.py"  $dt1 $dt1
+python3 $progpath"GKAtoILPAssess.py"  $dt1 $dt2
 echo "assessment data moved to ILP."
 
 echo "public exhaust ekstep esl done."
