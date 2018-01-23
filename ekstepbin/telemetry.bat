@@ -1,6 +1,6 @@
 echo $1
 echo $2
-mypath="/home/ubuntu/ilp/datapull/"
+mypath="/home/ubuntu/datapull/"
 file=$mypath"response"$1".gz"
 filedest=$mypath"response.gz"
 params=$mypath"params.json"

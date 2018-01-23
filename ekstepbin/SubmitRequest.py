@@ -25,7 +25,7 @@ print(response.text)
 print(response.status_code)
 if response.status_code == 200:
     content = json.loads(response.text)
-    request_file = open(os.path.join(dir,'../datapull/request_id.txt'), 'w',encoding='utf-8')#saves the request id from json to text file
+    request_file = open(os.path.join(dir,'../../datapull/request_id.txt'), 'w',encoding='utf-8')#saves the request id from json to text file
     request_file.write(content["result"]["request_id"])
     request_file.write("\n")
     request_file.close()

@@ -14,7 +14,7 @@ echo "Running public exhaust ekstep esl feed at: $(date) ..."
 dt1=$1
 dt2=$2
 echo "The date range is:" $1 $2
-datapath="/home/ubuntu/ilp/datapull/"
+datapath="/home/ubuntu/datapull/"
 progpath="/home/ubuntu/ilp/ekstepbin/"
 
 echo "Get partner user data"
