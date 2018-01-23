@@ -21,13 +21,13 @@ from django.conf import settings
 
 
 class UserManager(BaseUserManager):
-    def create(self, email, password=None, **extra_fields):
+    def create(self, mobile_no, password=None, **extra_fields):
 
-        if not email:
-            raise ValueError('Users must have an email address')
+        if not mobile_no:
+            raise ValueError('Users must have a mobile_no')
 
         user = self.model(
-            email=UserManager.normalize_email(email),
+            mobile_no=mobile_no,
             **extra_fields
         )
 
@@ -35,8 +35,8 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        user = self.create_user(email, password=password, **extra_fields)
+    def create_superuser(self, mobile_no, password=None, **extra_fields):
+        user = self.create_user(mobile_no, password=password, **extra_fields)
         user.is_admin = True
         user.save(using=self._db)
         return user

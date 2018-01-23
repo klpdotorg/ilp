@@ -65,7 +65,7 @@ class QuestionGroupQuestionTests(APITestCase):
                 "question_text": "Is this a A, B or C grade school based on your observations?",
                 "display_text": "How are the schools in this boundary rated?",
                 "key": "ivrss-grade",
-                "question_type": QUESTIONGROUP_QTYPE,
+                "question_type_id": QUESTIONGROUP_QTYPE,
                 "is_featured": True,
                 "status": "AC"
             }
