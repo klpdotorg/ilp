@@ -8,38 +8,18 @@ from rest_framework.response import Response
 
 from common.mixins import ILPStateMixin
 from boundary.models import BoundaryType, BoundaryStateCode
-from assessments.models import (
-    Survey, SurveySummaryAgg, SurveyDetailsAgg,
-    Source, SurveyBoundaryAgg, SurveyUserTypeAgg,
-    SurveyRespondentTypeAgg, SurveyInstitutionAgg,
-    SurveyAnsAgg, Question, SurveyQuestionKeyAgg,
-    SurveyElectionBoundaryAgg, SurveyClassGenderAgg,
-    SurveyClassAnsAgg, SurveyClassQuestionKeyAgg,
-    SurveyQuestionGroupQuestionKeyAgg, SurveyQuestionGroupGenderAgg,
-    SurveyQuestionGroupGenderCorrectAnsAgg, SurveyClassGenderCorrectAnsAgg,
-    SurveyQuestionKeyCorrectAnsAgg, SurveyClassQuestionKeyCorrectAnsAgg,
-    SurveyQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyInstitutionQuestionGroupAnsAgg, SurveyBoundaryQuestionGroupAnsAgg
-)
+
+from assessments.models import *
+
+from assessments.mixins import AggQuerySetMixin
 from assessments.filters import SurveyFilter
 from assessments.serializers import SurveySerializer
 
 
-class SurveySummaryAPIView(ListAPIView, ILPStateMixin):
+class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-
-    def get_queryset(self):
-        institution_id = self.request.query_params.get('institution_id', None)
-        boundary_id = self.request.query_params.get('boundary_id', None)
-        if institution_id:
-            return SurveyInstitutionAgg.objects.filter(
-                institution_id=institution_id)
-        if boundary_id:
-            return SurveyBoundaryAgg.objects.filter(boundary_id=boundary_id)
-
-        state_id = BoundaryStateCode.objects.get(
-            char_id=settings.ILP_STATE_ID).boundary_id
-        return SurveyBoundaryAgg.objects.filter(boundary_id=state_id)
+    institution_queryset = SurveyInstitutionAgg.objects.all()
+    boundary_queryset = SurveyBoundaryAgg.objects.all()
 
     def get_summary_response(self, queryset):
         institution_id = self.request.query_params.get('institution_id', None)
@@ -92,21 +72,10 @@ class SurveySummaryAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
-class SurveyVolumeAPIView(ListAPIView, ILPStateMixin):
+class SurveyVolumeAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-
-    def get_queryset(self):
-        institution_id = self.request.query_params.get('institution_id', None)
-        boundary_id = self.request.query_params.get('boundary_id', None)
-        if institution_id:
-            return SurveyInstitutionAgg.objects.filter(
-                institution_id=institution_id)
-        if boundary_id:
-            return SurveyBoundaryAgg.objects.filter(boundary_id=boundary_id)
-
-        state_id = BoundaryStateCode.objects.get(
-            char_id=settings.ILP_STATE_ID).boundary_id
-        return SurveyBoundaryAgg.objects.filter(boundary_id=state_id)
+    institution_queryset = SurveyInstitutionAgg.objects.all()
+    boundary_queryset = SurveyBoundaryAgg.objects.all()
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -128,21 +97,10 @@ class SurveyVolumeAPIView(ListAPIView, ILPStateMixin):
         return Response(volume_res)
 
 
-class SurveyInfoSourceAPIView(ListAPIView, ILPStateMixin):
+class SurveyInfoSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-
-    def get_queryset(self):
-        institution_id = self.request.query_params.get('institution_id', None)
-        boundary_id = self.request.query_params.get('boundary_id', None)
-        if institution_id:
-            return SurveyInstitutionAgg.objects.filter(
-                institution_id=institution_id)
-        if boundary_id:
-            return SurveyBoundaryAgg.objects.filter(boundary_id=boundary_id)
-
-        state_id = BoundaryStateCode.objects.get(
-            char_id=settings.ILP_STATE_ID).boundary_id
-        return SurveyBoundaryAgg.objects.filter(boundary_id=state_id)
+    institution_queryset = SurveyInstitutionAgg.objects.all()
+    boundary_queryset = SurveyBoundaryAgg.objects.all()
 
     def get_qs_agg(self, queryset, source_id):
         if self.request.query_params.get('institution_id', None):
@@ -223,9 +181,10 @@ class SurveyInfoBoundarySourceAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
-class SurveyInfoUserAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyUserTypeAgg.objects.all()
+class SurveyInfoUserAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
+    institution_queryset = SurveyInstitutionUserTypeAgg.objects.all()
+    boundary_queryset = SurveyBoundaryUserTypeAgg.objects.all()
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -244,9 +203,12 @@ class SurveyInfoUserAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
-class SurveyInfoRespondentAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyRespondentTypeAgg.objects.all()
+class SurveyInfoRespondentAPIView(
+        AggQuerySetMixin, ListAPIView, ILPStateMixin
+):
     filter_backends = [SurveyFilter, ]
+    institution_queryset = SurveyInstitutionRespondentTypeAgg.objects.all()
+    boundary_queryset = SurveyBoundaryRespondentTypeAgg.objects.all()
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -290,23 +252,10 @@ class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
         return Survey.objects.filter(id__in=survey_ids)
 
 
-class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
+class SurveyDetailSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-
-    def get_queryset(self):
-        institution_id = self.request.query_params.get('institution_id', None)
-        boundary_id = self.request.query_params.get('boundary_id', None)
-        if institution_id:
-            return SurveyInstitutionQuestionGroupAnsAgg.objects.filter(
-                institution_id=institution_id)
-        if boundary_id:
-            return SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
-                boundary_id=boundary_id)
-
-        state_id = BoundaryStateCode.objects.get(
-            char_id=settings.ILP_STATE_ID).boundary_id
-        return SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
-            boundary_id=state_id)
+    institution_queryset = SurveyInstitutionQuestionGroupAnsAgg.objects.all()
+    boundary_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.all()
 
     def list(self, request, *args, **kwargs):
         source_name = self.request.query_params.get('source', None)
@@ -321,7 +270,6 @@ class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
         sources_res = {}
         for s_id in source_ids:
             source = Source.objects.get(id=s_id)
-            # TODO
             # source_agg = queryset.filter(source=s_id)
             source_agg = queryset
             question_ids = source_agg\
@@ -358,14 +306,25 @@ class SurveyDetailSourceAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
-class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
+class SurveyDetailKeyAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-
-    def get_queryset(self):
-        return SurveyQuestionKeyAgg.objects.all()
+    institution_queryset = SurveyInstitutionQuestionKeyAgg.objects.all()
+    boundary_queryset = SurveyBoundaryQuestionKeyAgg.objects.all()
 
     def get_answer_queryset(self):
-        return SurveyQuestionKeyCorrectAnsAgg.objects.all()
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionQuestionKeyCorrectAnsAgg.objects.filter(
+                institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryQuestionKeyCorrectAnsAgg.objects.filter(
+                boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryQuestionKeyCorrectAnsAgg.objects.filter(
+            boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         qs = self.filter_queryset(self.get_queryset())
@@ -387,14 +346,27 @@ class SurveyDetailKeyAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
-class SurveyClassQuestionKeyAPIView(ListAPIView, ILPStateMixin):
+class SurveyClassQuestionKeyAPIView(
+        AggQuerySetMixin, ListAPIView, ILPStateMixin
+):
     filter_backends = [SurveyFilter, ]
-
-    def get_queryset(self):
-        return SurveyClassQuestionKeyAgg.objects.all()
+    institution_queryset = SurveyInstitutionClassQuestionKeyAgg.objects.all()
+    boundary_queryset = SurveyBoundaryClassQuestionKeyAgg.objects.all()
 
     def get_answer_queryset(self):
-        return SurveyClassQuestionKeyCorrectAnsAgg.objects.all()
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionClassQuestionKeyCorrectAnsAgg.objects.\
+                filter(institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryClassQuestionKeyCorrectAnsAgg.objects.\
+                filter(boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryClassQuestionKeyCorrectAnsAgg.objects.filter(
+            boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         qs = self.filter_queryset(self.get_queryset())
@@ -423,14 +395,29 @@ class SurveyClassQuestionKeyAPIView(ListAPIView, ILPStateMixin):
         return Response(classes_res)
 
 
-class SurveyQuestionGroupQuestionKeyAPIView(ListAPIView, ILPStateMixin):
+class SurveyQuestionGroupQuestionKeyAPIView(
+        AggQuerySetMixin, ListAPIView, ILPStateMixin
+):
     filter_backends = [SurveyFilter, ]
-
-    def get_queryset(self):
-        return SurveyQuestionGroupQuestionKeyAgg.objects.all()
+    institution_queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.\
+        objects.all()
+    boundary_queryset = SurveyBoundaryQuestionGroupQuestionKeyAgg.\
+        objects.all()
 
     def get_answer_queryset(self):
-        return SurveyQuestionGroupQuestionKeyCorrectAnsAgg.objects.all()
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.\
+                objects.filter(institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
+                objects.filter(boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects.\
+            filter(boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         qs = self.filter_queryset(self.get_queryset())
@@ -515,9 +502,10 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
         return Response(group_res)
 
 
-class SurveyDetailClassAPIView(ListAPIView, ILPStateMixin):
-    queryset = SurveyClassAnsAgg.objects.all()
+class SurveyDetailClassAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
+    institution_queryset = SurveyInstitutionClassAnsAgg.objects.all()
+    boundary_queryset = SurveyBoundaryClassAnsAgg.objects.all()
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
