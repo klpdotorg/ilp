@@ -1,5 +1,4 @@
 from .survey import Survey, Question, Source, SurveyTag
-from .answers import RespondentType
 from users.models import User
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
@@ -120,7 +119,7 @@ class SurveyRespondentTypeAgg(models.Model):
     """Survey RespondentType Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
-    respondent_type = models.ForeignKey('RespondentType', db_column="respondent_type")
+    respondent_type = models.ForeignKey('common.RespondentType', db_column="respondent_type")
     source = models.ForeignKey('Source', db_column="source")
     year = models.IntegerField(db_column="year")
     month = models.IntegerField(db_column="month")

@@ -18,7 +18,6 @@ from django.contrib.sites.models import Site
 # from django.utils.text import slugify
 from django.conf import settings
 
-from .choices import USER_TYPE_CHOICES
 
 
 class UserManager(BaseUserManager):
@@ -49,8 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     mobile_no1 = models.CharField(max_length=32, null=True)
     first_name = models.CharField(max_length=64, blank=True)
     last_name = models.CharField(max_length=64, blank=True, null=True)
-    user_type = models.CharField(
-        max_length=50, choices=USER_TYPE_CHOICES, null=True, blank=True)
+    user_type = models.ForeignKey('common.RespondentType', null=True)
     is_active = models.BooleanField(default=True)
     email_verification_code = models.CharField(
         max_length=128, null=True, blank=True)
@@ -124,6 +122,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __unicode__(self):
         return self.email
+
+
+class UserBoundary(models.Model):
+    user = models.ForeignKey('User')
+    boundary = models.ForeignKey('boundary.Boundary')
+
+    class Meta:
+        unique_together = (('user', 'boundary'), )
 
 
 @receiver(post_save, sender=User)
