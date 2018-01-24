@@ -897,6 +897,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,electionboundary
     year,
     month,
     num_assessments,
+    num_schools,
     num_children,
     num_users,
     last_assessment
@@ -4824,6 +4825,7 @@ FROM
             and q.max_score is not null
             and qgq.question_id =q.id
             and qgq.questiongroup_id = qg.id
+            and qg.type_id='assessment'
         GROUP BY 
             qg.survey_id,
             qg.id,
@@ -4885,8 +4887,7 @@ FROM
         GROUP BY 
             qg.survey_id,
             qg.id,
-            q.key)max_score,
-        schools_student stu
+            q.key)max_score
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
@@ -4897,7 +4898,7 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,stu.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
+    GROUP BY q.key,ag.id,ag.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
     having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id,survey_tag,institution_id,source,year,month,question_key ;
 
