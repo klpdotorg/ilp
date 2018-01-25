@@ -944,6 +944,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,electionboundary
     year,
     month,
     num_assessments,
+    num_schools,
     num_children,
     num_users,
     last_assessment
@@ -992,6 +993,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,electionboundary
     year,
     month,
     num_assessments,
+    num_schools,
     num_children,
     num_users,
     last_assessment
@@ -1040,6 +1042,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,electionboundary
     year,
     month,
     num_assessments,
+    num_schools,
     num_children,
     num_users,
     last_assessment
