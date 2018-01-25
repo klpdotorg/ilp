@@ -280,7 +280,7 @@ class SurveyTagAggAPIView(APIView):
 
         return
 
-    def get(self):
+    def get(self, request):
         if not self.request.GET.get('survey_tag'):
             raise ParseError("Mandatory parameter survey_tag not passed")
         survey_tag = self.request.GET.get('survey_tag')

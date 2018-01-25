@@ -164,7 +164,7 @@ urlpatterns = [
     url(r'surveys/questiongroupdetails/$', SurveyQuestionGroupDetailsAPIView.as_view(),
         name='survey-questiongroup-details'),
     url(r'surveys/tagmappingsummary/$', SurveyTagAggAPIView.as_view(),
-        name='survey-questiongroup-details'),
+        name='survey-tagmap-summary'),
     url(r'surveys/assessments/sync.$', AssessmentSyncView.as_view(),
         name='survey-assessments-sync'),
     url(r'surveys/assessments/images.$', AssessmentsImagesView.as_view(),
