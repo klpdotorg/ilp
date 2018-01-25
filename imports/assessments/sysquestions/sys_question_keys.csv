@@ -1,0 +1,48 @@
+id,key,new_key,question_text,display_text,new display text
+46,webs-pucca-building,Infra,An All weather (pucca) building,  How many schools are in an all weather pucca building?,Is the school an all weather (pucca) building?
+49,webs-boundary-wall,Infra,Boundary wall/ Fencing,  How many schools have a boundary wall or fencing?,Does the school have a boundary wall or fencing?
+50,webs-playground,Infra,Play ground,  How many schools have a playground?,Does the school have a playground?
+51,webs-access-disability,Infra,Accessibility to students with disabilities,  How many schools have accessibility for students with disability?,Does the school have accessibility for students with disability?
+52,webs-headmaster-office,Academic,Separate office for Headmaster,  How many schools have a separate office for the Headmaster?,Does the school have a separate office for the Headmaster?
+53,webs-separate-food-store,Hygiene,Separate room as Kitchen / Store for Mid day meals,  How many schools have a separate room as Kitchen and Store for mid day meals?,Does the school have a separate room as Kitchen and Store for mid day meals?
+54,webs-separate-toilets,Hygiene,Separate Toilets for Boys and Girls,  How many schools have separate toilets for boys and girls?,Does the school have separate toilets for boys and girls?
+55,webs-drinking-water,Infra,Drinking Water facility,  How many schools have drinking water facilities?,Does the school have drinking water facility?
+56,webs-library,Learning,Library,  How many schools have a library?,Does the school have a library?
+57,webs-play-material,Infra,Play Material or Sports Equipment,  How many schools have a play material or Sports Equipment?,Does the school have play material or Sports Equipment?
+58,webs-food-being-cooked,Academic,"Did you see any evidence of mid day meal being served (food being cooked, food waste etc.) on the day of your visit?",  In how many schools was there evidence of mid day meals being served?,Was there any evidence of mid day meals being served?
+59,webs-functional-classrooms,Infra,How many functional class rooms (exclude rooms that are not used for conducting classes for whatever reason) does the school have?,  What is the average number of functional classrooms the schools have?,How many functional classrooms does the school have?
+60,webs-teachers-sharing-classroom,Academic,Teachers sharing a single class room,  In how many schools were teachers sharing a single classroom?,Were the teachers sharing a single classroom?
+61,webs-classrooms-wo-teacher,Academic,How many classrooms had no teachers in the class?,  What was the average number of  classrooms with no teachers in the schools?,How many classrooms had no teachers in the class?
+62,webs-total-teachers,Academic,What was the total numbers of teachers present (including head master)?,  What was the average number of  teachers present in the schools?,How many teachers (including the headmaster) were present in the school?
+63,weba-anganwadi-time,Academic,Anganwadi opened on time (10 A.M),  How many Anganwadis are opened on time (10 a.m)?,Did the anganwadi open on time (10 a.m)?
+64,weba-proper-building,Infra,A proper building (designated for running Anganwadi),  How many Anganwadis run in a proper designated building?,Does the Anganwadi run in a proper designated building?
+65,weba-50percent-present,Academic,Were at least 50% of the children enrolled were present on the day of visit?,  In how many Anganwadis were at least 50% of children enrolled present?,Were at least 50% of the children enrolled in the Anganwadi  present on the day of the visit?
+66,weba-attendance-recorded,Academic,Attendance being recorded,  In how many Anganwadis is attendance being recorded?,Was the attendance recorded in the Anganwadi?
+67,weba-spacious-premises,Infra,Spacious enough premises for children,  How many Anganwadis have a spacious enough premises?,Does the Anganwadi have a spacious premise?
+68,weba-space-to-play,Infra,Space for the Children to Play,  How many Anganwadis have space for children to play?,Does the Anganwadi have space for the children to play?
+69,weba-designated-food-area,Hygiene,Designated area for storing and cooking food,  How many Anganwadis have designated area for storing anc cooking food?,Does the Anganwadi have a designated area for storing and cooking food?
+70,weba-food-area-clean,Hygiene,"If this space to stock food was observed, was this space  neat and free from dust, waste and protected from rain and wind and free from pest, worms and rats?",  How many Anganwadis have a clean and pest free area to stock food?,Does the Anganwadi have a clean and pest free area to stock food?
+71,weba-food-hygeine,Hygiene,Hygeinic measures for storing and cooking food,  How many Anganwadis have hygeinic measures to store and cook food?,Does the Anganwadi have hygienic measure to store and cook food?
+72,weba-food-ontime,Academic,Evidence of Food served on time,  How many Anganwadis have evidence of food served on time?,Did the Anganwadi have evidence of the food being served on time?
+73,weba-floor-maintained,Infra,Well maintained floor ,  How many Anganwadis have a well maintained floor?,Does the Anganwadi have a well maintained floor?
+74,weba-roof-maintained,Infra,Roof well maintained - without damage /leakage ,  How many Anganwadis have a roof without damage or leakage?,Does the Anganwadi have a roof without damage or leakage?
+75,weba-boundary-security,Infra,"Boundary Wall, Doors, windows for security","  How many Anganwadis have a boundary wall, secure doors and windows?","Does the Anganwadi have a boundary wall, secure doors and windows?"
+76,weba-wall-paintings,Infra,Colourful Wall paintings,  How many Anganwadis have colourful wall paintings?,Does the Anganwadi have colourful wall paintings?
+77,weba-waste-basket,Infra,Use of a Waste Basket,  How many Anganwadis use a waste basket?,Does the Anganwadi use a waste basket?
+78,weba-drinking-water,Infra,Drinking Water facility,  How many Anganwadis have drinking water facilities?,Does the Anganwadi have drinking water facilities?
+79,weba-handwash,Hygiene,Hand Wash facility,  How many Anganwadis have hand wash facilities?,Does the Anganwadi have hand wash facilities?
+80,weba-toilet,Hygiene,Toilet,  How many Anganwadis have a Toilet?,Does the Anganwadi have a toilet?
+81,weba-teacher-trained-disability,Academic,Is the teacher trained  to teach physically challenged / disabled children?,  In how many Anganwadis are teachers trained to teach physically disabled children?,Were the teachers of the Anganwadi  trained to teach physically disabled children?
+82,weba-bal-vikas-meetings,Academic,Are Bal Vikas Samithi meetings held as per the norm?,  In how many Anganwadis are Bal Vikas Samithi meetings held as per norm?,Are Bal Vikas Samithi meetings held (in the anganwadi) as per the norm?
+83,weba-friends-of-anganwadi,Academic,Is there a Friends of Anganwadi group for this anganwadi?,  How many Anganwadis have a Friends of Anganwadi group?,Does the Anganwadi have a Friends of Anganwadi group?
+84,weba-blackboard,Infra,Blackboard,How many Anganwadis have a blackboard?,Does the Anganwadi have a blackboard?
+85,weba-tlm,Learning,Teaching and Learning Material,  How many Anganwadis have Teaching and Learning Material?,Does the Anganwadi have Teaching and Learning Material?
+86,weba-play-material,Infra,Play material,  How many Anganwadis have Play Material?,Does the Anganwadi have Play Material?
+87,webs-designated-librarian,Learning,Designated Librarian/Teacher,  How many schools have a designated Librarian or Teacher?,Does the school have a designated Librarian or Teacher?
+88,webs-library-timetable,Learning,Class-wise timetable for the Library,  How many schools have a class-wise timetable for Library?,Does the school have a class-wise timetable for Library?
+89,webs-tlm,Learning,Teaching and Learning material,  How many schools have Teaching and Learning Material?,Does the school have Teaching and Learning Material?
+90,webs-number-classrooms,Academic,Sufficient number of class rooms,  How many schools have sufficient class rooms?,Does the school have sufficient class rooms?
+91,webs-50percent-present,Academic,Were at least 50% of the children enrolled present on the day you visited the school?,  In how many schools were at least 50% of the children enrolled present??,Were at least 50% of the children enrolled in the School  present on the day of the visit?
+92,webs-teachers-present,Academic,Were all teachers present on the day you visited the school?,  In how many schools were all the teachers present on the day of the school visit?,Were all the teachers present on the day of the school visit?
+141,webs-school-open,Academic,Was the school open?,  Was the school open?,Was the school open?
+142,webs-all-toilets-functional,Hygiene,Are all the toilets in the school functional?,,

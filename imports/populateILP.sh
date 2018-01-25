@@ -55,6 +55,7 @@ echo "Running Assessments"
 #Import SYS data
 echo "SYS Assessments"
 python assessments/import_sys.py dubdubdub $ilp
+python assessments/update_sysquestions.py `pwd`/assessments/sysquestions $ilp
 
 #Import IVRS Community data
 echo "Community IVRS"
