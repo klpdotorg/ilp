@@ -425,22 +425,26 @@ class SurveyQuestionGroupQuestionKeyAPIView(
 
         qgroup_ids = qs.distinct('questiongroup_id')\
             .values_list('questiongroup_id', flat=True)
-        question_keys = qs.distinct('question_key')\
-            .values_list('question_key', flat=True)
 
         for qgroup_id in qgroup_ids:
             q_res = {}
-            for q_key in question_keys:
-                key_agg = qs.filter(
-                    questiongroup_id=qgroup_id, question_key=q_key)\
-                    .aggregate(Sum('num_assessments'))
-                key_ans_agg = ans_qs.filter(
-                    questiongroup_id=qgroup_id, question_key=q_key)\
-                    .aggregate(Sum('num_assessments'))
+            qgroup_qs = qs.filter(questiongroup_id=qgroup_id)
+            qgroup_ans_qs = ans_qs.filter(questiongroup_id=qgroup_id)
+            key_agg = qgroup_qs.values(
+                'question_key').annotate(num_assess=Sum('num_assessments'))
+            ans_key_agg = qgroup_ans_qs.values(
+                'question_key').annotate(num_assess=Sum('num_assessments'))
 
+            question_keys = key_agg.values_list('question_key', flat=True)           
+            for q_key in question_keys:
+                total = key_agg.get(question_key=q_key)['num_assess']
+                try:
+                    score = ans_key_agg.get(question_key=q_key)['num_assess']
+                except Exception as e:
+                    score = None
                 q_res[q_key] = {
-                    "total": key_agg['num_assessments__sum'],
-                    "score": key_ans_agg['num_assessments__sum']
+                    "total": total,
+                    "score": score
                 }
             qgroup_res[qgroup_id] = q_res
         return Response(qgroup_res)
