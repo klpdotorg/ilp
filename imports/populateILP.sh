@@ -108,6 +108,7 @@ psql -U klp -d $ilp -f assessments/insert_surveytag_class_mapping.sql
 
 psql -U klp -d $ilp -f assessments/update_questionscores.sql
 
+psql -U klp -d $ilp -f assessments/cleanentries.sql
 echo "Assessments Done"
 
 #Populate Users
