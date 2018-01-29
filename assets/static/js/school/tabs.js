@@ -398,6 +398,14 @@
                             $("#trigger_share_story_form").click();
                         }
                     });
+
+                    function opensysForm() {
+                      window.open(`/sys/${data.school_id}`, '_self');
+                    }
+
+                    $("#share-your-story-button").click(function(){
+                      klp.auth.requireLogin(opensysForm);
+                    });
                 }
             },
             // 'volunteer': {
