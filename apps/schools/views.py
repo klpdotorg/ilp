@@ -83,6 +83,7 @@ class SchoolPageView(DetailView):
         # FIXME: there really should be a better way of handling school / preschool
         # Ideally, this would be better naming of "Boundary Type" and then just use that
         school_type = school.institution_type_id
+        print("School type is: ", school_type)
         context['breadcrumbs'] = [
             {
                 'url': reverse('map'),
