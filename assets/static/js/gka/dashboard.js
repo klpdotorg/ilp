@@ -255,12 +255,12 @@ var topSummaryData = {};
         startDetailLoading();
 
         // Fetch SMS Summary
-        var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
-        $smsSummaryXHR.done(function(data) {
-            stopDetailLoading();
-            klp.GKA.smsSummary = data;
-            renderSmsSummary(data);
-        });
+        // var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
+        // $smsSummaryXHR.done(function(data) {
+        //     stopDetailLoading();
+        //     klp.GKA.smsSummary = data;
+        //     renderSmsSummary(data);
+        // });
 
         // Fetch SMS Volume
         // Fetch users first
@@ -280,11 +280,11 @@ var topSummaryData = {};
         });
 
         //Fetch SMS Details
-        var $detailXHR = klp.api.do("survey/detail/source/", params);
-        $detailXHR.done(function(data) {
-            stopDetailLoading();
-            renderSMSDetails(data);
-        });
+        // var $detailXHR = klp.api.do("survey/detail/source/", params);
+        // $detailXHR.done(function(data) {
+        //     stopDetailLoading();
+        //     renderSMSDetails(data);
+        // });
     }
 
     function loadSurveys(params) {
@@ -486,6 +486,8 @@ var topSummaryData = {};
             // Bring back the from and to
             params.from = passedFrom;
             params.to = passedTo;
+            // And delete the year params which is not needed in subsequent calls
+            delete params.year;
 
             // Load the users Education volunteers count
             var $usersXHR = klp.api.do("survey/info/users", params);
@@ -569,8 +571,10 @@ var topSummaryData = {};
     }
 
     function renderSMSUserVolumeCharts(data, params)  {
+        console.log(data)
+
         var meta_values = [];
-        var volumes = data.volumes;
+        var volumes = data;
 
         // Set the expected values of line chart
         var expectedValue = 13680;
@@ -616,7 +620,7 @@ var topSummaryData = {};
 
         // Build the data for line chart and render it
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        var fromDate = '2017-01-01';
+        var fromDate = '2017-06-01';
         if(params.from) {
             fromDate = params.from;
         }
@@ -637,6 +641,7 @@ var topSummaryData = {};
         var volume_values = _.map(volumeValues, function(v){
             var month = v.split(' ')[0],
                 year = v.split(' ')[1];
+
             return {
                 'meta': v,
                 'value': volumes[year] ? volumes[year][month] : 0
