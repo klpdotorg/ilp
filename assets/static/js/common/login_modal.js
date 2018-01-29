@@ -142,7 +142,7 @@
         var isValid = klp.utils.validateRequired('loginForm');
         if (isValid) {
             var data = {
-                'email': $('#loginEmail').val(),
+                'username': $('#loginEmail').val(),
                 'password': $('#loginPassword').val()
             };
             var loginXHR = klp.api.login(data);
