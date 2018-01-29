@@ -255,29 +255,29 @@ var topSummaryData = {};
         startDetailLoading();
 
         // Fetch SMS Summary
-        // var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
-        // $smsSummaryXHR.done(function(data) {
-        //     stopDetailLoading();
-        //     klp.GKA.smsSummary = data;
-        //     renderSmsSummary(data);
-        // });
+        var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
+        $smsSummaryXHR.done(function(data) {
+            stopDetailLoading();
+            klp.GKA.smsSummary = data;
+            renderSmsSummary(data);
+        });
 
         // Fetch SMS Volume
         // Fetch users first
-        // var $usersXHR = klp.api.do("survey/info/users", params);
-        // $usersXHR.done(function(userGroups) {
+        var $usersXHR = klp.api.do("survey/info/users", params);
+        $usersXHR.done(function(userGroups) {
 
-        //     // Fetch volumes next
-        //     var $volumesXHR = klp.api.do("survey/volume/", params);
-        //     $volumesXHR.done(function(volumes) {
-        //         var data = {
-        //             volumes: volumes,
-        //             user_groups: userGroups.users
-        //         };
-        //         stopDetailLoading();
-        //         renderSMSUserVolumeCharts(data, params);
-        //     });
-        // });
+            // Fetch volumes next
+            var $volumesXHR = klp.api.do("survey/volume/", params);
+            $volumesXHR.done(function(volumes) {
+                var data = {
+                    volumes: volumes,
+                    user_groups: userGroups.users
+                };
+                stopDetailLoading();
+                renderSMSUserVolumeCharts(data, params);
+            });
+        });
 
         // Fetch SMS Details
         var $detailXHR = klp.api.do("survey/detail/source/", params);
@@ -498,8 +498,8 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                loadSmsData(params);
-                // loadAssmtData(params);
+                // loadSmsData(params);
+                loadAssmtData(params);
                 // loadGPContestData(params);
                 // loadSurveys(params);
                 // loadComparison(params);
@@ -557,7 +557,7 @@ var topSummaryData = {};
                 "ivrss-group-work"
             ],
             questionObjects = _.map(SMSQuestionKeys, function(key) {
-                return getQuestion(data, 'ivrs', key);
+                return getQuestion(data, 'sms', key);
             }),
             questions = getQuestionsArray(questionObjects),
             regroup = {},
