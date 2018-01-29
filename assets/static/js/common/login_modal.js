@@ -250,10 +250,10 @@
         var isValid = klp.utils.validateRequired(formID);
         if (isValid) {
             var data = {
-                'mobile': $('#signupOtpMobile').val(),
+                'mobile_no': $('#signupOtpMobile').val(),
                 'otp': $('#signupOtp').val()
             };
-            var url = 'users/otp_update/';
+            var url = 'users/otp-update/';
             var $xhr = klp.api.do(url, data, 'POST');
             klp.utils.startSubmit(formID);
             $xhr.done(function() {

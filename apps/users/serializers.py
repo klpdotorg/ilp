@@ -58,3 +58,11 @@ class UserLoginSerializer(serializers.Serializer):
     def _validate_user_is_active(self, user):
         if not user.is_active:
             raise serializers.ValidationError('User account is inactive')
+
+
+class OtpSerializer(serializers.Serializer):
+    mobile_no = serializers.CharField(style={'input_type': 'password'})
+    otp = serializers.CharField(style={'input_type': 'password'})
+
+    class Meta:
+        fields = ('mobile_no', 'otp', )
