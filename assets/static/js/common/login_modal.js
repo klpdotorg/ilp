@@ -20,6 +20,7 @@
         klp.utils.clearForm('signupForm');
         klp.utils.clearForm('loginForm');
         klp.utils.clearForm('forgotPasswordForm');
+        klp.utils.clearForm('otpForm');
         postLoginCallback = null;
     };
 
@@ -39,21 +40,29 @@
             e.preventDefault();
             $('#signupForm').submit();
         });
+
         $('#loginForm').submit(submitLogin);
         $('#loginFormSubmit').click(function(e) {
             e.preventDefault();
             $('#loginForm').submit();
         });
 
-        $('.js-showLogin').click(showLogin);
-        $('.js-showSignup').click(showSignup);
-
         $('#forgotPasswordForm').submit(submitForgotPassword);
         $('#forgotPasswordFormSubmit').click(function(e) {
             e.preventDefault();
             $('#forgotPasswordForm').submit();
         });
+
+        $('#signupOtpForm').submit(submitSignupOtp);
+        $('#signupOtpFormSubmit').click(function(e) {
+            e.preventDefault();
+            $('#signupOtpForm').submit();
+        });
+
+        $('.js-showLogin').click(showLogin);
+        $('.js-showSignup').click(showSignup);
         $('.js-showForgotPassword').click(showForgotPassword);
+
         showLogin();
     }
 
@@ -63,8 +72,24 @@
         }
         $('#loginContainer').hide();
         $('#forgotPasswordContainer').hide();
+        $('#signupOtpContainer').hide();
         $('#signupContainer').show();
 
+    }
+
+    function showSignupOTP(e, userData) {
+        if (e) {
+            e.preventDefault();
+        }
+
+        if(userData && userData.mobile_no) {
+            $('#signupOtpMobile').val(userData.mobile_no);
+        }
+
+        $('#loginContainer').hide();
+        $('#forgotPasswordContainer').hide();
+        $('#signupContainer').hide();
+        $('#signupOtpContainer').show();
     }
 
     function showForgotPassword(e) {
@@ -73,6 +98,7 @@
         }
         $('#loginContainer').hide();
         $('#signupContainer').hide();
+        $('#signupOtpContainer').hide();
         $('#forgotPasswordContainer').show();
     }
 
@@ -81,6 +107,8 @@
             e.preventDefault();
         }
         $('#signupContainer').hide();
+        $('#signupOtpContainer').hide();
+        $('#forgotPasswordContainer').hide();
         $('#loginContainer').show();
     }
 
@@ -100,7 +128,6 @@
                 'password': $('#signupPassword'),
                 'opted_email': $('#signupOptedEmail')
             };
-
             var data = klp.utils.getFormData(fields);
 
             klp.utils.startSubmit(formID);
@@ -108,6 +135,13 @@
 
             signupXHR.done(function(userData) {
                 klp.utils.stopSubmit(formID);
+
+                // TODO: Remove the below block after exotel API is integrated
+                alert('Hey, I can\'t send an OTP sms at the moment. So here is your OTP -\n\n' + userData.sms_verification_pin + '\n\nEnter this OTP at the next screen.');
+
+                showSignupOTP(null, userData);
+                return;
+
                 klp.auth.loginUser(userData);
                 klp.utils.alertMessage("Thanks for signing up!", "success");
                 if (postLoginCallback) {
@@ -201,6 +235,40 @@
 
                 }
                 //klp.utils.alertMessage("Invalid email address", "error");
+            });
+        }
+    }
+
+
+    function submitSignupOtp(e) {
+        if (e) {
+            e.preventDefault();
+        }
+        var formID = 'signupOtpForm';
+
+        klp.utils.clearValidationErrors(formID);
+        var isValid = klp.utils.validateRequired(formID);
+        if (isValid) {
+            var data = {
+                'mobile': $('#signupOtpMobile').val(),
+                'otp': $('#signupOtp').val()
+            };
+            var url = 'users/otp_update/';
+            var $xhr = klp.api.do(url, data, 'POST');
+            klp.utils.startSubmit(formID);
+            $xhr.done(function() {
+                klp.utils.stopSubmit(formID);
+                klp.utils.alertMessage("Your mobile number has been verified successfully. Please proceed to login", "success");
+                showLogin();
+            });
+            $xhr.fail(function(err) {
+                klp.utils.stopSubmit(formID);
+                var errorJSON = JSON.parse(err.responseText);
+                if (errorJSON.detail) {
+                    klp.utils.invalidateField($('#signupOtp'), errorJSON.detail);
+                } else {
+                    klp.utils.alertMessage("We are not able to verify your number do to an unknown error. Please contact us if this happens again.", "error");
+                }
             });
         }
     }
