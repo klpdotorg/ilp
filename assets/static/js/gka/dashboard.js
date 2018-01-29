@@ -501,10 +501,10 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                // loadSmsData(params);
-                // loadAssmtData(params);
-                // loadGPContestData(params);
-                // loadSurveys(params);
+                loadSmsData(params);
+                loadAssmtData(params);
+                loadGPContestData(params);
+                loadSurveys(params);
                 loadComparison(params);
             });
         });
@@ -574,7 +574,6 @@ var topSummaryData = {};
     }
 
     function renderSMSUserVolumeCharts(data, params)  {
-        console.log(data)
 
         var meta_values = [];
         var volumes = data;
