@@ -254,10 +254,6 @@ var topSummaryData = {};
     function loadSmsData(params) {
         startDetailLoading();
 
-        // For SMS, source=sms is needed
-        delete params.survey_tag;
-        params.source = 'sms';
-
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
         $smsSummaryXHR.done(function(data) {
@@ -500,7 +496,7 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                // loadSmsData(params);
+                loadSmsData(params);
                 // loadAssmtData(params);
                 // loadGPContestData(params);
                 // loadSurveys(params);
@@ -517,15 +513,31 @@ var topSummaryData = {};
     }
 
     function renderSmsSummary(data) {
-        var summaryData = data.source.mobile,
+        var summaryData = {},
+            lastAssessment = null,
             tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
-        
-        summaryData.format_lastsms = summaryData.last_assessment ? summaryData.last_assessment : '';
-        summaryData.smsPercentage = 0;
-        if(summaryData.assessment_count && summaryData.schools_impacted) {
-            summaryData.smsPercentage = summaryData.schools_impacted / summaryData.assessment_count * 100;
-            summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
-        }
+
+        // Build the summary data by adding sms and konnectsms source
+
+        data = data.source;
+
+        // Assessment count
+        summaryData.assessment_count = data.sms.assessment_count + data.konnectsms.assessment_count;
+
+        // Schools impacted
+        summaryData.schools_impacted = data.sms.schools_impacted + data.konnectsms.schools_impacted;
+
+        // Last assessment date
+        if(new Date(data.sms.last_assessment) > new Date(data.konnectsms.last_assessment)) {
+            lastAssessment = data.sms.last_assessment;
+        } else {
+            lastAssessment = data.konnectsms.last_assessment;
+        }        
+        summaryData.last_assessment = lastAssessment;
+        summaryData.format_lastsms = lastAssessment;
+
+        summaryData.smsPercentage = summaryData.schools_impacted / summaryData.assessment_count * 100;
+        summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
 
         var smsSummaryHTML = tplSmsSummary(summaryData);
         $('#smsSummary').html(smsSummaryHTML);
