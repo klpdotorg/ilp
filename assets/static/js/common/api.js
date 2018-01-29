@@ -44,6 +44,18 @@
                     type: method,
                     dataType: 'json'
                 });
+                // if (method == 'POST'){
+                //     var $xhr = $.ajax({
+                //         url: base + endpoint,
+                //         data: data,
+                //         type: method,
+                //         dataType: 'json',
+                //         headers: {
+                //             "Authorization": "Token e3d19fe458c5fe460f0debc39f883a35b1e52aaa" 
+                //         }
+                //     });
+                // }
+               
                 $xhr.done(function(data) {
                     cache[cacheKey] = data;
                     $deferred.resolve(data);

@@ -47,8 +47,8 @@
             }
             dataObj['images'] = getImagesData();
             //var postURL = "stories/" + SCHOOL_ID;
-            var postURL = "surveys/5/questiongroup/6/institution/" + SCHOOL_ID + "/answers/"
-            var $xhr = klp.api.do(postURL, dataObj, 'POST');
+            var postURL = "sys/" + SCHOOL_ID + "/"
+            var $xhr = klp.api.authDo(postURL, dataObj, 'POST');
             klp.utils.startSubmit('sysForm');
             $xhr.done(function() {
                 klp.utils.alertMessage("Thank you for submitting your story!", "success");

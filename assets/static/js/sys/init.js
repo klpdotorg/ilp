@@ -40,9 +40,9 @@
             dataObj['images'] = getImagesData();
             var schoolID = dataObj['id'];
             delete dataObj['id'];
-            var postURL = "surveys/5/questiongroup/6/institution" + schoolID + "/answers/";
+            var postURL = "sys/" + schoolID + "/";
             
-            var $xhr = klp.api.do(postURL, dataObj, 'POST');
+            var $xhr = klp.api.authDo(postURL, dataObj, 'POST');
             startFormLoading();
             klp.utils.startSubmit('sys_school');
             $xhr.done(function() {

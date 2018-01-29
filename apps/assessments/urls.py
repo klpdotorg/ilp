@@ -15,7 +15,7 @@ from assessments.api_views import (
     QuestionGroupSchoolViewSet, SurveyQuestionGroupDetailsAPIView,
     SurveyInstitutionAnsAggView, SurveyInstitutionDetailAPIView,
     SurveyTagAggAPIView, AssessmentsImagesView, AssessmentSyncView,
-    RespondentTypeList
+    RespondentTypeList, ShareYourStoryAPIView
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -121,6 +121,7 @@ answers = surveyqgroup.register(
     parents_query_lookups=['survey', 'questiongroup', 'student'])
 
 urlpatterns = [
+    url(r'sys/(?P<schoolid>[0-9]+)/$', ShareYourStoryAPIView.as_view({'post': 'create'}), name='sys_post'),
     url(r'institutionsurveys/$', SurveyInstitutionAnsAggView.as_view(), name='stories'),
     url(r'surveys/storiesinfo',
         QGroupStoriesInfoView.as_view(), name='stories-info'),
