@@ -102,10 +102,17 @@
         $('#forgotPasswordContainer').show();
     }
 
-    function showLogin(e) {
+    function showLogin(e, showOtpSuccessMessage) {
         if (e) {
             e.preventDefault();
         }
+
+        if(showOtpSuccessMessage) {
+            $('#loginOtpVerifiedMessage').show();
+        } else {
+            $('#loginOtpVerifiedMessage').hide();
+        }
+
         $('#signupContainer').hide();
         $('#signupOtpContainer').hide();
         $('#forgotPasswordContainer').hide();
@@ -140,14 +147,6 @@
                 alert('Hey, I can\'t send an OTP sms at the moment. So here is your OTP -\n\n' + userData.sms_verification_pin + '\n\nEnter this OTP at the next screen.');
 
                 showSignupOTP(null, userData);
-                return;
-
-                klp.auth.loginUser(userData);
-                klp.utils.alertMessage("Thanks for signing up!", "success");
-                if (postLoginCallback) {
-                    postLoginCallback();
-                }
-                t.close();
             });
 
             signupXHR.fail(function(err) {
@@ -259,7 +258,7 @@
             $xhr.done(function() {
                 klp.utils.stopSubmit(formID);
                 klp.utils.alertMessage("Your mobile number has been verified successfully. Please proceed to login", "success");
-                showLogin();
+                showLogin(null, true);
             });
             $xhr.fail(function(err) {
                 klp.utils.stopSubmit(formID);
