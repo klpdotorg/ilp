@@ -116,6 +116,11 @@ urlpatterns = [
         template_name='story_dashboard.html'
     ), name='story_dashboard'),
 
+    # Share you story
+    url(r'^sys/(?P<value>\d+)/$', StaticPageView.as_view(
+        template_name='sys_form.html'
+    ), name='sys_form'),
+
     # Reports page
     url(r'^reports/$', StaticPageView.as_view(
         template_name='reports.html',
