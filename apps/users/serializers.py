@@ -5,9 +5,18 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    is_email_verified = serializers.BooleanField(read_only=True)
+    is_mobile_verified = serializers.BooleanField(read_only=True)
+
     class Meta:
         model = User
-        fields = '__all__'
+        exclude = (
+            'password',
+            'email_verification_code',
+            'is_superuser',
+            'is_active',
+            'sms_verification_pin',
+        )
         read_only_fields = (User.USERNAME_FIELD,)
 
 
@@ -23,11 +32,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.Serializer):
-    email = serializers.CharField(style={'input_type': 'password'})
+    username = serializers.CharField(style={'input_type': 'password'})
     password = serializers.CharField(style={'input_type': 'password'})
 
     class Meta:
-        fields = ('email', 'password', )
+        fields = ('username', 'password', )
 
     def __init__(self, *args, **kwargs):
         super(UserLoginSerializer, self).__init__(*args, **kwargs)
@@ -35,7 +44,7 @@ class UserLoginSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         self.user = authenticate(
-            username=attrs.get('email'),
+            username=attrs.get('username'),
             password=attrs.get('password')
         )
         self._validate_user_exists(self.user)
@@ -44,7 +53,7 @@ class UserLoginSerializer(serializers.Serializer):
 
     def _validate_user_exists(self, user):
         if not user:
-            raise serializers.ValidationError('Invalid email/password')
+            raise serializers.ValidationError('Invalid username/password')
 
     def _validate_user_is_active(self, user):
         if not user.is_active:

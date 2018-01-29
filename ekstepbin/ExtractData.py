@@ -5,10 +5,10 @@ import zipfile
 import gzip
 
 dir = os.path.dirname(__file__)
-path_to_zip_file = os.path.join(dir,'../datapull/response.gz')
-path_to_extract1 = os.path.join(dir,'../datapull/output1')
-path_to_extract2 = os.path.join(dir,'../datapull/output2')
-path_to_extract3 = os.path.join(dir,'../datapull/output3')
+path_to_zip_file = os.path.join(dir,'../../datapull/response.gz')
+path_to_extract1 = os.path.join(dir,'../../datapull/output1')
+path_to_extract2 = os.path.join(dir,'../../datapull/output2')
+path_to_extract3 = os.path.join(dir,'../../datapull/output3')
 
 
 print (path_to_zip_file)
@@ -33,7 +33,7 @@ if os.path.isdir(second_level_dir):
 if not os.path.exists(path_to_extract3):
     os.makedirs(path_extract3)
 
-exdata_file  = open(os.path.join(dir,'../datapull/output3/exdata.json'), "w", encoding="utf-8")
+exdata_file  = open(os.path.join(dir,'../../datapull/output3/exdata.json'), "w", encoding="utf-8")
 
 
 for foldername in os.listdir(path_to_extract2):

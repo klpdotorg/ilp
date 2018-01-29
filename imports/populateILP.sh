@@ -55,6 +55,7 @@ echo "Running Assessments"
 #Import SYS data
 echo "SYS Assessments"
 python assessments/import_sys.py dubdubdub $ilp
+python assessments/update_sysquestions.py `pwd`/assessments/sysquestions $ilp
 
 #Import IVRS Community data
 echo "Community IVRS"
@@ -107,12 +108,14 @@ psql -U klp -d $ilp -f assessments/insert_surveytag_class_mapping.sql
 
 psql -U klp -d $ilp -f assessments/update_questionscores.sql
 
+psql -U klp -d $ilp -f assessments/cleanentries.sql
 echo "Assessments Done"
 
 #Populate Users
 echo "Users"
 python users/import_users.py dubdubdub $ilp
 psql -U klp -d $ilp -f users/insert_unknownuser.sql
+python users/import_usersfromfile.py `pwd`/users/csv_files/ $ilp
 python users/update_assessment_userid.py dubdubdub $ilp
 echo "Users Done"
 

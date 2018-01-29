@@ -18,17 +18,16 @@ from django.contrib.sites.models import Site
 # from django.utils.text import slugify
 from django.conf import settings
 
-from .choices import USER_TYPE_CHOICES
 
 
 class UserManager(BaseUserManager):
-    def create(self, email, password=None, **extra_fields):
+    def create(self, mobile_no, password=None, **extra_fields):
 
-        if not email:
-            raise ValueError('Users must have an email address')
+        if not mobile_no:
+            raise ValueError('Users must have a mobile_no')
 
         user = self.model(
-            email=UserManager.normalize_email(email),
+            mobile_no=mobile_no,
             **extra_fields
         )
 
@@ -36,21 +35,20 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        user = self.create_user(email, password=password, **extra_fields)
+    def create_superuser(self, mobile_no, password=None, **extra_fields):
+        user = self.create_user(mobile_no, password=password, **extra_fields)
         user.is_admin = True
         user.save(using=self._db)
         return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(null=True)
     mobile_no = models.CharField(max_length=32, unique=True)
     mobile_no1 = models.CharField(max_length=32, null=True)
     first_name = models.CharField(max_length=64, blank=True)
-    last_name = models.CharField(max_length=64, blank=True)
-    user_type = models.CharField(
-        max_length=50, choices=USER_TYPE_CHOICES, null=True, blank=True)
+    last_name = models.CharField(max_length=64, blank=True, null=True)
+    user_type = models.ForeignKey('common.RespondentType', null=True)
     is_active = models.BooleanField(default=True)
     email_verification_code = models.CharField(
         max_length=128, null=True, blank=True)
@@ -73,7 +71,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     youtube_url = models.URLField(blank=True, null=True)
 
     objects = UserManager()
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'mobile_no'
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -124,6 +122,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __unicode__(self):
         return self.email
+
+
+class UserBoundary(models.Model):
+    user = models.ForeignKey('User')
+    boundary = models.ForeignKey('boundary.Boundary')
+
+    class Meta:
+        unique_together = (('user', 'boundary'), )
 
 
 @receiver(post_save, sender=User)
