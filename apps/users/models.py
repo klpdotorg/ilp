@@ -23,7 +23,7 @@ class UserManager(BaseUserManager):
     def create(self, mobile_no, password=None, **extra_fields):
 
         if not mobile_no:
-            raise ValueError('Users must have a mobile_no')
+            raise ValueError('User must have a mobile_no')
 
         user = self.model(
             mobile_no=mobile_no,
