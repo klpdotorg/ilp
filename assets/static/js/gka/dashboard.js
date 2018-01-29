@@ -464,6 +464,18 @@ var topSummaryData = {};
     // Renders top summary of GKA dashboard
     function loadTopSummary(params) {
 
+        var passedFrom = params.from;
+        var passedTo = params.to;
+
+        // Top summary needs a year
+        if(params.from && params.to) {
+            params.year = params.from.slice(2, 4) + params.to.slice(2, 4);
+        }
+
+        // Top summary doesnt need a from and to
+        delete params.from;
+        delete params.to;
+
         // Load the summary first
         var $summaryXHR = klp.api.do("surveys/tagmappingsummary/", params);
         startSummaryLoading();
@@ -474,33 +486,26 @@ var topSummaryData = {};
                 children_impacted: data.num_students,
                 schools_impacted: data.num_schools
             };
-            klp.GKA.topSummaryData = topSummary;
 
-            renderTopSummary(topSummary);
-
-            // Load the rest of sections
-            loadSmsData(params);
-            loadAssmtData(params);
-            loadGPContestData(params);
-            loadSurveys(params);
-            loadComparison(params);
+            // Bring back the from and to
+            params.from = passedFrom;
+            params.to = passedTo;
 
             // Load the users Education volunteers count
-            // var $usersXHR = klp.api.do("survey/info/users", params);
-            // $usersXHR.done(function(data) {
-            //     topSummary.education_volunteers = (data.users && data.users.EV) ? data.users.EV: 0; 
+            var $usersXHR = klp.api.do("survey/info/users", params);
+            $usersXHR.done(function(data) {
+                topSummary.education_volunteers = (data.users && data.users.VR) ? data.users.EV: 0; 
 
-            //     klp.GKA.topSummaryData = topSummary;
+                klp.GKA.topSummaryData = topSummary;
+                renderTopSummary(topSummary);
 
-            //     renderTopSummary(topSummary);
-
-            //     // Load the rest of sections
-            //     loadSmsData(params);
-            //     loadAssmtData(params);
-            //     loadGPContestData(params);
-            //     loadSurveys(params);
-            //     loadComparison(params);
-            // });
+                // Load the rest of sections
+                // loadSmsData(params);
+                // loadAssmtData(params);
+                // loadGPContestData(params);
+                // loadSurveys(params);
+                // loadComparison(params);
+            });
         });
     }
 
