@@ -254,36 +254,32 @@ var topSummaryData = {};
     function loadSmsData(params) {
         startDetailLoading();
 
-        // For SMS, source=sms is needed
-        delete params.survey_tag;
-        params.source = 'sms';
-
         // Fetch SMS Summary
-        var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
-        $smsSummaryXHR.done(function(data) {
-            stopDetailLoading();
-            klp.GKA.smsSummary = data;
-            renderSmsSummary(data);
-        });
+        // var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
+        // $smsSummaryXHR.done(function(data) {
+        //     stopDetailLoading();
+        //     klp.GKA.smsSummary = data;
+        //     renderSmsSummary(data);
+        // });
 
         // Fetch SMS Volume
         // Fetch users first
-        var $usersXHR = klp.api.do("survey/info/users", params);
-        $usersXHR.done(function(userGroups) {
+        // var $usersXHR = klp.api.do("survey/info/users", params);
+        // $usersXHR.done(function(userGroups) {
 
-            // Fetch volumes next
-            var $volumesXHR = klp.api.do("survey/volume/", params);
-            $volumesXHR.done(function(volumes) {
-                var data = {
-                    volumes: volumes,
-                    user_groups: userGroups.users
-                };
-                stopDetailLoading();
-                renderSMSUserVolumeCharts(data, params);
-            });
-        });
+        //     // Fetch volumes next
+        //     var $volumesXHR = klp.api.do("survey/volume/", params);
+        //     $volumesXHR.done(function(volumes) {
+        //         var data = {
+        //             volumes: volumes,
+        //             user_groups: userGroups.users
+        //         };
+        //         stopDetailLoading();
+        //         renderSMSUserVolumeCharts(data, params);
+        //     });
+        // });
 
-        //Fetch SMS Details
+        // Fetch SMS Details
         var $detailXHR = klp.api.do("survey/detail/source/", params);
         $detailXHR.done(function(data) {
             stopDetailLoading();
@@ -464,6 +460,18 @@ var topSummaryData = {};
     // Renders top summary of GKA dashboard
     function loadTopSummary(params) {
 
+        var passedFrom = params.from;
+        var passedTo = params.to;
+
+        // Top summary needs a year
+        if(params.from && params.to) {
+            params.year = params.from.slice(2, 4) + params.to.slice(2, 4);
+        }
+
+        // Top summary doesnt need a from and to
+        delete params.from;
+        delete params.to;
+
         // Load the summary first
         var $summaryXHR = klp.api.do("surveys/tagmappingsummary/", params);
         startSummaryLoading();
@@ -474,33 +482,28 @@ var topSummaryData = {};
                 children_impacted: data.num_students,
                 schools_impacted: data.num_schools
             };
-            klp.GKA.topSummaryData = topSummary;
 
-            renderTopSummary(topSummary);
-
-            // Load the rest of sections
-            loadSmsData(params);
-            loadAssmtData(params);
-            loadGPContestData(params);
-            loadSurveys(params);
-            loadComparison(params);
+            // Bring back the from and to
+            params.from = passedFrom;
+            params.to = passedTo;
+            // And delete the year params which is not needed in subsequent calls
+            delete params.year;
 
             // Load the users Education volunteers count
-            // var $usersXHR = klp.api.do("survey/info/users", params);
-            // $usersXHR.done(function(data) {
-            //     topSummary.education_volunteers = (data.users && data.users.EV) ? data.users.EV: 0; 
+            var $usersXHR = klp.api.do("survey/info/users", params);
+            $usersXHR.done(function(data) {
+                topSummary.education_volunteers = (data.users && data.users.VR) ? data.users.EV: 0; 
 
-            //     klp.GKA.topSummaryData = topSummary;
+                klp.GKA.topSummaryData = topSummary;
+                renderTopSummary(topSummary);
 
-            //     renderTopSummary(topSummary);
-
-            //     // Load the rest of sections
-            //     loadSmsData(params);
-            //     loadAssmtData(params);
-            //     loadGPContestData(params);
-            //     loadSurveys(params);
-            //     loadComparison(params);
-            // });
+                // Load the rest of sections
+                loadSmsData(params);
+                // loadAssmtData(params);
+                // loadGPContestData(params);
+                // loadSurveys(params);
+                // loadComparison(params);
+            });
         });
     }
 
@@ -512,15 +515,31 @@ var topSummaryData = {};
     }
 
     function renderSmsSummary(data) {
-        var summaryData = data.source.mobile,
+        var summaryData = {},
+            lastAssessment = null,
             tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
-        
-        summaryData.format_lastsms = summaryData.last_assessment ? summaryData.last_assessment : '';
-        summaryData.smsPercentage = 0;
-        if(summaryData.assessment_count && summaryData.schools_impacted) {
-            summaryData.smsPercentage = summaryData.schools_impacted / summaryData.assessment_count * 100;
-            summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
-        }
+
+        // Build the summary data by adding sms and konnectsms source
+
+        data = data.source;
+
+        // Assessment count
+        summaryData.assessment_count = data.sms.assessment_count + data.konnectsms.assessment_count;
+
+        // Schools impacted
+        summaryData.schools_impacted = data.sms.schools_impacted + data.konnectsms.schools_impacted;
+
+        // Last assessment date
+        if(new Date(data.sms.last_assessment) > new Date(data.konnectsms.last_assessment)) {
+            lastAssessment = data.sms.last_assessment;
+        } else {
+            lastAssessment = data.konnectsms.last_assessment;
+        }        
+        summaryData.last_assessment = lastAssessment;
+        summaryData.format_lastsms = lastAssessment;
+
+        summaryData.smsPercentage = summaryData.schools_impacted / summaryData.assessment_count * 100;
+        summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
 
         var smsSummaryHTML = tplSmsSummary(summaryData);
         $('#smsSummary').html(smsSummaryHTML);
@@ -552,8 +571,10 @@ var topSummaryData = {};
     }
 
     function renderSMSUserVolumeCharts(data, params)  {
+        console.log(data)
+
         var meta_values = [];
-        var volumes = data.volumes;
+        var volumes = data;
 
         // Set the expected values of line chart
         var expectedValue = 13680;
@@ -599,7 +620,7 @@ var topSummaryData = {};
 
         // Build the data for line chart and render it
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        var fromDate = '2017-01-01';
+        var fromDate = '2017-06-01';
         if(params.from) {
             fromDate = params.from;
         }
@@ -620,6 +641,7 @@ var topSummaryData = {};
         var volume_values = _.map(volumeValues, function(v){
             var month = v.split(' ')[0],
                 year = v.split(' ')[1];
+
             return {
                 'meta': v,
                 'value': volumes[year] ? volumes[year][month] : 0
