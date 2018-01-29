@@ -141,7 +141,7 @@
         var isValid = klp.utils.validateRequired('loginForm');
         if (isValid) {
             var data = {
-                'email': $('#loginEmail').val(),
+                'username': $('#loginUsername').val(),
                 'password': $('#loginPassword').val()
             };
             var loginXHR = klp.api.login(data);
@@ -164,8 +164,8 @@
                 klp.utils.stopSubmit(formID);
                 var errors = JSON.parse(err.responseText);
                 var $field = $('#loginPassword');
-                if (errors.detail) {
-                    klp.utils.invalidateField($field, errors.detail);
+                if (errors.detail || errors.non_field_errors) {
+                    klp.utils.invalidateField($field, "Invalid mobile/email/password");
                 } else {
                     klp.utils.alertMessage("Login failed due to unknown error. Please contact us if this happens again.", "error");
                 }
