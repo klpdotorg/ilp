@@ -34,7 +34,6 @@
     };
 
     function initModal() {
-        console.log("modal init");
         $('#signupForm').submit(submitSignup);
         $('#signupFormSubmit').click(function(e) {
             e.preventDefault();
