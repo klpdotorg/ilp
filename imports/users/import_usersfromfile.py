@@ -31,6 +31,9 @@ def reset_sequences():
     query = "SELECT setval('users_user_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_user), 1), false);"
     cursor.execute(query)
     conn.commit()
+    query = "SELECT setval('users_userboundary_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_userboundary), 1), false);"
+    cursor.execute(query)
+    conn.commit()
     cursor.close()
     conn.close()
 
