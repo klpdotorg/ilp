@@ -264,27 +264,27 @@ var topSummaryData = {};
 
         // Fetch SMS Volume
         // Fetch users first
-        var $usersXHR = klp.api.do("survey/info/users", params);
-        $usersXHR.done(function(userGroups) {
+        // var $usersXHR = klp.api.do("survey/info/users", params);
+        // $usersXHR.done(function(userGroups) {
 
-            // Fetch volumes next
-            var $volumesXHR = klp.api.do("survey/volume/", params);
-            $volumesXHR.done(function(volumes) {
-                var data = {
-                    volumes: volumes,
-                    user_groups: userGroups.users
-                };
-                stopDetailLoading();
-                renderSMSUserVolumeCharts(data, params);
-            });
-        });
-
-        //Fetch SMS Details
-        // var $detailXHR = klp.api.do("survey/detail/source/", params);
-        // $detailXHR.done(function(data) {
-        //     stopDetailLoading();
-        //     renderSMSDetails(data);
+        //     // Fetch volumes next
+        //     var $volumesXHR = klp.api.do("survey/volume/", params);
+        //     $volumesXHR.done(function(volumes) {
+        //         var data = {
+        //             volumes: volumes,
+        //             user_groups: userGroups.users
+        //         };
+        //         stopDetailLoading();
+        //         renderSMSUserVolumeCharts(data, params);
+        //     });
         // });
+
+        // Fetch SMS Details
+        var $detailXHR = klp.api.do("survey/detail/source/", params);
+        $detailXHR.done(function(data) {
+            stopDetailLoading();
+            renderSMSDetails(data);
+        });
     }
 
     function loadSurveys(params) {
