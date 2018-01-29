@@ -118,7 +118,7 @@ var topSummaryData = {};
                     schools: summary.schools,
                     sms: summary.sms,
                     sms_govt: summary.sms_govt,
-            sms_govt_percent: getPercent(summary.sms_govt, summary.sms),
+                    sms_govt_percent: getPercent(summary.sms_govt, summary.sms),
                     assmt: summary.assessments,
                     contests: summary.contests,
                     surveys: summary.surveys
@@ -303,6 +303,7 @@ var topSummaryData = {};
             var $respondentXHR = klp.api.do("survey/info/respondent/", params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
+                stopDetailLoading();
             });
         });
 
@@ -310,12 +311,14 @@ var topSummaryData = {};
         var $volumeXHR = klp.api.do("survey/volume/", params);
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
+            stopDetailLoading();
         });
 
         // Load the detail section
         var $detailXHR = klp.api.do("survey/detail/source/", params);
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
+            stopDetailLoading();
         });
     }
 
@@ -499,10 +502,10 @@ var topSummaryData = {};
 
                 // Load the rest of sections
                 // loadSmsData(params);
-                loadAssmtData(params);
+                // loadAssmtData(params);
                 // loadGPContestData(params);
                 // loadSurveys(params);
-                // loadComparison(params);
+                loadComparison(params);
             });
         });
     }
