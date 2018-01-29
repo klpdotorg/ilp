@@ -269,7 +269,7 @@ class OtpUpdateView(generics.GenericAPIView):
             )
         except User.DoesNotExist:
             return Response(
-                {'detail': 'Invalid mobile or OTP'},
+                {'detail': 'Invalid OTP'},
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
