@@ -3,7 +3,7 @@ import os
 import inspect
 
 if len(sys.argv) != 3:
-    print("Please give database names as arguments. USAGE: python updateinstitution_disecode.py ems ilp")
+    print("Please give database names as arguments. USAGE: python update_assessment_userid.py dubdubdub ilp")
     sys.exit()
 
 fromdatabase = sys.argv[1]
