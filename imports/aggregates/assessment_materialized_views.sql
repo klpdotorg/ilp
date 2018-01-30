@@ -8,7 +8,8 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    num_users
 FROM(SELECT survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.inst_type_id as institution_type,
@@ -16,7 +17,8 @@ FROM(SELECT survey.id as survey_id,
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct ag.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
-        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
@@ -43,7 +45,8 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    num_users
 FROM(SELECT survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.inst_type_id as institution_type,
@@ -51,7 +54,8 @@ FROM(SELECT survey.id as survey_id,
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct ag.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
-        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
@@ -76,7 +80,8 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    num_users
 FROM(SELECT 
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
@@ -85,7 +90,8 @@ FROM(SELECT
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
-        count(distinct ag.student_id) as num_children
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_student ag,
@@ -112,7 +118,8 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    num_users
 FROM(SELECT 
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
@@ -121,7 +128,8 @@ FROM(SELECT
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
-        count(distinct ag.student_id) as num_children
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_student ag,
