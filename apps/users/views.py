@@ -279,3 +279,37 @@ class OtpUpdateView(generics.GenericAPIView):
             user.is_mobile_verified = True
             user.save()
             return Response({'success': 'ok'}, status=status.HTTP_200_OK)
+
+
+class OtpGenerateView(generics.GenericAPIView):
+    """
+    This end point generates an OTP for a mobile number
+    """
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        mobile_no = request.data.get('mobile_no', None)
+
+        if mobile_no is None:
+            return Response(
+                {'detail': 'mobile_no is required=True'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            user = User.objects.get(mobile_no=mobile_no)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'User is not registered in ILP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.generate_sms_pin()
+            user.save()
+            user.send_otp()
+            return Response(
+                {'success': 'otp generated and send'},
+                status=status.HTTP_200_OK
+            )
