@@ -274,7 +274,7 @@ class OtpUpdateView(generics.GenericAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
-            user.sms_verification_pin = ''
+            user.sms_verification_pin = None
             user.is_active = True
             user.is_mobile_verified = True
             user.save()

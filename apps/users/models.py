@@ -15,8 +15,9 @@ from django.dispatch import receiver
 from django.core.urlresolvers import reverse
 from common.utils import send_templated_mail
 from django.contrib.sites.models import Site
-# from django.utils.text import slugify
 from django.conf import settings
+
+from common.utils import send_sms
 
 
 class UserManager(BaseUserManager):
@@ -76,6 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not self.id:
             self.generate_email_token()
             self.generate_sms_pin()
+            self.send_otp()
         return super(User, self).save(*args, **kwargs)
 
     def generate_email_token(self):
@@ -84,6 +86,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def generate_sms_pin(self):
         pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
         self.sms_verification_pin = int(pin)
+
+    def send_otp(self):
+        msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
+        send_sms(self.mobile_no, msg)
 
     def get_token(self):
         return Token.objects.get(user=self).key
