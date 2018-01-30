@@ -87,8 +87,8 @@ for filename in os.listdir(fromdir):
             print("Incorrect boundary: "+boundary)
 
 
-        sqlselect = "select id from users_user where mobile_no=%s;"
-        cursor.execute(sqlselect, [mobile_no])
+        sqlselect = "select id from users_user where mobile_no=%s or email=%s;"
+        cursor.execute(sqlselect, (mobile_no,email))
         user_present = cursor.fetchone()
         if user_present is not None:
             user_id = user_present[0]
