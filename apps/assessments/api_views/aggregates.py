@@ -56,9 +56,9 @@ class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
         response.update(**summary_response)
 
         res_surveys = []
-        for sid in queryset.distinct('survey_id').values_list(
-                'survey_id', flat=True
-        ):
+        survey_ids = queryset.distinct('survey_id').\
+            values_list('survey_id', flat=True)
+        for sid in survey_ids:
             survey = Survey.objects.get(id=sid)
             sources = survey.questiongroup_set.distinct(
                 'source__name').values_list('source', flat=True)
@@ -67,6 +67,9 @@ class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                 "name": survey.name,
                 "source": sources
             }
+            res_survey.update(
+                **self.get_summary_response(queryset.filter(survey_id=sid))
+            )
             res_surveys.append(res_survey)
         response['surveys'] = res_surveys
         return Response(response)
