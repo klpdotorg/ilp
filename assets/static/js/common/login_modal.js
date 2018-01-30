@@ -142,10 +142,6 @@
 
             signupXHR.done(function(userData) {
                 klp.utils.stopSubmit(formID);
-
-                // TODO: Remove the below block after exotel API is integrated
-                alert('Hey, I can\'t send an OTP sms at the moment. So here is your OTP -\n\n' + userData.sms_verification_pin + '\n\nEnter this OTP at the next screen.');
-
                 showSignupOTP(null, userData);
             });
 

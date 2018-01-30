@@ -84,6 +84,7 @@ class EmailVerificationView(StaticPageView):
             if user.is_email_verified:
                 extra_context['already_verified'] = True
             else:
+                user.email_verification_code = ''
                 user.is_email_verified = True
                 user.is_active = True
                 user.save()
@@ -273,6 +274,7 @@ class OtpUpdateView(generics.GenericAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
+            user.sms_verification_pin = ''
             user.is_active = True
             user.is_mobile_verified = True
             user.save()

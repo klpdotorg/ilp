@@ -48,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=64, blank=True)
     last_name = models.CharField(max_length=64, blank=True, null=True)
     user_type = models.ForeignKey('common.RespondentType', null=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     email_verification_code = models.CharField(
         max_length=128, null=True, blank=True)
     sms_verification_pin = models.IntegerField(null=True, blank=True)
