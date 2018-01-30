@@ -181,7 +181,6 @@
             klp.utils.startSubmit(formID);
             loginXHR.done(function(userData) {
                 klp.utils.stopSubmit(formID);
-                userData.email = data.email;
                 klp.auth.loginUser(userData);
                 klp.utils.alertMessage("Logged in successfully!", "success");
                 if (postLoginCallback) {
