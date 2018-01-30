@@ -19,12 +19,11 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 
 
-
 class UserManager(BaseUserManager):
     def create(self, mobile_no, password=None, **extra_fields):
 
         if not mobile_no:
-            raise ValueError('Users must have a mobile_no')
+            raise ValueError('User must have a mobile_no')
 
         user = self.model(
             mobile_no=mobile_no,
@@ -43,7 +42,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(null=True)
+    email = models.EmailField(null=True, blank=True, unique=True)
     mobile_no = models.CharField(max_length=32, unique=True)
     mobile_no1 = models.CharField(max_length=32, null=True)
     first_name = models.CharField(max_length=64, blank=True)
@@ -83,7 +82,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.email_verification_code = uuid.uuid4().hex
 
     def generate_sms_pin(self):
-        pin = ''.join([str(random.choice(range(1, 9))) for i in range(4)])
+        pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
         self.sms_verification_pin = int(pin)
 
     def get_token(self):

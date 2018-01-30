@@ -43,9 +43,9 @@
             dataObj['images'] = getImagesData();
             var schoolID = dataObj['id'];
             delete dataObj['id'];
-            var postURL = "stories/" + schoolID;
+            var postURL = "sys/" + schoolID + "/";
 
-            var $xhr = klp.api.do(postURL, dataObj, 'POST');
+            var $xhr = klp.api.authDo(postURL, dataObj, 'POST');
             startFormLoading();
             klp.utils.startSubmit('sys_school');
             $xhr.done(function() {
@@ -135,35 +135,36 @@
         var questions = {
             "academic":
             [
-                {'question':'Was the school open?','id':1, 'key': 'webs-school-open' },
-                {'question':'Was the teacher present in each class?','id':2, 'key': 'webs-teachers-present' },
-                {'question':'Are there Sufficient number of class rooms?','id':17, 'key': 'webs-number-classrooms' },
-                {'question':'Were at least 50% of the children enrolled present on the day you visited the school?','id':19, 'key': 'webs-50percent-present' },
-                {'question':'Is there a Separate office for Headmaster?','id':11, 'key': 'webs-headmaster-office' }
+                {'question':'Was the school open?','id':141, 'key': 'webs-school-open' },
+                {'question':'Was the teacher present in each class?','id':92, 'key': 'webs-teachers-present' },
+                {'question':'Are there Sufficient number of class rooms?','id':90, 'key': 'webs-number-classrooms' },
+                {'question':'Were at least 50% of the children enrolled present on the day you visited the school?','id':91, 'key': 'webs-50percent-present' },
+                {'question':'Is there a Separate office for Headmaster?','id':52, 'key': 'webs-headmaster-office' }
             ],
             "infra":
             [
-                {'question':'Is there a Boundary wall/ Fencing?','id':8, 'key': 'webs-boundary-wall' },
-                {'question':'Is there Accessibility to students with disabilities?','id':10, 'key': 'webs-access-disability' },
-                {'question':'Is there a Play ground?','id':9, 'key': 'webs-playground' },
-                {'question':'Are there Play Materials or Sports Equipments?','id':14, 'key': 'webs-play-material' }
+                {'question':'Is there a Boundary wall/ Fencing?','id':49, 'key': 'webs-boundary-wall' },
+                {'question':'Is there Accessibility to students with disabilities?','id':51, 'key': 'webs-access-disability' },
+                {'question':'Is there a Play ground?','id':50, 'key': 'webs-playground' },
+                {'question':'Are there Play Materials or Sports Equipments?','id':57, 'key': 'webs-play-material' }
             ],
             "hygiene":
             [
-                {'question':'Are all the toilets in the school functional?','id':4, 'key': 'webs-all-toilets-functional' },
-                {'question':'Does the school have a separate functional toilet for girls?','id':5, 'key': 'webs-separate-toilets' },
-                {'question':'Does the school have drinking water?','id':6, 'key': 'webs-drinking-water' },
-                {'question':'Is a Mid Day Meal served in the school?','id':7, 'key': 'webs-food-being-cooked' },
-                {'question':'Is there a Separate room as Kitchen / Store for Mid day meals?','id':12, 'key': 'webs-separate-food-store' }
+                {'question':'Are all the toilets in the school functional?','id':142, 'key': 'webs-all-toilets-functional' },
+                {'question':'Does the school have a separate functional toilet for girls?','id':54, 'key': 'webs-separate-toilets' },
+                {'question':'Does the school have drinking water?','id':55, 'key': 'webs-drinking-water' },
+                {'question':'Is a Mid Day Meal served in the school?','id':58, 'key': 'webs-food-being-cooked' },
+                {'question':'Is there a Separate room as Kitchen / Store for Mid day meals?','id':53, 'key': 'webs-separate-food-store' }
             ],
             "learning":
             [
-                {'question':'Is there Teaching and Learning material?','id':16, 'key': 'webs-tlm' },
-                {'question':'Is there a Library?','id':13, 'key': 'webs-library' },
-                {'question':'Is there a Designated Librarian/Teacher?','id':15, 'key': 'webs-designated-librarian' }
+                {'question':'Is there Teaching and Learning material?','id':89, 'key': 'webs-tlm' },
+                {'question':'Is there a Library?','id':56, 'key': 'webs-library' },
+                {'question':'Is there a Designated Librarian/Teacher?','id':87, 'key': 'webs-designated-librarian' }
 
             ]
         };
+
         var tplSysSchool = swig.compile($('#tpl-sysSchool').html());
         var table_start =  '<table class="table-base table-list-view table-base-sys">' +
                     '<tbody><tr class="table-base-heading">' +

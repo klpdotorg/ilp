@@ -11,7 +11,8 @@ from .models import User
 from .serializers import (
     UserSerializer,
     UserRegistrationSerializer,
-    UserLoginSerializer
+    UserLoginSerializer,
+    OtpSerializer
 )
 from .utils import login_user
 from .permission import IsAdminOrIsSelf
@@ -27,9 +28,7 @@ class UserRegisterView(generics.CreateAPIView):
     )
 
     def perform_create(self, serializer):
-        # TODO: Remove this once
-        serializer.save(is_active=True)
-        # serializer.save()
+        serializer.save()
 
 
 class UserLoginView(generics.GenericAPIView):
@@ -247,3 +246,34 @@ class KonnectPasswordReset(APIView):
             user.set_password(password)
             user.save()
             return Response({'success': 'Password changed'})
+
+
+class OtpUpdateView(generics.GenericAPIView):
+    """
+    This end point logins a user by creating a token object
+    """
+    serializer_class = OtpSerializer
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        serializer = OtpSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        form_data = serializer.data
+
+        try:
+            user = User.objects.get(
+                mobile_no=form_data['mobile_no'],
+                sms_verification_pin=form_data['otp']
+            )
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'Invalid OTP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.is_active = True
+            user.is_mobile_verified = True
+            user.save()
+            return Response({'success': 'ok'}, status=status.HTTP_200_OK)

@@ -109,8 +109,7 @@ class AnswerSerializer(ILPSerializer, CompensationLogMixin):
 
 class AnswerGroupInstSerializer(serializers.ModelSerializer):
     double_entry = serializers.SerializerMethodField()
-    # institution_name = serializers.CharField(source='institution.name')
-    # name = serializers.CharField(source='created_by.email')
+    comments = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = AnswerGroup_Institution

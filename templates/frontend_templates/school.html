@@ -24,9 +24,9 @@
   <div class="container">
     <div class="school-data-wrap">
       <div class="school-data-block">
-        {% if address_full %}
+        {% if address %}
         <h4 class="heading-tiny-uppercase">Address</h4>
-        <p>{{ address_full }}</p>
+        <p>{{ address }}</p>
         {% endif %}
 
         {% if landmark %}
@@ -38,12 +38,12 @@
         <table class="table-data">
           <tr>
             <td>Category</td>
-            <td>{{ cat }}</td>
+            <td>{{ type.name|capitalize }}</td>
           </tr>
-          {% if buses %}
+          {% if route_information %}
           <tr>
             <td>Buses</td>
-            <td>{{ buses }}</td>
+            <td>{{ route_information }}</td>
           </tr>
           {% endif %}
           {% if identifiers %}
@@ -57,7 +57,7 @@
             <td>{{ sex|capitalize }}</td>
           </tr>
 
-          {% if type.id == 1 %}
+          {% if type.id == "primary" &&  moi %}
           <tr>
             <td>Medium</td>
             <td>{{ moi|capitalize }}</td>
@@ -109,7 +109,7 @@
 
         {% if meeting_reports.length > 0 %}
         <h4 class="heading-tiny-uppercase">
-          {% if type.id == 1 %} SDMC {% else %} BVS {% endif %} Meeting Reports
+          {% if type.id == "primary" %} SDMC {% else %} BVS {% endif %} Meeting Reports
         </h4>
         <div class="container">
           <ul>
@@ -645,7 +645,7 @@
 
       <div class="school-share-story">
         <div class="share-your-story">
-          {% if school_id %}
+          {% if school_type_id == "primary" %}
           <button id="share-your-story-button" class="button-orange">Share your story</button>
           <div class="base-spacing-sm"></div>
           {% endif %}
@@ -664,8 +664,9 @@
             {% for story in results %}
             <div class="comment-item">
                 <p class="grey-gravel bold">
-                  {% if story.name %}
-                      {{ story.name }}
+                  <p> Story group value is: {{story.group_value}}</p>
+                  {% if story.group_value %}
+                      {{ story.group_value }}
                   {% else %}
                     Anonymous
                   {% endif %}

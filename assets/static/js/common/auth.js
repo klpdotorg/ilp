@@ -13,7 +13,6 @@
         successful login. Saves user data in localStorage.
      */
     t.loginUser = function(userData) {
-        // console.log("user data", userData);
         var token = userData.token;
         var email = userData.email;
         var firstName = userData.first_name;
@@ -100,7 +99,6 @@
             //get user login state (stored in DOM data)
             var $user = $('#authUsername');
             var state = $user.data('state');
-            console.log("state", state);
             //if user is not logged in, open login modal
             if (state === 'anonymous') {
                 klp.login_modal.open();

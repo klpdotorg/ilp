@@ -136,11 +136,6 @@ class SurveyQuestionGroupDetailsAPIView(APIView):
             self, boundary_id, questiongroup_id,
             year, from_monthyear, to_monthyear
     ):
-        basicqueryset = BasicBoundaryAgg.objects.\
-            filter(boundary_id=boundary_id, year=year).\
-            values_list('num_schools', flat=True)
-        if basicqueryset:
-            self.response["summary"]["total_schools"] = basicqueryset[0]
         queryset = SurveyBoundaryQuestionGroupAgg.objects.\
             filter(boundary_id=boundary_id, questiongroup_id=questiongroup_id)
         queryset = self.get_from_to(queryset, from_monthyear, to_monthyear)
@@ -153,6 +148,12 @@ class SurveyQuestionGroupDetailsAPIView(APIView):
             "children_impacted": qs_agg['num_children__sum'],
             "num_assessments": qs_agg['num_assessments__sum']
         }
+
+        basicqueryset = BasicBoundaryAgg.objects.\
+            filter(boundary_id=boundary_id, year=year).\
+            values_list('num_schools', flat=True)
+        if basicqueryset:
+            self.response["summary"]["total_schools"] = basicqueryset[0]
 
         queryset = self.get_from_to(
             SurveyBoundaryQuestionGroupAnsAgg.objects.filter(

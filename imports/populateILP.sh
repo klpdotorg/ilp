@@ -115,16 +115,16 @@ echo "Assessments Done"
 echo "Users"
 python users/import_users.py dubdubdub $ilp
 psql -U klp -d $ilp -f users/insert_unknownuser.sql
-python users/import_usersfromfile.py `pwd`/imports/csv_files/ $ilp
+python users/import_usersfromfile.py `pwd`/users/csv_files/ $ilp
 python users/update_assessment_userid.py dubdubdub $ilp
 echo "Users Done"
+
+#Populate ivrs
+echo "IVRS tables"
+python ivrs/import_ivrs_data.py dubdubdub $ilp
 
 #Populate aggregates
 echo "Running aggregates"
 psql -U klp -d $ilp -f aggregates/materialized_views.sql 
 psql -U klp -d $ilp -f aggregates/assessment_materialized_views.sql 
 echo "Aggregates Done"
-
-#Populate ivrs
-echo "IVRS tables"
-python ivrs/import_ivrs_data.py dubdubdub $ilp
