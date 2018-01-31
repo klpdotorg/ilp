@@ -201,6 +201,8 @@ class SurveyQuestionGroupDetailsAPIView(APIView):
         institution_id = self.request.GET.get('institution')
         to_monthyear = self.request.GET.get('to')
         from_monthyear = self.request.GET.get('from')
+        survey_id = self.request.query_params.get('survey_id', None)
+        survey_tag = self.request.query_params.get('survey_tag', None)
 
         year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
         try:
@@ -227,6 +229,7 @@ class SurveyQuestionGroupDetailsAPIView(APIView):
                 state_id, questiongroup_id,
                 year, from_monthyear, to_monthyear)
 
+        queryset = self.filter_survey(queryset, survey_id, survey_tag)
         queryset = queryset.values(
             'question_desc', 'answer_option', 'num_answers'
         )
