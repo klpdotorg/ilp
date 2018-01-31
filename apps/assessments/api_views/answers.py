@@ -29,6 +29,9 @@ from assessments.filters import AnswersSurveyTypeFilter
 import json
 from rest_framework.renderers import JSONRenderer
 from users.models import User
+from dateutil.parser import parse as date_parse
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -359,12 +362,14 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
         data['questiongroup']=6
         data['institution']=kwargs['schoolid']        
         user = User.objects.get(mobile_no = request.user)
+        date_of_visit = date_parse(request.POST.get('date_of_visit', ''), yearfirst=True)
         answergroup= {
             "institution": kwargs['schoolid'],
             "questiongroup": 6,
             "group_value": data['email'],
             "created_by": user.id,
             "comments": data['comments'],
+            "date_of_visit": date_of_visit,
             "respondent_type": "VR",
             "status": "AC"
         }
