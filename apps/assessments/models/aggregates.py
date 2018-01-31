@@ -15,6 +15,7 @@ class SurveySummaryAgg(models.Model):
     num_schools = models.IntegerField(db_column="num_schools")
     num_assessments = models.IntegerField(db_column="num_assessments")
     num_children = models.IntegerField(db_column="num_children")
+    num_users = models.IntegerField(db_column="num_users")
 
     class Meta:
         managed = False
