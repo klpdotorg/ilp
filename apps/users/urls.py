@@ -7,7 +7,8 @@ from .views import (
     KonnectMobileStatus,
     KonnectUserUpdateWithMobile,
     KonnectPasswordReset,
-    OtpUpdateView
+    OtpUpdateView,
+    OtpGenerateView
 )
 
 urlpatterns = [
@@ -25,6 +26,11 @@ urlpatterns = [
         r'^users/otp-update/$',
         OtpUpdateView.as_view(),
         name="api_otp_update"
+    ),
+    url(
+        r'^users/otp-generate/$',
+        OtpGenerateView.as_view(),
+        name="api_otp_generate"
     ),
 
     url('^users/profile', UserProfileView.as_view(), name='api_user_profile'),
