@@ -32,17 +32,9 @@ tables = [
         'updatequery': "UPDATE replacetablename set mobile_no1=temp.mobile_no1 from (select mobile_no, mobile_no1 from temp_replacetablename)temp where replacetablename.mobile_no = temp.mobile_no and replacetablename.mobile_no1 is null;"
     },
     {
-        'table_name': 'auth_group',
-        'name': 'auth_group',
-        'getquery': "\COPY (select id, name from auth_group) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id,name) FROM 'replacefilename' with csv NULL 'null';"
-    },
-    {
         'table_name': 'users_user_groups',
         'name': 'users_user_groups',
-        'getquery': "\COPY (select id, user_id, group_id from users_user_groups) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, user_id integer, group_id integer); \COPY temp_replacetablename(id, user_id, group_id) FROM 'replacefilename' with csv NULL 'null';",
-        'insertquery': "INSERT INTO replacetablename(id, user_id, group_id) select temp.id, temp.user_id, temp.group_id from temp_replacetablename temp, users_user user1, auth_group group1 where temp.user_id=user1.id and temp.group_id=group1.id;"
+        'insertquery': "INSERT INTO replacetablename(user_id, group_id) select users.id,group.id from users_user users, auth_group group where group.name in ('ilp_auth_user', 'ilp_konnect_user');"
     },
     {
         'table_name': 'users_userboundary',
