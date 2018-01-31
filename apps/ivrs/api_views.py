@@ -31,7 +31,8 @@ class SMSView(ILPAPIView):
         # status.HTTP_200_OK has been hardcoded in the response.
         content_type = "text/plain"
 
-        telephone = validate_telephone_number(
+        is_unknown = False
+        telephone, is_unknown = validate_telephone_number(
             request.query_params.get('From', None)
         )
 
@@ -87,7 +88,7 @@ class SMSView(ILPAPIView):
                 is_invalid = False
                 message = get_message(parameters, is_data_valid=True)
 
-        state = populate_state(parameters, message, answers, is_invalid=is_invalid)
+        state = populate_state(parameters, message, answers, is_unknown=is_unknown, is_invalid=is_invalid)
 
         return Response(
             message,
