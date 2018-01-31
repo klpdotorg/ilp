@@ -102,7 +102,7 @@
             Signup API call
          */
         'signup': function(data) {
-            var url = base + 'users/register/';
+            var url = base + 'users';
             var $xhr = $.ajax({
                 url: url,
                 data: data,

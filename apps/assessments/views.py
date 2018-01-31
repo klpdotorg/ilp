@@ -12,7 +12,6 @@ class SYSView(DetailView):
         context['school_type'] = 'school' if school.institution_type.char_id == "primary" else 'preschool' 
         context['total_verified_stories'] = AnswerGroup_Institution.objects.filter(questiongroup_id__in=[1,6],
                                             is_verified=True).count()
-        # This is not right. Need to fix. The SQL query equivalent
         imageCount = InstitutionImages.objects.filter(answergroup__questiongroup__survey=5).count()
         context['total_images'] = imageCount
         return context
