@@ -881,6 +881,7 @@ class SurveyQuestionGroupAnsAgg(models.Model):
 class SurveyInstitutionQuestionGroupAgg(models.Model):
     """Survey Institution QuestionGroup Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     year = models.IntegerField(db_column="year")
@@ -898,6 +899,7 @@ class SurveyInstitutionQuestionGroupAgg(models.Model):
 class SurveyBoundaryQuestionGroupAgg(models.Model):
     """Survey Boundary QuestionGroup Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     year = models.IntegerField(db_column="year")

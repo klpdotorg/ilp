@@ -6708,6 +6708,7 @@ DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_agg AS
 SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
     survey_id,
+    survey_tag,
     boundary_id,
     questiongroup_id,
     year,
@@ -6720,6 +6721,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, mo
 FROM(
     SELECT
         survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         b.id as boundary_id,
         to_char(ag.date_of_visit,'YYYY')::int as year,
@@ -6745,6 +6747,7 @@ FROM(
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
     GROUP BY survey.id,
+        surveytag.tag_id,
         qg.id,
         ag.is_verified,
         b.id,
@@ -6752,6 +6755,7 @@ FROM(
 union
 SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
     survey_id,
+    survey_tag,
     boundary_id,
     questiongroup_id,
     year,
@@ -6764,6 +6768,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, mo
 FROM(
     SELECT
         survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         b.id as boundary_id,
         to_char(ag.date_of_visit,'YYYY')::int as year,
@@ -6791,6 +6796,7 @@ FROM(
         and ag.institution_id = st_instmap.institution_id
         and ag.is_verified=true
     GROUP BY survey.id,
+        surveytag.tag_id,
         qg.id,
         ag.is_verified,
         b.id,
@@ -6798,6 +6804,7 @@ FROM(
 union
 SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
     survey_id,
+    survey_tag,
     boundary_id,
     questiongroup_id,
     year,
@@ -6810,6 +6817,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, mo
 FROM(
     SELECT
         survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         b.id as boundary_id,
         to_char(ag.date_of_visit,'YYYY')::int as year,
@@ -6837,6 +6845,7 @@ FROM(
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
     GROUP BY survey.id,
+        surveytag.tag_id,
         qg.id,
         ag.is_verified,
         b.id,
@@ -6844,6 +6853,7 @@ FROM(
 union
 SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
     survey_id,
+    survey_tag,
     boundary_id,
     questiongroup_id,
     year,
@@ -6856,6 +6866,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, mo
 FROM(
     SELECT
         survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         b.id as boundary_id,
         to_char(ag.date_of_visit,'YYYY')::int as year,
@@ -6885,6 +6896,7 @@ FROM(
         and stu.institution_id = st_instmap.institution_id
         and ag.is_verified=true
     GROUP BY survey.id,
+        surveytag.tag_id,
         qg.id,
         ag.is_verified,
         b.id,
@@ -6895,6 +6907,7 @@ DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_agg CASCAD
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_agg AS
 SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
     survey_id,
+    survey_tag,
     institution_id,
     questiongroup_id,
     year,
@@ -6906,6 +6919,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year,
 FROM(
     SELECT
         survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         ag.institution_id as institution_id,
         to_char(ag.date_of_visit,'YYYY')::int as year,
@@ -6926,6 +6940,7 @@ FROM(
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
     GROUP BY survey.id,
+        surveytag.tag_id,
         qg.id,
         ag.is_verified,
         ag.institution_id, 
@@ -6933,6 +6948,7 @@ FROM(
 union 
 SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
     survey_id,
+    survey_tag,
     institution_id,
     questiongroup_id,
     year,
@@ -6944,6 +6960,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year,
 FROM(
     SELECT
         survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         ag.institution_id as institution_id,
         to_char(ag.date_of_visit,'YYYY')::int as year,
@@ -6966,6 +6983,7 @@ FROM(
         and ag.institution_id = st_instmap.institution_id
         and ag.is_verified=true
     GROUP BY survey.id,
+        surveytag.tag_id,
         qg.id,
         ag.is_verified,
         ag.institution_id, 
@@ -6973,6 +6991,7 @@ FROM(
 union 
 SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
     survey_id,
+    survey_tag,
     institution_id,
     questiongroup_id,
     year,
@@ -6984,6 +7003,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year,
 FROM(
     SELECT
         survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         stu.institution_id as institution_id,
         to_char(ag.date_of_visit,'YYYY')::int as year,
@@ -7006,6 +7026,7 @@ FROM(
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
     GROUP BY survey.id,
+        surveytag.tag_id,
         qg.id,
         ag.is_verified,
         stu.institution_id,
@@ -7013,6 +7034,7 @@ FROM(
 union 
 SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
     survey_id,
+    survey_tag,
     institution_id,
     questiongroup_id,
     year,
@@ -7024,6 +7046,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year,
 FROM(
     SELECT
         survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         stu.institution_id as institution_id,
         to_char(ag.date_of_visit,'YYYY')::int as year,
@@ -7048,6 +7071,7 @@ FROM(
         and stu.institution_id = st_instmap.institution_id
         and ag.is_verified=true
     GROUP BY survey.id,
+        surveytag.tag_id,
         qg.id,
         ag.is_verified,
         stu.institution_id,
