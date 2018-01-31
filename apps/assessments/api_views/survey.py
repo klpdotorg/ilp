@@ -118,6 +118,13 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
 class SurveyQuestionGroupDetailsAPIView(APIView):
     response = {}
 
+    def filter_survey(self, queryset, survey_id=None, survey_tag=None):
+        if survey_id:
+            return queryset.filter(survey_id=survey_id)
+        if survey_tag:
+            return queryset.filter(survey_tag=survey_tag)
+        return queryset
+
     def get_from_to(self, queryset, from_monthyear, to_monthyear):
         if from_monthyear:
             from_split = from_monthyear.split('-')
@@ -139,6 +146,7 @@ class SurveyQuestionGroupDetailsAPIView(APIView):
         queryset = SurveyBoundaryQuestionGroupAgg.objects.\
             filter(boundary_id=boundary_id, questiongroup_id=questiongroup_id)
         queryset = self.get_from_to(queryset, from_monthyear, to_monthyear)
+        queryset = self.filter_survey(queryset)
 
         qs_agg = queryset.aggregate(
             Sum('num_schools'), Sum('num_children'), Sum('num_assessments'))

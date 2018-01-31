@@ -262,12 +262,12 @@ class SurveyDetailSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
     boundary_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.all()
 
     def list(self, request, *args, **kwargs):
-        source_name = self.request.query_params.get('source', None)
+        source_names = self.request.query_params.getlist('source', None)
         queryset = self.filter_queryset(self.get_queryset())
 
         source_ids = Source.objects.all()
-        if source_name:
-            source_ids = Source.objects.filter(name=source_name)
+        if source_names:
+            source_ids = Source.objects.filter(name__in=source_names)
         source_ids = source_ids.values_list('id', flat=True)
 
         response = {}
