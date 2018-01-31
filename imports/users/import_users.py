@@ -34,7 +34,7 @@ tables = [
     {
         'table_name': 'users_user_groups',
         'name': 'users_user_groups',
-        'insertquery': "INSERT INTO replacetablename(user_id, group_id) select users.id,group.id from users_user users, auth_group group where group.name in ('ilp_auth_user', 'ilp_konnect_user');"
+        'insertquery': "INSERT INTO replacetablename(user_id, group_id) select users.id,groups.id from users_user users, auth_group groups where groups.name in ('ilp_auth_user', 'ilp_konnect_user');"
     },
     {
         'table_name': 'users_userboundary',

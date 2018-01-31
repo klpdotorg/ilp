@@ -28,10 +28,7 @@ connectionstring = "dbname=%s user=klp" % todatabase
 def reset_sequences():
     conn = psycopg2.connect(connectionstring)
     cursor = conn.cursor()
-    query = "SELECT setval('users_user_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_user), 1), false);"
-    cursor.execute(query)
-    conn.commit()
-    query = "SELECT setval('users_userboundary_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_userboundary), 1), false);"
+    query = "SELECT setval('users_user_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_user), 1), false);SELECT setval('users_userboundary_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_userboundary), 1), false);SELECT setval('users_user_groups_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_user_groups), 1), false);"
     cursor.execute(query)
     conn.commit()
     cursor.close()
@@ -100,6 +97,8 @@ for filename in os.listdir(fromdir):
                                        user_type, is_active, is_email_verified,
                                        is_mobile_verified, opted_email, is_superuser))
             user_id = cursor.fetchone()[0]
+            sqlinsert = "insert into users_user_groups(user_id, group_id) select %s,groups.id from auth_group groups where groups.name in ('ilp_auth_user', 'ilp_konnect_user');"
+            cursor.execute(sqlinsert, [user_id])
 
         sqlselect = "select id from users_userboundary where boundary_id=%s and user_id=%s;"
         cursor.execute(sqlselect, (boundary_id, user_id))
