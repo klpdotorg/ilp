@@ -11,6 +11,7 @@ class State(models.Model):
     school_id = models.IntegerField(null=True, blank=True)
     answers = ArrayField(
             models.CharField(max_length=100, blank=True, null=True),
+            null=True
     )
     date_of_visit = models.DateTimeField(default=timezone.now)
     telephone = models.CharField(max_length=50, blank=True)
