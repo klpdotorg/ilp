@@ -40,8 +40,9 @@
 <div class="modal-block" id="loginContainer" data-step-name="login" style="display:none;">
   <h3 class="heading-border">Login</h3>
   <form id="loginForm" class="form-base form-login">
+    <p id="loginOtpVerifiedMessage" class="brand-green">Your mobile number has been verified.<br>Please proceed to login below.</p>
     <div class="form-field-wrap">
-      <input type="email" id="loginEmail" data-required="true" class="input-text" placeholder="Email or Phone Number" aria-label="Email or Phone Number">
+      <input type="text" id="loginUsername" data-required="true" class="input-text" placeholder="Email or Phone Number" aria-label="Email or Phone Number">
     </div>
     <div class="form-field-wrap">
       <input type="password" id="loginPassword" data-required="true" class="input-text" placeholder="Password" aria-label="Password">
@@ -60,6 +61,25 @@
     <span class="heading-tiny">Not a registered user?</span>
     <a class="button-grey button--sm js-showSignup">Signup</a>
   </div>
+</div>
+<!-- Step End -->
+
+<div class="modal-block" id="signupOtpContainer" data-step-name="login" style="display:none;">
+  <h3 class="heading-border">Enter the OTP received on your phone</h3>
+  <form id="signupOtpForm" class="form-base form-login">
+    <div style="display: none;">
+      <input type="hidden" id="signupOtpMobile">
+    </div>
+    <div class="form-field-wrap">
+      <input type="text" id="signupOtp" data-required="true" class="input-text" placeholder="Enter your OTP" aria-label="Enter your OTP">
+    </div>
+    <div class="form-field-wrap">
+      <input type="submit" value="Submit" class="button js-submit-btn" id="signupOtpFormSubmit">
+      <div class="js-submit-loading" style="display:none;">
+        Sending...
+      </div>
+    </div>
+  </form>
 </div>
 <!-- Step End -->
 

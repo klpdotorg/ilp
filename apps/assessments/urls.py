@@ -15,7 +15,8 @@ from assessments.api_views import (
     QuestionGroupSchoolViewSet, SurveyQuestionGroupDetailsAPIView,
     SurveyInstitutionAnsAggView, SurveyInstitutionDetailAPIView,
     SurveyTagAggAPIView, AssessmentsImagesView, AssessmentSyncView,
-    RespondentTypeList
+    RespondentTypeList, ShareYourStoryAPIView,
+    QuestionGroupInstitutionAssociationViewSet
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -30,6 +31,9 @@ simple_router.register(
     r'survey/questiongroup/school',
     QuestionGroupSchoolViewSet, base_name='questiongroup-school',
 )
+
+# Endpoint to map assessments to institutions
+nested_router.register(r'questiongroupinstitutionmap', QuestionGroupInstitutionAssociationViewSet, base_name='questiongroupinstitutionmap')
 
 # surveys -> questiongroup -> questions
 # maps to earlier programs -> # assessments -> questions
@@ -121,6 +125,7 @@ answers = surveyqgroup.register(
     parents_query_lookups=['survey', 'questiongroup', 'student'])
 
 urlpatterns = [
+    url(r'sys/(?P<schoolid>[0-9]+)/$', ShareYourStoryAPIView.as_view({'post': 'create'}), name='sys_post'),
     url(r'institutionsurveys/$', SurveyInstitutionAnsAggView.as_view(), name='stories'),
     url(r'surveys/storiesinfo',
         QGroupStoriesInfoView.as_view(), name='stories-info'),

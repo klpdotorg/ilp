@@ -13,6 +13,7 @@ from users.views import (
     ProfilePageView,
     ProfileEditPageView
 )
+from assessments.views import SYSView
 
 
 api_docs_view = get_swagger_view(title='ILP API')
@@ -116,6 +117,11 @@ urlpatterns = [
         template_name='story_dashboard.html'
     ), name='story_dashboard'),
 
+    # Share you story
+    url(r'^sys/(?P<value>\d+)/$', StaticPageView.as_view(
+        template_name='sys_form.html'
+    ), name='sys_form'),
+
     # Reports page
     url(r'^reports/$', StaticPageView.as_view(
         template_name='reports.html',
@@ -155,6 +161,9 @@ urlpatterns = [
 
     url(r'^school/(?P<pk>[0-9]+)/$',
                     SchoolPageView.as_view(), name='school_page'),
+
+    # share your story form
+    url(r'^sys/(?P<pk>[0-9]+)$', SYSView.as_view(), name='sys'),
 
     # API URLs.
     url(r'^api/v1/', include('ilp.api_urls')),

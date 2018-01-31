@@ -74,13 +74,15 @@ def is_data_valid(data):
     return is_valid
 
 def validate_telephone_number(telephone):
+    is_unknown = False
     if not telephone.isdigit():
-        return None
+        return None, is_unknown
 
     telephone = telephone[1:] # Strip 0
     if not User.objects.filter(mobile_no__contains=telephone).exists():
-        print("User is not registered")#do we need to create new user?
-    return telephone
+        print("User is not registered")
+        is_unknown = True
+    return telephone, is_unknown
     
 
 def is_logically_correct(data):
@@ -151,19 +153,20 @@ def get_date(date):
     )
     return date
 
-def populate_state(parameters, message, answers, is_invalid=False):
+def populate_state(parameters, message, answers, is_unknown, is_invalid=False):
     date = parameters.get('date', None)
     raw_data = parameters.get('raw_data', None)
     ivrs_type = parameters.get('ivrs_type', None)
     telephone = parameters.get('telephone', None)
     institution_id = parameters.get('institution_id', None)
     session_id = parameters.get('session_id', None)
-
-    try:
-        user = User.objects.get(mobile_no=telephone)
-    except:
-        user = None
-
+    if not is_unknown:
+        try:
+            user = User.objects.get(mobile_no=telephone)
+        except:
+            user = None
+    else:
+        user = User.objects.get(first_name='Unknown', last_name='User') 
     incoming_number = IncomingNumber.objects.get(number=ivrs_type)
     state, created = State.objects.get_or_create(
         session_id=session_id,

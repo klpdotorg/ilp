@@ -11,7 +11,8 @@ from .models import User
 from .serializers import (
     UserSerializer,
     UserRegistrationSerializer,
-    UserLoginSerializer
+    UserLoginSerializer,
+    OtpSerializer
 )
 from .utils import login_user
 from .permission import IsAdminOrIsSelf
@@ -27,9 +28,7 @@ class UserRegisterView(generics.CreateAPIView):
     )
 
     def perform_create(self, serializer):
-        # TODO: Remove this once
-        serializer.save(is_active=True)
-        # serializer.save()
+        serializer.save()
 
 
 class UserLoginView(generics.GenericAPIView):
@@ -85,6 +84,7 @@ class EmailVerificationView(StaticPageView):
             if user.is_email_verified:
                 extra_context['already_verified'] = True
             else:
+                user.email_verification_code = ''
                 user.is_email_verified = True
                 user.is_active = True
                 user.save()
@@ -247,3 +247,69 @@ class KonnectPasswordReset(APIView):
             user.set_password(password)
             user.save()
             return Response({'success': 'Password changed'})
+
+
+class OtpUpdateView(generics.GenericAPIView):
+    """
+    This end point logins a user by creating a token object
+    """
+    serializer_class = OtpSerializer
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        serializer = OtpSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        form_data = serializer.data
+
+        try:
+            user = User.objects.get(
+                mobile_no=form_data['mobile_no'],
+                sms_verification_pin=form_data['otp']
+            )
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'Invalid OTP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.sms_verification_pin = None
+            user.is_active = True
+            user.is_mobile_verified = True
+            user.save()
+            return Response({'success': 'ok'}, status=status.HTTP_200_OK)
+
+
+class OtpGenerateView(generics.GenericAPIView):
+    """
+    This end point generates an OTP for a mobile number
+    """
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        mobile_no = request.data.get('mobile_no', None)
+
+        if mobile_no is None:
+            return Response(
+                {'detail': 'mobile_no is required=True'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            user = User.objects.get(mobile_no=mobile_no)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'User is not registered in ILP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.generate_sms_pin()
+            user.save()
+            user.send_otp()
+            return Response(
+                {'success': 'otp generated and send'},
+                status=status.HTTP_200_OK
+            )

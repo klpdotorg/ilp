@@ -8,7 +8,8 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    num_users
 FROM(SELECT survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.inst_type_id as institution_type,
@@ -16,7 +17,8 @@ FROM(SELECT survey.id as survey_id,
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct ag.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
-        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
@@ -43,7 +45,8 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    num_users
 FROM(SELECT survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.inst_type_id as institution_type,
@@ -51,7 +54,8 @@ FROM(SELECT survey.id as survey_id,
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct ag.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
-        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
@@ -76,7 +80,8 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    num_users
 FROM(SELECT 
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
@@ -85,7 +90,8 @@ FROM(SELECT
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
-        count(distinct ag.student_id) as num_children
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_student ag,
@@ -112,7 +118,8 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
     month,
     num_schools,
     num_assessments,
-    num_children
+    num_children,
+    num_users
 FROM(SELECT 
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
@@ -121,7 +128,8 @@ FROM(SELECT
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
-        count(distinct ag.student_id) as num_children
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_student ag,
@@ -1683,7 +1691,6 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,u
     survey_tag,
     boundary_id,
     source,
-    user_type_name,
     user_type,
     year,
     month,
@@ -1697,8 +1704,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         b.id as boundary_id,
         qg.source_id as source,
-        ut.name as user_type_name,
-        ag.respondent_type_id as user_type,
+        users.user_type_id as user_type,
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct ag.id) as num_assessments,
@@ -1709,7 +1715,7 @@ FROM(
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
         assessments_surveytagmapping surveytag,
-        common_respondenttype ut,
+        users_user users,
         schools_institution s,
         boundary_boundary b
     WHERE 
@@ -1717,7 +1723,7 @@ FROM(
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
         and survey.id in (1, 2, 4, 5, 6, 7, 11)
-        and ag.respondent_type_id = ut.char_id
+        and ag.created_by_id = users.id
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
         and ag.institution_id = s.id
@@ -1727,8 +1733,7 @@ FROM(
         b.id,
         qg.source_id,
         ag.is_verified,
-        ag.respondent_type_id,
-	ut.name,
+	users.user_type_id,
         year,month)data
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,user_type,year, month) as id,
@@ -1736,7 +1741,6 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,u
     survey_tag,
     boundary_id,
     source,
-    user_type_name,
     user_type,
     year,
     month,
@@ -1750,8 +1754,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         b.id as boundary_id,
         qg.source_id as source,
-        ut.name as user_type_name,
-        ag.respondent_type_id as user_type,
+        users.user_type_id as user_type,
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct ag.id) as num_assessments,
@@ -1762,7 +1765,7 @@ FROM(
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
         assessments_surveytagmapping surveytag,
-        common_respondenttype ut,
+        users_user users,
         assessments_surveytaginstitutionmapping st_instmap,
         schools_institution s,
         boundary_boundary b
@@ -1771,7 +1774,7 @@ FROM(
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
         and survey.id in (1, 2, 4, 5, 6, 7, 11)
-        and ag.respondent_type_id = ut.char_id
+        and ag.created_by_id = users.id
         and surveytag.tag_id = st_instmap.tag_id
         and ag.institution_id = st_instmap.institution_id
         and ag.is_verified=true
@@ -1782,8 +1785,7 @@ FROM(
         b.id,
         qg.source_id,
         ag.is_verified,
-        ag.respondent_type_id,
-	ut.name,
+	users.user_type_id,
         year,month)data
 union 
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,user_type,year, month) as id,
@@ -1791,7 +1793,6 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,u
     survey_tag,
     boundary_id,
     source,
-    user_type_name,
     user_type,
     year,
     month,
@@ -1805,8 +1806,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         b.id as boundary_id,
         qg.source_id as source,
-        ut.name as user_type_name,
-        ag.respondent_type_id as user_type,
+        users.user_type_id as user_type,
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct ag.id) as num_assessments,
@@ -1818,7 +1818,7 @@ FROM(
         assessments_answergroup_student ag,
         assessments_surveytagmapping surveytag,
         schools_student stu,
-        common_respondenttype ut,
+        users_user users,
         schools_institution s,
         boundary_boundary b
     WHERE 
@@ -1827,7 +1827,7 @@ FROM(
         and survey.id = surveytag.survey_id
         and survey.id in (3)
         and ag.student_id = stu.id
-        and ag.respondent_type_id = ut.char_id
+        and ag.created_by_id = users.id
         and surveytag.tag_id not in (select distinct tag_id from assessments_surveytaginstitutionmapping)
         and ag.is_verified=true
         and stu.institution_id = s.id
@@ -1837,8 +1837,7 @@ FROM(
         b.id,
         qg.source_id,
         ag.is_verified,
-        ag.respondent_type_id,
-	ut.name,
+	users.user_type_id,
         year,month)data
 union 
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,user_type,year, month) as id,
@@ -1846,7 +1845,6 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,u
     survey_tag,
     boundary_id,
     source,
-    user_type_name,
     user_type,
     year,
     month,
@@ -1860,8 +1858,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         b.id as boundary_id,
         qg.source_id as source,
-        ut.name as user_type_name,
-        ag.respondent_type_id as user_type,
+        users.user_type_id as user_type,
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
         count(distinct ag.id) as num_assessments,
@@ -1873,7 +1870,7 @@ FROM(
         assessments_answergroup_student ag,
         assessments_surveytagmapping surveytag,
         schools_student stu,
-        common_respondenttype ut,
+        users_user users,
         assessments_surveytaginstitutionmapping st_instmap,
         schools_institution s,
         boundary_boundary b
@@ -1883,7 +1880,7 @@ FROM(
         and survey.id = surveytag.survey_id
         and survey.id in (3)
         and ag.student_id = stu.id
-        and ag.respondent_type_id = ut.char_id
+        and ag.created_by_id = users.id
         and surveytag.tag_id = st_instmap.tag_id
         and stu.institution_id = st_instmap.institution_id
         and ag.is_verified=true
@@ -1894,8 +1891,7 @@ FROM(
         b.id,
         qg.source_id,
         ag.is_verified,
-        ag.respondent_type_id,
-	ut.name,
+	users.user_type_id,
         year,month)data;
 
 

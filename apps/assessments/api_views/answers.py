@@ -28,6 +28,9 @@ from common.mixins import (ILPStateMixin,
 from assessments.filters import AnswersSurveyTypeFilter
 import json
 from rest_framework.renderers import JSONRenderer
+from users.models import User
+from dateutil.parser import parse as date_parse
+
 
 logger = logging.getLogger(__name__)
 
@@ -350,3 +353,73 @@ class AnswerGroupInstitutionViewSet(NestedViewSetMixin, ILPViewSet):
             print ("No query dict passed")
         
         return queryset
+
+class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
+    serializer_class = AnswerSerializer
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        data['questiongroup']=6
+        data['institution']=kwargs['schoolid']        
+        user = User.objects.get(mobile_no = request.user)
+        date_of_visit = date_parse(request.POST.get('date_of_visit', ''), yearfirst=True)
+        answergroup= {
+            "institution": kwargs['schoolid'],
+            "questiongroup": 6,
+            "group_value": data['email'],
+            "created_by": user.id,
+            "comments": data['comments'],
+            "date_of_visit": date_of_visit,
+            "respondent_type": "VR",
+            "status": "AC"
+        }
+        serializer = AnswerGroupInstSerializer(data=answergroup)
+        serializer.is_valid()
+        answergroup_obj=serializer.save()
+        response_json={}
+        # Form the response JSON with AnwerGroup details
+        for key, value in serializer.data.items():
+            response_json[key] = value
+        # Now work on Answers. Modify input data to suit serializer format
+        answers=[]
+        for key,value in data.items():
+            answer={}
+            if(key.startswith("question_")):
+                qn, id = key.split("_")
+                answer["question"]=int(id)
+                answer["answer"]=value
+                answers.append(answer)
+        
+        answergroup["answers"]=answers
+                
+        # Create answers
+        answer_serializer_data = self.create_answers(request,answers, answergroup_obj)
+        headers = self.get_success_headers(answer_serializer_data)
+        response_json['answers'] = answer_serializer_data
+        return Response(response_json, status=status.HTTP_201_CREATED, headers=headers)
+      
+
+    def create_answers(self, request, answers, answergroup_obj):
+        bulk = isinstance(answers, list)
+        if not bulk:
+            data = answers
+            data['answergroup'] = answergroup_obj
+            serializer = self.get_serializer(data=data)
+            serializer.is_valid(raise_exception=True)
+            # Invokes the CompensationLogMixin which sets double_entry correctly
+            print("Logged in user is: ", self.request.user)
+            self.perform_create(serializer)
+            return serializer.data
+        else:
+            data = answers
+            for answer in data:
+                answer['answergroup']=answergroup_obj.id
+            serializer = self.get_serializer(data=data, many=True)
+            serializer.is_valid(raise_exception=True)
+            # Invokes the CompensationLogMixin which sets double_entry correctly
+            self.perform_bulk_create(serializer)
+            return serializer.data
+
+    def perform_bulk_create(self, serializer):
+        return self.perform_create(serializer)
+

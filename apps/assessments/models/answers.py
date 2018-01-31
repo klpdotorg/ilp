@@ -23,7 +23,7 @@ class AnswerGroup_Institution(models.Model):
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey(RespondentType, null=True)
-    comments = models.CharField(max_length=2000, null=True)
+    comments = models.CharField(max_length=2000, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
     sysid = models.IntegerField(null=True)

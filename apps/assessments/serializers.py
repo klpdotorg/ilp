@@ -9,7 +9,8 @@ from assessments.models import (
     AnswerInstitution, SurveyOnType,
     AnswerGroup_StudentGroup, AnswerGroup_Student,
     QuestionGroup_Institution_Association,
-    AnswerStudent
+    AnswerStudent, QuestionGroup_StudentGroup_Association,
+    QuestionGroup_Institution_Association
 )
 
 from common.models import RespondentType
@@ -109,8 +110,7 @@ class AnswerSerializer(ILPSerializer, CompensationLogMixin):
 
 class AnswerGroupInstSerializer(serializers.ModelSerializer):
     double_entry = serializers.SerializerMethodField()
-    # institution_name = serializers.CharField(source='institution.name')
-    # name = serializers.CharField(source='created_by.email')
+    comments = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = AnswerGroup_Institution
@@ -183,3 +183,22 @@ class RespondentTypeSerializer(ILPSerializer):
     class Meta:
         model = RespondentType
         fields = '__all__'
+
+
+class QuestionGroupInstitutionAssociationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = QuestionGroup_Institution_Association
+        fields = (
+                'questiongroup', 'institution', 'status',
+        )
+
+
+class QuestionGroupStudentGroupAssociationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = QuestionGroup_StudentGroup_Association
+        fields = (
+                'questiongroup', 'studentgroup', 'status',
+        )
+

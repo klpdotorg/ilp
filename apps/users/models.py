@@ -15,16 +15,16 @@ from django.dispatch import receiver
 from django.core.urlresolvers import reverse
 from common.utils import send_templated_mail
 from django.contrib.sites.models import Site
-# from django.utils.text import slugify
 from django.conf import settings
 
+from common.utils import send_sms
 
 
 class UserManager(BaseUserManager):
     def create(self, mobile_no, password=None, **extra_fields):
 
         if not mobile_no:
-            raise ValueError('Users must have a mobile_no')
+            raise ValueError('User must have a mobile_no')
 
         user = self.model(
             mobile_no=mobile_no,
@@ -43,13 +43,13 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(null=True)
+    email = models.EmailField(null=True, blank=True, unique=True)
     mobile_no = models.CharField(max_length=32, unique=True)
     mobile_no1 = models.CharField(max_length=32, null=True)
     first_name = models.CharField(max_length=64, blank=True)
     last_name = models.CharField(max_length=64, blank=True, null=True)
     user_type = models.ForeignKey('common.RespondentType', null=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     email_verification_code = models.CharField(
         max_length=128, null=True, blank=True)
     sms_verification_pin = models.IntegerField(null=True, blank=True)
@@ -77,14 +77,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not self.id:
             self.generate_email_token()
             self.generate_sms_pin()
+            self.send_otp()
         return super(User, self).save(*args, **kwargs)
 
     def generate_email_token(self):
         self.email_verification_code = uuid.uuid4().hex
 
     def generate_sms_pin(self):
-        pin = ''.join([str(random.choice(range(1, 9))) for i in range(4)])
+        pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
         self.sms_verification_pin = int(pin)
+
+    def send_otp(self):
+        msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
+        send_sms(self.mobile_no, msg)
 
     def get_token(self):
         return Token.objects.get(user=self).key
