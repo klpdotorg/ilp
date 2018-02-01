@@ -3952,7 +3952,7 @@ FROM(
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_gender_agg CASCADE;
-CREATE MATERIALIZED VIEW mvw_survey_boudary_class_gender_agg AS
+CREATE MATERIALIZED VIEW mvw_survey_boundary_class_gender_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,year, month) as id,
     survey_id,
     survey_tag,
