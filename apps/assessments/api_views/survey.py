@@ -119,7 +119,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
     filter_backends = [SurveyFilter, ]
 
     def get(self, request):
-        questiongroup_id = self.request.query_params.get('questiongroup', None)
+        questiongroup_id = self.request.query_params.get('questiongroup_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
         institution_id = self.request.query_params.get('institution_id', None)
         year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
