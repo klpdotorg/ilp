@@ -101,8 +101,8 @@
         });
 
         $select_cluster.on("change", function(selected) {
-            var schoolXHR = klp.api.do('institutions/', {'boundary_id':selected.val, 'geometry': 'yes', 'per_page': 0});
-            $search_button.attr('href', '/gka/#searchmodal?admin3='+selected.val);
+            var schoolXHR = klp.api.do('institutions/', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
+            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             schoolXHR.done(function (data) {
                 var tx_data = {"features":[]}
                 for (var each in data.features) {
