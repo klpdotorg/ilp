@@ -3599,7 +3599,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,sourc
     gender,
     year,
     month,
-    num_assessments
+    count(ag_id) as num_assessments
 from
     (select distinct
         qg.survey_id as survey_id, 
@@ -3611,7 +3611,7 @@ from
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
-        count(distinct ag.id) as num_assessments
+        ag.id as ag_id
     from assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
@@ -3628,7 +3628,8 @@ from
         and qg.survey_id=2
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    group by ag.id,qg.survey_id,b.id,stmap.tag_id,year,month,source,qg.id, ans1.answer)data;
+    group by ag.id,qg.survey_id,b.id,stmap.tag_id,year,month,source,qg.id, ans1.answer)data
+GROUP BY survey_id, survey_tag,boundary_id,source,year,month,questiongroup_id,questiongroup_name,gender ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_gender_agg CASCADE;
@@ -3643,7 +3644,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,so
     gender,
     year,
     month,
-    num_assessments
+    count(ag_id) as num_assessments
 from
     (select distinct
         qg.survey_id as survey_id, 
@@ -3655,7 +3656,7 @@ from
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
-        count(distinct ag.id) as num_assessments
+        ag.id as ag_id
     from assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
@@ -3668,7 +3669,8 @@ from
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.survey_id=2
-    group by ag.id,qg.survey_id,stmap.tag_id,ag.institution_id,year,month,source,qg.id, ans1.answer)data;
+    group by ag.id,qg.survey_id,stmap.tag_id,ag.institution_id,year,month,source,qg.id, ans1.answer)data
+GROUP BY survey_id, survey_tag,institution_id,source,year,month,questiongroup_id,questiongroup_name,gender ;
 
 
 
@@ -3683,7 +3685,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup
     gender,
     year,
     month,
-    num_assessments
+    count(ag_id) as num_assessments
 from
     (select distinct
         qg.survey_id as survey_id, 
@@ -3694,7 +3696,7 @@ from
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYY')::int as year,
         to_char(ag.date_of_visit,'MM')::int as month,
-        count(distinct ag.id) as num_assessments
+        ag.id as ag_id
     from assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
@@ -3707,7 +3709,8 @@ from
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.survey_id=2
-    group by ag.id,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer)data;
+    group by ag.id,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer)data
+GROUP BY survey_id, survey_tag,source,year,month,questiongroup_id,questiongroup_name,gender ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_questionkey_agg CASCADE;
