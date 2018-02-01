@@ -191,15 +191,36 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
         response = {}
         response['summary'] = summary_res
-        response["questions"] = {}
-        for row in ans_queryset:
-            if row["question_desc"] in response["questions"]:
-                response["questions"][row["question_desc"]][
-                    row["answer_option"]] = row["num_answers"]
-            else:
-                response["questions"][row["question_desc"]] = \
-                    {"text": row["question_desc"],
-                     row["answer_option"]: row["num_answers"]}
+        questiongroup_ids = ans_queryset.distinct('questiongroup_id').\
+            values_list('questiongroup_id', flat=True)
+        survey_ids = ans_queryset.distinct('survey_id').\
+            values_list('survey_id', flat=True)
+
+        survey_res = {'surveys': {}}
+        for s_id in survey_ids:
+            questiongroup_res = {}
+            for qg_id in questiongroup_ids:
+                qgroup_ans_queryset = ans_queryset.filter(
+                    survey_id=s_id, questiongroup_id=qg_id)
+                question_dict = {}
+                for row in qgroup_ans_queryset:
+                    if (
+                        row["question_desc"] in question_dict
+                    ):
+                        question_dict[row["question_desc"]][
+                            row["answer_option"]] = row["num_answers"]
+                    else:
+                        question_dict[row["question_desc"]] = \
+                            {
+                                "text": row["question_desc"],
+                                row["answer_option"]: row["num_answers"]
+                            }
+                if question_dict:
+                    questiongroup_res[qg_id] = {}
+                    questiongroup_res[qg_id]['questions'] = question_dict
+            survey_res['surveys'][s_id] = {}
+            survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
+        response.update(survey_res)
         return Response(response)
 
 
