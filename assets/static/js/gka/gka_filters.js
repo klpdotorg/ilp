@@ -114,7 +114,7 @@
 
 
         $select_school.on("change", function(selected) {
-            $search_button.attr('href', '/gka/#searchmodal?institution_id=' + selected.val + '&school_type=Primary School');
+            $search_button.attr('href', '/gka/#searchmodal?institution_id=' + selected.val);
         });
     }
 
