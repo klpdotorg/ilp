@@ -280,7 +280,7 @@ var topSummaryData = {};
         });
 
         // Fetch SMS Details
-        var $detailXHR = klp.api.do("survey/detail/source/", params);
+        var $detailXHR = klp.api.do("survey/detail/source/?source=sms&source=konnectsms", params);
         $detailXHR.done(function(data) {
             stopDetailLoading();
             renderSMSDetails(data);
@@ -502,7 +502,7 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                // loadSmsData(params);
+                loadSmsData(params);
                 // loadAssmtData(params);
                 // loadGPContestData(params);
                 // loadSurveys(params);
