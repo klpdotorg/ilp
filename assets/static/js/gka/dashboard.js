@@ -493,19 +493,20 @@ var topSummaryData = {};
             delete params.year;
 
             // Load the users Education volunteers count
-            var $usersXHR = klp.api.do("survey/info/users", params);
+            params.survey_tag = 'gka';
+            var $usersXHR = klp.api.do("survey/summary/", params);
             $usersXHR.done(function(data) {
-                topSummary.education_volunteers = (data.users && data.users.VR) ? data.users.EV: 0; 
+                topSummary.active_users = (data.summary && data.summary.num_users) ? data.summary.num_users : 0; 
 
                 klp.GKA.topSummaryData = topSummary;
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                loadSmsData(params);
-                loadAssmtData(params);
-                loadGPContestData(params);
-                loadSurveys(params);
-                loadComparison(params);
+                // loadSmsData(params);
+                // loadAssmtData(params);
+                // loadGPContestData(params);
+                // loadSurveys(params);
+                // loadComparison(params);
             });
         });
     }
