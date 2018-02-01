@@ -25,11 +25,12 @@ class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
         institution_id = self.request.query_params.get('institution_id', None)
         if institution_id:
             qs_agg = queryset.aggregate(
-                Sum('num_children'), Sum('num_assessments'))
+                Sum('num_children'), Sum('num_assessments'), Sum('num_users'))
             institution_summary_response = {
                 "summary": {
                     "total_school": 1,
                     "schools_impacted": 1,
+                    "num_users": qs_agg['num_users__sum'],
                     "children_impacted": qs_agg['num_children__sum'],
                     "total_assessments": qs_agg['num_assessments__sum'],
                 }
@@ -37,10 +38,13 @@ class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
             return institution_summary_response
 
         qs_agg = queryset.aggregate(
-            Sum('num_schools'), Sum('num_children'), Sum('num_assessments'))
+            Sum('num_schools'), Sum('num_children'), Sum('num_assessments'),
+            Sum('num_users')
+        )
         boundary_summary_response = {
             "summary": {
                 "total_school": qs_agg['num_schools__sum'],
+                "num_users": qs_agg['num_users__sum'],
                 "schools_impacted": qs_agg['num_schools__sum'],
                 "children_impacted": qs_agg['num_children__sum'],
                 "total_assessments": qs_agg['num_assessments__sum'],
