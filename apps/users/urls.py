@@ -4,9 +4,6 @@ from .views import (
     UserRegisterView,
     UserLoginView,
     UserProfileView,
-    KonnectMobileStatus,
-    KonnectUserUpdateWithMobile,
-    KonnectPasswordReset,
     OtpUpdateView,
     OtpGenerateView,
     OtpPasswordResetView
