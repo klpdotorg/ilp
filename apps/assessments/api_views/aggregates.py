@@ -100,8 +100,9 @@ class SurveyVolumeAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
             year_res = {}
             y_agg = queryset.filter(yearmonth__startswith=year)
             for month in months:
-                year_res[months[month]] = \
-                    y_agg.filter(yearmonth__endswith=month).count()
+                num_assess = y_agg.filter(yearmonth__endswith=month).\
+                    aggregate(Sum('num_assessments'))['num_assessments__sum']
+                year_res[months[month]] = num_assess if num_assess else 0
             volume_res[year] = year_res
         return Response(volume_res)
 
