@@ -1,10 +1,7 @@
 from django.http import Http404
 from django.views.generic.detail import DetailView
-from django.core.exceptions import ValidationError
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
 
 from common.views import StaticPageView
 from .models import User
@@ -136,118 +133,6 @@ class ProfileEditPageView(DetailView):
             }
         ]
         return context
-
-
-class KonnectMobileStatus(generics.GenericAPIView):
-    def get(self, request):
-        """
-        Returns information about a mobile number - whether its a new,
-        existing with/without password  dob etc
-        """
-        mobile_no = request.GET.get('mobile')
-        try:
-            user = User.objects.get(mobile_no=mobile_no)
-        except User.DoesNotExist:
-            return Response(
-                {'action': 'signup'},
-                status=status.HTTP_404_NOT_FOUND
-            )
-        else:
-            if user.password and user.dob:
-                return Response({'action': 'login'}, status=status.HTTP_200_OK)
-            else:
-                return Response(
-                    {'action': 'update'},
-                    status=status.HTTP_206_PARTIAL_CONTENT
-                )
-
-
-class KonnectUserUpdateWithMobile(APIView):
-    permission_classes = (AllowAny, )
-
-    def post(self, request):
-        """
-        Updates user account with only mobile number.
-        User by Konnect app to update those users who have already came through
-        IVRS and trying to login using the app.
-        """
-        mobile_no = request.POST.get('mobile', '')
-        dob = request.POST.get('dob', '')
-        password = request.POST.get('password', '')
-        source = request.POST.get('source', '')
-        email = request.POST.get('email', '')
-        first_name = request.POST.get('first_name', '')
-        last_name = request.POST.get('last_name', '')
-        user_type = request.POST.get('user_type', '')
-
-        if not mobile_no or not dob or not password or not source:
-            return Response({
-                'error': 'mobile, dob, password and source are required.'
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        if source != 'konnect':
-            return Response({
-                'error': 'invalid source'
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            user = User.objects.get(mobile_no=mobile_no)
-        except User.DoesNotExist:
-            return Response(
-                {'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            if user.password and user.dob:
-                return Response({
-                    'error': 'user already has set his/her password & dob. please goto login'
-                }, status=status.HTTP_400_BAD_REQUEST)
-
-            user.source = 'konnect'
-            user.dob = dob
-            user.set_password(password)
-            user.email = email
-            user.first_name = first_name
-            user.last_name = last_name
-            user.user_type = user_type
-            try:
-                user.save()
-            except ValidationError:
-                return Response(
-                    {'error': 'dob must be in YYYY-MM-DD format'},
-                    status=status.HTTP_400_BAD_REQUEST)
-            else:
-                return Response({'success': 'user updated'})
-
-
-class KonnectPasswordReset(APIView):
-    permission_classes = (AllowAny, )
-
-    def post(self, request):
-        """
-        Password reset view for Konnect users
-        Accepts mobile, dob & password.
-        """
-        mobile_no = request.POST.get('mobile', '')
-        dob = request.POST.get('dob', '')
-        password = request.POST.get('password', '')
-
-        if not mobile_no or not dob or not password:
-            return Response({
-                'error': 'mobile, dob & password are required.'
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            user = User.objects.get(mobile_no=mobile_no, dob=dob)
-        except ValidationError:
-            return Response(
-                {'error': 'dob must be in YYYY-MM-DD format'},
-                status=status.HTTP_400_BAD_REQUEST)
-        except User.DoesNotExist:
-            return Response(
-                {'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            user.set_password(password)
-            user.save()
-            return Response({'success': 'Password changed'})
 
 
 class OtpUpdateView(generics.GenericAPIView):
