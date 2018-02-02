@@ -43,13 +43,14 @@ class SurveyFilter(BaseFilterBackend):
         if to_:
             to_ = to_.split('-')
             to_year, to_month = to_[0], to_[1]
-            queryset = queryset.filter(year__lte=to_year, month__lte=to_month)
+            yearmonth = int(to_year + to_month)
+            queryset = queryset.filter(yearmonth__lte=yearmonth)
 
         if from_:
             from_ = from_.split('-')
             from_year, from_month = from_[0], from_[1]
-            queryset = queryset.filter(
-                year__gte=from_year, month__gte=from_month)
+            yearmonth = int(from_year + from_month)
+            queryset = queryset.filter(yearmonth__gte=yearmonth)
 
         return queryset
 
