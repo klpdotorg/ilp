@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^', include('assessments.urls', namespace='surveys')),
     url(r'^', include('common.urls', namespace='common')),
     url(r'^', include('users.urls', namespace='user')),
+    url(r'^', include('ivrs.api_urls', namespace='ivrs')),
 ]

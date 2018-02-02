@@ -99,9 +99,6 @@ var topSummaryData = {};
             params.to = '2018-12-31';
         }
 
-        // Parameters common across all calls
-        params.survey_tag = 'gka';
-
         loadTopSummary(params);
         // All other sections are loaded after loadTopSummary is loaded
         // as they use data fetched by loadTopSummary
@@ -255,7 +252,7 @@ var topSummaryData = {};
         startDetailLoading();
 
         // Fetch SMS Summary
-        var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
+        var $smsSummaryXHR = klp.api.do("survey/info/source/?survey_tag=gka", params);
         $smsSummaryXHR.done(function(data) {
             stopDetailLoading();
             klp.GKA.smsSummary = data;
@@ -264,11 +261,11 @@ var topSummaryData = {};
 
         // Fetch SMS Volume
         // Fetch users first
-        var $usersXHR = klp.api.do("survey/info/users", params);
+        var $usersXHR = klp.api.do("survey/info/users/?survey_tag=gka", params);
         $usersXHR.done(function(userGroups) {
 
             // Fetch volumes next
-            var $volumesXHR = klp.api.do("survey/volume/", params);
+            var $volumesXHR = klp.api.do("survey/volume/?survey_tag=gka", params);
             $volumesXHR.done(function(volumes) {
                 var data = {
                     volumes: volumes,
@@ -280,7 +277,7 @@ var topSummaryData = {};
         });
 
         // Fetch SMS Details
-        var $detailXHR = klp.api.do("survey/detail/source/", params);
+        var $detailXHR = klp.api.do("survey/detail/source/?source=sms&source=konnectsms", params);
         $detailXHR.done(function(data) {
             stopDetailLoading();
             renderSMSDetails(data);
@@ -290,17 +287,14 @@ var topSummaryData = {};
     function loadSurveys(params) {
         startDetailLoading();
 
-        delete params.survey_tag;
-        params.survey_id = 7;
-
         // Load the source for csv summary
-        var $sourceXHR = klp.api.do("survey/info/source/", params);
+        var $sourceXHR = klp.api.do("survey/info/source/?survey_id=7", params);
         $sourceXHR.done(function(sourceData) {
             klp.GKA.surveySummaryData = sourceData;
             renderSurveySummary(sourceData);
 
             // Load the respondent summary
-            var $respondentXHR = klp.api.do("survey/info/respondent/", params);
+            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_id=7", params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
                 stopDetailLoading();
@@ -308,7 +302,7 @@ var topSummaryData = {};
         });
 
         // Load the volumes
-        var $volumeXHR = klp.api.do("survey/volume/", params);
+        var $volumeXHR = klp.api.do("survey/volume/?survey_id=7", params);
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
             stopDetailLoading();
@@ -476,7 +470,7 @@ var topSummaryData = {};
         delete params.to;
 
         // Load the summary first
-        var $summaryXHR = klp.api.do("surveys/tagmappingsummary/", params);
+        var $summaryXHR = klp.api.do("surveys/tagmappingsummary/?survey_tag=gka", params);
         startSummaryLoading();
         $summaryXHR.done(function(data) {
             var topSummary = {
@@ -493,9 +487,10 @@ var topSummaryData = {};
             delete params.year;
 
             // Load the users Education volunteers count
-            var $usersXHR = klp.api.do("survey/info/users", params);
+            params.survey_tag = 'gka';
+            var $usersXHR = klp.api.do("survey/summary/", params);
             $usersXHR.done(function(data) {
-                topSummary.education_volunteers = (data.users && data.users.VR) ? data.users.EV: 0; 
+                topSummary.active_users = (data.summary && data.summary.num_users) ? data.summary.num_users : 0; 
 
                 klp.GKA.topSummaryData = topSummary;
                 renderTopSummary(topSummary);
@@ -503,9 +498,9 @@ var topSummaryData = {};
                 // Load the rest of sections
                 loadSmsData(params);
                 loadAssmtData(params);
-                loadGPContestData(params);
+                // loadGPContestData(params);
                 loadSurveys(params);
-                loadComparison(params);
+                // loadComparison(params);
             });
         });
     }
@@ -680,19 +675,16 @@ var topSummaryData = {};
     }
 
     function loadAssmtData(params) {
-
-        delete params.survey_tag;
-        params.survey_id = 3;
         
         // Load summary first
         // TODO: Check if we need to pass the survey_tag=ekstep
         // params.survey_tag = 'ekstep';
-        var $summaryXHR = klp.api.do("survey/summary/", params);
+        var $summaryXHR = klp.api.do("survey/summary/?survey_id=3", params);
         $summaryXHR.done(function(summaryData) {
             summaryData = summaryData.summary;
 
             // Load details next
-            var $keyXHR = klp.api.do("survey/detail/key/", params);
+            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=3", params);
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
@@ -716,7 +708,7 @@ var topSummaryData = {};
                 renderAssmtSummary(dataSummary);
                 renderAssmtCharts(detailKeydata);
 
-                var $volumeXHR = klp.api.do("survey/volume/", params);
+                var $volumeXHR = klp.api.do("survey/volume/?survey_id=3", params);
                 $volumeXHR.done(function(data) {
                     stopDetailLoading();
                     renderAssmtVolumeChart(data, params);
@@ -834,10 +826,8 @@ var topSummaryData = {};
     }
 
     function loadGPContestData(params){
-        delete params.survey_tag;
-        params.survey_id = 2;
 
-        var metaURL = "survey/info/class/gender/";
+        var metaURL = "survey/info/class/gender/?survey_id=2";
         var $metaXHR = klp.api.do(metaURL, params);
         $metaXHR.done(function(data) {
 

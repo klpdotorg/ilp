@@ -4,6 +4,7 @@
     //define keys to use in localStorage to store data
     var tokenKey = "klpUserToken";
     var emailKey = "klpUserEmail";
+    var userKey = "klpUserName";
     var firstNameKey = "klpUserFirstName";
     var lastNameKey = "klpUserLastName";
     var idKey = "klpUserId";
@@ -17,6 +18,7 @@
         var email = userData.email;
         var firstName = userData.first_name;
         var lastName = userData.last_name;
+        localStorage.setItem(userKey, userData.mobile_no);
         localStorage.setItem(tokenKey, token);
         localStorage.setItem(emailKey, email);
         localStorage.setItem(firstNameKey, firstName);

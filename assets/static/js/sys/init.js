@@ -75,15 +75,9 @@
 
     function validatePersonalDetails() {
         var isValid = klp.utils.validateRequired("sys_school");
-        var $name = $('#name_id'),
-            $email = $('#email_id'),
-            $tel = $('#telephone_id'),
-            $date = $('#date_id');
+        var $date = $('#date_id');
 
-        isValid = validateName($name)
-                    && validateEmail($email)
-                    && validateTel($tel)
-                    && validateDate($date);
+        isValid = validateDate($date);
 
         if (!isValid) {
             klp.utils.alertMessage("Please correct errors before proceeding.", "error");

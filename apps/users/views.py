@@ -1,10 +1,7 @@
 from django.http import Http404
 from django.views.generic.detail import DetailView
-from django.core.exceptions import ValidationError
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
 
 from common.views import StaticPageView
 from .models import User
@@ -12,7 +9,8 @@ from .serializers import (
     UserSerializer,
     UserRegistrationSerializer,
     UserLoginSerializer,
-    OtpSerializer
+    OtpSerializer,
+    OtpPasswordResetSerializer
 )
 from .utils import login_user
 from .permission import IsAdminOrIsSelf
@@ -137,121 +135,10 @@ class ProfileEditPageView(DetailView):
         return context
 
 
-class KonnectMobileStatus(generics.GenericAPIView):
-    def get(self, request):
-        """
-        Returns information about a mobile number - whether its a new,
-        existing with/without password  dob etc
-        """
-        mobile_no = request.GET.get('mobile')
-        try:
-            user = User.objects.get(mobile_no=mobile_no)
-        except User.DoesNotExist:
-            return Response(
-                {'action': 'signup'},
-                status=status.HTTP_404_NOT_FOUND
-            )
-        else:
-            if user.password and user.dob:
-                return Response({'action': 'login'}, status=status.HTTP_200_OK)
-            else:
-                return Response(
-                    {'action': 'update'},
-                    status=status.HTTP_206_PARTIAL_CONTENT
-                )
-
-
-class KonnectUserUpdateWithMobile(APIView):
-    permission_classes = (AllowAny, )
-
-    def post(self, request):
-        """
-        Updates user account with only mobile number.
-        User by Konnect app to update those users who have already came through
-        IVRS and trying to login using the app.
-        """
-        mobile_no = request.POST.get('mobile', '')
-        dob = request.POST.get('dob', '')
-        password = request.POST.get('password', '')
-        source = request.POST.get('source', '')
-        email = request.POST.get('email', '')
-        first_name = request.POST.get('first_name', '')
-        last_name = request.POST.get('last_name', '')
-        user_type = request.POST.get('user_type', '')
-
-        if not mobile_no or not dob or not password or not source:
-            return Response({
-                'error': 'mobile, dob, password and source are required.'
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        if source != 'konnect':
-            return Response({
-                'error': 'invalid source'
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            user = User.objects.get(mobile_no=mobile_no)
-        except User.DoesNotExist:
-            return Response(
-                {'error': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            if user.password and user.dob:
-                return Response({
-                    'error': 'user already has set his/her password & dob. please goto login'
-                }, status=status.HTTP_400_BAD_REQUEST)
-
-            user.source = 'konnect'
-            user.dob = dob
-            user.set_password(password)
-            user.email = email
-            user.first_name = first_name
-            user.last_name = last_name
-            user.user_type = user_type
-            try:
-                user.save()
-            except ValidationError:
-                return Response(
-                    {'error': 'dob must be in YYYY-MM-DD format'},
-                    status=status.HTTP_400_BAD_REQUEST)
-            else:
-                return Response({'success': 'user updated'})
-
-
-class KonnectPasswordReset(APIView):
-    permission_classes = (AllowAny, )
-
-    def post(self, request):
-        """
-        Password reset view for Konnect users
-        Accepts mobile, dob & password.
-        """
-        mobile_no = request.POST.get('mobile', '')
-        dob = request.POST.get('dob', '')
-        password = request.POST.get('password', '')
-
-        if not mobile_no or not dob or not password:
-            return Response({
-                'error': 'mobile, dob & password are required.'
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            user = User.objects.get(mobile_no=mobile_no, dob=dob)
-        except ValidationError:
-            return Response(
-                {'error': 'dob must be in YYYY-MM-DD format'},
-                status=status.HTTP_400_BAD_REQUEST)
-        except User.DoesNotExist:
-            return Response(
-                {'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            user.set_password(password)
-            user.save()
-            return Response({'success': 'Password changed'})
-
-
 class OtpUpdateView(generics.GenericAPIView):
     """
-    This end point logins a user by creating a token object
+    This end point validates a user's mobile number by matching it against
+    an OTP generated during signup.
     """
     serializer_class = OtpSerializer
     permission_classes = (
@@ -283,7 +170,8 @@ class OtpUpdateView(generics.GenericAPIView):
 
 class OtpGenerateView(generics.GenericAPIView):
     """
-    This end point generates an OTP for a mobile number
+    This end point generates an OTP for a mobile number that can be used by
+    OtpPasswordResetView for resetting user's password
     """
     permission_classes = (
         permissions.AllowAny,
@@ -310,6 +198,40 @@ class OtpGenerateView(generics.GenericAPIView):
             user.save()
             user.send_otp()
             return Response(
-                {'success': 'otp generated and send'},
+                {'success': 'otp generated and sent'},
                 status=status.HTTP_200_OK
             )
+
+
+class OtpPasswordResetView(generics.GenericAPIView):
+    """
+    This end point accepts an users's phone number, an otp
+    a password to reset the user's password.
+    """
+    serializer_class = OtpPasswordResetSerializer
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        serializer = OtpPasswordResetSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        form_data = serializer.data
+
+        try:
+            user = User.objects.get(
+                mobile_no=form_data['mobile_no'],
+                sms_verification_pin=form_data['otp']
+            )
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'Invalid OTP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.sms_verification_pin = None
+            user.set_password(form_data['password'])
+            user.is_active = True
+            user.is_mobile_verified = True
+            user.save()
+            return Response({'success': 'ok'}, status=status.HTTP_200_OK)

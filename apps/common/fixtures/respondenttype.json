@@ -96,5 +96,12 @@
             "char_id": "GO",
             "name": "Government Official"
         }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "UK",
+            "name": "Unknown"
+        }
     }
 ]

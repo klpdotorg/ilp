@@ -15,12 +15,12 @@
 {% endblock %}
 
 {% block endbody %}
-  {% compress js %}  
+  {% compress js %}
   <!--script type="text/javascript" src="{% static 'js/lib/jquery.validate.min.js' %}"></script-->
   <script type="text/javascript" src="{% static 'js/lib/jquery.stepy.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/lib/validator.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/sys/init.js' %}"></script>
-  
+
   {% endcompress %}
 {% endblock %}
 
@@ -37,15 +37,15 @@
             <h4 class="school-type-{{ school_type }}">
               <span class="icon-number">
                 {% if school_type == 'school' %}
-                 S 
+                 S
                 {% else %}
                 P
                 {% endif %}
               </span>
               {{ object.name }}
             </h4>
-            
-            <ul class="map-location-labels font-smallest">  
+
+            <ul class="map-location-labels font-smallest">
               <li class="map-label-each">
                 <div class="map-label-title">
                   District
@@ -85,36 +85,17 @@
           </div-->
           <p class="center-text grey-silver">We have {{ total_verified_stories }} Stories and {{ total_images }} Images across all schools and preschools, so far. Thanks to visitors like you!</p>
 
-        </div>                  
-      </div>      
+        </div>
+      </div>
 
       <div class="form-parent container js-form-parent">
-      
+
        <h2 class="heading-border brand-green">Share a story on your Visit</h2>
-       <hr/>   
+       <hr/>
         <form id="sys_school" action="/sysuserinfo" name="sys_school">
           <fieldset title="1">
-            <legend>Personal Details</legend>
+            <legend>Date of Visit</legend>
             <input type="hidden" name="id" value="{{ object.id }}" />
-            <div class="heading-tiny-uppercase">Please provide accurate information</div>
-            <div class="form-field-wrap">
-              <div class="required">
-                <input type="text" class="input-text" data-required="true" name="name" id="name_id" placeholder="Type Full Name">
-              </div>
-            </div>
-
-            <div class="form-field-wrap">
-              <div class="required">
-                <input type="email" class="input-text" data-required="true" name="email" id="email_id" placeholder="Type Email">
-              </div>
-            </div>
-
-            <div class="form-field-wrap">
-              <div class="required">
-                <input type="tel" class="input-text" data-required="true" name="telephone" id="telephone_id" placeholder="Type Mobile Phone">
-              </div>
-            </div>
-
             <div class="form-field-wrap">
               <div class="required">
                 <div class="heading-tiny-uppercase">Date of Visit <span class="fa fa-calendar"></span></div>
@@ -143,7 +124,7 @@
             </div>
             <div class="base-spacing-lg border-base center-text">
               <div class="heading-tiny-uppercase heading-border">
-                Preview of your images. 
+                Preview of your images.
               </div>
               <div id="imagePreviews">
               </div>
@@ -180,9 +161,9 @@
         </form>
       </div>
 
-      
+
     </section>
 </section>
 
-{% include 'frontend_templates/sys_form.html' %} 
+{% include 'frontend_templates/sys_form.html' %}
 {% endblock %}
