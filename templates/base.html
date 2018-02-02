@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% load compress %}
 {% load state_variables %}
+{% load basic_default_settings %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +23,8 @@
     <script>
         window.klp = {};
         window.klp.STATE_CODE = '{%get_state_value "state_code"%}';
+        window.klp.DEFAULT_ACADEMIC_YEAR = '{%get_default_academic_year%}'
+        window.klp.DISE_BASE_URL = '{%get_dise_url%}'
     </script>
     {% compress js %}
       <script type="text/javascript" src="{% static 'js/lib/jquery-1.11.3.min.js' %}"></script>

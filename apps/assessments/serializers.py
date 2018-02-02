@@ -72,7 +72,7 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
     class Meta:
         model = QuestionGroup_Questions
         fields = (
-            'question_details',
+            'question_details', 'sequence'
         )
 
     def create(self, validated_data):
