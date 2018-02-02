@@ -12,7 +12,8 @@ from .serializers import (
     UserSerializer,
     UserRegistrationSerializer,
     UserLoginSerializer,
-    OtpSerializer
+    OtpSerializer,
+    OtpPasswordResetSerializer
 )
 from .utils import login_user
 from .permission import IsAdminOrIsSelf
@@ -251,7 +252,8 @@ class KonnectPasswordReset(APIView):
 
 class OtpUpdateView(generics.GenericAPIView):
     """
-    This end point logins a user by creating a token object
+    This end point validates a user's mobile number by matching it against
+    an OTP generated during signup.
     """
     serializer_class = OtpSerializer
     permission_classes = (
@@ -283,7 +285,8 @@ class OtpUpdateView(generics.GenericAPIView):
 
 class OtpGenerateView(generics.GenericAPIView):
     """
-    This end point generates an OTP for a mobile number
+    This end point generates an OTP for a mobile number that can be used by
+    OtpPasswordResetView for resetting user's password
     """
     permission_classes = (
         permissions.AllowAny,
@@ -310,6 +313,40 @@ class OtpGenerateView(generics.GenericAPIView):
             user.save()
             user.send_otp()
             return Response(
-                {'success': 'otp generated and send'},
+                {'success': 'otp generated and sent'},
                 status=status.HTTP_200_OK
             )
+
+
+class OtpPasswordResetView(generics.GenericAPIView):
+    """
+    This end point accepts an users's phone number, an otp
+    a password to reset the user's password.
+    """
+    serializer_class = OtpPasswordResetSerializer
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        serializer = OtpPasswordResetSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        form_data = serializer.data
+
+        try:
+            user = User.objects.get(
+                mobile_no=form_data['mobile_no'],
+                sms_verification_pin=form_data['otp']
+            )
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'Invalid OTP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.sms_verification_pin = None
+            user.set_password(form_data['password'])
+            user.is_active = True
+            user.is_mobile_verified = True
+            user.save()
+            return Response({'success': 'ok'}, status=status.HTTP_200_OK)

@@ -60,8 +60,17 @@ class UserLoginSerializer(serializers.Serializer):
 
 
 class OtpSerializer(serializers.Serializer):
-    mobile_no = serializers.CharField(style={'input_type': 'password'})
+    mobile_no = serializers.CharField()
     otp = serializers.CharField(style={'input_type': 'password'})
 
     class Meta:
         fields = ('mobile_no', 'otp', )
+
+
+class OtpPasswordResetSerializer(serializers.Serializer):
+    mobile_no = serializers.CharField()
+    otp = serializers.CharField()
+    password = serializers.CharField(style={'input_type': 'password'})
+
+    class Meta:
+        fields = ('mobile_no', 'otp', 'password', )
