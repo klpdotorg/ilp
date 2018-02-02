@@ -86,7 +86,8 @@ class SurveyVolumeAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
-        years = queryset.values_list('year', flat=True)
+        years = queryset.values_list('yearmonth', flat=True)
+        years = [year//100 for year in years]
         months = {
             "01": "Jan", "02": "Feb", "03": "Mar",
             "04": "Apr", "05": "May", "06": "Jun",
@@ -97,10 +98,10 @@ class SurveyVolumeAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
         volume_res = {}
         for year in years:
             year_res = {}
-            y_agg = queryset.filter(year=year)
+            y_agg = queryset.filter(yearmonth__startswith=year)
             for month in months:
                 year_res[months[month]] = \
-                    y_agg.filter(month=month).count()
+                    y_agg.filter(yearmonth__endswith=month).count()
             volume_res[year] = year_res
         return Response(volume_res)
 
