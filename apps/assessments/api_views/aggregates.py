@@ -1,4 +1,4 @@
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.conf import settings
 from django.db.models.fields import IntegerField
 from django.db.models.expressions import Value
@@ -284,9 +284,11 @@ class SurveyDetailSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
             question_ids = source_agg\
                 .distinct('question_id').values_list('question_id', flat=True)
             question_list = []
+            ans_options = \
+                source_agg.distinct('answer_option')\
+                .values_list('answer_option', flat=True)
             for q_id in question_ids:
                 question = Question.objects.get(id=q_id)
-                question_agg = source_agg.filter(question_id=q_id)
                 question_res = {
                     "question": {}, "question_type": None, "answers": {}
                 }
@@ -301,14 +303,11 @@ class SurveyDetailSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                     question_res["question_type"] = \
                         question.question_type.display.char_id
 
-                ans_options = \
-                    question_agg.distinct('answer_option')\
-                    .values_list('answer_option', flat=True)
+                question_agg = source_agg.filter(question_id=q_id)
                 for ans in ans_options:
                     question_res['answers'][ans] = \
                         question_agg.filter(answer_option=ans)\
                         .aggregate(Sum('num_answers'))['num_answers__sum']
-
                 question_list.append(question_res)
             sources_res[source.name] = question_list
         response["source"] = sources_res
