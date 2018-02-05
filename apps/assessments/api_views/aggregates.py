@@ -436,10 +436,10 @@ class SurveyQuestionGroupQuestionKeyAPIView(
         ans_qs = self.filter_queryset(self.get_answer_queryset())
         qgroup_res = {}
 
-        qgroup_ids = qs.distinct('questiongroup_id')\
-            .values_list('questiongroup_id', flat=True)
+        qgroups = qs.distinct('questiongroup_id')\
+            .values_list('questiongroup_id', 'questiongroup_name')
 
-        for qgroup_id in qgroup_ids:
+        for qgroup_id, qgroup_name in qgroups:
             q_res = {}
             qgroup_qs = qs.filter(questiongroup_id=qgroup_id)
             qgroup_ans_qs = ans_qs.filter(questiongroup_id=qgroup_id)
@@ -459,7 +459,7 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                     "total": total,
                     "score": score
                 }
-            qgroup_res[qgroup_id] = q_res
+            qgroup_res[qgroup_name] = q_res
         return Response(qgroup_res)
 
 
