@@ -33,6 +33,8 @@ class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                     "num_users": qs_agg['num_users__sum'],
                     "children_impacted": qs_agg['num_children__sum'],
                     "total_assessments": qs_agg['num_assessments__sum'],
+                    "last_assessment": queryset.latest(
+                        'last_assessment').last_assessment,
                 }
             }
             return institution_summary_response
@@ -48,6 +50,8 @@ class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                 "schools_impacted": qs_agg['num_schools__sum'],
                 "children_impacted": qs_agg['num_children__sum'],
                 "total_assessments": qs_agg['num_assessments__sum'],
+                "last_assessment": queryset.latest(
+                    'last_assessment').last_assessment,
             }
         }
         return boundary_summary_response
