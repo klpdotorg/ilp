@@ -498,7 +498,7 @@ var topSummaryData = {};
                 // Load the rest of sections
                 loadSmsData(params);
                 loadAssmtData(params);
-                // loadGPContestData(params);
+                loadGPContestData(params);
                 loadSurveys(params);
                 // loadComparison(params);
             });
