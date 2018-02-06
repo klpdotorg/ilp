@@ -573,14 +573,6 @@ var topSummaryData = {};
         var meta_values = [];
         var volumes = data;
 
-        // Set the expected values of line chart
-        var expectedValue = 13680;
-        if(typeof(params.admin1) !== 'undefined') {
-            expectedValue = 2280;
-        } else if(typeof(params.school_id) !== 'undefined' || typeof(params.admin2) !== 'undefined' || typeof(params.admin3) !== 'undefined') {
-            expectedValue = 0;
-        }
-
         // Utility function for preparing volumes
         function prepareVolumes(year) {
             var values = [];
@@ -651,24 +643,14 @@ var topSummaryData = {};
                 {
                     className: 'ct-series-b',
                     data: volume_values,
-                },
-                {
-                    className: 'ct-series-h',
-                    data: _.map(volume_values, function(v){ return expectedValue; })
                 }
             ]
         }
 
         var chartLabel = '';
-
-        if(!expectedValue) {
-            sms_volume.series = [sms_volume.series[0]];
-            chartLabel = "<div class='center-text font-small uppercase'>" +
-                        "<span class='fa fa-circle brand-green'></span> Actual Volumes</div>"
-        } else {
-            chartLabel = "<div class='center-text font-small uppercase'><span class='fa fa-circle brand-turquoise'></span>"+
-                        " Expected Volumes <span class='fa fa-circle brand-green'></span> Actual Volumes</div>"
-        }
+        sms_volume.series = [sms_volume.series[0]];
+        chartLabel = "<div class='center-text font-small uppercase'>" +
+                        "<span class='fa fa-circle brand-green'></span> Actual Volumes</div>";
 
         renderLineChart('#smsVolume', sms_volume);
         $('#smsLegend').html(chartLabel);
