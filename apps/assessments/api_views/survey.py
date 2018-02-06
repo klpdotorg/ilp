@@ -433,10 +433,24 @@ class SurveyUserSummary(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
+        questiongroup_id = request.GET.get('questiongroup_id', None)
+        from_date = request.GET.get('from', '')
+        to_date = request.GET.get('to', '')
         response = {}
+
         queryset = AnswerGroup_Institution.objects.filter(
             created_by=request.user
         )
+
+        if questiongroup_id is not None:
+            queryset = queryset.filter(questiongroup__id=questiongroup_id)
+
+        if from_date and to_date:
+            try:
+                queryset = queryset.filter(
+                    entered_at__range=[from_date, to_date])
+            except Exception as e:
+                print(e)
 
         response['assessments'] = queryset.count()
         response['schools_covered'] = queryset.values(
