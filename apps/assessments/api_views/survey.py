@@ -186,7 +186,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                     questiongroup_id=questiongroup_id)       
 
         ans_queryset = ans_queryset.values(
-            'question_desc', 'answer_option', 'num_answers'
+            'question_desc', 'answer_option', 'num_answers', 'question_id'
         )
 
         response = {}
@@ -215,6 +215,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                                 "text": row["question_desc"],
                                 row["answer_option"]: row["num_answers"]
                             }
+                        question_dict[row["question_desc"]]['id'] = row['question_id']
                 if question_dict:
                     questiongroup_res[qg_id] = {}
                     questiongroup_res[qg_id]['questions'] = question_dict
