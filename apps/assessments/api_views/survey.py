@@ -426,3 +426,20 @@ class AssessmentsImagesView(APIView):
 class RespondentTypeList(ListAPIView):
     queryset = RespondentType.objects.all()
     serializer_class = RespondentTypeSerializer
+
+
+class SurveyUserSummary(APIView):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, format=None):
+        response = {}
+        queryset = AnswerGroup_Institution.objects.filter(
+            created_by=request.user
+        )
+
+        response['assessments'] = queryset.count()
+        response['schools_covered'] = queryset.values(
+            'institution_id').distinct().count()
+
+        return Response(response)

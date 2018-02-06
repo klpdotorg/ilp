@@ -16,7 +16,8 @@ from assessments.api_views import (
     SurveyInstitutionAnsAggView, SurveyInstitutionDetailAPIView,
     SurveyTagAggAPIView, AssessmentsImagesView, AssessmentSyncView,
     RespondentTypeList, ShareYourStoryAPIView,
-    QuestionGroupInstitutionAssociationViewSet
+    QuestionGroupInstitutionAssociationViewSet,
+    SurveyUserSummary
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -177,5 +178,7 @@ urlpatterns = [
     url(r'surveys/assessments/respondent-types.$',
         RespondentTypeList.as_view(),
         name='survey-assessments-respondent-types'),
+    url(r'surveys/usersummary/$', SurveyUserSummary.as_view(),
+        name='survey-user-summary'),
 
 ] + simple_router.urls + nested_router.urls
