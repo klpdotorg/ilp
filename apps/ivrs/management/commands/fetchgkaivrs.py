@@ -5,9 +5,8 @@ from django.core.management.base import BaseCommand
 
 from schools.models import Institution
 from ivrs.utils import get_question
-#from common.utils import post_to_slack
+from common.utils import post_to_slack
 from common.models import Status
-from users.models import User
 from ivrs.models import State, QuestionGroupType
 from assessments.models import AnswerGroup_Institution,AnswerInstitution, RespondentType, QuestionGroup
 
@@ -38,32 +37,18 @@ class Command(BaseCommand):
             user = state.user
             institution = Institution.objects.get(id=state.school_id)
             date = state.date_of_visit
-            mobile = state.telephone
             akshara_staff = RespondentType.objects.get(name='Akshara Staff')
             question_group = qg_type.questiongroup
             status = Status.objects.get(name = 'Active')
-            if user.first_name == 'Unknown' and  user.last_name == 'User':
-                answergroup, created = AnswerGroup_Institution.objects.get_or_create(
-                    created_by=user,
-                    institution=institution,
-                    is_verified=True,
-                    questiongroup=question_group,
-                    date_of_visit=date,
-                    status=status,
-                    respondent_type=akshara_staff,
-                    mobile=mobile
-                )
-            else:
-                answergroup, created = AnswerGroup_Institution.objects.get_or_create(
-                    created_by=user,
-                    institution=institution,
-                    is_verified=True,
-                    questiongroup=question_group,
-                    date_of_visit=date,
-                    status = status, 
-                    respondent_type=akshara_staff,
-                    defaults = {'mobile': mobile} 
-                )
+            answergroup, created = AnswerGroup_Institution.objects.get_or_create(
+                created_by=user,
+                institution=institution,
+                is_verified=True,
+                questiongroup=question_group,
+                date_of_visit=date,
+                status = status,
+                respondent_type=akshara_staff
+            )
             for (question_number, answer) in enumerate(state.answers[1:]):
                 if answer != 'NA':
                     question = get_question(
@@ -76,3 +61,20 @@ class Command(BaseCommand):
                         answer=answer,
                         double_entry = 0
                     )
+        if qg_type.name == 'gkav4':
+            author = 'GKA SMS'
+            emoji = ':memo:'
+        else:
+            author = None
+        if author:
+            try:
+                post_to_slack(
+                    channel='#klp',
+                    author=author,
+                    message='In Unified DB, %s Valid calls & %s Invalid calls' %(valid_count, invalid_count),
+                    emoji=emoji,
+                )
+            except:
+                print ("could not post to slack")
+                pass
+ 
