@@ -12,7 +12,7 @@ class AggQuerySetMixin(object):
             return self.institution_queryset.filter(
                 institution_id=institution_id)
         if boundary_id:
-            return self.boundary_queryset.objects.filter(
+            return self.boundary_queryset.filter(
                 boundary_id=boundary_id)
 
         state_id = BoundaryStateCode.objects.get(
