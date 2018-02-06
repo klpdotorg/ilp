@@ -31,6 +31,7 @@ class SurveyFilter(BaseFilterBackend):
         institution_type = request.query_params.get('school_type', None)
         to_ = request.query_params.get('to', None)
         from_ = request.query_params.get('from', None)
+        sources = request.query_params.getlist('source', [])
 
         if survey_id:
             queryset = queryset.filter(survey_id=survey_id)
@@ -39,6 +40,9 @@ class SurveyFilter(BaseFilterBackend):
 
         if institution_type:
             queryset = queryset.filter(institution_type=institution_type)
+
+        if sources:
+            queryset = queryset.filter(source__in=sources)
 
         if to_:
             to_ = to_.split('-')
@@ -53,5 +57,3 @@ class SurveyFilter(BaseFilterBackend):
             queryset = queryset.filter(yearmonth__gte=yearmonth)
 
         return queryset
-
-
