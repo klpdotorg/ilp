@@ -1,4 +1,4 @@
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.conf import settings
 from django.db.models.fields import IntegerField
 from django.db.models.expressions import Value
@@ -33,6 +33,8 @@ class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                     "num_users": qs_agg['num_users__sum'],
                     "children_impacted": qs_agg['num_children__sum'],
                     "total_assessments": qs_agg['num_assessments__sum'],
+                    "last_assessment": queryset.latest(
+                        'last_assessment').last_assessment,
                 }
             }
             return institution_summary_response
@@ -48,6 +50,8 @@ class SurveySummaryAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                 "schools_impacted": qs_agg['num_schools__sum'],
                 "children_impacted": qs_agg['num_children__sum'],
                 "total_assessments": qs_agg['num_assessments__sum'],
+                "last_assessment": queryset.latest(
+                    'last_assessment').last_assessment,
             }
         }
         return boundary_summary_response
@@ -86,7 +90,8 @@ class SurveyVolumeAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
-        years = queryset.values_list('year', flat=True)
+        years = queryset.values_list('yearmonth', flat=True)
+        years = [year//100 for year in years]
         months = {
             "01": "Jan", "02": "Feb", "03": "Mar",
             "04": "Apr", "05": "May", "06": "Jun",
@@ -97,10 +102,11 @@ class SurveyVolumeAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
         volume_res = {}
         for year in years:
             year_res = {}
-            y_agg = queryset.filter(year=year)
+            y_agg = queryset.filter(yearmonth__startswith=year)
             for month in months:
-                year_res[months[month]] = \
-                    y_agg.filter(month=month).count()
+                num_assess = y_agg.filter(yearmonth__endswith=month).\
+                    aggregate(Sum('num_assessments'))['num_assessments__sum']
+                year_res[months[month]] = num_assess if num_assess else 0
             volume_res[year] = year_res
         return Response(volume_res)
 
@@ -196,9 +202,7 @@ class SurveyInfoUserAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
-        sources = self.request.query_params.getlist('sources', [])
-        if sources:
-            queryset = queryset.filter(source__in=sources)
+
         response = {}
         user_response = {}
         user_types = queryset.distinct('user_type')\
@@ -282,9 +286,11 @@ class SurveyDetailSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
             question_ids = source_agg\
                 .distinct('question_id').values_list('question_id', flat=True)
             question_list = []
+            ans_options = \
+                source_agg.distinct('answer_option')\
+                .values_list('answer_option', flat=True)
             for q_id in question_ids:
                 question = Question.objects.get(id=q_id)
-                question_agg = source_agg.filter(question_id=q_id)
                 question_res = {
                     "question": {}, "question_type": None, "answers": {}
                 }
@@ -299,14 +305,11 @@ class SurveyDetailSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                     question_res["question_type"] = \
                         question.question_type.display.char_id
 
-                ans_options = \
-                    question_agg.distinct('answer_option')\
-                    .values_list('answer_option', flat=True)
+                question_agg = source_agg.filter(question_id=q_id)
                 for ans in ans_options:
                     question_res['answers'][ans] = \
                         question_agg.filter(answer_option=ans)\
                         .aggregate(Sum('num_answers'))['num_answers__sum']
-
                 question_list.append(question_res)
             sources_res[source.name] = question_list
         response["source"] = sources_res
@@ -431,10 +434,10 @@ class SurveyQuestionGroupQuestionKeyAPIView(
         ans_qs = self.filter_queryset(self.get_answer_queryset())
         qgroup_res = {}
 
-        qgroup_ids = qs.distinct('questiongroup_id')\
-            .values_list('questiongroup_id', flat=True)
+        qgroups = qs.distinct('questiongroup_id')\
+            .values_list('questiongroup_id', 'questiongroup_name')
 
-        for qgroup_id in qgroup_ids:
+        for qgroup_id, qgroup_name in qgroups:
             q_res = {}
             qgroup_qs = qs.filter(questiongroup_id=qgroup_id)
             qgroup_ans_qs = ans_qs.filter(questiongroup_id=qgroup_id)
@@ -454,7 +457,7 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                     "total": total,
                     "score": score
                 }
-            qgroup_res[qgroup_id] = q_res
+            qgroup_res[qgroup_name] = q_res
         return Response(qgroup_res)
 
 
