@@ -6,7 +6,9 @@ from rest_framework.response import Response
 from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework.generics import ListAPIView
 from PIL import Image
+from django.core.files.base import ContentFile
 from base64 import b64decode
+from django.conf import settings
 from common.views import (ILPViewSet)
 from assessments.models import (AnswerGroup_Institution, 
                             AnswerInstitution,
@@ -32,7 +34,7 @@ import json
 from rest_framework.renderers import JSONRenderer
 from users.models import User
 from dateutil.parser import parse as date_parse
-
+import random
 
 logger = logging.getLogger(__name__)
 
@@ -368,7 +370,7 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
         answergroup= {
             "institution": kwargs['schoolid'],
             "questiongroup": 6,
-            "group_value": data['email'],
+            "group_value": user.email,
             "created_by": user.id,
             "comments": data['comments'],
             "date_of_visit": date_of_visit,
