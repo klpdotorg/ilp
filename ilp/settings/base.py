@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'schools',
     'dise',
     'assessments',
+    'ivrs',
 )
 
 # DRF Settings
@@ -82,24 +83,6 @@ REST_FRAMEWORK = {
 }
 
 
-# Template settings
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates', ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-
 # Middlewares
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,6 +100,8 @@ DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False
 DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
     'assessments.AnswerGroup_Institution',
     'assessments.AnswerInstitution',
+    'assessments.AnswerGroup_Student',
+    'assessments.AnswerStudent'
 ]
 # Root URL Config
 ROOT_URLCONF = 'ilp.urls'
@@ -238,7 +223,7 @@ LOGGING = {
     'root': {
         'level': 'DEBUG',
         'handlers': ['console'],
-    },  
+    },
     'loggers': {
         'schools': {
             'handlers': ['console','development_logfile'],

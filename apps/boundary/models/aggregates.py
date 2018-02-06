@@ -47,7 +47,8 @@ class BoundaryStudentMotherTongueAgg(models.Model):
 class BoundarySchoolCategoryAgg(models.Model):
     boundary = models.ForeignKey('Boundary')
     cat_ac_year = models.ForeignKey('common.AcademicYear', related_name='cat_ac_year', db_column='year')
-    cat = models.CharField(max_length=100, db_column='category')
+    cat = models.ForeignKey('schools.InstitutionCategory', db_column='category')
+    institution_type = models.ForeignKey('common.InstitutionType', db_column='institution_type')
     num_schools = models.IntegerField(blank=True, null=True, db_column="num_schools")
     num_boys = models.IntegerField(blank=True, null=True, db_column="num_boys")
     num_girls = models.IntegerField(blank=True, null=True, db_column="num_girls")

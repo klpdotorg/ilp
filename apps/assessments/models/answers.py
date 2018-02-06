@@ -1,6 +1,8 @@
 from .survey import Question, QuestionGroup
+from common.models import RespondentType
 from users.models import User
 from django.db import models
+from django.contrib.gis.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
@@ -20,12 +22,14 @@ class AnswerGroup_Institution(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("RespondentType", null=True)
-    comments = models.CharField(max_length=2000, null=True)
+    respondent_type = models.ForeignKey(RespondentType, null=True)
+    comments = models.CharField(max_length=2000, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
     sysid = models.IntegerField(null=True)
     entered_at = models.DateTimeField(default=timezone.now, null=True)
+    location = models.GeometryField(null=True)
+    mobile = models.CharField(max_length=32, null=True)
 
 
 class AnswerInstitution(models.Model):
@@ -46,10 +50,12 @@ class AnswerGroup_StudentGroup(models.Model):
     group_value = models.CharField(max_length=100, null=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("RespondentType", null=True)
+    respondent_type = models.ForeignKey(RespondentType, null=True)
     comments = models.CharField(max_length=2000, null=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
+    location = models.GeometryField(null=True)
+    mobile = models.CharField(max_length=32, null=True)
 
 
 class AnswerStudentGroup(models.Model):
@@ -68,13 +74,15 @@ class AnswerGroup_Student(models.Model):
     group value"""
     student = models.ForeignKey("schools.Student")
     questiongroup = models.ForeignKey("QuestionGroup")
-    group_value = models.CharField(max_length=100, null=True)
-    created_by = models.ForeignKey(User, null=True)
+    group_value = models.CharField(max_length=100, null=True, blank=True)
+    created_by = models.ForeignKey(User, null=True, blank=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
-    respondent_type = models.ForeignKey("RespondentType", null=True)
-    comments = models.CharField(max_length=2000, null=True)
+    respondent_type = models.ForeignKey(RespondentType, null=True)
+    comments = models.CharField(max_length=2000, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
+    location = models.GeometryField(null=True)
+    mobile = models.CharField(max_length=32, null=True)
 
 
 class AnswerStudent(models.Model):
@@ -91,14 +99,12 @@ class AnswerStudent(models.Model):
 class InstitutionImages(models.Model):
     """Images associated stories"""
     answergroup = models.ForeignKey("AnswerGroup_Institution")
-    image = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='sys_images')
     is_verified = models.BooleanField(default=False)
     filename = models.CharField(max_length=300)
 
-
-class RespondentType(models.Model):
-    char_id = models.CharField(max_length=20, primary_key=True)
-    name = models.CharField(max_length=100)
+    def __unicode__(self):
+        return "{}: {}".format(self.story.name, self.image)
 
 
 class EasyAuditCRUDEvent(models.Model):

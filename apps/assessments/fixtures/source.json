@@ -47,6 +47,14 @@
             "id": "7",
             "name": "sms"
         }
+    },
+    {
+        "model": "assessments.Source",
+        "fields":{
+            "id": "8",
+            "name": "konnectsms"
+        }
     }
+
 ]
  

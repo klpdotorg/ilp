@@ -1,21 +1,23 @@
 from django.db.models import Q
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from boundary.serializers import (
     BoundarySerializer, BoundaryWithParentSerializer
 )
-from boundary.models import Boundary, BoundaryType, BoundaryHierarchy
-from common.views import ILPListAPIView, ILPDetailAPIView
+from boundary.models import Boundary, BoundaryType
+from boundary.filters import BoundarySurveyFilter
 
+from common.views import ILPListAPIView, ILPDetailAPIView
 from common.models import InstitutionType, Status
 from common.mixins import ILPStateMixin
-import logging
-logger = logging.getLogger(__name__)
-
 from common.filters import ILPInBBOXFilter
+from common.state_codes import STATES
+
 
 class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
-
     serializer_class = BoundarySerializer
+    filter_backends = [BoundarySurveyFilter, ]
     
     def get_queryset(self):
         state = self.get_state()
@@ -40,10 +42,9 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
             )
         return queryset
 
-class TestAdmin1sBoundary(ILPListAPIView, ILPStateMixin):
 
+class TestAdmin1sBoundary(ILPListAPIView, ILPStateMixin):
     serializer_class = BoundarySerializer
-    
 
     def get_queryset(self):
         state = self.get_state()
@@ -71,7 +72,7 @@ class TestAdmin1sBoundary(ILPListAPIView, ILPStateMixin):
 
 class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
     serializer_class = BoundaryWithParentSerializer
-    filter_backends = (ILPInBBOXFilter,)
+    filter_backends = [BoundarySurveyFilter, ILPInBBOXFilter]
     
     def get_queryset(self):
         # Get all the admin2 boundary ids for a particular state as a list
@@ -82,7 +83,6 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
         result = Boundary.objects.filter(id__in=admin2boundaries).filter(
             Q(boundary_type=BoundaryType.SCHOOL_BLOCK) |
             Q(boundary_type=BoundaryType.PRESCHOOL_PROJECT))
-        logger.debug("Admin2 boundary list is: ", admin2boundaries)
         school_type = self.request.query_params.get('school_type', None)
         if school_type is not None:
             # Hack to accomodate KLP dubdubdub URLs
@@ -100,8 +100,8 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
 
 
 class Admin3sBoundary(ILPListAPIView, ILPStateMixin):
-
     serializer_class = BoundaryWithParentSerializer
+    filter_backends = [BoundarySurveyFilter, ]
 
     def get_queryset(self):
         # Get all the admin2 boundary ids for a particular state as a list
@@ -133,15 +133,14 @@ class Admin3sBoundary(ILPListAPIView, ILPStateMixin):
 
 class Admin2sInsideAdmin1(ILPListAPIView):
     ''' Returns a list of all blocks/projects inside a given district id '''
-
     serializer_class = BoundaryWithParentSerializer
+    filter_backends = [BoundarySurveyFilter, ]
 
     def get_queryset(self):
         parent_district_id = self.kwargs.get('id', 0)
-        result = Boundary.objects.all().filter(
+        return Boundary.objects.filter(
             parent=parent_district_id, status=Status.ACTIVE
         )
-        return result
 
 
 class Admin3sInsideAdmin1(ILPListAPIView):
@@ -150,10 +149,11 @@ class Admin3sInsideAdmin1(ILPListAPIView):
     primary district.
     '''
     serializer_class = BoundaryWithParentSerializer
+    filter_backends = [BoundarySurveyFilter, ]
 
     def get_queryset(self):
         parent_district_id = self.kwargs.get('id', 0)
-        return Boundary.objects.all().filter(
+        return Boundary.objects.filter(
             parent__parent=parent_district_id,
             status=Status.ACTIVE
         )
@@ -164,10 +164,11 @@ class Admin3sInsideAdmin2(ILPListAPIView):
     Returns a list of all clusters/circles inside a given block/project id
     '''
     serializer_class = BoundaryWithParentSerializer
+    filter_backends = [BoundarySurveyFilter, ]
 
     def get_queryset(self):
         admin2_id = self.kwargs.get('id', 0)
-        return Boundary.objects.all().filter(
+        return Boundary.objects.filter(
             parent=admin2_id, status=Status.ACTIVE
         )
 
@@ -186,3 +187,14 @@ class AdminDetails(ILPDetailAPIView):
 
     def get_queryset(self):
         return Boundary.objects.all_active()
+
+
+class StateList(APIView):
+    """
+        Returns a list of states and their names, logos etc
+        A web/mobile client can use this info to dynamically brand
+        itself for different states.
+    """
+
+    def get(self, request):
+        return Response(STATES)

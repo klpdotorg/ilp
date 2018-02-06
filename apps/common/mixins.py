@@ -5,11 +5,12 @@ from django.conf import settings
 from rest_framework.mixins import CreateModelMixin, UpdateModelMixin
 from rest_framework.views import APIView
 from common.state_code_dict import STATE_CODES
-from boundary.models import Boundary, BoundaryHierarchy
+from boundary.models import (Boundary, BoundaryHierarchy, BoundaryStateCode)
 from easyaudit.models import CRUDEvent
 from rest_framework.response import Response
 
 logger = logging.getLogger(__name__)
+
 
 class CompensationLogMixin(CreateModelMixin, UpdateModelMixin):
     def perform_create(self, serializer):
@@ -28,6 +29,7 @@ class CompensationLogMixin(CreateModelMixin, UpdateModelMixin):
         else:
             double_entry = 2
         serializer.save(double_entry=double_entry)
+
 
 class AnswerUpdateModelMixin(UpdateModelMixin):
     def update(self, request, *args, **kwargs):
@@ -54,30 +56,17 @@ class CacheMixin(APIView):
 class ILPStateMixin(object):
 
     def get_state(self):
-        state_code = self.request.query_params.get('state', None)
-        # Once again, if no state is passed, default to 'ka'. 
-        if state_code is None:
-            state_code = 'ka'
-        logger.debug("State code passed in via args is: ", state_code)
-        state_name = STATE_CODES.get(state_code, None)
-        logger.debug("State code translates to: ", state_name)
+        state_code = self.request.query_params.get('state', 'ka')
         state = None
         if state_code:
-            state = Boundary.objects.get(
-                    name__iexact=state_name, boundary_type__name='State')
-        return state
+            state = BoundaryStateCode.objects.get(char_id=state_code)
+        return state.boundary
 
     def get_state_boundaries(self):
-        state_code = self.request.query_params.get('state', None)
-        logger.debug("State code passed in via args is: ", state_code)
-        # Once again, if no state is passed, default to 'ka'. 
-        if state_code is None:
-            state_code = 'ka'
-        state_name = STATE_CODES.get(state_code, None)
-        logger.debug("State code translates to: ", state_name)
+        state_code = self.request.query_params.get('state', 'ka')
         boundaries = BoundaryHierarchy.objects.all()
         if state_code:
-            state = Boundary.objects.get(
-                name__iexact=state_name, boundary_type__name='State')
-            boundaries = boundaries.filter(admin0_id=state.id)
+            state = BoundaryStateCode.objects.get(
+                char_id=state_code)
+            boundaries = boundaries.filter(admin0_id=state.boundary.id)
         return boundaries

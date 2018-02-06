@@ -91,14 +91,16 @@ Run:
 ### Setting up to build ILP DB from scratch
 
 Databases required before beginning imports :
+(Get dumps from S3 server)
+* ems
+* dubdubdub
+* klp-coord
+* electedrep_new
+* spatial
+* klpdise_olap
+* ang_infra
 
-* EMS - Get dump from one of the devs
-* dubdubdub - get gz file from /home/ubuntu/backups/db @ dev.klp.org.in
-* klp-coord - get gz file from /home/ubuntu/backups/db @ dev.klp.org.in
-* electrep_new - get gz file from /home/ubuntu/backups/db @dev.klp.org.in
-* spatial - get gz file from /home/ubuntu/backups/db @ dev.klp.org.in
-
-Once the DBs are set up, go to the imports directory. Run all the scripts per app in the imports directory. General order to follow would be boundary, institution, spatial, student-staff, dise, assessments, aggregates. Please refer to READMEs there under each folder for detailed instructions on commands. 
+Once the DBs are set up, go to the imports directory and run populateILP.sh (It asssumes the db names are as specified above)
 
 ### Run the application
 

@@ -64,12 +64,12 @@
             },
             'programmes': {
                 getData: function() {
-                    return klp.api.do('programme/', {
-                        'school': SCHOOL_ID
+                    return klp.api.do('survey/info/school/', {
+                        'school_id': SCHOOL_ID
                     });
                 },
                 getContext: function(data) {
-                    var programmes = data.features;
+                    var programmes = data.results;
                     return {
                         'programmes': programmes,
                         'school_id': SCHOOL_ID
@@ -102,8 +102,9 @@
             'infrastructure': {
                 getData: function() {
                     if (SCHOOL_TYPE_ID === "pre") { //is a preschool
-                        return klp.api.do(schoolInfoURL + '/infrastructure');
+                        return klp.api.do(schoolInfoURL+ "/infrastructure");
                     }
+                    else {
                     //for primary schools, fetch infra data from DISE
                     if (DISE_CODE) {
                         return klp.dise_api.fetchSchoolInfra(DISE_CODE);
@@ -114,6 +115,7 @@
                         }, 0);
                         return $deferred;
                     }
+                }
                 },
                 getContext: function(data) {
                     data.type_name = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
@@ -217,142 +219,146 @@
         //             drawChart();
         //         }
         //     },
-            'nutrition': {
-                getData: function() {
-                    return klp.api.do(schoolInfoURL + '/nutrition');
-                },
+            // 'nutrition': {
+            //     getData: function() {
+            //         return klp.api.do(schoolInfoURL + '/nutrition');
+            //     },
 
-                getContext: function(data) {
-                    data.hasData = true;
-                    if (_.isEmpty(data.mdm_agg)) {
-                        data.hasData = false;
-                        return data;
-                    }
-                    data.indent = [];
-                    data.attendance = [];
-                    data.categories = [];
-                    data.diseEnrollment = [];
-                    data.klpEnrollment = [];
+            //     getContext: function(data) {
+            //         data.hasData = true;
+            //         if (_.isEmpty(data.mdm_agg)) {
+            //             data.hasData = false;
+            //             return data;
+            //         }
+            //         data.indent = [];
+            //         data.attendance = [];
+            //         data.categories = [];
+            //         data.diseEnrollment = [];
+            //         data.klpEnrollment = [];
 
-                    data.mdm_agg.forEach(function(element, index) {
-                        data.categories.push(element.mon+ ' week ' + element.wk);
-                        data.indent.push(element.indent);
-                        data.attendance.push(element.attend);
-                        data.diseEnrollment.push(data.num_boys_dise + data.num_girls_dise);
-                        data.klpEnrollment.push(data.num_boys + data.num_girls);
-                    });
-                    data.type_name = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
-                    return data;
+            //         data.mdm_agg.forEach(function(element, index) {
+            //             data.categories.push(element.mon+ ' week ' + element.wk);
+            //             data.indent.push(element.indent);
+            //             data.attendance.push(element.attend);
+            //             data.diseEnrollment.push(data.num_boys_dise + data.num_girls_dise);
+            //             data.klpEnrollment.push(data.num_boys + data.num_girls);
+            //         });
+            //         data.type_name = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
+            //         return data;
 
-                },
+            //     },
 
-                onRender: function(data) {
-                    if (data.hasData) {
-                        $('.data').removeClass('hide');
-                        $('#graph_nutrition').highcharts({
-                            chart: {
-                                type: 'area',
-                                width: container_width,
-                                height: klp.utils.getRelativeHeight(960,400, 230, container_width)
-                            },
-                            title:{
-                                text: null
-                            },
-                            subtitle: {
-                                text: "Food Indent vs Attendance Tracking"
-                            },
-                            xAxis: {
-                                categories: data.categories,
-                                tickInterval: 2
-                                // allowDecimals: false,
-                                // labels: {
-                                //     formatter: function() {
-                                //         return this.value; // clean, unformatted number for year
-                                //     }
-                                // }
-                            },
-                            yAxis: {
-                                title: {
-                                    text: 'Number of children'
-                                },
-                                labels: {
-                                    formatter: function() {
-                                        return this.value;
-                                        // return this.value / 1000 +'k';
-                                    }
-                                }
-                            },
-                            credits:{
-                                enabled: false
-                            },
-                            tooltip: {
-                                // pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
-                            },
-                            plotOptions: {
-                                area: {
-                                    fillOpacity: 0
-                                }
-                            },
-                            series: [{
-                                name: 'Indent',
-                                data: data.indent,
-                                color: '#56af31',
-                                fillColor: {
-                                    linearGradient: chart_gradient_param,
-                                    stops: [
-                                        [0, '#e5f3e0'],
-                                        [1, 'rgba(255,255,255,0.3)']
-                                    ]
-                                }
-                            }, {
-                                name: 'Attendance',
-                                data: data.attendance,
-                                color: '#3892e3',
-                                fillColor: {
-                                    linearGradient: chart_gradient_param,
-                                    stops: [
-                                        [0, '#92c3ef'],
-                                        [1, 'rgba(255,255,255,0.3)']
-                                    ]
-                                }
-                            }, {
-                                name: 'KLP Enrollment',
-                                data: data.klpEnrollment,
-                                color: '#646157'
-                            }, {
-                                name: 'DISE Enrollment',
-                                data: data.diseEnrollment,
-                                color: '#e4b324'
-                            }
-                            ]
-                        });
-                    } else {
-                        $('.no-data').removeClass('hide');
-                    }
-                }
-            },
+            //     onRender: function(data) {
+            //         if (data.hasData) {
+            //             $('.data').removeClass('hide');
+            //             $('#graph_nutrition').highcharts({
+            //                 chart: {
+            //                     type: 'area',
+            //                     width: container_width,
+            //                     height: klp.utils.getRelativeHeight(960,400, 230, container_width)
+            //                 },
+            //                 title:{
+            //                     text: null
+            //                 },
+            //                 subtitle: {
+            //                     text: "Food Indent vs Attendance Tracking"
+            //                 },
+            //                 xAxis: {
+            //                     categories: data.categories,
+            //                     tickInterval: 2
+            //                     // allowDecimals: false,
+            //                     // labels: {
+            //                     //     formatter: function() {
+            //                     //         return this.value; // clean, unformatted number for year
+            //                     //     }
+            //                     // }
+            //                 },
+            //                 yAxis: {
+            //                     title: {
+            //                         text: 'Number of children'
+            //                     },
+            //                     labels: {
+            //                         formatter: function() {
+            //                             return this.value;
+            //                             // return this.value / 1000 +'k';
+            //                         }
+            //                     }
+            //                 },
+            //                 credits:{
+            //                     enabled: false
+            //                 },
+            //                 tooltip: {
+            //                     // pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+            //                 },
+            //                 plotOptions: {
+            //                     area: {
+            //                         fillOpacity: 0
+            //                     }
+            //                 },
+            //                 series: [{
+            //                     name: 'Indent',
+            //                     data: data.indent,
+            //                     color: '#56af31',
+            //                     fillColor: {
+            //                         linearGradient: chart_gradient_param,
+            //                         stops: [
+            //                             [0, '#e5f3e0'],
+            //                             [1, 'rgba(255,255,255,0.3)']
+            //                         ]
+            //                     }
+            //                 }, {
+            //                     name: 'Attendance',
+            //                     data: data.attendance,
+            //                     color: '#3892e3',
+            //                     fillColor: {
+            //                         linearGradient: chart_gradient_param,
+            //                         stops: [
+            //                             [0, '#92c3ef'],
+            //                             [1, 'rgba(255,255,255,0.3)']
+            //                         ]
+            //                     }
+            //                 }, {
+            //                     name: 'KLP Enrollment',
+            //                     data: data.klpEnrollment,
+            //                     color: '#646157'
+            //                 }, {
+            //                     name: 'DISE Enrollment',
+            //                     data: data.diseEnrollment,
+            //                     color: '#e4b324'
+            //                 }
+            //                 ]
+            //             });
+            //         } else {
+            //             $('.no-data').removeClass('hide');
+            //         }
+            //     }
+            // },
             'share-story': {
                 getData: function() {
                     //FIXME: replace with real SYS end-point
-                    var url ="stories/";
+                    var url ="institutionsurveys/";
                     var params = {
                         'school_id': SCHOOL_ID,
-                        'answers': 'yes',
-                        'verified': 'yes'
+                        'survey_id': 5,
                     };
                     return klp.api.do(url, params);
                 },
                 getContext: function(data) {
-                    var latestStory = getLatestStoryWithAnswers(data.features);
-                    if (latestStory) {
-                        data.latest_answers = getCleanedAnswers(latestStory.answers);
-                    } else {
-                        data.latest_answers = null;
-                    }
+                    data.answers = data.results
+                    // var latestStory = getLatestStoryWithAnswers(data.features);
+                    // if (latestStory) {
+                    //     data.latest_answers = getCleanedAnswers(latestStory.answers);
+                    // } else {
+                    //     data.latest_answers = null;
+                    // }
                     data['school_id'] = SCHOOL_ID;
                     data['school_type_id'] = SCHOOL_TYPE_ID;
-                    // console.log("sys data", data);
+                    console.log("sys data", data);
                     return data;
+
+                    function getQuestionsAndAnswers(stories) {
+
+                    }
 
                     function getLatestStoryWithAnswers(stories) {
                         for (var i=0; i < stories.length; i++) {
@@ -391,6 +397,14 @@
                         } else if (params.changed['state'].newVal === 'form') {
                             $("#trigger_share_story_form").click();
                         }
+                    });
+
+                    function opensysForm() {
+                      window.open(`/sys/${data.school_id}`, '_self');
+                    }
+
+                    $("#share-your-story-button").click(function(){
+                      klp.auth.requireLogin(opensysForm);
                     });
                 }
             },

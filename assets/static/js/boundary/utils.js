@@ -337,11 +337,11 @@
   };
 
   t.getSchoolPrograms = function(progData, boundaryID, adminLevel) {
-    var groupByPartner = _.groupBy(progData.features, 'partner')
+    var groupByPartner = _.groupBy(progData.results, 'partner')
     var modified = _.mapObject(groupByPartner, function(programs) {
       return programs.map(function(program) {
         return {
-          'pname': program.name + ' (' + program.academicyear_name + ')',
+          'pname': program.name, //+ ' (' + program.academicyear_name + ')',
           'url': '/programme/' + program.id + '#?' + adminLevel + '=' + boundaryID
         }
       });

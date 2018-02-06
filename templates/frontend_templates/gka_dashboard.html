@@ -1,16 +1,6 @@
 {% verbatim %}
 
   <script type="text/html" id="tpl-topSummary">
-
-    <!--div class="container js-entity-data">
-          <div class="heading-tiny-uppercase align-left">
-            <span class="brand-blue">{{type}}</span>
-          </div>
-          <h2 class="font-large black align-left">
-            {{name}}
-          </h2>
-    </div-->
-
     <div class="container">
       <!--div class="sect-parent">
         <div class="sect-third">
@@ -21,15 +11,15 @@
           <div class="sect-parent">
             <div class="sect-half">
               <div class="brand-blue font-large font-light uppercase">Schools</div>
-              <div class=" base-spacing-sm">{{data.total_schools}}</div>
+              <div class=" base-spacing-sm">{{data.total_school}}</div>
               <div class="brand-blue font-large font-light uppercase">Children Impacted</div>
               <div class=" base-spacing-sm">{{data.children_impacted}}</div>
             </div>
             <div class="sect-half">
               <div class="brand-blue font-large font-light uppercase">Schools Covered</div>
-              <div class=" base-spacing-sm">{{data.gka_schools}}</div>
-              <div class="brand-blue font-large font-light uppercase">Education Volunteers</div>
-              <div class=" base-spacing-sm">{{data.education_volunteers}}</div>
+              <div class=" base-spacing-sm">{{data.schools_impacted}}</div>
+              <div class="brand-blue font-large font-light uppercase">Active Users</div>
+              <div class=" base-spacing-sm">{{data.active_users}}</div>
             </div>
         </div>
       <!--/div>
@@ -42,11 +32,11 @@
       <div class="sect-parent center-text">
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">SMS Messages Received</div>
-          <div class=" base-spacing-sm">{{ sms.stories }}</div>
+          <div class=" base-spacing-sm">{{ assessment_count }}</div>
         </div>
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Schools with SMS Messages</div>
-          <div class=" base-spacing-sm">{{ sms.schools }} ({{smsPercentage}}%)</div>
+          <div class=" base-spacing-sm">{{ schools_impacted }} ({{smsPercentage}}%)</div>
         </div>
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Latest SMS</div>
@@ -60,11 +50,11 @@
       <div class="sect-parent center-text">
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Surveys Received</div>
-          <div class=" base-spacing-sm">{{ csv.stories }}</div>
+          <div class=" base-spacing-sm">{{ assessment_count }}</div>
         </div>
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Schools with Surveys</div>
-          <div class=" base-spacing-sm">{{ csv.schools }} ({{ schoolPerc }}%)</div>
+          <div class=" base-spacing-sm">{{ schools_impacted }} ({{ schoolPerc }}%)</div>
         </div>
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Latest Survey</div>

@@ -1,0 +1,73 @@
+#!/bin/bash
+
+echo "pid: $$"
+set -e
+set -x
+
+echo $PATH
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+echo $PATH
+
+echo "Running public exhaust ekstep esl feed at: $(date) ..."
+
+dt1=`date -d "2 days ago" +"%Y-%m-%d"`
+dt2=`date -d "1 day ago" +"%Y-%m-%d"`
+datapath="/home/ubuntu/datapull/"
+progpath="/home/ubuntu/ilp/ekstepbin/"
+
+echo "Get partner user data"
+sh $progpath"telemetry.bat" $dt1 $dt1 2> $datapath"error.dat"
+outputdir=$datapath"output1/*"
+rm -rf $outputdir
+outputdir=$datapath"output2/*"
+rm -rf $outputdir
+
+echo "Running SQL"
+psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select del_staging();"
+echo "deleted staging data"
+
+echo "Running ExtractData.py"
+python3 $progpath"ExtractData.py"
+if [ "$?" != "0" ]; then
+    echo "Failed  extracting user data"
+    exit 1
+fi
+
+echo "Running StudentData.py"
+#source /home/ubuntu/ilp/temp_virtualenvs/py3env/bin/activate
+python3 $progpath"StudentData.py"
+if [ "$?" != "0" ]; then
+    echo "Failed in decrypting user data"
+    exit 1
+fi
+#deactivate
+
+cat $datapath"output3/student_mapping.txt" | psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "COPY students_staging FROM stdin DELIMITER '|' CSV;"
+psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select upsert_students();"
+echo "student data processed."
+
+echo "Running GetData.py"
+/usr/bin/python3 $progpath"GetData.py" $dt1
+if [ "$?" != "0" ]; then
+    echo "Failed getting data"
+    exit 1
+fi
+echo "Finished GetData.py"
+
+echo "check 2"
+python3 $progpath"ProcessUsage.py" all-devices.txt 
+cat $datapath"usage.txt" | psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "COPY ekstep_usage_staging FROM stdin DELIMITER '|' CSV;"
+psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select insert_ekstep_usage();"
+echo "usage data processed."
+
+python3 $progpath"ProcessAssess.py" all-devices.txt 
+cat $datapath"assessment.txt" | psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "COPY ekstep_assess_staging FROM stdin DELIMITER '|' CSV;"
+psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select insert_ekstep_assess();"
+echo "assessment data processed."
+
+python3 $progpath"GKAtoILPAssess.py"  $dt1 $dt2
+echo "assessment data moved to ILP."
+
+echo "public exhaust ekstep esl done."
+
+exit 0

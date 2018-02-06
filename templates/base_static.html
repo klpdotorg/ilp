@@ -1,11 +1,12 @@
 {% load staticfiles %}
 {% load compress %}
+{% load state_variables %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>{% block head %}
   	<!-- META -->
-  	<title>{% block page_title %}Home{% endblock %} - Karnataka Learning Partnership</title>
+  	<title>{% block page_title %}Home{% endblock %} - {%get_state_value "long_form" %}</title>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,7 @@
     {% block css_extra %}{% endblock %}
     <script>
         window.klp = {};
+        window.klp.STATE_CODE = '{%get_state_value "state_code"%}';
     </script>
     {% compress js %}
       <script type="text/javascript" src="{% static 'js/lib/jquery-1.11.3.min.js' %}"></script>

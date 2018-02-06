@@ -17,6 +17,22 @@ from boundary.serializers import (
 
 from dise import dise_constants
 
+class LeanInstitutionSummarySerializer(ILPSerializer):
+    ''' returns just id, name, dise_code and geo-locations'''
+    dise_code = serializers.SerializerMethodField()
+    type = serializers.CharField(source='institution_type.char_id')
+    class Meta:
+        model=Institution
+        fields =(
+            'id', 'dise_code', 'name', 'type'
+        )
+    
+    def get_dise_code(self, obj):
+        if obj.dise is not None:
+            return obj.dise.school_code
+        else:
+            return None
+
 
 class InstitutionSummarySerializer(ILPSerializer):
     ''' This class returns just a summarized list of institution info
@@ -25,7 +41,7 @@ class InstitutionSummarySerializer(ILPSerializer):
     admin2 = serializers.CharField(source='admin2.name')
     admin3 = serializers.CharField(source='admin3.name')
     type = InstitutionTypeSerializer(source='institution_type')
-    dise_code = serializers.CharField(source="dise.school_code")
+    dise_code = serializers.SerializerMethodField()
     num_boys = serializers.SerializerMethodField()
     num_girls = serializers.SerializerMethodField()
     library_yn = serializers.SerializerMethodField()
@@ -41,6 +57,12 @@ class InstitutionSummarySerializer(ILPSerializer):
             'type', 'num_boys', 'num_girls', 'library_yn',
             'playground', 'computer_aided_learnin_lab'
         )
+
+    def get_dise_code(self, obj):
+        if obj.dise is not None:
+            return obj.dise.school_code
+        else:
+            return None
 
     def get_gender_counts(self, obj):
         if obj.institutionstugendercount_set.filter(
@@ -111,7 +133,7 @@ class InstitutionSerializer(ILPSerializer):
     admin2 = serializers.CharField(source='admin2.name')
     admin3 = serializers.CharField(source='admin3.name')
     type = InstitutionTypeSerializer(source='institution_type')
-    dise_code = serializers.CharField(source="dise.school_code")
+    dise_code = serializers.SerializerMethodField()
     moi = serializers.SerializerMethodField()
     parliament = serializers.SerializerMethodField()
     assembly = serializers.SerializerMethodField()
@@ -131,6 +153,12 @@ class InstitutionSerializer(ILPSerializer):
             'parliament', 'assembly', 'ward', 'type', 'num_boys', 'num_girls',
             'last_verified_year', 'institution_languages'
         )
+
+    def get_dise_code(self, obj):
+        if obj.dise is not None:
+            return obj.dise.school_code
+        else:
+            return None
 
     def get_moi(self, obj):
         lang = obj.institution_languages.first()
@@ -271,12 +299,67 @@ class SchoolDemographicsSerializer(ILPSerializer):
 
     def get_num_boys_dise(self, obj):
         print("get_num_boys_dise obj is: ", obj.dise)
-        num_boys = obj.dise.total_boys
-        return num_boys
+        if obj.dise is not None:
+            num_boys = obj.dise.total_boys
+            return num_boys
+        else:
+            return None
     
     def get_num_girls_dise(self, obj):
-        num_girls = obj.dise.total_girls
-        return num_girls
+        if obj.dise is not None:
+            num_girls = obj.dise.total_girls
+            return num_girls
+        else:
+            return None
+
+class PreschoolInfraSerializer(ILPSerializer):
+    
+    num_boys = serializers.SerializerMethodField()
+    num_girls = serializers.SerializerMethodField()
+    facilities = serializers.SerializerMethodField()
+
+    def get_facilities(self, obj):
+        data = {}
+        all_infra_details = obj.surveyinstitutionquestionagg_set.all()
+        for infra_group in all_infra_details:
+            if infra_group.question_key not in data:
+                data[infra_group.question_key] = {}
+            data[infra_group.question_key][infra_group.question_desc]=infra_group.score
+        return data
+    
+    # def get_ang_facility_details(self, obj):
+    #     data = {}
+    #     ang_infras = obj.anganwadiinfraagg_set.all().select_related('ai_metric')
+    #     for infra in ang_infras:
+    #         if infra.ai_group not in data:
+    #             data[infra.ai_group] = {}
+    #         data[infra.ai_group][infra.ai_metric.value.strip()] = (infra.perc_score == 100)
+    #     return data
+
+    def get_gender_counts(self, obj):
+        print("get_gender_counts", obj.institutionstugendercount_set)
+        if obj.institutionstugendercount_set.filter(
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
+            return obj.institutionstugendercount_set.\
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
+        return None
+
+    def get_num_boys(self, obj):
+        gender_count = self.get_gender_counts(obj)
+        if gender_count:
+            return gender_count.num_boys
+        return None
+
+    def get_num_girls(self, obj):
+        gender_count = self.get_gender_counts(obj)
+        if gender_count:
+            return gender_count.num_girls
+        return None
+
+    class Meta:
+        model = Institution
+        fields = ('id', 'name', 'num_boys', 'num_girls', 'facilities')
+
 
 class SchoolInfraSerializer(ILPSerializer):
    

@@ -3,13 +3,13 @@ Django==1.11.1
 django_extensions==1.5.9
 django-filter==1.0.4
 djangorestframework-bulk==0.2.1
-djangorestframework==3.6.4
+djangorestframework==3.7.7
 djangorestframework-gis==0.11.2
 drf-extensions==0.3.1
 django-compressor==2.2
 django-rest-swagger==2.1.2
 geojson>1.0.1
-psycopg2==2.7
+psycopg2==2.7.2
 python-dateutil==2.3
 pytz==2017.2
 drf-compound-fields

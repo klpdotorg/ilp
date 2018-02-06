@@ -7,27 +7,27 @@ from rest_framework.authtoken.models import Token
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager,
-    AbstractBaseUser
+    AbstractBaseUser,
+    PermissionsMixin
 )
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.urlresolvers import reverse
 from common.utils import send_templated_mail
 from django.contrib.sites.models import Site
-# from django.utils.text import slugify
 from django.conf import settings
 
-from .choices import USER_TYPE_CHOICES
+from common.utils import send_sms
 
 
 class UserManager(BaseUserManager):
-    def create(self, email, password=None, **extra_fields):
+    def create(self, mobile_no, password=None, **extra_fields):
 
-        if not email:
-            raise ValueError('Users must have an email address')
+        if not mobile_no:
+            raise ValueError('User must have a mobile_no')
 
         user = self.model(
-            email=UserManager.normalize_email(email),
+            mobile_no=mobile_no,
             **extra_fields
         )
 
@@ -35,21 +35,21 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        user = self.create_user(email, password=password, **extra_fields)
+    def create_superuser(self, mobile_no, password=None, **extra_fields):
+        user = self.create_user(mobile_no, password=password, **extra_fields)
         user.is_admin = True
         user.save(using=self._db)
         return user
 
 
-class User(AbstractBaseUser):
-    email = models.EmailField(unique=True)
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(null=True, blank=True, unique=True)
     mobile_no = models.CharField(max_length=32, unique=True)
+    mobile_no1 = models.CharField(max_length=32, null=True)
     first_name = models.CharField(max_length=64, blank=True)
-    last_name = models.CharField(max_length=64, blank=True)
-    user_type = models.CharField(
-        max_length=50, choices=USER_TYPE_CHOICES, null=True, blank=True)
-    is_active = models.BooleanField(default=True)
+    last_name = models.CharField(max_length=64, blank=True, null=True)
+    user_type = models.ForeignKey('common.RespondentType', null=True)
+    is_active = models.BooleanField(default=False)
     email_verification_code = models.CharField(
         max_length=128, null=True, blank=True)
     sms_verification_pin = models.IntegerField(null=True, blank=True)
@@ -71,20 +71,25 @@ class User(AbstractBaseUser):
     youtube_url = models.URLField(blank=True, null=True)
 
     objects = UserManager()
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'mobile_no'
 
     def save(self, *args, **kwargs):
         if not self.id:
             self.generate_email_token()
             self.generate_sms_pin()
+            self.send_otp()
         return super(User, self).save(*args, **kwargs)
 
     def generate_email_token(self):
         self.email_verification_code = uuid.uuid4().hex
 
     def generate_sms_pin(self):
-        pin = ''.join([str(random.choice(range(1, 9))) for i in range(4)])
+        pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
         self.sms_verification_pin = int(pin)
+
+    def send_otp(self):
+        msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
+        send_sms(self.mobile_no, msg)
 
     def get_token(self):
         return Token.objects.get(user=self).key
@@ -122,6 +127,14 @@ class User(AbstractBaseUser):
 
     def __unicode__(self):
         return self.email
+
+
+class UserBoundary(models.Model):
+    user = models.ForeignKey('User')
+    boundary = models.ForeignKey('boundary.Boundary')
+
+    class Meta:
+        unique_together = (('user', 'boundary'), )
 
 
 @receiver(post_save, sender=User)

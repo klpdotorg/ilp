@@ -1,5 +1,6 @@
 from os import sys, system
-import os, inspect
+import os
+import inspect
 
 
 if len(sys.argv) != 3:

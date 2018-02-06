@@ -397,7 +397,7 @@
 
             if (enabledLayers.hasLayer(preschoolCluster)) {
                 t.startLoading();
-                preschoolXHR = klp.api.do('institutions/list', {'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                preschoolXHR = klp.api.do('institutions/list', {'lean': 'true', 'school_type': 'preschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 preschoolXHR.done(function (data) {
                     t.stopLoading();
                     preschoolCluster.clearLayers();
@@ -412,7 +412,7 @@
 
             if (enabledLayers.hasLayer(schoolCluster)) {
                 t.startLoading();
-                schoolXHR = klp.api.do('institutions/list', {'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
+                schoolXHR = klp.api.do('institutions/list', {'lean': 'true', 'school_type': 'primaryschools', 'geometry': 'yes', 'per_page': 0, 'bbox': bboxString});
                 schoolXHR.done(function (data) {
                     t.stopLoading();
                     schoolCluster.clearLayers();
@@ -587,7 +587,7 @@
 
         function markerPopup(marker, feature) {
             var duplicateMarker;
-            if (feature.properties.type.id === "primary") {
+            if (feature.properties.type === "primary") {
                 duplicateMarker = L.marker(marker._latlng, {icon: mapIcon('school')});
             } else {
                 duplicateMarker = L.marker(marker._latlng, {icon: mapIcon('preschool')});
@@ -604,10 +604,12 @@
                 facilitiesXHR.done(function(basicFacilities) {
                     t.stopLoading();
                     data.basic_facilities = basicFacilities;
-                    data.has_basic_facilities = data.basic_facilities.computer_lab ||
-                                                data.basic_facilities.library ||
-                                                data.basic_facilities.playground ||
-                                                data.has_volunteer_activities;
+                    if(data.basic_facilities){
+                        data.has_basic_facilities = data.basic_facilities.computer_lab ||
+                                                    data.basic_facilities.library ||
+                                                    data.basic_facilities.playground ||
+                                                    data.has_volunteer_activities;
+                        }
                     data.total_students = getTotalStudents(data);
                     duplicateMarker.bindPopup(tpl_map_popup(data), {maxWidth:300, minWidth:300}).openPopup();
                     setMarkerURL(feature);

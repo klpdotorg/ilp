@@ -1,5 +1,6 @@
 from os import system, sys
-import os, inspect
+import os
+import inspect
 
 
 if len(sys.argv) != 3:
@@ -33,13 +34,13 @@ tables = [
     {
         'name': 'assessments_survey',
         'db': todatabase,
-        'query': "insert into replacetable(id, name,created_at,partner_id,status_id, admin0_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA', 2);"
+        'query': "insert into replacetable(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(4, 'Anganwadi Infrastructure', to_date('2014-02-03', 'YYYY-MM-DD'),'akshara','IA', 2,'institution');"
     },
     {
         # Setting id as 30
         'name': 'assessments_questiongroup',
         'db': todatabase,
-        'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, survey_on_id, type_id) values(30,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',4,'institution','monitor');"
+        'query': "insert into replacetable(id, name, start_date, end_date, double_entry, created_at, updated_at, academic_year_id, inst_type_id, status_id, survey_id, type_id) values(30,'Infrasturce Assessment',to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-04-30', 'YYYY-MM-DD'), false, to_date('2014-02-03', 'YYYY-MM-DD'),to_date('2014-02-03', 'YYYY-MM-DD'),'1314','pre','IA',4,'monitor');"
     },
     {
         'name': 'assessments_question',

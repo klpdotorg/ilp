@@ -1,9 +1,24 @@
 import datetime
+import requests
 
 from django.utils import timezone
-from django.template import Context
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+
+# Try importing Exotel settings
+try:
+    EXOTEL_SID = settings.EXOTEL_SID
+    EXOTEL_TOKEN = settings.EXOTEL_TOKEN
+    EXOTEL_SENDER_ID = settings.EXOTEL_SENDER_ID
+except Exception as e:
+    # This will obvisouly fail during exotel call
+    EXOTEL_SID = 'sid'
+    EXOTEL_TOKEN = 'token'
+    EXOTEL_SENDER_ID = 'senderid'
+finally:
+    EXOTEL_URL = 'https://%s:%s@api.exotel.com/v1/Accounts/%s/Sms/send' % (
+        EXOTEL_SID, EXOTEL_TOKEN, EXOTEL_SID, )
 
 
 class Date(object):
@@ -19,7 +34,7 @@ class Date(object):
             year = date.split("-")[0]
             month = date.split("-")[1]
             day = date.split("-")[2]
-        except:
+        except Exception as e:
             return False
 
         if not self.is_day_correct(day):
@@ -53,3 +68,13 @@ def send_templated_mail(
     msg = EmailMultiAlternatives(subject, text_content, from_email, to_emails)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
+
+
+def send_sms(to, msg):
+    """ Send a SMS using Exotel API """
+    data = {
+        'From': EXOTEL_SENDER_ID,
+        'To': to,
+        'Body': msg
+    }
+    requests.post(EXOTEL_URL, data)

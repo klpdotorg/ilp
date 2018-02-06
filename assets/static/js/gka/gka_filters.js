@@ -70,20 +70,22 @@
         $select_cluster.select2("val","");
         $select_school.select2("val","");
 
-        var url = "api/v1/surveys/" + surveyId + "/questiongroup/" + questionGroupId +  "/answers/meta/?source=sms";
+        var url = "boundary/admin1s/?survey_tag=gka&per_page=0";
         var districtsXHR = klp.api.do(url);
         districtsXHR.done(function(data) {
-            var districts = {"features": []}
-            for (var each in data["sms"]["gka_districts"])
-            {
-                districts["features"].push(data["sms"]["gka_districts"][each])
-            } 
-            //console.log(districts);
+            var districts = {};
+            districts.features = _.map(data.results, function(d){
+                var district = {
+                    id: d.id,
+                    name: d.name
+                };
+                return district;
+            });
             populateSelect($select_district, districts);
         });
 
         $select_district.on("change", function(selected) {
-            $search_button.attr('href', '/gka/#searchmodal?admin1='+selected.val);
+            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             var blockXHR = klp.api.do('boundary/admin1/'+selected.val+'/admin2', {'geometry': 'yes', 'per_page': 0});
             blockXHR.done(function (data) {
                 populateSelect($select_block, data);
@@ -91,7 +93,7 @@
         });
 
         $select_block.on("change", function(selected) {
-            $search_button.attr('href', '/gka/#searchmodal?admin2='+selected.val);
+            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             var clusterXHR = klp.api.do('boundary/admin2/'+selected.val+'/admin3', {'geometry': 'yes', 'per_page': 0});
             clusterXHR.done(function (data) {
                 populateSelect($select_cluster, data);
@@ -99,22 +101,20 @@
         });
 
         $select_cluster.on("change", function(selected) {
-            var schoolXHR = klp.api.do('institutions/info', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
-            $search_button.attr('href', '/gka/#searchmodal?admin3='+selected.val);
+            var schoolXHR = klp.api.do('institutions/', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
+            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             schoolXHR.done(function (data) {
-                // console.log('schools', data);
                 var tx_data = {"features":[]}
                 for (var each in data.features) {
                     tx_data["features"].push(data.features[each].properties)
                 }
-                // console.log(tx_data)
                 populateSelect($select_school, tx_data);
             });
         });
 
 
         $select_school.on("change", function(selected) {
-            $search_button.attr('href', '/gka/#searchmodal?school_id=' + selected.val + '&school_type=Primary School');
+            $search_button.attr('href', '/gka/#searchmodal?institution_id=' + selected.val);
         });
     }
 

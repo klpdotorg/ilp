@@ -1,0 +1,204 @@
+[
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "PR",
+            "name": "Parents"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "CH",
+            "name": "Children"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "TR",
+            "name": "Teachers"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "VR",
+            "name": "Volunteer"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "CM",
+            "name": "CBO Member"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "HM",
+            "name": "Head Master"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "SM",
+            "name": "SDMC Member"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "LL",
+            "name": "Local Leader"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "AS",
+            "name": "Akshara Staff"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "EY",
+            "name": "Educated Youth"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "EO",
+            "name": "Educational Officer"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "ER",
+            "name": "Elected Representative"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "GO",
+            "name": "Government Official"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "UK",
+            "name": "Unknown"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "CRP",
+            "name": "Cluster Resource Person",
+            "state_code_id": "ka"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "SSA",
+            "name": "SSA Official",
+            "state_code_id": "ka"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "BRP",
+            "name": "Block Resource Person",
+            "state_code_id": "ka"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "ECO",
+            "name": "Educational Coordinator",
+            "state_code_id": "ka"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "BRC",
+            "name": "BRC Nodal Officer",
+            "state_code_id": "ka"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "DIET",
+            "name": "DIET Principal",
+            "state_code_id": "ka"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "BEO",
+            "name": "Block Education Officer",
+            "state_code_id": "ka"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "DDPI",
+            "name": "DDPI",
+            "state_code_id": "ka"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "DEO",
+            "name": "District Education Officer",
+            "state_code_id": "od"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "DPC",
+            "name": "District Project Coordinator",
+            "state_code_id": "od"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "BRC",
+            "name": "Block Resource Coordinator",
+            "state_code_id": "od"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "CRCC",
+            "name": "Cluster Resource Coordinator",
+            "state_code_id": "od"
+        }
+    },
+    {
+        "model": "common.RespondentType",
+        "fields":{
+            "char_id": "PC",
+            "name": "Pedagogy Coordinator",
+            "state_code_id": "od"
+        }
+    }
+]

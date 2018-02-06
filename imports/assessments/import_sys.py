@@ -1,5 +1,6 @@
 from os import system, sys
-import os, inspect
+import os
+import inspect
 
 
 if len(sys.argv) != 3:
@@ -19,12 +20,12 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id) values(5, 'SYS', to_date('2016-05-19', 'YYYY-MM-DD'),'akshara','AC', 2);"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(5, 'Share Your Story', to_date('2016-05-19', 'YYYY-MM-DD'),'akshara','AC', 2, 'institution');"
     },
     {
         'name': 'assessments_questiongroup',
-        'getquery': "\COPY (select id, 'SYS', to_date('2014-05-13', 'YYYY-MM-DD'), version, 0, to_date('2014-05-13', 'YYYY-MM-DD'), case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, case(status) when 2 then 'AC' when 1 then 'IA' else 'AC' end,    source_id, 5, 'institution', 'perception', 'name' from stories_questiongroup where id in (1,6)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, survey_on_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
+        'getquery': "\COPY (select id, 'Share Your Story', to_date('2014-05-13', 'YYYY-MM-DD'), version, 0, to_date('2014-05-13', 'YYYY-MM-DD'), case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, case(version) when 2 then 'AC' when 1 then 'IA' end,    source_id, 5, 'perception', 'name' from stories_questiongroup where id in (1,6)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'name': 'assessments_question',

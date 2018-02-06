@@ -1,14 +1,16 @@
 from django.http import Http404
+from django.views.generic.detail import DetailView
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
 from common.views import StaticPageView
-from django.views.generic.detail import DetailView
 from .models import User
 from .serializers import (
     UserSerializer,
     UserRegistrationSerializer,
-    UserLoginSerializer
+    UserLoginSerializer,
+    OtpSerializer,
+    OtpPasswordResetSerializer
 )
 from .utils import login_user
 from .permission import IsAdminOrIsSelf
@@ -29,7 +31,7 @@ class UserRegisterView(generics.CreateAPIView):
 
 class UserLoginView(generics.GenericAPIView):
     """
-    This end point login a user by creating a token object
+    This end point logins a user by creating a token object
     """
     serializer_class = UserLoginSerializer
     permission_classes = (
@@ -39,19 +41,9 @@ class UserLoginView(generics.GenericAPIView):
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        token = login_user(self.request, serializer.user)
-        return Response(
-            data={
-                'token': token.key,
-                'id': serializer.user.pk,
-                'email': serializer.user.email,
-                'firstName': serializer.user.first_name,
-                'lastName': serializer.user.last_name
-            },
-            status=status.HTTP_200_OK,
-        )
-        print (token)
-        return Response({'success': 'your token will be sent to you soon!'})
+        data = UserSerializer(serializer.user).data
+        data['token'] = login_user(self.request, serializer.user).key
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
@@ -67,6 +59,10 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
 
 
 class EmailVerificationView(StaticPageView):
+    """
+        Verifies a user's email by matching it against a token in the db.
+    """
+
     template_name = 'email_verified.html'
 
     def get(self, request, **kwargs):
@@ -86,6 +82,7 @@ class EmailVerificationView(StaticPageView):
             if user.is_email_verified:
                 extra_context['already_verified'] = True
             else:
+                user.email_verification_code = ''
                 user.is_email_verified = True
                 user.is_active = True
                 user.save()
@@ -95,6 +92,10 @@ class EmailVerificationView(StaticPageView):
 
 
 class ProfilePageView(DetailView):
+    """
+        Renders user's profile page.
+    """
+
     model = User
     template_name = 'profile.html'
 
@@ -111,6 +112,10 @@ class ProfilePageView(DetailView):
 
 
 class ProfileEditPageView(DetailView):
+    """
+        Renders users's profile edit page
+    """
+
     model = User
     template_name = 'profile_edit.html'
 
@@ -128,3 +133,105 @@ class ProfileEditPageView(DetailView):
             }
         ]
         return context
+
+
+class OtpUpdateView(generics.GenericAPIView):
+    """
+    This end point validates a user's mobile number by matching it against
+    an OTP generated during signup.
+    """
+    serializer_class = OtpSerializer
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        serializer = OtpSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        form_data = serializer.data
+
+        try:
+            user = User.objects.get(
+                mobile_no=form_data['mobile_no'],
+                sms_verification_pin=form_data['otp']
+            )
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'Invalid OTP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.sms_verification_pin = None
+            user.is_active = True
+            user.is_mobile_verified = True
+            user.save()
+            return Response({'success': 'ok'}, status=status.HTTP_200_OK)
+
+
+class OtpGenerateView(generics.GenericAPIView):
+    """
+    This end point generates an OTP for a mobile number that can be used by
+    OtpPasswordResetView for resetting user's password
+    """
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        mobile_no = request.data.get('mobile_no', None)
+
+        if mobile_no is None:
+            return Response(
+                {'detail': 'mobile_no is required=True'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            user = User.objects.get(mobile_no=mobile_no)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'User is not registered in ILP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.generate_sms_pin()
+            user.save()
+            user.send_otp()
+            return Response(
+                {'success': 'otp generated and sent'},
+                status=status.HTTP_200_OK
+            )
+
+
+class OtpPasswordResetView(generics.GenericAPIView):
+    """
+    This end point accepts an users's phone number, an otp
+    a password to reset the user's password.
+    """
+    serializer_class = OtpPasswordResetSerializer
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        serializer = OtpPasswordResetSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        form_data = serializer.data
+
+        try:
+            user = User.objects.get(
+                mobile_no=form_data['mobile_no'],
+                sms_verification_pin=form_data['otp']
+            )
+        except User.DoesNotExist:
+            return Response(
+                {'detail': 'Invalid OTP'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            user.sms_verification_pin = None
+            user.set_password(form_data['password'])
+            user.is_active = True
+            user.is_mobile_verified = True
+            user.save()
+            return Response({'success': 'ok'}, status=status.HTTP_200_OK)

@@ -12,10 +12,13 @@ from schools.serializers import (
     InstitutionSerializer, InstitutionCreateSerializer,
     InstitutionCategorySerializer, InstitutionManagementSerializer,
     SchoolDemographicsSerializer, SchoolInfraSerializer,
-    SchoolFinanceSerializer, InstitutionSummarySerializer
+    SchoolFinanceSerializer, InstitutionSummarySerializer,
+    PreschoolInfraSerializer, LeanInstitutionSummarySerializer
 )
-from schools.models import (Institution, InstitutionCategory,
-                            Management)
+from schools.models import (
+    Institution, InstitutionCategory, Management
+)
+from schools.filters import InstitutionSurveyFilter
 
 
 class ProgrammeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -31,6 +34,15 @@ class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSummarySerializer
     bbox_filter_field = "coord"
+
+    def get_serializer_class(self):
+        lean =  self.request.GET.get('lean', False)
+        print("Lean is: ", lean)
+        if lean == "True" or lean == 'true':
+            print("Returning lean institution serializer")
+            return LeanInstitutionSummarySerializer
+        else:
+            return InstitutionSummarySerializer
 
     def get_queryset(self):
         state = self.get_state()
@@ -56,6 +68,7 @@ class InstitutionViewSet(ILPViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
     bbox_filter_field = "coord"
+    filter_backends = [InstitutionSurveyFilter, ]
     # pagination_class = LargeResultsSetPagination
     # renderer_classes = (ILPJSONRenderer, )
     # filter_class = SchoolFilter
@@ -83,12 +96,10 @@ class InstitutionViewSet(ILPViewSet):
             admin3 = self.request.GET.get('admin3')
             qset = qset.filter(admin3__id=admin3)
 
-        # todo
         # Need to do filter for:
         # ac_year = self.request.GET.get(
         #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
         # partner_id
-        # programmes
         return qset
 
     def create(self, request, *args, **kwargs):
@@ -120,6 +131,7 @@ class InstitutionManagementListView(generics.ListAPIView):
     def get_queryset(self):
         return Management.objects.all()
 
+
 class InstitutionDemographics(ILPDetailAPIView):
     serializer_class = SchoolDemographicsSerializer
     lookup_field = 'id'
@@ -130,12 +142,22 @@ class InstitutionDemographics(ILPDetailAPIView):
 
 
 class InstitutionInfra(ILPDetailAPIView):
-    serializer_class = SchoolInfraSerializer
+    # serializer_class = SchoolInfraSerializer
     lookup_field = 'id'
     lookup_url_kwarg = 'pk'
 
+    def get_serializer_class(self):
+        school_id =  self.kwargs.get('pk') if hasattr(self, 'kwargs') else None
+        if school_id:
+            institution = Institution.objects.get(pk=school_id)
+            if institution.institution_type.char_id == "pre":
+                return PreschoolInfraSerializer
+            else:
+                return SchoolInfraSerializer
+
     def get_queryset(self):
         return Institution.objects.filter(status='AC')
+
 
 class InstitutionFinance(ILPDetailAPIView):
     serializer_class = SchoolFinanceSerializer

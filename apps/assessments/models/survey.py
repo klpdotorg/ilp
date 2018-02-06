@@ -42,11 +42,13 @@ class Survey(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     partner = models.ForeignKey('Partner', null=True)
     description = models.CharField(max_length=200, null=True)
+    survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
 
     class Meta:
         ordering = ['name', ]
+
 
 class SurveyTagMapping(models.Model):
     """Association a tag with a survey"""
@@ -61,9 +63,20 @@ class SurveyTagInstitutionMapping(models.Model):
     """Mapping Survey Tag to Insitutions in which it is active"""
     tag = models.ForeignKey('SurveyTag')
     institution = models.ForeignKey('schools.Institution')
+    academic_year = models.ForeignKey('common.AcademicYear', null=True)
 
     class Meta:
-        unique_together = (('tag', 'institution'), )
+        unique_together = (('tag', 'institution', 'academic_year'), )
+
+
+class SurveyTagClassMapping(models.Model):
+    """Mapping SurveyTag to list of classes"""
+    tag = models.ForeignKey('SurveyTag')
+    sg_name = models.CharField(max_length=20)
+    academic_year = models.ForeignKey('common.AcademicYear', null=True)
+
+    class Meta:
+        unique_together = (('tag', 'sg_name', 'academic_year'), )
 
 
 class QuestionGroup(models.Model):
@@ -72,7 +85,6 @@ class QuestionGroup(models.Model):
     survey = models.ForeignKey('Survey')
     type = models.ForeignKey('SurveyType')
     inst_type = models.ForeignKey('common.InstitutionType')
-    survey_on = models.ForeignKey('SurveyOnType')
     description = models.CharField(max_length=100, null=True)
     group_text = models.CharField(max_length=100, null=True)
     start_date = models.DateField(max_length=20)
@@ -85,6 +97,10 @@ class QuestionGroup(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     status = models.ForeignKey('common.Status')
+
+    questions = models.ManyToManyField(
+        'Question', through='Questiongroup_Questions'
+    )
 
 
 class Question(models.Model):

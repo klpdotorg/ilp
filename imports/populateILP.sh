@@ -33,6 +33,7 @@ python institution/updateinstitutiondata.py dubdubdub `pwd`/institution/ssa_deta
 python institution/updateinstitutioncoords.py `pwd`/institution/ssa_latlong.csv $ilp 
 python institution/import_studentgroup_data.py ems $ilp 
 python institution/updatepreschoolcoords.py dubdubdub $ilp 
+python institution/updateinstitution_pincode.py ems $ilp
 echo "Institution tables done"
 
 #Populate Student and Staff data
@@ -54,6 +55,7 @@ echo "Running Assessments"
 #Import SYS data
 echo "SYS Assessments"
 python assessments/import_sys.py dubdubdub $ilp
+python assessments/update_sysquestions.py `pwd`/assessments/sysquestions $ilp
 
 #Import IVRS Community data
 echo "Community IVRS"
@@ -89,6 +91,10 @@ python assessments/import_gkaassessmentdata.py dubdubdub $ilp
 echo "Anganwadi Infra"
 python assessments/import_anganwadi_infra.py ang_infra $ilp
 
+#update location for answergroups
+echo "Updating Locations for AnswerGroups"
+python assessments/update_answerlocation.py dubdubdub $ilp
+
 #Import images
 echo "Inst images"
 python assessments/import_institutionimages.py dubdubdub $ilp
@@ -98,10 +104,24 @@ psql -U klp -d $ilp -f assessments/insert_survey_tag_mapping.sql
 
 #Mapping institutions to survey tags
 psql -U klp -d $ilp -f assessments/insert_surveytag_institution_mapping.sql
+psql -U klp -d $ilp -f assessments/insert_surveytag_class_mapping.sql
 
 psql -U klp -d $ilp -f assessments/update_questionscores.sql
 
+psql -U klp -d $ilp -f assessments/cleanentries.sql
 echo "Assessments Done"
+
+#Populate Users
+echo "Users"
+python users/import_users.py dubdubdub $ilp
+psql -U klp -d $ilp -f users/insert_unknownuser.sql
+python users/import_usersfromfile.py `pwd`/users/csv_files/ $ilp
+python users/update_assessment_userid.py dubdubdub $ilp
+echo "Users Done"
+
+#Populate ivrs
+echo "IVRS tables"
+python ivrs/import_ivrs_data.py dubdubdub $ilp
 
 #Populate aggregates
 echo "Running aggregates"

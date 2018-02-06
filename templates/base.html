@@ -1,11 +1,12 @@
 {% load staticfiles %}
 {% load compress %}
+{% load state_variables %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>{% block head %}
   	<!-- META -->
-  	<title>{% block page_title %}Home{% endblock %} - Karnataka Learning Partnership</title>
+  	<title>{% block page_title %}Home{% endblock %} - {%get_state_value "long_form" %}</title>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,7 @@
     {% block css_extra %}{% endblock %}
     <script>
         window.klp = {};
+        window.klp.STATE_CODE = '{%get_state_value "state_code"%}';
     </script>
     {% compress js %}
       <script type="text/javascript" src="{% static 'js/lib/jquery-1.11.3.min.js' %}"></script>
@@ -75,7 +77,7 @@
 
   	<header class="main-header">
   		<div class="header-content">
-  			<a href="/" class="logo"><img src="/static/images/KLP_logo@2x.png" alt="logo-klp" width="52"></a>
+  			<a href="/" class="logo"><img src="{%get_state_value "header_logo" %}" alt="logo-{%get_state_value "short_form" %}" width="52"></a>
   			<div class="nav-trigger js-nav-trigger"><span class="fa fa-bars"></span></div>
   			<div class="nav-wrap">
           <nav class="top-nav" role="navigation">
@@ -101,7 +103,7 @@
             <nav class="nav-footer">
               <ul>
                 <li class="nav-footer-menu-links"><a href="{% url 'aboutus' %}">About</a></li>
-                <li class="nav-footer-menu-links"><a href="mailto:team@klp.org.in">Contact</a></li>
+                <li class="nav-footer-menu-links"><a href="mailto:{%get_state_value "email" %}">Contact</a></li>
               </ul>
 
               <ul>
@@ -116,8 +118,8 @@
               </ul>
             </nav>
             <div class="footer-copyright">
-              <img src="/static/images/KLP_logo_footer@2x.png" alt="logo-klp" width="55">
-              <div class="copyright">Copyright 2017. All Rights Reserved.</div>
+              <img src="{%get_state_value "footer_logo" %}" alt="logo-klp" width="55">
+              <div class="copyright">Copyright 2018. All Rights Reserved.</div>
             </div>
           </div> <!-- /footer-wrapper -->
         </div> <!-- /container -->
