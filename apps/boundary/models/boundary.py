@@ -63,7 +63,7 @@ class BoundaryNeighbours(models.Model):
     """Neighbouring boundaries"""
     boundary = models.ForeignKey('Boundary')
     neighbour = models.ForeignKey(
-            'Boundary', related_name='boundary_neighbour')
+        'Boundary', related_name='boundary_neighbour')
 
     class Meta:
         unique_together = (('boundary', 'neighbour'), )
