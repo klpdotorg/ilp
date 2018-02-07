@@ -496,10 +496,10 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                loadSmsData(params);
+                // loadSmsData(params);
                 loadAssmtData(params);
-                loadGPContestData(params);
-                loadSurveys(params);
+                // loadGPContestData(params);
+                // loadSurveys(params);
                 // loadComparison(params);
             });
         });
@@ -518,7 +518,6 @@ var topSummaryData = {};
             tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
 
         // Build the summary data by adding sms and konnectsms source
-
         data = data.source;
 
         // Assessment count
@@ -536,7 +535,7 @@ var topSummaryData = {};
         summaryData.last_assessment = lastAssessment;
         summaryData.format_lastsms = lastAssessment;
 
-        summaryData.smsPercentage = summaryData.schools_impacted / summaryData.assessment_count * 100;
+        summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
         summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
 
         var smsSummaryHTML = tplSmsSummary(summaryData);
@@ -670,7 +669,7 @@ var topSummaryData = {};
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
-                var tot_gka_schools = topSummary.total_school;
+                var tot_gka_schools = topSummary.schools_impacted;
                 var schools_assessed = summaryData.schools_impacted;
                 var schools_perc = getPercent(
                     schools_assessed, tot_gka_schools
