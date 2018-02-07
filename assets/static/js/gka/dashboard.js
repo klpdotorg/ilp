@@ -743,13 +743,6 @@ var topSummaryData = {};
 
     function renderAssmtVolumeChart(volumes, params) {
 
-       var expectedValue = 68000;
-        if(typeof(params.admin1) !== 'undefined') {
-            expectedValue = 11000;
-        } else if(typeof(params.school_id) !== 'undefined' || typeof(params.admin2) !== 'undefined' || typeof(params.admin3) !== 'undefined') {
-            expectedValue = 0;
-        }
-
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var fromDate = '2017-01-01';
         if(params.from) {
@@ -783,23 +776,12 @@ var topSummaryData = {};
                 {
                     className: 'ct-series-g',
                     data: volume_values,
-                },
-                {
-                    className: 'ct-series-d',
-                    data: [expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue, expectedValue]
                 }
             ]
         }
 
-        var chartLabel = '';
-        if(!expectedValue) {
-            assmt_volume.series = [assmt_volume.series[0]];
-            chartLabel = "<div class='center-text font-small uppercase'>"+
-                        "<span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>"
-        } else {
-            chartLabel = "<div class='center-text font-small uppercase'><span class='fa fa-circle brand-orange'></span>"+
-                        " Expected Volumes <span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>"
-        }
+        var chartLabel = "<div class='center-text font-small uppercase'><span class='fa fa-circle brand-orange'></span>"+
+                        " Expected Volumes <span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>";
 
         renderLineChart('#assmtVolume', assmt_volume);
         $('#avLegend').html(chartLabel);
