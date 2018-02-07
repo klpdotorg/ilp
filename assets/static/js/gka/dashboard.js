@@ -309,7 +309,7 @@ var topSummaryData = {};
         });
 
         // Load the detail section
-        var $detailXHR = klp.api.do("survey/detail/source/", params);
+        var $detailXHR = klp.api.do("survey/detail/source/?survey_id=7", params);
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
             stopDetailLoading();
@@ -318,13 +318,6 @@ var topSummaryData = {};
 
     function renderVolumeChart(data, params) {
         var volumes = data;
-
-        var expectedValue = 13680;
-        if(typeof(params.admin1) !== 'undefined') {
-            expectedValue = 2280;
-        } else if(typeof(params.school_id) !== 'undefined' || typeof(params.admin2) !== 'undefined' || typeof(params.admin3) !== 'undefined') {
-            expectedValue = 0;
-        }
 
         var $noDataAlert = $('#survey-volume-chart-no-render-alert');
         var $mobVolume = $('#mobVolume');
@@ -372,10 +365,6 @@ var topSummaryData = {};
                 {
                     className: 'ct-series-b',
                     data: volume_values,
-                },
-                {
-                    className: 'ct-series-h',
-                    data: _.map(volume_values, function(v){ return expectedValue; })
                 }
             ]
         }
@@ -496,10 +485,10 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                // loadSmsData(params);
+                loadSmsData(params);
                 loadAssmtData(params);
-                // loadGPContestData(params);
-                // loadSurveys(params);
+                loadGPContestData(params);
+                loadSurveys(params);
                 // loadComparison(params);
             });
         });
