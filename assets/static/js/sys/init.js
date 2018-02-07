@@ -126,39 +126,52 @@
     }
 
     function loadQuestions(schoolType, params) {
-        var questions = {
-            "academic":
-            [
-                {'question':'Was the school open?','id':141, 'key': 'webs-school-open' },
-                {'question':'Was the teacher present in each class?','id':92, 'key': 'webs-teachers-present' },
-                {'question':'Are there Sufficient number of class rooms?','id':90, 'key': 'webs-number-classrooms' },
-                {'question':'Were at least 50% of the children enrolled present on the day you visited the school?','id':91, 'key': 'webs-50percent-present' },
-                {'question':'Is there a Separate office for Headmaster?','id':52, 'key': 'webs-headmaster-office' }
-            ],
-            "infra":
-            [
-                {'question':'Is there a Boundary wall/ Fencing?','id':49, 'key': 'webs-boundary-wall' },
-                {'question':'Is there Accessibility to students with disabilities?','id':51, 'key': 'webs-access-disability' },
-                {'question':'Is there a Play ground?','id':50, 'key': 'webs-playground' },
-                {'question':'Are there Play Materials or Sports Equipments?','id':57, 'key': 'webs-play-material' }
-            ],
-            "hygiene":
-            [
-                {'question':'Are all the toilets in the school functional?','id':142, 'key': 'webs-all-toilets-functional' },
-                {'question':'Does the school have a separate functional toilet for girls?','id':54, 'key': 'webs-separate-toilets' },
-                {'question':'Does the school have drinking water?','id':55, 'key': 'webs-drinking-water' },
-                {'question':'Is a Mid Day Meal served in the school?','id':58, 'key': 'webs-food-being-cooked' },
-                {'question':'Is there a Separate room as Kitchen / Store for Mid day meals?','id':53, 'key': 'webs-separate-food-store' }
-            ],
-            "learning":
-            [
-                {'question':'Is there Teaching and Learning material?','id':89, 'key': 'webs-tlm' },
-                {'question':'Is there a Library?','id':56, 'key': 'webs-library' },
-                {'question':'Is there a Designated Librarian/Teacher?','id':87, 'key': 'webs-designated-librarian' }
+        var $xhr =  klp.api.do("surveys/5/questiongroup/6/questions/", {"per_page": 0});
+        var questions = {}
+        $xhr.done(function(data) {
+           console.log("Received questions ", data)
+           var results = data.results
+           questions = _.groupBy(results, question => question.key);  
+           console.log("Grouped qns are: ", questions)  
+           renderQuestions(questions)
+        });
+        $xhr.fail(function(err) {
+            klp.utils.alertMessage("Temporary error loading data.");
+        });
+    }
+        // var questions = {
+        //     "academic":
+        //     [
+        //         {'question':'Was the school open?','id':141, 'key': 'webs-school-open' },
+        //         {'question':'Was the teacher present in each class?','id':92, 'key': 'webs-teachers-present' },
+        //         {'question':'Are there Sufficient number of class rooms?','id':90, 'key': 'webs-number-classrooms' },
+        //         {'question':'Were at least 50% of the children enrolled present on the day you visited the school?','id':91, 'key': 'webs-50percent-present' },
+        //         {'question':'Is there a Separate office for Headmaster?','id':52, 'key': 'webs-headmaster-office' }
+        //     ],
+        //     "infra":
+        //     [
+        //         {'question':'Is there a Boundary wall/ Fencing?','id':49, 'key': 'webs-boundary-wall' },
+        //         {'question':'Is there Accessibility to students with disabilities?','id':51, 'key': 'webs-access-disability' },
+        //         {'question':'Is there a Play ground?','id':50, 'key': 'webs-playground' },
+        //         {'question':'Are there Play Materials or Sports Equipments?','id':57, 'key': 'webs-play-material' }
+        //     ],
+        //     "hygiene":
+        //     [
+        //         {'question':'Are all the toilets in the school functional?','id':142, 'key': 'webs-all-toilets-functional' },
+        //         {'question':'Does the school have a separate functional toilet for girls?','id':54, 'key': 'webs-separate-toilets' },
+        //         {'question':'Does the school have drinking water?','id':55, 'key': 'webs-drinking-water' },
+        //         {'question':'Is a Mid Day Meal served in the school?','id':58, 'key': 'webs-food-being-cooked' },
+        //         {'question':'Is there a Separate room as Kitchen / Store for Mid day meals?','id':53, 'key': 'webs-separate-food-store' }
+        //     ],
+        //     "learning":
+        //     [
+        //         {'question':'Is there Teaching and Learning material?','id':89, 'key': 'webs-tlm' },
+        //         {'question':'Is there a Library?','id':56, 'key': 'webs-library' },
+        //         {'question':'Is there a Designated Librarian/Teacher?','id':87, 'key': 'webs-designated-librarian' }
 
-            ]
-        };
-
+        //     ]
+        // };
+    function renderQuestions(questions){
         var tplSysSchool = swig.compile($('#tpl-sysSchool').html());
         var table_start =  '<table class="table-base table-list-view table-base-sys">' +
                     '<tbody><tr class="table-base-heading">' +
@@ -168,14 +181,14 @@
                     '<th></th>' +
                     '</tr>';
         var table_end = '</tbody></table>';
-
-        var html = table_start + tplSysSchool({'questions':questions["academic"]}) + table_end;
+        console.log("Academic: ", questions["Academic"])               
+        var html = table_start + tplSysSchool({'questions':questions["Academic"]}) + table_end;
         $('#sysqset1_school').html(html);
-        html = table_start + tplSysSchool({'questions':questions["infra"]}) + table_end;
+        html = table_start + tplSysSchool({'questions':questions["Infra"]}) + table_end;
         $('#sysqset2_school').html(html);
-        html = table_start + tplSysSchool({'questions':questions["hygiene"]}) + table_end;
+        html = table_start + tplSysSchool({'questions':questions["Hygiene"]}) + table_end;
         $('#sysqset3_school').html(html);
-        html = table_start + tplSysSchool({'questions':questions["learning"]}) + table_end;
+        html = table_start + tplSysSchool({'questions':questions["Learning"]}) + table_end;
         $('#sysqset4_school').html(html);
     }
 

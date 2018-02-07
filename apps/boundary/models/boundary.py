@@ -2,7 +2,9 @@ import json
 
 from django.contrib.gis.db import models
 from common.models import common
+from schools.models import Institution
 from django.contrib.gis.db.models.functions import AsGeoJSON
+from django.db.models import Q
 
 
 class BoundaryType(models.Model):
@@ -43,6 +45,12 @@ class Boundary(models.Model):
         else:
             return {}
 
+    def schools(self):
+        return Institution.objects.filter(
+            Q(status='AC'),
+            Q(admin1=self) | Q(admin2=self) | Q(admin3=self)
+        )
+
     class Meta:
         unique_together = (('name', 'parent', 'type'), )
         ordering = ['name', ]
@@ -55,7 +63,7 @@ class BoundaryNeighbours(models.Model):
     """Neighbouring boundaries"""
     boundary = models.ForeignKey('Boundary')
     neighbour = models.ForeignKey(
-            'Boundary', related_name='boundary_neighbour')
+        'Boundary', related_name='boundary_neighbour')
 
     class Meta:
         unique_together = (('boundary', 'neighbour'), )

@@ -309,7 +309,7 @@ var topSummaryData = {};
         });
 
         // Load the detail section
-        var $detailXHR = klp.api.do("survey/detail/source/", params);
+        var $detailXHR = klp.api.do("survey/detail/source/?survey_id=7", params);
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
             stopDetailLoading();
@@ -318,13 +318,6 @@ var topSummaryData = {};
 
     function renderVolumeChart(data, params) {
         var volumes = data;
-
-        var expectedValue = 13680;
-        if(typeof(params.admin1) !== 'undefined') {
-            expectedValue = 2280;
-        } else if(typeof(params.school_id) !== 'undefined' || typeof(params.admin2) !== 'undefined' || typeof(params.admin3) !== 'undefined') {
-            expectedValue = 0;
-        }
 
         var $noDataAlert = $('#survey-volume-chart-no-render-alert');
         var $mobVolume = $('#mobVolume');
@@ -372,10 +365,6 @@ var topSummaryData = {};
                 {
                     className: 'ct-series-b',
                     data: volume_values,
-                },
-                {
-                    className: 'ct-series-h',
-                    data: _.map(volume_values, function(v){ return expectedValue; })
                 }
             ]
         }
@@ -518,7 +507,6 @@ var topSummaryData = {};
             tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
 
         // Build the summary data by adding sms and konnectsms source
-
         data = data.source;
 
         // Assessment count
@@ -536,7 +524,7 @@ var topSummaryData = {};
         summaryData.last_assessment = lastAssessment;
         summaryData.format_lastsms = lastAssessment;
 
-        summaryData.smsPercentage = summaryData.schools_impacted / summaryData.assessment_count * 100;
+        summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
         summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
 
         var smsSummaryHTML = tplSmsSummary(summaryData);
@@ -670,7 +658,7 @@ var topSummaryData = {};
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
-                var tot_gka_schools = topSummary.total_school;
+                var tot_gka_schools = topSummary.schools_impacted;
                 var schools_assessed = summaryData.schools_impacted;
                 var schools_perc = getPercent(
                     schools_assessed, tot_gka_schools
@@ -744,13 +732,6 @@ var topSummaryData = {};
 
     function renderAssmtVolumeChart(volumes, params) {
 
-       var expectedValue = 68000;
-        if(typeof(params.admin1) !== 'undefined') {
-            expectedValue = 11000;
-        } else if(typeof(params.school_id) !== 'undefined' || typeof(params.admin2) !== 'undefined' || typeof(params.admin3) !== 'undefined') {
-            expectedValue = 0;
-        }
-
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         var fromDate = '2017-01-01';
         if(params.from) {
@@ -784,23 +765,12 @@ var topSummaryData = {};
                 {
                     className: 'ct-series-g',
                     data: volume_values,
-                },
-                {
-                    className: 'ct-series-d',
-                    data: [expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue,expectedValue, expectedValue]
                 }
             ]
         }
 
-        var chartLabel = '';
-        if(!expectedValue) {
-            assmt_volume.series = [assmt_volume.series[0]];
-            chartLabel = "<div class='center-text font-small uppercase'>"+
-                        "<span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>"
-        } else {
-            chartLabel = "<div class='center-text font-small uppercase'><span class='fa fa-circle brand-orange'></span>"+
-                        " Expected Volumes <span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>"
-        }
+        var chartLabel = "<div class='center-text font-small uppercase'><span class='fa fa-circle brand-orange'></span>"+
+                        " Expected Volumes <span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>";
 
         renderLineChart('#assmtVolume', assmt_volume);
         $('#avLegend').html(chartLabel);

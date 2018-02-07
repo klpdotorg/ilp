@@ -19,8 +19,8 @@ from common.views import ILPViewSet
 from common.models import AcademicYear, Status
 
 from boundary.models import (
-        BasicBoundaryAgg, BoundaryStateCode,
-        BoundarySchoolCategoryAgg
+    BasicBoundaryAgg, BoundaryStateCode,
+    BoundarySchoolCategoryAgg, BoundaryNeighbours
 )
 
 from schools.models import InstitutionClassYearStuCount
@@ -32,11 +32,15 @@ from assessments.models import (
     SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
     SurveyTagClassMapping, InstitutionImages,
     AnswerGroup_Institution, AnswerInstitution,
-    Question
+    Question, SurveyBoundaryAgg
 )
 from common.models import RespondentType
-from assessments.serializers import SurveySerializer, RespondentTypeSerializer
-from assessments.filters import (SurveyFilter, SurveyTagFilter)
+from assessments.serializers import (
+    SurveySerializer, RespondentTypeSerializer
+)
+from assessments.filters import (
+    SurveyFilter, SurveyTagFilter
+)
 
 
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
@@ -50,8 +54,9 @@ class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
 
     def list(self, request, *args, **kwargs):
         survey_id = self.request.query_params.get('survey_id', None)
-        survey_on = Survey.objects.get(id=survey_id).survey_on
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         institution_id = self.request.query_params.get('institution_id', None)
+        response = {}
         if survey_on == 'institution':
             res = {}
             qset = QuestionGroup_Institution_Association.objects.filter(
@@ -62,13 +67,13 @@ class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
                     "id": qgroup_inst.questiongroup_id,
                     "name": qgroup_inst.questiongroup.name
                 }
+                response.update(res)
         else:
             res = {}
             sg_qset = QuestionGroup_StudentGroup_Association.\
                 objects.filter(
                     studentgroup__institution_id=institution_id,
                 )
-            response = {}
             for sgroup_inst in sg_qset:
                 sg_name = sgroup_inst.studentgroup.name
                 sg_id = sgroup_inst.studentgroup.id
@@ -435,6 +440,7 @@ class SurveyUserSummary(APIView):
 
     def get(self, request, format=None):
         questiongroup_id = request.GET.get('questiongroup_id', None)
+        institution_id = request.GET.get('institution_id', None)
         from_date = request.GET.get('from', '')
         to_date = request.GET.get('to', '')
         response = {}
@@ -445,6 +451,9 @@ class SurveyUserSummary(APIView):
 
         if questiongroup_id is not None:
             queryset = queryset.filter(questiongroup__id=questiongroup_id)
+
+        if institution_id is not None:
+            queryset = queryset.filter(institution__id=institution_id)
 
         if from_date and to_date:
             try:
@@ -457,4 +466,33 @@ class SurveyUserSummary(APIView):
         response['schools_covered'] = queryset.values(
             'institution_id').distinct().count()
 
+        return Response(response)
+
+
+class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
+    queryset = BoundaryNeighbours.objects.all()
+
+    def get(self, request, format=None):
+        boundary_id = request.GET.get('boundary_id', None)
+        if not boundary_id:
+            raise APIException("Please pass boundary_id as param.")
+        response = {}
+        neighbour_res = {}
+        neighbour_ids = BoundaryNeighbours.objects.filter(
+            boundary_id=boundary_id).\
+            values_list('neighbour_id', flat=True)
+        for n_id in neighbour_ids:
+            qset = SurveyBoundaryAgg.objects.filter(boundary_id=n_id)
+            b_agg = qset.aggregate(
+                Sum('num_schools'), Sum('num_children'),
+                Sum('num_assessments'), Sum('num_users')
+            )
+            neighbour_res[n_id] = {
+                "total_school": b_agg['num_schools__sum'],
+                "num_users": b_agg['num_users__sum'],
+                "schools_impacted": b_agg['num_schools__sum'],
+                "children_impacted": b_agg['num_children__sum'],
+                "total_assessments": b_agg['num_assessments__sum'],
+            }
+            response[boundary_id] = neighbour_res
         return Response(response)
