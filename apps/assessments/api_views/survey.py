@@ -435,6 +435,7 @@ class SurveyUserSummary(APIView):
 
     def get(self, request, format=None):
         questiongroup_id = request.GET.get('questiongroup_id', None)
+        institution_id = request.GET.get('institution_id', None)
         from_date = request.GET.get('from', '')
         to_date = request.GET.get('to', '')
         response = {}
@@ -445,6 +446,9 @@ class SurveyUserSummary(APIView):
 
         if questiongroup_id is not None:
             queryset = queryset.filter(questiongroup__id=questiongroup_id)
+
+        if institution_id is not None:
+            queryset = queryset.filter(institution__id=institution_id)
 
         if from_date and to_date:
             try:
