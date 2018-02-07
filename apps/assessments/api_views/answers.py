@@ -5,13 +5,17 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework.generics import ListAPIView
-
+from PIL import Image
+from django.core.files.base import ContentFile
+from base64 import b64decode
+from django.conf import settings
 from common.views import (ILPViewSet)
 from assessments.models import (AnswerGroup_Institution, 
                             AnswerInstitution,
                             AnswerStudent,
                             AnswerGroup_Student,
                             AnswerGroup_StudentGroup,
+                            InstitutionImages
                             )
 from common.mixins import (ILPStateMixin, 
                            CompensationLogMixin,
@@ -30,7 +34,7 @@ import json
 from rest_framework.renderers import JSONRenderer
 from users.models import User
 from dateutil.parser import parse as date_parse
-
+import random
 
 logger = logging.getLogger(__name__)
 
@@ -366,7 +370,7 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
         answergroup= {
             "institution": kwargs['schoolid'],
             "questiongroup": 6,
-            "group_value": data['email'],
+            "group_value": user.email,
             "created_by": user.id,
             "comments": data['comments'],
             "date_of_visit": date_of_visit,
@@ -396,6 +400,33 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
         answer_serializer_data = self.create_answers(request,answers, answergroup_obj)
         headers = self.get_success_headers(answer_serializer_data)
         response_json['answers'] = answer_serializer_data
+
+        # Store images
+        print("Storing images")
+        images = request.POST.getlist('images[]')
+        for image in images:
+            image_type, data = image.split(',')
+            image_data = b64decode(data)
+            file_name = '{}_{}.png'.format(kwargs['schoolid'], random.randint(0, 9999))
+
+            simage = InstitutionImages(
+                answergroup=answergroup_obj,
+                filename=file_name,
+                image=ContentFile(image_data, file_name)
+            )
+            simage.save()
+
+            try:
+                import os
+                pil_image = Image.open(simage.image)
+                pil_image.thumbnail((128, 128), )
+
+                thumb_path = os.path.join(
+                    settings.MEDIA_ROOT, 'sys_images', 'thumb', file_name)
+                pil_image.save(open(thumb_path, 'w'))
+            except Exception as e:
+                print(e)
+
         return Response(response_json, status=status.HTTP_201_CREATED, headers=headers)
       
 

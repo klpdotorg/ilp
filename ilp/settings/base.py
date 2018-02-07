@@ -159,7 +159,9 @@ SWAGGER_SETTINGS = {
 
 # ILP SETTINGS
 
-DEFAULT_ACADEMIC_YEAR = '1516'
+DEFAULT_ACADEMIC_YEAR = '1617'
+DEFAULT_ACADEMIC_YEAR_FRONTEND = '16-17'
+DISE_APP_BASE_URL = 'http://dise.dev.ilp.org.in/api/'
 
 BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
 
