@@ -32,6 +32,7 @@ class Boundary(models.Model):
     """ educational boundaries """
     parent = models.ForeignKey('self', null=True)
     name = models.CharField(max_length=300)
+    lang_name = models.CharField(max_length=300, null=True)
     boundary_type = models.ForeignKey('BoundaryType')
     type = models.ForeignKey('common.InstitutionType', null=True)
     dise_slug = models.CharField(max_length=300, blank=True)
