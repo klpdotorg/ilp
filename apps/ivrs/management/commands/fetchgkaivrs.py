@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand
 
 from schools.models import Institution
 from ivrs.utils import get_question
-#from common.utils import post_to_slack
+from common.utils import post_to_slack
 from common.models import Status
 from users.models import User
 from ivrs.models import State, QuestionGroupType
@@ -76,3 +76,20 @@ class Command(BaseCommand):
                         answer=answer,
                         double_entry = 0
                     )
+        if qg_type.name == 'gkav4':
+            author = 'GKA SMS'
+            emoji = ':memo:'
+        else:
+            author = None
+        if author:
+            try:
+                post_to_slack(
+                    channel='#klp',
+                    author=author,
+                    message='In Unified DB, %s Valid calls & %s Invalid calls' %(valid_count, invalid_count),
+                    emoji=emoji,
+                )
+            except:
+                print ("could not post to slack")
+                pass
+ 

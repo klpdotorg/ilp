@@ -1,10 +1,12 @@
 import datetime
 import requests
+import json
 
 from django.utils import timezone
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.http import HttpResponse
 
 # Try importing Exotel settings
 try:
@@ -70,6 +72,13 @@ def send_templated_mail(
     msg.send()
 
 
+def send_attachment(from_email, to_emails, subject, folder, filename, context=None):
+    msg = EmailMultiAlternatives(subject, "Please view attachment", from_email, to_emails)
+    msg.attach_alternative("<b>Please View attachement</b>", "text/html")
+    msg.attach_file(os.path.join(settings.PDF_REPORTS_DIR, folder + '/')+filename+".pdf")
+    msg.send()
+
+
 def send_sms(to, msg):
     """ Send a SMS using Exotel API """
     data = {
@@ -78,3 +87,19 @@ def send_sms(to, msg):
         'Body': msg
     }
     requests.post(EXOTEL_URL, data)
+
+
+def post_to_slack(channel=None, author=None, message=None, emoji=':ghost:'):
+    payload = {
+        'text': message,
+        'channel': channel,
+        'username': author,
+        'icon_emoji': emoji
+    }
+
+    r = requests.post(
+        'https://hooks.slack.com/services/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',
+        data=json.dumps(payload),
+    )
+
+    return r.status_code

@@ -2,8 +2,10 @@ import django_filters
 
 from rest_framework.filters import BaseFilterBackend
 
-from .models import (AnswerGroup_Institution,
-                     Survey)
+from .models import (
+    AnswerGroup_Institution, Survey
+)
+from assessments.models import Source
 
 
 class AnswersSurveyTypeFilter(django_filters.FilterSet):
@@ -42,7 +44,9 @@ class SurveyFilter(BaseFilterBackend):
             queryset = queryset.filter(institution_type=institution_type)
 
         if sources:
-            queryset = queryset.filter(source__in=sources)
+            source_ids = Source.objects.filter(name__in=sources).\
+                values_list('id', flat=True)
+            queryset = queryset.filter(source__in=source_ids)
 
         if to_:
             to_ = to_.split('-')
