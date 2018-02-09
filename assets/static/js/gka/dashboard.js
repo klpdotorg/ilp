@@ -779,60 +779,69 @@ var topSummaryData = {};
 
     function loadGPContestData(params){
 
-        var metaURL = "survey/info/class/gender/?survey_id=2";
-        var $metaXHR = klp.api.do(metaURL, params);
-        $metaXHR.done(function(data) {
+        var $summaryXHR = klp.api.do("/api/v1/survey/summary/?survey_id=2", params);
+        $summaryXHR.done(function(summaryData) {
 
-            var dataSummary = {
-                "summary": {
-                    "schools":data.summary.schools,
-                    "gps": data.summary.gps,
-                    "contests":data.summary.contests,
-                    "children": data.summary.students
-                },
-                "Class 4": {
-                    "boy_perc": getPercent(data['4'].males_score, data['4'].males),
-                    "girl_perc": getPercent(data['4'].females_score, data['4'].females),
-                    "total_studs": getPercent(
-                        data['4'].males_score + data['4'].females_score,
-                        data['4'].males+data['4'].females
-                    )
-                },
-                "Class 5": {
-                    "boy_perc": getPercent(data['5'].males_score, data['5'].males),
-                    "girl_perc": getPercent(data['5'].females_score, data['5'].females),
-                    "total_studs": getPercent(
-                        data['5'].males_score + data['5'].females_score,
-                        data['5'].males + data['5'].females
-                    )
-                },
-                "Class 6": {
-                    "boy_perc": getPercent(data['6'].males_score, data['6'].males),
-                    "girl_perc": getPercent(data['6'].females_score, data['6'].females),
-                    "total_studs": getPercent(
-                        data['6'].males_score + data['6'].females_score,
-                        data['6'].males + data['6'].females
-                    )
+            var metaURL = "survey/info/class/gender/?survey_id=2";
+            var $metaXHR = klp.api.do(metaURL, params);
+            $metaXHR.done(function(data) {
+
+                var dataSummary = {
+                    "summary": {
+                        "schools":summaryData.summary.total_school,
+                        "gps": summaryData.summary.schools_impacted,
+                        "contests":summaryData.summary.total_assessments,
+                        "children": summaryData.summary.children_impacted
+                    } //,
+                    /*"Class 4": {
+                        "boy_perc": getPercent(data['4'].males_score, data['4'].males),
+                        "girl_perc": getPercent(data['4'].females_score, data['4'].females),
+                        "total_studs": getPercent(
+                            data['4'].males_score + data['4'].females_score,
+                            data['4'].males+data['4'].females
+                        )
+                    },
+                    "Class 5": {
+                        "boy_perc": getPercent(data['5'].males_score, data['5'].males),
+                        "girl_perc": getPercent(data['5'].females_score, data['5'].females),
+                        "total_studs": getPercent(
+                            data['5'].males_score + data['5'].females_score,
+                            data['5'].males + data['5'].females
+                        )
+                    },
+                    "Class 6": {
+                        "boy_perc": getPercent(data['6'].males_score, data['6'].males),
+                        "girl_perc": getPercent(data['6'].females_score, data['6'].females),
+                        "total_studs": getPercent(
+                            data['6'].males_score + data['6'].females_score,
+                            data['6'].males + data['6'].females
+                        )
+                    }*/
                 }
-            }
 
-            var tplSummary = swig.compile($('#tpl-gpcSummary').html());
-            var summaryHTML = tplSummary({"data": dataSummary["summary"]});
-            $('#gpcSummary').html(summaryHTML);
+                var tplSummary = swig.compile($('#tpl-gpcSummary').html());
+                var summaryHTML = tplSummary({"data": dataSummary["summary"]});
+                $('#gpcSummary').html(summaryHTML);
 
-            tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-            summaryHTML = tplSummary({"data":dataSummary["Class 4"]});
-            $('#gpcGender_class4').html(summaryHTML);
+                return;
 
-            tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-            summaryHTML = tplSummary({"data":dataSummary["Class 5"]});
-            $('#gpcGender_class5').html(summaryHTML);
+                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+                summaryHTML = tplSummary({"data":dataSummary["Class 4"]});
+                $('#gpcGender_class4').html(summaryHTML);
 
-            tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-            summaryHTML = tplSummary({"data":dataSummary["Class 6"]});
-            $('#gpcGender_class6').html(summaryHTML);
+                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+                summaryHTML = tplSummary({"data":dataSummary["Class 5"]});
+                $('#gpcGender_class5').html(summaryHTML);
 
-            renderGPContestCharts(data);
+                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+                summaryHTML = tplSummary({"data":dataSummary["Class 6"]});
+                $('#gpcGender_class6').html(summaryHTML);
+
+                renderGPContestCharts(data);
+
+
+            })
+
         })
     }
 
