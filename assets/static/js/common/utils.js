@@ -57,6 +57,10 @@
             });
         },
 
+        capitalize: function(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        },
+
         /*
             Function to display the alert boxes at top of screen
             Remains for 3 seconds, then goes away
@@ -355,7 +359,7 @@
                     }
                 },
                 ajax: {
-                    url: "/api/v1/institutions/info",
+                    url: "/api/v1/institutions/list",
                     quietMillis: 300,
                     allowClear: true,
                     data: function (term, page) {
@@ -365,7 +369,7 @@
                     },
                     results: function (data, page) {
                         //console.log("data", data);
-                        return {results: data.features};
+                        return {results: data.results};
                     }
                 },
                 formatResult: function(item) {

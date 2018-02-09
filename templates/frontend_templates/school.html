@@ -1,3 +1,4 @@
+{% load basic_default_settings %}
 {% verbatim %}
 <script type="text/html" id="tpl-school-info">
   <h4 class="school-type-{{ type_name }}">
@@ -62,12 +63,14 @@
             <td>Medium</td>
             <td>{{ moi|capitalize }}</td>
           </tr>
-            {% if dise_code %}
+          {% endif %}
+
+          {% if dise_code %}
           <tr>
             <td>DISE</td>
             <td>{{ dise_code }}</td>
           </tr>
-            {% endif %}
+          
           {% endif %}
         </table>
 
@@ -132,7 +135,7 @@
           {% if images.length > 0 %}
           <h4 class="heading-tiny-uppercase">Photos</h4>
           <div class="school-photos">
-            {% for image in images %}
+            {% for image in images %}            
               <span data-rbox-image="{{ image }}" class="rbox_img_gal image-preview-gallery"><img src="{{ image }}"></span>
             {% endfor %}
           </div>
@@ -144,7 +147,7 @@
     <table class="table-data">
       <tr>
         <td>Source</td>
-        <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE</strong>{% endif %}</td>
+        <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->
@@ -255,7 +258,7 @@
     <table class="table-data">
       <tr>
         <td>Source</td>
-        <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE</strong>{% endif %}</td>
+        <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->
@@ -283,7 +286,7 @@
       <table class="table-data">
           <tr>
               <td>Source</td>
-              <td>KLP Database, <strong>NUEPA-DISE</strong></td>
+              <td>KLP Database, <strong>NUEPA-DISE {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong></td>
           </tr>
       </table>
     </div>
@@ -330,7 +333,7 @@
     <table class="table-data">
         <tr>
           <td>Source</td>
-          <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE</strong>{% endif %}</td>
+          <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong>{% endif %}</td>
         </tr>
     </table>
   </div> <!-- /container -->
@@ -377,7 +380,7 @@
     <table class="table-data">
       <tr>
         <td>Source</td>
-        <td>{% if type_name == 'school' %}, <strong>NUEPA-DISE (2013-14)</strong>{% endif %}</td>
+        <td>{% if type_name == 'school' %}, <strong>NUEPA-DISE ({{ window.klp.DEFAULT_ACADEMIC_YEAR }})</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->
