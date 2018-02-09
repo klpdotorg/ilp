@@ -46,7 +46,7 @@ class Survey(models.Model):
     survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
-    image_required = models.BooleanField(default=False)
+    image_required = models.NullBooleanField(default=False)
 
     class Meta:
         ordering = ['name', ]
