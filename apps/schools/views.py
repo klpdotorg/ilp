@@ -73,17 +73,24 @@ class NewBoundaryPageView(DetailView):
 class SchoolPageView(DetailView):
     model = Institution
     template_name = 'school.html'
-
+        
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(SchoolPageView, self).get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         school = context['object']
-        print("School object is: ", school.__dict__)
         # FIXME: there really should be a better way of handling school / preschool
         # Ideally, this would be better naming of "Boundary Type" and then just use that
         school_type = school.institution_type_id
-        print("School type is: ", school_type)
+        print("School type is: ", school.dise)
+        if school.dise is not None:
+            print("School dise code is: ", school.dise.school_code)
+            context['dise_code'] = school.dise.school_code
+        lang = school.institution_languages.first()
+        print("Languages for school are: ", lang)
+        if lang:
+            context['moi'] = lang
+
         context['breadcrumbs'] = [
             {
                 'url': reverse('map'),
@@ -94,4 +101,5 @@ class SchoolPageView(DetailView):
                 'name': '%s: %s' % (school_type, school.name,)
             }
         ]
+        print("Context is: ", context)
         return context

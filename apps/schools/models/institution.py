@@ -1,10 +1,10 @@
 import json
 
 from django.contrib.gis.db import models
-
+from django.db.models import Q
 from common.models import (Status, AcademicYear)
 from django.conf import settings
-
+from assessments.models import InstitutionImages
 
 class InstitutionCategory(models.Model):
     """ Category for institution """
@@ -74,6 +74,20 @@ class Institution(models.Model):
     last_verified_year = models.ForeignKey('common.AcademicYear', null=True)
     status = models.ForeignKey(
         'common.Status', default=Status.ACTIVE)
+
+    '''Returns images associated via SYS. Note questiongroup_id is hardcoded to SYS'''
+    def get_images(self):
+        images_queryset = InstitutionImages.objects.filter(
+            is_verified=True, answergroup__institution=self).filter(
+                Q(answergroup__questiongroup_id=6) | Q(answergroup__questiongroup_id=1)
+        )
+        print("Queryset count: ", images_queryset.count())
+        images=[]
+        for image in images_queryset:
+            print("Image URL is: ", image.image.url)
+            images.append(image.image.url)
+
+        return images
 
     def get_geometry(self):
         if hasattr(self, 'coord') and self.coord is not None:
