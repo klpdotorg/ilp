@@ -63,7 +63,7 @@ class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
                 institution_id=institution_id,
                 questiongroup__survey_id=survey_id)
             for qgroup_inst in qset:
-                res[qgroup_inst.questiongroup_id] = {
+                res = {
                     "id": qgroup_inst.questiongroup_id,
                     "name": qgroup_inst.questiongroup.name,
                     "type": qgroup_inst.questiongroup.type.char_id
