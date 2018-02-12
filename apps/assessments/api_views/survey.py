@@ -56,19 +56,19 @@ class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
         survey_id = self.request.query_params.get('survey_id', None)
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         institution_id = self.request.query_params.get('institution_id', None)
-        response = {}
+        response = []
         if survey_on == 'institution':
             res = {}
             qset = QuestionGroup_Institution_Association.objects.filter(
                 institution_id=institution_id,
                 questiongroup__survey_id=survey_id)
             for qgroup_inst in qset:
-                res[qgroup_inst.questiongroup.name] = {
+                res[qgroup_inst.questiongroup_id] = {
                     "id": qgroup_inst.questiongroup_id,
                     "name": qgroup_inst.questiongroup.name,
                     "type": qgroup_inst.questiongroup.type.char_id
                 }
-                response.update(res)
+                response.append(res)
         else:
             res = {}
             sg_qset = QuestionGroup_StudentGroup_Association.\
@@ -87,7 +87,7 @@ class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
                     res[sg_name][qgroup.id] = {
                         "id": qgroup.id, "name": qgroup.name
                     }
-                    response.update(res)
+                    response.append(res)
         return Response(response)
 
 
