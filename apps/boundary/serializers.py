@@ -5,7 +5,8 @@ from boundary.models import (Boundary, ElectionBoundary,
                              BoundaryHierarchy,
                              BoundaryType, BoundaryAggregation
                              )
-from rest_framework_gis.serializers import (GeoFeatureModelSerializer,                                                     GeometrySerializerMethodField)
+from rest_framework_gis.serializers import (GeoFeatureModelSerializer,
+        GeometrySerializerMethodField)
 
 
 class BoundarySerializer(ILPSerializer):
