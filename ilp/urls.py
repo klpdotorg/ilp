@@ -169,7 +169,6 @@ urlpatterns = [
     # API URLs.
     url(r'^api/v1/', include('ilp.api_urls')),
     url(r'^api/docs/', api_docs_view, name='api_docs'),
-<<<<<<< HEAD
 
     # report pages
     url(r'^reports/search$', StaticPageView.as_view(
