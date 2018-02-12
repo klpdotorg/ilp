@@ -471,14 +471,7 @@ class SurveyUserSummary(APIView):
 
 
 class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
-    """
-    TODO:
-    only survey_name and total assessments,
-    if boundary not passed, look into surveytagmapping, get the boundaries do the rest.
-    add surveyFilter.
-
-    """
-    queryset = BoundaryNeighbours.objects.all()
+    filter_backends = [SurveyFilter, ]
 
     def get(self, request):
         boundary_id = request.GET.get('boundary_id', None)
@@ -492,52 +485,50 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
             n_boundary = Boundary.objects.get(id=n_id)
             neighbour_res = {}
             neighbour_res['name'] = n_boundary.name
+            neighbour_res['type'] = n_boundary.type.name
             neighbour_res['surveys'] = {}
 
-            survey_ids = SurveyBoundaryAgg.objects.filter(boundary_id=n_id).\
+            survey_ids = SurveyBoundaryAgg.objects.filter(boundary_id=n_id)
+            survey_ids = self.filter_queryset(survey_ids).\
                 distinct('survey_id').values_list('survey_id', flat=True)
             for survey_id in survey_ids:
                 qset = SurveyBoundaryAgg.objects.filter(
                     survey_id=survey_id, boundary_id=n_id)
-                b_agg = qset.aggregate(
-                    Sum('num_schools'), Sum('num_children'),
-                    Sum('num_assessments'), Sum('num_users')
-                )
+                b_agg = qset.aggregate(Sum('num_assessments'))
+                sources = qset.distinct('source').\
+                    values_list('source__name', flat=True)
                 neighbour_res['surveys'][survey_id] = {
-                    "total_school": b_agg['num_schools__sum'],
-                    "num_users": b_agg['num_users__sum'],
-                    "schools_impacted": b_agg['num_schools__sum'],
-                    "children_impacted": b_agg['num_children__sum'],
                     "total_assessments": b_agg['num_assessments__sum'],
+                    "sources": sources
                 }
             response.append(neighbour_res)
         return Response(response)
 
 
-class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
-    queryset = BoundaryNeighbours.objects.all()
-
-    def get(self, request, format=None):
-        boundary_id = request.GET.get('boundary_id', None)
-        if not boundary_id:
-            raise APIException("Please pass boundary_id as param.")
-        response = {}
-        neighbour_res = {}
-        neighbour_ids = BoundaryNeighbours.objects.filter(
-            boundary_id=boundary_id).\
-            values_list('neighbour_id', flat=True)
-        for n_id in neighbour_ids:
-            qset = SurveyBoundaryAgg.objects.filter(boundary_id=n_id)
-            b_agg = qset.aggregate(
-                Sum('num_schools'), Sum('num_children'),
-                Sum('num_assessments'), Sum('num_users')
-            )
-            neighbour_res[n_id] = {
-                "total_school": b_agg['num_schools__sum'],
-                "num_users": b_agg['num_users__sum'],
-                "schools_impacted": b_agg['num_schools__sum'],
-                "children_impacted": b_agg['num_children__sum'],
-                "total_assessments": b_agg['num_assessments__sum'],
-            }
-            response[boundary_id] = neighbour_res
-        return Response(response)
+# class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
+#     queryset = BoundaryNeighbours.objects.all()
+# 
+#     def get(self, request, format=None):
+#         boundary_id = request.GET.get('boundary_id', None)
+#         if not boundary_id:
+#             raise APIException("Please pass boundary_id as param.")
+#         response = {}
+#         neighbour_res = {}
+#         neighbour_ids = BoundaryNeighbours.objects.filter(
+#             boundary_id=boundary_id).\
+#             values_list('neighbour_id', flat=True)
+#         for n_id in neighbour_ids:
+#             qset = SurveyBoundaryAgg.objects.filter(boundary_id=n_id)
+#             b_agg = qset.aggregate(
+#                 Sum('num_schools'), Sum('num_children'),
+#                 Sum('num_assessments'), Sum('num_users')
+#             )
+#             neighbour_res[n_id] = {
+#                 "total_school": b_agg['num_schools__sum'],
+#                 "num_users": b_agg['num_users__sum'],
+#                 "schools_impacted": b_agg['num_schools__sum'],
+#                 "children_impacted": b_agg['num_children__sum'],
+#                 "total_assessments": b_agg['num_assessments__sum'],
+#             }
+#             response[boundary_id] = neighbour_res
+#         return Response(response)
