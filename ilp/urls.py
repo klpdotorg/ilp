@@ -2,7 +2,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 from rest_framework_swagger.views import get_swagger_view
-
+from django.conf.urls.static import static
+from django.conf import settings
 from common.views import StaticPageView, BlogFeedView
 from schools.views import (
     AdvancedMapView, BoundaryPageView,
@@ -168,4 +169,4 @@ urlpatterns = [
     # API URLs.
     url(r'^api/v1/', include('ilp.api_urls')),
     url(r'^api/docs/', api_docs_view, name='api_docs'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

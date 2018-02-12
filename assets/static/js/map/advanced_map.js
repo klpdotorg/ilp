@@ -828,7 +828,7 @@
                 bboxString = bbox.toBBoxString();
 
             map.fitBounds(bbox);
-            var radiusXHR = klp.api.do('institutions/info', {'bbox':bboxString, 'geometry': 'yes', 'per_page': 0});
+            var radiusXHR = klp.api.do('institutions/list', {'bbox':bboxString, 'geometry': 'yes', 'per_page': 0});
             radiusXHR.done(function (data) {
                 radiusLayer = L.geoJson(filterGeoJSON(data), {
                     pointToLayer: function(feature, latlng) {

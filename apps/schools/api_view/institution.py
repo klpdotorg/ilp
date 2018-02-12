@@ -34,6 +34,7 @@ class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSummarySerializer
     bbox_filter_field = "coord"
+    search_fields = ('name', 'id', 'dise__school_code',)
 
     def get_serializer_class(self):
         lean =  self.request.GET.get('lean', False)

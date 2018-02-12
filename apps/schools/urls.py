@@ -5,7 +5,8 @@ from django.conf.urls import url
 from schools.api_view import (
     InstitutionViewSet, InstitutionCategoryListView,
     InstitutionManagementListView, InstitutionDemographics,
-    InstitutionInfra, InstitutionFinance, InstitutionSummaryView
+    InstitutionInfra, InstitutionFinance, InstitutionSummaryView,
+    MergeEndpoints, OmniSearch
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
@@ -74,6 +75,8 @@ nested_router.register(
 nested_router.register(r'programmes', ProgrammeViewSet, base_name='programme')
 
 urlpatterns = [
+    url(r'^merge$', MergeEndpoints.as_view(), name='api_merge'),
+    url(r'^search/$', OmniSearch.as_view(), name='api_omni_search'),
     url(r'^institution/categories$',
         InstitutionCategoryListView.as_view(),
         name='inst-category'),
