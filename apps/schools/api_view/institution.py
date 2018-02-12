@@ -62,7 +62,7 @@ class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
         return qset
 
 
-class InstitutionViewSet(ILPViewSet):
+class InstitutionViewSet(ILPStateMixin, ILPViewSet):
     """
     GET: Lists basic details of institutions
     """
