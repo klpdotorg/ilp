@@ -198,14 +198,14 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
         response = {}
         response['summary'] = summary_res
         questiongroup_ids = ans_queryset.distinct('questiongroup_id').\
-            values_list('questiongroup_id', flat=True)
+            values_list('questiongroup_id', 'questiongroup_id__name')
         survey_ids = ans_queryset.distinct('survey_id').\
             values_list('survey_id', flat=True)
 
         survey_res = {'surveys': {}}
         for s_id in survey_ids:
             questiongroup_res = {}
-            for qg_id in questiongroup_ids:
+            for qg_id, qg_name in questiongroup_ids:
                 qgroup_ans_queryset = ans_queryset.filter(
                     survey_id=s_id, questiongroup_id=qg_id)
                 question_dict = {}
@@ -223,8 +223,8 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                             }
                         question_dict[row["question_desc"]]['id'] = row['question_id']
                 if question_dict:
-                    questiongroup_res[qg_id] = {}
-                    questiongroup_res[qg_id]['questions'] = question_dict
+                    questiongroup_res[qg_name] = {}
+                    questiongroup_res[qg_name]['questions'] = question_dict
             survey_res['surveys'][s_id] = {}
             survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
         response.update(survey_res)
