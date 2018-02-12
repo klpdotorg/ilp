@@ -12,7 +12,7 @@ from assessments.models import (
     AnswerStudent, QuestionGroup_StudentGroup_Association,
     QuestionGroup_Institution_Association
 )
-
+from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
 
 
@@ -72,7 +72,7 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
     class Meta:
         model = QuestionGroup_Questions
         fields = (
-            'question_details',
+            'question_details', 'sequence'
         )
 
     def create(self, validated_data):
@@ -201,4 +201,3 @@ class QuestionGroupStudentGroupAssociationSerializer(serializers.ModelSerializer
         fields = (
                 'questiongroup', 'studentgroup', 'status',
         )
-

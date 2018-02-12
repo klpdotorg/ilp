@@ -142,7 +142,7 @@ class InstitutionSerializer(ILPSerializer):
     num_girls = serializers.SerializerMethodField()
     sex = serializers.CharField(source='gender.name')
     identifiers = serializers.SerializerMethodField()
-
+    images = serializers.ListField(source='get_images')
     class Meta:
         model = Institution
         fields = (
@@ -151,7 +151,8 @@ class InstitutionSerializer(ILPSerializer):
             'area', 'landmark', 'pincode', 'gender', 'management',
             'moi', 'sex', 'identifiers', 'admin1', 'admin2', 'admin3',
             'parliament', 'assembly', 'ward', 'type', 'num_boys', 'num_girls',
-            'last_verified_year', 'institution_languages'
+            'last_verified_year', 'institution_languages', 'route_information',
+            'images'
         )
 
     def get_dise_code(self, obj):

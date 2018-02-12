@@ -33,6 +33,7 @@ class Boundary(models.Model):
     """ educational boundaries """
     parent = models.ForeignKey('self', null=True)
     name = models.CharField(max_length=300)
+    lang_name = models.CharField(max_length=300, null=True)
     boundary_type = models.ForeignKey('BoundaryType')
     type = models.ForeignKey('common.InstitutionType', null=True)
     dise_slug = models.CharField(max_length=300, blank=True)
@@ -64,7 +65,7 @@ class BoundaryNeighbours(models.Model):
     """Neighbouring boundaries"""
     boundary = models.ForeignKey('Boundary')
     neighbour = models.ForeignKey(
-            'Boundary', related_name='boundary_neighbour')
+        'Boundary', related_name='boundary_neighbour')
 
     class Meta:
         unique_together = (('boundary', 'neighbour'), )

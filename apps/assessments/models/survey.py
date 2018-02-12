@@ -38,6 +38,7 @@ class SurveyTag(models.Model):
 class Survey(models.Model):
     """Survey/Programme"""
     name = models.CharField(max_length=100)
+    lang_name = models.CharField(max_length=100, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     partner = models.ForeignKey('Partner', null=True)
@@ -45,6 +46,7 @@ class Survey(models.Model):
     survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
+    image_required = models.NullBooleanField(default=False)
 
     class Meta:
         ordering = ['name', ]
@@ -82,6 +84,7 @@ class SurveyTagClassMapping(models.Model):
 class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
     name = models.CharField(max_length=100)
+    lang_name = models.CharField(max_length=100, null=True)
     survey = models.ForeignKey('Survey')
     type = models.ForeignKey('SurveyType')
     inst_type = models.ForeignKey('common.InstitutionType')

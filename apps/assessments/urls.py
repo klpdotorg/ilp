@@ -17,7 +17,8 @@ from assessments.api_views import (
     SurveyTagAggAPIView, AssessmentsImagesView, AssessmentSyncView,
     RespondentTypeList, ShareYourStoryAPIView,
     QuestionGroupInstitutionAssociationViewSet,
-    SurveyUserSummary
+    QuestionGroupStudentGroupAssociationViewSet,
+    SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -35,6 +36,7 @@ simple_router.register(
 
 # Endpoint to map assessments to institutions
 nested_router.register(r'questiongroupinstitutionmap', QuestionGroupInstitutionAssociationViewSet, base_name='questiongroupinstitutionmap')
+nested_router.register(r'questiongroupstudentgroupmap', QuestionGroupStudentGroupAssociationViewSet, base_name='questiongroupstudentgroupmap')
 
 # surveys -> questiongroup -> questions
 # maps to earlier programs -> # assessments -> questions
@@ -180,5 +182,6 @@ urlpatterns = [
         name='survey-assessments-respondent-types'),
     url(r'surveys/usersummary/$', SurveyUserSummary.as_view(),
         name='survey-user-summary'),
-
+    url(r'surveys/boundaryneighbour/info/$', SurveyBoundaryNeighbourInfoAPIView.as_view(),
+        name='survey-boundaryneighbour-info'),
 ] + simple_router.urls + nested_router.urls

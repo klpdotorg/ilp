@@ -19,6 +19,12 @@
             "char_id": "infra",
             "description": "Infrastructure"
         }
+    },
+    {
+        "model": "assessments.SurveyTag",
+        "fields":{
+            "char_id": "konnect",
+            "description": "Konnect"
+        }
     }
-
 ]

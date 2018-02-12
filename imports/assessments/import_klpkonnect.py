@@ -20,7 +20,7 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(7, 'ILP Konnect Community Survey', to_date('2016-05-19', 'YYYY-MM-DD'),'akshara','AC', 2, 'institution');"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id ) values(7, 'Community Survey', to_date('2016-05-19', 'YYYY-MM-DD'),'akshara','AC', 2, 'institution');"
     },
     {
         'name': 'assessments_questiongroup',

@@ -301,24 +301,24 @@
             quietMillis: 300,
             allowClear: true,
             ajax: {
-                url: "/api/v1/institutions/info",
+                url: "/api/v1/institutions/list",
                 quietMillis: 300,
                 allowClear: true,
                 data: function (term, page) {
                     return {
                         search: term,
-                        school_type: entityOne.type.id === 1 ? 'primaryschools' : 'preschools'
+                        school_type: entityOne.type.id === "primary" ? 'primaryschools' : 'preschools'
                     };
                 },
                 results: function (data, page) {
                     //console.log("data", data);
-                    return {results: data.features};
+                    return {results: data.results};
                 }
             },
             formatResult: function(item) {
                 var html = '';
                 html += item.name + '<br />';
-                html += '<i>' + item.admin1.name + ', ' + item.admin2.name + ', ' + item.admin3.name + '</i>';
+                html += '<i>' + klp.utils.capitalize(item.admin1) + ', ' + klp.utils.capitalize(item.admin2) + ', ' + klp.utils.capitalize(item.admin3) + '</i>';
                 return html;
             },
             formatSelection: function(item) {
