@@ -32,7 +32,9 @@ from assessments.models import (
     SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
     SurveyTagClassMapping, InstitutionImages,
     AnswerGroup_Institution, AnswerInstitution,
-    Question, SurveyBoundaryAgg
+    Question, SurveyBoundaryAgg,
+    SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
+    SurveyBoundaryQuestionGroupQuestionKeyAgg
 )
 from common.models import RespondentType
 from assessments.serializers import (
@@ -514,30 +516,51 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
 
 
 class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
-    pass
-#     queryset = BoundaryNeighbours.objects.all()
-# 
-#     def get(self, request, format=None):
-#         boundary_id = request.GET.get('boundary_id', None)
-#         if not boundary_id:
-#             raise APIException("Please pass boundary_id as param.")
-#         response = {}
-#         neighbour_res = {}
-#         neighbour_ids = BoundaryNeighbours.objects.filter(
-#             boundary_id=boundary_id).\
-#             values_list('neighbour_id', flat=True)
-#         for n_id in neighbour_ids:
-#             qset = SurveyBoundaryAgg.objects.filter(boundary_id=n_id)
-#             b_agg = qset.aggregate(
-#                 Sum('num_schools'), Sum('num_children'),
-#                 Sum('num_assessments'), Sum('num_users')
-#             )
-#             neighbour_res[n_id] = {
-#                 "total_school": b_agg['num_schools__sum'],
-#                 "num_users": b_agg['num_users__sum'],
-#                 "schools_impacted": b_agg['num_schools__sum'],
-#                 "children_impacted": b_agg['num_children__sum'],
-#                 "total_assessments": b_agg['num_assessments__sum'],
-#             }
-#             response[boundary_id] = neighbour_res
-#         return Response(response)
+    filter_backends = [SurveyFilter, ]
+
+    def get_neighbour_boundaries(self):
+        boundary_id = self.request.GET.get('boundary_id', None)
+        survey_tag = self.request.GET.get('survey_tag', None)
+        if boundary_id:
+            neighbour_ids = BoundaryNeighbours.objects.filter(
+                boundary_id=boundary_id).\
+                values_list('neighbour_id', flat=True)
+        else:
+            neighbour_ids = SurveyTagMappingAgg.objects.\
+                filter(survey_tag=survey_tag).\
+                values_list('boundary_id', flat=True)
+        return neighbour_ids
+
+    def get(self, request, *args, **kwargs):
+        neighbour_ids = self.get_neighbour_boundaries()
+        qs = SurveyBoundaryQuestionGroupQuestionKeyAgg.\
+            objects.filter(boundary_id__in=neighbour_ids)
+        ans_qs = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
+            objects.filter(boundary_id__in=neighbour_ids)
+        qgroup_res = {}
+
+        qgroups = qs.distinct('questiongroup_id')\
+            .values_list('questiongroup_id', 'questiongroup_name')
+
+        for qgroup_id, qgroup_name in qgroups:
+            q_res = {}
+            qgroup_qs = qs.filter(questiongroup_id=qgroup_id)
+            qgroup_ans_qs = ans_qs.filter(questiongroup_id=qgroup_id)
+            key_agg = qgroup_qs.values(
+                'question_key').annotate(num_assess=Sum('num_assessments'))
+            ans_key_agg = qgroup_ans_qs.values(
+                'question_key').annotate(num_assess=Sum('num_assessments'))
+
+            question_keys = key_agg.values_list('question_key', flat=True)           
+            for q_key in question_keys:
+                total = key_agg.get(question_key=q_key)['num_assess']
+                try:
+                    score = ans_key_agg.get(question_key=q_key)['num_assess']
+                except Exception as e:
+                    score = 0 
+                q_res[q_key] = {
+                    "total": total,
+                    "score": score
+                }
+            qgroup_res[qgroup_name] = q_res
+        return Response(qgroup_res)
