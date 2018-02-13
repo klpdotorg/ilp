@@ -3,7 +3,8 @@ from rest_framework import serializers
 from common.serializers import ILPSerializer
 from boundary.models import (Boundary, ElectionBoundary,
                              BoundaryHierarchy,
-                             BoundaryType, BoundaryAggregation
+                             BoundaryType,
+                             BoundaryAggregation
                              )
 from rest_framework_gis.serializers import (GeoFeatureModelSerializer,
         GeometrySerializerMethodField)
