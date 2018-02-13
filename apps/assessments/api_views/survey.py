@@ -488,7 +488,6 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
 
     def get(self, request, *args, **kwargs):
         neighbour_ids = self.get_neighbour_boundaries()
-        import ipdb; ipdb.set_trace()
         response = []
         for n_id in neighbour_ids:
             n_boundary = Boundary.objects.get(id=n_id)
