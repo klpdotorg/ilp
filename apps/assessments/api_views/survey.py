@@ -473,14 +473,23 @@ class SurveyUserSummary(APIView):
 class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
     filter_backends = [SurveyFilter, ]
 
-    def get(self, request):
-        boundary_id = request.GET.get('boundary_id', None)
-        if not boundary_id:
-            raise APIException("Please pass boundary_id as param.")
+    def get_neighbour_boundaries(self):
+        boundary_id = self.request.GET.get('boundary_id', None)
+        survey_tag = self.request.GET.get('survey_tag', None)
+        if boundary_id:
+            neighbour_ids = BoundaryNeighbours.objects.filter(
+                boundary_id=boundary_id).\
+                values_list('neighbour_id', flat=True)
+        else:
+            neighbour_ids = SurveyTagMappingAgg.objects.\
+                filter(survey_tag=survey_tag).\
+                values_list('boundary_id', flat=True)
+        return neighbour_ids
+
+    def get(self, request, *args, **kwargs):
+        neighbour_ids = self.get_neighbour_boundaries()
+        import ipdb; ipdb.set_trace()
         response = []
-        neighbour_ids = BoundaryNeighbours.objects.filter(
-            boundary_id=boundary_id).\
-            values_list('neighbour_id', flat=True)
         for n_id in neighbour_ids:
             n_boundary = Boundary.objects.get(id=n_id)
             neighbour_res = {}
@@ -505,7 +514,8 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
         return Response(response)
 
 
-# class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
+class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
+    pass
 #     queryset = BoundaryNeighbours.objects.all()
 # 
 #     def get(self, request, format=None):
