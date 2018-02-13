@@ -19,6 +19,7 @@ from assessments.api_views import (
     QuestionGroupInstitutionAssociationViewSet,
     QuestionGroupStudentGroupAssociationViewSet,
     SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
+    SurveyBoundaryNeighbourDetailAPIView
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -184,4 +185,6 @@ urlpatterns = [
         name='survey-user-summary'),
     url(r'surveys/boundaryneighbour/info/$', SurveyBoundaryNeighbourInfoAPIView.as_view(),
         name='survey-boundaryneighbour-info'),
+    url(r'surveys/boundaryneighbour/detail/$', SurveyBoundaryNeighbourDetailAPIView.as_view(),
+        name='survey-boundaryneighbour-detail'),
 ] + simple_router.urls + nested_router.urls
