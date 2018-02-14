@@ -9,7 +9,12 @@ from boundary.models import Boundary, BoundaryType
 from boundary.filters import BoundarySurveyFilter
 
 from common.views import ILPListAPIView, ILPDetailAPIView
-from common.models import InstitutionType, Status
+from common.models import (
+    InstitutionType,
+    Status,
+    RespondentType
+)
+from common.serializers import RespondentTypeSerializer
 from common.mixins import ILPStateMixin
 from common.filters import ILPInBBOXFilter
 from common.state_codes import STATES
@@ -18,7 +23,7 @@ from common.state_codes import STATES
 class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
     serializer_class = BoundarySerializer
     filter_backends = [BoundarySurveyFilter, ]
-    
+
     def get_queryset(self):
         state = self.get_state()
         queryset = Boundary.objects.filter(parent=state.id)
@@ -196,5 +201,13 @@ class StateList(APIView):
         itself for different states.
     """
 
+    def get_common_respondent_types(self):
+        common_types = RespondentType.objects.filter(state_code=None)
+        return RespondentTypeSerializer(common_types, many=True).data
+
     def get(self, request):
+
+        for s in STATES:
+            STATES[s]['respondent_types'] = self.get_common_respondent_types()
+
         return Response(STATES)
