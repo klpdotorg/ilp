@@ -173,14 +173,14 @@
             Get percentage values for finance data
          */
         getFinancePercents: function(financeData) {
-            var sgAmount = financeData.sg_amount ? financeData.sg_amount : 0;
+            var sgAmount = financeData.dev_grant_expnd ? financeData.dev_grant_expnd : 0;
             var smgAmount = financeData.smg_amount ? financeData.smg_amount : 0;
-            var tlmAmount = financeData.tlm_amount ? financeData.tlm_amount : 0;
-            var total = sgAmount + smgAmount + tlmAmount;
+            var otherAmount = financeData.funds_other_sources ? financeData.funds_other_sources : 0;
+            var total = sgAmount + smgAmount + otherAmount;
             return {
                 'sg': ((sgAmount / total) * 100).toFixed(2),
                 'smg': ((smgAmount / total) * 100).toFixed(2),
-                'tlm': ((tlmAmount / total) * 100).toFixed(2)
+                'other': ((otherAmount / total) * 100).toFixed(2)
             }
         },
 

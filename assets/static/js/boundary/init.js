@@ -111,6 +111,7 @@
     var acadYear = academicYear.replace(/20/g, '')
     var queryParams = {};
     var boundaryName = data.properties.boundary.name;
+    var boundaryDiseSlug = data.properties.boundary.dise_slug;
     var boundaryType = data.properties.boundary.boundary_type;
     var boundaryID = data.properties.boundary.id;
     var adminLevel = ADMIN_LEVEL_MAP[data.properties.boundary.type];

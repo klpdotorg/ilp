@@ -802,27 +802,27 @@
 
     function updateLayers() {
 
-        var currentZoom = map.getZoom();
-        if (currentZoom < 8) {
-            enabledLayers.clearLayers();
-            enabledLayers.addLayer(districtLayer);
-            enabledLayers.addLayer(preschoolDistrictLayer);
-        }
-        if (currentZoom == 8 || currentZoom == 9) {
-            enabledLayers.clearLayers();
-            enabledLayers.addLayer(blockLayer);
-            enabledLayers.addLayer(projectLayer);
-        }
-        if (currentZoom == 10 || currentZoom == 11) {
-            enabledLayers.clearLayers();
-            enabledLayers.addLayer(clusterLayer);
-            enabledLayers.addLayer(circleLayer);
-        }
-        if (currentZoom >= 12) {
-            enabledLayers.clearLayers();
-            enabledLayers.addLayer(schoolCluster);
-            enabledLayers.addLayer(preschoolCluster);
-        }
+        // var currentZoom = map.getZoom();
+        // if (currentZoom < 8) {
+        //     enabledLayers.clearLayers();
+        //     enabledLayers.addLayer(districtLayer);
+        //     enabledLayers.addLayer(preschoolDistrictLayer);
+        // }
+        // if (currentZoom == 8 || currentZoom == 9) {
+        //     enabledLayers.clearLayers();
+        //     enabledLayers.addLayer(blockLayer);
+        //     enabledLayers.addLayer(projectLayer);
+        // }
+        // if (currentZoom == 10 || currentZoom == 11) {
+        //     enabledLayers.clearLayers();
+        //     enabledLayers.addLayer(clusterLayer);
+        //     enabledLayers.addLayer(circleLayer);
+        // }
+        // if (currentZoom >= 12) {
+        //     //enabledLayers.clearLayers();
+        //     //enabledLayers.addLayer(schoolCluster);
+        //     //enabledLayers.addLayer(preschoolCluster);
+        // }
 
     }
 
