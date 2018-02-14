@@ -67,7 +67,7 @@
         "model": "common.AcademicYear",
         "fields":{
             "char_id": "1415",
-            "year": "2014-205",
+            "year": "2014-2015",
             "active": "IA"
         }
     },

@@ -129,7 +129,21 @@
         "model": "common.Language",
         "fields":{
             "char_id": "lam",
-            "name": "Lamba"
+            "name": "Lambani"
+        }
+    }, 
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "pun",
+            "name": "Punjabi"
+        }
+    }, 
+    {
+        "model": "common.Language",
+        "fields":{
+            "char_id": "ass",
+            "name": "Assamese"
         }
     }
 ]
