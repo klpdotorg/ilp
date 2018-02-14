@@ -78,13 +78,18 @@
             },
             'finances': {
                 getData: function() {
-                    return klp.api.do(schoolInfoURL + '/finance');
+                    //return klp.api.do(schoolInfoURL + '/finance');
+                    return klp.dise_api.fetchSchoolFinances(DISE_CODE)
+                   
                 },
                 getContext: function(data) {
-                    data.sg_amount = data.sg_recd_dise ? data.sg_recd_dise : 0;
-                    data.smg_amount = data.smg_amount ? data.smg_amount : 0;
-                    data.tlm_amount = data.tlm_recd_dise ? data.tlm_recd_diset : 0;
-                    data.total_amount = data.sg_amount + data.smg_amount + data.tlm_amount;
+                    if (data.hasOwnProperty('properties')) {
+                        data = data.properties
+                    }
+                    data.dev_grant_expnd = data.school_dev_grant_expnd ? data.school_dev_grant_expnd : 0;
+                    data.smg_amount = data.school_maintain_grant_recd ? data.school_maintain_grant_recd : 0;
+                    data.funds_other_sources = data.funds_from_students_recd ? data.funds_from_students_recd : 0;
+                    data.total_amount = data.dev_grant_expnd + data.smg_amount + data.funds_other_sources;
                     data.type_name = klp.utils.getSchoolType(SCHOOL_TYPE_ID);
                     return data;
                 },
@@ -123,6 +128,7 @@
                         if (data.hasOwnProperty('properties')) {
                             data = data.properties;
                             data.facilities = klp.dise_infra.getFacilitiesData(data);
+                            data.type_name="primary"
                         } else {
                             data.facilities = null;
                         }

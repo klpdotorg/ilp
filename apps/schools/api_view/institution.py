@@ -99,7 +99,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
 
         # Need to do filter for:
         # ac_year = self.request.GET.get(
-        #    'academic_year', settings.DEFAULT_ACADEMIC_YEAR)
+        #    'academic_year', settings.DISE_ACADEMIC_YEAR)
         # partner_id
         return qset
 
