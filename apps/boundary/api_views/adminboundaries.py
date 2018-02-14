@@ -201,13 +201,19 @@ class StateList(APIView):
         itself for different states.
     """
 
-    def get_common_respondent_types(self):
-        common_types = RespondentType.objects.filter(state_code=None)
-        return RespondentTypeSerializer(common_types, many=True).data
+    def get_respondent_types(self, state=None):
+        """ Returns respondent types of a state.
+            If no state is passed, this function will return common types
+        """
+        respondent_types = RespondentType.objects.filter(state_code=state)
+        return RespondentTypeSerializer(respondent_types, many=True).data
 
     def get(self, request):
 
         for s in STATES:
-            STATES[s]['respondent_types'] = self.get_common_respondent_types()
+            # First get the common respondent types
+            STATES[s]['respondent_types'] = self.get_respondent_types()
+            # Now get the state only respondent types
+            STATES[s]['respondent_types'] += self.get_respondent_types(s)
 
         return Response(STATES)
