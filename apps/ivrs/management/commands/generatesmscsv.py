@@ -412,7 +412,7 @@ class Command(BaseCommand):
         for user in users:
             name = user.get_full_name()
             mobile_number = user.mobile_no
-            group = user.user_type_id
+            group = user.user_type
             school_ids = user.state_set.filter(id__in=valid_states).values_list('school_id',flat=True)
             clusters = Institution.objects.filter(
                 id__in=school_ids
@@ -498,7 +498,7 @@ class Command(BaseCommand):
         list_of_values = []
         
         user_dict = {}
-        for user in User.objects.filter(user_type_id = group).filter(state__in=states):
+        for user in User.objects.filter(user_type = group).filter(state__in=states):
             user_smses_count = user.state_set.filter(id__in=states).count()
             user_dict[user.id] = user_smses_count
         user_dict_list = sorted(user_dict.items(), key=operator.itemgetter(1), reverse=True)
