@@ -147,7 +147,7 @@
     <table class="table-data">
       <tr>
         <td>Source</td>
-        <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong>{% endif %}</td>
+        <td>KLP Database ({{ window.klp.KLP_DATA_YEAR }}){% if type.id == 'primary' %}, <strong>NUEPA-DISE {{ window.klp.DISE_ACADEMIC_YEAR }}</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->
@@ -215,7 +215,7 @@
         </div>
       </div> <!-- /float-right -->
 
-      {% if type_name != 'preschool' %}
+      {% if type.id != 'pre' %}
       <h4 class="heading-tiny-uppercase">DISE Student Profile</h4>
       <div class="no-data js-dise" style="display:none;">
           <p> No data available </p>
@@ -258,7 +258,7 @@
     <table class="table-data">
       <tr>
         <td>Source</td>
-        <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong>{% endif %}</td>
+        <td>KLP Database ({{ window.klp.KLP_DATA_YEAR }}){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DISE_ACADEMIC_YEAR }}</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->
@@ -286,7 +286,7 @@
       <table class="table-data">
           <tr>
               <td>Source</td>
-              <td>KLP Database, <strong>NUEPA-DISE {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong></td>
+              <td>KLP Database {{ window.klp.KLP_DATA_YEAR }}</strong></td>
           </tr>
       </table>
     </div>
@@ -297,14 +297,22 @@
   <h4 class="heading-tiny-uppercase">GRANTS RECEIVED</h4>
   <table class="table-data table-data-finances">
           <tr>
-              <td>School grant received (SG)</td>
-              <td> {{ sg_amount }}
+              <td>School development grant received (SG)</td>
+              <td> {{ dev_grant_expnd }}
+          </tr>
+          <tr>
+              <td>School maintenance grant received (SMG)</td>
+              <td>{{ smg_amount }}</td>
+          </tr>
+          <tr>
+              <td>Funds from other sources</td>
+              <td>{{funds_other_sources}}</td>
           </tr>
     </table>
-    <h4 class="heading-tiny-uppercase">SSA GRANTS ALLOCATION</h4>
+   
 
     <div class="center-text" id="pie_chart_finance">{ Chart here }</div>
-
+    <!--<h4 class="heading-tiny-uppercase">SSA GRANTS ALLOCATION</h4>
     <table class="table-data table-data-finances">
         <tr>
           <td>School Maintence Grant (SMG)</td>
@@ -328,12 +336,12 @@
       {% endif %}
       {{ teacher_count }} teachers as per DISE sources.<br/>
       It is known to receive a total annual SSA grant of ₹ {{ total_amount }}.
-    </p>
+    </p> -->
 
     <table class="table-data">
         <tr>
           <td>Source</td>
-          <td>KLP Database (2013-2014){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong>{% endif %}</td>
+          <td>{% if type_name == 'school' %} <strong>NUEPA-DISE {{ window.klp.DISE_ACADEMIC_YEAR }}</strong>{% endif %}</td>
         </tr>
     </table>
   </div> <!-- /container -->
@@ -365,6 +373,7 @@
           No data available.
         </div>
         {% endif %}
+      
       </div> <!-- /school-infra-table -->
 
       <div class="infra-key-legend">
@@ -379,8 +388,8 @@
 
     <table class="table-data">
       <tr>
-        <td>Source</td>
-        <td>{% if type_name == 'school' %}, <strong>NUEPA-DISE ({{ window.klp.DEFAULT_ACADEMIC_YEAR }})</strong>{% endif %}</td>
+        <td>Source {{type.id}}</td>
+        <td>{% if type_name == 'primary' %} <strong>NUEPA-DISE ({{ window.klp.DISE_ACADEMIC_YEAR }})</strong>{% else %}<strong>KLP Database {{window.klp.KLP_DATA_YEAR}}</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->

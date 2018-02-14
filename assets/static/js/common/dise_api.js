@@ -1,6 +1,6 @@
 (function() {
     var base = window.klp.DISE_BASE_URL;//'https://dise.dev.ilp.org.in/api/';
-    var DEFAULT_ACADEMIC_YEAR = window.klp.DEFAULT_ACADEMIC_YEAR;//'16-17';
+    var DEFAULT_ACADEMIC_YEAR = window.klp.DISE_ACADEMIC_YEAR;//'16-17';
     klp.dise_api = {
         'fetchSchoolInfra': function(diseCode, academicYear) {
             if (typeof(academicYear) === 'undefined') {
@@ -15,6 +15,25 @@
                 return $deferred;
             }
             var url = base + academicYear + '/school/' + diseCode + '/infrastructure/';
+            var params = {
+                'format': 'json'
+            };
+            var $xhr = $.get(url, params);
+            return $xhr;
+        },
+        'fetchSchoolFinances': function(diseCode, academicYear) {
+            if (typeof(academicYear) === 'undefined') {
+                academicYear = DEFAULT_ACADEMIC_YEAR;
+            }
+            if (!diseCode) {
+                var $deferred = $.Deferred();
+                //FIXME: Return a proper error, dont resolve with empty object
+                setTimeout(function() {
+                    $deferred.resolve({});
+                }, 0);
+                return $deferred;
+            }
+            var url = base + academicYear + '/school/' + diseCode + '/finance/';
             var params = {
                 'format': 'json'
             };

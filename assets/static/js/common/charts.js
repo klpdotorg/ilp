@@ -112,7 +112,7 @@
                 name: 'Count',
                 innerSize: opts.innerSize,
                 data: [
-                    ['TLM', parseFloat(data.tlm)],
+                    ['OTHER', parseFloat(data.other)],
                     ['SMG', parseFloat(data.smg)],
                     ['SG', parseFloat(data.sg)]
                 ]
