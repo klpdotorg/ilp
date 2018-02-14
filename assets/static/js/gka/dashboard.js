@@ -784,9 +784,8 @@ var topSummaryData = {};
         var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
         $summaryXHR.done(function(summaryData) {
 
-            var metaURL = "survey/info/class/gender/?survey_id=2";
-            var $metaXHR = klp.api.do(metaURL, params);
-            $metaXHR.done(function(genderData) {
+            var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
+            $genderXHR.done(function(genderData) {
 
                 var dataSummary = {
                     "summary": {
@@ -821,8 +820,6 @@ var topSummaryData = {};
                     }
                 };
 
-                console.log(dataSummary)
-
                 var tplSummary = swig.compile($('#tpl-gpcSummary').html());
                 var summaryHTML = tplSummary({"data": dataSummary["summary"]});
                 $('#gpcSummary').html(summaryHTML);
@@ -839,8 +836,10 @@ var topSummaryData = {};
                 summaryHTML = tplSummary({"data":dataSummary["Class 6"]});
                 $('#gpcGender_class6').html(summaryHTML);
 
-                // renderGPContestCharts(data);
-
+                var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
+                $questionGroupXHR.done(function(questiongroupData) {
+                    renderGPContestCharts(questiongroupData);
+                });
 
             })
 
@@ -849,32 +848,53 @@ var topSummaryData = {};
 
 
     function renderGPContestCharts(data) {
-        function aggCompetancies(competancies) {
-            var topics = ["Number concept","Addition","Subtraction","Multiplication","Division","Patterns","Shapes","Fractions","Decimal","Measurement"]
-            var competanciesKeys = Object.keys(competancies)
-            var result = {}
-            for (var topic of topics) {
-                result[topic] = {'Yes': 0, 'No': 0}
+        var topics = [
+            "Number concept",
+            "Addition",
+            "Subtraction",
+            "Multiplication",
+            "Division",
+            "Patterns",
+            "Shapes",
+            "Fractions",
+            "Decimal",
+            "Measurement"
+        ];
 
-                for (var key of competanciesKeys) {
-                    if (key.indexOf(topic) !== -1) {
-                        result[topic]['Yes'] += competancies[key]['Yes']
-                        result[topic]['No'] += competancies[key]['No']
+        function genCompetancyChartObj(classData) {
+            var result = {
+                labels: topics,
+                series: [
+                    {
+                        className: 'ct-series-n',
+                        data: []
                     }
-                }
+                ]
+            };
+
+            for(var c in classData) {
+                var total = classData[c].total,
+                    score = classData[c].score,
+                    item = {
+                        meta: c,
+                        value: getPercent(score, total)
+                    };
+                result.series[0].data.push(item);
             }
-            return result
+            return result;
         }
 
-        var class4competancies = genCompetancyChartObj(aggCompetancies(data['4'].competancies));
-        var class5competancies = genCompetancyChartObj(aggCompetancies(data['5'].competancies));
-        var class6competancies = genCompetancyChartObj(aggCompetancies(data['6'].competancies));
+
+        var class4competancies = genCompetancyChartObj(data['Class 4 Assessment']);
+        var class5competancies = genCompetancyChartObj(data['Class 5 Assessment']);
+        var class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
+
         renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
         renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");
         renderBarChart('#gpcGraph_class6', class6competancies, "Percentage of Children");
     }
 
-    function genCompetancyChartObj(aggCompetancies) {
+    function OBSgenCompetancyChartObj(aggCompetancies) {
         function getTopicPerc(competancy){
             var yesVal = competancy['Yes'], noVal = competancy['No']
             return getPercent(yesVal, yesVal+noVal)
