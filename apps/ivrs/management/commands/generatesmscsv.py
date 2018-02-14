@@ -15,7 +15,6 @@ from users.models import User
 from schools.models import Institution
 from boundary.models import Boundary
 from common.utils import send_attachment, Date
-from assessments.models import AnswerGroup_Institution,AnswerInstitution, QuestionGroup
 from common.models import RespondentType
 
 OVERALL_COLUMNS = (
@@ -505,7 +504,7 @@ class Command(BaseCommand):
         user_dict_list = sorted(user_dict.items(), key=operator.itemgetter(1), reverse=True)
 
         for user_id, user_smses_count in user_dict_list:
-            group_name = group
+            group_name = group['char_id']
             user = User.objects.get(id=user_id)
             user_smses = user.state_set.filter(id__in=states)
             name = user.get_full_name()
