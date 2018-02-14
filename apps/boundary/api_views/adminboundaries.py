@@ -210,10 +210,24 @@ class StateList(APIView):
 
     def get(self, request):
 
+        # Konnect expects the below data in a certain format
+        # So we have to build a response in the format -
+        # {
+        #     'results': [
+        #         {
+        #             'name':
+        #             ...
+        #         }
+        #     ]
+        # }
+        states = []
+
         for s in STATES:
             # First get the common respondent types
             STATES[s]['respondent_types'] = self.get_respondent_types()
             # Now get the state only respondent types
             STATES[s]['respondent_types'] += self.get_respondent_types(s)
 
-        return Response(STATES)
+            states.append(STATES[s])
+
+        return Response({'results': states})
