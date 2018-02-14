@@ -534,36 +534,38 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
 
     def get(self, request, *args, **kwargs):
         neighbour_ids = self.get_neighbour_boundaries()
-        qs = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects.all()
-        ans_qs = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
-            objects.all()
-        qgroups = qs.filter(boundary_id__in=neighbour_ids).\
-            distinct('questiongroup_id').values_list(
-                'questiongroup_id', 'questiongroup_name')
-        response = {}
+        response = []
+        neighbour_res = {}
         for n_id in neighbour_ids:
-            qgroup_res = {}
-            for qgroup_id, qgroup_name in qgroups:
-                q_res = {}
-                qgroup_qs = qs.filter(
-                    boundary_id=n_id, questiongroup_id=qgroup_id)
-                qgroup_ans_qs = ans_qs.filter(
-                    boundary_id=n_id, questiongroup_id=qgroup_id)
-                key_agg = qgroup_qs.values(
-                    'question_key').annotate(num_assess=Sum('num_assessments'))
-                ans_key_agg = qgroup_ans_qs.values(
-                    'question_key').annotate(num_assess=Sum('num_assessments'))
-                question_keys = key_agg.values_list('question_key', flat=True)           
-                for q_key in question_keys:
-                    total = key_agg.get(question_key=q_key)['num_assess']
-                    try:
-                        score = ans_key_agg.get(question_key=q_key)['num_assess']
-                    except Exception as e:
-                        score = 0 
-                    q_res[q_key] = {
-                        "total": total,
-                        "score": score
-                    }
-                qgroup_res[qgroup_name] = q_res
-            response[n_id] = qgroup_res
+            qs = SurveyBoundaryQuestionGroupAnsAgg.objects.\
+                filter(boundary_id=n_id)
+            surveys = qs.distinct('survey_id').values_list(
+                'survey_id', flat=True)
+            boundary = Boundary.objects.get(id=n_id)
+            neighbour_res = {}
+            neighbour_res['name'] = boundary.name
+            neighbour_res['type'] = boundary.boundary_type.name
+            survey_res = {}
+            for survey in surveys:
+                qgroups = qs.filter(survey_id=survey).\
+                    distinct('questiongroup_id').\
+                    values_list('questiongroup_id', flat=True)
+                survey_name = Survey.objects.get(id=survey).name
+                qgroup_res = {}
+                for qgroup_id in qgroups:
+                    q_res = {}
+                    ans_options = qgroups.\
+                        filter(questiongroup_id=qgroup_id).\
+                        distinct('answer_option').\
+                        values_list('answer_option', flat=True)           
+                    for ans in ans_options:
+                        anss = qs.filter(survey_id=survey).\
+                            filter(questiongroup_id=qgroup_id).\
+                            filter(answer_option=ans).\
+                            aggregate(Sum('num_answers'))['num_answers__sum']
+                        q_res[ans] = anss
+                    qgroup_res[qgroup_id] = q_res
+                survey_res[survey_name] = qgroup_res
+            neighbour_res['surveys'] = survey_res
+            response.append(neighbour_res)
         return Response(response)
