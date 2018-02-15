@@ -3037,8 +3037,8 @@ FROM
 GROUP BY survey_id, survey_tag,source,year,month,question_key,questiongroup_id,questiongroup_name;
 
 
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_gender_correctans_agg CASCADE;
-CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_correctans_agg AS
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_questionkey_gender_correctans CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_questionkey_gender_correctans AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,question_key,year,month) as id,
     survey_id,
     survey_tag,
@@ -3105,8 +3105,8 @@ FROM
 GROUP BY survey_id, survey_tag,boundary_id,source,year,month,question_key,questiongroup_id,questiongroup_name,gender ;
 
 
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_gender_correctans_agg CASCADE;
-CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_gender_correctans_agg AS
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_gender_correctans CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_gender_correctans AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,question_key,year,month) as id,
     survey_id,
     survey_tag,
@@ -3428,8 +3428,8 @@ FROM
 GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name;
 
 
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_gender_correctans_agg CASCADE;
-CREATE MATERIALIZED VIEW mvw_survey_boundary_class_gender_correctans_agg AS
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_questionkey_gender_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_class_questionkey_gender_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,question_key,year, month) as id,
     survey_id,
     survey_tag,
@@ -3499,8 +3499,8 @@ FROM
 GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name,gender,boundary_id;
 
 
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_gender_correctans_agg CASCADE;
-CREATE MATERIALIZED VIEW mvw_survey_institution_class_gender_correctans_agg AS
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_questionkey_gender_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_class_questionkey_gender_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,question_key,year, month) as id,
     survey_id,
     survey_tag,
@@ -4276,3 +4276,253 @@ data.survey_tag,
 data.boundary_id,
 data.academic_year_id
 ;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_gender_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,year,month) as id,
+    survey_id,
+    survey_tag,
+    boundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    gender,
+    (year||month)::int as yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        ans1.answer as gender,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYY') as year,
+        to_char(ag.date_of_visit,'MM') as month,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        (SELECT distinct
+            qg.id as qgid,
+            count(q.id) as maxscore
+        FROM
+            assessments_question q,
+            assessments_questiongroup_questions qgq,
+            assessments_questiongroup qg
+        WHERE
+            q.is_featured=true
+            and q.max_score is null
+            and qgq.question_id =q.id
+            and qgq.questiongroup_id = qg.id
+            and qg.survey_id = 2 
+        GROUP BY 
+            qg.survey_id,
+            qg.id)max_score,
+        schools_institution s,
+        boundary_boundary b
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=max_score.qgid
+        and ans.question_id=q.id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.survey_id=2
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name
+    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+GROUP BY survey_id, survey_tag,boundary_id,source,year,month,questiongroup_id,questiongroup_name,gender ;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_gender_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_gender_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,year,month) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    gender,
+    (year||month)::int as yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        ag.institution_id as institution_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        ans1.answer as gender,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYY') as year,
+        to_char(ag.date_of_visit,'MM') as month,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        (SELECT distinct
+            qg.id as qgid,
+            count(q.id) as maxscore
+        FROM
+            assessments_question q,
+            assessments_questiongroup_questions qgq,
+            assessments_questiongroup qg
+        WHERE
+            q.is_featured=true
+            and q.max_score is null
+            and qgq.question_id =q.id
+            and qgq.questiongroup_id = qg.id
+            and qg.survey_id = 2 
+        GROUP BY 
+            qg.survey_id,
+            qg.id)max_score
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=max_score.qgid
+        and ans.question_id=q.id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.survey_id=2
+        and ag.is_verified=true
+    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name,ag.institution_id
+    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+GROUP BY survey_id, survey_tag,source,year,month,questiongroup_id,questiongroup_name,gender,institution_id ;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_gender_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_class_gender_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,year, month) as id,
+    survey_id,
+    survey_tag,
+    boundary_id,
+    source,
+    sg_name,
+    gender,
+    (year||month)::int as yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        sg.name as sg_name,
+        stu.gender_id as gender,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYY') as year,
+        to_char(ag.date_of_visit,'MM') as month,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        schools_studentstudentgrouprelation stusg,
+        schools_studentgroup sg,
+        schools_student stu,
+        (SELECT distinct
+            qg.id as qgid,
+            sum(q.max_score) as maxscore
+        FROM
+            assessments_question q,
+            assessments_questiongroup_questions qgq,
+            assessments_questiongroup qg
+        WHERE
+            q.is_featured=true
+            and q.max_score is not null
+            and qgq.question_id =q.id
+            and qgq.questiongroup_id = qg.id
+        GROUP BY 
+            qg.survey_id,
+            qg.id)max_score,
+        schools_institution s,
+        boundary_boundary b
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=max_score.qgid
+        and ans.question_id=q.id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.student_id = stu.id
+        and stu.id = stusg.student_id
+        and stusg.student_group_id = sg.id
+        and ag.is_verified=true
+        and sg.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,stu.gender_id,b.id
+    having sum(ans.answer::int)=max_score.maxscore)correctanswers
+GROUP BY survey_id, survey_tag,source,year,month,sg_name,gender,boundary_id;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_gender_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_class_gender_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,year, month) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    source,
+    sg_name,
+    gender,
+    (year||month)::int as yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        sg.institution_id as institution_id,
+        sg.name as sg_name,
+        stu.gender_id as gender,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYY') as year,
+        to_char(ag.date_of_visit,'MM') as month,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        schools_studentstudentgrouprelation stusg,
+        schools_studentgroup sg,
+        schools_student stu,
+        (SELECT distinct
+            qg.id as qgid,
+            sum(q.max_score) as maxscore
+        FROM
+            assessments_question q,
+            assessments_questiongroup_questions qgq,
+            assessments_questiongroup qg
+        WHERE
+            q.is_featured=true
+            and q.max_score is not null
+            and qgq.question_id =q.id
+            and qgq.questiongroup_id = qg.id
+        GROUP BY 
+            qg.survey_id,
+            qg.id)max_score
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=max_score.qgid
+        and ans.question_id=q.id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.student_id = stu.id
+        and stu.id = stusg.student_id
+        and stusg.student_group_id = sg.id
+        and ag.is_verified=true
+    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,stu.gender_id,sg.institution_id
+    having sum(ans.answer::int)=max_score.maxscore)correctanswers
+GROUP BY survey_id, survey_tag,source,year,month,sg_name,gender,institution_id;
+
