@@ -129,15 +129,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+@receiver(post_save, sender=User)
+def user_created_verify_email(sender, instance=None, created=False, **kwargs):
+    if created:
+        instance.send_verification_email()
+
+
 class UserBoundary(models.Model):
     user = models.ForeignKey('User')
     boundary = models.ForeignKey('boundary.Boundary')
 
     class Meta:
         unique_together = (('user', 'boundary'), )
-
-
-@receiver(post_save, sender=User)
-def user_created_verify_email(sender, instance=None, created=False, **kwargs):
-    if created:
-        instance.send_verification_email()

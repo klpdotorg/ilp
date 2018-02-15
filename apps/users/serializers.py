@@ -5,9 +5,9 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    is_active = serializers.BooleanField(read_only=True)
     is_email_verified = serializers.BooleanField(read_only=True)
     is_mobile_verified = serializers.BooleanField(read_only=True)
-    is_active = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = User

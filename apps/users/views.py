@@ -84,7 +84,6 @@ class EmailVerificationView(StaticPageView):
             else:
                 user.email_verification_code = ''
                 user.is_email_verified = True
-                user.is_active = True
                 user.save()
 
             self.extra_context = extra_context
@@ -135,7 +134,7 @@ class ProfileEditPageView(DetailView):
         return context
 
 
-class OtpUpdateView(generics.GenericAPIView):
+class MobileValidateWithOtpView(generics.GenericAPIView):
     """
     This end point validates a user's mobile number by matching it against
     an OTP generated during signup.
@@ -157,7 +156,7 @@ class OtpUpdateView(generics.GenericAPIView):
             )
         except User.DoesNotExist:
             return Response(
-                {'detail': 'Invalid OTP'},
+                {'detail': 'Invalid Mobile/OTP'},
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
@@ -225,7 +224,7 @@ class OtpPasswordResetView(generics.GenericAPIView):
             )
         except User.DoesNotExist:
             return Response(
-                {'detail': 'Invalid OTP'},
+                {'detail': 'Invalid Mobile/OTP'},
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
