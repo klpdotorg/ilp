@@ -555,17 +555,13 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
                 qgroup_res = {}
                 for qgroup_id in qgroups:
                     qgroup_name = QuestionGroup.objects.get(id=qgroup_id).name
-                    ans_options = qgroups.\
+                    ans_agg = qs.values('answer_option').\
+                        filter(survey_id=survey).\
                         filter(questiongroup_id=qgroup_id).\
-                        distinct('answer_option').\
-                        values_list('answer_option', flat=True)           
+                        annotate(Sum('num_answers'))
                     ans_res = {}
-                    for ans in ans_options:
-                        ans_sum = qs.filter(survey_id=survey).\
-                            filter(questiongroup_id=qgroup_id).\
-                            filter(answer_option=ans).\
-                            aggregate(Sum('num_answers'))['num_answers__sum']
-                        ans_res[ans] = ans_sum
+                    for ans in ans_agg:
+                        ans_res[ans['answer_option']] = ans['num_answers__sum']
                     qgroup_res[qgroup_id] = {
                         'name': qgroup_name, 'answer': ans_res
                     }
