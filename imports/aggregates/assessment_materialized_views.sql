@@ -2441,7 +2441,7 @@ FROM
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id,survey_tag,boundary_id,source,year,month,question_key ;
 
 
@@ -2556,7 +2556,7 @@ FROM
         and qg.type_id='assessment'
         and ag.is_verified=true
     GROUP BY q.key,ag.id,ag.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id,survey_tag,institution_id,source,year,month,question_key ;
 
 
@@ -2664,7 +2664,7 @@ FROM
         and qg.type_id='assessment'
         and ag.is_verified=true
     GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id,survey_tag,source,year,month,question_key ;
 
 
@@ -2794,7 +2794,7 @@ FROM
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,boundary_id,source,year,month,question_key,questiongroup_id,questiongroup_name;
 
 
@@ -2917,7 +2917,7 @@ FROM
         and qg.type_id='assessment'
         and ag.is_verified=true
     GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name,ag.institution_id
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,institution_id,source,year,month,question_key,questiongroup_id,questiongroup_name;
 
 
@@ -3033,7 +3033,7 @@ FROM
         and qg.type_id='assessment'
         and ag.is_verified=true
     GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,source,year,month,question_key,questiongroup_id,questiongroup_name;
 
 
@@ -3101,7 +3101,7 @@ FROM
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,boundary_id,source,year,month,question_key,questiongroup_id,questiongroup_name,gender ;
 
 
@@ -3165,7 +3165,7 @@ FROM
         and qg.survey_id=2
         and ag.is_verified=true
     GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name,ag.institution_id
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,source,year,month,question_key,questiongroup_id,questiongroup_name,gender,institution_id ;
 
 
@@ -3227,7 +3227,7 @@ FROM
         and qg.survey_id=2
         and ag.is_verified=true
     GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,source,year,month,question_key,questiongroup_id,questiongroup_name,gender ;
 
 
@@ -4336,7 +4336,7 @@ FROM
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,boundary_id,source,year,month,questiongroup_id,questiongroup_name,gender ;
 
 
@@ -4395,7 +4395,7 @@ FROM
         and qg.survey_id=2
         and ag.is_verified=true
     GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name,ag.institution_id
-    having count(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
 GROUP BY survey_id, survey_tag,source,year,month,questiongroup_id,questiongroup_name,gender,institution_id ;
 
 
