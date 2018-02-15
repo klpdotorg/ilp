@@ -539,6 +539,7 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
         for n_id in neighbour_ids:
             qs = SurveyBoundaryQuestionGroupAnsAgg.objects.\
                 filter(boundary_id=n_id)
+            qs = self.filter_queryset(qs)
             surveys = qs.distinct('survey_id').values_list(
                 'survey_id', flat=True)
             boundary = Boundary.objects.get(id=n_id)

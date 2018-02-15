@@ -498,11 +498,6 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
 
     def get_answer_queryset(self):
         survey_type = self.get_survey_type()
-        if survey_type == 'institution':
-            return SurveyQuestionGroupGenderCorrectAnsAgg.objects.all()
-        return SurveyClassGenderCorrectAnsAgg.objects.all()
-
-        survey_type = self.get_survey_type()
         state_id = BoundaryStateCode.objects.get(
             char_id=settings.ILP_STATE_ID).boundary_id
         institution_id = self.request.query_params.get('institution_id', None)
@@ -511,23 +506,23 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
         if survey_type == 'institution':
             if institution_id:
                 return SurveyInstitutionQuestionGroupGenderCorrectAnsAgg.\
-                    filter(institution_id=institution_id)
+                    objects.filter(institution_id=institution_id)
             elif boundary_id:
                 return SurveyBoundaryQuestionGroupGenderCorrectAnsAgg.\
                     objects.filter(boundary_id=boundary_id)
             else:
                 return SurveyBoundaryQuestionGroupGenderCorrectAnsAgg.\
-                    filter(boundary_id=state_id)
+                    objects.filter(boundary_id=state_id)
         else:
             if institution_id:
                 return SurveyInstitutionClassGenderCorrectAnsAgg.\
-                    filter(institution_id=institution_id)
+                    objects.filter(institution_id=institution_id)
             elif boundary_id:
                 return SurveyBoundaryClassGenderCorrectAnsAgg.\
                     objects.filter(boundary_id=boundary_id)
             else:
                 return SurveyBoundaryClassGenderCorrectAnsAgg.\
-                    filter(boundary_id=state_id)
+                    objects.filter(boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         qs = self.filter_queryset(self.get_queryset())
