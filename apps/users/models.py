@@ -79,7 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         if not self.id:
             self.generate_sms_pin()
-            # self.send_otp()
+            self.send_otp()
         return super(User, self).save(*args, **kwargs)
 
     def generate_email_token(self):
