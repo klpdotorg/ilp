@@ -50,7 +50,6 @@
             //console.log('context', context);
             context['type_name'] = context.type.id === "primary" ? 'school' : 'preschool';
             var html = tpl(context);
-            console.log("DATA conatext is: ", context)
             $('#school-info-wrapper').html(html);
         });
         klp.router.start();

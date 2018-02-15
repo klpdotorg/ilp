@@ -16,7 +16,7 @@ from django.db.models import Q
 from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
     AnswerGroup_Institution, QuestionGroup_Institution_Association,
-    QuestionGroup_StudentGroup_Association
+    QuestionGroup_StudentGroup_Association, InstitutionImages
 )
 from assessments.serializers import (
     QuestionGroupSerializer, QuestionSerializer,
@@ -94,7 +94,8 @@ class QGroupStoriesInfoView(ILPListAPIView):
                 questiongroup__survey__id=5).count(),
             'total_verified_stories': AnswerGroup_Institution.objects.filter(
                 questiongroup__survey__id=5).filter(is_verified=True).count(),
-            'total_images': 0
+            'total_images': InstitutionImages.objects.filter(answergroup__questiongroup__survey=5).count()
+
         })
 
 
