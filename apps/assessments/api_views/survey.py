@@ -20,7 +20,8 @@ from common.models import AcademicYear, Status
 
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
-    BoundarySchoolCategoryAgg, BoundaryNeighbours
+    BoundarySchoolCategoryAgg, BoundaryNeighbours,
+    BoundaryType
 )
 
 from schools.models import InstitutionClassYearStuCount
@@ -483,8 +484,13 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 boundary_id=boundary_id).\
                 values_list('neighbour_id', flat=True)
         else:
+            _sd = BoundaryType.SCHOOL_DISTRICT
+            btype = {
+                "boundary_id__boundary_type__char_id": _sd
+            }
             neighbour_ids = SurveyTagMappingAgg.objects.\
                 filter(survey_tag=survey_tag).\
+                filter(**btype).\
                 values_list('boundary_id', flat=True)
         return neighbour_ids
 
@@ -527,8 +533,13 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
                 boundary_id=boundary_id).\
                 values_list('neighbour_id', flat=True)
         else:
+            _sd = BoundaryType.SCHOOL_DISTRICT
+            btype = {
+                "boundary_id__boundary_type__char_id": _sd
+            }
             neighbour_ids = SurveyTagMappingAgg.objects.\
                 filter(survey_tag=survey_tag).\
+                filter(**btype).\
                 values_list('boundary_id', flat=True)
         return neighbour_ids
 
