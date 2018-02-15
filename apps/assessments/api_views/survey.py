@@ -32,7 +32,7 @@ from assessments.models import (
     SurveyInstitutionQuestionGroupAgg, SurveyTagMappingAgg,
     SurveyTagClassMapping, InstitutionImages,
     AnswerGroup_Institution, AnswerInstitution,
-    Question, SurveyBoundaryAgg,
+    Question, SurveyBoundaryAgg, QuestionGroup,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg
 )
@@ -553,19 +553,25 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
                 survey_name = Survey.objects.get(id=survey).name
                 qgroup_res = {}
                 for qgroup_id in qgroups:
-                    q_res = {}
+                    qgroup_name = QuestionGroup.objects.get(id=qgroup_id).name
                     ans_options = qgroups.\
                         filter(questiongroup_id=qgroup_id).\
                         distinct('answer_option').\
                         values_list('answer_option', flat=True)           
+                    ans_res = {}
                     for ans in ans_options:
-                        anss = qs.filter(survey_id=survey).\
+                        ans_sum = qs.filter(survey_id=survey).\
                             filter(questiongroup_id=qgroup_id).\
                             filter(answer_option=ans).\
                             aggregate(Sum('num_answers'))['num_answers__sum']
-                        q_res[ans] = anss
-                    qgroup_res[qgroup_id] = q_res
-                survey_res[survey_name] = qgroup_res
+                        ans_res[ans] = ans_sum
+                    qgroup_res[qgroup_id] = {
+                        'name': qgroup_name, 'answer': ans_res
+                    }
+                survey_res[survey] = {
+                    'name': survey_name,
+                    'questiongroups': qgroup_res
+                }
             neighbour_res['surveys'] = survey_res
             response.append(neighbour_res)
         return Response(response)
