@@ -60,5 +60,5 @@ prod_settings.py
 # Collected static
 collected-static/
 
-# Share your story images
-sys_images/
+# media folder (uploads)
+media/
