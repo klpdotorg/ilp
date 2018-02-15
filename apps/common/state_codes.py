@@ -5,15 +5,15 @@
 # TODO: Get the state info from DB
 STATES = {
     'ilp': {
-        'name': 'Karnataka',
+        'name': 'India',
         'short_form': 'KLP',
-        'long_form': 'Karnataka Learning Partnership',
+        'long_form': 'India Learning Partnership',
         'email': 'info@ilp.org.in',
         'site_url': 'https://ilp.org.in',
         'home_logo': '',
         'header_logo': '',
         'footer_logo': '',
-        'state_code': ''
+        'state_code': 'ilp'
     },
     'ka': {
         'name': 'Karnataka',

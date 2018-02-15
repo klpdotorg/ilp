@@ -4,7 +4,7 @@ from .views import (
     UserRegisterView,
     UserLoginView,
     UserProfileView,
-    OtpUpdateView,
+    MobileValidateWithOtpView,
     OtpGenerateView,
     OtpPasswordResetView
 )
@@ -22,7 +22,7 @@ urlpatterns = [
     ),
     url(
         r'^users/otp-update/$',
-        OtpUpdateView.as_view(),
+        MobileValidateWithOtpView.as_view(),
         name="api_otp_update"
     ),
     url(

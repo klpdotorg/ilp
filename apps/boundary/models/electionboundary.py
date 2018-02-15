@@ -37,22 +37,3 @@ class ElectionParty(models.Model):
 
     class Meta:
         unique_together = (('name'), )
-
-
-class ElectionBoundaryAggregation(models.Model):
-    """Data aggregation per Elected Rep"""
-    eid = models.ForeignKey('ElectionBoundary')
-    name = models.CharField(max_length=300)
-    academic_year = models.ForeignKey('common.AcademicYear')
-    gender = models.ForeignKey('common.Gender')
-    moi = models.ForeignKey('common.Language', related_name='e_agg_moi')
-    mt = models.ForeignKey('common.Language', related_name='e_agg_mt')
-    religion = models.ForeignKey('common.Religion')
-    category = models.ForeignKey('common.StudentCategory')
-    num = models.IntegerField()
-
-    class Meta:
-        unique_together = (
-            ('id', 'academic_year', 'gender', 'moi', 'mt',
-             'religion', 'category'),
-        )

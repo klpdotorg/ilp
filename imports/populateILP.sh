@@ -123,6 +123,15 @@ echo "Users Done"
 echo "IVRS tables"
 python ivrs/import_ivrs_data.py dubdubdub $ilp
 
+#Populate Odisha data
+echo "Odisha data"
+psql -U klp -d $ilp -f odisha/import_odisha_boundary/insert_odisha_district.sql
+psql -U klp -d $ilp -f odisha/import_odisha_boundary/insert_odisha_block.sql
+psql -U klp -d $ilp -f odisha/import_odisha_boundary/insert_odisha_cluster.sql
+psql -U klp -d $ilp -f odisha/import_odisha_schools/insert_odisha_pincode.sql
+psql -U klp -d $ilp -f odisha/import_odisha_schools/insert_odisha_schools.sql
+psql -U klp -d $ilp -f odisha/import_odisha_schools/insert_odisha_schools_language.sql
+
 #Populate aggregates
 echo "Running aggregates"
 psql -U klp -d $ilp -f aggregates/materialized_views.sql 

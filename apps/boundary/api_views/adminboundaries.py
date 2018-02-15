@@ -9,7 +9,12 @@ from boundary.models import Boundary, BoundaryType
 from boundary.filters import BoundarySurveyFilter
 
 from common.views import ILPListAPIView, ILPDetailAPIView
-from common.models import InstitutionType, Status
+from common.models import (
+    InstitutionType,
+    Status,
+    RespondentType
+)
+from common.serializers import RespondentTypeSerializer
 from common.mixins import ILPStateMixin
 from common.filters import ILPInBBOXFilter
 from common.state_codes import STATES
@@ -18,7 +23,7 @@ from common.state_codes import STATES
 class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
     serializer_class = BoundarySerializer
     filter_backends = [BoundarySurveyFilter, ]
-    
+
     def get_queryset(self):
         state = self.get_state()
         queryset = Boundary.objects.filter(parent=state.id)
@@ -196,5 +201,33 @@ class StateList(APIView):
         itself for different states.
     """
 
+    def get_respondent_types(self, state=None):
+        """ Returns respondent types of a state.
+            If no state is passed, this function will return common types
+        """
+        respondent_types = RespondentType.objects.filter(state_code=state)
+        return RespondentTypeSerializer(respondent_types, many=True).data
+
     def get(self, request):
-        return Response(STATES)
+
+        # Konnect expects the below data in a certain format
+        # So we have to build a response in the format -
+        # {
+        #     'results': [
+        #         {
+        #             'name':
+        #             ...
+        #         }
+        #     ]
+        # }
+        states = []
+
+        for s in STATES:
+            # First get the common respondent types
+            STATES[s]['respondent_types'] = self.get_respondent_types()
+            # Now get the state only respondent types
+            STATES[s]['respondent_types'] += self.get_respondent_types(s)
+
+            states.append(STATES[s])
+
+        return Response({'results': states})

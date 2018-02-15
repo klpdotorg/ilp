@@ -37,7 +37,8 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, mobile_no, password=None, **extra_fields):
         user = self.create_user(mobile_no, password=password, **extra_fields)
-        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -50,6 +51,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=64, blank=True, null=True)
     user_type = models.ForeignKey('common.RespondentType', null=True)
     is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     email_verification_code = models.CharField(
         max_length=128, null=True, blank=True)
     sms_verification_pin = models.IntegerField(null=True, blank=True)
@@ -75,7 +78,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.generate_email_token()
             self.generate_sms_pin()
             self.send_otp()
         return super(User, self).save(*args, **kwargs)
@@ -126,7 +128,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.save()
 
     def __unicode__(self):
-        return self.email
+        return self.mobile_no
+
+
+@receiver(post_save, sender=User)
+def user_created_verify_email(sender, instance=None, created=False, **kwargs):
+    if created and instance.email:
+        instance.send_verification_email()
 
 
 class UserBoundary(models.Model):
@@ -135,9 +143,3 @@ class UserBoundary(models.Model):
 
     class Meta:
         unique_together = (('user', 'boundary'), )
-
-
-@receiver(post_save, sender=User)
-def user_created_verify_email(sender, instance=None, created=False, **kwargs):
-    if created:
-        instance.send_verification_email()
