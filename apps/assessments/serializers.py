@@ -25,8 +25,24 @@ class SurveyOnTypeSerializer(ILPSerializer):
         )
 
 
+class QuestionGroupSerializer(ILPSerializer):
+    source_name = serializers.ReadOnlyField(source='source.name')
+
+    class Meta:
+        model = QuestionGroup
+        fields = (
+            'id', 'name', 'survey', 'type', 'inst_type',
+            'group_text', 'start_date', 'end_date', 'academic_year',
+            'version', 'source', 'source_name', 'double_entry',
+            'created_by', 'created_at', 'updated_at', 'status'
+        )
+
+
 class SurveySerializer(ILPSerializer):
     state = serializers.ReadOnlyField(source='admin0.name')
+    questiongroups = QuestionGroupSerializer(
+        source='questiongroup_set', many=True
+    )
 
     class Meta:
         model = Survey
@@ -41,17 +57,7 @@ class SurveySerializer(ILPSerializer):
             'status',
             'image_required',
             'state',
-        )
-
-
-class QuestionGroupSerializer(ILPSerializer):
-    class Meta:
-        model = QuestionGroup
-        fields = (
-            'id', 'name', 'survey', 'type', 'inst_type',
-            'group_text', 'start_date', 'end_date', 'academic_year',
-            'version', 'source', 'double_entry', 'created_by', 'created_at',
-            'updated_at', 'status'
+            'questiongroups',
         )
 
 
