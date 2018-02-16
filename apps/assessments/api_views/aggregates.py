@@ -306,10 +306,11 @@ class SurveyDetailSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                         question.question_type.display.char_id
 
                 question_agg = source_agg.filter(question_id=q_id)
-                for ans in ans_options:
-                    question_res['answers'][ans] = \
-                        question_agg.filter(answer_option=ans)\
-                        .aggregate(Sum('num_answers'))['num_answers__sum']
+                ans_agg = question_agg.\
+                    values('answer_option').annotate(Sum('num_answers'))
+                for ans in ans_agg:
+                    question_res['answers'][ans['answer_option']] = \
+                        ans['num_answers__sum']
                 question_list.append(question_res)
             sources_res[source.name] = question_list
         response["source"] = sources_res
@@ -498,11 +499,6 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
 
     def get_answer_queryset(self):
         survey_type = self.get_survey_type()
-        if survey_type == 'institution':
-            return SurveyQuestionGroupGenderCorrectAnsAgg.objects.all()
-        return SurveyClassGenderCorrectAnsAgg.objects.all()
-
-        survey_type = self.get_survey_type()
         state_id = BoundaryStateCode.objects.get(
             char_id=settings.ILP_STATE_ID).boundary_id
         institution_id = self.request.query_params.get('institution_id', None)
@@ -511,23 +507,23 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
         if survey_type == 'institution':
             if institution_id:
                 return SurveyInstitutionQuestionGroupGenderCorrectAnsAgg.\
-                    filter(institution_id=institution_id)
+                    objects.filter(institution_id=institution_id)
             elif boundary_id:
                 return SurveyBoundaryQuestionGroupGenderCorrectAnsAgg.\
                     objects.filter(boundary_id=boundary_id)
             else:
                 return SurveyBoundaryQuestionGroupGenderCorrectAnsAgg.\
-                    filter(boundary_id=state_id)
+                    objects.filter(boundary_id=state_id)
         else:
             if institution_id:
                 return SurveyInstitutionClassGenderCorrectAnsAgg.\
-                    filter(institution_id=institution_id)
+                    objects.filter(institution_id=institution_id)
             elif boundary_id:
                 return SurveyBoundaryClassGenderCorrectAnsAgg.\
                     objects.filter(boundary_id=boundary_id)
             else:
                 return SurveyBoundaryClassGenderCorrectAnsAgg.\
-                    filter(boundary_id=state_id)
+                    objects.filter(boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         qs = self.filter_queryset(self.get_queryset())

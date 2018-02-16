@@ -707,7 +707,7 @@ var topSummaryData = {};
             }
         }
 
-        var scores = data.scores
+        var scores = data.scores;
 
         const labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area', 'Money', 'Word Problem'];
         var meta_values = _.map(labels, (label) => {
@@ -877,7 +877,7 @@ var topSummaryData = {};
                     score = classData[c].score,
                     item = {
                         meta: c,
-                        value: getPercent(score, total)
+                        value: getPercent(total, score)
                     };
                 result.series[0].data.push(item);
             }

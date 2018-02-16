@@ -111,15 +111,27 @@ class AnswerSerializer(ILPSerializer, CompensationLogMixin):
 class AnswerGroupInstSerializer(serializers.ModelSerializer):
     double_entry = serializers.SerializerMethodField()
     comments = serializers.CharField(required=False, allow_blank=True)
+    institution_name = serializers.SerializerMethodField()
+    created_by_username = serializers.SerializerMethodField()
 
     class Meta:
         model = AnswerGroup_Institution
         fields = (
-            'id', 'double_entry','questiongroup', 'institution', 'group_value',
-            'created_by', 'date_of_visit',
+            'id', 'double_entry','questiongroup', 'institution', 'institution_name', 'group_value',
+            'created_by', 'created_by_username', 'date_of_visit',
             'respondent_type', 'comments', 'is_verified',
             'status', 'sysid', 'entered_at'
         )
+
+    def get_created_by_username(self, obj):
+        username=''
+        username = obj.created_by.first_name + obj.created_by.last_name
+        if username is None:
+            username = obj.created_by.email
+        return username
+
+    def get_institution_name(self, obj):
+        return obj.institution.name
 
     def get_double_entry(self, obj):
         return obj.questiongroup.double_entry
