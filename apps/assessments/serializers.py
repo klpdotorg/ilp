@@ -29,8 +29,16 @@ class SurveySerializer(ILPSerializer):
     class Meta:
         model = Survey
         fields = (
-            'id', 'name', 'created_at', 'updated_at', 'partner', 'description',
-            'status'
+            'id',
+            'name',
+            'lang_name',
+            'created_at',
+            'updated_at',
+            'partner',
+            'description',
+            'admin0',
+            'status',
+            'image_required',
         )
 
 
