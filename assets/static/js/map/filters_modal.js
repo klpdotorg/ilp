@@ -26,6 +26,9 @@
         var $download_button = $("#download-filter-schools");
 
         $select_type.select2();
+
+        // Hiding loading initially
+        $("#tpl-filters-loading").hide();
         // $select_district.select2();
 
         var districtsXHR = function(school_type) {
@@ -59,36 +62,47 @@
 
         $select_type.on("change", function(selected) {
             console.log("select type changed");
+            $("#tpl-filters-loading").show();
+
             if (selected.val == 'Primary School') {
                 districtsXHR('primary').done(function (data) {
+                    $("#tpl-filters-loading").hide();
                     populateSelect($select_district, data);
                 });
             }
 
             if (selected.val == 'Preschool') {
                 districtsXHR('pre').done(function (data) {
+                    $("#tpl-filters-loading").hide();
                     populateSelect($select_district, data);
                 });
             }
         });
 
         $select_district.on("change", function(selected) {
+            $("#tpl-filters-loading").show();
+
             setMapView(selected, 8);
             var blockXHR = klp.api.do('boundary/admin1/'+selected.val+'/admin2', {'geometry': 'yes', 'per_page': 0});
             blockXHR.done(function (data) {
+                $("#tpl-filters-loading").hide();
                 populateSelect($select_block, data);
             });
         });
 
         $select_block.on("change", function(selected) {
+            $("#tpl-filters-loading").show();
             setMapView(selected, 9);
             var clusterXHR = klp.api.do('boundary/admin2/'+selected.val+'/admin3', {'geometry': 'yes', 'per_page': 0});
             clusterXHR.done(function (data) {
+                $("#tpl-filters-loading").hide();
                 populateSelect($select_cluster, data);
             });
         });
 
         $select_cluster.on("change", function(selected) {
+            $("#tpl-filters-loading").show();
+
             function downloadFilterSchools() {
               window.open(`/api/v1/institutions?admin3=${selected.value}&format=csv`, '_self');
             }
@@ -101,6 +115,7 @@
             var schoolXHR = klp.api.do('institutions', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
             $download_button.removeClass('hide');
             schoolXHR.done(function (data) {
+                $("#tpl-filters-loading").hide();
                 populateSelect($select_school, data);
             });
         });
