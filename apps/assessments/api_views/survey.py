@@ -475,6 +475,7 @@ class SurveyUserSummary(APIView):
 
 class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
     filter_backends = [SurveyFilter, ]
+    queryset = SurveyBoundaryAgg.objects.all()
 
     def get_neighbour_boundaries(self):
         boundary_id = self.request.GET.get('boundary_id', None)
@@ -505,11 +506,11 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
             neighbour_res['schools'] = 0
             neighbour_res['surveys'] = {}
 
-            survey_ids = SurveyBoundaryAgg.objects.filter(boundary_id=n_id)
+            survey_ids = self.queryset.filter(boundary_id=n_id)
             survey_ids = self.filter_queryset(survey_ids).\
                 distinct('survey_id').values_list('survey_id', flat=True)
             for survey_id in survey_ids:
-                qset = SurveyBoundaryAgg.objects.filter(
+                qset = self.queryset.filter(
                     survey_id=survey_id, boundary_id=n_id)
                 b_agg = qset.aggregate(Sum('num_assessments'))
                 sources = qset.distinct('source').\
@@ -524,6 +525,7 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
 
 class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
     filter_backends = [SurveyFilter, ]
+    queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.all()
 
     def get_neighbour_boundaries(self):
         boundary_id = self.request.GET.get('boundary_id', None)
@@ -548,8 +550,7 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
         response = []
         neighbour_res = {}
         for n_id in neighbour_ids:
-            qs = SurveyBoundaryQuestionGroupAnsAgg.objects.\
-                filter(boundary_id=n_id)
+            qs = self.queryset.filter(boundary_id=n_id)
             qs = self.filter_queryset(qs)
             surveys = qs.distinct('survey_id').values_list(
                 'survey_id', flat=True)
