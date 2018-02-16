@@ -23,7 +23,7 @@
         var $select_block = $("#select-block");
         var $select_cluster = $("#select-cluster");
         var $select_school = $("#select-school");
-        var $download_button = $("#download");
+        var $download_button = $("#download-filter-schools");
 
         $select_type.select2();
         // $select_district.select2();
@@ -89,9 +89,16 @@
         });
 
         $select_cluster.on("change", function(selected) {
+            function downloadFilterSchools() {
+              window.open(`/api/v1/institutions?admin3=${selected.value}&format=csv`, '_self');
+            }
+
+            $("#download-filter-schools").click(function(){
+              klp.auth.requireLogin(downloadFilterSchools);
+            });
+
             setMapView(selected, 10);
             var schoolXHR = klp.api.do('institutions', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
-            $download_button.attr('href', '/api/v1/institutions?admin3='+selected.val+'&format=csv');
             $download_button.removeClass('hide');
             schoolXHR.done(function (data) {
                 populateSelect($select_school, data);
