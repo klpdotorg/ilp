@@ -92,10 +92,10 @@ for filename in os.listdir(fromdir):
             present +=1
         else:
             not_present +=1
-            sqlinsert = "insert into users_user(password,email,mobile_no,first_name,user_type_id,is_active,is_email_verified, is_mobile_verified, opted_email,is_superuser) values(%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s) returning id;"
+            sqlinsert = "insert into users_user(password,email,mobile_no,first_name,user_type_id,is_active,is_email_verified, is_mobile_verified, opted_email,is_superuser, is_staff) values(%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s) returning id;"
             cursor.execute(sqlinsert, (password, email, mobile_no, first_name,
                                        user_type, is_active, is_email_verified,
-                                       is_mobile_verified, opted_email, is_superuser))
+                                       is_mobile_verified, opted_email, is_superuser, false))
             user_id = cursor.fetchone()[0]
             sqlinsert = "insert into users_user_groups(user_id, group_id) select %s,groups.id from auth_group groups where groups.name in ('ilp_auth_user', 'ilp_konnect_user');"
             cursor.execute(sqlinsert, [user_id])
