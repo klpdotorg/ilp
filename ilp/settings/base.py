@@ -176,7 +176,7 @@ DISE_FRONTEND_ACADEMIC_YEAR = '16-17'
 # This is the year KLP has data for in schools etc..
 KLP_DATA_YEAR = '2013-14'
 
-DISE_APP_BASE_URL = 'http://dise.dev.ilp.org.in/api/'
+DISE_APP_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
 
 BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
 
