@@ -529,7 +529,10 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
 
 class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
     filter_backends = [SurveyFilter, ]
-    queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.all()
+    queryset = SurveyBoundaryQuestionGroupQuestionKeyAgg.\
+        objects.all()
+    ans_queryset = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
+        objects.all()
 
     def get_neighbour_boundaries(self):
         boundary_id = self.request.GET.get('boundary_id', None)
@@ -554,36 +557,50 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
         response = []
         neighbour_res = {}
         for n_id in neighbour_ids:
-            qs = self.queryset.filter(boundary_id=n_id)
-            qs = self.filter_queryset(qs)
-            surveys = qs.distinct('survey_id').values_list(
-                'survey_id', flat=True)
             boundary = Boundary.objects.get(id=n_id)
             neighbour_res = {}
             neighbour_res['name'] = boundary.name
             neighbour_res['type'] = boundary.boundary_type.name
+
+            qs = self.queryset.filter(boundary_id=n_id)
+            qs = self.filter_queryset(qs)
             survey_res = {}
-            for survey in surveys:
-                qgroups = qs.filter(survey_id=survey).\
-                    distinct('questiongroup_id').\
-                    values_list('questiongroup_id', flat=True)
-                survey_name = Survey.objects.get(id=survey).name
+            surveys = qs.distinct('survey_id').values_list(
+                'survey_id', flat=True)
+            for survey_id in surveys:
+                survey_name = Survey.objects.get(id=survey_id).name
+                survey_qs = qs.values('survey_id').filter(survey_id=survey_id)
+                qgroups = survey_qs.distinct('questiongroup_id')\
+                    .values_list('questiongroup_id', flat=True)
                 qgroup_res = {}
                 for qgroup_id in qgroups:
                     qgroup_name = QuestionGroup.objects.get(id=qgroup_id).name
-                    ans_agg = qs.values('answer_option').\
-                        filter(survey_id=survey).\
-                        filter(questiongroup_id=qgroup_id).\
-                        annotate(Sum('num_answers'))
-                    ans_res = {}
-                    for ans in ans_agg:
-                        ans_res[ans['answer_option']] = ans['num_answers__sum']
+                    qgroup_qs = survey_qs.values('questiongroup_id').\
+                        filter(questiongroup_id=qgroup_id)
+                    question_keys = qs.values('questiongroup_id')\
+                        .filter(questiongroup_id=qgroup_id)\
+                        .distinct('question_key')\
+                        .values_list('question_key', flat=True)
+                    qkey_res = {}
+                    for key in question_keys:
+                        qkey_res[key] = {
+                            "score": qgroup_qs.values('question_key').filter(
+                                question_key=key).aggregate(
+                                    Sum('num_assessments')
+                                )['num_assessments__sum'],
+                            "totol": self.ans_queryset.filter(
+                                    boundary_id=n_id, survey_id=survey_id,
+                                    questiongroup_id=qgroup_id,
+                                    question_key=key
+                                ).aggregate(
+                                    Sum('num_assessments')
+                                )['num_assessments__sum']
+                        }
                     qgroup_res[qgroup_id] = {
-                        'name': qgroup_name, 'answer': ans_res
+                        'name': qgroup_name, 'question_keys': qkey_res
                     }
-                survey_res[survey] = {
-                    'name': survey_name,
-                    'questiongroups': qgroup_res
+                survey_res[survey_id] = {
+                    'name': survey_name, 'questiongroups': qgroup_res
                 }
             neighbour_res['surveys'] = survey_res
             response.append(neighbour_res)
