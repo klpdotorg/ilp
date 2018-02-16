@@ -90,11 +90,10 @@
 
         $select_cluster.on("change", function(selected) {
             setMapView(selected, 10);
-            var schoolXHR = klp.api.do('institutions/info', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
-            $download_button.attr('href', '/api/v1/institutions/info?admin3='+selected.val+'&format=csv');
+            var schoolXHR = klp.api.do('institutions', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
+            $download_button.attr('href', '/api/v1/institutions?admin3='+selected.val+'&format=csv');
             $download_button.removeClass('hide');
             schoolXHR.done(function (data) {
-                // console.log('schools', data);
                 populateSelect($select_school, data);
             });
         });
