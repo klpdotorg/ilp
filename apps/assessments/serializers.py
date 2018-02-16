@@ -26,6 +26,8 @@ class SurveyOnTypeSerializer(ILPSerializer):
 
 
 class SurveySerializer(ILPSerializer):
+    state = serializers.ReadOnlyField(source='admin0.name')
+
     class Meta:
         model = Survey
         fields = (
@@ -36,9 +38,9 @@ class SurveySerializer(ILPSerializer):
             'updated_at',
             'partner',
             'description',
-            'admin0',
             'status',
             'image_required',
+            'state',
         )
 
 

@@ -18,11 +18,11 @@ class AnswersSurveyTypeFilter(django_filters.FilterSet):
 
 
 class SurveyTagFilter(django_filters.FilterSet):
-    tag = django_filters.CharFilter(name="surveytagmapping__tag")
+    survey_tag = django_filters.CharFilter(name="surveytagmapping__tag")
 
     class Meta:
         model = Survey
-        fields = ['tag']
+        fields = ['survey_tag']
 
 
 class SurveyFilter(BaseFilterBackend):
