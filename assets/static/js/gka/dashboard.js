@@ -795,27 +795,44 @@ var topSummaryData = {};
                         "children": summaryData.summary.children_impacted
                     },
                     "Class 4": {
-                        "boy_perc": getPercent(genderData['Class 4 Assessment'].gender.Male.total_count, genderData['Class 4 Assessment'].gender.Male.perfect_score_count),
-                        "girl_perc": getPercent(genderData['Class 4 Assessment'].gender.Female.total_count, genderData['Class 4 Assessment'].gender.Female.perfect_score_count),
+                        "boy_perc": getPercent(
+                            genderData['Class 4 Assessment'].gender.Male.perfect_score_count,
+                            genderData['Class 4 Assessment'].gender.Male.total_count
+                        ),
+                        "girl_perc": getPercent(
+                            genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
+                            genderData['Class 4 Assessment'].gender.Female.total_count
+                        ),
                         "total_studs": getPercent(
-                            genderData['Class 4 Assessment'].gender.Male.total_count + genderData['Class 4 Assessment'].gender.Female.total_count,
-                            genderData['Class 4 Assessment'].gender.Male.perfect_score_count + genderData['Class 4 Assessment'].gender.Female.perfect_score_count
+                            genderData['Class 4 Assessment'].gender.Male.perfect_score_count + genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
+                            genderData['Class 4 Assessment'].gender.Male.total_count + genderData['Class 4 Assessment'].gender.Female.total_count
                         )
                     },
                     "Class 5": {
-                        "boy_perc": getPercent(genderData['Class 5 Assessment'].gender.Male.total_count, genderData['Class 5 Assessment'].gender.Male.perfect_score_count),
-                        "girl_perc": getPercent(genderData['Class 5 Assessment'].gender.Female.total_count, genderData['Class 5 Assessment'].gender.Female.perfect_score_count),
+                        "boy_perc": getPercent(
+                            genderData['Class 5 Assessment'].gender.Male.perfect_score_count,
+                            genderData['Class 5 Assessment'].gender.Male.total_count
+                        ),
+                        "girl_perc": getPercent(
+                            genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
+                            genderData['Class 5 Assessment'].gender.Female.total_count
+                        ),
                         "total_studs": getPercent(
-                            genderData['Class 5 Assessment'].gender.Male.total_count + genderData['Class 5 Assessment'].gender.Female.total_count,
-                            genderData['Class 5 Assessment'].gender.Male.perfect_score_count + genderData['Class 5 Assessment'].gender.Female.perfect_score_count
+                            genderData['Class 5 Assessment'].gender.Male.perfect_score_count + genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
+                            genderData['Class 5 Assessment'].gender.Male.total_count + genderData['Class 5 Assessment'].gender.Female.total_count
                         )
-                    },
-                    "Class 6": {
-                        "boy_perc": getPercent(genderData['Class 6 Assessment'].gender.Male.total_count, genderData['Class 6 Assessment'].gender.Male.perfect_score_count),
-                        "girl_perc": getPercent(genderData['Class 6 Assessment'].gender.Female.total_count, genderData['Class 6 Assessment'].gender.Female.perfect_score_count),
+                    },"Class 6": {
+                        "boy_perc": getPercent(
+                            genderData['Class 6 Assessment'].gender.Male.perfect_score_count,
+                            genderData['Class 6 Assessment'].gender.Male.total_count
+                        ),
+                        "girl_perc": getPercent(
+                            genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
+                            genderData['Class 6 Assessment'].gender.Female.total_count
+                        ),
                         "total_studs": getPercent(
-                            genderData['Class 6 Assessment'].gender.Male.total_count + genderData['Class 6 Assessment'].gender.Female.total_count,
-                            genderData['Class 6 Assessment'].gender.Male.perfect_score_count + genderData['Class 6 Assessment'].gender.Female.perfect_score_count
+                            genderData['Class 6 Assessment'].gender.Male.perfect_score_count + genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
+                            genderData['Class 6 Assessment'].gender.Male.total_count + genderData['Class 6 Assessment'].gender.Female.total_count
                         )
                     }
                 };
@@ -877,7 +894,7 @@ var topSummaryData = {};
                     score = classData[c].score,
                     item = {
                         meta: c,
-                        value: getPercent(total, score)
+                        value: getPercent(score, total)
                     };
                 result.series[0].data.push(item);
             }
