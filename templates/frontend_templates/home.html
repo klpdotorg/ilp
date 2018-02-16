@@ -1,12 +1,13 @@
 {% verbatim %}
 <script type="text/html" id="tpl-sysInfo">
   <div>
-    {% for s in institutions %}
+    {% for s in stories %}
+      
       <div class="stories-list-each">
         <a href="school/{{ s.institution }}#?tab=share-story">
-          {{ s.institution }}
+          {{ s.institution_name }}
         </a>:
-          {{ s.group_value }}
+          {{ s.created_by_username }}
       </div>
     {% endfor %}
   </div>
