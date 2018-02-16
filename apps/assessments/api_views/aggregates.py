@@ -306,10 +306,11 @@ class SurveyDetailSourceAPIView(AggQuerySetMixin, ListAPIView, ILPStateMixin):
                         question.question_type.display.char_id
 
                 question_agg = source_agg.filter(question_id=q_id)
-                for ans in ans_options:
-                    question_res['answers'][ans] = \
-                        question_agg.filter(answer_option=ans)\
-                        .aggregate(Sum('num_answers'))['num_answers__sum']
+                ans_agg = question_agg.\
+                    values('answer_option').annotate(Sum('num_answers'))
+                for ans in ans_agg:
+                    question_res['answers'][ans['answer_option']] = \
+                        ans['num_answers__sum']
                 question_list.append(question_res)
             sources_res[source.name] = question_list
         response["source"] = sources_res
