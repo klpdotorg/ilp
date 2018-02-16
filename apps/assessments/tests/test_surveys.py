@@ -10,7 +10,7 @@ class SurveysAPITests(APITestCase):
     @classmethod
     def setUpTestData(cls):
         call_command('loaddata',
-                     'apps/assessments/boundary/fixtures/boundarystatecode')
+                     'apps/boundary/tests/test_fixtures/test_boundarystatecode')
         call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/surveys')
 
