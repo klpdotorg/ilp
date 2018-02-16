@@ -52,6 +52,10 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
     serializer_class = SurveySerializer
     filter_class = SurveyTagFilter
 
+    def get_queryset(self):
+        state = self.get_state()
+        return self.queryset.filter(admin0=state)
+
 
 class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
 
