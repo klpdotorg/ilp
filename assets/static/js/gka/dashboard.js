@@ -436,7 +436,7 @@ var topSummaryData = {};
     function renderSurveySummary(data) {
         data = data.source.csv;
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
-        data["format_lastcsv"] = formatLastStory(data.last_assessment);
+        data["format_lastcsv"] = formatLastStory(data.last_assessment, true);
         data['schoolPerc'] = getPercent(data.schools_impacted, klp.GKA.topSummaryData.schools_impacted);
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
@@ -522,7 +522,7 @@ var topSummaryData = {};
             lastAssessment = data.konnectsms.last_assessment;
         }        
         summaryData.last_assessment = lastAssessment;
-        summaryData.format_lastsms = lastAssessment;
+        summaryData.format_lastsms = formatLastStory(lastAssessment, true);
 
         summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
         summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
@@ -673,7 +673,7 @@ var topSummaryData = {};
                     "schools_perc": schools_perc,
                     "children": children,
                     "children_perc": children_perc,
-                    "last_assmt": formatLastStory(last_assmt)
+                    "last_assmt": formatLastStory(last_assmt, true)
                 }
                 renderAssmtSummary(dataSummary);
                 renderAssmtCharts(detailKeydata);
@@ -1089,7 +1089,7 @@ var topSummaryData = {};
         $this.find('.js-loading').remove();
     }
 
-    function formatLastStory(last_story) {
+    function formatLastStory(last_story, noDate) {
         var date =' ';
         var time = ' ';
         if(last_story != null) {
@@ -1101,7 +1101,8 @@ var topSummaryData = {};
                 date = moment(last_story, "YYYY-MM-DD").format("DD MMM YYYY");
             }
         }
-        return date + time;
+
+        if(noDate) { return date; } else { return date + time; }
     }
 
     function getScore(answers, option) {
