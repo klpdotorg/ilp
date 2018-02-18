@@ -701,6 +701,7 @@ var topSummaryData = {};
     }
 
     function renderAssmtCharts(data) {
+
         function getAssmtPerc(scores, topic) {
             if (scores[topic]) {
               return getPercent(scores[topic].score, scores[topic].total)
@@ -711,7 +712,7 @@ var topSummaryData = {};
 
         var scores = data.scores;
 
-        const labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area', 'Money', 'Word Problem'];
+        const labels = Object.keys(data.scores);
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,
@@ -867,22 +868,10 @@ var topSummaryData = {};
 
 
     function renderGPContestCharts(data) {
-        var topics = [
-            "Number concept",
-            "Addition",
-            "Subtraction",
-            "Multiplication",
-            "Division",
-            "Patterns",
-            "Shapes",
-            "Fractions",
-            "Decimal",
-            "Measurement"
-        ];
 
         function genCompetancyChartObj(classData) {
             var result = {
-                labels: topics,
+                labels: Object.keys(classData),
                 series: [
                     {
                         className: 'ct-series-n',
