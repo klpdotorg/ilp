@@ -266,6 +266,8 @@ var topSummaryData = {};
         var $usersXHR = klp.api.do("survey/info/users/?survey_id=11", params);
         $usersXHR.done(function(userGroups) {
 
+            renderSMSUserCharts(userGroups.users, params);
+
             // Fetch volumes next
             var $volumesXHR = klp.api.do("survey/volume/?survey_id=11", params);
             $volumesXHR.done(function(volumes) {
@@ -274,7 +276,7 @@ var topSummaryData = {};
                     user_groups: userGroups.users
                 };
                 stopDetailLoading();
-                renderSMSUserVolumeCharts(data, params);
+                renderSMSVolumeCharts(data, params);
             });
         });
 
@@ -558,29 +560,15 @@ var topSummaryData = {};
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
 
-    function renderSMSUserVolumeCharts(data, params)  {
 
+    function renderSMSUserCharts(users, params) {
         var meta_values = [];
-        var volumes = data;
 
-        // Utility function for preparing volumes
-        function prepareVolumes(year) {
-            var values = [];
-
-            for(var v in data.volumes[year]) {
-                values.push({
-                    meta: v + ' ' + year,
-                    value: data.volumes[year][v]
-                });
-            }
-            return values;
-        }
-
-        for (var m in data.user_groups) {
+        for (var m in users) {
             if(m) {
                 meta_values.push({
                     meta: m,
-                    value: data.user_groups[m]
+                    value: users[m]
                 });
             }
         }
@@ -596,6 +584,25 @@ var topSummaryData = {};
             ],
         }
         renderBarChart('#smsSender', sms_sender);
+    }
+
+
+    function renderSMSVolumeCharts(data, params)  {
+
+        var volumes = data.volumes;
+
+        // Utility function for preparing volumes
+        function prepareVolumes(year) {
+            var values = [];
+
+            for(var v in data.volumes[year]) {
+                values.push({
+                    meta: v + ' ' + year,
+                    value: data.volumes[year][v]
+                });
+            }
+            return values;
+        }
 
         // Build the data for line chart and render it
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
