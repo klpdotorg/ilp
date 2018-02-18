@@ -251,8 +251,10 @@ var topSummaryData = {};
     function loadSmsData(params) {
         startDetailLoading();
 
+        delete params.survey_tag;
+
         // Fetch SMS Summary
-        var $smsSummaryXHR = klp.api.do("survey/info/source/?survey_tag=gka", params);
+        var $smsSummaryXHR = klp.api.do("survey/info/source/?survey_id=11", params);
         $smsSummaryXHR.done(function(data) {
             stopDetailLoading();
             klp.GKA.smsSummary = data;
@@ -261,11 +263,11 @@ var topSummaryData = {};
 
         // Fetch SMS Volume
         // Fetch users first
-        var $usersXHR = klp.api.do("survey/info/users/?survey_tag=gka", params);
+        var $usersXHR = klp.api.do("survey/info/users/?survey_id=11", params);
         $usersXHR.done(function(userGroups) {
 
             // Fetch volumes next
-            var $volumesXHR = klp.api.do("survey/volume/?survey_tag=gka", params);
+            var $volumesXHR = klp.api.do("survey/volume/?survey_id=11", params);
             $volumesXHR.done(function(volumes) {
                 var data = {
                     volumes: volumes,
@@ -277,7 +279,7 @@ var topSummaryData = {};
         });
 
         // Fetch SMS Details
-        var $detailXHR = klp.api.do("survey/detail/source/?source=sms&source=konnectsms", params);
+        var $detailXHR = klp.api.do("survey/detail/source/?survey_id=11", params);
         $detailXHR.done(function(data) {
             stopDetailLoading();
             renderSMSDetails(data);
