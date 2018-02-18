@@ -769,8 +769,8 @@ var topSummaryData = {};
             ]
         }
 
-        var chartLabel = "<div class='center-text font-small uppercase'><span class='fa fa-circle brand-orange'></span>"+
-                        " Expected Volumes <span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>";
+        var chartLabel = "<div class='center-text font-small uppercase'>" +
+            "<span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>";
 
         renderLineChart('#assmtVolume', assmt_volume);
         $('#avLegend').html(chartLabel);
