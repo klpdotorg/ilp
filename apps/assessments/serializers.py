@@ -84,7 +84,19 @@ class QuestionSerializer(ILPSerializer):
         )
 
     def get_sequence(self, question):
-        return question.id
+        try:
+            qgroup = self.context['request'].parser_context['kwargs'].get(
+                'parent_lookup_questiongroup'
+            )
+            questiongroup_question = QuestionGroup_Questions.objects.get(
+                question=question,
+                questiongroup__id=qgroup
+            )
+        except Exception as e:
+            print(e)
+            return 0
+        else:
+            return questiongroup_question.sequence
 
 
 class QuestionGroupQuestionSerializer(ILPSerializer):
