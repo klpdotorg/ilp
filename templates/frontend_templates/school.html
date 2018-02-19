@@ -667,7 +667,7 @@
         </div>
 
         <div class="base-spacing font-large">
-          <span class="icon-number icon-left">{{ count }}</span>
+          <span class="icon-number icon-left">{{ num_stories }}</span>
           <span class="text">Shared Stories</span>
         </div>
 
@@ -676,7 +676,6 @@
             {% for story in results %}
             <div class="comment-item">
                 <p class="grey-gravel bold">
-                  <p> Story group value is: {{story.group_value}}</p>
                   {% if story.group_value %}
                       {{ story.group_value }}
                   {% else %}
