@@ -19,7 +19,7 @@ from assessments.api_views import (
     QuestionGroupInstitutionAssociationViewSet,
     QuestionGroupStudentGroupAssociationViewSet,
     SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
-    SurveyBoundaryNeighbourDetailAPIView
+    SurveyBoundaryNeighbourDetailAPIView, SurveyDetailEBoundaryAPIView
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -167,7 +167,9 @@ urlpatterns = [
     url(r'survey/info/class/gender', SurveyInfoClassGenderAPIView.as_view(),
         name='survey-info-class-gender'),
     url(r'survey/info/electionboundary', SurveyInfoEBoundaryAPIView.as_view(),
-        name='survey-info-class-gender'),
+        name='survey-info-electionboundary'),
+    url(r'survey/detail/electionboundary', SurveyDetailEBoundaryAPIView.as_view(),
+        name='survey-detail-electionboundary'),
     url(r'surveys/shared-assessments', SharedAssessmentsView.as_view(),
         name='survey-shared-assessments'),
     url(r'surveys/questiongroupdetails/$', SurveyQuestionGroupDetailsAPIView.as_view(),
