@@ -543,7 +543,7 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
 
     def get_neighbour_boundaries(self):
         boundary_id = self.request.GET.get('boundary_id', None)
-        survey_tag = self.request.GET.get('survey_tag', None)
+        survey_tag = self.request.GET.get('survey_tag', 'gka')
         if boundary_id:
             neighbour_ids = BoundaryNeighbours.objects.filter(
                 boundary_id=boundary_id).\
