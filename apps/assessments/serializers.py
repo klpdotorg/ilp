@@ -78,7 +78,8 @@ class QuestionSerializer(ILPSerializer):
         model = Question
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
-            'options', 'is_featured', 'status', 'id', 'question_type_id'
+            'options', 'is_featured', 'status', 'id', 'question_type_id',
+            'lang_name',
         )
 
 
