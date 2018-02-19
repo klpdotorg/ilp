@@ -34,6 +34,7 @@ python institution/updateinstitutioncoords.py `pwd`/institution/ssa_latlong.csv 
 python institution/import_studentgroup_data.py ems $ilp 
 python institution/updatepreschoolcoords.py dubdubdub $ilp 
 python institution/updateinstitution_pincode.py ems $ilp
+python institution/updateinstitutiongpdata.py `pwd`/gp_schoolmapping.csv $ilp
 echo "Institution tables done"
 
 #Populate Student and Staff data
