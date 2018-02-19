@@ -73,14 +73,18 @@ class QuestionSerializer(ILPSerializer):
     question_type_id = serializers.IntegerField(write_only=True)
     question_type = serializers.CharField(
         read_only=True, source="question_type.display.char_id")
+    sequence = serializers.SerializerMethodField()
 
     class Meta:
         model = Question
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
             'options', 'is_featured', 'status', 'id', 'question_type_id',
-            'lang_name',
+            'lang_name', 'sequence',
         )
+
+    def get_sequence(self, question):
+        return question.id
 
 
 class QuestionGroupQuestionSerializer(ILPSerializer):
