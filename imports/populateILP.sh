@@ -1,7 +1,7 @@
 #DBs required:-
 #dubdubdub
 #ems
-#electedrep_new
+#electrep_new
 #klpdise_olap
 #ang_infra
 #spatial
@@ -16,7 +16,7 @@ ilp="$1";
 
 # Populate Boundaries 
 echo "Populating Boundaries"
-./boundary/populateBoundaryTables.sh dubdubdub electedrep_new $ilp `pwd`/boundary/temp `pwd`/boundary/sql
+./boundary/populateBoundaryTables.sh dubdubdub electrep_new $ilp `pwd`/boundary/temp `pwd`/boundary/sql
 ./boundary/updateDiseSlugs.sh $ilp
 echo "Boundaries done"
 

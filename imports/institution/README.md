@@ -7,7 +7,7 @@
     Run updateinstitution_disecode.py script:
     python updateinstitution_disecode.py <ems db> <unified db>
 
-3. Update institution table with data with SSA and electedrep data
+3. Update institution table with data with SSA and electrep data
     Run updateinstitutiondata.py script:
     python updateinstitutiondata.py <dubdubudb db> <full path to ssa_details.csv> <unified db>
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Call this script with the database name
 if [ $# -eq 0 ]; then
-    echo "Please supply database names as argument. USAGE: `basename $0` klpdbname electedrepdbname newdatabasename pathtostorecsvs pathtosqls"
+    echo "Please supply database names as argument. USAGE: `basename $0` klpdbname electrepdbname newdatabasename pathtostorecsvs pathtosqls"
     exit 1;
 fi
 echo "######################"
