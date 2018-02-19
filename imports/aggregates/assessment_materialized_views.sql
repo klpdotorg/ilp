@@ -340,6 +340,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year
     survey_tag,
     source,
     boundary_id,
+    electionboundary_id,
     (year||month)::int as yearmonth,
     num_assessments,
     num_schools,
@@ -352,6 +353,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         b.id as boundary_id,
+        eb.id as electionboundary_id,
         to_char(ag.date_of_visit,'YYYY') as year,
         to_char(ag.date_of_visit,'MM') as month,
         count(distinct ag.id) as num_assessments,
@@ -364,6 +366,7 @@ FROM(
         assessments_answergroup_institution ag,
         assessments_surveytagmapping surveytag,
         schools_institution s,
+        boundary_electionboundary eb,
         boundary_boundary b
     WHERE 
         survey.id = qg.survey_id
@@ -372,12 +375,14 @@ FROM(
         and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
         qg.source_id,
         ag.is_verified,
         b.id,
+        eb.id,
         year,month)data
 union
 SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year, month) as id,
@@ -385,6 +390,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year
     survey_tag,
     source,
     boundary_id,
+    electionboundary_id,
     (year||month)::int as yearmonth,
     num_assessments,
     num_schools,
@@ -397,6 +403,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         b.id as boundary_id,
+        eb.id as electionboundary_id,
         to_char(ag.date_of_visit,'YYYY') as year,
         to_char(ag.date_of_visit,'MM') as month,
         count(distinct ag.id) as num_assessments,
@@ -410,6 +417,7 @@ FROM(
         assessments_surveytagmapping surveytag,
         schools_student stu,
         schools_institution s,
+        boundary_electionboundary eb,
         boundary_boundary b
     WHERE 
         survey.id = qg.survey_id
@@ -419,12 +427,14 @@ FROM(
         and ag.student_id = stu.id
         and stu.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
         qg.source_id,
         ag.is_verified,
         b.id,
+        eb.id,
         year,month)data
 ;
 
