@@ -109,23 +109,30 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
         if surveyid and schoolid:
             queryset = SurveyInstitutionQuestionGroupAnsAgg.objects.\
                 filter(survey_id=surveyid).filter(institution_id=schoolid)
+            num_stories = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(questiongroup_id__in=(1,6)).count()
             question_answers = queryset.distinct('answer_option')
             distinct_questions = queryset.distinct('question_desc')
+            
             for question in distinct_questions:
                 answers = question_answers.values(
-                    'answer_option', 'num_answers'
-                )
+                    'answer_option')
                 answer_list = {}
                 for answer in answers:
+                    # There may be multiple rows with "Yes" for the same question. We need to calculate sum of all answers with "Yes".
+                    # Get all rows from the queryset which have "Yes" and do a SUM (num_answers) on this distinct answer_option
+                    filter_queryset = queryset.filter(answer_option=answer['answer_option'])
+                    sum = queryset.filter(question_desc=question.question_desc).filter(answer_option=answer['answer_option']).aggregate(total_answers=Sum('num_answers'))
+                    if sum['total_answers'] is None:
+                        sum['total_answers']=0
                     answer_list[answer['answer_option']] =\
-                        answer['num_answers']
+                        sum['total_answers']
                 answer = {
                     "display_text": question.question_desc,
                     "question_id": question.question_id.id,
                     "answers": answer_list,
                 }
                 questions_list.append(answer)
-        return Response(questions_list)
+        return Response({'num_stories': num_stories, 'results': questions_list})
 
 
 class SurveyQuestionGroupDetailsAPIView(ListAPIView):

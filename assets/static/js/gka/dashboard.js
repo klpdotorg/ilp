@@ -251,8 +251,10 @@ var topSummaryData = {};
     function loadSmsData(params) {
         startDetailLoading();
 
+        delete params.survey_tag;
+
         // Fetch SMS Summary
-        var $smsSummaryXHR = klp.api.do("survey/info/source/?survey_tag=gka", params);
+        var $smsSummaryXHR = klp.api.do("survey/info/source/?survey_id=11", params);
         $smsSummaryXHR.done(function(data) {
             stopDetailLoading();
             klp.GKA.smsSummary = data;
@@ -261,23 +263,25 @@ var topSummaryData = {};
 
         // Fetch SMS Volume
         // Fetch users first
-        var $usersXHR = klp.api.do("survey/info/users/?survey_tag=gka", params);
+        var $usersXHR = klp.api.do("survey/info/users/?survey_id=11", params);
         $usersXHR.done(function(userGroups) {
 
+            renderSMSUserCharts(userGroups.users, params);
+
             // Fetch volumes next
-            var $volumesXHR = klp.api.do("survey/volume/?survey_tag=gka", params);
+            var $volumesXHR = klp.api.do("survey/volume/?survey_id=11", params);
             $volumesXHR.done(function(volumes) {
                 var data = {
                     volumes: volumes,
                     user_groups: userGroups.users
                 };
                 stopDetailLoading();
-                renderSMSUserVolumeCharts(data, params);
+                renderSMSVolumeCharts(data, params);
             });
         });
 
         // Fetch SMS Details
-        var $detailXHR = klp.api.do("survey/detail/source/?source=sms&source=konnectsms", params);
+        var $detailXHR = klp.api.do("survey/detail/source/?survey_id=11", params);
         $detailXHR.done(function(data) {
             stopDetailLoading();
             renderSMSDetails(data);
@@ -436,7 +440,7 @@ var topSummaryData = {};
     function renderSurveySummary(data) {
         data = data.source.csv;
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
-        data["format_lastcsv"] = formatLastStory(data.last_assessment);
+        data["format_lastcsv"] = formatLastStory(data.last_assessment, true);
         data['schoolPerc'] = getPercent(data.schools_impacted, klp.GKA.topSummaryData.schools_impacted);
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
@@ -522,7 +526,7 @@ var topSummaryData = {};
             lastAssessment = data.konnectsms.last_assessment;
         }        
         summaryData.last_assessment = lastAssessment;
-        summaryData.format_lastsms = lastAssessment;
+        summaryData.format_lastsms = formatLastStory(lastAssessment, true);
 
         summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
         summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
@@ -556,29 +560,15 @@ var topSummaryData = {};
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
 
-    function renderSMSUserVolumeCharts(data, params)  {
 
+    function renderSMSUserCharts(users, params) {
         var meta_values = [];
-        var volumes = data;
 
-        // Utility function for preparing volumes
-        function prepareVolumes(year) {
-            var values = [];
-
-            for(var v in data.volumes[year]) {
-                values.push({
-                    meta: v + ' ' + year,
-                    value: data.volumes[year][v]
-                });
-            }
-            return values;
-        }
-
-        for (var m in data.user_groups) {
+        for (var m in users) {
             if(m) {
                 meta_values.push({
                     meta: m,
-                    value: data.user_groups[m]
+                    value: users[m]
                 });
             }
         }
@@ -594,6 +584,25 @@ var topSummaryData = {};
             ],
         }
         renderBarChart('#smsSender', sms_sender);
+    }
+
+
+    function renderSMSVolumeCharts(data, params)  {
+
+        var volumes = data.volumes;
+
+        // Utility function for preparing volumes
+        function prepareVolumes(year) {
+            var values = [];
+
+            for(var v in data.volumes[year]) {
+                values.push({
+                    meta: v + ' ' + year,
+                    value: data.volumes[year][v]
+                });
+            }
+            return values;
+        }
 
         // Build the data for line chart and render it
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -673,7 +682,7 @@ var topSummaryData = {};
                     "schools_perc": schools_perc,
                     "children": children,
                     "children_perc": children_perc,
-                    "last_assmt": formatLastStory(last_assmt)
+                    "last_assmt": formatLastStory(last_assmt, true)
                 }
                 renderAssmtSummary(dataSummary);
                 renderAssmtCharts(detailKeydata);
@@ -699,6 +708,7 @@ var topSummaryData = {};
     }
 
     function renderAssmtCharts(data) {
+
         function getAssmtPerc(scores, topic) {
             if (scores[topic]) {
               return getPercent(scores[topic].score, scores[topic].total)
@@ -709,7 +719,7 @@ var topSummaryData = {};
 
         var scores = data.scores;
 
-        const labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area', 'Money', 'Word Problem'];
+        const labels = Object.keys(data.scores);
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,
@@ -769,8 +779,8 @@ var topSummaryData = {};
             ]
         }
 
-        var chartLabel = "<div class='center-text font-small uppercase'><span class='fa fa-circle brand-orange'></span>"+
-                        " Expected Volumes <span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>";
+        var chartLabel = "<div class='center-text font-small uppercase'>" +
+            "<span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>";
 
         renderLineChart('#assmtVolume', assmt_volume);
         $('#avLegend').html(chartLabel);
@@ -865,22 +875,10 @@ var topSummaryData = {};
 
 
     function renderGPContestCharts(data) {
-        var topics = [
-            "Number concept",
-            "Addition",
-            "Subtraction",
-            "Multiplication",
-            "Division",
-            "Patterns",
-            "Shapes",
-            "Fractions",
-            "Decimal",
-            "Measurement"
-        ];
 
         function genCompetancyChartObj(classData) {
             var result = {
-                labels: topics,
+                labels: Object.keys(classData),
                 series: [
                     {
                         className: 'ct-series-n',
@@ -1089,7 +1087,7 @@ var topSummaryData = {};
         $this.find('.js-loading').remove();
     }
 
-    function formatLastStory(last_story) {
+    function formatLastStory(last_story, noDate) {
         var date =' ';
         var time = ' ';
         if(last_story != null) {
@@ -1101,7 +1099,8 @@ var topSummaryData = {};
                 date = moment(last_story, "YYYY-MM-DD").format("DD MMM YYYY");
             }
         }
-        return date + time;
+
+        if(noDate) { return date; } else { return date + time; }
     }
 
     function getScore(answers, option) {
