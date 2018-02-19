@@ -70,7 +70,7 @@
             <td>DISE</td>
             <td>{{ dise_code }}</td>
           </tr>
-          
+
           {% endif %}
         </table>
 
@@ -135,7 +135,7 @@
           {% if images.length > 0 %}
           <h4 class="heading-tiny-uppercase">Photos</h4>
           <div class="school-photos">
-            {% for image in images %}            
+            {% for image in images %}
               <span data-rbox-image="{{ image }}" class="rbox_img_gal image-preview-gallery"><img src="{{ image }}"></span>
             {% endfor %}
           </div>
@@ -309,7 +309,7 @@
               <td>{{funds_other_sources}}</td>
           </tr>
     </table>
-   
+
 
     <div class="center-text" id="pie_chart_finance">{ Chart here }</div>
     <!--<h4 class="heading-tiny-uppercase">SSA GRANTS ALLOCATION</h4>
@@ -373,7 +373,7 @@
           No data available.
         </div>
         {% endif %}
-      
+
       </div> <!-- /school-infra-table -->
 
       <div class="infra-key-legend">
@@ -622,37 +622,32 @@
   <div class="container">
     <div class="school-tab-story">
       <div class="school-story-visits">
-          <h4 class="heading-tiny-uppercase">Information from school visits</h4>
+        <h4 class="heading-tiny-uppercase">Information from school visits</h4>
 
-          <p>This data is gathered from vistors sharing their experiences. It indicates whether or not the school has facilities under the headings below:</p>
-
-          <table class="table-data table-data-key">
-            {% if answers %}
-                {% for answer in answers %}
-                  <tr>
-                    <td>{{ answer.display_text }}</td>
-                  </tr>
-                  <tr>
-                        {% for key, value in answer.answers %}
-                        <td>
-                          {% if key == "Yes" %}
-                              <div class="table-infra-key-color table-infra-icon-left brand-green">
-                          {% elif key == "No" %}
-                            <div class="table-infra-key-color table-infra-icon-left brand-red">
-                          {% endif %}
-                          {{ key }} - {{ value}}
-                        </td>
-                        {% endfor %}
-                      </div>
-                  </tr>
-                  {% endfor %}
-              {% else %}
-              <tr>
-                <td>No answers available for school.</td>
-                <td></td>
-              </tr>
-              {% endif %}
-          </table>
+        <p>This data is gathered from vistors sharing their experiences. It indicates whether or not the school has facilities under the headings below:</p>
+        <div>
+          {% if len(answers) %}
+            <div>
+            {% for answer in answers %}
+              <p>{{ answer.display_text }}</p>
+              <div class="sys-answers-count">
+                {% for key, value in answer.answers %}
+                  {% if key == "Yes" %}
+                    <div class="table-infra-key-color table-infra-icon-left brand-green marginRight">
+                      {{ key }}: {{ value }}
+                    </div>
+                  {% elif key == "No" %}
+                    <div class="table-infra-key-color table-infra-icon-left brand-red">
+                      {{ key }}: {{ value }}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No answers available for school.</p>
+          {% endif %}
+        </div>
       </div> <!-- /school-story-visits -->
 
       <div class="school-share-story">
@@ -693,7 +688,7 @@
         </div> <!-- /comments -->
       </div> <!-- /school-share-story -->
 
-    </div> <!-- /school-tab-story -->
+    <!--</div> <!-- /school-tab-story -->
   </div> <!-- /container -->
 
 </script>
