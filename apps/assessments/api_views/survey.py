@@ -562,9 +562,15 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 b_agg = qset.aggregate(Sum('num_assessments'))
                 sources = qset.distinct('source').\
                     values_list('source__name', flat=True)
+                source_res = {}
+                for source in sources:
+                    source_res[source] = qset.filter(
+                        source__name=source).aggregate(
+                            Sum('num_assessments')
+                        )['num_assessments__sum']
                 neighbour_res['surveys'][survey_id] = {
                     "total_assessments": b_agg['num_assessments__sum'],
-                    "sources": sources,
+                    "sources": source_res,
                     "electioncount": self.get_electionboundary(
                         n_id, survey_id
                     )
