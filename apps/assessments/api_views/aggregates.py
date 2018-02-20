@@ -290,9 +290,6 @@ class SurveyDetailSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
             question_ids = source_agg\
                 .distinct('question_id').values_list('question_id', flat=True)
             question_list = []
-            ans_options = \
-                source_agg.distinct('answer_option')\
-                .values_list('answer_option', flat=True)
             for q_id in question_ids:
                 question = Question.objects.get(id=q_id)
                 question_res = {
