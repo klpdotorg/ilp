@@ -497,10 +497,10 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                loadSmsData(params);
-                loadAssmtData(params);
+                // loadSmsData(params);
+                // loadAssmtData(params);
                 loadGPContestData(params);
-                loadSurveys(params);
+                // loadSurveys(params);
                 // loadComparison(params);
             });
         });
@@ -837,82 +837,87 @@ var topSummaryData = {};
         var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
         $summaryXHR.done(function(summaryData) {
 
-            var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
-            $genderXHR.done(function(genderData) {
+            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=2", params);
+            $gpXHR.done(function(gpData) {
 
                 var dataSummary = {
-                    "summary": {
-                        "schools":summaryData.summary.total_school,
-                        "gps": summaryData.summary.schools_impacted,
-                        "children": summaryData.summary.children_impacted
-                    },
-                    "Class 4": {
-                        "boy_perc": getPercent(
-                            genderData['Class 4 Assessment'].gender.Male.perfect_score_count,
-                            genderData['Class 4 Assessment'].gender.Male.total_count
-                        ),
-                        "girl_perc": getPercent(
-                            genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
-                            genderData['Class 4 Assessment'].gender.Female.total_count
-                        ),
-                        "total_studs": getPercent(
-                            genderData['Class 4 Assessment'].gender.Male.perfect_score_count + genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
-                            genderData['Class 4 Assessment'].gender.Male.total_count + genderData['Class 4 Assessment'].gender.Female.total_count
-                        )
-                    },
-                    "Class 5": {
-                        "boy_perc": getPercent(
-                            genderData['Class 5 Assessment'].gender.Male.perfect_score_count,
-                            genderData['Class 5 Assessment'].gender.Male.total_count
-                        ),
-                        "girl_perc": getPercent(
-                            genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
-                            genderData['Class 5 Assessment'].gender.Female.total_count
-                        ),
-                        "total_studs": getPercent(
-                            genderData['Class 5 Assessment'].gender.Male.perfect_score_count + genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
-                            genderData['Class 5 Assessment'].gender.Male.total_count + genderData['Class 5 Assessment'].gender.Female.total_count
-                        )
-                    },"Class 6": {
-                        "boy_perc": getPercent(
-                            genderData['Class 6 Assessment'].gender.Male.perfect_score_count,
-                            genderData['Class 6 Assessment'].gender.Male.total_count
-                        ),
-                        "girl_perc": getPercent(
-                            genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
-                            genderData['Class 6 Assessment'].gender.Female.total_count
-                        ),
-                        "total_studs": getPercent(
-                            genderData['Class 6 Assessment'].gender.Male.perfect_score_count + genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
-                            genderData['Class 6 Assessment'].gender.Male.total_count + genderData['Class 6 Assessment'].gender.Female.total_count
-                        )
-                    }
+                    "schools":summaryData.summary.schools_impacted,
+                    "gps": gpData.GP,
+                    "children": summaryData.summary.children_impacted
                 };
 
                 var tplSummary = swig.compile($('#tpl-gpcSummary').html());
-                var summaryHTML = tplSummary({"data": dataSummary["summary"]});
+                var summaryHTML = tplSummary({"data": dataSummary});
                 $('#gpcSummary').html(summaryHTML);
+            });
+        });
 
-                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-                summaryHTML = tplSummary({"data":dataSummary["Class 4"]});
-                $('#gpcGender_class4').html(summaryHTML);
+        var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
+        $genderXHR.done(function(genderData) {
 
-                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-                summaryHTML = tplSummary({"data":dataSummary["Class 5"]});
-                $('#gpcGender_class5').html(summaryHTML);
+            var genderSummary = {
+                "Class 4": {
+                    "boy_perc": getPercent(
+                        genderData['Class 4 Assessment'].gender.Male.perfect_score_count,
+                        genderData['Class 4 Assessment'].gender.Male.total_count
+                    ),
+                    "girl_perc": getPercent(
+                        genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 4 Assessment'].gender.Female.total_count
+                    ),
+                    "total_studs": getPercent(
+                        genderData['Class 4 Assessment'].gender.Male.perfect_score_count + genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 4 Assessment'].gender.Male.total_count + genderData['Class 4 Assessment'].gender.Female.total_count
+                    )
+                },
+                "Class 5": {
+                    "boy_perc": getPercent(
+                        genderData['Class 5 Assessment'].gender.Male.perfect_score_count,
+                        genderData['Class 5 Assessment'].gender.Male.total_count
+                    ),
+                    "girl_perc": getPercent(
+                        genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 5 Assessment'].gender.Female.total_count
+                    ),
+                    "total_studs": getPercent(
+                        genderData['Class 5 Assessment'].gender.Male.perfect_score_count + genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 5 Assessment'].gender.Male.total_count + genderData['Class 5 Assessment'].gender.Female.total_count
+                    )
+                },"Class 6": {
+                    "boy_perc": getPercent(
+                        genderData['Class 6 Assessment'].gender.Male.perfect_score_count,
+                        genderData['Class 6 Assessment'].gender.Male.total_count
+                    ),
+                    "girl_perc": getPercent(
+                        genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 6 Assessment'].gender.Female.total_count
+                    ),
+                    "total_studs": getPercent(
+                        genderData['Class 6 Assessment'].gender.Male.perfect_score_count + genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 6 Assessment'].gender.Male.total_count + genderData['Class 6 Assessment'].gender.Female.total_count
+                    )
+                }
+            };
 
-                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-                summaryHTML = tplSummary({"data":dataSummary["Class 6"]});
-                $('#gpcGender_class6').html(summaryHTML);
+            var tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+            var summaryHTML = tplSummary({"data": genderSummary["Class 4"]});
+            $('#gpcGender_class4').html(summaryHTML);
 
-                var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
-                $questionGroupXHR.done(function(questiongroupData) {
-                    renderGPContestCharts(questiongroupData);
-                });
+            tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+            summaryHTML = tplSummary({"data": genderSummary["Class 5"]});
+            $('#gpcGender_class5').html(summaryHTML);
 
-            })
+            tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+            summaryHTML = tplSummary({"data": genderSummary["Class 6"]});
+            $('#gpcGender_class6').html(summaryHTML);
 
-        })
+        });
+
+        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
+        $questionGroupXHR.done(function(questiongroupData) {
+            renderGPContestCharts(questiongroupData);
+        });
+
     }
 
 
