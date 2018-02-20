@@ -18,6 +18,9 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
     institution_queryset = SurveyInstitutionAgg.objects.all()
     boundary_queryset = SurveyBoundaryAgg.objects.all()
 
+    def institution_qs(self):
+        return self.filter_queryset(SurveyInstitutionAgg.objects.all())
+
     def get_summary_response(self, queryset):
         institution_id = self.request.query_params.get('institution_id', None)
         if institution_id:
@@ -37,14 +40,14 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
             return institution_summary_response
 
         qs_agg = queryset.aggregate(
-            Sum('num_schools'), Sum('num_children'), Sum('num_assessments'),
-            Sum('num_users')
+            Sum('num_children'), Sum('num_assessments'), Sum('num_users')
         )
         boundary_summary_response = {
             "summary": {
                 "total_school": qs_agg['num_schools__sum'],
                 "num_users": qs_agg['num_users__sum'],
-                "schools_impacted": qs_agg['num_schools__sum'],
+                "schools_impacted": self.institution_qs().distinct(
+                    'institution_id').count(),
                 "children_impacted": qs_agg['num_children__sum'],
                 "total_assessments": qs_agg['num_assessments__sum'],
                 "last_assessment": queryset.latest(
@@ -188,8 +191,8 @@ class SurveyInfoBoundarySourceAPIView(ListAPIView, ILPStateMixin):
                 boundary_res = {
                     "id": b_type_id,
                     "name": BoundaryType.objects.get(char_id=b_type_id).name,
-                    "schools_impacted": self.institution_qs().distinct(
-                        'institution_id').count(),
+                    "schools_impacted": self.institution_qs().filter(
+                        source=source_id).distinct('institution_id').count(),
                     "children_impacted": boundary_qs_agg['num_children__sum'],
                     "assessment_count": boundary_qs_agg['num_assessments__sum']
                 }

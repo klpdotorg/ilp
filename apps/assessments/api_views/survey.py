@@ -35,7 +35,7 @@ from assessments.models import (
     AnswerGroup_Institution, AnswerInstitution,
     Question, SurveyBoundaryAgg, QuestionGroup,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyBoundaryQuestionGroupQuestionKeyAgg
+    SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg
 )
 from common.models import RespondentType
 from assessments.serializers import (
@@ -140,6 +140,11 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
 class SurveyQuestionGroupDetailsAPIView(ListAPIView):
     filter_backends = [SurveyFilter, ]
 
+    def institution_qs(self):
+        return self.filter_queryset(
+            SurveyInstitutionAgg.objects.all()
+        )
+
     def get(self, request):
         questiongroup_id = self.request.query_params.get('questiongroup_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
@@ -189,7 +194,8 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             )
 
             summary_res = {
-                "schools_impacted": qs_agg['num_schools__sum'],
+                "schools_impacted": self.institution_qs().distinct(
+                    'institution_id').count(),
                 "children_impacted": qs_agg['num_children__sum'],
                 "num_assessments": qs_agg['num_assessments__sum']
             }
