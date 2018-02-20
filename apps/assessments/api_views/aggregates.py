@@ -28,7 +28,6 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
                 Sum('num_children'), Sum('num_assessments'), Sum('num_users'))
             institution_summary_response = {
                 "summary": {
-                    "total_school": 1,
                     "schools_impacted": 1,
                     "num_users": qs_agg['num_users__sum'],
                     "children_impacted": qs_agg['num_children__sum'],
@@ -44,7 +43,6 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
         )
         boundary_summary_response = {
             "summary": {
-                "total_school": qs_agg['num_schools__sum'],
                 "num_users": qs_agg['num_users__sum'],
                 "schools_impacted": self.institution_qs().distinct(
                     'institution_id').count(),
