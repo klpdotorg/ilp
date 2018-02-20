@@ -299,13 +299,13 @@ var topSummaryData = {};
         startDetailLoading();
 
         // Load the source for csv summary
-        var $sourceXHR = klp.api.do("survey/info/source/?survey_id=7", params);
+        var $sourceXHR = klp.api.do("survey/info/source/?survey_tag=gka&survey_id=7", params);
         $sourceXHR.done(function(sourceData) {
             klp.GKA.surveySummaryData = sourceData;
             renderSurveySummary(sourceData);
 
             // Load the respondent summary
-            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_id=7", params);
+            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=7", params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
                 stopDetailLoading();
@@ -313,14 +313,14 @@ var topSummaryData = {};
         });
 
         // Load the volumes
-        var $volumeXHR = klp.api.do("survey/volume/?survey_id=7", params);
+        var $volumeXHR = klp.api.do("survey/volume/?survey_tag=gka&survey_id=7", params);
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
             stopDetailLoading();
         });
 
         // Load the detail section
-        var $detailXHR = klp.api.do("survey/detail/source/?survey_id=7", params);
+        var $detailXHR = klp.api.do("survey/detail/source/?survey_tag=gka&survey_id=7", params);
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
             stopDetailLoading();
@@ -703,8 +703,6 @@ var topSummaryData = {};
     function loadAssmtData(params) {
         
         // Load summary first
-        // TODO: Check if we need to pass the survey_tag=ekstep
-        // params.survey_tag = 'ekstep';
         var $summaryXHR = klp.api.do("survey/summary/?survey_id=3", params);
         $summaryXHR.done(function(summaryData) {
             summaryData = summaryData.summary;
