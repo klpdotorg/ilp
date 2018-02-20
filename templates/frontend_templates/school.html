@@ -626,7 +626,7 @@
 
         <p>This data is gathered from vistors sharing their experiences. It indicates whether or not the school has facilities under the headings below:</p>
         <div>
-          {% if len(answers) %}
+          {% if answers %}
             <div>
             {% for answer in answers %}
               <p>{{ answer.display_text }}</p>
