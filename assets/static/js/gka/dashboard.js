@@ -842,8 +842,8 @@ var topSummaryData = {};
 
                 var dataSummary = {
                     "summary": {
-                        "schools":summaryData.summary.total_school,
-                        "gps": summaryData.summary.schools_impacted,
+                        "schools":summaryData.summary.schools_impacted,
+                        // "gps": summaryData.summary.schools_impacted,
                         "children": summaryData.summary.children_impacted
                     },
                     "Class 4": {
