@@ -628,69 +628,67 @@
         <div>
           {% if answers %}
             <div>
-            {% for answer in answers %}
-              <p>{{ answer.display_text }}</p>
-              <div class="sys-answers-count">
-                {% for key, value in answer.answers %}
-                  {% if key == "Yes" %}
-                    <div class="table-infra-key-color table-infra-icon-left brand-green marginRight">
-                      {{ key }}: {{ value }}
-                    </div>
-                  {% elif key == "No" %}
-                    <div class="table-infra-key-color table-infra-icon-left brand-red">
-                      {{ key }}: {{ value }}
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            {% endfor %}
+              {% for answer in answers %}
+                <p>{{ answer.display_text }}</p>
+                <div class="sys-answers-count">
+                  {% for key, value in answer.answers %}
+                    {% if key == "Yes" %}
+                      <div class="table-infra-key-color table-infra-icon-left brand-green marginRight">
+                        {{ key }}: {{ value }}
+                      </div>
+                    {% elif key == "No" %}
+                      <div class="table-infra-key-color table-infra-icon-left brand-red marginRight">
+                        {{ key }}: {{ value }}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endfor %}
+            </div>
           {% else %}
             <p>No answers available for school.</p>
           {% endif %}
         </div>
-      </div> <!-- /school-story-visits -->
-
+      </div>
       <div class="school-share-story">
         <div class="share-your-story">
           {% if school_type_id == "primary" %}
           <button id="share-your-story-button" class="button-orange">Share your story</button>
           <div class="base-spacing-sm"></div>
           {% endif %}
-        <div class="stats first">
-          <div class="number"></div>
-          <div class="text">Number of School Visits</div>
-        </div>
+          <div class="stats first">
+            <div class="number"></div>
+            <div class="text">Number of School Visits</div>
+          </div>
 
-        <div class="base-spacing font-large">
-          <span class="icon-number icon-left">{{ num_stories }}</span>
-          <span class="text">Shared Stories</span>
-        </div>
-
-        <div class="comments">
-            <h4 class="heading-tiny-uppercase">Visitor Comments</h4>
-            {% for story in results %}
-            <div class="comment-item">
-                <p class="grey-gravel bold">
-                  {% if story.group_value %}
-                      {{ story.group_value }}
-                  {% else %}
-                    Anonymous
+          <div class="base-spacing font-large">
+            <span class="icon-number icon-left">{{ num_stories }}</span>
+            <span class="text">Shared Stories</span>
+          </div>
+          <div class="comments">
+              <h4 class="heading-tiny-uppercase">Visitor Comments</h4>
+              {% for story in results %}
+              <div class="comment-item">
+                  <p class="grey-gravel bold">
+                    {% if story.group_value %}
+                        {{ story.group_value }}
+                    {% else %}
+                      Anonymous
+                    {% endif %}
+                  </p>
+                  {% if story.comments %}
+                    <p>{{ story.comments|autolink|safe }}</p>
                   {% endif %}
-                </p>
-                {% if story.comments %}
-                  <p>{{ story.comments|autolink|safe }}</p>
-                {% endif %}
-                {% if story.date_of_visit %}
-                <div class="heading-tiny">Shared on : {{ story.date_of_visit|date('jS F, Y') }}</div>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div> <!-- /comments -->
-      </div> <!-- /school-share-story -->
-
-    <!--</div> <!-- /school-tab-story -->
-  </div> <!-- /container -->
-
+                  {% if story.date_of_visit %}
+                  <div class="heading-tiny">Shared on : {{ story.date_of_visit|date('jS F, Y') }}</div>
+                  {% endif %}
+              </div>
+              {% endfor %}
+          </div> <!-- /comments -->
+        </div>
+      </div>
+    </div> <!-- /school-share-story -->
+  </div>
 </script>
 <!--
 <script type="text/html" id="tpl-tab-volunteer">
