@@ -4,7 +4,7 @@ import random
 from base64 import b64decode
 
 from django.conf import settings
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.contrib.gis.geos import Point
 from django.core.files.base import ContentFile
 
@@ -16,7 +16,9 @@ from rest_framework import authentication, permissions
 
 from common.mixins import ILPStateMixin
 from common.views import ILPViewSet
-from common.models import AcademicYear, Status
+from common.models import (
+    AcademicYear, Status, InstitutionType
+)
 
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
@@ -24,7 +26,9 @@ from boundary.models import (
     BoundaryType
 )
 
-from schools.models import InstitutionClassYearStuCount
+from schools.models import (
+    Institution, InstitutionClassYearStuCount
+)
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association,
@@ -266,8 +270,13 @@ class SurveyTagAggAPIView(APIView):
                    institution_type='primary')
 
         if queryset:
-            qs_agg = queryset.aggregate(Sum('num_schools'))
-            self.response["total_schools"] = qs_agg["num_schools__sum"]
+            inst_count = Institution.objects.filter(
+                institution_type_id=InstitutionType.PRIMARY_SCHOOL
+            ).filter(
+                Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
+                Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
+            ).count()
+            self.response["total_schools"] = inst_count
 
         queryset = SurveyTagMappingAgg.objects.\
             filter(boundary_id=boundary_id, survey_tag=survey_tag,
