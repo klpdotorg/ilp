@@ -497,10 +497,10 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                loadSmsData(params);
-                loadAssmtData(params);
+                // loadSmsData(params);
+                // loadAssmtData(params);
                 loadGPContestData(params);
-                loadSurveys(params);
+                // loadSurveys(params);
                 // loadComparison(params);
             });
         });
@@ -905,14 +905,16 @@ var topSummaryData = {};
                 summaryHTML = tplSummary({"data":dataSummary["Class 6"]});
                 $('#gpcGender_class6').html(summaryHTML);
 
-                var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
-                $questionGroupXHR.done(function(questiongroupData) {
-                    renderGPContestCharts(questiongroupData);
-                });
 
             })
 
-        })
+        });
+
+        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
+        $questionGroupXHR.done(function(questiongroupData) {
+            renderGPContestCharts(questiongroupData);
+        });
+
     }
 
 
