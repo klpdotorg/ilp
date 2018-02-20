@@ -837,15 +837,19 @@ var topSummaryData = {};
         var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
         $summaryXHR.done(function(summaryData) {
 
+            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=2", params);
+            $gpXHR.done(function(gpData) {
+
                 var dataSummary = {
                     "schools":summaryData.summary.schools_impacted,
-                    // "gps": summaryData.summary.schools_impacted,
+                    "gps": gpData.GP,
                     "children": summaryData.summary.children_impacted
                 };
 
                 var tplSummary = swig.compile($('#tpl-gpcSummary').html());
                 var summaryHTML = tplSummary({"data": dataSummary});
                 $('#gpcSummary').html(summaryHTML);
+            });
         });
 
         var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
