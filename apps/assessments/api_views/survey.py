@@ -514,6 +514,25 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 values_list('boundary_id', flat=True)
         return neighbour_ids
 
+    def get_electionboundary(self, boundary_id, survey_id):
+        queryset = SurveyBoundaryAgg.objects.filter(
+            boundary_id=boundary_id, survey_id=survey_id)
+        res = {
+            'MP': queryset.filter(
+                electionboundary_id__const_ward_type='MP').distinct(
+                    'electionboundary_id').count(),
+            'MLA': queryset.filter(
+                electionboundary_id__const_ward_type='MLA').distinct(
+                    'electionboundary_id').count(),
+            'GP': queryset.filter(
+                electionboundary_id__const_ward_type='GP').distinct(
+                    'electionboundary_id').count(),
+            'MW': queryset.filter(
+                electionboundary_id__const_ward_type='MW').distinct(
+                    'electionboundary_id').count(),
+        }
+        return res
+
     def get(self, request, *args, **kwargs):
         neighbour_ids = self.get_neighbour_boundaries()
         response = []
@@ -536,7 +555,10 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                     values_list('source__name', flat=True)
                 neighbour_res['surveys'][survey_id] = {
                     "total_assessments": b_agg['num_assessments__sum'],
-                    "sources": sources
+                    "sources": sources,
+                    "electioncount": self.get_electionboundary(
+                        n_id, survey_id
+                    )
                 }
             response.append(neighbour_res)
         return Response(response)
