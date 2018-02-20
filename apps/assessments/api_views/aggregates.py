@@ -659,12 +659,16 @@ class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
         queryset = self.filter_queryset(self.get_queryset())
         res = {
             'MP': queryset.filter(
-                electionboundary_id__const_ward_type='MP').count(),
+                electionboundary_id__const_ward_type='MP').distinct(
+                    'electionboundary_id').count(),
             'MLA': queryset.filter(
-                electionboundary_id__const_ward_type='MLA').count(),
+                electionboundary_id__const_ward_type='MLA').distinct(
+                    'electionboundary_id').count(),
             'GP': queryset.filter(
-                electionboundary_id__const_ward_type='GP').count(),
+                electionboundary_id__const_ward_type='GP').distinct(
+                    'electionboundary_id').count(),
             'MW': queryset.filter(
-                electionboundary_id__const_ward_type='MW').count()
+                electionboundary_id__const_ward_type='MW').distinct(
+                    'electionboundary_id').count(),
         }
         return Response(res)
