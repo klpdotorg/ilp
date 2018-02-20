@@ -497,10 +497,10 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                // loadSmsData(params);
-                // loadAssmtData(params);
+                loadSmsData(params);
+                loadAssmtData(params);
                 loadGPContestData(params);
-                // loadSurveys(params);
+                loadSurveys(params);
                 // loadComparison(params);
             });
         });
