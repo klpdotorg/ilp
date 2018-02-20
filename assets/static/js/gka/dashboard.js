@@ -834,8 +834,6 @@ var topSummaryData = {};
 
     function loadGPContestData(params){
 
-        delete params.survey_tag;
-
         var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
         $summaryXHR.done(function(summaryData) {
 
