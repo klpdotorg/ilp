@@ -629,7 +629,7 @@
           {% if answers %}
             <div>
               {% for answer in answers %}
-                <p>{{ answer.display_text }}</p>
+                <p><strong>{{ answer.display_text }}</strong></p>
                 <div class="sys-answers-count">
                   {% for key, value in answer.answers %}
                     {% if key == "Yes" %}
@@ -660,7 +660,10 @@
             <div class="number"></div>
             <div class="text">Number of School Visits</div>
           </div>
-
+        <div class="base-spacing font-large">
+              <span class="icon-number icon-left">{{ num_stories }}</span>
+              <span class="text">Shared Stories</span>
+        </div>
         <div class="comments">
             <h4 class="heading-tiny-uppercase">Visitor Comments</h4>
             {% for story in comments %}
@@ -768,7 +771,7 @@
           {% if q.question_type == 'checkbox' %}
           <input type="checkbox" name="question_{{ q.qid }}" id="id_question_{{ q.qid }}" class="input-checkbox">
           <label class="input-checkbox-label" for='id_question_{{ q.qid }}'>
-            {{ q.text }}
+            <strong>{{ q.text }}</strong>
           </label>
           {% elseif q.question_type == 'radio' %}
             <div class="base-spacing"></div>
