@@ -536,8 +536,47 @@ var topSummaryData = {};
     }
 
 
-    function renderSMSDetails(data) {
-        data = data.source;
+    function renderSMSDetails(detailsData) {
+
+        function combineSources(sourceData, sources) {
+            var combined = {
+                    combinedData: sourceData[sources[0]]
+                },
+                target = sourceData[sources[1]];
+
+
+            for(var i = 0; i < combined.combinedData.length; i++) {
+                var d = combined.combinedData[i],
+                    key = d.question ? d.question.key : null,
+                    t = null;
+
+                // Find the second source's key
+                for(var j=0; j < target.length; j++) {
+                    if(target[j] && target[j]['question']) {
+                        if(target[j]['question']['key'] === key) {
+                            t = target[j];
+                            break;
+                        }
+                    }
+                }
+
+                // Add the answers if they are present
+                if(t && t.answers) {
+                    var yes = t.answers['Yes'] ? t.answers['Yes'] : 0,
+                        no = t.answers['No'] ? t.answers['No'] : 0,
+                        dontKnow = t.answers['Don\'t Know'] ? t.answers['Don\'t Know'] : 0;
+
+                    combined.combinedData[i].answers['Yes'] += yes;
+                    combined.combinedData[i].answers['No'] += no;
+                    combined.combinedData[i].answers['Don\'t Know'] += dontKnow;
+                }
+            }
+
+
+            return combined;
+        }
+
+        var data = combineSources(detailsData.source, ['sms', 'konnectsms']);
         
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
@@ -547,7 +586,7 @@ var topSummaryData = {};
                 "ivrss-group-work"
             ],
             questionObjects = _.map(SMSQuestionKeys, function(key) {
-                return getQuestion(data, 'sms', key);
+                return getQuestion(data, 'combinedData', key);
             }),
             questions = getQuestionsArray(questionObjects),
             regroup = {},
