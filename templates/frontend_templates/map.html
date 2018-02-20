@@ -159,27 +159,40 @@
       <div class="filter-school-each">
         <div class="heading-tiny-uppercase">District</div>
         <input type="hidden" class="filter-dropdown" id="select-district" />
-        </select>
+        <div id="district-school-filter-loading">
+          <div class="fa fa-cog fa-spin loading-icon js-loading" />
+          <span>Loading</span>
+        </div>
       </div>
 
       <div class="filter-school-each">
         <div class="heading-tiny-uppercase">Block</div>
         <input type="hidden" class="filter-dropdown" id="select-block" />
+        <div id="block-school-filter-loading">
+          <div class="fa fa-cog fa-spin loading-icon js-loading" />
+          <span>Loading</span>
+        </div>
       </div>
 
       <div class="filter-school-each">
         <div class="heading-tiny-uppercase">Cluster</div>
         <input type="hidden" class="filter-dropdown" id="select-cluster" />
+        <div id="cluster-school-filter-loading">
+          <div class="fa fa-cog fa-spin loading-icon js-loading" />
+          <span>Loading</span>
+        </div>
       </div>
 
       <div class="filter-school-each">
         <div class="heading-tiny-uppercase">School</div>
         <input type="hidden" class="filter-dropdown" id="select-school" />
+        <div id="school-filter-loading">
+          <div class="fa fa-cog fa-spin loading-icon js-loading" />
+          <span>Loading</span>
+        </div>
       </div>
     </div> <!-- /filter-school-block -->
-
     <div class="base-spacing"></div>
-    <div id="tpl-filters-loading" class="fa fa-cog fa-spin loading-icon-base js-loading" />
     <div class="center-text">
       <button class="button hide" id="download-filter-schools">Download CSV</button>
     </div>
