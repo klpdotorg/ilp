@@ -79,6 +79,7 @@ class SurveyBoundaryAgg(models.Model):
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    electionboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="electionboundary_id")
     source = models.ForeignKey('Source', db_column="source")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_schools = models.IntegerField(db_column="num_schools")

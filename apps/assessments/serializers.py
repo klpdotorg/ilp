@@ -73,13 +73,30 @@ class QuestionSerializer(ILPSerializer):
     question_type_id = serializers.IntegerField(write_only=True)
     question_type = serializers.CharField(
         read_only=True, source="question_type.display.char_id")
+    sequence = serializers.SerializerMethodField()
 
     class Meta:
         model = Question
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
-            'options', 'is_featured', 'status', 'id', 'question_type_id'
+            'options', 'is_featured', 'status', 'id', 'question_type_id',
+            'lang_name', 'sequence',
         )
+
+    def get_sequence(self, question):
+        try:
+            qgroup = self.context['request'].parser_context['kwargs'].get(
+                'parent_lookup_questiongroup'
+            )
+            questiongroup_question = QuestionGroup_Questions.objects.get(
+                question=question,
+                questiongroup__id=qgroup
+            )
+        except Exception as e:
+            print(e)
+            return 0
+        else:
+            return questiongroup_question.sequence
 
 
 class QuestionGroupQuestionSerializer(ILPSerializer):

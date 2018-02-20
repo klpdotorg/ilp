@@ -545,7 +545,7 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
 
     def get_neighbour_boundaries(self):
         boundary_id = self.request.GET.get('boundary_id', None)
-        survey_tag = self.request.GET.get('survey_tag', None)
+        survey_tag = self.request.GET.get('survey_tag', 'gka')
         if boundary_id:
             neighbour_ids = BoundaryNeighbours.objects.filter(
                 boundary_id=boundary_id).\
@@ -558,10 +558,12 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
             neighbour_ids = SurveyTagMappingAgg.objects.\
                 filter(survey_tag=survey_tag).\
                 filter(**btype).\
+                distinct('boundary_id').\
                 values_list('boundary_id', flat=True)
         return neighbour_ids
 
     def get(self, request, *args, **kwargs):
+        survey_ids = self.request.GET.getlist('survey_ids', [])
         neighbour_ids = self.get_neighbour_boundaries()
         response = []
         neighbour_res = {}
@@ -574,8 +576,11 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
             qs = self.queryset.filter(boundary_id=n_id)
             qs = self.filter_queryset(qs)
             survey_res = {}
-            surveys = qs.distinct('survey_id').values_list(
-                'survey_id', flat=True)
+
+            surveys = qs.filter(survey_id__in=survey_ids).\
+                distinct('survey_id').\
+                values_list('survey_id', flat=True)
+
             for survey_id in surveys:
                 survey_name = Survey.objects.get(id=survey_id).name
                 survey_qs = qs.values('survey_id').filter(survey_id=survey_id)

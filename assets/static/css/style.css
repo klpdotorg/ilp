@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* RESET.CSS */
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -2269,7 +2269,7 @@ increase padding of lightbox icons
 
 //on library page, both blue and yellow show 9-10 sentences
 
-//consider adding a separate class for the header in breadcrumb for map and removing 
+//consider adding a separate class for the header in breadcrumb for map and removing
 the css in the head of map.html
 
 // role=tooltip is technically wrong because it violates when there's no described by
@@ -2987,6 +2987,14 @@ body {
 .school-demo-tab .module-stats-icon {
   display: block;
   margin-left: 10px; }
+
+.sys-answers-count {
+  display: flex;
+}
+
+.sys-answers-count .marginRight {
+  margin-right: 30px;
+}
 
 @media only print, only screen and (min-width: 750px) {
   .school-data-wrap, .tab-school-infra-block, .school-tab-story {
@@ -4781,11 +4789,11 @@ code {
   color: #4d4d4d; }
 
 /*--- with font awesome icons ----*/
-/*.stepy-header li.stepy-active div {visibility: collapse;} 
-    .stepy-header li.stepy-active div:after { 
+/*.stepy-header li.stepy-active div {visibility: collapse;}
+    .stepy-header li.stepy-active div:after {
         visibility: visible;
         margin: -30px auto;
-        content: "\f21c"; 
+        content: "\f21c";
         background-image: url(/static/images/story/auto.png);
         background-repeat: no-repeat;
         background-attachment: fixed;

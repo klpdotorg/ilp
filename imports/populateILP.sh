@@ -1,7 +1,7 @@
 #DBs required:-
 #dubdubdub
 #ems
-#electedrep_new
+#electrep_new
 #klpdise_olap
 #ang_infra
 #spatial
@@ -16,7 +16,7 @@ ilp="$1";
 
 # Populate Boundaries 
 echo "Populating Boundaries"
-./boundary/populateBoundaryTables.sh dubdubdub electedrep_new $ilp `pwd`/boundary/temp `pwd`/boundary/sql
+./boundary/populateBoundaryTables.sh dubdubdub electrep_new $ilp `pwd`/boundary/temp `pwd`/boundary/sql
 ./boundary/updateDiseSlugs.sh $ilp
 echo "Boundaries done"
 
@@ -34,6 +34,7 @@ python institution/updateinstitutioncoords.py `pwd`/institution/ssa_latlong.csv 
 python institution/import_studentgroup_data.py ems $ilp 
 python institution/updatepreschoolcoords.py dubdubdub $ilp 
 python institution/updateinstitution_pincode.py ems $ilp
+python institution/updateinstitutiongpdata.py `pwd`/gp_schoolmapping.csv $ilp
 echo "Institution tables done"
 
 #Populate Student and Staff data

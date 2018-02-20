@@ -95,7 +95,7 @@ Databases required before beginning imports :
 * ems
 * dubdubdub
 * klp-coord
-* electedrep_new
+* electrep_new
 * spatial
 * klpdise_olap
 * ang_infra
