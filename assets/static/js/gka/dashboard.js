@@ -105,8 +105,9 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
-        var $metaXHR = klp.api.do("survey/info/class/gender", params);
         startDetailLoading();
+
+        var $metaXHR = klp.api.do("survey/info/class/gender", params);
         $metaXHR.done(function(data)
         {
             var neighbours = _.map(data.summary_comparison, function(summary){
@@ -251,11 +252,10 @@ var topSummaryData = {};
     function loadSmsData(params) {
         startDetailLoading();
 
-        params.survey_tag = 'gka';
-        params.survey_id = 11;
-
         // Fetch SMS Summary
-        var $smsSummaryXHR = klp.api.do("survey/info/source/", params);
+        var $smsSummaryXHR = klp.api.do(
+            "survey/info/source/?survey_tag=gka&survey_id=11", params
+        );
         $smsSummaryXHR.done(function(data) {
             stopDetailLoading();
             klp.GKA.smsSummary = data;
@@ -264,13 +264,17 @@ var topSummaryData = {};
 
         // Fetch SMS Volume
         // Fetch users first
-        var $usersXHR = klp.api.do("survey/info/users/", params);
+        var $usersXHR = klp.api.do(
+            "survey/info/users/?survey_tag=gka&survey_id=11", params
+        );
         $usersXHR.done(function(userGroups) {
 
             renderSMSUserCharts(userGroups.users, params);
 
             // Fetch volumes next
-            var $volumesXHR = klp.api.do("survey/volume/", params);
+            var $volumesXHR = klp.api.do(
+                "survey/volume/?survey_tag=gka&survey_id=11", params
+            );
             $volumesXHR.done(function(volumes) {
                 var data = {
                     volumes: volumes,
@@ -282,7 +286,9 @@ var topSummaryData = {};
         });
 
         // Fetch SMS Details
-        var $detailXHR = klp.api.do("survey/detail/source/", params);
+        var $detailXHR = klp.api.do(
+            "survey/detail/source/?survey_tag=gka&survey_id=11", params
+        );
         $detailXHR.done(function(data) {
             stopDetailLoading();
             renderSMSDetails(data);
@@ -459,7 +465,7 @@ var topSummaryData = {};
             params.year = params.from.slice(2, 4) + params.to.slice(2, 4);
         }
 
-        // Top summary doesnt need a from and to
+        // Top summary doesn't need a from and to
         delete params.from;
         delete params.to;
 
@@ -481,8 +487,9 @@ var topSummaryData = {};
             delete params.year;
 
             // Load the users Education volunteers count
-            params.survey_tag = 'gka';
-            var $usersXHR = klp.api.do("survey/summary/", params);
+            var $usersXHR = klp.api.do(
+                "survey/summary/?survey_tag=gka", params
+            );
             $usersXHR.done(function(data) {
                 topSummary.active_users = (data.summary && data.summary.num_users) ? data.summary.num_users : 0; 
 
