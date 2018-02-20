@@ -142,8 +142,8 @@ class SurveyInfoSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
             qs_agg = self.get_qs_agg(queryset, source_id)
 
             source_res[source_name] = {
-                "schools_impacted": self.institution_qs().distinct(
-                    'institution_id').count(),
+                "schools_impacted": self.institution_qs().filter(
+                    source=source_id).distinct('institution_id').count(),
                 "assessment_count": qs_agg['num_assessments__sum'],
                 "last_assessment": queryset.latest(
                     'last_assessment'
