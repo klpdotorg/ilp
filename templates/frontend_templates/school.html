@@ -673,22 +673,22 @@
 
         <div class="comments">
             <h4 class="heading-tiny-uppercase">Visitor Comments</h4>
-            {% for story in results %}
-            <div class="comment-item">
-                <p class="grey-gravel bold">
-                  {% if story.group_value %}
-                      {{ story.group_value }}
-                  {% else %}
-                    Anonymous
-                  {% endif %}
-                </p>
-                {% if story.comments %}
+            {% for story in comments %}
+            {% if story.comments %}
+              <div class="comment-item">
+                  <p class="grey-gravel bold">
+                    {% if story.group_value %}
+                        {{ story.group_value }}
+                    {% else %}
+                      Anonymous
+                    {% endif %}
+                  </p>
                   <p>{{ story.comments|autolink|safe }}</p>
-                {% endif %}
-                {% if story.date_of_visit %}
-                <div class="heading-tiny">Shared on : {{ story.date_of_visit|date('jS F, Y') }}</div>
-                {% endif %}
-            </div>
+                  {% if story.date_of_visit %}
+                  <div class="heading-tiny">Shared on : {{ story.date_of_visit|date('jS F, Y') }}</div>
+                  {% endif %}
+              </div>
+            {% endif %}
             {% endfor %}
         </div> <!-- /comments -->
       </div> <!-- /school-share-story -->

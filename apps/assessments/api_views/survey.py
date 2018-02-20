@@ -110,6 +110,8 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
             queryset = SurveyInstitutionQuestionGroupAnsAgg.objects.\
                 filter(survey_id=surveyid).filter(institution_id=schoolid)
             num_stories = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(questiongroup_id__in=(1,6)).count()
+            comments = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(questiongroup_id__in=(1,6)).values('comments', 'group_value')
+            
             question_answers = queryset.distinct('answer_option')
             distinct_questions = queryset.distinct('question_desc')
             
@@ -132,7 +134,7 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
                     "answers": answer_list,
                 }
                 questions_list.append(answer)
-        return Response({'num_stories': num_stories, 'results': questions_list})
+        return Response({'num_stories': num_stories, 'results': questions_list, 'comments': comments})
 
 
 class SurveyQuestionGroupDetailsAPIView(ListAPIView):
