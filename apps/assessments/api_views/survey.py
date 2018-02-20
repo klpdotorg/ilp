@@ -601,6 +601,9 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
 
     def get(self, request, *args, **kwargs):
         survey_ids = self.request.GET.getlist('survey_ids', [])
+        if not survey_ids:
+            raise ParseError("Mandatory parameter survey_ids not passed")
+
         neighbour_ids = self.get_neighbour_boundaries()
         response = []
         neighbour_res = {}
