@@ -37,7 +37,8 @@ class SurveyFilter(BaseFilterBackend):
 
         if survey_id:
             queryset = queryset.filter(survey_id=survey_id)
-        elif survey_tag:
+
+        if survey_tag:
             queryset = queryset.filter(survey_tag=survey_tag)
 
         if institution_type:
