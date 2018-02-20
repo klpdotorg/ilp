@@ -550,7 +550,12 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
             neighbour_res = {}
             neighbour_res['name'] = n_boundary.name
             neighbour_res['type'] = n_boundary.type.name
-            neighbour_res['schools'] = 0
+            neighbour_res['schools'] = Institution.objects.filter(
+                institution_type_id=InstitutionType.PRIMARY_SCHOOL
+            ).filter(
+                Q(admin0_id=n_id) | Q(admin1_id=n_id) |
+                Q(admin2_id=n_id) | Q(admin3_id=n_id)
+            ).count()
             neighbour_res['surveys'] = {}
 
             survey_ids = self.queryset.filter(boundary_id=n_id)
