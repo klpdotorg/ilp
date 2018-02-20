@@ -844,7 +844,6 @@ var topSummaryData = {};
                     "summary": {
                         "schools":summaryData.summary.total_school,
                         "gps": summaryData.summary.schools_impacted,
-                        "contests":summaryData.summary.total_assessments,
                         "children": summaryData.summary.children_impacted
                     },
                     "Class 4": {
