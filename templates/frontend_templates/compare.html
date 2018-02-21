@@ -2,7 +2,7 @@
   <script type="text/html" id="tpl-compare-option">
     <span class="h4 brand-{{ type_name }}">
       <span class="icon-number">
-        {% if type.id==1 %} S {% else %} P {% endif %}
+        {% if type.id=="primary" %} S {% else %} P {% endif %}
       </span>
 
       {{ name }}
@@ -15,11 +15,11 @@
         <div class="map-label-name">{{ admin1.name|capitalize }}</div>
 
       <li class="map-label-each">
-        <div class="map-label-title">{% if type.id==1 %}Block {% else %} Project {% endif %}</div>
+        <div class="map-label-title">{% if type.id=="primary" %}Block {% else %} Project {% endif %}</div>
         <div class="map-label-name">{{ admin2.name|capitalize }}</div>
 
       <li class="map-label-each">
-        <div class="map-label-title">{% if type.id==1 %}Cluster {% else %} Circle {% endif %}</div>
+        <div class="map-label-title">{% if type.id=="primary" %}Cluster {% else %} Circle {% endif %}</div>
         <div class="map-label-name">{{ admin3.name|capitalize }}</div>
     </ul>
   </script>
@@ -123,7 +123,7 @@
       
       <div class="center-text">        
         <div class="compare-section-source">
-          Source: KLP Database (2013-2014), <strong>NUEPA-DISE</strong>
+          Source: KLP Database ({{ window.klp.DEFAULT_ACADEMIC_YEAR }}), <strong>NUEPA-DISE ({{ window.klp.DISE_ACADEMIC_YEAR }})</strong>
         </div>
       </div>
       <!--
@@ -219,7 +219,7 @@
       </div>
       <div class="center-text">        
         <div class="compare-section-source">
-          Source: KLP Database (2013-2014), <strong>NUEPA-DISE</strong>
+          Source: KLP Database ({{window.klp.DEFAULT_ACADEMIC_YEAR}}), <strong>NUEPA-DISE ({{ window.klp.DISE_ACADEMIC_YEAR }})</strong>
         </div>
       </div>
   
@@ -581,7 +581,7 @@
         <div class="clr"></div>
         <div class="aggregate-stats width-400">
           <div class="text">
-            Source: KLP Database (2013-2014), <strong>NUEPA-DISE</strong>
+            Source: KLP Database ({{ window.klp.DEFAULT_ACADEMIC_YEAR }}), <strong>NUEPA-DISE ({{ window.klp.DISE_ACADEMIC_YEAR }})</strong>
           </div>
         </div>
         <!--
@@ -632,7 +632,7 @@
       </div>
       <div class="center-text">
         <div class="compare-section-source">
-          Source: KLP Database (2013-2014), <strong>NUEPA-DISE</strong>
+          Source: KLP Database ({{ window.klp.DEFAULT_ACADEMIC_YEAR }}), <strong>NUEPA-DISE {{ window.klp.DISE_ACADEMIC_YEAR }}</strong>
         </div>
       </div>
     </div>
@@ -720,7 +720,7 @@
           <div class="clr"></div>
           <div class="aggregate-stats width-400">
             <div class="text">
-              Source: KLP Database (2011-2012), <strong>NUEPA-DISE</strong>
+              Source: KLP Database ({{ window.klp.DEFAULT_ACADEMIC_YEAR }}), <strong>NUEPA-DISE {{ window.klp.DISE_ACADEMIC_YEAR }}</strong>
             </div>
           </div>
         </div>
@@ -786,7 +786,7 @@
 
       <div class="aggregate-stats width-400">
         <div class="text">
-          Source: KLP Database (2013-2014), <strong>NUEPA-DISE</strong>
+          Source: KLP Database ({{ window.klp.DEFAULT_ACADEMIC_YEAR }}), <strong>NUEPA-DISE {{ window.klp.DISE_ACADEMIC_YEAR }}</strong>
         </div>
       </div>
     </div>
