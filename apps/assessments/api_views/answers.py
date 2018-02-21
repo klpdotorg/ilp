@@ -223,13 +223,16 @@ class AnswersInstitutionViewSet( NestedViewSetMixin,
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
         print("Arguments passed into view is: %s", parents_query_dict)
-        # Remove all the unwanted params
-        parents_query_dict.pop('institution')
-        parents_query_dict.pop('questiongroup')
-        parents_query_dict.pop('survey')
+       
         if parents_query_dict:
+             # Remove all the unwanted params
+            institution = parents_query_dict.pop('institution')
+            questiongroup = parents_query_dict.pop('questiongroup')
+            survey = parents_query_dict.pop('survey')
             try:
-                queryset = queryset.filter(**parents_query_dict).order_by().distinct('id')
+                answergroupids = AnswerGroup_Institution.objects.filter(institution_id=institution).filter(
+                                questiongroup_id=questiongroup).values('id')
+                queryset = queryset.filter(answergroup_id__in=answergroupids).filter(**parents_query_dict).order_by().distinct('id')
             except ValueError:
                 print(("Exception while filtering queryset based on dictionary.Params: %s, Queryset is: %s"),
                     parents_query_dict, queryset)
