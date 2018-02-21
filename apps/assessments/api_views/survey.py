@@ -673,7 +673,7 @@ class SurveyUsersCountAPIView(ListAPIView):
         ).values_list('survey_id', flat=True)
         questiongroup_ids = QuestionGroup.objects.filter(
             survey_id__in=survey_ids).values_list('id', flat=True)
-        count = AnswerGroup_Student.objects.filter(
+        count = AnswerGroup_Institution.objects.filter(
             questiongroup_id__in=questiongroup_ids).\
             distinct('created_by_id').count()
         return Response({"count": count})
