@@ -105,8 +105,9 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
-        var $metaXHR = klp.api.do("survey/info/class/gender", params);
         startDetailLoading();
+
+        var $metaXHR = klp.api.do("survey/info/class/gender", params);
         $metaXHR.done(function(data)
         {
             var neighbours = _.map(data.summary_comparison, function(summary){
@@ -252,7 +253,9 @@ var topSummaryData = {};
         startDetailLoading();
 
         // Fetch SMS Summary
-        var $smsSummaryXHR = klp.api.do("survey/info/source/?survey_tag=gka", params);
+        var $smsSummaryXHR = klp.api.do(
+            "survey/info/source/?survey_tag=gka&survey_id=11", params
+        );
         $smsSummaryXHR.done(function(data) {
             stopDetailLoading();
             klp.GKA.smsSummary = data;
@@ -261,23 +264,31 @@ var topSummaryData = {};
 
         // Fetch SMS Volume
         // Fetch users first
-        var $usersXHR = klp.api.do("survey/info/users/?survey_tag=gka", params);
+        var $usersXHR = klp.api.do(
+            "survey/info/users/?survey_tag=gka&survey_id=11", params
+        );
         $usersXHR.done(function(userGroups) {
 
+            renderSMSUserCharts(userGroups.users, params);
+
             // Fetch volumes next
-            var $volumesXHR = klp.api.do("survey/volume/?survey_tag=gka", params);
+            var $volumesXHR = klp.api.do(
+                "survey/volume/?survey_tag=gka&survey_id=11", params
+            );
             $volumesXHR.done(function(volumes) {
                 var data = {
                     volumes: volumes,
                     user_groups: userGroups.users
                 };
                 stopDetailLoading();
-                renderSMSUserVolumeCharts(data, params);
+                renderSMSVolumeCharts(data, params);
             });
         });
 
         // Fetch SMS Details
-        var $detailXHR = klp.api.do("survey/detail/source/?source=sms&source=konnectsms", params);
+        var $detailXHR = klp.api.do(
+            "survey/detail/source/?survey_tag=gka&survey_id=11", params
+        );
         $detailXHR.done(function(data) {
             stopDetailLoading();
             renderSMSDetails(data);
@@ -288,13 +299,13 @@ var topSummaryData = {};
         startDetailLoading();
 
         // Load the source for csv summary
-        var $sourceXHR = klp.api.do("survey/info/source/?survey_id=7", params);
+        var $sourceXHR = klp.api.do("survey/info/source/?survey_tag=gka&survey_id=7", params);
         $sourceXHR.done(function(sourceData) {
             klp.GKA.surveySummaryData = sourceData;
             renderSurveySummary(sourceData);
 
             // Load the respondent summary
-            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_id=7", params);
+            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=7", params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
                 stopDetailLoading();
@@ -302,14 +313,14 @@ var topSummaryData = {};
         });
 
         // Load the volumes
-        var $volumeXHR = klp.api.do("survey/volume/?survey_id=7", params);
+        var $volumeXHR = klp.api.do("survey/volume/?survey_tag=gka&survey_id=7", params);
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
             stopDetailLoading();
         });
 
         // Load the detail section
-        var $detailXHR = klp.api.do("survey/detail/source/?survey_id=7", params);
+        var $detailXHR = klp.api.do("survey/detail/source/?survey_tag=gka&survey_id=7", params);
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
             stopDetailLoading();
@@ -436,7 +447,7 @@ var topSummaryData = {};
     function renderSurveySummary(data) {
         data = data.source.csv;
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
-        data["format_lastcsv"] = formatLastStory(data.last_assessment);
+        data["format_lastcsv"] = formatLastStory(data.last_assessment, true);
         data['schoolPerc'] = getPercent(data.schools_impacted, klp.GKA.topSummaryData.schools_impacted);
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
@@ -454,7 +465,7 @@ var topSummaryData = {};
             params.year = params.from.slice(2, 4) + params.to.slice(2, 4);
         }
 
-        // Top summary doesnt need a from and to
+        // Top summary doesn't need a from and to
         delete params.from;
         delete params.to;
 
@@ -476,8 +487,9 @@ var topSummaryData = {};
             delete params.year;
 
             // Load the users Education volunteers count
-            params.survey_tag = 'gka';
-            var $usersXHR = klp.api.do("survey/summary/", params);
+            var $usersXHR = klp.api.do(
+                "survey/summary/?survey_tag=gka", params
+            );
             $usersXHR.done(function(data) {
                 topSummary.active_users = (data.summary && data.summary.num_users) ? data.summary.num_users : 0; 
 
@@ -522,7 +534,7 @@ var topSummaryData = {};
             lastAssessment = data.konnectsms.last_assessment;
         }        
         summaryData.last_assessment = lastAssessment;
-        summaryData.format_lastsms = lastAssessment;
+        summaryData.format_lastsms = formatLastStory(lastAssessment, true);
 
         summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
         summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
@@ -532,8 +544,47 @@ var topSummaryData = {};
     }
 
 
-    function renderSMSDetails(data) {
-        data = data.source;
+    function renderSMSDetails(detailsData) {
+
+        function combineSources(sourceData, sources) {
+            var combined = {
+                    combinedData: sourceData[sources[0]]
+                },
+                target = sourceData[sources[1]];
+
+
+            for(var i = 0; i < combined.combinedData.length; i++) {
+                var d = combined.combinedData[i],
+                    key = d.question ? d.question.key : null,
+                    t = null;
+
+                // Find the second source's key
+                for(var j=0; j < target.length; j++) {
+                    if(target[j] && target[j]['question']) {
+                        if(target[j]['question']['key'] === key) {
+                            t = target[j];
+                            break;
+                        }
+                    }
+                }
+
+                // Add the answers if they are present
+                if(t && t.answers) {
+                    var yes = t.answers['Yes'] ? t.answers['Yes'] : 0,
+                        no = t.answers['No'] ? t.answers['No'] : 0,
+                        dontKnow = t.answers['Don\'t Know'] ? t.answers['Don\'t Know'] : 0;
+
+                    combined.combinedData[i].answers['Yes'] += yes;
+                    combined.combinedData[i].answers['No'] += no;
+                    combined.combinedData[i].answers['Don\'t Know'] += dontKnow;
+                }
+            }
+
+
+            return combined;
+        }
+
+        var data = combineSources(detailsData.source, ['sms', 'konnectsms']);
         
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
@@ -543,7 +594,7 @@ var topSummaryData = {};
                 "ivrss-group-work"
             ],
             questionObjects = _.map(SMSQuestionKeys, function(key) {
-                return getQuestion(data, 'sms', key);
+                return getQuestion(data, 'combinedData', key);
             }),
             questions = getQuestionsArray(questionObjects),
             regroup = {},
@@ -556,29 +607,15 @@ var topSummaryData = {};
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
 
-    function renderSMSUserVolumeCharts(data, params)  {
 
+    function renderSMSUserCharts(users, params) {
         var meta_values = [];
-        var volumes = data;
 
-        // Utility function for preparing volumes
-        function prepareVolumes(year) {
-            var values = [];
-
-            for(var v in data.volumes[year]) {
-                values.push({
-                    meta: v + ' ' + year,
-                    value: data.volumes[year][v]
-                });
-            }
-            return values;
-        }
-
-        for (var m in data.user_groups) {
+        for (var m in users) {
             if(m) {
                 meta_values.push({
                     meta: m,
-                    value: data.user_groups[m]
+                    value: users[m]
                 });
             }
         }
@@ -594,6 +631,25 @@ var topSummaryData = {};
             ],
         }
         renderBarChart('#smsSender', sms_sender);
+    }
+
+
+    function renderSMSVolumeCharts(data, params)  {
+
+        var volumes = data.volumes;
+
+        // Utility function for preparing volumes
+        function prepareVolumes(year) {
+            var values = [];
+
+            for(var v in data.volumes[year]) {
+                values.push({
+                    meta: v + ' ' + year,
+                    value: data.volumes[year][v]
+                });
+            }
+            return values;
+        }
 
         // Build the data for line chart and render it
         var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -647,8 +703,6 @@ var topSummaryData = {};
     function loadAssmtData(params) {
         
         // Load summary first
-        // TODO: Check if we need to pass the survey_tag=ekstep
-        // params.survey_tag = 'ekstep';
         var $summaryXHR = klp.api.do("survey/summary/?survey_id=3", params);
         $summaryXHR.done(function(summaryData) {
             summaryData = summaryData.summary;
@@ -673,7 +727,7 @@ var topSummaryData = {};
                     "schools_perc": schools_perc,
                     "children": children,
                     "children_perc": children_perc,
-                    "last_assmt": formatLastStory(last_assmt)
+                    "last_assmt": formatLastStory(last_assmt, true)
                 }
                 renderAssmtSummary(dataSummary);
                 renderAssmtCharts(detailKeydata);
@@ -699,6 +753,7 @@ var topSummaryData = {};
     }
 
     function renderAssmtCharts(data) {
+
         function getAssmtPerc(scores, topic) {
             if (scores[topic]) {
               return getPercent(scores[topic].score, scores[topic].total)
@@ -707,9 +762,9 @@ var topSummaryData = {};
             }
         }
 
-        var scores = data.scores
+        var scores = data.scores;
 
-        const labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area', 'Money', 'Word Problem'];
+        const labels = Object.keys(data.scores);
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,
@@ -769,8 +824,8 @@ var topSummaryData = {};
             ]
         }
 
-        var chartLabel = "<div class='center-text font-small uppercase'><span class='fa fa-circle brand-orange'></span>"+
-                        " Expected Volumes <span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>";
+        var chartLabel = "<div class='center-text font-small uppercase'>" +
+            "<span class='fa fa-circle pink-salmon'></span> Actual Volumes</div>";
 
         renderLineChart('#assmtVolume', assmt_volume);
         $('#avLegend').html(chartLabel);
@@ -779,100 +834,129 @@ var topSummaryData = {};
 
     function loadGPContestData(params){
 
-        var $summaryXHR = klp.api.do("/api/v1/survey/summary/?survey_id=2", params);
+        var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
         $summaryXHR.done(function(summaryData) {
 
-            var metaURL = "survey/info/class/gender/?survey_id=2";
-            var $metaXHR = klp.api.do(metaURL, params);
-            $metaXHR.done(function(data) {
+            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=2", params);
+            $gpXHR.done(function(gpData) {
 
                 var dataSummary = {
-                    "summary": {
-                        "schools":summaryData.summary.total_school,
-                        "gps": summaryData.summary.schools_impacted,
-                        "contests":summaryData.summary.total_assessments,
-                        "children": summaryData.summary.children_impacted
-                    } //,
-                    /*"Class 4": {
-                        "boy_perc": getPercent(data['4'].males_score, data['4'].males),
-                        "girl_perc": getPercent(data['4'].females_score, data['4'].females),
-                        "total_studs": getPercent(
-                            data['4'].males_score + data['4'].females_score,
-                            data['4'].males+data['4'].females
-                        )
-                    },
-                    "Class 5": {
-                        "boy_perc": getPercent(data['5'].males_score, data['5'].males),
-                        "girl_perc": getPercent(data['5'].females_score, data['5'].females),
-                        "total_studs": getPercent(
-                            data['5'].males_score + data['5'].females_score,
-                            data['5'].males + data['5'].females
-                        )
-                    },
-                    "Class 6": {
-                        "boy_perc": getPercent(data['6'].males_score, data['6'].males),
-                        "girl_perc": getPercent(data['6'].females_score, data['6'].females),
-                        "total_studs": getPercent(
-                            data['6'].males_score + data['6'].females_score,
-                            data['6'].males + data['6'].females
-                        )
-                    }*/
-                }
+                    "schools":summaryData.summary.schools_impacted,
+                    "gps": gpData.GP,
+                    "children": summaryData.summary.children_impacted
+                };
 
                 var tplSummary = swig.compile($('#tpl-gpcSummary').html());
-                var summaryHTML = tplSummary({"data": dataSummary["summary"]});
+                var summaryHTML = tplSummary({"data": dataSummary});
                 $('#gpcSummary').html(summaryHTML);
+            });
+        });
 
-                return;
+        var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
+        $genderXHR.done(function(genderData) {
 
-                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-                summaryHTML = tplSummary({"data":dataSummary["Class 4"]});
-                $('#gpcGender_class4').html(summaryHTML);
+            var genderSummary = {
+                "Class 4": {
+                    "boy_perc": getPercent(
+                        genderData['Class 4 Assessment'].gender.Male.perfect_score_count,
+                        genderData['Class 4 Assessment'].gender.Male.total_count
+                    ),
+                    "girl_perc": getPercent(
+                        genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 4 Assessment'].gender.Female.total_count
+                    ),
+                    "total_studs": getPercent(
+                        genderData['Class 4 Assessment'].gender.Male.perfect_score_count + genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 4 Assessment'].gender.Male.total_count + genderData['Class 4 Assessment'].gender.Female.total_count
+                    )
+                },
+                "Class 5": {
+                    "boy_perc": getPercent(
+                        genderData['Class 5 Assessment'].gender.Male.perfect_score_count,
+                        genderData['Class 5 Assessment'].gender.Male.total_count
+                    ),
+                    "girl_perc": getPercent(
+                        genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 5 Assessment'].gender.Female.total_count
+                    ),
+                    "total_studs": getPercent(
+                        genderData['Class 5 Assessment'].gender.Male.perfect_score_count + genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 5 Assessment'].gender.Male.total_count + genderData['Class 5 Assessment'].gender.Female.total_count
+                    )
+                },"Class 6": {
+                    "boy_perc": getPercent(
+                        genderData['Class 6 Assessment'].gender.Male.perfect_score_count,
+                        genderData['Class 6 Assessment'].gender.Male.total_count
+                    ),
+                    "girl_perc": getPercent(
+                        genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 6 Assessment'].gender.Female.total_count
+                    ),
+                    "total_studs": getPercent(
+                        genderData['Class 6 Assessment'].gender.Male.perfect_score_count + genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
+                        genderData['Class 6 Assessment'].gender.Male.total_count + genderData['Class 6 Assessment'].gender.Female.total_count
+                    )
+                }
+            };
 
-                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-                summaryHTML = tplSummary({"data":dataSummary["Class 5"]});
-                $('#gpcGender_class5').html(summaryHTML);
+            var tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+            var summaryHTML = tplSummary({"data": genderSummary["Class 4"]});
+            $('#gpcGender_class4').html(summaryHTML);
 
-                tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
-                summaryHTML = tplSummary({"data":dataSummary["Class 6"]});
-                $('#gpcGender_class6').html(summaryHTML);
+            tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+            summaryHTML = tplSummary({"data": genderSummary["Class 5"]});
+            $('#gpcGender_class5').html(summaryHTML);
 
-                renderGPContestCharts(data);
+            tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
+            summaryHTML = tplSummary({"data": genderSummary["Class 6"]});
+            $('#gpcGender_class6').html(summaryHTML);
 
+        });
 
-            })
+        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
+        $questionGroupXHR.done(function(questiongroupData) {
+            renderGPContestCharts(questiongroupData);
+        });
 
-        })
     }
 
 
     function renderGPContestCharts(data) {
-        function aggCompetancies(competancies) {
-            var topics = ["Number concept","Addition","Subtraction","Multiplication","Division","Patterns","Shapes","Fractions","Decimal","Measurement"]
-            var competanciesKeys = Object.keys(competancies)
-            var result = {}
-            for (var topic of topics) {
-                result[topic] = {'Yes': 0, 'No': 0}
 
-                for (var key of competanciesKeys) {
-                    if (key.indexOf(topic) !== -1) {
-                        result[topic]['Yes'] += competancies[key]['Yes']
-                        result[topic]['No'] += competancies[key]['No']
+        function genCompetancyChartObj(classData) {
+            var result = {
+                labels: Object.keys(classData),
+                series: [
+                    {
+                        className: 'ct-series-n',
+                        data: []
                     }
-                }
+                ]
+            };
+
+            for(var c in classData) {
+                var total = classData[c].total,
+                    score = classData[c].score,
+                    item = {
+                        meta: c,
+                        value: getPercent(score, total)
+                    };
+                result.series[0].data.push(item);
             }
-            return result
+            return result;
         }
 
-        var class4competancies = genCompetancyChartObj(aggCompetancies(data['4'].competancies));
-        var class5competancies = genCompetancyChartObj(aggCompetancies(data['5'].competancies));
-        var class6competancies = genCompetancyChartObj(aggCompetancies(data['6'].competancies));
+
+        var class4competancies = genCompetancyChartObj(data['Class 4 Assessment']);
+        var class5competancies = genCompetancyChartObj(data['Class 5 Assessment']);
+        var class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
+
         renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
         renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");
         renderBarChart('#gpcGraph_class6', class6competancies, "Percentage of Children");
     }
 
-    function genCompetancyChartObj(aggCompetancies) {
+    function OBSgenCompetancyChartObj(aggCompetancies) {
         function getTopicPerc(competancy){
             var yesVal = competancy['Yes'], noVal = competancy['No']
             return getPercent(yesVal, yesVal+noVal)
@@ -1050,7 +1134,7 @@ var topSummaryData = {};
         $this.find('.js-loading').remove();
     }
 
-    function formatLastStory(last_story) {
+    function formatLastStory(last_story, noDate) {
         var date =' ';
         var time = ' ';
         if(last_story != null) {
@@ -1062,7 +1146,8 @@ var topSummaryData = {};
                 date = moment(last_story, "YYYY-MM-DD").format("DD MMM YYYY");
             }
         }
-        return date + time;
+
+        if(noDate) { return date; } else { return date + time; }
     }
 
     function getScore(answers, option) {

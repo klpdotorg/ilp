@@ -5,9 +5,11 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    is_active = serializers.BooleanField(read_only=True)
+    is_staff = serializers.BooleanField(read_only=True)
+    is_superuser = serializers.BooleanField(read_only=True)
     is_email_verified = serializers.BooleanField(read_only=True)
     is_mobile_verified = serializers.BooleanField(read_only=True)
-    is_active = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = User
@@ -26,7 +28,15 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        fields = '__all__'
+        exclude = (
+            'is_active',
+            'is_staff',
+            'is_superuser',
+            'is_email_verified',
+            'is_mobile_verified',
+            'email_verification_code',
+            'sms_verification_pin',
+        )
         model = User
 
 

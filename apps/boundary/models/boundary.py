@@ -70,7 +70,6 @@ class BoundaryNeighbours(models.Model):
         unique_together = (('boundary', 'neighbour'), )
 
 
-
 class BoundaryHierarchy(models.Model):
     """boundary hierarchy details"""
     admin3_id = models.OneToOneField(

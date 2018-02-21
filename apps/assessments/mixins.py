@@ -3,7 +3,7 @@ from django.conf import settings
 from boundary.models import BoundaryStateCode
 
 
-class AggQuerySetMixin(object):
+class AggMixin(object):
 
     def get_queryset(self):
         institution_id = self.request.query_params.get('institution_id', None)

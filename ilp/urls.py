@@ -27,7 +27,9 @@ urlpatterns = [
     url(r'^$', StaticPageView.as_view(
         template_name='home.html',
     ), name='home'),
-
+    url(r'^status/$', StaticPageView.as_view(
+        template_name='comingsoon.html'
+    ), name='status'),
     # Users/Auth related pages
 
     url(r'^users/verify_email',

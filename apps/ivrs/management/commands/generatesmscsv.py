@@ -15,23 +15,39 @@ from users.models import User
 from schools.models import Institution
 from boundary.models import Boundary
 from common.utils import send_attachment, Date
-from assessments.models import AnswerGroup_Institution,AnswerInstitution, RespondentType, QuestionGroup
+from common.models import RespondentType
 
 OVERALL_COLUMNS = (
     "Total SMS received, "
     "No. of invalid SMS, "
     "% of invalid SMS, "
     "No. of schools with unique valid SMS, "
-    "No. valid SMS received from BFC, "
+    "No. valid SMS received from AS, "
+    "No. valid SMS received from BEO, "
     "No. valid SMS received from BRC, "
     "No. valid SMS received from BRP, "
+    "No. valid SMS received from CH, "
+    "No. valid SMS received from CM, "
+    "No. valid SMS received from CRCC, "
     "No. valid SMS received from CRP, "
     "No. valid SMS received from DDPI, "
+    "No. valid SMS received from DEO, "
     "No. valid SMS received from DIET, "
+    "No. valid SMS received from DPC, "
+    "No. valid SMS received from ECO, "
     "No. valid SMS received from EO, "
-    "No. valid SMS received from EV, "
+    "No. valid SMS received from ER,"
+    "No. valid SMS received from EY, "
+    "No. valid SMS received from GO, "
     "No. valid SMS received from HM, "
-    "No. valid SMS received from Unknown "
+    "No. valid SMS received from LL, "
+    "No. valid SMS received from PC, "
+    "No. valid SMS received from PR, "
+    "No. valid SMS received from SM, "
+    "No. valid SMS received from SSA, "
+    "No. valid SMS received from TR, "
+    "No. valid SMS received from UK, "
+    "No. valid SMS received from VR "
 )
 
 INVALID_COLUMNS = (
@@ -46,27 +62,59 @@ DISTRICT_COLUMNS = (
     "Invalid SMS Count, "
     "No. of unique schools with invalid SMS, "
     
-    "No. SMS from BFC, "
+    "No. SMS from AS, "
+    "No. SMS from BEO, "
     "No. SMS from BRC, "
     "No. SMS from BRP, "
+    "No. SMS from CH, "
+    "No. SMS from CM, "
+    "No. SMS from CRCC, "
     "No. SMS from CRP, "
     "No. SMS from DDPI, "
+    "No. SMS from DEO, "
     "No. SMS from DIET, "
+    "No. SMS from DPC, "
+    "No. SMS from ECO, "
     "No. SMS from EO, "
-    "No. SMS from EV, "
+    "No. SMS from ER,"
+    "No. SMS from EY, "
+    "No. SMS from GO, "
     "No. SMS from HM, "
-    "No. SMS from Unknown, "
+    "No. SMS from LL, "
+    "No. SMS from PC, "
+    "No. SMS from PR, "
+    "No. SMS from SM, "
+    "No. SMS from SSA, "
+    "No. SMS from TR, "
+    "No. SMS from UK, "
+    "No. SMS from VR, "
     
-    "No. invalid SMS from BFC, "
+    "No. invalid SMS from AS, "
+    "No. invalid SMS from BEO, "
     "No. invalid SMS from BRC, "
     "No. invalid SMS from BRP, "
+    "No. invalid SMS from CH, "
+    "No. invalid SMS from CM, "
+    "No. invalid SMS from CRCC, "
     "No. invalid SMS from CRP, "
     "No. invalid SMS from DDPI, "
+    "No. invalid SMS from DEO, "
     "No. invalid SMS from DIET, "
+    "No. invalid SMS from DPC, "
+    "No. invalid SMS from ECO, "
     "No. invalid SMS from EO, "
-    "No. invalid SMS from EV, "
+    "No. invalid SMS from ER,"
+    "No. invalid SMS from EY, "
+    "No. invalid SMS from GO, "
     "No. invalid SMS from HM, "
-    "No. invalid SMS from Unknown "
+    "No. invalid SMS from LL, "
+    "No. invalid SMS from PC, "
+    "No. invalid SMS from PR, "
+    "No. invalid SMS from SM, "
+    "No. invalid SMS from SSA, "
+    "No. invalid SMS from TR, "
+    "No. invalid SMS from UK, "
+    "No. invalid SMS from VR "
 )
 
 BLOCK_COLUMNS = (
@@ -76,27 +124,60 @@ BLOCK_COLUMNS = (
     "Invalid SMS Count,"
     "No. of unique schools with invalid SMS,"
 
-    "No. SMS from BFC, "
+       
+    "No. SMS from AS, "
+    "No. SMS from BEO, "
     "No. SMS from BRC, "
     "No. SMS from BRP, "
+    "No. SMS from CH, "
+    "No. SMS from CM, "
+    "No. SMS from CRCC, "
     "No. SMS from CRP, "
     "No. SMS from DDPI, "
+    "No. SMS from DEO, "
     "No. SMS from DIET, "
+    "No. SMS from DPC, "
+    "No. SMS from ECO, "
     "No. SMS from EO, "
-    "No. SMS from EV, "
+    "No. SMS from ER,"
+    "No. SMS from EY, "
+    "No. SMS from GO, "
     "No. SMS from HM, "
-    "No. SMS from Unknown, "
-
-    "No. invalid SMS from BFC, "
+    "No. SMS from LL, "
+    "No. SMS from PC, "
+    "No. SMS from PR, "
+    "No. SMS from SM, "
+    "No. SMS from SSA, "
+    "No. SMS from TR, "
+    "No. SMS from UK, "
+    "No. SMS from VR, "
+    
+    "No. invalid SMS from AS, "
+    "No. invalid SMS from BEO, "
     "No. invalid SMS from BRC, "
     "No. invalid SMS from BRP, "
+    "No. invalid SMS from CH, "
+    "No. invalid SMS from CM, "
+    "No. invalid SMS from CRCC, "
     "No. invalid SMS from CRP, "
     "No. invalid SMS from DDPI, "
+    "No. invalid SMS from DEO, "
     "No. invalid SMS from DIET, "
+    "No. invalid SMS from DPC, "
+    "No. invalid SMS from ECO, "
     "No. invalid SMS from EO, "
-    "No. invalid SMS from EV, "
+    "No. invalid SMS from ER,"
+    "No. invalid SMS from EY, "
+    "No. invalid SMS from GO, "
     "No. invalid SMS from HM, "
-    "No. invalid SMS from Unknown "
+    "No. invalid SMS from LL, "
+    "No. invalid SMS from PC, "
+    "No. invalid SMS from PR, "
+    "No. invalid SMS from SM, "
+    "No. invalid SMS from SSA, "
+    "No. invalid SMS from TR, "
+    "No. invalid SMS from UK, "
+    "No. invalid SMS from VR "
 )
 
 TOP_5_VALID_SMS_CONTRIB_COLUMNS = (
@@ -195,7 +276,7 @@ class Command(BaseCommand):
         number_of_schools_with_unique_valid_sms = states.filter(
             is_invalid=False).order_by().distinct('school_id').count()
         valid_sms_counts = [
-            str(valid_states.filter(user__in=group.user_set.all()).count()) for group in groups
+            str(valid_states.filter(user__user_type=group['char_id']).count()) for group in groups
         ]
 
         values = [
@@ -260,10 +341,10 @@ class Command(BaseCommand):
             invalid_smses = smses.filter(is_invalid=True).count()
             schools_with_invalid_smses = smses.filter(is_invalid=True).order_by().distinct('school_id').count()
             sms_counts = [
-                str(smses.filter(user__in=group.user_set.all()).count()) for group in groups
+                str(smses.filter(user__user_type=group['char_id']).count()) for group in groups
             ]
             invalid_sms_counts = [
-                str(smses.filter(is_invalid=True, user__in=group.user_set.all()).count()) for group in groups
+                str(smses.filter(is_invalid=True).filter(user__user_type=group['char_id']).count()) for group in groups
             ]
 
             if boundary_type == "district":
@@ -331,6 +412,7 @@ class Command(BaseCommand):
         for user in users:
             name = user.get_full_name()
             mobile_number = user.mobile_no
+            group = user.user_type
             school_ids = user.state_set.filter(id__in=valid_states).values_list('school_id',flat=True)
             clusters = Institution.objects.filter(
                 id__in=school_ids
@@ -357,9 +439,7 @@ class Command(BaseCommand):
                 'admin1__name'
             )
 
-            try:
-                group = user.groups.get().name
-            except:
+            if not group:
                 group = ''
 
             valid_smses = states.filter(user=user, is_invalid=False).count()
@@ -416,15 +496,15 @@ class Command(BaseCommand):
 
     def get_group_error_report(self, group, states, valid_states):
         list_of_values = []
-
+        
         user_dict = {}
-        for user in group.user_set.filter(state__in=states):
+        for user in User.objects.filter(user_type = group).filter(state__in=states):
             user_smses_count = user.state_set.filter(id__in=states).count()
             user_dict[user.id] = user_smses_count
         user_dict_list = sorted(user_dict.items(), key=operator.itemgetter(1), reverse=True)
 
         for user_id, user_smses_count in user_dict_list:
-            group_name = group.name
+            group_name = group['char_id']
             user = User.objects.get(id=user_id)
             user_smses = user.state_set.filter(id__in=states)
             name = user.get_full_name()
@@ -529,7 +609,7 @@ class Command(BaseCommand):
         
         report_dir = settings.PROJECT_ROOT + "/gka-reports/"
 
-        groups = Group.objects.all().order_by('name')        
+        groups = RespondentType.objects.values('char_id').distinct().order_by('char_id') 
         states = State.objects.filter(
             date_of_visit__gte=start_date,
             date_of_visit__lte=end_date
@@ -606,7 +686,7 @@ class Command(BaseCommand):
         # ERROR REPORTS FOR EACH GROUP
         if fc_report == 'True':
             for group in groups:
-                heading = group.name + " ERROR REPORT"
+                heading = group['char_id'] + " ERROR REPORT"
                 lines.extend([heading, "\n"])
                 lines.extend([GROUP_ERROR_REPORT_COLUMNS])
                 list_of_values = self.get_group_error_report(group, states, valid_states)

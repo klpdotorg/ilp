@@ -36,6 +36,9 @@
     //Keeps track of layers currently on map.
     var mapLayers = {};
 
+    //Keep track of last zoom
+    var lastZoom = '';
+
     //Disabled and enabled are layers disabled / enabled in layer switcher
     //on right panel
     var disabledLayers,
@@ -522,7 +525,7 @@
             var modified_boundary_type = boundary_type;
             if(boundary_type == 'SD' || boundary_type == "PD") {
                 modified_boundary_type = "district";
-            }            
+            }
             else if(boundary_type == 'SB') {
                 modified_boundary_type = "block"
             }
@@ -803,27 +806,29 @@
     function updateLayers() {
 
         var currentZoom = map.getZoom();
-        if (currentZoom < 8) {
+
+        if (lastZoom == 8 && currentZoom < 8) {
             enabledLayers.clearLayers();
             enabledLayers.addLayer(districtLayer);
             enabledLayers.addLayer(preschoolDistrictLayer);
         }
-        if (currentZoom == 8 || currentZoom == 9) {
+        if ((lastZoom == 7 || lastZoom == 10) && (currentZoom == 8 || currentZoom == 9)) {
             enabledLayers.clearLayers();
             enabledLayers.addLayer(blockLayer);
             enabledLayers.addLayer(projectLayer);
         }
-        if (currentZoom == 10 || currentZoom == 11) {
+        if ((lastZoom == 9 || lastZoom == 12) && (currentZoom == 10 || currentZoom == 11)) {
             enabledLayers.clearLayers();
             enabledLayers.addLayer(clusterLayer);
             enabledLayers.addLayer(circleLayer);
         }
-        if (currentZoom >= 12) {
+        if (lastZoom == 11 && currentZoom >= 12) {
             enabledLayers.clearLayers();
             enabledLayers.addLayer(schoolCluster);
             enabledLayers.addLayer(preschoolCluster);
         }
 
+        lastZoom = currentZoom;
     }
 
     function setURL() {

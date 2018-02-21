@@ -23,9 +23,15 @@
         var $select_block = $("#select-block");
         var $select_cluster = $("#select-cluster");
         var $select_school = $("#select-school");
-        var $download_button = $("#download");
+        var $download_button = $("#download-filter-schools");
 
         $select_type.select2();
+
+        // Hiding loading initially
+        $("#district-school-filter-loading").hide();
+        $("#block-school-filter-loading").hide();
+        $("#cluster-school-filter-loading").hide();
+        $("#school-filter-loading").hide();
         // $select_district.select2();
 
         var districtsXHR = function(school_type) {
@@ -58,43 +64,57 @@
         }
 
         $select_type.on("change", function(selected) {
-            console.log("select type changed");
+            $("#district-school-filter-loading").show();
             if (selected.val == 'Primary School') {
                 districtsXHR('primary').done(function (data) {
+                    $("#district-school-filter-loading").hide();
                     populateSelect($select_district, data);
                 });
             }
 
             if (selected.val == 'Preschool') {
                 districtsXHR('pre').done(function (data) {
+                    $("#district-school-filter-loading").hide();
                     populateSelect($select_district, data);
                 });
             }
         });
 
         $select_district.on("change", function(selected) {
+            $("#blocksaa-school-filter-loading").show();
             setMapView(selected, 8);
             var blockXHR = klp.api.do('boundary/admin1/'+selected.val+'/admin2', {'geometry': 'yes', 'per_page': 0});
             blockXHR.done(function (data) {
-                populateSelect($select_block, data);
+              $("#block-school-filter-loading").hide();
+              populateSelect($select_block, data);
             });
         });
 
         $select_block.on("change", function(selected) {
+            $("#cluster-school-filter-loading").show();
             setMapView(selected, 9);
             var clusterXHR = klp.api.do('boundary/admin2/'+selected.val+'/admin3', {'geometry': 'yes', 'per_page': 0});
             clusterXHR.done(function (data) {
+                $("#cluster-school-filter-loading").hide();
                 populateSelect($select_cluster, data);
             });
         });
 
         $select_cluster.on("change", function(selected) {
+            $("#school-filter-loading").show();
+            function downloadFilterSchools() {
+              window.open(`/api/v1/institutions?admin3=${selected.val}&format=csv`, '_self');
+            }
+
+            $("#download-filter-schools").click(function(){
+              klp.auth.requireLogin(downloadFilterSchools);
+            });
+
             setMapView(selected, 10);
-            var schoolXHR = klp.api.do('institutions/info', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
-            $download_button.attr('href', '/api/v1/institutions/info?admin3='+selected.val+'&format=csv');
+            var schoolXHR = klp.api.do('institutions', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
             $download_button.removeClass('hide');
             schoolXHR.done(function (data) {
-                // console.log('schools', data);
+                $("#school-filter-loading").hide();
                 populateSelect($select_school, data);
             });
         });

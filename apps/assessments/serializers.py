@@ -25,23 +25,39 @@ class SurveyOnTypeSerializer(ILPSerializer):
         )
 
 
-class SurveySerializer(ILPSerializer):
-    class Meta:
-        model = Survey
-        fields = (
-            'id', 'name', 'created_at', 'updated_at', 'partner', 'description',
-            'status'
-        )
-
-
 class QuestionGroupSerializer(ILPSerializer):
+    source_name = serializers.ReadOnlyField(source='source.name')
+
     class Meta:
         model = QuestionGroup
         fields = (
             'id', 'name', 'survey', 'type', 'inst_type',
             'group_text', 'start_date', 'end_date', 'academic_year',
-            'version', 'source', 'double_entry', 'created_by', 'created_at',
-            'updated_at', 'status'
+            'version', 'source', 'source_name', 'double_entry',
+            'created_by', 'created_at', 'updated_at', 'status'
+        )
+
+
+class SurveySerializer(ILPSerializer):
+    state = serializers.ReadOnlyField(source='admin0.name')
+    questiongroups = QuestionGroupSerializer(
+        source='questiongroup_set', many=True
+    )
+
+    class Meta:
+        model = Survey
+        fields = (
+            'id',
+            'name',
+            'lang_name',
+            'created_at',
+            'updated_at',
+            'partner',
+            'description',
+            'status',
+            'image_required',
+            'state',
+            'questiongroups',
         )
 
 
@@ -57,13 +73,30 @@ class QuestionSerializer(ILPSerializer):
     question_type_id = serializers.IntegerField(write_only=True)
     question_type = serializers.CharField(
         read_only=True, source="question_type.display.char_id")
+    sequence = serializers.SerializerMethodField()
 
     class Meta:
         model = Question
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
-            'options', 'is_featured', 'status', 'id', 'question_type_id'
+            'options', 'is_featured', 'status', 'id', 'question_type_id',
+            'lang_name', 'sequence',
         )
+
+    def get_sequence(self, question):
+        try:
+            qgroup = self.context['request'].parser_context['kwargs'].get(
+                'parent_lookup_questiongroup'
+            )
+            questiongroup_question = QuestionGroup_Questions.objects.get(
+                question=question,
+                questiongroup__id=qgroup
+            )
+        except Exception as e:
+            print(e)
+            return 0
+        else:
+            return questiongroup_question.sequence
 
 
 class QuestionGroupQuestionSerializer(ILPSerializer):
@@ -111,15 +144,27 @@ class AnswerSerializer(ILPSerializer, CompensationLogMixin):
 class AnswerGroupInstSerializer(serializers.ModelSerializer):
     double_entry = serializers.SerializerMethodField()
     comments = serializers.CharField(required=False, allow_blank=True)
+    institution_name = serializers.SerializerMethodField()
+    created_by_username = serializers.SerializerMethodField()
 
     class Meta:
         model = AnswerGroup_Institution
         fields = (
-            'id', 'double_entry','questiongroup', 'institution', 'group_value',
-            'created_by', 'date_of_visit',
+            'id', 'double_entry','questiongroup', 'institution', 'institution_name', 'group_value',
+            'created_by', 'created_by_username', 'date_of_visit',
             'respondent_type', 'comments', 'is_verified',
             'status', 'sysid', 'entered_at'
         )
+
+    def get_created_by_username(self, obj):
+        username=''
+        username = obj.created_by.first_name + obj.created_by.last_name
+        if username is None:
+            username = obj.created_by.email
+        return username
+
+    def get_institution_name(self, obj):
+        return obj.institution.name
 
     def get_double_entry(self, obj):
         return obj.questiongroup.double_entry

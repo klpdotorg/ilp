@@ -16,7 +16,7 @@ class BoundarySerializer(ILPSerializer):
         model = Boundary
         fields = (
             'id', 'name', 'parent', 'dise_slug', 'boundary_type', 'type',
-            'status',
+            'status', 'lang_name',
         )
 
 
@@ -27,7 +27,7 @@ class BoundaryWithParentSerializer(ILPSerializer):
         model = Boundary
         fields = (
             'id', 'name', 'dise_slug', 'type', 'boundary_type',
-            'parent_boundary'
+            'parent_boundary', 'lang_name'
         )
 
 

@@ -1,0 +1,421 @@
+district_id|district|block_id|block
+11042|angul|11072|angul
+11042|angul|11073|angul mpl
+11042|angul|11074|athamallik
+11042|angul|11075|athamallik nac
+11042|angul|11076|banarpal
+11042|angul|11077|chhendipada
+11042|angul|11078|kaniha
+11042|angul|11079|kishorenagar
+11042|angul|11080|pallahara
+11042|angul|11081|talcher
+11042|angul|11082|talcher mpl
+11043|balasore|11083|bahanaga
+11043|balasore|11084|balasore mpl
+11043|balasore|11085|baliapal
+11043|balasore|11086|basta
+11043|balasore|11087|bhogarai
+11043|balasore|11088|jaleswar
+11043|balasore|11089|jaleswar nac
+11043|balasore|11090|khaira
+11043|balasore|11091|nilgiri
+11043|balasore|11092|nilgiri nac
+11043|balasore|11093|oupada
+11043|balasore|11094|remuna
+11043|balasore|11095|sadar
+11043|balasore|11096|simulia
+11043|balasore|11097|soro
+11043|balasore|11098|soro nac
+11044|bargarh|11099|ambabhona
+11044|bargarh|11100|attabira
+11044|bargarh|11101|bargarh
+11044|bargarh|11102|bargarh mpl
+11044|bargarh|11103|barpali
+11044|bargarh|11104|barpali nac
+11044|bargarh|11105|bhatali
+11044|bargarh|11106|bheden
+11044|bargarh|11107|bijepur
+11044|bargarh|11108|gaisilet
+11044|bargarh|11109|jharbandh
+11044|bargarh|11110|padampur nac
+11044|bargarh|11111|paikmal
+11044|bargarh|11112|rajborasambar
+11044|bargarh|11113|sohella
+11045|bhadrak|11114|basudevpur
+11045|bhadrak|11115|basudevpur mpl
+11045|bhadrak|11116|bhadrak
+11045|bhadrak|11117|bhadrak mpl
+11045|bhadrak|11118|bhandaripokhari
+11045|bhadrak|11119|bonth
+11045|bhadrak|11120|chandabali
+11045|bhadrak|11121|dhamnagar
+11045|bhadrak|11122|tihidi
+11046|bolangir|11123|agalpur
+11046|bolangir|11124|balangir
+11046|bolangir|11125|balangir mpl
+11046|bolangir|11126|bangomunda
+11046|bolangir|11127|belpada
+11046|bolangir|11128|deogaon
+11046|bolangir|11129|gudvela
+11046|bolangir|11130|kantabanji nac
+11046|bolangir|11131|khaprakhol
+11046|bolangir|11132|loisingha
+11046|bolangir|11133|muribahal
+11046|bolangir|11134|patnagarh
+11046|bolangir|11135|patnagarh nac
+11046|bolangir|11136|puintala
+11046|bolangir|11137|saintala
+11046|bolangir|11138|titilagarh
+11046|bolangir|11139|titilagarh nac
+11046|bolangir|11140|turekela
+11047|boudh|11141|boudh
+11047|boudh|11142|boudh nac
+11047|boudh|11143|harabhanga
+11047|boudh|11144|kantamal
+11048|cuttack|11145|arc charbatia
+11048|cuttack|11146|athagarh nac
+11048|cuttack|11147|athgarh
+11048|cuttack|11148|banki
+11048|cuttack|11149|banki nac
+11048|cuttack|11150|baramba
+11048|cuttack|11151|baranga
+11048|cuttack|11152|choudwar mpl
+11048|cuttack|11153|cuttack mc
+11048|cuttack|11154|cuttack sadar
+11048|cuttack|11155|dompara
+11048|cuttack|11156|kantapara
+11048|cuttack|11157|mahanga
+11048|cuttack|11158|narsinghpur
+11048|cuttack|11159|niali
+11048|cuttack|11160|nischintakoili
+11048|cuttack|11161|salipur
+11048|cuttack|11162|tangi
+11048|cuttack|11163|tigiria
+11049|deogarh|11164|barkote
+11049|deogarh|11165|deogarh mpl
+11049|deogarh|11166|reamal
+11049|deogarh|11167|tileibani
+11050|dhenkanal|11168|bhuban
+11050|dhenkanal|11169|bhuban nac
+11050|dhenkanal|11170|dhenkanal mpl
+11050|dhenkanal|11171|dhenkanal sadar
+11050|dhenkanal|11172|gondia
+11050|dhenkanal|11173|hindol
+11050|dhenkanal|11174|hindol nac
+11050|dhenkanal|11175|kamakhyanagar
+11050|dhenkanal|11176|kamakhyanagar nac
+11050|dhenkanal|11177|kankadahad
+11050|dhenkanal|11178|odapada
+11050|dhenkanal|11179|parjang
+11051|gajapati|11180|gosani
+11051|gajapati|11181|gumma
+11051|gajapati|11182|kashinagar
+11051|gajapati|11183|kashinagar(nac)
+11051|gajapati|11184|mohana
+11051|gajapati|11185|nuagada
+11051|gajapati|11186|paralakhemundi (mpl)
+11051|gajapati|11187|r udayagiri
+11051|gajapati|11188|rayagada
+11052|ganjam|11189|aska
+11052|ganjam|11190|aska nac
+11052|ganjam|11191|beguniapada
+11052|ganjam|11192|bellaguntha
+11052|ganjam|11193|bellaguntha nac
+11052|ganjam|11194|berhampur mpl
+11052|ganjam|11195|bhanjanagar
+11052|ganjam|11196|bhanjanagar nac
+11052|ganjam|11197|buguda
+11052|ganjam|11198|buguda nac
+11052|ganjam|11199|chatrapur
+11052|ganjam|11200|chatrapur nac
+11052|ganjam|11201|chikiti
+11052|ganjam|11202|chikiti nac
+11052|ganjam|11203|dharakote
+11052|ganjam|11204|digapahandi
+11052|ganjam|11205|digapahandi nac
+11052|ganjam|11206|ganjam
+11052|ganjam|11207|ganjam nac
+11052|ganjam|11208|gopalapur nac
+11052|ganjam|11209|hinjilicut
+11052|ganjam|11210|hinjilicut nac
+11052|ganjam|11211|jaganathprasad
+11052|ganjam|11212|kabisuryanagar
+11052|ganjam|11213|kabisuryanagar nac
+11052|ganjam|11214|khallikote
+11052|ganjam|11215|khallikote nac
+11052|ganjam|11216|kodala nac
+11052|ganjam|11217|kukudakhandi
+11052|ganjam|11218|patrapur
+11052|ganjam|11219|polasara
+11052|ganjam|11220|polasara nac
+11052|ganjam|11221|purusotampur
+11052|ganjam|11222|purusotampur nac
+11052|ganjam|11223|rambha nac
+11052|ganjam|11224|rangeilunda
+11052|ganjam|11225|sanakhemundi
+11052|ganjam|11226|sheragada
+11052|ganjam|11227|surada
+11052|ganjam|11228|surada nac
+11053|jagatsinghpur|11229|balikuda
+11053|jagatsinghpur|11230|biridi
+11053|jagatsinghpur|11231|cuttack part (extra block)
+11053|jagatsinghpur|11232|erasama
+11053|jagatsinghpur|11233|jagatsinghpur
+11053|jagatsinghpur|11234|jagatsinghpur mplt
+11053|jagatsinghpur|11235|kujang
+11053|jagatsinghpur|11236|naugaon
+11053|jagatsinghpur|11237|paradeep mplt
+11053|jagatsinghpur|11238|raghunathpur
+11053|jagatsinghpur|11239|tirtol
+11054|jajpur|11240|barchana
+11054|jajpur|11241|bari
+11054|jajpur|11242|binjharpur
+11054|jajpur|11243|danagadi
+11054|jajpur|11244|dasarathpur
+11054|jajpur|11245|dharmasala
+11054|jajpur|11246|jajpur
+11054|jajpur|11247|jajpur mpl
+11054|jajpur|11248|korai
+11054|jajpur|11249|rasulpur
+11054|jajpur|11250|sukinda
+11054|jajpur|11251|vyasanagar mpl
+11055|jharsuguda|11252|belpahar mpl
+11055|jharsuguda|11253|brajarajnagar mpl
+11055|jharsuguda|11254|jharsuguda
+11055|jharsuguda|11255|jharsuguda mpl
+11055|jharsuguda|11256|kirmira
+11055|jharsuguda|11257|kolabira
+11055|jharsuguda|11258|laikera
+11055|jharsuguda|11259|lakhanpur
+11056|kalahandi|11260|bhawanipatna
+11056|kalahandi|11261|bhawanipatna mpl
+11056|kalahandi|11262|dharamgarh
+11056|kalahandi|11263|golamunda
+11056|kalahandi|11264|jaipatna
+11056|kalahandi|11265|junagarh
+11056|kalahandi|11266|junagarh nac
+11056|kalahandi|11267|kalampur
+11056|kalahandi|11268|karlamunda
+11056|kalahandi|11269|kesinga
+11056|kalahandi|11270|kesinga nac
+11056|kalahandi|11271|koksara
+11056|kalahandi|11272|lanjigarh
+11056|kalahandi|11273|m rampur
+11056|kalahandi|11274|narla
+11056|kalahandi|11275|th rampur
+11057|kandhamal|11276|balliguda
+11057|kandhamal|11277|chakapad
+11057|kandhamal|11278|daringbadi
+11057|kandhamal|11279|g udayagiri
+11057|kandhamal|11280|g udayagiri nac
+11057|kandhamal|11281|k nuagam
+11057|kandhamal|11282|khajuripada
+11057|kandhamal|11283|kotaghar
+11057|kandhamal|11284|phiringia
+11057|kandhamal|11285|phulbani
+11057|kandhamal|11286|phulbani mpl 
+11057|kandhamal|11287|raikia
+11057|kandhamal|11288|tikabali
+11057|kandhamal|11289|tumudibandha
+11058|kendrapara|11290|aul
+11058|kendrapara|11291|derabish
+11058|kendrapara|11292|garadapur
+11058|kendrapara|11293|kendrapara
+11058|kendrapara|11294|kendrapara mpl
+11058|kendrapara|11295|mahakalpara
+11058|kendrapara|11296|marshaghai
+11058|kendrapara|11297|pattamundai
+11058|kendrapara|11298|pattamundai nac
+11058|kendrapara|11299|rajkanika
+11058|kendrapara|11300|rajnagar
+11059|keonjhar|11301|anandapur
+11059|keonjhar|11302|anandapur mpl
+11059|keonjhar|11303|banspal
+11059|keonjhar|11304|barbil mpl
+11059|keonjhar|11305|champua
+11059|keonjhar|11306|ghasipura
+11059|keonjhar|11307|ghatagaon
+11059|keonjhar|11308|harichandanpur
+11059|keonjhar|11309|hatadihi
+11059|keonjhar|11310|jhumpura
+11059|keonjhar|11311|joda
+11059|keonjhar|11312|joda mpl
+11059|keonjhar|11313|keonjhar
+11059|keonjhar|11314|keonjhar mpl
+11059|keonjhar|11315|patna
+11059|keonjhar|11316|saharapada
+11059|keonjhar|11317|telkoi
+11060|khordha|11318|balianta
+11060|khordha|11319|balipatna
+11060|khordha|11320|balugaon nac
+11060|khordha|11321|banapur
+11060|khordha|11322|banapur nac
+11060|khordha|11323|begunia
+11060|khordha|11324|bhubaneswar
+11060|khordha|11325|bhubaneswar mc
+11060|khordha|11326|bolgarh
+11060|khordha|11327|chilika
+11060|khordha|11328|jatni
+11060|khordha|11329|jatni mpl
+11060|khordha|11330|khordha
+11060|khordha|11331|khordha mpl
+11060|khordha|11332|tangi
+11061|koraput|11333|bandhugam
+11061|koraput|11334|boipariguda
+11061|koraput|11335|borigumma
+11061|koraput|11336|dasmantpur
+11061|koraput|11337|jeypore
+11061|koraput|11338|jeypore mpl
+11061|koraput|11339|koraput
+11061|koraput|11340|koraput nac
+11061|koraput|11341|kotpad
+11061|koraput|11342|kotpad nac
+11061|koraput|11343|kundra
+11061|koraput|11344|lamtaput
+11061|koraput|11345|laxmipur
+11061|koraput|11346|nandapur
+11061|koraput|11347|narayanapatna
+11061|koraput|11348|pottangi
+11061|koraput|11349|semiliguda
+11061|koraput|11350|sunabeda nac
+11062|malkangiri|11351|balimela nac
+11062|malkangiri|11352|kalimela
+11062|malkangiri|11353|khairput
+11062|malkangiri|11354|korukonda
+11062|malkangiri|11355|kudumulugumma
+11062|malkangiri|11356|malkangiri
+11062|malkangiri|11357|malkangiri nac
+11062|malkangiri|11358|mathili
+11062|malkangiri|11359|podia
+11063|mayurbhanj|11360|bahalda
+11063|mayurbhanj|11361|bangriposi
+11063|mayurbhanj|11362|barasahi
+11063|mayurbhanj|11363|baripada
+11063|mayurbhanj|11364|baripada mpl
+11063|mayurbhanj|11365|betnoti
+11063|mayurbhanj|11366|bijatola
+11063|mayurbhanj|11367|bisoi
+11063|mayurbhanj|11368|g b nagar
+11063|mayurbhanj|11369|jamda
+11063|mayurbhanj|11370|jashipur
+11063|mayurbhanj|11371|kaptipada
+11063|mayurbhanj|11372|karanjia
+11063|mayurbhanj|11373|karanjia nac
+11063|mayurbhanj|11374|khunta
+11063|mayurbhanj|11375|kuliana
+11063|mayurbhanj|11376|kusumi
+11063|mayurbhanj|11377|morada
+11063|mayurbhanj|11378|rairangpur
+11063|mayurbhanj|11379|rairangpur nac
+11063|mayurbhanj|11380|raruan
+11063|mayurbhanj|11381|rasgovindpur
+11063|mayurbhanj|11382|saraskana
+11063|mayurbhanj|11383|shamakhunta
+11063|mayurbhanj|11384|sukruli
+11063|mayurbhanj|11385|suliapada
+11063|mayurbhanj|11386|thakurmunda
+11063|mayurbhanj|11387|tiring
+11063|mayurbhanj|11388|udala
+11063|mayurbhanj|11389|udala nac
+11064|nabarangpur|11390|chandahandi
+11064|nabarangpur|11391|dabugam
+11064|nabarangpur|11392|jharigam
+11064|nabarangpur|11393|kosagumuda
+11064|nabarangpur|11394|nabarangpur
+11064|nabarangpur|11395|nabarangpur mpl
+11064|nabarangpur|11396|nandahandi
+11064|nabarangpur|11397|papadahandi
+11064|nabarangpur|11398|raighar
+11064|nabarangpur|11399|tentulikhunti
+11064|nabarangpur|11400|umerkote
+11064|nabarangpur|11401|umerkote nac
+11065|nayagarh|11402|bhapur
+11065|nayagarh|11403|daspalla
+11065|nayagarh|11404|gania
+11065|nayagarh|11405|khandapada
+11065|nayagarh|11406|khandapada nac
+11065|nayagarh|11407|nayagarh
+11065|nayagarh|11408|nayagarh nac
+11065|nayagarh|11409|nuagaon
+11065|nayagarh|11410|odagaon
+11065|nayagarh|11411|ranpur
+11066|nuapada|11412|boden
+11066|nuapada|11413|khariar
+11066|nuapada|11414|khariar nac
+11066|nuapada|11415|khariar road nac
+11066|nuapada|11416|komna
+11066|nuapada|11417|nuapada
+11066|nuapada|11418|sinapali
+11067|puri|11419|astarang
+11067|puri|11420|brahmagiri
+11067|puri|11421|delang
+11067|puri|11422|gop
+11067|puri|11423|kakatpur
+11067|puri|11424|kanas
+11067|puri|11425|konark nac
+11067|puri|11426|krushnaprasad
+11067|puri|11427|nimapara
+11067|puri|11428|nimapara nac
+11067|puri|11429|pipili
+11067|puri|11430|pipli nac
+11067|puri|11431|puri mpl
+11067|puri|11432|puri sadar
+11067|puri|11433|satyabadi
+11068|rayagada|11434|bissamcuttack
+11068|rayagada|11435|chandrapur
+11068|rayagada|11436|gudari
+11068|rayagada|11437|gudari nac
+11068|rayagada|11438|gunupur
+11068|rayagada|11439|gunupur nac
+11068|rayagada|11440|k singpur
+11068|rayagada|11441|kasipur
+11068|rayagada|11442|kolnara
+11068|rayagada|11443|muniguda
+11068|rayagada|11444|padampur
+11068|rayagada|11445|ramanaguda
+11068|rayagada|11446|rayagada
+11068|rayagada|11447|rayagada mplt
+11069|sambalpur|11448|bamra
+11069|sambalpur|11449|burla nac
+11069|sambalpur|11450|dhankauda
+11069|sambalpur|11451|hirakud nac
+11069|sambalpur|11452|jamankira
+11069|sambalpur|11453|jujumura
+11069|sambalpur|11454|kuchinda
+11069|sambalpur|11455|kuchinda nac
+11069|sambalpur|11456|maneswar
+11069|sambalpur|11457|naktideul
+11069|sambalpur|11458|rairakhol
+11069|sambalpur|11459|rairakhol nac
+11069|sambalpur|11460|rengali
+11069|sambalpur|11461|sambalpur mpl
+11070|sonepur|11462|binka
+11070|sonepur|11463|binka nac
+11070|sonepur|11464|birmaharajpur
+11070|sonepur|11465|dunguripali
+11070|sonepur|11466|sonepur
+11070|sonepur|11467|sonepur mpl
+11070|sonepur|11468|tarva
+11070|sonepur|11469|tarva nac
+11070|sonepur|11470|ullunda
+11071|sundergarh|11471|balisankara
+11071|sundergarh|11472|bargaon
+11071|sundergarh|11473|biramitrapur mpl
+11071|sundergarh|11474|bisra
+11071|sundergarh|11475|bonai
+11071|sundergarh|11476|gurundia
+11071|sundergarh|11477|hemgiri
+11071|sundergarh|11478|koira
+11071|sundergarh|11479|kuarmunda
+11071|sundergarh|11480|kutra
+11071|sundergarh|11481|lahunipara
+11071|sundergarh|11482|lathikata
+11071|sundergarh|11483|lephripara
+11071|sundergarh|11484|nuagaon
+11071|sundergarh|11485|rajgangpur
+11071|sundergarh|11486|rajgangpur mpl
+11071|sundergarh|11487|rourkela mpl
+11071|sundergarh|11488|subdega
+11071|sundergarh|11489|sundargarh
+11071|sundergarh|11490|sundargarh mpl
+11071|sundergarh|11491|tangarpali

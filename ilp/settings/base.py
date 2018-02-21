@@ -168,10 +168,15 @@ SWAGGER_SETTINGS = {
 
 
 # ILP SETTINGS
+# This is the actual DISE academic year for which we're pulling data
+DISE_ACADEMIC_YEAR = '1617'
+# This is just a variation of the above for front-end format purposes and
+# DISE app endpoints.When the above changes, this also has to change
+DISE_FRONTEND_ACADEMIC_YEAR = '16-17'
+# This is the year KLP has data for in schools etc..
+KLP_DATA_YEAR = '2013-14'
 
-DEFAULT_ACADEMIC_YEAR = '1617'
-DEFAULT_ACADEMIC_YEAR_FRONTEND = '16-17'
-DISE_APP_BASE_URL = 'http://dise.dev.ilp.org.in/api/'
+DISE_APP_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
 
 BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
 
