@@ -173,8 +173,8 @@ DISE_ACADEMIC_YEAR = '1617'
 # This is just a variation of the above for front-end format purposes and
 # DISE app endpoints.When the above changes, this also has to change
 DISE_FRONTEND_ACADEMIC_YEAR = '16-17'
-# This is the year KLP has data for in schools etc..
-KLP_DATA_YEAR = '2013-14'
+# This is the year KLP uses to query data in the DB
+DEFAULT_ACADEMIC_YEAR = '1718'
 
 DISE_APP_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
 

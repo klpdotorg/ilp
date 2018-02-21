@@ -19,10 +19,7 @@
   };
 
   function setAcadYear() {
-    if (!window.location.hash) {
-      window.location.hash = '2015-2016'      
-    } 
-    selectedYear = window.location.hash.split('#').join('')
+    academicYear = window.klp.DEFAULT_ACADEMIC_YEAR
   }
 
   function render(boundaryID, academicYear) {
