@@ -254,7 +254,7 @@ var topSummaryData = {};
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
-            "survey/info/source/?survey_tag=gka&survey_id=11", params
+            "survey/summary/?survey_tag=gka&survey_id=11", params
         );
         $smsSummaryXHR.done(function(data) {
             stopDetailLoading();
@@ -518,7 +518,9 @@ var topSummaryData = {};
             lastAssessment = null,
             tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
 
-        // Build the summary data by adding sms and konnectsms source
+        console.log(data)
+
+        /*// Build the summary data by adding sms and konnectsms source
         data = data.source;
 
         // Assessment count
@@ -540,7 +542,22 @@ var topSummaryData = {};
         summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
 
         var smsSummaryHTML = tplSmsSummary(summaryData);
+        $('#smsSummary').html(smsSummaryHTML);*/
+
+        data = data.summary;
+        summaryData.assessment_count = data.total_assessments;
+        summaryData.schools_impacted = data.schools_impacted;
+        summaryData.last_assessment = data.last_assessment;
+        summaryData.format_lastsms = formatLastStory(
+            data.last_assessment, true);
+        summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
+        summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
+
+        console.log(summaryData)
+
+        var smsSummaryHTML = tplSmsSummary(summaryData);
         $('#smsSummary').html(smsSummaryHTML);
+
     }
 
 
