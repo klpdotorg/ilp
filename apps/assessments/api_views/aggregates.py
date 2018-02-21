@@ -651,22 +651,22 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
 
 class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-    queryset = SurveyElectionBoundaryAgg.objects.all()
+    queryset = SurveyBoundaryElectionTypeCount.objects.all()
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         res = {
             'MP': queryset.filter(
-                boundary_id__const_ward_type='MP').distinct(
+                const_ward_type='MP').distinct(
                     'boundary_id').count(),
             'MLA': queryset.filter(
-                boundary_id__const_ward_type='MLA').distinct(
+                const_ward_type='MLA').distinct(
                     'boundary_id').count(),
             'GP': queryset.filter(
-                boundary_id__const_ward_type='GP').distinct(
+                const_ward_type='GP').distinct(
                     'boundary_id').count(),
             'MW': queryset.filter(
-                boundary_id__const_ward_type='MW').distinct(
+                const_ward_type='MW').distinct(
                     'boundary_id').count(),
         }
         return Response(res)

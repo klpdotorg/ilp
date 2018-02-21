@@ -41,7 +41,7 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
     SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg,
-    SurveyBoundaryUserTypeAgg
+    SurveyBoundaryUserTypeAgg, SurveyBoundaryElectionTypeCount
 )
 from common.models import RespondentType
 from assessments.serializers import (
@@ -526,20 +526,20 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
         return neighbour_ids
 
     def get_electionboundary(self, boundary_id, survey_id):
-        queryset = SurveyElectionBoundaryAgg.objects.filter(
+        queryset = SurveyBoundaryElectionTypeCount.objects.filter(
             boundary_id=boundary_id, survey_id=survey_id)
         res = {
             'MP': queryset.filter(
-                boundary_id__const_ward_type='MP').distinct(
+                const_ward_type='MP').distinct(
                     'boundary_id').count(),
             'MLA': queryset.filter(
-                boundary_id__const_ward_type='MLA').distinct(
+                const_ward_type='MLA').distinct(
                     'boundary_id').count(),
             'GP': queryset.filter(
-                boundary_id__const_ward_type='GP').distinct(
+                const_ward_type='GP').distinct(
                     'boundary_id').count(),
             'MW': queryset.filter(
-                boundary_id__const_ward_type='MW').distinct(
+                const_ward_type='MW').distinct(
                     'boundary_id').count(),
         }
         return res
