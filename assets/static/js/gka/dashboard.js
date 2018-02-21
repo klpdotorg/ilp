@@ -115,12 +115,12 @@ var topSummaryData = {};
                 var data = {
                     name: c.name,
                     schools: c.schools,
-                    sms: -1,
+                    sms: 'NA',
                     // sms_govt: c.sms_govt,
                     // sms_govt_percent: getPercent(c.sms_govt, c.sms),
-                    assmt: -1,
-                    contests: -1,
-                    surveys: -1
+                    assmt: 'NA',
+                    contests: 'NA',
+                    surveys: 'NA'
                 };
 
                 try {
@@ -132,7 +132,7 @@ var topSummaryData = {};
                 } catch (e) {}
 
                 try {
-                    data.contests = c.surveys['2']['total_assessments'];
+                    data.contests = c.surveys['2']['electioncount']['GP'];
                 } catch (e) {}
 
                 try {
