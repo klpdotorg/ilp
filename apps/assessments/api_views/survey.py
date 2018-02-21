@@ -39,7 +39,8 @@ from assessments.models import (
     AnswerGroup_Institution, AnswerInstitution,
     Question, SurveyBoundaryAgg, QuestionGroup,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg
+    SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
+    SurveyTagMapping, AnswerGroup_Student
 )
 from common.models import RespondentType
 from assessments.serializers import (
@@ -670,3 +671,18 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
             neighbour_res['surveys'] = survey_res
             response.append(neighbour_res)
         return Response(response)
+
+
+class SurveyUsersCountAPIView(ListAPIView):
+
+    def get(self, request, *args, **kwargs):
+        survey_tag = self.request.GET.get('survey_tag', None)
+        survey_ids = SurveyTagMapping.objects.filter(
+            tag__char_id=survey_tag
+        ).values_list('survey_id', flat=True)
+        questiongroup_ids = QuestionGroup.objects.filter(
+            survey_id__in=survey_ids).values_list('id', flat=True)
+        count = AnswerGroup_Student.objects.filter(
+            questiongroup_id__in=questiongroup_ids).\
+            distinct('created_by_id').count()
+        return Response({"count": count})

@@ -19,7 +19,8 @@ from assessments.api_views import (
     QuestionGroupInstitutionAssociationViewSet,
     QuestionGroupStudentGroupAssociationViewSet,
     SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
-    SurveyBoundaryNeighbourDetailAPIView, SurveyDetailEBoundaryAPIView
+    SurveyBoundaryNeighbourDetailAPIView, SurveyDetailEBoundaryAPIView,
+    SurveyUsersCountAPIView
 )
 from schools.api_view import InstitutionViewSet, StudentViewSet
 from rest_framework import routers
@@ -185,6 +186,8 @@ urlpatterns = [
         name='survey-assessments-respondent-types'),
     url(r'surveys/usersummary/$', SurveyUserSummary.as_view(),
         name='survey-user-summary'),
+    url(r'surveys/usercount/$', SurveyUsersCountAPIView.as_view(),
+        name='survey-user-count'),
     url(r'surveys/boundaryneighbour/info/$', SurveyBoundaryNeighbourInfoAPIView.as_view(),
         name='survey-boundaryneighbour-info'),
     url(r'surveys/boundaryneighbour/detail/$', SurveyBoundaryNeighbourDetailAPIView.as_view(),
