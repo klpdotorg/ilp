@@ -545,6 +545,11 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
         return res
 
     def get(self, request, *args, **kwargs):
+        survey_tag = self.request.GET.get('survey_tag', None)
+        survey_tag_dict = {}
+        if survey_tag:
+            survey_tag_dict = {'survey_tag': survey_tag}
+
         neighbour_ids = set(self.get_neighbour_boundaries())
         response = []
         for n_id in neighbour_ids:
@@ -568,13 +573,13 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                     survey_id=survey_id, boundary_id=n_id)
                 b_agg = qset.aggregate(Sum('num_assessments'))
                 usertypes = SurveyBoundaryUserTypeAgg.objects.filter(
-                    boundary_id=n_id, survey_id=survey_id
+                    boundary_id=n_id, survey_id=survey_id, **survey_tag_dict
                 ).distinct('user_type').values_list('user_type', flat=True)
                 usertype_res = {}
                 for usertype in usertypes:
                     user_assess = SurveyBoundaryUserTypeAgg.objects.filter(
                         boundary_id=n_id, survey_id=survey_id,
-                        user_type=usertype
+                        **survey_tag_dict, user_type=usertype
                     ).aggregate(Sum('num_assessments'))['num_assessments__sum']
                     usertype_res[usertype] = user_assess
                 neighbour_res['surveys'][survey_id] = {
