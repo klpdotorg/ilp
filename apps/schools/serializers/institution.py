@@ -66,9 +66,9 @@ class InstitutionSummarySerializer(ILPSerializer):
 
     def get_gender_counts(self, obj):
         if obj.institutionstugendercount_set.filter(
-                academic_year=settings.DISE_ACADEMIC_YEAR).exists():
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
             return obj.institutionstugendercount_set.\
-                get(academic_year=settings.DISE_ACADEMIC_YEAR)
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
         return None
     
     def get_num_boys(self, obj):
@@ -189,9 +189,9 @@ class InstitutionSerializer(ILPSerializer):
 
     def get_gender_counts(self, obj):
         if obj.institutionstugendercount_set.filter(
-                academic_year=settings.DISE_ACADEMIC_YEAR).exists():
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
             return obj.institutionstugendercount_set.\
-                get(academic_year=settings.DISE_ACADEMIC_YEAR)
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
         return None
 
     def get_num_boys(self, obj):
@@ -281,9 +281,9 @@ class SchoolDemographicsSerializer(ILPSerializer):
     def get_gender_counts(self, obj):
         print("get_gender_counts", obj.institutionstugendercount_set)
         if obj.institutionstugendercount_set.filter(
-                academic_year=settings.DISE_ACADEMIC_YEAR).exists():
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
             return obj.institutionstugendercount_set.\
-                get(academic_year=settings.DISE_ACADEMIC_YEAR)
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
         return None
 
     def get_num_boys(self, obj):
@@ -340,9 +340,9 @@ class PreschoolInfraSerializer(ILPSerializer):
     def get_gender_counts(self, obj):
         print("get_gender_counts", obj.institutionstugendercount_set)
         if obj.institutionstugendercount_set.filter(
-                academic_year=settings.DISE_ACADEMIC_YEAR).exists():
+                academic_year=settings.DEFAULT_ACADEMIC_YEAR).exists():
             return obj.institutionstugendercount_set.\
-                get(academic_year=settings.DISE_ACADEMIC_YEAR)
+                get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
         return None
 
     def get_num_boys(self, obj):
