@@ -530,17 +530,13 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
             boundary_id=boundary_id, survey_id=survey_id)
         res = {
             'MP': queryset.filter(
-                const_ward_type='MP').distinct(
-                    'boundary_id').count(),
+                const_ward_type='MP').count(),
             'MLA': queryset.filter(
-                const_ward_type='MLA').distinct(
-                    'boundary_id').count(),
+                const_ward_type='MLA').count(),
             'GP': queryset.filter(
-                const_ward_type='GP').distinct(
-                    'boundary_id').count(),
+                const_ward_type='GP').count(),
             'MW': queryset.filter(
-                const_ward_type='MW').distinct(
-                    'boundary_id').count(),
+                const_ward_type='MW').count(),
         }
         return res
 
