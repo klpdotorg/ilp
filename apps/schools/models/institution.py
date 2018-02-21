@@ -97,7 +97,7 @@ class Institution(models.Model):
     
     def get_mt_profile(self):
         profile = {}
-        aggregation = self.institutionaggregation_set.filter(academic_year=settings.DISE_ACADEMIC_YEAR)
+        aggregation = self.institutionaggregation_set.filter(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
         # print("Inside institution model, printing inst aggregation",# aggregation)
         for agg in aggregation:
             if agg.mt in profile:

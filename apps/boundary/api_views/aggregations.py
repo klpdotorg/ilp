@@ -35,7 +35,7 @@ class BasicBoundaryAggView(ILPAPIView):
     def get(self, request, *args, **kwargs):
         # boundaryAgg = BasicBoundaryAgg.objects.filter(boundary=boundaryId).get(year=acYear)
         boundaryId = kwargs['id']
-        ac_year = request.GET.get('year', settings.DISE_ACADEMIC_YEAR)
+        ac_year = request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
         print("Academic year is: ", ac_year)
         ac_year = ac_year.replace('-', '')
         print("After replacement is: ", ac_year)
