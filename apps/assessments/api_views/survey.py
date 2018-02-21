@@ -40,7 +40,8 @@ from assessments.models import (
     Question, SurveyBoundaryAgg, QuestionGroup,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
-    SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg
+    SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg,
+    SurveyBoundaryUserTypeAgg
 )
 from common.models import RespondentType
 from assessments.serializers import (
@@ -566,8 +567,19 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 qset = self.queryset.filter(
                     survey_id=survey_id, boundary_id=n_id)
                 b_agg = qset.aggregate(Sum('num_assessments'))
+                usertypes = SurveyBoundaryUserTypeAgg.objects.filter(
+                    boundary_id=n_id, survey_id=survey_id
+                ).distinct('user_type').values_list('user_type', flat=True)
+                usertype_res = {}
+                for usertype in usertypes:
+                    user_assess = SurveyBoundaryUserTypeAgg.objects.filter(
+                        boundary_id=n_id, survey_id=survey_id,
+                        user_type=usertype
+                    ).aggregate(Sum('num_assessments'))['num_assessments__sum']
+                    usertype_res[usertype] = user_assess
                 neighbour_res['surveys'][survey_id] = {
                     "total_assessments": b_agg['num_assessments__sum'],
+                    "users": usertype_res,
                     "electioncount": self.get_electionboundary(
                         n_id, survey_id
                     )
