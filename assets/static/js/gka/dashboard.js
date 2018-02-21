@@ -493,12 +493,12 @@ var topSummaryData = {};
         // Load the summary first
         var $summaryXHR = klp.api.do("surveys/tagmappingsummary/?survey_tag=gka", params);
         startSummaryLoading();
-        $summaryXHR.done(function(data) {
+        $summaryXHR.done(function(tagmappingData) {
             var topSummary = {
                 education_volunteers: 0,
-                total_school: data.total_schools,
-                children_impacted: data.num_students,
-                schools_impacted: data.num_schools
+                total_school: tagmappingData.total_schools,
+                children_impacted: tagmappingData.num_students,
+                schools_impacted: tagmappingData.num_schools
             };
 
             // Bring back the from and to
@@ -509,10 +509,10 @@ var topSummaryData = {};
 
             // Load the users Education volunteers count
             var $usersXHR = klp.api.do(
-                "survey/summary/?survey_tag=gka", params
+                "surveys/usercount/?survey_tag=gka", params
             );
-            $usersXHR.done(function(data) {
-                topSummary.active_users = (data.summary && data.summary.num_users) ? data.summary.num_users : 0; 
+            $usersXHR.done(function(usersCountData) {
+                topSummary.active_users = usersCountData.count; 
 
                 klp.GKA.topSummaryData = topSummary;
                 renderTopSummary(topSummary);
