@@ -651,25 +651,22 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
 
 class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-    queryset = SurveyBoundaryAgg.objects.all()
+    queryset = SurveyElectionBoundaryAgg.objects.all()
 
     def list(self, request, *args, **kwargs):
-        # queryset = self.filter_queryset(self.get_queryset())
+        queryset = self.filter_queryset(self.get_queryset())
         res = {
-            'MP': 0, 'MLA': 0, 'GP': 0, 'MW': 0
+            'MP': queryset.filter(
+                boundary_id__const_ward_type='MP').distinct(
+                    'boundary_id').count(),
+            'MLA': queryset.filter(
+                boundary_id__const_ward_type='MLA').distinct(
+                    'boundary_id').count(),
+            'GP': queryset.filter(
+                boundary_id__const_ward_type='GP').distinct(
+                    'boundary_id').count(),
+            'MW': queryset.filter(
+                boundary_id__const_ward_type='MW').distinct(
+                    'boundary_id').count(),
         }
-        # res = {
-        #     'MP': queryset.filter(
-        #         electionboundary_id__const_ward_type='MP').distinct(
-        #             'electionboundary_id').count(),
-        #     'MLA': queryset.filter(
-        #         electionboundary_id__const_ward_type='MLA').distinct(
-        #             'electionboundary_id').count(),
-        #     'GP': queryset.filter(
-        #         electionboundary_id__const_ward_type='GP').distinct(
-        #             'electionboundary_id').count(),
-        #     'MW': queryset.filter(
-        #         electionboundary_id__const_ward_type='MW').distinct(
-        #             'electionboundary_id').count(),
-        # }
         return Response(res)

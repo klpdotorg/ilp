@@ -40,7 +40,7 @@ from assessments.models import (
     Question, SurveyBoundaryAgg, QuestionGroup,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
-    SurveyTagMapping, AnswerGroup_Student
+    SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg
 )
 from common.models import RespondentType
 from assessments.serializers import (
@@ -525,25 +525,22 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
         return neighbour_ids
 
     def get_electionboundary(self, boundary_id, survey_id):
-        # queryset = SurveyBoundaryAgg.objects.filter(
-        #     boundary_id=boundary_id, survey_id=survey_id)
+        queryset = SurveyElectionBoundaryAgg.objects.filter(
+            boundary_id=boundary_id, survey_id=survey_id)
         res = {
-            'MP': 0, 'MLA': 0, 'GP': 0, 'MW': 0
+            'MP': queryset.filter(
+                boundary_id__const_ward_type='MP').distinct(
+                    'boundary_id').count(),
+            'MLA': queryset.filter(
+                boundary_id__const_ward_type='MLA').distinct(
+                    'boundary_id').count(),
+            'GP': queryset.filter(
+                boundary_id__const_ward_type='GP').distinct(
+                    'boundary_id').count(),
+            'MW': queryset.filter(
+                boundary_id__const_ward_type='MW').distinct(
+                    'boundary_id').count(),
         }
-        # res = {
-        #     'MP': queryset.filter(
-        #         electionboundary_id__const_ward_type='MP').distinct(
-        #             'electionboundary_id').count(),
-        #     'MLA': queryset.filter(
-        #         electionboundary_id__const_ward_type='MLA').distinct(
-        #             'electionboundary_id').count(),
-        #     'GP': queryset.filter(
-        #         electionboundary_id__const_ward_type='GP').distinct(
-        #             'electionboundary_id').count(),
-        #     'MW': queryset.filter(
-        #         electionboundary_id__const_ward_type='MW').distinct(
-        #             'electionboundary_id').count(),
-        # }
         return res
 
     def get(self, request, *args, **kwargs):
