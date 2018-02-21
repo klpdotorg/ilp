@@ -105,29 +105,50 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
-        startDetailLoading();
 
-        var $metaXHR = klp.api.do("survey/info/class/gender", params);
-        $metaXHR.done(function(data)
-        {
-            var neighbours = _.map(data.summary_comparison, function(summary){
-                return {
-                    name: summary.boundary_name,
-                    schools: summary.schools,
-                    sms: summary.sms,
-                    sms_govt: summary.sms_govt,
-                    sms_govt_percent: getPercent(summary.sms_govt, summary.sms),
-                    assmt: summary.assessments,
-                    contests: summary.contests,
-                    surveys: summary.surveys
-                }
+        var $compateXHR = klp.api.do(
+            "surveys/boundaryneighbour/info/?survey_tag=gka", params
+        );
+        $compateXHR.done(function(comparisonData) {
+
+            var neighbours = _.map(comparisonData.results, function(c){
+                var data = {
+                    name: c.name,
+                    schools: c.schools,
+                    sms: -1,
+                    // sms_govt: c.sms_govt,
+                    // sms_govt_percent: getPercent(c.sms_govt, c.sms),
+                    assmt: -1,
+                    contests: -1,
+                    surveys: -1
+                };
+
+                try {
+                    data.sms = c.surveys['11']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.assmt = c.surveys['3']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.contests = c.surveys['2']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.surveys = c.surveys['7']['total_assessments'];
+                } catch (e) {}
+
+                // COMEBACK
+                return data;
             });
             var tplComparison= swig.compile($('#tpl-compareTable').html());
             var compareHTML = tplComparison({"neighbours":neighbours});
             $('#compareTable').html(compareHTML);
-            renderComparisonCharts(params, data);
-            stopDetailLoading();
         });
+
+        // renderComparisonCharts(params, data);
+        // stopDetailLoading();
     }
 
     function renderComparisonCharts(params, data){
@@ -501,7 +522,7 @@ var topSummaryData = {};
                 loadAssmtData(params);
                 loadGPContestData(params);
                 loadSurveys(params);
-                // loadComparison(params);
+                loadComparison(params);
             });
         });
     }
