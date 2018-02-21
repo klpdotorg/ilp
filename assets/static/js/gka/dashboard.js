@@ -116,8 +116,8 @@ var topSummaryData = {};
                     name: c.name,
                     schools: c.schools,
                     sms: 'NA',
-                    // sms_govt: c.sms_govt,
-                    // sms_govt_percent: getPercent(c.sms_govt, c.sms),
+                    sms_govt: 'NA',
+                    sms_govt_percent: 'NA',
                     assmt: 'NA',
                     contests: 'NA',
                     surveys: 'NA'
@@ -138,6 +138,21 @@ var topSummaryData = {};
                 try {
                     data.surveys = c.surveys['7']['total_assessments'];
                 } catch (e) {}
+
+                try {
+                    data.sms_govt = c.surveys['11']['users']['CRP'];
+                    data.sms_govt_percent = getPercent(
+                        data.sms_govt, data.sms
+                    );
+                } catch (e) {
+
+                } finally {
+                    if(isNaN(data.sms_govt_percent)) {
+                        data.sms_govt_percent = '0%';
+                    } else {
+                        data.sms_govt_percent += '%';
+                    }
+                }
 
                 // COMEBACK
                 return data;
