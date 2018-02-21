@@ -699,16 +699,10 @@ class SurveyUsersCountAPIView(ListAPIView):
             filter(questiongroup_id__in=questiongroup_ids)
 
         if to_:
-            to_ = to_.split('-')
-            to_year, to_month = to_[0], to_[1]
-            yearmonth = int(to_year + to_month)
-            queryset = queryset.filter(date_of_visit__lte=yearmonth)
+            queryset = queryset.filter(date_of_visit__lte=to_)
 
         if from_:
-            from_ = from_.split('-')
-            from_year, from_month = from_[0], from_[1]
-            yearmonth = int(from_year + from_month)
-            queryset = queryset.filter(date_of_visit__gte=yearmonth)
+            queryset = queryset.filter(date_of_visit__gte=from_)
 
         count = queryset.distinct('created_by_id').count()
         return Response({"count": count})
