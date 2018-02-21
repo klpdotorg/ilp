@@ -79,7 +79,6 @@ class SurveyBoundaryAgg(models.Model):
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
-    electionboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="electionboundary_id")
     source = models.ForeignKey('Source', db_column="source")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_schools = models.IntegerField(db_column="num_schools")
@@ -941,3 +940,17 @@ class SurveyTagMappingAgg(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_survey_tagmapping_agg'
+
+
+class SurveyBoundaryElectionTypeCount(models.Model):
+    """Survey Boundary ElectionType Count"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    const_ward_type = models.ForeignKey('boundary.BoundaryType', db_column="const_ward_type")
+    electionboundary_count = models.IntegerField(db_column="electionboundary_count")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_boundary_electiontype_count'
