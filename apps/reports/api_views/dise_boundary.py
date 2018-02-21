@@ -1,9 +1,10 @@
 from rest_framework.response import Response
-from boundary.models import Boundary
+from boundary.models import Boundary, BoundaryNeighbours
 from common.models import AcademicYear
 from . import BaseBoundaryReport
 from django.conf import settings
 from rest_framework.views import APIView
+from rest_framework.exceptions import APIException
 
 
 class DiseBoundaryDetails(APIView, BaseBoundaryReport):
@@ -15,27 +16,32 @@ class DiseBoundaryDetails(APIView, BaseBoundaryReport):
         try:
             academic_year = AcademicYear.objects.get(char_id=year)
         except AcademicYear.DoesNotExist:
-            raise APIError('Academic year is not valid.\
-                    It should be in the form of 2011-2012.', 404)
-        self.reportInfo["academic_year"] = year
+            raise APIException('Academic year is not valid.\
+                    It should be in the form of 1516.', 404)
+        self.reportInfo["academic_year"] = academic_year.year
         try:
             boundary = Boundary.objects.get(pk=boundaryid)
         except Exception:
             raise APIError('Boundary not found', 404)
         self.get_boundary_summary_data(boundary, self.reportInfo)
-        if boundary.get_admin_level() == 1:
+        print(boundary.boundary_type_id)
+        if boundary.boundary_type_id == 'SD':
             self.reportInfo["neighbours"] = []
-            boundaries = self.getDistrictNeighbours(boundary)
-            for comparisonboundary in boundaries:
-                self.reportInfo["neighbours"].append({
-                    "dise": comparisonboundary.dise_slug, "type": "district"})
+            neighbourlist = BoundaryNeighbours.objects.filter(boundary=boundary).values_list("neighbour_id", flat=True)
+            if neighbourlist:
+                neighbours = Boundary.objects.filter(id__in = list(neighbourlist))
+                if neighbours:
+                    for neighbour in neighbours:
+                        self.reportInfo["neighbours"].append({
+                        "dise": neighbour.dise_slug, "type": "district"})
+
 
     def get(self, request):
-        mandatoryparams = {'id': [], 'language': ["english", "kannada"]}
+        mandatoryparams = {'id': []}
         self.check_mandatory_params(mandatoryparams)
 
         id = self.request.GET.get("id")
-        reportlang = self.request.GET.get("language")
+        reportlang = self.request.GET.get("language", "english")
 
         self.reportInfo["report_info"] = {"report_lang": reportlang}
         self.get_boundary_info(id)

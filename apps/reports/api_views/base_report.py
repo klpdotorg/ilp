@@ -1,8 +1,51 @@
 from django.db.models import Count
+from common.models import AcademicYear
 from rest_framework.exceptions import ParseError
 
 
 class BaseReport():
+
+    # Returns the category wise average enrolment data
+    def get_enrolment(self, categoryData):
+        enrolmentdata = {"Lower Primary": {"text": "Class 1 to 4",
+                                           "student_count": 0},
+                         "Upper Primary": {"text": "Class 1 to 8",
+                                           "student_count": 0}}
+        for cat in categoryData:
+            if cat in ['Lower Primary', 'Upper Primary']:
+                enrolmentdata[cat]["student_count"] =\
+                    categoryData[cat]["num_students"]
+            if cat == 'Model Primary':
+                enrolmentdata['Upper Primary']["student_count"] +=\
+                    categoryData[cat]["num_students"]
+
+        return enrolmentdata
+
+
+    def get_year_comparison(self, passedid, active_schools, academic_year, year):
+        comparisonData = []
+        start_year = year[:2]
+        end_year = year[-2:]
+        prev_year = str(int(start_year)-1) + str(int(end_year)-1)
+        prev_prev_year = str(int(start_year)-2) + str(int(end_year)-2)
+
+        prev_year_id = AcademicYear.objects.get(char_id=prev_year)
+        prev_prev_year_id = AcademicYear.objects.get(char_id=prev_prev_year)
+
+        yearData = self.get_yeardata(passedid, active_schools, year, academic_year)
+
+        prevYearData = self.get_yeardata(passedid, active_schools, prev_year,
+                                         prev_year_id)
+        prevPrevYearData = self.get_yeardata(passedid, active_schools,
+                                             prev_prev_year, prev_prev_year_id)
+
+        comparisonData.append(yearData)
+        comparisonData.append(prevYearData)
+        comparisonData.append(prevPrevYearData)
+
+        return comparisonData
+
+
 
     # Throws error if mandatory parameters are missing
     def check_mandatory_params(self, mandatoryparams):

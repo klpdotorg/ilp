@@ -5,6 +5,7 @@ from . import BaseBoundaryReport
 from django.conf import settings
 from django.db.models import Q
 from rest_framework.views import APIView
+from rest_framework.exceptions import APIException
 
 
 class DemographicsBoundaryReportDetails(APIView, BaseBoundaryReport):
@@ -28,14 +29,14 @@ class DemographicsBoundaryReportDetails(APIView, BaseBoundaryReport):
         try:
             academic_year = AcademicYear.objects.get(char_id=year)
         except AcademicYear.DoesNotExist:
-            raise APIError('Academic year is not valid.\
-                    It should be in the form of 2011-2012.', 404)
+            raise APIException('Academic year is not valid.\
+                    It should be in the form of 1415.', 404)
         self.reportInfo["report_info"]["year"] = academic_year.year
 
         try:
             boundary = Boundary.objects.get(pk=boundaryid)
         except Exception:
-            raise APIError('Boundary not found', 404)
+            raise APIException('Boundary not found', 404)
 
         active_schools = boundary.schools()
         self.get_details_data(boundary, active_schools, academic_year)
@@ -83,29 +84,6 @@ class DemographicsBoundaryComparisonDetails(APIView, BaseBoundaryReport):
         else:
             yeardata["ptr"] = round(basicData["num_students"]/float(teacher_count), 2)
         return yeardata
-
-    def get_year_comparison(self, boundary, active_schools, academic_year, year):
-        comparisonData = []
-        start_year = year[:2]
-        end_year = year[-2:]
-        prev_year = str(int(start_year)-1) + str(int(end_year)-1)
-        prev_prev_year = str(int(start_year)-2) + str(int(end_year)-2)
-
-        prev_year_id = AcademicYear.objects.get(char_id=prev_year)
-        prev_prev_year_id = AcademicYear.objects.get(char_id=prev_prev_year)
-
-        yearData = self.get_yeardata(boundary, active_schools, year, academic_year)
-
-        prevYearData = self.get_yeardata(boundary, active_schools, prev_year,
-                                         prev_year_id)
-        prevPrevYearData = self.get_yeardata(boundary, active_schools,
-                                             prev_prev_year, prev_prev_year_id)
-
-        comparisonData.append(yearData)
-        comparisonData.append(prevYearData)
-        comparisonData.append(prevPrevYearData)
-
-        return comparisonData
 
     def fillComparisonData(self, boundary, academic_year):
         data = {"name": boundary.name,
@@ -173,12 +151,12 @@ class DemographicsBoundaryComparisonDetails(APIView, BaseBoundaryReport):
         try:
             academic_year = AcademicYear.objects.get(char_id=year)
         except AcademicYear.DoesNotExist:
-            raise APIError('Academic year is not valid.\
-                    It should be in the form of 2011-2012.', 404)
+            raise APIException('Academic year is not valid.\
+                    It should be in the form of 1415.', 404)
         try:
             boundary = Boundary.objects.get(pk=boundaryid)
         except Exception:
-            raise APIError('Boundary not found', 404)
+            raise APIException('Boundary not found', 404)
 
         active_schools = boundary.schools()
         self.get_comparison_data(boundary, active_schools, academic_year,

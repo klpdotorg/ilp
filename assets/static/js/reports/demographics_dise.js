@@ -59,7 +59,7 @@
     {
         var electedrep = {"id": klpData["report_info"]["dise"],
                           "type": repType}
-        klp.dise_api.getElectedRepData(electedrep.id, electedrep.type,
+        klp.dise_api.getElectedRepData(electedrep.id, electedrep.type.toLowerCase(),
                                        acadYear).done(function(diseData) {
             var categoryCount = common.getCategoryCount(diseData.properties);
             summaryData = common.getSummaryData(diseData, 
@@ -92,7 +92,7 @@
     {
         var boundary = {"id": klpData["report_info"]["dise"],
                         "type": klpData["report_info"]["type"].split(" ")[1]};
-        klp.dise_api.getBoundaryData(boundary.id, boundary.type,
+        klp.dise_api.getBoundaryData(boundary.id, boundary.type.toLowerCase(),
                                      acadYear).done(function(diseData) {
             boundary_name = klpData["report_info"]["name"];
             boundary_type = klpData["report_info"]["type"];

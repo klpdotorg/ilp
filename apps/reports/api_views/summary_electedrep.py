@@ -16,12 +16,12 @@ class ElectedRepSummaryReport(APIView, BaseElectedRepReport):
     parentInfo = {}
 
     # filling the counts in the data structure to be returned
-    def get_counts(self, electedrepData, active_schools, academic_year):
-        self.reportInfo["gender"] = {"boys": electedrepData["num_boys"],
-                                     "girls": electedrepData["num_girls"]}
+    def get_counts(self, electedrep, active_schools, academic_year):
+        electedrepData = self.get_electionboundary_basiccounts(electedrep, academic_year)
+        print(electedrepData)
+        self.reportInfo["gender"] = electedrepData["gender"]
         self.reportInfo["school_count"] = electedrepData["num_schools"]
-        self.reportInfo["student_count"] = electedrepData["num_boys"] +\
-            electedrepData["num_girls"]
+        self.reportInfo["student_count"] = electedrepData["num_students"]
         self.reportInfo["teacher_count"] =\
             self.get_teachercount(active_schools, academic_year)
 
@@ -32,19 +32,6 @@ class ElectedRepSummaryReport(APIView, BaseElectedRepReport):
                 self.reportInfo["student_count"] /
                 float(self.reportInfo["teacher_count"]), 2)
 
-        if self.parentInfo["schoolcount"] == 0:
-            self.reportInfo["school_perc"] = 100
-        else:
-            self.reportInfo["school_perc"] = round(
-                self.reportInfo["school_count"] *
-                100 / float(self.parentInfo["schoolcount"]), 2)
-
-    def get_parent_info(self, electedrepid):
-        parent = {"schoolcount": 0}
-        parentObject = ElectedrepMaster.objects.get(id=electedrepid.parent.id)
-        schools = parentObject.schools()
-        parent["schoolcount"] = schools.count()
-        return parent
 
     def get_report_data(self, electedrepid):
 
@@ -55,27 +42,18 @@ class ElectedRepSummaryReport(APIView, BaseElectedRepReport):
         except AcademicYear.DoesNotExist:
             raise APIException('Academic year is not valid.\
                     It should be in the form of 1617.', 404)
-        self.reportInfo["academic_year"] = year
+        self.reportInfo["academic_year"] = academic_year.year
 
         # Check if electedrep id is valid
-        print(electedrepid)
-        electedrep = ElectionBoundary.objects.get()
+        electedrep = ElectionBoundary.objects.get(pk=electedrepid)
 
         print("in get summary")
         self.getSummaryData(electedrep, self.reportInfo)
         # Get list of schools associated with that electedrep
         active_schools = electedrep.schools()
 
-        # Get aggregate data for schools with that electedrep for the current
-        # academic year
-        electedrepData = self.get_aggregations(active_schools, academic_year)
-        electedrepData = self.check_values(electedrepData)
-
-        # get information about the parent
-        self.parentInfo = self.get_parent_info(electedrep)
-
         # get the counts of students/gender/teacher/school
-        self.get_counts(electedrepData, active_schools, academic_year)
+        self.get_counts(electedrep, active_schools, academic_year)
 
     def get(self, request):
         if not self.request.GET.get('id'):

@@ -70,21 +70,6 @@ class BoundaryNeighbours(models.Model):
         unique_together = (('boundary', 'neighbour'), )
 
 
-class BoundaryAggregation(models.Model):
-    """Data aggregation per boundary"""
-    bid = models.ForeignKey('Boundary')
-    name = models.CharField(max_length=300)
-    academic_year = models.ForeignKey('common.AcademicYear')
-    gender = models.ForeignKey('common.Gender')
-    mt = models.ForeignKey('common.Language', related_name='b_agg_mt')
-    religion = models.ForeignKey('common.Religion')
-    category = models.ForeignKey('common.StudentCategory')
-    num = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'mvw_boundary_aggregation'
-
 
 class BoundaryHierarchy(models.Model):
     """boundary hierarchy details"""

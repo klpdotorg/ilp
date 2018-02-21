@@ -1,9 +1,10 @@
 from rest_framework.response import Response
-from boundary.models import ElectionBoundary
+from boundary.models import ElectionBoundary, ElectionNeighbours
 from common.models import AcademicYear
 from . import BaseElectedRepReport
 from django.conf import settings
 from rest_framework.views import APIView
+from rest_framework.exceptions import APIException
 
 
 class ElectedRepInfo(APIView, BaseElectedRepReport):
@@ -15,26 +16,30 @@ class ElectedRepInfo(APIView, BaseElectedRepReport):
         try:
             academic_year = AcademicYear.objects.get(char_id=year)
         except AcademicYear.DoesNotExist:
-            raise APIError('Academic year is not valid.\
-                    It should be in the form of 2011-2012.', 404)
-        self.reportInfo["academic_year"] = year
+            raise APIException('Academic year is not valid.\
+                    It should be in the form of 1415.', 404)
+        self.reportInfo["academic_year"] = academic_year.year
         try:
-            electedrep = ElectedrepMaster.objects.get(pk=electedrepid)
+            electedrep = ElectionBoundary.objects.get(pk=electedrepid)
         except Exception:
-            raise APIError('ElectedRep id ' + electedrepid+' not found', 404)
+            raise APIException('ElectedRep id ' + electedrepid+' not found', 404)
+        print(electedrep)
         self.getSummaryData(electedrep, self.reportInfo)
         self.reportInfo["neighbour_info"] = []
-        if electedrep.neighbours:
-            self.getNeighbours(electedrep.neighbours.split('|'),
+        neighbourlist = ElectionNeighbours.objects.filter(elect_boundary=electedrep).values_list("neighbour_id", flat=True)
+        neighbours = ElectionBoundary.objects.filter(id__in = list(neighbourlist))
+        if neighbours:
+            self.getNeighbours(neighbours,
                                electedrep.const_ward_type, self.reportInfo)
         self.getParentData(electedrep, self.reportInfo)
+        print(self.reportInfo)
 
     def get(self, request):
-        mandatoryparams = {'id': [], 'language': ["english", "kannada"]}
+        mandatoryparams = {'id': []}
         self.check_mandatory_params(mandatoryparams)
 
         id = self.request.GET.get("id")
-        reportlang = self.request.GET.get("language")
+        reportlang = self.request.GET.get("language", "english")
 
         self.reportInfo["report_info"] = {"report_lang": reportlang}
         self.get_electedrep_info(id)

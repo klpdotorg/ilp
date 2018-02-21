@@ -99,6 +99,27 @@ WHERE stu.institution_id = s.id AND
 GROUP BY stusg.academic_year_id, b.id;
 
 
+DROP MATERIALIZED VIEW IF EXISTS mvw_electionboundary_basic_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_electionboundary_basic_agg AS
+SELECT distinct format('A%s_%s', stusg.academic_year_id, eb.id) AS id,
+    stusg.academic_year_id AS year,
+    eb.id AS electionboundary_id,
+    count(distinct s.id) AS num_schools,
+    count(distinct stu.id) AS num_students,
+    sum(case(stu.gender_id) when 'male' then 1 else 0 end) AS num_boys,
+    sum(case(stu.gender_id) when 'female' then 1 else 0 end) AS num_girls
+FROM schools_student stu, 
+     schools_institution s, 
+     boundary_electionboundary eb,
+     schools_studentstudentgrouprelation stusg
+WHERE stu.institution_id = s.id AND 
+    stu.id = stusg.student_id AND 
+    (s.mp_id = eb.id or s.mla_id = eb.id or s.gp_id = eb.id or s.ward_id = eb.id) 
+    AND stu.status_id != 'DL'
+    AND stusg.status_id != 'DL'
+GROUP BY stusg.academic_year_id, eb.id;
+
+
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_gender_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,b.id, instgender.name) AS id,
@@ -119,6 +140,7 @@ WHERE stu.institution_id = s.id AND s.gender_id =  instgender.char_id AND
     AND stu.status_id != 'DL'
     AND stusg.status_id != 'DL'
 GROUP BY stusg.academic_year_id, b.id, instgender.name;
+
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_category_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_category_agg AS
@@ -142,6 +164,31 @@ WHERE stu.institution_id = s.id AND s.category_id =  category.id
     AND stu.status_id != 'DL' 
     AND stusg.status_id != 'DL'
 GROUP BY stusg.academic_year_id, b.id, category.name, category.institution_type_id;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_electionboundary_school_category_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_electionboundary_school_category_agg AS
+SELECT distinct format('A%s_%s_%s', stusg.academic_year_id, eb.id, category.name) AS id,
+    stusg.academic_year_id AS year,
+    eb.id AS electionboundary_id,
+    category.institution_type_id AS institution_type,
+    category.name AS category,
+    count(distinct s.id) AS num_schools,
+    count(distinct stu.id) AS num_students,
+    sum(case(stu.gender_id) when 'male' then 1 else 0 end) AS num_boys,
+    sum(case(stu.gender_id) when 'female' then 1 else 0 end) AS num_girls
+FROM schools_student stu, 
+     schools_institution s, 
+     schools_institutioncategory category,
+     boundary_electionboundary eb,
+     schools_studentstudentgrouprelation stusg 
+WHERE stu.institution_id = s.id AND s.category_id =  category.id 
+    AND stu.id = stusg.student_id 
+    AND (s.ward_id = eb.id or s.mp_id = eb.id or s.mla_id = eb.id or s.gp_id = eb.id) 
+    AND stu.status_id != 'DL' 
+    AND stusg.status_id != 'DL'
+GROUP BY stusg.academic_year_id, eb.id, category.name, category.institution_type_id;
+
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_mgmt_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_mgmt_agg AS
@@ -215,3 +262,53 @@ WHERE stu.institution_id = s.id
     AND stu.status_id != 'DL' 
     AND stusg.status_id != 'DL'
 GROUP BY stusg.academic_year_id, b.id, moi.name;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_electionboundary_student_mt_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_electionboundary_student_mt_agg AS
+SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,eb.id, mt.name) AS id,
+    stusg.academic_year_id AS year,
+    eb.id AS electionboundary_id,
+    mt.name AS mt,
+    count(distinct s.id) AS num_schools,
+    count(distinct stu.id) AS num_students,
+    sum(case(stu.gender_id) when 'male' then 1 else 0 end) AS num_boys,
+    sum(case(stu.gender_id) when 'female' then 1 else 0 end) AS num_girls
+FROM schools_student stu, 
+     schools_institution s, 
+     common_language mt,
+     boundary_electionboundary eb,
+     schools_studentstudentgrouprelation stusg 
+WHERE stu.institution_id = s.id
+    AND stu.mt_id = mt.char_id 
+    AND stu.id = stusg.student_id 
+    AND (s.gp_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id or s.ward_id = eb.id) 
+    AND stu.status_id != 'DL'
+    AND stusg.status_id != 'DL' 
+GROUP BY stusg.academic_year_id, eb.id, mt.name;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_electionboundary_school_moi_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_electionboundary_school_moi_agg AS
+SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,eb.id, moi.name) AS id,
+    stusg.academic_year_id AS year,
+    eb.id AS electionboundary_id,
+    moi.name AS moi,
+    count(distinct s.id) AS num_schools,
+    count(distinct stu.id) AS num_students,
+    sum(case(stu.gender_id) when 'male' then 1 else 0 end) AS num_boys,
+    sum(case(stu.gender_id) when 'female' then 1 else 0 end) AS num_girls
+FROM schools_student stu, 
+     schools_institution s, 
+     schools_institutionlanguage instlang,
+     common_language moi,
+     boundary_electionboundary eb,
+     schools_studentstudentgrouprelation stusg 
+WHERE stu.institution_id = s.id 
+    AND stu.id = stusg.student_id
+    AND s.id = instlang.institution_id
+    AND instlang.moi_id = moi.char_id
+    AND (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+    AND stu.status_id != 'DL' 
+    AND stusg.status_id != 'DL'
+GROUP BY stusg.academic_year_id, eb.id, moi.name;

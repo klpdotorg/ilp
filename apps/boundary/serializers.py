@@ -4,7 +4,7 @@ from common.serializers import ILPSerializer
 from boundary.models import (Boundary, ElectionBoundary,
                              BoundaryHierarchy,
                              BoundaryType,
-                             BoundaryAggregation
+                             ElectionParty
                              )
 from rest_framework_gis.serializers import (GeoFeatureModelSerializer,
         GeometrySerializerMethodField)
@@ -39,6 +39,7 @@ class BoundaryHierarchySerializer(ILPSerializer):
             'admin2_name', 'admin2_id', 'admin3_name', 'admin3_id'
         )
 
+
 class ElectionBoundarySerializer(ILPSerializer):
     name = serializers.CharField(source='const_ward_name')
 
@@ -54,12 +55,8 @@ class BoundaryTypeSerializer(serializers.ModelSerializer):
         fields = ('char_id', 'name')
 
 
-class BoundaryAggregationSerializer(serializers.ModelSerializer):
+class ElectionParty(serializers.ModelSerializer):
 
     class Meta:
-        model = BoundaryAggregation
-        fields = (
-            'bid', 'name', 'academic_year',
-            'gender', 'mt', 'religion', 'category',
-            'num'
-        )
+        model = ElectionParty
+        fields = ('char_id', 'name')

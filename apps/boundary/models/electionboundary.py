@@ -1,5 +1,7 @@
 import json
 from django.contrib.gis.db import models
+from schools.models import Institution
+from django.db.models import Q
 
 
 class ElectionBoundary(models.Model):
@@ -20,6 +22,12 @@ class ElectionBoundary(models.Model):
             return json.loads(self.geom.geojson)
         else:
             return {}
+
+    def schools(self):
+        return Institution.objects.filter(
+            Q(status='AC'),
+            Q(mp=self) | Q(mla=self) | Q(gp=self) | Q(ward=self)
+        )
 
     class Meta:
         ordering = ['const_ward_name', ]
@@ -45,22 +53,3 @@ class ElectionParty(models.Model):
 
     class Meta:
         unique_together = (('name'), )
-
-
-class ElectionBoundaryAggregation(models.Model):
-    """Data aggregation per Elected Rep"""
-    eid = models.ForeignKey('ElectionBoundary')
-    name = models.CharField(max_length=300)
-    academic_year = models.ForeignKey('common.AcademicYear')
-    gender = models.ForeignKey('common.Gender')
-    moi = models.ForeignKey('common.Language', related_name='e_agg_moi')
-    mt = models.ForeignKey('common.Language', related_name='e_agg_mt')
-    religion = models.ForeignKey('common.Religion')
-    category = models.ForeignKey('common.StudentCategory')
-    num = models.IntegerField()
-
-    class Meta:
-        unique_together = (
-            ('id', 'academic_year', 'gender', 'moi', 'mt',
-             'religion', 'category'),
-        )
