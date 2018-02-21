@@ -40,7 +40,7 @@ from assessments.models import (
     Question, SurveyBoundaryAgg, QuestionGroup,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
-    SurveyTagMapping, AnswerGroup_Student
+    SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg
 )
 from common.models import RespondentType
 from assessments.serializers import (
@@ -525,26 +525,26 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
         return neighbour_ids
 
     def get_electionboundary(self, boundary_id, survey_id):
-        queryset = SurveyBoundaryAgg.objects.filter(
+        queryset = SurveyElectionBoundaryAgg.objects.filter(
             boundary_id=boundary_id, survey_id=survey_id)
         res = {
             'MP': queryset.filter(
-                electionboundary_id__const_ward_type='MP').distinct(
-                    'electionboundary_id').count(),
+                boundary_id__const_ward_type='MP').distinct(
+                    'boundary_id').count(),
             'MLA': queryset.filter(
-                electionboundary_id__const_ward_type='MLA').distinct(
-                    'electionboundary_id').count(),
+                boundary_id__const_ward_type='MLA').distinct(
+                    'boundary_id').count(),
             'GP': queryset.filter(
-                electionboundary_id__const_ward_type='GP').distinct(
-                    'electionboundary_id').count(),
+                boundary_id__const_ward_type='GP').distinct(
+                    'boundary_id').count(),
             'MW': queryset.filter(
-                electionboundary_id__const_ward_type='MW').distinct(
-                    'electionboundary_id').count(),
+                boundary_id__const_ward_type='MW').distinct(
+                    'boundary_id').count(),
         }
         return res
 
     def get(self, request, *args, **kwargs):
-        neighbour_ids = self.get_neighbour_boundaries()
+        neighbour_ids = set(self.get_neighbour_boundaries())
         response = []
         for n_id in neighbour_ids:
             n_boundary = Boundary.objects.get(id=n_id)
@@ -566,17 +566,8 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 qset = self.queryset.filter(
                     survey_id=survey_id, boundary_id=n_id)
                 b_agg = qset.aggregate(Sum('num_assessments'))
-                sources = qset.distinct('source').\
-                    values_list('source__name', flat=True)
-                source_res = {}
-                for source in sources:
-                    source_res[source] = qset.filter(
-                        source__name=source).aggregate(
-                            Sum('num_assessments')
-                        )['num_assessments__sum']
                 neighbour_res['surveys'][survey_id] = {
                     "total_assessments": b_agg['num_assessments__sum'],
-                    "sources": source_res,
                     "electioncount": self.get_electionboundary(
                         n_id, survey_id
                     )
