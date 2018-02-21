@@ -679,13 +679,31 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
 class SurveyUsersCountAPIView(ListAPIView):
 
     def get(self, request, *args, **kwargs):
+        to_ = request.query_params.get('to', None)
+        from_ = request.query_params.get('from', None)
         survey_tag = self.request.GET.get('survey_tag', None)
+
         survey_ids = SurveyTagMapping.objects.filter(
             tag__char_id=survey_tag
         ).values_list('survey_id', flat=True)
+
         questiongroup_ids = QuestionGroup.objects.filter(
             survey_id__in=survey_ids).values_list('id', flat=True)
-        count = AnswerGroup_Institution.objects.filter(
-            questiongroup_id__in=questiongroup_ids).\
-            distinct('created_by_id').count()
+
+        queryset = AnswerGroup_Institution.objects.\
+            filter(questiongroup_id__in=questiongroup_ids)
+
+        if to_:
+            to_ = to_.split('-')
+            to_year, to_month = to_[0], to_[1]
+            yearmonth = int(to_year + to_month)
+            queryset = queryset.filter(date_of_visit__lte=yearmonth)
+
+        if from_:
+            from_ = from_.split('-')
+            from_year, from_month = from_[0], from_[1]
+            yearmonth = int(from_year + from_month)
+            queryset = queryset.filter(date_of_visit__gte=yearmonth)
+
+        count = queryset.distinct('created_by_id').count()
         return Response({"count": count})
