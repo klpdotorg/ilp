@@ -41,7 +41,8 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
     SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg,
-    SurveyBoundaryUserTypeAgg, SurveyBoundaryElectionTypeCount
+    SurveyBoundaryUserTypeAgg, SurveyBoundaryElectionTypeCount,
+    SurveyTagInstitutionMapping
 )
 from common.models import RespondentType
 from assessments.serializers import (
@@ -282,10 +283,18 @@ class SurveyTagAggAPIView(APIView):
 
         queryset = SurveyTagMappingAgg.objects.\
             filter(boundary_id=boundary_id, survey_tag=survey_tag,
-                   academic_year_id=year).values("num_schools",
-                                                 "num_students")
+                   academic_year_id=year).values("num_students")
+        num_schools = SurveyTagInstitutionMapping.objects.\
+            filter(academic_year_id=year, tag__char_id=survey_tag).\
+            filter(
+                Q(institution__admin0_id=boundary_id) |
+                Q(institution__admin1_id=boundary_id) |
+                Q(institution__admin2_id=boundary_id) |
+                Q(institution__admin3_id=boundary_id)
+            ).count()
+        self.response["num_schools"] = num_schools
+        
         if queryset:
-            self.response["num_schools"] = queryset[0]["num_schools"]
             self.response["num_students"] = queryset[0]["num_students"]
 
         return
