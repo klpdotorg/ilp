@@ -106,98 +106,161 @@ var topSummaryData = {};
 
     function loadComparison(params) {
 
-        var $compareXHR = klp.api.do(
-            "surveys/boundaryneighbour/info/?survey_tag=gka", params
-        );
-        $compareXHR.done(function(comparisonData) {
+        // var $compareXHR = klp.api.do(
+        //     "surveys/boundaryneighbour/info/?survey_tag=gka", params
+        // );
+        // $compareXHR.done(function(comparisonData) {
 
-            var neighbours = _.map(comparisonData.results, function(c){
-                var data = {
-                    name: c.name,
-                    schools: c.schools,
-                    sms: 'NA',
-                    sms_govt: 'NA',
-                    sms_govt_percent: 'NA',
-                    assmt: 'NA',
-                    contests: 'NA',
-                    surveys: 'NA'
-                };
+        //     var neighbours = _.map(comparisonData.results, function(c){
+        //         var data = {
+        //             name: c.name,
+        //             schools: c.schools,
+        //             sms: 'NA',
+        //             sms_govt: 'NA',
+        //             sms_govt_percent: 'NA',
+        //             assmt: 'NA',
+        //             contests: 'NA',
+        //             surveys: 'NA'
+        //         };
 
-                try {
-                    data.sms = c.surveys['11']['total_assessments'];
-                } catch (e) {}
+        //         try {
+        //             data.sms = c.surveys['11']['total_assessments'];
+        //         } catch (e) {}
 
-                try {
-                    data.assmt = c.surveys['3']['total_assessments'];
-                } catch (e) {}
+        //         try {
+        //             data.assmt = c.surveys['3']['total_assessments'];
+        //         } catch (e) {}
 
-                try {
-                    data.contests = c.surveys['2']['electioncount']['GP'];
-                } catch (e) {}
+        //         try {
+        //             data.contests = c.surveys['2']['electioncount']['GP'];
+        //         } catch (e) {}
 
-                try {
-                    data.surveys = c.surveys['7']['total_assessments'];
-                } catch (e) {}
+        //         try {
+        //             data.surveys = c.surveys['7']['total_assessments'];
+        //         } catch (e) {}
 
-                try {
-                    data.sms_govt = c.surveys['11']['users']['CRP'];
-                    data.sms_govt_percent = getPercent(
-                        data.sms_govt, data.sms
-                    );
-                } catch (e) {
+        //         try {
+        //             data.sms_govt = c.surveys['11']['users']['CRP'];
+        //             data.sms_govt_percent = getPercent(
+        //                 data.sms_govt, data.sms
+        //             );
+        //         } catch (e) {
 
-                } finally {
-                    if(isNaN(data.sms_govt_percent)) {
-                        data.sms_govt_percent = 'NA';
-                    }
-                }
+        //         } finally {
+        //             if(isNaN(data.sms_govt_percent)) {
+        //                 data.sms_govt_percent = 'NA';
+        //             }
+        //         }
 
-                // COMEBACK
-                return data;
-            });
-            var tplComparison= swig.compile($('#tpl-compareTable').html());
-            var compareHTML = tplComparison({"neighbours":neighbours});
-            $('#compareTable').html(compareHTML);
-        });
+        //         // COMEBACK
+        //         return data;
+        //     });
+        //     var tplComparison= swig.compile($('#tpl-compareTable').html());
+        //     var compareHTML = tplComparison({"neighbours":neighbours});
+        //     $('#compareTable').html(compareHTML);
+        // });
 
         var $assessmentComparisonXHR = klp.api.do(
-            "surveys/boundaryneighbour/info/?survey_tag=gka", params
+            "surveys/boundaryneighbour/detail/?survey_tag=gka&survey_ids=2&survey_ids=7", params
         );
-        $assessmentComparisonXHR.done(function(assessmentComparisonData){
+        $assessmentComparisonXHR.done(function(chartComparisonData){
             stopDetailLoading();
-            renderComparisonCharts(params, assessmentComparisonData);
+            renderComparisonCharts(params, chartComparisonData.results);
         });
     }
 
-    function renderComparisonCharts(params, assessmentComparisonData){
+    function renderComparisonCharts(params, chartComparisonData){
 
-        var ekstepValues = getMetaValues('ekstep'),
-            gpContestValues = getMetaValues('gp_contest');
-
-        var ekstepCompetencies = {
-            labels: ["Addition","Subtraction","Multiplication","Division"],
-            series: [
-                {
-                    className: 'ct-series-f',
-                    data: ekstepValues["n1"]
-                },
-                {
-                    className: 'ct-series-a',
-                    data: ekstepValues["n2"]
-                },
-                {
-                    className: 'ct-series-g',
-                    data: ekstepValues["n3"]
-                },
-                {
-                    className: 'ct-series-o',
-                    data: ekstepValues["n4"]
-                }
+        var ekstepValues = {},
+            gpSurveyId = 2,
+            gpContestValues = {},
+            gpLabels = [
+                "Addition",
+                "Subtraction",
+                "Multiplication",
+                "Division"
             ],
-        }
+            districts = _.pluck(chartComparisonData, 'name').splice(0, 4),
+            qgs;
+            console.log(districts)            
+
+        // Combine GP contest data
+
+        // For each district, fetch question groups and combine data
+        _.each(districts, function(d, districtIndex){
+
+            // Select the district
+            var district = _.find(chartComparisonData, function(c){
+                    return c.name === d;
+                }),
+                qgs = [];
+
+            console.log(district)
+
+            // Select the question groups
+            try {
+                qgs = _.map(
+                    district['surveys'][gpSurveyId]['questiongroups'],
+                    function(qVal, qKey) {
+                        return qKey;
+                    }
+                );
+            } catch(e) { console.log('error building qgs', e); }
+            
+            // Add the keys together for each gp labels and store it in 
+            // an array for each district
+            gpContestValues['n' + (districtIndex + 1)] = _.map(gpLabels, function(label){
+                var total = 0,
+                    score = 0,
+                    percent = 0;
+
+                // Add each labels across all question groups
+                _.each(qgs, function(qg){
+                    var keys = district['surveys'][gpSurveyId]['questiongroups'][qg]['question_keys'];
+                    
+                    for(var key in keys) {
+                        if(key === label) {
+                            score += keys[key]['score'];
+                            total += keys[key]['totol'];
+                            break;
+                        }
+                    }
+                });
+
+                percent = getPercent(score, total);
+
+                return {meta: d, skill: label, value: percent};
+
+            });
+
+            console.log(gpContestValues)
+
+        });
+
+        // var ekstepCompetencies = {
+        //     labels: labels,
+        //     series: [
+        //         {
+        //             className: 'ct-series-f',
+        //             data: ekstepValues["n1"]
+        //         },
+        //         {
+        //             className: 'ct-series-a',
+        //             data: ekstepValues["n2"]
+        //         },
+        //         {
+        //             className: 'ct-series-g',
+        //             data: ekstepValues["n3"]
+        //         },
+        //         {
+        //             className: 'ct-series-o',
+        //             data: ekstepValues["n4"]
+        //         }
+        //     ],
+        // }
 
         var gpContestCompetencies = {
-            labels: ["Addition","Subtraction","Multiplication","Division"],
+            labels: gpLabels,
             series: [
                 {
                     className: 'ct-series-f',
@@ -218,7 +281,7 @@ var topSummaryData = {};
             ],
         }
 
-        renderBarChart('#compareAssmtGraph', ekstepCompetencies, "Percentage of Children");
+        // renderBarChart('#compareAssmtGraph', ekstepCompetencies, "Percentage of Children");
         renderBarChart('#compareGpcGraph', gpContestCompetencies, "Percentage of Children");
     }
 
