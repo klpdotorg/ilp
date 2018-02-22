@@ -28,7 +28,7 @@ STATES = {
         'footer_logo': '/static/images/KLP_logo_footer@2x.png',
         'state_code': 'ka',
         'lang_name': 'Kannada',
-        'lang_key': 'ka'
+        'lang_key': 'kn'
     },
     'od': {
         'name': 'Odisha',
