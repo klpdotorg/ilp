@@ -106,10 +106,10 @@ var topSummaryData = {};
 
     function loadComparison(params) {
 
-        var $compateXHR = klp.api.do(
+        var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
         );
-        $compateXHR.done(function(comparisonData) {
+        $compareXHR.done(function(comparisonData) {
 
             var neighbours = _.map(comparisonData.results, function(c){
                 var data = {
@@ -160,105 +160,109 @@ var topSummaryData = {};
             $('#compareTable').html(compareHTML);
         });
 
-        // renderComparisonCharts(params, data);
-        // stopDetailLoading();
+        return; // No need to render comparison graphs for version 1
+
+        // var $assessmentComparisonXHR = klp.api.do(
+        //     "surveys/boundaryneighbour/detail/?survey_tag=gka&survey_ids=2&survey_ids=7", params
+        // );
+        // $assessmentComparisonXHR.done(function(chartComparisonData){
+        //     stopDetailLoading();
+        //     renderComparisonCharts(params, chartComparisonData.results);
+        // });
     }
 
-    function renderComparisonCharts(params, data){
+    function renderComparisonCharts(params, chartComparisonData){
 
-        function getSkillValue(skills, skillType, dataType) {
-            var value;
+        var ekstepValues = {},
+            gpSurveyId = 2,
+            gpContestValues = {},
+            gpLabels = [
+                "Addition",
+                "Subtraction",
+                "Multiplication",
+                "Division"
+            ],
+            districts = _.pluck(chartComparisonData, 'name').splice(0, 4),
+            qgs;
+            console.log(districts)            
 
-            if (dataType === 'ekstep') {
-                if(skills.competencies[skillType]) {
-                    var total = skills.competencies[skillType].total,
-                        score = skills.competencies[skillType].score;
-                    value = score / total * 100;
-                } else {
-                    value = 0;
-                }
-            } else {
-                for(var s in skills.competencies) {
-                    var yes = 0, no = 0;
-                    for(var i = 1; i <= 5; i++) {
-                        if(skills.competencies[skillType + ' ' + i]) {
-                            if(skills.competencies[skillType + ' ' + i].Yes && skills.competencies[skillType + ' ' + i].No) {
-                                    yes += skills.competencies[skillType + ' ' + i].Yes;
-                                    no += skills.competencies[skillType + ' ' + i].No;
-                            }
+        // Combine GP contest data
+
+        // For each district, fetch question groups and combine data
+        _.each(districts, function(d, districtIndex){
+
+            // Select the district
+            var district = _.find(chartComparisonData, function(c){
+                    return c.name === d;
+                }),
+                qgs = [];
+
+            console.log(district)
+
+            // Select the question groups
+            try {
+                qgs = _.map(
+                    district['surveys'][gpSurveyId]['questiongroups'],
+                    function(qVal, qKey) {
+                        return qKey;
+                    }
+                );
+            } catch(e) { console.log('error building qgs', e); }
+            
+            // Add the keys together for each gp labels and store it in 
+            // an array for each district
+            gpContestValues['n' + (districtIndex + 1)] = _.map(gpLabels, function(label){
+                var total = 0,
+                    score = 0,
+                    percent = 0;
+
+                // Add each labels across all question groups
+                _.each(qgs, function(qg){
+                    var keys = district['surveys'][gpSurveyId]['questiongroups'][qg]['question_keys'];
+                    
+                    for(var key in keys) {
+                        if(key === label) {
+                            score += keys[key]['score'];
+                            total += keys[key]['totol'];
+                            break;
                         }
                     }
-                }
-                value = yes / (yes + no) * 100;
-            }
+                });
 
-            if(value) { return value.toFixed(2); } else { return 0; }
-        }
+                percent = getPercent(score, total);
 
-        function getNValues(section, dataType) {
-            var addition = getSkillValue(section, 'Addition'),
-                subtraction = getSkillValue(section, 'Subtraction'),
-                multiplication = getSkillValue(section, 'Multiplication'),
-                division = getSkillValue(section, 'Division');
-            return [{
-                meta: section.boundary_name,
-                skill: 'Addition',
-                value: getSkillValue(section, 'Addition', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Subtraction',
-                value: getSkillValue(section, 'Subtraction', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Multiplication',
-                value: getSkillValue(section, 'Multiplication', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Division',
-                value: getSkillValue(section, 'Division', dataType)
-            }];
-        };
+                return {meta: d, skill: label, value: percent};
 
-        function getMetaValues(dataType) {
-            var metaValues = {};
-            for(var i = 1; i <= 4; i++) {
-                if(!data.competency_comparison[i-1]) {
-                    metaValues['n' + i] = [];
-                } else {
-                    var ekstepData = data.competency_comparison[i-1][0].type === dataType ? data.competency_comparison[i-1][0] : data.competency_comparison[i-1][1];
-                    metaValues['n' + i] = getNValues(ekstepData, dataType);
-                }
-            }
-            return metaValues;
-        }
+            });
 
-        var ekstepValues = getMetaValues('ekstep'),
-            gpContestValues = getMetaValues('gp_contest');
+            console.log(gpContestValues)
 
-        var ekstepCompetencies = {
-            labels: ["Addition","Subtraction","Multiplication","Division"],
-            series: [
-                {
-                    className: 'ct-series-f',
-                    data: ekstepValues["n1"]
-                },
-                {
-                    className: 'ct-series-a',
-                    data: ekstepValues["n2"]
-                },
-                {
-                    className: 'ct-series-g',
-                    data: ekstepValues["n3"]
-                },
-                {
-                    className: 'ct-series-o',
-                    data: ekstepValues["n4"]
-                }
-            ],
-        }
+        });
+
+        // var ekstepCompetencies = {
+        //     labels: labels,
+        //     series: [
+        //         {
+        //             className: 'ct-series-f',
+        //             data: ekstepValues["n1"]
+        //         },
+        //         {
+        //             className: 'ct-series-a',
+        //             data: ekstepValues["n2"]
+        //         },
+        //         {
+        //             className: 'ct-series-g',
+        //             data: ekstepValues["n3"]
+        //         },
+        //         {
+        //             className: 'ct-series-o',
+        //             data: ekstepValues["n4"]
+        //         }
+        //     ],
+        // }
 
         var gpContestCompetencies = {
-            labels: ["Addition","Subtraction","Multiplication","Division"],
+            labels: gpLabels,
             series: [
                 {
                     className: 'ct-series-f',
@@ -279,7 +283,7 @@ var topSummaryData = {};
             ],
         }
 
-        renderBarChart('#compareAssmtGraph', ekstepCompetencies, "Percentage of Children");
+        // renderBarChart('#compareAssmtGraph', ekstepCompetencies, "Percentage of Children");
         renderBarChart('#compareGpcGraph', gpContestCompetencies, "Percentage of Children");
     }
 
