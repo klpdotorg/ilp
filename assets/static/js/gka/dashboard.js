@@ -337,9 +337,8 @@ var topSummaryData = {};
         startDetailLoading();
 
         // Load the source for csv summary
-        var $sourceXHR = klp.api.do("survey/info/source/?survey_tag=gka&survey_id=7", params);
+        var $sourceXHR = klp.api.do("survey/summary/?survey_tag=gka&survey_id=7", params);
         $sourceXHR.done(function(sourceData) {
-            klp.GKA.surveySummaryData = sourceData;
             renderSurveySummary(sourceData);
 
             // Load the respondent summary
@@ -483,10 +482,16 @@ var topSummaryData = {};
     }
 
     function renderSurveySummary(data) {
-        data = data.source.csv;
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
-        data["format_lastcsv"] = formatLastStory(data.last_assessment, true);
-        data['schoolPerc'] = getPercent(data.schools_impacted, klp.GKA.topSummaryData.schools_impacted);
+
+        data = data.summary;
+        data["format_last_assessment"] = formatLastStory(
+            data.last_assessment, true
+        );
+        data['schoolPerc'] = getPercent(
+            data.schools_impacted, klp.GKA.topSummaryData.schools_impacted
+        );
+
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
     }
