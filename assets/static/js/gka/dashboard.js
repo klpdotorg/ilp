@@ -337,9 +337,12 @@ var topSummaryData = {};
         startDetailLoading();
 
         // Load the source for csv summary
-        var $sourceXHR = klp.api.do("survey/summary/?survey_tag=gka&survey_id=7", params);
-        $sourceXHR.done(function(sourceData) {
-            renderSurveySummary(sourceData);
+        var $surveySummaryXHR = klp.api.do(
+            "survey/summary/?survey_tag=gka&survey_id=7", params
+        );
+        $surveySummaryXHR.done(function(surveySummaryData) {
+            klp.GKA.surveySummaryData = surveySummaryData;
+            renderSurveySummary(surveySummaryData);
 
             // Load the respondent summary
             var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=7", params);
