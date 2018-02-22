@@ -312,7 +312,6 @@
     </div>
   </script>
 
-  <!-- There's probably a cleaner way of doing the below template without this many for loops-->
   <script type="text/html" id="tpl-compareTable">
    <h3 class="heading-border brand-red">COMPARISON</h3>
    <div class="table-responsive-wrap">
@@ -348,7 +347,7 @@
                       {% if n.sms_govt_percent === 'NA' %}
                         <div class="bar-value bar-value-100 brand-red-bg" style="width:0%;"></div>
                       {% else %}
-                        <div class="bar-value bar-value-100 brand-red-bg" style="width:{{n.sms_govt}}%;"></div>
+                        <div class="bar-value bar-value-100 brand-red-bg" style="width:{{n.sms_govt_percent}}%;"></div>
                       {% endif %}
                     </div>
                   </div>
