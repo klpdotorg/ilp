@@ -148,9 +148,7 @@ var topSummaryData = {};
 
                 } finally {
                     if(isNaN(data.sms_govt_percent)) {
-                        data.sms_govt_percent = '0%';
-                    } else {
-                        data.sms_govt_percent += '%';
+                        data.sms_govt_percent = 'NA';
                     }
                 }
 
