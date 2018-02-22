@@ -608,24 +608,21 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                         survey_id=survey_id, boundary_id=n_id)
                 )
                 b_agg = qset.aggregate(Sum('num_assessments'))
+
+                usertype_res = {}
                 usertypes = SurveyBoundaryUserTypeAgg.objects.filter(
                     boundary_id=n_id, survey_id=survey_id, **survey_tag_dict
-                ).distinct('user_type').values_list('user_type', flat=True)
-                usertype_res = {}
+                )
+                if to_yearmonth:
+                    usertypes = usertypes.filter(yearmonth__lte=to_yearmonth)
+                if from_yearmonth:
+                    usertypes = usertypes.filter(yearmonth__gte=from_yearmonth)
+                usertypes = usertypes.values(
+                    'user_type').annotate(Sum('num_assessments'))
+
                 for usertype in usertypes:
-                    user_qs = SurveyBoundaryUserTypeAgg.objects.filter(
-                        boundary_id=n_id, survey_id=survey_id,
-                        **survey_tag_dict, user_type=usertype
-                    )
-                    if to_yearmonth:
-                        user_qs = user_qs.filter(yearmonth__lte=to_yearmonth)
-                    if from_yearmonth:
-                        user_qs = user_qs.filter(yearmonth__gte=from_yearmonth)
-                    
-                    user_assess = user_qs.\
-                        aggregate(
-                            Sum('num_assessments'))['num_assessments__sum']
-                    usertype_res[usertype] = user_assess
+                    usertype_res[usertype['user_type']] = usertype[
+                        'num_assessments__sum']
                 neighbour_res['surveys'][survey_id] = {
                     "total_assessments": b_agg['num_assessments__sum'],
                     "users": usertype_res,
