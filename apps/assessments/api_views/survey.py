@@ -568,7 +568,7 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
         survey_tag = self.request.GET.get('survey_tag', None)
         to_ = request.query_params.get('to', None)
         from_ = request.query_params.get('from', None)
-        to_yearmonth, from_year = None, None
+        to_yearmonth, from_yearmonth = None, None
 
         if to_:
             to_ = to_.split('-')
