@@ -353,14 +353,18 @@ var topSummaryData = {};
         });
 
         // Load the volumes
-        var $volumeXHR = klp.api.do("survey/volume/?survey_tag=gka&survey_id=7", params);
+        var $volumeXHR = klp.api.do(
+            "survey/volume/?survey_tag=gka&survey_id=7", params
+        );
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
             stopDetailLoading();
         });
 
         // Load the detail section
-        var $detailXHR = klp.api.do("survey/detail/source/?survey_tag=gka&survey_id=7", params);
+        var $detailXHR = klp.api.do(
+            "survey/detail/source/?survey_tag=gka&survey_id=7", params
+        );
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
             stopDetailLoading();
