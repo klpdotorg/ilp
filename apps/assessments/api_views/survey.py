@@ -544,24 +544,12 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
         if from_yearmonth:
             queryset = queryset.filter(yearmonth__gte=from_yearmonth)
 
-        res = {
-            'MP': queryset.filter(
-                const_ward_type='MP').aggregate(
-                    Sum('electionboundary_count')
-                    )['electionboundary_count__sum'],
-            'MLA': queryset.filter(
-                const_ward_type='MLA').aggregate(
-                    Sum('electionboundary_count', distinct='survey_id')
-                    )['electionboundary_count__sum'],
-            'GP': queryset.filter(
-                const_ward_type='GP').aggregate(
-                    Sum('electionboundary_count', distinct='survey_id')
-                    )['electionboundary_count__sum'],
-            'MW': queryset.filter(
-                const_ward_type='MW').aggregate(
-                    Sum('electionboundary_count', distinct='survey_id')
-                    )['electionboundary_count__sum'],
-        }
+        electioncount_agg = queryset.values('const_ward_type').annotate(
+            Sum('electionboundary_count'))
+        res = {}
+        for electioncount in electioncount_agg:
+            res[electioncount['const_ward_type']] = \
+                electioncount['electionboundary_count__sum']
         return res
 
     def get(self, request, *args, **kwargs):
