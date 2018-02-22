@@ -654,7 +654,11 @@ class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
     queryset = SurveyBoundaryElectionTypeCount.objects.all()
 
     def list(self, request, *args, **kwargs):
+        boundary_id = self.request.GET.get('boundary_id', None)
         queryset = self.filter_queryset(self.get_queryset())
+        if boundary_id:
+            queryset = queryset.filter(boundary_id=boundary_id)
+
         res = {
             'MP': queryset.filter(
                 const_ward_type='MP').aggregate(
