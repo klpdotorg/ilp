@@ -613,10 +613,18 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 ).distinct('user_type').values_list('user_type', flat=True)
                 usertype_res = {}
                 for usertype in usertypes:
-                    user_assess = SurveyBoundaryUserTypeAgg.objects.filter(
+                    user_qs = SurveyBoundaryUserTypeAgg.objects.filter(
                         boundary_id=n_id, survey_id=survey_id,
                         **survey_tag_dict, user_type=usertype
-                    ).aggregate(Sum('num_assessments'))['num_assessments__sum']
+                    )
+                    if to_yearmonth:
+                        user_qs = user_qs.filter(yearmonth__lte=to_yearmonth)
+                    if from_yearmonth:
+                        user_qs = user_qs.filter(yearmonth__gte=from_yearmonth)
+                    
+                    user_assess = user_qs.\
+                        aggregate(
+                            Sum('num_assessments'))['num_assessments__sum']
                     usertype_res[usertype] = user_assess
                 neighbour_res['surveys'][survey_id] = {
                     "total_assessments": b_agg['num_assessments__sum'],
