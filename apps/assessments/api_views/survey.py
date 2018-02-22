@@ -603,8 +603,10 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
             survey_ids = self.filter_queryset(survey_ids).\
                 distinct('survey_id').values_list('survey_id', flat=True)
             for survey_id in survey_ids:
-                qset = self.queryset.filter(
-                    survey_id=survey_id, boundary_id=n_id)
+                qset = self.filter_queryset(
+                    self.queryset.filter(
+                        survey_id=survey_id, boundary_id=n_id)
+                )
                 b_agg = qset.aggregate(Sum('num_assessments'))
                 usertypes = SurveyBoundaryUserTypeAgg.objects.filter(
                     boundary_id=n_id, survey_id=survey_id, **survey_tag_dict
