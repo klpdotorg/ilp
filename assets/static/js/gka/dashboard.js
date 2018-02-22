@@ -106,67 +106,69 @@ var topSummaryData = {};
 
     function loadComparison(params) {
 
-        // var $compareXHR = klp.api.do(
-        //     "surveys/boundaryneighbour/info/?survey_tag=gka", params
-        // );
-        // $compareXHR.done(function(comparisonData) {
-
-        //     var neighbours = _.map(comparisonData.results, function(c){
-        //         var data = {
-        //             name: c.name,
-        //             schools: c.schools,
-        //             sms: 'NA',
-        //             sms_govt: 'NA',
-        //             sms_govt_percent: 'NA',
-        //             assmt: 'NA',
-        //             contests: 'NA',
-        //             surveys: 'NA'
-        //         };
-
-        //         try {
-        //             data.sms = c.surveys['11']['total_assessments'];
-        //         } catch (e) {}
-
-        //         try {
-        //             data.assmt = c.surveys['3']['total_assessments'];
-        //         } catch (e) {}
-
-        //         try {
-        //             data.contests = c.surveys['2']['electioncount']['GP'];
-        //         } catch (e) {}
-
-        //         try {
-        //             data.surveys = c.surveys['7']['total_assessments'];
-        //         } catch (e) {}
-
-        //         try {
-        //             data.sms_govt = c.surveys['11']['users']['CRP'];
-        //             data.sms_govt_percent = getPercent(
-        //                 data.sms_govt, data.sms
-        //             );
-        //         } catch (e) {
-
-        //         } finally {
-        //             if(isNaN(data.sms_govt_percent)) {
-        //                 data.sms_govt_percent = 'NA';
-        //             }
-        //         }
-
-        //         // COMEBACK
-        //         return data;
-        //     });
-        //     var tplComparison= swig.compile($('#tpl-compareTable').html());
-        //     var compareHTML = tplComparison({"neighbours":neighbours});
-        //     $('#compareTable').html(compareHTML);
-        // });
-
-        var $assessmentComparisonXHR = klp.api.do(
-            "surveys/boundaryneighbour/detail/?survey_tag=gka&survey_ids=2&survey_ids=7", params
+        var $compareXHR = klp.api.do(
+            "surveys/boundaryneighbour/info/?survey_tag=gka", params
         );
-        $assessmentComparisonXHR.done(function(chartComparisonData){
-            stopDetailLoading();
-            renderComparisonCharts(params, chartComparisonData.results);
+        $compareXHR.done(function(comparisonData) {
+
+            var neighbours = _.map(comparisonData.results, function(c){
+                var data = {
+                    name: c.name,
+                    schools: c.schools,
+                    sms: 'NA',
+                    sms_govt: 'NA',
+                    sms_govt_percent: 'NA',
+                    assmt: 'NA',
+                    contests: 'NA',
+                    surveys: 'NA'
+                };
+
+                try {
+                    data.sms = c.surveys['11']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.assmt = c.surveys['3']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.contests = c.surveys['2']['electioncount']['GP'];
+                } catch (e) {}
+
+                try {
+                    data.surveys = c.surveys['7']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.sms_govt = c.surveys['11']['users']['CRP'];
+                    data.sms_govt_percent = getPercent(
+                        data.sms_govt, data.sms
+                    );
+                } catch (e) {
+
+                } finally {
+                    if(isNaN(data.sms_govt_percent)) {
+                        data.sms_govt_percent = 'NA';
+                    }
+                }
+
+                // COMEBACK
+                return data;
+            });
+            var tplComparison= swig.compile($('#tpl-compareTable').html());
+            var compareHTML = tplComparison({"neighbours":neighbours});
+            $('#compareTable').html(compareHTML);
         });
+
+        return; // No need to render comparison graphs for version 1
+
+        // var $assessmentComparisonXHR = klp.api.do(
+        //     "surveys/boundaryneighbour/detail/?survey_tag=gka&survey_ids=2&survey_ids=7", params
+        // );
+        // $assessmentComparisonXHR.done(function(chartComparisonData){
+        //     stopDetailLoading();
+        //     renderComparisonCharts(params, chartComparisonData.results);
+        // });
     }
 
     function renderComparisonCharts(params, chartComparisonData){
@@ -533,10 +535,10 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                // loadSmsData(params);
-                // loadAssmtData(params);
-                // loadGPContestData(params);
-                // loadSurveys(params);
+                loadSmsData(params);
+                loadAssmtData(params);
+                loadGPContestData(params);
+                loadSurveys(params);
                 loadComparison(params);
             });
         });
