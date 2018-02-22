@@ -534,9 +534,16 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 values_list('boundary_id', flat=True)
         return neighbour_ids
 
-    def get_electionboundary(self, boundary_id, survey_id):
+    def get_electionboundary(
+            self, boundary_id, survey_id, to_yearmonth, from_yearmonth
+    ):
         queryset = SurveyBoundaryElectionTypeCount.objects.filter(
             boundary_id=boundary_id, survey_id=survey_id)
+        if to_yearmonth:
+            queryset = queryset.filter(yearmonth__lte=to_yearmonth)
+        if from_yearmonth:
+            queryset = queryset.filter(yearmonth__gte=from_yearmonth)
+
         res = {
             'MP': queryset.filter(
                 const_ward_type='MP').aggregate(
@@ -544,21 +551,35 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                     )['electionboundary_count__sum'],
             'MLA': queryset.filter(
                 const_ward_type='MLA').aggregate(
-                    Sum('electionboundary_count')
+                    Sum('electionboundary_count', distinct='survey_id')
                     )['electionboundary_count__sum'],
             'GP': queryset.filter(
                 const_ward_type='GP').aggregate(
-                    Sum('electionboundary_count')
+                    Sum('electionboundary_count', distinct='survey_id')
                     )['electionboundary_count__sum'],
             'MW': queryset.filter(
                 const_ward_type='MW').aggregate(
-                    Sum('electionboundary_count')
+                    Sum('electionboundary_count', distinct='survey_id')
                     )['electionboundary_count__sum'],
         }
         return res
 
     def get(self, request, *args, **kwargs):
         survey_tag = self.request.GET.get('survey_tag', None)
+        to_ = request.query_params.get('to', None)
+        from_ = request.query_params.get('from', None)
+        to_yearmonth, from_year = None, None
+
+        if to_:
+            to_ = to_.split('-')
+            to_year, to_month = to_[0], to_[1]
+            to_yearmonth = int(to_year + to_month)
+
+        if from_:
+            from_ = from_.split('-')
+            from_year, from_month = from_[0], from_[1]
+            from_yearmonth = int(from_year + from_month)
+
         survey_tag_dict = {}
         if survey_tag:
             survey_tag_dict = {'survey_tag': survey_tag}
@@ -599,7 +620,7 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                     "total_assessments": b_agg['num_assessments__sum'],
                     "users": usertype_res,
                     "electioncount": self.get_electionboundary(
-                        n_id, survey_id
+                        n_id, survey_id, to_yearmonth, from_yearmonth
                     )
                 }
             response.append(neighbour_res)
