@@ -13,7 +13,9 @@ STATES = {
         'home_logo': '',
         'header_logo': '',
         'footer_logo': '',
-        'state_code': 'ilp'
+        'state_code': 'ilp',
+        'lang_name': '',
+        'lang_key': ''
     },
     'ka': {
         'name': 'Karnataka',
@@ -24,7 +26,9 @@ STATES = {
         'home_logo': '/static/images/home_klp_logo@2x.png',
         'header_logo': '/static/images/KLP_logo@2x.png',
         'footer_logo': '/static/images/KLP_logo_footer@2x.png',
-        'state_code': 'ka'
+        'state_code': 'ka',
+        'lang_name': 'Kannada',
+        'lang_key': 'ka'
     },
     'od': {
         'name': 'Odisha',
@@ -35,6 +39,8 @@ STATES = {
         'home_logo': '/static/images/states/od/home_olp_logo@2x.png',
         'header_logo': '/static/images/states/od/OLP_logo@2x.png',
         'footer_logo': '/static/images/states/od/OLP_logo_footer@2x.png',
-        'state_code': 'od'
+        'state_code': 'od',
+        'lang_name': 'Odiya',
+        'lang_key': 'od'
     },
 }
