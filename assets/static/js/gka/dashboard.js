@@ -106,10 +106,10 @@ var topSummaryData = {};
 
     function loadComparison(params) {
 
-        var $compateXHR = klp.api.do(
+        var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
         );
-        $compateXHR.done(function(comparisonData) {
+        $compareXHR.done(function(comparisonData) {
 
             var neighbours = _.map(comparisonData.results, function(c){
                 var data = {
@@ -160,77 +160,16 @@ var topSummaryData = {};
             $('#compareTable').html(compareHTML);
         });
 
-        // renderComparisonCharts(params, data);
-        // stopDetailLoading();
+        var $assessmentComparisonXHR = klp.api.do(
+            "surveys/boundaryneighbour/info/?survey_tag=gka", params
+        );
+        $assessmentComparisonXHR.done(function(assessmentComparisonData){
+            stopDetailLoading();
+            renderComparisonCharts(params, assessmentComparisonData);
+        });
     }
 
-    function renderComparisonCharts(params, data){
-
-        function getSkillValue(skills, skillType, dataType) {
-            var value;
-
-            if (dataType === 'ekstep') {
-                if(skills.competencies[skillType]) {
-                    var total = skills.competencies[skillType].total,
-                        score = skills.competencies[skillType].score;
-                    value = score / total * 100;
-                } else {
-                    value = 0;
-                }
-            } else {
-                for(var s in skills.competencies) {
-                    var yes = 0, no = 0;
-                    for(var i = 1; i <= 5; i++) {
-                        if(skills.competencies[skillType + ' ' + i]) {
-                            if(skills.competencies[skillType + ' ' + i].Yes && skills.competencies[skillType + ' ' + i].No) {
-                                    yes += skills.competencies[skillType + ' ' + i].Yes;
-                                    no += skills.competencies[skillType + ' ' + i].No;
-                            }
-                        }
-                    }
-                }
-                value = yes / (yes + no) * 100;
-            }
-
-            if(value) { return value.toFixed(2); } else { return 0; }
-        }
-
-        function getNValues(section, dataType) {
-            var addition = getSkillValue(section, 'Addition'),
-                subtraction = getSkillValue(section, 'Subtraction'),
-                multiplication = getSkillValue(section, 'Multiplication'),
-                division = getSkillValue(section, 'Division');
-            return [{
-                meta: section.boundary_name,
-                skill: 'Addition',
-                value: getSkillValue(section, 'Addition', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Subtraction',
-                value: getSkillValue(section, 'Subtraction', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Multiplication',
-                value: getSkillValue(section, 'Multiplication', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Division',
-                value: getSkillValue(section, 'Division', dataType)
-            }];
-        };
-
-        function getMetaValues(dataType) {
-            var metaValues = {};
-            for(var i = 1; i <= 4; i++) {
-                if(!data.competency_comparison[i-1]) {
-                    metaValues['n' + i] = [];
-                } else {
-                    var ekstepData = data.competency_comparison[i-1][0].type === dataType ? data.competency_comparison[i-1][0] : data.competency_comparison[i-1][1];
-                    metaValues['n' + i] = getNValues(ekstepData, dataType);
-                }
-            }
-            return metaValues;
-        }
+    function renderComparisonCharts(params, assessmentComparisonData){
 
         var ekstepValues = getMetaValues('ekstep'),
             gpContestValues = getMetaValues('gp_contest');
@@ -531,10 +470,10 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
 
                 // Load the rest of sections
-                loadSmsData(params);
-                loadAssmtData(params);
-                loadGPContestData(params);
-                loadSurveys(params);
+                // loadSmsData(params);
+                // loadAssmtData(params);
+                // loadGPContestData(params);
+                // loadSurveys(params);
                 loadComparison(params);
             });
         });
