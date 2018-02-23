@@ -99,7 +99,10 @@ urlpatterns = [
     # Akshara Math programme
     url(r'^text/maths/$',
         RedirectView.as_view(url='/partners/akshara/maths/')),
-
+    
+    url(r'^partners/akshara/maths/$', StaticPageView.as_view(
+        template_name='partners/akshara/maths.html',
+    ), name='maths_programme'),
     # Akshara preschool
     url(r'^text/preschool/$',
         RedirectView.as_view(url='/partners/akshara/preschool/')),
