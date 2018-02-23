@@ -88,9 +88,11 @@
     var getContext = function(entity) {
         // console.log("get context called with ", entity);
         var context = $.extend(entity, klp.utils.getBoyGirlPercents(entity.num_boys, entity.num_girls));
-        var mt = klp.utils.getMTProfilePercents(entity.demographics_data.mt_profile);
-        context.mt_profile_percents = mt.percents || {};
-        context.total_mt = mt.total;
+        if (entity.demographics_data) {
+            var mt = klp.utils.getMTProfilePercents(entity.demographics_data.mt_profile);
+            context.mt_profile_percents = mt.percents || {};
+            context.total_mt = mt.total;
+        }
         context.hasFinanceData = entity.finance_data.sg_amount || entity.finance_data.smg_amount || entity.finance_data.tlm_amount;
         if (context.hasFinanceData) {
             context.finance_percents = klp.utils.getFinancePercents(entity.finance_data);
