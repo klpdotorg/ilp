@@ -36,8 +36,7 @@ class MergeEndpoints(ILPAPIView):
             print("Parsed endpoints are: ", parsed.path)
             try:
                 view, args, kwargs = resolve(parsed.path, urlconf=ilp.api_urls)
-                kwargs['request'] = request
-                print("View is: ", view)
+                kwargs['request'] = request._request
                 data[endpoint] = view(*args, **kwargs).data
                 print("Data from endpoint is: ", data[endpoint])
             except Exception as e:
