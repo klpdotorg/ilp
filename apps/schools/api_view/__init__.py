@@ -25,7 +25,6 @@ class MergeEndpoints(ILPAPIView):
     def get(self, request, format=None):
         endpoints = request.GET.getlist('endpoints', [])
         data = {}
-        print("MERGE Endpoints are: ", endpoints)
         if not endpoints:
             return Response({
                 'error': 'no endpoints specified'
@@ -33,13 +32,10 @@ class MergeEndpoints(ILPAPIView):
 
         for endpoint in endpoints:
             parsed = urlparse(endpoint)
-            print("Parsed endpoints are: ", parsed.path)
             try:
                 view, args, kwargs = resolve(parsed.path, urlconf=ilp.api_urls)
-                kwargs['request'] = request
-                print("View is: ", view)
+                kwargs['request'] = request._request
                 data[endpoint] = view(*args, **kwargs).data
-                print("Data from endpoint is: ", data[endpoint])
             except Exception as e:
                 print(e)
                 continue
