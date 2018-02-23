@@ -93,9 +93,11 @@
             context.mt_profile_percents = mt.percents || {};
             context.total_mt = mt.total;
         }
-        context.hasFinanceData = entity.finance_data.sg_amount || entity.finance_data.smg_amount || entity.finance_data.tlm_amount;
-        if (context.hasFinanceData) {
-            context.finance_percents = klp.utils.getFinancePercents(entity.finance_data);
+        if(entity.finance_data) {
+            context.hasFinanceData = entity.finance_data.sg_amount || entity.finance_data.smg_amount || entity.finance_data.tlm_amount;
+            if (context.hasFinanceData) {
+                context.finance_percents = klp.utils.getFinancePercents(entity.finance_data);
+            }
         }
         context.studentTeacherRatio = klp.utils.getStudentTeacherRatio(entity.infrastructure_data);
         context.hasStudents = entity.num_boys || entity.num_girls;
