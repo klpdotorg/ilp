@@ -744,7 +744,7 @@ class SurveyInstitutionQuestionGroupQuestionKeyGenderCorrectAns(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'mvw_survey_institution_questiongroup_questionkey_gender_correctans'
+        db_table = 'mvw_survey_institution_questiongroup_questionkey_gender_correct'
 
 
 class SurveyClassGenderCorrectAnsAgg(models.Model):

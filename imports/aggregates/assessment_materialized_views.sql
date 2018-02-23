@@ -3042,8 +3042,8 @@ FROM
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name,gender ;
 
 
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_gender_correctans CASCADE;
-CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_gender_correctans AS
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_gender_correct CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_gender_correct AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
