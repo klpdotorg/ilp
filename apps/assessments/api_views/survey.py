@@ -156,8 +156,6 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
         questiongroup_id = self.request.query_params.get('questiongroup_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
         institution_id = self.request.query_params.get('institution_id', None)
-        year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
-
         state_id = BoundaryStateCode.objects.filter(
             char_id=settings.ILP_STATE_ID).\
             values("boundary_id")[0]["boundary_id"]
@@ -206,12 +204,14 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                 "children_impacted": qs_agg['num_children__sum'],
                 "num_assessments": qs_agg['num_assessments__sum']
             }
+	    inst_count = Institution.objects.filter(
+                institution_type_id=InstitutionType.PRIMARY_SCHOOL
+            ).filter(
+                Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
+                Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
+            ).count()
+            summary_res["total_schools"] = inst_count
 
-            basicqueryset = BasicBoundaryAgg.objects.\
-                filter(boundary_id=boundary_id, year=year).\
-                values_list('num_schools', flat=True)
-            if basicqueryset:
-                summary_res["total_schools"] = basicqueryset[0]
 
             ans_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
                     boundary_id=boundary_id)
