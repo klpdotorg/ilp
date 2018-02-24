@@ -19,7 +19,12 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
     boundary_queryset = SurveyBoundaryAgg.objects.all()
 
     def institution_qs(self):
-        return self.filter_queryset(SurveyInstitutionAgg.objects.all())
+        boundary_id = self.request.query_params.get('boundary_id', settings.ILP_STATE_ID)
+        institution_qs = SurveyInstitutionAgg.objects.filter(
+                Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
+                Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+            )
+        return self.filter_queryset(institution_qs)
 
     def get_summary_response(self, queryset):
         institution_id = self.request.query_params.get('institution_id', None)
@@ -115,6 +120,7 @@ class SurveyInfoSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
     boundary_queryset = SurveyBoundaryAgg.objects.all()
 
     def institution_qs(self):
+        #TODO Nabeel  need to fix this
         return self.filter_queryset(SurveyInstitutionAgg.objects.all())
 
     def get_qs_agg(self, queryset, source_id):
@@ -159,7 +165,12 @@ class SurveyInfoBoundarySourceAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
 
     def institution_qs(self):
-        return self.filter_queryset(SurveyInstitutionAgg.objects.all())
+        boundary_id = self.request.query_params.get('boundary_id', settings.ILP_STATE_ID)
+        institution_qs = SurveyInstitutionAgg.objects.filter(
+                Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
+                Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+            )
+        return self.filter_queryset(institution_qs)
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -615,6 +626,7 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
 
     def institution_qs(self):
+        #TODO Nabeel  need to fix this
         return self.filter_queryset(SurveyInstitutionAgg.objects.all())
 
     def list(self, request, *args, **kwargs):
