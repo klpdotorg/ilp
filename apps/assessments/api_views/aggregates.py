@@ -1,4 +1,4 @@
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.conf import settings
 
 from rest_framework.generics import ListAPIView
