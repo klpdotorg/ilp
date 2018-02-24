@@ -204,7 +204,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                 "children_impacted": qs_agg['num_children__sum'],
                 "num_assessments": qs_agg['num_assessments__sum']
             }
-	    inst_count = Institution.objects.filter(
+            inst_count = Institution.objects.filter(
                 institution_type_id=InstitutionType.PRIMARY_SCHOOL
             ).filter(
                 Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
