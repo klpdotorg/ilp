@@ -1,10 +1,10 @@
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_summary_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_summary_agg AS
-SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s', survey_id,survey_tag,institution_type,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_schools,
     num_assessments,
     num_children,
@@ -12,8 +12,7 @@ SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, mon
 FROM(SELECT survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.inst_type_id as institution_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -31,13 +30,13 @@ FROM(SELECT survey.id as survey_id,
     GROUP BY survey.id,
         surveytag.tag_id,
         qg.inst_type_id,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s', survey_id,survey_tag,institution_type,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_schools,
     num_assessments,
     num_children,
@@ -46,8 +45,7 @@ FROM(SELECT
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.inst_type_id as institution_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.student_id) as num_children,
@@ -67,18 +65,18 @@ FROM(SELECT
     GROUP BY survey.id,
         surveytag.tag_id,
         qg.inst_type_id,
-        year, month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_details_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_details_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_type,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     institution_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_schools,
     num_assessments,
     num_children,
@@ -89,8 +87,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         qg.inst_type_id as institution_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYY')::int as yearmonth,
         count(distinct ag.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -111,14 +108,14 @@ FROM(
         qg.inst_type_id,
         qg.source_id,
         ag.is_verified,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_type,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     institution_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_schools,
     num_assessments,
     num_children,
@@ -129,8 +126,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         qg.inst_type_id as institution_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.student_id) as num_children,
@@ -153,19 +149,19 @@ FROM(
         qg.inst_type_id,
         qg.source_id,
         ag.is_verified,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_info_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_questiongroup_info_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,institution_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,institution_type,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     questiongroup_id,
     institution_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_schools,
     num_assessments,
     num_children,
@@ -177,8 +173,7 @@ FROM(
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.inst_type_id as institution_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -200,15 +195,15 @@ FROM(
         qg.source_id,
         qg.id,
         ag.is_verified,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,institution_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,institution_type,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     questiongroup_id,
     institution_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_schools,
     num_assessments,
     num_children,
@@ -220,8 +215,7 @@ FROM(
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.inst_type_id as institution_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.student_id) as num_children,
@@ -245,18 +239,18 @@ FROM(
         qg.source_id,
         qg.id,
         ag.is_verified,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_id,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     institution_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_children,
     num_users,
@@ -267,8 +261,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         ag.institution_id as institution_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
         count(distinct ag.created_by_id) as num_users,
@@ -288,14 +281,14 @@ FROM(
         qg.source_id,
         ag.is_verified,
         ag.institution_id, 
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_id,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     institution_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_children,
     num_users,
@@ -306,8 +299,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         stu.institution_id as institution_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.student_id) as num_children,
         count(distinct ag.created_by_id) as num_users,
@@ -329,19 +321,18 @@ FROM(
         qg.source_id,
         ag.is_verified,
         stu.institution_id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     boundary_id,
-    electionboundary_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -353,9 +344,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         b.id as boundary_id,
-        eb.id as electionboundary_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -366,7 +355,6 @@ FROM(
         assessments_answergroup_institution ag,
         assessments_surveytagmapping surveytag,
         schools_institution s,
-        boundary_electionboundary eb,
         boundary_boundary b
     WHERE 
         survey.id = qg.survey_id
@@ -375,23 +363,20 @@ FROM(
         and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
         qg.source_id,
         ag.is_verified,
         b.id,
-        eb.id,
-        year,month)data
+        yearmonth)data
 union
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     boundary_id,
-    electionboundary_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -403,9 +388,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         b.id as boundary_id,
-        eb.id as electionboundary_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -417,7 +400,6 @@ FROM(
         assessments_surveytagmapping surveytag,
         schools_student stu,
         schools_institution s,
-        boundary_electionboundary eb,
         boundary_boundary b
     WHERE 
         survey.id = qg.survey_id
@@ -427,26 +409,24 @@ FROM(
         and ag.student_id = stu.id
         and stu.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
         qg.source_id,
         ag.is_verified,
         b.id,
-        eb.id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_electionboundary_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_electionboundary_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,electionboundary_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,electionboundary_id,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     electionboundary_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -458,8 +438,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         eb.id as electionboundary_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -484,14 +463,14 @@ FROM(
         qg.source_id,
         ag.is_verified,
         eb.id,
-        year,month)data
+        yearmonth)data
 union
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,electionboundary_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,electionboundary_id,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     electionboundary_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -503,8 +482,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         eb.id as electionboundary_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -531,19 +509,19 @@ FROM(
         qg.source_id,
         ag.is_verified,
         eb.id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_respondenttype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_respondenttype_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,respondent_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,respondent_type,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     respondent_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -555,8 +533,7 @@ FROM(
         b.id as boundary_id,
         qg.source_id as source,
         rt.name as respondent_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -583,15 +560,15 @@ FROM(
         ag.is_verified,
         rt.name,
         b.id,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,respondent_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,respondent_type,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     respondent_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -603,8 +580,7 @@ FROM(
         b.id as boundary_id,
         qg.source_id as source,
         rt.name as respondent_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -633,20 +609,20 @@ FROM(
         qg.source_id,
         ag.is_verified,
         rt.name,
-        year,month)data
+        yearmonth)data
 ;
 
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_respondenttype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_respondenttype_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,respondent_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,respondent_type,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     respondent_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -658,8 +634,7 @@ FROM(
         ag.institution_id as institution_id,
         qg.source_id as source,
         rt.name as respondent_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -682,15 +657,15 @@ FROM(
         qg.source_id,
         ag.is_verified,
         rt.name,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,respondent_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,respondent_type,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     respondent_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -702,8 +677,7 @@ FROM(
         stu.institution_id as institution_id,
         qg.source_id as source,
         rt.name as respondent_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -728,18 +702,18 @@ FROM(
         qg.source_id,
         ag.is_verified,
         rt.name,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_respondenttype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_respondenttype_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,respondent_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,respondent_type,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     respondent_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -750,8 +724,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         rt.name as respondent_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -773,14 +746,14 @@ FROM(
         qg.source_id,
         ag.is_verified,
         rt.name,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,respondent_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,respondent_type,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     respondent_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -791,8 +764,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         rt.name as respondent_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -816,19 +788,19 @@ FROM(
         qg.source_id,
         ag.is_verified,
         rt.name,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_usertype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_usertype_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,user_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,user_type,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     user_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -840,8 +812,7 @@ FROM(
         b.id as boundary_id,
         qg.source_id as source,
         users.user_type_id as user_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -868,15 +839,15 @@ FROM(
         qg.source_id,
         ag.is_verified,
 	users.user_type_id,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,user_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,user_type,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     user_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -888,8 +859,7 @@ FROM(
         b.id as boundary_id,
         qg.source_id as source,
         users.user_type_id as user_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -918,19 +888,19 @@ FROM(
         qg.source_id,
         ag.is_verified,
 	users.user_type_id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_usertype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_usertype_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,user_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,user_type,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     user_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -942,8 +912,7 @@ FROM(
         ag.institution_id as institution_id,
         qg.source_id as source,
         ut.user_type_id as user_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -966,15 +935,15 @@ FROM(
         qg.source_id,
         ag.is_verified,
         ut.user_type_id,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,user_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,user_type,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     user_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -986,8 +955,7 @@ FROM(
         stu.institution_id as institution_id,
         qg.source_id as source,
         ut.user_type_id as user_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -1012,18 +980,18 @@ FROM(
         qg.source_id,
         ag.is_verified,
         ut.user_type_id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_usertype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_usertype_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,user_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,user_type,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     user_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -1034,8 +1002,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         ut.user_type_id as user_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -1057,14 +1024,14 @@ FROM(
         qg.source_id,
         ag.is_verified,
         ut.user_type_id,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,user_type,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,user_type,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     user_type,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -1075,8 +1042,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         ut.user_type_id as user_type,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -1100,17 +1066,17 @@ FROM(
         qg.source_id,
         ag.is_verified,
         ut.user_type_id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_id,
     answer_option,
     num_answers
@@ -1119,8 +1085,7 @@ FROM(
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         ans.answer as answer_option,
         count(ans) as num_answers
@@ -1144,13 +1109,13 @@ FROM(
         qg.source_id,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_id,
     answer_option,
     num_answers
@@ -1159,8 +1124,7 @@ FROM(
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         ans.answer as answer_option,
         count(ans) as num_answers
@@ -1184,18 +1148,18 @@ FROM(
         qg.source_id,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id, 
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1204,8 +1168,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         b.id as boundary_id,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1232,14 +1195,14 @@ FROM(
         b.id,
         qg.source_id,
         q.key,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id, 
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1248,8 +1211,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         b.id as boundary_id,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1278,18 +1240,18 @@ FROM(
         b.id,
         qg.source_id,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1298,8 +1260,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         ag.institution_id as institution_id,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1322,14 +1283,14 @@ FROM(
         surveytag.tag_id,
         qg.source_id,
         q.key,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1338,8 +1299,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         stu.institution_id as institution_id,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1364,17 +1324,17 @@ FROM(
         stu.institution_id,
         qg.source_id,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1382,8 +1342,7 @@ FROM(
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1405,13 +1364,13 @@ FROM(
         surveytag.tag_id,
         qg.source_id,
         q.key,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1419,8 +1378,7 @@ FROM(
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1442,20 +1400,20 @@ FROM(
         surveytag.tag_id,
         qg.source_id,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     questiongroup_id,
     questiongroup_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1466,8 +1424,7 @@ FROM(
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1495,16 +1452,16 @@ FROM(
         qg.source_id,
         qg.name,qg.id,
         q.key,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     questiongroup_id,
     questiongroup_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1515,8 +1472,7 @@ FROM(
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1546,19 +1502,19 @@ FROM(
         qg.source_id,
         qg.name,qg.id,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     questiongroup_id,
     questiongroup_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1569,8 +1525,7 @@ FROM(
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1594,16 +1549,16 @@ FROM(
         qg.source_id,
         qg.name,qg.id,
         q.key,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     questiongroup_id,
     questiongroup_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1614,8 +1569,7 @@ FROM(
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1641,19 +1595,19 @@ FROM(
         qg.source_id,
         qg.name,qg.id,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_questiongroup_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     questiongroup_id,
     questiongroup_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1663,8 +1617,7 @@ FROM(
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1687,15 +1640,15 @@ FROM(
         qg.source_id,
         qg.name,qg.id,
         q.key,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     questiongroup_id,
     questiongroup_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1705,8 +1658,7 @@ FROM(
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1729,13 +1681,13 @@ FROM(
         qg.source_id,
         qg.name,qg.id,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,year,month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -1743,7 +1695,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,sourc
     questiongroup_id,
     questiongroup_name,
     gender,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 from
     (select distinct
@@ -1754,8 +1706,7 @@ from
         qg.name as questiongroup_name,
         ans1.answer as gender,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     from assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
@@ -1773,13 +1724,13 @@ from
         and qg.survey_id=2
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    group by ag.id,qg.survey_id,b.id,stmap.tag_id,year,month,source,qg.id, ans1.answer)data
-GROUP BY survey_id, survey_tag,boundary_id,source,year,month,questiongroup_id,questiongroup_name,gender ;
+    group by ag.id,qg.survey_id,b.id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer)data
+GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_gender_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,year,month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -1787,7 +1738,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,so
     questiongroup_id,
     questiongroup_name,
     gender,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 from
     (select distinct
@@ -1798,8 +1749,7 @@ from
         qg.name as questiongroup_name,
         ans1.answer as gender,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     from assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
@@ -1813,21 +1763,21 @@ from
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.survey_id=2
-    group by ag.id,qg.survey_id,stmap.tag_id,ag.institution_id,year,month,source,qg.id, ans1.answer)data
-GROUP BY survey_id, survey_tag,institution_id,source,year,month,questiongroup_id,questiongroup_name,gender ;
+    group by ag.id,qg.survey_id,stmap.tag_id,ag.institution_id,yearmonth,source,qg.id, ans1.answer)data
+GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
 
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_questiongroup_gender_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,gender,year,month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     questiongroup_id,
     questiongroup_name,
     gender,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 from
     (select distinct
@@ -1837,8 +1787,7 @@ from
         qg.name as questiongroup_name,
         ans1.answer as gender,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     from assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
@@ -1852,19 +1801,19 @@ from
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.survey_id=2
-    group by ag.id,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer)data
-GROUP BY survey_id, survey_tag,source,year,month,questiongroup_id,questiongroup_name,gender ;
+    group by ag.id,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer)data
+GROUP BY survey_id, survey_tag,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_class_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     sg_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1874,8 +1823,7 @@ FROM(
         b.id as boundary_id,
         qg.source_id as source,
         sg.name as sg_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1909,19 +1857,19 @@ FROM(
         b.id,
         qg.source_id,sg.name,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_class_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     sg_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1931,8 +1879,7 @@ FROM(
         sg.institution_id as institution_id,
         qg.source_id as source,
         sg.name as sg_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -1962,18 +1909,18 @@ FROM(
         sg.institution_id,
         qg.source_id,sg.name,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_class_questionkey_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     sg_name,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_key,
     num_assessments
 FROM(
@@ -1982,8 +1929,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
         sg.name as sg_name,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         q.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
@@ -2012,18 +1958,18 @@ FROM(
         surveytag.tag_id,
         qg.source_id,sg.name,
         q.key,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_class_gender_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     sg_name,
     gender,
     num_assessments
@@ -2033,8 +1979,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         b.id as boundary_id,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         sg.name as sg_name,
         stu.gender_id as gender,
         count(distinct ag.id) as num_assessments
@@ -2065,18 +2010,18 @@ FROM(
         qg.source_id,
         sg.name,
         stu.gender_id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_class_gender_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     sg_name,
     gender,
     num_assessments
@@ -2086,8 +2031,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         sg.institution_id as institution_id,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         sg.name as sg_name,
         stu.gender_id as gender,
         count(distinct ag.id) as num_assessments
@@ -2114,17 +2058,17 @@ FROM(
         qg.source_id,
         sg.name,
         stu.gender_id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_class_gender_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,gender,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
-    (year||month)::int as yearmonth,
+    yearmonth,
     sg_name,
     gender,
     num_assessments
@@ -2133,8 +2077,7 @@ FROM(
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         sg.name as sg_name,
         stu.gender_id as gender,
         count(distinct ag.id) as num_assessments
@@ -2160,13 +2103,13 @@ FROM(
         qg.source_id,
         sg.name,
         stu.gender_id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_class_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -2174,15 +2117,14 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,so
     sg_name,
     question_id,
     answer_option,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_answers
 FROM(SELECT
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         b.id as boundary_id,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         sg.name as sg_name,
         ans.question_id as question_id,
         ans.answer as answer_option,
@@ -2220,13 +2162,13 @@ FROM(SELECT
         sg.name,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_class_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -2234,15 +2176,14 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id
     sg_name,
     question_id,
     answer_option,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_answers
 FROM(SELECT
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         sg.institution_id as institution_id,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         sg.name as sg_name,
         ans.question_id as question_id,
         ans.answer as answer_option,
@@ -2276,27 +2217,26 @@ FROM(SELECT
         sg.name,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_class_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     sg_name,
     question_id,
     answer_option,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_answers
 FROM(SELECT
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         sg.name as sg_name,
         ans.question_id as question_id,
         ans.answer as answer_option,
@@ -2329,19 +2269,19 @@ FROM(SELECT
         sg.name,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     boundary_id,
     source,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2350,8 +2290,7 @@ FROM
         b.id as boundary_id,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -2391,17 +2330,17 @@ FROM
         and ag.student_id = stu.id
         and stu.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-        GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
+        GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source
         having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,boundary_id,source,year,month,question_key
+GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key
 union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     boundary_id,
     source,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2410,8 +2349,7 @@ FROM
         b.id as boundary_id,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
@@ -2450,20 +2388,20 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
+    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,boundary_id,source,year,month,question_key ;
+GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     institution_id,
     source,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2472,8 +2410,7 @@ FROM
         stu.institution_id as institution_id,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -2510,17 +2447,17 @@ FROM
         and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.student_id = stu.id
-        GROUP BY q.key,ag.id,stu.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
+        GROUP BY q.key,ag.id,stu.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source
         having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,institution_id,source,year,month,question_key
+GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key
 union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     institution_id,
     source,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2529,8 +2466,7 @@ FROM
         ag.institution_id as institution_id,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
@@ -2565,19 +2501,19 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,ag.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
+    GROUP BY q.key,ag.id,ag.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,institution_id,source,year,month,question_key ;
+GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     source,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2585,8 +2521,7 @@ FROM
         stmap.tag_id as survey_tag, 
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -2620,16 +2555,16 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-        GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
+        GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source
         having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,source,year,month,question_key
+GROUP BY survey_id,survey_tag,source,yearmonth,question_key
 union
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     source,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2637,8 +2572,7 @@ FROM
         stmap.tag_id as survey_tag, 
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
@@ -2673,14 +2607,14 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,source,year,month,question_key ;
+GROUP BY survey_id,survey_tag,source,yearmonth,question_key ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     boundary_id,
@@ -2688,7 +2622,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,sourc
     questiongroup_id,
     questiongroup_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2699,8 +2633,7 @@ FROM
         qg.name as questiongroup_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -2740,11 +2673,11 @@ FROM
     and ag.student_id = stu.id
     and stu.institution_id = s.id
     and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name
+    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,boundary_id,source,year,month,question_key,questiongroup_id,questiongroup_name
+GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name
 union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     boundary_id,
@@ -2752,7 +2685,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,sourc
     questiongroup_id,
     questiongroup_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2763,8 +2696,7 @@ FROM
         qg.name as questiongroup_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
@@ -2803,15 +2735,15 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name
+    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,boundary_id,source,year,month,question_key,questiongroup_id,questiongroup_name;
+GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     institution_id,
@@ -2819,7 +2751,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,so
     questiongroup_id,
     questiongroup_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2830,8 +2762,7 @@ FROM
         qg.name as questiongroup_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -2867,11 +2798,11 @@ FROM
     and qg.type_id='assessment'
     and ag.is_verified=true
     and ag.student_id = stu.id
-    GROUP BY q.key,ag.id,stu.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name
+    GROUP BY q.key,ag.id,stu.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,institution_id,source,year,month,question_key,questiongroup_id,questiongroup_name
+GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name
 union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     institution_id,
@@ -2879,7 +2810,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,so
     questiongroup_id,
     questiongroup_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2890,8 +2821,7 @@ FROM
         qg.name as questiongroup_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
@@ -2926,21 +2856,21 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name,ag.institution_id
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,institution_id,source,year,month,question_key,questiongroup_id,questiongroup_name;
+GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_questiongroup_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag ,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag ,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     source,
     questiongroup_id,
     questiongroup_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -2950,8 +2880,7 @@ FROM
         qg.name as questiongroup_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -2985,18 +2914,18 @@ FROM
     and stmap.survey_id=qg.survey_id
     and qg.type_id='assessment'
     and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id,survey_tag,source,year,month,question_key,questiongroup_id,questiongroup_name
+GROUP BY survey_id,survey_tag,source,yearmonth,question_key,questiongroup_id,questiongroup_name
 union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag ,source,questiongroup_id,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag ,source,questiongroup_id,question_key,yearmonth) as id,
     survey_id, 
     survey_tag,
     source,
     questiongroup_id,
     questiongroup_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3006,8 +2935,7 @@ FROM
         qg.name as questiongroup_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
@@ -3042,14 +2970,14 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id,qg.name
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,questiongroup_id,questiongroup_name;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_questionkey_gender_correctans CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_questionkey_gender_correctans AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,question_key,year,month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -3058,7 +2986,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,so
     questiongroup_name,
     gender,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3070,8 +2998,7 @@ FROM
         ans1.answer as gender,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
@@ -3110,14 +3037,14 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name
+    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,boundary_id,source,year,month,question_key,questiongroup_id,questiongroup_name,gender ;
+GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name,gender ;
 
 
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_gender_correctans CASCADE;
-CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_gender_correctans AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,question_key,year,month) as id,
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_gender_correct CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_gender_correct AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -3126,7 +3053,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id
     questiongroup_name,
     gender,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3138,8 +3065,7 @@ FROM
         ans1.answer as gender,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
@@ -3174,14 +3100,14 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.survey_id=2
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name,ag.institution_id
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name,ag.institution_id
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,questiongroup_id,questiongroup_name,gender,institution_id ;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,questiongroup_id,questiongroup_name,gender,institution_id ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_questiongroup_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,gender,question_key,year,month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongroup_id,gender,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
@@ -3189,7 +3115,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,questiongr
     questiongroup_name,
     gender,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3200,8 +3126,7 @@ FROM
         ans1.answer as gender,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
@@ -3236,21 +3161,21 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.survey_id=2
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,questiongroup_id,questiongroup_name,gender ;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,questiongroup_id,questiongroup_name,gender ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_class_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     sg_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3260,8 +3185,7 @@ FROM
         sg.name as sg_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -3305,21 +3229,21 @@ FROM
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,b.id
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,b.id
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name,boundary_id;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,boundary_id;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_class_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     sg_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3329,8 +3253,7 @@ FROM
         sg.name as sg_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -3370,20 +3293,20 @@ FROM
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,sg.institution_id
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,sg.institution_id
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name,institution_id;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,institution_id;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_class_questionkey_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     sg_name,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3392,8 +3315,7 @@ FROM
         sg.name as sg_name,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -3433,14 +3355,14 @@ FROM
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_questionkey_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_class_questionkey_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -3448,7 +3370,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,so
     sg_name,
     gender,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3459,8 +3381,7 @@ FROM
         stu.gender_id as gender,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -3504,14 +3425,14 @@ FROM
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,stu.gender_id,b.id
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,b.id
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name,gender,boundary_id;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,gender,boundary_id;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_questionkey_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_class_questionkey_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -3519,7 +3440,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id
     sg_name,
     gender,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3530,8 +3451,7 @@ FROM
         stu.gender_id as gender,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -3571,21 +3491,21 @@ FROM
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,stu.gender_id,sg.institution_id
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,sg.institution_id
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name,gender,institution_id;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,gender,institution_id;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_class_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_class_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,gender,question_key,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,source,sg_name,gender,question_key,yearmonth) as id,
     survey_id,
     survey_tag,
     source,
     sg_name,
     gender,
     question_key,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -3595,8 +3515,7 @@ FROM
         stu.gender_id as gender,
         q.key as question_key,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -3636,9 +3555,9 @@ FROM
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,stu.gender_id
+    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,question_key,sg_name,gender;
+GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,gender;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_question_agg CASCADE;
@@ -3687,13 +3606,13 @@ FROM(
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_id,
     question_desc,
     answer_option,
@@ -3705,8 +3624,7 @@ FROM(
         b.id as boundary_id,
         qg.source_id as source,
         qg.id as questiongroup_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
@@ -3739,15 +3657,15 @@ FROM(
         q.question_text,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_id,
     question_desc,
     answer_option,
@@ -3759,8 +3677,7 @@ FROM(
         b.id as boundary_id,
         qg.source_id as source,
         qg.id as questiongroup_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
@@ -3795,19 +3712,19 @@ FROM(
         q.question_text,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_id,
     question_desc,
     answer_option,
@@ -3819,8 +3736,7 @@ FROM(
         s.id as institution_id,
         qg.source_id as source,
         qg.id as questiongroup_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
@@ -3851,15 +3767,15 @@ FROM(
         q.question_text,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_id,
     question_desc,
     answer_option,
@@ -3871,8 +3787,7 @@ FROM(
         s.id as institution_id,
         qg.source_id as source,
         qg.id as questiongroup_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
@@ -3905,17 +3820,17 @@ FROM(
         q.question_text,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_questiongroup_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_questiongroup_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s', survey_id,questiongroup_id,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s', survey_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_id,
     question_desc,
     answer_option,
@@ -3925,8 +3840,7 @@ FROM(
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
@@ -3953,13 +3867,13 @@ FROM(
         q.question_text,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s', survey_id,questiongroup_id,question_id,answer_option,year, month) as id,
+SELECT format('A%s_%s_%s_%s', survey_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     question_id,
     question_desc,
     answer_option,
@@ -3969,8 +3883,7 @@ FROM(
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
         ans.answer as answer_option,
@@ -3999,18 +3912,18 @@ FROM(
         q.question_text,
         ans.question_id,
         ans.answer,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_agg AS
-SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -4022,8 +3935,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         b.id as boundary_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
@@ -4048,14 +3960,14 @@ FROM(
         qg.id,
         ag.is_verified,
         b.id,
-        year,month)data
+        yearmonth)data
 union
-SELECT format('A%s_%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_schools,
     num_children,
@@ -4067,8 +3979,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         b.id as boundary_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct stu.institution_id) as num_schools,
         count(distinct ag.student_id) as num_children,
@@ -4095,18 +4006,18 @@ FROM(
         qg.id,
         ag.is_verified,
         b.id,
-        year,month)data
+        yearmonth)data
 ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_agg AS
-SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_children,
     num_users,
@@ -4117,8 +4028,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         ag.institution_id as institution_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
         count(distinct ag.created_by_id) as num_users,
@@ -4138,14 +4048,14 @@ FROM(
         qg.id,
         ag.is_verified,
         ag.institution_id, 
-        year,month)data
+        yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,year, month) as id,
+SELECT format('A%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     questiongroup_id,
-    (year||month)::int as yearmonth,
+    yearmonth,
     num_assessments,
     num_children,
     num_users,
@@ -4156,8 +4066,7 @@ FROM(
         surveytag.tag_id as survey_tag,
         qg.id as questiongroup_id,
         stu.institution_id as institution_id,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.student_id) as num_children,
         count(distinct ag.created_by_id) as num_users,
@@ -4179,7 +4088,7 @@ FROM(
         qg.id,
         ag.is_verified,
         stu.institution_id,
-        year,month)data
+        yearmonth)data
 ;
 
 
@@ -4289,7 +4198,7 @@ data.academic_year_id
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,year,month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -4297,7 +4206,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,sourc
     questiongroup_id,
     questiongroup_name,
     gender,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -4308,8 +4217,7 @@ FROM
         qg.name as questiongroup_name,
         ans1.answer as gender,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
@@ -4345,14 +4253,14 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name
+    GROUP BY ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,boundary_id,source,year,month,questiongroup_id,questiongroup_name,gender ;
+GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,year,month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -4360,7 +4268,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,so
     questiongroup_id,
     questiongroup_name,
     gender,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -4371,8 +4279,7 @@ FROM
         qg.name as questiongroup_name,
         ans1.answer as gender,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
         assessments_answerinstitution ans,
@@ -4404,21 +4311,21 @@ FROM
         and stmap.survey_id=qg.survey_id
         and qg.survey_id=2
         and ag.is_verified=true
-    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,qg.id, ans1.answer,qg.name,ag.institution_id
+    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name,ag.institution_id
     having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,questiongroup_id,questiongroup_name,gender,institution_id ;
+GROUP BY survey_id, survey_tag,source,yearmonth,questiongroup_id,questiongroup_name,gender,institution_id ;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_class_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
     source,
     sg_name,
     gender,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -4428,8 +4335,7 @@ FROM
         sg.name as sg_name,
         stu.gender_id as gender,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -4470,21 +4376,21 @@ FROM
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,stu.gender_id,b.id
+    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,b.id
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,sg_name,gender,boundary_id;
+GROUP BY survey_id, survey_tag,source,yearmonth,sg_name,gender,boundary_id;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_class_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,year, month) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
     source,
     sg_name,
     gender,
-    (year||month)::int as yearmonth,
+    yearmonth,
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
@@ -4494,8 +4400,7 @@ FROM
         sg.name as sg_name,
         stu.gender_id as gender,
         qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYY') as year,
-        to_char(ag.date_of_visit,'MM') as month,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
     FROM assessments_answergroup_student ag,
         assessments_answerstudent ans,
@@ -4532,7 +4437,80 @@ FROM
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
         and ag.is_verified=true
-    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,year,month,source,sg.name,stu.gender_id,sg.institution_id
+    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,sg.institution_id
     having sum(ans.answer::int)=max_score.maxscore)correctanswers
-GROUP BY survey_id, survey_tag,source,year,month,sg_name,gender,institution_id;
+GROUP BY survey_id, survey_tag,source,yearmonth,sg_name,gender,institution_id;
 
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_electiontype_count CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_electiontype_count AS
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,yearmonth,const_ward_type) as id,
+    survey_id,
+    survey_tag,
+    boundary_id,
+    yearmonth,
+    const_ward_type,
+    electionboundary_count
+FROM(
+    SELECT distinct 
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        eb.const_ward_type_id as const_ward_type,
+	count(distinct eb.id) as electionboundary_count
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        schools_institution s,
+        boundary_electionboundary eb,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+        and ag.is_verified=true
+    GROUP BY
+        survey.id, surveytag.tag_id, b.id, yearmonth, eb.const_ward_type_id
+        )data
+union
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,yearmonth,const_ward_type) as id,
+    survey_id,
+    survey_tag,
+    boundary_id,
+    yearmonth,
+    const_ward_type,
+    electionboundary_count
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        eb.const_ward_type_id as const_ward_type,
+	count(distinct eb.id) as electionboundary_count
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        schools_student stu,
+        schools_institution s,
+        boundary_electionboundary eb,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+        and ag.is_verified=true
+    GROUP BY survey.id, surveytag.tag_id, b.id, yearmonth, eb.const_ward_type_id)data
+;

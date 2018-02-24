@@ -651,22 +651,17 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
 
 class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-    queryset = SurveyBoundaryAgg.objects.all()
+    queryset = SurveyBoundaryElectionTypeCount.objects.all()
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
-        res = {
-            'MP': queryset.filter(
-                electionboundary_id__const_ward_type='MP').distinct(
-                    'electionboundary_id').count(),
-            'MLA': queryset.filter(
-                electionboundary_id__const_ward_type='MLA').distinct(
-                    'electionboundary_id').count(),
-            'GP': queryset.filter(
-                electionboundary_id__const_ward_type='GP').distinct(
-                    'electionboundary_id').count(),
-            'MW': queryset.filter(
-                electionboundary_id__const_ward_type='MW').distinct(
-                    'electionboundary_id').count(),
-        }
+        if self.request.GET.get('state', None):
+            queryset = queryset.filter(boundary_id=self.get_state().id)
+
+        electioncount_agg = queryset.values('const_ward_type').annotate(
+            Sum('electionboundary_count'))
+        res = {}
+        for electioncount in electioncount_agg:
+            res[electioncount['const_ward_type']] = \
+                electioncount['electionboundary_count__sum']
         return Response(res)
