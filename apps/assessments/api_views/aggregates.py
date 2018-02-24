@@ -19,7 +19,9 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
     boundary_queryset = SurveyBoundaryAgg.objects.all()
 
     def institution_qs(self):
-        boundary_id = self.request.query_params.get('boundary_id', settings.ILP_STATE_ID)
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        boundary_id = self.request.query_params.get('boundary_id', state_id)
         institution_qs = SurveyInstitutionAgg.objects.filter(
                 Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
                 Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
@@ -165,7 +167,9 @@ class SurveyInfoBoundarySourceAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
 
     def institution_qs(self):
-        boundary_id = self.request.query_params.get('boundary_id', settings.ILP_STATE_ID)
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        boundary_id = self.request.query_params.get('boundary_id', state_id)
         institution_qs = SurveyInstitutionAgg.objects.filter(
                 Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
                 Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
