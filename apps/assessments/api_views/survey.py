@@ -149,7 +149,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
     def institution_qs(self):
         return self.filter_queryset(
-            SurveyInstitutionAgg.objects.all()
+            SurveyInstitutionQuestionGroupAgg.objects.all()
         )
 
     def get(self, request):
@@ -198,10 +198,13 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                 Sum('num_schools'), Sum('num_children'), Sum('num_assessments')
             )
             
-            institution_qs = self.institution_qs().filter((institution_id__admin0_id=boundary_id) | 
-                Q(institution__admin1_id=boundary_id) |
+            institution_qs = self.institution_qs()
+            institutuion_qs = institution_qs.filter(
+                Q(institution_id__admin0_id=boundary_id) | Q(institution__admin1_id=boundary_id) |
                 Q(institution__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
             )
+            if questiongroup_id:
+                institutuion_qs = institution_qs.filter(questiongroup_id=questiongroup_id)
             summary_res = {
                 "schools_impacted": institution_qs.distinct(
                     'institution_id').count(),
