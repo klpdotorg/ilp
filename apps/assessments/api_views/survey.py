@@ -199,12 +199,11 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             )
             
             institution_qs = self.institution_qs()
-            institutuion_qs = institution_qs.filter(
+            institution_qs = institution_qs.filter(
                 Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
                 Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
             )
-            if questiongroup_id:
-                institutuion_qs = institution_qs.filter(questiongroup_id=questiongroup_id)
+            institution_qs = institution_qs.filter(questiongroup_id=questiongroup_id)
             summary_res = {
                 "schools_impacted": institution_qs.distinct(
                     'institution_id').count(),
