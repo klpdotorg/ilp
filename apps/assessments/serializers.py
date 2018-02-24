@@ -158,9 +158,9 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
 
     def get_created_by_username(self, obj):
         username=''
-        if obj.created_by.first_name is not None: 
+        if obj is not None and obj.created_by is not None and obj.created_by.first_name is not None: 
             username = username + obj.created_by.first_name
-        if obj.created_by.last_name is not None:
+        if obj is not None and obj.created_by is not None and obj.created_by.last_name is not None:
             username = username + ' ' + obj.created_by.last_name
         # if username is None:
         #     username = obj.created_by.email
