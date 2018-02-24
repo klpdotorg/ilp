@@ -77,6 +77,13 @@ class OtpSerializer(serializers.Serializer):
         fields = ('mobile_no', 'otp', )
 
 
+class OtpGenerateSerializer(serializers.Serializer):
+    mobile_no = serializers.CharField()
+
+    class Meta:
+        fields = ('mobile_no', )
+
+
 class OtpPasswordResetSerializer(serializers.Serializer):
     mobile_no = serializers.CharField()
     otp = serializers.CharField()
