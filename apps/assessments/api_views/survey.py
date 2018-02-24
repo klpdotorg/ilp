@@ -197,9 +197,13 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             qs_agg = queryset.aggregate(
                 Sum('num_schools'), Sum('num_children'), Sum('num_assessments')
             )
-
+            
+            institution_qs = self.institution_qs().filter((institution_id__admin0_id=boundary_id) | 
+                Q(institution__admin1_id=boundary_id) |
+                Q(institution__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+            )
             summary_res = {
-                "schools_impacted": self.institution_qs().distinct(
+                "schools_impacted": institution_qs.distinct(
                     'institution_id').count(),
                 "children_impacted": qs_agg['num_children__sum'],
                 "num_assessments": qs_agg['num_assessments__sum']
