@@ -120,6 +120,13 @@ class Question(models.Model):
     pass_score = models.CharField(max_length=100, null=True)
 
 
+class QuestionGroupKey(models.Model):
+    """question key information"""
+    questiongroup = models.ForeignKey('QuestionGroup')
+    key = models.CharField(max_length=50, null=True)
+    max_score = models.IntegerField(null=True)
+
+
 class Partner(models.Model):
     """Boundary that partner is associated with"""
     char_id = models.CharField(max_length=20, primary_key=True)
