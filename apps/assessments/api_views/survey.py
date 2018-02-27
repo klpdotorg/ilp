@@ -46,7 +46,8 @@ from assessments.models import (
 )
 from common.models import RespondentType
 from assessments.serializers import (
-    SurveySerializer, RespondentTypeSerializer
+    SurveySerializer, RespondentTypeSerializer,
+    SurveyCreateSerializer
 )
 from assessments.filters import (
     SurveyFilter, SurveyTagFilter
@@ -56,8 +57,12 @@ from assessments.filters import (
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
     queryset = Survey.objects.all()
-    serializer_class = SurveySerializer
     filter_class = SurveyTagFilter
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return SurveyCreateSerializer
+        return SurveySerializer
 
     def get_queryset(self):
         state = self.get_state()
