@@ -1011,9 +1011,20 @@ var topSummaryData = {};
         }
 
 
-        var class4competancies = genCompetancyChartObj(data['Class 4 Assessment']);
-        var class5competancies = genCompetancyChartObj(data['Class 5 Assessment']);
-        var class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
+        var class4competancies = [];
+        try {
+            class4competancies = genCompetancyChartObj(data['Class 4 Assessment']);
+        } catch(e) {}
+
+        var class5competancies = [];
+        try {
+            class5competancies = genCompetancyChartObj(data['Class 5 Assessment']);
+        } catch(e) {}
+
+        var class6competancies = [];
+        try {
+            class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
+        } catch(e) {}
 
         renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
         renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");
