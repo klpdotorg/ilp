@@ -492,6 +492,7 @@ var topSummaryData = {};
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
 
         data = data.summary;
+        data.total_assessments = data.total_assessments ? data.total_assessments: 0;
         data["format_last_assessment"] = data.last_assessment ? formatLastStory(data.last_assessment, true): 'NA';
         data['schoolPerc'] = getPercent(
             data.schools_impacted, klp.GKA.topSummaryData.schools_impacted
@@ -770,10 +771,10 @@ var topSummaryData = {};
                 var children_perc = getPercent(children, children_impacted);
                 var last_assmt = summaryData.last_assessment;
                 var dataSummary = {
-                    "count": summaryData.total_assessments ? summaryData.total_assessments: 'NA',
+                    "count": summaryData.total_assessments ? summaryData.total_assessments: 0,
                     "schools": schools_assessed,
                     "schools_perc": schools_perc,
-                    "children": children ? children: 'NA',
+                    "children": children ? children: 0,
                     "children_perc": children_perc,
                     "last_assmt": last_assmt ?  formatLastStory(last_assmt, true) : 'NA'
                 }
