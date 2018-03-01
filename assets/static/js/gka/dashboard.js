@@ -568,7 +568,7 @@ var topSummaryData = {};
             tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
 
         data = data.summary;
-        summaryData.assessment_count = data.total_assessments;
+        summaryData.assessment_count = data.total_assessments ? data.total_assessments: 0;
         summaryData.schools_impacted = data.schools_impacted;
         summaryData.last_assessment = data.last_assessment;
         summaryData.format_lastsms = data.last_assessment ? formatLastStory(
