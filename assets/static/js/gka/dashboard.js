@@ -641,6 +641,17 @@ var topSummaryData = {};
             regroup[questions[each]["key"]] = questions[each];
         }
 
+        // Add default values to prevent JS errors at the template lebel
+        _.each(SMSQuestionKeys, function(qKey){
+            if(!regroup[qKey]) {
+                regroup[qKey] = {
+                    percent: "0",
+                    score: 0,
+                    total: 0
+                };
+            }
+        });
+
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
 
