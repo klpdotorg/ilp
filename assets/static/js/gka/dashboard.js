@@ -570,8 +570,8 @@ var topSummaryData = {};
         summaryData.assessment_count = data.total_assessments;
         summaryData.schools_impacted = data.schools_impacted;
         summaryData.last_assessment = data.last_assessment;
-        summaryData.format_lastsms = formatLastStory(
-            data.last_assessment, true);
+        summaryData.format_lastsms = data.last_assessment ? formatLastStory(
+            data.last_assessment, true): 'NA';
         summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
         summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
 
