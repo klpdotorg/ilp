@@ -895,6 +895,11 @@ var topSummaryData = {};
                     "children": summaryData.summary.children_impacted
                 };
 
+                // Add default values
+                for(var dS in dataSummary) {
+                    if(!dataSummary[dS]) {dataSummary[dS] = 0;}
+                }
+
                 var tplSummary = swig.compile($('#tpl-gpcSummary').html());
                 var summaryHTML = tplSummary({"data": dataSummary});
                 $('#gpcSummary').html(summaryHTML);
