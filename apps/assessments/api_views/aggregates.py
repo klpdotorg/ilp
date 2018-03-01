@@ -55,7 +55,7 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
                     'institution_id').count(),
                 "children_impacted": qs_agg['num_children__sum'],
                 "total_assessments": qs_agg['num_assessments__sum'],
-                "last_assessment": queryset.latest(
+                "last_assessment": 0 if not queryset else queryset.latest(
                     'last_assessment').last_assessment,
             }
         }
