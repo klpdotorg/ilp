@@ -892,8 +892,10 @@ var topSummaryData = {};
         var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
         $genderXHR.done(function(genderData) {
 
-            var genderSummary = {
-                "Class 4": {
+            var genderSummary = {};
+
+            try {
+                genderSummary["Class 4"] = {
                     "boy_perc": getPercent(
                         genderData['Class 4 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 4 Assessment'].gender.Male.total_count
@@ -906,8 +908,17 @@ var topSummaryData = {};
                         genderData['Class 4 Assessment'].gender.Male.perfect_score_count + genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 4 Assessment'].gender.Male.total_count + genderData['Class 4 Assessment'].gender.Female.total_count
                     )
-                },
-                "Class 5": {
+                };
+            } catch(e) {
+                genderSummary["Class 4"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
+
+            try {
+                genderSummary["Class 5"] = {
                     "boy_perc": getPercent(
                         genderData['Class 5 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 5 Assessment'].gender.Male.total_count
@@ -920,7 +931,17 @@ var topSummaryData = {};
                         genderData['Class 5 Assessment'].gender.Male.perfect_score_count + genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 5 Assessment'].gender.Male.total_count + genderData['Class 5 Assessment'].gender.Female.total_count
                     )
-                },"Class 6": {
+                };
+            } catch(e) {
+                genderSummary["Class 5"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
+
+            try {
+                genderSummary["Class 6"] = {
                     "boy_perc": getPercent(
                         genderData['Class 6 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 6 Assessment'].gender.Male.total_count
@@ -933,8 +954,14 @@ var topSummaryData = {};
                         genderData['Class 6 Assessment'].gender.Male.perfect_score_count + genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 6 Assessment'].gender.Male.total_count + genderData['Class 6 Assessment'].gender.Female.total_count
                     )
-                }
-            };
+                };
+            } catch(e) {
+                genderSummary["Class 6"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
 
             var tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
             var summaryHTML = tplSummary({"data": genderSummary["Class 4"]});
