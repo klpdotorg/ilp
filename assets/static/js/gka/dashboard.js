@@ -759,10 +759,10 @@ var topSummaryData = {};
                 var children_perc = getPercent(children, children_impacted);
                 var last_assmt = summaryData.last_assessment;
                 var dataSummary = {
-                    "count": summaryData.total_assessments,
+                    "count": summaryData.total_assessments ? summaryData.total_assessments: 'NA',
                     "schools": schools_assessed,
                     "schools_perc": schools_perc,
-                    "children": children,
+                    "children": children ? children: 'NA',
                     "children_perc": children_perc,
                     "last_assmt": last_assmt ?  formatLastStory(last_assmt, true) : 'NA'
                 }
