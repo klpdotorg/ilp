@@ -1,4 +1,4 @@
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.conf import settings
 
 from rest_framework.generics import ListAPIView
@@ -19,7 +19,14 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
     boundary_queryset = SurveyBoundaryAgg.objects.all()
 
     def institution_qs(self):
-        return self.filter_queryset(SurveyInstitutionAgg.objects.all())
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        boundary_id = self.request.query_params.get('boundary_id', state_id)
+        institution_qs = SurveyInstitutionAgg.objects.filter(
+                Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
+                Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+            )
+        return self.filter_queryset(institution_qs)
 
     def get_summary_response(self, queryset):
         institution_id = self.request.query_params.get('institution_id', None)
@@ -32,7 +39,7 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
                     "num_users": qs_agg['num_users__sum'],
                     "children_impacted": qs_agg['num_children__sum'],
                     "total_assessments": qs_agg['num_assessments__sum'],
-                    "last_assessment": queryset.latest(
+                    "last_assessment": 0 if not queryset else queryset.latest(
                         'last_assessment').last_assessment,
                 }
             }
@@ -48,7 +55,7 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
                     'institution_id').count(),
                 "children_impacted": qs_agg['num_children__sum'],
                 "total_assessments": qs_agg['num_assessments__sum'],
-                "last_assessment": queryset.latest(
+                "last_assessment": 0 if not queryset else queryset.latest(
                     'last_assessment').last_assessment,
             }
         }
@@ -115,6 +122,7 @@ class SurveyInfoSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
     boundary_queryset = SurveyBoundaryAgg.objects.all()
 
     def institution_qs(self):
+        #TODO Nabeel  need to fix this
         return self.filter_queryset(SurveyInstitutionAgg.objects.all())
 
     def get_qs_agg(self, queryset, source_id):
@@ -159,7 +167,14 @@ class SurveyInfoBoundarySourceAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
 
     def institution_qs(self):
-        return self.filter_queryset(SurveyInstitutionAgg.objects.all())
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        boundary_id = self.request.query_params.get('boundary_id', state_id)
+        institution_qs = SurveyInstitutionAgg.objects.filter(
+                Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
+                Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+            )
+        return self.filter_queryset(institution_qs)
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -615,6 +630,7 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
 
     def institution_qs(self):
+        #TODO Nabeel  need to fix this
         return self.filter_queryset(SurveyInstitutionAgg.objects.all())
 
     def list(self, request, *args, **kwargs):

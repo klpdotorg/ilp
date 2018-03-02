@@ -492,9 +492,8 @@ var topSummaryData = {};
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
 
         data = data.summary;
-        data["format_last_assessment"] = formatLastStory(
-            data.last_assessment, true
-        );
+        data.total_assessments = data.total_assessments ? data.total_assessments: 0;
+        data["format_last_assessment"] = data.last_assessment ? formatLastStory(data.last_assessment, true): 'NA';
         data['schoolPerc'] = getPercent(
             data.schools_impacted, klp.GKA.topSummaryData.schools_impacted
         );
@@ -569,11 +568,11 @@ var topSummaryData = {};
             tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
 
         data = data.summary;
-        summaryData.assessment_count = data.total_assessments;
+        summaryData.assessment_count = data.total_assessments ? data.total_assessments: 0;
         summaryData.schools_impacted = data.schools_impacted;
         summaryData.last_assessment = data.last_assessment;
-        summaryData.format_lastsms = formatLastStory(
-            data.last_assessment, true);
+        summaryData.format_lastsms = data.last_assessment ? formatLastStory(
+            data.last_assessment, true): 'NA';
         summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
         summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
 
@@ -642,6 +641,17 @@ var topSummaryData = {};
         for (var each in questions) {
             regroup[questions[each]["key"]] = questions[each];
         }
+
+        // Add default values to prevent JS errors at the template lebel
+        _.each(SMSQuestionKeys, function(qKey){
+            if(!regroup[qKey]) {
+                regroup[qKey] = {
+                    percent: "0",
+                    score: 0,
+                    total: 0
+                };
+            }
+        });
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
@@ -761,12 +771,12 @@ var topSummaryData = {};
                 var children_perc = getPercent(children, children_impacted);
                 var last_assmt = summaryData.last_assessment;
                 var dataSummary = {
-                    "count": summaryData.total_assessments,
+                    "count": summaryData.total_assessments ? summaryData.total_assessments: 0,
                     "schools": schools_assessed,
                     "schools_perc": schools_perc,
-                    "children": children,
+                    "children": children ? children: 0,
                     "children_perc": children_perc,
-                    "last_assmt": formatLastStory(last_assmt, true)
+                    "last_assmt": last_assmt ?  formatLastStory(last_assmt, true) : 'NA'
                 }
                 renderAssmtSummary(dataSummary);
                 renderAssmtCharts(detailKeydata);
@@ -885,6 +895,11 @@ var topSummaryData = {};
                     "children": summaryData.summary.children_impacted
                 };
 
+                // Add default values
+                for(var dS in dataSummary) {
+                    if(!dataSummary[dS]) {dataSummary[dS] = 0;}
+                }
+
                 var tplSummary = swig.compile($('#tpl-gpcSummary').html());
                 var summaryHTML = tplSummary({"data": dataSummary});
                 $('#gpcSummary').html(summaryHTML);
@@ -894,8 +909,10 @@ var topSummaryData = {};
         var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
         $genderXHR.done(function(genderData) {
 
-            var genderSummary = {
-                "Class 4": {
+            var genderSummary = {};
+
+            try {
+                genderSummary["Class 4"] = {
                     "boy_perc": getPercent(
                         genderData['Class 4 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 4 Assessment'].gender.Male.total_count
@@ -908,8 +925,17 @@ var topSummaryData = {};
                         genderData['Class 4 Assessment'].gender.Male.perfect_score_count + genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 4 Assessment'].gender.Male.total_count + genderData['Class 4 Assessment'].gender.Female.total_count
                     )
-                },
-                "Class 5": {
+                };
+            } catch(e) {
+                genderSummary["Class 4"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
+
+            try {
+                genderSummary["Class 5"] = {
                     "boy_perc": getPercent(
                         genderData['Class 5 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 5 Assessment'].gender.Male.total_count
@@ -922,7 +948,17 @@ var topSummaryData = {};
                         genderData['Class 5 Assessment'].gender.Male.perfect_score_count + genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 5 Assessment'].gender.Male.total_count + genderData['Class 5 Assessment'].gender.Female.total_count
                     )
-                },"Class 6": {
+                };
+            } catch(e) {
+                genderSummary["Class 5"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
+
+            try {
+                genderSummary["Class 6"] = {
                     "boy_perc": getPercent(
                         genderData['Class 6 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 6 Assessment'].gender.Male.total_count
@@ -935,8 +971,14 @@ var topSummaryData = {};
                         genderData['Class 6 Assessment'].gender.Male.perfect_score_count + genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 6 Assessment'].gender.Male.total_count + genderData['Class 6 Assessment'].gender.Female.total_count
                     )
-                }
-            };
+                };
+            } catch(e) {
+                genderSummary["Class 6"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
 
             var tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
             var summaryHTML = tplSummary({"data": genderSummary["Class 4"]});
@@ -986,9 +1028,20 @@ var topSummaryData = {};
         }
 
 
-        var class4competancies = genCompetancyChartObj(data['Class 4 Assessment']);
-        var class5competancies = genCompetancyChartObj(data['Class 5 Assessment']);
-        var class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
+        var class4competancies = [];
+        try {
+            class4competancies = genCompetancyChartObj(data['Class 4 Assessment']);
+        } catch(e) {}
+
+        var class5competancies = [];
+        try {
+            class5competancies = genCompetancyChartObj(data['Class 5 Assessment']);
+        } catch(e) {}
+
+        var class6competancies = [];
+        try {
+            class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
+        } catch(e) {}
 
         renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
         renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");

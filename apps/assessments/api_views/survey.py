@@ -46,7 +46,8 @@ from assessments.models import (
 )
 from common.models import RespondentType
 from assessments.serializers import (
-    SurveySerializer, RespondentTypeSerializer
+    SurveySerializer, RespondentTypeSerializer,
+    SurveyCreateSerializer
 )
 from assessments.filters import (
     SurveyFilter, SurveyTagFilter
@@ -56,8 +57,12 @@ from assessments.filters import (
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
     queryset = Survey.objects.all()
-    serializer_class = SurveySerializer
     filter_class = SurveyTagFilter
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return SurveyCreateSerializer
+        return SurveySerializer
 
     def get_queryset(self):
         state = self.get_state()
@@ -149,15 +154,13 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
     def institution_qs(self):
         return self.filter_queryset(
-            SurveyInstitutionAgg.objects.all()
+            SurveyInstitutionQuestionGroupAgg.objects.all()
         )
 
     def get(self, request):
         questiongroup_id = self.request.query_params.get('questiongroup_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
         institution_id = self.request.query_params.get('institution_id', None)
-        year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
-
         state_id = BoundaryStateCode.objects.filter(
             char_id=settings.ILP_STATE_ID).\
             values("boundary_id")[0]["boundary_id"]
@@ -199,19 +202,27 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             qs_agg = queryset.aggregate(
                 Sum('num_schools'), Sum('num_children'), Sum('num_assessments')
             )
-
+            
+            institution_qs = self.institution_qs()
+            institution_qs = institution_qs.filter(
+                Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
+                Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+            )
+            institution_qs = institution_qs.filter(questiongroup_id=questiongroup_id)
             summary_res = {
-                "schools_impacted": self.institution_qs().distinct(
+                "schools_impacted": institution_qs.distinct(
                     'institution_id').count(),
                 "children_impacted": qs_agg['num_children__sum'],
                 "num_assessments": qs_agg['num_assessments__sum']
             }
+            inst_count = Institution.objects.filter(
+                institution_type_id=InstitutionType.PRIMARY_SCHOOL
+            ).filter(
+                Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
+                Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
+            ).count()
+            summary_res["total_schools"] = inst_count
 
-            basicqueryset = BasicBoundaryAgg.objects.\
-                filter(boundary_id=boundary_id, year=year).\
-                values_list('num_schools', flat=True)
-            if basicqueryset:
-                summary_res["total_schools"] = basicqueryset[0]
 
             ans_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
                     boundary_id=boundary_id)

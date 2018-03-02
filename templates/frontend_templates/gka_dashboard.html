@@ -291,7 +291,7 @@
       <span class="icon-boy-girl"></span>
       <div class="module-stats-info">
         <div class="uppercase">Total</div>
-        <p class="module-stats-label">{{data.total_studs}}%</p>
+        <p class="module-stats-label">{{data.total_studs}}{% if data.total_studs != 'NA' %}%{% endif %}</p>
       </div>
     </div>
     <!--br/-->
@@ -299,7 +299,7 @@
       <span class="icon-girl"></span>
       <div class="module-stats-info">
         <div class="uppercase">Girls</div>
-        <p class="module-stats-label">{{data.girl_perc}}%</p>
+        <p class="module-stats-label">{{data.girl_perc}}{% if data.girl_perc != 'NA' %}%{% endif %}</p>
       </div>
     </div>
     <!--br/-->
@@ -307,7 +307,7 @@
       <span class="icon-boy"></span>
       <div class="module-stats-info">
         <div class="uppercase">Boys</div>
-        <p class="module-stats-label">{{data.boy_perc}}%</p>
+        <p class="module-stats-label">{{data.boy_perc}}{% if data.boy_perc != 'NA' %}%{% endif %}</p>
       </div>
     </div>
   </script>

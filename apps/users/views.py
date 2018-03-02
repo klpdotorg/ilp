@@ -10,6 +10,7 @@ from .serializers import (
     UserRegistrationSerializer,
     UserLoginSerializer,
     OtpSerializer,
+    OtpGenerateSerializer,
     OtpPasswordResetSerializer
 )
 from .utils import login_user
@@ -175,6 +176,7 @@ class OtpGenerateView(generics.GenericAPIView):
     permission_classes = (
         permissions.AllowAny,
     )
+    serializer_class = OtpGenerateSerializer
 
     def post(self, request):
         mobile_no = request.data.get('mobile_no', None)
