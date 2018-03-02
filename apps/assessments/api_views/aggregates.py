@@ -274,13 +274,16 @@ class SurveyInfoSchoolAPIView(ListAPIView, ILPStateMixin):
     serializer_class = SurveySerializer
 
     def get_queryset(self):
+
         queryset = SurveyInstitutionAgg.objects.all()
         institution_id = self.request.query_params.get('school_id', None)
         if institution_id:
             queryset = queryset.filter(institution_id=institution_id)
         survey_ids = queryset\
             .distinct('survey_id').values_list('survey_id', flat=True)
-        return Survey.objects.filter(id__in=survey_ids)
+        # Now find all survey ids who actually have type_id assessment in questiongroup table
+        surveys_assessment_types = QuestionGroup.objects.filter(type__char_id='assessment').filter(survey_id__in=survey_ids).values_list('survey_id', flat=True)
+        return Survey.objects.filter(id__in=surveys_assessment_types)
 
 
 class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
@@ -293,6 +296,7 @@ class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
             queryset = queryset.filter(boundary_id=boundary_id)
         survey_ids = queryset\
             .distinct('survey_id').values_list('survey_id', flat=True)
+
         return Survey.objects.filter(id__in=survey_ids)
 
 
