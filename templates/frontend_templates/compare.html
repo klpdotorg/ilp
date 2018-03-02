@@ -185,15 +185,26 @@
 
         <div class="base-spacing-lg"></div>  
         <div class="compare-each-block">
-
+         
           <div class="compare-section-heading">Medium of instruction</div>
-          
+          <div class="clr"></div>
           <div class="float-left">
-            <div class="grey-steel font-small"><strong>{{ school1.moi|capitalize }}</strong></div>
+            <div class="grey-steel font-small">
+              {% if school1.moi %} 
+                <strong>{{ school1.moi|capitalize }}</strong>
+              {% else %}
+              <strong>Data N/A</strong>
+              {% endif %}
+            </div>
           </div>
 
           <div class="float-right">
-            <div class="grey-steel font-small"><strong>{{ school2.moi|capitalize }}</strong></div>
+            <div class="grey-steel font-small"> 
+              {% if school2.moi %} 
+                <strong>{{ school2.moi|capitalize }}</strong>
+              {% else %}
+                <strong>Data N/A</strong>
+              {% endif %}
           </div>
         </div>
         <!-- Bar item ends here -->
@@ -611,6 +622,7 @@
       </div>
 
       <div class="compare-section">
+        {% if infrastructure %}
         {% for key, value in infrastructure %}
         <div class="compare-each-block">
           <div class="compare-section-heading">{{ key }}</div>
@@ -628,6 +640,9 @@
           </div>
         </div>
         {% endfor %}
+        {% else %}
+          <div class = "center-text"><strong>Data not available</strong></div>
+        {% endif %}
         <!-- Infra Item ends -->
       </div>
       <div class="center-text">

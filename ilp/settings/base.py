@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.sites',
-
+    'guardian',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_gis',
@@ -129,7 +129,8 @@ USE_TZ = True
 
 # Authentication model
 AUTH_USER_MODEL = 'users.User'
-AUTHENTICATION_BACKENDS = ['users.backends.EmailMobileUsernameBackend']
+AUTHENTICATION_BACKENDS = ['users.backends.EmailMobileUsernameBackend',
+'guardian.backends.ObjectPermissionBackend',]
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
