@@ -1,5 +1,6 @@
 # Dependencies common to all environments.
 Django==1.11.1
+django-guardian==1.4.9
 django_extensions==1.5.9
 django-filter==1.0.4
 djangorestframework-bulk==0.2.1
