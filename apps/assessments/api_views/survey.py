@@ -330,7 +330,6 @@ class SurveyTagAggAPIView(APIView):
             response["num_students"] = qs_agg["num__sum"]
         else:
             response["num_students"] = 0
-
         return response
 
     def get(self, request):
@@ -358,7 +357,7 @@ class SurveyTagAggAPIView(APIView):
         else:
             response = self.get_boundary_data(state_id, survey_tag, year)
 
-        return Response(self.response)
+        return Response(response)
 
 
 class AssessmentSyncView(APIView):
