@@ -9,6 +9,37 @@ var topSummaryData = {};
     var premodalQueryParams = {};
 
     klp.init = function() {
+
+        // All GKA related data are stored in GKA
+        klp.GKA = {};
+        klp.GKA.routerParams = {};
+
+        // This function is used as a callback to accordion init function
+        // to determine which section to load when a user clicks a
+        // section
+        klp.GKA.accordionClicked = function($el) {
+            var isSectionVisible = $el.is(':visible'),
+                elId = $el.attr('id'),
+                functionMap = {
+                    sms: loadSmsData,
+                    assessment: loadAssmtData,
+                    gpcontest: loadGPContestData,
+                    surveys: loadSurveys,
+                    comparison: loadComparison
+                };
+
+            if(!isSectionVisible) { return; }
+
+            console.log(klp.GKA.routerParams)
+
+            if(typeof(functionMap[elId]) === 'function') {
+                functionMap[elId](klp.GKA.routerParams);
+            } else {
+                console.log('Accordion event handler returned an unknow id');
+            }
+        }
+
+        // Initialize accordion, filters and router
         klp.accordion.init();
         klp.gka_filters.init();
         klp.router = new KLPRouter();
@@ -17,9 +48,6 @@ var topSummaryData = {};
             hashChanged(params);
         });
         klp.router.start();
-
-        // All GKA related data are stored in GKA
-        klp.GKA = {};
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
@@ -83,7 +111,7 @@ var topSummaryData = {};
             //and not for just localhost:8001/gka#datemodal
             else if(window.location.hash != '#datemodal' && window.location.hash !='#close' && window.location.hash != '#searchmodal')
             {
-                loadData(queryParams)
+                loadData(queryParams, true);
             }
             //This is the do nothing case switch for localhost:8001/gka#datemodal
             else {//do nothing;
@@ -92,16 +120,30 @@ var topSummaryData = {};
         $('#ReportContainer').show();
     }
 
-    function loadData(params) {
+    function loadData(params, reloadOpenSection) {
         // As of August 1st, 2017, data from June 2017 is shown as default
         if(!params.from && !params.to) {
             params.from = '2017-06-01';
-            params.to = '2018-12-31';
+            params.to = '2018-03-31';
         }
 
+        klp.GKA.routerParams = params;
+
         loadTopSummary(params);
-        // All other sections are loaded after loadTopSummary is loaded
-        // as they use data fetched by loadTopSummary
+
+        if(reloadOpenSection) {
+            var sections = [
+                'sms',
+                'assessment',
+                'gpcontest',
+                'surveys',
+                'comparison'
+            ];
+
+            _.each(sections, function(s){
+                klp.GKA.accordionClicked($('#' + s));
+            });
+        }
     }
 
     function loadComparison(params) {
@@ -534,8 +576,8 @@ var topSummaryData = {};
         }
 
         // Top summary doesn't need a from and to
-        delete params.from;
-        delete params.to;
+        // delete params.from;
+        // delete params.to;
 
         // Load the summary first
         var $summaryXHR = klp.api.do(
@@ -566,12 +608,15 @@ var topSummaryData = {};
                 renderTopSummary(topSummary);
                 $spinner.stopLoading();
 
+                /* As of 5 March 2018, rest of the sections are loaded
+                    only after a user opens a section
+                */
                 // Load the rest of sections
-                loadSmsData(params);
-                loadAssmtData(params);
-                loadGPContestData(params);
-                loadSurveys(params);
-                loadComparison(params);
+                // loadSmsData(params);
+                // loadAssmtData(params);
+                // loadGPContestData(params);
+                // loadSurveys(params);
+                // loadComparison(params);
             });
         });
     }
