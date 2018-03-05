@@ -105,6 +105,8 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
+        // Spinners
+        $('#compareTable').startLoading();
 
         var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
@@ -158,6 +160,7 @@ var topSummaryData = {};
             var tplComparison= swig.compile($('#tpl-compareTable').html());
             var compareHTML = tplComparison({"neighbours":neighbours});
             $('#compareTable').html(compareHTML);
+            $('#compareTable').stopLoading();
         });
 
         return; // No need to render comparison graphs for version 1
