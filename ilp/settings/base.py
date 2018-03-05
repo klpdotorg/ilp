@@ -80,6 +80,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_RENDERER_CLASSES': (
         'common.renderers.ILPJSONRenderer',
+        'common.renderers.KLPCSVRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer'
     ),
 
