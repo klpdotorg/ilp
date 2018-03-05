@@ -46,12 +46,18 @@ tables = [
 ]
 
 
+
 # Create directory and files
 def init():
     if not os.path.exists(scriptdir+"/load"):
         os.makedirs(scriptdir+"/load")
     open(inputsqlfile, 'wb', 0)
     open(loadsqlfile, 'wb', 0)
+
+
+def reset_sequences():
+    command = 'echo "SELECT setval('+"'users_user_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_user), 1), false);SELECT setval('users_user_groups_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_user_groups), 1), false);SELECT setval('users_userboundary_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_userboundary), 1), false);"+'" >>'+loadsqlfile
+    system(command)
 
 
 def create_sqlfiles():
@@ -84,6 +90,7 @@ def load_data():
 
 # order in which function should be called.
 init()
+reset_sequences()
 create_sqlfiles()
 get_data()
 load_data()
