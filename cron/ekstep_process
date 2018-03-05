@@ -65,7 +65,7 @@ cat $datapath"assessment.txt" | psql -h $PGHOST -U $PGUSER -d ekstep -c "COPY ek
 psql -h $PGHOST -U $PGUSER -d ekstep -c "select insert_ekstep_assess();"
 echo "assessment data processed."
 
-python3 $progpath"GKAtoILPAssess.py"  $dt1 $dt2
+python3 $progpath"GKAtoILPAssess.py" $PGHOST $PGUSER $dt1 $dt2
 echo "assessment data moved to ILP."
 
 echo "public exhaust ekstep esl done."
