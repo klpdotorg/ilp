@@ -4,12 +4,12 @@ import datetime
 import os, inspect
 
 if len(sys.argv) != 5:
-    print("Please give password, host,from and to+1 dates as arguments. USAGE: " +
-          "python GKAtoILPAssess password host 2017-11-01 2017-11-02")
+    print("Please give host, password,from and to+1 dates as arguments. USAGE: " +
+          "python GKAtoILPAssess host password 2017-11-01 2017-11-02")
     sys.exit()
 
-password = sys.argv[1]
-host = sys.argv[2] 
+host = sys.argv[1] 
+password = sys.argv[2]
 fromdate = sys.argv[3]
 todate = sys.argv[4]
 
