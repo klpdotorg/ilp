@@ -14,17 +14,14 @@ fromdate = sys.argv[3]
 todate = sys.argv[4]
 
 fromconnectionstring = "dbname=ekstep user=klp password="+password+" host="+host
-print(fromconnectionstring)
 fromconn = psycopg2.connect(fromconnectionstring)
 fromcursor = fromconn.cursor()
 
 toconnectionstring = "dbname=ilp user=klp password="+password+" host="+host
-print(toconnectionstring)
 toconn = psycopg2.connect(toconnectionstring)
 tocursor = toconn.cursor()
 
 excpconnectionstring = "dbname=ekstep user=klp password="+password+" host="+host
-print(excpconnectionstring)
 excpconn = psycopg2.connect(excpconnectionstring)
 excpcursor = excpconn.cursor()
 
