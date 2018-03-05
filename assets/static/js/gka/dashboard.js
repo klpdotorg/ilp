@@ -506,8 +506,14 @@ var topSummaryData = {};
     // Renders top summary of GKA dashboard
     function loadTopSummary(params) {
 
-        var passedFrom = params.from;
-        var passedTo = params.to;
+        // Loading spinner
+        var $spinner = $('#ReportContainer').find('.js-summary-container');
+
+        var passedFrom = params.from,
+            passedTo = params.to;
+
+        // Start the loading spinner
+        $spinner.startLoading();
 
         // Top summary needs a year
         if(params.from && params.to) {
@@ -519,8 +525,9 @@ var topSummaryData = {};
         delete params.to;
 
         // Load the summary first
-        var $summaryXHR = klp.api.do("surveys/tagmappingsummary/?survey_tag=gka", params);
-        startSummaryLoading();
+        var $summaryXHR = klp.api.do(
+            "surveys/tagmappingsummary/?survey_tag=gka", params
+        );
         $summaryXHR.done(function(tagmappingData) {
             var topSummary = {
                 education_volunteers: 0,
@@ -544,6 +551,7 @@ var topSummaryData = {};
 
                 klp.GKA.topSummaryData = topSummary;
                 renderTopSummary(topSummary);
+                $spinner.stopLoading();
 
                 // Load the rest of sections
                 loadSmsData(params);
@@ -558,7 +566,6 @@ var topSummaryData = {};
     function renderTopSummary(topSummary) {
         var tplTopSummary = swig.compile($('#tpl-topSummary').html());
         var topSummaryHTML = tplTopSummary({"data": topSummary});
-        stopSummaryLoading();
         $('#topSummary').html(topSummaryHTML);
     }
 
