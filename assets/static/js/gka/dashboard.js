@@ -335,7 +335,7 @@ var topSummaryData = {};
         );
         $detailXHR.done(function(data) {
             renderSMSDetails(data);
-            $('#smsVolume').stopLoading();
+            $('#smsQuestions').stopLoading();
         });
     }
 
@@ -759,6 +759,10 @@ var topSummaryData = {};
     }
 
     function loadAssmtData(params) {
+        // Spinners
+        $('#assmtSummary').startLoading();
+        $('#assmtVolume').startLoading();
+        $('#assmtCompetancy').startLoading();
         
         // Load summary first
         var $summaryXHR = klp.api.do("survey/summary/?survey_id=3", params);
@@ -789,10 +793,13 @@ var topSummaryData = {};
                 }
                 renderAssmtSummary(dataSummary);
                 renderAssmtCharts(detailKeydata);
+                $('#assmtSummary').stopLoading();
+                $('#assmtCompetancy').stopLoading();
 
                 var $volumeXHR = klp.api.do("survey/volume/?survey_id=3", params);
                 $volumeXHR.done(function(data) {
                     renderAssmtVolumeChart(data, params);
+                    $('#assmtVolume').stopLoading();
                 });
 
             });
