@@ -340,6 +340,10 @@ var topSummaryData = {};
     }
 
     function loadSurveys(params) {
+        $('#surveySummary').startLoading();
+        $('#mobRespondent').startLoading();
+        $('#mobVolume').startLoading();
+        $('#surveyQuestions').startLoading();
 
         // Load the source for csv summary
         var $surveySummaryXHR = klp.api.do(
@@ -348,11 +352,13 @@ var topSummaryData = {};
         $surveySummaryXHR.done(function(surveySummaryData) {
             klp.GKA.surveySummaryData = surveySummaryData;
             renderSurveySummary(surveySummaryData);
+            $('#surveySummary').stopLoading();
 
             // Load the respondent summary
             var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=7", params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
+                $('#mobRespondent').stopLoading();
             });
         });
 
@@ -362,6 +368,7 @@ var topSummaryData = {};
         );
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
+            $('#mobVolume').stopLoading();
         });
 
         // Load the detail section
@@ -370,6 +377,7 @@ var topSummaryData = {};
         );
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
+            $('#surveyQuestions').stopLoading();
         });
     }
 
