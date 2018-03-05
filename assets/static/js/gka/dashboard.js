@@ -166,7 +166,7 @@ var topSummaryData = {};
         //     "surveys/boundaryneighbour/detail/?survey_tag=gka&survey_ids=2&survey_ids=7", params
         // );
         // $assessmentComparisonXHR.done(function(chartComparisonData){
-        //     stopDetailLoading();
+    
         //     renderComparisonCharts(params, chartComparisonData.results);
         // });
     }
@@ -288,16 +288,16 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
-        startDetailLoading();
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
             "survey/summary/?survey_tag=gka&survey_id=11", params
         );
-        $smsSummaryXHR.done(function(data) {
-            stopDetailLoading();
+        $('#smsSummary').startLoading();
+        $smsSummaryXHR.done(function(data) {;
             klp.GKA.smsSummary = data;
             renderSmsSummary(data);
+            $('#smsSummary').stopLoading();
         });
 
         // Fetch SMS Volume
@@ -305,21 +305,24 @@ var topSummaryData = {};
         var $usersXHR = klp.api.do(
             "survey/info/users/?survey_tag=gka&survey_id=11", params
         );
+        $('#smsSender').startLoading();
         $usersXHR.done(function(userGroups) {
 
             renderSMSUserCharts(userGroups.users, params);
+            $('#smsSender').stopLoading();
 
             // Fetch volumes next
             var $volumesXHR = klp.api.do(
                 "survey/volume/?survey_tag=gka&survey_id=11", params
             );
+            $('#smsVolume').startLoading();
             $volumesXHR.done(function(volumes) {
                 var data = {
                     volumes: volumes,
                     user_groups: userGroups.users
                 };
-                stopDetailLoading();
                 renderSMSVolumeCharts(data, params);
+                $('#smsVolume').stopLoading();
             });
         });
 
@@ -328,13 +331,11 @@ var topSummaryData = {};
             "survey/detail/source/?survey_tag=gka&survey_id=11", params
         );
         $detailXHR.done(function(data) {
-            stopDetailLoading();
             renderSMSDetails(data);
         });
     }
 
     function loadSurveys(params) {
-        startDetailLoading();
 
         // Load the source for csv summary
         var $surveySummaryXHR = klp.api.do(
@@ -348,7 +349,6 @@ var topSummaryData = {};
             var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=7", params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
-                stopDetailLoading();
             });
         });
 
@@ -358,7 +358,6 @@ var topSummaryData = {};
         );
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
-            stopDetailLoading();
         });
 
         // Load the detail section
@@ -367,7 +366,6 @@ var topSummaryData = {};
         );
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
-            stopDetailLoading();
         });
     }
 
@@ -790,7 +788,6 @@ var topSummaryData = {};
 
                 var $volumeXHR = klp.api.do("survey/volume/?survey_id=3", params);
                 $volumeXHR.done(function(data) {
-                    stopDetailLoading();
                     renderAssmtVolumeChart(data, params);
                 });
 
@@ -1198,25 +1195,6 @@ var topSummaryData = {};
         Helper functions
             TODO: move to separate file and document.
      */
-    function startSummaryLoading() {
-        var $container = $('#ReportContainer');
-        $container.find('.js-summary-container').startLoading();
-    }
-
-    function startDetailLoading() {
-        var $container = $('#ReportContainer');
-        $container.find('.js-detail-container').startLoading();
-    }
-
-    function stopSummaryLoading(schoolType) {
-        var $container = $('#ReportContainer');
-        $container.find('.js-summary-container').stopLoading();
-    }
-
-    function stopDetailLoading(schoolType) {
-        var $container = $('#ReportContainer');
-        $container.find('.js-detail-container').stopLoading();
-    }
 
     function getYear(dateString) {
         return dateString.split("-")[0];
