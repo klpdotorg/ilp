@@ -897,6 +897,10 @@ var topSummaryData = {};
     }
 
     function loadGPContestData(params){
+        $('#gpcSummary').startLoading();
+        $('#gpcGender_class4').startLoading();
+        $('#gpcGender_class5').startLoading();
+        $('#gpcGender_class6').startLoading();
 
         var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
         $summaryXHR.done(function(summaryData) {
@@ -918,6 +922,7 @@ var topSummaryData = {};
                 var tplSummary = swig.compile($('#tpl-gpcSummary').html());
                 var summaryHTML = tplSummary({"data": dataSummary});
                 $('#gpcSummary').html(summaryHTML);
+                $('#gpcSummary').stopLoading();
             });
         });
 
@@ -1006,6 +1011,10 @@ var topSummaryData = {};
             tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
             summaryHTML = tplSummary({"data": genderSummary["Class 6"]});
             $('#gpcGender_class6').html(summaryHTML);
+
+            $('#gpcGender_class4').stopLoading();
+            $('#gpcGender_class5').stopLoading();
+            $('#gpcGender_class6').stopLoading();
 
         });
 
