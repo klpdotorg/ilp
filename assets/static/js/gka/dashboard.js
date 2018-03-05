@@ -288,12 +288,17 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
+        // Spinners
+        $('#smsSummary').startLoading();
+        $('#smsSender').startLoading();
+        $('#smsVolume').startLoading();
+        $('#smsQuestions').startLoading();
+
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
             "survey/summary/?survey_tag=gka&survey_id=11", params
         );
-        $('#smsSummary').startLoading();
         $smsSummaryXHR.done(function(data) {;
             klp.GKA.smsSummary = data;
             renderSmsSummary(data);
@@ -305,7 +310,6 @@ var topSummaryData = {};
         var $usersXHR = klp.api.do(
             "survey/info/users/?survey_tag=gka&survey_id=11", params
         );
-        $('#smsSender').startLoading();
         $usersXHR.done(function(userGroups) {
 
             renderSMSUserCharts(userGroups.users, params);
@@ -315,7 +319,6 @@ var topSummaryData = {};
             var $volumesXHR = klp.api.do(
                 "survey/volume/?survey_tag=gka&survey_id=11", params
             );
-            $('#smsVolume').startLoading();
             $volumesXHR.done(function(volumes) {
                 var data = {
                     volumes: volumes,
@@ -332,6 +335,7 @@ var topSummaryData = {};
         );
         $detailXHR.done(function(data) {
             renderSMSDetails(data);
+            $('#smsVolume').stopLoading();
         });
     }
 
