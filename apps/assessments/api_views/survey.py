@@ -336,8 +336,8 @@ class SurveyTagAggAPIView(APIView):
         if not self.request.GET.get('survey_tag'):
             raise ParseError("Mandatory parameter survey_tag not passed")
         survey_tag = self.request.GET.get('survey_tag')
-        boundary_id = self.request.GET.get('boundary')
-        institution_id = self.request.GET.get('institution')
+        boundary_id = self.request.GET.get('boundary_id')
+        institution_id = self.request.GET.get('institution_id')
 
         year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
         try:
