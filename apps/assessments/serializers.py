@@ -38,6 +38,12 @@ class QuestionGroupSerializer(ILPSerializer):
         )
 
 
+class SurveyCreateSerializer(ILPSerializer):
+    class Meta:
+        model = Survey
+        fields = '__all__'
+
+
 class SurveySerializer(ILPSerializer):
     state = serializers.ReadOnlyField(source='admin0.name')
     questiongroups = QuestionGroupSerializer(

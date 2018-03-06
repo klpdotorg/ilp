@@ -55,6 +55,9 @@ class Boundary(models.Model):
     class Meta:
         unique_together = (('name', 'parent', 'type'), )
         ordering = ['name', ]
+        permissions = (
+            ('add_institution', 'Add Institution'),
+        )
 
     def __unicode__(self):
         return '%s' % self.name

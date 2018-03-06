@@ -272,9 +272,15 @@
       <ul>
           {% for programme in programmes %}
           <li class="circle-bullet white">
-              <a href="/programme/{{ programme.id }}#?school={{ school_id }}">
-                  {{ programme.name }} - {{ programme.academicyear_name }}
+            {% if programme.id == 3 %}
+              <a href="/gka/#searchmodal?institution_id={{ school_id }}">
+                {{ programme.name }}
               </a>
+            {% else %}
+                {{ programme.name }}
+              
+            {% endif %}
+           
           </li>
           {% endfor %}
       </ul>

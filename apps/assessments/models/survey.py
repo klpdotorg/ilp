@@ -105,6 +105,11 @@ class QuestionGroup(models.Model):
         'Question', through='Questiongroup_Questions'
     )
 
+    class Meta:
+        permissions = (
+            ('crud_answers', 'CRUD Answers'),
+        )
+
 
 class Question(models.Model):
     """pool of questions"""

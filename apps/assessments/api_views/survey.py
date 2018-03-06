@@ -46,7 +46,8 @@ from assessments.models import (
 )
 from common.models import RespondentType
 from assessments.serializers import (
-    SurveySerializer, RespondentTypeSerializer
+    SurveySerializer, RespondentTypeSerializer,
+    SurveyCreateSerializer
 )
 from assessments.filters import (
     SurveyFilter, SurveyTagFilter
@@ -56,8 +57,12 @@ from assessments.filters import (
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
     queryset = Survey.objects.all()
-    serializer_class = SurveySerializer
     filter_class = SurveyTagFilter
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return SurveyCreateSerializer
+        return SurveySerializer
 
     def get_queryset(self):
         state = self.get_state()
@@ -267,12 +272,13 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
 
 class SurveyTagAggAPIView(APIView):
-    response = {}
 
     def get_boundary_data(self, boundary_id, survey_tag, year):
-        self.response = {"total_schools": 0,
-                         "num_schools": 0,
-                         "num_students": 0}
+        response = {
+            "total_schools": 0,
+            "num_schools": 0,
+            "num_students": 0
+        }
 
         queryset = BoundarySchoolCategoryAgg.objects.\
             filter(boundary_id=boundary_id, cat_ac_year=year,
@@ -285,7 +291,7 @@ class SurveyTagAggAPIView(APIView):
                 Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
                 Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
             ).count()
-            self.response["total_schools"] = inst_count
+            response["total_schools"] = inst_count
 
         queryset = SurveyTagMappingAgg.objects.\
             filter(boundary_id=boundary_id, survey_tag=survey_tag,
@@ -298,17 +304,19 @@ class SurveyTagAggAPIView(APIView):
                 Q(institution__admin2_id=boundary_id) |
                 Q(institution__admin3_id=boundary_id)
             ).count()
-        self.response["num_schools"] = num_schools
-        
-        if queryset:
-            self.response["num_students"] = queryset[0]["num_students"]
+        response["num_schools"] = num_schools
 
-        return
+        if queryset:
+            response["num_students"] = queryset[0]["num_students"]
+
+        return response
 
     def get_institution_data(self, institution_id, survey_tag, year):
-        self.response = {"total_schools": 1,
-                         "num_schools": 1,
-                         "num_students": 0}
+        response = {
+            "total_schools": 1,
+            "num_schools": 1,
+            "num_students": 0
+        }
 
         sg_names = SurveyTagClassMapping.objects.\
             filter(tag=survey_tag, academic_year=year).\
@@ -319,11 +327,10 @@ class SurveyTagAggAPIView(APIView):
                    studentgroup__in=sg_names)
         if queryset:
             qs_agg = queryset.aggregate(Sum('num'))
-            self.response["num_students"] = qs_agg["num__sum"]
+            response["num_students"] = qs_agg["num__sum"]
         else:
-            self.response["num_students"] = 0
-
-        return
+            response["num_students"] = 0
+        return response
 
     def get(self, request):
         if not self.request.GET.get('survey_tag'):
@@ -343,13 +350,14 @@ class SurveyTagAggAPIView(APIView):
             get(char_id=settings.ILP_STATE_ID).boundary_id
 
         if boundary_id:
-            self.get_boundary_data(boundary_id, survey_tag, year)
+            response = self.get_boundary_data(boundary_id, survey_tag, year)
         elif institution_id:
-            self.get_institution_data(institution_id, survey_tag, year)
+            response = self.get_institution_data(
+                institution_id, survey_tag, year)
         else:
-            self.get_boundary_data(state_id, survey_tag, year)
+            response = self.get_boundary_data(state_id, survey_tag, year)
 
-        return Response(self.response)
+        return Response(response)
 
 
 class AssessmentSyncView(APIView):

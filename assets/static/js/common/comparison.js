@@ -122,7 +122,7 @@
                 'total': entity2.demographics_data.mt_profile.hasOwnProperty(lang) ? entity2.demographics_data.mt_profile[lang] : 0
             };
         });
-        // console.log("mts", mts);
+        console.log("mts", mts);
         return mts;
     };
 
@@ -151,7 +151,7 @@
                 }
             });
         });
-        // console.log("infrastructure compare data ", data);
+        console.log("infrastructure compare data ", data);
         return data;
     };
 
@@ -354,6 +354,7 @@
                     'mt_profiles': getMTProfiles(school1, school2),
                     'infrastructure': getInfrastructureComparison(school1, school2)
                 };
+                console.log("Comparison context is: ", context)
                 var html = templates['comparison-result'](context);
                 //console.log('comparison result html', html);
                 $comparison_result_wrapper.html(html);

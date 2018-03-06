@@ -1,4 +1,5 @@
 from rest_framework.renderers import JSONRenderer
+from rest_framework_csv.renderers import CSVRenderer
 
 
 class ILPJSONRenderer(JSONRenderer):
@@ -80,3 +81,6 @@ class ILPJSONRenderer(JSONRenderer):
             'properties': elem
         }
         return feature
+
+class KLPCSVRenderer(CSVRenderer):
+    media_type = 'application/csv'
