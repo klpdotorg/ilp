@@ -22,8 +22,4 @@ class Migration(migrations.Migration):
                 ('questiongroup', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='assessments.QuestionGroup')),
             ],
         ),
-        migrations.AlterModelTable(
-            name='surveyinstitutionquestiongroupquestionkeygendercorrectans',
-            table='mvw_survey_institution_questiongroup_questionkey_gender_correct',
-        ),
     ]
