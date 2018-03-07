@@ -16,7 +16,7 @@ else:
     print ("data in partner datafeed")
 
 stud_file =io.open(os.path.join(dir,'../../datapull/output3/student_mapping.txt'), 'w',encoding='utf-8')
-key_file = open(os.path.join(dir,'../.keys/ekstep-private.pem'), 'rb')
+key_file = open(os.path.join(dir,'../../.keys/ekstep-private.pem'), 'rb')
 private_key = RSA.importKey(key_file.read())
 cipher_rsa = PKCS1_v1_5.new(private_key)
 
