@@ -81,6 +81,15 @@ class SurveyTagClassMapping(models.Model):
         unique_together = (('tag', 'sg_name', 'academic_year'), )
 
 
+class SurveyUserTypeMapping(models.Model):
+    """Association a survey with user types"""
+    survey = models.ForeignKey('Survey')
+    usertype = models.ForeignKey('common.RespondentType')
+
+    class Meta:
+        unique_together = (('survey', 'usertype'), )
+
+
 class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
     name = models.CharField(max_length=100)
