@@ -390,7 +390,6 @@ class AssessmentSyncView(APIView):
         }
         try:
             stories = json.loads(request.body.decode('utf-8'))
-            print(stories)
         except ValueError as e:
             response['error'] = 'Invalid JSON data'
 
@@ -421,6 +420,7 @@ class AssessmentSyncView(APIView):
                         date_of_visit=datetime.datetime.fromtimestamp(
                             timestamp
                         ),
+                        comments=story.get('comments'),
                         # TODO: Check with Shivangi if the below is okay.
                         status=Status.objects.get(char_id='AC')
                     )
@@ -431,12 +431,12 @@ class AssessmentSyncView(APIView):
                         new_story.mobile = request.user.mobile_no
                         new_story.save()
 
-                    # Save location info
-                    if story.get('lat', None) is not None and \
-                            story.get('lng', None) is not None:
-                        new_story.location = Point(
-                            story.get('lat'), story.get('lng'))
-                        new_story.save()
+                        # Save location info
+                        if story.get('lat', None) is not None and \
+                                story.get('lng', None) is not None:
+                            new_story.location = Point(
+                                story.get('lat'), story.get('lng'))
+                            new_story.save()
 
                     # Save the answers
                     for answer in story.get('answers', []):
