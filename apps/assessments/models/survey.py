@@ -46,7 +46,6 @@ class Survey(models.Model):
     survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
-    image_required = models.NullBooleanField(default=False)
 
     class Meta:
         ordering = ['name', ]
@@ -109,6 +108,8 @@ class QuestionGroup(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     status = models.ForeignKey('common.Status')
+    image_required = models.NullBooleanField(default=False)
+    comments_required = models.NullBooleanField(default=False)
 
     questions = models.ManyToManyField(
         'Question', through='Questiongroup_Questions'
