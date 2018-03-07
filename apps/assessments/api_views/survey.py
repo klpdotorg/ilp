@@ -65,8 +65,18 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
         return SurveySerializer
 
     def get_queryset(self):
+        # Filer based on state
         state = self.get_state()
-        return self.queryset.filter(admin0=state)
+        queryset = self.queryset.filter(admin0=state)
+
+        # TODO: IMPROVE: Can we combine status filtering with
+        # SurveyTagFilter or use a new filter altogether
+        # Filter status
+        status = self.request.query_params.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status__char_id=status)
+
+        return queryset
 
 
 class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
