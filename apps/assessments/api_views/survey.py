@@ -44,7 +44,7 @@ from assessments.models import (
     SurveyBoundaryUserTypeAgg, SurveyBoundaryElectionTypeCount,
     SurveyTagInstitutionMapping
 )
-from common.models import RespondentType
+from common.models import RespondentType, Status
 from assessments.serializers import (
     SurveySerializer, RespondentTypeSerializer,
     SurveyCreateSerializer
@@ -60,7 +60,7 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
     filter_class = SurveyTagFilter
 
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.request.method in ['POST', ]:
             return SurveyCreateSerializer
         return SurveySerializer
 
@@ -77,6 +77,10 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
             queryset = queryset.filter(status__char_id=status)
 
         return queryset
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):

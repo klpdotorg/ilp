@@ -6,6 +6,7 @@ from boundary.serializers import (
 from boundary.filters import BoundaryFilter
 from boundary.models import Boundary, BoundaryType
 from common.mixins import ILPStateMixin
+from common.models import Status
 from rest_framework import viewsets
 
 
@@ -18,7 +19,7 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
     serializer_class = BoundarySerializer
     filter_class = BoundaryFilter
     bbox_filter_field = "geom"
-    
+
     def get_queryset(self):
         state = self.get_state()
         if state:
@@ -30,6 +31,10 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
         else:
             boundaries = Boundary.objects.all()
         return boundaries
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class BoundaryTypeViewSet(viewsets.ModelViewSet):
