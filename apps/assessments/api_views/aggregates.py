@@ -163,9 +163,6 @@ class SurveyInfoSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
         queryset = self.filter_queryset(self.get_queryset())
         response = {}
         source_res = {}
-        if not queryset:
-            response['source'] = source_res
-            return Response(response)
 
         source_ids = queryset.distinct(
             'source').values_list('source', flat=True)
@@ -209,9 +206,6 @@ class SurveyInfoBoundarySourceAPIView(ListAPIView, ILPStateMixin):
 
         response = {}
         source_res = {}
-        if not queryset:
-            response['boundaries'] = source_res
-            return Response(response)
 
         source_ids = queryset.distinct(
             'source').values_list('source', flat=True)
@@ -258,9 +252,6 @@ class SurveyInfoUserAPIView(AggMixin, ListAPIView, ILPStateMixin):
 
         response = {}
         user_response = {}
-        if not queryset:
-            response['users'] = user_response
-            return Response(response)
             
         user_types = queryset.distinct('user_type')\
             .values_list('user_type', flat=True)
@@ -283,9 +274,6 @@ class SurveyInfoRespondentAPIView(
         queryset = self.filter_queryset(self.get_queryset())
         response = {}
         respondent_res = {}
-        if not queryset:
-            response['respondents'] = respondent_res
-            return Response(response)
 
         respondent_types = queryset.distinct('respondent_type')\
             .values_list('respondent_type', flat=True)
@@ -345,9 +333,6 @@ class SurveyDetailSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
 
         response = {}
         sources_res = {}
-        if not queryset:
-            response["source"] = sources_res
-            return Response(response)
           
         for s_id in source_ids:
             source = Source.objects.get(id=s_id)
@@ -407,9 +392,6 @@ class SurveyDetailKeyAPIView(AggMixin, ListAPIView, ILPStateMixin):
         qs = self.filter_queryset(self.get_queryset())
         response = {}
         scores_res = {}
-        if not qs:
-          response['scores'] = scores_res
-          return Response(response)
         ans_qs = self.filter_queryset(self.get_answer_queryset())
         question_keys = qs.distinct('question_key')\
             .values_list('question_key', flat=True)
@@ -451,8 +433,6 @@ class SurveyClassQuestionKeyAPIView(
     def list(self, request, *args, **kwargs):
         classes_res = {}
         qs = self.filter_queryset(self.get_queryset())
-        if not qs:
-            return Response(classes_res)
         ans_qs = self.filter_queryset(self.get_answer_queryset())
 
         classess = qs.distinct('sg_name')\
@@ -504,8 +484,6 @@ class SurveyQuestionGroupQuestionKeyAPIView(
     def list(self, request, *args, **kwargs):
         qgroup_res = {}
         qs = self.filter_queryset(self.get_queryset())
-        if not qs:
-            return Response(qgroup_res)
 
         ans_qs = self.filter_queryset(self.get_answer_queryset())
 
@@ -602,8 +580,6 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
     def list(self, request, *args, **kwargs):
         group_res = {}
         qs = self.filter_queryset(self.get_queryset())
-        if not qs:
-            return Response(group_res)
         ans_qs = self.filter_queryset(self.get_answer_queryset())
 
         group_field = 'sg_name'
@@ -646,9 +622,6 @@ class SurveyDetailClassAPIView(AggMixin, ListAPIView, ILPStateMixin):
         queryset = self.filter_queryset(self.get_queryset())
         response = {}
         sg_res = {}
-        if not queryset:
-            response["classes"] = sg_res
-            return Response(response)
 
         sg_names = queryset.distinct('sg_name')\
             .values_list('sg_name', flat=True)
@@ -709,9 +682,6 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
 
         response = {}
         source_res = {}
-        if not queryset:
-            response['boundaries'] = source_res
-            return Response(response)
         boundary_type_ids = queryset\
             .distinct('boundary_id__const_ward_type')\
             .values_list('boundary_id__const_ward_type', flat=True)
@@ -746,8 +716,6 @@ class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
     def list(self, request, *args, **kwargs):
         res = {}
         queryset = self.filter_queryset(self.get_queryset())
-        if not queryset:
-            return Response(res)
         if self.request.GET.get('state', None):
             queryset = queryset.filter(boundary_id=self.get_state().id)
 
