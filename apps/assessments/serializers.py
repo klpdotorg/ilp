@@ -34,7 +34,8 @@ class QuestionGroupSerializer(ILPSerializer):
             'id', 'name', 'survey', 'type', 'inst_type',
             'group_text', 'start_date', 'end_date', 'academic_year',
             'version', 'source', 'source_name', 'double_entry',
-            'created_by', 'created_at', 'updated_at', 'status'
+            'created_by', 'created_at', 'updated_at', 'status',
+            'image_required', 'comments_required',
         )
 
 
@@ -43,12 +44,14 @@ class SurveyCreateSerializer(ILPSerializer):
         model = Survey
         fields = '__all__'
 
+    def create(self, validated_data):
+        new_id = Survey.objects.latest('id').id + 1
+        return Survey.objects.create(id=new_id, **validated_data)
+
 
 class SurveySerializer(ILPSerializer):
     state = serializers.ReadOnlyField(source='admin0.name')
-    questiongroups = QuestionGroupSerializer(
-        source='questiongroup_set', many=True
-    )
+    questiongroups = serializers.SerializerMethodField()
 
     class Meta:
         model = Survey
@@ -61,10 +64,21 @@ class SurveySerializer(ILPSerializer):
             'partner',
             'description',
             'status',
-            'image_required',
             'state',
             'questiongroups',
         )
+
+    def get_questiongroups(self, survey):
+        status = self.context['request'].query_params.get('status', None)
+        if status is None:
+            return QuestionGroupSerializer(
+                survey.questiongroup_set, many=True
+            ).data
+        else:
+            return QuestionGroupSerializer(
+                survey.questiongroup_set.filter(status__char_id=status),
+                many=True
+            ).data
 
 
 class OptionField(serializers.Field):

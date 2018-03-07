@@ -17,6 +17,8 @@ from schools.filters import (
     StudentFilter, StudentGroupFilter
 )
 
+from common.models import Status
+
 logger = logging.getLogger(__name__)
 
 
@@ -26,14 +28,18 @@ class StudentViewSet(
         viewsets.ModelViewSet
 ):
 
-    queryset = Student.objects.all()
+    queryset = Student.objects.exclude(status=Status.DELETED)
     serializer_class = StudentSerializer
     filter_class = StudentFilter
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     # permission_classes = (WorkUnderInstitutionPermission,)
-    queryset = StudentGroup.objects.all()
+    queryset = StudentGroup.objects.exclude(status=Status.DELETED)
     serializer_class = StudentGroupSerializer
     filter_class = StudentGroupFilter
     # M2M query returns duplicates. Overrode this function
@@ -55,6 +61,10 @@ class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
                 raise Http404
 
         return queryset.order_by('id')
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class StudentStudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
