@@ -16,7 +16,7 @@ from django.core.urlresolvers import reverse
 from common.utils import send_templated_mail
 from django.contrib.sites.models import Site
 from django.conf import settings
-
+from django.contrib.auth.models import Group
 from common.utils import send_sms
 
 
@@ -33,10 +33,14 @@ class UserManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
+        Group.objects.get(name='ilp_auth_user').user_set.add(user)
+        Group.objects.get(name='ilp_konnect_user').user_set.add(user)
+        print("Added user to ilp_auth_user and ilp_konnect_user")
+        user.save()
         return user
 
     def create_superuser(self, mobile_no, password=None, **extra_fields):
-        user = self.create_user(mobile_no, password=password, **extra_fields)
+        user = self.create(mobile_no, password=password, **extra_fields)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
@@ -80,6 +84,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not self.id:
             self.generate_sms_pin()
             self.send_otp()
+        
         return super(User, self).save(*args, **kwargs)
 
     def generate_email_token(self):
