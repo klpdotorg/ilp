@@ -114,6 +114,10 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
             status=status.HTTP_201_CREATED, headers=headers
         )
 
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
+
 
 class InstitutionCategoryListView(generics.ListAPIView):
     serializer_class = InstitutionCategorySerializer
