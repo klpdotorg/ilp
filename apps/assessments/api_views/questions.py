@@ -73,7 +73,7 @@ class QuestionGroupQuestions(
         return Question.objects.filter(id__in=question_list).order_by('key')
 
     def get_serializer_class(self):
-        if self.request.method in ['GET']:
+        if self.request.method in ['GET', 'PUT']:
             return QuestionSerializer
         return QuestionGroupQuestionSerializer
 
