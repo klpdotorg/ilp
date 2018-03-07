@@ -28,7 +28,7 @@ class StudentViewSet(
         viewsets.ModelViewSet
 ):
 
-    queryset = Student.objects.all()
+    queryset = Student.objects.exclude(status=Status.DELETED)
     serializer_class = StudentSerializer
     filter_class = StudentFilter
 
@@ -39,7 +39,7 @@ class StudentViewSet(
 
 class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     # permission_classes = (WorkUnderInstitutionPermission,)
-    queryset = StudentGroup.objects.all()
+    queryset = StudentGroup.objects.exclude(status=Status.DELETED)
     serializer_class = StudentGroupSerializer
     filter_class = StudentGroupFilter
     # M2M query returns duplicates. Overrode this function

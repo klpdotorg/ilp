@@ -66,7 +66,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     """
     GET: Lists basic details of institutions
     """
-    queryset = Institution.objects.all()
+    queryset = Institution.objects.exclude(status=Status.DELETED)
     serializer_class = InstitutionSerializer
     bbox_filter_field = "coord"
     filter_backends = [InstitutionSurveyFilter, ]

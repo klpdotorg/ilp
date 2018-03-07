@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
     '''Boundary endpoint'''
-    queryset = Boundary.objects.all()
+    queryset = Boundary.objects.exclude(status=Status.DELETED)
     serializer_class = BoundarySerializer
     filter_class = BoundaryFilter
     bbox_filter_field = "geom"
