@@ -43,6 +43,10 @@ class SurveyCreateSerializer(ILPSerializer):
         model = Survey
         fields = '__all__'
 
+    def create(self, validated_data):
+        new_id = Survey.objects.latest('id').id + 1
+        return Survey.objects.create(id=new_id, **validated_data)
+
 
 class SurveySerializer(ILPSerializer):
     state = serializers.ReadOnlyField(source='admin0.name')
