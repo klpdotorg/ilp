@@ -61,7 +61,6 @@ class SurveySerializer(ILPSerializer):
             'partner',
             'description',
             'status',
-            'image_required',
             'state',
             'questiongroups',
         )
