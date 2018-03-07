@@ -46,9 +46,7 @@ class SurveyCreateSerializer(ILPSerializer):
 
 class SurveySerializer(ILPSerializer):
     state = serializers.ReadOnlyField(source='admin0.name')
-    questiongroups = QuestionGroupSerializer(
-        source='questiongroup_set', many=True
-    )
+    questiongroups = serializers.SerializerMethodField()
 
     class Meta:
         model = Survey
@@ -64,6 +62,18 @@ class SurveySerializer(ILPSerializer):
             'state',
             'questiongroups',
         )
+
+    def get_questiongroups(self, survey):
+        status = self.context['request'].query_params.get('status', None)
+        if status is None:
+            return QuestionGroupSerializer(
+                survey.questiongroup_set, many=True
+            ).data
+        else:
+            return QuestionGroupSerializer(
+                survey.questiongroup_set.filter(status__char_id=status),
+                many=True
+            ).data
 
 
 class OptionField(serializers.Field):
