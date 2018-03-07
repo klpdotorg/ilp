@@ -17,6 +17,8 @@ from schools.filters import (
     StudentFilter, StudentGroupFilter
 )
 
+from common.models import Status
+
 logger = logging.getLogger(__name__)
 
 
@@ -29,6 +31,10 @@ class StudentViewSet(
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     filter_class = StudentFilter
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -55,6 +61,10 @@ class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
                 raise Http404
 
         return queryset.order_by('id')
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class StudentStudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
