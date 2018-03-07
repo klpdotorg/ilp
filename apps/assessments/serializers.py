@@ -34,7 +34,8 @@ class QuestionGroupSerializer(ILPSerializer):
             'id', 'name', 'survey', 'type', 'inst_type',
             'group_text', 'start_date', 'end_date', 'academic_year',
             'version', 'source', 'source_name', 'double_entry',
-            'created_by', 'created_at', 'updated_at', 'status'
+            'created_by', 'created_at', 'updated_at', 'status',
+            'image_required', 'comments_required',
         )
 
 
