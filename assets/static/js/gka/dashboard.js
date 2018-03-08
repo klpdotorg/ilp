@@ -562,17 +562,15 @@ var topSummaryData = {};
     function loadTopSummary(params) {
 
         // Loading spinner
-        var $spinner = $('#ReportContainer').find('.js-summary-container');
-
-        var passedFrom = params.from,
-            passedTo = params.to;
+        var $spinner = $('#ReportContainer').find('.js-summary-container'),
+            year = '';
 
         // Start the loading spinner
         $spinner.startLoading();
 
         // Top summary needs a year
         if(params.from && params.to) {
-            params.year = params.from.slice(2, 4) + params.to.slice(2, 4);
+            year = (parseInt(params.to.slice(2, 4)) - 1) + params.to.slice(2, 4);
         }
 
         // Top summary doesn't need a from and to
@@ -581,7 +579,7 @@ var topSummaryData = {};
 
         // Load the summary first
         var $summaryXHR = klp.api.do(
-            "surveys/tagmappingsummary/?survey_tag=gka", params
+            "surveys/tagmappingsummary/?survey_tag=gka&year=" + year, params
         );
         $summaryXHR.done(function(tagmappingData) {
             var topSummary = {
@@ -590,12 +588,6 @@ var topSummaryData = {};
                 children_impacted: tagmappingData.num_students,
                 schools_impacted: tagmappingData.num_schools
             };
-
-            // Bring back the from and to
-            params.from = passedFrom;
-            params.to = passedTo;
-            // And delete the year params which is not needed in subsequent calls
-            delete params.year;
 
             // Load the users Education volunteers count
             var $usersXHR = klp.api.do(
@@ -723,20 +715,51 @@ var topSummaryData = {};
 
 
     function renderSMSUserCharts(users, params) {
-        var meta_values = [];
+        var meta_values = [],
+            labels = [],
+            userFullName = {
+                PR:"Parents",
+                CH:"Children",
+                TR:"Teachers",
+                VR:"Volunteer",
+                CM:"CBO Member",
+                HM:"Head Master",
+                SM:"SDMC Member",
+                LL:"Local Leader",
+                AS:"Akshara Staff",
+                EY:"Educated Youth",
+                EO:"Educational Officer",
+                ER:"Elected Representative",
+                GO:"Government Official",
+                CRP:"Cluster Resource Person",
+                SSA:"SSA Official",
+                BRP:"Block Resource Person",
+                ECO:"Educational Coordinator",
+                DIET:"DIET Principal",
+                BEO:"Block Education Officer",
+                DDPI:"DDPI",
+                DEO:"District Education Officer",
+                DPC:"District Project Coordinator",
+                BRC:"Block Resource Coordinator",
+                CRCC:"Cluster Resource Coordinator",
+                PC:"Pedagogy Coordinator",
+                UK:"Unknown",
+                "null":"Unknown"
+            };
 
         for (var m in users) {
             if(m) {
                 meta_values.push({
-                    meta: m,
+                    meta: userFullName[m] ? userFullName[m]: m,
                     value: users[m]
                 });
+                labels.push(m);
             }
         }
 
         // Build data for bar chart and render it
         var sms_sender = {
-            labels: _.map(meta_values, function(m){ return m.meta; }),
+            labels: labels,
             series: [
                 {
                     className: 'ct-series-b',
