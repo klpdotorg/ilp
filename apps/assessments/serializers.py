@@ -10,7 +10,8 @@ from assessments.models import (
     AnswerGroup_StudentGroup, AnswerGroup_Student,
     QuestionGroup_Institution_Association,
     AnswerStudent, QuestionGroup_StudentGroup_Association,
-    QuestionGroup_Institution_Association
+    QuestionGroup_Institution_Association,
+    SurveyUserTypeMapping
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
@@ -79,6 +80,12 @@ class SurveySerializer(ILPSerializer):
                 survey.questiongroup_set.filter(status__char_id=status),
                 many=True
             ).data
+
+
+class SurveyUserTypeMappingSerializer(ILPSerializer):
+    class Meta:
+        model = SurveyUserTypeMapping
+        fields = '__all__'
 
 
 class OptionField(serializers.Field):
