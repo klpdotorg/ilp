@@ -46,7 +46,6 @@ class Survey(models.Model):
     survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
-    image_required = models.NullBooleanField(default=False)
 
     class Meta:
         ordering = ['name', ]
@@ -81,6 +80,15 @@ class SurveyTagClassMapping(models.Model):
         unique_together = (('tag', 'sg_name', 'academic_year'), )
 
 
+class SurveyUserTypeMapping(models.Model):
+    """Association a survey with user types"""
+    survey = models.ForeignKey('Survey')
+    usertype = models.ForeignKey('common.RespondentType')
+
+    class Meta:
+        unique_together = (('survey', 'usertype'), )
+
+
 class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
     name = models.CharField(max_length=100)
@@ -100,6 +108,8 @@ class QuestionGroup(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     status = models.ForeignKey('common.Status')
+    image_required = models.NullBooleanField(default=False)
+    comments_required = models.NullBooleanField(default=False)
 
     questions = models.ManyToManyField(
         'Question', through='Questiongroup_Questions'

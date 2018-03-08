@@ -44,7 +44,7 @@ from assessments.models import (
     SurveyBoundaryUserTypeAgg, SurveyBoundaryElectionTypeCount,
     SurveyTagInstitutionMapping
 )
-from common.models import RespondentType
+from common.models import RespondentType, Status
 from assessments.serializers import (
     SurveySerializer, RespondentTypeSerializer,
     SurveyCreateSerializer
@@ -56,17 +56,31 @@ from assessments.filters import (
 
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
-    queryset = Survey.objects.all()
+    queryset = Survey.objects.exclude(status=Status.DELETED)
     filter_class = SurveyTagFilter
 
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.request.method in ['POST', ]:
             return SurveyCreateSerializer
         return SurveySerializer
 
     def get_queryset(self):
+        # Filer based on state
         state = self.get_state()
-        return self.queryset.filter(admin0=state)
+        queryset = self.queryset.filter(admin0=state)
+
+        # TODO: IMPROVE: Can we combine status filtering with
+        # SurveyTagFilter or use a new filter altogether
+        # Filter status
+        status = self.request.query_params.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status__char_id=status)
+
+        return queryset
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
@@ -376,7 +390,6 @@ class AssessmentSyncView(APIView):
         }
         try:
             stories = json.loads(request.body.decode('utf-8'))
-            print(stories)
         except ValueError as e:
             response['error'] = 'Invalid JSON data'
 
@@ -407,8 +420,9 @@ class AssessmentSyncView(APIView):
                         date_of_visit=datetime.datetime.fromtimestamp(
                             timestamp
                         ),
-                        # TODO: Check with Shivangi if the below is okay.
-                        status=Status.objects.get(char_id='AC')
+                        comments=story.get('comments'),
+                        group_value=story.get('group_value'),
+                        status=Status.objects.get(char_id='AC'),
                     )
 
                     if created:
@@ -417,12 +431,12 @@ class AssessmentSyncView(APIView):
                         new_story.mobile = request.user.mobile_no
                         new_story.save()
 
-                    # Save location info
-                    if story.get('lat', None) is not None and \
-                            story.get('lng', None) is not None:
-                        new_story.location = Point(
-                            story.get('lat'), story.get('lng'))
-                        new_story.save()
+                        # Save location info
+                        if story.get('lat', None) is not None and \
+                                story.get('lng', None) is not None:
+                            new_story.location = Point(
+                                story.get('lat'), story.get('lng'))
+                            new_story.save()
 
                     # Save the answers
                     for answer in story.get('answers', []):
