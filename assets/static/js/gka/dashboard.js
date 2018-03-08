@@ -723,20 +723,51 @@ var topSummaryData = {};
 
 
     function renderSMSUserCharts(users, params) {
-        var meta_values = [];
+        var meta_values = [],
+            labels = [],
+            userFullName = {
+                PR:"Parents",
+                CH:"Children",
+                TR:"Teachers",
+                VR:"Volunteer",
+                CM:"CBO Member",
+                HM:"Head Master",
+                SM:"SDMC Member",
+                LL:"Local Leader",
+                AS:"Akshara Staff",
+                EY:"Educated Youth",
+                EO:"Educational Officer",
+                ER:"Elected Representative",
+                GO:"Government Official",
+                CRP:"Cluster Resource Person",
+                SSA:"SSA Official",
+                BRP:"Block Resource Person",
+                ECO:"Educational Coordinator",
+                DIET:"DIET Principal",
+                BEO:"Block Education Officer",
+                DDPI:"DDPI",
+                DEO:"District Education Officer",
+                DPC:"District Project Coordinator",
+                BRC:"Block Resource Coordinator",
+                CRCC:"Cluster Resource Coordinator",
+                PC:"Pedagogy Coordinator",
+                UK:"Unknown",
+                "null":"Unknown"
+            };
 
         for (var m in users) {
             if(m) {
                 meta_values.push({
-                    meta: m,
+                    meta: userFullName[m] ? userFullName[m]: m,
                     value: users[m]
                 });
+                labels.push(m);
             }
         }
 
         // Build data for bar chart and render it
         var sms_sender = {
-            labels: _.map(meta_values, function(m){ return m.meta; }),
+            labels: labels,
             series: [
                 {
                     className: 'ct-series-b',
