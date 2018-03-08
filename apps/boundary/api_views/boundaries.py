@@ -23,7 +23,7 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         state = self.get_state()
         if state:
-            boundaries = Boundary.objects.filter(
+            boundaries = self.queryset.filter(
                 Q(parent=state) |
                 Q(parent__parent=state) |
                 Q(parent__parent__parent=state)
