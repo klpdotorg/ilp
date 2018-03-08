@@ -29,6 +29,7 @@ from assessments.serializers import (AnswerSerializer,
 from common.mixins import (ILPStateMixin, 
                            CompensationLogMixin,
                            AnswerUpdateModelMixin)
+from permissions.permissions import AppPostPermissions
 from assessments.filters import AnswersSurveyTypeFilter
 import json
 from rest_framework.renderers import JSONRenderer
@@ -363,7 +364,8 @@ class AnswerGroupInstitutionViewSet(NestedViewSetMixin, ILPViewSet):
 
 class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
     serializer_class = AnswerSerializer
-
+    permission_classes = (AppPostPermissions,)
+    
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
         data['questiongroup']=6

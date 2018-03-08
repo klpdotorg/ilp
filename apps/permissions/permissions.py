@@ -2,6 +2,9 @@ from rest_framework import permissions
 from rest_framework.permissions import BasePermission
 
 from django.contrib.auth.models import Group
+import logging
+
+logger = logging.getLogger(__name__)
 
 # from schools.models import Institution, StudentGroup
 # from boundary.models import Boundary
@@ -11,17 +14,18 @@ class IlpBasePermission(BasePermission):
     def is_user_permitted(self, request):
         GROUPS_ALLOWED = [u'tada_admin']
         #groups = Group.objects.filter(name__in=GROUPS_ALLOWED)
-
+        logger.info("Inside IlpBasePermission")
         #if request.method in permissions.SAFE_METHODS:
-        if request.user.is_authenticated and request.method in ('GET', 'POST', 'OPTIONS'):
-            print("User is authenticated and method is one of GET, POST, OPTIONS")
+        if request.method in ('GET', 'HEAD','OPTIONS'):
+            logger.info("User has permission to do GET")
             return True
         elif request.user.is_superuser:
-            print("User is a super user")
+            logger.info("User is a super user")
             return True
         # elif request.user.groups.filter(id__in=groups).exists():
         #     return True
         else:
+            logger.info("User is not authenticated,is not a super user and is attempting to do a POST or PUT or DELETE or PATCH")
             return False
 
     def has_permission(self, request, view):
@@ -30,6 +34,14 @@ class IlpBasePermission(BasePermission):
         else:
             return False
 
+class AppPostPermissions(IlpBasePermission):
+    def has_permission(self, request, view):
+        logger.info("inside app post permissions")
+        if request.user.is_authenticated and request.method in ('GET', 'OPTIONS', 'POST'):
+            logger.info("user is authenticated and can do a POST")
+            return True
+        else:
+            return False
 
 # # Only applicable to TADA
 # class HasAssignPermPermission(BasePermission):

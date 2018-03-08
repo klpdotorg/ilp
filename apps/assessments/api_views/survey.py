@@ -19,7 +19,7 @@ from common.views import ILPViewSet
 from common.models import (
     AcademicYear, Status, InstitutionType
 )
-
+from permissions.permissions import AppPostPermissions
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
@@ -366,7 +366,7 @@ class AssessmentSyncView(APIView):
     """
     authentication_classes = (authentication.TokenAuthentication,
                               authentication.SessionAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (AppPostPermissions,)
 
     def post(self, request, format=None):
         response = {

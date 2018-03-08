@@ -33,10 +33,10 @@ class UserManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
-        Group.objects.get(name='ilp_auth_user').user_set.add(user)
-        Group.objects.get(name='ilp_konnect_user').user_set.add(user)
-        print("Added user to ilp_auth_user and ilp_konnect_user")
-        user.save()
+        # Group.objects.get(name='ilp_auth_user').user_set.add(user)
+        # Group.objects.get(name='ilp_konnect_user').user_set.add(user)
+        # print("Added user to ilp_auth_user and ilp_konnect_user")
+        # user.save()
         return user
 
     def create_superuser(self, mobile_no, password=None, **extra_fields):

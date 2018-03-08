@@ -31,8 +31,8 @@ class AnswersApiTests(APITestCase):
                      'apps/assessments/tests/test_fixtures/answer_institution')               
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin')
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
 
     def test_answer_create(self):
         self.client.force_authenticate(user=self.user)
