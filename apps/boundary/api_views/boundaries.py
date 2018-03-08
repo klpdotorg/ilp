@@ -29,7 +29,7 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
                 Q(parent__parent__parent=state)
             )
         else:
-            boundaries = Boundary.objects.all()
+            boundaries = self.get_queryset()
         return boundaries
 
     def perform_destroy(self, instance):
