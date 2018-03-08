@@ -50,9 +50,20 @@ class SurveyCreateSerializer(ILPSerializer):
         return Survey.objects.create(id=new_id, **validated_data)
 
 
+class SurveyUserTypeMappingSerializer(ILPSerializer):
+    class Meta:
+        model = SurveyUserTypeMapping
+        fields = '__all__'
+
+
 class SurveySerializer(ILPSerializer):
     state = serializers.ReadOnlyField(source='admin0.name')
     questiongroups = serializers.SerializerMethodField()
+    user_types = SurveyUserTypeMappingSerializer(
+        source='surveyusertypemapping_set',
+        many=True,
+        read_only=True
+    )
 
     class Meta:
         model = Survey
@@ -67,6 +78,7 @@ class SurveySerializer(ILPSerializer):
             'status',
             'state',
             'questiongroups',
+            'user_types',
         )
 
     def get_questiongroups(self, survey):
@@ -80,12 +92,6 @@ class SurveySerializer(ILPSerializer):
                 survey.questiongroup_set.filter(status__char_id=status),
                 many=True
             ).data
-
-
-class SurveyUserTypeMappingSerializer(ILPSerializer):
-    class Meta:
-        model = SurveyUserTypeMapping
-        fields = '__all__'
 
 
 class OptionField(serializers.Field):
