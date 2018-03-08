@@ -562,17 +562,15 @@ var topSummaryData = {};
     function loadTopSummary(params) {
 
         // Loading spinner
-        var $spinner = $('#ReportContainer').find('.js-summary-container');
-
-        var passedFrom = params.from,
-            passedTo = params.to;
+        var $spinner = $('#ReportContainer').find('.js-summary-container'),
+            year = '';
 
         // Start the loading spinner
         $spinner.startLoading();
 
         // Top summary needs a year
         if(params.from && params.to) {
-            params.year = params.from.slice(2, 4) + params.to.slice(2, 4);
+            year = (parseInt(params.to.slice(2, 4)) - 1) + params.to.slice(2, 4);
         }
 
         // Top summary doesn't need a from and to
@@ -581,7 +579,7 @@ var topSummaryData = {};
 
         // Load the summary first
         var $summaryXHR = klp.api.do(
-            "surveys/tagmappingsummary/?survey_tag=gka", params
+            "surveys/tagmappingsummary/?survey_tag=gka&year=" + year, params
         );
         $summaryXHR.done(function(tagmappingData) {
             var topSummary = {
@@ -590,12 +588,6 @@ var topSummaryData = {};
                 children_impacted: tagmappingData.num_students,
                 schools_impacted: tagmappingData.num_schools
             };
-
-            // Bring back the from and to
-            params.from = passedFrom;
-            params.to = passedTo;
-            // And delete the year params which is not needed in subsequent calls
-            delete params.year;
 
             // Load the users Education volunteers count
             var $usersXHR = klp.api.do(
