@@ -421,8 +421,8 @@ class AssessmentSyncView(APIView):
                             timestamp
                         ),
                         comments=story.get('comments'),
-                        # TODO: Check with Shivangi if the below is okay.
-                        status=Status.objects.get(char_id='AC')
+                        group_value=story.get('group_value'),
+                        status=Status.objects.get(char_id='AC'),
                     )
 
                     if created:
