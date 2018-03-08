@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     is_superuser = serializers.BooleanField(read_only=True)
     is_email_verified = serializers.BooleanField(read_only=True)
     is_mobile_verified = serializers.BooleanField(read_only=True)
+    groups = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -19,6 +20,15 @@ class UserSerializer(serializers.ModelSerializer):
             'sms_verification_pin',
         )
         read_only_fields = (User.USERNAME_FIELD,)
+
+    def get_groups(self, obj):
+        print("Inside of get_groups")
+        user = obj
+        groups = user.groups.all().values('name')
+        print("Groups the user is a part of: ", groups)
+        if user.is_superuser:
+            groups = ['tada_admin']
+        return groups
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):

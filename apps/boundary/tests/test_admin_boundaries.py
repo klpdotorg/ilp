@@ -37,8 +37,8 @@ class AdminBoundaryApiTests(APITestCase):
 
     def setUp(self):
         '''setup a test user'''
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin')
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
         self.view = Admin1sBoundary.as_view()
         self.admin2sView = Admin2sBoundary.as_view()
         self.admin3sView = Admin3sBoundary.as_view()

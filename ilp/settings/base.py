@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'dise',
     'assessments',
     'ivrs',
+    'permissions',
 )
 
 # DRF Settings
@@ -75,7 +76,7 @@ REST_FRAMEWORK = {
     ),
 
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'permissions.permissions.IlpBasePermission',
     ),
 
     'DEFAULT_RENDERER_CLASSES': (

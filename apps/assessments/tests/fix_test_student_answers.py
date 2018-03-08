@@ -24,8 +24,8 @@ class StudentAnswersApiTests(APITestCase):
 
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin')
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
         self.base_url = '/api/v1/surveys/3/questiongroup/31/student/2112477/'
         self.post_answers = {
                              "questiongroup":31,"student":2112477,"group_value":"Subhashini",

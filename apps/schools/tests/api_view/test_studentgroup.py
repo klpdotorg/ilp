@@ -31,9 +31,8 @@ class StudentGroupApiTests(APITestCase):
 
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin'
-        )
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
         self.listView = StudentGroupViewSet.as_view(
             actions={'get': 'list'})
         self.detailView = StudentGroupViewSet.as_view(

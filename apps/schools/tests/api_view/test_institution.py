@@ -22,9 +22,8 @@ class InstitutionAPITests(APITestCase):
         call_command('run_materialized_view')
 
     def setUp(self):
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin'
-        )
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
 
     def test_list_api(self):
         url = reverse('institution:institution-list')
