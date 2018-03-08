@@ -4,6 +4,7 @@ from django.http import Http404
 
 from common.views import ILPListAPIView
 from common.mixins import ILPStateMixin
+from common.models import Status
 from rest_framework.exceptions import ParseError
 
 from rest_framework import status
@@ -36,24 +37,29 @@ class QuestionGroupViewSet(
         NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questiongroups belonging to a survey'''
-    queryset = QuestionGroup.objects.all()
+    queryset = QuestionGroup.objects.exclude(status=Status.DELETED)
     serializer_class = QuestionGroupSerializer
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
     '''Return all questions'''
+    queryset = Question.objects.exclude(status=Status.DELETED)
     serializer_class = QuestionSerializer
 
     def get_queryset(self):
-        queryset = Question.objects.all()
         survey_id = self.request.query_params.get('survey_id', None)
         if survey_id:
-            questiongroups = QuestionGroup.objects.filter(survey_id=survey_id)
+            questiongroups = QuestionGroup.objects.filter(
+                survey_id=survey_id)
             question_ids = QuestionGroup_Questions.objects.filter(
                 questiongroup__in=questiongroups).values_list(
                     'question_id', flat=True)
-            return queryset.filter(id__in=question_ids)
-        return queryset
+            return self.queryset.filter(id__in=question_ids)
+        return self.queryset
 
 
 class QuestionGroupQuestions(
