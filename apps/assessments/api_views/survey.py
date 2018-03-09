@@ -267,8 +267,12 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                     if (
                         row["question_desc"] in question_dict
                     ):
-                        question_dict[row["question_desc"]][
-                            row["answer_option"]] += row["num_answers"]
+                        if (row["answer_option"] in question_dict[row["question_desc"]] ):
+                            question_dict[row["question_desc"]][
+                                row["answer_option"]] += row["num_answers"]
+                        else:
+                            question_dict[row["question_desc"]][
+                                row["answer_option"]] = row["num_answers"]
                     else:
                         question_dict[row["question_desc"]] = \
                             {
