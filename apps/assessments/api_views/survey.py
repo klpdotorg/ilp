@@ -268,7 +268,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                         row["question_desc"] in question_dict
                     ):
                         question_dict[row["question_desc"]][
-                            row["answer_option"]] = row["num_answers"]
+                            row["answer_option"]] += row["num_answers"]
                     else:
                         question_dict[row["question_desc"]] = \
                             {
