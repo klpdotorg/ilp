@@ -18,24 +18,25 @@ class AnswersApiTests(APITestCase):
         call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/respondenttype')
         call_command('loaddata',
-                     'apps/assessments/tests/test_fixtures/users')
-        call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/institution_4464')
         call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/qgroup_21_questions') 
         call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/qgroup_questions') 
         call_command('loaddata',
+                     'apps/assessments/tests/test_fixtures/users')
+        call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/answergroup_institution')
         call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/answer_institution')               
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create_superuser(
+        self.super_user = get_user_model().objects.create_superuser(
             '3322233323', 'admin')
+        self.regular_user = get_user_model().objects.create('1111122222', 'regular')
 
     def test_answer_create(self):
-        self.client.force_authenticate(user=self.user)
+        self.client.force_authenticate(user=self.super_user)
         json_data = json.dumps(TEST_ANSWERGROUP_POST_DATA)
         response = self.client.post('/api/v1/surveys/2/qgroup/21/institution/4464/answers/',
                                     json_data,content_type='application/json')
@@ -49,14 +50,26 @@ class AnswersApiTests(APITestCase):
         )
         self.assertTrue(len(data['answers']) >0)
     
+    def test_anon_answer_create(self):
+        json_data = json.dumps(TEST_ANSWERGROUP_POST_DATA)
+        response = self.client.post('/api/v1/surveys/2/qgroup/21/institution/4464/answers/',
+                                    json_data,content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+    
+    def test_unauth_answer_create(self):
+        self.client.force_authenticate(user=self.regular_user)
+        json_data = json.dumps(TEST_ANSWERGROUP_POST_DATA)
+        response = self.client.post('/api/v1/surveys/2/qgroup/21/institution/4464/answers/',
+                                    json_data,content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
     def test_answers_list(self):
-        self.client.force_authenticate(user=self.user)
         response = self.client.get('/api/v1/surveys/7/qgroup/20/institution/3895/answergroup/266252/answers/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_answers_patch(self):
         # First create the answer
-        self.client.force_authenticate(user=self.user)
+        self.client.force_authenticate(user=self.super_user)
         json_data = json.dumps(TEST_ANSWERGROUP_POST_DATA)
         response = self.client.post('/api/v1/surveys/2/qgroup/21/institution/4464/answers/',
                                     json_data,content_type='application/json')
@@ -81,12 +94,11 @@ class AnswersApiTests(APITestCase):
         self.assertTrue(set(['id', 'answer', 'question', 'answergroup']).issubset(response.data.keys()))    
 
     def test_answergroup_list(self):
-        self.client.force_authenticate(user=self.user)
         response = self.client.get('/api/v1/surveys/7/qgroup/20/institution/3895/answergroup/266252/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
     def test_answergroup_patch(self):
-        self.client.force_authenticate(user=self.user)
+        self.client.force_authenticate(user=self.super_user)
         response = self.client.patch('/api/v1/surveys/7/qgroup/20/institution/3895/answergroup/266252/', 
                                     '{"respondent_type": "PR"}',
                                     content_type='application/json')
@@ -95,7 +107,7 @@ class AnswersApiTests(APITestCase):
         self.assertEqual(response.data['respondent_type'], 'PR')
 
     def test_add_answer_existing_answergrp(self):
-        self.client.force_authenticate(user=self.user)
+        self.client.force_authenticate(user=self.super_user)
         new_answer= {'answers': [{'question': 145, 'answer': 'Yes'}]}
         response = self.client.post('/api/v1/surveys/7/qgroup/20/institution/3895/answergroup/266261/answers/', 
                                     json.dumps(new_answer),

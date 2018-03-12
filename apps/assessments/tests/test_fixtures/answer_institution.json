@@ -29,6 +29,13 @@
     }
 },
 {
+    "model": "boundary.boundarytype",
+    "pk": "GP",
+    "fields": {
+        "name": "Gram Panchayat"
+    }
+},
+{
     "model": "boundary.electionparty",
     "pk": "JD(S)",
     "fields": {
@@ -69,6 +76,7 @@
     "fields": {
         "parent": null,
         "name": "India",
+        "lang_name": null,
         "boundary_type": "C",
         "type": null,
         "dise_slug": "India",
@@ -120,6 +128,14 @@
     }
 },
 {
+    "model": "common.respondenttype",
+    "pk": "AS",
+    "fields": {
+        "name": "Akshara Staff",
+        "state_code": null
+    }
+},
+{
     "model": "assessments.source",
     "pk": 1,
     "fields": {
@@ -144,7 +160,8 @@
     "model": "assessments.survey",
     "pk": 7,
     "fields": {
-        "name": "ILP Konnect Community Survey",
+        "name": "Community Survey",
+        "lang_name": null,
         "created_at": "2016-05-19T00:00:00Z",
         "updated_at": null,
         "partner": "akshara",
@@ -152,6 +169,21 @@
         "survey_on": "institution",
         "admin0": 2,
         "status": "AC"
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 5088,
+    "fields": {
+        "state": 2,
+        "dise_slug": "",
+        "elec_comm_code": null,
+        "const_ward_name": "Rampura",
+        "const_ward_type": "GP",
+        "current_elected_rep": null,
+        "current_elected_party": null,
+        "status": "AC",
+        "geom": null
     }
 },
 {
@@ -190,9 +222,10 @@
     "fields": {
         "parent": 1,
         "name": "Karnataka",
+        "lang_name": null,
         "boundary_type": "ST",
         "type": null,
-        "dise_slug": "India-Karnataka",
+        "dise_slug": "Karnataka",
         "geom": null,
         "status": "AC"
     }
@@ -203,6 +236,7 @@
     "fields": {
         "parent": 2,
         "name": "ballari",
+        "lang_name": null,
         "boundary_type": "SD",
         "type": "primary",
         "dise_slug": "Karnataka-ballari",
@@ -216,6 +250,7 @@
     "fields": {
         "parent": 424,
         "name": "kudligi",
+        "lang_name": null,
         "boundary_type": "SB",
         "type": "primary",
         "dise_slug": "ballari-kudligi",
@@ -229,11 +264,19 @@
     "fields": {
         "parent": 530,
         "name": "chiribi",
+        "lang_name": null,
         "boundary_type": "SC",
         "type": "primary",
         "dise_slug": "kudligi-chiribi",
         "geom": "SRID=4326;POINT (76.339724625 14.799661)",
         "status": "AC"
+    }
+},
+{
+    "model": "schools.pincode",
+    "pk": 583134,
+    "fields": {
+        "geom": null
     }
 },
 {
@@ -378,10 +421,11 @@
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "PR",
     "fields": {
-        "name": "Parents"
+        "name": "Parents",
+        "state_code": null
     }
 },
 {
@@ -390,13 +434,15 @@
     "fields": {
         "password": "pbkdf2_sha256$15000$xMMcFq7pOyl0$ahsb9DD0vyS14cZ+VKjjuqAfP/R/0HgX1+pq+Xbv9IU=",
         "last_login": "2017-11-25T07:34:05.240Z",
-        "is_superuser": false,
         "email": "mayurappab@gmail.com",
         "mobile_no": "7829283314",
+        "mobile_no1": null,
         "first_name": "Mayurappa B.H",
         "last_name": "Mayurappa B.H",
         "user_type": "AS",
         "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
         "email_verification_code": "EfA04AfEAB7e1FC7C8c9DabCCCB95F2b",
         "sms_verification_pin": 5485,
         "is_email_verified": false,
@@ -413,7 +459,6 @@
         "website": "",
         "photos_url": "",
         "youtube_url": "",
-        "groups": [],
         "user_permissions": []
     }
 },
@@ -422,6 +467,7 @@
     "pk": 20,
     "fields": {
         "name": "ILP Konnect Paper",
+        "lang_name": null,
         "survey": 7,
         "type": "perception",
         "inst_type": "both",
@@ -436,7 +482,9 @@
         "created_by": null,
         "created_at": "2016-12-13T10:50:31.668Z",
         "updated_at": null,
-        "status": "AC"
+        "status": "AC",
+        "image_required": false,
+        "comments_required": false
     }
 },
 {
@@ -455,7 +503,7 @@
         "address": "CHIRABI",
         "area": "CHIRABI",
         "village": "CHIRIBI",
-        "pincode": null,
+        "pincode": 583134,
         "landmark": "None",
         "instidentification": "NONE",
         "instidentification2": null,
@@ -466,7 +514,7 @@
         "admin0": 2,
         "mp": 232,
         "mla": 478,
-        "gp": null,
+        "gp": 5088,
         "ward": null,
         "coord": "SRID=4326;POINT (76.306878 14.810813)",
         "last_verified_year": null,
@@ -488,7 +536,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:32.640Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -506,7 +555,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:32.520Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -524,7 +574,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:32.400Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -542,7 +593,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:32.281Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -560,7 +612,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:32.161Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -578,7 +631,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:32.013Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -596,7 +650,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:31.891Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -614,7 +669,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:31.767Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -632,7 +688,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:31.646Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -641,6 +698,7 @@
     "fields": {
         "question_text": "Did you participate in 'Sammudaya Datta Shaale' last time?",
         "display_text": "",
+        "lang_name": null,
         "key": null,
         "question_type": 2,
         "options": "{'Yes','No'}",
@@ -656,6 +714,7 @@
     "fields": {
         "question_text": "Do you think your child can do subtraction?",
         "display_text": "How many responses indicate that children can do subtraction?",
+        "lang_name": null,
         "key": "mob-subtraction",
         "question_type": 2,
         "options": "{'Yes','No'}",
@@ -671,6 +730,7 @@
     "fields": {
         "question_text": "Do you think your child can do addition?",
         "display_text": "How many responses indicate that children can do addition?",
+        "lang_name": null,
         "key": "mob-addition",
         "question_type": 2,
         "options": "{'Yes','No'}",
@@ -686,6 +746,7 @@
     "fields": {
         "question_text": "Do you think your child can read English?",
         "display_text": "How many responses indicate that children can read in English?",
+        "lang_name": null,
         "key": "mob-read-english",
         "question_type": 2,
         "options": "{'Yes','No'}",
@@ -701,6 +762,7 @@
     "fields": {
         "question_text": "Do you think your child can read Kannada?",
         "display_text": "How many responses indicate that children can read in Kannada?",
+        "lang_name": null,
         "key": "mob-read-kannada",
         "question_type": 2,
         "options": "{'Yes','No'}",
@@ -716,7 +778,24 @@
     "fields": {
         "question_text": "Does the SDMC meet every month?",
         "display_text": "How many responses indicate SDMC meetings happen monthly?",
+        "lang_name": null,
         "key": "mob-sdmc-meet",
+        "question_type": 2,
+        "options": "{'Yes','No'}",
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": null
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 145,
+    "fields": {
+        "question_text": "Is there a teacher shortage in the school?",
+        "display_text": "How many responses indicate a teacher shortage in schools?",
+        "lang_name": null,
+        "key": "mob-teacher-shortage",
         "question_type": 2,
         "options": "{'Yes','No'}",
         "is_featured": true,
@@ -731,6 +810,7 @@
     "fields": {
         "question_text": "Are you satisfied with the Mid Day Meal served in your child's school?",
         "display_text": "How many responses indicate that the mid day meal is satisfactory?",
+        "lang_name": null,
         "key": "mob-mdm-satisfactory",
         "question_type": 2,
         "options": "{'Yes','No'}",
@@ -746,6 +826,7 @@
     "fields": {
         "question_text": "Does the school have a separate functional toilet for girls?",
         "display_text": "How many schools have separate toilets for boys and girls?",
+        "lang_name": null,
         "key": "ivrss-functional-toilets-girls",
         "question_type": 2,
         "options": "{'Yes','No'}",
@@ -761,6 +842,7 @@
     "fields": {
         "question_text": "Have you visited your child's school in the last month?",
         "display_text": "",
+        "lang_name": null,
         "key": null,
         "question_type": 2,
         "options": "{'Yes','No'}",
@@ -785,12 +867,13 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:31.296Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764701,
+    "pk": 933400,
     "fields": {
         "answergroup": 266261,
         "question": 270,
@@ -800,7 +883,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764700,
+    "pk": 933399,
     "fields": {
         "answergroup": 266261,
         "question": 150,
@@ -810,7 +893,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764699,
+    "pk": 933398,
     "fields": {
         "answergroup": 266261,
         "question": 149,
@@ -820,7 +903,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764698,
+    "pk": 933397,
     "fields": {
         "answergroup": 266261,
         "question": 148,
@@ -830,7 +913,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764697,
+    "pk": 933396,
     "fields": {
         "answergroup": 266261,
         "question": 147,
@@ -840,7 +923,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764696,
+    "pk": 933395,
     "fields": {
         "answergroup": 266261,
         "question": 269,
@@ -848,9 +931,10 @@
         "double_entry": null
     }
 },
+
 {
     "model": "assessments.answerinstitution",
-    "pk": 764694,
+    "pk": 933393,
     "fields": {
         "answergroup": 266261,
         "question": 144,
@@ -860,7 +944,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764693,
+    "pk": 933392,
     "fields": {
         "answergroup": 266261,
         "question": 138,
@@ -870,7 +954,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764692,
+    "pk": 933391,
     "fields": {
         "answergroup": 266261,
         "question": 143,
@@ -880,7 +964,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764691,
+    "pk": 933390,
     "fields": {
         "answergroup": 266260,
         "question": 270,
@@ -890,7 +974,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764690,
+    "pk": 933389,
     "fields": {
         "answergroup": 266260,
         "question": 150,
@@ -900,7 +984,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764689,
+    "pk": 933388,
     "fields": {
         "answergroup": 266260,
         "question": 149,
@@ -910,7 +994,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764688,
+    "pk": 933387,
     "fields": {
         "answergroup": 266260,
         "question": 148,
@@ -920,7 +1004,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764687,
+    "pk": 933386,
     "fields": {
         "answergroup": 266260,
         "question": 147,
@@ -930,7 +1014,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764686,
+    "pk": 933385,
     "fields": {
         "answergroup": 266260,
         "question": 269,
@@ -940,7 +1024,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764685,
+    "pk": 933384,
     "fields": {
         "answergroup": 266260,
         "question": 145,
@@ -950,7 +1034,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764684,
+    "pk": 933383,
     "fields": {
         "answergroup": 266260,
         "question": 144,
@@ -960,7 +1044,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764683,
+    "pk": 933382,
     "fields": {
         "answergroup": 266260,
         "question": 138,
@@ -970,7 +1054,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764682,
+    "pk": 933381,
     "fields": {
         "answergroup": 266260,
         "question": 143,
@@ -1180,7 +1264,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764681,
+    "pk": 933380,
     "fields": {
         "answergroup": 266257,
         "question": 270,
@@ -1190,7 +1274,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764680,
+    "pk": 933379,
     "fields": {
         "answergroup": 266257,
         "question": 150,
@@ -1200,7 +1284,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764679,
+    "pk": 933378,
     "fields": {
         "answergroup": 266257,
         "question": 149,
@@ -1210,7 +1294,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764678,
+    "pk": 933377,
     "fields": {
         "answergroup": 266257,
         "question": 148,
@@ -1220,7 +1304,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764677,
+    "pk": 933376,
     "fields": {
         "answergroup": 266257,
         "question": 147,
@@ -1230,7 +1314,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764676,
+    "pk": 933375,
     "fields": {
         "answergroup": 266257,
         "question": 269,
@@ -1240,7 +1324,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764675,
+    "pk": 933374,
     "fields": {
         "answergroup": 266257,
         "question": 145,
@@ -1250,7 +1334,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764674,
+    "pk": 933373,
     "fields": {
         "answergroup": 266257,
         "question": 144,
@@ -1260,7 +1344,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764673,
+    "pk": 933372,
     "fields": {
         "answergroup": 266257,
         "question": 138,
@@ -1270,7 +1354,7 @@
 },
 {
     "model": "assessments.answerinstitution",
-    "pk": 764672,
+    "pk": 933371,
     "fields": {
         "answergroup": 266257,
         "question": 143,

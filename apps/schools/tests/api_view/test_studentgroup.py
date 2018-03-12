@@ -49,7 +49,6 @@ class StudentGroupApiTests(APITestCase):
         print("=======================================================")
         print("Test listing all student groups under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.listView(request, parent_lookup_institution=36172,
                                  pk=36172)
         data = response.data
@@ -66,7 +65,6 @@ class StudentGroupApiTests(APITestCase):
         print("=======================================================")
         print("Test getting student group details under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.detailView(request, parent_lookup_institution=36172,
                                    pk=3486429)
         data = response.data

@@ -21,8 +21,7 @@ class ElectionBoundaryTests(APITestCase):
                      verbosity=0)
 
     def setUp(self):
-        self.user = get_user_model().objects.create_superuser(
-            '3322233323', 'admin')
+       
         self.assemblylistView = AssemblyBoundariesViewSet.as_view(
             actions={'get': 'list'})
         self.assemblydetailView = AssemblyBoundariesViewSet.as_view(
@@ -36,7 +35,6 @@ class ElectionBoundaryTests(APITestCase):
     def test_list_assemblies(self):
         url = reverse('boundary:assemblyListView')
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.assemblylistView(request)
         response.render()
         data = response.data
@@ -46,7 +44,6 @@ class ElectionBoundaryTests(APITestCase):
     def test_list_parliamentary_bounds(self):
         url = reverse('boundary:parliamentsListView')
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.parliamentlistView(request)
         response.render()
         data = response.data

@@ -1,86 +1,287 @@
 [
 {
-    "model": "assessments.respondenttype",
+    "model": "boundary.boundarytype",
+    "pk": "C",
+    "fields": {
+        "name": "Country"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ST",
+    "fields": {
+        "name": "State"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "name": "India",
+        "lang_name": null,
+        "boundary_type": "C",
+        "type": null,
+        "dise_slug": "India",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 3,
+    "fields": {
+        "parent": 1,
+        "name": "Odisha",
+        "lang_name": null,
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "Odisha",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 2,
+    "fields": {
+        "parent": 1,
+        "name": "Karnataka",
+        "lang_name": null,
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundarystatecode",
+    "pk": "od",
+    "fields": {
+        "boundary": 3
+    }
+},
+{
+    "model": "boundary.boundarystatecode",
+    "pk": "ka",
+    "fields": {
+        "boundary": 2
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "PC",
+    "fields": {
+        "name": "Pedagogy Coordinator",
+        "state_code": "od"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "CRCC",
+    "fields": {
+        "name": "Cluster Resource Coordinator",
+        "state_code": "od"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "BRC",
+    "fields": {
+        "name": "Block Resource Coordinator",
+        "state_code": "od"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "DPC",
+    "fields": {
+        "name": "District Project Coordinator",
+        "state_code": "od"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "DEO",
+    "fields": {
+        "name": "District Education Officer",
+        "state_code": "od"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "DDPI",
+    "fields": {
+        "name": "DDPI",
+        "state_code": "ka"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "BEO",
+    "fields": {
+        "name": "Block Education Officer",
+        "state_code": "ka"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "DIET",
+    "fields": {
+        "name": "DIET Principal",
+        "state_code": "ka"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "ECO",
+    "fields": {
+        "name": "Educational Coordinator",
+        "state_code": "ka"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "BRP",
+    "fields": {
+        "name": "Block Resource Person",
+        "state_code": "ka"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "SSA",
+    "fields": {
+        "name": "SSA Official",
+        "state_code": "ka"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "CRP",
+    "fields": {
+        "name": "Cluster Resource Person",
+        "state_code": "ka"
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "UK",
+    "fields": {
+        "name": "Unknown",
+        "state_code": null
+    }
+},
+{
+    "model": "common.respondenttype",
+    "pk": "GO",
+    "fields": {
+        "name": "Government Official",
+        "state_code": null
+    }
+},
+{
+    "model": "common.respondenttype",
     "pk": "ER",
     "fields": {
-        "name": "Elected Representative"
+        "name": "Elected Representative",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "EO",
     "fields": {
-        "name": "Educational Officer"
+        "name": "Educational Officer",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "EY",
     "fields": {
-        "name": "Educated Youth"
+        "name": "Educated Youth",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "AS",
     "fields": {
-        "name": "Akshara Staff"
+        "name": "Akshara Staff",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "LL",
     "fields": {
-        "name": "Local Leader"
+        "name": "Local Leader",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "SM",
     "fields": {
-        "name": "SDMC Member"
+        "name": "SDMC Member",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "HM",
     "fields": {
-        "name": "Head Master"
+        "name": "Head Master",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "CM",
     "fields": {
-        "name": "CBO Member"
+        "name": "CBO Member",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "VR",
     "fields": {
-        "name": "Volunteer"
+        "name": "Volunteer",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "TR",
     "fields": {
-        "name": "Teachers"
+        "name": "Teachers",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "CH",
     "fields": {
-        "name": "Children"
+        "name": "Children",
+        "state_code": null
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "PR",
     "fields": {
-        "name": "Parents"
+        "name": "Parents",
+        "state_code": null
     }
 }
 ]
