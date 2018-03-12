@@ -1185,11 +1185,11 @@ var topSummaryData = {};
             //seriesBarDistance: 10,
             axisX: {
                 showGrid: true,
-                offset: 60
+                offset: 80
             },
             axisY: {
                 showGrid: true,
-                offset: 60
+                offset: 80
             },
             plugins: [
                 Chartist.plugins.tooltip(),
