@@ -29,6 +29,13 @@
     }
 },
 {
+    "model": "boundary.boundarytype",
+    "pk": "GP",
+    "fields": {
+        "name": "Gram Panchayat"
+    }
+},
+{
     "model": "boundary.electionparty",
     "pk": "JD(S)",
     "fields": {
@@ -69,6 +76,7 @@
     "fields": {
         "parent": null,
         "name": "India",
+        "lang_name": null,
         "boundary_type": "C",
         "type": null,
         "dise_slug": "India",
@@ -106,6 +114,14 @@
     }
 },
 {
+    "model": "common.respondenttype",
+    "pk": "AS",
+    "fields": {
+        "name": "Akshara Staff",
+        "state_code": null
+    }
+},
+{
     "model": "assessments.source",
     "pk": 1,
     "fields": {
@@ -130,7 +146,8 @@
     "model": "assessments.survey",
     "pk": 7,
     "fields": {
-        "name": "ILP Konnect Community Survey",
+        "name": "Community Survey",
+        "lang_name": null,
         "created_at": "2016-05-19T00:00:00Z",
         "updated_at": null,
         "partner": "akshara",
@@ -138,6 +155,21 @@
         "survey_on": "institution",
         "admin0": 2,
         "status": "AC"
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 5088,
+    "fields": {
+        "state": 2,
+        "dise_slug": "",
+        "elec_comm_code": null,
+        "const_ward_name": "Rampura",
+        "const_ward_type": "GP",
+        "current_elected_rep": null,
+        "current_elected_party": null,
+        "status": "AC",
+        "geom": null
     }
 },
 {
@@ -176,9 +208,10 @@
     "fields": {
         "parent": 1,
         "name": "Karnataka",
+        "lang_name": null,
         "boundary_type": "ST",
         "type": null,
-        "dise_slug": "India-Karnataka",
+        "dise_slug": "Karnataka",
         "geom": null,
         "status": "AC"
     }
@@ -189,6 +222,7 @@
     "fields": {
         "parent": 2,
         "name": "ballari",
+        "lang_name": null,
         "boundary_type": "SD",
         "type": "primary",
         "dise_slug": "Karnataka-ballari",
@@ -202,6 +236,7 @@
     "fields": {
         "parent": 424,
         "name": "kudligi",
+        "lang_name": null,
         "boundary_type": "SB",
         "type": "primary",
         "dise_slug": "ballari-kudligi",
@@ -215,11 +250,19 @@
     "fields": {
         "parent": 530,
         "name": "chiribi",
+        "lang_name": null,
         "boundary_type": "SC",
         "type": "primary",
         "dise_slug": "kudligi-chiribi",
         "geom": "SRID=4326;POINT (76.339724625 14.799661)",
         "status": "AC"
+    }
+},
+{
+    "model": "schools.pincode",
+    "pk": 583134,
+    "fields": {
+        "geom": null
     }
 },
 {
@@ -356,10 +399,11 @@
     }
 },
 {
-    "model": "assessments.respondenttype",
+    "model": "common.respondenttype",
     "pk": "PR",
     "fields": {
-        "name": "Parents"
+        "name": "Parents",
+        "state_code": null
     }
 },
 {
@@ -368,13 +412,15 @@
     "fields": {
         "password": "pbkdf2_sha256$15000$xMMcFq7pOyl0$ahsb9DD0vyS14cZ+VKjjuqAfP/R/0HgX1+pq+Xbv9IU=",
         "last_login": "2017-11-25T07:34:05.240Z",
-        "is_superuser": false,
         "email": "mayurappab@gmail.com",
         "mobile_no": "7829283314",
+        "mobile_no1": null,
         "first_name": "Mayurappa B.H",
         "last_name": "Mayurappa B.H",
         "user_type": "AS",
         "is_active": true,
+        "is_staff": false,
+        "is_superuser": false,
         "email_verification_code": "EfA04AfEAB7e1FC7C8c9DabCCCB95F2b",
         "sms_verification_pin": 5485,
         "is_email_verified": false,
@@ -391,7 +437,6 @@
         "website": "",
         "photos_url": "",
         "youtube_url": "",
-        "groups": [],
         "user_permissions": []
     }
 },
@@ -400,6 +445,7 @@
     "pk": 20,
     "fields": {
         "name": "ILP Konnect Paper",
+        "lang_name": null,
         "survey": 7,
         "type": "perception",
         "inst_type": "both",
@@ -414,7 +460,9 @@
         "created_by": null,
         "created_at": "2016-12-13T10:50:31.668Z",
         "updated_at": null,
-        "status": "AC"
+        "status": "AC",
+        "image_required": false,
+        "comments_required": false
     }
 },
 {
@@ -433,7 +481,7 @@
         "address": "CHIRABI",
         "area": "CHIRABI",
         "village": "CHIRIBI",
-        "pincode": null,
+        "pincode": 583134,
         "landmark": "None",
         "instidentification": "NONE",
         "instidentification2": null,
@@ -444,29 +492,11 @@
         "admin0": 2,
         "mp": 232,
         "mla": 478,
-        "gp": null,
+        "gp": 5088,
         "ward": null,
         "coord": "SRID=4326;POINT (76.306878 14.810813)",
         "last_verified_year": null,
         "status": "AC"
-    }
-},
-{
-    "model": "assessments.answergroup_institution",
-    "pk": 266261,
-    "fields": {
-        "institution": 3895,
-        "questiongroup": 20,
-        "group_value": "Bhimappa",
-        "created_by": 208,
-        "date_of_visit": "2016-08-05T18:30:00Z",
-        "respondent_type": "PR",
-        "comments": "",
-        "is_verified": true,
-        "status": "AC",
-        "sysid": null,
-        "entered_at": "2016-12-13T10:51:32.640Z",
-        "location": null
     }
 },
 {
@@ -484,16 +514,17 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:32.520Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
     "model": "assessments.answergroup_institution",
-    "pk": 266259,
+    "pk": 266261,
     "fields": {
         "institution": 3895,
         "questiongroup": 20,
-        "group_value": "Lalitha",
+        "group_value": "Bhimappa",
         "created_by": 208,
         "date_of_visit": "2016-08-05T18:30:00Z",
         "respondent_type": "PR",
@@ -501,62 +532,9 @@
         "is_verified": true,
         "status": "AC",
         "sysid": null,
-        "entered_at": "2016-12-13T10:51:32.400Z",
-        "location": null
-    }
-},
-{
-    "model": "assessments.answergroup_institution",
-    "pk": 266258,
-    "fields": {
-        "institution": 3895,
-        "questiongroup": 20,
-        "group_value": "Nagamma",
-        "created_by": 208,
-        "date_of_visit": "2016-08-05T18:30:00Z",
-        "respondent_type": "PR",
-        "comments": "",
-        "is_verified": true,
-        "status": "AC",
-        "sysid": null,
-        "entered_at": "2016-12-13T10:51:32.281Z",
-        "location": null
-    }
-},
-{
-    "model": "assessments.answergroup_institution",
-    "pk": 266257,
-    "fields": {
-        "institution": 3895,
-        "questiongroup": 20,
-        "group_value": "Neelappa",
-        "created_by": 208,
-        "date_of_visit": "2016-08-05T18:30:00Z",
-        "respondent_type": "PR",
-        "comments": "",
-        "is_verified": true,
-        "status": "AC",
-        "sysid": null,
-        "entered_at": "2016-12-13T10:51:32.161Z",
-        "location": null
-    }
-},
-{
-    "model": "assessments.answergroup_institution",
-    "pk": 266256,
-    "fields": {
-        "institution": 3895,
-        "questiongroup": 20,
-        "group_value": "Suresh",
-        "created_by": 208,
-        "date_of_visit": "2016-08-05T18:30:00Z",
-        "respondent_type": "PR",
-        "comments": "",
-        "is_verified": true,
-        "status": "AC",
-        "sysid": null,
-        "entered_at": "2016-12-13T10:51:32.013Z",
-        "location": null
+        "entered_at": "2016-12-13T10:51:32.640Z",
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -574,25 +552,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:31.891Z",
-        "location": null
-    }
-},
-{
-    "model": "assessments.answergroup_institution",
-    "pk": 266254,
-    "fields": {
-        "institution": 3895,
-        "questiongroup": 20,
-        "group_value": "Veena",
-        "created_by": 208,
-        "date_of_visit": "2016-08-05T18:30:00Z",
-        "respondent_type": "PR",
-        "comments": "",
-        "is_verified": true,
-        "status": "AC",
-        "sysid": null,
-        "entered_at": "2016-12-13T10:51:31.767Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -610,7 +571,8 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:31.646Z",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {
@@ -628,7 +590,103 @@
         "status": "AC",
         "sysid": null,
         "entered_at": "2016-12-13T10:51:31.296Z",
-        "location": null
+        "location": null,
+        "mobile": null
+    }
+},
+{
+    "model": "assessments.answergroup_institution",
+    "pk": 266257,
+    "fields": {
+        "institution": 3895,
+        "questiongroup": 20,
+        "group_value": "Neelappa",
+        "created_by": 208,
+        "date_of_visit": "2016-08-05T18:30:00Z",
+        "respondent_type": "PR",
+        "comments": "",
+        "is_verified": true,
+        "status": "AC",
+        "sysid": null,
+        "entered_at": "2016-12-13T10:51:32.161Z",
+        "location": null,
+        "mobile": null
+    }
+},
+{
+    "model": "assessments.answergroup_institution",
+    "pk": 266254,
+    "fields": {
+        "institution": 3895,
+        "questiongroup": 20,
+        "group_value": "Veena",
+        "created_by": 208,
+        "date_of_visit": "2016-08-05T18:30:00Z",
+        "respondent_type": "PR",
+        "comments": "",
+        "is_verified": true,
+        "status": "AC",
+        "sysid": null,
+        "entered_at": "2016-12-13T10:51:31.767Z",
+        "location": null,
+        "mobile": null
+    }
+},
+{
+    "model": "assessments.answergroup_institution",
+    "pk": 266256,
+    "fields": {
+        "institution": 3895,
+        "questiongroup": 20,
+        "group_value": "Suresh",
+        "created_by": 208,
+        "date_of_visit": "2016-08-05T18:30:00Z",
+        "respondent_type": "PR",
+        "comments": "",
+        "is_verified": true,
+        "status": "AC",
+        "sysid": null,
+        "entered_at": "2016-12-13T10:51:32.013Z",
+        "location": null,
+        "mobile": null
+    }
+},
+{
+    "model": "assessments.answergroup_institution",
+    "pk": 266259,
+    "fields": {
+        "institution": 3895,
+        "questiongroup": 20,
+        "group_value": "Lalitha",
+        "created_by": 208,
+        "date_of_visit": "2016-08-05T18:30:00Z",
+        "respondent_type": "PR",
+        "comments": "",
+        "is_verified": true,
+        "status": "AC",
+        "sysid": null,
+        "entered_at": "2016-12-13T10:51:32.400Z",
+        "location": null,
+        "mobile": null
+    }
+},
+{
+    "model": "assessments.answergroup_institution",
+    "pk": 266258,
+    "fields": {
+        "institution": 3895,
+        "questiongroup": 20,
+        "group_value": "Nagamma",
+        "created_by": 208,
+        "date_of_visit": "2016-08-05T18:30:00Z",
+        "respondent_type": "PR",
+        "comments": "",
+        "is_verified": true,
+        "status": "AC",
+        "sysid": null,
+        "entered_at": "2016-12-13T10:51:32.281Z",
+        "location": null,
+        "mobile": null
     }
 }
 ]

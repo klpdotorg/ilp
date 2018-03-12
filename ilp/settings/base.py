@@ -48,7 +48,7 @@ INSTALLED_APPS = (
     'django_filters',
     'compressor',
     'easyaudit',
-
+    'fixture_magic',
     # ILP apps
     'users',
     'common',
