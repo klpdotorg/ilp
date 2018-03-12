@@ -2569,7 +2569,7 @@ GROUP BY survey_id, survey_tag,source,yearmonth,questiongroup_id,questiongroup_n
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_class_gender_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -2596,29 +2596,16 @@ FROM
         schools_studentstudentgrouprelation stusg,
         schools_studentgroup sg,
         schools_student stu,
-        (SELECT distinct
-            qg.id as qgid,
-            sum(q.max_score) as maxscore
-        FROM
-            assessments_question q,
-            assessments_questiongroup_questions qgq,
-            assessments_questiongroup qg
-        WHERE
-            q.is_featured=true
-            and q.max_score is not null
-            and qgq.question_id =q.id
-            and qgq.questiongroup_id = qg.id
-        GROUP BY 
-            qg.survey_id,
-            qg.id)max_score,
+        assessments_questiongroupkey qgk,
         schools_institution s,
         boundary_boundary b
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=max_score.qgid
+        and qg.id=qgk.questiongroup_id
         and ans.question_id=q.id
         and q.is_featured=true
+        and q.key=qgk.key
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.student_id = stu.id
@@ -2627,8 +2614,8 @@ FROM
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,b.id
-    having sum(ans.answer::int)=max_score.maxscore)correctanswers
+    GROUP BY ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,b.id
+    having sum(ans.answer::int)=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,source,yearmonth,sg_name,gender,boundary_id;
 
 
@@ -2661,35 +2648,22 @@ FROM
         schools_studentstudentgrouprelation stusg,
         schools_studentgroup sg,
         schools_student stu,
-        (SELECT distinct
-            qg.id as qgid,
-            sum(q.max_score) as maxscore
-        FROM
-            assessments_question q,
-            assessments_questiongroup_questions qgq,
-            assessments_questiongroup qg
-        WHERE
-            q.is_featured=true
-            and q.max_score is not null
-            and qgq.question_id =q.id
-            and qgq.questiongroup_id = qg.id
-        GROUP BY 
-            qg.survey_id,
-            qg.id)max_score
+        assessments_questiongroupkey qgk
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=max_score.qgid
+        and qg.id=qgk.questiongroup_id
         and ans.question_id=q.id
         and q.is_featured=true
+        and q.key=qgk.key
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
         and ag.is_verified=true
-    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,sg.institution_id
-    having sum(ans.answer::int)=max_score.maxscore)correctanswers
+    GROUP BY ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,sg.institution_id
+    having sum(ans.answer::int)=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,source,yearmonth,sg_name,gender,institution_id;
 
 

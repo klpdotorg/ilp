@@ -20,7 +20,7 @@ tables = [
         {
             'table_name': 'assessments_answergroup_institution',
             'name': 'assessments_answergroup_institution_1',
-            'getquery': "\COPY (select id, user_id,group_id from stories_story where user_id is not null and user_id in (select id from users_user where mobile_no not like '%,%')) TO 'replacefilename' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
+            'getquery': "\COPY (select id, case when user_id=1 then 2 else user_id end,group_id from stories_story where user_id is not null and user_id in (select id from users_user where mobile_no not like '%,%')) TO 'replacefilename' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
             'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, user_id integer, group_id integer); \COPY temp_replacetablename(id, user_id, group_id) FROM 'replacefilename' with csv NULL 'null';",
             'updatequery': "UPDATE replacetablename set created_by_id=users.id from  temp_replacetablename temp, users_user users where replacetablename.id=temp.id and temp.user_id = users.id and replacetablename.questiongroup_id=temp.group_id;"
         },

@@ -30,8 +30,6 @@ var topSummaryData = {};
 
             if(!isSectionVisible) { return; }
 
-            console.log(klp.GKA.routerParams)
-
             if(typeof(functionMap[elId]) === 'function') {
                 functionMap[elId](klp.GKA.routerParams);
             } else {
@@ -1187,9 +1185,11 @@ var topSummaryData = {};
             //seriesBarDistance: 10,
             axisX: {
                 showGrid: true,
+                offset: 60
             },
             axisY: {
                 showGrid: true,
+                offset: 60
             },
             plugins: [
                 Chartist.plugins.tooltip(),
