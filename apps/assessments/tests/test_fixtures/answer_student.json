@@ -7,6 +7,13 @@
     }
 },
 {
+    "model": "boundary.boundarytype",
+    "pk": "GP",
+    "fields": {
+        "name": "Gram Panchayat"
+    }
+},
+{
     "model": "boundary.electionparty",
     "pk": "INC",
     "fields": {
@@ -47,6 +54,7 @@
     "fields": {
         "parent": null,
         "name": "India",
+        "lang_name": null,
         "boundary_type": "C",
         "type": null,
         "dise_slug": "India",
@@ -85,9 +93,9 @@
 },
 {
     "model": "assessments.surveyontype",
-    "pk": "institution",
+    "pk": "student",
     "fields": {
-        "description": "Institution"
+        "description": "Student"
     }
 },
 {
@@ -96,6 +104,21 @@
     "fields": {
         "name": "Akshara Foundation",
         "admin0": 2
+    }
+},
+{
+    "model": "boundary.electionboundary",
+    "pk": 6625,
+    "fields": {
+        "state": 2,
+        "dise_slug": "",
+        "elec_comm_code": null,
+        "const_ward_name": "Ward no 7",
+        "const_ward_type": "GP",
+        "current_elected_rep": null,
+        "current_elected_party": null,
+        "status": "AC",
+        "geom": null
     }
 },
 {
@@ -134,9 +157,10 @@
     "fields": {
         "parent": 1,
         "name": "Karnataka",
+        "lang_name": null,
         "boundary_type": "ST",
         "type": null,
-        "dise_slug": "India-Karnataka",
+        "dise_slug": "Karnataka",
         "geom": null,
         "status": "AC"
     }
@@ -147,6 +171,7 @@
     "fields": {
         "parent": 2,
         "name": "ballari",
+        "lang_name": null,
         "boundary_type": "SD",
         "type": "primary",
         "dise_slug": "Karnataka-ballari",
@@ -160,9 +185,10 @@
     "fields": {
         "parent": 424,
         "name": "ballari east",
+        "lang_name": null,
         "boundary_type": "SB",
         "type": "primary",
-        "dise_slug": "ballari-ballari east",
+        "dise_slug": "ballari-ballari-east",
         "geom": "SRID=4326;POINT (76.98800196268654 15.17308159701492)",
         "status": "AC"
     }
@@ -173,11 +199,19 @@
     "fields": {
         "parent": 533,
         "name": "kambli bazar bly",
+        "lang_name": null,
         "boundary_type": "SC",
         "type": "primary",
-        "dise_slug": "ballari east-kambli bazar bly",
+        "dise_slug": "ballari-east-kambli-bazar-bly",
         "geom": "SRID=4326;POINT (76.92989799999999 15.135143)",
         "status": "AC"
+    }
+},
+{
+    "model": "schools.pincode",
+    "pk": 583101,
+    "fields": {
+        "geom": null
     }
 },
 {
@@ -354,11 +388,12 @@
     "pk": 3,
     "fields": {
         "name": "Ganitha Kalika Andolana",
+        "lang_name": null,
         "created_at": "2016-05-19T00:00:00Z",
         "updated_at": null,
         "partner": "akshara",
         "description": null,
-        "survey_on": "institution",
+        "survey_on": "student",
         "admin0": 2,
         "status": "AC"
     }
@@ -379,7 +414,7 @@
         "address": "WARD 7",
         "area": "WARD 7",
         "village": "WARD 7",
-        "pincode": null,
+        "pincode": 583101,
         "landmark": "NEAR BAPUJI SCHOOL",
         "instidentification": "NO COMPOUND",
         "instidentification2": null,
@@ -390,7 +425,7 @@
         "admin0": 2,
         "mp": 232,
         "mla": 472,
-        "gp": null,
+        "gp": 6625,
         "ward": null,
         "coord": "SRID=4326;POINT (76.927897 15.131353)",
         "last_verified_year": null,
@@ -427,43 +462,11 @@
     }
 },
 {
-    "model": "users.user",
-    "pk": 1,
-    "fields": {
-        "password": "pbkdf2_sha256$12000$NIxNt8nePYbx$UcjvSgrLNAzwNT7+6jZkL3mlM4KZkvqH+lfhkKtio7w=",
-        "last_login": "2014-11-27T07:37:55.159Z",
-        "is_superuser": false,
-        "email": "sajjad@klp.org.in",
-        "mobile_no": "9742979601",
-        "first_name": "Sajjad",
-        "last_name": "Anwar",
-        "user_type": null,
-        "is_active": true,
-        "email_verification_code": "d321a614d97641c8bfef843008b11d77",
-        "sms_verification_pin": 8461,
-        "is_email_verified": false,
-        "is_mobile_verified": false,
-        "dob": null,
-        "source": null,
-        "changed": "2014-11-27T07:30:44.428Z",
-        "created": "2014-07-09T09:32:44.652Z",
-        "opted_email": false,
-        "image": "",
-        "about": "",
-        "twitter_handle": "",
-        "fb_url": "",
-        "website": "",
-        "photos_url": "",
-        "youtube_url": "",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
     "model": "assessments.questiongroup",
     "pk": 31,
     "fields": {
         "name": "Class 4 and 5",
+        "lang_name": null,
         "survey": 3,
         "type": "assessment",
         "inst_type": "primary",
@@ -475,10 +478,12 @@
         "version": null,
         "source": 4,
         "double_entry": false,
-        "created_by": null,
+        "created_by": 2,
         "created_at": "2016-06-01T00:00:00Z",
         "updated_at": null,
-        "status": "IA"
+        "status": "IA",
+        "image_required": false,
+        "comments_required": false
     }
 },
 {
@@ -507,6 +512,7 @@
     "fields": {
         "question_text": "do_30087705",
         "display_text": "Carryover",
+        "lang_name": null,
         "key": "Number Sense",
         "question_type": 3,
         "options": null,
@@ -522,6 +528,7 @@
     "fields": {
         "question_text": "do_30087366",
         "display_text": "Addition",
+        "lang_name": null,
         "key": "Addition",
         "question_type": 3,
         "options": null,
@@ -537,6 +544,7 @@
     "fields": {
         "question_text": "do_30087239",
         "display_text": "Division",
+        "lang_name": null,
         "key": "Division",
         "question_type": 3,
         "options": null,
@@ -552,6 +560,7 @@
     "fields": {
         "question_text": "do_30087121",
         "display_text": "Division",
+        "lang_name": null,
         "key": "Division",
         "question_type": 3,
         "options": null,
@@ -567,6 +576,7 @@
     "fields": {
         "question_text": "do_30087017",
         "display_text": "Shapes",
+        "lang_name": null,
         "key": "Shapes",
         "question_type": 3,
         "options": null,
@@ -582,6 +592,7 @@
     "fields": {
         "question_text": "do_30087014",
         "display_text": "Word Problems",
+        "lang_name": null,
         "key": "Word Problems",
         "question_type": 3,
         "options": null,
@@ -597,6 +608,7 @@
     "fields": {
         "question_text": "do_30087008",
         "display_text": "Subtraction",
+        "lang_name": null,
         "key": "Subtraction",
         "question_type": 3,
         "options": null,
@@ -612,6 +624,7 @@
     "fields": {
         "question_text": "do_30086996",
         "display_text": "Subtraction",
+        "lang_name": null,
         "key": "Subtraction",
         "question_type": 3,
         "options": null,
@@ -627,6 +640,7 @@
     "fields": {
         "question_text": "do_30086916",
         "display_text": "Regrouping with money",
+        "lang_name": null,
         "key": "Money",
         "question_type": 3,
         "options": null,
@@ -642,6 +656,7 @@
     "fields": {
         "question_text": "do_30086888",
         "display_text": "Division Fact",
+        "lang_name": null,
         "key": "Multiplication",
         "question_type": 3,
         "options": null,
@@ -657,6 +672,7 @@
     "fields": {
         "question_text": "do_30086842",
         "display_text": "Numeric Form",
+        "lang_name": null,
         "key": "Number Sense",
         "question_type": 3,
         "options": null,
@@ -672,6 +688,7 @@
     "fields": {
         "question_text": "do_30086346",
         "display_text": "Shapes",
+        "lang_name": null,
         "key": "Shapes",
         "question_type": 3,
         "options": null,
@@ -687,6 +704,7 @@
     "fields": {
         "question_text": "do_30086272",
         "display_text": "Fractions",
+        "lang_name": null,
         "key": "Fractions",
         "question_type": 3,
         "options": null,
@@ -702,6 +720,7 @@
     "fields": {
         "question_text": "do_30086249",
         "display_text": "Decimal",
+        "lang_name": null,
         "key": "Decimal",
         "question_type": 3,
         "options": null,
@@ -717,6 +736,7 @@
     "fields": {
         "question_text": "do_30086221",
         "display_text": "Double digit",
+        "lang_name": null,
         "key": "Number Sense",
         "question_type": 3,
         "options": null,
@@ -732,6 +752,7 @@
     "fields": {
         "question_text": "do_30086217",
         "display_text": "Double digit",
+        "lang_name": null,
         "key": "Number Sense",
         "question_type": 3,
         "options": null,
@@ -747,6 +768,7 @@
     "fields": {
         "question_text": "do_30086214",
         "display_text": "Double digit",
+        "lang_name": null,
         "key": "Number Sense",
         "question_type": 3,
         "options": null,
@@ -762,6 +784,7 @@
     "fields": {
         "question_text": "do_30086209",
         "display_text": "Double digit",
+        "lang_name": null,
         "key": "Number Sense",
         "question_type": 3,
         "options": null,
@@ -777,6 +800,7 @@
     "fields": {
         "question_text": "do_30086205",
         "display_text": "Double digit",
+        "lang_name": null,
         "key": "Number Sense",
         "question_type": 3,
         "options": null,
@@ -799,7 +823,8 @@
         "comments": null,
         "is_verified": true,
         "status": "AC",
-        "location": null
+        "location": null,
+        "mobile": null
     }
 },
 {

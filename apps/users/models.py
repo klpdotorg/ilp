@@ -81,7 +81,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'mobile_no'
 
     def save(self, *args, **kwargs):
+        print("Inside user save")
         if not self.id:
+            print("About to generate sms pin")
             self.generate_sms_pin()
             self.send_otp()
         
@@ -95,6 +97,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.sms_verification_pin = int(pin)
 
     def send_otp(self):
+        print("Sending otp")
         msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
         send_sms(self.mobile_no, msg)
 
