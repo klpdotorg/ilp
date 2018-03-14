@@ -78,7 +78,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            print("About to generate sms pin")
             self.generate_sms_pin()
             self.send_otp()
         
