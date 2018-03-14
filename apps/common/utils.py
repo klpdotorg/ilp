@@ -81,7 +81,6 @@ def send_attachment(from_email, to_emails, subject, folder, filename, context=No
 
 def send_sms(to, msg):
     """ Send a SMS using Exotel API """
-    print("Sending SMS using Exotel API")
     data = {
         'From': EXOTEL_SENDER_ID,
         'To': to,

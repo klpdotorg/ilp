@@ -11,10 +11,32 @@ from .serializers import (
     UserLoginSerializer,
     OtpSerializer,
     OtpGenerateSerializer,
-    OtpPasswordResetSerializer
+    OtpPasswordResetSerializer,
+    TadaUserRegistrationSerializer
 )
 from .utils import login_user
 from .permission import IsAdminOrIsSelf
+from django.contrib.auth.models import Group
+
+class TadaUserRegisterView(generics.CreateAPIView):
+    """
+    This endpoint registers a new TADA user
+    """
+    permission_classes =(
+        permissions.IsAdminUser
+    )
+    serializer_class = TadaUserRegistrationSerializer
+
+    def perform_create(self,serializer):
+        instance = serializer.save()
+        groups = request.POST.get('groups','')
+        for group in groups:
+            try:
+                group = Group.objects.get(name=group)
+            except Group.DoesNotExist:
+                pass
+            else:
+                instance.groups.add(group)
 
 
 class UserRegisterView(generics.CreateAPIView):
@@ -27,7 +49,10 @@ class UserRegisterView(generics.CreateAPIView):
     )
 
     def perform_create(self, serializer):
-        serializer.save()
+        instance = serializer.save()
+        instance.groups.add(Group.objects.get(name='ilp_auth_user'))
+        instance.groups.add(Group.objects.get(name='ilp_konnect_user'))
+        instance.save()
 
 
 class UserLoginView(generics.GenericAPIView):

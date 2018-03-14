@@ -18,7 +18,6 @@ class CompensationLogMixin(CreateModelMixin, UpdateModelMixin):
         serializer.save(double_entry=1)
 
     def perform_update(self, serializer):
-        print("Inside perform_update")
         user_who_created = CRUDEvent.objects.get(
             object_id=serializer.instance.id,
             event_type=CRUDEvent.CREATE
@@ -33,7 +32,6 @@ class CompensationLogMixin(CreateModelMixin, UpdateModelMixin):
 
 class AnswerUpdateModelMixin(UpdateModelMixin):
     def update(self, request, *args, **kwargs):
-        print("inside update of answer update model mixin")
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         # data = self._cast_answer_types(request.data)

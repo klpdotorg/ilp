@@ -21,6 +21,7 @@ class StudentAnswersApiTests(APITestCase):
         #              'apps/assessments/tests/test_fixtures/users')
         call_command('loaddata',
                       'apps/assessments/tests/test_fixtures/answer_student')
+                      
 
     def setUp(self):
         # setup a test user
