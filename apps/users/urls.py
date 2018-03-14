@@ -9,6 +9,9 @@ from .views import (
     OtpPasswordResetView
 )
 
+from users.views import (
+    TadaUserRegisterView
+)
 urlpatterns = [
     url(
         r'^users/register/$',
@@ -37,4 +40,12 @@ urlpatterns = [
     ),
 
     url('^users/profile', UserProfileView.as_view(), name='api_user_profile'),
+
+    #TADA urls
+
+    url(
+        r'^users/tada/register/$',
+        TadaUserRegisterView.as_view(),
+        name='tada-user-register'
+    )
 ]

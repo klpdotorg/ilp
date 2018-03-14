@@ -4,8 +4,8 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
 from common.views import StaticPageView
-from .models import User
-from .serializers import (
+from users.models import User
+from users.serializers import (
     UserSerializer,
     UserRegistrationSerializer,
     UserLoginSerializer,
@@ -14,30 +14,11 @@ from .serializers import (
     OtpPasswordResetSerializer,
     TadaUserRegistrationSerializer
 )
-from .utils import login_user
-from .permission import IsAdminOrIsSelf
+from users.utils import login_user
+from users.permission import IsAdminOrIsSelf
 from django.contrib.auth.models import Group
-
-class TadaUserRegisterView(generics.CreateAPIView):
-    """
-    This endpoint registers a new TADA user
-    """
-    permission_classes =(
-        permissions.IsAdminUser
-    )
-    serializer_class = TadaUserRegistrationSerializer
-
-    def perform_create(self,serializer):
-        instance = serializer.save()
-        groups = request.POST.get('groups','')
-        for group in groups:
-            try:
-                group = Group.objects.get(name=group)
-            except Group.DoesNotExist:
-                pass
-            else:
-                instance.groups.add(group)
-
+from common.utils import send_sms
+import random
 
 class UserRegisterView(generics.CreateAPIView):
     """
@@ -49,12 +30,29 @@ class UserRegisterView(generics.CreateAPIView):
     )
 
     def perform_create(self, serializer):
-        instance = serializer.save()
-        instance.groups.add(Group.objects.get(name='ilp_auth_user'))
-        instance.groups.add(Group.objects.get(name='ilp_konnect_user'))
-        instance.save()
+        try:   
+            instance = serializer.save()
+        except:
+            raise ParseError
+        else:
+            # Generate SMS pin and send OTP    
+            self.generate_sms_pin(instance)
+            self.send_otp(instance)
+            
+            #Add user to groups
+            instance.groups.add(Group.objects.get(name='ilp_auth_user'))
+            instance.groups.add(Group.objects.get(name='ilp_konnect_user'))
+            instance.save()    
 
+    def generate_sms_pin(self,instance):
+        pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
+        instance.sms_verification_pin = int(pin)
 
+    def send_otp(self,instance):
+        msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % instance.sms_verification_pin
+        send_sms(instance.mobile_no, msg)
+    
+   
 class UserLoginView(generics.GenericAPIView):
     """
     This end point logins a user by creating a token object
