@@ -3,6 +3,26 @@ from rest_framework import serializers
 
 from .models import User
 
+class TadaUserRegistrationSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(
+        style={'input_type': 'password'},
+        write_only=True
+    )
+
+    class Meta:
+        exclude = (
+            'is_email_verified',
+            'email_verification_code',
+        )
+        model = User
+    
+    def get_groups(self, obj):
+        user = obj
+        groups = user.groups.all().values('name')
+        if user.is_superuser:
+            groups = ['tada_admin']
+        return groups
+
 
 class UserSerializer(serializers.ModelSerializer):
     is_active = serializers.BooleanField(read_only=True)
@@ -22,10 +42,8 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = (User.USERNAME_FIELD,)
 
     def get_groups(self, obj):
-        print("Inside of get_groups")
         user = obj
         groups = user.groups.all().values('name')
-        print("Groups the user is a part of: ", groups)
         if user.is_superuser:
             groups = ['tada_admin']
         return groups
@@ -36,6 +54,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         style={'input_type': 'password'},
         write_only=True
     )
+    groups = serializers.SerializerMethodField()
 
     class Meta:
         exclude = (
@@ -48,14 +67,31 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             'sms_verification_pin',
         )
         model = User
+    
+    def get_groups(self, obj):
+        user = obj
+        groups = user.groups.all().values('name')
+        if user.is_superuser:
+            groups = ['tada_admin']
+        return groups
 
 
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(style={'input_type': 'password'})
     password = serializers.CharField(style={'input_type': 'password'})
+    groups = serializers.SerializerMethodField()
 
     class Meta:
         fields = ('username', 'password', )
+
+    def get_groups(self, obj):
+        print("Inside of get_groups")
+        user = obj
+        groups = user.groups.all().values('name')
+        print("Groups the user is a part of: ", groups)
+        if user.is_superuser:
+            groups = ['tada_admin']
+        return groups
 
     def __init__(self, *args, **kwargs):
         super(UserLoginSerializer, self).__init__(*args, **kwargs)

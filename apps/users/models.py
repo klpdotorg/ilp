@@ -33,10 +33,7 @@ class UserManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
-        # Group.objects.get(name='ilp_auth_user').user_set.add(user)
-        # Group.objects.get(name='ilp_konnect_user').user_set.add(user)
-        # print("Added user to ilp_auth_user and ilp_konnect_user")
-        # user.save()
+      
         return user
 
     def create_superuser(self, mobile_no, password=None, **extra_fields):
@@ -76,12 +73,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     website = models.URLField(blank=True, null=True)
     photos_url = models.URLField(blank=True, null=True)
     youtube_url = models.URLField(blank=True, null=True)
-
     objects = UserManager()
     USERNAME_FIELD = 'mobile_no'
 
     def save(self, *args, **kwargs):
-        print("Inside user save")
         if not self.id:
             print("About to generate sms pin")
             self.generate_sms_pin()
@@ -97,7 +92,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.sms_verification_pin = int(pin)
 
     def send_otp(self):
-        print("Sending otp")
         msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
         send_sms(self.mobile_no, msg)
 
@@ -143,7 +137,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 def user_created_verify_email(sender, instance=None, created=False, **kwargs):
     if created and instance.email:
         instance.send_verification_email()
-
 
 class UserBoundary(models.Model):
     user = models.ForeignKey('User')
