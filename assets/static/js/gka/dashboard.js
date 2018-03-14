@@ -1182,15 +1182,16 @@ var topSummaryData = {};
     function renderBarChart(elementId, data, yTitle=' ') {
 
         var options = {
-            //seriesBarDistance: 10,
+            seriesBarDistance: 10,
             axisX: {
                 showGrid: true,
-                offset: 60
+                offset: 80
             },
             axisY: {
                 showGrid: true,
-                offset: 60
+                // offset: 80
             },
+            position: 'start',
             plugins: [
                 Chartist.plugins.tooltip(),
                 Chartist.plugins.ctAxisTitle({
@@ -1246,8 +1247,13 @@ var topSummaryData = {};
 
         var options = {
             seriesBarDistance: 10,
+            position: 'start',
             axisX: {
                 showGrid: true,
+                labelOffset: {
+                    x: -20,
+                    y: 0
+                },
             },
             axisY: {
                 showGrid: true,
@@ -1275,11 +1281,6 @@ var topSummaryData = {};
         ];
 
         var $chart_element = Chartist.Line(elementId, data, options, responsiveOptions).on('draw', function(data) {
-            // if (data.type === 'bar') {
-            //     data.element.attr({
-            //         style: 'stroke-width: 15px;'
-            //     });
-            // }
             if (data.type === 'label' && data.axis === 'x') {
                 data.element.attr({
                     width: 200

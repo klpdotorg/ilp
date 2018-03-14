@@ -15,7 +15,7 @@
   .ct-chart {
     margin-bottom: 10px;
   }
-  .ct-chart .ct-label.ct-horizontal.ct-end {
+  .ct-chart.ct-label.ct-horizontal.ct-end {
     width: 70px !important;
     height: 100px !important;
   }
