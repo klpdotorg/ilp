@@ -725,11 +725,10 @@ class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
         queryset = self.filter_queryset(self.get_queryset())
         res = {}
 
-        if self.request.GET.get('state', None):
-            queryset = queryset.filter(boundary_id=self.get_state().id)
-
         if boundary_id:
             queryset = queryset.filter(boundary_id=boundary_id)
+        elif self.request.GET.get('state', None):
+            queryset = queryset.filter(boundary_id=self.get_state().id)
 
         electioncount_agg = queryset.values('const_ward_type').annotate(
             Sum('electionboundary_count'))
