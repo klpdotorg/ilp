@@ -77,22 +77,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'mobile_no'
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.generate_sms_pin()
-            self.send_otp()
+        # if not self.id:
+        #     self.generate_sms_pin()
+        #     self.send_otp()
         
         return super(User, self).save(*args, **kwargs)
 
     def generate_email_token(self):
         self.email_verification_code = uuid.uuid4().hex
 
-    def generate_sms_pin(self):
-        pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
-        self.sms_verification_pin = int(pin)
+    # def generate_sms_pin(self):
+    #     pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
+    #     self.sms_verification_pin = int(pin)
 
-    def send_otp(self):
-        msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
-        send_sms(self.mobile_no, msg)
+    # def send_otp(self):
+    #     msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
+    #     send_sms(self.mobile_no, msg)
 
     def get_token(self):
         return Token.objects.get(user=self).key

@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import User
+from users.models import User
 
 class TadaUserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
@@ -85,7 +85,6 @@ class UserLoginSerializer(serializers.Serializer):
         fields = ('username', 'password', )
 
     def get_groups(self, obj):
-        print("Inside of get_groups")
         user = obj
         groups = user.groups.all().values('name')
         print("Groups the user is a part of: ", groups)
