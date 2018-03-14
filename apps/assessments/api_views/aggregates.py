@@ -681,7 +681,11 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
         return self.filter_queryset(institution_qs)
 
     def list(self, request, *args, **kwargs):
+        boundary_id = self.request.query_params.get('boundary_id', None)
         queryset = self.filter_queryset(self.get_queryset())
+
+        if boundary_id:
+            queryset = queryset.filter(boundary_id=boundary_id)
 
         response = {}
         source_res = {}
