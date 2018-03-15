@@ -129,6 +129,7 @@ class Question(models.Model):
     key = models.CharField(max_length=50, null=True)
     question_type = models.ForeignKey('QuestionType', null=True)
     options = models.CharField(max_length=300, null=True)
+    lang_options = models.CharField(max_length=300, null=True)
     is_featured = models.BooleanField()
     status = models.ForeignKey('common.Status')
     max_score = models.IntegerField(null=True)
