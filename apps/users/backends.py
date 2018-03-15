@@ -14,9 +14,7 @@ class EmailMobileUsernameBackend(object):
                 Q(email__iexact=username) | Q(mobile_no__iexact=username))
             print("user is: ", user)
             if check_password(password, user.password):
-                print("User password matches")
                 return user
-            print("User is not found")
         except User.DoesNotExist:
             raise AuthenticationFailed('Invalid email or mobile number')
 
