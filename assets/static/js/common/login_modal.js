@@ -211,9 +211,9 @@
         var isValid = klp.utils.validateRequired(formID);
         if (isValid) {
             var data = {
-                'email': $('#forgotPasswordEmail').val()
+                'mobile_no': $('#forgotPasswordMobile').val()
             };
-            var url = 'password-reset/request';
+            var url = 'users/otp-generate/';
             var $xhr = klp.api.do(url, data, 'POST');
             klp.utils.startSubmit(formID);
             $xhr.done(function() {
