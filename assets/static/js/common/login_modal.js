@@ -13,7 +13,6 @@
     t.close = function() {
         //showSignup();
         $('.closeLightBox').click();
-        console.log("login modal close called");
     };
 
     t.afterClose = function() {
@@ -219,13 +218,16 @@
             $xhr.done(function() {
                 klp.utils.stopSubmit(formID);
                 klp.utils.alertMessage("Please check your email for password reset instructions", "success");
-                t.close();
+                // t.close();
+
+                // Update user password
+
             });
             $xhr.fail(function(err) {
                 klp.utils.stopSubmit(formID);
                 var errorJSON = JSON.parse(err.responseText);
                 if (errorJSON.detail) {
-                    klp.utils.invalidateField($('#forgotPasswordEmail'), errorJSON.detail);
+                    klp.utils.invalidateField($('#forgotPasswordMobile'), errorJSON.detail);
 
                 }
                 //klp.utils.alertMessage("Invalid email address", "error");

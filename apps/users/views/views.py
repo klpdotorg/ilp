@@ -197,7 +197,7 @@ class OtpGenerateView(generics.GenericAPIView):
 
         if mobile_no is None:
             return Response(
-                {'detail': 'mobile_no is required'},
+                {'detail': 'Mobile number is required'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -205,7 +205,7 @@ class OtpGenerateView(generics.GenericAPIView):
             user = User.objects.get(mobile_no=mobile_no)
         except User.DoesNotExist:
             return Response(
-                {'detail': 'User is not registered in ILP'},
+                {'detail': 'Mobile number not found'},
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
@@ -213,7 +213,7 @@ class OtpGenerateView(generics.GenericAPIView):
             user.save()
             user.send_otp()
             return Response(
-                {'success': 'otp generated and sent'},
+                {'success': 'Otp sent'},
                 status=status.HTTP_200_OK
             )
 

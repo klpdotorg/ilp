@@ -11,7 +11,7 @@
         <input type="text" id="signupLastName" placeholder="Last Name" class="input-text" aria-label="Last Name">
       </div>
       <div class="form-field-wrap">
-        <input type="email" id="signupEmail" data-required="true" placeholder="Email" class="input-text" aria-label="Email">
+        <input type="email" id="signupEmail" data-required="false" placeholder="Email" class="input-text" aria-label="Email">
       </div>
       <div class="form-field-wrap">
         <input type="tel" id="signupPhone" data-required="true" placeholder="Phone Number" class="input-text" aria-label="Phone Number">
@@ -87,8 +87,16 @@
   <h3 class="heading-border">Forgot Password</h3>
   <form id="forgotPasswordForm" class="form-base form-login">
     <div class="form-field-wrap">
-      <input type="text" id="forgotPasswordMobile" data-required="true" class="input-text" placeholder="Your mobile number" aria-label="Your mobile number">
+      <input type="text" id="forgotPasswordMobile" data-required="true" class="input-text" placeholder="Your phone number" aria-label="Your phone number">
     </div>
+    <section id="forgot-password-extra-fields" style="display: none;">
+      <div class="form-field-wrap">
+        <input type="text" id="forgotPasswordOtp" data-required="false" class="input-text" placeholder="OTP received on your phone " aria-label="YOTP received on your phone">
+      </div>
+      <div class="form-field-wrap">
+        <input type="text" id="forgotPasswordPassword" data-required="false" class="input-text" placeholder="Your new password" aria-label="Your new password">
+      </div>
+    </section>
     <div class="form-field-wrap">
       <a class="button js-submit-btn" id="forgotPasswordFormSubmit">Reset Password</a>
       <div class="js-submit-loading" style="display:none;">
