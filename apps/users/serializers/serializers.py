@@ -3,27 +3,6 @@ from rest_framework import serializers
 
 from users.models import User
 
-class TadaUserRegistrationSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        style={'input_type': 'password'},
-        write_only=True
-    )
-
-    class Meta:
-        exclude = (
-            'is_email_verified',
-            'email_verification_code',
-        )
-        model = User
-    
-    def get_groups(self, obj):
-        user = obj
-        groups = user.groups.all().values('name')
-        if user.is_superuser:
-            groups = ['tada_admin']
-        return groups
-
-
 class UserSerializer(serializers.ModelSerializer):
     is_active = serializers.BooleanField(read_only=True)
     is_staff = serializers.BooleanField(read_only=True)

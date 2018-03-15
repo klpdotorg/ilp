@@ -21,12 +21,4 @@ class TadaUserRegisterView(generics.CreateAPIView):
     def perform_create(self,serializer):
         instance = serializer.save()
         groups = request.POST.get('groups','')
-        for group in groups:
-            try:
-                group_name = Group.objects.get(name=group)
-                print("Group name is: ", group_name.name)
-            except Group.DoesNotExist:
-                pass
-            else:
-                instance.groups.add(group_name)
-                print("Added group %s to user instance", group_name.name)
+    
