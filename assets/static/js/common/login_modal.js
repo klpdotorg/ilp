@@ -20,6 +20,7 @@
         klp.utils.clearForm('loginForm');
         klp.utils.clearForm('forgotPasswordForm');
         klp.utils.clearForm('otpForm');
+        klp.utils.clearForm('forgotPasswordOTPForm')
         postLoginCallback = null;
     };
 
@@ -58,6 +59,12 @@
             $('#signupOtpForm').submit();
         });
 
+        $('#forgotPasswordOTPForm').submit(submitPasswordOtpForm);
+        $('#forgotPasswordOtpFormSubmit').click(function(e) {
+            e.preventDefault();
+            $('#forgotPasswordOTPForm').submit();
+        });
+
         $('.js-showLogin').click(showLogin);
         $('.js-showSignup').click(showSignup);
         $('.js-showForgotPassword').click(showForgotPassword);
@@ -73,8 +80,21 @@
         $('#forgotPasswordContainer').hide();
         $('#signupOtpContainer').hide();
         $('#signupContainer').show();
-
     }
+
+
+    function showForgotPasswordOTP(e, mobile_no) {
+        if (e) {
+            e.preventDefault();
+        }
+        $('#loginContainer').hide();
+        $('#signupContainer').hide();
+        $('#signupOtpContainer').hide();
+        $('#forgotPasswordContainer').hide();
+        $('#forgotPasswordOTPContainer').show();
+        $('#forgotPasswordOtpMobile').val(mobile_no);
+    }
+
 
     function showSignupOTP(e, userData) {
         if (e) {
@@ -101,13 +121,13 @@
         $('#forgotPasswordContainer').show();
     }
 
-    function showLogin(e, showOtpSuccessMessage) {
+    function showLogin(e, successMessage) {
         if (e) {
             e.preventDefault();
         }
 
-        if(showOtpSuccessMessage) {
-            $('#loginOtpVerifiedMessage').show();
+        if(successMessage) {
+            $('#loginOtpVerifiedMessage').html(successMessage).show();
         } else {
             $('#loginOtpVerifiedMessage').hide();
         }
@@ -115,6 +135,7 @@
         $('#signupContainer').hide();
         $('#signupOtpContainer').hide();
         $('#forgotPasswordContainer').hide();
+        $('#forgotPasswordOTPContainer').hide();
         $('#loginContainer').show();
     }
 
@@ -217,20 +238,14 @@
             klp.utils.startSubmit(formID);
             $xhr.done(function() {
                 klp.utils.stopSubmit(formID);
-                klp.utils.alertMessage("Please check your email for password reset instructions", "success");
-                // t.close();
-
-                // Update user password
-
+                showForgotPasswordOTP(null, $('#forgotPasswordMobile').val());
             });
             $xhr.fail(function(err) {
                 klp.utils.stopSubmit(formID);
                 var errorJSON = JSON.parse(err.responseText);
                 if (errorJSON.detail) {
                     klp.utils.invalidateField($('#forgotPasswordMobile'), errorJSON.detail);
-
                 }
-                //klp.utils.alertMessage("Invalid email address", "error");
             });
         }
     }
@@ -255,7 +270,7 @@
             $xhr.done(function() {
                 klp.utils.stopSubmit(formID);
                 klp.utils.alertMessage("Your mobile number has been verified successfully. Please proceed to login", "success");
-                showLogin(null, true);
+                showLogin(null, "Your mobile number has been verified.<br>Please proceed to login below.");
             });
             $xhr.fail(function(err) {
                 klp.utils.stopSubmit(formID);
@@ -264,6 +279,41 @@
                     klp.utils.invalidateField($('#signupOtp'), errorJSON.detail);
                 } else {
                     klp.utils.alertMessage("We are not able to verify your number do to an unknown error. Please contact us if this happens again.", "error");
+                }
+            });
+        }
+    }
+
+
+    function submitPasswordOtpForm(e) {
+        if (e) {
+            e.preventDefault();
+        }
+        var formID = 'forgotPasswordOTPForm';
+
+        klp.utils.clearValidationErrors(formID);
+        var isValid = klp.utils.validateRequired(formID);
+        if (isValid) {
+            var data = {
+                'mobile_no': $('#forgotPasswordOtpMobile').val(),
+                'otp': $('#forgotPasswordOtp').val(),
+                'password': $('#forgotPasswordPassword').val()
+            };
+            var url = 'users/otp-password-reset/';
+            var $xhr = klp.api.do(url, data, 'POST');
+            klp.utils.startSubmit(formID);
+            $xhr.done(function() {
+                klp.utils.stopSubmit(formID);
+                klp.utils.alertMessage("Your password has been changed successfully. Please proceed to login", "success");
+                showLogin(null, "Your password has been changed.<br>Please proceed to login below.");
+            });
+            $xhr.fail(function(err) {
+                klp.utils.stopSubmit(formID);
+                var errorJSON = JSON.parse(err.responseText);
+                if (errorJSON.detail) {
+                    klp.utils.invalidateField($('#forgotPasswordOtp'), errorJSON.detail);
+                } else {
+                    klp.utils.alertMessage("We are not able to change your password do to an unknown error. Please contact us if this happens again.", "error");
                 }
             });
         }
