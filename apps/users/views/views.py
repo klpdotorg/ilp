@@ -20,6 +20,7 @@ from django.contrib.auth.models import Group
 from common.utils import send_sms
 import random
 
+
 class UserRegisterView(generics.CreateAPIView):
     """
     This endpoint registers a new user in ILP.
@@ -30,29 +31,29 @@ class UserRegisterView(generics.CreateAPIView):
     )
 
     def perform_create(self, serializer):
-        try:   
+        try:
             instance = serializer.save()
-        except:
-            raise ParseError
+        except Exception as e:
+            raise e
         else:
-            # Generate SMS pin and send OTP    
+            # Generate SMS pin and send OTP
             self.generate_sms_pin(instance)
             self.send_otp(instance)
-            
-            #Add user to groups
+
+            # Add user to groups
             instance.groups.add(Group.objects.get(name='ilp_auth_user'))
             instance.groups.add(Group.objects.get(name='ilp_konnect_user'))
-            instance.save()    
+            instance.save()
 
-    def generate_sms_pin(self,instance):
+    def generate_sms_pin(self, instance):
         pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
         instance.sms_verification_pin = int(pin)
 
-    def send_otp(self,instance):
+    def send_otp(self, instance):
         msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % instance.sms_verification_pin
         send_sms(instance.mobile_no, msg)
-    
-   
+
+
 class UserLoginView(generics.GenericAPIView):
     """
     This end point logins a user by creating a token object

@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from users.models import User
 
+
 class UserSerializer(serializers.ModelSerializer):
     is_active = serializers.BooleanField(read_only=True)
     is_staff = serializers.BooleanField(read_only=True)
@@ -46,7 +47,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             'sms_verification_pin',
         )
         model = User
-    
+
     def get_groups(self, obj):
         user = obj
         groups = user.groups.all().values('name')

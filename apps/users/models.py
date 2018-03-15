@@ -33,7 +33,7 @@ class UserManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
-      
+
         return user
 
     def create_superuser(self, mobile_no, password=None, **extra_fields):
@@ -80,7 +80,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         # if not self.id:
         #     self.generate_sms_pin()
         #     self.send_otp()
-        
+
         return super(User, self).save(*args, **kwargs)
 
     def generate_email_token(self):
