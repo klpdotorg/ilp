@@ -187,6 +187,8 @@ EMAIL_DEFAULT_FROM = 'India Learning Partnership <dev@ilp.org.in>'
 
 SITE_ID = 1
 
+#Django-guardian settings
+ANONYMOUS_USER_NAME = None
 
 # Logging
 LOG_ROOT = os.path.join(BASE_DIR, "/logs")
