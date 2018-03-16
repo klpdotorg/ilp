@@ -9,7 +9,8 @@ from common.models import Status, AcademicYear
 
 class StudentSerializer(serializers.ModelSerializer):
     academic_year = serializers.PrimaryKeyRelatedField(
-        queryset=AcademicYear.objects.all(), write_only=True)
+        queryset=AcademicYear.objects.all()
+    )
 
     class Meta:
         model = Student
@@ -17,7 +18,6 @@ class StudentSerializer(serializers.ModelSerializer):
             'id', 'first_name', 'middle_name', 'last_name', 'uid', 'dob',
             'gender', 'mt', 'status', "institution", "academic_year"
         )
-        extra_kwargs = {'academic_year': {'write_only': True}}
 
     def create(self, validated_data):
         studentgroup_id = self.context['view'].kwargs[
