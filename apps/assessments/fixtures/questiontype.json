@@ -19,7 +19,7 @@
         "model": "assessments.QuestionType",
         "fields":{
             "id": 3,
-            "display_id": "TextBox",
+            "display_id": "NumericBox",
             "type_id": "score"
         }
     },
