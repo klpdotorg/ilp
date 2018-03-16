@@ -42,7 +42,7 @@ urlpatterns = [
 
     url('^users/profile', UserProfileView.as_view(), name='api_user_profile'),
 
-    #TADA urls
+    # TADA urls
 
     url(
         r'^users/tada/register/$',

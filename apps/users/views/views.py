@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.views.generic.detail import DetailView
+from django.contrib.auth.models import Group
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
@@ -11,14 +12,11 @@ from users.serializers import (
     UserLoginSerializer,
     OtpSerializer,
     OtpGenerateSerializer,
-    OtpPasswordResetSerializer,
-    TadaUserRegistrationSerializer
+    OtpPasswordResetSerializer
 )
 from users.utils import login_user
 from users.permission import IsAdminOrIsSelf
-from django.contrib.auth.models import Group
-from common.utils import send_sms
-import random
+
 
 class UserRegisterView(generics.CreateAPIView):
     """
@@ -30,29 +28,22 @@ class UserRegisterView(generics.CreateAPIView):
     )
 
     def perform_create(self, serializer):
-        try:   
+        try:
             instance = serializer.save()
-        except:
-            raise ParseError
+        except Exception as e:
+            raise e
         else:
-            # Generate SMS pin and send OTP    
-            self.generate_sms_pin(instance)
-            self.send_otp(instance)
-            
-            #Add user to groups
+            # Generate SMS pin and send OTP
+            instance.generate_sms_pin()
+            instance.send_otp()
+
+            # Add user to groups
             instance.groups.add(Group.objects.get(name='ilp_auth_user'))
             instance.groups.add(Group.objects.get(name='ilp_konnect_user'))
-            instance.save()    
 
-    def generate_sms_pin(self,instance):
-        pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
-        instance.sms_verification_pin = int(pin)
+            instance.save()
 
-    def send_otp(self,instance):
-        msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % instance.sms_verification_pin
-        send_sms(instance.mobile_no, msg)
-    
-   
+
 class UserLoginView(generics.GenericAPIView):
     """
     This end point logins a user by creating a token object
@@ -206,7 +197,7 @@ class OtpGenerateView(generics.GenericAPIView):
 
         if mobile_no is None:
             return Response(
-                {'detail': 'mobile_no is required=True'},
+                {'detail': 'Mobile number is required'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -214,7 +205,7 @@ class OtpGenerateView(generics.GenericAPIView):
             user = User.objects.get(mobile_no=mobile_no)
         except User.DoesNotExist:
             return Response(
-                {'detail': 'User is not registered in ILP'},
+                {'detail': 'Mobile number not found'},
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
@@ -222,7 +213,7 @@ class OtpGenerateView(generics.GenericAPIView):
             user.save()
             user.send_otp()
             return Response(
-                {'success': 'otp generated and sent'},
+                {'success': 'Otp sent'},
                 status=status.HTTP_200_OK
             )
 

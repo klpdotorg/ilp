@@ -9,18 +9,16 @@ User = get_user_model()
 
 class EmailMobileUsernameBackend(object):
     def authenticate(self, username=None, password=None):
-        #try:
+        try:
             user = User.objects.get(
                 Q(email__iexact=username) | Q(mobile_no__iexact=username))
             print("user is: ", user)
             if check_password(password, user.password):
-                print("User password matches")
                 return user
-            print("User is not found")
-       # except User.DoesNotExist:
-        #    raise AuthenticationFailed('Invalid email or mobile number')
+        except User.DoesNotExist:
+            raise AuthenticationFailed('Invalid email or mobile number')
 
-        #return None
+        return None
 
     def get_user(self, user_id):
         try:

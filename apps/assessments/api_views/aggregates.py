@@ -681,7 +681,11 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
         return self.filter_queryset(institution_qs)
 
     def list(self, request, *args, **kwargs):
+        boundary_id = self.request.query_params.get('boundary_id', None)
         queryset = self.filter_queryset(self.get_queryset())
+
+        if boundary_id:
+            queryset = queryset.filter(boundary_id=boundary_id)
 
         response = {}
         source_res = {}
@@ -717,9 +721,13 @@ class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
     queryset = SurveyBoundaryElectionTypeCount.objects.all()
 
     def list(self, request, *args, **kwargs):
-        res = {}
+        boundary_id = self.request.GET.get('boundary_id', None)
         queryset = self.filter_queryset(self.get_queryset())
-        if self.request.GET.get('state', None):
+        res = {}
+
+        if boundary_id:
+            queryset = queryset.filter(boundary_id=boundary_id)
+        elif self.request.GET.get('state', None):
             queryset = queryset.filter(boundary_id=self.get_state().id)
 
         electioncount_agg = queryset.values('const_ward_type').annotate(
