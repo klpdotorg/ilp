@@ -36,7 +36,7 @@ class QuestionGroupSerializer(ILPSerializer):
             'group_text', 'start_date', 'end_date', 'academic_year',
             'version', 'source', 'source_name', 'double_entry',
             'created_by', 'created_at', 'updated_at', 'status',
-            'image_required', 'comments_required',
+            'image_required', 'comments_required', 'lang_name',
         )
 
 
@@ -113,7 +113,7 @@ class QuestionSerializer(ILPSerializer):
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
             'options', 'is_featured', 'status', 'id', 'question_type_id',
-            'lang_name', 'sequence',
+            'lang_name', 'sequence', 'lang_options',
         )
 
     def get_sequence(self, question):
