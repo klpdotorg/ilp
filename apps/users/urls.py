@@ -10,7 +10,8 @@ from .views import (
 )
 
 from users.views import (
-    TadaUserRegisterView
+    TadaUserRegisterView,
+    TadaUserLoginView
 )
 urlpatterns = [
     url(
@@ -47,5 +48,11 @@ urlpatterns = [
         r'^users/tada/register/$',
         TadaUserRegisterView.as_view(),
         name='tada-user-register'
+    ),
+
+    url(
+        r'^users/tada/login/$',
+        TadaUserLoginView.as_view(),
+        name='tada-user-login'
     )
 ]

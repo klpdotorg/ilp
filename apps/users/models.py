@@ -144,6 +144,3 @@ class UserBoundary(models.Model):
     class Meta:
         unique_together = (('user', 'boundary'), )
 
-''' This is specifically for django-guardian '''
-def get_anonymous_user_instance(User):
-    return User(first_name='Anonymous', last_name='Anonymous', mobile_no='00000000000')
