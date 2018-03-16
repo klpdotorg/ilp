@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from schools.models import (
     Institution, Management, PinCode, InstitutionCategory,
-    InstitutionAggregation
+    InstitutionAggregation, InstitutionLanguage
 )
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
@@ -17,13 +17,15 @@ from boundary.serializers import (
 
 from dise import dise_constants
 
+
 class LeanInstitutionSummarySerializer(ILPSerializer):
     ''' returns just id, name, dise_code and geo-locations'''
     dise_code = serializers.SerializerMethodField()
     type = serializers.CharField(source='institution_type.char_id')
+
     class Meta:
-        model=Institution
-        fields =(
+        model = Institution
+        fields = (
             'id', 'dise_code', 'name', 'type'
         )
     
@@ -47,7 +49,6 @@ class InstitutionSummarySerializer(ILPSerializer):
     library_yn = serializers.SerializerMethodField()
     playground = serializers.SerializerMethodField()
     computer_aided_learnin_lab = serializers.SerializerMethodField()
-
 
     class Meta:
         model = Institution
@@ -74,7 +75,7 @@ class InstitutionSummarySerializer(ILPSerializer):
     def get_num_boys(self, obj):
         ''' This method always returns the num of boys from DISE if 
         that exists. Else, it tries the KLP DB '''
-        num_boys=0;
+        num_boys = 0
         if(obj.dise is not None):
             num_boys = obj.dise.total_boys
         else:
@@ -88,7 +89,7 @@ class InstitutionSummarySerializer(ILPSerializer):
     def get_num_girls(self, obj):
         ''' This method always returns the num of girls from DISE if that exists.
         Else it tries the KLP DB (data may be outdated) '''
-        num_girls=0;
+        num_girls = 0
         if(obj.dise is not None):
             num_girls = obj.dise.total_girls
         else:
@@ -143,6 +144,10 @@ class InstitutionSerializer(ILPSerializer):
     sex = serializers.CharField(source='gender.name')
     identifiers = serializers.SerializerMethodField()
     images = serializers.ListField(source='get_images')
+    institution_languages = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=InstitutionLanguage.objects.all()
+    )
+
     class Meta:
         model = Institution
         fields = (
@@ -225,13 +230,17 @@ class InstitutionCreateSerializer(ILPSerializer):
     landmark = serializers.CharField(default=None)
     last_verified_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), required=True)
-
+    institution_languages = serializers.PrimaryKeyRelatedField(
+        queryset=InstitutionLanguage.objects.all(), many=True
+    )
+    
     class Meta:
         model = Institution
         fields = (
             'id', 'admin3', 'dise', 'name', 'category', 'gender',
             'status', 'institution_type', 'management', 'address',
             'area', 'pincode', 'landmark', 'last_verified_year',
+            'institution_languages'
         )
 
     def save(self, **kwargs):

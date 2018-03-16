@@ -73,7 +73,7 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
         # SurveyTagFilter or use a new filter altogether
         # Filter status
         status = self.request.query_params.get('status', None)
-        if status is not None:
+        if status:
             queryset = queryset.filter(status__char_id=status)
 
         return queryset
