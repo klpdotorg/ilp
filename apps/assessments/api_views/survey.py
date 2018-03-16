@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError, APIException
 from rest_framework import authentication, permissions
+from rest_framework import status as HttpStatus
 
 from common.mixins import ILPStateMixin
 from common.views import ILPViewSet
@@ -172,12 +173,23 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
         )
 
     def get(self, request):
-        questiongroup_id = self.request.query_params.get('questiongroup_id', None)
+
+        questiongroup_id = self.request.query_params.get(
+            'questiongroup_id', None
+        )
         boundary_id = self.request.query_params.get('boundary_id', None)
         institution_id = self.request.query_params.get('institution_id', None)
         state_id = BoundaryStateCode.objects.filter(
             char_id=settings.ILP_STATE_ID).\
             values("boundary_id")[0]["boundary_id"]
+
+        # TODO: REMOVE ME: This is a temporary measure to disable Konnect from
+        # rendering the Teachers Survey Report.
+        # Once we implement the new Konnect report screen
+        # we can remove the below two linses
+        print (questiongroup_id)
+        if int(questiongroup_id) in (38, 39, ):
+            return Response(status=HttpStatus.HTTP_400_BAD_REQUEST)
 
         if institution_id:
             queryset = SurveyInstitutionQuestionGroupAgg.objects.filter(
