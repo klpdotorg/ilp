@@ -57,7 +57,8 @@ from assessments.filters import (
 
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
-    queryset = Survey.objects.exclude(status=Status.DELETED)
+    queryset = Survey.objects.exclude(status__in=[
+        Status.DELETED, Status.INACTIVE])
     filter_class = SurveyTagFilter
 
     def get_serializer_class(self):
