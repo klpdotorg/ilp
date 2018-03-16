@@ -1,133 +1,13 @@
-question_text,display_text,key ,options,is_featured (whether shown on website or not),"question type
-",status,max score,pass score,name in colloquial language,options in language
-Please select the grades you teach ?,Which class is being taught by the teacher ?,Academic,Option Grade 1-2-3-4-5-6-7-8-Multigrade (Allow Multiple Selection),,1,ACTIVE,,,ଆପଣ କେଉଁ ଶ୍ରେଣୀରେ ଗଣିତ ପଢ଼ାନ୍ତି?,"ଶ୍ରେଣୀ ୧
-ଶ୍ରେଣୀ ୨
-ଶ୍ରେଣୀ ୩
-ଶ୍ରେଣୀ ୪
-ଶ୍ରେଣୀ ୫
-ଶ୍ରେଣୀ ୬
-ଶ୍ରେଣୀ ୭
-ଶ୍ରେଣୀ ୮
-Multi -Grade "
-Are you trained in GKA Methodology ?,Is the teacher trained in GKA ?,Academic,"Yes,No",,2,ACTIVE,,,ଆପଣ ଗଣିତ କଳିକା ଆନ୍ଦୋଳନ(GKA)ର ପ୍ରଶିକ୍ଷଣ ପ୍ରାପ୍ତ କରିଛନ୍ତି କି?,"ହଁ
-ନାଁ "
-Please select the grades in which you use GKA Kit for teaching?,Which grade is the GKA kit being used for teaching ?,Academic,Option Grade 1-2-3-4-5-6-7-8 (Allow Multiple Selection),,1,ACTIVE,,,ଆପଣ କେଉଁ ଶ୍ରେଣୀରେ ଗଣିତ ପଢ଼େଇଲାବେଳେ GKA Kit ର ବ୍ୟବହାର କରନ୍ତି?,"ଶ୍ରେଣୀ ୧
-ଶ୍ରେଣୀ ୨
-ଶ୍ରେଣୀ ୩
-ଶ୍ରେଣୀ ୪
-ଶ୍ରେଣୀ ୫
-ଶ୍ରେଣୀ ୬
-ଶ୍ରେଣୀ ୭
-ଶ୍ରେଣୀ ୮
-Multi -Grade "
-How often you use the GKA math kit TLMs in your math class? ,How often do you use the GKA math kit TLMs in math class ?,Academic,"Options -
-a. Everyday
-b. Twice in a week
-c. Once in a week
-d. Very rare
-e. Depending on the requirement",,1,ACTIVE,,,ଆପଣ ଗଣିତ ପଢେଇଲା ବେଳେ GKA TLM ବ୍ୟବହାର କରନ୍ତି କି?,"ସବୁଦିନ
-ସପ୍ତାହରେ ୨ ଥର
-ସପ୍ତାହରେ ୧ ଥର 
-କ୍ଵଚିତ କେବେ 
-ଆବଶ୍ୟକତା ଅନୁସାରେ"
-"If the teacher is using Math Kit, then which TLM is used more frequently?",Which Math kit TLM is used more frequently ?,Academic,"Options:- (Allow Multiple Selection)
-Square counters
-Number Line  & Cloth Clips
-Abacus
-Base Ten Blocks and Place Value Mat
-Fraction Shapes
-Fraction Strips
-Decimal unit
-Decimal place value strips
-Dice
-Measuring tape
-Geo Board 
-Clock and Protractor
-Weighing balance
-Geosolid shapes with nets
-Play Money Notes and Coins 
-Tangrams
-Concept cards for Maths",,1,ACTIVE,,,କେଉଁ TLM ଗୁଡିକ ଆପଣ ବାରମ୍ବାର ବ୍ୟବହାର କରନ୍ତି?,"ବର୍ଗାକୃତି 
-ପ୍ଳେଟ୍ ସଂଖ୍ୟା  ରେଖା & ପୋଷାକ କ୍ଲିପ୍‍ 
-ଆବାକସ୍‍ 
-ଦଶ ଆଧାର ବ୍ଲକ୍‍  & ସ୍ଥାନୀୟମାନ ମ୍ୟାଟ୍
- ସ୍ଥାନୀୟମାନ ପଟି 
-ଭଗ୍ନାଂଶ ଆକୃତି 
-ଭଗ୍ନାଂଶ ପଟି 
-ଦଶମିକ ସେଟ୍
- ଦଶମିକ ସଂଖ୍ୟାର ସ୍ଥାନୀୟମାନ ପଟି 
-ଲୁଡୁ ଗୋଟି  
-ମାପ ଫିତା 
-ଜିଓ ବୋର୍ଡ଼ 
-ଘଣ୍ଟା ଓ କୋଣ ମାପକ ଯନ୍ତ୍ର 
-ତରାଜୁ
- ଘନବସ୍ତୁ ଢାଙ୍କୁଣୀ ସହିତ
- ଖେଳଣା ନୋଟ୍ 
-ଟାନ୍ଗ୍ରାମ୍‍  
-ଗଣିତ ଧାରଣା କାର୍ଡ଼"
-"If the teacher is using Math Kit, then which TLM is used least?",Which Math kit TLM is least used ?,Academic,"Options:- (Allow Multiple Selection)
-Square counters
-Number Line  & Cloth Clips
-Abacus
-Base Ten Blocks and Place Value Mat
-Fraction Shapes
-Fraction Strips
-Decimal unit
-Decimal place value strips
-Dice
-Measuring tape
-Geo Board 
-Clock and Protractor
-Weighing balance
-Geosolid shapes with nets
-Play Money Notes and Coins 
-Tangrams
-Concept cards for Maths",,1,ACTIVE,,,କେଉଁ TLM ଗୁଡିକ ଆପଣ ଖୁବ କ୍ଵଚିତ ବ୍ୟବହାର କରନ୍ତି?,"ବର୍ଗାକୃତି 
-ପ୍ଳେଟ୍ ସଂଖ୍ୟା  ରେଖା & ପୋଷାକ କ୍ଲିପ୍‍ 
-ଆବାକସ୍‍ 
-ଦଶ ଆଧାର ବ୍ଲକ୍‍  & ସ୍ଥାନୀୟମାନ ମ୍ୟାଟ୍
- ସ୍ଥାନୀୟମାନ ପଟି 
-ଭଗ୍ନାଂଶ ଆକୃତି 
-ଭଗ୍ନାଂଶ ପଟି 
-ଦଶମିକ ସେଟ୍
- ଦଶମିକ ସଂଖ୍ୟାର ସ୍ଥାନୀୟମାନ ପଟି 
-ଲୁଡୁ ଗୋଟି  
-ମାପ ଫିତା 
-ଜିଓ ବୋର୍ଡ଼ 
-ଘଣ୍ଟା ଓ କୋଣ ମାପକ ଯନ୍ତ୍ର 
-ତରାଜୁ
- ଘନବସ୍ତୁ ଢାଙ୍କୁଣୀ ସହିତ
- ଖେଳଣା ନୋଟ୍ 
-ଟାନ୍ଗ୍ରାମ୍‍  
-ଗଣିତ ଧାରଣା କାର୍ଡ଼"
-Is the Math kit helpful in improving learning outcome in math? ,Is the math kit helpful in improving the learning outcome.,Academic,"(Yes, No, Can’t say)",,2,ACTIVE,,,GKA TLM Kit ଟି ପିଲାଙ୍କ ଗଣିତ ଶିକ୍ଷଣ ଫଳାଫଳ ଉନ୍ନତି କରିବାରେ ସହାୟକ ହୋଇଛି କି?,"(ହଁ, ନାଁ, କହି ପାରିବି ନାହିଁ)"
-Do you think GKA Method is aligned with your day to day Math teaching? ,Is the GKA method aligned with your day to day math teaching ?,Academic,"(Yes, No, Can’t say)",,2,ACTIVE,,,GKA ପ୍ରଣାଳୀରେ ପାଠ ପଢା ଆପଣଙ୍କ ଦୈନନ୍ଦିନ ଗଣିତ ଶିକ୍ଷଣ ସହ ମେଳ କରେ କି?,"(ହଁ, ନାଁ, କହି ପାରିବି ନାହିଁ)"
-Which concept did you find easy to teach using the GKA TLMs?,Which concept was easy to teach using the GKA tlms ?,Academic,"Options:- (Allow Multiple Selection)
-Addition
-Subtraction
-Multiplication
-Division
-Decimal
-Fractions
-Shapes
-Angles
-Time
-Measurement
-Patterns
-Data Handling
-Factors/Multiples",,1,ACTIVE,,,GKA TLM ବ୍ୟବହାର କରି ଆପଣ କେଉଁ ଗଣିତ ଧାରଣାମନ ଅତି ସହଜରେ ପଢ଼େଇ ପାରିଛନ୍ତି?,"ମିଶାଣ
-ଫେଡ଼ାଣ
-ଗୁଣନ 
-ହରଣ
-ଦଶମିକ 
-ଭଗ୍ନାଂଶ 
-ଆକୃତି 
-କୋଣ 
-ସମୟ
-ମାପ
-ବିନ୍ୟାସ 
-ତଥ୍ୟ ପରିଚାଳନା
-ଗୁଣିତ ଓ ଗୁଣକ "
-Do you find the Ganitha Kalika Teacher's Manual useful for classroom preparation?,Ganitha Kalika Teacher's Manual useful for classroom preparation ?,Academic,"(Yes, No, Can’t say)",,2,ACTIVE,,,ଆପଣ ଗଣିତ କଳିକା ପ୍ରଶିକ୍ଷଣ ପୁସ୍ତିକା ନିଜ ଗଣିତ କ୍ଲାସ୍ ର ପ୍ରସ୍ତୁତିକରଣ ପାଇଁ ବ୍ୟବହାର କରନ୍ତି କି?,"(ହଁ, ନାଁ, କହି ପାରିବି ନାହିଁ)"
-Please upload a picture of how you use the math kit or any innovation/improvisation in the math kit that you adopt while teaching? (optional),,,,,,ACTIVE,,,"ଗଣିତ ପଢେଇଲା ବେଳେ GKA Kit ବ୍ୟବହାର କରିବା କିମ୍ବା Kit କୁ ଆଧାର କରି ଯଦି କିଛି ନୂତନ ପ୍ରଣାଳୀ ଆପଣ ବ୍ୟବହାର କରନ୍ତି, ତାହାର ଫୋଟୋ ଅପଲୋଡ୍ କରନ୍ତୁ| (Optional)",
-Any Comments (optional),,,,,,ACTIVE,,,ଅନ୍ୟ କୌଣସି ମତାମତ ( Optional),
+id,question_text,display_text,key ,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
+576,Please select the grades you teach ?,Which class is being taught by the teacher ?,ivrss-class-visited,"{1,2,3,4,5,6,7,8}",True,2,AC,,,ଆପଣ କେଉଁ ଶ୍ରେଣୀରେ ଗଣିତ ପଢ଼ାନ୍ତି?,"{ଶ୍ରେଣୀ ୧,ଶ୍ରେଣୀ ୨,ଶ୍ରେଣୀ ୩,ଶ୍ରେଣୀ ୪,ଶ୍ରେଣୀ ୫,ଶ୍ରେଣୀ ୬,ଶ୍ରେଣୀ ୭,ଶ୍ରେଣୀ ୮} "
+578,Are you trained in GKA Methodology ?,Is the teacher trained in GKA ?,ivrss-gka-trained,"{Yes,No}",True,1,AC,,,ଆପଣ ଗଣିତ କଳିକା ଆନ୍ଦୋଳନ(GKA)ର ପ୍ରଶିକ୍ଷଣ ପ୍ରାପ୍ତ କରିଛନ୍ତି କି?,"{ହଁ,ନାଁ }"
+579,Please select the grades in which you use GKA Kit for teaching?,Which grade is the GKA kit being used for teaching ?,Academic,"{1,2,3,4,5,6,7,8}",True,2,AC,,,ଆପଣ କେଉଁ ଶ୍ରେଣୀରେ ଗଣିତ ପଢ଼େଇଲାବେଳେ GKA Kit ର ବ୍ୟବହାର କରନ୍ତି?,"{ଶ୍ରେଣୀ ୧,ଶ୍ରେଣୀ ୨,ଶ୍ରେଣୀ ୩,ଶ୍ରେଣୀ ୪,ଶ୍ରେଣୀ ୫,ଶ୍ରେଣୀ ୬,ଶ୍ରେଣୀ ୭,ଶ୍ରେଣୀ ୮} "
+580,How often you use the GKA math kit TLMs in your math class?,How often do you use the GKA math kit TLMs in math class ?,Academic,"{Everyday,Twice in a week,Once in a week,Very rare,Depending on the requirement}",True,2,AC,,,ଆପଣ ଗଣିତ ପଢେଇଲା ବେଳେ GKA TLM ବ୍ୟବହାର କରନ୍ତି କି?,"{ସବୁଦିନ,ସପ୍ତାହରେ ୨ ଥର,ସପ୍ତାହରେ ୧ ଥର,କ୍ଵଚିତ କେବେ,ଆବଶ୍ୟକତା ଅନୁସାରେ}"
+581,"If the teacher is using Math Kit, then which TLM is used more frequently?",Which Math kit TLM is used more frequently ?,Academic,"{Square counters,Number Line & Cloth Clips,Abacus,Base Ten Blocks and Place Value Mat,Fraction Shapes,Fraction Strips,Decimal unit,Decimal place value strips,Dice,Measuring tape,Geo Board,Clock and Protractor,Weighing balance,Geosolid shapes with nets,Play Money Notes and Coins,Tangrams,Concept cards for Maths}",True,2,AC,,,କେଉଁ TLM ଗୁଡିକ ଆପଣ ବାରମ୍ବାର ବ୍ୟବହାର କରନ୍ତି?,"{ବର୍ଗାକୃତି,ପ୍ଳେଟ୍ ସଂଖ୍ୟା ରେଖା ଓ ପୋଷାକ କ୍ଲିପ୍‍,ଆବାକସ୍‍,ଦଶ ଆଧାର ବ୍ଲକ୍‍  ଓ ସ୍ଥାନୀୟମାନ ମ୍ୟାଟ୍, ସ୍ଥାନୀୟମାନ ପଟି ,ଭଗ୍ନାଂଶ ଆକୃତି,ଭଗ୍ନାଂଶ ପଟି,ଦଶମିକ ସେଟ୍, ଦଶମିକ ସଂଖ୍ୟାର ସ୍ଥାନୀୟମାନ ପଟି,ଲୁଡୁ ଗୋଟି,ମାପ ଫିତା,ଜିଓ ବୋର୍ଡ଼,ଘଣ୍ଟା ଓ କୋଣ ମାପକ ଯନ୍ତ୍ର,ତରାଜୁ,ଘନବସ୍ତୁ ଢାଙ୍କୁଣୀ ସହିତ, ଖେଳଣା ନୋଟ୍,ଟାନ୍ଗ୍ରାମ୍‍,ଗଣିତ ଧାରଣା କାର୍ଡ଼}"
+582,"If the teacher is using Math Kit, then which TLM is used least?",Which Math kit TLM is least used ?,Academic,"{Square counters,Number Line & Cloth Clips,Abacus,Base Ten Blocks and Place Value Mat,Fraction Shapes,Fraction Strips,Decimal unit,Decimal place value strips,Dice,Measuring tape,Geo Board,Clock and Protractor,Weighing balance,Geosolid shapes with nets,Play Money Notes and Coins,Tangrams,Concept cards for Maths}",True,2,AC,,,କେଉଁ TLM ଗୁଡିକ ଆପଣ ଖୁବ କ୍ଵଚିତ ବ୍ୟବହାର କରନ୍ତି?,"{ବର୍ଗାକୃତି,ପ୍ଳେଟ୍ ସଂଖ୍ୟା ରେଖା ଓ ପୋଷାକ କ୍ଲିପ୍‍,ଆବାକସ୍‍,ଦଶ ଆଧାର ବ୍ଲକ୍‍  ଓ ସ୍ଥାନୀୟମାନ ମ୍ୟାଟ୍, ସ୍ଥାନୀୟମାନ ପଟି ,ଭଗ୍ନାଂଶ ଆକୃତି,ଭଗ୍ନାଂଶ ପଟି,ଦଶମିକ ସେଟ୍, ଦଶମିକ ସଂଖ୍ୟାର ସ୍ଥାନୀୟମାନ ପଟି,ଲୁଡୁ ଗୋଟି,ମାପ ଫିତା,ଜିଓ ବୋର୍ଡ଼,ଘଣ୍ଟା ଓ କୋଣ ମାପକ ଯନ୍ତ୍ର,ତରାଜୁ,ଘନବସ୍ତୁ ଢାଙ୍କୁଣୀ ସହିତ, ଖେଳଣା ନୋଟ୍,ଟାନ୍ଗ୍ରାମ୍‍,ଗଣିତ ଧାରଣା କାର୍ଡ଼}"
+583,Is the Math kit helpful in improving learning outcome in math? ,Is the math kit helpful in improving the learning outcome.,Academic,"{Yes,No,Can’t say}",True,1,AC,,,GKA TLM Kit ଟି ପିଲାଙ୍କ ଗଣିତ ଶିକ୍ଷଣ ଫଳାଫଳ ଉନ୍ନତି କରିବାରେ ସହାୟକ ହୋଇଛି କି?,"{ହଁ,ନାଁ,କହି ପାରିବି ନାହିଁ}"
+584,Do you think GKA Method is aligned with your day to day Math teaching? ,Is the GKA method aligned with your day to day math teaching ?,Academic,"{Yes,No,Can’t say}",True,1,AC,,,GKA ପ୍ରଣାଳୀରେ ପାଠ ପଢା ଆପଣଙ୍କ ଦୈନନ୍ଦିନ ଗଣିତ ଶିକ୍ଷଣ ସହ ମେଳ କରେ କି?,"{ହଁ,ନାଁ,କହି ପାରିବି ନାହିଁ}"
+585,Which concept did you find easy to teach using the GKA TLMs?,Which concept was easy to teach using the GKA tlms ?,Academic,"{Addition,Subtraction,Multiplication,Division,Decimal,Fractions,Shapes,Angles,Time,Measurement,Patterns,Data Handling,Factors/Multiples}",True,2,AC,,,GKA TLM ବ୍ୟବହାର କରି ଆପଣ କେଉଁ ଗଣିତ ଧାରଣାମନ ଅତି ସହଜରେ ପଢ଼େଇ ପାରିଛନ୍ତି?,"{ମିଶାଣ,ଫେଡ଼ାଣ,ଗୁଣନ,ହରଣ,ଦଶମିକ,ଭଗ୍ନାଂଶ,ଆକୃତି,କୋଣ,ସମୟ,ମାପ,ବିନ୍ୟାସ,ତଥ୍ୟ ପରିଚାଳନା,ଗୁଣିତ ଓ ଗୁଣକ} "
+586,Do you find the Ganitha Kalika Teacher's Manual useful for classroom preparation?,Ganitha Kalika Teacher's Manual useful for classroom preparation ?,Academic,"{Yes,No,Can’t say}",True,1,AC,,,ଆପଣ ଗଣିତ କଳିକା ପ୍ରଶିକ୍ଷଣ ପୁସ୍ତିକା ନିଜ ଗଣିତ କ୍ଲାସ୍ ର ପ୍ରସ୍ତୁତିକରଣ ପାଇଁ ବ୍ୟବହାର କରନ୍ତି କି?,"{ହଁ,ନାଁ,କହି ପାରିବି ନାହିଁ}"
+587,Please upload a picture of how you use the math kit or any innovation/improvisation in the math kit that you adopt while teaching? (optional),,,,True,,AC,,,"ଗଣିତ ପଢେଇଲା ବେଳେ GKA Kit ବ୍ୟବହାର କରିବା କିମ୍ବା Kit କୁ ଆଧାର କରି ଯଦି କିଛି ନୂତନ ପ୍ରଣାଳୀ ଆପଣ ବ୍ୟବହାର କରନ୍ତି, ତାହାର ଫୋଟୋ ଅପଲୋଡ୍ କରନ୍ତୁ| (Optional)",
+588,Any Comments (optional),,,,True,4,AC,,,ଅନ୍ୟ କୌଣସି ମତାମତ ( Optional),
