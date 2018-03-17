@@ -51,8 +51,8 @@ class Command(BaseCommand):
             description = row[2].strip()
             partner = Partner.objects.get(char_id=row[3].strip())
             status = Status.objects.get(char_id = row[4].strip())
-            state = row[5].strip()
-            survey_on_id = SurveyOnType.objects.get(char_id = row[6].strip())
+            state = Boundary.objects.get(id=row[5].strip())
+            survey_on_id = SurveyOnType.objects.get(char_id=row[6].strip())
             lang_name = row[7].strip()
             survey = Survey.objects.create(
                          id = id,
@@ -60,9 +60,9 @@ class Command(BaseCommand):
                          description = description,
                          partner = partner,
                          status = status,
-                         survey_on_id = 'institution',
+                         survey_on = survey_on_id,
                          lang_name = lang_name,
-                         admin0_id = 2)
+                         admin0 = state)
             return survey
 
 
