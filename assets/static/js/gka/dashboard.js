@@ -10,6 +10,13 @@ var topSummaryData = {};
 
     klp.init = function() {
 
+        // Screen size adjustments
+        if(screen.width >= 640) {
+            $('.one-row-chart').height(400);
+        } else {
+            $('.one-row-chart').height(200);
+        }
+
         // All GKA related data are stored in GKA
         klp.GKA = {};
         klp.GKA.routerParams = {};
