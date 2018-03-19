@@ -389,9 +389,11 @@ var topSummaryData = {};
         $('#mobVolume').startLoading();
         $('#surveyQuestions').startLoading();
 
+        var surveyId = getSurveyId('Community Survey');
+
         // Load the source for csv summary
         var $surveySummaryXHR = klp.api.do(
-            "survey/summary/?survey_tag=gka&survey_id=7", params
+            "survey/summary/?survey_tag=gka&survey_id=" + surveyId, params
         );
         $surveySummaryXHR.done(function(surveySummaryData) {
             klp.GKA.surveySummaryData = surveySummaryData;
@@ -399,7 +401,7 @@ var topSummaryData = {};
             $('#surveySummary').stopLoading();
 
             // Load the respondent summary
-            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=7", params);
+            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=" + surveyId, params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
                 $('#mobRespondent').stopLoading();
@@ -408,7 +410,7 @@ var topSummaryData = {};
 
         // Load the volumes
         var $volumeXHR = klp.api.do(
-            "survey/volume/?survey_tag=gka&survey_id=7", params
+            "survey/volume/?survey_tag=gka&survey_id=" + surveyId, params
         );
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
@@ -417,7 +419,7 @@ var topSummaryData = {};
 
         // Load the detail section
         var $detailXHR = klp.api.do(
-            "survey/detail/source/?survey_tag=gka&survey_id=7", params
+            "survey/detail/source/?survey_tag=gka&survey_id=" + surveyId, params
         );
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
