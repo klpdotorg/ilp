@@ -982,10 +982,12 @@ var topSummaryData = {};
         $('#gpcGender_class5').startLoading();
         $('#gpcGender_class6').startLoading();
 
-        var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
+        var gpContestId = getSurveyId('GP Contest');
+
+        var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=" + gpContestId, params);
         $summaryXHR.done(function(summaryData) {
 
-            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=2", params);
+            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=" + gpContestId, params);
             $gpXHR.done(function(gpData) {
 
                 var dataSummary = {
@@ -1006,7 +1008,7 @@ var topSummaryData = {};
             });
         });
 
-        var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
+        var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=" + gpContestId, params);
         $genderXHR.done(function(genderData) {
 
             var genderSummary = {};
@@ -1098,7 +1100,7 @@ var topSummaryData = {};
 
         });
 
-        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
+        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=" + gpContestId, params);
         $questionGroupXHR.done(function(questiongroupData) {
             renderGPContestCharts(questiongroupData);
         });
