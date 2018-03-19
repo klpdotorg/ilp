@@ -337,10 +337,11 @@ var topSummaryData = {};
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
+        var smsSurvey = _.find(GKA_SURVEYS.surveys, function(s){ return s.name.toLowerCase() === 'gka monitoring'; });
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
-            "survey/summary/?survey_tag=gka&survey_id=11", params
+            "survey/summary/?survey_tag=gka&survey_id=" + smsSurvey.id, params
         );
         $smsSummaryXHR.done(function(data) {;
             klp.GKA.smsSummary = data;
@@ -348,33 +349,33 @@ var topSummaryData = {};
             $('#smsSummary').stopLoading();
         });
 
-        // Fetch SMS Volume
-        // Fetch users first
+        // Fetch users
         var $usersXHR = klp.api.do(
-            "survey/info/users/?survey_tag=gka&survey_id=11", params
+            "survey/info/users/?survey_tag=gka&survey_id=" + smsSurvey.id,
+            params
         );
         $usersXHR.done(function(userGroups) {
-
             renderSMSUserCharts(userGroups.users, params);
             $('#smsSender').stopLoading();
+        });
 
-            // Fetch volumes next
-            var $volumesXHR = klp.api.do(
-                "survey/volume/?survey_tag=gka&survey_id=11", params
-            );
-            $volumesXHR.done(function(volumes) {
-                var data = {
-                    volumes: volumes,
-                    user_groups: userGroups.users
-                };
-                renderSMSVolumeCharts(data, params);
-                $('#smsVolume').stopLoading();
-            });
+        // Fetch volumes
+        var $volumesXHR = klp.api.do(
+            "survey/volume/?survey_tag=gka&survey_id=" + smsSurvey.id,
+            params
+        );
+        $volumesXHR.done(function(volumes) {
+            var data = {
+                volumes: volumes
+            };
+            renderSMSVolumeCharts(data, params);
+            $('#smsVolume').stopLoading();
         });
 
         // Fetch SMS Details
         var $detailXHR = klp.api.do(
-            "survey/detail/source/?survey_tag=gka&survey_id=11", params
+            "survey/detail/source/?survey_tag=gka&survey_id=" + smsSurvey.id,
+            params
         );
         $detailXHR.done(function(data) {
             renderSMSDetails(data);

@@ -10,6 +10,11 @@
 {% endblock %}
 
 {% block endbody %}
+  <script>
+    {% autoescape off %}
+      window.GKA_SURVEYS = JSON.parse({{surveys}});
+    {% endautoescape %}
+  </script>
   {% compress js %}
   <!--script type="text/javascript" src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script-->
   <script type="text/javascript" src="{% static 'js/lib/chartist/chartist.min.js' %}"></script>
@@ -20,8 +25,6 @@
   <script type="text/javascript" src="{% static 'js/gka/gka_filters.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/gka/dashboard.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/common/accordion.js' %}"></script>
-
-
   {% endcompress %}
 {% endblock %}
 

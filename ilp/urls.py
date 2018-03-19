@@ -14,7 +14,7 @@ from users.views import (
     ProfilePageView,
     ProfileEditPageView
 )
-from assessments.views import SYSView
+from assessments.views import SYSView, gka_dashboard
 
 
 api_docs_view = get_swagger_view(title='ILP API')
@@ -134,8 +134,7 @@ urlpatterns = [
     ), name='reports'),
 
     # GKA Dashboard
-    url(r'^gka/$', StaticPageView.as_view(
-        template_name='gka_dashboard.html'), name='gka_dashboard'),
+    url(r'^gka/$', gka_dashboard, name='gka_dashboard'),
 
     url(r'text/reports/$', RedirectView.as_view(url='/reports')),
 
