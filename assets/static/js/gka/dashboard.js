@@ -878,12 +878,12 @@ var topSummaryData = {};
                 $('#assmtSummary').stopLoading();
                 $('#assmtCompetancy').stopLoading();
 
-                var $volumeXHR = klp.api.do("survey/volume/?survey_id=" + assessmentId, params);
-                $volumeXHR.done(function(data) {
-                    renderAssmtVolumeChart(data, params);
-                    $('#assmtVolume').stopLoading();
-                });
+            });
 
+            var $volumeXHR = klp.api.do("survey/volume/?survey_id=" + assessmentId, params);
+            $volumeXHR.done(function(data) {
+                renderAssmtVolumeChart(data, params);
+                $('#assmtVolume').stopLoading();
             });
         });
     }
