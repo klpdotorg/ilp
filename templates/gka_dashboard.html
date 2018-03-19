@@ -7,16 +7,6 @@
 
 {% block css_extra %}
   <link rel="stylesheet" type="text/css" href="/static/css/gka-dashboard.css" />
-  <style>
-  .ct-label.ct-horizontal{
-    padding: 15px;
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-  }
-  </style>
 {% endblock %}
 
 {% block endbody %}
@@ -122,21 +112,23 @@
 
         <section class="content container" id="sms">
           <div id="smsSummary" class="js-detail-container"></div>
+          
           <div class="base-spacing-mid"></div>
-          <div class="sect-parent">
-            <div class="sect-half">
-              <div class="brand-blue font-large font-light center-text uppercase">Volume By Users</div>
-              <div id="smsSender" class="ct-chart ct-minor-seventh js-detail-container chartist-container line-chart"></div>
-            </div>
-            <div class="sect-half">
-              <div class="brand-blue font-large font-light center-text uppercase">Survey Volumes</div>
-              <div id="smsVolume" class="ct-chart ct-major-eleventh js-detail-container chartist-container bar-chart"></div>
-              <div class="base-spacing-mid"></div>
-              <div id="smsLegend"></div>
-            </div>
-          </div>
+          
+          <div class="brand-blue font-large font-light center-text uppercase">Volume By Users</div>
+          <div id="smsSender" class="ct-chart ct-minor-seventh js-detail-container chartist-container line-chart"></div>
+          
+          <div class="base-spacing-mid"></div>
+
+          <div class="brand-blue font-large font-light center-text uppercase">Survey Volumes</div>
+          <div id="smsVolume" class="ct-chart ct-major-eleventh js-detail-container chartist-container bar-chart"></div>
+          <div class="base-spacing-mid"></div>
+          <div id="smsLegend"></div>
+         
           <div id="smsQuestions" class="js-detail-container"></div>
+
           <div class="base-spacing-mid"></div>
+
         </section>
         <hr/>
       </li>

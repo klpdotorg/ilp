@@ -1182,10 +1182,11 @@ var topSummaryData = {};
     function renderBarChart(elementId, data, yTitle=' ') {
 
         var options = {
+            height: 450,
             seriesBarDistance: 10,
             axisX: {
                 showGrid: true,
-                offset: 80
+                // offset: 80
             },
             axisY: {
                 showGrid: true,
@@ -1224,7 +1225,7 @@ var topSummaryData = {};
 
                     return value;
                   },
-                  offset: 80
+                  // offset: 80
                 }
             }]
         ];
