@@ -337,11 +337,11 @@ var topSummaryData = {};
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
-        var smsSurvey = _.find(GKA_SURVEYS.surveys, function(s){ return s.name.toLowerCase() === 'gka monitoring'; });
+        var smsSurvey = getSurveyId('gka monitoring');
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
-            "survey/summary/?survey_tag=gka&survey_id=" + smsSurvey.id, params
+            "survey/summary/?survey_tag=gka&survey_id=" + smsSurvey, params
         );
         $smsSummaryXHR.done(function(data) {;
             klp.GKA.smsSummary = data;
@@ -351,7 +351,7 @@ var topSummaryData = {};
 
         // Fetch users
         var $usersXHR = klp.api.do(
-            "survey/info/users/?survey_tag=gka&survey_id=" + smsSurvey.id,
+            "survey/info/users/?survey_tag=gka&survey_id=" + smsSurvey,
             params
         );
         $usersXHR.done(function(userGroups) {
@@ -361,7 +361,7 @@ var topSummaryData = {};
 
         // Fetch volumes
         var $volumesXHR = klp.api.do(
-            "survey/volume/?survey_tag=gka&survey_id=" + smsSurvey.id,
+            "survey/volume/?survey_tag=gka&survey_id=" + smsSurvey,
             params
         );
         $volumesXHR.done(function(volumes) {
@@ -374,7 +374,7 @@ var topSummaryData = {};
 
         // Fetch SMS Details
         var $detailXHR = klp.api.do(
-            "survey/detail/source/?survey_tag=gka&survey_id=" + smsSurvey.id,
+            "survey/detail/source/?survey_tag=gka&survey_id=" + smsSurvey,
             params
         );
         $detailXHR.done(function(data) {
@@ -841,14 +841,16 @@ var topSummaryData = {};
         $('#assmtSummary').startLoading();
         $('#assmtVolume').startLoading();
         $('#assmtCompetancy').startLoading();
+
+        var assessmentId = getSurveyId('Ganitha Kalika Andolana');
         
         // Load summary first
-        var $summaryXHR = klp.api.do("survey/summary/?survey_id=3", params);
+        var $summaryXHR = klp.api.do("survey/summary/?survey_id=" + assessmentId, params);
         $summaryXHR.done(function(summaryData) {
             summaryData = summaryData.summary;
 
             // Load details next
-            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=3", params);
+            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=" + assessmentId, params);
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
@@ -874,7 +876,7 @@ var topSummaryData = {};
                 $('#assmtSummary').stopLoading();
                 $('#assmtCompetancy').stopLoading();
 
-                var $volumeXHR = klp.api.do("survey/volume/?survey_id=3", params);
+                var $volumeXHR = klp.api.do("survey/volume/?survey_id=" + assessmentId, params);
                 $volumeXHR.done(function(data) {
                     renderAssmtVolumeChart(data, params);
                     $('#assmtVolume').stopLoading();
@@ -1374,5 +1376,16 @@ var topSummaryData = {};
             };
         });
     }
+
+    function getSurveyId(name) {
+        var survey = _.find(GKA_SURVEYS.surveys, function(s){ return s.name.toLowerCase() === name.toLowerCase(); });
+
+        if(survey) {
+            return survey.id;
+        } else {
+            return 'None';
+        }
+    }
+
 
 })();
