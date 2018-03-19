@@ -23,7 +23,7 @@ outputdir=$datapath"output2/*"
 rm -rf $outputdir
 
 echo "Running SQL"
-psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select del_staging();"
+psql -h $PGHOST -U $PGUSER -d ekstep -c "select del_staging();"
 echo "deleted staging data"
 
 echo "Running ExtractData.py"
@@ -42,8 +42,8 @@ if [ "$?" != "0" ]; then
 fi
 #deactivate
 
-cat $datapath"output3/student_mapping.txt" | psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "COPY students_staging FROM stdin DELIMITER '|' CSV;"
-psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select upsert_students();"
+cat $datapath"output3/student_mapping.txt" | psql -h $PGHOST -U $PGUSER -d ekstep -c "COPY students_staging FROM stdin DELIMITER '|' CSV;"
+psql -h $PGHOST -U $PGUSER -d ekstep -c "select upsert_students();"
 echo "student data processed."
 
 echo "Running GetData.py"
@@ -56,16 +56,16 @@ echo "Finished GetData.py"
 
 echo "check 2"
 python3 $progpath"ProcessUsage.py" all-devices.txt all-tags.txt 
-cat $datapath"usage.txt" | psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "COPY ekstep_usage_staging FROM stdin DELIMITER '|' CSV;"
-psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select insert_ekstep_usage();"
+cat $datapath"usage.txt" | psql -h $PGHOST -U $PGUSER -d ekstep -c "COPY ekstep_usage_staging FROM stdin DELIMITER '|' CSV;"
+psql -h $PGHOST -U $PGUSER -d ekstep -c "select insert_ekstep_usage();"
 echo "usage data processed."
 
 python3 $progpath"ProcessAssess.py" all-devices.txt  all-tags.txt
-cat $datapath"assessment.txt" | psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "COPY ekstep_assess_staging FROM stdin DELIMITER '|' CSV;"
-psql -h ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com -U klp -d ekstep -c "select insert_ekstep_assess();"
+cat $datapath"assessment.txt" | psql -h $PGHOST -U $PGUSER -d ekstep -c "COPY ekstep_assess_staging FROM stdin DELIMITER '|' CSV;"
+psql -h $PGHOST -U $PGUSER -d ekstep -c "select insert_ekstep_assess();"
 echo "assessment data processed."
 
-python3 $progpath"GKAtoILPAssess.py"  $dt1 $dt2
+python3 $progpath"GKAtoILPAssess.py"  $PGHOST $PGPASSWORD $dt1 $dt2
 echo "assessment data moved to ILP."
 
 echo "public exhaust ekstep esl done."
