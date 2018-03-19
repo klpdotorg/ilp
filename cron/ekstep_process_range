@@ -13,6 +13,7 @@ echo "Running public exhaust ekstep esl feed at: $(date) ..."
 #dt1=`date -d "2 days ago" +"%Y-%m-%d"`
 dt1=$1
 dt2=$2
+dt3= date -d "$dt2 + 1 day" +"%Y-%m-%d"
 echo "The date range is:" $1 $2
 datapath="/home/ubuntu/datapull/"
 progpath="/home/ubuntu/ilp/ekstepbin/"
@@ -57,17 +58,17 @@ fi
 echo "Finished GetData.py"
 
 echo "check 2"
-python3 $progpath"ProcessUsage.py" all-devices.txt 
+python3 $progpath"ProcessUsage.py" all-devices.txt all-tags.txt
 cat $datapath"usage.txt" | psql -h $PGHOST -U $PGUSER -d ekstep -c "COPY ekstep_usage_staging FROM stdin DELIMITER '|' CSV;"
 psql -h $PGHOST -U $PGUSER -d ekstep -c "select insert_ekstep_usage();"
 echo "usage data processed."
 
-python3 $progpath"ProcessAssess.py" all-devices.txt 
+python3 $progpath"ProcessAssess.py" all-devices.txt all-tags.txt
 cat $datapath"assessment.txt" | psql -h $PGHOST -U $PGUSER -d ekstep -c "COPY ekstep_assess_staging FROM stdin DELIMITER '|' CSV;"
 psql -h $PGHOST -U $PGUSER -d ekstep -c "select insert_ekstep_assess();"
 echo "assessment data processed."
 
-python3 $progpath"GKAtoILPAssess.py" $PGHOST $PGPASSWORD $dt1 $dt2
+python3 $progpath"GKAtoILPAssess.py"  $PGHOST $PGPASSWORD $dt1 $dt3
 echo "assessment data moved to ILP."
 
 echo "public exhaust ekstep esl done."
