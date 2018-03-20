@@ -1,41 +1,52 @@
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 
 from users.models import User
 from users.serializers import (
     TadaUserRegistrationSerializer,
-    UserLoginSerializer
+    UserLoginSerializer,
+    TadaUserSerializer
 )
 from users.permission import IsAdminOrIsSelf
 from django.contrib.auth.models import Group
 import json
+from users.utils import login_user
 
-class TadaUserRegisterView(generics.CreateAPIView):
+
+class UsersViewSet(viewsets.ModelViewSet):
     """
     This endpoint registers a new TADA user
     """
     permission_classes =(
-        permissions.AllowAny,
+        permissions.IsAdminUser,
     )
-    serializer_class = TadaUserRegistrationSerializer
+    serializer_class = TadaUserSerializer
+    queryset = User.objects.all()
 
-    def create(self, request, *args, **kwargs):
+    def get_queryset(self):
+        return User.objects.filter(is_active='True')
+
+    def create(self, request):
         data = request.data.copy()
         print("Inside tada user register view", request.data)
-        groups = data.pop("groups")
+        try:
+            groups = data.pop("groups")
+        except:
+            groups=[]
+
         serializer = TadaUserRegistrationSerializer(data=data,partial=True)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         
         for group_name in groups:
             try:
-                print("Group name is: ", group_name)
                 group_obj = Group.objects.get(name=group_name)
-                print("Found group : ", group_obj.name)
             except:
                 print("Did not find group")
             else:
                 user.groups.add(group_obj)
+        if user.is_superuser:
+            user.groups.add(Group.objects.get(name='tada_admin'))
         user.save()
         response_data = TadaUserRegistrationSerializer(user)
         headers = self.get_success_headers(serializer.data)

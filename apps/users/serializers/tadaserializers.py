@@ -33,8 +33,6 @@ class TadaUserRegistrationSerializer(serializers.ModelSerializer):
     def get_groups(self, obj):
         user = obj
         groups = user.groups.all().values('name')
-        if user.is_superuser:
-            groups = ['tada_admin']
         return groups
 
 class TadaUserSerializer(serializers.ModelSerializer):
@@ -57,6 +55,4 @@ class TadaUserSerializer(serializers.ModelSerializer):
     def get_groups(self, obj):
         user = obj
         groups = user.groups.all().values('name')
-        if user.is_superuser:
-            groups = ['tada_admin']
         return groups
