@@ -760,7 +760,11 @@ class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
         to_ = request.query_params.get('to', None)
         from_ = request.query_params.get('from', None)
         survey_tag = self.request.GET.get('survey_tag', None)
-        boundary_id = self.request.GET.get('boundary_id', None)
+        boundary_id = self.request.GET.get(
+            'boundary_id', self.get_state().id)
+        institution_id = self.request.GET.get(
+            'institution_id', None
+        )
 
         survey_ids = SurveyTagMapping.objects.filter(
             tag__char_id=survey_tag
@@ -772,10 +776,15 @@ class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
         queryset = AnswerGroup_Institution.objects.\
             filter(questiongroup_id__in=questiongroup_ids)
         
-        if boundary_id:
-            queryset = queryset.filter(survey__admin0_id=boundary_id)
-        else:
-            queryset = queryset.filter(survey__admin0_id=self.get_state().id)
+        queryset = queryset.filter(
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        )
+
+        if institution_id:
+            queryset = queryset.filter(institution_id=institution_id)
 
         if to_:
             queryset = queryset.filter(date_of_visit__lte=to_)
