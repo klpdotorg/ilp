@@ -54,7 +54,7 @@ urlpatterns = [
     # ),
 
     url(
-        r'^users/tada/login/$',
+        r'^tada/users/login/$',
         TadaUserLoginView.as_view(),
         name='tada-user-login'
     ),
