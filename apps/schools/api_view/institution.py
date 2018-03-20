@@ -13,10 +13,11 @@ from schools.serializers import (
     InstitutionCategorySerializer, InstitutionManagementSerializer,
     SchoolDemographicsSerializer, SchoolInfraSerializer,
     SchoolFinanceSerializer, InstitutionSummarySerializer,
-    PreschoolInfraSerializer, LeanInstitutionSummarySerializer
+    PreschoolInfraSerializer, LeanInstitutionSummarySerializer,
+    InstitutionLanguageSerializer
 )
 from schools.models import (
-    Institution, InstitutionCategory, Management
+    Institution, InstitutionCategory, Management, InstitutionLanguage
 )
 from schools.filters import InstitutionSurveyFilter
 
@@ -135,6 +136,13 @@ class InstitutionManagementListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Management.objects.all()
+
+
+class InstitutionLanguageListView(generics.ListAPIView):
+    serializer_class = InstitutionLanguageSerializer
+
+    def get_queryset(self):
+        return InstitutionLanguage.objects.all()
 
 
 class InstitutionDemographics(ILPDetailAPIView):
