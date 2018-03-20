@@ -109,8 +109,6 @@ class AnswersStudentViewSet(NestedViewSetMixin,
                     answergroup_obj = AnswerGroup_Student.objects.get(id = answergroup_id)
                     serialized = AnswerGroupStudentSerializer(answergroup_obj, partial=True)
                     for key, value in serialized.data.items():
-                        print("Key is: ", key)
-                        print("Value is: ", value)
                         response_json[key] = value
                     print(response_json)
                     print("Answer group already exists", response_json)

@@ -1,0 +1,124 @@
+[
+    {
+        "model": "common.respondenttype",
+        "pk": "VR",
+        "fields": {
+            "name": "Volunteer",
+            "state_code": null
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 21110,
+        "fields": {
+            "password": "pbkdf2_sha256$36000$7aUeD2d49wlt$Ya+5CNPPx9FWF2gZPTO1iicRK5uDTaBf9ZxN5/1Z3xw=",
+            "last_login": null,
+            "email": "testdeo1@klp.org.in",
+            "mobile_no": "5231234532",
+            "mobile_no1": null,
+            "first_name": "TADA",
+            "last_name": "DEO",
+            "user_type": null,
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "email_verification_code": "b8cd7cfd58a7495bb4c33c0c8748907d",
+            "sms_verification_pin": null,
+            "is_email_verified": false,
+            "is_mobile_verified": false,
+            "dob": null,
+            "source": null,
+            "changed": "2018-03-15T07:26:37.833Z",
+            "created": "2018-03-15T07:26:37.662Z",
+            "opted_email": false,
+            "image": "",
+            "about": null,
+            "twitter_handle": null,
+            "fb_url": null,
+            "website": null,
+            "photos_url": null,
+            "youtube_url": null,
+            "groups": [
+                3
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 21021,
+        "fields": {
+            "password": "NOT SET",
+            "last_login": null,
+            "email": "tnrajanayak@gmail.com",
+            "mobile_no": "9686501242",
+            "mobile_no1": null,
+            "first_name": "RAJANAYAK",
+            "last_name": null,
+            "user_type": "VR",
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "email_verification_code": null,
+            "sms_verification_pin": null,
+            "is_email_verified": false,
+            "is_mobile_verified": false,
+            "dob": null,
+            "source": null,
+            "changed": null,
+            "created": null,
+            "opted_email": false,
+            "image": "",
+            "about": null,
+            "twitter_handle": null,
+            "fb_url": null,
+            "website": null,
+            "photos_url": null,
+            "youtube_url": null,
+            "groups": [
+                1,
+                2
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 21002,
+        "fields": {
+            "password": "NOT SET",
+            "last_login": null,
+            "email": "shivananditagi68@gmail.com",
+            "mobile_no": "9535552769",
+            "mobile_no1": null,
+            "first_name": "SHIVANAND",
+            "last_name": null,
+            "user_type": "VR",
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "email_verification_code": null,
+            "sms_verification_pin": null,
+            "is_email_verified": false,
+            "is_mobile_verified": false,
+            "dob": null,
+            "source": null,
+            "changed": null,
+            "created": null,
+            "opted_email": false,
+            "image": "",
+            "about": null,
+            "twitter_handle": null,
+            "fb_url": null,
+            "website": null,
+            "photos_url": null,
+            "youtube_url": null,
+            "groups": [
+                1,
+                2
+            ],
+            "user_permissions": []
+        }
+    }
+    ]
+    
