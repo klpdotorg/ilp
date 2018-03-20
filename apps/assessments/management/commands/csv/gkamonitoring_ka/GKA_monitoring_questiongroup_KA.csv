@@ -1,0 +1,4 @@
+name  ,group_text ,start_date ,end_date ,version,double_entry  ,academic_year,"institutuion type
+whether primary or pre or both",source,status,"type
+assessment/perception/monitor",description  ,image required,kannada name,comments required
+GKA School Visit,name,,,2,FALSE,1819,primary,8,Active,monitor,,TRUE,ಜಿಕೆಎ ಶಾಲಾ ಭೇಟಿ,TRUE
