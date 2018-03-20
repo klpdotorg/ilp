@@ -6,13 +6,16 @@ from .views import (
     UserProfileView,
     MobileValidateWithOtpView,
     OtpGenerateView,
-    OtpPasswordResetView
-)
-
-from users.views import (
-    TadaUserRegisterView,
+    OtpPasswordResetView,
+    UsersViewSet,
     TadaUserLoginView
 )
+
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'tada/users', UsersViewSet, base_name='tada-users')
+
 urlpatterns = [
     url(
         r'^users/register/$',
@@ -44,15 +47,22 @@ urlpatterns = [
 
     # TADA urls
 
-    url(
-        r'^users/tada/register/$',
-        TadaUserRegisterView.as_view(),
-        name='tada-user-register'
-    ),
+    # url(
+    #     r'^users/tada/register/$',
+    #     TadaUserRegisterView.as_view(),
+    #     name='tada-user-register'
+    # ),
 
     url(
         r'^users/tada/login/$',
         TadaUserLoginView.as_view(),
         name='tada-user-login'
-    )
-]
+    ),
+
+    # url(
+    #     r'^users/',
+    #     UsersViewSet.as_view(),
+    #     name='tada-users'       
+    # )
+] + router.urls
+
