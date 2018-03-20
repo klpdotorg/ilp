@@ -3,6 +3,5 @@ from django.conf.urls import url, include
 
 
 urlpatterns = [
-    url(r'^institution/languages$', LanguagesListView.as_view(),
-        name='inst-languages'),
+    url(r'^languages/$', LanguagesListView.as_view(), name='languages'),
 ]

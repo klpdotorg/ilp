@@ -271,6 +271,13 @@ class InstitutionManagementSerializer(ILPSerializer):
             'id', 'name'
         )
 
+class InstitutionLanguageSerializer(ILPSerializer):
+
+    class Meta:
+        model = InstitutionLanguage
+        fields = (
+            'id', 'moi'
+        )
 
 class SchoolDemographicsSerializer(ILPSerializer):
     num_boys = serializers.SerializerMethodField()
