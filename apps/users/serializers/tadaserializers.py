@@ -54,5 +54,5 @@ class TadaUserSerializer(serializers.ModelSerializer):
 
     def get_groups(self, obj):
         user = obj
-        groups = user.groups.all().values('name')
+        groups = user.groups.all().values_list('name', flat=True)
         return groups

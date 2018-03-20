@@ -40,7 +40,8 @@ class UserRegisterView(generics.CreateAPIView):
             # Add user to groups
             instance.groups.add(Group.objects.get(name='ilp_auth_user'))
             instance.groups.add(Group.objects.get(name='ilp_konnect_user'))
-
+            if instance.is_superuser:
+                instance.groups.add(Group.objects.get(name='tada_admin'))
             instance.save()
 
 
@@ -67,7 +68,7 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     """
     allowed_methods = ['GET', 'PATCH']
     serializer_class = UserSerializer
-    permission_classes = (IsAdminOrIsSelf, permissions.IsAuthenticated, )
+    permission_classes = (IsAdminOrIsSelf,)
 
     def get_object(self):
         return User.objects.get(id=self.request.user.id)
