@@ -754,12 +754,13 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
         return Response(response)
 
 
-class SurveyUsersCountAPIView(ListAPIView):
+class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
 
     def get(self, request, *args, **kwargs):
         to_ = request.query_params.get('to', None)
         from_ = request.query_params.get('from', None)
         survey_tag = self.request.GET.get('survey_tag', None)
+        boundary_id = self.request.GET.get('boundary_id', None)
 
         survey_ids = SurveyTagMapping.objects.filter(
             tag__char_id=survey_tag
@@ -770,6 +771,11 @@ class SurveyUsersCountAPIView(ListAPIView):
 
         queryset = AnswerGroup_Institution.objects.\
             filter(questiongroup_id__in=questiongroup_ids)
+        
+        if boundary_id:
+            queryset = queryset.filter(survey__admin0_id=boundary_id)
+        else:
+            queryset = queryset.filter(survey__admin0_id=self.get_state().id)
 
         if to_:
             queryset = queryset.filter(date_of_visit__lte=to_)
