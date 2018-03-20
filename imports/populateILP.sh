@@ -142,3 +142,7 @@ echo "Running aggregates"
 psql -U klp -d $ilp -f aggregates/materialized_views.sql 
 psql -U klp -d $ilp -f aggregates/assessment_materialized_views.sql 
 echo "Aggregates Done"
+
+#Update db with kannada translations for existing survey
+psql -U klp -d $ilp -f assessments/update_ilp_db_kannada_translation.sql
+
