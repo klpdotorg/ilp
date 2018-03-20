@@ -24,7 +24,7 @@ class UsersViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
     def get_queryset(self):
-        return User.objects.filter(is_active='True')
+        return self.queryset.filter(is_active='True')
 
     def create(self, request):
         data = request.data.copy()
@@ -47,6 +47,9 @@ class UsersViewSet(viewsets.ModelViewSet):
                 user.groups.add(group_obj)
         if user.is_superuser:
             user.groups.add(Group.objects.get(name='tada_admin'))
+        else:
+            user.groups.add(Group.objects.get(name='ilp_auth_user'))
+            user.groups.add(Group.objects.get(name='ilp_konnect_user'))
         user.save()
         response_data = TadaUserRegistrationSerializer(user)
         headers = self.get_success_headers(serializer.data)

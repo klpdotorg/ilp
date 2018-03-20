@@ -62,7 +62,7 @@ class TadaUserTests(APITestCase):
         )
         self.assertTrue(response.data['is_active'])
         created_user_id = response.data['id']
-
+        print("Registration response is: ", response.data)
         #Retrieve the user and check
         response = self.client.get("/api/v1/tada/users/"+str(created_user_id)+"/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -129,6 +129,8 @@ class TadaUserTests(APITestCase):
         print("User successfully logged in")
 
         # Check user profile
+        created_user = User.objects.get(id=response.data['id'])
+        self.client.force_authenticate(user=created_user)
         url = reverse('user:api_user_profile')
         response = self.client.patch(url, {
             "first_name": "Firstname",
@@ -149,6 +151,7 @@ class TadaUserTests(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['count'], 3)
+        print("Listing users: ", response.data)
     
     def test_nonadmin_list_users(self):
         url = reverse('user:tada-users-list')
@@ -215,5 +218,20 @@ class TadaUserTests(APITestCase):
         self.client.force_authenticate(user=self.regular_user)
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_view_user_profile(self):
+        self.client.force_authenticate(user=self.regular_user)
+        url = reverse('user:api_user_profile')
+        print("=========================")
+        print("Retrieving User Profile")
+        print("=========================")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(
+            set(['id', 'groups', 'email', 'mobile_no', 'first_name', 'last_name', 'groups', 'is_active',
+                'is_superuser']).issubset(response.data.keys())
+        )
+        print(response.data)
+
 
 
