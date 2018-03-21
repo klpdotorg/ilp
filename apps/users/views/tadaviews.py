@@ -14,7 +14,7 @@ class TadaUserRegisterView(generics.CreateAPIView):
     This endpoint registers a new TADA user
     """
     permission_classes =(
-        permissions.IsAdminUser
+        permissions.IsAdminUser,
     )
     serializer_class = TadaUserRegistrationSerializer
 
