@@ -21,7 +21,7 @@ tables = [
             'name': 'schools_institution',
             'getquery': "\COPY (select id, dise_code::bigint from replacetablename where dise_code is not null and dise_code ~ '^[0-9]') TO 'replacefilename' NULL 'null' DELIMITER   ',' quote '\\\"' csv;",
             'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, dise_code bigint); \COPY temp_replacetablename(id, dise_code) FROM 'replacefilename' with csv NULL 'null'; select count(*) from schools_institution where id in (select id from temp_replacetablename);",
-            'updatequery': "UPDATE schools_institution set dise_id=disedata.id from dise_basicdata disedata, temp_replacetablename temp where disedata.school_code=temp.dise_code and disedata.academic_year_id='1516' and schools_institution.id=temp.id;"
+            'updatequery': "UPDATE schools_institution set dise_id=disedata.id from dise_basicdata disedata, temp_replacetablename temp where disedata.school_code=temp.dise_code and disedata.academic_year_id='1617' and schools_institution.id=temp.id;"
         },
 ]
 
