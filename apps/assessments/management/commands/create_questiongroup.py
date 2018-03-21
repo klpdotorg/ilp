@@ -12,11 +12,12 @@ from boundary.models import Boundary
 
 class Command(BaseCommand):
    
-    fileoptions = {"questiongroup"}
+    fileoptions = {"questiongroup","questions"}
     csv_files = {}
 
     def add_arguments(self, parser):
         parser.add_argument('questiongroup')
+        parser.add_argument('question',nargs='?')
 
     def get_csv_files(self, options):
         for fileoption in self.fileoptions:
@@ -60,6 +61,7 @@ class Command(BaseCommand):
             image_required = row[14].strip()
             lang_name = row[15].strip()
             comments_required = row[16].strip()
+            respondenttype_required = row[17].strip()
             questiongroup = QuestionGroup.objects.create(
                                 id = id,
                                 name = name,
@@ -77,8 +79,61 @@ class Command(BaseCommand):
                                 description = description,
                                 lang_name = lang_name,
                                 image_required = image_required,
-                                comments_required = comments_required)
+                                comments_required = comments_required,
+                                respondenttype_required = respondenttype_required)
             return questiongroup 
+
+
+    def create_questions(self, questiongroup):
+        count=0
+        questions = []
+        for row in self.csv_files["questions"]:
+            if count == 0:
+                count += 1
+                continue
+            count += 1
+
+            id = row[0].strip()
+            question_text = row[1].strip()
+            display_text = row[2].strip()
+            key = self.check_value(row[3].strip())
+            options = self.check_value(row[4].strip())
+            is_featured = self.check_value(row[5].strip(), True)
+            question_type = QuestionType.objects.get(id = self.check_value(row[6].strip(),4))
+            status = Status.objects.get(char_id=row[7].strip())
+            max_score = self.check_value(row[8].strip(),0)
+            pass_score = self.check_value(row[9].strip(),0)
+            lang_name = self.check_value(row[10].strip())
+            lang_options = self.check_value(row[11].strip())
+            question = Question.objects.create(
+                            id = id,
+                            question_text = question_text,
+                            display_text = display_text,
+                            key = key,
+                            options = options,
+                            is_featured = is_featured,
+                            question_type = question_type,
+                            status = status,
+                            max_score = max_score,
+                            pass_score = pass_score,
+                            lang_name = lang_name,
+                            lang_options = lang_options)
+            questions.append(question)
+        return questions
+
+
+    def map_questiongroup_questions(self, questiongroup, questions):
+        qgq_maps = []
+        sequence = 1
+        for question in questions:
+            qgq_map = QuestionGroup_Questions.objects.create(
+                      sequence = sequence,
+                      question = question,
+                      questiongroup = questiongroup)
+            sequence += 1
+            qgq_maps.append(qgq_map)
+
+        return qgq_maps
 
 
     def handle(self, *args, **options):
@@ -90,3 +145,14 @@ class Command(BaseCommand):
         if not questiongroup:
             print("QuestionGroup did not get created")
             return
+
+        if options["question"]:
+            questions = self.create_questions(questiongroup)
+            if not questions:
+                print("Questions did not get created")
+                return
+  
+            qgq_maps = self.map_questiongroup_questions(questiongroup, questions)
+            if not qgq_maps:
+                print("QuestionGroup Question Mapping did not happen")
+                return

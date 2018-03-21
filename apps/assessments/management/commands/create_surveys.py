@@ -89,6 +89,7 @@ class Command(BaseCommand):
             image_required = row[13].strip()
             lang_name = row[14].strip()
             comments_required = row[15].strip()
+            respondenttype_required = row[16].strip()
             questiongroup = QuestionGroup.objects.create(
                                 id = id,
                                 name = name,
@@ -106,7 +107,8 @@ class Command(BaseCommand):
                                 description = description,
                                 lang_name = lang_name,
                                 image_required = image_required,
-                                comments_required = comments_required)
+                                comments_required = comments_required,
+                                respondenttype_required = respondenttype_required)
             return questiongroup 
 
 
