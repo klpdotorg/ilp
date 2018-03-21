@@ -7,7 +7,7 @@ update assessments_survey set lang_name='ಅಂಗನವಾಡಿ ಮೂಲಸ�
 update assessments_survey set lang_name='ಶೇರ್ ಯೂಅರ್ ಸ್ಟೋರೀ' where id=5;
 update assessments_survey set lang_name='ಸಮುದಾಯ-ಐವಿಆರ್ ಎಸ್' where id=6;
 update assessments_survey set lang_name='ಸಮುದಾಯ ಸರ್ವೆ' where id=7;
-update assessments_survey set lang_name='ಜಿಕೆಎ ಮಾನಿಟರಿಂಗ್' where id=11;
+update assessments_survey set lang_name='ಜಿಕೆಎ ಶಾಲಾ ಭೇಟಿ' where id=11;
 
 --assessments_questiongroup
 

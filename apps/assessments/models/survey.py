@@ -110,6 +110,7 @@ class QuestionGroup(models.Model):
     status = models.ForeignKey('common.Status')
     image_required = models.NullBooleanField(default=False)
     comments_required = models.NullBooleanField(default=False)
+    respondenttype_required = models.NullBooleanField(default=False)
 
     questions = models.ManyToManyField(
         'Question', through='Questiongroup_Questions'

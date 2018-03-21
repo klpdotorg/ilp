@@ -32,7 +32,7 @@ for line in open(json_file, 'r'):
         if str(did) in device_list: 
             valid_data = True
     if valid_data:
-           len(data["edata"]["eks"]["itemResponses"]) > 0:
+        if len(data["edata"]["eks"]["itemResponses"]) > 0:
                 for i in range(len(data["edata"]["eks"]["itemResponses"])):
                     assess_file.write(mid)
                     assess_file.write("|")
