@@ -140,9 +140,12 @@ class InstitutionManagementListView(generics.ListAPIView):
 
 class InstitutionLanguageListView(generics.ListAPIView):
     serializer_class = InstitutionLanguageSerializer
+    queryset = InstitutionLanguage.objects.all()
 
-    def get_queryset(self):
-        return InstitutionLanguage.objects.all()
+    def get(self, request, *args, **kwargs):
+        institution_id = kwargs['pk']
+        queryset = self.get_queryset().filter(institution_id=institution_id)
+        return Response(self.serializer_class(queryset, many=True).data)
 
 
 class InstitutionDemographics(ILPDetailAPIView):
