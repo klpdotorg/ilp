@@ -29,6 +29,7 @@
             return _.str.titleize(item.name);
     }
 
+
     function populateSelect(container, data) {
         data.features.forEach(function(d) {
             if(d.properties !=undefined)
@@ -57,6 +58,12 @@
         });
     }
 
+
+    function clearSelect(container) {
+        container.select2("val","");
+        populateSelect(container, {features: []});
+    }
+
        
     function initEduSearch(school_type) {
         var $select_district = $("#select-district");
@@ -65,10 +72,10 @@
         var $select_school = $("#select-school");
         var $search_button = $("#search_button");
         
-        $select_district.select2("val","");
-        $select_block.select2("val","");
-        $select_cluster.select2("val","");
-        $select_school.select2("val","");
+        clearSelect($select_district);
+        clearSelect($select_block);
+        clearSelect($select_cluster);
+        clearSelect($select_school);
 
         var url = "boundary/admin1s/?survey_tag=gka&per_page=0";
         var districtsXHR = klp.api.do(url);
@@ -85,6 +92,11 @@
         });
 
         $select_district.on("change", function(selected) {
+
+            clearSelect($select_block);
+            clearSelect($select_cluster);
+            clearSelect($select_school);
+
             $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             var blockXHR = klp.api.do('boundary/admin1/'+selected.val+'/admin2', {'geometry': 'yes', 'per_page': 0});
             blockXHR.done(function (data) {
@@ -93,6 +105,10 @@
         });
 
         $select_block.on("change", function(selected) {
+
+            clearSelect($select_cluster);
+            clearSelect($select_school);
+
             $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             var clusterXHR = klp.api.do('boundary/admin2/'+selected.val+'/admin3', {'geometry': 'yes', 'per_page': 0});
             clusterXHR.done(function (data) {
@@ -101,6 +117,9 @@
         });
 
         $select_cluster.on("change", function(selected) {
+
+            clearSelect($select_school);
+
             var schoolXHR = klp.api.do('institutions/', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
             $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             schoolXHR.done(function (data) {

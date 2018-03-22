@@ -233,8 +233,7 @@ var topSummaryData = {};
                 "Division"
             ],
             districts = _.pluck(chartComparisonData, 'name').splice(0, 4),
-            qgs;
-            console.log(districts)            
+            qgs = [];
 
         // Combine GP contest data
 
@@ -246,8 +245,6 @@ var topSummaryData = {};
                     return c.name === d;
                 }),
                 qgs = [];
-
-            console.log(district)
 
             // Select the question groups
             try {
@@ -284,8 +281,6 @@ var topSummaryData = {};
                 return {meta: d, skill: label, value: percent};
 
             });
-
-            console.log(gpContestValues)
 
         });
 
@@ -344,7 +339,7 @@ var topSummaryData = {};
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
-        var smsSurvey = getSurveyId('gka monitoring');
+        var smsSurvey = getSurveyId('gka school visit');
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
@@ -539,8 +534,12 @@ var topSummaryData = {};
             "ivrss-functional-toilets-girls"
         ];
 
+        var combinedData = combineDataSources(
+            data, ['csv', 'mobile'], questionKeys
+        );
+
         var questionObjects = _.map(questionKeys, function(key) {
-            return getQuestion(data, 'csv', key);
+            return getQuestion(combinedData, 'combinedData', key);
         });
         var questions = getQuestionsArray(questionObjects);
         //var regroup = {}
@@ -557,9 +556,6 @@ var topSummaryData = {};
         data = data.summary;
         data.total_assessments = data.total_assessments ? data.total_assessments: 0;
         data["format_last_assessment"] = data.last_assessment ? formatLastStory(data.last_assessment, true): 'NA';
-        data['schoolPerc'] = getPercent(
-            data.schools_impacted, klp.GKA.topSummaryData.schools_impacted
-        );
 
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
@@ -638,9 +634,6 @@ var topSummaryData = {};
         summaryData.last_assessment = data.last_assessment;
         summaryData.format_lastsms = data.last_assessment ? formatLastStory(
             data.last_assessment, true): 'NA';
-        summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
-        summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
-
         var smsSummaryHTML = tplSmsSummary(summaryData);
         $('#smsSummary').html(smsSummaryHTML);
 
@@ -649,46 +642,6 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
-        function combineSources(sourceData, sources) {
-            var combined = {
-                    combinedData: sourceData[sources[0]]
-                },
-                target = sourceData[sources[1]];
-
-
-            for(var i = 0; i < combined.combinedData.length; i++) {
-                var d = combined.combinedData[i],
-                    key = d.question ? d.question.key : null,
-                    t = null;
-
-                // Find the second source's key
-                for(var j=0; j < target.length; j++) {
-                    if(target[j] && target[j]['question']) {
-                        if(target[j]['question']['key'] === key) {
-                            t = target[j];
-                            break;
-                        }
-                    }
-                }
-
-                // Add the answers if they are present
-                if(t && t.answers) {
-                    var yes = t.answers['Yes'] ? t.answers['Yes'] : 0,
-                        no = t.answers['No'] ? t.answers['No'] : 0,
-                        dontKnow = t.answers['Don\'t Know'] ? t.answers['Don\'t Know'] : 0;
-
-                    combined.combinedData[i].answers['Yes'] += yes;
-                    combined.combinedData[i].answers['No'] += no;
-                    combined.combinedData[i].answers['Don\'t Know'] += dontKnow;
-                }
-            }
-
-
-            return combined;
-        }
-
-        var data = combineSources(detailsData.source, ['sms', 'konnectsms']);
-        
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -696,6 +649,9 @@ var topSummaryData = {};
                 "ivrss-gka-rep-stage",
                 "ivrss-group-work"
             ],
+            data = combineDataSources(
+                detailsData.source, ['sms', 'konnectsms'], SMSQuestionKeys
+            ),
             questionObjects = _.map(SMSQuestionKeys, function(key) {
                 return getQuestion(data, 'combinedData', key);
             }),
@@ -1388,6 +1344,7 @@ var topSummaryData = {};
         });
     }
 
+
     function getSurveyId(name) {
         var survey = _.find(GKA_SURVEYS.surveys, function(s){ return s.name.toLowerCase() === name.toLowerCase(); });
 
@@ -1396,6 +1353,42 @@ var topSummaryData = {};
         } else {
             return 'None';
         }
+    }
+
+
+    function combineDataSources(sourceData, sources, keys) {
+        var s1 = sources[0],
+            s2 = sources[1];
+
+
+        var combined = _.map(keys, function(k){
+
+            var s1Data = _.find(sourceData[s1], function(d){
+                return d.question.key === k;
+            });
+
+            var s2Data = _.find(sourceData[s2], function(d){
+                return d.question.key === k;
+            });
+
+            var answers = {Yes: 0, No: 0};
+            if(s1Data) {
+                answers.Yes += s1Data.answers.Yes;
+                answers.No += s1Data.answers.No;
+            }
+            if(s2Data) {
+                answers.Yes += s2Data.answers.Yes;
+                answers.No += s2Data.answers.No;
+            }
+
+            return {
+                answers: answers,
+                question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
+            }
+
+        });
+
+        return {combinedData: combined};
     }
 
 

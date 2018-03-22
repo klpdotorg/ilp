@@ -172,8 +172,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             SurveyInstitutionQuestionGroupAgg.objects.all()
         )
 
-    def get(self, request):
-
+    def get(self, request, *args, **kwargs):
         questiongroup_id = self.request.query_params.get(
             'questiongroup_id', None
         )
@@ -182,14 +181,6 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
         state_id = BoundaryStateCode.objects.filter(
             char_id=settings.ILP_STATE_ID).\
             values("boundary_id")[0]["boundary_id"]
-
-        # TODO: REMOVE ME: This is a temporary measure to disable Konnect from
-        # rendering the Teachers Survey Report.
-        # Once we implement the new Konnect report screen
-        # we can remove the below two linses
-        print (questiongroup_id)
-        if int(questiongroup_id) in (38, 39, ):
-            return Response(status=HttpStatus.HTTP_400_BAD_REQUEST)
 
         if institution_id:
             queryset = SurveyInstitutionQuestionGroupAgg.objects.filter(
@@ -249,7 +240,6 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             ).count()
             summary_res["total_schools"] = inst_count
 
-
             ans_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
                     boundary_id=boundary_id)
             ans_queryset = self.filter_queryset(ans_queryset)
@@ -294,6 +284,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                         question_dict[row["question_desc"]]['id'] = row['question_id']
                 if question_dict:
                     questiongroup_res[qg_name] = {}
+                    questiongroup_res[qg_name]['id'] = qg_id 
                     questiongroup_res[qg_name]['questions'] = question_dict
             survey_res['surveys'][s_id] = {}
             survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
