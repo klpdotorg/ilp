@@ -27,7 +27,7 @@ tables = [
     }
 ]
 
-years = ["1213", "1314", "1415", "1516"]
+years = ["1213", "1314", "1415", "1516", "1617"]
 
 
 # Create directory and files

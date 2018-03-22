@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('questiongroup')
-        parser.add_argument('question',nargs='?')
+        parser.add_argument('questions',nargs='?')
 
     def get_csv_files(self, options):
         for fileoption in self.fileoptions:
@@ -37,7 +37,7 @@ class Command(BaseCommand):
         return value   
 
 
-    def create_questiongroup(self, survey):
+    def create_questiongroup(self):
         count=0
         for row in self.csv_files["questiongroup"]:
             if count == 0:
@@ -141,12 +141,12 @@ class Command(BaseCommand):
            return
         
         #create questiongroup
-        questiongroup = self.create_questiongroup(survey)
+        questiongroup = self.create_questiongroup()
         if not questiongroup:
             print("QuestionGroup did not get created")
             return
 
-        if options["question"]:
+        if options["questions"]:
             questions = self.create_questions(questiongroup)
             if not questions:
                 print("Questions did not get created")
