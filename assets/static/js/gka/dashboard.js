@@ -557,9 +557,6 @@ var topSummaryData = {};
         data = data.summary;
         data.total_assessments = data.total_assessments ? data.total_assessments: 0;
         data["format_last_assessment"] = data.last_assessment ? formatLastStory(data.last_assessment, true): 'NA';
-        data['schoolPerc'] = getPercent(
-            data.schools_impacted, klp.GKA.topSummaryData.schools_impacted
-        );
 
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
@@ -638,9 +635,6 @@ var topSummaryData = {};
         summaryData.last_assessment = data.last_assessment;
         summaryData.format_lastsms = data.last_assessment ? formatLastStory(
             data.last_assessment, true): 'NA';
-        summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
-        summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
-
         var smsSummaryHTML = tplSmsSummary(summaryData);
         $('#smsSummary').html(smsSummaryHTML);
 
