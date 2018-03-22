@@ -1381,9 +1381,13 @@ var topSummaryData = {};
                 answers.No += s2Data.answers.No;
             }
 
-            return {
-                answers: answers,
-                question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
+            if (s1Data || s2Data) {
+                return {
+                    answers: answers,
+                    question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
+                }
+            } else {
+                return {answers:{}, question: {}};
             }
 
         });
