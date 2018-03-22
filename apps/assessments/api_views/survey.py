@@ -26,6 +26,7 @@ from boundary.models import (
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
     BoundaryType
 )
+from boundary.serializers import BoundarySerializer
 
 from schools.models import (
     Institution, InstitutionClassYearStuCount
@@ -82,6 +83,24 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
         instance.save()
+
+
+class SurveyBoundaryAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyTagMappingAgg.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        survey_tag = self.request.query_params.get('survey_tag', None)
+        boundary_id = self.request.query_params.get(
+            'boundary_id', self.get_state().id
+        )
+        qs = self.get_queryset()
+        if survey_tag:
+            qs = qs.filter(survey_tag=survey_tag)
+        qs = qs.filter(boundary_id__parent_id=boundary_id)
+        boundary_ids = qs.values_list('boundary_id', flat=True)
+        boundaries = Boundary.objects.filter(id__in=boundary_ids)
+        response = BoundarySerializer(boundaries, many=True).data
+        return Response(response)
 
 
 class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
