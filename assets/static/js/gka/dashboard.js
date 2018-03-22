@@ -233,8 +233,7 @@ var topSummaryData = {};
                 "Division"
             ],
             districts = _.pluck(chartComparisonData, 'name').splice(0, 4),
-            qgs;
-            console.log(districts)            
+            qgs = [];
 
         // Combine GP contest data
 
@@ -246,8 +245,6 @@ var topSummaryData = {};
                     return c.name === d;
                 }),
                 qgs = [];
-
-            console.log(district)
 
             // Select the question groups
             try {
@@ -284,8 +281,6 @@ var topSummaryData = {};
                 return {meta: d, skill: label, value: percent};
 
             });
-
-            console.log(gpContestValues)
 
         });
 
@@ -1393,7 +1388,6 @@ var topSummaryData = {};
 
         });
 
-        console.log(sourceData, combined)
         return {combinedData: combined};
     }
 
