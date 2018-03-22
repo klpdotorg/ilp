@@ -544,7 +544,7 @@ var topSummaryData = {};
         );
 
         var questionObjects = _.map(questionKeys, function(key) {
-            return getQuestion(data, 'csv', key);
+            return getQuestion(combinedData, 'combinedData', key);
         });
         var questions = getQuestionsArray(questionObjects);
         //var regroup = {}
