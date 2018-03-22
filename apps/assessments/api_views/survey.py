@@ -284,6 +284,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                         question_dict[row["question_desc"]]['id'] = row['question_id']
                 if question_dict:
                     questiongroup_res[qg_name] = {}
+                    questiongroup_res[qg_name]['id'] = qg_id 
                     questiongroup_res[qg_name]['questions'] = question_dict
             survey_res['surveys'][s_id] = {}
             survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
