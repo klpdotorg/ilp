@@ -19,7 +19,7 @@
   };
 
   function setAcadYear() {
-    academicYear = window.klp.DEFAULT_ACADEMIC_YEAR
+    var academicYear = window.klp.DEFAULT_ACADEMIC_YEAR
   }
 
   function render(boundaryID, academicYear) {
