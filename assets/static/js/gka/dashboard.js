@@ -20,6 +20,7 @@ var topSummaryData = {};
         // All GKA related data are stored in GKA
         klp.GKA = {};
         klp.GKA.routerParams = {};
+        klp.GKA.GRAP_LABEL_MAX_CHAR = 4;
 
         // This function is used as a callback to accordion init function
         // to determine which section to load when a user clicks a
@@ -1188,8 +1189,8 @@ var topSummaryData = {};
                 height: '200px',
                 axisX: {
                   labelInterpolationFnc: function (value) {
-                    if (value.length > 9) {
-                      return value.slice(0, 9) + '...'
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR) + '..'
                     }
 
                     return value;
