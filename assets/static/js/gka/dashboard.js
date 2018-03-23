@@ -1240,8 +1240,8 @@ var topSummaryData = {};
                 height: '200px',
                 axisX: {
                   labelInterpolationFnc: function (value) {
-                    if (value.length > 9) {
-                      return value.slice(0, 9) + '...'
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR-1) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR-1) + '..'
                     }
 
                     return value;
