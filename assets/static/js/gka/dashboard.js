@@ -339,7 +339,7 @@ var topSummaryData = {};
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
-        var smsSurvey = getSurveyId('gka monitoring');
+        var smsSurvey = getSurveyId('gka school visit');
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
