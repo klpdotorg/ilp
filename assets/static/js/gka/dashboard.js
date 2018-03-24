@@ -76,17 +76,6 @@ var topSummaryData = {};
             klp.router.setHash(null, currentQueryParams);
         });
 
-        $('a[href=#datemodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
-
-        $('a[href=#close]').click(function(e) {
-            klp.router.setHash(null, premodalQueryParams, {'trigger': false});
-        });
-
-        $('a[href=#searchmodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
         loadData(premodalQueryParams);
     }
 

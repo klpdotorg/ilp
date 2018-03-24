@@ -64,13 +64,25 @@
         populateSelect(container, {features: []});
     }
 
+
+    function setSearchAttributes(attr) {
+        var startDate = $('#startDate').yearMonthSelect("getFirstDay"),
+            endDate = $('#endDate').yearMonthSelect("getLastDay"),
+            $search_button = $("#search_button");;
+
+        $search_button.attr('href', '/gka/#searchmodal?' + attr);
+
+        console.log(startDate, endDate)
+
+
+    }
+
        
     function initEduSearch(school_type) {
         var $select_district = $("#select-district");
         var $select_block = $("#select-block");
         var $select_cluster = $("#select-cluster");
         var $select_school = $("#select-school");
-        var $search_button = $("#search_button");
         
         clearSelect($select_district);
         clearSelect($select_block);
@@ -96,8 +108,8 @@
             clearSelect($select_block);
             clearSelect($select_cluster);
             clearSelect($select_school);
+            setSearchAttributes('boundary_id=' + selected.val);
 
-            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             var blockXHR = klp.api.do('surveys/boundary/?per_page=0&boundary_id=' + selected.val);
             blockXHR.done(function (data) {
                 data.features = data.results;
@@ -109,8 +121,8 @@
 
             clearSelect($select_cluster);
             clearSelect($select_school);
+            setSearchAttributes('boundary_id=' + selected.val);
 
-            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             var clusterXHR = klp.api.do('surveys/boundary/?per_page=0&boundary_id=' + selected.val);
             clusterXHR.done(function (data) {
                 data.features = data.results;
@@ -121,9 +133,9 @@
         $select_cluster.on("change", function(selected) {
 
             clearSelect($select_school);
+            setSearchAttributes('boundary_id=' + selected.val);
 
             var schoolXHR = klp.api.do('institutions/', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
-            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
             schoolXHR.done(function (data) {
                 var tx_data = {"features":[]}
                 for (var each in data.features) {
@@ -135,7 +147,7 @@
 
 
         $select_school.on("change", function(selected) {
-            $search_button.attr('href', '/gka/#searchmodal?institution_id=' + selected.val);
+            setSearchAttributes('institution_id=' + selected.val);
         });
     }
 
