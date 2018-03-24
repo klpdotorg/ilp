@@ -65,16 +65,9 @@
     }
 
 
-    function setSearchAttributes(attr) {
-        var startDate = $('#startDate').yearMonthSelect("getFirstDay"),
-            endDate = $('#endDate').yearMonthSelect("getLastDay"),
-            $search_button = $("#search_button");;
-
-        $search_button.attr('href', '/gka/#searchmodal?' + attr);
-
-        console.log(startDate, endDate)
-
-
+    function setBoundaryAttributes(attr) {
+        // var $search_button = $("#search_button");
+        // $search_button.attr('href', '/gka/#searchmodal?' + attr);
     }
 
        
@@ -108,7 +101,7 @@
             clearSelect($select_block);
             clearSelect($select_cluster);
             clearSelect($select_school);
-            setSearchAttributes('boundary_id=' + selected.val);
+            setBoundaryAttributes('boundary_id=' + selected.val);
 
             var blockXHR = klp.api.do('surveys/boundary/?per_page=0&boundary_id=' + selected.val);
             blockXHR.done(function (data) {
@@ -121,7 +114,7 @@
 
             clearSelect($select_cluster);
             clearSelect($select_school);
-            setSearchAttributes('boundary_id=' + selected.val);
+            setBoundaryAttributes('boundary_id=' + selected.val);
 
             var clusterXHR = klp.api.do('surveys/boundary/?per_page=0&boundary_id=' + selected.val);
             clusterXHR.done(function (data) {
@@ -133,7 +126,7 @@
         $select_cluster.on("change", function(selected) {
 
             clearSelect($select_school);
-            setSearchAttributes('boundary_id=' + selected.val);
+            setBoundaryAttributes('boundary_id=' + selected.val);
 
             var schoolXHR = klp.api.do('institutions/', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
             schoolXHR.done(function (data) {
@@ -147,7 +140,7 @@
 
 
         $select_school.on("change", function(selected) {
-            setSearchAttributes('institution_id=' + selected.val);
+            setBoundaryAttributes('institution_id=' + selected.val);
         });
     }
 
