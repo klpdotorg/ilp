@@ -54,24 +54,13 @@ var topSummaryData = {};
             hashChanged(params);
         });
         klp.router.start();
+        premodalQueryParams = klp.router.getHash().queryParams;
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
+        $('#startDate').yearMonthSelect("setDate", moment("20170601", "YYYYMMDD"));
+        $('#endDate').yearMonthSelect("setDate", moment("20180331", "YYYYMMDD"));
 
-        //this is a bit of a hack to save query state when
-        //triggering a modal, since modals over-ride the url
-        //Works only on date modal.
-        premodalQueryParams = klp.router.getHash().queryParams;
-        if (premodalQueryParams.hasOwnProperty("from")) {
-            var mDate = moment(premodalQueryParams.from);
-            $('#startDate').yearMonthSelect("setDate", mDate);
-        }
-        if (premodalQueryParams.hasOwnProperty("to")) {
-            var mDate = moment(premodalQueryParams.to);
-            $('#endDate').yearMonthSelect("setDate", mDate);
-        } else {
-            $('#endDate').yearMonthSelect("setDate", moment());
-        }
 
         $('#dateSummary').click(function(e) {
             e.preventDefault();
