@@ -167,6 +167,7 @@
     renderCategories(utils.getPreSchoolCategories(data.properties), 'preschool');
     renderLanguages(utils.getMotherTongue(data.properties), 'preschool');
     renderEnrollment(utils.getPreSchoolEnrollment(data.properties), "preschool");    
+    //klp.api.do('surveys/questiongroupdetails/?survey_id=4')
     renderInfra(utils.getPreSchoolInfra(data.properties), "preschool");    
   }
 
