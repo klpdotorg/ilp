@@ -58,8 +58,8 @@ def create_sqlfiles():
 
 # Running the "copy to" commands to populate the csvs.
 def getdata():
-    system("echo $DISE_PGPASSWORD, $DISE_DBUSER")
-    system("PGPASSWORD=$DISE_PGPASSWORD psql -U $DISE_DBUSER -d "+fromdatabase+" -f "+inputdatafile)
+    system("echo $DISE_PGPASSWORD, $DISE_DB_USER")
+    system("PGPASSWORD=$DISE_PGPASSWORD psql -U $DISE_DB_USER -d "+fromdatabase+" -f "+inputdatafile)
 
 
 # Running the "copy from" commands for loading the db.
