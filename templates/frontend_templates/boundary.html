@@ -2,32 +2,32 @@
 <script type="text/html" id="tpl-boundary-info">
   <h2 class="heading-secondary">
     <span class="icon-number">
-      {% if boundary.boundary_type == 'SD' %} 
-        D 
-      {% elif boundary.boundary_type =='SB' %} 
+      {% if boundary.boundary_type == 'SD' %}
+        D
+      {% elif boundary.boundary_type =='SB' %}
         B
-      {% elif boundary.boundary_type =='SC' %} 
+      {% elif boundary.boundary_type =='SC' %}
         C
-      {% elif boundary.boundary_type =='PP' %} 
+      {% elif boundary.boundary_type =='PP' %}
         P
-      {% elif boundary.boundary_type =='PC' %} 
+      {% elif boundary.boundary_type =='PC' %}
         C
       {% endif %}
     </span>
     {{ boundary.name|capitalize }}
   </h2>
   {% if boundary.parent %}
-  <ul class="map-location-labels font-smallest">  
+  <ul class="map-location-labels font-smallest">
     {% if boundary.parent.parent %}
     <li class="map-label-each">
       <div class="map-label-title">{{ boundary.parent.parent.boundary_type|capitalize }}</div>
-      <div class="map-label-name">{{ boundary.parent.parent.name|capitalize }}</div>    
+      <div class="map-label-name">{{ boundary.parent.parent.name|capitalize }}</div>
     </li>
     {% endif %}
     <li class="map-label-each">
       <div class="map-label-title">{{ boundary.parent.boundary_type|capitalize }}</div>
       <div class="map-label-name">{{ boundary.parent.name|capitalize }}</div>
-    </li>   
+    </li>
   </ul>
   {% endif %}
 </script>
@@ -38,14 +38,14 @@
             <div class="top">
                 <div class="heading-tiny-uppercase align-left" >Source</div>
                 <h2 class="heading-secondary brand-blue align-left">KLP</h2>
-            </div> 
+            </div>
             <div class="half-column">
                 <div class="heading-tiny-uppercase  align-left" >{{school_type}}s</div>
                 {% if klp.schools && klp.schools !=0 %}
                   <h2 class="heading-secondary brand-blue align-left">{{ klp.schools }}</h2>
-                {% else %} 
+                {% else %}
                   No Data
-                {% endif %} 
+                {% endif %}
             </div>
             <div class="half-column">
                 <div class="heading-tiny-uppercase align-left" >Students</div>
@@ -63,15 +63,15 @@
               <div class="top">
                   <div class="heading-tiny-uppercase align-left" >Source</div>
                   <h2 class="heading-secondary brand-blue align-left">DISE</h2>
-              </div> 
+              </div>
               <div class="third-column">
                   <div class="heading-tiny-uppercase  align-left" >Schools</div>
                   {% if dise.schools && dise.schools !=0 %}
-                    <h2 class="heading-secondary brand-blue align-left">{{ dise.schools }}</h2> 
-                  {% else %} 
+                    <h2 class="heading-secondary brand-blue align-left">{{ dise.schools }}</h2>
+                  {% else %}
                     No Data
-                  {% endif %} 
-                  
+                  {% endif %}
+
               </div>
               <div class="third-column">
                   <div class="heading-tiny-uppercase align-left" >Students</div>
@@ -85,16 +85,17 @@
               </div>
               <div class="third-column">
                   <div class="heading-tiny-uppercase align-left" >Average PTR</div>
-                  <h2 class="heading-secondary brand-blue align-left">{{ dise.ptr | checkzero}}:1</h2> 
+                  <h2 class="heading-secondary brand-blue align-left">{{ dise.ptr | checkzero}}:1</h2>
               </div>
           </div>
-        {% endif %}          
-        
+        {% endif %}
+
 
         <div class="acad-year-{{school_type}} align-right">
           <form class="form-base">
             <div class="form-field-wrap">
               <select id="acad-year">
+                <option value="2017-2018">2017-2018</option>
                 <option value="2014-2015">2014-2015</option>
                 <option value="2013-2014">2013-2014</option>
                 <option value="2012-2013">2012-2013</option>
@@ -150,7 +151,7 @@
               <div class="bar-value bar-value-{{ gender.girl_perc }} pink-salmon-bg" style="width:{{ gender.girl_perc }}%;"></div>
             </div>
           </div>
-        </div>     
+        </div>
       </div> <!-- /bar-graph -->
     </div> <!-- /bar-graph-wrap -->
     {% else %}
@@ -161,8 +162,8 @@
 </script>
 
 <script type="text/html" id="tpl-category-summary">
-  {% for cat in categories %}  
-      
+  {% for cat in categories %}
+
       <div class=" compare-each-block">
 
         {% if cat.klp_count %}
@@ -197,8 +198,8 @@
 </script>
 
 <script type="text/html" id="tpl-ang-category-summary">
-  {% for cat in categories %}  
-    {% if cat.klp_count %}       
+  {% for cat in categories %}
+    {% if cat.klp_count %}
       <div class="bar-graph-wrap float-right">
         <div class="bar-graph">
           <div class="bar-percent grey-gravel">{{ cat.klp_perc }}%</div>
@@ -231,16 +232,16 @@
               <div class="green-leaf font-smaller center-text"><strong>{{ language.mt_count }} students</strong></div>
             </div>
             <div class="bar-percent green-leaf">{{ language.mt_perc }}%</div>
-          </div>       
+          </div>
 
-        <div class="compare-section-heading center-text">{{ name|capitalize }}</div>   
+        <div class="compare-section-heading center-text">{{ name|capitalize }}</div>
           <div class="bar-graph-wrap float-right">
             <div class="bar-percent">{{ language.moi_perc }}%</div>
             <div class="bar-custom">
               <div class="bar-value grey-gravel-bg" style="width:{{ language.moi_perc }}%;"></div>
               <div class="font-smaller center-text"><strong>{{ language.moi_count }} schools</strong></div>
             </div>
-          </div>        
+          </div>
       </div>
     {% endfor %}
   {% else %}
@@ -252,7 +253,7 @@
 
 <script type="text/html" id="tpl-ang-language">
   {% if languages | length %}
-    {% for language, val in languages %}  
+    {% for language, val in languages %}
       <div class="bar-graph-wrap float-right">
         <div class="bar-graph">
           <div class="bar-percent grey-gravel">{{ val.perc }}%</div>
@@ -278,14 +279,14 @@
     <thead class="table-base-heading">
     </thead>
     <tbody>
-      {% for cat in categories %}  
+      {% for cat in categories %}
         <tr>
           <td class="center-text">{{ cat.klp_enrol | checkzero}}</td>
           <td class="center-text heading-tiny-uppercase">{{ cat.type_name|capitalize }}</td>
           <td class="center-text">{{ cat.dise_enrol | checkzero}}</td>
         </tr>
       {%endfor%}
-    </tbody>  
+    </tbody>
   </table>
 </script>
 
@@ -294,13 +295,13 @@
     <thead class="table-base-heading">
     </thead>
     <tbody>
-      {% for cat, val in categories %}  
+      {% for cat, val in categories %}
         <tr>
           <td>{{ cat |capitalize }}</td>
           <td>{{ val.klp_enrol | checkzero}}</td>
         </tr>
       {%endfor%}
-    </tbody>  
+    </tbody>
   </table>
 </script>
 
@@ -308,7 +309,7 @@
   <div class="fa fa-circle brand-purple float-left dot-padding"></div>
   <div class="float-left grant-label">School Dev Grant</div>
   <div class="float-right">{{grants.sg_amt | inrformat}}</div>
-  <br/>  
+  <br/>
   <div class="fa fa-circle brand-green float-left dot-padding"></div>
   <div class="float-left grant-label">TLM Grant</div>
   <div class="float-right">{{grants.tlm_amt | inrformat}}</div>
