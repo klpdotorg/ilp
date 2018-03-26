@@ -3,11 +3,12 @@
   var utils;
   var selectedYear;
   var ADMIN_LEVEL_MAP = {
-    'district': 'admin_1',
-    'block': 'admin_2',
-    'cluster': 'admin_3',
-    'project': 'admin_2',
-    'circle': 'admin_3'
+    'PD': 'admin_1',
+    'SD': 'admin_1',
+    'SB': 'admin_2',
+    'SC': 'admin_3',
+    'PP': 'admin_2',
+    'PC': 'admin_3'
   };
   klp.init = function() {
     utils = klp.boundaryUtils;
@@ -19,11 +20,12 @@
   };
 
   function setAcadYear() {
-    var academicYear = window.klp.DEFAULT_ACADEMIC_YEAR
+    var academicYear = window.klp.DISE_ACADEMIC_YEAR
+    //console.log("Academic year is: ", academicYear)
   }
 
   function render(boundaryID, academicYear) {
-    var acadYear = academicYear || '2015-2016';
+    var acadYear = academicYear || '2016-2017';
 
 
     /*------------------- WISH WASH FOR MAP-------------*/
@@ -111,7 +113,8 @@
     var boundaryDiseSlug = data.properties.boundary.dise_slug;
     var boundaryType = data.properties.boundary.boundary_type;
     var boundaryID = data.properties.boundary.id;
-    var adminLevel = ADMIN_LEVEL_MAP[data.properties.boundary.type];
+    var adminLevel = ADMIN_LEVEL_MAP[data.properties.boundary.boundary_type];
+    console.log("Boundary type is: ", data.properties.boundary.boundary_type)
     queryParams[adminLevel] = boundaryID;
     $('#school-data').removeClass("hidden");
     klp.dise_api.queryBoundaryName(boundaryName, boundaryType, acadYear)
@@ -149,9 +152,9 @@
   function renderPreSchool(data, academicYear) {
     var queryParams = {};
     var boundaryID = data.properties.boundary.id;
-    var adminLevel = ADMIN_LEVEL_MAP[data.properties.boundary.type];
-    queryParams[adminLevel] = boundaryID;
-    klp.api.do('programme/', queryParams)
+    var adminLevel = ADMIN_LEVEL_MAP[data.properties.boundary.boundary_type];
+    queryParams['boundary_id'] = boundaryID;
+    klp.api.do('survey/info/boundary/', queryParams)
       .done(function(progData) {        
         renderPrograms(utils.getSchoolPrograms(progData, boundaryID, adminLevel), 'preschool');
       })

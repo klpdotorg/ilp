@@ -147,7 +147,7 @@
     <table class="table-data">
       <tr>
         <td>Source</td>
-        <td>KLP Database ({{ window.klp.DEFAULT_ACADEMIC_YEAR }}){% if type.id == 'primary' %}, <strong>NUEPA-DISE {{ window.klp.DISE_ACADEMIC_YEAR }}</strong>{% endif %}</td>
+        <td>KLP Database ({{ window.klp.FORMATTED_DEFAULT_AC_YEAR }}){% if type.id == 'primary' %}, <strong>NUEPA-DISE {{ window.klp.DISE_FRONTEND_ACADEMIC_YEAR }}</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->
@@ -258,7 +258,7 @@
     <table class="table-data">
       <tr>
         <td>Source</td>
-        <td>KLP Database ({{ window.klp.DEFAULT_ACADEMIC_YEAR }}){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DISE_ACADEMIC_YEAR }}</strong>{% endif %}</td>
+        <td>KLP Database ({{ window.klp.FORMATTED_DEFAULT_AC_YEAR }}){% if type_name == 'school' %}, <strong>NUEPA-DISE {{ window.klp.DISE_FRONTEND_ACADEMIC_YEAR }}</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->
@@ -292,7 +292,7 @@
       <table class="table-data">
           <tr>
               <td>Source</td>
-              <td>KLP Database {{ window.klp.DEFAULT_ACADEMIC_YEAR }}</strong></td>
+              <td>KLP Database {{ window.klp.FORMATTED_DEFAULT_AC_YEAR }}</strong></td>
           </tr>
       </table>
     </div>
@@ -395,7 +395,7 @@
     <table class="table-data">
       <tr>
         <td>Source {{type.id}}</td>
-        <td>{% if type_name == 'primary' %} <strong>NUEPA-DISE ({{ window.klp.DISE_ACADEMIC_YEAR }})</strong>{% else %}<strong>KLP Database {{window.klp.DEFAULT_ACADEMIC_YEAR}}</strong>{% endif %}</td>
+        <td>{% if type_name == 'primary' %} <strong>NUEPA-DISE ({{ window.klp.DISE_FRONTEND_ACADEMIC_YEAR }})</strong>{% else %}<strong>KLP Database {{window.klp.FORMATTED_DEFAULT_AC_YEAR}}</strong>{% endif %}</td>
       </tr>
     </table>
   </div> <!-- /container -->
