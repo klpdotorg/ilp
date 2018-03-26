@@ -2,7 +2,7 @@
 #dubdubdub
 #ems
 #electrep_new
-#klpdise_olap
+#ilpdise_olap
 #ang_infra
 #spatial
 
@@ -22,7 +22,7 @@ echo "Boundaries done"
 
 #Populate dise tables
 echo "Populating Dise tables"
-python dise/import_dise_data.py klpdise_olap $ilp
+python dise/import_dise_data.py ilpdise_olap $ilp
 echo "DISE tables done"
 
 #Populate Institutions
