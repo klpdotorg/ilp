@@ -54,50 +54,47 @@ var topSummaryData = {};
             hashChanged(params);
         });
         klp.router.start();
+        premodalQueryParams = klp.router.getHash().queryParams;
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
+        $('#startDate').yearMonthSelect("setDate", moment("20170601", "YYYYMMDD"));
+        $('#endDate').yearMonthSelect("setDate", moment("20180331", "YYYYMMDD"));
+        var startDate = $('#startDate').yearMonthSelect("getFirstDay");
 
-        //this is a bit of a hack to save query state when
-        //triggering a modal, since modals over-ride the url
-        //Works only on date modal.
-        premodalQueryParams = klp.router.getHash().queryParams;
-        if (premodalQueryParams.hasOwnProperty("from")) {
-            var mDate = moment(premodalQueryParams.from);
-            $('#startDate').yearMonthSelect("setDate", mDate);
-        }
-        if (premodalQueryParams.hasOwnProperty("to")) {
-            var mDate = moment(premodalQueryParams.to);
-            $('#endDate').yearMonthSelect("setDate", mDate);
-        } else {
-            $('#endDate').yearMonthSelect("setDate", moment());
-        }
+        $('#search_button').click(function(e){
+            var district_id = $("#select-district").val(),
+                block_id = $("#select-block").val(),
+                cluster_id = $("#select-cluster").val(),
+                institution_id = $("#select-school").val(),
+                start_date = $('#startDate').yearMonthSelect("getFirstDay"),
+                end_date = $('#endDate').yearMonthSelect("getFirstDay"),
+                url = '/gka/#searchmodal';
 
-        $('#dateSummary').click(function(e) {
-            e.preventDefault();
-            var currentQueryParams = premodalQueryParams;
-            var startDate = $('#startDate').yearMonthSelect("getFirstDay");
-            var endDate = $('#endDate').yearMonthSelect("getLastDay");
-            if (moment(startDate) > moment(endDate)) {
-                klp.utils.alertMessage("End date must be after start date", "error");
-                return false;
-            }
-            currentQueryParams['from'] = $('#startDate').yearMonthSelect("getFirstDay");
-            currentQueryParams['to'] = $('#endDate').yearMonthSelect("getLastDay");
-            klp.router.setHash(null, currentQueryParams);
+                if(start_date && end_date) {
+                    url += '?from=' + start_date + '&to=' + end_date;
+                } else {
+                    // url += 'default_date=true';
+                }
+
+                if(institution_id) {
+                    url += '&institution_id=' + institution_id;
+                } else {
+                    if(cluster_id) {
+                        url += '&boundary_id=' + cluster_id;
+                    } else if(block_id) {
+                        url += '&boundary_id=' + block_id;
+                    } else if(district_id) {
+                        url += '&boundary_id=' + district_id;
+                    }
+                }
+
+                console.log(url)
+
+                e.originalEvent.currentTarget.href = url;
+
         });
-
-        $('a[href=#datemodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
-
-        $('a[href=#close]').click(function(e) {
-            klp.router.setHash(null, premodalQueryParams, {'trigger': false});
-        });
-
-        $('a[href=#searchmodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
+        
         loadData(premodalQueryParams);
     }
 
@@ -340,7 +337,8 @@ var topSummaryData = {};
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
-        var smsSurvey = getSurveyId('gka school visit');
+        // var smsSurvey = getSurveyId('gka school visit');
+        var smsSurvey = 11;
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
