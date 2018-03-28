@@ -107,7 +107,9 @@
             'infrastructure': {
                 getData: function() {
                     if (SCHOOL_TYPE_ID === "pre") { //is a preschool
-                        return klp.api.do(schoolInfoURL+ "/infrastructure");
+                        //return klp.api.do(schoolInfoURL+ "/infrastructure");
+                        var $deferred = $.Deferred();
+                        return $deferred.resolve({})
                     }
                     else {
                     //for primary schools, fetch infra data from DISE
