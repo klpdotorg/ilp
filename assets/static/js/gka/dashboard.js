@@ -872,7 +872,10 @@ var topSummaryData = {};
 
         var scores = data.scores;
 
-        const labels = Object.keys(data.scores);
+        // var labels = Object.keys(data.scores);
+        // TODO: Find a better way to pack all the graph data from the server
+        // rather than hard coding labels.
+        var labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area', 'Money', 'Word Problem'];
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,
