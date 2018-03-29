@@ -24,7 +24,7 @@ tables = [
     },
     {
         'name': 'assessments_questiongroup',
-        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, inst_type_id, status_id, survey_id, type_id, source_id, image_required, comments_required, group_text) values(17,'GKA SMS Monitoring',to_date('2016-07-12', 'YYYY-MM-DD'),false, to_date('2016-07-12', 'YYYY-MM-DD'),to_date('2016-07-12', 'YYYY-MM-DD'),'primary','AC',11,'monitor', 7, true, true, 'grade'), (24,'GKA Konnect Monitoring',to_date('2017-11-04', 'YYYY-MM-DD'),false, to_date('2017-11-04','YYYY-MM-DD'),to_date('2017-11-04','YYYY-MM-DD'),'primary','AC',11,'monitor', 4, true, true, 'grade');"
+        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, inst_type_id, status_id, survey_id, type_id, source_id, image_required, comments_required, group_text) values(17,'GKA SMS Monitoring',to_date('2016-07-12', 'YYYY-MM-DD'),false, to_date('2016-07-12', 'YYYY-MM-DD'),to_date('2016-07-12', 'YYYY-MM-DD'),'primary','AC',11,'monitor', 7, true, true, 'grade'), (24,'GKA Konnect Monitoring',to_date('2017-11-04', 'YYYY-MM-DD'),false, to_date('2017-11-04','YYYY-MM-DD'),to_date('2017-11-04','YYYY-MM-DD'),'primary','IA',11,'monitor', 4, true, true, 'grade');"
     },
     {
         'name': 'assessments_question',
