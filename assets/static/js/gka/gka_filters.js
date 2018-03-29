@@ -131,11 +131,6 @@
             var schoolXHR = klp.api.do('surveys/institution/', {'boundary_id':selected.val, 'survey_tag': 'gka', 'per_page': 0});
             schoolXHR.done(function (data) {
                 data.features = data.results
-                // var tx_data = {"features":[]}
-                // for (var each in data.features) {
-                //     tx_data["features"].push(data.features[each].properties)
-                // }
-                // console.log(data, tx_data)
                 populateSelect($select_school, data);
             });
         });
