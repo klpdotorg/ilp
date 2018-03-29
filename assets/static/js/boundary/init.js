@@ -39,6 +39,8 @@
       to: acadYear.slice(5,9) + "-05-31" // To May 31
     });
 
+    $("#acad-year").val(acadYear); // Sets the aademic year in the dropdown list
+
     // FIX THIS LATER
     $('#map-canvas').css('zIndex', 1);
     $infoXHR.done(function(data) {
@@ -168,7 +170,7 @@
     renderLanguages(utils.getMotherTongue(data.properties), 'preschool');
     renderEnrollment(utils.getPreSchoolEnrollment(data.properties), "preschool");    
     //klp.api.do('surveys/questiongroupdetails/?survey_id=4')
-    renderInfra(utils.getPreSchoolInfra(data.properties), "preschool");    
+    //renderInfra(utils.getPreSchoolInfra(data.properties), "preschool");    
   }
 
   function renderSummary(data, schoolType) {
