@@ -150,8 +150,21 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
+        var $compareEmptyMessage = $('#compareEmptyMessage'),
+            $compareTable = $('#compareTable');
+
+        // No comparison for schools
+        if(params.institution_id) {
+            $compareTable.hide();
+            $compareEmptyMessage.show();
+            return;
+        } else {
+            $compareTable.show();
+            $compareEmptyMessage.hide();
+        }
+
         // Spinners
-        $('#compareTable').startLoading();
+        $compareTable.startLoading();
 
         var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
@@ -204,8 +217,8 @@ var topSummaryData = {};
             });
             var tplComparison= swig.compile($('#tpl-compareTable').html());
             var compareHTML = tplComparison({"neighbours":neighbours});
-            $('#compareTable').html(compareHTML);
-            $('#compareTable').stopLoading();
+            $compareTable.html(compareHTML);
+            $compareTable.stopLoading();
         });
 
         return; // No need to render comparison graphs for version 1
@@ -872,7 +885,10 @@ var topSummaryData = {};
 
         var scores = data.scores;
 
-        const labels = Object.keys(data.scores);
+        // var labels = Object.keys(data.scores);
+        // TODO: Find a better way to pack all the graph data from the server
+        // rather than hard coding labels.
+        var labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area', 'Money', 'Word Problem'];
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,

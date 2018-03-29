@@ -128,13 +128,10 @@
             clearSelect($select_school);
             setBoundaryAttributes('boundary_id=' + selected.val);
 
-            var schoolXHR = klp.api.do('institutions/', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
+            var schoolXHR = klp.api.do('surveys/institution/', {'boundary_id':selected.val, 'survey_tag': 'gka', 'per_page': 0});
             schoolXHR.done(function (data) {
-                var tx_data = {"features":[]}
-                for (var each in data.features) {
-                    tx_data["features"].push(data.features[each].properties)
-                }
-                populateSelect($select_school, tx_data);
+                data.features = data.results
+                populateSelect($select_school, data);
             });
         });
 
