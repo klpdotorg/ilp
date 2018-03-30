@@ -1,4 +1,0 @@
-sudo apt install libxml2 libxml2-dev  libxmlsec1 libxmlsec1-dev
-sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
-pip install kombu=3.0.30
-sudo apt install redis-server redis-tools
