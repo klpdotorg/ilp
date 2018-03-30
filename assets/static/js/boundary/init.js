@@ -13,15 +13,16 @@
   klp.init = function() {
     utils = klp.boundaryUtils;
     //klp.router = new KLPRouter({});
-    //klp.router.init();       
+    //klp.router.init();
     //klp.router.start();
-    setAcadYear()
+    selectedYear = setAcadYear();
     render(BOUNDARY_ID, selectedYear);
   };
 
   function setAcadYear() {
-    var academicYear = window.klp.DISE_ACADEMIC_YEAR
-    //console.log("Academic year is: ", academicYear)
+    const dateHash = window.location.hash.slice(1);
+
+    return dateHash || window.klp.DISE_ACADEMIC_YEAR
   }
 
   function render(boundaryID, academicYear) {
@@ -39,7 +40,7 @@
       to: acadYear.slice(5,9) + "-05-31" // To May 31
     });
 
-    $("#acad-year").val(acadYear); // Sets the aademic year in the dropdown list
+    //$("#acad-year").val(acadYear); // Sets the aademic year in the dropdown list
 
     // FIX THIS LATER
     $('#map-canvas').css('zIndex', 1);
@@ -50,14 +51,14 @@
           renderPrimarySchool(data, acadYear);
         } else {
           renderPreSchool(data, acadYear);
-        }        
+        }
         // $('.js-trigger-compare').click(function(e) {
         //   e.preventDefault();
         //   klp.comparison.open(data.properties);
-        // });        
-        $(document).on('change', '#acad-year', function(e){          
+        // });
+        $(document).on('change', '#acad-year', function(e){
           window.location.hash = $( "#acad-year option:selected" ).text()
-          window.location.reload()          
+          window.location.reload()
         })
         var geom;
         if (boundary.geometry) {
@@ -124,7 +125,7 @@
         var boundary = diseData[0].children[0]
         //The boundary object here is what DISE app returns and boundary still has a type field
         klp.dise_api.getBoundaryData(boundary.id, boundary.type, acadYear)
-          .done(function(diseData) {            
+          .done(function(diseData) {
             renderSummary(utils.getPrimarySchoolSummary(data, diseData, academicYear), 'school');
             renderGenderCharts(utils.getGenderData(data.properties, diseData.properties), 'school');
             renderCategories(utils.getPrimarySchoolCategories(data.properties, diseData.properties), 'school');
@@ -157,7 +158,7 @@
     var adminLevel = ADMIN_LEVEL_MAP[data.properties.boundary.boundary_type];
     queryParams['boundary_id'] = boundaryID;
     klp.api.do('survey/info/boundary/', queryParams)
-      .done(function(progData) {        
+      .done(function(progData) {
         renderPrograms(utils.getSchoolPrograms(progData, boundaryID, adminLevel), 'preschool');
       })
       .fail(function(err) {
@@ -168,9 +169,9 @@
     renderGenderCharts(utils.getGenderData(data.properties), 'preschool');
     renderCategories(utils.getPreSchoolCategories(data.properties), 'preschool');
     renderLanguages(utils.getMotherTongue(data.properties), 'preschool');
-    renderEnrollment(utils.getPreSchoolEnrollment(data.properties), "preschool");    
+    renderEnrollment(utils.getPreSchoolEnrollment(data.properties), "preschool");
     //klp.api.do('surveys/questiongroupdetails/?survey_id=4')
-    //renderInfra(utils.getPreSchoolInfra(data.properties), "preschool");    
+    //renderInfra(utils.getPreSchoolInfra(data.properties), "preschool");
   }
 
   function renderSummary(data, schoolType) {
@@ -211,7 +212,7 @@
     $('#' + prefix + 'klp-gender').html(html);
   }
 
-  function renderCategories(data, schoolType) {    
+  function renderCategories(data, schoolType) {
     var tpl_func = '#tpl-category-summary';
     var prefix = '';
     if (schoolType == "preschool") {
@@ -229,7 +230,7 @@
     $('#' + prefix + 'category-summary').html(html);
   }
 
-  function renderLanguages(data, schoolType) {   
+  function renderLanguages(data, schoolType) {
     var tpl_func = "#tpl-language";
     var prefix = '';
     if (schoolType == "preschool") {
@@ -323,7 +324,7 @@
   function renderPrograms(data, schoolType) {
     var tpl = swig.compile($('#tpl-program-summary').html());
     var html = '<div class="page-parent">'
-    if(!_.isEmpty(data)) 
+    if(!_.isEmpty(data))
     {
       for (var program in data) {
         html = html + '<div class="third-column">' + '<div class="heading-tiny-uppercase">' + program + '</div>' + tpl({
