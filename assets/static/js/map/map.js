@@ -72,7 +72,9 @@
 
     var schoolDistrictMap = {
         'primaryschool': 'Primary School',
-        'preschool': 'Preschool'
+        'preschool': 'Preschool',
+        'primary': 'Primary School',
+        'pre': 'Preschool'
     };
 
     t.init = function() {
@@ -198,7 +200,7 @@
                 var name = obj.properties.name;
                 if (type === 'boundary') {
                     if (obj.properties.boundary_type === 'SD') {
-                        name = obj.properties.name + ' - ' + schoolDistrictMap[obj.properties.school_type] + ' ' + obj.properties.type;
+                        name = obj.properties.name + ' - ' + schoolDistrictMap[obj.properties.type];
                     } else {
                         name = obj.properties.name + ' - ' + obj.properties.type;
                     }

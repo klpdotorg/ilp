@@ -271,15 +271,15 @@
       }
     }
     klp.moi.forEach(function(moi) {
-      if (_.contains(languageCategories, moi.moi)) {
-        modified[moi.moi].moi_count = moi.num
+      if (_.contains(languageCategories, moi.name.toLowerCase())) {
+        modified[moi.name.toLowerCase()].moi_count = moi.num
       } else {
         modified.others.moi_count += moi.num
       }
     })
     klp.mt.forEach(function(mt) {
-      if (_.contains(languageCategories, mt.name)) {
-        modified[mt.name].mt_count = mt.num_boys + mt.num_girls
+      if (_.contains(languageCategories, mt.name.toLowerCase())) {
+        modified[mt.name.toLowerCase()].mt_count = mt.num_boys + mt.num_girls
       } else {
         modified.others.mt_count += mt.num_boys + mt.num_girls
       }
@@ -389,8 +389,10 @@
   }
 
   t.getPreSchoolInfra = function(data) {    
-    var sumSchools = data.num_schools    
-    var anganwadiInfra = data.infrastructure.reduce(function(results, infra){
+    var sumSchools = data.num_schools  
+    var anganwadiInfra;
+    if (data.infrastructure){  
+      anganwadiInfra = data.infrastructure.reduce(function(results, infra){
       var sumResponses = infra.answers.options.Yes + infra.answers.options.No
       var key = infra.question.key
       var obj = {}
@@ -405,6 +407,7 @@
       }     
       return results
     }, [])    
+    }
     return anganwadiInfra
   }
 

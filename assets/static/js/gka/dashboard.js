@@ -20,6 +20,7 @@ var topSummaryData = {};
         // All GKA related data are stored in GKA
         klp.GKA = {};
         klp.GKA.routerParams = {};
+        klp.GKA.GRAP_LABEL_MAX_CHAR = 4;
 
         // This function is used as a callback to accordion init function
         // to determine which section to load when a user clicks a
@@ -53,50 +54,47 @@ var topSummaryData = {};
             hashChanged(params);
         });
         klp.router.start();
+        premodalQueryParams = klp.router.getHash().queryParams;
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
+        $('#startDate').yearMonthSelect("setDate", moment("20170601", "YYYYMMDD"));
+        $('#endDate').yearMonthSelect("setDate", moment("20180331", "YYYYMMDD"));
+        var startDate = $('#startDate').yearMonthSelect("getFirstDay");
 
-        //this is a bit of a hack to save query state when
-        //triggering a modal, since modals over-ride the url
-        //Works only on date modal.
-        premodalQueryParams = klp.router.getHash().queryParams;
-        if (premodalQueryParams.hasOwnProperty("from")) {
-            var mDate = moment(premodalQueryParams.from);
-            $('#startDate').yearMonthSelect("setDate", mDate);
-        }
-        if (premodalQueryParams.hasOwnProperty("to")) {
-            var mDate = moment(premodalQueryParams.to);
-            $('#endDate').yearMonthSelect("setDate", mDate);
-        } else {
-            $('#endDate').yearMonthSelect("setDate", moment());
-        }
+        $('#search_button').click(function(e){
+            var district_id = $("#select-district").val(),
+                block_id = $("#select-block").val(),
+                cluster_id = $("#select-cluster").val(),
+                institution_id = $("#select-school").val(),
+                start_date = $('#startDate').yearMonthSelect("getFirstDay"),
+                end_date = $('#endDate').yearMonthSelect("getFirstDay"),
+                url = '/gka/#searchmodal';
 
-        $('#dateSummary').click(function(e) {
-            e.preventDefault();
-            var currentQueryParams = premodalQueryParams;
-            var startDate = $('#startDate').yearMonthSelect("getFirstDay");
-            var endDate = $('#endDate').yearMonthSelect("getLastDay");
-            if (moment(startDate) > moment(endDate)) {
-                klp.utils.alertMessage("End date must be after start date", "error");
-                return false;
-            }
-            currentQueryParams['from'] = $('#startDate').yearMonthSelect("getFirstDay");
-            currentQueryParams['to'] = $('#endDate').yearMonthSelect("getLastDay");
-            klp.router.setHash(null, currentQueryParams);
+                if(start_date && end_date) {
+                    url += '?from=' + start_date + '&to=' + end_date;
+                } else {
+                    // url += 'default_date=true';
+                }
+
+                if(institution_id) {
+                    url += '&institution_id=' + institution_id;
+                } else {
+                    if(cluster_id) {
+                        url += '&boundary_id=' + cluster_id;
+                    } else if(block_id) {
+                        url += '&boundary_id=' + block_id;
+                    } else if(district_id) {
+                        url += '&boundary_id=' + district_id;
+                    }
+                }
+
+                console.log(url)
+
+                e.originalEvent.currentTarget.href = url;
+
         });
-
-        $('a[href=#datemodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
-
-        $('a[href=#close]').click(function(e) {
-            klp.router.setHash(null, premodalQueryParams, {'trigger': false});
-        });
-
-        $('a[href=#searchmodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
+        
         loadData(premodalQueryParams);
     }
 
@@ -152,8 +150,21 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
+        var $compareEmptyMessage = $('#compareEmptyMessage'),
+            $compareTable = $('#compareTable');
+
+        // No comparison for schools
+        if(params.institution_id) {
+            $compareTable.hide();
+            $compareEmptyMessage.show();
+            return;
+        } else {
+            $compareTable.show();
+            $compareEmptyMessage.hide();
+        }
+
         // Spinners
-        $('#compareTable').startLoading();
+        $compareTable.startLoading();
 
         var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
@@ -206,8 +217,8 @@ var topSummaryData = {};
             });
             var tplComparison= swig.compile($('#tpl-compareTable').html());
             var compareHTML = tplComparison({"neighbours":neighbours});
-            $('#compareTable').html(compareHTML);
-            $('#compareTable').stopLoading();
+            $compareTable.html(compareHTML);
+            $compareTable.stopLoading();
         });
 
         return; // No need to render comparison graphs for version 1
@@ -339,7 +350,8 @@ var topSummaryData = {};
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
-        var smsSurvey = getSurveyId('gka school visit');
+        // var smsSurvey = getSurveyId('gka school visit');
+        var smsSurvey = 11;
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
@@ -873,7 +885,10 @@ var topSummaryData = {};
 
         var scores = data.scores;
 
-        const labels = Object.keys(data.scores);
+        // var labels = Object.keys(data.scores);
+        // TODO: Find a better way to pack all the graph data from the server
+        // rather than hard coding labels.
+        var labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area of Shapes', 'Money Problem', 'Word Problems'];
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,
@@ -1188,8 +1203,8 @@ var topSummaryData = {};
                 height: '200px',
                 axisX: {
                   labelInterpolationFnc: function (value) {
-                    if (value.length > 9) {
-                      return value.slice(0, 9) + '...'
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR) + '..'
                     }
 
                     return value;
@@ -1239,8 +1254,8 @@ var topSummaryData = {};
                 height: '200px',
                 axisX: {
                   labelInterpolationFnc: function (value) {
-                    if (value.length > 9) {
-                      return value.slice(0, 9) + '...'
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR-1) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR-1) + '..'
                     }
 
                     return value;

@@ -1,5 +1,5 @@
 from django.contrib.gis.db import models
-
+import json
 
 class ElectionBoundary(models.Model):
     """ Election boundaries """
@@ -13,9 +13,15 @@ class ElectionBoundary(models.Model):
     status = models.ForeignKey('common.Status')
     geom = models.GeometryField(null=True)
 
+    def get_geometry(self):
+        if hasattr(self, 'geom') and self.geom is not None:
+            return json.loads(self.geom.geojson)
+        else:
+            return {}
+    
     class Meta:
         ordering = ['const_ward_name', ]
-
+    
     def __unicode__(self):
         return '%s' % self.name
 

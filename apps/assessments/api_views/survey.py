@@ -31,6 +31,8 @@ from boundary.serializers import BoundarySerializer
 from schools.models import (
     Institution, InstitutionClassYearStuCount
 )
+from schools.serializers import InstitutionSerializer
+
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association,
@@ -101,6 +103,29 @@ class SurveyBoundaryAPIView(ListAPIView, ILPStateMixin):
         boundary_ids = qs.values_list('boundary_id', flat=True)
         boundaries = Boundary.objects.filter(id__in=boundary_ids)
         response = BoundarySerializer(boundaries, many=True).data
+        return Response(response)
+
+
+class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyTagInstitutionMapping.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        survey_tag = self.request.query_params.get('survey_tag', None)
+        boundary_id = self.request.query_params.get(
+            'boundary_id', self.get_state().id
+        )
+        qset = self.get_queryset()
+        if survey_tag:
+            qset = qset.filter(tag=survey_tag)
+        qset = qset.filter(
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        )
+        institution_ids = qset.values_list('institution_id', flat=True)
+        institutions = Institution.objects.filter(id__in=institution_ids)
+        response = InstitutionSerializer(institutions, many=True).data
         return Response(response)
 
 
