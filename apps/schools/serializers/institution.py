@@ -144,12 +144,9 @@ class InstitutionSerializer(ILPSerializer):
     sex = serializers.CharField(source='gender.name')
     identifiers = serializers.SerializerMethodField()
     images = serializers.ListField(source='get_images')
-<<<<<<< Updated upstream
     institution_languages = serializers.PrimaryKeyRelatedField(
         many=True, queryset=InstitutionLanguage.objects.all()
     )
-=======
->>>>>>> Stashed changes
 
     class Meta:
         model = Institution
@@ -233,15 +230,8 @@ class InstitutionCreateSerializer(ILPSerializer):
     landmark = serializers.CharField(default=None)
     last_verified_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), required=True)
-<<<<<<< Updated upstream
-    institution_languages = serializers.PrimaryKeyRelatedField(
-        queryset=InstitutionLanguage.objects.all(), many=True
-    )
-    
-=======
     institution_languages = serializers.ListField(write_only=True)    
 
->>>>>>> Stashed changes
     class Meta:
         model = Institution
         fields = (
