@@ -144,9 +144,7 @@ class InstitutionSerializer(ILPSerializer):
     sex = serializers.CharField(source='gender.name')
     identifiers = serializers.SerializerMethodField()
     images = serializers.ListField(source='get_images')
-    institution_languages = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=InstitutionLanguage.objects.all()
-    )
+    institution_languages = serializers.SerializerMethodField()
 
     class Meta:
         model = Institution
@@ -210,6 +208,11 @@ class InstitutionSerializer(ILPSerializer):
         if gender_count:
             return gender_count.num_girls
         return None
+
+    def get_institution_languages(self, obj):
+        langs = [
+            inst_lang.moi.char_id for inst_lang in obj.institution_languages.all()]
+        return langs
 
 
 class InstitutionCreateSerializer(ILPSerializer):
