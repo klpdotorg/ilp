@@ -586,8 +586,17 @@ var topSummaryData = {};
 
         // Top summary needs a year
         if(params.from && params.to) {
-            year = (parseInt(params.to.slice(2, 4)) - 1) + params.to.slice(2, 4);
+            var toMonth = parseInt(params.to.slice(5,7), 10),
+                toYear = parseInt(params.to.slice(2, 4), 10);
+
+            if(toMonth >= 6) {
+                year = '' + toYear + '' + (toYear + 1);
+            } else {
+                year = (toYear - 1) + '' + toYear;
+            }
         }
+
+        console.log(year);
 
         // Top summary doesn't need a from and to
         // delete params.from;
