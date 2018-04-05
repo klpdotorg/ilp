@@ -157,7 +157,7 @@
 
             if (searchEntityType === 'school') {
                 searchPoint = L.latLng(data.geometry.coordinates[1], data.geometry.coordinates[0]);
-                var marker = L.marker(searchPoint, {icon: mapIcon(data.properties.type.name)});
+                var marker = L.marker(searchPoint, {icon: mapIcon(data.properties.type)});
                 markerPopup(marker, data);
                 map.setView(searchPoint, 14);
             }
