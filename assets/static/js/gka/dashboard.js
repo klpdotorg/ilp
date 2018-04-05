@@ -89,8 +89,6 @@ var topSummaryData = {};
                     }
                 }
 
-                console.log(url)
-
                 e.originalEvent.currentTarget.href = url;
 
         });
@@ -595,8 +593,6 @@ var topSummaryData = {};
                 year = (toYear - 1) + '' + toYear;
             }
         }
-
-        console.log(year);
 
         // Top summary doesn't need a from and to
         // delete params.from;
