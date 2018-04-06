@@ -36,7 +36,8 @@ class QuestionGroupSerializer(ILPSerializer):
             'group_text', 'start_date', 'end_date', 'academic_year',
             'version', 'source', 'source_name', 'double_entry',
             'created_by', 'created_at', 'updated_at', 'status',
-            'image_required', 'comments_required',
+            'image_required', 'comments_required', 'lang_name',
+            'respondenttype_required',
         )
 
 
@@ -103,6 +104,7 @@ class OptionField(serializers.Field):
 
 class QuestionSerializer(ILPSerializer):
     options = OptionField(required=False)
+    lang_options = OptionField(required=False)
     question_type_id = serializers.IntegerField(write_only=True)
     question_type = serializers.CharField(
         read_only=True, source="question_type.display.char_id")
@@ -113,7 +115,7 @@ class QuestionSerializer(ILPSerializer):
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
             'options', 'is_featured', 'status', 'id', 'question_type_id',
-            'lang_name', 'sequence',
+            'lang_name', 'sequence', 'lang_options',
         )
 
     def get_sequence(self, question):

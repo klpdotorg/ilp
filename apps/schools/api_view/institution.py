@@ -13,10 +13,11 @@ from schools.serializers import (
     InstitutionCategorySerializer, InstitutionManagementSerializer,
     SchoolDemographicsSerializer, SchoolInfraSerializer,
     SchoolFinanceSerializer, InstitutionSummarySerializer,
-    PreschoolInfraSerializer, LeanInstitutionSummarySerializer
+    PreschoolInfraSerializer, LeanInstitutionSummarySerializer,
+    InstitutionLanguageSerializer
 )
 from schools.models import (
-    Institution, InstitutionCategory, Management
+    Institution, InstitutionCategory, Management, InstitutionLanguage
 )
 from schools.filters import InstitutionSurveyFilter
 
@@ -110,9 +111,18 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         # todo self._assign_permissions(serializer.instance)
         headers = self.get_success_headers(serializer.data)
         return Response(
-            InstitutionCreateSerializer(institution).data,
+            InstitutionSerializer(institution).data,
             status=status.HTTP_201_CREATED, headers=headers
         )
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = InstitutionCreateSerializer(
+            instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
@@ -135,6 +145,16 @@ class InstitutionManagementListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Management.objects.all()
+
+
+class InstitutionLanguageListView(generics.ListAPIView):
+    serializer_class = InstitutionLanguageSerializer
+    queryset = InstitutionLanguage.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        institution_id = kwargs['pk']
+        queryset = self.get_queryset().filter(institution_id=institution_id)
+        return Response(self.serializer_class(queryset, many=True).data)
 
 
 class InstitutionDemographics(ILPDetailAPIView):

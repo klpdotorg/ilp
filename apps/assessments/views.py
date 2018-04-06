@@ -1,6 +1,13 @@
+import json
+
+from django.template.response import TemplateResponse
+from django.views.generic.detail import DetailView
+
 from schools.models import Institution
 from assessments.models import (AnswerGroup_Institution, InstitutionImages)
-from django.views.generic.detail import DetailView
+from assessments.utils import get_surveys
+from django.conf import settings
+
 
 class SYSView(DetailView):
     template_name = 'sys_form.html'
@@ -15,3 +22,23 @@ class SYSView(DetailView):
         imageCount = InstitutionImages.objects.filter(answergroup__questiongroup__survey=5).count()
         context['total_images'] = imageCount
         return context
+
+
+def gka_dashboard(request):
+    """ Renders the GKA dashboard """
+
+    STATE_MAPPING = {
+        'ka': 'Karnataka',
+        'od': 'Odisha'
+    }
+    try:
+        current_state = STATE_MAPPING[settings.ILP_STATE_ID]
+    except KeyError:
+        current_state = None
+    response = {
+        'surveys': json.dumps(
+            get_surveys(state=current_state, jsonNeeded=True)
+        )
+    }
+
+    return TemplateResponse(request, 'gka_dashboard.html', response)

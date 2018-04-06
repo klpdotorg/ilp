@@ -6,7 +6,7 @@ from schools.api_view import (
     InstitutionViewSet, InstitutionCategoryListView,
     InstitutionManagementListView, InstitutionDemographics,
     InstitutionInfra, InstitutionFinance, InstitutionSummaryView,
-    MergeEndpoints, OmniSearch
+    MergeEndpoints, OmniSearch, InstitutionLanguageListView
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
@@ -86,6 +86,9 @@ urlpatterns = [
     url(r'^institutions/list$',
         InstitutionSummaryView.as_view(),
         name='inst-list'),
+    url(r'^institution/(?P<pk>[0-9]+)/languages/$',
+        InstitutionLanguageListView.as_view(),
+        name='inst-language'),
     url(r'^institutions/(?P<pk>[0-9]+)/demographics$',
         InstitutionDemographics.as_view(),
         name='inst-demographics'),

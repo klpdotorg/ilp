@@ -10,9 +10,17 @@ var topSummaryData = {};
 
     klp.init = function() {
 
+        // Screen size adjustments
+        if(screen.width >= 640) {
+            $('.one-row-chart').height(400);
+        } else {
+            $('.one-row-chart').height(200);
+        }
+
         // All GKA related data are stored in GKA
         klp.GKA = {};
         klp.GKA.routerParams = {};
+        klp.GKA.GRAP_LABEL_MAX_CHAR = 4;
 
         // This function is used as a callback to accordion init function
         // to determine which section to load when a user clicks a
@@ -46,50 +54,47 @@ var topSummaryData = {};
             hashChanged(params);
         });
         klp.router.start();
+        premodalQueryParams = klp.router.getHash().queryParams;
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
+        $('#startDate').yearMonthSelect("setDate", moment("20170601", "YYYYMMDD"));
+        $('#endDate').yearMonthSelect("setDate", moment("20180331", "YYYYMMDD"));
+        var startDate = $('#startDate').yearMonthSelect("getFirstDay");
 
-        //this is a bit of a hack to save query state when
-        //triggering a modal, since modals over-ride the url
-        //Works only on date modal.
-        premodalQueryParams = klp.router.getHash().queryParams;
-        if (premodalQueryParams.hasOwnProperty("from")) {
-            var mDate = moment(premodalQueryParams.from);
-            $('#startDate').yearMonthSelect("setDate", mDate);
-        }
-        if (premodalQueryParams.hasOwnProperty("to")) {
-            var mDate = moment(premodalQueryParams.to);
-            $('#endDate').yearMonthSelect("setDate", mDate);
-        } else {
-            $('#endDate').yearMonthSelect("setDate", moment());
-        }
+        $('#search_button').click(function(e){
+            var district_id = $("#select-district").val(),
+                block_id = $("#select-block").val(),
+                cluster_id = $("#select-cluster").val(),
+                institution_id = $("#select-school").val(),
+                start_date = $('#startDate').yearMonthSelect("getFirstDay"),
+                end_date = $('#endDate').yearMonthSelect("getFirstDay"),
+                url = '/gka/#searchmodal';
 
-        $('#dateSummary').click(function(e) {
-            e.preventDefault();
-            var currentQueryParams = premodalQueryParams;
-            var startDate = $('#startDate').yearMonthSelect("getFirstDay");
-            var endDate = $('#endDate').yearMonthSelect("getLastDay");
-            if (moment(startDate) > moment(endDate)) {
-                klp.utils.alertMessage("End date must be after start date", "error");
-                return false;
-            }
-            currentQueryParams['from'] = $('#startDate').yearMonthSelect("getFirstDay");
-            currentQueryParams['to'] = $('#endDate').yearMonthSelect("getLastDay");
-            klp.router.setHash(null, currentQueryParams);
+                if(start_date && end_date) {
+                    url += '?from=' + start_date + '&to=' + end_date;
+                } else {
+                    // url += 'default_date=true';
+                }
+
+                if(institution_id) {
+                    url += '&institution_id=' + institution_id;
+                } else {
+                    if(cluster_id) {
+                        url += '&boundary_id=' + cluster_id;
+                    } else if(block_id) {
+                        url += '&boundary_id=' + block_id;
+                    } else if(district_id) {
+                        url += '&boundary_id=' + district_id;
+                    }
+                }
+
+                console.log(url)
+
+                e.originalEvent.currentTarget.href = url;
+
         });
-
-        $('a[href=#datemodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
-
-        $('a[href=#close]').click(function(e) {
-            klp.router.setHash(null, premodalQueryParams, {'trigger': false});
-        });
-
-        $('a[href=#searchmodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
+        
         loadData(premodalQueryParams);
     }
 
@@ -145,8 +150,21 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
+        var $compareEmptyMessage = $('#compareEmptyMessage'),
+            $compareTable = $('#compareTable');
+
+        // No comparison for schools
+        if(params.institution_id) {
+            $compareTable.hide();
+            $compareEmptyMessage.show();
+            return;
+        } else {
+            $compareTable.show();
+            $compareEmptyMessage.hide();
+        }
+
         // Spinners
-        $('#compareTable').startLoading();
+        $compareTable.startLoading();
 
         var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
@@ -199,8 +217,8 @@ var topSummaryData = {};
             });
             var tplComparison= swig.compile($('#tpl-compareTable').html());
             var compareHTML = tplComparison({"neighbours":neighbours});
-            $('#compareTable').html(compareHTML);
-            $('#compareTable').stopLoading();
+            $compareTable.html(compareHTML);
+            $compareTable.stopLoading();
         });
 
         return; // No need to render comparison graphs for version 1
@@ -226,8 +244,7 @@ var topSummaryData = {};
                 "Division"
             ],
             districts = _.pluck(chartComparisonData, 'name').splice(0, 4),
-            qgs;
-            console.log(districts)            
+            qgs = [];
 
         // Combine GP contest data
 
@@ -239,8 +256,6 @@ var topSummaryData = {};
                     return c.name === d;
                 }),
                 qgs = [];
-
-            console.log(district)
 
             // Select the question groups
             try {
@@ -277,8 +292,6 @@ var topSummaryData = {};
                 return {meta: d, skill: label, value: percent};
 
             });
-
-            console.log(gpContestValues)
 
         });
 
@@ -337,10 +350,12 @@ var topSummaryData = {};
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
+        // var smsSurvey = getSurveyId('gka school visit');
+        var smsSurvey = 11;
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
-            "survey/summary/?survey_tag=gka&survey_id=11", params
+            "survey/summary/?survey_tag=gka&survey_id=" + smsSurvey, params
         );
         $smsSummaryXHR.done(function(data) {;
             klp.GKA.smsSummary = data;
@@ -348,33 +363,33 @@ var topSummaryData = {};
             $('#smsSummary').stopLoading();
         });
 
-        // Fetch SMS Volume
-        // Fetch users first
+        // Fetch users
         var $usersXHR = klp.api.do(
-            "survey/info/users/?survey_tag=gka&survey_id=11", params
+            "survey/info/users/?survey_tag=gka&survey_id=" + smsSurvey,
+            params
         );
         $usersXHR.done(function(userGroups) {
-
             renderSMSUserCharts(userGroups.users, params);
             $('#smsSender').stopLoading();
+        });
 
-            // Fetch volumes next
-            var $volumesXHR = klp.api.do(
-                "survey/volume/?survey_tag=gka&survey_id=11", params
-            );
-            $volumesXHR.done(function(volumes) {
-                var data = {
-                    volumes: volumes,
-                    user_groups: userGroups.users
-                };
-                renderSMSVolumeCharts(data, params);
-                $('#smsVolume').stopLoading();
-            });
+        // Fetch volumes
+        var $volumesXHR = klp.api.do(
+            "survey/volume/?survey_tag=gka&survey_id=" + smsSurvey,
+            params
+        );
+        $volumesXHR.done(function(volumes) {
+            var data = {
+                volumes: volumes
+            };
+            renderSMSVolumeCharts(data, params);
+            $('#smsVolume').stopLoading();
         });
 
         // Fetch SMS Details
         var $detailXHR = klp.api.do(
-            "survey/detail/source/?survey_tag=gka&survey_id=11", params
+            "survey/detail/source/?survey_tag=gka&survey_id=" + smsSurvey,
+            params
         );
         $detailXHR.done(function(data) {
             renderSMSDetails(data);
@@ -388,9 +403,11 @@ var topSummaryData = {};
         $('#mobVolume').startLoading();
         $('#surveyQuestions').startLoading();
 
+        var surveyId = getSurveyId('Community Survey');
+
         // Load the source for csv summary
         var $surveySummaryXHR = klp.api.do(
-            "survey/summary/?survey_tag=gka&survey_id=7", params
+            "survey/summary/?survey_tag=gka&survey_id=" + surveyId, params
         );
         $surveySummaryXHR.done(function(surveySummaryData) {
             klp.GKA.surveySummaryData = surveySummaryData;
@@ -398,7 +415,7 @@ var topSummaryData = {};
             $('#surveySummary').stopLoading();
 
             // Load the respondent summary
-            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=7", params);
+            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=" + surveyId, params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
                 $('#mobRespondent').stopLoading();
@@ -407,7 +424,7 @@ var topSummaryData = {};
 
         // Load the volumes
         var $volumeXHR = klp.api.do(
-            "survey/volume/?survey_tag=gka&survey_id=7", params
+            "survey/volume/?survey_tag=gka&survey_id=" + surveyId, params
         );
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
@@ -416,7 +433,7 @@ var topSummaryData = {};
 
         // Load the detail section
         var $detailXHR = klp.api.do(
-            "survey/detail/source/?survey_tag=gka&survey_id=7", params
+            "survey/detail/source/?survey_tag=gka&survey_id=" + surveyId, params
         );
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
@@ -529,8 +546,12 @@ var topSummaryData = {};
             "ivrss-functional-toilets-girls"
         ];
 
+        var combinedData = combineDataSources(
+            data, ['csv', 'mobile'], questionKeys
+        );
+
         var questionObjects = _.map(questionKeys, function(key) {
-            return getQuestion(data, 'csv', key);
+            return getQuestion(combinedData, 'combinedData', key);
         });
         var questions = getQuestionsArray(questionObjects);
         //var regroup = {}
@@ -547,9 +568,6 @@ var topSummaryData = {};
         data = data.summary;
         data.total_assessments = data.total_assessments ? data.total_assessments: 0;
         data["format_last_assessment"] = data.last_assessment ? formatLastStory(data.last_assessment, true): 'NA';
-        data['schoolPerc'] = getPercent(
-            data.schools_impacted, klp.GKA.topSummaryData.schools_impacted
-        );
 
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
@@ -628,9 +646,6 @@ var topSummaryData = {};
         summaryData.last_assessment = data.last_assessment;
         summaryData.format_lastsms = data.last_assessment ? formatLastStory(
             data.last_assessment, true): 'NA';
-        summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
-        summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
-
         var smsSummaryHTML = tplSmsSummary(summaryData);
         $('#smsSummary').html(smsSummaryHTML);
 
@@ -639,46 +654,6 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
-        function combineSources(sourceData, sources) {
-            var combined = {
-                    combinedData: sourceData[sources[0]]
-                },
-                target = sourceData[sources[1]];
-
-
-            for(var i = 0; i < combined.combinedData.length; i++) {
-                var d = combined.combinedData[i],
-                    key = d.question ? d.question.key : null,
-                    t = null;
-
-                // Find the second source's key
-                for(var j=0; j < target.length; j++) {
-                    if(target[j] && target[j]['question']) {
-                        if(target[j]['question']['key'] === key) {
-                            t = target[j];
-                            break;
-                        }
-                    }
-                }
-
-                // Add the answers if they are present
-                if(t && t.answers) {
-                    var yes = t.answers['Yes'] ? t.answers['Yes'] : 0,
-                        no = t.answers['No'] ? t.answers['No'] : 0,
-                        dontKnow = t.answers['Don\'t Know'] ? t.answers['Don\'t Know'] : 0;
-
-                    combined.combinedData[i].answers['Yes'] += yes;
-                    combined.combinedData[i].answers['No'] += no;
-                    combined.combinedData[i].answers['Don\'t Know'] += dontKnow;
-                }
-            }
-
-
-            return combined;
-        }
-
-        var data = combineSources(detailsData.source, ['sms', 'konnectsms']);
-        
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -686,6 +661,9 @@ var topSummaryData = {};
                 "ivrss-gka-rep-stage",
                 "ivrss-group-work"
             ],
+            data = combineDataSources(
+                detailsData.source, ['sms', 'konnectsms'], SMSQuestionKeys
+            ),
             questionObjects = _.map(SMSQuestionKeys, function(key) {
                 return getQuestion(data, 'combinedData', key);
             }),
@@ -840,14 +818,16 @@ var topSummaryData = {};
         $('#assmtSummary').startLoading();
         $('#assmtVolume').startLoading();
         $('#assmtCompetancy').startLoading();
+
+        var assessmentId = getSurveyId('Ganitha Kalika Andolana');
         
         // Load summary first
-        var $summaryXHR = klp.api.do("survey/summary/?survey_id=3", params);
+        var $summaryXHR = klp.api.do("survey/summary/?survey_id=" + assessmentId, params);
         $summaryXHR.done(function(summaryData) {
             summaryData = summaryData.summary;
 
             // Load details next
-            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=3", params);
+            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=" + assessmentId, params);
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
@@ -873,12 +853,12 @@ var topSummaryData = {};
                 $('#assmtSummary').stopLoading();
                 $('#assmtCompetancy').stopLoading();
 
-                var $volumeXHR = klp.api.do("survey/volume/?survey_id=3", params);
-                $volumeXHR.done(function(data) {
-                    renderAssmtVolumeChart(data, params);
-                    $('#assmtVolume').stopLoading();
-                });
+            });
 
+            var $volumeXHR = klp.api.do("survey/volume/?survey_id=" + assessmentId, params);
+            $volumeXHR.done(function(data) {
+                renderAssmtVolumeChart(data, params);
+                $('#assmtVolume').stopLoading();
             });
         });
     }
@@ -905,7 +885,10 @@ var topSummaryData = {};
 
         var scores = data.scores;
 
-        const labels = Object.keys(data.scores);
+        // var labels = Object.keys(data.scores);
+        // TODO: Find a better way to pack all the graph data from the server
+        // rather than hard coding labels.
+        var labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area of Shapes', 'Money Problem', 'Word Problems'];
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,
@@ -979,10 +962,12 @@ var topSummaryData = {};
         $('#gpcGender_class5').startLoading();
         $('#gpcGender_class6').startLoading();
 
-        var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
+        var gpContestId = getSurveyId('GP Contest');
+
+        var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=" + gpContestId, params);
         $summaryXHR.done(function(summaryData) {
 
-            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=2", params);
+            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=" + gpContestId, params);
             $gpXHR.done(function(gpData) {
 
                 var dataSummary = {
@@ -1003,7 +988,7 @@ var topSummaryData = {};
             });
         });
 
-        var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
+        var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=" + gpContestId, params);
         $genderXHR.done(function(genderData) {
 
             var genderSummary = {};
@@ -1095,7 +1080,7 @@ var topSummaryData = {};
 
         });
 
-        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
+        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=" + gpContestId, params);
         $questionGroupXHR.done(function(questiongroupData) {
             renderGPContestCharts(questiongroupData);
         });
@@ -1218,8 +1203,8 @@ var topSummaryData = {};
                 height: '200px',
                 axisX: {
                   labelInterpolationFnc: function (value) {
-                    if (value.length > 9) {
-                      return value.slice(0, 9) + '...'
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR) + '..'
                     }
 
                     return value;
@@ -1269,8 +1254,8 @@ var topSummaryData = {};
                 height: '200px',
                 axisX: {
                   labelInterpolationFnc: function (value) {
-                    if (value.length > 9) {
-                      return value.slice(0, 9) + '...'
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR-1) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR-1) + '..'
                     }
 
                     return value;
@@ -1373,5 +1358,57 @@ var topSummaryData = {};
             };
         });
     }
+
+
+    function getSurveyId(name) {
+        var survey = _.find(GKA_SURVEYS.surveys, function(s){ return s.name.toLowerCase() === name.toLowerCase(); });
+
+        if(survey) {
+            return survey.id;
+        } else {
+            return 'None';
+        }
+    }
+
+
+    function combineDataSources(sourceData, sources, keys) {
+        var s1 = sources[0],
+            s2 = sources[1];
+
+
+        var combined = _.map(keys, function(k){
+
+            var s1Data = _.find(sourceData[s1], function(d){
+                return d.question.key === k;
+            });
+
+            var s2Data = _.find(sourceData[s2], function(d){
+                return d.question.key === k;
+            });
+
+            var answers = {Yes: 0, No: 0};
+            if(s1Data) {
+                answers.Yes += s1Data.answers.Yes;
+                answers.No += s1Data.answers.No;
+            }
+            if(s2Data) {
+                answers.Yes += s2Data.answers.Yes;
+                answers.No += s2Data.answers.No;
+            }
+
+            if (s1Data || s2Data) {
+                return {
+                    answers: answers,
+                    question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
+                }
+            } else {
+                return {answers:{}, question: {}};
+            }
+
+        });
+
+        return {combinedData: combined};
+    }
+
 
 })();

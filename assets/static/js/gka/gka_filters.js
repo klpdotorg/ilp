@@ -29,6 +29,7 @@
             return _.str.titleize(item.name);
     }
 
+
     function populateSelect(container, data) {
         data.features.forEach(function(d) {
             if(d.properties !=undefined)
@@ -57,20 +58,31 @@
         });
     }
 
+
+    function clearSelect(container) {
+        container.select2("val","");
+        populateSelect(container, {features: []});
+    }
+
+
+    function setBoundaryAttributes(attr) {
+        // var $search_button = $("#search_button");
+        // $search_button.attr('href', '/gka/#searchmodal?' + attr);
+    }
+
        
     function initEduSearch(school_type) {
         var $select_district = $("#select-district");
         var $select_block = $("#select-block");
         var $select_cluster = $("#select-cluster");
         var $select_school = $("#select-school");
-        var $search_button = $("#search_button");
         
-        $select_district.select2("val","");
-        $select_block.select2("val","");
-        $select_cluster.select2("val","");
-        $select_school.select2("val","");
+        clearSelect($select_district);
+        clearSelect($select_block);
+        clearSelect($select_cluster);
+        clearSelect($select_school);
 
-        var url = "boundary/admin1s/?survey_tag=gka&per_page=0";
+        var url = "surveys/boundary/?per_page=0";
         var districtsXHR = klp.api.do(url);
         districtsXHR.done(function(data) {
             var districts = {};
@@ -85,36 +97,47 @@
         });
 
         $select_district.on("change", function(selected) {
-            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
-            var blockXHR = klp.api.do('boundary/admin1/'+selected.val+'/admin2', {'geometry': 'yes', 'per_page': 0});
+
+            clearSelect($select_block);
+            clearSelect($select_cluster);
+            clearSelect($select_school);
+            setBoundaryAttributes('boundary_id=' + selected.val);
+
+            var blockXHR = klp.api.do('surveys/boundary/?per_page=0&boundary_id=' + selected.val);
             blockXHR.done(function (data) {
+                data.features = data.results;
                 populateSelect($select_block, data);
             });
         });
 
         $select_block.on("change", function(selected) {
-            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
-            var clusterXHR = klp.api.do('boundary/admin2/'+selected.val+'/admin3', {'geometry': 'yes', 'per_page': 0});
+
+            clearSelect($select_cluster);
+            clearSelect($select_school);
+            setBoundaryAttributes('boundary_id=' + selected.val);
+
+            var clusterXHR = klp.api.do('surveys/boundary/?per_page=0&boundary_id=' + selected.val);
             clusterXHR.done(function (data) {
+                data.features = data.results;
                 populateSelect($select_cluster, data);
             });
         });
 
         $select_cluster.on("change", function(selected) {
-            var schoolXHR = klp.api.do('institutions/', {'admin3':selected.val, 'geometry': 'yes', 'per_page': 0});
-            $search_button.attr('href', '/gka/#searchmodal?boundary_id='+selected.val);
+
+            clearSelect($select_school);
+            setBoundaryAttributes('boundary_id=' + selected.val);
+
+            var schoolXHR = klp.api.do('surveys/institution/', {'boundary_id':selected.val, 'survey_tag': 'gka', 'per_page': 0});
             schoolXHR.done(function (data) {
-                var tx_data = {"features":[]}
-                for (var each in data.features) {
-                    tx_data["features"].push(data.features[each].properties)
-                }
-                populateSelect($select_school, tx_data);
+                data.features = data.results
+                populateSelect($select_school, data);
             });
         });
 
 
         $select_school.on("change", function(selected) {
-            $search_button.attr('href', '/gka/#searchmodal?institution_id=' + selected.val);
+            setBoundaryAttributes('institution_id=' + selected.val);
         });
     }
 

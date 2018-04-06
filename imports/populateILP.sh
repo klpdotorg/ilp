@@ -2,7 +2,7 @@
 #dubdubdub
 #ems
 #electrep_new
-#klpdise_olap
+#ilpdise_olap
 #ang_infra
 #spatial
 
@@ -22,7 +22,7 @@ echo "Boundaries done"
 
 #Populate dise tables
 echo "Populating Dise tables"
-python dise/import_dise_data.py klpdise_olap $ilp
+python dise/import_dise_data.py ilpdise_olap $ilp
 echo "DISE tables done"
 
 #Populate Institutions
@@ -136,9 +136,14 @@ psql -U klp -d $ilp -f odisha/import_odisha_boundary/insert_odisha_cluster.sql
 psql -U klp -d $ilp -f odisha/import_odisha_schools/insert_odisha_pincode.sql
 psql -U klp -d $ilp -f odisha/import_odisha_schools/insert_odisha_schools.sql
 psql -U klp -d $ilp -f odisha/import_odisha_schools/insert_odisha_schools_language.sql
+python institution/updatedise_odisha.py `pwd`/institution/ilp_diseodisha.csv $ilp
 
 #Populate aggregates
 echo "Running aggregates"
 psql -U klp -d $ilp -f aggregates/materialized_views.sql 
 psql -U klp -d $ilp -f aggregates/assessment_materialized_views.sql 
 echo "Aggregates Done"
+
+#Update db with kannada translations for existing survey
+psql -U klp -d $ilp -f assessments/update_ilp_db_kannada_translation.sql
+

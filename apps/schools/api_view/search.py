@@ -1,4 +1,5 @@
 from boundary.models import Boundary, ElectionBoundary
+from schools.models import Institution
 from urllib.parse import urlparse 
 from common.views import ILPAPIView
 from django.core.urlresolvers import resolve, Resolver404
@@ -7,6 +8,7 @@ from schools.serializers import LeanInstitutionSummarySerializer
 from boundary.serializers import (
         BoundarySerializer,
         ElectionBoundarySerializer)
+from django.db.models import Q
 
 
 class MergeEndpoints(ILPAPIView):
@@ -61,7 +63,7 @@ class OmniSearch(ILPAPIView):
             'view': self
         }
 
-        params = request.QUERY_PARAMS
+        params = request.query_params
         text = params.get('text', '')
 
         if not text:
@@ -76,10 +78,6 @@ class OmniSearch(ILPAPIView):
                 Q(status='AC'),
                 Q(coord__isnull=False),
                 Q(institution_type__name='Preschool')
-            ).select_related(
-                'coord',
-                'institution_type',
-                'address'
             )[:3],
             many=True,
             context=context
@@ -92,10 +90,6 @@ class OmniSearch(ILPAPIView):
                 Q(status='AC'),
                 Q(coord__isnull=False),
                 Q(institution_type__name='Primary School')
-            ).select_related(
-                'coord',
-                'institution_type',
-                'address'
             )[:3],
             many=True,
             context=context
@@ -106,10 +100,7 @@ class OmniSearch(ILPAPIView):
                 status='AC',
                 name__icontains=text,
                 geom__isnull=False
-            ).select_related(
-                'geom',
-                'parent__name'
-            ).prefetch_related('parent', 'boundaryhierarchy')[:10],
+            )[:10],
             many=True,
             context=context
         ).data

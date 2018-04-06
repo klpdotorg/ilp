@@ -98,15 +98,12 @@ class Institution(models.Model):
     def get_mt_profile(self):
         profile = {}
         aggregation = self.institutionaggregation_set.filter(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
-        # print("Inside institution model, printing inst aggregation",# aggregation)
         for agg in aggregation:
             if agg.mt in profile:
                 profile[agg.mt.name] += agg.num
             else:
                 profile[agg.mt.name] = agg.num
-        # print("Profile is: ", profile)
         return profile
-
 
     class Meta:
         unique_together = (('name', 'dise', 'admin3'), )

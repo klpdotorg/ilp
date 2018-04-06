@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError, APIException
 from rest_framework import authentication, permissions
+from rest_framework import status as HttpStatus
 
 from common.mixins import ILPStateMixin
 from common.views import ILPViewSet
@@ -25,10 +26,13 @@ from boundary.models import (
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
     BoundaryType
 )
+from boundary.serializers import BoundarySerializer
 
 from schools.models import (
     Institution, InstitutionClassYearStuCount
 )
+from schools.serializers import InstitutionSerializer
+
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association,
@@ -82,6 +86,47 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
         instance.save()
+
+
+class SurveyBoundaryAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyTagMappingAgg.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        survey_tag = self.request.query_params.get('survey_tag', None)
+        boundary_id = self.request.query_params.get(
+            'boundary_id', self.get_state().id
+        )
+        qs = self.get_queryset()
+        if survey_tag:
+            qs = qs.filter(survey_tag=survey_tag)
+        qs = qs.filter(boundary_id__parent_id=boundary_id)
+        boundary_ids = qs.values_list('boundary_id', flat=True)
+        boundaries = Boundary.objects.filter(id__in=boundary_ids)
+        response = BoundarySerializer(boundaries, many=True).data
+        return Response(response)
+
+
+class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyTagInstitutionMapping.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        survey_tag = self.request.query_params.get('survey_tag', None)
+        boundary_id = self.request.query_params.get(
+            'boundary_id', self.get_state().id
+        )
+        qset = self.get_queryset()
+        if survey_tag:
+            qset = qset.filter(tag=survey_tag)
+        qset = qset.filter(
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        )
+        institution_ids = qset.values_list('institution_id', flat=True)
+        institutions = Institution.objects.filter(id__in=institution_ids)
+        response = InstitutionSerializer(institutions, many=True).data
+        return Response(response)
 
 
 class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
@@ -172,8 +217,10 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             SurveyInstitutionQuestionGroupAgg.objects.all()
         )
 
-    def get(self, request):
-        questiongroup_id = self.request.query_params.get('questiongroup_id', None)
+    def get(self, request, *args, **kwargs):
+        questiongroup_id = self.request.query_params.get(
+            'questiongroup_id', None
+        )
         boundary_id = self.request.query_params.get('boundary_id', None)
         institution_id = self.request.query_params.get('institution_id', None)
         state_id = BoundaryStateCode.objects.filter(
@@ -238,7 +285,6 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             ).count()
             summary_res["total_schools"] = inst_count
 
-
             ans_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
                     boundary_id=boundary_id)
             ans_queryset = self.filter_queryset(ans_queryset)
@@ -283,6 +329,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                         question_dict[row["question_desc"]]['id'] = row['question_id']
                 if question_dict:
                     questiongroup_res[qg_name] = {}
+                    questiongroup_res[qg_name]['id'] = qg_id 
                     questiongroup_res[qg_name]['questions'] = question_dict
             survey_res['surveys'][s_id] = {}
             survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
@@ -743,12 +790,17 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
         return Response(response)
 
 
-class SurveyUsersCountAPIView(ListAPIView):
+class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
 
     def get(self, request, *args, **kwargs):
         to_ = request.query_params.get('to', None)
         from_ = request.query_params.get('from', None)
         survey_tag = self.request.GET.get('survey_tag', None)
+        boundary_id = self.request.GET.get(
+            'boundary_id', self.get_state().id)
+        institution_id = self.request.GET.get(
+            'institution_id', None
+        )
 
         survey_ids = SurveyTagMapping.objects.filter(
             tag__char_id=survey_tag
@@ -759,6 +811,16 @@ class SurveyUsersCountAPIView(ListAPIView):
 
         queryset = AnswerGroup_Institution.objects.\
             filter(questiongroup_id__in=questiongroup_ids)
+        
+        queryset = queryset.filter(
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        )
+
+        if institution_id:
+            queryset = queryset.filter(institution_id=institution_id)
 
         if to_:
             queryset = queryset.filter(date_of_visit__lte=to_)

@@ -9,7 +9,7 @@ from schools.models import (
 
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
 from common.models import (
-    InstitutionGender, Status, AcademicYear
+    InstitutionGender, Status, AcademicYear, Language
 )
 from boundary.serializers import (
     BoundarySerializer, ElectionBoundarySerializer
@@ -111,7 +111,7 @@ class InstitutionSummarySerializer(ILPSerializer):
 
     def get_playground(self, obj):
         if obj.dise is not None:
-            if obj.dise.playground== dise_constants.AVAILABLE:
+            if obj.dise.playground == dise_constants.AVAILABLE:
                 return dise_constants.YES
             else:
                 return dise_constants.NO
@@ -144,9 +144,7 @@ class InstitutionSerializer(ILPSerializer):
     sex = serializers.CharField(source='gender.name')
     identifiers = serializers.SerializerMethodField()
     images = serializers.ListField(source='get_images')
-    institution_languages = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=InstitutionLanguage.objects.all()
-    )
+    institution_languages = serializers.SerializerMethodField()
 
     class Meta:
         model = Institution
@@ -211,6 +209,11 @@ class InstitutionSerializer(ILPSerializer):
             return gender_count.num_girls
         return None
 
+    def get_institution_languages(self, obj):
+        langs = [
+            inst_lang.moi.char_id for inst_lang in obj.institution_languages.all()]
+        return langs
+
 
 class InstitutionCreateSerializer(ILPSerializer):
     status = serializers.PrimaryKeyRelatedField(
@@ -230,10 +233,8 @@ class InstitutionCreateSerializer(ILPSerializer):
     landmark = serializers.CharField(default=None)
     last_verified_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), required=True)
-    institution_languages = serializers.PrimaryKeyRelatedField(
-        queryset=InstitutionLanguage.objects.all(), many=True
-    )
-    
+    institution_languages = serializers.ListField(write_only=True)    
+
     class Meta:
         model = Institution
         fields = (
@@ -245,12 +246,19 @@ class InstitutionCreateSerializer(ILPSerializer):
 
     def save(self, **kwargs):
         admin3 = self.validated_data['admin3']
-        return Institution.objects.create(
+        langs = self.validated_data.pop('institution_languages')
+        inst = Institution.objects.create(
             admin0=admin3.parent.parent.parent,
             admin1=admin3.parent.parent,
             admin2=admin3.parent,
             **self.validated_data
         )
+        for lang in langs:
+            lang = Language.objects.get(char_id=lang)
+            inst_lang = InstitutionLanguage.objects.create(
+                institution=inst, moi=lang)
+            inst.institution_languages.add(inst_lang)
+        return inst
 
 
 class InstitutionCategorySerializer(ILPSerializer):
@@ -271,6 +279,13 @@ class InstitutionManagementSerializer(ILPSerializer):
             'id', 'name'
         )
 
+class InstitutionLanguageSerializer(ILPSerializer):
+
+    class Meta:
+        model = InstitutionLanguage
+        fields = (
+            'id', 'moi'
+        )
 
 class SchoolDemographicsSerializer(ILPSerializer):
     num_boys = serializers.SerializerMethodField()

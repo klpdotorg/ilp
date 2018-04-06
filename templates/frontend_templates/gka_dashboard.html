@@ -28,7 +28,7 @@
 
 
   <script type="text/html" id="tpl-smsSummary">
-    <h3 class="heading-border brand-green">GKA MONITORING SUMMARY</h3>
+    <h3 class="heading-border brand-green">GKA SCHOOL VISIT SUMMARY</h3>
       <div class="sect-parent center-text">
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Survey Received</div>
@@ -36,7 +36,7 @@
         </div>
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Schools Covered</div>
-          <div class=" base-spacing-sm">{{ schools_impacted }} ({{smsPercentage}}%)</div>
+          <div class=" base-spacing-sm">{{ schools_impacted }}</div>
         </div>
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Latest Survey</div>
@@ -54,7 +54,7 @@
         </div>
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Schools with Surveys</div>
-          <div class=" base-spacing-sm">{{ schools_impacted }} ({{ schoolPerc }}%)</div>
+          <div class=" base-spacing-sm">{{ schools_impacted }}</div>
         </div>
         <div class="sect-third">
           <div class="brand-blue font-large font-light uppercase">Latest Survey</div>
@@ -92,13 +92,13 @@
   </script>
   <script type="text/html" id="tpl-smsResponses">
     <div class="base-spacing-mid"></div>
-    <h5 class="heading-border brand-green">MONITORING RESPONSES</h5>
+    <h5 class="heading-border brand-green">SURVEY RESPONSES</h5>
     <div class="sect-parent">
-      <div class="sect-third">
+      <div class="sect-third" style="float: center;">
         <div class="brand-blue font-large font-light center-text uppercase">SCHOOL VISITS WITH</div>
-        <div class="font-light">Ongoing class 4 and 5 Math sessions</div>
 
-        <div class="bar-graph-wrap">
+        <div class="font-light">Ongoing class 4 and 5 Math sessions</div>
+        <div class="bar-graph-wrap" st>
           <div class="bar-graph">
             <div class="bar-percent grey-gravel">{{ questions["ivrss-math-class-happening"].percent }}%</div>
             <div class="bar-custom tooltip" aria-label="{{ questions["ivrss-math-class-happening"].score}}/{{ questions["ivrss-math-class-happening"].total}} responses">
@@ -110,7 +110,6 @@
         </div>
 
         <div class="font-light">Teachers trained in GKA methodology</div>
-
         <div class="bar-graph-wrap">
           <div class="bar-graph">
             <div class="bar-percent grey-gravel">{{questions["ivrss-gka-trained"].percent}}%</div>
@@ -123,89 +122,44 @@
         </div>
 
       </div>
-      <div class="sect-two-third">
+
+      <div class="sect-third">
+        <p></p>
+      </div>
+
+
+      <div class="sect-third">
         <div class="brand-blue font-large font-light center-text uppercase">GKA METHODOLOGY</div>
-        <div class="base-spacing-sm"></div>
-        <div class="sect-parent">
-          <div class="sect-half">
-              <div class="font-light float-right">TLM Usage</div>
-          </div>
-          <div class="sect-half">
-            <div class="bar-graph-wrap">
-              <div class="bar-graph">
-                <div class="bar-percent grey-gravel">{{ questions["ivrss-gka-tlm-in-use"].percent}}%</div>
-                <div class="bar-custom tooltip" aria-label="{{ questions["ivrss-gka-tlm-in-use"].score}}/{{ questions["ivrss-gka-tlm-in-use"].total}} responses">
-                  <div class="bar-value bar-value-100 orange-mild-bg" style="width:100%;">
-                    <div class="bar-value bar-value-{{ questions["ivrss-gka-tlm-in-use"].total}} green-leaf-bg" style="width:{{questions["ivrss-gka-tlm-in-use"].percent}}%;"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- <div class="sect-half float-right">
-              <div class="font-light">Representational Stage</div>
-          </div>
-          <div class="sect-half">
-            <div class="bar-graph-wrap">
-              <div class="bar-graph">
-                <div class="bar-percent grey-gravel">{{ questions["ivrss-gka-rep-stage"].percent}}%</div>
-                <div class="bar-custom tooltip" aria-label="{{ questions["ivrss-gka-rep-stage"].score}}/ {{ questions["ivrss-gka-rep-stage"].score}} responses">
-                  <div class="bar-value bar-value-100 orange-mild-bg" style="width:100%;">
-                    <div class="bar-value bar-value-{{ questions["ivrss-gka-rep-stage"].total}} green-leaf-bg" style="width:{{questions["ivrss-gka-rep-stage"].percent}}%;"></div>
-                  </div>
-                </div>
+        <div class="font-light">TLM Usage</div>
+        <div class="bar-graph-wrap">
+          <div class="bar-graph">
+            <div class="bar-percent grey-gravel">{{ questions["ivrss-gka-tlm-in-use"].percent}}%</div>
+            <div class="bar-custom tooltip" aria-label="{{ questions["ivrss-gka-tlm-in-use"].score}}/{{ questions["ivrss-gka-tlm-in-use"].total}} responses">
+              <div class="bar-value bar-value-100 grey-silver-bg" style="width:100%;">
+                <div class="bar-value bar-value-{{ questions["ivrss-gka-tlm-in-use"].total}} green-leaf-bg" style="width:{{questions["ivrss-gka-tlm-in-use"].percent}}%;"></div>
               </div>
             </div>
-          </div> -->
+          </div>
+        </div>
+        
 
-          <div class="sect-half">
-              <div class="font-light float-right">Group Work</div>
-          </div>
-          <div class="sect-half">
-            <div class="bar-graph-wrap">
-              <div class="bar-graph">
-                <div class="bar-percent grey-gravel">{{ questions["ivrss-group-work"].percent}}%</div>
-                <div class="bar-custom tooltip" aria-label="{{ questions["ivrss-group-work"].score}}/{{ questions["ivrss-group-work"].total}} responses">
-                  <div class="bar-value bar-value-100 orange-mild-bg" style="width:100%;">
-                    <div class="bar-value bar-value-{{ questions["ivrss-group-work"].percentage}} green-leaf-bg" style="width:{{questions["ivrss-group-work"].percent}}%;"></div>
-                  </div>
-                </div>
+        <div class="font-light">Group Work</div>
+        <div class="bar-graph-wrap">
+          <div class="bar-graph">
+            <div class="bar-percent grey-gravel">{{ questions["ivrss-group-work"].percent}}%</div>
+            <div class="bar-custom tooltip" aria-label="{{ questions["ivrss-group-work"].score}}/{{ questions["ivrss-group-work"].total}} responses">
+              <div class="bar-value bar-value-100 grey-silver-bg" style="width:100%;">
+                <div class="bar-value bar-value-{{ questions["ivrss-group-work"].percentage}} green-leaf-bg" style="width:{{questions["ivrss-group-work"].percent}}%;"></div>
               </div>
             </div>
           </div>
+        </div>
 
         </div>
       </div>
     </div>
   </script>
-
-  <!--script type="text/html" id="tpl-responseTable">
-    <div class="container table-responsive-wrap">
-    <div class="base-spacing-mid"></div>
-    <h5 class="heading-border brand-green">SMS RESPONSES</h5>
-
-    <table class="table-base">
-      <thead>
-        <tr class="table-base-heading">
-          <td class="brand-blue">Question</td>
-          <!--td class="brand-blue">Percentage</td>
-          <td class="brand-blue">Yes</td>
-          <td class="brand-blue">No</td>
-          {% set check=questions|first %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for each in questions%}
-        <tr class="font-smaller">
-          <td width='85%'>
-            {{each.question}}
-          </td>
-          <td>{{each.score}}</td>
-          <td>{{each.total-each.score|int}}</td>
-        </tr>
-      </tbody>
-  </script-->
 
 
   <script type="text/html" id="tpl-assmtSummary">

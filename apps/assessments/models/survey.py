@@ -110,6 +110,7 @@ class QuestionGroup(models.Model):
     status = models.ForeignKey('common.Status')
     image_required = models.NullBooleanField(default=False)
     comments_required = models.NullBooleanField(default=False)
+    respondenttype_required = models.NullBooleanField(default=False)
 
     questions = models.ManyToManyField(
         'Question', through='Questiongroup_Questions'
@@ -125,11 +126,11 @@ class Question(models.Model):
     """pool of questions"""
     question_text = models.CharField(max_length=300)
     display_text = models.CharField(max_length=300)
-    lang_name = models.CharField(max_length=100, null=True)
+    lang_name = models.CharField(max_length=300, null=True)
     key = models.CharField(max_length=50, null=True)
     question_type = models.ForeignKey('QuestionType', null=True)
-    options = models.CharField(max_length=300, null=True)
-    lang_options = models.CharField(max_length=300, null=True)
+    options = models.CharField(max_length=750, null=True)
+    lang_options = models.CharField(max_length=750, null=True)
     is_featured = models.BooleanField()
     status = models.ForeignKey('common.Status')
     max_score = models.IntegerField(null=True)
