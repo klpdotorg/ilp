@@ -116,13 +116,13 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         )
 
     def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
         instance = self.get_object()
         serializer = InstitutionCreateSerializer(
-            instance, data=request.data, partial=partial)
+            instance, data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data)
+        serializer.update(instance, serializer.validated_data)
+        instance.refresh_from_db()
+        return Response(InstitutionSerializer(instance).data)
 
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
