@@ -1428,7 +1428,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shrimant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shrimant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1439,7 +1439,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivanand', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivanand', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1450,7 +1450,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shridhar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shridhar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1461,7 +1461,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jagadeesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jagadeesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1472,7 +1472,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1483,7 +1483,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Basamma', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Basamma', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1494,7 +1494,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sameer', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sameer', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1505,7 +1505,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sharadamma', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sharadamma', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1516,7 +1516,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shrimant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shrimant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1527,7 +1527,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ashabayi', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ashabayi', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1538,7 +1538,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Geeta', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Geeta', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1549,7 +1549,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Supriya', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Supriya', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1560,7 +1560,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Parvati', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Parvati', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1571,7 +1571,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Arati', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Arati', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1582,7 +1582,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Archana', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Archana', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1593,7 +1593,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rachappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rachappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1604,7 +1604,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dhulappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dhulappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1615,7 +1615,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Balappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Balappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1626,7 +1626,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Saidappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Saidappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1637,7 +1637,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Narasappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Narasappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1648,7 +1648,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Balappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Balappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1659,7 +1659,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Madeppa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Madeppa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1670,7 +1670,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Machendra', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Machendra', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1681,7 +1681,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tulasiram', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tulasiram', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1692,7 +1692,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ranganath', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ranganath', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1703,7 +1703,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raghunath', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raghunath', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1714,7 +1714,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veershetty', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veershetty', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1725,7 +1725,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dasharath', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dasharath', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1736,7 +1736,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kashinath', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kashinath', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1747,7 +1747,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tukaram', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tukaram', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1758,7 +1758,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satish', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satish', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1769,7 +1769,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Umesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Umesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1780,7 +1780,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Aravind', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Aravind', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1791,7 +1791,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shrikant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shrikant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1802,7 +1802,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Santosh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Santosh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1813,7 +1813,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Madeppa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Madeppa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1824,7 +1824,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahadeva', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahadeva', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1835,7 +1835,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veershetty', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veershetty', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1846,7 +1846,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Laxman', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Laxman', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1857,7 +1857,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('shivakumar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5288, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('shivakumar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5298, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1868,7 +1868,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Asha', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Asha', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1879,7 +1879,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shakuntala', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shakuntala', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1890,7 +1890,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Lata', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Lata', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1901,7 +1901,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sudharani', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sudharani', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1912,7 +1912,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sundramma', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sundramma', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1923,7 +1923,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Umakant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Umakant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1934,7 +1934,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1945,7 +1945,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Suresh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Suresh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1956,7 +1956,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Anandrao', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Anandrao', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1967,7 +1967,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Arun', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Arun', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1978,7 +1978,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vishal', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vishal', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -1989,7 +1989,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Balaram', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Balaram', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2000,7 +2000,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Neelkant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Neelkant', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2011,7 +2011,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Venkatappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Venkatappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2022,7 +2022,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sopanrao', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sopanrao', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2033,7 +2033,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Budeppa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Budeppa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2044,7 +2044,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Amrut', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Amrut', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2055,7 +2055,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tulasidas', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tulasidas', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2066,7 +2066,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivudas', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivudas', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2077,7 +2077,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veerendra', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veerendra', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2088,7 +2088,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2099,7 +2099,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pavan', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pavan', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2110,7 +2110,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Channappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Channappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2121,7 +2121,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pradeep', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pradeep', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2132,7 +2132,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raghavendra', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raghavendra', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2143,7 +2143,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajashri', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajashri', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2154,7 +2154,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vaisham', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vaisham', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2165,7 +2165,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Anita', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Anita', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2176,7 +2176,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shantabayi', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shantabayi', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2187,7 +2187,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Neelavati', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Neelavati', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2198,7 +2198,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tippanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tippanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2209,7 +2209,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dasharath', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dasharath', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2220,7 +2220,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ashok', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ashok', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2231,7 +2231,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Malappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Malappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2242,7 +2242,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2253,7 +2253,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mallikarjun', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mallikarjun', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2264,7 +2264,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Baburao', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Baburao', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2275,7 +2275,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pandit', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pandit', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2286,7 +2286,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rakesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rakesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2297,7 +2297,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravindra', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravindra', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2308,7 +2308,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kallappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kallappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2319,7 +2319,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2330,7 +2330,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satish', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satish', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2341,7 +2341,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravi', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravi', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2352,7 +2352,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Siddappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Siddappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2363,7 +2363,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Devidas', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Devidas', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2374,7 +2374,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Madappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Madappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2385,7 +2385,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pandappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pandappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2396,7 +2396,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Narasing', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Narasing', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2407,7 +2407,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Deepak', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Deepak', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2418,7 +2418,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahadeva', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahadeva', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2429,7 +2429,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivashankar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivashankar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2440,7 +2440,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Bhagesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Bhagesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2451,7 +2451,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2462,7 +2462,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Basanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Basanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2473,7 +2473,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Akash', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Akash', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2484,7 +2484,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Amit', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Amit', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2495,7 +2495,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ajit', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ajit', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2506,7 +2506,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Bharat', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Bharat', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2517,7 +2517,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Abhilasha', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Abhilasha', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2528,7 +2528,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ambreesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ambreesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2539,7 +2539,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Naveen', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Naveen', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2550,7 +2550,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sandeep', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sandeep', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2561,7 +2561,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Amar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Amar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2572,7 +2572,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sangamesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sangamesh', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2583,7 +2583,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nitish', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nitish', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2594,7 +2594,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sagar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sagar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2605,7 +2605,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veeranna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veeranna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2616,7 +2616,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sundar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sundar', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2627,7 +2627,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramu', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramu', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2638,7 +2638,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pandit', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pandit', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2649,7 +2649,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vijay', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vijay', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2660,7 +2660,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ambanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ambanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2671,7 +2671,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tippanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tippanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2682,7 +2682,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tirupati', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tirupati', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2693,7 +2693,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2704,7 +2704,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Siddanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Siddanna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2715,7 +2715,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vaijnath', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vaijnath', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2726,7 +2726,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivappa', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2737,7 +2737,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Krishna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Krishna', TIMESTAMP '2018-2-12', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2748,7 +2748,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramabayi', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramabayi', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2759,7 +2759,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagamma', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagamma', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2770,7 +2770,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tirumala', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tirumala', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2781,7 +2781,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Laxmi', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Laxmi', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2792,7 +2792,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Gouramma', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Gouramma', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2803,7 +2803,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jagappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jagappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2814,7 +2814,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2825,7 +2825,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2836,7 +2836,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shailendra', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shailendra', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2847,7 +2847,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahesh', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahesh', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2858,7 +2858,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravi', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravi', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2869,7 +2869,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2880,7 +2880,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2891,7 +2891,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kallappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kallappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2902,7 +2902,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shantappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shantappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2913,7 +2913,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Hanamant', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Hanamant', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2924,7 +2924,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rekha', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rekha', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2935,7 +2935,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rathnamma', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rathnamma', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2946,7 +2946,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganesh', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganesh', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2957,7 +2957,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('saraswati', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('saraswati', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2968,7 +2968,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Devappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Devappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2979,7 +2979,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Manikappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Manikappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -2990,7 +2990,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3001,7 +3001,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rudrappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rudrappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3012,7 +3012,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pandappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pandappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3023,7 +3023,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jagappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jagappa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3034,7 +3034,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tukaram', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Tukaram', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3045,7 +3045,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dayanand', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dayanand', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3056,7 +3056,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Namdeva', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Namdeva', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3067,7 +3067,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Adeppa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Adeppa', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3078,7 +3078,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Goutamma', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Goutamma', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3089,7 +3089,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahaveer', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahaveer', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3100,7 +3100,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramanna', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramanna', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3111,7 +3111,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Maruti', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Maruti', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3122,7 +3122,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('arjun', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('arjun', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3133,7 +3133,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shekar', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shekar', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3144,7 +3144,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sanjeev', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sanjeev', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3155,7 +3155,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jeevanrao', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jeevanrao', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3166,7 +3166,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kalesh', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kalesh', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -3177,7 +3177,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankarrao', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5282, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankarrao', TIMESTAMP '2018-2-15', 't', current_date::TIMESTAMP, 5292, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7731,7 +7731,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shambulinga', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shambulinga', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7742,7 +7742,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shukramath', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shukramath', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7753,7 +7753,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7764,7 +7764,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Maruti', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Maruti', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7775,7 +7775,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ishwar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ishwar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7786,7 +7786,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Devindra', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Devindra', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7797,7 +7797,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('satish', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('satish', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7808,7 +7808,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shambulinga', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shambulinga', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7819,7 +7819,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('sagar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('sagar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7830,7 +7830,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7841,7 +7841,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sureppa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sureppa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7852,7 +7852,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vijay', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vijay', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7863,7 +7863,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Babu', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Babu', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7874,7 +7874,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7885,7 +7885,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Basavaraj', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Basavaraj', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7896,7 +7896,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Maruti', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Maruti', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7907,7 +7907,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Aneppa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Aneppa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7918,7 +7918,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kalyanrao', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Kalyanrao', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7929,7 +7929,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajkumar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajkumar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7940,7 +7940,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7951,7 +7951,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satishreddy', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satishreddy', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7962,7 +7962,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganapati', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganapati', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7973,7 +7973,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ramesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7984,7 +7984,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ishappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ishappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -7995,7 +7995,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8006,7 +8006,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8017,7 +8017,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8028,7 +8028,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8039,7 +8039,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dasharath', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dasharath', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8050,7 +8050,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8061,7 +8061,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ishwarayya', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ishwarayya', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8072,7 +8072,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8083,7 +8083,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dhulappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dhulappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8094,7 +8094,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8105,7 +8105,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Somesha', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Somesha', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8116,7 +8116,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8127,7 +8127,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganapati', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganapati', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8138,7 +8138,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Babu', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Babu', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8149,7 +8149,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mastan', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mastan', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8160,7 +8160,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagashetty', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nagashetty', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8171,7 +8171,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sunil', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Sunil', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8182,7 +8182,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Anil', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Anil', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8193,7 +8193,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dharamanna', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dharamanna', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8204,7 +8204,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veershetty', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veershetty', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8215,7 +8215,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raj', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raj', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8226,7 +8226,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vijay', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vijay', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8237,7 +8237,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ajay', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ajay', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8248,7 +8248,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8259,7 +8259,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8270,7 +8270,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Babu', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Babu', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8281,7 +8281,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vinod', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vinod', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8292,7 +8292,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajendra', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajendra', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8303,7 +8303,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('sangareddy', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('sangareddy', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8314,7 +8314,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Suresh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Suresh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8325,7 +8325,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Akash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Akash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8336,7 +8336,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vijaykumar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Vijaykumar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8347,7 +8347,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mahesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8358,7 +8358,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Siddartha', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Siddartha', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8369,7 +8369,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raman', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raman', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8380,7 +8380,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nakul', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Nakul', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8391,7 +8391,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satish', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satish', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8402,7 +8402,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veershetty', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Veershetty', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8413,7 +8413,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shamrao', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shamrao', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8424,7 +8424,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrarao', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrarao', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8435,7 +8435,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dhulappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dhulappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8446,7 +8446,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganapati', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganapati', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8457,7 +8457,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8468,7 +8468,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8479,7 +8479,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8490,7 +8490,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8501,7 +8501,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravi', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravi', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8512,62 +8512,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravindra', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 145);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 269);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 147);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 148);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shekar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 145);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 269);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 147);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 148);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pilip', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 145);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 269);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 147);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 148);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 145);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 269);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 147);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 148);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jagannath', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 145);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 269);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 147);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 148);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
-insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivaraj', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ravindra', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8578,7 +8523,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shekar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8589,7 +8534,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Devindra', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Pilip', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8600,7 +8545,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8611,7 +8556,62 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajkumar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Jagannath', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 145);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 269);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 147);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 148);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shivaraj', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 145);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 269);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 147);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 148);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 145);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 269);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 147);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 148);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Devindra', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 145);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 269);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 147);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 148);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Raju', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 145);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 269);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 147);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 148);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
+insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Rajkumar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8622,7 +8622,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Gopal', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Gopal', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8633,7 +8633,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Gundappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Gundappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8644,7 +8644,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8655,7 +8655,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Chandrakant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8666,7 +8666,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dhulappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Dhulappa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8677,7 +8677,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ghaleppa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ghaleppa', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8688,7 +8688,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mastan', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Mastan', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8699,7 +8699,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Umesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Umesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8710,7 +8710,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satish', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Satish', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8721,7 +8721,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Somesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Somesh', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8732,7 +8732,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Hanamant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Hanamant', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8743,7 +8743,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8754,7 +8754,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Peeranna', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Peeranna', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8765,7 +8765,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ashok', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ashok', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8776,7 +8776,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Subhash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8787,7 +8787,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shamrao', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shamrao', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8798,7 +8798,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Prakash', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8809,7 +8809,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Shankar', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 144);
@@ -8820,7 +8820,7 @@ insert into assessments_answerinstitution ( answer, answergroup_id, question_id)
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 149);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 150);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 270);
-insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganapati', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 28894, 20, 'AC', 'PR', '9980963896');
+insert into assessments_answergroup_institution (group_value, date_of_visit, is_verified, entered_at, institution_id, questiongroup_id, status_id, respondent_type_id, mobile) values ('Ganapati', TIMESTAMP '2018-2-23', 't', current_date::TIMESTAMP, 29894, 20, 'AC', 'PR', '9980963896');
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Yes', (select last_value from assessments_answergroup_institution_id_seq), 143);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('No', (select last_value from assessments_answergroup_institution_id_seq), 138);
 insert into assessments_answerinstitution ( answer, answergroup_id, question_id) values ('Unknown', (select last_value from assessments_answergroup_institution_id_seq), 144);
