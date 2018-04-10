@@ -228,7 +228,7 @@ class InstitutionCreateSerializer(ILPSerializer):
     address = serializers.CharField(default=None)
     area = serializers.CharField(default=None)
     pincode = serializers.PrimaryKeyRelatedField(
-        queryset=PinCode.objects.all(), default=None
+        queryset=PinCode.objects.all(), default=None, allow_null=True
     )
     landmark = serializers.CharField(default=None)
     last_verified_year = serializers.PrimaryKeyRelatedField(
