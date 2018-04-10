@@ -456,12 +456,28 @@ class AssessmentSyncView(APIView):
 
                 try:
 
+                    # See if the question group has a default respondent type
+                    # If yes, use it instead of the one sent by Konnect
                     try:
-                        respondent_type = RespondentType.objects.get(
-                            char_id__iexact=story.get('respondent_type')
+                        question_group = QuestionGroup.objects.get(
+                            pk=story.get('group_id')
                         )
-                    except RespondentType.DoesNotExist:
-                        raise Exception("Invalid respondent type")
+                    except QuestionGroup.DoesNotExist:
+                        raise Exception("Invalid question group")
+                    else:
+                        if question_group.default_respondent_type:
+                            respondent_type = question_group.default_respondent_type
+                        else:
+                            try:
+                                respondent_type = RespondentType.objects.get(
+                                    char_id__iexact=story.get(
+                                        'respondent_type'
+                                    )
+                                )
+                            except RespondentType.DoesNotExist:
+                                raise Exception("Invalid respondent type")
+
+                    print(respondent_type.char_id)
 
                     new_story, created = AnswerGroup_Institution.objects.get_or_create(
                         created_by=request.user,
