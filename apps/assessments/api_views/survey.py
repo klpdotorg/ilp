@@ -466,7 +466,8 @@ class AssessmentSyncView(APIView):
                         raise Exception("Invalid question group")
                     else:
                         if question_group.default_respondent_type:
-                            respondent_type = question_group.default_respondent_type
+                            respondent_type = question_group \
+                                .default_respondent_type
                         else:
                             try:
                                 respondent_type = RespondentType.objects.get(
@@ -479,18 +480,19 @@ class AssessmentSyncView(APIView):
 
                     print(respondent_type.char_id)
 
-                    new_story, created = AnswerGroup_Institution.objects.get_or_create(
-                        created_by=request.user,
-                        institution_id=story.get('school_id'),
-                        questiongroup_id=story.get('group_id'),
-                        respondent_type=respondent_type,
-                        date_of_visit=datetime.datetime.fromtimestamp(
-                            timestamp
-                        ),
-                        comments=story.get('comments'),
-                        group_value=story.get('group_value'),
-                        status=Status.objects.get(char_id='AC'),
-                    )
+                    new_story, created = AnswerGroup_Institution.objects \
+                        .get_or_create(
+                            created_by=request.user,
+                            institution_id=story.get('school_id'),
+                            questiongroup_id=story.get('group_id'),
+                            respondent_type=respondent_type,
+                            date_of_visit=datetime.datetime.fromtimestamp(
+                                timestamp
+                            ),
+                            comments=story.get('comments'),
+                            group_value=story.get('group_value'),
+                            status=Status.objects.get(char_id='AC'),
+                        )
 
                     if created:
                         new_story.sysid = sysid
@@ -507,13 +509,14 @@ class AssessmentSyncView(APIView):
 
                     # Save the answers
                     for answer in story.get('answers', []):
-                        new_answer, created = AnswerInstitution.objects.get_or_create(
-                            answer=answer.get('text'),
-                            answergroup=new_story,
-                            question=Question.objects.get(
-                                pk=answer.get('question_id')
+                        new_answer, created = AnswerInstitution.objects \
+                            .get_or_create(
+                                answer=answer.get('text'),
+                                answergroup=new_story,
+                                question=Question.objects.get(
+                                    pk=answer.get('question_id')
+                                )
                             )
-                        )
 
                     # Save the image
                     image = story.get('image', None)
