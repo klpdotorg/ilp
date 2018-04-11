@@ -724,12 +724,11 @@ var topSummaryData = {};
                 BRC:"Block Resource Coordinator",
                 CRCC:"Cluster Resource Coordinator",
                 PC:"Pedagogy Coordinator",
-                UK:"Unknown",
-                "null":"Unknown"
+                UK:"Unknown"
             };
 
         for (var m in users) {
-            if(m) {
+            if(m && (m !== 'null')) {
                 meta_values.push({
                     meta: userFullName[m] ? userFullName[m]: m,
                     value: users[m]
