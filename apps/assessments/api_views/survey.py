@@ -456,25 +456,43 @@ class AssessmentSyncView(APIView):
 
                 try:
 
+                    # See if the question group has a default respondent type
+                    # If yes, use it instead of the one sent by Konnect
                     try:
-                        respondent_type = RespondentType.objects.get(
-                            char_id__iexact=story.get('respondent_type')
+                        question_group = QuestionGroup.objects.get(
+                            pk=story.get('group_id')
                         )
-                    except RespondentType.DoesNotExist:
-                        raise Exception("Invalid respondent type")
+                    except QuestionGroup.DoesNotExist:
+                        raise Exception("Invalid question group")
+                    else:
+                        if question_group.default_respondent_type:
+                            respondent_type = question_group \
+                                .default_respondent_type
+                        else:
+                            try:
+                                respondent_type = RespondentType.objects.get(
+                                    char_id__iexact=story.get(
+                                        'respondent_type'
+                                    )
+                                )
+                            except RespondentType.DoesNotExist:
+                                raise Exception("Invalid respondent type")
 
-                    new_story, created = AnswerGroup_Institution.objects.get_or_create(
-                        created_by=request.user,
-                        institution_id=story.get('school_id'),
-                        questiongroup_id=story.get('group_id'),
-                        respondent_type=respondent_type,
-                        date_of_visit=datetime.datetime.fromtimestamp(
-                            timestamp
-                        ),
-                        comments=story.get('comments'),
-                        group_value=story.get('group_value'),
-                        status=Status.objects.get(char_id='AC'),
-                    )
+                    print(respondent_type.char_id)
+
+                    new_story, created = AnswerGroup_Institution.objects \
+                        .get_or_create(
+                            created_by=request.user,
+                            institution_id=story.get('school_id'),
+                            questiongroup_id=story.get('group_id'),
+                            respondent_type=respondent_type,
+                            date_of_visit=datetime.datetime.fromtimestamp(
+                                timestamp
+                            ),
+                            comments=story.get('comments'),
+                            group_value=story.get('group_value'),
+                            status=Status.objects.get(char_id='AC'),
+                        )
 
                     if created:
                         new_story.sysid = sysid
@@ -491,13 +509,14 @@ class AssessmentSyncView(APIView):
 
                     # Save the answers
                     for answer in story.get('answers', []):
-                        new_answer, created = AnswerInstitution.objects.get_or_create(
-                            answer=answer.get('text'),
-                            answergroup=new_story,
-                            question=Question.objects.get(
-                                pk=answer.get('question_id')
+                        new_answer, created = AnswerInstitution.objects \
+                            .get_or_create(
+                                answer=answer.get('text'),
+                                answergroup=new_story,
+                                question=Question.objects.get(
+                                    pk=answer.get('question_id')
+                                )
                             )
-                        )
 
                     # Save the image
                     image = story.get('image', None)
