@@ -88,12 +88,16 @@
     var getContext = function(entity) {
         // console.log("get context called with ", entity);
         var context = $.extend(entity, klp.utils.getBoyGirlPercents(entity.num_boys, entity.num_girls));
-        var mt = klp.utils.getMTProfilePercents(entity.demographics_data.mt_profile);
-        context.mt_profile_percents = mt.percents || {};
-        context.total_mt = mt.total;
-        context.hasFinanceData = entity.finance_data.sg_amount || entity.finance_data.smg_amount || entity.finance_data.tlm_amount;
-        if (context.hasFinanceData) {
-            context.finance_percents = klp.utils.getFinancePercents(entity.finance_data);
+        if (entity.demographics_data) {
+            var mt = klp.utils.getMTProfilePercents(entity.demographics_data.mt_profile);
+            context.mt_profile_percents = mt.percents || {};
+            context.total_mt = mt.total;
+        }
+        if(entity.finance_data) {
+            context.hasFinanceData = entity.finance_data.sg_amount || entity.finance_data.smg_amount || entity.finance_data.tlm_amount;
+            if (context.hasFinanceData) {
+                context.finance_percents = klp.utils.getFinancePercents(entity.finance_data);
+            }
         }
         context.studentTeacherRatio = klp.utils.getStudentTeacherRatio(entity.infrastructure_data);
         context.hasStudents = entity.num_boys || entity.num_girls;
@@ -118,7 +122,7 @@
                 'total': entity2.demographics_data.mt_profile.hasOwnProperty(lang) ? entity2.demographics_data.mt_profile[lang] : 0
             };
         });
-        // console.log("mts", mts);
+        console.log("mts", mts);
         return mts;
     };
 
@@ -147,7 +151,7 @@
                 }
             });
         });
-        // console.log("infrastructure compare data ", data);
+        console.log("infrastructure compare data ", data);
         return data;
     };
 
@@ -350,6 +354,7 @@
                     'mt_profiles': getMTProfiles(school1, school2),
                     'infrastructure': getInfrastructureComparison(school1, school2)
                 };
+                console.log("Comparison context is: ", context)
                 var html = templates['comparison-result'](context);
                 //console.log('comparison result html', html);
                 $comparison_result_wrapper.html(html);

@@ -13,22 +13,26 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError, APIException
 from rest_framework import authentication, permissions
+from rest_framework import status as HttpStatus
 
 from common.mixins import ILPStateMixin
 from common.views import ILPViewSet
 from common.models import (
     AcademicYear, Status, InstitutionType
 )
-
+from permissions.permissions import AppPostPermissions
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
     BoundaryType
 )
+from boundary.serializers import BoundarySerializer
 
 from schools.models import (
     Institution, InstitutionClassYearStuCount
 )
+from schools.serializers import InstitutionSerializer
+
 from assessments.models import (
     Survey, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association,
@@ -39,11 +43,15 @@ from assessments.models import (
     AnswerGroup_Institution, AnswerInstitution,
     Question, SurveyBoundaryAgg, QuestionGroup,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg
+    SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
+    SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg,
+    SurveyBoundaryUserTypeAgg, SurveyBoundaryElectionTypeCount,
+    SurveyTagInstitutionMapping
 )
-from common.models import RespondentType
+from common.models import RespondentType, Status
 from assessments.serializers import (
-    SurveySerializer, RespondentTypeSerializer
+    SurveySerializer, RespondentTypeSerializer,
+    SurveyCreateSerializer
 )
 from assessments.filters import (
     SurveyFilter, SurveyTagFilter
@@ -52,13 +60,72 @@ from assessments.filters import (
 
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
-    queryset = Survey.objects.all()
-    serializer_class = SurveySerializer
+    queryset = Survey.objects.exclude(status=Status.DELETED)
     filter_class = SurveyTagFilter
 
+    def get_serializer_class(self):
+        if self.request.method in ['POST', ]:
+            return SurveyCreateSerializer
+        return SurveySerializer
+
     def get_queryset(self):
+        # Filer based on state
         state = self.get_state()
-        return self.queryset.filter(admin0=state)
+        queryset = self.queryset.filter(admin0=state)
+
+        # TODO: IMPROVE: Can we combine status filtering with
+        # SurveyTagFilter or use a new filter altogether
+        # Filter status
+        status = self.request.query_params.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status__char_id=status)
+
+        return queryset
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
+
+
+class SurveyBoundaryAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyTagMappingAgg.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        survey_tag = self.request.query_params.get('survey_tag', None)
+        boundary_id = self.request.query_params.get(
+            'boundary_id', self.get_state().id
+        )
+        qs = self.get_queryset()
+        if survey_tag:
+            qs = qs.filter(survey_tag=survey_tag)
+        qs = qs.filter(boundary_id__parent_id=boundary_id)
+        boundary_ids = qs.values_list('boundary_id', flat=True)
+        boundaries = Boundary.objects.filter(id__in=boundary_ids)
+        response = BoundarySerializer(boundaries, many=True).data
+        return Response(response)
+
+
+class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyTagInstitutionMapping.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        survey_tag = self.request.query_params.get('survey_tag', None)
+        boundary_id = self.request.query_params.get(
+            'boundary_id', self.get_state().id
+        )
+        qset = self.get_queryset()
+        if survey_tag:
+            qset = qset.filter(tag=survey_tag)
+        qset = qset.filter(
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        )
+        institution_ids = qset.values_list('institution_id', flat=True)
+        institutions = Institution.objects.filter(id__in=institution_ids)
+        response = InstitutionSerializer(institutions, many=True).data
+        return Response(response)
 
 
 class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
@@ -146,15 +213,15 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
     def institution_qs(self):
         return self.filter_queryset(
-            SurveyInstitutionAgg.objects.all()
+            SurveyInstitutionQuestionGroupAgg.objects.all()
         )
 
-    def get(self, request):
-        questiongroup_id = self.request.query_params.get('questiongroup_id', None)
+    def get(self, request, *args, **kwargs):
+        questiongroup_id = self.request.query_params.get(
+            'questiongroup_id', None
+        )
         boundary_id = self.request.query_params.get('boundary_id', None)
         institution_id = self.request.query_params.get('institution_id', None)
-        year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
-
         state_id = BoundaryStateCode.objects.filter(
             char_id=settings.ILP_STATE_ID).\
             values("boundary_id")[0]["boundary_id"]
@@ -196,19 +263,26 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             qs_agg = queryset.aggregate(
                 Sum('num_schools'), Sum('num_children'), Sum('num_assessments')
             )
-
+            
+            institution_qs = self.institution_qs()
+            institution_qs = institution_qs.filter(
+                Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
+                Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+            )
+            institution_qs = institution_qs.filter(questiongroup_id=questiongroup_id)
             summary_res = {
-                "schools_impacted": self.institution_qs().distinct(
+                "schools_impacted": institution_qs.distinct(
                     'institution_id').count(),
                 "children_impacted": qs_agg['num_children__sum'],
                 "num_assessments": qs_agg['num_assessments__sum']
             }
-
-            basicqueryset = BasicBoundaryAgg.objects.\
-                filter(boundary_id=boundary_id, year=year).\
-                values_list('num_schools', flat=True)
-            if basicqueryset:
-                summary_res["total_schools"] = basicqueryset[0]
+            inst_count = Institution.objects.filter(
+                institution_type_id=InstitutionType.PRIMARY_SCHOOL
+            ).filter(
+                Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
+                Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
+            ).count()
+            summary_res["total_schools"] = inst_count
 
             ans_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
                     boundary_id=boundary_id)
@@ -239,8 +313,12 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                     if (
                         row["question_desc"] in question_dict
                     ):
-                        question_dict[row["question_desc"]][
-                            row["answer_option"]] = row["num_answers"]
+                        if (row["answer_option"] in question_dict[row["question_desc"]] ):
+                            question_dict[row["question_desc"]][
+                                row["answer_option"]] += row["num_answers"]
+                        else:
+                            question_dict[row["question_desc"]][
+                                row["answer_option"]] = row["num_answers"]
                     else:
                         question_dict[row["question_desc"]] = \
                             {
@@ -250,6 +328,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                         question_dict[row["question_desc"]]['id'] = row['question_id']
                 if question_dict:
                     questiongroup_res[qg_name] = {}
+                    questiongroup_res[qg_name]['id'] = qg_id 
                     questiongroup_res[qg_name]['questions'] = question_dict
             survey_res['surveys'][s_id] = {}
             survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
@@ -258,12 +337,13 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
 
 class SurveyTagAggAPIView(APIView):
-    response = {}
 
     def get_boundary_data(self, boundary_id, survey_tag, year):
-        self.response = {"total_schools": 0,
-                         "num_schools": 0,
-                         "num_students": 0}
+        response = {
+            "total_schools": 0,
+            "num_schools": 0,
+            "num_students": 0
+        }
 
         queryset = BoundarySchoolCategoryAgg.objects.\
             filter(boundary_id=boundary_id, cat_ac_year=year,
@@ -276,22 +356,32 @@ class SurveyTagAggAPIView(APIView):
                 Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
                 Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
             ).count()
-            self.response["total_schools"] = inst_count
+            response["total_schools"] = inst_count
 
         queryset = SurveyTagMappingAgg.objects.\
             filter(boundary_id=boundary_id, survey_tag=survey_tag,
-                   academic_year_id=year).values("num_schools",
-                                                 "num_students")
-        if queryset:
-            self.response["num_schools"] = queryset[0]["num_schools"]
-            self.response["num_students"] = queryset[0]["num_students"]
+                   academic_year_id=year).values("num_students")
+        num_schools = SurveyTagInstitutionMapping.objects.\
+            filter(academic_year_id=year, tag__char_id=survey_tag).\
+            filter(
+                Q(institution__admin0_id=boundary_id) |
+                Q(institution__admin1_id=boundary_id) |
+                Q(institution__admin2_id=boundary_id) |
+                Q(institution__admin3_id=boundary_id)
+            ).count()
+        response["num_schools"] = num_schools
 
-        return
+        if queryset:
+            response["num_students"] = queryset[0]["num_students"]
+
+        return response
 
     def get_institution_data(self, institution_id, survey_tag, year):
-        self.response = {"total_schools": 1,
-                         "num_schools": 1,
-                         "num_students": 0}
+        response = {
+            "total_schools": 1,
+            "num_schools": 1,
+            "num_students": 0
+        }
 
         sg_names = SurveyTagClassMapping.objects.\
             filter(tag=survey_tag, academic_year=year).\
@@ -302,18 +392,17 @@ class SurveyTagAggAPIView(APIView):
                    studentgroup__in=sg_names)
         if queryset:
             qs_agg = queryset.aggregate(Sum('num'))
-            self.response["num_students"] = qs_agg["num__sum"]
+            response["num_students"] = qs_agg["num__sum"]
         else:
-            self.response["num_students"] = 0
-
-        return
+            response["num_students"] = 0
+        return response
 
     def get(self, request):
         if not self.request.GET.get('survey_tag'):
             raise ParseError("Mandatory parameter survey_tag not passed")
         survey_tag = self.request.GET.get('survey_tag')
-        boundary_id = self.request.GET.get('boundary')
-        institution_id = self.request.GET.get('institution')
+        boundary_id = self.request.GET.get('boundary_id')
+        institution_id = self.request.GET.get('institution_id')
 
         year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
         try:
@@ -326,13 +415,14 @@ class SurveyTagAggAPIView(APIView):
             get(char_id=settings.ILP_STATE_ID).boundary_id
 
         if boundary_id:
-            self.get_boundary_data(boundary_id, survey_tag, year)
+            response = self.get_boundary_data(boundary_id, survey_tag, year)
         elif institution_id:
-            self.get_institution_data(institution_id, survey_tag, year)
+            response = self.get_institution_data(
+                institution_id, survey_tag, year)
         else:
-            self.get_boundary_data(state_id, survey_tag, year)
+            response = self.get_boundary_data(state_id, survey_tag, year)
 
-        return Response(self.response)
+        return Response(response)
 
 
 class AssessmentSyncView(APIView):
@@ -341,7 +431,7 @@ class AssessmentSyncView(APIView):
     """
     authentication_classes = (authentication.TokenAuthentication,
                               authentication.SessionAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (AppPostPermissions,)
 
     def post(self, request, format=None):
         response = {
@@ -351,7 +441,6 @@ class AssessmentSyncView(APIView):
         }
         try:
             stories = json.loads(request.body.decode('utf-8'))
-            print(stories)
         except ValueError as e:
             response['error'] = 'Invalid JSON data'
 
@@ -367,24 +456,43 @@ class AssessmentSyncView(APIView):
 
                 try:
 
+                    # See if the question group has a default respondent type
+                    # If yes, use it instead of the one sent by Konnect
                     try:
-                        respondent_type = RespondentType.objects.get(
-                            char_id__iexact=story.get('respondent_type')
+                        question_group = QuestionGroup.objects.get(
+                            pk=story.get('group_id')
                         )
-                    except RespondentType.DoesNotExist:
-                        raise Exception("Invalid respondent type")
+                    except QuestionGroup.DoesNotExist:
+                        raise Exception("Invalid question group")
+                    else:
+                        if question_group.default_respondent_type:
+                            respondent_type = question_group \
+                                .default_respondent_type
+                        else:
+                            try:
+                                respondent_type = RespondentType.objects.get(
+                                    char_id__iexact=story.get(
+                                        'respondent_type'
+                                    )
+                                )
+                            except RespondentType.DoesNotExist:
+                                raise Exception("Invalid respondent type")
 
-                    new_story, created = AnswerGroup_Institution.objects.get_or_create(
-                        created_by=request.user,
-                        institution_id=story.get('school_id'),
-                        questiongroup_id=story.get('group_id'),
-                        respondent_type=respondent_type,
-                        date_of_visit=datetime.datetime.fromtimestamp(
-                            timestamp
-                        ),
-                        # TODO: Check with Shivangi if the below is okay.
-                        status=Status.objects.get(char_id='AC')
-                    )
+                    print(respondent_type.char_id)
+
+                    new_story, created = AnswerGroup_Institution.objects \
+                        .get_or_create(
+                            created_by=request.user,
+                            institution_id=story.get('school_id'),
+                            questiongroup_id=story.get('group_id'),
+                            respondent_type=respondent_type,
+                            date_of_visit=datetime.datetime.fromtimestamp(
+                                timestamp
+                            ),
+                            comments=story.get('comments'),
+                            group_value=story.get('group_value'),
+                            status=Status.objects.get(char_id='AC'),
+                        )
 
                     if created:
                         new_story.sysid = sysid
@@ -392,22 +500,23 @@ class AssessmentSyncView(APIView):
                         new_story.mobile = request.user.mobile_no
                         new_story.save()
 
-                    # Save location info
-                    if story.get('lat', None) is not None and \
-                            story.get('lng', None) is not None:
-                        new_story.location = Point(
-                            story.get('lat'), story.get('lng'))
-                        new_story.save()
+                        # Save location info
+                        if story.get('lat', None) is not None and \
+                                story.get('lng', None) is not None:
+                            new_story.location = Point(
+                                story.get('lat'), story.get('lng'))
+                            new_story.save()
 
                     # Save the answers
                     for answer in story.get('answers', []):
-                        new_answer, created = AnswerInstitution.objects.get_or_create(
-                            answer=answer.get('text'),
-                            answergroup=new_story,
-                            question=Question.objects.get(
-                                pk=answer.get('question_id')
+                        new_answer, created = AnswerInstitution.objects \
+                            .get_or_create(
+                                answer=answer.get('text'),
+                                answergroup=new_story,
+                                question=Question.objects.get(
+                                    pk=answer.get('question_id')
+                                )
                             )
-                        )
 
                     # Save the image
                     image = story.get('image', None)
@@ -523,27 +632,45 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 values_list('boundary_id', flat=True)
         return neighbour_ids
 
-    def get_electionboundary(self, boundary_id, survey_id):
-        queryset = SurveyBoundaryAgg.objects.filter(
+    def get_electionboundary(
+            self, boundary_id, survey_id, to_yearmonth, from_yearmonth
+    ):
+        queryset = SurveyBoundaryElectionTypeCount.objects.filter(
             boundary_id=boundary_id, survey_id=survey_id)
-        res = {
-            'MP': queryset.filter(
-                electionboundary_id__const_ward_type='MP').distinct(
-                    'electionboundary_id').count(),
-            'MLA': queryset.filter(
-                electionboundary_id__const_ward_type='MLA').distinct(
-                    'electionboundary_id').count(),
-            'GP': queryset.filter(
-                electionboundary_id__const_ward_type='GP').distinct(
-                    'electionboundary_id').count(),
-            'MW': queryset.filter(
-                electionboundary_id__const_ward_type='MW').distinct(
-                    'electionboundary_id').count(),
-        }
+        if to_yearmonth:
+            queryset = queryset.filter(yearmonth__lte=to_yearmonth)
+        if from_yearmonth:
+            queryset = queryset.filter(yearmonth__gte=from_yearmonth)
+
+        electioncount_agg = queryset.values('const_ward_type').annotate(
+            Sum('electionboundary_count'))
+        res = {}
+        for electioncount in electioncount_agg:
+            res[electioncount['const_ward_type']] = \
+                electioncount['electionboundary_count__sum']
         return res
 
     def get(self, request, *args, **kwargs):
-        neighbour_ids = self.get_neighbour_boundaries()
+        survey_tag = self.request.GET.get('survey_tag', None)
+        to_ = request.query_params.get('to', None)
+        from_ = request.query_params.get('from', None)
+        to_yearmonth, from_yearmonth = None, None
+
+        if to_:
+            to_ = to_.split('-')
+            to_year, to_month = to_[0], to_[1]
+            to_yearmonth = int(to_year + to_month)
+
+        if from_:
+            from_ = from_.split('-')
+            from_year, from_month = from_[0], from_[1]
+            from_yearmonth = int(from_year + from_month)
+
+        survey_tag_dict = {}
+        if survey_tag:
+            survey_tag_dict = {'survey_tag': survey_tag}
+
+        neighbour_ids = set(self.get_neighbour_boundaries())
         response = []
         for n_id in neighbour_ids:
             n_boundary = Boundary.objects.get(id=n_id)
@@ -562,22 +689,31 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
             survey_ids = self.filter_queryset(survey_ids).\
                 distinct('survey_id').values_list('survey_id', flat=True)
             for survey_id in survey_ids:
-                qset = self.queryset.filter(
-                    survey_id=survey_id, boundary_id=n_id)
+                qset = self.filter_queryset(
+                    self.queryset.filter(
+                        survey_id=survey_id, boundary_id=n_id)
+                )
                 b_agg = qset.aggregate(Sum('num_assessments'))
-                sources = qset.distinct('source').\
-                    values_list('source__name', flat=True)
-                source_res = {}
-                for source in sources:
-                    source_res[source] = qset.filter(
-                        source__name=source).aggregate(
-                            Sum('num_assessments')
-                        )['num_assessments__sum']
+
+                usertype_res = {}
+                usertypes = SurveyBoundaryUserTypeAgg.objects.filter(
+                    boundary_id=n_id, survey_id=survey_id, **survey_tag_dict
+                )
+                if to_yearmonth:
+                    usertypes = usertypes.filter(yearmonth__lte=to_yearmonth)
+                if from_yearmonth:
+                    usertypes = usertypes.filter(yearmonth__gte=from_yearmonth)
+                usertypes = usertypes.values(
+                    'user_type').annotate(Sum('num_assessments'))
+
+                for usertype in usertypes:
+                    usertype_res[usertype['user_type']] = usertype[
+                        'num_assessments__sum']
                 neighbour_res['surveys'][survey_id] = {
                     "total_assessments": b_agg['num_assessments__sum'],
-                    "sources": source_res,
+                    "users": usertype_res,
                     "electioncount": self.get_electionboundary(
-                        n_id, survey_id
+                        n_id, survey_id, to_yearmonth, from_yearmonth
                     )
                 }
             response.append(neighbour_res)
@@ -670,3 +806,45 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
             neighbour_res['surveys'] = survey_res
             response.append(neighbour_res)
         return Response(response)
+
+
+class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
+
+    def get(self, request, *args, **kwargs):
+        to_ = request.query_params.get('to', None)
+        from_ = request.query_params.get('from', None)
+        survey_tag = self.request.GET.get('survey_tag', None)
+        boundary_id = self.request.GET.get(
+            'boundary_id', self.get_state().id)
+        institution_id = self.request.GET.get(
+            'institution_id', None
+        )
+
+        survey_ids = SurveyTagMapping.objects.filter(
+            tag__char_id=survey_tag
+        ).values_list('survey_id', flat=True)
+
+        questiongroup_ids = QuestionGroup.objects.filter(
+            survey_id__in=survey_ids).values_list('id', flat=True)
+
+        queryset = AnswerGroup_Institution.objects.\
+            filter(questiongroup_id__in=questiongroup_ids)
+        
+        queryset = queryset.filter(
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        )
+
+        if institution_id:
+            queryset = queryset.filter(institution_id=institution_id)
+
+        if to_:
+            queryset = queryset.filter(date_of_visit__lte=to_)
+
+        if from_:
+            queryset = queryset.filter(date_of_visit__gte=from_)
+
+        count = queryset.distinct('created_by_id').count()
+        return Response({"count": count})

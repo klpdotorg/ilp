@@ -3,27 +3,29 @@ import psycopg2
 import datetime
 import os, inspect
 
-if len(sys.argv) != 3:
-    print("Please give from and to+1 dates as arguments. USAGE: " +
-          "python GKAtoILPAssess 2017-11-01 2017-11-02")
+if len(sys.argv) != 5:
+    print("Please give host, password,from and to+1 dates as arguments. USAGE: " +
+          "python GKAtoILPAssess host password 2017-11-01 2017-11-02")
     sys.exit()
 
-fromdate = sys.argv[1]
-todate = sys.argv[2]
+host = sys.argv[1] 
+password = sys.argv[2]
+fromdate = sys.argv[3]
+todate = sys.argv[4]
 
-fromconnectionstring = "dbname=ekstep user=klp password=klp host=ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com"
+fromconnectionstring = "dbname=ekstep user=klp password="+password+" host="+host
 fromconn = psycopg2.connect(fromconnectionstring)
 fromcursor = fromconn.cursor()
 
-toconnectionstring = "dbname=ilp user=klp password=klp host=ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com"
+toconnectionstring = "dbname=ilp user=klp password="+password+" host="+host
 toconn = psycopg2.connect(toconnectionstring)
 tocursor = toconn.cursor()
 
-excpconnectionstring = "dbname=ekstep user=klp password=klp host=ilp-dev-db.cs6dawfr0djr.ap-south-1.rds.amazonaws.com"
+excpconnectionstring = "dbname=ekstep user=klp password="+password+" host="+host
 excpconn = psycopg2.connect(excpconnectionstring)
 excpcursor = excpconn.cursor()
 
-sqlselect = "select stu.student_id, assess.question_id, assess.content_id, assess.pass , assess.assessed_ts  from ekstep_assess assess, students stu, gka_devices c, gka_content d where assess.student_uid=stu.uid::varchar and assess.sync_ts > %s and assess.sync_ts < %s and assess.device_id = c.device_id and assess.content_id = d.content_id and not exists (select * from ekstep_assess  as dup where dup.student_uid=assess.student_uid and dup.question_id=assess.question_id and dup.assessed_ts::date=assess.assessed_ts::date and dup.content_id=assess.content_id and dup.sync_ts = assess.sync_ts and dup.assessed_ts > assess.assessed_ts)"
+sqlselect = "select stu.student_id, assess.question_id, assess.content_id, assess.pass , assess.assessed_ts, assess.assess_uid  from ekstep_assess assess, students stu, gka_devices c, gka_content d where assess.student_uid=stu.uid::varchar and assess.sync_ts > %s and assess.sync_ts < %s and assess.device_id = c.device_id and assess.content_id = d.content_id and not exists (select * from ekstep_assess  as dup where dup.assess_uid=assess.assess_uid and  dup.student_uid=assess.student_uid and dup.question_id=assess.question_id and dup.assessed_ts::date=assess.assessed_ts::date and dup.content_id=assess.content_id and dup.sync_ts = assess.sync_ts and dup.assessed_ts > assess.assessed_ts)"
 fromcursor.execute(sqlselect,(fromdate, todate))
 now = str(datetime.datetime.now())
 
@@ -37,6 +39,7 @@ for row in fromcursor.fetchall():
         score = 0
     timestamp = row[4]
     dateofvisit = datetime.datetime.date(row[4])
+    assess_uid = row[5]
     #print (student_id, question_text, questiongroup_desc, score, timestamp, dateofvisit)
 
     sqlselect = "select exists(select 1 from schools_student where id=%s);"
@@ -71,8 +74,8 @@ for row in fromcursor.fetchall():
         question_id = tocursor.fetchall()[0]
 
     # check if answergroup is present
-    sqlselect = "select id, date_of_visit from assessments_answergroup_student where student_id=%s and questiongroup_id=%s and date_of_visit::date=%s;"
-    tocursor.execute(sqlselect, (student_id, questiongroup_id, dateofvisit))
+    sqlselect = "select id, date_of_visit from assessments_answergroup_student where student_id=%s and questiongroup_id=%s and date_of_visit::date=%s and comments=%s;"
+    tocursor.execute(sqlselect, (student_id, questiongroup_id, dateofvisit, assess_uid))
     data = tocursor.fetchall()
     answergroup_present = tocursor.rowcount
     if answergroup_present != 0:
@@ -84,8 +87,8 @@ for row in fromcursor.fetchall():
                 answergroup_present = 1
                 continue
     if answergroup_present == 0:
-        sqlinsert = "insert into assessments_answergroup_student(date_of_visit, is_verified, questiongroup_id, status_id, student_id) values (%s, %s, %s, %s, %s) returning id;"
-        tocursor.execute(sqlinsert, (timestamp, 'true', questiongroup_id, 'AC', student_id))
+        sqlinsert = "insert into assessments_answergroup_student(date_of_visit, is_verified, questiongroup_id, status_id, student_id, comments) values (%s, %s, %s, %s, %s, %s) returning id;"
+        tocursor.execute(sqlinsert, (timestamp, 'true', questiongroup_id, 'AC', student_id, assess_uid))
         answergroup_id = tocursor.fetchone()[0]
 
     if answergroup_present == 1:

@@ -10,7 +10,8 @@ from assessments.models import (
     AnswerGroup_StudentGroup, AnswerGroup_Student,
     QuestionGroup_Institution_Association,
     AnswerStudent, QuestionGroup_StudentGroup_Association,
-    QuestionGroup_Institution_Association
+    QuestionGroup_Institution_Association,
+    SurveyUserTypeMapping
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
@@ -34,14 +35,35 @@ class QuestionGroupSerializer(ILPSerializer):
             'id', 'name', 'survey', 'type', 'inst_type',
             'group_text', 'start_date', 'end_date', 'academic_year',
             'version', 'source', 'source_name', 'double_entry',
-            'created_by', 'created_at', 'updated_at', 'status'
+            'created_by', 'created_at', 'updated_at', 'status',
+            'image_required', 'comments_required', 'lang_name',
+            'respondenttype_required',
         )
+
+
+class SurveyCreateSerializer(ILPSerializer):
+    class Meta:
+        model = Survey
+        fields = '__all__'
+
+    def create(self, validated_data):
+        new_id = Survey.objects.latest('id').id + 1
+        return Survey.objects.create(id=new_id, **validated_data)
+
+
+class SurveyUserTypeMappingSerializer(ILPSerializer):
+    class Meta:
+        model = SurveyUserTypeMapping
+        fields = '__all__'
 
 
 class SurveySerializer(ILPSerializer):
     state = serializers.ReadOnlyField(source='admin0.name')
-    questiongroups = QuestionGroupSerializer(
-        source='questiongroup_set', many=True
+    questiongroups = serializers.SerializerMethodField()
+    user_types = SurveyUserTypeMappingSerializer(
+        source='surveyusertypemapping_set',
+        many=True,
+        read_only=True
     )
 
     class Meta:
@@ -55,10 +77,22 @@ class SurveySerializer(ILPSerializer):
             'partner',
             'description',
             'status',
-            'image_required',
             'state',
             'questiongroups',
+            'user_types',
         )
+
+    def get_questiongroups(self, survey):
+        status = self.context['request'].query_params.get('status', None)
+        if status is None:
+            return QuestionGroupSerializer(
+                survey.questiongroup_set, many=True
+            ).data
+        else:
+            return QuestionGroupSerializer(
+                survey.questiongroup_set.filter(status__char_id=status),
+                many=True
+            ).data
 
 
 class OptionField(serializers.Field):
@@ -70,6 +104,7 @@ class OptionField(serializers.Field):
 
 class QuestionSerializer(ILPSerializer):
     options = OptionField(required=False)
+    lang_options = OptionField(required=False)
     question_type_id = serializers.IntegerField(write_only=True)
     question_type = serializers.CharField(
         read_only=True, source="question_type.display.char_id")
@@ -80,7 +115,7 @@ class QuestionSerializer(ILPSerializer):
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
             'options', 'is_featured', 'status', 'id', 'question_type_id',
-            'lang_name', 'sequence',
+            'lang_name', 'sequence', 'lang_options',
         )
 
     def get_sequence(self, question):
@@ -158,9 +193,12 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
 
     def get_created_by_username(self, obj):
         username=''
-        username = obj.created_by.first_name + obj.created_by.last_name
-        if username is None:
-            username = obj.created_by.email
+        if obj is not None and obj.created_by is not None and obj.created_by.first_name is not None: 
+            username = username + obj.created_by.first_name
+        if obj is not None and obj.created_by is not None and obj.created_by.last_name is not None:
+            username = username + ' ' + obj.created_by.last_name
+        # if username is None:
+        #     username = obj.created_by.email
         return username
 
     def get_institution_name(self, obj):

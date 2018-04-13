@@ -46,7 +46,6 @@ class Survey(models.Model):
     survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
-    image_required = models.NullBooleanField(default=False)
 
     class Meta:
         ordering = ['name', ]
@@ -81,6 +80,15 @@ class SurveyTagClassMapping(models.Model):
         unique_together = (('tag', 'sg_name', 'academic_year'), )
 
 
+class SurveyUserTypeMapping(models.Model):
+    """Association a survey with user types"""
+    survey = models.ForeignKey('Survey')
+    usertype = models.ForeignKey('common.RespondentType')
+
+    class Meta:
+        unique_together = (('survey', 'usertype'), )
+
+
 class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
     name = models.CharField(max_length=100)
@@ -100,24 +108,41 @@ class QuestionGroup(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     status = models.ForeignKey('common.Status')
+    image_required = models.NullBooleanField(default=False)
+    comments_required = models.NullBooleanField(default=False)
+    respondenttype_required = models.NullBooleanField(default=False)
+    default_respondent_type = models.ForeignKey('common.RespondentType', null=True)
 
     questions = models.ManyToManyField(
         'Question', through='Questiongroup_Questions'
     )
+
+    class Meta:
+        permissions = (
+            ('crud_answers', 'CRUD Answers'),
+        )
 
 
 class Question(models.Model):
     """pool of questions"""
     question_text = models.CharField(max_length=300)
     display_text = models.CharField(max_length=300)
-    lang_name = models.CharField(max_length=100, null=True)
+    lang_name = models.CharField(max_length=300, null=True)
     key = models.CharField(max_length=50, null=True)
     question_type = models.ForeignKey('QuestionType', null=True)
-    options = models.CharField(max_length=300, null=True)
+    options = models.CharField(max_length=750, null=True)
+    lang_options = models.CharField(max_length=750, null=True)
     is_featured = models.BooleanField()
     status = models.ForeignKey('common.Status')
     max_score = models.IntegerField(null=True)
     pass_score = models.CharField(max_length=100, null=True)
+
+
+class QuestionGroupKey(models.Model):
+    """question key information"""
+    questiongroup = models.ForeignKey('QuestionGroup')
+    key = models.CharField(max_length=50, null=True)
+    max_score = models.IntegerField(null=True)
 
 
 class Partner(models.Model):

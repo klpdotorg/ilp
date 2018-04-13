@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^', include('users.urls', namespace='user')),
     url(r'^reports/', include('reports.api_urls')),
     url(r'^', include('ivrs.api_urls', namespace='ivrs')),
-    url(r'^reports/', include('reports.api_urls')),
+    # url(r'^', include('permissions.urls', namespace='permissions'))
 ]

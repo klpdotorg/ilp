@@ -24,12 +24,12 @@ tables = [
     },
     {
         'name': 'assessments_questiongroup',
-        'getquery': "\COPY (select id, case source_id when 4 then 'ILP Konnect Mobile' when 1 then 'ILP Konnect Paper' end, start_date, version, 0, created_at, case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, 'AC',source_id, 7, 'perception', 'name' from stories_questiongroup where id in (18,20)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
-        'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, type_id, group_text) FROM 'replacefilename' with csv NULL 'null';"
+        'getquery': "\COPY (select id, case source_id when 4 then 'ILP Konnect Mobile' when 1 then 'ILP Konnect Paper' end, start_date, version, 0, created_at, case(school_type_id) when 1 then 'primary' when 2 then 'pre' else 'both' end, 'AC',source_id, 7, 'perception', 'name', true from stories_questiongroup where id in (18,20)) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'insertquery': "\COPY replacetablename(id, name, start_date, version, double_entry, created_at, inst_type_id, status_id, source_id,survey_id, type_id, group_text, respondenttype_required) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'name': 'assessments_question',
-        'getquery': "\COPY (select distinct id, text, display_text, key, options, is_featured, question_type_id,case(is_active) when 't' then 'AC' when 'f' then 'IA' end from stories_question where id in (select question_id from stories_questiongroup_questions where questiongroup_id in (18,20))) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select distinct id, text, display_text, key, options, true, question_type_id,case(is_active) when 't' then 'AC' when 'f' then 'IA' end from stories_question where id in (select question_id from stories_questiongroup_questions where questiongroup_id in (18,20))) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, text text, display_text text, key text, options text, is_featured boolean, question_type_id integer, status text ); \COPY temp_replacetablename(id, text, display_text, key, options, is_featured, question_type_id,status) FROM 'replacefilename' with csv NULL 'null';",
         'insertquery': "INSERT INTO replacetablename(id, question_text, display_text, key, options, is_featured, question_type_id, status_id) select temp.id, temp.text, temp.display_text, temp.key, temp.options, temp.is_featured, temp.question_type_id, temp.status from temp_replacetablename temp where temp.id not in (select id from replacetablename);"
     },

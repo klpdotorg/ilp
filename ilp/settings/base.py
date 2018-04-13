@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.sites',
-
+    'guardian',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_gis',
@@ -48,7 +48,7 @@ INSTALLED_APPS = (
     'django_filters',
     'compressor',
     'easyaudit',
-
+    'fixture_magic',
     # ILP apps
     'users',
     'common',
@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'dise',
     'assessments',
     'ivrs',
+    'permissions',
 )
 
 # DRF Settings
@@ -75,11 +76,12 @@ REST_FRAMEWORK = {
     ),
 
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'permissions.permissions.IlpBasePermission',
     ),
 
     'DEFAULT_RENDERER_CLASSES': (
         'common.renderers.ILPJSONRenderer',
+        'common.renderers.KLPCSVRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer'
     ),
 
@@ -129,7 +131,8 @@ USE_TZ = True
 
 # Authentication model
 AUTH_USER_MODEL = 'users.User'
-AUTHENTICATION_BACKENDS = ['users.backends.EmailMobileUsernameBackend']
+AUTHENTICATION_BACKENDS = ['users.backends.EmailMobileUsernameBackend',
+'guardian.backends.ObjectPermissionBackend',]
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
@@ -169,14 +172,16 @@ SWAGGER_SETTINGS = {
 
 # ILP SETTINGS
 # This is the actual DISE academic year for which we're pulling data
-DISE_ACADEMIC_YEAR = '1617'
+DISE_ACADEMIC_YEAR = '16-17'
 # This is just a variation of the above for front-end format purposes and
 # DISE app endpoints.When the above changes, this also has to change
 DISE_FRONTEND_ACADEMIC_YEAR = '16-17'
 # This is the year KLP uses to query data in the DB
 DEFAULT_ACADEMIC_YEAR = '1718'
 
-DISE_APP_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
+DISE_API_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
+
+DISE_APP_URL = 'https://dise.dev.ilp.org.in/'
 
 BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
 
@@ -184,6 +189,8 @@ EMAIL_DEFAULT_FROM = 'India Learning Partnership <dev@ilp.org.in>'
 
 SITE_ID = 1
 
+#Django-guardian settings
+ANONYMOUS_USER_NAME = None
 
 # Logging
 LOG_ROOT = os.path.join(BASE_DIR, "/logs")

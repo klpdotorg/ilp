@@ -267,17 +267,30 @@ class SchoolDemographicsSerializer(ILPSerializer):
     num_boys = serializers.SerializerMethodField()
     num_girls = serializers.SerializerMethodField()
     mt_profile = serializers.DictField(source='get_mt_profile')
-    acyear = serializers.IntegerField(source='dise.academic_year.char_id')
+    acyear = serializers.SerializerMethodField()
     num_boys_dise = serializers.SerializerMethodField()
     num_girls_dise = serializers.SerializerMethodField()
-
+    moi = serializers.SerializerMethodField()
     
     class Meta:
         model = Institution
         fields = ('id', 'name', 'gender', 'mt_profile', 'management', 'num_boys_dise',
-                  'num_girls_dise', 'num_boys', 'num_girls', 'acyear',)
+                  'num_girls_dise', 'num_boys', 'num_girls', 'acyear','moi')
 
-   
+    #Subha S: 28/02 Adding this method in specifically for the compare flow of the frontend. 
+    # Frontend merges demographics and finance endpoints of each school and shows the info.
+    # There's no MOI data being propagated from these two endpoints. So adding it in. 
+    # We should have a broader conversation on whether we should compare the whole of the institution summary
+    # instead of just demographics and finance.
+    def get_moi(self, obj):
+        lang = obj.institution_languages.first()
+        if lang:
+            return lang.moi.name
+        return None
+
+    def get_acyear(self, obj):
+        return settings.DEFAULT_ACADEMIC_YEAR
+
     def get_gender_counts(self, obj):
         print("get_gender_counts", obj.institutionstugendercount_set)
         if obj.institutionstugendercount_set.filter(

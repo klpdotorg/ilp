@@ -9,6 +9,43 @@ var topSummaryData = {};
     var premodalQueryParams = {};
 
     klp.init = function() {
+
+        // Screen size adjustments
+        if(screen.width >= 640) {
+            $('.one-row-chart').height(400);
+        } else {
+            $('.one-row-chart').height(200);
+        }
+
+        // All GKA related data are stored in GKA
+        klp.GKA = {};
+        klp.GKA.routerParams = {};
+        klp.GKA.GRAP_LABEL_MAX_CHAR = 4;
+
+        // This function is used as a callback to accordion init function
+        // to determine which section to load when a user clicks a
+        // section
+        klp.GKA.accordionClicked = function($el) {
+            var isSectionVisible = $el.is(':visible'),
+                elId = $el.attr('id'),
+                functionMap = {
+                    sms: loadSmsData,
+                    assessment: loadAssmtData,
+                    gpcontest: loadGPContestData,
+                    surveys: loadSurveys,
+                    comparison: loadComparison
+                };
+
+            if(!isSectionVisible) { return; }
+
+            if(typeof(functionMap[elId]) === 'function') {
+                functionMap[elId](klp.GKA.routerParams);
+            } else {
+                console.log('Accordion event handler returned an unknow id');
+            }
+        }
+
+        // Initialize accordion, filters and router
         klp.accordion.init();
         klp.gka_filters.init();
         klp.router = new KLPRouter();
@@ -17,53 +54,45 @@ var topSummaryData = {};
             hashChanged(params);
         });
         klp.router.start();
-
-        // All GKA related data are stored in GKA
-        klp.GKA = {};
+        premodalQueryParams = klp.router.getHash().queryParams;
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
+        $('#startDate').yearMonthSelect("setDate", moment("20170601", "YYYYMMDD"));
+        $('#endDate').yearMonthSelect("setDate", moment("20180331", "YYYYMMDD"));
+        var startDate = $('#startDate').yearMonthSelect("getFirstDay");
 
-        //this is a bit of a hack to save query state when
-        //triggering a modal, since modals over-ride the url
-        //Works only on date modal.
-        premodalQueryParams = klp.router.getHash().queryParams;
-        if (premodalQueryParams.hasOwnProperty("from")) {
-            var mDate = moment(premodalQueryParams.from);
-            $('#startDate').yearMonthSelect("setDate", mDate);
-        }
-        if (premodalQueryParams.hasOwnProperty("to")) {
-            var mDate = moment(premodalQueryParams.to);
-            $('#endDate').yearMonthSelect("setDate", mDate);
-        } else {
-            $('#endDate').yearMonthSelect("setDate", moment());
-        }
+        $('#search_button').click(function(e){
+            var district_id = $("#select-district").val(),
+                block_id = $("#select-block").val(),
+                cluster_id = $("#select-cluster").val(),
+                institution_id = $("#select-school").val(),
+                start_date = $('#startDate').yearMonthSelect("getFirstDay"),
+                end_date = $('#endDate').yearMonthSelect("getFirstDay"),
+                url = '/gka/#searchmodal';
 
-        $('#dateSummary').click(function(e) {
-            e.preventDefault();
-            var currentQueryParams = premodalQueryParams;
-            var startDate = $('#startDate').yearMonthSelect("getFirstDay");
-            var endDate = $('#endDate').yearMonthSelect("getLastDay");
-            if (moment(startDate) > moment(endDate)) {
-                klp.utils.alertMessage("End date must be after start date", "error");
-                return false;
-            }
-            currentQueryParams['from'] = $('#startDate').yearMonthSelect("getFirstDay");
-            currentQueryParams['to'] = $('#endDate').yearMonthSelect("getLastDay");
-            klp.router.setHash(null, currentQueryParams);
+                if(start_date && end_date) {
+                    url += '?from=' + start_date + '&to=' + end_date;
+                } else {
+                    // url += 'default_date=true';
+                }
+
+                if(institution_id) {
+                    url += '&institution_id=' + institution_id;
+                } else {
+                    if(cluster_id) {
+                        url += '&boundary_id=' + cluster_id;
+                    } else if(block_id) {
+                        url += '&boundary_id=' + block_id;
+                    } else if(district_id) {
+                        url += '&boundary_id=' + district_id;
+                    }
+                }
+
+                e.originalEvent.currentTarget.href = url;
+
         });
-
-        $('a[href=#datemodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
-
-        $('a[href=#close]').click(function(e) {
-            klp.router.setHash(null, premodalQueryParams, {'trigger': false});
-        });
-
-        $('a[href=#searchmodal]').click(function(e) {
-            premodalQueryParams = klp.router.getHash().queryParams;
-        });
+        
         loadData(premodalQueryParams);
     }
 
@@ -83,7 +112,7 @@ var topSummaryData = {};
             //and not for just localhost:8001/gka#datemodal
             else if(window.location.hash != '#datemodal' && window.location.hash !='#close' && window.location.hash != '#searchmodal')
             {
-                loadData(queryParams)
+                loadData(queryParams, true);
             }
             //This is the do nothing case switch for localhost:8001/gka#datemodal
             else {//do nothing;
@@ -92,139 +121,202 @@ var topSummaryData = {};
         $('#ReportContainer').show();
     }
 
-    function loadData(params) {
+    function loadData(params, reloadOpenSection) {
         // As of August 1st, 2017, data from June 2017 is shown as default
         if(!params.from && !params.to) {
             params.from = '2017-06-01';
-            params.to = '2018-12-31';
+            params.to = '2018-03-31';
         }
 
+        klp.GKA.routerParams = params;
+
         loadTopSummary(params);
-        // All other sections are loaded after loadTopSummary is loaded
-        // as they use data fetched by loadTopSummary
+
+        if(reloadOpenSection) {
+            var sections = [
+                'sms',
+                'assessment',
+                'gpcontest',
+                'surveys',
+                'comparison'
+            ];
+
+            _.each(sections, function(s){
+                klp.GKA.accordionClicked($('#' + s));
+            });
+        }
     }
 
     function loadComparison(params) {
-        startDetailLoading();
+        var $compareEmptyMessage = $('#compareEmptyMessage'),
+            $compareTable = $('#compareTable');
 
-        var $metaXHR = klp.api.do("survey/info/class/gender", params);
-        $metaXHR.done(function(data)
-        {
-            var neighbours = _.map(data.summary_comparison, function(summary){
-                return {
-                    name: summary.boundary_name,
-                    schools: summary.schools,
-                    sms: summary.sms,
-                    sms_govt: summary.sms_govt,
-                    sms_govt_percent: getPercent(summary.sms_govt, summary.sms),
-                    assmt: summary.assessments,
-                    contests: summary.contests,
-                    surveys: summary.surveys
+        // No comparison for schools
+        if(params.institution_id) {
+            $compareTable.hide();
+            $compareEmptyMessage.show();
+            return;
+        } else {
+            $compareTable.show();
+            $compareEmptyMessage.hide();
+        }
+
+        // Spinners
+        $compareTable.startLoading();
+
+        var $compareXHR = klp.api.do(
+            "surveys/boundaryneighbour/info/?survey_tag=gka", params
+        );
+        $compareXHR.done(function(comparisonData) {
+
+            var neighbours = _.map(comparisonData.results, function(c){
+                var data = {
+                    name: c.name,
+                    schools: c.schools,
+                    sms: 'NA',
+                    sms_govt: 'NA',
+                    sms_govt_percent: 'NA',
+                    assmt: 'NA',
+                    contests: 'NA',
+                    surveys: 'NA'
+                };
+
+                try {
+                    data.sms = c.surveys['11']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.assmt = c.surveys['3']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.contests = c.surveys['2']['electioncount']['GP'];
+                } catch (e) {}
+
+                try {
+                    data.surveys = c.surveys['7']['total_assessments'];
+                } catch (e) {}
+
+                try {
+                    data.sms_govt = c.surveys['11']['users']['CRP'];
+                    data.sms_govt_percent = getPercent(
+                        data.sms_govt, data.sms
+                    );
+                } catch (e) {
+
+                } finally {
+                    if(isNaN(data.sms_govt_percent)) {
+                        data.sms_govt_percent = 'NA';
+                    }
                 }
+
+                // COMEBACK
+                return data;
             });
             var tplComparison= swig.compile($('#tpl-compareTable').html());
             var compareHTML = tplComparison({"neighbours":neighbours});
-            $('#compareTable').html(compareHTML);
-            renderComparisonCharts(params, data);
-            stopDetailLoading();
+            $compareTable.html(compareHTML);
+            $compareTable.stopLoading();
         });
+
+        return; // No need to render comparison graphs for version 1
+
+        // var $assessmentComparisonXHR = klp.api.do(
+        //     "surveys/boundaryneighbour/detail/?survey_tag=gka&survey_ids=2&survey_ids=7", params
+        // );
+        // $assessmentComparisonXHR.done(function(chartComparisonData){
+    
+        //     renderComparisonCharts(params, chartComparisonData.results);
+        // });
     }
 
-    function renderComparisonCharts(params, data){
+    function renderComparisonCharts(params, chartComparisonData){
 
-        function getSkillValue(skills, skillType, dataType) {
-            var value;
+        var ekstepValues = {},
+            gpSurveyId = 2,
+            gpContestValues = {},
+            gpLabels = [
+                "Addition",
+                "Subtraction",
+                "Multiplication",
+                "Division"
+            ],
+            districts = _.pluck(chartComparisonData, 'name').splice(0, 4),
+            qgs = [];
 
-            if (dataType === 'ekstep') {
-                if(skills.competencies[skillType]) {
-                    var total = skills.competencies[skillType].total,
-                        score = skills.competencies[skillType].score;
-                    value = score / total * 100;
-                } else {
-                    value = 0;
-                }
-            } else {
-                for(var s in skills.competencies) {
-                    var yes = 0, no = 0;
-                    for(var i = 1; i <= 5; i++) {
-                        if(skills.competencies[skillType + ' ' + i]) {
-                            if(skills.competencies[skillType + ' ' + i].Yes && skills.competencies[skillType + ' ' + i].No) {
-                                    yes += skills.competencies[skillType + ' ' + i].Yes;
-                                    no += skills.competencies[skillType + ' ' + i].No;
-                            }
+        // Combine GP contest data
+
+        // For each district, fetch question groups and combine data
+        _.each(districts, function(d, districtIndex){
+
+            // Select the district
+            var district = _.find(chartComparisonData, function(c){
+                    return c.name === d;
+                }),
+                qgs = [];
+
+            // Select the question groups
+            try {
+                qgs = _.map(
+                    district['surveys'][gpSurveyId]['questiongroups'],
+                    function(qVal, qKey) {
+                        return qKey;
+                    }
+                );
+            } catch(e) { console.log('error building qgs', e); }
+            
+            // Add the keys together for each gp labels and store it in 
+            // an array for each district
+            gpContestValues['n' + (districtIndex + 1)] = _.map(gpLabels, function(label){
+                var total = 0,
+                    score = 0,
+                    percent = 0;
+
+                // Add each labels across all question groups
+                _.each(qgs, function(qg){
+                    var keys = district['surveys'][gpSurveyId]['questiongroups'][qg]['question_keys'];
+                    
+                    for(var key in keys) {
+                        if(key === label) {
+                            score += keys[key]['score'];
+                            total += keys[key]['totol'];
+                            break;
                         }
                     }
-                }
-                value = yes / (yes + no) * 100;
-            }
+                });
 
-            if(value) { return value.toFixed(2); } else { return 0; }
-        }
+                percent = getPercent(score, total);
 
-        function getNValues(section, dataType) {
-            var addition = getSkillValue(section, 'Addition'),
-                subtraction = getSkillValue(section, 'Subtraction'),
-                multiplication = getSkillValue(section, 'Multiplication'),
-                division = getSkillValue(section, 'Division');
-            return [{
-                meta: section.boundary_name,
-                skill: 'Addition',
-                value: getSkillValue(section, 'Addition', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Subtraction',
-                value: getSkillValue(section, 'Subtraction', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Multiplication',
-                value: getSkillValue(section, 'Multiplication', dataType)
-            },{
-                meta: section.boundary_name,
-                skill: 'Division',
-                value: getSkillValue(section, 'Division', dataType)
-            }];
-        };
+                return {meta: d, skill: label, value: percent};
 
-        function getMetaValues(dataType) {
-            var metaValues = {};
-            for(var i = 1; i <= 4; i++) {
-                if(!data.competency_comparison[i-1]) {
-                    metaValues['n' + i] = [];
-                } else {
-                    var ekstepData = data.competency_comparison[i-1][0].type === dataType ? data.competency_comparison[i-1][0] : data.competency_comparison[i-1][1];
-                    metaValues['n' + i] = getNValues(ekstepData, dataType);
-                }
-            }
-            return metaValues;
-        }
+            });
 
-        var ekstepValues = getMetaValues('ekstep'),
-            gpContestValues = getMetaValues('gp_contest');
+        });
 
-        var ekstepCompetencies = {
-            labels: ["Addition","Subtraction","Multiplication","Division"],
-            series: [
-                {
-                    className: 'ct-series-f',
-                    data: ekstepValues["n1"]
-                },
-                {
-                    className: 'ct-series-a',
-                    data: ekstepValues["n2"]
-                },
-                {
-                    className: 'ct-series-g',
-                    data: ekstepValues["n3"]
-                },
-                {
-                    className: 'ct-series-o',
-                    data: ekstepValues["n4"]
-                }
-            ],
-        }
+        // var ekstepCompetencies = {
+        //     labels: labels,
+        //     series: [
+        //         {
+        //             className: 'ct-series-f',
+        //             data: ekstepValues["n1"]
+        //         },
+        //         {
+        //             className: 'ct-series-a',
+        //             data: ekstepValues["n2"]
+        //         },
+        //         {
+        //             className: 'ct-series-g',
+        //             data: ekstepValues["n3"]
+        //         },
+        //         {
+        //             className: 'ct-series-o',
+        //             data: ekstepValues["n4"]
+        //         }
+        //     ],
+        // }
 
         var gpContestCompetencies = {
-            labels: ["Addition","Subtraction","Multiplication","Division"],
+            labels: gpLabels,
             series: [
                 {
                     className: 'ct-series-f',
@@ -245,85 +337,105 @@ var topSummaryData = {};
             ],
         }
 
-        renderBarChart('#compareAssmtGraph', ekstepCompetencies, "Percentage of Children");
+        // renderBarChart('#compareAssmtGraph', ekstepCompetencies, "Percentage of Children");
         renderBarChart('#compareGpcGraph', gpContestCompetencies, "Percentage of Children");
     }
 
     function loadSmsData(params) {
-        startDetailLoading();
+        // Spinners
+        $('#smsSummary').startLoading();
+        $('#smsSender').startLoading();
+        $('#smsVolume').startLoading();
+        $('#smsQuestions').startLoading();
+
+        // var smsSurvey = getSurveyId('gka school visit');
+        var smsSurvey = 11;
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
-            "survey/summary/?survey_tag=gka&survey_id=11", params
+            "survey/summary/?survey_tag=gka&survey_id=" + smsSurvey, params
         );
-        $smsSummaryXHR.done(function(data) {
-            stopDetailLoading();
+        $smsSummaryXHR.done(function(data) {;
             klp.GKA.smsSummary = data;
             renderSmsSummary(data);
+            $('#smsSummary').stopLoading();
         });
 
-        // Fetch SMS Volume
-        // Fetch users first
+        // Fetch users
         var $usersXHR = klp.api.do(
-            "survey/info/users/?survey_tag=gka&survey_id=11", params
+            "survey/info/users/?survey_tag=gka&survey_id=" + smsSurvey,
+            params
         );
         $usersXHR.done(function(userGroups) {
-
             renderSMSUserCharts(userGroups.users, params);
+            $('#smsSender').stopLoading();
+        });
 
-            // Fetch volumes next
-            var $volumesXHR = klp.api.do(
-                "survey/volume/?survey_tag=gka&survey_id=11", params
-            );
-            $volumesXHR.done(function(volumes) {
-                var data = {
-                    volumes: volumes,
-                    user_groups: userGroups.users
-                };
-                stopDetailLoading();
-                renderSMSVolumeCharts(data, params);
-            });
+        // Fetch volumes
+        var $volumesXHR = klp.api.do(
+            "survey/volume/?survey_tag=gka&survey_id=" + smsSurvey,
+            params
+        );
+        $volumesXHR.done(function(volumes) {
+            var data = {
+                volumes: volumes
+            };
+            renderSMSVolumeCharts(data, params);
+            $('#smsVolume').stopLoading();
         });
 
         // Fetch SMS Details
         var $detailXHR = klp.api.do(
-            "survey/detail/source/?survey_tag=gka&survey_id=11", params
+            "survey/detail/source/?survey_tag=gka&survey_id=" + smsSurvey,
+            params
         );
         $detailXHR.done(function(data) {
-            stopDetailLoading();
             renderSMSDetails(data);
+            $('#smsQuestions').stopLoading();
         });
     }
 
     function loadSurveys(params) {
-        startDetailLoading();
+        $('#surveySummary').startLoading();
+        $('#mobRespondent').startLoading();
+        $('#mobVolume').startLoading();
+        $('#surveyQuestions').startLoading();
+
+        var surveyId = getSurveyId('Community Survey');
 
         // Load the source for csv summary
-        var $sourceXHR = klp.api.do("survey/info/source/?survey_tag=gka&survey_id=7", params);
-        $sourceXHR.done(function(sourceData) {
-            klp.GKA.surveySummaryData = sourceData;
-            renderSurveySummary(sourceData);
+        var $surveySummaryXHR = klp.api.do(
+            "survey/summary/?survey_tag=gka&survey_id=" + surveyId, params
+        );
+        $surveySummaryXHR.done(function(surveySummaryData) {
+            klp.GKA.surveySummaryData = surveySummaryData;
+            renderSurveySummary(surveySummaryData);
+            $('#surveySummary').stopLoading();
 
             // Load the respondent summary
-            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=7", params);
+            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=" + surveyId, params);
             $respondentXHR.done(function(respondentData) {
                 renderRespondentChart(respondentData);
-                stopDetailLoading();
+                $('#mobRespondent').stopLoading();
             });
         });
 
         // Load the volumes
-        var $volumeXHR = klp.api.do("survey/volume/?survey_tag=gka&survey_id=7", params);
+        var $volumeXHR = klp.api.do(
+            "survey/volume/?survey_tag=gka&survey_id=" + surveyId, params
+        );
         $volumeXHR.done(function(data) {
             renderVolumeChart(data, params);
-            stopDetailLoading();
+            $('#mobVolume').stopLoading();
         });
 
         // Load the detail section
-        var $detailXHR = klp.api.do("survey/detail/source/?survey_tag=gka&survey_id=7", params);
+        var $detailXHR = klp.api.do(
+            "survey/detail/source/?survey_tag=gka&survey_id=" + surveyId, params
+        );
         $detailXHR.done(function(data) {
             renderSurveyQuestions(data.source);
-            stopDetailLoading();
+            $('#surveyQuestions').stopLoading();
         });
     }
 
@@ -432,8 +544,12 @@ var topSummaryData = {};
             "ivrss-functional-toilets-girls"
         ];
 
+        var combinedData = combineDataSources(
+            data, ['csv', 'mobile'], questionKeys
+        );
+
         var questionObjects = _.map(questionKeys, function(key) {
-            return getQuestion(data, 'csv', key);
+            return getQuestion(combinedData, 'combinedData', key);
         });
         var questions = getQuestionsArray(questionObjects);
         //var regroup = {}
@@ -445,10 +561,12 @@ var topSummaryData = {};
     }
 
     function renderSurveySummary(data) {
-        data = data.source.csv;
         var tplCsvSummary = swig.compile($('#tpl-csvSummary').html());
-        data["format_lastcsv"] = formatLastStory(data.last_assessment, true);
-        data['schoolPerc'] = getPercent(data.schools_impacted, klp.GKA.topSummaryData.schools_impacted);
+
+        data = data.summary;
+        data.total_assessments = data.total_assessments ? data.total_assessments: 0;
+        data["format_last_assessment"] = data.last_assessment ? formatLastStory(data.last_assessment, true): 'NA';
+
         var csvSummaryHTML = tplCsvSummary(data);
         $('#surveySummary').html(csvSummaryHTML);
     }
@@ -457,50 +575,60 @@ var topSummaryData = {};
     // Renders top summary of GKA dashboard
     function loadTopSummary(params) {
 
-        var passedFrom = params.from;
-        var passedTo = params.to;
+        // Loading spinner
+        var $spinner = $('#ReportContainer').find('.js-summary-container'),
+            year = '';
+
+        // Start the loading spinner
+        $spinner.startLoading();
 
         // Top summary needs a year
         if(params.from && params.to) {
-            params.year = params.from.slice(2, 4) + params.to.slice(2, 4);
+            var toMonth = parseInt(params.to.slice(5,7), 10),
+                toYear = parseInt(params.to.slice(2, 4), 10);
+
+            if(toMonth >= 6) {
+                year = '' + toYear + '' + (toYear + 1);
+            } else {
+                year = (toYear - 1) + '' + toYear;
+            }
         }
 
         // Top summary doesn't need a from and to
-        delete params.from;
-        delete params.to;
+        // delete params.from;
+        // delete params.to;
 
         // Load the summary first
-        var $summaryXHR = klp.api.do("surveys/tagmappingsummary/?survey_tag=gka", params);
-        startSummaryLoading();
-        $summaryXHR.done(function(data) {
+        var $summaryXHR = klp.api.do(
+            "surveys/tagmappingsummary/?survey_tag=gka&year=" + year, params
+        );
+        $summaryXHR.done(function(tagmappingData) {
             var topSummary = {
                 education_volunteers: 0,
-                total_school: data.total_schools,
-                children_impacted: data.num_students,
-                schools_impacted: data.num_schools
+                total_school: tagmappingData.total_schools,
+                children_impacted: tagmappingData.num_students,
+                schools_impacted: tagmappingData.num_schools
             };
-
-            // Bring back the from and to
-            params.from = passedFrom;
-            params.to = passedTo;
-            // And delete the year params which is not needed in subsequent calls
-            delete params.year;
 
             // Load the users Education volunteers count
             var $usersXHR = klp.api.do(
-                "survey/summary/?survey_tag=gka", params
+                "surveys/usercount/?survey_tag=gka", params
             );
-            $usersXHR.done(function(data) {
-                topSummary.active_users = (data.summary && data.summary.num_users) ? data.summary.num_users : 0; 
+            $usersXHR.done(function(usersCountData) {
+                topSummary.active_users = usersCountData.count; 
 
                 klp.GKA.topSummaryData = topSummary;
                 renderTopSummary(topSummary);
+                $spinner.stopLoading();
 
+                /* As of 5 March 2018, rest of the sections are loaded
+                    only after a user opens a section
+                */
                 // Load the rest of sections
-                loadSmsData(params);
-                loadAssmtData(params);
-                loadGPContestData(params);
-                loadSurveys(params);
+                // loadSmsData(params);
+                // loadAssmtData(params);
+                // loadGPContestData(params);
+                // loadSurveys(params);
                 // loadComparison(params);
             });
         });
@@ -509,7 +637,6 @@ var topSummaryData = {};
     function renderTopSummary(topSummary) {
         var tplTopSummary = swig.compile($('#tpl-topSummary').html());
         var topSummaryHTML = tplTopSummary({"data": topSummary});
-        stopSummaryLoading();
         $('#topSummary').html(topSummaryHTML);
     }
 
@@ -519,16 +646,11 @@ var topSummaryData = {};
             tplSmsSummary = swig.compile($('#tpl-smsSummary').html());
 
         data = data.summary;
-        summaryData.assessment_count = data.total_assessments;
+        summaryData.assessment_count = data.total_assessments ? data.total_assessments: 0;
         summaryData.schools_impacted = data.schools_impacted;
         summaryData.last_assessment = data.last_assessment;
-        summaryData.format_lastsms = formatLastStory(
-            data.last_assessment, true);
-        summaryData.smsPercentage = summaryData.schools_impacted / klp.GKA.topSummaryData.schools_impacted * 100;
-        summaryData.smsPercentage = Math.floor(summaryData.smsPercentage);
-
-        console.log(summaryData)
-
+        summaryData.format_lastsms = data.last_assessment ? formatLastStory(
+            data.last_assessment, true): 'NA';
         var smsSummaryHTML = tplSmsSummary(summaryData);
         $('#smsSummary').html(smsSummaryHTML);
 
@@ -537,46 +659,6 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
-        function combineSources(sourceData, sources) {
-            var combined = {
-                    combinedData: sourceData[sources[0]]
-                },
-                target = sourceData[sources[1]];
-
-
-            for(var i = 0; i < combined.combinedData.length; i++) {
-                var d = combined.combinedData[i],
-                    key = d.question ? d.question.key : null,
-                    t = null;
-
-                // Find the second source's key
-                for(var j=0; j < target.length; j++) {
-                    if(target[j] && target[j]['question']) {
-                        if(target[j]['question']['key'] === key) {
-                            t = target[j];
-                            break;
-                        }
-                    }
-                }
-
-                // Add the answers if they are present
-                if(t && t.answers) {
-                    var yes = t.answers['Yes'] ? t.answers['Yes'] : 0,
-                        no = t.answers['No'] ? t.answers['No'] : 0,
-                        dontKnow = t.answers['Don\'t Know'] ? t.answers['Don\'t Know'] : 0;
-
-                    combined.combinedData[i].answers['Yes'] += yes;
-                    combined.combinedData[i].answers['No'] += no;
-                    combined.combinedData[i].answers['Don\'t Know'] += dontKnow;
-                }
-            }
-
-
-            return combined;
-        }
-
-        var data = combineSources(detailsData.source, ['sms', 'konnectsms']);
-        
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -584,6 +666,9 @@ var topSummaryData = {};
                 "ivrss-gka-rep-stage",
                 "ivrss-group-work"
             ],
+            data = combineDataSources(
+                detailsData.source, ['sms', 'konnectsms'], SMSQuestionKeys
+            ),
             questionObjects = _.map(SMSQuestionKeys, function(key) {
                 return getQuestion(data, 'combinedData', key);
             }),
@@ -595,25 +680,66 @@ var topSummaryData = {};
             regroup[questions[each]["key"]] = questions[each];
         }
 
+        // Add default values to prevent JS errors at the template lebel
+        _.each(SMSQuestionKeys, function(qKey){
+            if(!regroup[qKey]) {
+                regroup[qKey] = {
+                    percent: "0",
+                    score: 0,
+                    total: 0
+                };
+            }
+        });
+
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
 
 
     function renderSMSUserCharts(users, params) {
-        var meta_values = [];
+        var meta_values = [],
+            labels = [],
+            userFullName = {
+                PR:"Parents",
+                CH:"Children",
+                TR:"Teachers",
+                VR:"Volunteer",
+                CM:"CBO Member",
+                HM:"Head Master",
+                SM:"SDMC Member",
+                LL:"Local Leader",
+                AS:"Akshara Staff",
+                EY:"Educated Youth",
+                EO:"Educational Officer",
+                ER:"Elected Representative",
+                GO:"Government Official",
+                CRP:"Cluster Resource Person",
+                SSA:"SSA Official",
+                BRP:"Block Resource Person",
+                ECO:"Educational Coordinator",
+                DIET:"DIET Principal",
+                BEO:"Block Education Officer",
+                DDPI:"DDPI",
+                DEO:"District Education Officer",
+                DPC:"District Project Coordinator",
+                BRC:"Block Resource Coordinator",
+                CRCC:"Cluster Resource Coordinator",
+                PC:"Pedagogy Coordinator",
+                UK:"Unknown"
+            };
 
         for (var m in users) {
-            if(m) {
+            if(m && (m !== 'null')) {
                 meta_values.push({
-                    meta: m,
+                    meta: userFullName[m] ? userFullName[m]: m,
                     value: users[m]
                 });
+                labels.push(m);
             }
         }
 
         // Build data for bar chart and render it
         var sms_sender = {
-            labels: _.map(meta_values, function(m){ return m.meta; }),
+            labels: labels,
             series: [
                 {
                     className: 'ct-series-b',
@@ -692,14 +818,20 @@ var topSummaryData = {};
     }
 
     function loadAssmtData(params) {
+        // Spinners
+        $('#assmtSummary').startLoading();
+        $('#assmtVolume').startLoading();
+        $('#assmtCompetancy').startLoading();
+
+        var assessmentId = getSurveyId('Ganitha Kalika Andolana');
         
         // Load summary first
-        var $summaryXHR = klp.api.do("survey/summary/?survey_id=3", params);
+        var $summaryXHR = klp.api.do("survey/summary/?survey_id=" + assessmentId, params);
         $summaryXHR.done(function(summaryData) {
             summaryData = summaryData.summary;
 
             // Load details next
-            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=3", params);
+            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=" + assessmentId, params);
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
@@ -713,22 +845,24 @@ var topSummaryData = {};
                 var children_perc = getPercent(children, children_impacted);
                 var last_assmt = summaryData.last_assessment;
                 var dataSummary = {
-                    "count": summaryData.total_assessments,
+                    "count": summaryData.total_assessments ? summaryData.total_assessments: 0,
                     "schools": schools_assessed,
                     "schools_perc": schools_perc,
-                    "children": children,
+                    "children": children ? children: 0,
                     "children_perc": children_perc,
-                    "last_assmt": formatLastStory(last_assmt, true)
+                    "last_assmt": last_assmt ?  formatLastStory(last_assmt, true) : 'NA'
                 }
                 renderAssmtSummary(dataSummary);
                 renderAssmtCharts(detailKeydata);
+                $('#assmtSummary').stopLoading();
+                $('#assmtCompetancy').stopLoading();
 
-                var $volumeXHR = klp.api.do("survey/volume/?survey_id=3", params);
-                $volumeXHR.done(function(data) {
-                    stopDetailLoading();
-                    renderAssmtVolumeChart(data, params);
-                });
+            });
 
+            var $volumeXHR = klp.api.do("survey/volume/?survey_id=" + assessmentId, params);
+            $volumeXHR.done(function(data) {
+                renderAssmtVolumeChart(data, params);
+                $('#assmtVolume').stopLoading();
             });
         });
     }
@@ -755,7 +889,10 @@ var topSummaryData = {};
 
         var scores = data.scores;
 
-        const labels = Object.keys(data.scores);
+        // var labels = Object.keys(data.scores);
+        // TODO: Find a better way to pack all the graph data from the server
+        // rather than hard coding labels.
+        var labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area of Shapes', 'Money Problem', 'Word Problems'];
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,
@@ -824,11 +961,17 @@ var topSummaryData = {};
     }
 
     function loadGPContestData(params){
+        $('#gpcSummary').startLoading();
+        $('#gpcGender_class4').startLoading();
+        $('#gpcGender_class5').startLoading();
+        $('#gpcGender_class6').startLoading();
 
-        var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=2", params);
+        var gpContestId = getSurveyId('GP Contest');
+
+        var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=" + gpContestId, params);
         $summaryXHR.done(function(summaryData) {
 
-            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=2", params);
+            var $gpXHR = klp.api.do("survey/detail/electionboundary/?survey_id=" + gpContestId, params);
             $gpXHR.done(function(gpData) {
 
                 var dataSummary = {
@@ -837,17 +980,25 @@ var topSummaryData = {};
                     "children": summaryData.summary.children_impacted
                 };
 
+                // Add default values
+                for(var dS in dataSummary) {
+                    if(!dataSummary[dS]) {dataSummary[dS] = 0;}
+                }
+
                 var tplSummary = swig.compile($('#tpl-gpcSummary').html());
                 var summaryHTML = tplSummary({"data": dataSummary});
                 $('#gpcSummary').html(summaryHTML);
+                $('#gpcSummary').stopLoading();
             });
         });
 
-        var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=2", params);
+        var $genderXHR = klp.api.do("survey/info/class/gender/?survey_id=" + gpContestId, params);
         $genderXHR.done(function(genderData) {
 
-            var genderSummary = {
-                "Class 4": {
+            var genderSummary = {};
+
+            try {
+                genderSummary["Class 4"] = {
                     "boy_perc": getPercent(
                         genderData['Class 4 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 4 Assessment'].gender.Male.total_count
@@ -860,8 +1011,17 @@ var topSummaryData = {};
                         genderData['Class 4 Assessment'].gender.Male.perfect_score_count + genderData['Class 4 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 4 Assessment'].gender.Male.total_count + genderData['Class 4 Assessment'].gender.Female.total_count
                     )
-                },
-                "Class 5": {
+                };
+            } catch(e) {
+                genderSummary["Class 4"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
+
+            try {
+                genderSummary["Class 5"] = {
                     "boy_perc": getPercent(
                         genderData['Class 5 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 5 Assessment'].gender.Male.total_count
@@ -874,7 +1034,17 @@ var topSummaryData = {};
                         genderData['Class 5 Assessment'].gender.Male.perfect_score_count + genderData['Class 5 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 5 Assessment'].gender.Male.total_count + genderData['Class 5 Assessment'].gender.Female.total_count
                     )
-                },"Class 6": {
+                };
+            } catch(e) {
+                genderSummary["Class 5"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
+
+            try {
+                genderSummary["Class 6"] = {
                     "boy_perc": getPercent(
                         genderData['Class 6 Assessment'].gender.Male.perfect_score_count,
                         genderData['Class 6 Assessment'].gender.Male.total_count
@@ -887,8 +1057,14 @@ var topSummaryData = {};
                         genderData['Class 6 Assessment'].gender.Male.perfect_score_count + genderData['Class 6 Assessment'].gender.Female.perfect_score_count,
                         genderData['Class 6 Assessment'].gender.Male.total_count + genderData['Class 6 Assessment'].gender.Female.total_count
                     )
-                }
-            };
+                };
+            } catch(e) {
+                genderSummary["Class 6"] = {
+                    "boy_perc": "NA",
+                    "girl_perc": "NA",
+                    "total_studs": "NA"
+                };
+            }
 
             var tplSummary = swig.compile($('#tpl-genderGpcSummary').html());
             var summaryHTML = tplSummary({"data": genderSummary["Class 4"]});
@@ -902,9 +1078,13 @@ var topSummaryData = {};
             summaryHTML = tplSummary({"data": genderSummary["Class 6"]});
             $('#gpcGender_class6').html(summaryHTML);
 
+            $('#gpcGender_class4').stopLoading();
+            $('#gpcGender_class5').stopLoading();
+            $('#gpcGender_class6').stopLoading();
+
         });
 
-        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=2", params);
+        var $questionGroupXHR = klp.api.do("api/v1/survey/detail/questiongroup/key/?survey_id=" + gpContestId, params);
         $questionGroupXHR.done(function(questiongroupData) {
             renderGPContestCharts(questiongroupData);
         });
@@ -938,9 +1118,20 @@ var topSummaryData = {};
         }
 
 
-        var class4competancies = genCompetancyChartObj(data['Class 4 Assessment']);
-        var class5competancies = genCompetancyChartObj(data['Class 5 Assessment']);
-        var class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
+        var class4competancies = [];
+        try {
+            class4competancies = genCompetancyChartObj(data['Class 4 Assessment']);
+        } catch(e) {}
+
+        var class5competancies = [];
+        try {
+            class5competancies = genCompetancyChartObj(data['Class 5 Assessment']);
+        } catch(e) {}
+
+        var class6competancies = [];
+        try {
+            class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
+        } catch(e) {}
 
         renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
         renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");
@@ -980,13 +1171,16 @@ var topSummaryData = {};
     function renderBarChart(elementId, data, yTitle=' ') {
 
         var options = {
-            //seriesBarDistance: 10,
+            seriesBarDistance: 10,
             axisX: {
                 showGrid: true,
+                offset: 80
             },
             axisY: {
                 showGrid: true,
+                // offset: 80
             },
+            position: 'start',
             plugins: [
                 Chartist.plugins.tooltip(),
                 Chartist.plugins.ctAxisTitle({
@@ -1013,8 +1207,8 @@ var topSummaryData = {};
                 height: '200px',
                 axisX: {
                   labelInterpolationFnc: function (value) {
-                    if (value.length > 9) {
-                      return value.slice(0, 9) + '...'
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR) + '..'
                     }
 
                     return value;
@@ -1042,8 +1236,13 @@ var topSummaryData = {};
 
         var options = {
             seriesBarDistance: 10,
+            position: 'start',
             axisX: {
                 showGrid: true,
+                labelOffset: {
+                    x: -20,
+                    y: 0
+                },
             },
             axisY: {
                 showGrid: true,
@@ -1059,8 +1258,8 @@ var topSummaryData = {};
                 height: '200px',
                 axisX: {
                   labelInterpolationFnc: function (value) {
-                    if (value.length > 9) {
-                      return value.slice(0, 9) + '...'
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR-1) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR-1) + '..'
                     }
 
                     return value;
@@ -1071,11 +1270,6 @@ var topSummaryData = {};
         ];
 
         var $chart_element = Chartist.Line(elementId, data, options, responsiveOptions).on('draw', function(data) {
-            // if (data.type === 'bar') {
-            //     data.element.attr({
-            //         style: 'stroke-width: 15px;'
-            //     });
-            // }
             if (data.type === 'label' && data.axis === 'x') {
                 data.element.attr({
                     width: 200
@@ -1090,25 +1284,6 @@ var topSummaryData = {};
         Helper functions
             TODO: move to separate file and document.
      */
-    function startSummaryLoading() {
-        var $container = $('#ReportContainer');
-        $container.find('.js-summary-container').startLoading();
-    }
-
-    function startDetailLoading() {
-        var $container = $('#ReportContainer');
-        $container.find('.js-detail-container').startLoading();
-    }
-
-    function stopSummaryLoading(schoolType) {
-        var $container = $('#ReportContainer');
-        $container.find('.js-summary-container').stopLoading();
-    }
-
-    function stopDetailLoading(schoolType) {
-        var $container = $('#ReportContainer');
-        $container.find('.js-detail-container').stopLoading();
-    }
 
     function getYear(dateString) {
         return dateString.split("-")[0];
@@ -1187,5 +1362,57 @@ var topSummaryData = {};
             };
         });
     }
+
+
+    function getSurveyId(name) {
+        var survey = _.find(GKA_SURVEYS.surveys, function(s){ return s.name.toLowerCase() === name.toLowerCase(); });
+
+        if(survey) {
+            return survey.id;
+        } else {
+            return 'None';
+        }
+    }
+
+
+    function combineDataSources(sourceData, sources, keys) {
+        var s1 = sources[0],
+            s2 = sources[1];
+
+
+        var combined = _.map(keys, function(k){
+
+            var s1Data = _.find(sourceData[s1], function(d){
+                return d.question.key === k;
+            });
+
+            var s2Data = _.find(sourceData[s2], function(d){
+                return d.question.key === k;
+            });
+
+            var answers = {Yes: 0, No: 0};
+            if(s1Data) {
+                answers.Yes += s1Data.answers.Yes;
+                answers.No += s1Data.answers.No;
+            }
+            if(s2Data) {
+                answers.Yes += s2Data.answers.Yes;
+                answers.No += s2Data.answers.No;
+            }
+
+            if (s1Data || s2Data) {
+                return {
+                    answers: answers,
+                    question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
+                }
+            } else {
+                return {answers:{}, question: {}};
+            }
+
+        });
+
+        return {combinedData: combined};
+    }
+
 
 })();

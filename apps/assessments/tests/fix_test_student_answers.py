@@ -17,15 +17,16 @@ class StudentAnswersApiTests(APITestCase):
                      'apps/assessments/tests/test_fixtures/surveys')
         call_command('loaddata',
                      'apps/assessments/tests/test_fixtures/respondenttype')
-        call_command('loaddata',
-                     'apps/assessments/tests/test_fixtures/users')
         # call_command('loaddata',
-        #              'apps/assessments/tests/test_fixtures/answer_student')
+        #              'apps/assessments/tests/test_fixtures/users')
+        call_command('loaddata',
+                      'apps/assessments/tests/test_fixtures/answer_student')
+                      
 
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin')
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
         self.base_url = '/api/v1/surveys/3/questiongroup/31/student/2112477/'
         self.post_answers = {
                              "questiongroup":31,"student":2112477,"group_value":"Subhashini",
@@ -59,7 +60,6 @@ class StudentAnswersApiTests(APITestCase):
         self.assertTrue(len(data['answers']) >0)
     
     def test_answers_list(self):
-        self.client.force_authenticate(user=self.user)
         response = self.client.get(self.base_url+ 'answergroup/1/answers/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -91,13 +91,13 @@ class StudentAnswersApiTests(APITestCase):
         self.assertEquals(response.data['answer'], "No")
 
     def test_answergroup_list(self):
-        self.client.force_authenticate(user=self.user)
         response = self.client.get(self.base_url+'answergroup/1/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
     def test_answergroup_patch(self):
         self.client.force_authenticate(user=self.user)
-        response = self.client.patch(self.base_url + 'answergroup/1/ ', 
+        patch_url = self.base_url + 'answergroup/1/'
+        response = self.client.patch(patch_url, 
                                     '{"respondent_type": "PR"}',
                                     content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)

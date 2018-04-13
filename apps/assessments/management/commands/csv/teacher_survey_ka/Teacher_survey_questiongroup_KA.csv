@@ -1,0 +1,2 @@
+id, name  ,group_text ,start_date ,end_date ,version,double_entry  ,academic_year,institutuion type,source,status,type,description  ,image required,kannda name,comments required, respondenttype_required
+38,ILP Konnect Teacher Survey,class,01-06-2018,,1,False,1819,primary,4,AC,perception,,True,ಐ ಎಲ್ ಪಿ ಕನೆಕ್ಟ್ ಶಿಕ್ಷಕರ ಸರ್ವೇ,True, False

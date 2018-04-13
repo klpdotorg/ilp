@@ -13,7 +13,9 @@ from boundary.api_views import (
     Admin3sInsideAdmin2
 )
 
-
+'''
+    THIS TEST CASE ONLY TESTS LISTING/GET. THERE'S NO CRUD INVOLVED.
+'''
 class AdminBoundaryApiTests(APITestCase):
 
     '''setupTestData is invoked in the parent class which sets up
@@ -36,9 +38,6 @@ class AdminBoundaryApiTests(APITestCase):
         call_command('creatematviews')
 
     def setUp(self):
-        '''setup a test user'''
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin')
         self.view = Admin1sBoundary.as_view()
         self.admin2sView = Admin2sBoundary.as_view()
         self.admin3sView = Admin3sBoundary.as_view()
@@ -64,7 +63,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Test listing all admin1s boundaries - ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -80,7 +78,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Testing listing admin1s boundaries filter by school type ", url)
         request = self.factory.get(url, {'state': 'ka', 'school_type': 'pre'})
-        force_authenticate(request, user=self.user)
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -95,7 +92,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("Testing listing primary school admin1s boundaries ", url)
         request = self.factory.get(
             url, {'state': 'ka', 'school_type': 'primary'})
-        force_authenticate(request, user=self.user)
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -109,7 +105,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Testing list all admin2s boundaries ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.admin2sView(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -125,7 +120,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Testing listing admin2s preschool boundaries ", url)
         request = self.factory.get(url, {'state': 'ka', 'school_type': 'pre'})
-        force_authenticate(request, user=self.user)
         response = self.admin2sView(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -140,7 +134,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("Testing listing primary school admin2s boundaries ", url)
         request = self.factory.get(
             url, {'state': 'ka', 'school_type': 'primary'})
-        force_authenticate(request, user=self.user)
         response = self.admin2sView(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -154,7 +147,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Testing list all admin3s boundaries ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.admin3sView(request, state='ka')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -168,7 +160,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Testing listing admin3s preschool boundaries ", url)
         request = self.factory.get(url, {'state': 'ka', 'school_type': 'pre'})
-        force_authenticate(request, user=self.user)
         response = self.admin3sView(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -185,7 +176,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("Testing listing primary school admin3s boundaries ", url)
         request = self.factory.get(
             url, {'state': 'ka', 'school_type': 'primary'})
-        force_authenticate(request, user=self.user)
         response = self.admin3sView(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -202,7 +192,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Testing fetch admin2s boundaries for district ID: 414 ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.admin2InsideAdmin1(request, id=414)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -220,7 +209,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Testing fetch admin3s boundaries for district ID: 414 ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.admin3InsideAdmin1(request, id=414)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()
@@ -235,7 +223,6 @@ class AdminBoundaryApiTests(APITestCase):
         print("=======================================================")
         print("Testing fetch admin2s boundaries for district ID: 467 ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.admin3InsideAdmin2(request, id=467)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response.render()

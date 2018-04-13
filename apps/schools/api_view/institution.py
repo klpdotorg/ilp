@@ -66,7 +66,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     """
     GET: Lists basic details of institutions
     """
-    queryset = Institution.objects.all()
+    queryset = Institution.objects.exclude(status=Status.DELETED)
     serializer_class = InstitutionSerializer
     bbox_filter_field = "coord"
     filter_backends = [InstitutionSurveyFilter, ]
@@ -113,6 +113,10 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
             InstitutionCreateSerializer(institution).data,
             status=status.HTTP_201_CREATED, headers=headers
         )
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
 
 
 class InstitutionCategoryListView(generics.ListAPIView):

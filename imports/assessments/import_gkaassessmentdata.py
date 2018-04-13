@@ -37,7 +37,7 @@ questiondict = {}
 f = open(scriptdir+"/EkStep_Concepts.csv", 'r')
 csv_f = csv.reader(f)
 for file_row in csv_f:
-    sqlselect = "select stu.student_id, assess.question_id, assess.ekstep_tag, assess.pass , assess.assessed_ts from assessments_v2 assess, students_v2 stu where assess.student_uid=stu.uid and assess.ekstep_tag =  %s and not exists (select * from assessments_v2  as dup where dup.student_uid=assess.student_uid and dup.question_id=assess.question_id and dup.assessed_ts::date=assess.assessed_ts::date and dup.ekstep_tag=assess.ekstep_tag and dup.assessed_ts > assess.assessed_ts);"
+    sqlselect = "select stu.student_id, assess.question_id, assess.ekstep_tag, assess.pass , assess.assessed_ts, assess.assess_uid from assessments_v2 assess, students_v2 stu where assess.student_uid=stu.uid and assess.ekstep_tag =  %s and not exists (select * from assessments_v2  as dup where dup.assess_uid=assess.assess_uid and dup.question_id=assess.question_id and dup.assessed_ts::date=assess.assessed_ts::date and dup.ekstep_tag=assess.ekstep_tag and dup.assessed_ts > assess.assessed_ts);"
     data = file_row[1].strip("'")
     fromcursor.execute(sqlselect, (data,))
 
@@ -51,6 +51,7 @@ for file_row in csv_f:
             score = 0
         timestamp = row[4]
         dateofvisit = datetime.datetime.date(row[4])
+        assess_uid = row[5]
         # check student valid
         sqlselect = "select exists(select 1 from schools_student where id=%s);"
         tocursor.execute(sqlselect, [student_id])
@@ -87,8 +88,8 @@ for file_row in csv_f:
             tocursor.execute(sqlinsert, (question_id, questiongroup_id))
 
         # check if answergroup is present
-        sqlselect = "select id, date_of_visit from assessments_answergroup_student where student_id=%s and questiongroup_id=%s and date_of_visit::date=%s;"
-        tocursor.execute(sqlselect, (student_id, questiongroup_id, dateofvisit))
+        sqlselect = "select id, date_of_visit from assessments_answergroup_student where comments=%s;"
+        tocursor.execute(sqlselect, [assess_uid])
         data = tocursor.fetchall()
         answergroup_present = tocursor.rowcount
         if answergroup_present != 0:
@@ -101,9 +102,9 @@ for file_row in csv_f:
                     continue
 
         if answergroup_present == 0:
-            sqlinsert = "insert into assessments_answergroup_student(date_of_visit, is_verified, questiongroup_id, status_id, student_id) values (%s, %s, %s, %s, %s) returning id;"
+            sqlinsert = "insert into assessments_answergroup_student(date_of_visit, is_verified, questiongroup_id, status_id, student_id, comments) values (%s, %s, %s, %s, %s, %s) returning id;"
             tocursor.execute(sqlinsert, (timestamp, 'true', questiongroup_id, 'AC',
-                             student_id))
+                             student_id, assess_uid))
             answergroup_id = tocursor.fetchone()[0]
 
         if answergroup_present == 1:

@@ -12,6 +12,7 @@ class EmailMobileUsernameBackend(object):
         try:
             user = User.objects.get(
                 Q(email__iexact=username) | Q(mobile_no__iexact=username))
+            print("user is: ", user)
             if check_password(password, user.password):
                 return user
         except User.DoesNotExist:

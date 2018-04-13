@@ -16,7 +16,6 @@ from django.core.urlresolvers import reverse
 from common.utils import send_templated_mail
 from django.contrib.sites.models import Site
 from django.conf import settings
-
 from common.utils import send_sms
 
 
@@ -33,10 +32,11 @@ class UserManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
+
         return user
 
     def create_superuser(self, mobile_no, password=None, **extra_fields):
-        user = self.create_user(mobile_no, password=password, **extra_fields)
+        user = self.create(mobile_no, password=password, **extra_fields)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
@@ -72,18 +72,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     website = models.URLField(blank=True, null=True)
     photos_url = models.URLField(blank=True, null=True)
     youtube_url = models.URLField(blank=True, null=True)
-
     objects = UserManager()
     USERNAME_FIELD = 'mobile_no'
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.generate_sms_pin()
-            self.send_otp()
-        return super(User, self).save(*args, **kwargs)
+        if self.email == '':
+            self.email = None
 
-    def generate_email_token(self):
-        self.email_verification_code = uuid.uuid4().hex
+        return super(User, self).save(*args, **kwargs)
 
     def generate_sms_pin(self):
         pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
@@ -92,6 +88,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def send_otp(self):
         msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
         send_sms(self.mobile_no, msg)
+
+    def generate_email_token(self):
+        self.email_verification_code = uuid.uuid4().hex
 
     def get_token(self):
         return Token.objects.get(user=self).key
@@ -136,10 +135,13 @@ def user_created_verify_email(sender, instance=None, created=False, **kwargs):
     if created and instance.email:
         instance.send_verification_email()
 
-
 class UserBoundary(models.Model):
     user = models.ForeignKey('User')
     boundary = models.ForeignKey('boundary.Boundary')
 
     class Meta:
         unique_together = (('user', 'boundary'), )
+
+''' This is specifically for django-guardian '''
+def get_anonymous_user_instance(User):
+    return User(first_name='Anonymous', last_name='Anonymous', mobile_no='00000000000')

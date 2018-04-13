@@ -27,7 +27,6 @@ QUESTIONGROUP_QTYPE = 2
 
 TEST_ANSWERGROUP_POST_DATA = {
       "group_value": "Subhashini",
-      "double_entry": 0,
       "created_by": 2,
       "date_of_visit": "2016-08-20T00:00:00Z",
       "respondent_type": "VR",

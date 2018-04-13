@@ -4,10 +4,12 @@
     {% for s in stories %}
       
       <div class="stories-list-each">
-        <a href="school/{{ s.institution }}#?tab=share-story">
+        <a href="school/{{ s.institution }}#?tab=info">
           {{ s.institution_name }}
-        </a>:
-          {{ s.created_by_username }}
+        </a>
+          {% if s.created_by_username %}
+          : {{ s.created_by_username }}
+          {% endif %}
       </div>
     {% endfor %}
   </div>

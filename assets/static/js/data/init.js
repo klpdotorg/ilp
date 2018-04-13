@@ -13,7 +13,7 @@
       }
 
       function downloadKLPDISESchools() {
-        window.open('/media/school-data/dise-1314.csv', '_self');
+        window.open('/media/school-data/dise-1617.csv', '_self');
       }
 
       $("#download-schools-button").click(function(){

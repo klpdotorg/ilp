@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+echo "Running fetchgkaivrs at: $(date)"
+
+source /home/ubuntu/ilp/venv/bin/activate
+
+cd /home/ubuntu/ilp && python3 manage.py fetchgkaivrs
+
+echo "fetchgkaivrs done."
+
+exit 0

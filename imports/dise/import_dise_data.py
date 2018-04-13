@@ -27,7 +27,7 @@ tables = [
     }
 ]
 
-years = ["1213", "1314", "1415", "1516"]
+years = ["1213", "1314", "1415", "1516", "1617"]
 
 
 # Create directory and files
@@ -58,7 +58,8 @@ def create_sqlfiles():
 
 # Running the "copy to" commands to populate the csvs.
 def getdata():
-    system("psql -U klp -d "+fromdatabase+" -f "+inputdatafile)
+    system("echo $DISE_PGPASSWORD, $DISE_DB_USER")
+    system("PGPASSWORD=$DISE_PGPASSWORD psql -U $DISE_DB_USER -d "+fromdatabase+" -f "+inputdatafile)
 
 
 # Running the "copy from" commands for loading the db.

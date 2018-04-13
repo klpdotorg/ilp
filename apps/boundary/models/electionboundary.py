@@ -3,6 +3,7 @@ from django.contrib.gis.db import models
 from schools.models import Institution
 from django.db.models import Q
 
+import json
 
 class ElectionBoundary(models.Model):
     """ Election boundaries """
@@ -28,6 +29,7 @@ class ElectionBoundary(models.Model):
             Q(status='AC'),
             Q(mp=self) | Q(mla=self) | Q(gp=self) | Q(ward=self)
         )
+
 
     class Meta:
         ordering = ['const_ward_name', ]

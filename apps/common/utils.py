@@ -2,10 +2,11 @@ import datetime
 import requests
 import json
 
+
+from django.conf import settings
 from django.utils import timezone
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
-from django.conf import settings
 from django.http import HttpResponse
 
 # Try importing Exotel settings
@@ -97,9 +98,10 @@ def post_to_slack(channel=None, author=None, message=None, emoji=':ghost:'):
         'icon_emoji': emoji
     }
 
+    print (settings.SLACK_URL)
     r = requests.post(
-        'https://hooks.slack.com/services/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',
-        data=json.dumps(payload),
+    settings.SLACK_URL,
+    data=json.dumps(payload),
     )
 
     return r.status_code

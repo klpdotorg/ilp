@@ -33,8 +33,9 @@ class BoundaryApiTests(APITestCase):
 
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin')
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
+        self.regular_user = get_user_model().objects.create('1111122222', 'regular')
         self.listView = BoundaryViewSet.as_view(actions={'get': 'list'})
         self.detailView = BoundaryViewSet.as_view(actions={'get': 'retrieve'})
         self.createView = BoundaryViewSet.as_view(actions={'post': 'create'})
@@ -51,7 +52,7 @@ class BoundaryApiTests(APITestCase):
     def test_boundary_list(self):
         url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
+        #force_authenticate(request, user=self.user)
         response = self.listView(request)
         response.render()
         data = response.data
@@ -61,7 +62,7 @@ class BoundaryApiTests(APITestCase):
     def test_boundary_detail(self):
         url = reverse('boundary:boundary-detail', kwargs={'pk': '414'})
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
+        #force_authenticate(request, user=self.user)
         response = self.detailView(request, pk=414)
         response.render()
         data = response.data
@@ -75,7 +76,7 @@ class BoundaryApiTests(APITestCase):
     def test_boundary_primary_only(self):
         url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka', 'type': 'primary'})
-        force_authenticate(request, user=self.user)
+        #force_authenticate(request, user=self.user)
         response = self.listView(request)
         response.render()
         data = response.data
@@ -87,7 +88,7 @@ class BoundaryApiTests(APITestCase):
     def test_boundary_pre_only(self):
         url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka', 'type': 'pre'})
-        force_authenticate(request, user=self.user)
+        #force_authenticate(request, user=self.user)
         response = self.listView(request)
         response.render()
         data = response.data
@@ -99,7 +100,7 @@ class BoundaryApiTests(APITestCase):
     def test_boundary_pd_only(self):
         url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka', 'boundary_type': 'PD'})
-        force_authenticate(request, user=self.user)
+        #force_authenticate(request, user=self.user)
         response = self.listView(request)
         response.render()
         data = response.data
@@ -112,7 +113,7 @@ class BoundaryApiTests(APITestCase):
     def test_boundary_sb_only(self):
         url = reverse('boundary:boundary-list')
         request = self.factory.get(url, {'state': 'ka', 'boundary_type': 'SB'})
-        force_authenticate(request, user=self.user)
+        #force_authenticate(request, user=self.user)
         response = self.listView(request)
         response.render()
         data = response.data
@@ -126,7 +127,7 @@ class BoundaryApiTests(APITestCase):
         url = reverse('boundary:boundarytype-list')
         print(url)
         request = self.factory.get(url)
-        force_authenticate(request, user=self.user)
+        #force_authenticate(request, user=self.user)
         response = self.boundarytypeListView(request)
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -136,12 +137,27 @@ class BoundaryApiTests(APITestCase):
         url = reverse('boundary:boundarytype-detail', kwargs={'pk': 'SD'})
         print(url)
         request = self.factory.get(url)
-        force_authenticate(request, user=self.user)
+        #force_authenticate(request, user=self.user)
         response = self.boundarytypeDetailView(request, pk='SD')
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(data)
 
+    ''' Anonymous users shouldn't be able to create boundaries '''
+    def test_boundary_create_anon_user(self):
+        request = self.factory.post('/boundaries',
+                                    {'parent': '2',
+                                     'name': 'test_SD',
+                                     'boundary_type': 'SD',
+                                     'type': 'primary',
+                                     'status': 'AC'}, format='json')
+        # force_authenticate(request, user=self.user)
+        response = self.createView(request)
+        response.render()
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+       
+    
     def test_boundary_create(self):
         request = self.factory.post('/boundaries',
                                     {'parent': '2',
@@ -200,6 +216,45 @@ class BoundaryApiTests(APITestCase):
         )
         self.assertEqual(data['name'], 'test_Block')
         self.assertEqual(data['boundary_type'], 'SB')
+
+    ''' Anonymous or even authenticated users should not be able to do a partial
+    update '''
+    def test_unauthorized_boundary_partial_update(self):
+        # Create the boundary first
+        request = self.factory.post('/boundaries', {
+            'parent': '2',
+            'name': 'test_SD_Update',
+            'boundary_type': 'SD',
+            'type': 'primary',
+            'status': 'AC'},
+                                    format='json')
+        force_authenticate(request, user=self.user)
+        response = self.createView(request)
+        response.render()
+        data = response.data
+        id = data['id']
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        # Now update the boundary as an ANON user
+        request = self.factory.patch(
+            '/boundaries/' + str(id), {
+                'name': 'test_updated_name'
+                }, format='json')
+        #force_authenticate(request, user=self.user)
+        response = self.updateView(request, pk=id)
+        response.render()
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+       
+        # try updating as an authenticated BUT non-super user
+        request = self.factory.patch(
+            '/boundaries/' + str(id), {
+                'name': 'test_updated_name'
+                }, format='json')
+        force_authenticate(request, user=self.regular_user)
+        response = self.updateView(request, pk=id)
+        response.render()
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_boundary_partial_update(self):
         # Create the boundary first

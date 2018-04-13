@@ -20,8 +20,8 @@ class QuestionGroupQuestionTests(APITestCase):
                      ('apps/assessments/tests/test_fixtures/qgroup_questions'))
 
     def setUp(self):
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin')
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
         self.test_survey_id = \
             QuestionGroup.objects.get(id=QUESTIONGROUP_ID).survey_id
 

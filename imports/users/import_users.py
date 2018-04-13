@@ -20,13 +20,13 @@ tables = [
     {
         'table_name': 'users_user',
         'name': 'users_user',
-        'getquery': "\COPY (select id, password, last_login, is_superuser, email, mobile_no, null, first_name, last_name, case user_type when 'teachers' then 'TR' when 'local-leaders' then 'LL' when 'parents' then 'PR' when 'sdmc-member' then 'SM' when 'educated-youth' then 'EY' when 'crp' then 'CRP' when 'elected-representative' then 'ER' when 'cbo-member' then 'CM' when 'headmaster' then 'HM' when 'akshara-staff' then 'AS' when 'BFC' then 'AS' when 'No' then null else user_type end, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url, false from users_user where mobile_no not like '%,%') TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select case when id=1 then 2 else id end, password, last_login, is_superuser, email, mobile_no, null, first_name, last_name, case user_type when 'teachers' then 'TR' when 'local-leaders' then 'LL' when 'parents' then 'PR' when 'sdmc-member' then 'SM' when 'educated-youth' then 'EY' when 'crp' then 'CRP' when 'elected-representative' then 'ER' when 'cbo-member' then 'CM' when 'headmaster' then 'HM' when 'akshara-staff' then 'AS' when 'BFC' then 'AS' when 'No' then null else user_type end, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url, false from users_user where mobile_no not like '%,%') TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'insertquery': "\COPY replacetablename(id, password, last_login, is_superuser, email, mobile_no, mobile_no1, first_name, last_name, user_type_id, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url, is_staff) FROM 'replacefilename' with csv NULL 'null';"
     },
     {
         'table_name': 'users_user',
         'name': 'users_user_update',
-        'getquery': "\COPY (select id, password, last_login, is_superuser, email, split_part(mobile_no,',',1), split_part(mobile_no,',',2), first_name, last_name, case user_type when 'teachers' then 'TR' when 'local-leaders' then 'LL' when 'parents' then 'PR' when 'sdmc-member' then 'SM' when 'educated-youth' then 'EY' when 'crp' then 'CRP' when 'elected-representative' then 'ER' when 'cbo-member' then 'CM' when 'headmaster' then 'HM' when 'akshara-staff' then 'AS' when 'No' then null end, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url, false from users_user where mobile_no like '%,%') TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select id, password, last_login, is_superuser, email, split_part(mobile_no,',',1), split_part(mobile_no,',',2), first_name, last_name, case user_type when 'teachers' then 'TR' when 'local-leaders' then 'LL' when 'parents' then 'PR' when 'sdmc-member' then 'SM' when 'educated-youth' then 'EY' when 'crp' then 'CRP' when 'elected-representative' then 'ER' when 'cbo-member' then 'CM' when 'headmaster' then 'HM' when 'akshara-staff' then 'AS' when 'No' then null else user_type end, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url, false from users_user where mobile_no like '%,%') TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, password text, last_login timestamp, is_superuser boolean, email text, mobile_no text, mobile_no1 text, first_name text, last_name text, user_type text, is_active boolean, about text, changed timestamp, created timestamp, dob date, email_verification_code text, fb_url text, image text, is_email_verified boolean, is_mobile_verified boolean, opted_email boolean, photos_url text, sms_verification_pin integer, source text, twitter_handle text, website text, youtube_url text, is_staff boolean); \COPY temp_replacetablename(id, password, last_login, is_superuser, email, mobile_no, mobile_no1, first_name, last_name, user_type, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url, is_staff) FROM 'replacefilename' with csv NULL 'null';",
         'insertquery': "INSERT INTO replacetablename(id, password, last_login, is_superuser, email, mobile_no, mobile_no1, first_name, last_name, user_type_id, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url, is_staff) select id, password, last_login, is_superuser, email, mobile_no, mobile_no1, first_name, last_name, user_type, is_active, about, changed, created, dob, email_verification_code, fb_url, image, is_email_verified, is_mobile_verified, opted_email, photos_url, sms_verification_pin, source, twitter_handle, website, youtube_url, is_staff from temp_replacetablename where mobile_no not in (select mobile_no from users_user);",
         'updatequery': "UPDATE replacetablename set mobile_no1=temp.mobile_no1 from (select mobile_no, mobile_no1 from temp_replacetablename)temp where replacetablename.mobile_no = temp.mobile_no and replacetablename.mobile_no1 is null;"
@@ -46,12 +46,18 @@ tables = [
 ]
 
 
+
 # Create directory and files
 def init():
     if not os.path.exists(scriptdir+"/load"):
         os.makedirs(scriptdir+"/load")
     open(inputsqlfile, 'wb', 0)
     open(loadsqlfile, 'wb', 0)
+
+
+def reset_sequences():
+    command = 'echo "SELECT setval('+"'users_user_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_user), 1), false);SELECT setval('users_user_groups_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_user_groups), 1), false);SELECT setval('users_userboundary_id_seq', COALESCE((SELECT MAX(id)+1 FROM users_userboundary), 1), false);"+'" >>'+loadsqlfile
+    system(command)
 
 
 def create_sqlfiles():
@@ -84,6 +90,7 @@ def load_data():
 
 # order in which function should be called.
 init()
+reset_sequences()
 create_sqlfiles()
 get_data()
 load_data()

@@ -31,9 +31,8 @@ class StudentGroupApiTests(APITestCase):
 
     def setUp(self):
         # setup a test user
-        self.user = get_user_model().objects.create(
-            'admin@klp.org.in', 'admin'
-        )
+        self.user = get_user_model().objects.create_superuser(
+            '3322233323', 'admin')
         self.listView = StudentGroupViewSet.as_view(
             actions={'get': 'list'})
         self.detailView = StudentGroupViewSet.as_view(
@@ -50,7 +49,6 @@ class StudentGroupApiTests(APITestCase):
         print("=======================================================")
         print("Test listing all student groups under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.listView(request, parent_lookup_institution=36172,
                                  pk=36172)
         data = response.data
@@ -67,7 +65,6 @@ class StudentGroupApiTests(APITestCase):
         print("=======================================================")
         print("Test getting student group details under institution - ", url)
         request = self.factory.get(url, {'state': 'ka'})
-        force_authenticate(request, user=self.user)
         response = self.detailView(request, parent_lookup_institution=36172,
                                    pk=3486429)
         data = response.data
