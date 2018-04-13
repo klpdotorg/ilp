@@ -1392,12 +1392,20 @@ var topSummaryData = {};
 
             var answers = {Yes: 0, No: 0};
             if(s1Data) {
-                answers.Yes += s1Data.answers.Yes;
-                answers.No += s1Data.answers.No;
+                if(!isNaN(s1Data.answers.Yes)) {
+                    answers.Yes += s1Data.answers.Yes;
+                }
+                if(!isNaN(s1Data.answers.No)) {
+                    answers.No += s1Data.answers.No;
+                }
             }
             if(s2Data) {
-                answers.Yes += s2Data.answers.Yes;
-                answers.No += s2Data.answers.No;
+                if(!isNaN(s2Data.answers.Yes)) {
+                    answers.Yes += s2Data.answers.Yes;
+                }
+                if(!isNaN(s2Data.answers.No)) {
+                    answers.No += s2Data.answers.No;
+                }
             }
 
             if (s1Data || s2Data) {
