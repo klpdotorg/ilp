@@ -667,7 +667,9 @@ var topSummaryData = {};
                 "ivrss-group-work"
             ],
             data = combineDataSources(
-                detailsData.source, ['sms', 'konnectsms'], SMSQuestionKeys
+                detailsData.source, 
+                ['sms', 'mobile', 'konnectsms'],
+                SMSQuestionKeys
             ),
             questionObjects = _.map(SMSQuestionKeys, function(key) {
                 return getQuestion(data, 'combinedData', key);
@@ -1381,42 +1383,31 @@ var topSummaryData = {};
 
 
         var combined = _.map(keys, function(k){
+            var combinedData = {
+                answers: {Yes: 0, No: 0}, question: {}
+            };
 
-            var s1Data = _.find(sourceData[s1], function(d){
-                return d.question.key === k;
+            _.each(sources, function(s) {
+
+                var data = _.find(sourceData[s], function(d){
+                    return d.question.key === k;
+                });
+
+                if(data) {
+                    if(!isNaN(data.answers.Yes)) {
+                        combinedData.answers.Yes += data.answers.Yes;
+                    }
+                    if(!isNaN(data.answers.No)) {
+                        combinedData.answers.No += data.answers.No;
+                    }
+
+                    if(data.question) {
+                        combinedData.question = data.question;
+                    }
+                }
             });
 
-            var s2Data = _.find(sourceData[s2], function(d){
-                return d.question.key === k;
-            });
-
-            var answers = {Yes: 0, No: 0};
-            if(s1Data) {
-                if(!isNaN(s1Data.answers.Yes)) {
-                    answers.Yes += s1Data.answers.Yes;
-                }
-                if(!isNaN(s1Data.answers.No)) {
-                    answers.No += s1Data.answers.No;
-                }
-            }
-            if(s2Data) {
-                if(!isNaN(s2Data.answers.Yes)) {
-                    answers.Yes += s2Data.answers.Yes;
-                }
-                if(!isNaN(s2Data.answers.No)) {
-                    answers.No += s2Data.answers.No;
-                }
-            }
-
-            if (s1Data || s2Data) {
-                return {
-                    answers: answers,
-                    question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
-                }
-            } else {
-                return {answers:{}, question: {}};
-            }
-
+            return combinedData;
         });
 
         return {combinedData: combined};
