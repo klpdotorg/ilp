@@ -709,6 +709,10 @@ var topSummaryData = {};
 
         console.log(regroup)
 
+        /*  On April 18th, 2018, we introduced a new logic to calculate 
+            tlm usage and group work percentages.
+            Now, instead of using the whole survey score to calculate percentage (the denomincator), we only take "math class hapenning" key's Yes count.
+        */
         var mathClassScore = regroup['ivrss-math-class-happening'].score;
         regroup = updatePercentageUsingMathClassNo(
             regroup, 'ivrss-gka-tlm-in-use', mathClassScore
