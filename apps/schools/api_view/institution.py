@@ -172,7 +172,7 @@ class InstitutionInfra(ILPDetailAPIView):
     lookup_url_kwarg = 'pk'
 
     def get_serializer_class(self):
-        school_id =  self.kwargs.get('pk') if hasattr(self, 'kwargs') else None
+        school_id = self.kwargs.get('pk') if hasattr(self, 'kwargs') else None
         if school_id:
             institution = Institution.objects.get(pk=school_id)
             if institution.institution_type.char_id == "pre":
