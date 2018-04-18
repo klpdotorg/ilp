@@ -1,44 +1,46 @@
 import logging
+import json
+import random
+
+from PIL import Image
+from base64 import b64decode
+
 from django.http import Http404, QueryDict
+from django.core.files.base import ContentFile
+from django.conf import settings
+
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework.generics import ListAPIView
-from PIL import Image
-from django.core.files.base import ContentFile
-from base64 import b64decode
-from django.conf import settings
-from common.views import (ILPViewSet)
-from assessments.models import (AnswerGroup_Institution, 
-                            AnswerInstitution,
-                            AnswerStudent,
-                            AnswerGroup_Student,
-                            AnswerGroup_StudentGroup,
-                            InstitutionImages
-                            )
-from common.mixins import (ILPStateMixin, 
-                           CompensationLogMixin,
-                           AnswerUpdateModelMixin)
-from assessments.serializers import (AnswerSerializer,
-                                     AnswerGroupInstSerializer,
-                                     AnswerGroupStudentSerializer,
-                                     AnswerGroupStudentCreateSerializer,
-                                     StudentAnswerSerializer,
-                                     AnswerGroupStudentGroupSerializer)
-from common.mixins import (ILPStateMixin, 
-                           CompensationLogMixin,
-                           AnswerUpdateModelMixin)
-from permissions.permissions import AppPostPermissions
-from assessments.filters import AnswersSurveyTypeFilter
-import json
 from rest_framework.renderers import JSONRenderer
+
+from common.views import (ILPViewSet)
+from common.mixins import (
+    ILPStateMixin, CompensationLogMixin, AnswerUpdateModelMixin
+)
+from common.mixins import (
+    ILPStateMixin, CompensationLogMixin,
+    AnswerUpdateModelMixin
+)
+
+from assessments.models import (
+    AnswerGroup_Institution, AnswerInstitution,
+    AnswerStudent, AnswerGroup_Student,
+    AnswerGroup_StudentGroup, InstitutionImages
+)
+from assessments.serializers import (
+    AnswerSerializer, AnswerGroupInstSerializer,
+    AnswerGroupStudentSerializer, AnswerGroupStudentCreateSerializer,
+    StudentAnswerSerializer, AnswerGroupStudentGroupSerializer
+)
+
+from permissions.permissions import AppPostPermissions
 from users.models import User
 from dateutil.parser import parse as date_parse
-import random
 
 logger = logging.getLogger(__name__)
-
 
 
 # TODO: The following three view sets have not been
@@ -47,6 +49,7 @@ logger = logging.getLogger(__name__)
 class AnswerGroupStudentGroupViewSet(ILPViewSet, ILPStateMixin):
     queryset = AnswerGroup_StudentGroup.objects.all()
     serializer_class = AnswerGroupStudentGroupSerializer
+
 
 class SharedAssessmentsView(ListAPIView):
     """
@@ -66,9 +69,11 @@ class SharedAssessmentsView(ListAPIView):
             'students': AnswerGroupStudentSerializer(st, many=True).data
         })
 
-class AnswersStudentViewSet(NestedViewSetMixin, 
-                                ILPViewSet, CompensationLogMixin,
-                                AnswerUpdateModelMixin):
+
+class AnswersStudentViewSet(
+            NestedViewSetMixin, ILPViewSet, CompensationLogMixin,
+            AnswerUpdateModelMixin
+    ):
     ''' Viewset handling answers for a student '''
     queryset = AnswerStudent.objects.all()
     serializer_class = StudentAnswerSerializer
@@ -81,16 +86,7 @@ class AnswersStudentViewSet(NestedViewSetMixin,
         parents_query_dict.pop('questiongroup')
         parents_query_dict.pop('survey')
         if parents_query_dict:
-            try:
-                queryset = queryset.filter(**parents_query_dict).order_by().distinct('id')
-            except ValueError:
-                print(("Exception while filtering queryset based on dictionary.Params: %s, Queryset is: %s"),
-                    parents_query_dict, queryset)
-                logger.exception(
-                    ("Exception while filtering queryset based on dictionary."
-                    "Params: %s, Queryset is: %s"),
-                    parents_query_dict, queryset)
-                raise Http404
+            queryset = queryset.filter(**parents_query_dict).order_by().distinct('id')
         else:
             print ("No query dict passed")
         
