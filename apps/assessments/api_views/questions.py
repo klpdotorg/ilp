@@ -157,29 +157,24 @@ class QuestionGroupStudentGroupAssociationViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionGroupStudentGroupAssociationSerializer
 
     def create(self, request, *args, **kwargs):
-        assessment_ids, studentgroup_ids = [], []
+        questiongroup_ids, studentgroup_ids = [], []
 
         questiongroup_ids = self.request.data.get('questiongroup_ids', [])
-        if questiongroup_ids:
-            questiongroup_ids = assessment_ids.split(",")
-
         studentgroup_ids = self.request.data.get('studentgroup_ids', [])
-        if studentgroup_ids:
-            studentgroup_ids = studentgroup_ids.split(",")
 
         response = self.create_assessment_studentgroup_assocation(
-            assessment_ids, studentgroup_ids
+            questiongroup_ids, studentgroup_ids
         )
         return response
 
     def create_assessment_studentgroup_assocation(
-            self, assessment_ids, studentgroup_ids
+            self, questiongroup_ids, studentgroup_ids
     ):
         request = []
-        for assessment_id in assessment_ids:
+        for questiongroup_id in questiongroup_ids:
             for studentgroup_id in studentgroup_ids:
                 request.append({
-                    'questiongroup': assessment_id,
+                    'questiongroup': questiongroup_id,
                     'studentgroup': studentgroup_id,
                     'status': 'AC'
                 })
