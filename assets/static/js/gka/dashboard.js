@@ -659,6 +659,20 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
+        function updatePercentageUsingMathClassNo(data, key, score) {
+
+            if(score !== 0) {
+                data[key].total = score;
+                data[key].percent = getPercent(data[key].score, score);
+            } else {
+                data[key].score = 0;
+                data[key].percent = 0;
+            }
+
+            return data;
+
+        }
+
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -682,7 +696,7 @@ var topSummaryData = {};
             regroup[questions[each]["key"]] = questions[each];
         }
 
-        // Add default values to prevent JS errors at the template lebel
+        // Add default values to prevent JS errors at the template level
         _.each(SMSQuestionKeys, function(qKey){
             if(!regroup[qKey]) {
                 regroup[qKey] = {
@@ -692,6 +706,22 @@ var topSummaryData = {};
                 };
             }
         });
+
+        console.log(regroup)
+
+        /*  On April 18th, 2018, we introduced a new logic to calculate 
+            tlm usage and group work percentages.
+            Now, instead of using the whole survey score to calculate percentage (the denomincator), we only take "math class hapenning" key's Yes count.
+        */
+        var mathClassScore = regroup['ivrss-math-class-happening'].score;
+        regroup = updatePercentageUsingMathClassNo(
+            regroup, 'ivrss-gka-tlm-in-use', mathClassScore
+        );
+        regroup = updatePercentageUsingMathClassNo(
+            regroup, 'ivrss-group-work', mathClassScore
+        );
+
+        console.log(regroup);
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
