@@ -707,8 +707,6 @@ var topSummaryData = {};
             }
         });
 
-        console.log(regroup)
-
         /*  On April 18th, 2018, we introduced a new logic to calculate 
             tlm usage and group work percentages.
             Now, instead of using the whole survey score to calculate percentage (the denomincator), we only take "math class hapenning" key's Yes count.
@@ -720,8 +718,6 @@ var topSummaryData = {};
         regroup = updatePercentageUsingMathClassNo(
             regroup, 'ivrss-group-work', mathClassScore
         );
-
-        console.log(regroup);
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
@@ -1408,9 +1404,6 @@ var topSummaryData = {};
 
 
     function combineDataSources(sourceData, sources, keys) {
-        var s1 = sources[0],
-            s2 = sources[1];
-
 
         var combined = _.map(keys, function(k){
             var combinedData = {
