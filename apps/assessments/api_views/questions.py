@@ -101,7 +101,6 @@ class QGroupStoriesInfoView(ILPListAPIView):
             'total_verified_stories': AnswerGroup_Institution.objects.filter(
                 questiongroup__survey__id=5).filter(is_verified=True).count(),
             'total_images': InstitutionImages.objects.filter(answergroup__questiongroup__survey=5).count()
-
         })
 
 
@@ -109,12 +108,14 @@ class QuestionGroupSchoolViewSet(viewsets.ModelViewSet):
     queryset = QuestionGroup_Institution_Association.objects.all()
     serializer_class = QuestionGroupInstitutionSerializer
 
+
 class QuestionGroupInstitutionAssociationViewSet(viewsets.ModelViewSet):
     assessmentids = []
     institutionids = []
     boundaryids = []
     queryset = QuestionGroup_Institution_Association.objects.all()
     serializer_class = QuestionGroupInstitutionAssociationSerializer
+    http_method_names = ['post', ]
 
     def create(self, request, *args, **kwargs):
         if not self.request.data.get('questiongroup_ids'):
@@ -155,10 +156,9 @@ class QuestionGroupInstitutionAssociationViewSet(viewsets.ModelViewSet):
 class QuestionGroupStudentGroupAssociationViewSet(viewsets.ModelViewSet):
     queryset = QuestionGroup_StudentGroup_Association.objects.all()
     serializer_class = QuestionGroupStudentGroupAssociationSerializer
+    http_method_names = ['post', ]
 
     def create(self, request, *args, **kwargs):
-        questiongroup_ids, studentgroup_ids = [], []
-
         questiongroup_ids = self.request.data.get('questiongroup_ids', [])
         studentgroup_ids = self.request.data.get('studentgroup_ids', [])
 
