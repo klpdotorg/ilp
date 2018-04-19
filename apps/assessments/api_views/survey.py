@@ -205,34 +205,40 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
                     "answers": answer_list,
                 }
                 questions_list.append(answer)
-        return Response({'num_stories': num_stories, 'results': questions_list, 'comments': comments})
+        return Response({
+            'num_stories': num_stories,
+            'results': questions_list,
+            'comments': comments
+        })
 
 
 class SurveyQuestionGroupDetailsAPIView(ListAPIView):
     filter_backends = [SurveyFilter, ]
+    queryset = SurveyInstitutionQuestionGroupAgg.objects.all()
 
     def institution_qs(self):
-        return self.filter_queryset(
-            SurveyInstitutionQuestionGroupAgg.objects.all()
-        )
+        return self.filter_queryset(self.queryset)
 
     def get(self, request, *args, **kwargs):
-        questiongroup_id = self.request.query_params.get(
-            'questiongroup_id', None
-        )
+        survey_id = self.request.query_params.get('survey_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
         institution_id = self.request.query_params.get('institution_id', None)
         state_id = BoundaryStateCode.objects.filter(
             char_id=settings.ILP_STATE_ID).\
             values("boundary_id")[0]["boundary_id"]
+        if not survey_id:
+            return ParseError("Mandatory param survey_id is not passed.")
+        questiongroup_ids = Survey.objects.get(id=survey_id).\
+            questiongroup_set.values_list('id', flat=True)
 
         if institution_id:
             queryset = SurveyInstitutionQuestionGroupAgg.objects.filter(
                 institution_id=institution_id
             )
             queryset = self.filter_queryset(queryset)
-            if questiongroup_id:
-                queryset = queryset.filter(questiongroup_id=questiongroup_id)
+            if questiongroup_ids:
+                queryset = queryset.filter(
+                    questiongroup_id__in=questiongroup_ids)
 
             qs_agg = queryset.aggregate(
                 Sum('num_children'), Sum('num_assessments'))
@@ -248,17 +254,18 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                 institution_id=institution_id
             )
             ans_queryset = self.filter_queryset(ans_queryset)
-            if questiongroup_id:
+            if questiongroup_ids:
                 ans_queryset = ans_queryset.filter(
-                    questiongroup_id=questiongroup_id)
+                    questiongroup_id__in=questiongroup_ids)
         else:
             if not boundary_id:
                 boundary_id = state_id
             queryset = SurveyBoundaryQuestionGroupAgg.objects.\
                 filter(boundary_id=boundary_id)
             queryset = self.filter_queryset(queryset)
-            if questiongroup_id:
-                queryset = queryset.filter(questiongroup_id=questiongroup_id)
+            if questiongroup_ids:
+                queryset = queryset.filter(
+                    questiongroup_id__in=questiongroup_ids)
 
             qs_agg = queryset.aggregate(
                 Sum('num_schools'), Sum('num_children'), Sum('num_assessments')
@@ -266,10 +273,13 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             
             institution_qs = self.institution_qs()
             institution_qs = institution_qs.filter(
-                Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
-                Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+                Q(institution_id__admin0_id=boundary_id) |
+                Q(institution_id__admin1_id=boundary_id) |
+                Q(institution_id__admin2_id=boundary_id) |
+                Q(institution_id__admin3_id=boundary_id)
             )
-            institution_qs = institution_qs.filter(questiongroup_id=questiongroup_id)
+            institution_qs = institution_qs.filter(
+                questiongroup_id__in=questiongroup_ids)
             summary_res = {
                 "schools_impacted": institution_qs.distinct(
                     'institution_id').count(),
@@ -279,17 +289,19 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             inst_count = Institution.objects.filter(
                 institution_type_id=InstitutionType.PRIMARY_SCHOOL
             ).filter(
-                Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
-                Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
+                Q(admin0_id=boundary_id) |
+                Q(admin1_id=boundary_id) |
+                Q(admin2_id=boundary_id) |
+                Q(admin3_id=boundary_id)
             ).count()
             summary_res["total_schools"] = inst_count
 
             ans_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
                     boundary_id=boundary_id)
             ans_queryset = self.filter_queryset(ans_queryset)
-            if questiongroup_id:
+            if questiongroup_ids:
                 ans_queryset = ans_queryset.filter(
-                    questiongroup_id=questiongroup_id)       
+                    questiongroup_id__in=questiongroup_ids)
 
         ans_queryset = ans_queryset.values(
             'question_desc', 'answer_option', 'num_answers', 'question_id'
@@ -310,10 +322,10 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                     survey_id=s_id, questiongroup_id=qg_id)
                 question_dict = {}
                 for row in qgroup_ans_queryset:
-                    if (
-                        row["question_desc"] in question_dict
-                    ):
-                        if (row["answer_option"] in question_dict[row["question_desc"]] ):
+                    if (row["question_desc"] in question_dict):
+                        if (
+                            row["answer_option"] in question_dict[row["question_desc"]]
+                        ):
                             question_dict[row["question_desc"]][
                                 row["answer_option"]] += row["num_answers"]
                         else:
@@ -325,10 +337,12 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                                 "text": row["question_desc"],
                                 row["answer_option"]: row["num_answers"]
                             }
-                        question_dict[row["question_desc"]]['id'] = row['question_id']
+                        question_dict[row["question_desc"]]['id'] = \
+                            row['question_id']
+
                 if question_dict:
                     questiongroup_res[qg_name] = {}
-                    questiongroup_res[qg_name]['id'] = qg_id 
+                    questiongroup_res[qg_name]['id'] = qg_id
                     questiongroup_res[qg_name]['questions'] = question_dict
             survey_res['surveys'][s_id] = {}
             survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
