@@ -144,11 +144,12 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
         )
 
     def create(self, validated_data):
+        new_id = QuestionGroup_Questions.objects.latest('id').id + 1
         question_dict = validated_data['question']
         questiongroup_id = self.context['questiongroup']
         question = Question.objects.create(**question_dict)
         return QuestionGroup_Questions.objects.create(
-            questiongroup_id=questiongroup_id, question=question
+            id=new_id, questiongroup_id=questiongroup_id, question=question
         )
 
 

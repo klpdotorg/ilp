@@ -228,12 +228,12 @@ class InstitutionCreateSerializer(ILPSerializer):
     address = serializers.CharField(default=None)
     area = serializers.CharField(default=None)
     pincode = serializers.PrimaryKeyRelatedField(
-        queryset=PinCode.objects.all(), default=None
+        queryset=PinCode.objects.all(), default=None, allow_null=True
     )
     landmark = serializers.CharField(default=None)
     last_verified_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), required=True)
-    institution_languages = serializers.ListField(write_only=True)    
+    institution_languages = serializers.ListField(write_only=True)
 
     class Meta:
         model = Institution
@@ -244,7 +244,7 @@ class InstitutionCreateSerializer(ILPSerializer):
             'institution_languages'
         )
 
-    def save(self, **kwargs):
+    def save(self, *args, **kwargs):
         admin3 = self.validated_data['admin3']
         langs = self.validated_data.pop('institution_languages')
         inst = Institution.objects.create(
@@ -259,6 +259,36 @@ class InstitutionCreateSerializer(ILPSerializer):
                 institution=inst, moi=lang)
             inst.institution_languages.add(inst_lang)
         return inst
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.address = validated_data.get('address', instance.address)
+        instance.area = validated_data.get('area', instance.area)
+        instance.landmark = validated_data.get('landmark', instance.landmark)
+        instance.pincode = validated_data.get('pincode', instance.pincode)
+        instance.category = validated_data.get('category', instance.category)
+        instance.management = validated_data.get(
+            'management', instance.management)
+        instance.last_verified_year = validated_data.get(
+            'last_verified_year', instance.last_verified_year)
+        instance.institution_type = validated_data.get(
+            'institution_type', instance.institution_type
+        )
+
+        old_inst_langs = instance.institution_languages.all()
+        for inst_lang in old_inst_langs:
+            lang = Language.objects.get(char_id=inst_lang.moi.char_id)
+            inst_lang = InstitutionLanguage.objects.get(
+                institution=instance, moi=lang)
+            inst_lang.delete()
+
+        langs = self.validated_data.pop('institution_languages')
+        for lang in langs:
+            lang = Language.objects.get(char_id=lang)
+            inst_lang, created = InstitutionLanguage.objects.get_or_create(
+                institution=instance, moi=lang)
+            instance.institution_languages.add(inst_lang)
+        return instance.save()
 
 
 class InstitutionCategorySerializer(ILPSerializer):

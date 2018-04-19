@@ -151,54 +151,36 @@ class QuestionGroupInstitutionAssociationViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED,
                         headers=headers)
 
+
 class QuestionGroupStudentGroupAssociationViewSet(viewsets.ModelViewSet):
-    assessmentids = []
-    institutionids = []
-    boundaryids = []
-    studentgroups = []
     queryset = QuestionGroup_StudentGroup_Association.objects.all()
     serializer_class = QuestionGroupStudentGroupAssociationSerializer
 
     def create(self, request, *args, **kwargs):
-        if not self.request.data.get('questiongroup_ids'):
-            raise ParseError("Mandatory parameter questiongroup_ids not passed")
-        self.assessmentids = self.request.data.get('questiongroup_ids').split(",")
-        if self.request.data.get('boundary_ids'):
-            self.boundaryids = self.request.data.get('boundary_ids').split(",")
-        if self.request.data.get('institution_ids'):
-            self.institutionids = self.request.data.get('institution_ids').split(",")
-        if self.institutionids == [] and self.boundaryids == []:
-            raise ParseError("Mandatory parameter institution_ids or boundary_ids not passed")
-        if not self.request.data.get('studentgroup_ids'):
-            raise ParseError("Mandatory parameter studentgroup_ids not passed")
-        self.studentgroups = self.request.data.get('studentgroup_ids').split(",")
-        response = self.createAssessmentStudentGroupAssocation()
+        questiongroup_ids, studentgroup_ids = [], []
 
+        questiongroup_ids = self.request.data.get('questiongroup_ids', [])
+        studentgroup_ids = self.request.data.get('studentgroup_ids', [])
+
+        response = self.create_assessment_studentgroup_assocation(
+            questiongroup_ids, studentgroup_ids
+        )
         return response
 
-    def createAssessmentStudentGroupAssocation(self):
+    def create_assessment_studentgroup_assocation(
+            self, questiongroup_ids, studentgroup_ids
+    ):
         request = []
-        for assessmentid in self.assessmentids:
-            if self.institutionids == []:
-                for boundaryid in self.boundaryids:
-                    self.institutionids = Institution.objects.values_list(
-                        'id', flat=True).filter(Q(admin1_id=boundaryid) |
-                                                Q(admin2_id=boundaryid) |
-                                                Q(admin3_id=boundaryid))
-            for institutionid in self.institutionids:
-                for studentgroup in self.studentgroups:
-                    studentgroupids = list(StudentGroup.objects.values_list(
-                        'id', flat=True).filter(institution_id=institutionid, name=studentgroup))
-                    if len(studentgroupids) != 0:
-                        for studentgroupid in studentgroupids:
-                            request.append({'assessment': assessmentid,
-                                            'student_group': studentgroupid,
-                                            'active': 'AC'})
-
+        for questiongroup_id in questiongroup_ids:
+            for studentgroup_id in studentgroup_ids:
+                request.append({
+                    'questiongroup': questiongroup_id,
+                    'studentgroup': studentgroup_id,
+                    'status': 'AC'
+                })
         serializer = self.get_serializer(data=request, many=True)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
-                        headers=headers)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers)
