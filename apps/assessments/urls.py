@@ -32,19 +32,19 @@ nested_router = ExtendedSimpleRouter()
 simple_router = routers.DefaultRouter()
 
 simple_router.register(
-    r'surveys/questions', QuestionViewSet, base_name='survey-questions')
+    r'surveys/questions/$', QuestionViewSet, base_name='survey-questions')
 simple_router.register(
-    r'survey/questiongroup/school',
+    r'survey/questiongroup/school/$',
     QuestionGroupSchoolViewSet, base_name='questiongroup-school',
 )
 
 # Endpoint to map assessments to institutions
 nested_router.register(
-    r'questiongroupinstitutionmap',
+    r'questiongroupinstitutionmap/$',
     QuestionGroupInstitutionAssociationViewSet,
     base_name='questiongroupinstitutionmap')
 nested_router.register(
-    r'questiongroupstudentgroupmap',
+    r'questiongroupstudentgroupmap/$',
     QuestionGroupStudentGroupAssociationViewSet,
     base_name='questiongroupstudentgroupmap')
 
