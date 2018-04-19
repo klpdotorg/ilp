@@ -89,8 +89,6 @@ var topSummaryData = {};
                     }
                 }
 
-                console.log(url)
-
                 e.originalEvent.currentTarget.href = url;
 
         });
@@ -586,7 +584,14 @@ var topSummaryData = {};
 
         // Top summary needs a year
         if(params.from && params.to) {
-            year = (parseInt(params.to.slice(2, 4)) - 1) + params.to.slice(2, 4);
+            var toMonth = parseInt(params.to.slice(5,7), 10),
+                toYear = parseInt(params.to.slice(2, 4), 10);
+
+            if(toMonth >= 6) {
+                year = '' + toYear + '' + (toYear + 1);
+            } else {
+                year = (toYear - 1) + '' + toYear;
+            }
         }
 
         // Top summary doesn't need a from and to
@@ -654,6 +659,20 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
+        function updatePercentageUsingMathClassNo(data, key, score) {
+
+            if(score !== 0) {
+                data[key].total = score;
+                data[key].percent = getPercent(data[key].score, score);
+            } else {
+                data[key].score = 0;
+                data[key].percent = 0;
+            }
+
+            return data;
+
+        }
+
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -662,7 +681,9 @@ var topSummaryData = {};
                 "ivrss-group-work"
             ],
             data = combineDataSources(
-                detailsData.source, ['sms', 'konnectsms'], SMSQuestionKeys
+                detailsData.source, 
+                ['sms', 'mobile', 'konnectsms'],
+                SMSQuestionKeys
             ),
             questionObjects = _.map(SMSQuestionKeys, function(key) {
                 return getQuestion(data, 'combinedData', key);
@@ -675,7 +696,7 @@ var topSummaryData = {};
             regroup[questions[each]["key"]] = questions[each];
         }
 
-        // Add default values to prevent JS errors at the template lebel
+        // Add default values to prevent JS errors at the template level
         _.each(SMSQuestionKeys, function(qKey){
             if(!regroup[qKey]) {
                 regroup[qKey] = {
@@ -685,6 +706,22 @@ var topSummaryData = {};
                 };
             }
         });
+
+        console.log(regroup)
+
+        /*  On April 18th, 2018, we introduced a new logic to calculate 
+            tlm usage and group work percentages.
+            Now, instead of using the whole survey score to calculate percentage (the denomincator), we only take "math class hapenning" key's Yes count.
+        */
+        var mathClassScore = regroup['ivrss-math-class-happening'].score;
+        regroup = updatePercentageUsingMathClassNo(
+            regroup, 'ivrss-gka-tlm-in-use', mathClassScore
+        );
+        regroup = updatePercentageUsingMathClassNo(
+            regroup, 'ivrss-group-work', mathClassScore
+        );
+
+        console.log(regroup);
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
@@ -719,12 +756,11 @@ var topSummaryData = {};
                 BRC:"Block Resource Coordinator",
                 CRCC:"Cluster Resource Coordinator",
                 PC:"Pedagogy Coordinator",
-                UK:"Unknown",
-                "null":"Unknown"
+                UK:"Unknown"
             };
 
         for (var m in users) {
-            if(m) {
+            if(m && (m !== 'null')) {
                 meta_values.push({
                     meta: userFullName[m] ? userFullName[m]: m,
                     value: users[m]
@@ -1377,34 +1413,31 @@ var topSummaryData = {};
 
 
         var combined = _.map(keys, function(k){
+            var combinedData = {
+                answers: {Yes: 0, No: 0}, question: {}
+            };
 
-            var s1Data = _.find(sourceData[s1], function(d){
-                return d.question.key === k;
-            });
+            _.each(sources, function(s) {
 
-            var s2Data = _.find(sourceData[s2], function(d){
-                return d.question.key === k;
-            });
+                var data = _.find(sourceData[s], function(d){
+                    return d.question.key === k;
+                });
 
-            var answers = {Yes: 0, No: 0};
-            if(s1Data) {
-                answers.Yes += s1Data.answers.Yes;
-                answers.No += s1Data.answers.No;
-            }
-            if(s2Data) {
-                answers.Yes += s2Data.answers.Yes;
-                answers.No += s2Data.answers.No;
-            }
+                if(data) {
+                    if(!isNaN(data.answers.Yes)) {
+                        combinedData.answers.Yes += data.answers.Yes;
+                    }
+                    if(!isNaN(data.answers.No)) {
+                        combinedData.answers.No += data.answers.No;
+                    }
 
-            if (s1Data || s2Data) {
-                return {
-                    answers: answers,
-                    question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
+                    if(data.question) {
+                        combinedData.question = data.question;
+                    }
                 }
-            } else {
-                return {answers:{}, question: {}};
-            }
+            });
 
+            return combinedData;
         });
 
         return {combinedData: combined};
