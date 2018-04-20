@@ -1,5 +1,6 @@
 import datetime
 import argparse
+import sys
 
 from datetime import datetime, timedelta
 from common.utils import post_to_slack, Date
@@ -60,7 +61,12 @@ class Command(BaseCommand):
             boundary_name = Boundary.objects.filter(id__in=admin_id).values('name')[0]['name']
             konnect_devices = ansgrps.aggregate(Count('mobile', distinct = True))['mobile__count']
             konnect_schools = ansgrps.aggregate(Count('institution', distinct = True))['institution__count']
-            if survey_name == 'GKA School Visit':
+            print("survey_name:", survey_name)
+            print("boundary_name:",boundary_name )
+            print("konnect_schools:",konnect_schools )
+            print("konnect_devices:",konnect_devices)
+            print("Surveys:", ansgrps.count())
+            if s_id in (11,14):
                 gka_flag = True
 
             if gka_flag: 
@@ -69,7 +75,10 @@ class Command(BaseCommand):
                 AS_count = ansgrps.filter(respondent_type = 'AS').count()
                 HM_count = ansgrps.filter(respondent_type = 'HM').count()
                 other_count = ansgrps.exclude(respondent_type__in = user_types).count()
-
+                print("CRP_count", CRP_count)
+                print("AS_count", AS_count)
+                print("HM_count", HM_count)
+                print("other_count", other_count)
             author = 'ILP Konnect'
             emoji = ':memo:'
             try:
