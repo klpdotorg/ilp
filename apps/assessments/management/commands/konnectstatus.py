@@ -81,16 +81,16 @@ class Command(BaseCommand):
                 print("other_count", other_count)
             author = 'ILP Konnect'
             emoji = ':memo:'
-            try:
-                post_to_slack(
-                    channel='#klp',
-                    author=author,
-                    message='%s: %s: %s Schools, %s Devices and %s Surveys' %(boundary_name,survey_name, konnect_schools, konnect_devices, ansgrps.count()),
-                    emoji=emoji,
-                )
-            except:
-                print ("could not post to slack")
-                pass
+            #try:
+                #post_to_slack(
+                    #channel='#klp',
+                    #author=author,
+                    #message='%s: %s: %s Schools, %s Devices and %s Surveys' %(boundary_name,survey_name, konnect_schools, konnect_devices, ansgrps.count()),
+                    #emoji=emoji,
+                #)
+            #except:
+                #print ("could not post to slack")
+                #pass
 
             if gka_flag:
                 try:
