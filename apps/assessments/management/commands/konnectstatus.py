@@ -79,8 +79,8 @@ class Command(BaseCommand):
                 print("AS_count", AS_count)
                 print("HM_count", HM_count)
                 print("other_count", other_count)
-            author = 'ILP Konnect'
-            emoji = ':memo:'
+            #author = 'ILP Konnect'
+            #emoji = ':memo:'
             #try:
                 #post_to_slack(
                     #channel='#klp',
@@ -92,7 +92,9 @@ class Command(BaseCommand):
                 #print ("could not post to slack")
                 #pass
 
-            if gka_flag:
+            if gka_flag: 
+                author = 'ILP Konnect'
+                emoji = ':memo:'
                 try:
                     post_to_slack(
                     channel='#klp',
