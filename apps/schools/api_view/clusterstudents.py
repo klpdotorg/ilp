@@ -3,11 +3,12 @@ from django.http import Http404
 
 from schools.models import Student
 from schools.models import Institution
-
 from schools.serializers import StudentSerializer
+from common.pagination import LargeResultsSetPagination
 
 class ClusterStudentsViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
+    pagination_class = LargeResultsSetPagination
 
     def get_queryset(self):
         cluster_id = self.request.GET.get('cluster_id', None)
