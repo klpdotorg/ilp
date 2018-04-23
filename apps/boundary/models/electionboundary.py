@@ -8,7 +8,7 @@ import json
 class ElectionBoundary(models.Model):
     """ Election boundaries """
     state = models.ForeignKey('Boundary')
-    parent = models.ForeignKey('self', null=True)
+    #parent = models.ForeignKey('self', null=True)
     dise_slug = models.CharField(max_length=300, blank=True)
     elec_comm_code = models.IntegerField(null=True)
     const_ward_name = models.CharField(max_length=300, null=True)

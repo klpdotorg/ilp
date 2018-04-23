@@ -73,20 +73,20 @@ class BaseElectedRepReport(BaseReport):
                 neighbour["dise"] = rep.dise_slug
             reportInfo["neighbour_info"].append(neighbour)
 
-    def getParentData(self, electedrep, reportInfo):
-        reportInfo["parent_info"] = []
-        if electedrep.parent:
-            reportInfo["parent_info"].append({
-                "const_ward_type": electedrep.parent.const_ward_type,
-                "const_ward_name": electedrep.parent.const_ward_name,
-                "id": electedrep.parent.id})
-            if electedrep.parent.parent:
-                reportInfo["parent_info"].append({
-                    "const_ward_type": electedrep.parent.parent.const_ward_type,
-                    "const_ward_name": electedrep.parent.parent.const_ward_name,
-                    "id": electedrep.parent.parent.id})
-                if electedrep.parent.parent.parent:
-                    reportInfo["parent_info"].append({
-                        "const_ward_type": electedrep.parent.parent.parent.const_ward_type,
-                        "const_ward_name": electedrep.parent.parent.parent.const_ward_name,
-                        "id": electedrep.parent.parent.parent.id})
+    #def getParentData(self, electedrep, reportInfo):
+    #    reportInfo["parent_info"] = []
+    #    if electedrep.parent:
+    #        reportInfo["parent_info"].append({
+    #            "const_ward_type": electedrep.parent.const_ward_type,
+    #            "const_ward_name": electedrep.parent.const_ward_name,
+    #            "id": electedrep.parent.id})
+    #        if electedrep.parent.parent:
+    #            reportInfo["parent_info"].append({
+    #                "const_ward_type": electedrep.parent.parent.const_ward_type,
+    ##                "const_ward_name": electedrep.parent.parent.const_ward_name,
+    #                "id": electedrep.parent.parent.id})
+    ##            if electedrep.parent.parent.parent:
+    #                reportInfo["parent_info"].append({
+    #                    "const_ward_type": electedrep.parent.parent.parent.const_ward_type,
+    #                    "const_ward_name": electedrep.parent.parent.parent.const_ward_name,
+    ##                    "id": electedrep.parent.parent.parent.id})

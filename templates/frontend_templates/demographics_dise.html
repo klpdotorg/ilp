@@ -1,6 +1,6 @@
 {% verbatim %}
   <script type="text/html" id="tpl-reportDate">
-    <div class="heading-tiny date-header"> Primary School Report | {{today.date}} | Source: DISE</div>
+<div class="heading-tiny date-header"> Primary School Report ({{header_date.academic_year}}) | {{header_date.date}} | Source: DISE</div>
   </script>
 
   <script type="text/html" id="tpl-topSummary">
@@ -60,7 +60,7 @@
                     {% if data.ptr !== "NA" && data.ptr !== 0 %}
                       {% set indicator = "brand-green" %}
                       {% if data.ptr > 35 %} 
-                        {% set indicator = "brand-red" %}    
+                        {% set indicator = "brand-blue" %}    
                       {% endif %} 
                       <span class="{{indicator}}">{{data.ptr|round}}:1</span>
                       {% if data.ptr > 35 %} < {% else %} > {% endif %} 
@@ -194,7 +194,7 @@
 
   <script type="text/html" id="tpl-YearComparison">
     <h3 class="brand-turquoise  heading-border center-text">
-        3 year comparison of status of Primary school status in {{boundary_name|capitalize}}
+        Comparison of the status of Primary school in {{boundary_name|capitalize}} across years
       </h3>
       <table class="table-base table-list-view table-base-comparison">
       <tbody><tr class="table-base-heading">
@@ -258,8 +258,8 @@
           {% set highlight= "" %}
           {% set barcolor= "grey-gravel-bg" %}
           {% if each.name == boundary_name %}
-            {% set highlight= "brand-red" %}
-            {% set barcolor= "brand-red-bg" %}
+            {% set highlight= "brand-blue" %}
+            {% set barcolor= "brand-blue-bg" %}
           {% endif %}
           <tr>
             <td>

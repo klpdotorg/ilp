@@ -61,7 +61,7 @@ class DemographicsElectedRepComparisonDetails(APIView, BaseElectedRepReport):
     reportInfo = {"comparison": {"year-wise": {}, "electedrep": {}}}
     totalschools = 0
 
-    def fillComparison(self, electedrep, academic_year):
+    def fillComparisonData(self, electedrep, academic_year):
         data = {
             "id": electedrep.id,
             "commision_code": electedrep.elec_comm_code,

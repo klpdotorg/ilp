@@ -2,6 +2,7 @@
 {% load static %}
 {% load compress %}
 {% load state_variables %}
+{% load basic_default_settings %}
 
 {% block page_title %}Search for Reports{% endblock %}
 {% block endbody %}
@@ -15,13 +16,12 @@
 	<div class="map-subheader-wrapper subheader-wrapper">
 		<div class="form-base subheader-content center-text">
 			<div id="acad-year" class="filter-item">
-				<span class="filter-label">Academic Year</span>	
-				<select>
-			      <!--option>2015-2016</option-->
+                <span class="filter-label">Academic Year: {%get_full_formatted_default_academic_year%}</span>	
+				<!--select>
 			      <option>2014-2015</option>
 			      <option>2015-2016</option>
-			      <option>2016-2017</option>
-			    </select>							
+			      <option selected="selected">2016-2017</option>
+			    </select--!>							
 			</div>
 			<div id="src-type" class="filter-item">
 				<span class="filter-label">Report Type</span>	

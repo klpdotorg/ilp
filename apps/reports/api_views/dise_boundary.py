@@ -12,7 +12,8 @@ class DiseBoundaryDetails(APIView, BaseBoundaryReport):
     reportInfo = {}
 
     def get_boundary_info(self, boundaryid):
-        year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
+        year = self.request.GET.get('year', settings.DISE_ACADEMIC_YEAR).replace('-','')
+        print(year)
         try:
             academic_year = AcademicYear.objects.get(char_id=year)
         except AcademicYear.DoesNotExist:
@@ -24,7 +25,6 @@ class DiseBoundaryDetails(APIView, BaseBoundaryReport):
         except Exception:
             raise APIError('Boundary not found', 404)
         self.get_boundary_summary_data(boundary, self.reportInfo)
-        print(boundary.boundary_type_id)
         if boundary.boundary_type_id == 'SD':
             self.reportInfo["neighbours"] = []
             neighbourlist = BoundaryNeighbours.objects.filter(boundary=boundary).values_list("neighbour_id", flat=True)

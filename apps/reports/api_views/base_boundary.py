@@ -1,13 +1,12 @@
 from boundary.models import Boundary, BasicBoundaryAgg, BoundaryNeighbours, BoundarySchoolCategoryAgg, BoundarySchoolMoiAgg, BoundaryStudentMotherTongueAgg
 from . import BaseReport
 from django.db.models import Sum
-from rest_framework.exceptions import ParseError
 
 
 class BaseBoundaryReport(BaseReport):
 
     def get_boundary_basiccounts(self, boundary, academic_year):
-        boundarycounts = {"num_schools":0, "num_students":0, "gender":{"girls":0, "boys":0}}
+        boundarycounts = {"num_schools": 0, "num_students": 0, "gender": {"girls": 0, "boys": 0}}
         print(academic_year.year)
         qs = BasicBoundaryAgg.objects.filter(boundary_id=boundary, year=academic_year).first()
         if qs:
@@ -17,29 +16,27 @@ class BaseBoundaryReport(BaseReport):
         return boundarycounts
 
     def get_boundary_details(self, boundary, academic_year):
-        retdata = {"cat":{}, "mt": {}, "moi":{}}
+        retdata = {"cat": {}, "mt": {}, "moi": {}}
 
         qs = BoundarySchoolCategoryAgg.objects.filter(boundary=boundary, cat_ac_year=academic_year, institution_type='primary').values("cat").annotate(num_schools=Sum('num_schools'), num_students=Sum('num_students'), num_boys=Sum('num_boys'), num_girls=Sum('num_girls'))
-        if qs == None:
+        if qs is None:
             return retdata
         for data in qs:
             retdata["cat"][data["cat"]] = {"cat": data["cat"], "num_schools": data["num_schools"], "num_students": data["num_students"]}
 
         qs = BoundarySchoolMoiAgg.objects.filter(boundary=boundary, moi_ac_year=academic_year).values("moi").annotate(num_schools=Sum('num_schools'), num_students=Sum('num_students'))
-        if qs == None:
+        if qs is None:
             return retdata
         for data in qs:
             retdata["moi"][data["moi"]] = {"moi": data["moi"], "num_schools": data["num_schools"], "num_students": data["num_students"]}
 
         qs = BoundaryStudentMotherTongueAgg.objects.filter(boundary=boundary, mt_ac_year=academic_year).values("mt").annotate(num_schools=Sum('num_schools'), num_students=Sum('num_students'))
-        if qs == None:
+        if qs is None:
             return retdata
         for data in qs:
             retdata["mt"][data["mt"]] = {"mt": data["mt"], "num_schools": data["num_schools"], "num_students": data["num_students"]}
 
-
         return retdata
-
 
     # Get dise information for the boundary
     def get_dise_school_info(self, active_schools, academic_year):
@@ -69,7 +66,7 @@ class BaseBoundaryReport(BaseReport):
         else:
             neighbourlist = BoundaryNeighbours.objects.filter(boundary=boundary).values_list("neighbour_id", flat=True)
             if neighbourlist:
-                neighbours = Boundary.objects.filter(id__in = list(neighbourlist))
+                neighbours = Boundary.objects.filter(id__in=list(neighbourlist))
                 if neighbours:
                     for neighbour in neighbours:
                         count = neighbour.schools().count()
@@ -78,9 +75,8 @@ class BaseBoundaryReport(BaseReport):
 
     def getDistrictNeighbours(self, boundary):
         neighbourlist = BoundaryNeighbours.objects.filter(boundary=boundary).values_list("neighbour_id", flat=True)
-        neighbours = Boundary.objects.filter(id__in = list(neighbourlist))
+        neighbours = Boundary.objects.filter(id__in=list(neighbourlist))
         return neighbours
-
 
     # Returns the basic information of the pased boundary
     def get_boundary_summary_data(self, boundary, reportData):

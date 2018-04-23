@@ -161,6 +161,8 @@
                                     languages["moi"][eachlang]["num_schools"];
                 new_lang[eachlang]["moi_perc"] = Math.round(
                     languages["moi"][eachlang]["num_schools"]*100/moi_school_total);
+                new_lang[eachlang]["student_count"] = 0
+                new_lang[eachlang]["mt_perc"] = 0
             }
         }
         

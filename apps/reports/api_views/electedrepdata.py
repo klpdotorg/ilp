@@ -31,7 +31,7 @@ class ElectedRepInfo(APIView, BaseElectedRepReport):
         if neighbours:
             self.getNeighbours(neighbours,
                                electedrep.const_ward_type, self.reportInfo)
-        self.getParentData(electedrep, self.reportInfo)
+        #self.getParentData(electedrep, self.reportInfo)
         print(self.reportInfo)
 
     def get(self, request):

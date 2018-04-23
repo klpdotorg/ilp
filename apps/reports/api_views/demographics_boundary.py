@@ -126,8 +126,11 @@ class DemographicsBoundaryComparisonDetails(APIView, BaseBoundaryReport):
 
     def get_boundary_comparison(self, academic_year, boundary):
         comparisonData = []
-        neighbourlist = BoundaryNeighbours.objects.filter(boundary=boundary).values_list("neighbour_id", flat=True)
-        neighbours = Boundary.objects.filter(id__in = list(neighbourlist))
+        if boundary.boundary_type_id == 'SD':
+            neighbourlist = BoundaryNeighbours.objects.filter(boundary=boundary).values_list("neighbour_id", flat=True)
+            neighbours = Boundary.objects.filter(id__in = list(neighbourlist))
+        else:
+           neighbours = Boundary.objects.filter(parent_id=boundary.parent.id)
         for neighbour in neighbours:
             comparisonData.append(self.fillComparisonData(neighbour,
                                                           academic_year))
