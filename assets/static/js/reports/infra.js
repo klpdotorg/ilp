@@ -106,7 +106,7 @@
     function getDiseData()
     {
         var boundary = {"id": klpData["report_info"]["dise"],
-                        "type": klpData["report_info"]["type"]};
+                        "type": klpData["report_info"]["type"].split(" ")[1].toLowerCase()};
         klp.dise_api.getBoundaryData(boundary.id, boundary.type,
                                      acadYear).done(function(data) {
             diseData = data;

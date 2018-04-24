@@ -1,7 +1,7 @@
 {% verbatim %}
 
   <script type="text/html" id="tpl-reportDate">
-    <div class="heading-tiny date-header"> Primary School Report | {{today.date}} | Source: DISE</div>
+    <div class="heading-tiny date-header"> Primary School Report ({{header_date.academic_year}}) | {{header_date.date}} | Source: DISE</div>
   </script>
 
   <script type="text/html" id="tpl-topSummary">
@@ -276,8 +276,8 @@
             {% set highlight= "" %}
             {% set barcolor= "grey-gravel-bg" %}
             {% if each.name == boundary_name %}
-              {% set highlight= "brand-red" %}
-              {% set barcolor= "brand-red-bg" %}
+              {% set highlight= "brand-blue" %}
+              {% set barcolor= "brand-blue-bg" %}
             {% endif %}
             <tr class="font-smaller">
               <td>

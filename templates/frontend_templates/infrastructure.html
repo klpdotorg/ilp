@@ -1,6 +1,6 @@
 {% verbatim %}
   <script type="text/html" id="tpl-reportDate">
-    <div class="heading-tiny date-header"> Primary School Report | {{today.date}} | Source: DISE</div>
+    <div class="heading-tiny date-header"> Primary School Report ({{header_date.academic_year}}) | {{header_date.date}} | Source: DISE</div>
   </script>
 
   <script type="text/html" id="tpl-topSummary">
@@ -14,7 +14,7 @@
           {% elseif  data.boundary.type == "school" %}
             <div class="heading-tiny-uppercase">School</div>
           {% else %}
-            <div class="heading-tiny-uppercase">Electoral Region</div>
+            <div class="heading-tiny-uppercase">Region</div>
           {% endif %}
           <h2 class="heading-secondary brand-blue align-left">{{data.boundary.name|capitalize}}</h2> 
           <div class="heading-tiny-uppercase">Type</div>
@@ -159,7 +159,7 @@
 
   <script type="text/html" id="tpl-YearComparison">
       <h3 class="brand-turquoise  heading-border center-text">
-        3 year comparison of infrastructure of Primary schools within this region
+        Comparison of the infrastructure of Primary schools in this region across the years
       </h3>
       <table class="table-base table-list-view">
         <tbody>
@@ -218,9 +218,9 @@
 
 <script type="text/html" id="tpl-neighComparison">
       <h3 class="brand-turquoise  heading-border center-text">
-        Comparison of status of Primary school for {{boundary_name|title}} 
+        Comparison of status of Primary school in {{boundary_name|title}} 
           {% if boundary_type != "cluster" && boundary_type !="block" %}
-            with neighbours
+            with its neighbours
           {% else %}
             within its adminstration
           {% endif %}
@@ -233,7 +233,7 @@
             {% for boundary in transpose["boundary"]%}
               {% set highlight= "" %}
               {% if boundary|lower == boundary_name %}
-                {% set highlight= "brand-red bold" %}
+                {% set highlight= "brand-blue bold" %}
               {% endif %}
                     <th>
                       <span class="{{highlight}}">
