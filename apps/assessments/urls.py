@@ -35,6 +35,7 @@ simple_router.register(
     r'surveys/questions',
     QuestionViewSet,
     base_name='survey-questions')
+
 simple_router.register(
     r'survey/questiongroup/school',
     QuestionGroupSchoolViewSet,
@@ -43,9 +44,9 @@ simple_router.register(
 
 # Endpoint to map assessments to institutions
 simple_router.register(
-    r'^questiongroupstudentgroupmap',
-    QuestionGroupStudentGroupAssociationViewSet,
-    base_name='questiongroupstudentgroupmap')
+    r'^survey/(?P<survey_id>[0-9]+)/questiongroup',
+    QuestionGroupViewSet,
+    base_name='questiongroup')
 
 simple_router.register(
     r'^questiongroupinstitutionmap',
@@ -54,125 +55,125 @@ simple_router.register(
 
 # surveys -> questiongroup -> questions
 # maps to earlier programs -> # assessments -> questions
-nested_router\
-    .register(
-        r'surveys',
-        SurveysViewSet,
-        base_name='surveys')\
-    .register(
-        r'questiongroup',
-        QuestionGroupViewSet,
-        base_name="surveys-questiongroup",
-        parents_query_lookups=['survey'])\
-    .register(
-        r'questions', QuestionGroupQuestions,
-        base_name="surveys-questiongroup-questions",
-        parents_query_lookups=[
-            'survey', 'questiongroup']
-    )
+# nested_router\
+#     .register(
+#         r'surveys',
+#         SurveysViewSet,
+#         base_name='surveys')\
+#     .register(
+#         r'questiongroup',
+#         QuestionGroupViewSet,
+#         base_name="surveys-questiongroup",
+#         parents_query_lookups=['survey'])\
+#     .register(
+#         r'questions', QuestionGroupQuestions,
+#         base_name="surveys-questiongroup-questions",
+#         parents_query_lookups=[
+#             'survey', 'questiongroup']
+#     )
 
 # surveys -> questiongroup -> institution base route
-surveyqgroup = nested_router.register(
-    r'surveys',
-    SurveysViewSet,
-    base_name='survey').register(
-        r'qgroup',
-        QuestionGroupViewSet,
-        base_name="survey-qgroup",
-        parents_query_lookups=['survey']).register(
-            r'institution', InstitutionViewSet,
-            base_name='survey-qgroup-institution',
-            parents_query_lookups=['qgroup', 'qgroup__survey'])
+# surveyqgroup = nested_router.register(
+#     r'surveys',
+#     SurveysViewSet,
+#     base_name='survey').register(
+#         r'qgroup',
+#         QuestionGroupViewSet,
+#         base_name="survey-qgroup",
+#         parents_query_lookups=['survey']).register(
+#             r'institution', InstitutionViewSet,
+#             base_name='survey-qgroup-institution',
+#             parents_query_lookups=['qgroup', 'qgroup__survey'])
 
 # Add-on to above base route.
 # surveys -> questiongroup -> institution -> answergroup -> answers
-answergroup = surveyqgroup.\
-    register(
-        r'answergroup', AnswerGroupInstitutionViewSet,
-        base_name="survey-qgroup-answergroup",
-        parents_query_lookups=['survey', 'questiongroup', 'institution']
-    ).\
-    register(
-        r'answers',
-        AnswersInstitutionViewSet,
-        base_name="survey-qgroup-ansgroup-answers",
-        parents_query_lookups=[
-            'survey', 'questiongroup', 'institution', 'answergroup']
-    )
-
-# surveys -> questiongroup -> institution -> answers
-answers = surveyqgroup.register(
-    r'answers',
-    AnswersInstitutionViewSet,
-    base_name="qgroup-institution-answers",
-    parents_query_lookups=['survey', 'questiongroup', 'institution']
-)
+# answergroup = surveyqgroup.\
+#     register(
+#         r'answergroup', AnswerGroupInstitutionViewSet,
+#         base_name="survey-qgroup-answergroup",
+#         parents_query_lookups=['survey', 'questiongroup', 'institution']
+#     ).\
+#     register(
+#         r'answers',
+#         AnswersInstitutionViewSet,
+#         base_name="survey-qgroup-ansgroup-answers",
+#         parents_query_lookups=[
+#             'survey', 'questiongroup', 'institution', 'answergroup']
+#     )
+# 
+# # surveys -> questiongroup -> institution -> answers
+# answers = surveyqgroup.register(
+#     r'answers',
+#     AnswersInstitutionViewSet,
+#     base_name="qgroup-institution-answers",
+#     parents_query_lookups=['survey', 'questiongroup', 'institution']
+# )
 
 # surveys -> questiongroup -> students base route
-surveyqgroup = nested_router.register(
-    r'surveys',
-    SurveysViewSet,
-    base_name='survey').register(
-        r'questiongroup',
-        QuestionGroupViewSet,
-        base_name="survey-qgroup",
-        parents_query_lookups=['survey']).register(
-            r'student', StudentViewSet,
-            base_name='survey-qgroup-students',
-            parents_query_lookups=['questiongroup', 'questiongroup__survey'])
+# surveyqgroup = nested_router.register(
+#     r'surveys',
+#     SurveysViewSet,
+#     base_name='survey').register(
+#         r'questiongroup',
+#         QuestionGroupViewSet,
+#         base_name="survey-qgroup",
+#         parents_query_lookups=['survey']).register(
+#             r'student', StudentViewSet,
+#             base_name='survey-qgroup-students',
+#             parents_query_lookups=['questiongroup', 'questiongroup__survey'])
 
 # Add-on to above base route.
 # surveys -> questiongroup -> students -> answergroup -> answers
-answergroup = surveyqgroup.register(
-    r'answergroup', AnswerGroupStudentsViewSet,
-    base_name="survey-qgroup-answergroup",
-    parents_query_lookups=['survey', 'questiongroup', 'student']
-).register(
-    r'answers', AnswersStudentViewSet,
-    base_name="survey-qgroup-ansgroup-answers",
-    parents_query_lookups=[
-        'survey', 'questiongroup', 'student', 'answergroup']
-)
-
-# surveys-> questiongroup -> students-> answers
-answers = surveyqgroup.register(
-    r'answers', AnswersStudentViewSet,
-    base_name="qgroup-student-answers",
-    parents_query_lookups=['survey', 'questiongroup', 'student']
-)
+# answergroup = surveyqgroup.register(
+#     r'answergroup', AnswerGroupStudentsViewSet,
+#     base_name="survey-qgroup-answergroup",
+#     parents_query_lookups=['survey', 'questiongroup', 'student']
+# ).register(
+#     r'answers', AnswersStudentViewSet,
+#     base_name="survey-qgroup-ansgroup-answers",
+#     parents_query_lookups=[
+#         'survey', 'questiongroup', 'student', 'answergroup']
+# )
+# 
+# # surveys-> questiongroup -> students-> answers
+# answers = surveyqgroup.register(
+#     r'answers', AnswersStudentViewSet,
+#     base_name="qgroup-student-answers",
+#     parents_query_lookups=['survey', 'questiongroup', 'student']
+# )
 
 # surveys -> questiongroup -> studentgroup base route
-surveyqgroup = nested_router.register(
-    r'surveys',
-    SurveysViewSet,
-    base_name='survey').register(
-        r'questiongroup',
-        QuestionGroupViewSet,
-        base_name="survey-qgroup",
-        parents_query_lookups=['survey']).register(
-            r'studentgroup', StudentGroupViewSet,
-            base_name='survey-qgroup-studentgroup',
-            parents_query_lookups=['questiongroup__survey', 'questiongroup'])
+# surveyqgroup = nested_router.register(
+#     r'surveys',
+#     SurveysViewSet,
+#     base_name='survey').register(
+#         r'questiongroup',
+#         QuestionGroupViewSet,
+#         base_name="survey-qgroup",
+#         parents_query_lookups=['survey']).register(
+#             r'studentgroup', StudentGroupViewSet,
+#             base_name='survey-qgroup-studentgroup',
+#             parents_query_lookups=['questiongroup__survey', 'questiongroup'])
 
 # Add-on to above base route.
 # surveys -> questiongroup -> studentgroup -> answergroup -> answers
-answergroup = surveyqgroup.register(
-    r'answergroup', AnswerGroupStudentsViewSet,
-    base_name="survey-qgroup-answergroup",
-    parents_query_lookups=['survey', 'questiongroup', 'student']
-).register(
-    r'answers', AnswersStudentViewSet,
-    base_name="survey-qgroup-ansgroup-answers",
-    parents_query_lookups=[
-        'survey', 'questiongroup', 'student', 'answergroup']
-)
-
-# surveys-> questiongroup -> studentgroup -> answers
-answers = surveyqgroup.register(
-    r'answers', AnswersStudentViewSet,
-    base_name="qgroup-student-answers",
-    parents_query_lookups=['survey', 'questiongroup', 'student']
-)
+# answergroup = surveyqgroup.register(
+#     r'answergroup', AnswerGroupStudentsViewSet,
+#     base_name="survey-qgroup-answergroup",
+#     parents_query_lookups=['survey', 'questiongroup', 'student']
+# ).register(
+#     r'answers', AnswersStudentViewSet,
+#     base_name="survey-qgroup-ansgroup-answers",
+#     parents_query_lookups=[
+#         'survey', 'questiongroup', 'student', 'answergroup']
+# )
+# 
+# # surveys-> questiongroup -> studentgroup -> answers
+# answers = surveyqgroup.register(
+#     r'answers', AnswersStudentViewSet,
+#     base_name="qgroup-student-answers",
+#     parents_query_lookups=['survey', 'questiongroup', 'student']
+# )
 
 urlpatterns = [
     url(r'sys/(?P<schoolid>[0-9]+)/$',
