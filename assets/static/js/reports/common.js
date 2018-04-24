@@ -5,14 +5,14 @@
     var repType;
     var acadYear;
     var diseType = {
-        "mp constituency": "parliament",
-        "ward": "ward",
-        "mla constituency": "assembly",
+        "parliament constituency": "parliament",
+        "muncipal ward": "ward",
+        "assembly constituency": "assembly",
     };
 
 
     t.getElectedRepType = function(type){
-        return diseType[type];
+        return diseType[type.toLowerCase()];
     };
 
     /*

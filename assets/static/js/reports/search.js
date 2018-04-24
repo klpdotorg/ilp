@@ -155,7 +155,7 @@
         $select_mla.select2("val","");
         $select_ward.select2("val","");
 
-        var mpXHR = klp.api.do('boundary/parliaments',{});
+        var mpXHR = klp.api.do('boundary/parliaments/?per_page=0',{});
         //var mpXHR = klp.api.do('boundary/admin1s', {'school_type':"primaryschool", 'geometry': 'yes'});
         
         mpXHR.done(function (data) {
@@ -168,7 +168,7 @@
 
         //$select_mp.on("change", function(selected) {
             //console.log(selected.val);
-        var mlaXHR = klp.api.do('boundary/assemblies',{});
+        var mlaXHR = klp.api.do('boundary/assemblies/?per_page=0',{});
         mlaXHR.done(function (data) {
             populateSelect($select_mla, data);
         });

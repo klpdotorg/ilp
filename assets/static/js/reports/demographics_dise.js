@@ -46,7 +46,7 @@
                 klpData = data;
                 acadYear = data["academic_year"].replace(/20/g, '');
                 repType = common.getElectedRepType(data.report_info.type);
-                getElectedRepData();
+                getElectedRepData(repType);
             });
         }
     }
@@ -55,7 +55,7 @@
         Get Elected rep data from DISE application and render the Summary, 
         Categories, Language and Comparison data.
     */
-    function getElectedRepData()
+    function getElectedRepData(repType)
     {
         var electedrep = {"id": klpData["report_info"]["dise"],
                           "type": repType}

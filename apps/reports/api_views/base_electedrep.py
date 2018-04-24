@@ -58,20 +58,14 @@ class BaseElectedRepReport(BaseReport):
 
     def getNeighbours(self, neighbours, elect_type, reportInfo):
         for neighbour in neighbours:
-            try:
-                electedrep = ElectedrepMaster.objects.filter(
-                    elec_comm_code=neighbour, const_ward_type=elect_type)
-            except Exception:
-                raise APIException('ElectedRep neighbour id ('+neighbour+') not found', 404)
-            neighbour = {}
-            for rep in electedrep:
-                neighbour["commision_code"] = rep.elec_comm_code
-                neighbour["name"] = rep.const_ward_name.lower()
-                neighbour["type"] = rep.const_ward_type.lower()
-                neighbour["elected_party"] = rep.current_elected_party.lower()
-                neighbour["elected_rep"] = rep.current_elected_rep.lower()
-                neighbour["dise"] = rep.dise_slug
-            reportInfo["neighbour_info"].append(neighbour)
+            neighbour_info = {}
+            neighbour_info["commision_code"] = neighbour.elec_comm_code
+            neighbour_info["name"] = neighbour.const_ward_name.lower()
+            neighbour_info["type"] = neighbour.const_ward_type.name.lower()
+            neighbour_info["elected_party"] = neighbour.current_elected_party.name.lower()
+            neighbour_info["elected_rep"] = neighbour.current_elected_rep.lower()
+            neighbour_info["dise"] = neighbour.dise_slug
+            reportInfo["neighbour_info"].append(neighbour_info)
 
     #def getParentData(self, electedrep, reportInfo):
     #    reportInfo["parent_info"] = []

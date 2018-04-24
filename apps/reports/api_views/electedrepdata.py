@@ -12,7 +12,7 @@ class ElectedRepInfo(APIView, BaseElectedRepReport):
     reportInfo = {}
 
     def get_electedrep_info(self, electedrepid):
-        year = self.request.GET.get('year', settings.DEFAULT_ACADEMIC_YEAR)
+        year = self.request.GET.get('year', settings.DISE_ACADEMIC_YEAR).replace('-','')
         try:
             academic_year = AcademicYear.objects.get(char_id=year)
         except AcademicYear.DoesNotExist:
@@ -27,7 +27,7 @@ class ElectedRepInfo(APIView, BaseElectedRepReport):
         self.getSummaryData(electedrep, self.reportInfo)
         self.reportInfo["neighbour_info"] = []
         neighbourlist = ElectionNeighbours.objects.filter(elect_boundary=electedrep).values_list("neighbour_id", flat=True)
-        neighbours = ElectionBoundary.objects.filter(id__in = list(neighbourlist))
+        neighbours = ElectionBoundary.objects.filter(elec_comm_code__in=list(neighbourlist), const_ward_type_id=electedrep.const_ward_type_id, status_id='AC')
         if neighbours:
             self.getNeighbours(neighbours,
                                electedrep.const_ward_type, self.reportInfo)
