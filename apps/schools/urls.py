@@ -1,5 +1,7 @@
 from rest_framework.routers import DefaultRouter
+
 from rest_framework_extensions.routers import ExtendedSimpleRouter
+
 from django.conf.urls import url
 
 from schools.api_view import (
