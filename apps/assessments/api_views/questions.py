@@ -36,6 +36,49 @@ from schools.models import (
 logger = logging.getLogger(__name__)
 
 
+class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
+    '''Return all questions'''
+    queryset = Question.objects.exclude(status=Status.DELETED)
+    serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        survey_id = self.request.query_params.get('survey_id', None)
+        if survey_id:
+            questiongroups = QuestionGroup.objects.filter(
+                survey_id=survey_id)
+            question_ids = QuestionGroup_Questions.objects.filter(
+                questiongroup__in=questiongroups).values_list(
+                    'question_id', flat=True)
+            return self.queryset.filter(id__in=question_ids)
+        return self.queryset
+
+
+class QuestionGroupQuestions(
+        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
+):
+    '''Returns all questions belonging to a questiongroup'''
+
+    def get_queryset(self):
+        parents_query_dict = self.get_parents_query_dict()
+        questiongroup_id = parents_query_dict['questiongroup']
+        question_list = QuestionGroup_Questions.objects\
+            .filter(questiongroup_id=questiongroup_id)\
+            .order_by('sequence')\
+            .values_list('question', flat=True)
+        return Question.objects.filter(id__in=question_list).order_by('key')
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET', 'PUT']:
+            return QuestionSerializer
+        return QuestionGroupQuestionSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['questiongroup'] = \
+            self.kwargs['parent_lookup_questiongroup']
+        return context
+
+
 class QuestionGroupViewSet(
         ILPStateMixin, viewsets.ModelViewSet
 ):
@@ -127,51 +170,6 @@ class QuestionGroupViewSet(
         return Response(response)
 
 
-class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
-    '''Return all questions'''
-    queryset = Question.objects.exclude(status=Status.DELETED)
-    serializer_class = QuestionSerializer
-
-    def get_queryset(self):
-        survey_id = self.request.query_params.get('survey_id', None)
-        if survey_id:
-            questiongroups = QuestionGroup.objects.filter(
-                survey_id=survey_id)
-            question_ids = QuestionGroup_Questions.objects.filter(
-                questiongroup__in=questiongroups).values_list(
-                    'question_id', flat=True)
-            return self.queryset.filter(id__in=question_ids)
-        return self.queryset
-
-
-class QuestionGroupQuestions(
-        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
-):
-    '''Returns all questions belonging to a questiongroup'''
-
-    queryset = Question.objects.all()
-
-    def get_queryset(self):
-        parents_query_dict = self.get_parents_query_dict()
-        questiongroup_id = parents_query_dict['questiongroup']
-        question_list = QuestionGroup_Questions.objects\
-            .filter(questiongroup_id=questiongroup_id)\
-            .order_by('sequence')\
-            .values_list('question', flat=True)
-        return Question.objects.filter(id__in=question_list).order_by('key')
-
-    def get_serializer_class(self):
-        if self.request.method in ['GET', 'PUT']:
-            return QuestionSerializer
-        return QuestionGroupQuestionSerializer
-
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context['questiongroup'] = \
-            self.kwargs['parent_lookup_questiongroup']
-        return context
-
-
 class QGroupStoriesInfoView(ILPListAPIView):
     """
     Returns total number of stories for the home page
@@ -185,9 +183,4 @@ class QGroupStoriesInfoView(ILPListAPIView):
             'total_images': InstitutionImages.objects.filter(
                 answergroup__questiongroup__survey=5).count()
         })
-
-
-class QuestionGroupSchoolViewSet(viewsets.ModelViewSet):
-    queryset = QuestionGroup_Institution_Association.objects.all()
-    serializer_class = QuestionGroupInstitutionSerializer
 
