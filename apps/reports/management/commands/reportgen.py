@@ -14,5 +14,5 @@ class Command(BaseCommand):
         parser.add_argument('output')
 
     def handle(self, *args, **options):
-        x = generate_report(options['format'],options['type'],options['output'],options['from'],options['to'])
-        print("success")
+        generate_report(options['format'],options['type'],options['output'],options['from'],options['to'])
+        
