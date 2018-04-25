@@ -134,7 +134,7 @@ class QuestionGroupViewSet(
     def mappings(self, request, *args, **kwargs):
         survey_id = kwargs['parent_lookup_survey']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
-        institution_id = self.request.query_params.get('institution_id', None)
+        institution_id = request.query_params.get('institution_id', None)
         response = []
         if survey_on == 'institution':
             res = {}

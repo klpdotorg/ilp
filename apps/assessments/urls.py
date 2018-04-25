@@ -13,8 +13,8 @@ from assessments.api_views import (
     AnswersStudentViewSet, SharedAssessmentsView, SurveyVolumeAPIView,
     SurveyClassQuestionKeyAPIView, SurveyQuestionGroupQuestionKeyAPIView,
     SurveyQuestionGroupDetailsAPIView, SurveyInstitutionAnsAggView,
-    SurveyTagAggAPIView, AssessmentsImagesView, AssessmentSyncView,
-    RespondentTypeList, ShareYourStoryAPIView,
+    SurveyTagAggAPIView, AnswerGroupViewSet, AssessmentsImagesView,
+    AssessmentSyncView, RespondentTypeList, ShareYourStoryAPIView,
     SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
     SurveyBoundaryNeighbourDetailAPIView, SurveyDetailEBoundaryAPIView,
     SurveyUsersCountAPIView, SurveyBoundaryAPIView, SurveyInstitutionAPIView
@@ -53,6 +53,12 @@ questiongroup_router.register(
         'survey', 'questiongroup']
 )
 
+questiongroup_router.register(
+    r'answergroup', AnswerGroupViewSet,
+    base_name="surveys-questiongroup-answergroup",
+    parents_query_lookups=[
+        'survey_id', 'questiongroup_id']
+)
 # surveys -> questiongroup -> institution base route
 # surveyqgroup = nested_router.register(
 #     r'surveys',

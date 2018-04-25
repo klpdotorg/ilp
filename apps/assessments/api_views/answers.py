@@ -26,6 +26,7 @@ from common.mixins import (
 )
 
 from assessments.models import (
+    Survey,
     AnswerGroup_Institution, AnswerInstitution,
     AnswerStudent, AnswerGroup_Student,
     AnswerGroup_StudentGroup, InstitutionImages
@@ -33,7 +34,8 @@ from assessments.models import (
 from assessments.serializers import (
     AnswerSerializer, AnswerGroupInstSerializer,
     AnswerGroupStudentSerializer, AnswerGroupStudentCreateSerializer,
-    StudentAnswerSerializer, AnswerGroupStudentGroupSerializer
+    StudentAnswerSerializer, AnswerGroupStudentGroupSerializer,
+    AnswerGroupInstitutionSerializer
 )
 
 from permissions.permissions import AppPostPermissions
@@ -453,3 +455,45 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
     def perform_bulk_create(self, serializer):
         return self.perform_create(serializer)
 
+
+class AnswerGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    serializer_class = AnswerGroupInstitutionSerializer
+
+    def get_model(self, survey_id):
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        if survey_on == 'institution':
+            return AnswerGroup_Institution
+        elif survey_on == 'studentgroup':
+            return AnswerGroup_StudentGroup
+        return AnswerGroup_Student
+
+    def create(self, request, *args, **kwargs):
+        parent_query_dict = self.get_parents_query_dict()
+        questiongroup_id = parent_query_dict['questiongroup_id']
+
+        data = request.data
+        data['questiongroup'] = questiongroup_id
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)    
+
+    def get_serializer_class(self):
+        parent_query_dict = self.get_parents_query_dict()
+        survey_id = parent_query_dict['survey_id']
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        if survey_on == 'institution':
+            return AnswerGroupInstitutionSerializer
+        elif survey_on == 'studentgroup':
+            return AnswerGroupStudentGroupSerializer
+        return AnswerGroupStudentSerializer
+
+    def get_queryset(self):
+        parent_query_dict = self.get_parents_query_dict()
+        survey_id = parent_query_dict['survey_id']
+        questiongroup_id = parent_query_dict['questiongroup_id']
+        AnswerGroupModel = self.get_model(survey_id)
+        return AnswerGroupModel.objects.filter(
+            questiongroup_id=questiongroup_id)

@@ -214,29 +214,6 @@ class AnswerGroupCreateSerializer(serializers.ModelSerializer):
         model = AnswerGroup_Institution
 
 
-class AnswerGroupStudentGroupSerializer(ILPSerializer):
-    class Meta:
-        model = AnswerGroup_StudentGroup
-        fields = '__all__'
-
-
-class AnswerGroupStudentSerializer(serializers.ModelSerializer):
-    double_entry = serializers.SerializerMethodField(required=False)
-    comments = serializers.CharField(required=False)
-
-    class Meta:
-        model = AnswerGroup_Student
-        fields = (
-            'id', 'questiongroup', 'student', 'group_value',
-            'created_by', 'date_of_visit',
-            'respondent_type', 'comments', 'is_verified',
-            'status', 'double_entry'
-        )
-
-    def get_double_entry(self, obj):
-        return obj.questiongroup.double_entry
-
-
 class AnswerGroupStudentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerGroup_Student
@@ -285,3 +262,21 @@ class QuestionGroupStudentGroupAssociationSerializer(serializers.ModelSerializer
         fields = (
                 'questiongroup', 'studentgroup', 'status',
         )
+
+
+class AnswerGroupInstitutionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerGroup_Institution
+        fields = '__all__'
+
+
+class AnswerGroupStudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerGroup_Student
+        fields = '__all__'
+
+
+class AnswerGroupStudentGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerGroup_StudentGroup
+        fields = '__all__'
