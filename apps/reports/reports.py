@@ -62,7 +62,6 @@ class ReportOne(BaseReport):
             self.get_pdf(output_name)
         else:
             raise AttributeError('Invalid report format')
-        print("{} created".format(report_type))            
         
 class ReportTwo(BaseReport):
    

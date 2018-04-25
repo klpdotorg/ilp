@@ -8,9 +8,11 @@ def generate_report(report_format, report_type, output_name, *args):
         r = reportlist[report_type]
         report = r(*args)
         report.generate(report_format, output_name)
+        report.save()
+        print('success')
     except KeyError:
         print("Invalid report type")
 
     except AttributeError :
-        Print("Error in Report generation")
+        print("Error in Report generation")
         raise 
