@@ -305,7 +305,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                     questiongroup_res['id'] = qg_id
                     questions = []
                     for key in question_dict:
-                        questions.append({key: question_dict[key]})
+                        questions.append(question_dict[key])
                     questiongroup_res['questions'] = questions
                     questiongroup_res['survey_id'] = s_id
             questiongroups.append(questiongroup_res)
