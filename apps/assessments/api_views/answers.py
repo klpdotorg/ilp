@@ -247,3 +247,22 @@ class AnswerViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def put(self, request, *args, **kwargs):
+        parent_query_dict = self.get_parents_query_dict()
+        survey_id = parent_query_dict['survey_id']
+        answergroup_id = parent_query_dict['answergroup_id']
+        data = request.data
+        ans_data = []
+        answer_ids = []
+        for datum in data:
+            answer_ids.append(datum['id'])
+            datum['answergroup'] = answergroup_id
+            ans_data.append(datum)
+        ans_qset = self.get_model(survey_id).objects.filter(id__in=answer_ids)
+        serializer = self.get_serializer(ans_qset, data=ans_data, many=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(answergroup_id=answergroup_id)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers)
