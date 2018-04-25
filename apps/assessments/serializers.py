@@ -11,7 +11,7 @@ from assessments.models import (
     QuestionGroup_Institution_Association,
     AnswerStudent, QuestionGroup_StudentGroup_Association,
     QuestionGroup_Institution_Association,
-    SurveyUserTypeMapping
+    SurveyUserTypeMapping, AnswerStudentGroup
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
@@ -279,4 +279,22 @@ class AnswerGroupStudentSerializer(serializers.ModelSerializer):
 class AnswerGroupStudentGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerGroup_StudentGroup
+        fields = '__all__'
+
+
+class AnswerInstitutionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerInstitution
+        fields = '__all__'
+
+
+class AnswerStudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerStudent
+        fields = '__all__'
+
+
+class AnswerStudentGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnswerStudentGroup
         fields = '__all__'

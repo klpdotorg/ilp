@@ -16,8 +16,9 @@ from assessments.api_views import (
     SurveyTagAggAPIView, AnswerGroupViewSet, AssessmentsImagesView,
     AssessmentSyncView, RespondentTypeList, ShareYourStoryAPIView,
     SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
-    SurveyBoundaryNeighbourDetailAPIView, SurveyDetailEBoundaryAPIView,
-    SurveyUsersCountAPIView, SurveyBoundaryAPIView, SurveyInstitutionAPIView
+    AnswerViewSet, SurveyBoundaryNeighbourDetailAPIView,
+    SurveyDetailEBoundaryAPIView, SurveyUsersCountAPIView,
+    SurveyBoundaryAPIView, SurveyInstitutionAPIView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -40,26 +41,31 @@ questiongroup_router = \
         r'surveys',
         SurveysViewSet,
         base_name='surveys').register(
-            r'questiongroup',
+            r'questiongroups',
             QuestionGroupViewSet,
-            base_name="surveys-questiongroup",
+            base_name='survey-questiongroups',
             parents_query_lookups=['survey']
         )
 
 questiongroup_router.register(
     r'questions', QuestionGroupQuestions,
-    base_name="surveys-questiongroup-questions",
+    base_name="survey-questiongroup-questions",
     parents_query_lookups=[
         'survey', 'questiongroup']
 )
 
 questiongroup_router.register(
-    r'answergroup', AnswerGroupViewSet,
-    base_name="surveys-questiongroup-answergroup",
+    r'answergroups', AnswerGroupViewSet,
+    base_name='survey-questiongroup-answergroups',
     parents_query_lookups=[
-        'survey_id', 'questiongroup_id']
-)
-# surveys -> questiongroup -> institution base route
+        'survey_id', 'questiongroup_id'
+    ]).register(
+        r'answers', AnswerViewSet,
+        base_name='survey-questiongroup-answergroup-answers',
+        parents_query_lookups=[
+            'survey_id', 'questiongroup_id', 'answergroup_id'
+        ])
+
 # surveyqgroup = nested_router.register(
 #     r'surveys',
 #     SurveysViewSet,
