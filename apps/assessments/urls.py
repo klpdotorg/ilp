@@ -12,9 +12,9 @@ from assessments.api_views import (
     SurveyDetailClassAPIView, AnswerGroupStudentsViewSet,
     AnswersStudentViewSet, SharedAssessmentsView, SurveyVolumeAPIView,
     SurveyClassQuestionKeyAPIView, SurveyQuestionGroupQuestionKeyAPIView,
-    QuestionGroupSchoolViewSet, SurveyQuestionGroupDetailsAPIView,
-    SurveyInstitutionAnsAggView, SurveyQuestionGroupMapAPIView,
-    SurveyTagAggAPIView, AssessmentsImagesView, AssessmentSyncView,
+    SurveyQuestionGroupDetailsAPIView, SurveyInstitutionAnsAggView,
+    SurveyQuestionGroupMapAPIView, SurveyTagAggAPIView,
+    AssessmentsImagesView, AssessmentSyncView,
     RespondentTypeList, ShareYourStoryAPIView,
     SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
     SurveyBoundaryNeighbourDetailAPIView, SurveyDetailEBoundaryAPIView,
@@ -33,12 +33,6 @@ simple_router.register(
     r'surveys/questions',
     QuestionViewSet,
     base_name='survey-questions')
-
-simple_router.register(
-    r'survey/questiongroup/school',
-    QuestionGroupSchoolViewSet,
-    base_name='questiongroup-school',
-)
 
 # surveys -> questiongroup -> questions
 # maps to earlier programs -> # assessments -> questions
