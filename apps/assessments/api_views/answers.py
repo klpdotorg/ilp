@@ -33,7 +33,7 @@ from assessments.models import (
 )
 from assessments.serializers import (
     AnswerSerializer, AnswerGroupStudentSerializer, 
-    AnswerGroupStudentGroupSerializer,
+    AnswerGroupStudentGroupSerializer, AnswerGroupInstSerializer,
     AnswerGroupInstitutionSerializer, AnswerInstitutionSerializer,
     AnswerStudentSerializer, AnswerStudentGroupSerializer
 )

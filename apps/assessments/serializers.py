@@ -69,16 +69,8 @@ class SurveySerializer(ILPSerializer):
     class Meta:
         model = Survey
         fields = (
-            'id',
-            'name',
-            'lang_name',
-            'created_at',
-            'updated_at',
-            'partner',
-            'description',
-            'status',
-            'state',
-            'questiongroups',
+            'id', 'name', 'lang_name', 'created_at', 'updated_at',
+            'partner', 'description', 'status', 'state', 'questiongroups',
             'user_types',
         )
 
@@ -93,6 +85,54 @@ class SurveySerializer(ILPSerializer):
                 survey.questiongroup_set.filter(status__char_id=status),
                 many=True
             ).data
+
+
+class AnswerGroupInstSerializer(serializers.ModelSerializer):
+    double_entry = serializers.SerializerMethodField()
+    comments = serializers.CharField(required=False, allow_blank=True)
+    institution_name = serializers.SerializerMethodField()
+    created_by_username = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AnswerGroup_Institution
+        fields = (
+            'id', 'double_entry','questiongroup', 'institution', 'institution_name', 'group_value',
+            'created_by', 'created_by_username', 'date_of_visit',
+            'respondent_type', 'comments', 'is_verified',
+            'status', 'sysid', 'entered_at'
+        )
+
+    def get_created_by_username(self, obj):
+        username=''
+        if obj is not None and obj.created_by is not None and obj.created_by.first_name is not None: 
+            username = username + obj.created_by.first_name
+        if obj is not None and obj.created_by is not None and obj.created_by.last_name is not None:
+            username = username + ' ' + obj.created_by.last_name
+        # if username is None:
+        #     username = obj.created_by.email
+        return username
+
+    def get_institution_name(self, obj):
+        return obj.institution.name
+
+    def get_double_entry(self, obj):
+        return obj.questiongroup.double_entry
+
+
+class AnswerSerializer(ILPSerializer, CompensationLogMixin):
+    answergroup = serializers.PrimaryKeyRelatedField(
+        queryset=AnswerGroup_Institution.objects.all(),
+        source="answergroup_id")
+
+    class Meta:
+        model = AnswerInstitution
+        fields = ('id', 'question', 'answer', 'answergroup', 'double_entry')
+
+    def create(self, validated_data):
+        # This whole code block is a bit suspect. Not sure why this is needed!
+        answergroup = validated_data.pop('answergroup_id')
+        validated_data['answergroup_id'] = answergroup.id
+        return AnswerInstitution.objects.create(**validated_data)
 
 
 class OptionField(serializers.Field):
@@ -159,22 +199,6 @@ class QuestionGroupInstitutionSerializer(ILPSerializer):
         fields = (
             'questiongroup', 'institution', 'id', 'status'
         )
-
-
-class AnswerSerializer(ILPSerializer, CompensationLogMixin):
-    answergroup = serializers.PrimaryKeyRelatedField(
-        queryset=AnswerGroup_Institution.objects.all(),
-        source="answergroup_id")
-
-    class Meta:
-        model = AnswerInstitution
-        fields = ('id', 'question', 'answer', 'answergroup', 'double_entry')
-
-    def create(self, validated_data):
-        # This whole code block is a bit suspect. Not sure why this is needed!
-        answergroup = validated_data.pop('answergroup_id')
-        validated_data['answergroup_id'] = answergroup.id
-        return AnswerInstitution.objects.create(**validated_data)
 
 
 class RespondentTypeSerializer(ILPSerializer):
