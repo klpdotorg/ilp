@@ -187,7 +187,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             char_id=settings.ILP_STATE_ID).\
             values("boundary_id")[0]["boundary_id"]
         if not survey_id:
-            return ParseError("Mandatory param survey_id is not passed.")
+            raise ParseError("Mandatory param survey_id is not passed.")
         questiongroup_ids = Survey.objects.get(id=survey_id).\
             questiongroup_set.values_list('id', flat=True)
 
@@ -276,6 +276,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
         survey_res = {'surveys': {}}
         for s_id in survey_ids:
+            questiongroups = []
             questiongroup_res = {}
             for qg_id, qg_name in questiongroup_ids:
                 qgroup_ans_queryset = ans_queryset.filter(
@@ -301,11 +302,15 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                             row['question_id']
 
                 if question_dict:
-                    questiongroup_res[qg_name] = {}
-                    questiongroup_res[qg_name]['id'] = qg_id
-                    questiongroup_res[qg_name]['questions'] = question_dict
+                    questiongroup_res['id'] = qg_id
+                    questions = []
+                    for key in question_dict:
+                        questions.append({key: question_dict[key]})
+                    questiongroup_res['questions'] = questions
+                    questiongroup_res['survey_id'] = s_id
+            questiongroups.append(questiongroup_res)
             survey_res['surveys'][s_id] = {}
-            survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
+            survey_res['questiongroups'] = questiongroups
         response.update(survey_res)
         return Response(response)
 
