@@ -42,7 +42,7 @@ questiongroup_router = \
             r'questiongroups',
             QuestionGroupViewSet,
             base_name='survey-questiongroups',
-            parents_query_lookups=['survey']
+            parents_query_lookups=['survey_id']
         )
 
 questiongroup_router.register(
