@@ -849,7 +849,8 @@ var topSummaryData = {};
         // Spinners
         $('#assmtSummary').startLoading();
         $('#assmtVolume').startLoading();
-        $('#assmtCompetancy').startLoading();
+        $('#assmtCompetancy-4').startLoading();
+        $('#assmtCompetancy-5').startLoading();
 
         var assessmentId = getSurveyId('Ganitha Kalika Andolana');
         
@@ -859,7 +860,7 @@ var topSummaryData = {};
             summaryData = summaryData.summary;
 
             // Load details next
-            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=" + assessmentId, params);
+            var $keyXHR = klp.api.do("survey/detail/class/key/?survey_id=" + assessmentId, params);
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
@@ -881,9 +882,11 @@ var topSummaryData = {};
                     "last_assmt": last_assmt ?  formatLastStory(last_assmt, true) : 'NA'
                 }
                 renderAssmtSummary(dataSummary);
-                renderAssmtCharts(detailKeydata);
+                renderAssmtCharts(detailKeydata, '4');
+                renderAssmtCharts(detailKeydata, '5');
                 $('#assmtSummary').stopLoading();
-                $('#assmtCompetancy').stopLoading();
+                $('#assmtCompetancy-4').stopLoading();
+                $('#assmtCompetancy-5').stopLoading();
 
             });
 
@@ -905,7 +908,7 @@ var topSummaryData = {};
 
     }
 
-    function renderAssmtCharts(data) {
+    function renderAssmtCharts(data, className) {
 
         function getAssmtPerc(scores, topic) {
             if (scores[topic]) {
@@ -915,7 +918,7 @@ var topSummaryData = {};
             }
         }
 
-        var scores = data.scores;
+        var scores = data[className];
 
         // var labels = Object.keys(data.scores);
         // TODO: Find a better way to pack all the graph data from the server
@@ -938,7 +941,11 @@ var topSummaryData = {};
                 }
             ],
         }
-        renderBarChart('#assmtCompetancy', competencies, "Percentage of Children");
+        renderBarChart(
+            '#assmtCompetancy-' + className,
+            competencies,
+            "Percentage of Children - Class " + className
+        );
     }
 
     function renderAssmtVolumeChart(volumes, params) {
