@@ -944,7 +944,7 @@ var topSummaryData = {};
         renderBarChart(
             '#assmtCompetancy-' + className,
             competencies,
-            "Percentage of Children - Class " + className
+            "Percentage of Children"
         );
     }
 
