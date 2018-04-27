@@ -176,7 +176,7 @@ class QuestionGroupViewSet(
                 sg_id = sgroup_inst.studentgroup.id
                 res[sg_name] = {
                     "id": sg_id,
-                    "name": sg_name
+                    "name": sg_name,
                     "assessment-type": "studentgroup"
                 }
                 for studgroup_qgroup in sg_qset.filter(
