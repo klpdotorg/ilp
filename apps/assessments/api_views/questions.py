@@ -88,7 +88,6 @@ class QuestionGroupViewSet(
     def get_queryset(self):
         queryset = QuestionGroup.objects.exclude(status=Status.DELETED)
         survey_id = self.get_parents_query_dict()['survey_id']
-        import ipdb; ipdb.set_trace()
         queryset = queryset.filter(survey_id=survey_id)
         return queryset
 
@@ -163,7 +162,7 @@ class QuestionGroupViewSet(
                 res = {
                     "id": qgroup_inst.questiongroup_id,
                     "name": qgroup_inst.questiongroup.name,
-                    "type": qgroup_inst.questiongroup.type.char_id
+                    "assessment-type": "institution"
                 }
                 response.append(res)
         else:
@@ -176,7 +175,9 @@ class QuestionGroupViewSet(
                 sg_name = sgroup_inst.studentgroup.name
                 sg_id = sgroup_inst.studentgroup.id
                 res[sg_name] = {
-                    "id": sg_id, "name": sg_name
+                    "id": sg_id,
+                    "name": sg_name
+                    "assessment-type": "studentgroup"
                 }
                 for studgroup_qgroup in sg_qset.filter(
                         questiongroup__survey_id=survey_id):
