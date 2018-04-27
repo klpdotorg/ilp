@@ -97,7 +97,7 @@ class QuestionGroupViewSet(
 
     @action(methods=['post'], detail=False, url_path='map-institution')
     def map_institution(self, request, *args, **kwargs):
-        survey_id = kwargs['parent_lookup_survey']
+        survey_id = self.get_parents_query_dict()['survey_id']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         if not survey_on == 'institution':
             raise ParseError('This survey is not an institution survey')
@@ -123,7 +123,7 @@ class QuestionGroupViewSet(
 
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
-        survey_id = kwargs['parent_lookup_survey']
+        survey_id = self.get_parents_query_dict()['survey_id']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         if not survey_on == 'studentgroup':
             raise ParseError('This survey is not a studengroup survey')
@@ -149,7 +149,7 @@ class QuestionGroupViewSet(
 
     @action(methods=['get'], detail=False, url_path='mappings')
     def mappings(self, request, *args, **kwargs):
-        survey_id = kwargs['parent_lookup_survey']
+        survey_id = self.get_parents_query_dict()['survey_id']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         institution_id = request.query_params.get('institution_id', None)
         response = []
