@@ -8,15 +8,11 @@ from common.models import Status, AcademicYear
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    academic_year = serializers.PrimaryKeyRelatedField(
-        queryset=AcademicYear.objects.all()
-    )
-
     class Meta:
         model = Student
         fields = (
             'id', 'first_name', 'middle_name', 'last_name', 'uid', 'dob',
-            'gender', 'mt', 'status', "institution", "academic_year"
+            'gender', 'mt', 'status', "institution",
         )
 
     def create(self, validated_data):

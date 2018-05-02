@@ -80,11 +80,16 @@ class QuestionGroupQuestions(
 
 
 class QuestionGroupViewSet(
-        ILPStateMixin, viewsets.ModelViewSet
+        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questiongroups belonging to a survey'''
-    queryset = QuestionGroup.objects.exclude(status=Status.DELETED)
     serializer_class = QuestionGroupSerializer
+
+    def get_queryset(self):
+        queryset = QuestionGroup.objects.exclude(status=Status.DELETED)
+        survey_id = self.get_parents_query_dict()['survey_id']
+        queryset = queryset.filter(survey_id=survey_id)
+        return queryset
 
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
@@ -92,8 +97,14 @@ class QuestionGroupViewSet(
 
     @action(methods=['post'], detail=False, url_path='map-institution')
     def map_institution(self, request, *args, **kwargs):
+        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        if not survey_on == 'institution':
+            raise ParseError('This survey is not an institution survey')
         questiongroup_ids = request.data.get('questiongroup_ids', [])
         institution_ids = request.data.get('institution_ids', [])
+        if not institution_ids:
+            raise ParseError('Please pass institution_ids')
         data = []
         for questiongroup_id in questiongroup_ids:
             for institution_id in institution_ids:
@@ -105,15 +116,21 @@ class QuestionGroupViewSet(
         serializer = QuestionGroupInstitutionAssociationSerializer(
             data=data, many=True)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        serializer.save()
         headers = self.get_success_headers(serializer.data)
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
+        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        if not survey_on == 'studentgroup':
+            raise ParseError('This survey is not a studengroup survey')
         questiongroup_ids = request.data.get('questiongroup_ids', [])
         studentgroup_ids = request.data.get('studentgroup_ids', [])
+        if not studentgroup_ids:
+            raise ParseError('Please pass studentgroup_ids')
         data = []
         for questiongroup_id in questiongroup_ids:
             for studentgroup_id in studentgroup_ids:
@@ -125,16 +142,16 @@ class QuestionGroupViewSet(
         serializer = QuestionGroupStudentGroupAssociationSerializer(
             data=data, many=True)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        serializer.save()
         headers = self.get_success_headers(serializer.data)
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(methods=['get'], detail=False, url_path='mappings')
     def mappings(self, request, *args, **kwargs):
-        survey_id = kwargs['parent_lookup_survey']
+        survey_id = self.get_parents_query_dict()['survey_id']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
-        institution_id = self.request.query_params.get('institution_id', None)
+        institution_id = request.query_params.get('institution_id', None)
         response = []
         if survey_on == 'institution':
             res = {}
@@ -145,7 +162,7 @@ class QuestionGroupViewSet(
                 res = {
                     "id": qgroup_inst.questiongroup_id,
                     "name": qgroup_inst.questiongroup.name,
-                    "type": qgroup_inst.questiongroup.type.char_id
+                    "assessment-type": "institution"
                 }
                 response.append(res)
         else:
@@ -158,7 +175,9 @@ class QuestionGroupViewSet(
                 sg_name = sgroup_inst.studentgroup.name
                 sg_id = sgroup_inst.studentgroup.id
                 res[sg_name] = {
-                    "id": sg_id, "name": sg_name
+                    "id": sg_id,
+                    "name": sg_name,
+                    "assessment-type": "studentgroup"
                 }
                 for studgroup_qgroup in sg_qset.filter(
                         questiongroup__survey_id=survey_id):
