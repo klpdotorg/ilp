@@ -65,13 +65,14 @@ class SurveySerializer(ILPSerializer):
         many=True,
         read_only=True
     )
+    survey_on = serializers.ReadOnlyField(source='survey_on.pk')
 
     class Meta:
         model = Survey
         fields = (
             'id', 'name', 'lang_name', 'created_at', 'updated_at',
             'partner', 'description', 'status', 'state', 'questiongroups',
-            'user_types',
+            'user_types', 'survey_on'
         )
 
     def get_questiongroups(self, survey):
