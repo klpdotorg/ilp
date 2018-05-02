@@ -1,13 +1,10 @@
 import logging
 
-from django.http import Http404
-
 from common.views import ILPListAPIView
 from common.mixins import ILPStateMixin
 from common.models import Status
 from rest_framework.exceptions import ParseError
 
-from rest_framework.generics import ListAPIView
 from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.response import Response
@@ -20,18 +17,14 @@ from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
     AnswerGroup_Institution, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association, InstitutionImages,
-    Survey
+    Survey, SurveyInstitutionAgg
 )
 from assessments.serializers import (
     QuestionGroupSerializer, QuestionSerializer,
-    QuestionGroupQuestionSerializer, QuestionGroupInstitutionSerializer,
+    QuestionGroupQuestionSerializer,
     QuestionGroupInstitutionAssociationSerializer,
     QuestionGroupStudentGroupAssociationSerializer
 )
-
-from schools.models import (
-    Institution,
-    StudentGroup)
 
 logger = logging.getLogger(__name__)
 
@@ -95,6 +88,15 @@ class QuestionGroupViewSet(
         instance.status_id = Status.DELETED
         instance.save()
 
+    def get_boundary_institution_ids(self, boundary_id):
+        institution_ids = SurveyInstitutionAgg.objects.filter(
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        ).values_list('institution_id', flat=True)
+        return institution_ids
+
     @action(methods=['post'], detail=False, url_path='map-institution')
     def map_institution(self, request, *args, **kwargs):
         survey_id = self.get_parents_query_dict()['survey_id']
@@ -152,11 +154,18 @@ class QuestionGroupViewSet(
         survey_id = self.get_parents_query_dict()['survey_id']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         institution_id = request.query_params.get('institution_id', None)
+
+        if institution_id:
+            institution_ids = [institution_id, ]
+        else:
+            boundary_id = request.query_params.get('boundary_id', None)
+            institution_ids = self.get_boundary_institution_ids(boundary_id)
+
         response = []
         if survey_on == 'institution':
             res = {}
             qset = QuestionGroup_Institution_Association.objects.filter(
-                institution_id=institution_id,
+                institution_id__in=institution_ids,
                 questiongroup__survey_id=survey_id)
             for qgroup_inst in qset:
                 res = {
@@ -169,7 +178,7 @@ class QuestionGroupViewSet(
             res = {}
             sg_qset = QuestionGroup_StudentGroup_Association.\
                 objects.filter(
-                    studentgroup__institution_id=institution_id,
+                    studentgroup__institution_id__in=institution_ids,
                 )
             for sgroup_inst in sg_qset:
                 sg_name = sgroup_inst.studentgroup.name
