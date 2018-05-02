@@ -40,7 +40,7 @@ class Student(models.Model):
     father_name = models.CharField(max_length=100, blank=True, null=True)
     institution = models.ForeignKey(Institution)
     status = models.ForeignKey('common.Status')
-    #added the studentgroup by Prajakta for testing
+    # added the studentgroup by Prajakta for testing
     studentgroup = models.ManyToManyField(
         'StudentGroup',
         related_name='studentgroup',

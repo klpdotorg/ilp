@@ -10,7 +10,7 @@ from schools.api_view import (
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
-    ProgrammeViewSet, StaffViewSet, ClusterStudentsViewSet, InstituteStudentsViewSet
+    ProgrammeViewSet, StaffViewSet, InstituteStudentsViewSet
 )
 from schools.views import SchoolPageView
 
