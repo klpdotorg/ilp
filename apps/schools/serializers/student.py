@@ -18,12 +18,12 @@ class StudentGroupSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     academic_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), write_only=True)
-    studentclass =  StudentGroupSerializer(source='studentgroup_set', many=True, read_only=True)
+    studentclass =  StudentGroupSerializer(source = 'studentgroup_set', many=True, read_only=True)
     class Meta:
         model = Student
         fields = (
             'id', 'first_name', 'middle_name', 'last_name', 'uid', 'dob',
-            'gender', 'mt', 'status', "institution", "academic_year", 'studentclass'
+            'gender', 'mt', 'status', "institution", "academic_year", 'studentclass','studentgroup'
         )
         
         extra_kwargs = {'academic_year': {'write_only': True}}

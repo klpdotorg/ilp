@@ -9,12 +9,13 @@ class StudentGroup(models.Model):
     status = models.ForeignKey('common.Status')
     section = models.CharField(max_length=10, blank=True, null=True)
     group_type = models.ForeignKey('common.GroupType', default='class')
-    students = models.ManyToManyField(
-        'Student',
-        related_name='studentgroups',
-        through='StudentStudentGroupRelation'
-    )
-
+    #Commented by Prajakta for testing
+    #students = models.ManyToManyField(
+        #'Student',
+        #related_name='studentgroups',
+        #through='StudentStudentGroupRelation'
+    #)
+  
     class Meta:
         unique_together = (('institution', 'name', 'section'), )
         ordering = ['name', 'section']
@@ -39,6 +40,12 @@ class Student(models.Model):
     father_name = models.CharField(max_length=100, blank=True, null=True)
     institution = models.ForeignKey(Institution)
     status = models.ForeignKey('common.Status')
+    #added the studentgroup by Prajakta for testing
+    studentgroup = models.ManyToManyField(
+        'StudentGroup',
+        related_name='studentgroup',
+        through='StudentStudentGroupRelation'
+    )
 
     def __unicode__(self):
         return "%s" % self.first_name
