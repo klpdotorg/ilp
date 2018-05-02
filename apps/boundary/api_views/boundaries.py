@@ -8,7 +8,7 @@ from boundary.models import Boundary, BoundaryType
 from common.mixins import ILPStateMixin
 from common.models import Status
 from rest_framework import viewsets
-
+from permissions.permissions import IlpBasePermission
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +19,7 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
     serializer_class = BoundarySerializer
     filter_class = BoundaryFilter
     bbox_filter_field = "geom"
+    permission_classes = (IlpBasePermission,)
 
     def get_queryset(self):
         state = self.get_state()
