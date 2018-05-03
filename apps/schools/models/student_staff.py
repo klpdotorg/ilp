@@ -14,7 +14,7 @@ class StudentGroup(models.Model):
         related_name='studentgroups',
         through='StudentStudentGroupRelation'
     )
-
+  
     class Meta:
         unique_together = (('institution', 'name', 'section'), )
         ordering = ['name', 'section']

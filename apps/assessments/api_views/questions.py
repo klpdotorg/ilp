@@ -1,12 +1,11 @@
 import logging
 
-from django.http import Http404
-
 from common.views import ILPListAPIView
 from common.mixins import ILPStateMixin
 from common.models import Status
 from rest_framework.exceptions import ParseError
 
+from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets
@@ -17,32 +16,17 @@ from django.db.models import Q
 from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
     AnswerGroup_Institution, QuestionGroup_Institution_Association,
-    QuestionGroup_StudentGroup_Association, InstitutionImages
+    QuestionGroup_StudentGroup_Association, InstitutionImages,
+    Survey, SurveyInstitutionAgg
 )
 from assessments.serializers import (
     QuestionGroupSerializer, QuestionSerializer,
-    QuestionGroupQuestionSerializer, QuestionGroupInstitutionSerializer,
+    QuestionGroupQuestionSerializer,
     QuestionGroupInstitutionAssociationSerializer,
     QuestionGroupStudentGroupAssociationSerializer
 )
 
-from schools.models import (
-    Institution,
-    StudentGroup)
-
 logger = logging.getLogger(__name__)
-
-
-class QuestionGroupViewSet(
-        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
-):
-    '''Returns all questiongroups belonging to a survey'''
-    queryset = QuestionGroup.objects.exclude(status=Status.DELETED)
-    serializer_class = QuestionGroupSerializer
-
-    def perform_destroy(self, instance):
-        instance.status_id = Status.DELETED
-        instance.save()
 
 
 class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
@@ -67,8 +51,6 @@ class QuestionGroupQuestions(
 ):
     '''Returns all questions belonging to a questiongroup'''
 
-    queryset = Question.objects.all()
-
     def get_queryset(self):
         parents_query_dict = self.get_parents_query_dict()
         questiongroup_id = parents_query_dict['questiongroup']
@@ -90,6 +72,132 @@ class QuestionGroupQuestions(
         return context
 
 
+class QuestionGroupViewSet(
+        NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
+):
+    '''Returns all questiongroups belonging to a survey'''
+    serializer_class = QuestionGroupSerializer
+
+    def get_queryset(self):
+        queryset = QuestionGroup.objects.exclude(status=Status.DELETED)
+        survey_id = self.get_parents_query_dict()['survey_id']
+        queryset = queryset.filter(survey_id=survey_id)
+        return queryset
+
+    def perform_destroy(self, instance):
+        instance.status_id = Status.DELETED
+        instance.save()
+
+    def get_boundary_institution_ids(self, boundary_id):
+        institution_ids = SurveyInstitutionAgg.objects.filter(
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        ).values_list('institution_id', flat=True)
+        return institution_ids
+
+    @action(methods=['post'], detail=False, url_path='map-institution')
+    def map_institution(self, request, *args, **kwargs):
+        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        if not survey_on == 'institution':
+            raise ParseError('This survey is not an institution survey')
+        questiongroup_ids = request.data.get('questiongroup_ids', [])
+        institution_ids = request.data.get('institution_ids', [])
+        if not institution_ids:
+            raise ParseError('Please pass institution_ids')
+        data = []
+        for questiongroup_id in questiongroup_ids:
+            for institution_id in institution_ids:
+                data.append({
+                    'questiongroup': questiongroup_id,
+                    'institution': institution_id,
+                    'status': 'AC'
+                })
+        serializer = QuestionGroupInstitutionAssociationSerializer(
+            data=data, many=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @action(methods=['post'], detail=False, url_path='map-studentgroup')
+    def map_studentgroup(self, request, *args, **kwargs):
+        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        if not survey_on == 'studentgroup':
+            raise ParseError('This survey is not a studengroup survey')
+        questiongroup_ids = request.data.get('questiongroup_ids', [])
+        studentgroup_ids = request.data.get('studentgroup_ids', [])
+        if not studentgroup_ids:
+            raise ParseError('Please pass studentgroup_ids')
+        data = []
+        for questiongroup_id in questiongroup_ids:
+            for studentgroup_id in studentgroup_ids:
+                data.append({
+                    'questiongroup': questiongroup_id,
+                    'studentgroup': studentgroup_id,
+                    'status': 'AC'
+                })
+        serializer = QuestionGroupStudentGroupAssociationSerializer(
+            data=data, many=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @action(methods=['get'], detail=False, url_path='mappings')
+    def mappings(self, request, *args, **kwargs):
+        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        institution_id = request.query_params.get('institution_id', None)
+
+        if institution_id:
+            institution_ids = [institution_id, ]
+        else:
+            boundary_id = request.query_params.get('boundary_id', None)
+            institution_ids = self.get_boundary_institution_ids(boundary_id)
+
+        response = []
+        if survey_on == 'institution':
+            res = {}
+            qset = QuestionGroup_Institution_Association.objects.filter(
+                institution_id__in=institution_ids,
+                questiongroup__survey_id=survey_id)
+            for qgroup_inst in qset:
+                res = {
+                    "id": qgroup_inst.questiongroup_id,
+                    "name": qgroup_inst.questiongroup.name,
+                    "assessment-type": "institution"
+                }
+                response.append(res)
+        else:
+            res = {}
+            sg_qset = QuestionGroup_StudentGroup_Association.\
+                objects.filter(
+                    studentgroup__institution_id__in=institution_ids,
+                )
+            for sgroup_inst in sg_qset:
+                sg_name = sgroup_inst.studentgroup.name
+                sg_id = sgroup_inst.studentgroup.id
+                res[sg_name] = {
+                    "id": sg_id,
+                    "name": sg_name,
+                    "assessment-type": "studentgroup"
+                }
+                for studgroup_qgroup in sg_qset.filter(
+                        questiongroup__survey_id=survey_id):
+                    qgroup = studgroup_qgroup.questiongroup
+                    res[sg_name][qgroup.id] = {
+                        "id": qgroup.id, "name": qgroup.name
+                    }
+                    response.append(res)
+        return Response(response)
+
+
 class QGroupStoriesInfoView(ILPListAPIView):
     """
     Returns total number of stories for the home page
@@ -100,87 +208,7 @@ class QGroupStoriesInfoView(ILPListAPIView):
                 questiongroup__survey__id=5).count(),
             'total_verified_stories': AnswerGroup_Institution.objects.filter(
                 questiongroup__survey__id=5).filter(is_verified=True).count(),
-            'total_images': InstitutionImages.objects.filter(answergroup__questiongroup__survey=5).count()
-
+            'total_images': InstitutionImages.objects.filter(
+                answergroup__questiongroup__survey=5).count()
         })
 
-
-class QuestionGroupSchoolViewSet(viewsets.ModelViewSet):
-    queryset = QuestionGroup_Institution_Association.objects.all()
-    serializer_class = QuestionGroupInstitutionSerializer
-
-class QuestionGroupInstitutionAssociationViewSet(viewsets.ModelViewSet):
-    assessmentids = []
-    institutionids = []
-    boundaryids = []
-    queryset = QuestionGroup_Institution_Association.objects.all()
-    serializer_class = QuestionGroupInstitutionAssociationSerializer
-
-    def create(self, request, *args, **kwargs):
-        if not self.request.data.get('questiongroup_ids'):
-            raise ParseError("Mandatory parameter questiongroup_ids not passed")
-        self.assessmentids = self.request.data.get('questiongroup_ids').split(",")
-        if self.request.data.get('boundary_ids'):
-            self.boundaryids = self.request.data.get('boundary_ids').split(",")
-        if self.request.data.get('institution_ids'):
-            self.institutionids = self.request.data.get('institution_ids').split(",")
-        if self.institutionids == [] and self.boundaryids == []:
-            raise ParseError("Mandatory parameter institution_ids or boundary_ids not passed")
-        response = self.createAssessmentInstitutionAssociation()
-
-        return response
-
-    def createAssessmentInstitutionAssociation(self):
-        request = []
-        for assessmentid in self.assessmentids:
-            if self.institutionids == []:
-                for boundaryid in self.boundaryids:
-                    self.institutionids = Institution.objects.values_list(
-                        'id', flat=True).filter(Q(admin1_id=boundaryid) |
-                                                Q(admin2_id=boundaryid) |
-                                                Q(admin3_id=boundaryid))
-            for institutionid in self.institutionids:
-                request.append({'questiongroup': assessmentid,
-                                'institution': institutionid,
-                                'status': 'AC'})
-        print("JSON is: ", request)
-        serializer = self.get_serializer(data=request, many=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
-                        headers=headers)
-
-
-class QuestionGroupStudentGroupAssociationViewSet(viewsets.ModelViewSet):
-    queryset = QuestionGroup_StudentGroup_Association.objects.all()
-    serializer_class = QuestionGroupStudentGroupAssociationSerializer
-
-    def create(self, request, *args, **kwargs):
-        questiongroup_ids, studentgroup_ids = [], []
-
-        questiongroup_ids = self.request.data.get('questiongroup_ids', [])
-        studentgroup_ids = self.request.data.get('studentgroup_ids', [])
-
-        response = self.create_assessment_studentgroup_assocation(
-            questiongroup_ids, studentgroup_ids
-        )
-        return response
-
-    def create_assessment_studentgroup_assocation(
-            self, questiongroup_ids, studentgroup_ids
-    ):
-        request = []
-        for questiongroup_id in questiongroup_ids:
-            for studentgroup_id in studentgroup_ids:
-                request.append({
-                    'questiongroup': questiongroup_id,
-                    'studentgroup': studentgroup_id,
-                    'status': 'AC'
-                })
-        serializer = self.get_serializer(data=request, many=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers)

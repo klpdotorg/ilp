@@ -6,23 +6,21 @@ from assessments.api_views import (
     SurveyInfoSourceAPIView, SurveyInfoBoundarySourceAPIView,
     SurveyInfoUserAPIView, SurveyInfoRespondentAPIView,
     SurveyInfoSchoolAPIView, SurveyInfoBoundaryAPIView,
-    AnswerGroupInstitutionViewSet, AnswersInstitutionViewSet,
     SurveyDetailSourceAPIView, SurveyDetailKeyAPIView,
     SurveyInfoClassGenderAPIView, SurveyInfoEBoundaryAPIView,
-    SurveyDetailClassAPIView, AnswerGroupStudentsViewSet,
-    AnswersStudentViewSet, SharedAssessmentsView, SurveyVolumeAPIView,
+    SurveyDetailClassAPIView, SharedAssessmentsView, SurveyVolumeAPIView,
     SurveyClassQuestionKeyAPIView, SurveyQuestionGroupQuestionKeyAPIView,
-    QuestionGroupSchoolViewSet, SurveyQuestionGroupDetailsAPIView,
-    SurveyInstitutionAnsAggView, SurveyInstitutionDetailAPIView,
-    SurveyTagAggAPIView, AssessmentsImagesView, AssessmentSyncView,
-    RespondentTypeList, ShareYourStoryAPIView,
-    QuestionGroupInstitutionAssociationViewSet,
-    QuestionGroupStudentGroupAssociationViewSet,
+    SurveyQuestionGroupDetailsAPIView, SurveyInstitutionAnsAggView,
+    SurveyTagAggAPIView, AnswerGroupViewSet, AssessmentsImagesView,
+    AssessmentSyncView, RespondentTypeList, ShareYourStoryAPIView,
     SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
-    SurveyBoundaryNeighbourDetailAPIView, SurveyDetailEBoundaryAPIView,
-    SurveyUsersCountAPIView, SurveyBoundaryAPIView, SurveyInstitutionAPIView
+    AnswerViewSet, SurveyBoundaryNeighbourDetailAPIView,
+    SurveyDetailEBoundaryAPIView, SurveyUsersCountAPIView,
+    SurveyBoundaryAPIView, SurveyInstitutionAPIView
 )
-from schools.api_view import InstitutionViewSet, StudentViewSet
+from schools.api_view import (
+    InstitutionViewSet, StudentViewSet, StudentGroupViewSet
+)
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 
@@ -30,111 +28,41 @@ nested_router = ExtendedSimpleRouter()
 simple_router = routers.DefaultRouter()
 
 simple_router.register(
-    r'surveys/questions', QuestionViewSet, base_name='survey-questions')
-simple_router.register(
-    r'survey/questiongroup/school',
-    QuestionGroupSchoolViewSet, base_name='questiongroup-school',
-)
-
-# Endpoint to map assessments to institutions
-nested_router.register(
-    r'questiongroupinstitutionmap',
-    QuestionGroupInstitutionAssociationViewSet,
-    base_name='questiongroupinstitutionmap')
-nested_router.register(
-    r'questiongroupstudentgroupmap',
-    QuestionGroupStudentGroupAssociationViewSet,
-    base_name='questiongroupstudentgroupmap')
+    r'surveys/questions',
+    QuestionViewSet,
+    base_name='survey-questions')
 
 # surveys -> questiongroup -> questions
 # maps to earlier programs -> # assessments -> questions
-nested_router\
-    .register(
+questiongroup_router = \
+    nested_router.register(
         r'surveys',
         SurveysViewSet,
-        base_name='surveys')\
-    .register(
-        r'questiongroup',
-        QuestionGroupViewSet,
-        base_name="surveys-questiongroup",
-        parents_query_lookups=['survey'])\
-    .register(
-        r'questions', QuestionGroupQuestions,
-        base_name="surveys-questiongroup-questions",
-        parents_query_lookups=[
-            'survey', 'questiongroup']
-    )
+        base_name='surveys').register(
+            r'questiongroups',
+            QuestionGroupViewSet,
+            base_name='survey-questiongroups',
+            parents_query_lookups=['survey_id']
+        )
 
-# surveys -> questiongroup -> institution base route
-surveyqgroup = nested_router.register(
-    r'surveys',
-    SurveysViewSet,
-    base_name='survey').register(
-        r'qgroup',
-        QuestionGroupViewSet,
-        base_name="survey-qgroup",
-        parents_query_lookups=['survey']).register(
-            r'institution', InstitutionViewSet,
-            base_name='survey-qgroup-institution',
-            parents_query_lookups=['qgroup', 'qgroup__survey'])
-
-# Add-on to above base route.
-# surveys -> questiongroup -> institution -> answergroup -> answers
-answergroup = surveyqgroup.\
-    register(
-        r'answergroup', AnswerGroupInstitutionViewSet,
-        base_name="survey-qgroup-answergroup",
-        parents_query_lookups=['survey', 'questiongroup', 'institution']
-    ).\
-    register(
-        r'answers',
-        AnswersInstitutionViewSet,
-        base_name="survey-qgroup-ansgroup-answers",
-        parents_query_lookups=[
-            'survey', 'questiongroup', 'institution', 'answergroup']
-    )
-
-# surveys -> questiongroup -> institution -> answers
-answers = surveyqgroup.register(
-        r'answers',
-        AnswersInstitutionViewSet,
-        base_name="qgroup-institution-answers",
-        parents_query_lookups=['survey', 'questiongroup', 'institution']
-    )
-
-# surveys -> questiongroup -> students base route
-surveyqgroup = nested_router.register(
-    r'surveys',
-    SurveysViewSet,
-    base_name='survey').register(
-        r'questiongroup',
-        QuestionGroupViewSet,
-        base_name="survey-qgroup",
-        parents_query_lookups=['survey']).register(
-            r'student', StudentViewSet,
-            base_name='survey-qgroup-students',
-            parents_query_lookups=['questiongroup', 'questiongroup__survey'])
-
-# Add-on to above base route.
-# surveys -> questiongroup -> students -> answergroup -> answers
-answergroup = surveyqgroup.register(
-        r'answergroup', AnswerGroupStudentsViewSet,
-        base_name="survey-qgroup-answergroup",
-        parents_query_lookups=['survey', 'questiongroup', 'student']
-    ).register(
-        r'answers', AnswersStudentViewSet,
-        base_name="survey-qgroup-ansgroup-answers",
-        parents_query_lookups=[
-            'survey', 'questiongroup', 'student', 'answergroup']
-    )
-
-# surveys-> questiongroup -> students-> answers
-answers = surveyqgroup.register(
-    r'answers', AnswersStudentViewSet,
-    base_name="qgroup-student-answers",
-    parents_query_lookups=['survey', 'questiongroup', 'student']
+questiongroup_router.register(
+    r'questions', QuestionGroupQuestions,
+    base_name="survey-questiongroup-questions",
+    parents_query_lookups=[
+        'survey', 'questiongroup']
 )
 
+questiongroup_router.register(
+    r'answergroups', AnswerGroupViewSet,
+    base_name='survey-questiongroup-answergroups',
+    parents_query_lookups=[
+        'survey_id', 'questiongroup_id'
+    ]).register(
+        r'answers', AnswerViewSet,
+        base_name='survey-questiongroup-answergroup-answers',
+        parents_query_lookups=[
+            'survey_id', 'questiongroup_id', 'answergroup_id'
+        ])
 
 urlpatterns = [
     url(r'sys/(?P<schoolid>[0-9]+)/$',
@@ -146,9 +74,6 @@ urlpatterns = [
     url(r'surveys/storiesinfo/$',
         QGroupStoriesInfoView.as_view(),
         name='stories-info'),
-    url(r'survey/institution/detail/$',
-        SurveyInstitutionDetailAPIView.as_view(),
-        name='survey-institution-detial'),
     url(r'survey/summary/$',
         SurveySummaryAPIView.as_view(),
         name='survey-summary'),

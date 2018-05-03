@@ -6,18 +6,38 @@ from schools.models import (
 )
 from common.models import Status, AcademicYear
 
+class StudentGroupSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = StudentGroup
+        fields = (
+            'id', 'institution', 'name', 'section', 'status', 'group_type'
+        )
 
+       
 class StudentSerializer(serializers.ModelSerializer):
     academic_year = serializers.PrimaryKeyRelatedField(
-        queryset=AcademicYear.objects.all()
-    )
+        queryset=AcademicYear.objects.all(), write_only=True)
+    classes = serializers.SerializerMethodField()
 
     class Meta:
         model = Student
         fields = (
-            'id', 'first_name', 'middle_name', 'last_name', 'uid', 'dob',
-            'gender', 'mt', 'status', "institution", "academic_year"
+            'id',
+            'first_name',
+            'middle_name',
+            'last_name',
+            'uid',
+            'dob',
+            'gender',
+            'mt',
+            'status',
+            'institution',
+            'academic_year',
+            'classes',
         )
+
+        extra_kwargs = {'academic_year': {'write_only': True}}
 
     def create(self, validated_data):
         studentgroup_id = self.context['view'].kwargs[
@@ -38,16 +58,13 @@ class StudentSerializer(serializers.ModelSerializer):
         )
         return student
 
+    def get_classes(self, student):
+        grps = StudentStudentGroupRelation.objects.filter(student=student, status = 'AC')
+        studgrp_id = grps.values_list('student_group',flat=True)
+        qs = StudentGroup.objects.filter(id__in=studgrp_id, group_type = 'class')
+        return StudentGroupSerializer(qs, many=True).data
 
-class StudentGroupSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = StudentGroup
-        fields = (
-            'id', 'institution', 'name', 'section', 'status', 'group_type'
-        )
-
-
+        
 class StudentStudentGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
