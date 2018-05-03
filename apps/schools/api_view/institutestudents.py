@@ -12,8 +12,7 @@ class InstituteStudentsViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         institute = self.request.GET.get('institution_id', None)
         if institute:
-            queryset = Student.objects.filter(institution_id = institute).filter(studentstudentgrouprelation__status = 'AC',studentgroup__group_type='class')
-            
+            queryset = Student.objects.filter(institution_id = institute)
         else:
             raise Http404
         return queryset
