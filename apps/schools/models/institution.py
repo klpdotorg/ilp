@@ -107,6 +107,9 @@ class Institution(models.Model):
 
     class Meta:
         unique_together = (('name', 'dise', 'admin3'), )
+        permissions = (
+            ('crud_student_class_staff', 'CRUD Student Class and Staff'),
+        )
 
     def __unicode__(self):
         return "%s" % self.name

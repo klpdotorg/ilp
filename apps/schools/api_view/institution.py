@@ -8,6 +8,7 @@ from common.views import (ILPViewSet, ILPListAPIView, ILPDetailAPIView)
 from common.models import Status, InstitutionType
 from common.mixins import ILPStateMixin
 
+from permissions.permissions import InstitutionCreateUpdatePermission
 from schools.serializers import (
     InstitutionSerializer, InstitutionCreateSerializer,
     InstitutionCategorySerializer, InstitutionManagementSerializer,
@@ -72,7 +73,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     bbox_filter_field = "coord"
     filter_backends = [InstitutionSurveyFilter, ]
     # pagination_class = LargeResultsSetPagination
-    # renderer_classes = (ILPJSONRenderer, )
+    permission_classes = (InstitutionCreateUpdatePermission, )
     # filter_class = SchoolFilter
 
     def get_queryset(self):

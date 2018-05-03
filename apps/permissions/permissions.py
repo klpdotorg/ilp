@@ -2,6 +2,7 @@ from rest_framework import permissions
 from rest_framework.permissions import BasePermission
 
 from django.contrib.auth.models import Group
+from boundary.models import Boundary
 import logging
 
 logger = logging.getLogger(__name__)
@@ -68,15 +69,21 @@ class InstitutionCreateUpdatePermission(IlpBasePermission):
             return request.user.has_perm('change_institution', obj)
 
     def has_permission(self, request, view):
+        print("Inside InstitutionCreateUpdatePermission has_permission")
         if self.is_user_permitted(request):
             return True
         elif request.method == 'POST':
             boundary_id = request.data.get('admin3', None)
-            try:
-                boundary = Boundary.objects.get(id=boundary_id)
-            except:
+            if boundary_id is not None:
+                boundary_id = int(boundary_id.strip())
+                try:
+                    boundary = Boundary.objects.get(id = boundary_id)
+                except:
+                    return False
+                hasperm = request.user.has_perm('add_institution', boundary)
+                return hasperm
+            else:
                 return False
-            return request.user.has_perm('add_institution', boundary)
         else:
             return True
 

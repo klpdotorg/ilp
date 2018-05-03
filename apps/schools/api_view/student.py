@@ -21,6 +21,7 @@ from schools.filters import (
 )
 
 from common.models import Status
+from permissions.permissions import WorkUnderInstitutionPermission
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +34,8 @@ class StudentViewSet(
     queryset = Student.objects.exclude(status=Status.DELETED)
     serializer_class = StudentSerializer
     filter_class = StudentFilter
+    permission_classes = (WorkUnderInstitutionPermission,)
+
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, many=True)
@@ -63,7 +66,7 @@ class StudentViewSet(
 
 
 class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    # permission_classes = (WorkUnderInstitutionPermission,)
+    permission_classes = (WorkUnderInstitutionPermission,)
     queryset = StudentGroup.objects.exclude(status=Status.DELETED)
     serializer_class = StudentGroupSerializer
     filter_class = StudentGroupFilter
