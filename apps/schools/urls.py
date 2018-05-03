@@ -1,12 +1,14 @@
 from rest_framework.routers import DefaultRouter
+
 from rest_framework_extensions.routers import ExtendedSimpleRouter
+
 from django.conf.urls import url
 
 from schools.api_view import (
     InstitutionViewSet, InstitutionCategoryListView,
     InstitutionManagementListView, InstitutionDemographics,
     InstitutionInfra, InstitutionFinance, InstitutionSummaryView,
-    MergeEndpoints, OmniSearch
+    MergeEndpoints, OmniSearch, InstitutionLanguageListView
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
@@ -86,6 +88,9 @@ urlpatterns = [
     url(r'^institutions/list$',
         InstitutionSummaryView.as_view(),
         name='inst-list'),
+    url(r'^institution/(?P<pk>[0-9]+)/languages/$',
+        InstitutionLanguageListView.as_view(),
+        name='inst-language'),
     url(r'^institutions/(?P<pk>[0-9]+)/demographics$',
         InstitutionDemographics.as_view(),
         name='inst-demographics'),
