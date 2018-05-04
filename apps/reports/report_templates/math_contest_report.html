@@ -64,20 +64,20 @@
       <div class="container">
 	<h1>Gram Panchayat Math Contest Report</h1>
 	<div class="dialog-left">
-	  Gram Panchayat Name: XXX<br>
-	  District Name: xxx<br>
-	  Block Name: xxxx<br>
-	  No. of schools in GP: XXX<br>
-	  <u>Participation</u><br>
-	  No. of Students participated: xxx count
+	 <strong> Gram Panchayat Name:</strong> {{data['gp_name']}}<br>
+	 <strong> District Name:</strong> {{data['district']}}<br>
+	 <strong>Block Name:</strong> {{data['block']}} <br>
+	 <strong> No. of schools in GP:</strong> {{data['no_schools_gp']}}<br>
+	 <strong><u>Participation</u></strong><br>
+	 <strong> No. of Students participated:</strong> {{ data['no_students']}}
 	  <ul>
 	    <li>Boys: xx</li>
 	    <li>Girls: xx</li>
 	  </ul>
 	</div>
 	<div class="dialog-right">
-	Test condected on: Academc year<br>
-	Report Generated on: dd/mm/yyyy<br><br>
+	<strong>Test condected on:</strong> {{data['academic_year']}}<br>
+	<strong>Report Generated on:</strong> {{data['today']}}<br><br>
 	<u>Performance:</u><br>
 	children with 100% score:xxx
 	Children with zero score: xx
