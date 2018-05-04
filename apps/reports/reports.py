@@ -62,6 +62,41 @@ class ReportOne(BaseReport):
             self.get_pdf(output_name)
         else:
             raise AttributeError('Invalid report format')
+
+class GPMathContestReport(BaseReport):
+    def __init__(self, from_date, to_date):
+        self.from_date = from_date
+        self.to_date = to_date
+        
+    def get_data(self):
+#        return assess_models.AnswerGroup_Institution.objects.all()[:5]
+        return ['name','some','dfdfdfa','dfdafad']
+    
+    def get_html(self, output_name):
+        env = Environment(loader=FileSystemLoader('apps/reports/report_templates'))
+        template = env.get_template('math_contest_report.html')
+        data = self.get_data();
+        html = template.render(data=data)
+
+        with open('apps/reports/output/{}.html'.format(output_name), 'w') as out_file:
+            out_file.write(html)
+
+    def get_pdf(self,output_name):
+        if not os.path.exists('apps/reports/output/{}.html'.format(output_name)):
+            self.get_html(output_name)         
+        pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
+                
+    def save(self):
+        r= Reports(report_type="reportOne",parameters=dict(from_date=self.from_date,to_date=self.to_date))
+        r.save()
+
+    def generate(self, report_type, output_name):
+        if report_type == 'html':
+            self.get_html(output_name)
+        elif report_type == 'pdf':
+            self.get_pdf(output_name)
+        else:
+            raise AttributeError('Invalid report format')
         
 class ReportTwo(BaseReport):
    

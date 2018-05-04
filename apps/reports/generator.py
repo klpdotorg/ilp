@@ -1,7 +1,7 @@
 import django_filters
-from reports.reports import ReportOne, ReportTwo
+from reports.reports import ReportOne, ReportTwo,GPMathContestReport
 
-reportlist = {"report_one":ReportOne,"report_two": ReportTwo}
+reportlist = {"report_one":ReportOne,"report_two": ReportTwo,"gp_contest_report": GPMathContestReport}
 
 def generate_report(report_format, report_type, output_name, *args):
     try:
