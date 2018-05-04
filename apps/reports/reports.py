@@ -68,13 +68,15 @@ class ReportOne(BaseReport):
             raise AttributeError('Invalid report format')
 
 class GPMathContestReport(BaseReport):
-    def __init__(self, from_date, to_date):
-        self.from_date = from_date
-        self.to_date = to_date
+    def __init__(self, gp_name,academic_year):
+        self.gp_name = gp_name
+        self.academic_year = academic_year
         
     def get_data(self):
-        gp = "peramachanahalli"
-        ay = "2016-2017"
+        print(self.gp_name)
+        print(self.academic_year)
+        gp = self.gp_name #"peramachanahalli"
+        ay = self.academic_year #"2016-2017"
 
         ay2 = ay.split('-')
         dates = [int(ay2[0]+'06'), int(ay2[1]+'03')] # [201606, 201703]
@@ -111,7 +113,7 @@ class GPMathContestReport(BaseReport):
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
                 
     def save(self):
-        r= Reports(report_type="reportOne",parameters=dict(from_date=self.from_date,to_date=self.to_date))
+        r= Reports(report_type="GPMathContestReport",parameters=dict(gp_name=self.gp_name,academic_year=self.academic_year))
         r.save()
 
     def generate(self, report_type, output_name):
