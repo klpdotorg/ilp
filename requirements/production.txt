@@ -1,2 +1,4 @@
 # Production dependencies.
 -r base.txt
+
+django-compressor==2.2
