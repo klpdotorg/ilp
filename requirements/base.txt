@@ -17,4 +17,3 @@ drf-compound-fields
 Pillow==4.3.0
 django-easy-audit==1.0
 django-fixture-magic==0.1.3
-
