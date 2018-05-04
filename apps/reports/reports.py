@@ -2,12 +2,16 @@ from abc import ABC, abstractmethod
 from jinja2 import Environment, FileSystemLoader
 import pdfkit
 import os.path
+import datetime
 
+from boundary.models import Boundary
+from assessments.models import SurveyInstitutionAgg
+from schools.models import Institution
 from assessments import models as assess_models
 from .models import Reports
 
 class BaseReport(ABC):
-        
+
     @abstractmethod
     def get_data(self):
         pass
@@ -69,8 +73,28 @@ class GPMathContestReport(BaseReport):
         self.to_date = to_date
         
     def get_data(self):
-#        return assess_models.AnswerGroup_Institution.objects.all()[:5]
-        return ['name','some','dfdfdfa','dfdafad']
+        gp = "peramachanahalli"
+        ay = "2016-2017"
+
+        ay2 = ay.split('-')
+        dates = [int(ay2[0]+'06'), int(ay2[1]+'03')] # [201606, 201703]
+
+        report_generated_on = datetime.datetime.now().date()
+
+        gp_obj = Boundary.objects.get(name=gp) # Take the GP from db
+        block = gp_obj.parent.name           # Block name
+        district = gp_obj.parent.parent.name    # District name
+
+        contests = SurveyInstitutionAgg.objects.filter(institution_id__admin3__name = gp, yearmonth__range=dates)
+
+        contest_schools = contests.values('institution_id').distinct().count() # Number of schools in the report
+        gp_schools = Institution.objects.filter(admin3__name=gp).count() # Number of schools in GP
+
+        students = 0
+        for i in contests:
+            students += i.num_children  # Calculate the total number of students
+        return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':students,'today':report_generated_on}
+
     
     def get_html(self, output_name):
         env = Environment(loader=FileSystemLoader('apps/reports/report_templates'))
