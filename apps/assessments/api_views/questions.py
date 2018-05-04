@@ -171,7 +171,11 @@ class QuestionGroupViewSet(
                 res = {
                     "id": qgroup_inst.questiongroup_id,
                     "name": qgroup_inst.questiongroup.name,
-                    "assessment-type": "institution"
+                    "assessment-type": "institution",
+                    "institution": {
+                        "id": qgroup_inst.institution_id,
+                        "name": qgroup_inst.institution.name                       
+                    }
                 }
                 response.append(res)
         else:
