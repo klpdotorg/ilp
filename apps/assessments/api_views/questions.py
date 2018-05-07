@@ -169,12 +169,12 @@ class QuestionGroupViewSet(
                 questiongroup__survey_id=survey_id)
             for qgroup_inst in qset:
                 res = {
-                    "id": qgroup_inst.questiongroup_id,
-                    "name": qgroup_inst.questiongroup.name,
-                    "assessment-type": "institution",
-                    "institution": {
-                        "id": qgroup_inst.institution_id,
-                        "name": qgroup_inst.institution.name                       
+                    "id": qgroup_inst.institution_id,
+                    "name": qgroup_inst.institution.name,
+                    "assessment": {
+                        "id": qgroup_inst.questiongroup_id,
+                        "name": qgroup_inst.questiongroup.name,
+                        "assessment-type": "institution"
                     }
                 }
                 response.append(res)
