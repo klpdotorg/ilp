@@ -31,16 +31,16 @@ class BaseReport(ABC):
     @abstractmethod
     def generate(self):
         pass
-    
+
 class ReportOne(BaseReport):
     def __init__(self, from_date, to_date):
         self.from_date = from_date
         self.to_date = to_date
-        
+
     def get_data(self):
 #        return assess_models.AnswerGroup_Institution.objects.all()[:5]
         return ['name','some','dfdfdfa','dfdafad']
-    
+
     def get_html(self, output_name):
         env = Environment(loader=FileSystemLoader('apps/reports/report_templates'))
         template = env.get_template('report_one.html')
@@ -52,9 +52,9 @@ class ReportOne(BaseReport):
 
     def get_pdf(self,output_name):
         if not os.path.exists('apps/reports/output/{}.html'.format(output_name)):
-            self.get_html(output_name)         
+            self.get_html(output_name)
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
-                
+
     def save(self):
         r= Reports(report_type="reportOne",parameters=dict(from_date=self.from_date,to_date=self.to_date))
         r.save()
@@ -71,7 +71,7 @@ class GPMathContestReport(BaseReport):
     def __init__(self, gp_name,academic_year):
         self.gp_name = gp_name
         self.academic_year = academic_year
-        
+
     def get_data(self):
         print(self.gp_name)
         print(self.academic_year)
@@ -83,7 +83,12 @@ class GPMathContestReport(BaseReport):
 
         report_generated_on = datetime.datetime.now().date()
 
-        gp_obj = Boundary.objects.get(name=gp) # Take the GP from db
+        try:
+            gp_obj = Boundary.objects.get(name=gp) # Take the GP from db
+        except Boundary.DoesNotExist:
+            print('Gram panchayat {} does not exist'.format(self.gp_name))
+            raise ValueError('Invalid Gram Panchayat name')
+
         block = gp_obj.parent.name           # Block name
         district = gp_obj.parent.parent.name    # District name
 
@@ -97,7 +102,7 @@ class GPMathContestReport(BaseReport):
             students += i.num_children  # Calculate the total number of students
         return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':students,'today':report_generated_on}
 
-    
+
     def get_html(self, output_name):
         env = Environment(loader=FileSystemLoader('apps/reports/report_templates'))
         template = env.get_template('math_contest_report.html')
@@ -109,9 +114,9 @@ class GPMathContestReport(BaseReport):
 
     def get_pdf(self,output_name):
         if not os.path.exists('apps/reports/output/{}.html'.format(output_name)):
-            self.get_html(output_name)         
+            self.get_html(output_name)
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
-                
+
     def save(self):
         r= Reports(report_type="GPMathContestReport",parameters=dict(gp_name=self.gp_name,academic_year=self.academic_year))
         r.save()
@@ -122,13 +127,13 @@ class GPMathContestReport(BaseReport):
         elif report_type == 'pdf':
             self.get_pdf(output_name)
         else:
-            raise AttributeError('Invalid report format')
-        
+            raise ValueError('Invalid report format')
+
 class ReportTwo(BaseReport):
-   
+
     def get_data(self):
         return self.value * 42
-    
+
     def get_html(self):
         return "jgfdjh"
 
@@ -140,8 +145,7 @@ class ReportTwo(BaseReport):
 
     def generate(self, report_type, output_name):
         return 'success'
-     
+
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
-    

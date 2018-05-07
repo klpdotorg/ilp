@@ -13,6 +13,5 @@ def generate_report(report_format, report_type, output_name, *args):
     except KeyError:
         print("Invalid report type")
 
-    except AttributeError :
+    except ValueError :
         print("Error in Report generation")
-        raise 
