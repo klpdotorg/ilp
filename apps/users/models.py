@@ -128,6 +128,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __unicode__(self):
         return self.mobile_no
+    
+    class Meta:
+        ordering = ['id', ]
 
 
 @receiver(post_save, sender=User)
