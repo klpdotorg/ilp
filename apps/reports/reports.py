@@ -37,18 +37,9 @@ class BaseReport(ABC):
         else:
             raise ValueError('Invalid report format')
 
-class ReportOne(BaseReport):
-    def __init__(self, from_date, to_date):
-        self.from_date = from_date
-        self.to_date = to_date
-
-    def get_data(self):
-#        return assess_models.AnswerGroup_Institution.objects.all()[:5]
-        return ['name','some','dfdfdfa','dfdafad']
-
     def get_html(self, output_name):
         env = Environment(loader=FileSystemLoader('apps/reports/report_templates'))
-        template = env.get_template('report_one.html')
+        template = env.get_template(self._template_path)
         data = self.get_data();
         html = template.render(data=data)
 
@@ -60,6 +51,16 @@ class ReportOne(BaseReport):
             self.get_html(output_name)
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
 
+class ReportOne(BaseReport):
+    def __init__(self, from_date, to_date):
+        self.from_date = from_date
+        self.to_date = to_date
+        self._template_path  = 'report_one.html'
+
+    def get_data(self):
+#        return assess_models.AnswerGroup_Institution.objects.all()[:5]
+        return ['name','some','dfdfdfa','dfdafad']
+
     def save(self):
         r= Reports(report_type="reportOne",parameters=dict(from_date=self.from_date,to_date=self.to_date))
         r.save()
@@ -68,6 +69,7 @@ class GPMathContestReport(BaseReport):
     def __init__(self, gp_name,academic_year):
         self.gp_name = gp_name
         self.academic_year = academic_year
+        self._template_path = 'math_contest_report.html'
 
     def get_data(self):
         print(self.gp_name)
@@ -105,20 +107,6 @@ class GPMathContestReport(BaseReport):
         
         return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls}
 
-    
-    def get_html(self, output_name):
-        env = Environment(loader=FileSystemLoader('apps/reports/report_templates'))
-        template = env.get_template('math_contest_report.html')
-        data = self.get_data();
-        html = template.render(data=data)
-
-        with open('apps/reports/output/{}.html'.format(output_name), 'w') as out_file:
-            out_file.write(html)
-
-    def get_pdf(self,output_name):
-        if not os.path.exists('apps/reports/output/{}.html'.format(output_name)):
-            self.get_html(output_name)
-        pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
 
     def save(self):
         r= Reports(report_type="GPMathContestReport",parameters=dict(gp_name=self.gp_name,academic_year=self.academic_year))
@@ -129,12 +117,6 @@ class ReportTwo(BaseReport):
 
     def get_data(self):
         return self.value * 42
-
-    def get_html(self):
-        return "jgfdjh"
-
-    def get_pdf(self):
-         return "jgfdjh"
 
     def save(self):
         return "iwjhyqh"
