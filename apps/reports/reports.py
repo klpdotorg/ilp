@@ -101,20 +101,15 @@ class GPMathContestReport(BaseReport):
 
         # Get the answergroup_institution from gp name and academic year
         AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name="krishnanagara", entered_at__range = ["2017-06-01", "2018-03-31"], respondent_type_id='CH')
+        
+        
+        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
+        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        number_of_students = num_boys + num_girls
+        
+        return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls}
 
-        students = 0
-        num_boys = 0
-        num_girls = 0
-        # Assumes that no student has taken multiple tests
-        for i in AGI:
-            gender_qstns = i.answers.filter(question__key='Gender')
-            num_boys += gender_qstns.filter(answer='Male').count()
-            num_girls += gender_qstns.filter(answer='Female').count()
-
-        students = num_boys+num_girls
-        return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':students,'today':report_generated_on,'boys':num_boys,'girls':num_gilrs}
-
-
+    
     def get_html(self, output_name):
         env = Environment(loader=FileSystemLoader('apps/reports/report_templates'))
         template = env.get_template('math_contest_report.html')
