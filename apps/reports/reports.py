@@ -29,9 +29,13 @@ class BaseReport(ABC):
     def save(self):
         pass
 
-    @abstractmethod
-    def generate(self):
-        pass
+    def generate(self, report_type, output_name):
+        if report_type == 'html':
+            self.get_html(output_name)
+        elif report_type == 'pdf':
+            self.get_pdf(output_name)
+        else:
+            raise ValueError('Invalid report format')
 
 class ReportOne(BaseReport):
     def __init__(self, from_date, to_date):
@@ -59,14 +63,6 @@ class ReportOne(BaseReport):
     def save(self):
         r= Reports(report_type="reportOne",parameters=dict(from_date=self.from_date,to_date=self.to_date))
         r.save()
-
-    def generate(self, report_type, output_name):
-        if report_type == 'html':
-            self.get_html(output_name)
-        elif report_type == 'pdf':
-            self.get_pdf(output_name)
-        else:
-            raise AttributeError('Invalid report format')
 
 class GPMathContestReport(BaseReport):
     def __init__(self, gp_name,academic_year):
@@ -128,13 +124,6 @@ class GPMathContestReport(BaseReport):
         r= Reports(report_type="GPMathContestReport",parameters=dict(gp_name=self.gp_name,academic_year=self.academic_year))
         r.save()
 
-    def generate(self, report_type, output_name):
-        if report_type == 'html':
-            self.get_html(output_name)
-        elif report_type == 'pdf':
-            self.get_pdf(output_name)
-        else:
-            raise ValueError('Invalid report format')
 
 class ReportTwo(BaseReport):
 
@@ -149,9 +138,6 @@ class ReportTwo(BaseReport):
 
     def save(self):
         return "iwjhyqh"
-
-    def generate(self, report_type, output_name):
-        return 'success'
 
 if __name__ == "__main__":
     r= ReportOne();
