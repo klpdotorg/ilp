@@ -8,12 +8,13 @@ from users.serializers import (
     TadaUserSerializer
 )
 from users.permission import IsAdminOrIsSelf
+from common.views import ILPViewSet
 from django.contrib.auth.models import Group
 import json
 from users.utils import login_user
 
 
-class UsersViewSet(viewsets.ModelViewSet):
+class UsersViewSet(ILPViewSet):
     """
     This endpoint registers a new TADA user
     """
