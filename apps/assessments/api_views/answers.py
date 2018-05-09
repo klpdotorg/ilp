@@ -197,13 +197,28 @@ class AnswerGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             return AnswerGroupStudentGroupSerializer
         return AnswerGroupStudentSerializer
 
+    def get_model_filters(self, survey_id):
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        institution_id = self.request.query_params.get('institution_id', None)
+        studentgroup_id = self.request.query_params.get('studentgroup_id', None)
+        student_id = self.request.query_params.get('student_id', None)
+        if survey_on == 'institution' and institution_id:
+            return {'institution_id': institution_id}
+        elif survey_on == 'studentgroup' and studentgroup_id:
+            return {'studentgroup_id': studentgroup_id}
+        elif survey_on == 'student' and student_id:
+            return {'student_id': student_id}
+        return {}
+
     def get_queryset(self):
         parent_query_dict = self.get_parents_query_dict()
         survey_id = parent_query_dict['survey_id']
         questiongroup_id = parent_query_dict['questiongroup_id']
         AnswerGroupModel = self.get_model(survey_id)
+        model_filters = self.get_model_filters(survey_id)
         return AnswerGroupModel.objects.filter(
-            questiongroup_id=questiongroup_id)
+            questiongroup_id=questiongroup_id, **model_filters
+        )
 
 
 class AnswerViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
