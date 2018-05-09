@@ -17,18 +17,6 @@ class BaseReport(ABC):
     def get_data(self):
         pass
 
-    @abstractmethod
-    def get_html(self):
-        pass
-
-    @abstractmethod
-    def get_pdf(self):
-        pass
-
-    @abstractmethod
-    def save(self):
-        pass
-
     def generate(self, report_type, output_name):
         if report_type == 'html':
             self.get_html(output_name)
@@ -51,25 +39,29 @@ class BaseReport(ABC):
             self.get_html(output_name)
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
 
+    def save(self):
+        r= Reports(report_type=self._type,parameters=self.params)
+        r.save()
+
 class ReportOne(BaseReport):
     def __init__(self, from_date, to_date):
         self.from_date = from_date
         self.to_date = to_date
         self._template_path  = 'report_one.html'
+        self._type = 'reportOne'
+        self.params = dict(from_date=self.from_date,to_date=self.to_date)
 
     def get_data(self):
 #        return assess_models.AnswerGroup_Institution.objects.all()[:5]
         return ['name','some','dfdfdfa','dfdafad']
-
-    def save(self):
-        r= Reports(report_type="reportOne",parameters=dict(from_date=self.from_date,to_date=self.to_date))
-        r.save()
 
 class GPMathContestReport(BaseReport):
     def __init__(self, gp_name,academic_year):
         self.gp_name = gp_name
         self.academic_year = academic_year
         self._template_path = 'math_contest_report.html'
+        self._type = 'GPMathContestReport'
+        self.params = dict(gp_name=self.gp_name,academic_year=self.academic_year)
 
     def get_data(self):
         print(self.gp_name)
@@ -108,18 +100,6 @@ class GPMathContestReport(BaseReport):
         return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls}
 
 
-    def save(self):
-        r= Reports(report_type="GPMathContestReport",parameters=dict(gp_name=self.gp_name,academic_year=self.academic_year))
-        r.save()
-
-
-class ReportTwo(BaseReport):
-
-    def get_data(self):
-        return self.value * 42
-
-    def save(self):
-        return "iwjhyqh"
 
 if __name__ == "__main__":
     r= ReportOne();
