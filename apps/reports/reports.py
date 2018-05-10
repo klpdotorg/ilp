@@ -124,7 +124,7 @@ class GPMathContestReport(BaseReport):
                 out.append({'school':item['school'],
                             'grades':[{
                                 'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':item['count']}]}]
+                                'values':[{'contest':item['contest'],'count':item['percent']}]}]
                 })
             else:
                 for o in out:
@@ -133,9 +133,9 @@ class GPMathContestReport(BaseReport):
                         for grade in o['grades']:
                             if item['grade'] == grade['name']:
                                 gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':item['count']})
+                                grade['values'].append({'contest':item['contest'],'count':item['percent']})
                         if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':item['count']}]})
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':item['percent']}]})
 
             return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contests}
 
