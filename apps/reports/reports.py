@@ -42,6 +42,7 @@ class BaseReport(ABC):
     def save(self):
         r= Reports(report_type=self._type,parameters=self.params)
         r.save()
+        return r
 
 class ReportOne(BaseReport):
     def __init__(self, from_date, to_date):
@@ -115,6 +116,7 @@ class GPMathContestReport(BaseReport):
                 details['contest'] = contest
                 details['percent'] = sum(percent)/len(percent)
             schools.append(details)
+        contest_list = {i['contest'] for i in schools}
         schools_out = []
         out= []
 
@@ -137,7 +139,7 @@ class GPMathContestReport(BaseReport):
                         if not gradeExist:
                             o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':item['percent']}]})
 
-        return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contests}
+        return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list}
 
 
 
