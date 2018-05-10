@@ -57,6 +57,22 @@
       background-color: #D8D8D8;
       color: #594633;
       }
+       .r-dot {
+      height: 25px;
+      width: 32px;
+      background-color: #f61717;
+      border-radius: 50%;
+      display: inline-block;
+      border: solid 2px #784f4f;
+      }
+      .g-dot {
+      height: 25px;
+      width: 32px;
+      background-color: #f61717;
+      border-radius: 50%;
+      display: inline-block;
+      border: solid 2px #784f4f;
+      }
     </style>
   </head>
   <body>
@@ -102,7 +118,13 @@
 	  {% for c in data['cs']%}
 	  <td>
 	  {% for value in g['values']%}
-	  {% if c == value.contest %}{{value['count']}}{% endif %}
+	  {% if c == value.contest %}
+	  {% if value['count']>70.0 %}
+	  <span class="g-dot"></span>
+	  {% else %}
+	  <span class="r-dot"></span>
+	  {% endif %}
+	  {% endif %}
 	  {% endfor %}
 	  </td>
 	  {% endfor %}
