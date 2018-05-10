@@ -115,7 +115,7 @@ class GPMathContestReport(BaseReport):
                     continue
                 details['contest'] = contest
                 details['percent'] = sum(percent)/len(percent)
-            schools.append(details)
+                schools.append(details)
         contest_list = {i['contest'] for i in schools}
         schools_out = []
         out= []
