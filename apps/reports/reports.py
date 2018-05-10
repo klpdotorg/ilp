@@ -96,8 +96,51 @@ class GPMathContestReport(BaseReport):
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
+
+        conditions = AGI.values_list('institution__name', 'questiongroup__name').distinct()
+        contests = list(AGI.values_list('answers__question__key', flat=True).distinct())
+        contests.pop(contests.index('Gender'))
+        schools = []
         
-        return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls}
+        for school, qgroup in conditions:
+            details = dict(school=school, grade=qgroup)
+            school_ag = AGI.filter(institution__name=school, questiongroup__name=qgroup)
+            for contest in contests:
+                percent = []
+                for ag in school_ag:
+                    num_q = ag.answers.filter(question__key=contest).count()
+                    if num_q == 0:
+                        continue
+                    answered = ag.answers.filter(question__key=contest, answer='Yes').count()
+                    percent.append((answered/num_q)*100)
+                if len(percent) == 0:
+                    continue
+                details['contest'] = contest
+                details['percent'] = sum(percent)/len(percent)
+                schools.append(details)
+        schools_out = []
+        out= []
+
+        for item in schools:
+            if not item['school'] in schools_out:
+                schools_out.append(item['school'])
+                out.append({'school':item['school'],
+                            'grades':[{
+                                'name':item['qg'],
+                                'values':[{'contest':item['contest'],'count':item['count']}]}]
+                })
+            else:
+                for o in out:
+                    if o['school']==item['school']:
+                        gradeExist= False
+                        for grade in o['grades']:
+                            if item['qg'] == grade['name']:
+                                gradeExist = True
+                                grade['values'].append({'contest':item['contest'],'count':item['count']})
+                        if not gradeExist:
+                            o['grades'].append({'name':item['qg'],'values':[{'contest':item['contest'],'count':item['count']}]})
+
+            return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contests}
 
 
 

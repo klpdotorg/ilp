@@ -86,101 +86,30 @@
 	</div>    
 	
       </div>
-     <table id="customers">
-  <tr>
-    <th>School Name</th>
-    <th>Grade</th>
-    <th>C1</th>
-    <th>C2</th>
-    <th>C3</th>
-    <th>C4</th>
-    <th>C5</th>
-    <th>C6</th>
-    <th>C7</th>
-    <th>C8</th>
-    <th>C9</th>
-  </tr>
-  <tr>
-    <td>School 1</td>
-    <td>4</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-   <td></td>
-    <td>5</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>6</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-   <td>School 2</td>
-    <td>4</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-   <td></td>
-    <td>5</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>6</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-  
-     </table>
+       <table id="customers">
+	<tr>
+	  <th>School Name</th>
+	  <th>Grade</th>
+	  {% for c in data['cs']%}
+	  <th>{{c}}</th>
+	  {% endfor %}
+	</tr>
+	{% for item in data['schools']%}
+	{% for g in item['grades']%}
+	<tr>
+	  <td>{% if loop.index ==1 %}{{ item['school'] }}{% endif %}</td>
+	  <td>{{g['name']}}</td>
+	  {% for c in data['cs']%}
+	  <td>
+	  {% for value in g['values']%}
+	  {% if c == value.contest %}{{value['count']}}{% endif %}
+	  {% endfor %}
+	  </td>
+	  {% endfor %}
+	</tr>
+	{% endfor %}
+	{% endfor %}
+      </table>
     </div>
   </body>
 </html>
