@@ -99,6 +99,7 @@ class GPMathContestReport(BaseReport):
         contests = list(AGI.values_list('answers__question__key', flat=True).distinct())
         contests.pop(contests.index('Gender'))
         schools = []
+        scores = {}
         
         for school, qgroup in conditions:
             school_ag = AGI.filter(institution__name=school, questiongroup__name=qgroup)
@@ -109,13 +110,38 @@ class GPMathContestReport(BaseReport):
                     if num_q == 0:
                         continue
                     answered = ag.answers.filter(question__key=contest, answer='Yes').count()
-                    percent.append((answered/num_q)*100)
+                    mark = (answered/num_q)*100
+                    try:
+                        scores[ag.id]['mark'].append(mark)
+                    except KeyError:
+                        scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
+                        scores[ag.id]['mark'].append(mark)
+                    percent.append(mark)
+
                 if len(percent) == 0:
                     continue
                 details = dict(school=school, grade=qgroup)
                 details['contest'] = contest
                 details['percent'] = sum(percent)/len(percent)
                 schools.append(details)
+
+        #Calculate the perfomance of students
+        for i in scores.values():
+            total = sum(i['mark'])/len(i['mark'])
+            if total == 100.0:
+                if i['gender'] == 'Male':
+                    boys_100 += 1
+                else:
+                    girls_100 += 1
+            elif total == 0.0:
+                if i['gender'] == 'Male':
+                    boys_zero += 1
+                else:
+                    girls_zero += 1
+
+        score_100 = boys_100 + girls_100
+        score_zero = boys_zero + girls_zero
+
         contest_list = {i['contest'] for i in schools}
         schools_out = []
         out= []
