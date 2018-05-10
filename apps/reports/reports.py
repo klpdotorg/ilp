@@ -70,7 +70,7 @@ class GPMathContestReport(BaseReport):
         ay = self.academic_year #"2016-2017"
 
         ay2 = ay.split('-')
-        dates = [ay2[0]+'-06-01', ay2[1]+'-03-31')] # [2016-06-01, 2017-03-31]
+        dates = [ay2[0]+'-06-01', ay2[1]+'-03-31'] # [2016-06-01, 2017-03-31]
 
         report_generated_on = datetime.datetime.now().date()
 
@@ -114,7 +114,7 @@ class GPMathContestReport(BaseReport):
                     continue
                 details['contest'] = contest
                 details['percent'] = sum(percent)/len(percent)
-                schools.append(details)
+            schools.append(details)
         schools_out = []
         out= []
 
@@ -137,7 +137,7 @@ class GPMathContestReport(BaseReport):
                         if not gradeExist:
                             o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':item['percent']}]})
 
-            return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contests}
+        return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contests}
 
 
 

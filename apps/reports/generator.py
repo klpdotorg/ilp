@@ -1,5 +1,6 @@
 import django_filters
 from reports.reports import ReportOne,GPMathContestReport
+import sys
 
 reportlist = {"report_one":ReportOne, "gp_contest_report": GPMathContestReport}
 
