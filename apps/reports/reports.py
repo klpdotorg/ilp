@@ -70,7 +70,7 @@ class GPMathContestReport(BaseReport):
         ay = self.academic_year #"2016-2017"
 
         ay2 = ay.split('-')
-        dates = [int(ay2[0]+'06'), int(ay2[1]+'03')] # [201606, 201703]
+        dates = [ay2[0]+'-06-01', ay2[1]+'-03-31')] # [2016-06-01, 2017-03-31]
 
         report_generated_on = datetime.datetime.now().date()
 
@@ -83,14 +83,11 @@ class GPMathContestReport(BaseReport):
         block = gp_obj.parent.name           # Block name
         district = gp_obj.parent.parent.name    # District name
 
-        contests = SurveyInstitutionAgg.objects.filter(institution_id__admin3__name = gp, yearmonth__range=dates)
-
-        contest_schools = contests.values('institution_id').distinct().count() # Number of schools in the report
         gp_schools = Institution.objects.filter(admin3__name=gp).count() # Number of schools in GP
 
 
         # Get the answergroup_institution from gp name and academic year
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name="krishnanagara", entered_at__range = ["2017-06-01", "2018-03-31"], respondent_type_id='CH')
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name=self.gp_name, entered_at__range = dates, respondent_type_id='CH')
         
         
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
