@@ -57,17 +57,17 @@
       background-color: #D8D8D8;
       color: #594633;
       }
-       .r-dot {
-      height: 25px;
-      width: 32px;
+      .r-dot {
+      height: 10px;
+      width: 17px;
       background-color: #f61717;
       border-radius: 50%;
       display: inline-block;
       border: solid 2px #784f4f;
       }
       .g-dot {
-      height: 25px;
-      width: 32px;
+      height: 10px;
+      width: 17px;
       background-color: #f61717;
       border-radius: 50%;
       display: inline-block;
@@ -95,10 +95,14 @@
 	<strong>Test condected on:</strong> {{data['academic_year']}}<br>
 	<strong>Report Generated on:</strong> {{data['today']}}<br><br>
 	<u>Performance:</u><br>
-	children with 100% score:xxx
-	Children with zero score: xx
+	Children with 100% score:{{ data['score_100'] }}
+	Children with zero score: {{ data['score_zero'] }}
 	<u>Performance by Gender</u>
-	
+	Boys with 100% score:{{ data['boys_100'] }}
+	Boys with zero score: {{ data['boys_zero'] }}
+	<br>
+	Girls with 100% score:{{ data['girls_100'] }}
+	Girls with zero score: {{ data['girls_zero'] }}
 	</div>    
 	
       </div>
