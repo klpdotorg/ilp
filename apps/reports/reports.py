@@ -101,7 +101,6 @@ class GPMathContestReport(BaseReport):
         schools = []
         
         for school, qgroup in conditions:
-            details = dict(school=school, grade=qgroup)
             school_ag = AGI.filter(institution__name=school, questiongroup__name=qgroup)
             for contest in contests:
                 percent = []
@@ -113,6 +112,7 @@ class GPMathContestReport(BaseReport):
                     percent.append((answered/num_q)*100)
                 if len(percent) == 0:
                     continue
+                details = dict(school=school, grade=qgroup)
                 details['contest'] = contest
                 details['percent'] = sum(percent)/len(percent)
                 schools.append(details)
