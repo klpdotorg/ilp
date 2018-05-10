@@ -88,9 +88,11 @@ class GPMathContestReport(BaseReport):
 
 
         # Get the answergroup_institution from gp name and academic year
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name=self.gp_name, entered_at__range = dates, respondent_type_id='CH')
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name=self.gp_name, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
         
-        
+        if not AGI.exists():
+            raise ValueError("No contests found for {} in the year {}".format(gp, ay))
+
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
