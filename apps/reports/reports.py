@@ -1,3 +1,4 @@
+import argparse
 from abc import ABC, abstractmethod
 from jinja2 import Environment, FileSystemLoader
 import pdfkit
@@ -57,11 +58,17 @@ class ReportOne(BaseReport):
         return ['name','some','dfdfdfa','dfdafad']
 
 class GPMathContestReport(BaseReport):
-    def __init__(self, gp_name,academic_year):
-        self.gp_name = gp_name
-        self.academic_year = academic_year
+    def __init__(self):
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument('--gp_name', required=True)
+        self.parser.add_argument('--academic_year', required=True)
         self._template_path = 'math_contest_report.html'
         self._type = 'GPMathContestReport'
+
+    def parse_args(self, args):
+        arguments = self.parser.parse_args(args)
+        self.gp_name = arguments.gp_name
+        self.academic_year = arguments.academic_year
         self.params = dict(gp_name=self.gp_name,academic_year=self.academic_year)
 
     def get_data(self):
@@ -88,9 +95,11 @@ class GPMathContestReport(BaseReport):
 
 
         # Get the answergroup_institution from gp name and academic year
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name=self.gp_name, entered_at__range = dates, respondent_type_id='CH')
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name=self.gp_name, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
         
-        
+        if not AGI.exists():
+            raise ValueError("No contests found for {} in the year {}".format(gp, ay))
+
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
