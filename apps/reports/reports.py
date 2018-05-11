@@ -78,8 +78,8 @@ class GPMathContestReport(BaseReport):
         try:
             gp_obj = Boundary.objects.get(name=gp) # Take the GP from db
         except Boundary.DoesNotExist:
-            print('Gram panchayat {} does not exist'.format(self.gp_name))
-            raise ValueError('Invalid Gram Panchayat name')
+            print('Gram panchayat {} does not exist\n'.format(self.gp_name))
+            raise ValueError('Invalid Gram Panchayat name\n')
 
         block = gp_obj.parent.name           # Block name
         district = gp_obj.parent.parent.name    # District name
