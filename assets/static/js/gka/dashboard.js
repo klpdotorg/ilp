@@ -756,7 +756,7 @@ var topSummaryData = {};
             };
 
         for (var m in users) {
-            if(m && (m !== 'null')) {
+            if(m && (m !== 'null' && m !== 'UK')) {
                 meta_values.push({
                     meta: userFullName[m] ? userFullName[m]: m,
                     value: users[m]
