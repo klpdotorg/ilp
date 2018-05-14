@@ -21,7 +21,7 @@ from assessments.models import (
     Survey, SurveyInstitutionAgg
 )
 
-from schools.models import ( 
+from schools.models import (
     Institution, StudentGroup
 )
 
@@ -77,6 +77,7 @@ class QuestionGroupQuestions(
             self.kwargs['parent_lookup_questiongroup']
         return context
 
+
 class BoundaryQuestionGroupMapping(ILPListAPIView):
     ''' Returns all questiongroups under boundary ids. Boundary ids
     can be a comma separated list passed as params'''
@@ -85,9 +86,10 @@ class BoundaryQuestionGroupMapping(ILPListAPIView):
     def get_queryset(self):
         boundary_ids = self.request.query_params.getlist('boundary_ids', [])
         print("boundary_ids received is: ", boundary_ids)
-        queryset = QuestionGroup_Institution_Association.objects.exclude(status=Status.DELETED)
+        queryset = QuestionGroup_Institution_Association.objects.exclude(
+            status=Status.DELETED)
         result = queryset.filter(
-                Q(institution__admin0_id__in=boundary_ids) | 
+                Q(institution__admin0_id__in=boundary_ids) |
                 Q(institution__admin1_id__in=boundary_ids) |
                 Q(institution__admin2_id__in=boundary_ids) |
                 Q(institution__admin3_id__in=boundary_ids)
@@ -122,9 +124,9 @@ class QuestionGroupViewSet(
 
     def get_boundary_studentgroup_ids(self, boundary_id):
         studentgroup_ids = StudentGroup.objects.filter(
-            Q(institution_id__admin0_id=boundary_id)|
-            Q(institution_id__admin1_id=boundary_id)|
-            Q(institution_id__admin2_id=boundary_id)|
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
             Q(institution_id__admin3_id=boundary_id)
         ).distinct().values_list('id', flat=True)
         return studentgroup_ids
@@ -142,9 +144,12 @@ class QuestionGroupViewSet(
             raise ParseError('Please pass institution_ids OR boundary_ids')
         # Make a copy of the institution_ids param.
         list_of_institutions = list(institution_ids)
-        # Fetch all institutions if a boundary_id is passed and append to the list of institutions
+        # Fetch all institutions if a boundary_id is passed
+        # and append to the list of institutions
         for boundary in boundary_ids:
-            institutions_under_boundary = self.get_boundary_institution_ids(boundary)
+            institutions_under_boundary = self.get_boundary_institution_ids(
+                boundary
+            )
             for institution in institutions_under_boundary:
                 list_of_institutions.append(institution)
         data = []
@@ -179,9 +184,11 @@ class QuestionGroupViewSet(
             raise ParseError('Please pass studentgroup_ids OR boundary_ids')
         # Make a copy of the institution_ids param.
         list_of_studentgroups = list(studentgroups_ids)
-        # Fetch all institutions if a boundary_id is passed and append to the list of institutions
+        # Fetch all institutions if a boundary_id is passed and
+        # append to the list of institutions
         for studentgroups in studentgroups_ids:
-            studentgroups_under_boundary = self.get_boundary_studentgroup_ids(boundary)
+            studentgroups_under_boundary = self.get_boundary_studentgroup_ids(
+                boundary)
             for studentgroup in studentgroups_under_boundary:
                 list_of_studentgroups.append(studentgroup)
         data = []
@@ -266,4 +273,3 @@ class QGroupStoriesInfoView(ILPListAPIView):
             'total_images': InstitutionImages.objects.filter(
                 answergroup__questiongroup__survey=5).count()
         })
-
