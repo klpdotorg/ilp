@@ -217,7 +217,6 @@ class QuestionGroupInstitutionAssociationSerializer(
                 'questiongroup', 'institution', 'status',
         )
 
-
 class QuestionGroupStudentGroupAssociationSerializer(
         serializers.ModelSerializer):
 

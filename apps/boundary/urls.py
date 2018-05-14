@@ -39,5 +39,5 @@ urlpatterns = [
     url(r'^boundary/assemblies', assembliesListView, name="assemblyListView"),
     url(r'^boundary/parliaments', parliamentaryBoundariesListView, name='parliamentsListView'),
     url(r'^aggregation/boundary/(?P<id>[0-9]+)/schools/$',
-        BasicBoundaryAggView.as_view(), name='api_aggregation_boundary_schools'),
+        BasicBoundaryAggView.as_view(), name='api_aggregation_boundary_schools')
     ] +  router.urls

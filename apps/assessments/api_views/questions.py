@@ -12,6 +12,7 @@ from rest_framework import viewsets
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from django.db.models import Q
+from django.db import IntegrityError
 
 from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
@@ -19,6 +20,11 @@ from assessments.models import (
     QuestionGroup_StudentGroup_Association, InstitutionImages,
     Survey, SurveyInstitutionAgg
 )
+
+from schools.models import ( 
+    Institution, StudentGroup
+)
+
 from assessments.serializers import (
     QuestionGroupSerializer, QuestionSerializer,
     QuestionGroupQuestionSerializer,
@@ -71,6 +77,23 @@ class QuestionGroupQuestions(
             self.kwargs['parent_lookup_questiongroup']
         return context
 
+class BoundaryQuestionGroupMapping(ILPListAPIView):
+    ''' Returns all questiongroups under boundary ids. Boundary ids
+    can be a comma separated list passed as params'''
+    serializer_class = QuestionGroupInstitutionAssociationSerializer
+
+    def get_queryset(self):
+        boundary_ids = self.request.query_params.getlist('boundary_ids', [])
+        print("boundary_ids received is: ", boundary_ids)
+        queryset = QuestionGroup_Institution_Association.objects.exclude(status=Status.DELETED)
+        result = queryset.filter(
+                Q(institution__admin0_id__in=boundary_ids) | 
+                Q(institution__admin1_id__in=boundary_ids) |
+                Q(institution__admin2_id__in=boundary_ids) |
+                Q(institution__admin3_id__in=boundary_ids)
+            )
+        return result
+
 
 class QuestionGroupViewSet(
         NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
@@ -89,13 +112,22 @@ class QuestionGroupViewSet(
         instance.save()
 
     def get_boundary_institution_ids(self, boundary_id):
-        institution_ids = SurveyInstitutionAgg.objects.filter(
-            Q(institution_id__admin0_id=boundary_id) |
-            Q(institution_id__admin1_id=boundary_id) |
-            Q(institution_id__admin2_id=boundary_id) |
-            Q(institution_id__admin3_id=boundary_id)
-        ).values_list('institution_id', flat=True)
+        institution_ids = Institution.objects.filter(
+            Q(admin0_id=boundary_id) |
+            Q(admin1_id=boundary_id) |
+            Q(admin2_id=boundary_id) |
+            Q(admin3_id=boundary_id)
+        ).distinct().values_list('id', flat=True)
         return institution_ids
+
+    def get_boundary_studentgroup_ids(self, boundary_id):
+        studentgroup_ids = StudentGroup.objects.filter(
+            Q(institution_id__admin0_id=boundary_id)|
+            Q(institution_id__admin1_id=boundary_id)|
+            Q(institution_id__admin2_id=boundary_id)|
+            Q(institution_id__admin3_id=boundary_id)
+        ).distinct().values_list('id', flat=True)
+        return studentgroup_ids
 
     @action(methods=['post'], detail=False, url_path='map-institution')
     def map_institution(self, request, *args, **kwargs):
@@ -105,20 +137,31 @@ class QuestionGroupViewSet(
             raise ParseError('This survey is not an institution survey')
         questiongroup_ids = request.data.get('questiongroup_ids', [])
         institution_ids = request.data.get('institution_ids', [])
-        if not institution_ids:
-            raise ParseError('Please pass institution_ids')
+        boundary_ids = request.data.get('boundary_ids', [])
+        if not institution_ids and not boundary_ids:
+            raise ParseError('Please pass institution_ids OR boundary_ids')
+        # Make a copy of the institution_ids param.
+        list_of_institutions = list(institution_ids)
+        # Fetch all institutions if a boundary_id is passed and append to the list of institutions
+        for boundary in boundary_ids:
+            institutions_under_boundary = self.get_boundary_institution_ids(boundary)
+            for institution in institutions_under_boundary:
+                list_of_institutions.append(institution)
         data = []
         for questiongroup_id in questiongroup_ids:
-            for institution_id in institution_ids:
+            for institution_id in list_of_institutions:
                 data.append({
                     'questiongroup': questiongroup_id,
                     'institution': institution_id,
                     'status': 'AC'
                 })
-        serializer = QuestionGroupInstitutionAssociationSerializer(
-            data=data, many=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        try:
+            serializer = QuestionGroupInstitutionAssociationSerializer(
+                data=data, many=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        except IntegrityError as e:
+            print("Integrity error")
         headers = self.get_success_headers(serializer.data)
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -131,11 +174,19 @@ class QuestionGroupViewSet(
             raise ParseError('This survey is not a studengroup survey')
         questiongroup_ids = request.data.get('questiongroup_ids', [])
         studentgroup_ids = request.data.get('studentgroup_ids', [])
-        if not studentgroup_ids:
-            raise ParseError('Please pass studentgroup_ids')
+        boundary_ids = request.data.get('boundary_ids', [])
+        if not studentgroup_ids and not boundary_ids:
+            raise ParseError('Please pass studentgroup_ids OR boundary_ids')
+        # Make a copy of the institution_ids param.
+        list_of_studentgroups = list(studentgroups_ids)
+        # Fetch all institutions if a boundary_id is passed and append to the list of institutions
+        for studentgroups in studentgroups_ids:
+            studentgroups_under_boundary = self.get_boundary_studentgroup_ids(boundary)
+            for studentgroup in studentgroups_under_boundary:
+                list_of_studentgroups.append(studentgroup)
         data = []
         for questiongroup_id in questiongroup_ids:
-            for studentgroup_id in studentgroup_ids:
+            for studentgroup_id in list_of_studentgroups:
                 data.append({
                     'questiongroup': questiongroup_id,
                     'studentgroup': studentgroup_id,

@@ -16,7 +16,8 @@ from assessments.api_views import (
     SurveyUserSummary, SurveyBoundaryNeighbourInfoAPIView,
     AnswerViewSet, SurveyBoundaryNeighbourDetailAPIView,
     SurveyDetailEBoundaryAPIView, SurveyUsersCountAPIView,
-    SurveyBoundaryAPIView, SurveyInstitutionAPIView
+    SurveyBoundaryAPIView, SurveyInstitutionAPIView,
+    BoundaryQuestionGroupMapping
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -158,4 +159,7 @@ urlpatterns = [
     url(r'surveys/boundaryneighbour/detail/$',
         SurveyBoundaryNeighbourDetailAPIView.as_view(),
         name='survey-boundaryneighbour-detail'),
+    url(r'^boundary/questiongroup-map/$',
+        BoundaryQuestionGroupMapping.as_view(),
+        name='boundary-qgroup-map'),
 ] + simple_router.urls + nested_router.urls
