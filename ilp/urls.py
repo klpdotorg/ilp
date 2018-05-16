@@ -15,6 +15,7 @@ from users.views import (
     ProfileEditPageView
 )
 from assessments.views import SYSView, gka_dashboard
+from reports.views import view_report, download_report
 
 
 api_docs_view = get_swagger_view(title='ILP API')
@@ -173,4 +174,8 @@ urlpatterns = [
     # API URLs.
     url(r'^api/v1/', include('ilp.api_urls')),
     url(r'^api/docs/', api_docs_view, name='api_docs'),
+
+    #URLs for viewing generated reports
+    url(r'^report_gen/?P<report_id>[(a-z|0-9)]+/?P<tracking_id>[(a-z|0-9)*]', api_docs_view, name='view_report'),
+    url(r'^report_gen/?P<report_id>[(a-z|0-9)]+/?P<tracking_id>[(a-z|0-9)*]/download', api_docs_view, name='download_report'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
