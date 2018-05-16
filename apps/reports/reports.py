@@ -1,4 +1,4 @@
-import argparse
+import argparse, hashlib, random
 from abc import ABC, abstractmethod
 from jinja2 import Environment, FileSystemLoader
 import pdfkit
@@ -41,7 +41,8 @@ class BaseReport(ABC):
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
 
     def save(self):
-        r = Reports(report_type=self._type,parameters=self.params)
+        r= Reports(report_type=self._type,parameters=self.params)
+        r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:7]
         r.save()
         return r
 

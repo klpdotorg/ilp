@@ -13,7 +13,7 @@ def generate_report_internal(report_format, report_type, output_name, args):
         report.parse_args(args)
         report.generate(report_format, output_name)
         result = report.save()
-        return result.id
+        return result.link_id
     except KeyError:
         sys.stderr.write("{} is not a valid report type\n".format(report_type))
         raise
