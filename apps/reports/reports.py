@@ -10,7 +10,7 @@ from assessments.models import SurveyInstitutionAgg
 from schools.models import Institution
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution
-from .models import Reports
+from .models import Reports, Tracking
 
 class BaseReport(ABC):
 
@@ -41,9 +41,13 @@ class BaseReport(ABC):
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
 
     def save(self):
-        r= Reports(report_type=self._type,parameters=self.params)
+        r = Reports(report_type=self._type,parameters=self.params)
         r.save()
         return r
+
+    def save_link(self, r_id):
+        t = Tracking(report_id = r_id, track_id = '5d5dg')
+        t.save()
 
 class ReportOne(BaseReport):
     def __init__(self, from_date, to_date):
