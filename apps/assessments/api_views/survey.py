@@ -127,18 +127,22 @@ class SurveyAssociateBoundaryAPIView(ListAPIView, ILPStateMixin):
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         if survey_on == 'institution':
             institution_ids = QuestionGroup_Institution_Association.objects.\
-                filter(Q(institution_id__admin0_id=boundary_id) |
-                       Q(institution_id__admin1_id=boundary_id) |
-                       Q(institution_id__admin2_id=boundary_id) |
-                       Q(institution_id__admin3_id=boundary_id)
+                filter(Q(institution__admin0_id=boundary_id) |
+                       Q(institution__admin1_id=boundary_id) |
+                       Q(institution__admin2_id=boundary_id) |
+                       Q(institution__admin3_id=boundary_id)
                        ).values_list('institution_id', flat=True)
+        else:
+            institution_ids = QuestionGroup_StudentGroup_Association.objects.\
+                filter(Q(studentgroup__institution__admin0_id=boundary_id) |
+                       Q(studentgroup__institution__admin1_id=boundary_id) |
+                       Q(studentgroup__institution__admin2_id=boundary_id) |
+                       Q(studentgroup__institution__admin3_id=boundary_id)
+                       ).distinct('studentgroup__institution').values_list(
+                           'studentgroup__institution_id', flat=True)
         boundary_ids = self.get_institution_boundaries(
             institution_ids, boundary_type)
         return self.queryset.filter(id__in=boundary_ids)
-
-        # if survey_on == 'studentgroup':
-        #     boundary_ids = QuestionGroup_StudentGroup_Association.objects.filter(
-        # )
 
 
 class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
