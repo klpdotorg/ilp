@@ -70,7 +70,7 @@ urlpatterns = [
     url(r'sys/(?P<schoolid>[0-9]+)/$',
         ShareYourStoryAPIView.as_view({'post': 'create'}),
         name='sys_post'),
-    url(r'survey/(?P<survey_id>[0-9]+)/associate-boundaries/',
+    url(r'survey/(?P<survey_id>[0-9]+)/boundary-associations/',
         SurveyAssociateBoundaryAPIView.as_view(),
         name='survey-associate-boundaries'),
     url(r'institutionsurveys/$',
