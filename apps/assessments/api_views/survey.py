@@ -106,6 +106,41 @@ class SurveyBoundaryAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
+class SurveyAssociateBoundaryAPIView(ListAPIView, ILPStateMixin):
+    queryset = Boundary.objects.exclude(status=Status.DELETED)
+    serializer_class = BoundarySerializer
+
+    def get_institution_boundaries(self, institution_ids, boundary_type):
+        institutions = Institution.objects.filter(id__in=institution_ids)
+        if boundary_type == 'admin3':
+            return institutions.values_list('admin3', flat=True)
+        elif boundary_type == 'admin2':
+            return institutions.values_list('admin2', flat=True)
+        return institutions.values_list('admin1', flat=True)
+
+    def get_queryset(self):
+        survey_id = self.kwargs['survey_id']
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        boundary_id = self.request.query_params.get('boundary_id', state_id)
+        boundary_type = self.request.query_params.get('boundary_type', None)
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        if survey_on == 'institution':
+            institution_ids = QuestionGroup_Institution_Association.objects.\
+                filter(Q(institution_id__admin0_id=boundary_id) |
+                       Q(institution_id__admin1_id=boundary_id) |
+                       Q(institution_id__admin2_id=boundary_id) |
+                       Q(institution_id__admin3_id=boundary_id)
+                       ).values_list('institution_id', flat=True)
+        boundary_ids = self.get_institution_boundaries(
+            institution_ids, boundary_type)
+        return self.queryset.filter(id__in=boundary_ids)
+
+        # if survey_on == 'studentgroup':
+        #     boundary_ids = QuestionGroup_StudentGroup_Association.objects.filter(
+        # )
+
+
 class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
     queryset = SurveyTagInstitutionMapping.objects.all()
 
