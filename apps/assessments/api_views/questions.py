@@ -184,9 +184,8 @@ class QuestionGroupViewSet(
             raise ParseError('Please pass studentgroup_ids OR boundary_ids')
         # Make a copy of the institution_ids param.
         list_of_studentgroups = list(studentgroups_ids)
-        # Fetch all institutions if a boundary_id is passed and
-        # append to the list of institutions
-        for studentgroups in studentgroups_ids:
+        # Fetch all studentgroups under a boundary and append to the list
+        for boundary in boundary_ids:
             studentgroups_under_boundary = self.get_boundary_studentgroup_ids(
                 boundary)
             for studentgroup in studentgroups_under_boundary:
