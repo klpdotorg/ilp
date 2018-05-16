@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
-    '''Boundary endpoint'''
+    '''Boundary endpoint for all CRUD related to boundaries'''
     queryset = Boundary.objects.exclude(status=Status.DELETED)
     serializer_class = BoundarySerializer
     filter_class = BoundaryFilter
@@ -39,5 +39,8 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
 
 
 class BoundaryTypeViewSet(viewsets.ModelViewSet):
+    """
+        Endpoint handling all operations related to BoundaryType (SD, SC, SB, PD, PP, PC)
+    """
     queryset = BoundaryType.objects.all()
     serializer_class = BoundaryTypeSerializer
