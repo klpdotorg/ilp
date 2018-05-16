@@ -40,21 +40,27 @@ class BaseReport(ABC):
             self.get_html(output_name)
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
 
+    def get_sms(self, track_id):
+        t = Tracking.objects.get(track_id = track_id)
+        return self.sms_template.format(t.report_id.parameters['academic_year'],t.report_id.parameters['gp_name'],t.report_id.link_id,track_id)
+
     def save(self):
         r= Reports(report_type=self._type,parameters=self.params)
         r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:7]
         r.save()
         return r
 
-    def save_link(self, r_id):
-        t = Tracking(report_id = r_id, track_id = '5d5dg')
+    def save_link(self, report):
+        t = Tracking(report_id = report, track_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:7])
         t.save()
+        return t
 
 class ReportOne(BaseReport):
     def __init__(self, from_date, to_date):
         self.from_date = from_date
         self.to_date = to_date
         self._template_path  = 'report_one.html'
+        self.sms_template = 'some_url/{}/{}'
         self._type = 'reportOne'
         self.params = dict(from_date=self.from_date,to_date=self.to_date)
 
@@ -69,6 +75,7 @@ class GPMathContestReport(BaseReport):
         self.parser.add_argument('--academic_year', required=True)
         self._template_path = 'math_contest_report.html'
         self._type = 'GPMathContestReport'
+        self.sms_template = 'For the academic year of {} the Gram panchayat math contest report for the {}, is available in the link below.some_url/{}/{}'
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
