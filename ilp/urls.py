@@ -176,6 +176,6 @@ urlpatterns = [
     url(r'^api/docs/', api_docs_view, name='api_docs'),
 
     #URLs for viewing generated reports
-    url(r'^report_gen/?P<report_id>([a-z]|[0-9])+/?P<tracking_id>([a-z]|[0-9])*', view_report, name='view_report'),
-    url(r'^report_gen/?P<report_id>([a-z]|[0-9])+/?P<tracking_id>([a-z]|[0-9])*/download', download_report, name='download_report'),
+    url(r'^report_gen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/', view_report, name='view_report'),
+    url(r'^report_gen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/download', download_report, name='download_report'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
