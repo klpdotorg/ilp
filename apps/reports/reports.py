@@ -39,6 +39,7 @@ class BaseReport(ABC):
         if not os.path.exists('apps/reports/output/{}.html'.format(output_name)):
             self.get_html(output_name)
         pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
+        return 'apps/reports/reports_pdf/{}.pdf'.format(output_name)
 
     def get_sms(self, track_id):
         t = Tracking.objects.get(track_id = track_id)
