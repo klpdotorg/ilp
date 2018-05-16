@@ -174,8 +174,10 @@ class QuestionGroupViewSet(
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
         survey_id = self.get_parents_query_dict()['survey_id']
+        print("Survey ID is: ", survey_id)
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
-        if not survey_on == 'studentgroup' or survey_on == 'student':
+        print("Survey on: ", survey_on)
+        if not survey_on == 'studentgroup' and not survey_on == 'student':
             raise ParseError('This survey is not a studengroup or student survey')
         questiongroup_ids = request.data.get('questiongroup_ids', [])
         studentgroup_ids = request.data.get('studentgroup_ids', [])
@@ -183,7 +185,7 @@ class QuestionGroupViewSet(
         if not studentgroup_ids and not boundary_ids:
             raise ParseError('Please pass studentgroup_ids OR boundary_ids')
         # Make a copy of the institution_ids param.
-        list_of_studentgroups = list(studentgroups_ids)
+        list_of_studentgroups = list(studentgroup_ids)
         # Fetch all studentgroups under a boundary and append to the list
         for boundary in boundary_ids:
             studentgroups_under_boundary = self.get_boundary_studentgroup_ids(
