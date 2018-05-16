@@ -11,8 +11,8 @@ class Reports(models.Model):
 class Tracking(models.Model):
     report_id = models.ForeignKey('Reports', db_column="link_id")
     track_id = models.CharField(max_length=10)
-    visit_count = models.IntegerField()
-    download_count = models.IntegerField()
-    visited_at = models.DateField()
-    downloaded_at = models.DateField()
+    visit_count = models.IntegerField(default=0)
+    download_count = models.IntegerField(default=0)
+    visited_at = models.DateField(null=True)
+    downloaded_at = models.DateField(null=True)
     
