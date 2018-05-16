@@ -107,25 +107,35 @@
 
     function clearSelection()
     {
-        
-        
         $("#report-list").hide();
+    }
+
+    function clearSelect(container) {
+        container.select2("val","");
+        populateSelect(container, {results: []});
     }
 
     function initEduSearch(school_type) {
         var $select_district = $("#select-district");
         var $select_block = $("#select-block");
         var $select_cluster = $("#select-cluster");
-        $select_district.select2("val","");
-        $select_block.select2("val","");
-        $select_cluster.select2("val","");
+        //$select_district.select2("val","");
+        //$select_block.select2("val","");
+        //$select_cluster.select2("val","");
+
+        clearSelect($select_district);
+        clearSelect($select_block);
+        clearSelect($select_cluster);
 
         console.log(school_type);
+
         districtsXHR(school_type+'s').done(function (data) {
             populateSelect($select_district, data);
         });
 
         $select_district.on("change", function(selected) {
+            clearSelect($select_block);
+            clearSelect($select_cluster);
             showReport(selected,"boundary");
             var blockXHR = klp.api.do('boundary/admin1/'+selected.val+'/admin2', {'per_page': 0});
             blockXHR.done(function (data) {
@@ -134,6 +144,7 @@
         });
 
         $select_block.on("change", function(selected) {
+            clearSelect($select_cluster);
             showReport(selected,"boundary");
             var clusterXHR = klp.api.do('boundary/admin2/'+selected.val+'/admin3', {'per_page': 0});
             clusterXHR.done(function (data) {
@@ -150,10 +161,11 @@
     function initElectSearch() {
         var $select_mp = $("#select-mp");
         var $select_mla = $("#select-mla");
-        var $select_ward = $("#select-ward");
-        $select_mp.select2("val","");
-        $select_mla.select2("val","");
-        $select_ward.select2("val","");
+        //$select_mp.select2("val","");
+        //$select_mla.select2("val","");
+
+        clearSelect($select_mp);
+        clearSelect($select_mla);
 
         var mpXHR = klp.api.do('boundary/parliaments/?per_page=0',{});
         //var mpXHR = klp.api.do('boundary/admin1s', {'school_type':"primaryschool", 'geometry': 'yes'});
@@ -163,16 +175,17 @@
         });
 
         $select_mp.on("change", function(selected) {
+            $select_mla.select2("val","");
             showReport(selected,"electedrep");
         });
 
-        //$select_mp.on("change", function(selected) {
-            //console.log(selected.val);
         var mlaXHR = klp.api.do('boundary/assemblies/?per_page=0',{});
         mlaXHR.done(function (data) {
             populateSelect($select_mla, data);
         });
+
         $select_mla.on("change", function(selected) {
+            $select_mp.select2("val","");
             showReport(selected,"electedrep");
         });
         //});

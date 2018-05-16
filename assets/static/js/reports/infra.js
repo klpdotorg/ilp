@@ -116,7 +116,8 @@
             summaryData = common.getSummaryData(diseData,
                 klpData["report_info"], categoryCount, repType, acadYear);
             common.renderSummary(summaryData);
-            common.getNeighbourData(klpData, renderNeighbours);
+            if (klpData.neighbour_info.length != 0)
+                common.getNeighbourData(klpData, renderNeighbours);
             common.getYearData(klpData, renderYearComparison);
         })
         .fail(function(err) {

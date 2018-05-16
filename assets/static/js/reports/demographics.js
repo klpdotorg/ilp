@@ -202,15 +202,20 @@
     */
     function renderComparison(data) {
         //render year comparison
-        var tplYearComparison = swig.compile($('#tpl-YearComparison').html());
-        var yrcompareHTML = tplYearComparison({"years":data["year-wise"],
+        if (data["year-wise"].length != 0)
+        {
+            var tplYearComparison = swig.compile($('#tpl-YearComparison').html());
+            var yrcompareHTML = tplYearComparison({"years":data["year-wise"],
                                         "name":data["name"]});
-        $('#comparison-year').html(yrcompareHTML);
-
-        var tplComparison = swig.compile($('#tpl-neighComparison').html());
-        var compareHTML = tplComparison({"neighbours":data["neighbours"],
+            $('#comparison-year').html(yrcompareHTML);
+        }
+        if (data["neighbours"].length != 0)
+        {
+            var tplComparison = swig.compile($('#tpl-neighComparison').html());
+            var compareHTML = tplComparison({"neighbours":data["neighbours"],
                                         "name":data["name"], "type":data["type"]});
-        $('#comparison-neighbour').html(compareHTML);
+            $('#comparison-neighbour').html(compareHTML);
+        }
     }
 
 })();
