@@ -3,12 +3,12 @@ from assessments.api_views import (
     SurveysViewSet, QuestionGroupViewSet,
     QuestionViewSet, QuestionGroupQuestions,
     QGroupStoriesInfoView, SurveySummaryAPIView,
-    SurveyInfoSourceAPIView, SurveyInfoBoundarySourceAPIView,
-    SurveyInfoUserAPIView, SurveyInfoRespondentAPIView,
-    SurveyInfoSchoolAPIView, SurveyInfoBoundaryAPIView,
-    SurveyDetailSourceAPIView, SurveyDetailKeyAPIView,
-    SurveyInfoClassGenderAPIView, SurveyInfoEBoundaryAPIView,
-    SurveyDetailClassAPIView, SharedAssessmentsView, SurveyVolumeAPIView,
+    SurveyInfoSourceAPIView, SurveyInfoUserAPIView,
+    SurveyInfoRespondentAPIView, SurveyInfoSchoolAPIView,
+    SurveyInfoBoundaryAPIView, SurveyDetailSourceAPIView,
+    SurveyDetailKeyAPIView, SurveyInfoClassGenderAPIView,
+    SurveyInfoEBoundaryAPIView, SurveyDetailClassAPIView,
+    SharedAssessmentsView, SurveyVolumeAPIView,
     SurveyClassQuestionKeyAPIView, SurveyQuestionGroupQuestionKeyAPIView,
     SurveyQuestionGroupDetailsAPIView, SurveyInstitutionAnsAggView,
     SurveyTagAggAPIView, AnswerGroupViewSet, AssessmentsImagesView,
@@ -17,7 +17,7 @@ from assessments.api_views import (
     AnswerViewSet, SurveyBoundaryNeighbourDetailAPIView,
     SurveyDetailEBoundaryAPIView, SurveyUsersCountAPIView,
     SurveyBoundaryAPIView, SurveyInstitutionAPIView,
-    BoundaryQuestionGroupMapping
+    BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -31,7 +31,8 @@ simple_router = routers.DefaultRouter()
 simple_router.register(
     r'surveys/questions',
     QuestionViewSet,
-    base_name='survey-questions')
+    base_name='survey-questions'
+)
 
 # surveys -> questiongroup -> questions
 # maps to earlier programs -> # assessments -> questions
@@ -40,7 +41,7 @@ questiongroup_router = \
         r'surveys',
         SurveysViewSet,
         base_name='surveys').register(
-            r'questiongroups',
+            r'questiongroup',
             QuestionGroupViewSet,
             base_name='survey-questiongroups',
             parents_query_lookups=['survey_id']
@@ -69,6 +70,9 @@ urlpatterns = [
     url(r'sys/(?P<schoolid>[0-9]+)/$',
         ShareYourStoryAPIView.as_view({'post': 'create'}),
         name='sys_post'),
+    url(r'survey/(?P<survey_id>[0-9]+)/boundary-associations/',
+        SurveyAssociateBoundaryAPIView.as_view(),
+        name='survey-associate-boundaries'),
     url(r'institutionsurveys/$',
         SurveyInstitutionAnsAggView.as_view(),
         name='stories'),
@@ -87,9 +91,6 @@ urlpatterns = [
     url(r'survey/info/boundary/$',
         SurveyInfoBoundaryAPIView.as_view(),
         name='survey-info-boundary'),
-    url(r'survey/info/boundary/source/$',
-        SurveyInfoBoundarySourceAPIView.as_view(),
-        name='survey-info-boundary-source'),
     url(r'survey/info/respondent/$',
         SurveyInfoRespondentAPIView.as_view(),
         name='survey-info-respondent'),

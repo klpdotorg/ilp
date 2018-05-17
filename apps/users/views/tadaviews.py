@@ -14,7 +14,7 @@ import json
 from users.utils import login_user
 
 
-class UsersViewSet(ILPViewSet):
+class UsersViewSet(viewsets.ModelViewSet):
     """
     This endpoint registers a new TADA user
     """
@@ -25,6 +25,7 @@ class UsersViewSet(ILPViewSet):
     queryset = User.objects.all()
 
     def get_queryset(self):
+        print("Inside tada users view")
         return self.queryset.filter(is_active='True')
 
     def create(self, request):

@@ -21,6 +21,8 @@ from common.state_codes import STATES
 
 
 class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
+    ''' Returns all top level district boundaries for pre-schools
+    and schools '''
     serializer_class = BoundarySerializer
     filter_backends = [BoundarySurveyFilter, ]
 
@@ -48,34 +50,8 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
         return queryset
 
 
-class TestAdmin1sBoundary(ILPListAPIView, ILPStateMixin):
-    serializer_class = BoundarySerializer
-
-    def get_queryset(self):
-        state = self.get_state()
-        queryset = Boundary.objects.filter(parent=state.id)
-        school_type = self.request.query_params.get('school_type', None)
-        boundarytype = BoundaryType.SCHOOL_DISTRICT
-        if school_type is not None:
-            # Hack to accomodate KLP dubdubdub URLs
-            if school_type == "primaryschools":
-                school_type = InstitutionType.PRIMARY_SCHOOL
-            elif school_type == "preschools":
-                school_type = InstitutionType.PRE_SCHOOL
-            # End of hack
-            queryset = queryset.filter(type=school_type)
-            if school_type == InstitutionType.PRE_SCHOOL:
-                boundarytype = BoundaryType.PRESCHOOL_DISTRICT
-            queryset = queryset.filter(boundary_type__exact=boundarytype)
-        else:
-            queryset = queryset.filter(
-                Q(boundary_type=BoundaryType.SCHOOL_DISTRICT) |
-                Q(boundary_type=BoundaryType.PRESCHOOL_DISTRICT)
-            )
-        return queryset
-
-
 class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
+    ''' Returns blocks/projects for schools/preschools respectively '''
     serializer_class = BoundaryWithParentSerializer
     filter_backends = [BoundarySurveyFilter, ILPInBBOXFilter]
     
@@ -105,6 +81,7 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
 
 
 class Admin3sBoundary(ILPListAPIView, ILPStateMixin):
+    ''' Returns clusters/circles for schools and preschools '''
     serializer_class = BoundaryWithParentSerializer
     filter_backends = [BoundarySurveyFilter, ]
 
