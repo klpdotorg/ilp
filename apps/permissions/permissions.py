@@ -33,8 +33,10 @@ class IlpBasePermission(BasePermission):
 
     def has_permission(self, request, view):
         if self.is_user_permitted(request):
+            print("User is permitted: ", self.is_user_permitted(request))
             return True
         else:
+            print("User is not permitted")
             return False
 
 class AppPostPermissions(IlpBasePermission):
