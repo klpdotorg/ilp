@@ -1,13 +1,13 @@
 import datetime, os
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Reports, Tracking
 from .reportlist import reportlist
 # Create your views here.
 
 def view_report(request, report_id, tracking_id='default'):
-    report_model = Reports.objects.get(link_id=report_id)
+    report_model = get_object_or_404(Reports, link_id=report_id)
     report = reportlist[report_model.report_type]()
     report.parse_args([i+'='+j for i,j in report_model.parameters.items()])
     data = report.get_data()
@@ -17,10 +17,10 @@ def view_report(request, report_id, tracking_id='default'):
     tracker.visited_at = datetime.datetime.now()
     tracker.save()
 
-    return render(request, 'reports/{}'.format(report_model.report_type), context=data)
+    return render(request, 'reports/{}.html'.format(report_model.report_type), context=data)
 
 def download_report(request, report_id, tracking_id='default'):
-    report_model = Reports.objects.get(link_id=report_id)
+    report_model = get_object_or_404(Reports, link_id=report_id)
     report = reportlist[report_model.report_type]()
     report.parse_args([i+'='+j for i,j in report_model.parameters.items()])
     filename = report.get_pdf(report_model.report_type+datetime.datetime.now().strftime("%d%m%y"))
