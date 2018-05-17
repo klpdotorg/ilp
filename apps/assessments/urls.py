@@ -17,7 +17,7 @@ from assessments.api_views import (
     AnswerViewSet, SurveyBoundaryNeighbourDetailAPIView,
     SurveyDetailEBoundaryAPIView, SurveyUsersCountAPIView,
     SurveyBoundaryAPIView, SurveyInstitutionAPIView,
-    BoundaryQuestionGroupMapping
+    BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -31,7 +31,8 @@ simple_router = routers.DefaultRouter()
 simple_router.register(
     r'surveys/questions',
     QuestionViewSet,
-    base_name='survey-questions')
+    base_name='survey-questions'
+)
 
 # surveys -> questiongroup -> questions
 # maps to earlier programs -> # assessments -> questions
@@ -69,6 +70,9 @@ urlpatterns = [
     url(r'sys/(?P<schoolid>[0-9]+)/$',
         ShareYourStoryAPIView.as_view({'post': 'create'}),
         name='sys_post'),
+    url(r'survey/(?P<survey_id>[0-9]+)/boundary-associations/',
+        SurveyAssociateBoundaryAPIView.as_view(),
+        name='survey-associate-boundaries'),
     url(r'institutionsurveys/$',
         SurveyInstitutionAnsAggView.as_view(),
         name='stories'),
