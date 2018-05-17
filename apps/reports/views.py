@@ -9,7 +9,7 @@ from .reportlist import reportlist
 def view_report(request, report_id, tracking_id='default'):
     report_model = get_object_or_404(Reports, link_id=report_id)
     report = reportlist[report_model.report_type]()
-    report.parse_args(['--{}=+{}'.format(i,j) for i,j in report_model.parameters.items()])
+    report.parse_args(['--{}={}'.format(i,j) for i,j in report_model.parameters.items()])
     data = report.get_data()
 
     tracker = Tracking.objects.get(track_id=tracking_id)
@@ -22,7 +22,7 @@ def view_report(request, report_id, tracking_id='default'):
 def download_report(request, report_id, tracking_id='default'):
     report_model = get_object_or_404(Reports, link_id=report_id)
     report = reportlist[report_model.report_type]()
-    report.parse_args(['--{}=+{}'.format(i,j) for i,j in report_model.parameters.items()])
+    report.parse_args(['--{}={}'.format(i,j) for i,j in report_model.parameters.items()])
     filename = report.get_pdf(report_model.report_type+datetime.datetime.now().strftime("%d%m%y"))
 
     tracker = Tracking.objects.get(track_id=tracking_id)
