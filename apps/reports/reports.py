@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from jinja2 import Environment, FileSystemLoader
 from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
 import pdfkit
 import os.path
 import datetime
@@ -29,10 +30,8 @@ class BaseReport(ABC):
             raise ValueError('Invalid report format')
 
     def get_html(self, output_name):
-        env = Environment(loader=FileSystemLoader('apps/reports/templates/reports'))
-        template = env.get_template(self._template_path)
         data = self.get_data();
-        html = template.render(data=data)
+        html = render_to_string('reports/{}.html'.format(self._type), {'data':data})
 
         with open('apps/reports/output/{}.html'.format(output_name), 'w') as out_file:
             out_file.write(html)
