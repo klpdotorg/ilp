@@ -1,4 +1,4 @@
-id,question_text,display_text,key,options,is_featured,question type,statusmax score,pass score,name in colloquial language,options in language
+id,question_text,display_text,key,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
 607,Which class did you visit ?,Select the class you visited,ivrss-class-visited,"{1,2,3}",True,2,AC,,,,
 608,Was english class happening during your visit ?,Did you observe english class happening during the visit ?,ivrss-english-class-happening,"{Yes,No}",True,1,AC,,,,
 609,What was the teacher doing during the visit ?,Did you see the teacher doing following activities during of your visit?,Academic,"{Conversation,Rhymes,Grammer,Phonics,Reading,Writing,Assessment}",True,2,AC,,,,
