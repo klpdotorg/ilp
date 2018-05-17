@@ -29,7 +29,7 @@ class BaseReport(ABC):
             raise ValueError('Invalid report format')
 
     def get_html(self, output_name):
-        env = Environment(loader=FileSystemLoader('apps/reports/report_templates'))
+        env = Environment(loader=FileSystemLoader('apps/reports/templates/reports'))
         template = env.get_template(self._template_path)
         data = self.get_data();
         html = template.render(data=data)
@@ -79,7 +79,7 @@ class GPMathContestReport(BaseReport):
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--gp_name', required=True)
         self.parser.add_argument('--academic_year', required=True)
-        self._template_path = 'math_contest_report.html'
+        self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
         self.sms_template = 'Hi {}, For the academic year of {} the Gram panchayat math contest report for the {}, is available in the link below. {}'
 
