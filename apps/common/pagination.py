@@ -23,9 +23,11 @@ class ILPDefaultPagination(PageNumberPagination):
         per_page = int(self.request.query_params.get(
             "per_page",
             settings.LARGESETPAGINATION))
+        print("Pagination per_page is: ", per_page)
         # length = None
-        # if isinstance(data, list):
-        #     length = len(data)
+        if isinstance(data, list):
+            length = len(data)
+            print("Size of data is: ", length)
         # If per_page is a number greater than zero, then
         # pagination is desired.
         if per_page > 0:
@@ -47,7 +49,8 @@ class ILPDefaultPagination(PageNumberPagination):
             "per_page",
             settings.LARGESETPAGINATION))
         if per_page > 0:
-            return max(per_page, int(settings.LARGESETPAGINATION))
+            # return max(per_page, int(settings.LARGESETPAGINATION))
+            return per_page
         elif per_page == 0:
             return None
         else:

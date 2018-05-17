@@ -8,15 +8,17 @@ from common.views import (ILPViewSet, ILPListAPIView, ILPDetailAPIView)
 from common.models import Status, InstitutionType
 from common.mixins import ILPStateMixin
 
+from permissions.permissions import InstitutionCreateUpdatePermission
 from schools.serializers import (
     InstitutionSerializer, InstitutionCreateSerializer,
     InstitutionCategorySerializer, InstitutionManagementSerializer,
     SchoolDemographicsSerializer, SchoolInfraSerializer,
     SchoolFinanceSerializer, InstitutionSummarySerializer,
-    PreschoolInfraSerializer, LeanInstitutionSummarySerializer
+    PreschoolInfraSerializer, LeanInstitutionSummarySerializer,
+    InstitutionLanguageSerializer
 )
 from schools.models import (
-    Institution, InstitutionCategory, Management
+    Institution, InstitutionCategory, Management, InstitutionLanguage
 )
 from schools.filters import InstitutionSurveyFilter
 
@@ -71,7 +73,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     bbox_filter_field = "coord"
     filter_backends = [InstitutionSurveyFilter, ]
     # pagination_class = LargeResultsSetPagination
-    # renderer_classes = (ILPJSONRenderer, )
+    permission_classes = (InstitutionCreateUpdatePermission, )
     # filter_class = SchoolFilter
 
     def get_queryset(self):
@@ -110,9 +112,18 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         # todo self._assign_permissions(serializer.instance)
         headers = self.get_success_headers(serializer.data)
         return Response(
-            InstitutionCreateSerializer(institution).data,
+            InstitutionSerializer(institution).data,
             status=status.HTTP_201_CREATED, headers=headers
         )
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = InstitutionCreateSerializer(
+            instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.update(instance, serializer.validated_data)
+        instance.refresh_from_db()
+        return Response(InstitutionSerializer(instance).data)
 
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
@@ -137,6 +148,16 @@ class InstitutionManagementListView(generics.ListAPIView):
         return Management.objects.all()
 
 
+class InstitutionLanguageListView(generics.ListAPIView):
+    serializer_class = InstitutionLanguageSerializer
+    queryset = InstitutionLanguage.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        institution_id = kwargs['pk']
+        queryset = self.get_queryset().filter(institution_id=institution_id)
+        return Response(self.serializer_class(queryset, many=True).data)
+
+
 class InstitutionDemographics(ILPDetailAPIView):
     serializer_class = SchoolDemographicsSerializer
     lookup_field = 'id'
@@ -152,7 +173,7 @@ class InstitutionInfra(ILPDetailAPIView):
     lookup_url_kwarg = 'pk'
 
     def get_serializer_class(self):
-        school_id =  self.kwargs.get('pk') if hasattr(self, 'kwargs') else None
+        school_id = self.kwargs.get('pk') if hasattr(self, 'kwargs') else None
         if school_id:
             institution = Institution.objects.get(pk=school_id)
             if institution.institution_type.char_id == "pre":
