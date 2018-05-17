@@ -17,7 +17,7 @@ def view_report(request, report_id, tracking_id='default'):
     tracker.visited_at = datetime.datetime.now()
     tracker.save()
 
-    return render(request, 'reports/{}'.format(report_model.report_type), context=data)
+    return render(request, 'reports/{}.html'.format(report_model.report_type), context=data)
 
 def download_report(request, report_id, tracking_id='default'):
     report_model = Reports.objects.get(link_id=report_id)
