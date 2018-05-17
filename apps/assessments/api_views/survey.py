@@ -179,12 +179,14 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
         if surveyid and schoolid:
             queryset = SurveyInstitutionQuestionGroupAnsAgg.objects.\
                 filter(survey_id=surveyid).filter(institution_id=schoolid)
-            num_stories = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(questiongroup_id__in=(1,6)).count()
-            comments = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(questiongroup_id__in=(1,6)).values('comments', 'group_value')
-            
+            num_stories = AnswerGroup_Institution.objects.filter(
+                institution_id=schoolid).filter(questiongroup_id__in=(1, 6)).count()
+            comments = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(
+                questiongroup_id__in=(1, 6)).values('comments', 'group_value')
+
             question_answers = queryset.distinct('answer_option')
             distinct_questions = queryset.distinct('question_desc')
-            
+
             for question in distinct_questions:
                 answers = question_answers.values(
                     'answer_option')
@@ -192,10 +194,12 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
                 for answer in answers:
                     # There may be multiple rows with "Yes" for the same question. We need to calculate sum of all answers with "Yes".
                     # Get all rows from the queryset which have "Yes" and do a SUM (num_answers) on this distinct answer_option
-                    filter_queryset = queryset.filter(answer_option=answer['answer_option'])
-                    sum = queryset.filter(question_desc=question.question_desc).filter(answer_option=answer['answer_option']).aggregate(total_answers=Sum('num_answers'))
+                    filter_queryset = queryset.filter(
+                        answer_option=answer['answer_option'])
+                    sum = queryset.filter(question_desc=question.question_desc).filter(
+                        answer_option=answer['answer_option']).aggregate(total_answers=Sum('num_answers'))
                     if sum['total_answers'] is None:
-                        sum['total_answers']=0
+                        sum['total_answers'] = 0
                     answer_list[answer['answer_option']] =\
                         sum['total_answers']
                 answer = {
@@ -269,7 +273,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             qs_agg = queryset.aggregate(
                 Sum('num_schools'), Sum('num_children'), Sum('num_assessments')
             )
-            
+
             institution_qs = self.institution_qs()
             institution_qs = institution_qs.filter(
                 Q(institution_id__admin0_id=boundary_id) |
@@ -296,7 +300,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             summary_res["total_schools"] = inst_count
 
             ans_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
-                    boundary_id=boundary_id)
+                boundary_id=boundary_id)
             ans_queryset = self.filter_queryset(ans_queryset)
             if questiongroup_ids:
                 ans_queryset = ans_queryset.filter(
@@ -336,7 +340,7 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                             {
                                 "text": row["question_desc"],
                                 row["answer_option"]: row["num_answers"]
-                            }
+                        }
                         question_dict[row["question_desc"]]['id'] = \
                             row['question_id']
 
@@ -806,14 +810,14 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
                             "score": qgroup_qs.values('question_key').filter(
                                 question_key=key).aggregate(
                                     Sum('num_assessments')
-                                )['num_assessments__sum'],
+                            )['num_assessments__sum'],
                             "totol": self.ans_queryset.filter(
                                     boundary_id=n_id, survey_id=survey_id,
                                     questiongroup_id=qgroup_id,
                                     question_key=key
-                                ).aggregate(
+                            ).aggregate(
                                     Sum('num_assessments')
-                                )['num_assessments__sum']
+                            )['num_assessments__sum']
                         }
                     qgroup_res[qgroup_id] = {
                         'name': qgroup_name, 'question_keys': qkey_res
@@ -847,7 +851,7 @@ class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
 
         queryset = AnswerGroup_Institution.objects.\
             filter(questiongroup_id__in=questiongroup_ids)
-        
+
         queryset = queryset.filter(
             Q(institution_id__admin0_id=boundary_id) |
             Q(institution_id__admin1_id=boundary_id) |

@@ -16,23 +16,27 @@ class IlpBasePermission(BasePermission):
         GROUPS_ALLOWED = [u'tada_admin']
         #groups = Group.objects.filter(name__in=GROUPS_ALLOWED)
         logger.info("Inside IlpBasePermission")
+        print("Inside IlpbasePermission")
         #if request.method in permissions.SAFE_METHODS:
         if request.method in ('GET', 'HEAD','OPTIONS'):
             logger.info("User has permission to do GET")
             return True
         elif request.user.is_superuser:
             logger.info("User is a super user")
+            print("User is a superuser:", request.user.is_superuser)
             return True
         # elif request.user.groups.filter(id__in=groups).exists():
         #     return True
         else:
-            logger.info("User is not authenticated,is not a super user and is attempting to do a POST or PUT or DELETE or PATCH")
+            print("User is not authenticated,is not a super user and is attempting to do a POST or PUT or DELETE or PATCH")
             return False
 
     def has_permission(self, request, view):
         if self.is_user_permitted(request):
+            print("User is permitted: ", self.is_user_permitted(request))
             return True
         else:
+            print("User is not permitted")
             return False
 
 class AppPostPermissions(IlpBasePermission):
