@@ -15,4 +15,10 @@ class Tracking(models.Model):
     download_count = models.IntegerField(default=0)
     visited_at = models.DateField(null=True)
     downloaded_at = models.DateField(null=True)
+
+class Sending_Information(models.Model):
+    frequency = models.CharField(max_length=50) 
+    contacts = models.CharField(max_length=50)
+    parameters = JSONField()
+    report_type = models.CharField(max_length=50) 
     
