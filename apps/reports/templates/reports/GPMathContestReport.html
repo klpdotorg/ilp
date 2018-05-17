@@ -118,7 +118,7 @@
 	{% for item in data.schools%}
 	{% for g in item.grades%}
 	<tr>
-	  <td>{% if loop.index ==1 %}{{ item.school }}{% endif %}</td>
+	  <td>{% if forloop.counter == 1 %} {{ item.school }} {% endif %}</td>
 	  <td>{{g.name}}</td>
 	  {% for c in data.cs%}
 	  <td>
