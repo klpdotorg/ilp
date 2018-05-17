@@ -7,7 +7,7 @@ from users.serializers import (
     UserLoginSerializer,
     TadaUserSerializer
 )
-from users.permission import IsAdminOrIsSelf
+from users.permission import IsAdminOrIsSelf, IsAdminUser
 from common.views import ILPViewSet
 from django.contrib.auth.models import Group
 import json
@@ -19,7 +19,7 @@ class UsersViewSet(ILPViewSet):
     This endpoint registers a new TADA user
     """
     permission_classes =(
-        permissions.IsAdminUser,
+        IsAdminUser,
     )
     serializer_class = TadaUserSerializer
     queryset = User.objects.all()

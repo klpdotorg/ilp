@@ -9,3 +9,13 @@ class IsAdminOrIsSelf(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return request.user == obj or request.user.is_superuser
+
+
+class IsAdminUser(permissions.IsAuthenticated):
+
+    def has_permission(self, request, view):
+        if request.method == 'OPTIONS':
+            return True
+        return super(
+            permissions.IsAdminUser, self
+        ).has_permission(request, view)
