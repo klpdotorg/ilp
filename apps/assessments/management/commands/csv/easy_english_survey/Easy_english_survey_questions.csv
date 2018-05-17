@@ -1,7 +1,7 @@
-id,question_text,display_text,key,options,is_featured,question type,status
-607,Which class did you visit ?,Select the class you visited,ivrss-class-visited,"{1,2,3}",True,2,AC
-608,Was english class happening during your visit ?,Did you observe english class happening during the visit ?,ivrss-english-class-happening,"{Yes,No}",True,1,AC
-609,What was the teacher doing during the visit ?,Did you see the teacher doing following activities during of your visit?,Academic,"{Conversation,Rhymes,Grammer,Phonics,Reading,Writing,Assessment}",True,2,AC
-610,Was the teacher using the following items ?,Did you observe the teacher using the following items in the classroom ?,Academic,"{Tab,Flash cards,Teacher-made TLM}",True,2,AC
-611,What were the children doing during your visit ?,Did you observe the chidren doing following activities during your visit ?,Academic,"{Reading,Writing,Speaking in english,Singing rhymes with action}",True,2,AC
-612,Which lesson was being taught in the class ?,Which lesson was being taught in the class during your visit ?,Academic,"{Lesson 1,Lesson 2,Lesson 3,Lesson 4,Lesson 5,Lesson 6,Lesson 7}",True,2,AC
+id,question_text,display_text,key,options,is_featured,question type,statusmax score,pass score,name in colloquial language,options in language
+607,Which class did you visit ?,Select the class you visited,ivrss-class-visited,"{1,2,3}",True,2,AC,,,,
+608,Was english class happening during your visit ?,Did you observe english class happening during the visit ?,ivrss-english-class-happening,"{Yes,No}",True,1,AC,,,,
+609,What was the teacher doing during the visit ?,Did you see the teacher doing following activities during of your visit?,Academic,"{Conversation,Rhymes,Grammer,Phonics,Reading,Writing,Assessment}",True,2,AC,,,,
+610,Was the teacher using the following items ?,Did you observe the teacher using the following items in the classroom ?,Academic,"{Tab,Flash cards,Teacher-made TLM}",True,2,AC,,,,
+611,What were the children doing during your visit ?,Did you observe the chidren doing following activities during your visit ?,Academic,"{Reading,Writing,Speaking in english,Singing rhymes with action}",True,2,AC,,,,
+612,Which lesson was being taught in the class ?,Which lesson was being taught in the class during your visit ?,Academic,"{Lesson 1,Lesson 2,Lesson 3,Lesson 4,Lesson 5,Lesson 6,Lesson 7}",True,2,AC,,,,
