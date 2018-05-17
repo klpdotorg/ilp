@@ -9,7 +9,7 @@ from common.utils import send_sms
 def send_link():
     print('start')
     frequency_str = '1,16,17'
-    r_type = 'gp_contest_report'
+    r_type = 'GPMathContestReport'
     params = {'gp_name': 'agalakera', 'academic_year': '2017-2018'}
 
     frequency = frequency_str.split(',')
