@@ -118,13 +118,13 @@
 	{% for item in data.schools%}
 	{% for g in item.grades%}
 	<tr>
-	  <td>{% if loop.index ==1 %}{{ item.school }}{% endif %}</td>
+	  <td>{% if loop.index == 1 %}{{ item.school }}{% endif %}</td>
 	  <td>{{g.name}}</td>
 	  {% for c in data.cs%}
 	  <td>
 	  {% for value in g.values%}
 	  {% if c == value.contest %}
-	  {% if value.count>70.0 %}
+	  {% if value.count > 70.0 %}
 	  <span class="g-dot"></span>
 	  {% else %}
 	  <span class="r-dot"></span>
