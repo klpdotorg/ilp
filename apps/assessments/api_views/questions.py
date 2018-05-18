@@ -248,14 +248,15 @@ class QuestionGroupViewSet(
                 sg_id = sgroup_inst.studentgroup.id
                 res[sg_name] = {
                     "id": sg_id,
-                    "name": sg_name,
-                    "assessment-type": "studentgroup"
+                    "name": sg_name
                 }
                 for studgroup_qgroup in sg_qset.filter(
                         questiongroup__survey_id=survey_id):
                     qgroup = studgroup_qgroup.questiongroup
-                    res[sg_name][qgroup.id] = {
-                        "id": qgroup.id, "name": qgroup.name
+                    res[sg_name]["assessment"] = {
+                        "id": qgroup.id,
+                        "name": qgroup.name,
+                        "assessment-type": "studentgroup"
                     }
                     response.append(res)
         return Response(response)
