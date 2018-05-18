@@ -242,23 +242,23 @@ class QuestionGroupViewSet(
             sg_qset = QuestionGroup_StudentGroup_Association.\
                 objects.filter(
                     studentgroup__institution_id__in=institution_ids,
-                )
+                ).distinct('studentgroup__institution')
             for sgroup_inst in sg_qset:
                 sg_name = sgroup_inst.studentgroup.name
                 sg_id = sgroup_inst.studentgroup.id
-                res[sg_name] = {
+                res = {
                     "id": sg_id,
                     "name": sg_name
                 }
                 for studgroup_qgroup in sg_qset.filter(
                         questiongroup__survey_id=survey_id):
                     qgroup = studgroup_qgroup.questiongroup
-                    res[sg_name]["assessment"] = {
+                    res["assessment"] = {
                         "id": qgroup.id,
                         "name": qgroup.name,
                         "assessment-type": "studentgroup"
                     }
-                    response.append(res)
+                response.append(res)
         return Response(response)
 
 
