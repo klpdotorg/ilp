@@ -20,10 +20,8 @@ class StudentSerializer(serializers.ModelSerializer):
         extra_kwargs = {'academic_year': {'write_only': True}}
 
     def create(self, validated_data):
-        #temporarily commented the following command and hardcoded the student group
-        #studentgroup_id = self.context['view'].kwargs[
-           # 'parent_lookup_studentgroups']
-        studentgroup_id = 3542504
+        studentgroup_id = self.context['view'].kwargs[
+            'parent_lookup_studentgroups']
         status = validated_data.get('status', Status.ACTIVE)
         try:
             student_group = StudentGroup.objects.get(id=studentgroup_id)
