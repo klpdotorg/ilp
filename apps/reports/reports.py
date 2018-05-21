@@ -1,4 +1,4 @@
-import argparse, hashlib, random, StringIO
+import argparse, hashlib, random
 from abc import ABC, abstractmethod
 from jinja2 import Environment, FileSystemLoader
 from django.urls import reverse
