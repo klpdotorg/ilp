@@ -17,7 +17,8 @@ from assessments.api_views import (
     AnswerViewSet, SurveyBoundaryNeighbourDetailAPIView,
     SurveyDetailEBoundaryAPIView, SurveyUsersCountAPIView,
     SurveyBoundaryAPIView, SurveyInstitutionAPIView,
-    BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView
+    BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView,
+    SurveyAssociateInstitutionAPIView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -73,6 +74,9 @@ urlpatterns = [
     url(r'survey/(?P<survey_id>[0-9]+)/boundary-associations/',
         SurveyAssociateBoundaryAPIView.as_view(),
         name='survey-associate-boundaries'),
+    url(r'survey/(?P<survey_id>[0-9]+)/institution-associations/',
+        SurveyAssociateInstitutionAPIView.as_view(),
+        name='survey-associate-institutions'),
     url(r'institutionsurveys/$',
         SurveyInstitutionAnsAggView.as_view(),
         name='stories'),
