@@ -21,7 +21,14 @@ from schools.models import (
     Institution, InstitutionCategory, Management, InstitutionLanguage
 )
 from schools.filters import InstitutionSurveyFilter
+from guardian.shortcuts import (
+    assign_perm,
+    get_users_with_perms,
+    get_objects_for_user,
+)
+import logging
 
+logger = logging.getLogger(__name__)
 
 class ProgrammeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     pass
@@ -66,7 +73,7 @@ class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
 
 class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     """
-    GET: Lists basic details of institutions
+    Viewset to handle institutions CRUD operations
     """
     queryset = Institution.objects.exclude(status=Status.DELETED)
     serializer_class = InstitutionSerializer
@@ -106,15 +113,25 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
         return qset
 
     def create(self, request, *args, **kwargs):
+        logger.debug("Inside Institution Create")
         serializer = InstitutionCreateSerializer(data=request.data)
+        logger.debug("Checkign validity of serializer data", request.data)
         serializer.is_valid(raise_exception=True)
         institution = serializer.save()
-        # todo self._assign_permissions(serializer.instance)
+        # self._assign_permissions(serializer.instance)
         headers = self.get_success_headers(serializer.data)
+        logger.debug("Returning response")
         return Response(
             InstitutionSerializer(institution).data,
             status=status.HTTP_201_CREATED, headers=headers
         )
+    
+    def _assign_permissions(self, institution):
+        users_to_be_permitted = get_users_with_perms(institution.admin3)
+        for user_to_be_permitted in users_to_be_permitted:
+            assign_perm('change_institution', user_to_be_permitted, institution)
+            assign_perm('crud_student_class_staff', user_to_be_permitted, institution)
+
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()

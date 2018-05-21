@@ -67,16 +67,19 @@ class HasAssignPermPermission(BasePermission):
 # # Only applicable to TADA users
 class InstitutionCreateUpdatePermission(IlpBasePermission):
     def has_object_permission(self, request, view, obj):
+        logger.debug("Entering has_object_permission")
         if self.is_user_permitted(request):
+            logger.debug("User %s is permitted to complete request", request.user)
             return True
         else:
             return request.user.has_perm('change_institution', obj)
 
     def has_permission(self, request, view):
-        print("Inside InstitutionCreateUpdatePermission has_permission")
+        logger.debug("Inside InstitutionCreateUpdatePermission has_permission")
         if self.is_user_permitted(request):
             return True
         elif request.method == 'POST':
+            logger.debug("Attempting POST to institution endpoint")
             boundary_id = request.data.get('admin3', None)
             if boundary_id is not None:
                 boundary_id = int(boundary_id.strip())
