@@ -114,8 +114,11 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
 
     def create(self, request, *args, **kwargs):
         logger.debug("Inside Institution Create")
+        logger.debug("Institution request data is: ", request.data)
+        logger.debug("Args is: ", *args)
+        lgoger.debug("Kwargs is: ", **kwargs)
         serializer = InstitutionCreateSerializer(data=request.data)
-        logger.debug("Checkign validity of serializer data", request.data)
+        logger.debug("Checking validity of serializer data", request.data)
         serializer.is_valid(raise_exception=True)
         institution = serializer.save()
         # self._assign_permissions(serializer.instance)

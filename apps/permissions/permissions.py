@@ -14,19 +14,13 @@ logger = logging.getLogger(__name__)
 class IlpBasePermission(BasePermission):
     def is_user_permitted(self, request):
         GROUPS_ALLOWED = [u'tada_admin']
-        #groups = Group.objects.filter(name__in=GROUPS_ALLOWED)
         logger.info("Inside IlpBasePermission")
-        print("Inside IlpbasePermission")
-        #if request.method in permissions.SAFE_METHODS:
         if request.method in ('GET', 'HEAD','OPTIONS'):
             logger.info("User has permission to do GET")
             return True
         elif request.user.is_superuser:
             logger.info("User is a super user")
-            print("User is a superuser:", request.user.is_superuser)
             return True
-        # elif request.user.groups.filter(id__in=groups).exists():
-        #     return True
         else:
             print("User is not authenticated,is not a super user and is attempting to do a POST or PUT or DELETE or PATCH")
             return False
@@ -76,7 +70,11 @@ class InstitutionCreateUpdatePermission(IlpBasePermission):
 
     def has_permission(self, request, view):
         logger.debug("Inside InstitutionCreateUpdatePermission has_permission")
-        if self.is_user_permitted(request):
+        if request.method == 'OPTIONS':
+            logger.debug("Request is OPTIONS. Permit this")
+            return True
+        elif self.is_user_permitted(request):
+            logger.debug("Checking if is_user_permitted", self.is_user_permitted(request))
             return True
         elif request.method == 'POST':
             logger.debug("Attempting POST to institution endpoint")
