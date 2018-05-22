@@ -145,6 +145,25 @@ class SurveyAssociateBoundaryAPIView(ListAPIView, ILPStateMixin):
         return self.queryset.filter(id__in=boundary_ids)
 
 
+class SurveyAssociateInstitutionAPIView(ListAPIView, ILPStateMixin):
+    queryset = Institution.objects.exclude(status=Status.DELETED)
+    serializer_class = InstitutionSerializer
+
+    def get_queryset(self):
+        survey_id = self.kwargs['survey_id']
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        boundary_id = self.request.query_params.get('boundary_id', state_id)
+        institution_ids = QuestionGroup_Institution_Association.objects.\
+            filter(questiongroup__survey_id=survey_id).\
+            filter(Q(institution__admin0_id=boundary_id) |
+                   Q(institution__admin1_id=boundary_id) |
+                   Q(institution__admin2_id=boundary_id) |
+                   Q(institution__admin3_id=boundary_id)
+                   ).values_list('institution_id', flat=True)
+        return self.queryset.filter(id__in=institution_ids)
+
+
 class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
     queryset = SurveyTagInstitutionMapping.objects.all()
 

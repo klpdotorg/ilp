@@ -15,8 +15,10 @@ from users.serializers import (
     OtpPasswordResetSerializer
 )
 from users.utils import login_user
-from users.permission import IsAdminOrIsSelf
+from users.permission import IsAdminOrIsSelf, AllowAny
+import logging
 
+logger = logging.getLogger(__name__)
 
 class UserRegisterView(generics.CreateAPIView):
     """
@@ -24,25 +26,32 @@ class UserRegisterView(generics.CreateAPIView):
     """
     serializer_class = UserRegistrationSerializer
     permission_classes = (
-        permissions.AllowAny,
+        AllowAny,
     )
 
     def perform_create(self, serializer):
+        logger.debug("Entering user creation method")
         try:
+            logger.debug("Saving to serializer")
             instance = serializer.save()
         except Exception as e:
+            logger.error("There was an error with registering users: ", e)
             raise e
         else:
+            logger.debug("Generating SMS pin")
             # Generate SMS pin and send OTP
             instance.generate_sms_pin()
+            logger.debug("Sending OTP")
             instance.send_otp()
 
             # Add user to groups
+            logger.debug("Adding user to appropriate groups")
             instance.groups.add(Group.objects.get(name='ilp_auth_user'))
             instance.groups.add(Group.objects.get(name='ilp_konnect_user'))
             if instance.is_superuser:
                 instance.groups.add(Group.objects.get(name='tada_admin'))
             instance.save()
+            logger.debug("User creation is done successfully")
 
 
 class UserLoginView(generics.GenericAPIView):
