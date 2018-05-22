@@ -230,10 +230,10 @@ class QuestionGroupViewSet(
                 res = {
                     "id": qgroup_inst.institution_id,
                     "name": qgroup_inst.institution.name,
+                    "assessment-type": "institution",
                     "assessment": {
                         "id": qgroup_inst.questiongroup_id,
                         "name": qgroup_inst.questiongroup.name,
-                        "assessment-type": "institution"
                     }
                 }
                 response.append(res)
@@ -248,7 +248,8 @@ class QuestionGroupViewSet(
                 sg_id = sgroup_inst.studentgroup.id
                 res = {
                     "id": sg_id,
-                    "name": sg_name
+                    "name": sg_name,
+                    "assessment-type": "studentgroup"
                 }
                 for studgroup_qgroup in sg_qset.filter(
                         questiongroup__survey_id=survey_id):
@@ -256,7 +257,6 @@ class QuestionGroupViewSet(
                     res["assessment"] = {
                         "id": qgroup.id,
                         "name": qgroup.name,
-                        "assessment-type": "studentgroup"
                     }
                 response.append(res)
         return Response(response)
