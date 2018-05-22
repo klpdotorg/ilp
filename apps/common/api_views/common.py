@@ -1,7 +1,10 @@
-from common.models import Language
+from common.models import Language,AcademicYear
 from rest_framework import generics
 from common.serializers import LanguageSerializer
-
+from rest_framework import viewsets
+from django.http import Http404
+from common.serializers import AcademicYearSerializer
+from common.pagination import LargeResultsSetPagination
 
 class LanguagesListView(generics.ListAPIView):
     serializer_class = LanguageSerializer
@@ -51,3 +54,10 @@ class BaseSchoolAggView(object):
         return agg
 
 
+class AcademicYearView(generics.ListAPIView): 
+    serializer_class = AcademicYearSerializer
+    paginator = None
+
+    def get_queryset(self):
+        queryset = AcademicYear.objects.filter(active='AC')
+        return queryset

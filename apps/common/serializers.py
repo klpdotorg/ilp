@@ -5,7 +5,8 @@ from drf_compound_fields.fields import DictField
 from common.models import (
     InstitutionType,
     Language,
-    RespondentType
+    RespondentType,
+    AcademicYear
 )
 from rest_framework_gis.serializers import GeoFeatureModelSerializer, GeometrySerializerMethodField
 
@@ -64,4 +65,11 @@ class RespondentTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RespondentType
+        fields = '__all__'
+
+
+class AcademicYearSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = AcademicYear
         fields = '__all__'
