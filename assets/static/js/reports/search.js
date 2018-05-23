@@ -167,7 +167,7 @@
         clearSelect($select_mp);
         clearSelect($select_mla);
 
-        var mpXHR = klp.api.do('boundary/parliaments/?per_page=0',{});
+        var mpXHR = klp.api.do('boundary/parliaments/?per_page=0&mapped=true',{});
         //var mpXHR = klp.api.do('boundary/admin1s', {'school_type':"primaryschool", 'geometry': 'yes'});
         
         mpXHR.done(function (data) {
@@ -179,7 +179,7 @@
             showReport(selected,"electedrep");
         });
 
-        var mlaXHR = klp.api.do('boundary/assemblies/?per_page=0',{});
+        var mlaXHR = klp.api.do('boundary/assemblies/?per_page=0&mapped=true',{});
         mlaXHR.done(function (data) {
             populateSelect($select_mla, data);
         });
