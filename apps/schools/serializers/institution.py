@@ -282,12 +282,13 @@ class InstitutionCreateSerializer(ILPSerializer):
                 institution=instance, moi=lang)
             inst_lang.delete()
 
-        langs = self.validated_data.pop('institution_languages')
-        for lang in langs:
-            lang = Language.objects.get(char_id=lang)
-            inst_lang, created = InstitutionLanguage.objects.get_or_create(
-                institution=instance, moi=lang)
-            instance.institution_languages.add(inst_lang)
+        langs = self.validated_data.pop('institution_languages', None)
+        if langs is not None:
+            for lang in langs:
+                lang = Language.objects.get(char_id=lang)
+                inst_lang, created = InstitutionLanguage.objects.get_or_create(
+                    institution=instance, moi=lang)
+                instance.institution_languages.add(inst_lang)
         return instance.save()
 
 

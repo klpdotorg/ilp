@@ -114,9 +114,7 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
 
     def create(self, request, *args, **kwargs):
         logger.debug("Inside Institution Create")
-        logger.debug("Institution request data is: ", request.data)
-        logger.debug("Args is: ", *args)
-        lgoger.debug("Kwargs is: ", **kwargs)
+        logger.debug("Institution request data is: %s" % request.data)
         serializer = InstitutionCreateSerializer(data=request.data)
         logger.debug("Checking validity of serializer data", request.data)
         serializer.is_valid(raise_exception=True)
@@ -137,13 +135,17 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
 
 
     def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = InstitutionCreateSerializer(
-            instance, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.update(instance, serializer.validated_data)
-        instance.refresh_from_db()
-        return Response(InstitutionSerializer(instance).data)
+        logger.debug("Entering institution update")
+        try:
+            instance = self.get_object()
+            serializer = InstitutionCreateSerializer(
+                instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.update(instance, serializer.validated_data)
+            instance.refresh_from_db()
+            return Response(InstitutionSerializer(instance).data)
+        except Exception as e:
+            logger.error("Error while updating institution %s (%s)" % (e.message, type(e)))
 
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
