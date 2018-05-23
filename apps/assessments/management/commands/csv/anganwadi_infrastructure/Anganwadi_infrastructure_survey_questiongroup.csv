@@ -1,2 +1,2 @@
-id,name,group_text,start_date,end_date,version,double_entry,academic_year,institutuion type,source,status,type,description,image required,kannada name,comments required,respondenttype_required
-43,Easy English Survey,class,01-06-2018,,1,False,1819,primary,4,AC,monitor,,True,,True,False
+id,name,group_text,start_date,end_date,version,double_entry,academic_year,institutuion type,source,status,survey,type,description,image required,kannada name,comments required,respondenttype_required
+30,Infrastructure Assessment,,01-08-2014,30-12-2015,1,False,1415,pre,6,IA,4,monitor,,,,,,
