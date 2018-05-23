@@ -23,9 +23,15 @@ class BaseReport(ABC):
 
     def generate(self, report_type, output_name):
         if report_type == 'html':
-            self.get_html(output_name)
+            html = self.get_html()
+            with open(output_name, 'w') as f:
+                f.write(html)
+
         elif report_type == 'pdf':
-            self.get_pdf(output_name)
+            pdf = self.get_pdf()
+            with open(output_name, 'w') as f:
+                f.write(pdf)
+
         else:
             raise ValueError('Invalid report format')
 
