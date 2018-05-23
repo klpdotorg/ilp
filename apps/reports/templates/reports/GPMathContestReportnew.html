@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&effect=outline" rel="stylesheet">
+    <style>
+      body {
+      font-family: 'Questrial', sans-serif;
+     
+      }
+      .outer-box{
+      border: 2px solid #989898;
+      padding: 20px;
+      margin: auto;
+      width: auto;
+      }
+      .container{
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+      }
+      .dialog-left{
+      width:50%;
+      display: inline-block;
+      }
+      .dialog-right{
+      width:40%;
+      display: inline-block;
+      float: right;
+      }
+      
+      h1 {
+      text-align: center;
+      font-size: 24px;
+      }
+      
+      p {
+      font-family: verdana;
+      font-size: 20px;
+      }
+      
+      #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      }
+
+      #customers td, #customers th {
+      border: 1px solid #BABABA;
+      padding: 8px;
+      }
+      
+      #customers tr:nth-child(odd){background-color: #F3F3F3;}
+      
+      #customers tr:hover {background-color: #ddd;}
+      
+      #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #D8D8D8;
+      color: #594633;
+      }
+      .r-dot {
+      height: 10px;
+      width: 17px;
+      background-color: #f61717;
+      border-radius: 50%;
+      display: inline-block;
+      border: solid 2px #784f4f;
+      }
+      .g-dot {
+      height: 10px;
+      width: 17px;
+      background-color: #f61717;
+      border-radius: 50%;
+      display: inline-block;
+      border: solid 2px #784f4f;
+      }
+
+    .arrow_box {
+	position: relative;
+	background: #88b7d5;
+      border: 4px solid #c2e1f5;
+      width:200px;
+}
+.arrow_box:after, .arrow_box:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #88b7d5;
+	border-width: 100px;
+      margin-left: -100px;
+      border-top: 25px solid #88b7d5;
+}
+.arrow_box:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-top-color: #c2e1f5;
+      border-width: 105px;
+      margin-left: -105px;
+      border-top: 27px solid #c2e1f5;
+      margin-top: 3px;
+      }
+      .mark {
+      font-family: Open Sans;
+      font-size: 36px;
+      text-align: center;
+}
+    </style>
+  </head>
+  <body>
+    <h1>Gram Panchayat Math Contest Report</h1>
+    <div class="outer-box">
+      <div class="container">
+	<div class="dialog-left">
+	 <strong> Gram Panchayat Name:</strong> {{data.gp_name}}<br>
+	
+	 <strong>Block Name:</strong> {{data.block}}  <strong style="margin-left:30px"> District Name:</strong> {{data.district}}<br>
+	 <strong> No. of schools in GP:</strong> {{data.no_schools_gp}}<br>
+	
+	</div>
+	<div class="dialog-right">
+	Test condected on: {{data.academic_year}}<br>
+	Report Generated on: {{data.today}}<br><br>
+	</div>
+	<br>
+	 <strong>Participation : </strong>xxx count {
+	 <img src="../../../../assets/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 <img src="../../../../assets/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 }
+	 <span style="float:right;"><b>Student with ZERO score:</b> xx count
+	    {
+	 <img src="../../../../assets/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 <img src="../../../../assets/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 }
+	 <b>Student with 100% score:</b> xx count
+	  {
+	 <img src="../../../../assets/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 <img src="../../../../assets/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 }
+	 </span>
+      </div>
+      
+    </div>
+     <table>
+	<tr>
+	  <td>School Name</td>
+	  <td>Grade</td>
+	  {% for c in data.cs%}
+	  <td>
+	    <div class="arrow_box">{{c}}
+	    </div>
+	  </td>
+	  {% endfor %}
+	</tr>
+	{% for item in data.schools%}
+	{% for g in item.grades%}
+	<tr>
+	  <td>{% if forloop.counter == 1 %} {{ item.school }} {% endif %}</td>
+	  <td>{{g.name}}</td>
+	  {% for c in data.cs%}
+	  <td>
+	
+	  <span class="font-effect-outline mark">77%</span>
+	  {% else %}
+	  <span class="r-dot"></span>
+	  {% endif %}
+	  {% endif %}
+	  {% endfor %}
+	  </td>
+	  {% endfor %}
+	</tr>
+	{% endfor %}
+	{% endfor %}
+      </table>
+  </body>
+</html>
