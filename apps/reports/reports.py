@@ -29,18 +29,16 @@ class BaseReport(ABC):
         else:
             raise ValueError('Invalid report format')
 
-    def get_html(self, output_name):
+    def get_html(self):
         data = self.get_data();
         html = render_to_string('reports/{}.html'.format(self._type), {'data':data})
+        return html
 
-        with open('apps/reports/output/{}.html'.format(output_name), 'w') as out_file:
-            out_file.write(html)
-
-    def get_pdf(self,output_name):
-        if not os.path.exists('apps/reports/output/{}.html'.format(output_name)):
-            self.get_html(output_name)
-        pdfkit.from_file('apps/reports/output/{}.html'.format(output_name), 'apps/reports/reports_pdf/{}.pdf'.format(output_name))
-        return 'apps/reports/reports_pdf/{}.pdf'.format(output_name)
+    def get_pdf(self):
+        html = self.get_html()
+        config = pdfkit.configuration()
+        pdf = pdfkit.PDFKit(html, 'string', configuration=config).to_pdf()
+        return pdf
 
     def get_sms(self, track_id, name):
         t = Tracking.objects.get(track_id = track_id)
