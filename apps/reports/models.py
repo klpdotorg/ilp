@@ -6,7 +6,7 @@ class Reports(models.Model):
     report_type = models.CharField(max_length=50)
     link_id = models.CharField(max_length=10,unique=True,null=True)
     parameters = JSONField()
-
+    data = JSONField()
 
 class Tracking(models.Model):
     report_id = models.ForeignKey('Reports', db_column="link_id")

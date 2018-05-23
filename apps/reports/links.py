@@ -24,8 +24,8 @@ def send_link(dry, filepath, gp_name):
             print('Scheduled {} for {} panchayat sending now'.format(r_type,gp_name))
             report_status = False
             r = reportlist[r_type]
-            report = r()
-            report.params = params
+            report = r(**params)
+            report.get_data()
             result = report.save()
             
             with open(filepath, 'rt') as f:
