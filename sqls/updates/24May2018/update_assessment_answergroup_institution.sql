@@ -19,3 +19,4 @@ update assessments_answergroup_institution set institution_id=13296 where questi
 update assessments_answergroup_institution set institution_id=24846 where institution_id=24847 and questiongroup_id in (21,22,23);
 
 update schools_institution set gp_id=5586 where id in (24846,24847);
+
