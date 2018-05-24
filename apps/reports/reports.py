@@ -109,7 +109,7 @@ class GPMathContestReport(BaseReport):
         ay2 = ay.split('-')
         dates = [ay2[0]+'-06-01', ay2[1]+'-03-31'] # [2016-06-01, 2017-03-31]
 
-        report_generated_on = datetime.datetime.now().date()
+        report_generated_on = datetime.datetime.now().date().isoformat()
 
         try:
             gp_obj = Boundary.objects.get(name=gp) # Take the GP from db
