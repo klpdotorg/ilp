@@ -54,7 +54,7 @@ class BaseReport(ABC):
         url = reverse('view_report',kwargs={'report_id':t.report_id.link_id,'tracking_id':track_id})
         request = None
         full_url = ''.join(['http://', get_current_site(request).domain, url])
-        return self.sms_template.format(name,t.report_id.parameters['academic_year'],t.report_id.parameters['gp_name'],full_url)
+        return self.sms_template.format(name, t.report_id.parameters['gp_name'],full_url)
 
     def save(self):
         r= Reports(report_type=self._type,parameters=self.params, data=self.data)
@@ -91,7 +91,7 @@ class GPMathContestReport(BaseReport):
         self.parser.add_argument('--academic_year', required=True)
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
-        self.sms_template = 'Hi {}, For the academic year of {} the Gram panchayat math contest report for the {}, is available in the link below. {}'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for the {}. Please click the link {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
