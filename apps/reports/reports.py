@@ -207,6 +207,18 @@ class GPMathContestReport(BaseReport):
                         if not gradeExist:
                             o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
 
+        #Combine data to get the 'Other Areas' contest
+        for i in out:
+            for grade in i['grades']:
+                count = 0
+                num = 0
+                for value in grade['values']:
+                    if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
+                        count += value['count']
+                        num += 1
+                grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
+                grade['values'].append(dict(contest='Other Areas', count=count/num))
+
         self.data =  {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
         return self.data
 
