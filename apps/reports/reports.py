@@ -217,7 +217,7 @@ class GPMathContestReport(BaseReport):
                         count += value['count']
                         num += 1
                 grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-                grade['values'].append(dict(contest='Other Areas', count=count/num))
+                grade['values'].append(dict(contest='Other Areas', round(count=count/num, 2)))
 
         self.data =  {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
         return self.data
