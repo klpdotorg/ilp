@@ -1,17 +1,20 @@
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&effect=outline" rel="stylesheet">
     <style>
       body {
+      font-family: 'Questrial', sans-serif;
      
       }
       .outer-box{
-      border: 5px solid #989898;
+      border: 2px solid #989898;
       padding: 20px;
       margin: auto;
-      width: 150%;
+      width: auto;
       }
       .container{
-      width: 600px;
+      width: auto;
       margin-left: auto;
       margin-right: auto;
       }
@@ -27,7 +30,7 @@
       
       h1 {
       text-align: center;
-      font-size: 36px;
+      font-size: 24px;
       }
       
       p {
@@ -73,46 +76,89 @@
       display: inline-block;
       border: solid 2px #784f4f;
       }
+
+    .arrow_box {
+	position: relative;
+	background: #88b7d5;
+      border: 4px solid #c2e1f5;
+      width:200px;
+}
+.arrow_box:after, .arrow_box:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #88b7d5;
+	border-width: 100px;
+      margin-left: -100px;
+      border-top: 25px solid #88b7d5;
+}
+.arrow_box:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-top-color: #c2e1f5;
+      border-width: 105px;
+      margin-left: -105px;
+      border-top: 27px solid #c2e1f5;
+      margin-top: 3px;
+      }
+      .mark {
+      font-family: Open Sans;
+      font-size: 36px;
+      text-align: center;
+}
     </style>
   </head>
   <body>
+    <h1>Gram Panchayat Math Contest Report</h1>
     <div class="outer-box">
       <div class="container">
-	<h1>Gram Panchayat Math Contest Report</h1>
 	<div class="dialog-left">
 	 <strong> Gram Panchayat Name:</strong> {{data.gp_name}}<br>
-	 <strong> District Name:</strong> {{data.district}}<br>
-	 <strong>Block Name:</strong> {{data.block}} <br>
+	
+	 <strong>Block Name:</strong> {{data.block}}  <strong style="margin-left:30px"> District Name:</strong> {{data.district}}<br>
 	 <strong> No. of schools in GP:</strong> {{data.no_schools_gp}}<br>
-	 <strong><u>Participation</u></strong><br>
-	 <strong> No. of Students participated:</strong> {{ data.no_students}}
-	  <ul>
-	    <li>Boys: {{ data.boys }}</li>
-	    <li>Girls: {{ data.girls }}</li>
-	  </ul>
+	
 	</div>
 	<div class="dialog-right">
-	<strong>Test condected on:</strong> {{data.academic_year}}<br>
-	<strong>Report Generated on:</strong> {{data.today}}<br><br>
-	<u>Performance:</u><br>
-	Children with 100% score:{{ data.score_100 }}<br>
-	Children with zero score: {{ data.score_zero }}<br>
+	Test condected on: {{data.academic_year}}<br>
+	Report Generated on: {{data.today}}<br><br>
+	</div>
 	<br>
-	<u>Performance by Gender</u> <br>
-	Boys with 100% score:{{ data.boys_100 }}<br>
-	Boys with zero score: {{ data.boys_zero }}<br>
-	<br>
-	Girls with 100% score:{{ data.irls_100 }}<br>
-	Girls with zero score: {{ data.girls_zero }}<br>
-	</div>    
-	
+	 <strong>Participation : </strong>{{ data.no_students}} {
+	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
+	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
+	 }
+	 <span style="float:right;"><b>Student with ZERO score:</b> {{ data.score_zero }}
+	    {
+	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
+	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
+	 }
+	 <b>Student with 100% score:</b> {{ data.score_100 }}
+	  {
+	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
+	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
+	 }
+	 </span>
       </div>
-       <table id="customers">
+      
+    </div>
+     <table>
 	<tr>
-	  <th>School Name</th>
-	  <th>Grade</th>
+	  <td>School Name</td>
+	  <td>Grade</td>
 	  {% for c in data.cs%}
-	  <th>{{c}}</th>
+	  <td>
+	    <div class="arrow_box">{{c}}
+	    </div>
+	  </td>
 	  {% endfor %}
 	</tr>
 	{% for item in data.schools%}
@@ -122,21 +168,16 @@
 	  <td>{{g.name}}</td>
 	  {% for c in data.cs%}
 	  <td>
-	  {% for value in g.values%}
-	  {% if c == value.contest %}
-	  {% if value.count > 70.0 %}
-	  <span class="g-dot"></span>
-	  {% else %}
-	  <span class="r-dot"></span>
-	  {% endif %}
-	  {% endif %}
-	  {% endfor %}
+	    {% for value in g.values%}
+            {% if c == value.contest %}
+	    <span class="font-effect-outline mark">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
 	  </td>
 	  {% endfor %}
 	</tr>
 	{% endfor %}
 	{% endfor %}
       </table>
-    </div>
   </body>
 </html>
