@@ -82,47 +82,45 @@
       border: solid 2px #784f4f;
       }
 
-    .arrow_box {
+      .arrow_box {
       position: relative;
-      background: #88b7d5;
-      border: 2px solid #c2e1f5;
-      width: 120px;
+      background: #ffffff;
+      border: 2px solid #cccccc;
+      width: 100px;
       height: 33px;
       text-align: center;
+      font-size: 13px;
       }
-.arrow_box:after, .arrow_box:before {
-	top: 100%;
-	left: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-.arrow_box:after {
-    border-color: rgba(136, 183, 213, 0);
-    border-top-color: #88b7d5;
-    border-width: 60px;
-    margin-left: -60px;
-    border-top: 15px solid #88b7d5;
-}
-.arrow_box:before {
-    border-color: rgba(194, 225, 245, 0);
-    border-top-color: #c2e1f5;
-    border-width: 65px;
-    margin-left: -65px;
-    border-top: 17px solid #c2e1f5;
-    margin-top: 1px;
+      .arrow_box:after, .arrow_box:before {
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      }
+      
+      .arrow_box:after {
+      border-color: rgba(136, 183, 213, 0);
+      border-top-color: #ffffff;
+      border-width: 50px;
+      margin-left: -50px;
+      border-top: 7px solid #ffffff;
+      }
+      .arrow_box:before {
+      border-color: rgba(194, 225, 245, 0);
+      border-top-color: #cccccc;
+      border-width: 54px;
+      margin-left: -54px;
+      border-top: 8px solid #cccccc;
+      margin-top: 1px;
       }
       .mark {
       font-family: Open Sans;
-      font-size: 28px;
+      font-size: 24px;
       text-align: center;
-      }
-      td .mark{
-      align:center;
       }
     </style>
   </head>
@@ -131,29 +129,29 @@
     <div class="outer-box">
       <div class="container">
 	<div class="dialog-left">
-	 <strong> Gram Panchayat Name:</strong> {{data.gp_name}}<br>
-	
-	 <strong>Block Name:</strong> {{data.block}}  <strong style="margin-left:30px"> District Name:</strong> {{data.district}}<br>
-	 <strong> No. of schools in GP:</strong> {{data.no_schools_gp}}<br>
-	
+	  <strong> Gram Panchayat Name:</strong> {{data.gp_name}}<br>
+	  
+	  <strong>Block Name:</strong> {{data.block}}  <strong style="margin-left:30px"> District Name:</strong> {{data.district}}<br>
+	  <strong> No. of schools in GP:</strong> {{data.no_schools_gp}}<br>
+	  
 	</div>
 	<div class="dialog-right">
-	Test condected on: {{data.academic_year}}<br>
-	Report Generated on: {{data.today}}<br><br>
+	  Test condected on: {{data.academic_year}}<br>
+	  Report Generated on: {{data.today}}<br><br>
 	</div>
 	<br>
-	 <strong>Participation : </strong>{{ data.no_students}} {
-	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
-	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
-	 }
-	 <span style="float:right;"><b>Student with ZERO score:</b> {{ data.score_zero }}
-	    {
-	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
-	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
-	 }
-	 <b>Student with 100% score:</b> {{ data.score_100 }}
+	<strong>Participation : </strong>{{ data.no_students}} {
+	<img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
+	<img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
+	}
+	<span style="float:right;"><b>Student with ZERO score:</b> {{ data.score_zero }}
 	  {
-	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
+	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
+	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
+	  }
+	  <b>Student with 100% score:</b> {{ data.score_100 }}
+	  {
+	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
 	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
 	 }
 	 </span>
@@ -177,7 +175,7 @@
 	  <td>{% if forloop.counter == 1 %} {{ item.school }} {% endif %}</td>
 	  <td>{{g.name}}</td>
 	  {% for c in data.cs%}
-	  <td>
+	  <td align="center">
 	    {% for value in g.values%}
             {% if c == value.contest %}
 	    <span class="font-effect-outline mark">{{value.count}}%</span>
