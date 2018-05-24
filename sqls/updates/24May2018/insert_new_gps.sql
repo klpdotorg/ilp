@@ -89,5 +89,3 @@ insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_t
 insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6209,'','Hebbal','GP','2','AC');
 
 insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6210,'','Shiragumpi','GP','2','AC');
-
-
