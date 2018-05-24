@@ -54,7 +54,7 @@ class BaseReport(ABC):
         url = reverse('view_report',kwargs={'report_id':t.report_id.link_id,'tracking_id':track_id})
         request = None
         full_url = ''.join(['http://', get_current_site(request).domain, url])
-        return self.sms_template.format(name, t.report_id.parameters['gp_name'],full_url)
+        return self.sms_template.format(name, t.report_id.parameters['gp_name'].title(),full_url)
 
     def save(self):
         r= Reports(report_type=self._type,parameters=self.params, data=self.data)
@@ -91,7 +91,7 @@ class GPMathContestReport(BaseReport):
         self.parser.add_argument('--academic_year', required=True)
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for the {}. Please click the link {}'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -219,7 +219,7 @@ class GPMathContestReport(BaseReport):
                 grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
                 grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
 
-        self.data =  {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
+        self.data =  {'gp_name': gp.title(), 'academic_year': ay, 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
         return self.data
 
 
