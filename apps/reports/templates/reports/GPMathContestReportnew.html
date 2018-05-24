@@ -132,19 +132,19 @@
 	Report Generated on: {{data.today}}<br><br>
 	</div>
 	<br>
-	 <strong>Participation : </strong>xxx count {
-	 <img src="../../../../assets/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:xxx
-	 <img src="../../../../assets/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 <strong>Participation : </strong>{{ data.no_students}} {
+	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
+	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
 	 }
-	 <span style="float:right;"><b>Student with ZERO score:</b> xx count
+	 <span style="float:right;"><b>Student with ZERO score:</b> {{ data.score_zero }}
 	    {
-	 <img src="../../../../assets/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:xxx
-	 <img src="../../../../assets/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
+	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
 	 }
-	 <b>Student with 100% score:</b> xx count
+	 <b>Student with 100% score:</b> {{ data.score_100 }}
 	  {
-	 <img src="../../../../assets/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:xxx
-	 <img src="../../../../assets/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:xxx
+	 <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
+	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
 	 }
 	 </span>
       </div>
@@ -168,13 +168,11 @@
 	  <td>{{g.name}}</td>
 	  {% for c in data.cs%}
 	  <td>
-	
-	  <span class="font-effect-outline mark">77%</span>
-	  {% else %}
-	  <span class="r-dot"></span>
-	  {% endif %}
-	  {% endif %}
-	  {% endfor %}
+	    {% for value in g.values%}
+            {% if c == value.contest %}
+	    <span class="font-effect-outline mark">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
 	  </td>
 	  {% endfor %}
 	</tr>

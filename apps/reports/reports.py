@@ -180,7 +180,7 @@ class GPMathContestReport(BaseReport):
                 out.append({'school':item['school'],
                             'grades':[{
                                 'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':item['percent']}]}]
+                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
                 })
             else:
                 for o in out:
@@ -189,9 +189,9 @@ class GPMathContestReport(BaseReport):
                         for grade in o['grades']:
                             if item['grade'] == grade['name']:
                                 gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':item['percent']})
+                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
                         if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':item['percent']}]})
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
 
         return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
 
