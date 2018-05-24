@@ -184,7 +184,7 @@ class GPMathContestReport(BaseReport):
         score_100 = boys_100 + girls_100
         score_zero = boys_zero + girls_zero
 
-        contest_list = {i['contest'] for i in schools}
+        contest_list = [i['contest'] for i in schools]
         schools_out = []
         out= []
 
