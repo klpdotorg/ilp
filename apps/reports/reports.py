@@ -16,6 +16,8 @@ from assessments.models import AnswerGroup_Institution
 from .models import Reports, Tracking
 
 class BaseReport(ABC):
+    def __init__(self, data=None):
+        self.data = data
 
     @abstractmethod
     def get_data(self):
@@ -23,15 +25,22 @@ class BaseReport(ABC):
 
     def generate(self, report_type, output_name):
         if report_type == 'html':
-            self.get_html(output_name)
+            html = self.get_html()
+            with open(output_name, 'w') as f:
+                f.write(html)
+
         elif report_type == 'pdf':
-            self.get_pdf(output_name)
+            pdf = self.get_pdf()
+            with open(output_name, 'w') as f:
+                f.write(pdf)
+
         else:
             raise ValueError('Invalid report format')
 
     def get_html(self):
-        data = self.get_data();
-        html = render_to_string('reports/{}.html'.format(self._type), {'data':data})
+        if not self.data:
+            self.data = self.get_data();
+        html = render_to_string('reports/{}.html'.format(self._type), {'data':self.data})
         return html
 
     def get_pdf(self):
@@ -48,7 +57,7 @@ class BaseReport(ABC):
         return self.sms_template.format(name,t.report_id.parameters['academic_year'],t.report_id.parameters['gp_name'],full_url)
 
     def save(self):
-        r= Reports(report_type=self._type,parameters=self.params)
+        r= Reports(report_type=self._type,parameters=self.params, data=self.data)
         r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:7]
         r.save()
         return r
@@ -59,26 +68,31 @@ class BaseReport(ABC):
         return t
 
 class ReportOne(BaseReport):
-    def __init__(self, from_date, to_date):
+    def __init__(self, from_date, to_date, **kwargs):
         self.from_date = from_date
         self.to_date = to_date
         self._template_path  = 'report_one.html'
         self.sms_template = 'some_url/{}/{}'
         self._type = 'reportOne'
         self.params = dict(from_date=self.from_date,to_date=self.to_date)
+        super().__init__(**kwargs)
 
     def get_data(self):
 #        return assess_models.AnswerGroup_Institution.objects.all()[:5]
         return ['name','some','dfdfdfa','dfdafad']
 
 class GPMathContestReport(BaseReport):
-    def __init__(self):
+    def __init__(self, gp_name=None, academic_year=None, **kwargs):
+        self.gp_name = gp_name
+        self.academic_year = academic_year
+        self.params = dict(gp_name=self.gp_name,academic_year=self.academic_year)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--gp_name', required=True)
         self.parser.add_argument('--academic_year', required=True)
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
         self.sms_template = 'Hi {}, For the academic year of {} the Gram panchayat math contest report for the {}, is available in the link below. {}'
+        super().__init__(**kwargs)
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
@@ -193,8 +207,8 @@ class GPMathContestReport(BaseReport):
                         if not gradeExist:
                             o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
 
-        return {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
-
+        self.data =  {'gp_name': gp, 'academic_year': ay, 'block':block, 'district':district,'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
+        return self.data
 
 
 if __name__ == "__main__":

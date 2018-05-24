@@ -8,10 +8,8 @@ from .reportlist import reportlist
 # Create your views here.
 
 def view_report(request, report_id, tracking_id='default'):
-    report_model = get_object_or_404(Reports, link_id=report_id)
-    report = reportlist[report_model.report_type]()
-    report.parse_args(['--{}={}'.format(i,j) for i,j in report_model.parameters.items()])
-    data = report.get_data()
+    report = get_object_or_404(Reports, link_id=report_id)
+    data = report.data
 
     tracker = Tracking.objects.get(track_id=tracking_id)
     tracker.visit_count += 1
@@ -22,8 +20,7 @@ def view_report(request, report_id, tracking_id='default'):
 
 def download_report(request, report_id, tracking_id='default'):
     report_model = get_object_or_404(Reports, link_id=report_id)
-    report = reportlist[report_model.report_type]()
-    report.parse_args(['--{}={}'.format(i,j) for i,j in report_model.parameters.items()])
+    report = reportlist[report_model.report_type](data=report_model.data)
     pdf = report.get_pdf()
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
 
