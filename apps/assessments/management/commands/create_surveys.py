@@ -84,6 +84,7 @@ class Command(BaseCommand):
             institution_type = InstitutionType.objects.get(char_id=row[8].strip())
             source = Source.objects.get(id=row[9].strip())
             status = Status.objects.get(char_id=row[10].strip())
+            print(row[11].strip())
             type_id = SurveyType.objects.get(char_id=row[11].strip())
             description = row[12].strip()
             image_required = row[13].strip()
@@ -122,6 +123,10 @@ class Command(BaseCommand):
             count += 1
 
             id = row[0].strip()
+            question = Question.objects.get(pk=id)
+            if question:
+                questions.append(question)
+                continue
             question_text = row[1].strip()
             display_text = row[2].strip()
             key = self.check_value(row[3].strip())
