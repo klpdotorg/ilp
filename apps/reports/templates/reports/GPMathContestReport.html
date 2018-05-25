@@ -5,23 +5,25 @@
     <style>
       body {
       font-family: 'Questrial', sans-serif;
-     
+      
       }
       .outer-box{
-      border: 2px solid #989898;
       padding: 20px;
       margin: auto;
-      width: 865px;
+      width: 100%;
+      background-color: #efeaea;
       }
       .school-list{
       padding: 20px;
       margin: auto;
       width: 842px;
+      margin-top: 35px;
       }
       .container{
-      width: auto;
+      width: 860px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 26px;
       }
       .dialog-left{
       width:50%;
@@ -36,6 +38,7 @@
       h1 {
       text-align: center;
       font-size: 24px;
+      padding-top: 35px;
       }
       
       p {
@@ -46,7 +49,6 @@
       #customers {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
-      width: 100%;
       }
 
       #customers td, #customers th {
@@ -61,8 +63,7 @@
       #customers th {
       padding-top: 12px;
       padding-bottom: 12px;
-      text-align: left;
-      background-color: #D8D8D8;
+      background-color: #ffffff;
       color: #594633;
       }
       .r-dot {
@@ -115,77 +116,82 @@
       font-size: 24px;
       text-align: center;
       }
+      td{
+      padding:10px;
+      }
+
     </style>
   </head>
   <body>
     <h1>Gram Panchayat Math Contest Report</h1>
-    <div class="outer-box">
-      <div class="container">
-	<div class="dialog-left">
-	  <strong> Gram Panchayat Name:</strong> {{data.gp_name}}<br>
-	  
-	  <strong>Block Name:</strong> {{data.block}}  <strong style="margin-left:30px"> District Name:</strong> {{data.district}}<br>
-	  <strong> No. of schools in GP:</strong> {{data.no_schools_gp}}<br>
-	  
-	</div>
-	<div class="dialog-right">
-	  Test condected on: {{data.academic_year}}<br>
-	  Report Generated on: {{data.today}}<br><br>
-	</div>
-	<br>
-	<strong>Participation : </strong>{{ data.no_students}} {
-	<img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
-	<img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
-	}
-	<span style="float:right;"><b>Student with ZERO score:</b> {{ data.score_zero }}
-	  {
-	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
-	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
+    <div class="wrapper">
+      <div class="outer-box">
+	<div class="container">
+	  <div class="dialog-left">
+	    <strong> Gram Panchayat Name:</strong> {{data.gp_name}}<br>
+	    
+	    <strong>Block Name:</strong> {{data.block}}  <strong style="margin-left:30px"> District Name:</strong> {{data.district}}<br>
+	    <strong> No. of schools in GP:</strong> {{data.no_schools_gp}}<br>
+	    
+	  </div>
+	  <div class="dialog-right">
+	    <strong>Test condected on:</strong> {{data.academic_year}}<br>
+	    <strong>Report Generated on:</strong> {{data.today}}<br><br>
+	  </div>
+	  <br>
+	  <strong>Participation : </strong>{{ data.no_students}} {
+	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
+	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
 	  }
-	  <b>Student with 100% score:</b> {{ data.score_100 }}
-	  {
-	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
-	 <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
-	 }
-	 </span>
+	  <span style="float:right;"><b>Student with ZERO score:</b> {{ data.score_zero }}
+	    {
+	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
+	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
+	    }
+	    <b>Student with 100% score:</b> {{ data.score_100 }}
+	    {
+	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
+	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
+	    }
+	  </span>
+	</div>
+	
       </div>
-      
-    </div>
-     <table class="school-list">
+      <table class="school-list" id="customers">
 	<tr>
-	  <td>School Name</td>
-	  <td>Grade</td>
+	  <th>School Name</th>
+	  <th>Grade</th>
 	  
-	  <td>
+	  <th>
 	    <div class="arrow_box">Addition
 	    </div>
-	  </td>
-	   <td>
+	  </th>
+	  <th>
 	    <div class="arrow_box">Division
 	    </div>
-	   </td>
-	    <td>
+	  </th>
+	  <th>
 	    <div class="arrow_box">Multiplication
 	    </div>
-	    </td>
-	     <td>
+	  </th>
+	  <th>
 	    <div class="arrow_box">Number Concept
 	    </div>
-	     </td>
-	      <td>
+	  </th>
+	  <th>
 	    <div class="arrow_box">Subtraction
 	    </div>
-	      </td>
-	       <td>
+	  </th>
+	  <th>
 	    <div class="arrow_box">Other Areas
 	    </div>
-	  </td>
-	 
+	  </th>
+	  
 	</tr>
 	{% for item in data.schools%}
 	{% for g in item.grades%}
 	<tr>
-	  <td>{% if forloop.counter == 1 %} {{ item.school }} {% endif %}</td>
+	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.school }}</td> {% endif %}
 	  <td>{{g.name}}</td>
 
 	  <td align="center">
@@ -195,45 +201,46 @@
             {% endif %}
             {% endfor %}
 	  </td>
-	   <td align="center">
+	  <td align="center">
 	    {% for value in g.values%}
             {% if "Division" == value.contest %}
 	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
-	   </td>
-	    <td align="center">
+	  </td>
+	  <td align="center">
 	    {% for value in g.values%}
             {% if "Multiplication" == value.contest %}
 	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
-	    </td>
-	     <td align="center">
+	  </td>
+	  <td align="center">
 	    {% for value in g.values%}
             {% if "Number Concept" == value.contest %}
 	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
-	     </td>
-	      <td align="center">
+	  </td>
+	  <td align="center">
 	    {% for value in g.values%}
             {% if "Subtraction" == value.contest %}
 	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
-	      </td>
-	      <td align="center">
+	  </td>
+	  <td align="center">
 	    {% for value in g.values%}
             {% if "Other Areas" == value.contest %}
 	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
-	      </td>
-	      
+	  </td>
+	  
 	</tr>
 	{% endfor %}
 	{% endfor %}
       </table>
+    </div>
   </body>
 </html>
