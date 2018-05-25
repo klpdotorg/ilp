@@ -7,6 +7,7 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 from common.views import (ILPViewSet, ILPListAPIView, ILPDetailAPIView)
 from common.models import Status, InstitutionType
 from common.mixins import ILPStateMixin
+from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from permissions.permissions import InstitutionCreateUpdatePermission
 from schools.serializers import (
@@ -71,7 +72,7 @@ class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
         return qset
 
 
-class InstitutionViewSet(ILPViewSet, ILPStateMixin):
+class InstitutionViewSet(NestedViewSetMixin, ILPViewSet):
     """
     Viewset to handle institutions CRUD operations
     """
@@ -83,7 +84,24 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
     permission_classes = (InstitutionCreateUpdatePermission, )
     # filter_class = SchoolFilter
 
+    # M2M query returns duplicates. Overrode this function
+    # from NestedViewSetMixin to implement the .distinct()
+    # def filter_queryset_by_parents_lookups(self, queryset):
+    #     print("Parents query dict is: ", self.get_parents_query_dict())
+    #     parents_query_dict = self.get_parents_query_dict()
+    #     if parents_query_dict:
+    #         try:
+    #             return queryset.filter(
+    #                 **parents_query_dict
+    #             ).order_by().distinct('id')
+    #         except ValueError:
+    #             raise Http404
+    #     else:
+    #         print(queryset)
+    #         return queryset
+    
     def get_queryset(self):
+        logger.debug("Fetching institutions")
         state = self.get_state()
         qset = Institution.objects.filter(
             admin0=state, status=Status.ACTIVE
@@ -145,11 +163,13 @@ class InstitutionViewSet(ILPViewSet, ILPStateMixin):
             instance.refresh_from_db()
             return Response(InstitutionSerializer(instance).data)
         except Exception as e:
-            logger.error("Error while updating institution %s (%s)" % (e.message, type(e)))
+            logger.error("Error while updating institution %s (%s)" % (e, type(e)))
 
     def perform_destroy(self, instance):
+        logger.debug("Destroying institution ID: %s" % instance.id)
         instance.status_id = Status.DELETED
         instance.save()
+        logger.debug("Institution destroyed")
 
 
 class InstitutionCategoryListView(generics.ListAPIView):

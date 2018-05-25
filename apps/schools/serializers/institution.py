@@ -226,11 +226,11 @@ class InstitutionCreateSerializer(ILPSerializer):
         queryset=Management.objects.all()
     )
     address = serializers.CharField(default=None)
-    area = serializers.CharField(default=None)
+    area = serializers.CharField(required=False)
     pincode = serializers.PrimaryKeyRelatedField(
         queryset=PinCode.objects.all(), default=None, allow_null=True
     )
-    landmark = serializers.CharField(default=None)
+    landmark = serializers.CharField(required=False)
     last_verified_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), required=True)
     institution_languages = serializers.ListField(write_only=True)
@@ -261,6 +261,7 @@ class InstitutionCreateSerializer(ILPSerializer):
         return inst
 
     def update(self, instance, validated_data):
+        print("Institution update validated_data is: ", validated_data)
         instance.name = validated_data.get('name', instance.name)
         instance.address = validated_data.get('address', instance.address)
         instance.area = validated_data.get('area', instance.area)

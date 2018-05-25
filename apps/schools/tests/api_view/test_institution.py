@@ -83,6 +83,31 @@ class InstitutionAPITests(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+    def test_delete_institution(self):
+        url = reverse('institution:institution-list')
+        self.client.force_authenticate(user=self.user)
+        response = self.client.post(
+            url, {
+                "name": "GULPS EMMIGANUR",
+                "dise": 599419,
+                "languages": "1",
+                "admin3": ADMIN3_ID,
+                "gender": "co-ed",
+                "category": "10",
+                "institution_type": "primary",
+                "management": "1",
+                "status": "AC",
+                "last_verified_year": "1516"
+            }
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        institution_id = response.data["id"]
+        # Now edit it
+        url = url + str(institution_id) + "/"
+        response = self.client.delete(url)
+        print(response)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
     def test_update_institution_patch(self):
         url = reverse('institution:institution-list')
         self.client.force_authenticate(user=self.user)
