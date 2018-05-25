@@ -226,11 +226,11 @@ class InstitutionCreateSerializer(ILPSerializer):
         queryset=Management.objects.all()
     )
     address = serializers.CharField(default=None)
-    area = serializers.CharField(required=False)
+    area = serializers.CharField(required=False, allow_blank=True)
     pincode = serializers.PrimaryKeyRelatedField(
         queryset=PinCode.objects.all(), default=None, allow_null=True
     )
-    landmark = serializers.CharField(required=False)
+    landmark = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     last_verified_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), required=True)
     institution_languages = serializers.ListField(write_only=True)
