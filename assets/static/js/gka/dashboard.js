@@ -659,6 +659,20 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
+        function updatePercentageUsingMathClassNo(data, key, score) {
+
+            if(score !== 0) {
+                data[key].total = score;
+                data[key].percent = getPercent(data[key].score, score);
+            } else {
+                data[key].score = 0;
+                data[key].percent = 0;
+            }
+
+            return data;
+
+        }
+
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -667,7 +681,9 @@ var topSummaryData = {};
                 "ivrss-group-work"
             ],
             data = combineDataSources(
-                detailsData.source, ['sms', 'konnectsms'], SMSQuestionKeys
+                detailsData.source, 
+                ['sms', 'mobile', 'konnectsms'],
+                SMSQuestionKeys
             ),
             questionObjects = _.map(SMSQuestionKeys, function(key) {
                 return getQuestion(data, 'combinedData', key);
@@ -680,7 +696,7 @@ var topSummaryData = {};
             regroup[questions[each]["key"]] = questions[each];
         }
 
-        // Add default values to prevent JS errors at the template lebel
+        // Add default values to prevent JS errors at the template level
         _.each(SMSQuestionKeys, function(qKey){
             if(!regroup[qKey]) {
                 regroup[qKey] = {
@@ -690,6 +706,18 @@ var topSummaryData = {};
                 };
             }
         });
+
+        /*  On April 18th, 2018, we introduced a new logic to calculate 
+            tlm usage and group work percentages.
+            Now, instead of using the whole survey score to calculate percentage (the denomincator), we only take "math class hapenning" key's Yes count.
+        */
+        var mathClassScore = regroup['ivrss-math-class-happening'].score;
+        regroup = updatePercentageUsingMathClassNo(
+            regroup, 'ivrss-gka-tlm-in-use', mathClassScore
+        );
+        regroup = updatePercentageUsingMathClassNo(
+            regroup, 'ivrss-group-work', mathClassScore
+        );
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
@@ -728,7 +756,7 @@ var topSummaryData = {};
             };
 
         for (var m in users) {
-            if(m && (m !== 'null')) {
+            if(m && (m !== 'null' && m !== 'UK')) {
                 meta_values.push({
                     meta: userFullName[m] ? userFullName[m]: m,
                     value: users[m]
@@ -821,7 +849,8 @@ var topSummaryData = {};
         // Spinners
         $('#assmtSummary').startLoading();
         $('#assmtVolume').startLoading();
-        $('#assmtCompetancy').startLoading();
+        $('#assmtCompetancy-4').startLoading();
+        $('#assmtCompetancy-5').startLoading();
 
         var assessmentId = getSurveyId('Ganitha Kalika Andolana');
         
@@ -831,7 +860,7 @@ var topSummaryData = {};
             summaryData = summaryData.summary;
 
             // Load details next
-            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=" + assessmentId, params);
+            var $keyXHR = klp.api.do("survey/detail/class/key/?survey_id=" + assessmentId, params);
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
@@ -853,9 +882,11 @@ var topSummaryData = {};
                     "last_assmt": last_assmt ?  formatLastStory(last_assmt, true) : 'NA'
                 }
                 renderAssmtSummary(dataSummary);
-                renderAssmtCharts(detailKeydata);
+                renderAssmtCharts(detailKeydata, '4');
+                renderAssmtCharts(detailKeydata, '5');
                 $('#assmtSummary').stopLoading();
-                $('#assmtCompetancy').stopLoading();
+                $('#assmtCompetancy-4').stopLoading();
+                $('#assmtCompetancy-5').stopLoading();
 
             });
 
@@ -877,7 +908,7 @@ var topSummaryData = {};
 
     }
 
-    function renderAssmtCharts(data) {
+    function renderAssmtCharts(data, className) {
 
         function getAssmtPerc(scores, topic) {
             if (scores[topic]) {
@@ -887,7 +918,7 @@ var topSummaryData = {};
             }
         }
 
-        var scores = data.scores;
+        var scores = data[className];
 
         // var labels = Object.keys(data.scores);
         // TODO: Find a better way to pack all the graph data from the server
@@ -910,7 +941,11 @@ var topSummaryData = {};
                 }
             ],
         }
-        renderBarChart('#assmtCompetancy', competencies, "Percentage of Children");
+        renderBarChart(
+            '#assmtCompetancy-' + className,
+            competencies,
+            "Percentage of Children"
+        );
     }
 
     function renderAssmtVolumeChart(volumes, params) {
@@ -1376,39 +1411,33 @@ var topSummaryData = {};
 
 
     function combineDataSources(sourceData, sources, keys) {
-        var s1 = sources[0],
-            s2 = sources[1];
-
 
         var combined = _.map(keys, function(k){
+            var combinedData = {
+                answers: {Yes: 0, No: 0}, question: {}
+            };
 
-            var s1Data = _.find(sourceData[s1], function(d){
-                return d.question.key === k;
-            });
+            _.each(sources, function(s) {
 
-            var s2Data = _.find(sourceData[s2], function(d){
-                return d.question.key === k;
-            });
+                var data = _.find(sourceData[s], function(d){
+                    return d.question.key === k;
+                });
 
-            var answers = {Yes: 0, No: 0};
-            if(s1Data) {
-                answers.Yes += s1Data.answers.Yes;
-                answers.No += s1Data.answers.No;
-            }
-            if(s2Data) {
-                answers.Yes += s2Data.answers.Yes;
-                answers.No += s2Data.answers.No;
-            }
+                if(data) {
+                    if(!isNaN(data.answers.Yes)) {
+                        combinedData.answers.Yes += data.answers.Yes;
+                    }
+                    if(!isNaN(data.answers.No)) {
+                        combinedData.answers.No += data.answers.No;
+                    }
 
-            if (s1Data || s2Data) {
-                return {
-                    answers: answers,
-                    question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
+                    if(data.question) {
+                        combinedData.question = data.question;
+                    }
                 }
-            } else {
-                return {answers:{}, question: {}};
-            }
+            });
 
+            return combinedData;
         });
 
         return {combinedData: combined};

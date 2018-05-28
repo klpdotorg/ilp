@@ -122,6 +122,10 @@ class Command(BaseCommand):
             count += 1
 
             id = row[0].strip()
+            question = Question.objects.get(pk=id)
+            if question:
+                questions.append(question)
+                continue
             question_text = row[1].strip()
             display_text = row[2].strip()
             key = self.check_value(row[3].strip())

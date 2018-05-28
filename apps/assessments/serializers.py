@@ -37,7 +37,7 @@ class QuestionGroupSerializer(ILPSerializer):
             'version', 'source', 'source_name', 'double_entry',
             'created_by', 'created_at', 'updated_at', 'status',
             'image_required', 'comments_required', 'lang_name',
-            'respondenttype_required',
+            'respondenttype_required', 'default_respondent_type',
         )
 
 

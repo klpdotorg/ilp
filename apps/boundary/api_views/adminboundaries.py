@@ -205,7 +205,9 @@ class StateList(APIView):
         """ Returns respondent types of a state.
             If no state is passed, this function will return common types
         """
-        respondent_types = RespondentType.objects.filter(state_code=state)
+        respondent_types = RespondentType.objects.filter(
+            state_code=state, active=Status.ACTIVE
+        )
         return RespondentTypeSerializer(respondent_types, many=True).data
 
     def get(self, request):
