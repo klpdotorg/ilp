@@ -1,8 +1,6 @@
 id,question_text,display_text,key,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
-547,building,Is in a Designated Building by DWCD,Basic Infrastructure,,True,,IA,,,,
 548,akshara_kits,Uses Akshara Foundation Teaching Kits,Learning Environment,,True,,IA,,,, 
 549,meal_served,Has Clean and Timely Meals,Nutrition and Hygiene,,True,,IA,,,, 
-550,toilet_roof,Has Shelters for Toilets,Toilet Facilities,,True,,IA,,,, 
 551,toilet,Has Toilets,Toilet Facilities,,True,,IA,,,, 
 552,blackboard,Has Blackboards for Teaching,Learning Environment,,True,,IA,,,, 
 553,floor,Has Flooring Intact,Basic Infrastructure,,True,,IA,,,, 
@@ -14,5 +12,4 @@ id,question_text,display_text,key,options,is_featured,question type,status,max s
 559,bvs,Has Functional Bal Vikas Samithis,Community Involvement,,True,,IA,,,, 
 560,drinking_water,Has Drinking Water Facilities,Nutrition and Hygiene,,True,,IA,,,, 
 561,progress,Maintains Progress Records for Children,Learning Environment,,True,,IA,,,, 
-562,waste_basket,Has Waste Baskets,Basic Infrastructure,,True,,IA,,,, 
 563,walls,Has Walls Intact,Basic Infrastructure,,True,,IA,,,, 
