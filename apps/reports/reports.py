@@ -261,6 +261,17 @@ class SchoolReport(BaseReport):
         self.academic_year = arguments.academic_year
         self.params = dict(school_name=self.school_name,academic_year=self.academic_year)
 
+    def get_data(self):
+        try:
+            school_obj = Institution.objects.get(name=self.school_name) # Take the school from db
+        except Institution.DoesNotExist:
+            print('School {} does not exist\n'.format(self.school_name))
+            raise ValueError('Invalid school name\n')
+
+        cluster = school_obj.admin3.name
+        block = school_obj.admin2.name           # Block name
+        district = school_obj.admin1.parent.name    # District name
+
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
