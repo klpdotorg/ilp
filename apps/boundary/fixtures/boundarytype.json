@@ -3,42 +3,48 @@
         "model": "boundary.BoundaryType",
         "fields":{
             "char_id": "SD",
-            "name": "School District"
+            "name": "School District",
+            "level": 2
         }
     },
    {
         "model": "boundary.BoundaryType",
         "fields":{
             "char_id": "SB",
-            "name": "School Block"
+            "name": "School Block",
+            "level": 3
         }
     },
     {
         "model": "boundary.BoundaryType",
         "fields":{
             "char_id": "SC",
-            "name": "School Cluster"
+            "name": "School Cluster",
+            "level": 4
         }
     },
     {
         "model": "boundary.BoundaryType",
         "fields":{
             "char_id": "PD",
-            "name": "Preschool District"
+            "name": "Preschool District",
+            "level": 2
         }
     },
     {
         "model": "boundary.BoundaryType",
         "fields":{
             "char_id": "PP",
-            "name": "Preschool Project"
+            "name": "Preschool Project",
+            "level": 3
         }
     },
     {
         "model": "boundary.BoundaryType",
         "fields":{
             "char_id": "PC",
-            "name": "Preschool Circle"
+            "name": "Preschool Circle",
+            "level": 4
         }
     },
     {
@@ -101,14 +107,16 @@
         "model": "boundary.BoundaryType",
         "fields":{
             "char_id": "C",
-            "name": "Country"
+            "name": "Country",
+            "level": 0
         }
     },
     {
      "model": "boundary.BoundaryType",
         "fields":{
             "char_id": "ST",
-            "name": "State"
+            "name": "State",
+            "level": 1
         }
     }
 ]

@@ -95,17 +95,6 @@
         var url = "reports/demographics/"+repType+"/comparison/?id="+bid+"&language="+lang;
         var $xhr = klp.api.do(url);
         $xhr.done(function(data) {
-            //Adding data for current year to the 
-            data["comparison"]["year-wise"][0] = {
-                            "year": detailsData["report_info"]["year"],
-                             "avg_enrol_upper": detailsData["enrolment"]["Upper Primary"]["average_student_count"],
-                             "avg_enrol_lower": detailsData["enrolment"]["Lower Primary"]["average_student_count"],
-                             "student_count": summaryData["student_count"],
-                             "school_count": summaryData["school_count"],
-                             "school_perc": summaryData["school_perc"],
-                             "teacher_count": summaryData["teacher_count"],
-                             "ptr": summaryData["ptr"]
-            };
             data['comparison']['name'] = summaryData["info"]["name"];
             data['comparison']['type'] = summaryData["info"]["type"];
             renderComparison(data["comparison"]);
@@ -121,15 +110,15 @@
         for (var cat in categories) {
             categories[cat]["name"] = cat;
             categories[cat]['enrolled'] = Math.round(
-                categories[cat]["student_count"]/categories[cat]["school_count"]);
-            school_total += categories[cat]["school_count"];
+                categories[cat]["num_students"]/categories[cat]["num_schools"]);
+            school_total += categories[cat]["num_schools"];
         }
         console.log("school_total:"+school_total);
         for(cat in categories) {
             console.log(cat);
-            console.log(categories[cat]["school_count"]/school_total);
+            console.log(categories[cat]["num_schools"]/school_total);
             categories[cat]['cat_perc'] = Math.round(
-                categories[cat]["school_count"]/school_total*100);
+                categories[cat]["num_schools"]/school_total*100);
             categories[cat]['school_total'] = school_total;
         }
         var tplCategory = swig.compile($('#tpl-Category').html());
@@ -144,16 +133,16 @@
     */
     function renderLanguage(languages) {
         var new_lang = {};
-        var lang_lookup = ["KANNADA","TAMIL","TELUGU","URDU"];
+        var lang_lookup = ["Kannada","Tamil","Telugu","Urdu"];
         var moi_school_total = 0;
         var mt_student_total = 0;
         
         for (var each in languages) {
             for (var lang in languages[each]) {
                 if (each == "moi") {
-                    moi_school_total += languages[each][lang]["school_count"];
+                    moi_school_total += languages[each][lang]["num_schools"];
                 } else {
-                    mt_student_total += languages[each][lang]["student_count"];
+                    mt_student_total += languages[each][lang]["num_students"];
                 }
             }
         }
@@ -164,14 +153,16 @@
             if (!_.contains(lang_lookup,eachlang))
             {
                 new_lang["Others"]["school_count"] +=
-                                    languages["moi"][eachlang]["school_count"];
+                                    languages["moi"][eachlang]["num_schools"];
                 delete languages["moi"][eachlang];
             } else {
                 new_lang[eachlang]= {"name" : eachlang};
                 new_lang[eachlang]["school_count"] =
-                                    languages["moi"][eachlang]["school_count"];
+                                    languages["moi"][eachlang]["num_schools"];
                 new_lang[eachlang]["moi_perc"] = Math.round(
-                    languages["moi"][eachlang]["school_count"]*100/moi_school_total);
+                    languages["moi"][eachlang]["num_schools"]*100/moi_school_total);
+                new_lang[eachlang]["student_count"] = 0
+                new_lang[eachlang]["mt_perc"] = 0
             }
         }
         
@@ -179,7 +170,7 @@
             if (!_.contains(lang_lookup,eachmt))
             {
                 new_lang["Others"]["student_count"] +=
-                                        languages["mt"][eachmt]["student_count"];
+                                        languages["mt"][eachmt]["num_students"];
                 delete languages["mt"][eachmt];
             } else {
                 if (!(eachmt in new_lang))
@@ -189,9 +180,9 @@
                     new_lang[eachmt]["moi_perc"] = 0;
                 }
                 new_lang[eachmt]["student_count"] =
-                                        languages["mt"][eachmt]["student_count"];
+                                        languages["mt"][eachmt]["num_students"];
                 new_lang[eachmt]["mt_perc"] = Math.round(
-                    languages["mt"][eachmt]["student_count"]*100/mt_student_total);
+                    languages["mt"][eachmt]["num_students"]*100/mt_student_total);
             }
         }
 
@@ -211,15 +202,20 @@
     */
     function renderComparison(data) {
         //render year comparison
-        var tplYearComparison = swig.compile($('#tpl-YearComparison').html());
-        var yrcompareHTML = tplYearComparison({"years":data["year-wise"],
+        if (data["year-wise"].length != 0)
+        {
+            var tplYearComparison = swig.compile($('#tpl-YearComparison').html());
+            var yrcompareHTML = tplYearComparison({"years":data["year-wise"],
                                         "name":data["name"]});
-        $('#comparison-year').html(yrcompareHTML);
-
-        var tplComparison = swig.compile($('#tpl-neighComparison').html());
-        var compareHTML = tplComparison({"neighbours":data["neighbours"],
+            $('#comparison-year').html(yrcompareHTML);
+        }
+        if (data["neighbours"].length != 0)
+        {
+            var tplComparison = swig.compile($('#tpl-neighComparison').html());
+            var compareHTML = tplComparison({"neighbours":data["neighbours"],
                                         "name":data["name"], "type":data["type"]});
-        $('#comparison-neighbour').html(compareHTML);
+            $('#comparison-neighbour').html(compareHTML);
+        }
     }
 
 })();
