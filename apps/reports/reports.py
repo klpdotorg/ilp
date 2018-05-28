@@ -262,6 +262,11 @@ class SchoolReport(BaseReport):
         self.params = dict(school_name=self.school_name,academic_year=self.academic_year)
 
     def get_data(self):
+        ay = self.academic_year.split('-')
+        dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
+
+        report_generated_on = datetime.datetime.now().date().isoformat()
+
         try:
             school_obj = Institution.objects.get(name=self.school_name) # Take the school from db
         except Institution.DoesNotExist:
@@ -271,6 +276,16 @@ class SchoolReport(BaseReport):
         cluster = school_obj.admin3.name
         block = school_obj.admin2.name           # Block name
         district = school_obj.admin1.parent.name    # District name
+
+        AGI = AnswerGroup_Institution.objects.filter(institution__name=self.school_name, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+
+        if not AGI.exists():
+            raise ValueError("No contests found for {} in the year {}".format(self.school_name, ay))
+
+        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
+        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        number_of_students = num_boys + num_girls
+
 
 if __name__ == "__main__":
     r= ReportOne();
