@@ -242,6 +242,25 @@ class GPMathContestReport(BaseReport):
 
         return HHSurvey
 
+class SchoolReport(BaseReport):
+    def __init__(self, school_name=None, academic_year=None, **kwargs):
+        self.school_name = school_name
+        self.academic_year = academic_year
+        self.params = dict(school_name=self.school_name,academic_year=self.academic_year)
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument('--school_name', required=True)
+        self.parser.add_argument('--academic_year', required=True)
+        self._template_path = 'SchoolReport.html'
+        self._type = 'GPMathContestReport'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
+        super().__init__(**kwargs)
+
+    def parse_args(self, args):
+        arguments = self.parser.parse_args(args)
+        self.schoo_name = arguments.school_name
+        self.academic_year = arguments.academic_year
+        self.params = dict(school_name=self.school_name,academic_year=self.academic_year)
+
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
