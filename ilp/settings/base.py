@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'assessments',
     'ivrs',
     'permissions',
+    'reports',
 )
 
 # DRF Settings
