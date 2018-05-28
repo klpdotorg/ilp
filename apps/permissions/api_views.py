@@ -49,23 +49,23 @@ class PermissionView(APIView, PermissionMixin):
         return Response(response)
 
     def post(self, request, pk):
-        institution_id = self.request.data.get('institution_id', None)
-        boundary_id = self.request.data.get('boundary_id', None)
-        assessment_id = self.request.data.get('assessment_id', None)
+        institution_id = self.request.data.get('institution_id', [])
+        boundary_id = self.request.data.get('boundary_id', [])
+        assessment_id = self.request.data.get('assessment_id', [])
 
         try:
             user_to_be_permitted = User.objects.get(id=pk)
         except Exception as ex:
             raise APIException(ex)
 
-        if institution_id:
-            self.assign_institution_permissions(user_to_be_permitted, institution_id)
+        for institution in institution_id:
+            self.assign_institution_permissions(user_to_be_permitted, institution)
 
-        if assessment_id:
-            self.assign_assessment_permissions(user_to_be_permitted, assessment_id)
+        for assessment in assessment_id:
+            self.assign_assessment_permissions(user_to_be_permitted, assessment)
 
-        if boundary_id:
-            self.assign_boundary_permissions(user_to_be_permitted, boundary_id)
+        for boundary in boundary_id:
+            self.assign_boundary_permissions(user_to_be_permitted, boundary)
 
         return Response("Permissions assigned")
 
