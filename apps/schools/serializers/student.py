@@ -23,18 +23,10 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = (
-            'id',
-            'first_name',
-            'middle_name',
-            'last_name',
-            'uid',
-            'dob',
-            'gender',
-            'mt',
-            'status',
-            'institution',
-            'academic_year',
-            'classes',
+            'id', 'first_name', 'middle_name', 'last_name',
+            'uid', 'dob', 'gender', 'mt', 'status',
+            'institution', 'academic_year', 'classes',
+            'father_name', 'mother_name'
         )
 
         extra_kwargs = {'academic_year': {'write_only': True}}
