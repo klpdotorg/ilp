@@ -375,6 +375,24 @@ class SchoolReport(BaseReport):
         self.data =  {'gp_name': gp, 'academic_year': self.academic_year, 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
         return self.data
 
+class ClusterReport(BaseReport):
+    def __init__(self, cluster_name=None, academic_year=None, **kwargs):
+        self.cluster_name = cluster_name
+        self.academic_year = academic_year
+        self.params = dict(cluster_name=self.cluster_name,academic_year=self.academic_year)
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument('--cluster_name', required=True)
+        self.parser.add_argument('--academic_year', required=True)
+        self._template_path = 'ClusterReport.html'
+        self._type = 'ClusterReport'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
+        super().__init__(**kwargs)
+
+    def parse_args(self, args):
+        arguments = self.parser.parse_args(args)
+        self.cluster_name = arguments.cluster_name
+        self.academic_year = arguments.academic_year
+        self.params = dict(cluster_name=self.cluster_name,academic_year=self.academic_year)
 
 if __name__ == "__main__":
     r= ReportOne();
