@@ -186,19 +186,22 @@
 	  <strong>Participation : </strong>{{ data.no_students}} {
 	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
 	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
-	  }<br>
+	  }
 
-	  <b>Student with ZERO score:</b> {{ data.score_zero }}
+	  <span style="float:right"><b>Student with ZERO score:</b> {{ data.score_zero }}
 	  {
 	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
 	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
 	  }
+	  </span>
 	  <br>
+	   <span style="float:right">
 	  <b>Student with 100% score:</b> {{ data.score_100 }}
 	  {
 	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
 	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
 	  }
+	  </span>
 	</div>
 	
       </div>
