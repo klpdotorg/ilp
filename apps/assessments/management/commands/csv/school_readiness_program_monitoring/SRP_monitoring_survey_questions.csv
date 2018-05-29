@@ -1,7 +1,7 @@
 id,question_text,display_text,key,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
-637,Teacher of Nali-Kali is conducting the class?,Is the teacher of Nali-Kali conducting the class?,Academic,"{1,0}",True,1,AC,,,ನಲಿ-ಕಲಿ ಶಿಕ್ಷಕರು ತರಗತಿಯನ್ನು ನಡೆಸುತ್ತಿದ್ದಾರೆಯೇ?,"{ಹೌದು,ಇಲ್ಲ}"
-608,Was english class happening during your visit ?,Did you observe english class happening during the visit ?,ivrss-english-class-happening,"{Yes,No}",True,1,AC,,,,
-609,What was the teacher doing during the visit ?,Did you see the teacher doing following activities during of your visit?,Academic,"{Conversation,Rhymes,Grammer,Phonics,Reading,Writing,Assessment}",True,2,AC,,,,
-610,Was the teacher using the following items ?,Did you observe the teacher using the following items in the classroom ?,Academic,"{Tab,Flash cards,Teacher-made TLM}",True,2,AC,,,,
-611,What were the children doing during your visit ?,Did you observe the chidren doing following activities during your visit ?,Academic,"{Reading,Writing,Speaking in english,Singing rhymes with action}",True,2,AC,,,,
-612,Which lesson was being taught in the class ?,Which lesson was being taught in the class during your visit ?,Academic,"{Lesson 1,Lesson 2,Lesson 3,Lesson 4,Lesson 5,Lesson 6,Lesson 7}",True,2,AC,,,,
+638,Teacher of Nali-Kali is conducting the class ?,Is the teacher of Nali-Kali conducting the class ?,Academic,"{Yes,No}",True,1,AC,,,ನಲಿ-ಕಲಿ ಶಿಕ್ಷಕರು ತರಗತಿಯನ್ನು ನಡೆಸುತ್ತಿದ್ದಾರೆಯೇ?,"{ಹೌದು,ಇಲ್ಲ}"
+639,Teacher trained by Akshara Foundation ?,Is the teacher trained by Akshara Foundation ?,Academic,"{Yes,No}",True,1,AC,,,ಶಿಕ್ಷಕರು ಅಕ್ಷರ ಫೌಂಡೇಷನ್ ವತಿಯಿಂದ ತರಬೇತಿ ಹೊಂದಿದವರೇ?,"{ಹೌದು,ಇಲ್ಲ}"
+640,Teacher carrying out the expected day’s timetable ?,Is the teacher carrying out the expected day’s timetable ?,Academic,"{Yes,No}",True,1,AC,,,ದಿನದ ನಿರೀಕ್ಷಿತ ವೇಳಾಪಟ್ಟಿಯನ್ನು ಶಿಕ್ಷಕರು ನಡೆಸುತ್ತಿದ್ದಾರೆಯೇ?,"{ಹೌದು,ಇಲ್ಲ}"
+641,Was the teacher using the following items ?,Did you observe the teacher using the following items in the classroom ?,Academic,"{Tab,Flash cards,Teacher-made TLM}",True,2,AC,,,,
+642,What were the children doing during your visit ?,Did you observe the chidren doing following activities during your visit ?,Academic,"{Reading,Writing,Speaking in english,Singing rhymes with action}",True,2,AC,,,,
+643,Which lesson was being taught in the class ?,Which lesson was being taught in the class during your visit ?,Academic,"{Lesson 1,Lesson 2,Lesson 3,Lesson 4,Lesson 5,Lesson 6,Lesson 7}",True,2,AC,,,,
