@@ -155,24 +155,6 @@
       font-weight: 600;
       float: left;
       }
-      .items{
-      width: 80%;
-      margin: auto;
-      border: 1px solid #ccc;
-      padding: 20px;
-      margin-top: 30px;
-      overflow: hidden;
-      }
-      .item-left{
-       float: left;
-      width: 30%;
-      box-sizing: border-box;
-      }
-      .item-right{
-       float: right;
-      width: 30%;
-      box-sizing: border-box;
-      }
 
     </style>
   </head>
@@ -181,40 +163,42 @@
     <div class="wrapper">
       <div class="outer-box">
 	<div class="container">
-	  <div class="dialog-left">
-	    <strong> Gram Panchayat Name:</strong> {{data.gp_name}}<br>
+	 
+	  <strong> Gram Panchayat Name:</strong> {{data.gp_name}}
+	  <span style="float:right">
+	    <strong>Test condected on:</strong> {{data.academic_year}}
+	  </span>
+	  <br>
 	    
-	    <strong>Block Name:</strong> {{data.block}}  <strong style="margin-left:30px"> District Name:</strong> {{data.district}}<br>
+	  <strong>Block Name:</strong> {{data.block}}
+	  <span style="float:right">
+	    <strong>Report Generated on:</strong> {{data.today}}
+	  </span>
+	    <br>
+	    <strong> District Name:</strong> {{data.district}}<br>
 	    <strong> No. of schools in GP:</strong> {{data.no_schools_gp}}<br>
 	    
-	  </div>
-	  <div class="dialog-right">
-	    <strong>Test condected on:</strong> {{data.academic_year}}<br>
-	    <strong>Report Generated on:</strong> {{data.today}}<br><br>
-	  </div>
+	  
+	 
+	    
+	 
 	  <br>
-	  <div class="items">
-	    <div class="item-left">
-	      <strong>Participation : </strong>{{ data.no_students}} {
-	      <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
-	      <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
-	      }
-	    </div>
-	    <div class="item-right">
-	      <b>Student with ZERO score:</b> {{ data.score_zero }}
-	      {
-	      <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
-	      <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
-	      }
-	    </div>
-	    <div class="item-right">
-	      <b>Student with 100% score:</b> {{ data.score_100 }}
-	      {
-	      <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
-	      <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
-	      }
-	    </div>
-	  </div>
+	  <strong>Participation : </strong>{{ data.no_students}} {
+	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
+	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
+	  }<br>
+
+	  <b>Student with ZERO score:</b> {{ data.score_zero }}
+	  {
+	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
+	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
+	  }
+	  <br>
+	  <b>Student with 100% score:</b> {{ data.score_100 }}
+	  {
+	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
+	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
+	  }
 	</div>
 	
       </div>
