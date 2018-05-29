@@ -287,6 +287,35 @@ class SchoolReport(BaseReport):
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
 
+        conditions = AGI.values_list('institution__name', 'questiongroup__name').distinct()
+        contests = list(AGI.values_list('answers__question__key', flat=True).distinct())
+        contests.pop(contests.index('Gender'))
+        schools = []
+        scores = {}
+
+        for school, qgroup in conditions:
+            school_ag = AGI.filter(institution__name=school, questiongroup__name=qgroup)
+            for contest in contests:
+                percent = []
+                for ag in school_ag:
+                    num_q = ag.answers.filter(question__key=contest).count()
+                    if num_q == 0:
+                        continue
+                    answered = ag.answers.filter(question__key=contest, answer='Yes').count()
+                    mark = (answered/num_q)*100
+                    try:
+                        scores[ag.id]['mark'].append(mark)
+                    except KeyError:
+                        scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
+                        scores[ag.id]['mark'].append(mark)
+                    percent.append(mark)
+
+                if len(percent) == 0:
+                    continue
+                details = dict(school=school, grade=qgroup)
+                details['contest'] = contest
+                details['percent'] = sum(percent)/len(percent)
+                schools.append(details)
 
 if __name__ == "__main__":
     r= ReportOne();
