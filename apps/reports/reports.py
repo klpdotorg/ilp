@@ -218,13 +218,16 @@ class GPMathContestReport(BaseReport):
                         num += 1
                 grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
                 grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-                survey = self.getHouseholdServey()
+
+
+        survey = self.getHouseholdServey(gp, dates)
+
         self.data =  {'gp_name': gp.title(), 'academic_year': ay, 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
         return self.data
 
-    def getHouseholdServey():
+    def getHouseholdServey(gp_name,date_range):
         #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin3__name='naganur', entered_at__range=['2017-06-01', '2018-03-31'], questiongroup_id__in=[18, 20])
+        a = AnswerGroup_Institution.objects.filter(institution__admin3__name=gp_name, entered_at__range=date_range, questiongroup_id__in=[18, 20])
 
         questions = QuestionGroup.objects.get(id=18).questions.all()
 
