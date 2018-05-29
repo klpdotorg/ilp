@@ -4,9 +4,8 @@ from rest_framework import serializers
 
 from schools.models import (
     Institution, Management, PinCode, InstitutionCategory,
-    InstitutionAggregation, InstitutionLanguage
+    InstitutionAggregation, InstitutionLanguage, Student, StudentStudentGroupRelation, StudentGroup
 )
-
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
 from common.models import (
     InstitutionGender, Status, AcademicYear, Language
@@ -144,6 +143,7 @@ class InstitutionSerializer(ILPSerializer):
     sex = serializers.CharField(source='gender.name')
     identifiers = serializers.SerializerMethodField()
     images = serializers.ListField(source='get_images')
+    grades = serializers.ListField(source='get_grades')
     institution_languages = serializers.SerializerMethodField()
 
     class Meta:
@@ -155,7 +155,7 @@ class InstitutionSerializer(ILPSerializer):
             'moi', 'sex', 'identifiers', 'admin1', 'admin2', 'admin3',
             'parliament', 'assembly', 'ward', 'type', 'num_boys', 'num_girls',
             'last_verified_year', 'institution_languages', 'route_information',
-            'images'
+            'images', 'grades'
         )
 
     def get_dise_code(self, obj):
