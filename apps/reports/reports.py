@@ -12,7 +12,7 @@ from boundary.models import Boundary
 from assessments.models import SurveyInstitutionAgg
 from schools.models import Institution
 from assessments import models as assess_models
-from Assessments.models import AnswerGroup_Institution, QuestionGroup
+from assessments.models import AnswerGroup_Institution, QuestionGroup
 from .models import Reports, Tracking
 
 class BaseReport(ABC):
@@ -233,7 +233,7 @@ class GPMathContestReport(BaseReport):
 
         total_response = a.count()
 
-        HHSurvey = {}
+        HHSurvey = []
 
         for i in questions:
             count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
