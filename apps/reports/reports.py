@@ -273,10 +273,10 @@ class SchoolReport(BaseReport):
             print('School {} does not exist\n'.format(self.school_name))
             raise ValueError('Invalid school name\n')
 
-        gp = school_obj.gp.name # GP name
-        cluster = school_obj.admin3.name         # Cluster name
-        block = school_obj.admin2.name           # Block name
-        district = school_obj.admin1.parent.name    # District name
+        gp = school_obj.gp.name.title() # GP name
+        cluster = school_obj.admin3.name.title()         # Cluster name
+        block = school_obj.admin2.name.title()           # Block name
+        district = school_obj.admin1.parent.name.title()    # District name
 
         AGI = AnswerGroup_Institution.objects.filter(institution__name=self.school_name, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
@@ -371,6 +371,11 @@ class SchoolReport(BaseReport):
                         num += 1
                 grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
                 grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
+
+        self.data =  {'gp_name': gp, 'academic_year': self.academic_year, 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
+        return self.data
+
+
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
