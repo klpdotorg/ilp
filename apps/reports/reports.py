@@ -337,6 +337,40 @@ class SchoolReport(BaseReport):
 
         score_100 = boys_100 + girls_100
         score_zero = boys_zero + girls_zero
+
+        contest_list = [i['contest'] for i in schools]
+        schools_out = []
+        out= []
+
+        for item in schools:
+            if not item['school'] in schools_out:
+                schools_out.append(item['school'])
+                out.append({'school':item['school'],
+                            'grades':[{
+                                'name':item['grade'],
+                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+                })
+            else:
+                for o in out:
+                    if o['school']==item['school']:
+                        gradeExist= False
+                        for grade in o['grades']:
+                            if item['grade'] == grade['name']:
+                                gradeExist = True
+                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+                        if not gradeExist:
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+
+        for i in out:
+            for grade in i['grades']:
+                count = 0
+                num = 0
+                for value in grade['values']:
+                    if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
+                        count += value['count']
+                        num += 1
+                grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
+                grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
