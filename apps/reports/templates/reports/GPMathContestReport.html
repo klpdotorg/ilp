@@ -155,6 +155,24 @@
       font-weight: 600;
       float: left;
       }
+      .items{
+      width: 80%;
+      margin: auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 30px;
+      overflow: hidden;
+      }
+      .item-left{
+       float: left;
+      width: 30%;
+      box-sizing: border-box;
+      }
+      .item-right{
+       float: right;
+      width: 30%;
+      box-sizing: border-box;
+      }
 
     </style>
   </head>
@@ -175,21 +193,28 @@
 	    <strong>Report Generated on:</strong> {{data.today}}<br><br>
 	  </div>
 	  <br>
-	  <strong>Participation : </strong>{{ data.no_students}} {
-	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
-	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
-	  }
-	  <span style="float:right;"><b>Student with ZERO score:</b> {{ data.score_zero }}
-	    {
-	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
-	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
-	    }
-	    <b>Student with 100% score:</b> {{ data.score_100 }}
-	    {
-	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
-	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
-	    }
-	  </span>
+	  <div class="items">
+	    <div class="item-left">
+	      <strong>Participation : </strong>{{ data.no_students}} {
+	      <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
+	      <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
+	      }
+	    </div>
+	    <div class="item-right">
+	      <b>Student with ZERO score:</b> {{ data.score_zero }}
+	      {
+	      <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
+	      <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
+	      }
+	    </div>
+	    <div class="item-right">
+	      <b>Student with 100% score:</b> {{ data.score_100 }}
+	      {
+	      <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
+	      <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
+	      }
+	    </div>
+	  </div>
 	</div>
 	
       </div>
