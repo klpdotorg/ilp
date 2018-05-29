@@ -42,7 +42,9 @@ class UsersViewSet(viewsets.ModelViewSet):
         
         for group_name in groups:
             try:
+                print("Group name is: ", group_name)
                 group_obj = Group.objects.get(name=group_name)
+                print("Retrieved group object:", group_obj)
             except:
                 print("Did not find group")
             else:
@@ -56,6 +58,41 @@ class UsersViewSet(viewsets.ModelViewSet):
         response_data = TadaUserRegistrationSerializer(user)
         headers = self.get_success_headers(serializer.data)
         return Response(response_data.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    def update(self, request, *args, **kwargs):
+        data = request.data.copy()
+        print("Inside TADA user update view", request.data)
+        try:
+            groups = data.pop("groups")
+        except:
+            groups = []
+        instance = self.get_object()
+        serializer = TadaUserSerializer(instance, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        user.groups.clear()
+        user.save()
+        for group_name in groups:
+            try:
+                print("Group name is: ", group_name)
+                group_obj = Group.objects.get(name=group_name)
+                print("Retrieved group object:", group_obj)
+            except:
+                print("Did not find group")
+            else:
+                user.groups.add(group_obj)
+        if user.is_superuser:
+            user.groups.add(Group.objects.get(name='tada_admin'))
+        else:
+            print("Adding user to default groups")
+            user.groups.add(Group.objects.get(name='ilp_auth_user'))
+            user.groups.add(Group.objects.get(name='ilp_konnect_user'))
+        user.save()
+        print("saving user")
+        response_data = TadaUserSerializer(user)
+        headers = self.get_success_headers(serializer.data)
+        return Response(response_data.data, status=status.HTTP_201_CREATED, headers=headers)
+
 
 class TadaUserLoginView(generics.GenericAPIView):
     """
