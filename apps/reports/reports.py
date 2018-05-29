@@ -12,7 +12,7 @@ from boundary.models import Boundary
 from assessments.models import SurveyInstitutionAgg
 from schools.models import Institution
 from assessments import models as assess_models
-from assessments.models import AnswerGroup_Institution
+from Assessments.models import AnswerGroup_Institution, QuestionGroup
 from .models import Reports, Tracking
 
 class BaseReport(ABC):
@@ -222,6 +222,22 @@ class GPMathContestReport(BaseReport):
         self.data =  {'gp_name': gp.title(), 'academic_year': ay, 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
         return self.data
 
+    def getHouseholdServey():
+        #Husehold Survey
+        a = AnswerGroup_Institution.objects.filter(institution__admin3__name='naganur', entered_at__range=['2017-06-01', '2018-03-31'], questiongroup_id__in=[18, 20])
+
+        questions = QuestionGroup.objects.get(id=18).questions.all()
+
+        total_response = a.count()
+
+        HHSurvey = {}
+
+        for i in questions:
+            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+            HHSurvey[i.question_text] = round((count/total_response)*100, 2)
+
+        return HHSurvey
 
 if __name__ == "__main__":
     r= ReportOne();
