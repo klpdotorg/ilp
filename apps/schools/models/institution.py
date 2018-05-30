@@ -6,7 +6,6 @@ from common.models import (Status, AcademicYear)
 from django.conf import settings
 from assessments.models import InstitutionImages
 
-
 class InstitutionCategory(models.Model):
     """ Category for institution """
     name = models.CharField(max_length=300)
@@ -92,9 +91,9 @@ class Institution(models.Model):
     def get_grades(self):
         from .student_staff import (Student, StudentStudentGroupRelation, StudentGroup)
         group_queryset = StudentGroup.objects.filter(institution_id = self, status='AC', group_type='class')
-        grades=[]
+        grades={}
         for grp in group_queryset:
-            grades.append(grp.name)
+            grades.update({grp.id:grp.name})
         return grades
 
     def get_geometry(self):
