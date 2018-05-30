@@ -394,6 +394,23 @@ class ClusterReport(BaseReport):
         self.academic_year = arguments.academic_year
         self.params = dict(cluster_name=self.cluster_name,academic_year=self.academic_year)
 
+    def get_data(self):
+        ay = self.academic_year.split('-')
+        dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
+
+        report_generated_on = datetime.datetime.now().date().isoformat()
+
+        try:
+            cluster_obj = Boundary.objects.get(name=self.cluster_name, boundary_type__char_id='SC') # Take the cluster from db
+        except Boundary.DoesNotExist:
+            print('Cluster {} does not exist\n'.format(self.cluster_name))
+            raise ValueError('Invalid cluster name\n')
+
+        block = cluster_obj.parent.name.title()           # Block name
+        district = cluster_obj.parent.parent.name.title()    # District name
+
+        cluster_schools = Institution.objects.filter(admin3=cluster_obj) # schools in GP
+        no_of_schools_in_cluster = cluster_schools.count()
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
