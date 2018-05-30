@@ -25,12 +25,14 @@
       margin-left: auto;
       margin-right: auto;
       line-height: 26px;
+      text-transform: capitalize;
       }
       
       h1 {
       text-align: center;
       font-size: 24px;
       padding-top: 35px;
+      text-transform: capitalize;
       }
        h2 {
       text-align: center;
@@ -165,7 +167,7 @@
     </style>
   </head>
   <body>
-    <h1>GKA:  {{data.cluster}} Cluster Report</h1>
+    <h1>GKA: {{data.cluster}} Cluster Report</h1>
     <div class="wrapper">
       <div class="outer-box">
 	<div class="container">
@@ -191,7 +193,7 @@
 	  Teacher's Trained :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
 	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
 	  </div>
@@ -200,7 +202,7 @@
 	  Kit Usage :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
 	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
 	  </div>
@@ -209,7 +211,7 @@
 	  Group Work :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
 	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
 	  </div>
