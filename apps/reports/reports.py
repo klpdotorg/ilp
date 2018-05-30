@@ -454,6 +454,24 @@ class ClusterReport(BaseReport):
         group_work = GKA.filter(answers__question__question_text__contains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
         return dict(teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2))
 
+class BlockReport(BaseReport):
+    def __init__(self, block_name=None, academic_year=None, **kwargs):
+        self.block_name = block_name
+        self.academic_year = academic_year
+        self.params = dict(block_name=self.block_name,academic_year=self.academic_year)
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument('--block_name', required=True)
+        self.parser.add_argument('--academic_year', required=True)
+        self._template_path = 'BlockReport.html'
+        self._type = 'BlockReport'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
+        super().__init__(**kwargs)
+
+    def parse_args(self, args):
+        arguments = self.parser.parse_args(args)
+        self.block_name = arguments.block_name
+        self.academic_year = arguments.academic_year
+        self.params = dict(block_name=self.block_name,academic_year=self.academic_year)
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
