@@ -415,8 +415,11 @@ class ClusterReport(BaseReport):
         schools = []
         for school in cluster_schools:
             r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
+            try:
             school_data = r.get_data()['schools']
             schools.append(school_data)
+            except ValueError:
+                continue
 
         household = self.getHouseholdServey(cluster_obj, dates)
         gka = self.getGKAData(cluster_obj, dates)
