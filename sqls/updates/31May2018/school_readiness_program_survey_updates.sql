@@ -9,4 +9,4 @@ update assessments_question set question_text='Are Children’s work books up to
 update assessments_question set question_text='Are the activity books corrected by the teacher up to date ?' where id=647;
 update assessments_question set question_text='Is the child tracker completed ?' where id=648;
 
-update assessments_question set question_type=1 where id in (642,643,644,645);
+update assessments_question set question_type_id=1 where id in (642,643,644,645);
