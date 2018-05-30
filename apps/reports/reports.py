@@ -417,6 +417,25 @@ class ClusterReport(BaseReport):
             r = SchoolReport(school_name=school.name, academic_year=self.academic_year)
             school_data = r.get_data()['schools']
             schools.append(school_data)
+
+        household = self.getHouseholdServey(cluster_obj, dates)
+    def getHouseholdServey(self,cluster,date_range):
+        #Husehold Survey
+        a = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, entered_at__range=date_range, questiongroup_id__in=[18, 20])
+
+        questions = QuestionGroup.objects.get(id=18).questions.all()
+
+        total_response = a.count()
+
+        HHSurvey = []
+
+        for i in questions:
+            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+            HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
+
+        return HHSurvey
+
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
