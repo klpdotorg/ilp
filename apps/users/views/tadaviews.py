@@ -34,10 +34,11 @@ class UsersViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         search_query = self.request.query_params.get('search', None)
-        self.queryset = self.queryset.filter(
-            Q(email=search_query) | Q(mobile_no=search_query) |
-            Q(first_name=search_query) | Q(last_name=search_query)
-        )
+        if search_query:
+            self.queryset = self.queryset.filter(
+                Q(email=search_query) | Q(mobile_no=search_query) |
+                Q(first_name=search_query) | Q(last_name=search_query)
+            )
         return self.queryset.filter(is_active='True')
 
     def create(self, request, *args, **kwargs):
