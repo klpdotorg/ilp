@@ -12,6 +12,7 @@ from common.views import ILPViewSet
 from django.contrib.auth.models import Group
 import json
 from users.utils import login_user
+from rest_framework import filters
 
 
 class UsersViewSet(viewsets.ModelViewSet):
@@ -23,6 +24,9 @@ class UsersViewSet(viewsets.ModelViewSet):
     )
     serializer_class = TadaUserSerializer
     queryset = User.objects.all()
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('first_name', 'last_name', 'email')
+    ordering = ('first_name',)
 
     def get_queryset(self):
         print("Inside tada users view")
