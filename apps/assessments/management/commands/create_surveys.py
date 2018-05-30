@@ -122,9 +122,9 @@ class Command(BaseCommand):
             count += 1
 
             id = row[0].strip()
-            question = Question.objects.get(pk=id)
+            question = Question.objects.filter(pk=id)
             if question:
-                questions.append(question)
+                questions.append(question[0])
                 continue
             question_text = row[1].strip()
             display_text = row[2].strip()
