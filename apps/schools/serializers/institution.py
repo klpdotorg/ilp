@@ -143,7 +143,7 @@ class InstitutionSerializer(ILPSerializer):
     sex = serializers.CharField(source='gender.name')
     identifiers = serializers.SerializerMethodField()
     images = serializers.ListField(source='get_images')
-    grades = serializers.DictField(source='get_grades')
+    grades = serializers.ListField(source='get_grades')
     institution_languages = serializers.SerializerMethodField()
 
     class Meta:
