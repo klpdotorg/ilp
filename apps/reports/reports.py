@@ -416,8 +416,8 @@ class ClusterReport(BaseReport):
         for school in cluster_schools:
             r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
             try:
-            school_data = r.get_data()['schools']
-            schools.append(school_data)
+                school_data = r.get_data()['schools']
+                schools.append(school_data)
             except ValueError:
                 continue
 
