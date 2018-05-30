@@ -270,7 +270,7 @@ class SchoolReport(BaseReport):
         try:
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
         except Institution.DoesNotExist:
-            print('School {} does not exist\n'.format(self.school_name))
+            print('School {} does not exist\n'.format(self.school_code))
             raise ValueError('Invalid school name\n')
 
         gp = school_obj.gp.const_ward_name.title() # GP name
