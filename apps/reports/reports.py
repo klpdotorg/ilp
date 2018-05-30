@@ -273,7 +273,10 @@ class SchoolReport(BaseReport):
             print('School {} does not exist\n'.format(self.school_code))
             raise ValueError('Invalid school name\n')
 
-        gp = school_obj.gp.const_ward_name.title() # GP name
+        try:
+            gp = school_obj.gp.const_ward_name.title() # GP name
+        except AttributeError:
+            gp = 'Not Available'
         cluster = school_obj.admin3.name.title()         # Cluster name
         block = school_obj.admin2.name.title()           # Block name
         district = school_obj.admin1.parent.name.title()    # District name
@@ -446,7 +449,7 @@ class ClusterReport(BaseReport):
             try:
                 HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
             except ZeroDivisionError:
-                HHSurvey.append({'text':i.question_text,'percentage':0.0})q
+                HHSurvey.append({'text':i.question_text,'percentage':0.0})
 
         return HHSurvey
 
