@@ -183,7 +183,9 @@
       </div>
       <table class="school-list" id="customers">
 	<tr>
-	  <th></th>	  
+	  <th>School Name</th>
+	  <th>Grade</th>
+	  
 	  <th>
 	    <div class="arrow_box">Addition
 	    </div>
@@ -214,6 +216,8 @@
 	{% for g in item.grades%}
 	<tr>
 	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.school }}</td> {% endif %}
+	  <td>{{g.name}}</td>
+
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Addition" == value.contest %}
