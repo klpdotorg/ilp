@@ -1,3 +1,8 @@
+import json
+
+from django.db.models import Q
+from django.contrib.auth.models import Group
+
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 
@@ -8,19 +13,18 @@ from users.serializers import (
     TadaUserSerializer
 )
 from users.permission import IsAdminOrIsSelf, IsAdminUser
-from common.views import ILPViewSet
-from django.contrib.auth.models import Group
-import json
 from users.utils import login_user
 from rest_framework import filters
+
+from common.views import ILPViewSet
 
 
 class UsersViewSet(viewsets.ModelViewSet):
     """
     This endpoint registers a new TADA user
     """
-    permission_classes =(
-        IsAdminUser,
+    permission_classes = (
+        IsAdminUser
     )
     serializer_class = TadaUserSerializer
     queryset = User.objects.all()
@@ -29,10 +33,14 @@ class UsersViewSet(viewsets.ModelViewSet):
     ordering = ('first_name',)
 
     def get_queryset(self):
-        print("Inside tada users view")
+        search_query = self.request.query_params.get('search', None)
+        self.queryset = self.queryset.filter(
+            Q(email=search_query) | Q(mobile_no=search_query) |
+            Q(first_name=search_query) | Q(last_name=search_query)
+        )
         return self.queryset.filter(is_active='True')
 
-    def create(self, request):
+    def create(self, request, *args, **kwargs):
         data = request.data.copy()
         print("Inside tada user register view", request.data)
         try:
