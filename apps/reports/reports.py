@@ -440,7 +440,10 @@ class ClusterReport(BaseReport):
         for i in questions:
             count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
             count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-            HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
+            try:
+                HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
+            except ZeroDivisionError:
+                HHSurvey.append({'text':i.question_text,'percentage':0.0}
 
         return HHSurvey
 
