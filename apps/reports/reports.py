@@ -472,6 +472,21 @@ class BlockReport(BaseReport):
         self.block_name = arguments.block_name
         self.academic_year = arguments.academic_year
         self.params = dict(block_name=self.block_name,academic_year=self.academic_year)
+
+    def get_data(self):
+
+        ay = self.academic_year.split('-')
+        dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
+
+        report_generated_on = datetime.datetime.now().date().isoformat()
+
+        try:
+            block = Boundary.objects.get(name=self.block_name, boundary_type__char_id='SB') # Take the block from db
+        except Boundary.DoesNotExist:
+            print('Block {} does not exist\n'.format(self.block_name))
+            raise ValueError('Invalid block name\n')
+
+        district = block.parent.parent.name.title()    # District name
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
