@@ -487,6 +487,29 @@ class BlockReport(BaseReport):
             raise ValueError('Invalid block name\n')
 
         district = block.parent.parent.name.title()    # District name
+
+        clusters  = Boundary.objects.filter(parent=block) # Clusters that belong to the block
+        num_clusters = clusters.count()
+
+        num_schools = 0
+        teachers_trained, kit_usage, group_work = 0, 0, 0
+        gka_clusters = []
+
+        for cluster in clusters:
+            # Aggregating number of schools and gka data
+            r = ClusterReport(cluster_name=cluster.name, academic_year=self.academic_year)
+            data = r.get_data()
+            num_schools += data['no_schools']
+            cluster_gka = data['gka']
+            teachers_trained += cluster_gka['teachers_trained']
+            kit_usage += cluster_gka['kit_usage']
+            group_work += cluster_gka['group_work']
+            cluster_gka['cluster'] = cluster.name
+            gka_clusters.append(cluster_gka)
+        gka = dict(teachers_trained=round(teachers_trained/num_clusters, 2),  kit_usage=round(kit_usage/num_clusters, 2), group_work=round(group_work/num_clusters, 2))
+
+        self.data = {'block':self.block_name.title(), 'district':district, 'academic_year':self.academic_year, 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters,}
+        return self.data
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
