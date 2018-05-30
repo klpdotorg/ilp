@@ -91,9 +91,12 @@ class Institution(models.Model):
     def get_grades(self):
         from .student_staff import (Student, StudentStudentGroupRelation, StudentGroup)
         group_queryset = StudentGroup.objects.filter(institution_id = self, status='AC', group_type='class')
-        grades={}
+        grades=[]
         for grp in group_queryset:
-            grades.update({grp.id:grp.name})
+            gradesdict={}
+            gradesdict['grpid'] = grp.id
+            gradesdict['grpname'] = grp.name
+            grades.append(gradesdict)
         return grades
 
     def get_geometry(self):
