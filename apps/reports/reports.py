@@ -411,6 +411,12 @@ class ClusterReport(BaseReport):
 
         cluster_schools = Institution.objects.filter(admin3=cluster_obj) # schools in GP
         no_of_schools_in_cluster = cluster_schools.count()
+
+        schools = []
+        for school in cluster_schools:
+            r = SchoolReport(school_name=school.name, academic_year=self.academic_year)
+            school_data = r.get_data()['schools']
+            schools.append(school_data)
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
