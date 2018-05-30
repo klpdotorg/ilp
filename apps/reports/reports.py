@@ -376,12 +376,14 @@ class SchoolReport(BaseReport):
         return self.data
 
 class ClusterReport(BaseReport):
-    def __init__(self, cluster_name=None, academic_year=None, **kwargs):
+    def __init__(self, cluster_name=None, block_name=None, academic_year=None, **kwargs):
         self.cluster_name = cluster_name
         self.academic_year = academic_year
-        self.params = dict(cluster_name=self.cluster_name,academic_year=self.academic_year)
+        self.block_name = block_name
+        self.params = dict(cluster_name=self.cluster_name, block_name=self.block_name, academic_year=self.academic_year)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--cluster_name', required=True)
+        self.parser.add_argument('--block_name', required=True)
         self.parser.add_argument('--academic_year', required=True)
         self._template_path = 'ClusterReport.html'
         self._type = 'ClusterReport'
@@ -391,8 +393,9 @@ class ClusterReport(BaseReport):
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
         self.cluster_name = arguments.cluster_name
+        self.block_name = argument.block_name
         self.academic_year = arguments.academic_year
-        self.params = dict(cluster_name=self.cluster_name,academic_year=self.academic_year)
+        self.params = dict(cluster_name=self.cluster_name, block_name=self.block_name, academic_year=self.academic_year)
 
     def get_data(self):
         ay = self.academic_year.split('-')
@@ -401,7 +404,7 @@ class ClusterReport(BaseReport):
         report_generated_on = datetime.datetime.now().date().isoformat()
 
         try:
-            cluster_obj = Boundary.objects.get(name=self.cluster_name, boundary_type__char_id='SC') # Take the cluster from db
+            cluster_obj = Boundary.objects.get(name=self.cluster_name, parent__name = self.block_name, boundary_type__char_id='SC') # Take the cluster from db
         except Boundary.DoesNotExist:
             print('Cluster {} does not exist\n'.format(self.cluster_name))
             raise ValueError('Invalid cluster name\n')
@@ -443,7 +446,7 @@ class ClusterReport(BaseReport):
             try:
                 HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
             except ZeroDivisionError:
-                HHSurvey.append({'text':i.question_text,'percentage':0.0})
+                HHSurvey.append({'text':i.question_text,'percentage':0.0})q
 
         return HHSurvey
 
@@ -497,7 +500,7 @@ class BlockReport(BaseReport):
 
         for cluster in clusters:
             # Aggregating number of schools and gka data
-            r = ClusterReport(cluster_name=cluster.name, academic_year=self.academic_year)
+            r = ClusterReport(cluster_name=cluster.name, block_name=block.name, academic_year=self.academic_year)
             data = r.get_data()
             num_schools += data['no_schools']
             cluster_gka = data['gka']
