@@ -13,7 +13,6 @@ from assessments.models import SurveyInstitutionAgg
 from schools.models import Institution
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
-from .reportlist import reportlist, param_ids
 from .models import Reports, Tracking
 
 class BaseReport(ABC):
@@ -50,12 +49,12 @@ class BaseReport(ABC):
         pdf = pdfkit.PDFKit(html, 'string', configuration=config).to_pdf()
         return pdf
 
-    def get_sms(self, track_id, name):
+    def get_sms(self, track_id, name, param_id):
         t = Tracking.objects.get(track_id = track_id)
         url = reverse('view_report',kwargs={'report_id':t.report_id.link_id,'tracking_id':track_id})
         request = None
         full_url = ''.join(['http://', get_current_site(request).domain, url])
-        return self.sms_template.format(name, t.report_id.parameters[param_ids[self._type]].title(),full_url)
+        return self.sms_template.format(name, t.report_id.parameters[param_id].title(),full_url)
 
     def save(self):
         r= Reports(report_type=self._type,parameters=self.params, data=self.data)

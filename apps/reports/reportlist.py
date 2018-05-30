@@ -1,2 +1,3 @@
-from .reports import ReportOne, GPMathContestReport, SchoolReport
-reportlist = {"ReportOne":ReportOne, "GPMathContestReport": GPMathContestReport,"SchoolReport":SchoolReport}
+from .reports import GPMathContestReport, SchoolReport
+reportlist = {"GPMathContestReport": GPMathContestReport,"SchoolReport":SchoolReport}
+param_ids = { "GPMathContestReport": "gp_name","SchoolReport":"school_code"}
