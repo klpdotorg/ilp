@@ -443,7 +443,7 @@ class ClusterReport(BaseReport):
             try:
                 HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
             except ZeroDivisionError:
-                HHSurvey.append({'text':i.question_text,'percentage':0.0}
+                HHSurvey.append({'text':i.question_text,'percentage':0.0})
 
         return HHSurvey
 
