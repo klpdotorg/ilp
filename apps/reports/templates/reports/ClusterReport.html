@@ -1,0 +1,316 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&effect=outline" rel="stylesheet">
+    <style>
+      body {
+      font-family: 'Questrial', sans-serif;
+      
+      }
+      .outer-box{
+      padding: 20px;
+      margin: auto;
+      width: 100%;
+      background-color: #efeaea;
+      overflow: hidden;
+      }
+      .school-list{
+      padding: 20px;
+      margin: auto;
+      width: 80%;
+      margin-top: 35px;
+      }
+      .container{
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 26px;
+      }
+      
+      h1 {
+      text-align: center;
+      font-size: 24px;
+      padding-top: 35px;
+      }
+       h2 {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 100;
+      }
+      
+      p {
+      font-family: verdana;
+      font-size: 20px;
+      }
+      
+      #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      }
+
+      #customers td, #customers th {
+      border: 0px solid #BABABA;
+      padding: 8px;
+      }
+      
+      #customers tr:nth-child(odd){background-color: #F3F3F3;}
+      
+      #customers tr:hover {background-color: #ddd;}
+      
+      #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      background-color: #ffffff;
+      color: #594633;
+      }
+      .r-dot {
+      text-shadow: -1px 0 #ff0000, 0 1px #ff0000, 1px 0 #ff0000, 0 -1px #ff0000 !important;
+      }
+      .g-dot {
+      text-shadow: -1px 0 #008000, 0 1px #008000, 1px 0 #008000, 0 -1px #008000 !important;
+      }
+      .b-dot{
+      text-shadow: -1px 0 #595959, 0 1px #595959, 1px 0 #595959, 0 -1px #595959;
+      }
+
+      .arrow_box {
+      position: relative;
+      background: #ffffff;
+      border: 2px solid #cccccc;
+      width: 100px;
+      height: 33px;
+      text-align: center;
+      font-size: 13px;
+      }
+      .arrow_box:after, .arrow_box:before {
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      }
+      
+      .arrow_box:after {
+      border-color: rgba(136, 183, 213, 0);
+      border-top-color: #ffffff;
+      border-width: 50px;
+      margin-left: -50px;
+      border-top: 7px solid #ffffff;
+      }
+      .arrow_box:before {
+      border-color: rgba(194, 225, 245, 0);
+      border-top-color: #cccccc;
+      border-width: 54px;
+      margin-left: -54px;
+      border-top: 8px solid #cccccc;
+      margin-top: 1px;
+      }
+      .mark {
+      font-family: Open Sans;
+      font-size: 24px;
+      text-align: center;
+      }
+      td{
+      padding:10px;
+      }
+      .p-bar-grey{
+      color: #000!important;
+      background-color: #f1f1f1!important;
+      margin-left: 33px;
+      margin-right: 38px;
+      height: 15px;
+      }
+      .green{
+      background-color: ##B6D7A8!important;
+      border-radius:5px;
+      }
+      .pink{
+      background-color: #F1CACA!important;
+      border-radius:5px;
+      }
+      .p-bar-fill{     
+      color: #fff!important;
+      background-color: #008BE3!important;
+      }
+      .half-box{
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      padding: 10px;
+      }
+      .three-box{
+      float: left;
+      width: 16%;
+      box-sizing: border-box;
+      padding: 10px;
+      }
+      .outer-line{
+      width: 80%;
+      margin: auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 30px;
+      overflow: hidden;
+      }
+      .percent{
+      font-size: 16px;
+      font-weight: 600;
+      float: left;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>Gram Panchayat Math Contest Report</h1>
+    <div class="wrapper">
+      <div class="outer-box">
+	<div class="container">
+	 
+	  <strong> Cluster Name:</strong> {{data.cluster}}
+	  <span style="float:right">
+	    <strong>Test condected on:</strong> {{data.academic_year}}
+	  </span>
+	  <br>
+	    
+	  <strong>Block Name:</strong> {{data.block}}
+	  <span style="float:right">
+	    <strong>Report Generated on:</strong> {{data.today}}
+	  </span>
+	  <br>
+	  <strong> District Name:</strong> {{data.district}}<br>
+	  <strong> No. of schools:</strong> {{data.no_schools_gp}}<br>
+	</div>
+      </div>
+      <div class="outer-line">
+	<h2>GKA IMPLEMENTATION</h2>
+	<div class="three-box">
+	  Teacher's Trained :
+	</div>
+	<div class="three-box">
+	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <div class="p-bar-grey pink" style="width: 80%;">
+	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	  </div>
+	</div>
+	<div class="three-box">
+	  Teacher's Trained :
+	</div>
+	<div class="three-box">
+	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <div class="p-bar-grey pink" style="width: 80%;">
+	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	  </div>
+	</div>
+      	<div class="three-box">
+	  Teacher's Trained :
+	</div>
+	<div class="three-box">
+	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <div class="p-bar-grey pink" style="width: 80%;">
+	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	  </div>
+	</div>
+      </div>
+      <table class="school-list" id="customers">
+	<tr>
+	  <th></th>
+	  <th></th>
+	  
+	  <th>
+	    <div class="arrow_box">Addition
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Division
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Multiplication
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Number Concept
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Subtraction
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Other Areas
+	    </div>
+	  </th>
+	  
+	</tr>
+	{% for item in data.schools%}
+	{% for g in item.grades%}
+	<tr>
+	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.school }}</td> {% endif %}
+	  <td>{{g.name}}</td>
+
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Addition" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Division" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Multiplication" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Number Concept" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Subtraction" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Other Areas" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  
+	</tr>
+	{% endfor %}
+	{% endfor %}
+      </table>
+      <div class="outer-line">
+	<h2>HOUSEHOLD SURVEY</h2>
+	{% for s in data.survey %}
+	<div class="half-box">
+	  {{s.text}}
+	  <br><br>
+	  <span class="percent">{{s.percentage}}%</span>
+	  <div class="p-bar-grey" style="width: 80%;">
+	    <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
+	  </div>
+	</div>
+	{% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

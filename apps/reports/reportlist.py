@@ -1,2 +1,2 @@
-from .reports import ReportOne, GPMathContestReport
-reportlist = {"ReportOne":ReportOne, "GPMathContestReport": GPMathContestReport}
+from .reports import ReportOne, GPMathContestReport, SchoolReport
+reportlist = {"ReportOne":ReportOne, "GPMathContestReport": GPMathContestReport,"SchoolReport":SchoolReport}

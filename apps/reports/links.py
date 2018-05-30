@@ -3,18 +3,18 @@ import csv
 import sys
 
 
-from reports.reports import ReportOne,GPMathContestReport
+from reports.reports import ReportOne,GPMathContestReport, SchoolReport
 from reports.models import Reports
 from .reportlist import reportlist
 from .contacts import contacts
 from common.utils import send_sms
 
-def send_link(dry, filepath, gp_name):
-    print('start')
-    frequency_str = '1,16,17,18'
-    r_type = 'GPMathContestReport'
-    params = {'gp_name': gp_name, 'academic_year': '2017-2018'}
-
+def send_link(dry, filepath, gp_name, r_type):
+    print(r_type)
+    param_ids = {"ReportOne":ReportOne, "GPMathContestReport": "gp_name","SchoolReport":"school_code"}
+    frequency_str = '1,16,17,18,24,30'
+    params = {param_ids[r_type]: gp_name, 'academic_year': '2017-2018'}
+    print(params)
     frequency = frequency_str.split(',')
     today = datetime.datetime.now().strftime("%d")
 
