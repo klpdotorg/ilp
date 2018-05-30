@@ -419,6 +419,10 @@ class ClusterReport(BaseReport):
             schools.append(school_data)
 
         household = self.getHouseholdServey(cluster_obj, dates)
+        gka = self.getGKAData(cluster_obj, dates)
+
+        self.data = {'cluster':self.cluster_name, 'academic_year':self.academic_year, 'block':block, 'district':district, 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools}
+
     def getHouseholdServey(self,cluster,date_range):
         #Husehold Survey
         a = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, entered_at__range=date_range, questiongroup_id__in=[18, 20])
@@ -435,6 +439,13 @@ class ClusterReport(BaseReport):
             HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
 
         return HHSurvey
+
+    def getGKAData(self, cluster, date_range):
+        GKA = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, entered_at__range=date_range, questiongroup__survey_id=11)
+        teachers_trained = GKA.filter(answers__question__question_text__icontains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='trained').count()
+        kit_usage = GKA.filter(answers__question__question_text__contains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='Ganitha Kalika Andolana TLM').count()
+        group_work = GKA.filter(answers__question__question_text__contains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
+        return dict(teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2))
 
 if __name__ == "__main__":
     r= ReportOne();
