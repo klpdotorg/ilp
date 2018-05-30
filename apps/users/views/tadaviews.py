@@ -24,7 +24,7 @@ class UsersViewSet(viewsets.ModelViewSet):
     This endpoint registers a new TADA user
     """
     permission_classes = (
-        IsAdminUser
+        IsAdminUser,
     )
     serializer_class = TadaUserSerializer
     queryset = User.objects.all()
