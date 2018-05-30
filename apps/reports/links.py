@@ -32,9 +32,9 @@ def send_link(dry, filepath, gp_name, r_type):
                 reader = csv.reader(f)
                 for person in reader:
                     link = report.save_link(result)
-                    sms = report.get_sms(link.track_id,person[0],)
+                    sms = report.get_sms(link.track_id,person[0],param_ids[r_type])
                     if(dry):
-                        print('send sms to {}, phone: {}'.format(person[0],person[1],param_ids[r_type]))
+                        print('send sms to {}, phone: {}'.format(person[0],person[1]))
                     else:
                         print(person[1],sms)
                         # send_sms(person[1],sms)
