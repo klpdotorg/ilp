@@ -243,23 +243,23 @@ class GPMathContestReport(BaseReport):
         return HHSurvey
 
 class SchoolReport(BaseReport):
-    def __init__(self, school_name=None, academic_year=None, **kwargs):
-        self.school_name = school_name
+    def __init__(self, school_code=None, academic_year=None, **kwargs):
+        self.school_code = school_code
         self.academic_year = academic_year
-        self.params = dict(school_name=self.school_name,academic_year=self.academic_year)
+        self.params = dict(school_code=self.school_code,academic_year=self.academic_year)
         self.parser = argparse.ArgumentParser()
-        self.parser.add_argument('--school_name', required=True)
+        self.parser.add_argument('--school_code', required=True)
         self.parser.add_argument('--academic_year', required=True)
         self._template_path = 'SchoolReport.html'
-        self._type = 'GPMathContestReport'
+        self._type = 'SchoolReport'
         self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
-        self.schoo_name = arguments.school_name
+        self.school_code = arguments.school_code
         self.academic_year = arguments.academic_year
-        self.params = dict(school_name=self.school_name,academic_year=self.academic_year)
+        self.params = dict(school_code=self.school_code,academic_year=self.academic_year)
 
     def get_data(self):
         ay = self.academic_year.split('-')
@@ -268,7 +268,7 @@ class SchoolReport(BaseReport):
         report_generated_on = datetime.datetime.now().date().isoformat()
 
         try:
-            school_obj = Institution.objects.get(name=self.school_name) # Take the school from db
+            school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
         except Institution.DoesNotExist:
             print('School {} does not exist\n'.format(self.school_name))
             raise ValueError('Invalid school name\n')
@@ -278,10 +278,10 @@ class SchoolReport(BaseReport):
         block = school_obj.admin2.name.title()           # Block name
         district = school_obj.admin1.parent.name.title()    # District name
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__name=self.school_name, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        AGI = AnswerGroup_Institution.objects.filter(institution=school_obj, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
         if not AGI.exists():
-            raise ValueError("No contests found for {} in the year {}".format(self.school_name, ay))
+            raise ValueError("No contests found for {} in the year {}".format(self.school_code, ay))
 
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
@@ -414,7 +414,7 @@ class ClusterReport(BaseReport):
 
         schools = []
         for school in cluster_schools:
-            r = SchoolReport(school_name=school.name, academic_year=self.academic_year)
+            r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
             school_data = r.get_data()['schools']
             schools.append(school_data)
 
