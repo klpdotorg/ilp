@@ -181,7 +181,7 @@
 	  </span>
 	  <br>
 	  <strong> District Name:</strong> {{data.district}}<br>
-	  <strong> No. of schools:</strong> {{data.no_schools_gp}}<br>
+	  <strong> No. of schools:</strong> {{data.no_schools}}<br>
 	</div>
       </div>
       <div class="outer-line">
@@ -190,27 +190,27 @@
 	  Teacher's Trained :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
 	  </div>
 	</div>
 	<div class="three-box">
-	  Teacher's Trained :
+	  Kit Usage :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
 	  </div>
 	</div>
       	<div class="three-box">
-	  Teacher's Trained :
+	  Group Work :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
 	  </div>
 	</div>
       </div>
@@ -300,7 +300,7 @@
       </table>
       <div class="outer-line">
 	<h2>HOUSEHOLD SURVEY</h2>
-	{% for s in data.survey %}
+	{% for s in data.household %}
 	<div class="half-box">
 	  {{s.text}}
 	  <br><br>
