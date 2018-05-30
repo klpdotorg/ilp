@@ -425,6 +425,7 @@ class ClusterReport(BaseReport):
         gka = self.getGKAData(cluster_obj, dates)
 
         self.data = {'cluster':self.cluster_name, 'academic_year':self.academic_year, 'block':block, 'district':district, 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools}
+        return self.data
 
     def getHouseholdServey(self,cluster,date_range):
         #Husehold Survey
