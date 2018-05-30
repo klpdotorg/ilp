@@ -273,7 +273,7 @@ class SchoolReport(BaseReport):
             print('School {} does not exist\n'.format(self.school_name))
             raise ValueError('Invalid school name\n')
 
-        gp = school_obj.gp.name.title() # GP name
+        gp = school_obj.gp.const_ward_name.title() # GP name
         cluster = school_obj.admin3.name.title()         # Cluster name
         block = school_obj.admin2.name.title()           # Block name
         district = school_obj.admin1.parent.name.title()    # District name
