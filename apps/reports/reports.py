@@ -285,7 +285,7 @@ class SchoolReport(BaseReport):
 
         if not AGI.exists():
             # raise ValueError("No contests found for {} in the year {}".format(self.school_code, ay))
-            print("No data school data for {} in academic year {}".format(self.school_code, slef.academic_year))
+            print("No data school data for {} in academic year {}".format(self.school_code, self.academic_year))
             return {}
 
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
@@ -636,14 +636,61 @@ class DistrictReport(BaseReport):
             data = r.get_data()
             num_schools += data['no_schools']
             block_gka = data['gka']
-            teachers_trained += block_gka['teachers_trained']
-            kit_usage += block_gka['kit_usage']
-            group_work += block_gka['group_work']
-            block_gka['block'] = block.name
-            gka_blocks.append(block_gka)
+            if block_gka:
+                teachers_trained += block_gka['teachers_trained']
+                kit_usage += block_gka['kit_usage']
+                group_work += block_gka['group_work']
+                block_gka['block'] = block.name
+                gka_blocks.append(block_gka)
+            else:
+                print("No GKA data for BLOCK {} for academic year {}".format(block.name, self.academic_year))
+
+            gpc_data = data['gpc_clusters']
+            if gpc_data:
+                block_gpc = {'grades': [{'name': 'Class 4 Assessment',
+                                           'values': [{'contest': 'Addition', 'count': 0},
+                                                      {'contest': 'Division', 'count': 0},
+                                                      {'contest': 'Multiplication', 'count': 0},
+                                                      {'contest': 'Number Concept', 'count': 0},
+                                                      {'contest': 'Subtraction', 'count': 0},
+                                                      {'contest': 'Other Areas', 'count': 0}]},
+                                          {'name': 'Class 5 Assessment',
+                                           'values': [{'contest': 'Addition', 'count': 0},
+                                                      {'contest': 'Division', 'count': 0},
+                                                      {'contest': 'Multiplication', 'count': 0},
+                                                      {'contest': 'Number Concept', 'count': 0},
+                                                      {'contest': 'Subtraction', 'count': 0},
+                                                      {'contest': 'Other Areas', 'count': 0}]},
+                                          {'name': 'Class 6 Assessment',
+                                           'values': [{'contest': 'Addition', 'count': 0},
+                                                      {'contest': 'Division', 'count': 0},
+                                                      {'contest': 'Multiplication', 'count': 0},
+                                                      {'contest': 'Number Concept', 'count': 0},
+                                                      {'contest': 'Subtraction', 'count': 0},
+                                                      {'contest': 'Other Areas', 'count': 0}]}],
+                               'block': block.name}
+                clusters_in_data = len(gpc_data)
+                for cluster in gpc_data:
+                    # if len(school['grades']) == 2:
+                    #     school['grades'].append({'name': 'Class 6 Assessment',
+                    #                              'values': [{'contest': 'Addition', 'count': 100},
+                    #                                         {'contest': 'Division', 'count': 100},
+                    #                                         {'contest': 'Multiplication', 'count': 100},
+                    #                                         {'contest': 'Number Concept', 'count': 100},
+                    #                                         {'contest': 'Subtraction', 'count': 100},
+                    #                                         {'contest': 'Other Areas', 'count': 100}]})
+                    for i,j in zip(block_gpc['grades'], cluster['grades']):
+                        for k,l in zip(i['values'], j['values']):
+                            k['count']+=l['count']
+                for grade in block_gpc['grades']:
+                    for value in grade['values']:
+                        value['count'] = round((value['count']/clusters_in_data), 2)
+                gpc_blocks.append(block_gpc)
+            else:
+                print("No GPC data for BLOCK {} for academic year {}".format(block.name, self.academic_year))
 
         gka = dict(teachers_trained=round(teachers_trained/num_blocks, 2),  kit_usage=round(kit_usage/num_blocks, 2), group_work=round(group_work/num_blocks, 2))
-        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, }
+        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, }
         return self.data
 
 if __name__ == "__main__":
