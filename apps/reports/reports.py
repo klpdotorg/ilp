@@ -522,7 +522,8 @@ class BlockReport(BaseReport):
                 group_work += cluster_gka['group_work']
                 cluster_gka['cluster'] = cluster.name
                 gka_clusters.append(cluster_gka)
-
+            else:
+                print("No GKA data for CLUSTER {} in block {} for academic year {}".format(cluster.name, block.name, self.academic_year))
             # Aggregating GP contest data
             gpc_data = data['schools']
             if gpc_data:
@@ -565,6 +566,8 @@ class BlockReport(BaseReport):
                     for value in grade['values']:
                         value['count'] = round((value['count']/schools_in_data), 2)
                 gpc_clusters.append(cluster_gpc)
+            else:
+                print("No GPC data for CLUSTER {} in block {} for academic year {}".format(cluster.name, block.name, self.academic_year))
 
         gka = dict(teachers_trained=round(teachers_trained/num_clusters, 2),  kit_usage=round(kit_usage/num_clusters, 2), group_work=round(group_work/num_clusters, 2))
         household = self.getHouseholdServey(block, dates)
