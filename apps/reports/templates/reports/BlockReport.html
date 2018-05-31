@@ -268,8 +268,8 @@
 	{% for item in data.gpc_clusters %}
 	{% for g in item.grades%}
 	<tr>
-	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.school }}</td> {% endif %}
-	  <td>{{g.cluster}}</td>
+	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.cluster }}</td> {% endif %}
+	  <td>{{g.name}}</td>
 
 	  <td align="center">
 	    {% for value in g.values%}
