@@ -609,6 +609,31 @@ class DistrictReport(BaseReport):
         report_generated_on = datetime.datetime.now().date().isoformat()
 
         district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
+
+        blocks  = Boundary.objects.filter(parent=district) # Blocks that belong to the district
+        num_blocks = blocks.count()
+
+        num_schools = 0
+        teachers_trained, kit_usage, group_work = 0, 0, 0
+        gka_blocks = []
+        gpc_blocks = []
+
+        for cluster in clusters:
+            # Aggregating number of schools and gka data
+            r = ClusterReport(cluster_name=cluster.name, block_name=block.name, academic_year=self.academic_year)
+            data = r.get_data()
+            num_schools += data['no_schools']
+            cluster_gka = data['gka']
+            teachers_trained += cluster_gka['teachers_trained']
+            kit_usage += cluster_gka['kit_usage']
+            group_work += cluster_gka['group_work']
+            cluster_gka['cluster'] = cluster.name
+            gka_clusters.append(cluster_gka)
+
+        gka = dict(teachers_trained=round(teachers_trained/num_blocks, 2),  kit_usage=round(kit_usage/num_blocks, 2), group_work=round(group_work/num_blocks, 2))
+        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, }
+        return self.data
+
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
