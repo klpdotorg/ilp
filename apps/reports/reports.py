@@ -636,7 +636,7 @@ class DistrictReport(BaseReport):
         teachers_trained, kit_usage, group_work = 0, 0, 0
         gka_blocks = []
         gpc_blocks = []
-
+        gpc_grades = {'Class 4 Assessment':{}, 'Class 5 Assessment':{}, 'Class 6 Assessment':{}}
         for block in blocks:
             # Aggregating number of schools and gka data
             r = BlockReport(block_name=block.name, academic_year=self.academic_year)
@@ -698,7 +698,20 @@ class DistrictReport(BaseReport):
 
         gka = dict(teachers_trained=round(teachers_trained/num_blocks, 2),  kit_usage=round(kit_usage/num_blocks, 2), group_work=round(group_work/num_blocks, 2))
         household = self.getHouseholdServey(district, dates)
-        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, }
+
+        #GPC Gradewise data
+        for block in gpc_blocks:
+            for grade in block['grades']:
+                for value in grade['values']:
+                    try:
+                        gpc_grades[grade['name']][value['contest']]+=value['count']
+                    except KeyError:
+                        gpc_grades[grade['name']][value['contest']]=value['count']
+        for i in gpc_grades.values():
+            for j ,k in i.items():
+                i[j] = round(k/len(gpc_blocks, 2)
+
+        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gpc_grades}
         return self.data
 
     def getHouseholdServey(self,district,date_range):
