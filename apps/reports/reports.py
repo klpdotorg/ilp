@@ -600,6 +600,15 @@ class DistrictReport(BaseReport):
         self.distrct_name = arguments.district_name
         self.academic_year = arguments.academic_year
         self.params = dict(district_name=self.district_name,academic_year=self.academic_year)
+
+    def get_data(self):
+
+        ay = self.academic_year.split('-')
+        dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
+
+        report_generated_on = datetime.datetime.now().date().isoformat()
+
+        district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
