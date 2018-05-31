@@ -191,7 +191,7 @@
 	    <strong>Report Generated on:</strong> {{data.today}}
 	  </span>
 	  <br>
-	  <strong> No. of schools:</strong> {{data.no_schools_gp}}<br>
+	  <strong> No. of schools:</strong> {{data.no_schools}}<br>
 	</div>
       </div>
       <div class="outer-line">
@@ -224,19 +224,19 @@
 	  </div>
 	</div>
 	<table id="cluster">
-	  {% for cluster in gka_clusters %}
+	  {% for cluster in data.gka_clusters %}
 	  <tr>
 	    <td>CLUSTER {{cluster.cluster}}:</td>
 	    <td>Teacher Trained : <span class="">{{cluster.teachers_trained}}%</span></td>
 	    <td>Kit Usage: {{cluster.kit_usage}}%</td>
 	    <td>Group Work: {{cluster.group_work}}%</td>
 	  </tr>
-	 {% enfor %}
+	 {% endfor %}
 	</table>
       </div>
       <table class="school-list" id="customers">
 	<tr>
-	  <th>School Name</th>
+	  <th>Cluster Name</th>
 	  <th>Grade</th>
 	  
 	  <th>
@@ -265,11 +265,11 @@
 	  </th>
 	  
 	</tr>
-	{% for item in data.schools%}
+	{% for item in data.gpc_clusters %}
 	{% for g in item.grades%}
 	<tr>
 	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.school }}</td> {% endif %}
-	  <td>{{g.name}}</td>
+	  <td>{{g.cluster}}</td>
 
 	  <td align="center">
 	    {% for value in g.values%}
