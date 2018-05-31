@@ -709,7 +709,7 @@ class DistrictReport(BaseReport):
                         gpc_grades[grade['name']][value['contest']]=value['count']
         for i in gpc_grades.values():
             for j ,k in i.items():
-                i[j] = round(k/len(gpc_blocks, 2))
+                i[j] = round(k/len(gpc_blocks), 2)
 
         self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gpc_grades}
         return self.data
