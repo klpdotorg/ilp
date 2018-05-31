@@ -539,14 +539,15 @@ class BlockReport(BaseReport):
                            'cluster': cluster.name}
             gpc_data = data['schools']
             schools_in_data = len(gpc_data)
-            for school in gpc_data:
-                for i,j in zip(cluster_gpc['grades'], school['grades']):
-                    for k,l in zip(i['values'], j['values']):
-                        k['count']+=l['count']
-                    for value in i['values']:
+            if schools_in_data:
+                for school in gpc_data:
+                    for i,j in zip(cluster_gpc['grades'], school['grades']):
+                        for k,l in zip(i['values'], j['values']):
+                            k['count']+=l['count']
+                for grade in cluster_gpc['grades']:
+                    for value in grade['values']:
                         value['count'] = round((value['count']/schools_in_data), 2)
-
-            gpc_clusters.append(cluster_gpc)
+                gpc_clusters.append(cluster_gpc)
 
         gka = dict(teachers_trained=round(teachers_trained/num_clusters, 2),  kit_usage=round(kit_usage/num_clusters, 2), group_work=round(group_work/num_clusters, 2))
 
