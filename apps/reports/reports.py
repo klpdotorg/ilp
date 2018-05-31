@@ -500,6 +500,7 @@ class BlockReport(BaseReport):
         num_schools = 0
         teachers_trained, kit_usage, group_work = 0, 0, 0
         gka_clusters = []
+        gpc_clusters = []
 
         for cluster in clusters:
             # Aggregating number of schools and gka data
@@ -512,9 +513,41 @@ class BlockReport(BaseReport):
             group_work += cluster_gka['group_work']
             cluster_gka['cluster'] = cluster.name
             gka_clusters.append(cluster_gka)
+
+            # Aggregating GP contest data
+            cluster_gpc = {'grades': [{'name': 'Class 4 Assessment',
+                                       'values': [{'contest': 'Addition', 'count': 0},
+                                                  {'contest': 'Division', 'count': 0},
+                                                  {'contest': 'Multiplication', 'count': 0},
+                                                  {'contest': 'Number Concept', 'count': 0},
+                                                  {'contest': 'Subtraction', 'count': 0},
+                                                  {'contest': 'Other Areas', 'count': 0}]},
+                                      {'name': 'Class 5 Assessment',
+                                       'values': [{'contest': 'Addition', 'count': 0},
+                                                  {'contest': 'Division', 'count': 0},
+                                                  {'contest': 'Multiplication', 'count': 0},
+                                                  {'contest': 'Number Concept', 'count': 0},
+                                                  {'contest': 'Subtraction', 'count': 0},
+                                                  {'contest': 'Other Areas', 'count': 0}]},
+                                      {'name': 'Class 6 Assessment',
+                                       'values': [{'contest': 'Addition', 'count': 0},
+                                                  {'contest': 'Division', 'count': 0},
+                                                  {'contest': 'Multiplication', 'count': 0},
+                                                  {'contest': 'Number Concept', 'count': 0},
+                                                  {'contest': 'Subtraction', 'count': 0},
+                                                  {'contest': 'Other Areas', 'count': 0}]}],
+                           'cluster': self.cluster_name}
+            gpc_data = data['schools']
+            for school in gpc_data:
+                for i,j in zip(cluster_gpc['grades'], school['grades']):
+                    for k,l in zip(i['values'], j['values']):
+                        k['count']+=l['count']
+
+            gpc_clusters.append(cluster_gpc)
+
         gka = dict(teachers_trained=round(teachers_trained/num_clusters, 2),  kit_usage=round(kit_usage/num_clusters, 2), group_work=round(group_work/num_clusters, 2))
 
-        self.data = {'block':self.block_name.title(), 'district':district, 'academic_year':self.academic_year, 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters,}
+        self.data = {'block':self.block_name.title(), 'district':district, 'academic_year':self.academic_year, 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters}
         return self.data
 if __name__ == "__main__":
     r= ReportOne();
