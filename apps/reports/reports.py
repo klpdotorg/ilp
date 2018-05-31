@@ -538,10 +538,13 @@ class BlockReport(BaseReport):
                                                   {'contest': 'Other Areas', 'count': 0}]}],
                            'cluster': cluster.name}
             gpc_data = data['schools']
+            schools_in_data = len(gpc_data)
             for school in gpc_data:
                 for i,j in zip(cluster_gpc['grades'], school['grades']):
                     for k,l in zip(i['values'], j['values']):
                         k['count']+=l['count']
+                    for value in i['values']:
+                        value['count'] = round((value['count']/schools_in_data), 2)
 
             gpc_clusters.append(cluster_gpc)
 
