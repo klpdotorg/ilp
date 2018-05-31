@@ -550,9 +550,29 @@ class BlockReport(BaseReport):
                 gpc_clusters.append(cluster_gpc)
 
         gka = dict(teachers_trained=round(teachers_trained/num_clusters, 2),  kit_usage=round(kit_usage/num_clusters, 2), group_work=round(group_work/num_clusters, 2))
-
-        self.data = {'block':self.block_name.title(), 'district':district, 'academic_year':self.academic_year, 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters}
+        household = self.getHouseholdServey(block, dates)
+        self.data = {'block':self.block_name.title(), 'district':district, 'academic_year':self.academic_year, 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household}
         return self.data
+
+    def getHouseholdServey(self,block,date_range):
+        #Husehold Survey
+        a = AnswerGroup_Institution.objects.filter(institution__admin2=block, entered_at__range=date_range, questiongroup_id__in=[18, 20])
+
+        questions = QuestionGroup.objects.get(id=18).questions.all()
+
+        total_response = a.count()
+
+        HHSurvey = []
+
+        for i in questions:
+            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+            try:
+                HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
+            except ZeroDivisionError:
+                HHSurvey.append({'text':i.question_text,'percentage':0.0})
+
+        return HHSurvey
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
