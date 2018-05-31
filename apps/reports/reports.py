@@ -696,7 +696,7 @@ class DistrictReport(BaseReport):
 
     def getHouseholdServey(self,district,date_range):
         #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin1=block, entered_at__range=date_range, questiongroup_id__in=[18, 20])
+        a = AnswerGroup_Institution.objects.filter(institution__admin1=district, entered_at__range=date_range, questiongroup_id__in=[18, 20])
         HHSurvey = []
         if a.exists():
             questions = QuestionGroup.objects.get(id=18).questions.all()
