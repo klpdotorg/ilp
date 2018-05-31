@@ -284,7 +284,9 @@ class SchoolReport(BaseReport):
         AGI = AnswerGroup_Institution.objects.filter(institution=school_obj, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
         if not AGI.exists():
-            raise ValueError("No contests found for {} in the year {}".format(self.school_code, ay))
+            # raise ValueError("No contests found for {} in the year {}".format(self.school_code, ay))
+            print("No data school data for {} in academic year {}".format(self.school_code, slef.academic_year))
+            return {}
 
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
@@ -422,8 +424,10 @@ class ClusterReport(BaseReport):
         for school in cluster_schools:
             r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
             try:
-                school_data = r.get_data()['schools'][0]
-                schools.append(school_data)
+                school_data = r.get_data()
+                if not school_data:
+                  continue
+                schools.append(school_data['schools'][0])
             except ValueError:
                 continue
 
@@ -436,29 +440,33 @@ class ClusterReport(BaseReport):
     def getHouseholdServey(self,cluster,date_range):
         #Husehold Survey
         a = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, entered_at__range=date_range, questiongroup_id__in=[18, 20])
-
-        questions = QuestionGroup.objects.get(id=18).questions.all()
-
-        total_response = a.count()
-
         HHSurvey = []
+        if a.exists():
+            questions = QuestionGroup.objects.get(id=18).questions.all()
 
-        for i in questions:
-            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-            try:
+            total_response = a.count()
+
+            for i in questions:
+                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+                # try:
                 HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
-            except ZeroDivisionError:
-                HHSurvey.append({'text':i.question_text,'percentage':0.0})
-
+                # except ZeroDivisionError:
+                #     HHSurvey.append({'text':i.question_text,'percentage':0.0})
+        else:
+             print("No HH data for CLUSTER {} in {} block for academic year {}".format(cluster.name, cluster.parent.name, self.academic_year))
         return HHSurvey
 
     def getGKAData(self, cluster, date_range):
         GKA = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, entered_at__range=date_range, questiongroup__survey_id=11)
-        teachers_trained = GKA.filter(answers__question__question_text__icontains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='trained').count()
-        kit_usage = GKA.filter(answers__question__question_text__contains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='Ganitha Kalika Andolana TLM').count()
-        group_work = GKA.filter(answers__question__question_text__contains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
-        return dict(teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2))
+        if GKA.exists():
+            teachers_trained = GKA.filter(answers__question__question_text__icontains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='trained').count()
+            kit_usage = GKA.filter(answers__question__question_text__contains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='Ganitha Kalika Andolana TLM').count()
+            group_work = GKA.filter(answers__question__question_text__contains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
+            return dict(teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2))
+        else:
+            print("No GKA data for CLUSTER {} in {} block for academic year {}".format(cluster.name, cluster.parent.name, self.academic_year))
+            return {}
 
 class BlockReport(BaseReport):
     def __init__(self, block_name=None, academic_year=None, **kwargs):
@@ -508,47 +516,48 @@ class BlockReport(BaseReport):
             data = r.get_data()
             num_schools += data['no_schools']
             cluster_gka = data['gka']
-            teachers_trained += cluster_gka['teachers_trained']
-            kit_usage += cluster_gka['kit_usage']
-            group_work += cluster_gka['group_work']
-            cluster_gka['cluster'] = cluster.name
-            gka_clusters.append(cluster_gka)
+            if cluster_gka:
+                teachers_trained += cluster_gka['teachers_trained']
+                kit_usage += cluster_gka['kit_usage']
+                group_work += cluster_gka['group_work']
+                cluster_gka['cluster'] = cluster.name
+                gka_clusters.append(cluster_gka)
 
             # Aggregating GP contest data
-            cluster_gpc = {'grades': [{'name': 'Class 4 Assessment',
-                                       'values': [{'contest': 'Addition', 'count': 0},
-                                                  {'contest': 'Division', 'count': 0},
-                                                  {'contest': 'Multiplication', 'count': 0},
-                                                  {'contest': 'Number Concept', 'count': 0},
-                                                  {'contest': 'Subtraction', 'count': 0},
-                                                  {'contest': 'Other Areas', 'count': 0}]},
-                                      {'name': 'Class 5 Assessment',
-                                       'values': [{'contest': 'Addition', 'count': 0},
-                                                  {'contest': 'Division', 'count': 0},
-                                                  {'contest': 'Multiplication', 'count': 0},
-                                                  {'contest': 'Number Concept', 'count': 0},
-                                                  {'contest': 'Subtraction', 'count': 0},
-                                                  {'contest': 'Other Areas', 'count': 0}]},
-                                      {'name': 'Class 6 Assessment',
-                                       'values': [{'contest': 'Addition', 'count': 0},
-                                                  {'contest': 'Division', 'count': 0},
-                                                  {'contest': 'Multiplication', 'count': 0},
-                                                  {'contest': 'Number Concept', 'count': 0},
-                                                  {'contest': 'Subtraction', 'count': 0},
-                                                  {'contest': 'Other Areas', 'count': 0}]}],
-                           'cluster': cluster.name}
             gpc_data = data['schools']
-            schools_in_data = len(gpc_data)
-            if schools_in_data:
+            if gpc_data:
+                cluster_gpc = {'grades': [{'name': 'Class 4 Assessment',
+                                           'values': [{'contest': 'Addition', 'count': 0},
+                                                      {'contest': 'Division', 'count': 0},
+                                                      {'contest': 'Multiplication', 'count': 0},
+                                                      {'contest': 'Number Concept', 'count': 0},
+                                                      {'contest': 'Subtraction', 'count': 0},
+                                                      {'contest': 'Other Areas', 'count': 0}]},
+                                          {'name': 'Class 5 Assessment',
+                                           'values': [{'contest': 'Addition', 'count': 0},
+                                                      {'contest': 'Division', 'count': 0},
+                                                      {'contest': 'Multiplication', 'count': 0},
+                                                      {'contest': 'Number Concept', 'count': 0},
+                                                      {'contest': 'Subtraction', 'count': 0},
+                                                      {'contest': 'Other Areas', 'count': 0}]},
+                                          {'name': 'Class 6 Assessment',
+                                           'values': [{'contest': 'Addition', 'count': 0},
+                                                      {'contest': 'Division', 'count': 0},
+                                                      {'contest': 'Multiplication', 'count': 0},
+                                                      {'contest': 'Number Concept', 'count': 0},
+                                                      {'contest': 'Subtraction', 'count': 0},
+                                                      {'contest': 'Other Areas', 'count': 0}]}],
+                               'cluster': cluster.name}
+                schools_in_data = len(gpc_data)
                 for school in gpc_data:
                     if len(school['grades']) == 2:
                         school['grades'].append({'name': 'Class 6 Assessment',
-                                       'values': [{'contest': 'Addition', 'count': 100},
-                                                  {'contest': 'Division', 'count': 100},
-                                                  {'contest': 'Multiplication', 'count': 100},
-                                                  {'contest': 'Number Concept', 'count': 100},
-                                                  {'contest': 'Subtraction', 'count': 100},
-                                                  {'contest': 'Other Areas', 'count': 100}]})
+                                                 'values': [{'contest': 'Addition', 'count': 100},
+                                                            {'contest': 'Division', 'count': 100},
+                                                            {'contest': 'Multiplication', 'count': 100},
+                                                            {'contest': 'Number Concept', 'count': 100},
+                                                            {'contest': 'Subtraction', 'count': 100},
+                                                            {'contest': 'Other Areas', 'count': 100}]})
                     for i,j in zip(cluster_gpc['grades'], school['grades']):
                         for k,l in zip(i['values'], j['values']):
                             k['count']+=l['count']
@@ -565,21 +574,21 @@ class BlockReport(BaseReport):
     def getHouseholdServey(self,block,date_range):
         #Husehold Survey
         a = AnswerGroup_Institution.objects.filter(institution__admin2=block, entered_at__range=date_range, questiongroup_id__in=[18, 20])
-
-        questions = QuestionGroup.objects.get(id=18).questions.all()
-
-        total_response = a.count()
-
         HHSurvey = []
+        if a.exists():
+            questions = QuestionGroup.objects.get(id=18).questions.all()
 
-        for i in questions:
-            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-            count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-            try:
+            total_response = a.count()
+
+            for i in questions:
+                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+                # try:
                 HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
-            except ZeroDivisionError:
-                HHSurvey.append({'text':i.question_text,'percentage':0.0})
-
+                # except ZeroDivisionError:
+                #     HHSurvey.append({'text':i.question_text,'percentage':0.0})
+        else:
+             print("No HH data for BLOCK {} in {} District for academic year {}".format(block.name, block.parent.name, self.academic_year))
         return HHSurvey
 
 class DistrictReport(BaseReport):
