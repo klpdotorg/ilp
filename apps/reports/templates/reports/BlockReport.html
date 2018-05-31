@@ -224,15 +224,14 @@
 	  </div>
 	</div>
 	<table id="cluster">
+	  {% for cluster in gka_clusters %}
 	  <tr>
-	    <td>CLUSTER A:</td>    <td>Teacher Trained : <span class="green">80%</span></td>    <td>Kit Usage: 40%</td>
+	    <td>CLUSTER {{cluster.cluster}}:</td>
+	    <td>Teacher Trained : <span class="">{{cluster.teachers_trained}}%</span></td>
+	    <td>Kit Usage: {{cluster.kit_usage}}%</td>
+	    <td>Group Work: {{cluster.group_work}}%</td>
 	  </tr>
-	  <tr>
-	    <td>CLUSTER B:</td>    <td>Teacher Trained : <span class="red">50%</span></td>    <td>Kit Usage: 45%</td>
-	  </tr>
-	  <tr>
-	    <td>CLUSTER C:</td>    <td>Teacher Trained : 60%</td>    <td>Kit Usage: 65%</td>
-	  </tr>
+	 {% enfor %}
 	</table>
       </div>
       <table class="school-list" id="customers">
