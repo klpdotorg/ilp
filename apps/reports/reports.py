@@ -536,7 +536,7 @@ class BlockReport(BaseReport):
                                                   {'contest': 'Number Concept', 'count': 0},
                                                   {'contest': 'Subtraction', 'count': 0},
                                                   {'contest': 'Other Areas', 'count': 0}]}],
-                           'cluster': self.cluster_name}
+                           'cluster': cluster.name}
             gpc_data = data['schools']
             for school in gpc_data:
                 for i,j in zip(cluster_gpc['grades'], school['grades']):
