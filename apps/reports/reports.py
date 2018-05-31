@@ -541,6 +541,14 @@ class BlockReport(BaseReport):
             schools_in_data = len(gpc_data)
             if schools_in_data:
                 for school in gpc_data:
+                    if len(school['grades']) == 2:
+                        school['grades'].append({'name': 'Class 6 Assessment',
+                                       'values': [{'contest': 'Addition', 'count': 100},
+                                                  {'contest': 'Division', 'count': 100},
+                                                  {'contest': 'Multiplication', 'count': 100},
+                                                  {'contest': 'Number Concept', 'count': 100},
+                                                  {'contest': 'Subtraction', 'count': 100},
+                                                  {'contest': 'Other Areas', 'count': 100}]})
                     for i,j in zip(cluster_gpc['grades'], school['grades']):
                         for k,l in zip(i['values'], j['values']):
                             k['count']+=l['count']
