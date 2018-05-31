@@ -586,7 +586,7 @@ class DistrictReport(BaseReport):
     def __init__(self, district_name=None, academic_year=None, **kwargs):
         self.district_name = district_name
         self.academic_year = academic_year
-        self.params = dict(district_name=self.block_name,academic_year=self.academic_year)
+        self.params = dict(district_name=self.district_name,academic_year=self.academic_year)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--district_name', required=True)
         self.parser.add_argument('--academic_year', required=True)
@@ -618,20 +618,20 @@ class DistrictReport(BaseReport):
         gka_blocks = []
         gpc_blocks = []
 
-        for cluster in clusters:
+        for block in blocks:
             # Aggregating number of schools and gka data
-            r = ClusterReport(cluster_name=cluster.name, block_name=block.name, academic_year=self.academic_year)
+            r = BlockReport(block_name=block.name, academic_year=self.academic_year)
             data = r.get_data()
             num_schools += data['no_schools']
-            cluster_gka = data['gka']
-            teachers_trained += cluster_gka['teachers_trained']
-            kit_usage += cluster_gka['kit_usage']
-            group_work += cluster_gka['group_work']
-            cluster_gka['cluster'] = cluster.name
-            gka_clusters.append(cluster_gka)
+            block_gka = data['gka']
+            teachers_trained += block_gka['teachers_trained']
+            kit_usage += block_gka['kit_usage']
+            group_work += block_gka['group_work']
+            block_gka['block'] = block.name
+            gka_blocks.append(block_gka)
 
         gka = dict(teachers_trained=round(teachers_trained/num_blocks, 2),  kit_usage=round(kit_usage/num_blocks, 2), group_work=round(group_work/num_blocks, 2))
-        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, }
+        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, }
         return self.data
 
 if __name__ == "__main__":
