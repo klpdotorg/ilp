@@ -234,9 +234,10 @@
 	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_boys }}
 	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_girls }}
 	  }
-      </div>
-       <table class="school-list" id="customers">
+	  
+      <table class="school-list" id="customers">
 	<tr>
+	  <th>Cluster Name</th>
 	  <th>Grade</th>
 	  
 	  <th>
@@ -265,33 +266,56 @@
 	  </th>
 	  
 	</tr>
-	{% for key,item in data.gpc_grades%}
+	{% for item in data.gpc_grades %}
 	<tr>
-	 <td>{{ key }}</td> 
-	 <td align="center">
-	    <span class="font-effect-outline mark b-dot {% if value.Addition < 20 %} r-dot{% endif %} {% if value.Addition >= 70 %} g-dot{% endif %}">{{value.Addition}}%</span>
+	  <td>{{ item.grade }}</td>
+	  <td align="center">
+	    {% for value in item.values %}
+            {% if "Addition" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
 	  </td>
 	  <td align="center">
-	    <span class="font-effect-outline mark b-dot {% if value.Division < 20 %} r-dot{% endif %} {% if value.Division >= 70 %} g-dot{% endif %}">{{value.Division}}%</span>
+	    {% for value in item.values%}
+            {% if "Division" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
 	  </td>
 	  <td align="center">
-	    <span class="font-effect-outline mark b-dot {% if value.Multiplication < 20 %} r-dot{% endif %} {% if value.Multiplication >= 70 %} g-dot{% endif %}">{{value.Multiplication}}%</span>
+	    {% for value in item.values%}
+            {% if "Multiplication" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
 	  </td>
 	  <td align="center">
-
-	    <span class="font-effect-outline mark b-dot {% if value.Number Concept < 20 %} r-dot{% endif %} {% if value.Number Concept >= 70 %} g-dot{% endif %}">{{value.Number Concept}}%</span>
+	    {% for value in item.values%}
+            {% if "Number Concept" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
 	  </td>
 	  <td align="center">
-	    <span class="font-effect-outline mark b-dot {% if value.Subtraction < 20 %} r-dot{% endif %} {% if value.Subtraction >= 70 %} g-dot{% endif %}">{{value.Subtraction}}%</span>
+	    {% for value in item.values%}
+            {% if "Subtraction" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
 	  </td>
 	  <td align="center">
-	    <span class="font-effect-outline mark b-dot {% if value.Other Areas < 20 %} r-dot{% endif %} {% if value.Other Areas >= 70 %} g-dot{% endif %}">{{value.Other Areas}}%</span>
+	    {% for value in item.values%}
+            {% if "Other Areas" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
 	  </td>
-	  
 	</tr>
 	{% endfor %}
       </table>
-
+      </div>
+      
       <table class="school-list" id="customers">
 	<tr>
 	  <th></th>
