@@ -5,7 +5,7 @@
     <style>
       body {
       font-family: 'Questrial', sans-serif;
-      
+      text-transform: capitalize;
       }
       .outer-box{
       padding: 20px;
@@ -226,7 +226,7 @@
 	<table id="cluster">
 	  {% for cluster in data.gka_clusters %}
 	  <tr>
-	    <td>CLUSTER {{cluster.cluster}}:</td>
+	    <td>{{cluster.cluster}}:</td>
 	    <td>Teacher Trained : <span class="">{{cluster.teachers_trained}}%</span></td>
 	    <td>Kit Usage: {{cluster.kit_usage}}%</td>
 	    <td>Group Work: {{cluster.group_work}}%</td>

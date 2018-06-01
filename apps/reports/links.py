@@ -3,7 +3,7 @@ import csv
 import sys
 
 
-from reports.reports import ReportOne,GPMathContestReport, SchoolReport, ClusterReport, BlockReport
+from reports.reports import ReportOne,GPMathContestReport, SchoolReport, ClusterReport, BlockReport, DistrictReport
 from reports.models import Reports
 from .reportlist import reportlist, param_ids
 from .contacts import contacts

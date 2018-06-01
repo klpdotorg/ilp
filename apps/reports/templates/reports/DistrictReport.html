@@ -31,11 +31,13 @@
       text-align: center;
       font-size: 24px;
       padding-top: 35px;
+      text-transform: capitalize;
       }
        h2 {
       text-align: center;
       font-size: 20px;
       font-weight: 100;
+      text-transform: uppercase;
       }
       
       p {
@@ -164,7 +166,7 @@
     </style>
   </head>
   <body>
-    <h1>Gram Panchayat Math Contest Report</h1>
+    <h1>GKA : {{data.district}} District Report</h1>
     <div class="wrapper">
       <div class="outer-box">
 	<div class="container">
@@ -175,7 +177,7 @@
 	  </span>
 	  <br>
 	    
-	  <strong> No. of schools:</strong> {{data.no_schools_gp}}
+	  <strong> No. of schools:</strong> {{data.no_schools}}
 	  <span style="float:right">
 	    <strong>Report Generated on:</strong> {{data.today}}
 	  </span>
@@ -185,35 +187,111 @@
 	</div>
       </div>
       <div class="outer-line">
-	<h2>GKA IMPLEMENTATION</h2>
-	<div class="three-box">
+	<h2>GKA IMPLEMENTATION in {{data.district}} district</h2>
+	<div class="three-box" style="text-align: right;">
 	  Teacher's Trained :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
 	  </div>
 	</div>
-	<div class="three-box">
-	  Teacher's Trained :
+	<div class="three-box" style="text-align: right;">
+	  Kit Usage :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
 	  </div>
 	</div>
-      	<div class="three-box">
-	  Teacher's Trained :
+      	<div class="three-box" style="text-align: right;">
+	  Group Work :
 	</div>
 	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">23%</span>
+	  <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}</span>
 	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:40%"></div>
+	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
 	  </div>
 	</div>
+	<table id="cluster">
+	  {% for item in data.gka_blocks %}
+	  <tr>
+	    <td>{{item.block}}:</td>
+	    <td>Teacher Trained : <span class="">{{item.teachers_trained}}%</span></td>
+	    <td>Kit Usage: {{item.kit_usage}}%</td>
+	    <td>Group Work: {{item.group_work}}%</td>
+	  </tr>
+	 {% endfor %}
+	</table>
       </div>
+      <div class="outer-line">
+	<h2>GP Contest</h2>
+	Total No of GPs : XX <br>
+	Total No of Contest: {{data.num_contests}}<br>
+	 <strong>Participation : </strong>{{ data.num_students}} {
+	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_boys }}
+	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_girls }}
+	  }
+      </div>
+       <table class="school-list" id="customers">
+	<tr>
+	  <th>Grade</th>
+	  
+	  <th>
+	    <div class="arrow_box">Addition
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Division
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Multiplication
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Number Concept
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Subtraction
+	    </div>
+	  </th>
+	  <th>
+	    <div class="arrow_box">Other Areas
+	    </div>
+	  </th>
+	  
+	</tr>
+	{% for key,item in data.gpc_grades%}
+	<tr>
+	 <td>{{ key }}</td> 
+	 <td align="center">
+	    <span class="font-effect-outline mark b-dot {% if value.Addition < 20 %} r-dot{% endif %} {% if value.Addition >= 70 %} g-dot{% endif %}">{{value.Addition}}%</span>
+	  </td>
+	  <td align="center">
+	    <span class="font-effect-outline mark b-dot {% if value.Division < 20 %} r-dot{% endif %} {% if value.Division >= 70 %} g-dot{% endif %}">{{value.Division}}%</span>
+	  </td>
+	  <td align="center">
+	    <span class="font-effect-outline mark b-dot {% if value.Multiplication < 20 %} r-dot{% endif %} {% if value.Multiplication >= 70 %} g-dot{% endif %}">{{value.Multiplication}}%</span>
+	  </td>
+	  <td align="center">
+
+	    <span class="font-effect-outline mark b-dot {% if value.Number Concept < 20 %} r-dot{% endif %} {% if value.Number Concept >= 70 %} g-dot{% endif %}">{{value.Number Concept}}%</span>
+	  </td>
+	  <td align="center">
+	    <span class="font-effect-outline mark b-dot {% if value.Subtraction < 20 %} r-dot{% endif %} {% if value.Subtraction >= 70 %} g-dot{% endif %}">{{value.Subtraction}}%</span>
+	  </td>
+	  <td align="center">
+	    <span class="font-effect-outline mark b-dot {% if value.Other Areas < 20 %} r-dot{% endif %} {% if value.Other Areas >= 70 %} g-dot{% endif %}">{{value.Other Areas}}%</span>
+	  </td>
+	  
+	</tr>
+	{% endfor %}
+      </table>
+
       <table class="school-list" id="customers">
 	<tr>
 	  <th></th>
@@ -245,10 +323,10 @@
 	  </th>
 	  
 	</tr>
-	{% for item in data.schools%}
+	{% for item in data.gpc_blocks}
 	{% for g in item.grades%}
 	<tr>
-	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.school }}</td> {% endif %}
+	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.block }}</td> {% endif %}
 	  <td>{{g.name}}</td>
 
 	  <td align="center">
@@ -300,7 +378,7 @@
       </table>
       <div class="outer-line">
 	<h2>HOUSEHOLD SURVEY</h2>
-	{% for s in data.survey %}
+	{% for s in data.household %}
 	<div class="half-box">
 	  {{s.text}}
 	  <br><br>
