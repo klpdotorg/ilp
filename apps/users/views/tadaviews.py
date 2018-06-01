@@ -36,8 +36,10 @@ class UsersViewSet(viewsets.ModelViewSet):
         search_query = self.request.query_params.get('search', None)
         if search_query:
             self.queryset = self.queryset.filter(
-                Q(email=search_query) | Q(mobile_no=search_query) |
-                Q(first_name=search_query) | Q(last_name=search_query)
+                Q(email__icontains=search_query) |
+                Q(mobile_no__icontains=search_query) |
+                Q(first_name__icontains=search_query) |
+                Q(last_name__icontains=search_query)
             )
         return self.queryset.filter(is_active='True')
 
