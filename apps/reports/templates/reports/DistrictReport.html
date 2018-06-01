@@ -5,7 +5,7 @@
     <style>
       body {
       font-family: 'Questrial', sans-serif;
-      
+      text-transform: capitalize;
       }
       .outer-box{
       padding: 20px;
@@ -54,6 +54,10 @@
       border: 0px solid #BABABA;
       padding: 8px;
       }
+      #cluster td {
+      padding: 8px 71px 8px 16px;
+      text-align: left;
+      }
       
       #customers tr:nth-child(odd){background-color: #F3F3F3;}
       
@@ -74,7 +78,12 @@
       .b-dot{
       text-shadow: -1px 0 #595959, 0 1px #595959, 1px 0 #595959, 0 -1px #595959;
       }
-
+      .red{
+      color: #ff0000
+      }
+      .green{
+      color: #008000
+      }
       .arrow_box {
       position: relative;
       background: #ffffff;
@@ -121,7 +130,7 @@
       .p-bar-grey{
       color: #000!important;
       background-color: #f1f1f1!important;
-      margin-left: 33px;
+      margin-left: 55px;
       margin-right: 38px;
       height: 15px;
       }
@@ -132,6 +141,7 @@
       .pink{
       background-color: #F1CACA!important;
       border-radius:5px;
+      margin-left: 40px !important;
       }
       .p-bar-fill{     
       color: #fff!important;
@@ -162,7 +172,6 @@
       font-weight: 600;
       float: left;
       }
-
     </style>
   </head>
   <body>
@@ -237,7 +246,6 @@
 	  
       <table class="school-list" id="customers">
 	<tr>
-	  <th>Cluster Name</th>
 	  <th>Grade</th>
 	  
 	  <th>
@@ -318,8 +326,8 @@
       
       <table class="school-list" id="customers">
 	<tr>
-	  <th></th>
-	  <th></th>
+	  <th>Block Name</th>
+	  <th>Grade</th>
 	  
 	  <th>
 	    <div class="arrow_box">Addition
@@ -347,7 +355,7 @@
 	  </th>
 	  
 	</tr>
-	{% for item in data.gpc_blocks}
+	{% for item in data.gpc_blocks %}
 	{% for g in item.grades%}
 	<tr>
 	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.block }}</td> {% endif %}
