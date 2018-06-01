@@ -5,7 +5,7 @@
     <style>
       body {
       font-family: 'Questrial', sans-serif;
-      
+      text-transform: capitalize;
       }
       .outer-box{
       padding: 20px;
@@ -264,6 +264,62 @@
 	</tr>
 	{% endfor %}
 	{% endfor %}
+
+	<tr>
+	<td colspan="8"> neighbouring schools</td></tr>
+	{% for item in data.neighbours%}
+	{% for g in item.grades%}
+	<tr>
+	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.school }}</td> {% endif %}
+	  <td>{{g.name}}</td>
+
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Addition" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Division" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Multiplication" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Number Concept" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Subtraction" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  <td align="center">
+	    {% for value in g.values%}
+            {% if "Other Areas" == value.contest %}
+	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+            {% endif %}
+            {% endfor %}
+	  </td>
+	  
+	</tr>
+	{% endfor %}
+	{% endfor %}
+	
       </table>
     </div>
   </body>
