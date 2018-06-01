@@ -707,11 +707,13 @@ class DistrictReport(BaseReport):
                         gpc_grades[grade['name']][value['contest']]+=value['count']
                     except KeyError:
                         gpc_grades[grade['name']][value['contest']]=value['count']
-        for i in gpc_grades.values():
-            for j ,k in i.items():
-                i[j] = round(k/len(gpc_blocks), 2)
+        gradewise_gpc = []
+        for grade, values in gpc_grades.items():
+            for j ,k in values.items():
+                values[j] = round(k/len(gpc_blocks), 2)
+            gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
-        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gpc_grades}
+        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc}
         return self.data
 
     def getHouseholdServey(self,district,date_range):
