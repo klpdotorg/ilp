@@ -292,35 +292,36 @@ class SchoolReport(BaseReport):
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
 
-        conditions = AGI.values_list('institution__name', 'questiongroup__name').distinct()
-        contests = list(AGI.values_list('answers__question__key', flat=True).distinct())
-        contests.pop(contests.index('Gender'))
-        schools = []
-        scores = {}
+        schools,scores = self.get_school_data(AGI)
+        # conditions = AGI.values_list('institution__name', 'questiongroup__name').distinct()
+        # contests = list(AGI.values_list('answers__question__key', flat=True).distinct())
+        # contests.pop(contests.index('Gender'))
+        # schools = []
+        # scores = {}
 
-        for school, qgroup in conditions:
-            school_ag = AGI.filter(institution__name=school, questiongroup__name=qgroup)
-            for contest in contests:
-                percent = []
-                for ag in school_ag:
-                    num_q = ag.answers.filter(question__key=contest).count()
-                    if num_q == 0:
-                        continue
-                    answered = ag.answers.filter(question__key=contest, answer='Yes').count()
-                    mark = (answered/num_q)*100
-                    try:
-                        scores[ag.id]['mark'].append(mark)
-                    except KeyError:
-                        scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
-                        scores[ag.id]['mark'].append(mark)
-                    percent.append(mark)
+        # for school, qgroup in conditions:
+        #     school_ag = AGI.filter(institution__name=school, questiongroup__name=qgroup)
+        #     for contest in contests:
+        #         percent = []
+        #         for ag in school_ag:
+        #             num_q = ag.answers.filter(question__key=contest).count()
+        #             if num_q == 0:
+        #                 continue
+        #             answered = ag.answers.filter(question__key=contest, answer='Yes').count()
+        #             mark = (answered/num_q)*100
+        #             try:
+        #                 scores[ag.id]['mark'].append(mark)
+        #             except KeyError:
+        #                 scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
+        #                 scores[ag.id]['mark'].append(mark)
+        #             percent.append(mark)
 
-                if len(percent) == 0:
-                    continue
-                details = dict(school=school, grade=qgroup)
-                details['contest'] = contest
-                details['percent'] = sum(percent)/len(percent)
-                schools.append(details)
+        #         if len(percent) == 0:
+        #             continue
+        #         details = dict(school=school, grade=qgroup)
+        #         details['contest'] = contest
+        #         details['percent'] = sum(percent)/len(percent)
+        #         schools.append(details)
 
         #Calculate the perfomance of students
         boys_100 = 0
@@ -344,6 +345,76 @@ class SchoolReport(BaseReport):
         score_zero = boys_zero + girls_zero
 
         contest_list = [i['contest'] for i in schools]
+        out = self.format_schools_data(schools)
+        # schools_out = []
+        # out= []
+
+        # for item in schools:
+        #     if not item['school'] in schools_out:
+        #         schools_out.append(item['school'])
+        #         out.append({'school':item['school'],
+        #                     'grades':[{
+        #                         'name':item['grade'],
+        #                         'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+        #         })
+        #     else:
+        #         for o in out:
+        #             if o['school']==item['school']:
+        #                 gradeExist= False
+        #                 for grade in o['grades']:
+        #                     if item['grade'] == grade['name']:
+        #                         gradeExist = True
+        #                         grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+        #                 if not gradeExist:
+        #                     o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+
+        # for i in out:
+        #     for grade in i['grades']:
+        #         count = 0
+        #         num = 0
+        #         for value in grade['values']:
+        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
+        #                 count += value['count']
+        #                 num += 1
+        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
+        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
+
+        self.data =  {'gp_name': gp, 'academic_year': self.academic_year, 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
+        return self.data
+
+    def get_school_data(self,answergroup):
+        conditions = answergroup.values_list('institution__name', 'questiongroup__name').distinct()
+        contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
+        contests.pop(contests.index('Gender'))
+        schools = []
+        scores = {}
+
+        for school, qgroup in conditions:
+            school_ag = answergroup.filter(institution__name=school, questiongroup__name=qgroup)
+            for contest in contests:
+                percent = []
+                for ag in school_ag:
+                    num_q = ag.answers.filter(question__key=contest).count()
+                    if num_q == 0:
+                        continue
+                    answered = ag.answers.filter(question__key=contest, answer='Yes').count()
+                    mark = (answered/num_q)*100
+                    try:
+                        scores[ag.id]['mark'].append(mark)
+                    except KeyError:
+                        scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
+                        scores[ag.id]['mark'].append(mark)
+                    percent.append(mark)
+
+                if len(percent) == 0:
+                    continue
+                details = dict(school=school, grade=qgroup)
+                details['contest'] = contest
+                details['percent'] = sum(percent)/len(percent)
+                schools.append(details)
+
+        return schools,scores
+    def format_schools_data(self,schools):
         schools_out = []
         out= []
 
@@ -376,9 +447,7 @@ class SchoolReport(BaseReport):
                         num += 1
                 grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
                 grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-
-        self.data =  {'gp_name': gp, 'academic_year': self.academic_year, 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100}
-        return self.data
+        return out
 
 class ClusterReport(BaseReport):
     def __init__(self, cluster_name=None, block_name=None, academic_year=None, **kwargs):
