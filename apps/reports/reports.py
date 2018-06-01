@@ -261,7 +261,7 @@ class SchoolReport(BaseReport):
         self.academic_year = arguments.academic_year
         self.params = dict(school_code=self.school_code,academic_year=self.academic_year)
 
-    def get_data(self):
+    def get_data(self, neighbour_required=True):
         ay = self.academic_year.split('-')
         dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
 
@@ -318,13 +318,16 @@ class SchoolReport(BaseReport):
         contest_list = [i['contest'] for i in schools]
         out = self.format_schools_data(schools)
 
-        neighbour_list = []
-        for i in Institution.objects.filter(gp=school_obj.gp):
-            neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
-            neighbour_data, _ = self.get_school_data(neighbour_agi)
-            neighbour_list += neighbour_data
+        if neighbour_required:
+            neighbour_list = []
+            for i in Institution.objects.filter(gp=school_obj.gp):
+                neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+                neighbour_data, _ = self.get_school_data(neighbour_agi)
+                neighbour_list += neighbour_data
 
-        neighbours = self.format_schools_data(neighbour_list)
+            neighbours = self.format_schools_data(neighbour_list)
+        else:
+            neighbours = []
 
         self.data =  {'gp_name': gp, 'academic_year': self.academic_year, 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':neighbours}
         return self.data
@@ -440,7 +443,7 @@ class ClusterReport(BaseReport):
         for school in cluster_schools:
             r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
             try:
-                school_data = r.get_data()
+                school_data = r.get_data(neighbour_required=False)
                 if not school_data:
                   continue
                 schools.append(school_data['schools'][0])
