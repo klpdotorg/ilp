@@ -60,6 +60,8 @@ class BaseReport(ABC):
         r= Reports(report_type=self._type,parameters=self.params, data=self.data)
         r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:7]
         r.save()
+        t = Tracking(report_id=r, track_id='default')
+        t.save()
         return r
 
     def save_link(self, report):
