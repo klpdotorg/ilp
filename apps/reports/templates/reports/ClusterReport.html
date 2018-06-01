@@ -250,7 +250,7 @@
 	{% for item in data.schools%}
 	{% for g in item.grades%}
 	<tr>
-	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.school }}</td> {% endif %}
+	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="font-size: 13px;">{{ item.school }}</td> {% endif %}
 	  <td>{{g.name}}</td>
 
 	  <td align="center">
