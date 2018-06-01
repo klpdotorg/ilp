@@ -26,7 +26,7 @@ input_file = os.path.join(dir,'../../datapull/'+filename)
 for line in open(input_file, 'r'):
     parts = line.split('|')
     question_id = parts[0]
-    correct_ans = parts[1]
+    correct_ans = parts[1].replace('\n','')
     sqlselect = "select assess_uid, question_id from ekstep_assess where question_id=%s and result=%s and score=0;"
     fromcursor.execute(sqlselect,(question_id, correct_ans))
     for row in fromcursor.fetchall():
