@@ -321,7 +321,8 @@ class SchoolReport(BaseReport):
         neighbour_list = []
         for i in Institution.objects.filter(gp=school_obj.gp):
             neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
-            neighbour_list.append(self.get_school_data(neighbour_agi))
+            neighbour_data, _ = self.get_school_data(neighbour_agi)
+            neighbour_list.append(neighbour_data)
 
         neighbours = self.format_schools_data(neighbour_list)
 
