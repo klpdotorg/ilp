@@ -229,7 +229,7 @@ class GPMathContestReport(BaseReport):
         #Husehold Survey
         a = AnswerGroup_Institution.objects.filter(institution__admin3__name=gp_name, entered_at__range=date_range, questiongroup_id__in=[18, 20])
 
-        questions = QuestionGroup.objects.get(id=18).questions.all()
+        questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
 
         total_response = a.count()
 
@@ -461,7 +461,7 @@ class ClusterReport(BaseReport):
         a = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, entered_at__range=date_range, questiongroup_id__in=[18, 20])
         HHSurvey = []
         if a.exists():
-            questions = QuestionGroup.objects.get(id=18).questions.all()
+            questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
 
             total_response = a.count()
 
@@ -598,7 +598,7 @@ class BlockReport(BaseReport):
         a = AnswerGroup_Institution.objects.filter(institution__admin2=block, entered_at__range=date_range, questiongroup_id__in=[18, 20])
         HHSurvey = []
         if a.exists():
-            questions = QuestionGroup.objects.get(id=18).questions.all()
+            questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
 
             total_response = a.count()
 
@@ -740,7 +740,7 @@ class DistrictReport(BaseReport):
         a = AnswerGroup_Institution.objects.filter(institution__admin1=district, entered_at__range=date_range, questiongroup_id__in=[18, 20])
         HHSurvey = []
         if a.exists():
-            questions = QuestionGroup.objects.get(id=18).questions.all()
+            questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
 
             total_response = a.count()
 
