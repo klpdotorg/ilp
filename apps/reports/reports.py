@@ -761,7 +761,7 @@ class DistrictReport(BaseReport):
                 # except ZeroDivisionError:
                 #     HHSurvey.append({'text':i.question_text,'percentage':0.0})
         else:
-             print("No HH data for District {} for academic year {}".format(block.name, block.parent.name, self.academic_year))
+             print("No HH data for District {} for academic year {}".format(district.name, self.academic_year))
         return HHSurvey
 
 if __name__ == "__main__":
