@@ -227,9 +227,9 @@
 	  {% for cluster in data.gka_clusters %}
 	  <tr>
 	    <td>{{cluster.cluster}}:</td>
-	    <td>Teacher Trained : <span class="">{{cluster.teachers_trained}}%</span></td>
-	    <td>Kit Usage: {{cluster.kit_usage}}%</td>
-	    <td>Group Work: {{cluster.group_work}}%</td>
+	     <td>Teacher Trained : <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
+	    <td>Kit Usage:  <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
+	    <td>Group Work:  <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.group_work}}%</span></td>
 	  </tr>
 	 {% endfor %}
 	</table>

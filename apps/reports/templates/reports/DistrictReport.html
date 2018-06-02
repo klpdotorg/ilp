@@ -55,7 +55,7 @@
       padding: 8px;
       }
       #cluster td {
-      padding: 8px 71px 8px 16px;
+      padding: 8px 15px 8px 16px;
       text-align: left;
       }
       
@@ -167,7 +167,7 @@
       float: left;
       }
       img{
-      vertical-align: sub;
+      vertical-align: middle;
       }
     </style>
   </head>
@@ -225,21 +225,23 @@
 	  {% for item in data.gka_blocks %}
 	  <tr>
 	    <td>{{item.block}}:</td>
-	    <td>Teacher Trained : <span class="">{{item.teachers_trained}}%</span></td>
-	    <td>Kit Usage: {{item.kit_usage}}%</td>
-	    <td>Group Work: {{item.group_work}}%</td>
+	    <td>Teacher Trained : <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
+	    <td>Kit Usage:  <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
+	    <td>Group Work:  <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.group_work}}%</span></td>
 	  </tr>
 	 {% endfor %}
 	</table>
       </div>
       <div class="outer-line">
 	<h2>GP Contest</h2>
+	<span style="line-height:22px;">
 	Total No of GPs : XX <br>
 	Total No of Contest: {{data.num_contests}}<br>
 	 <strong>Participation : </strong>{{ data.num_students}} {
 	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_boys }}
 	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_girls }}
 	  }
+	  </span>
 	  <h2>PERFORMANCE BY GRADE</h2>
       <table style="margin: auto;" id="customers">
 	<tr>
