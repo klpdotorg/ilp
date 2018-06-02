@@ -274,6 +274,9 @@ class SchoolReport(BaseReport):
         except Institution.DoesNotExist:
             print('School {} does not exist\n'.format(self.school_code))
             raise ValueError('Invalid school name\n')
+        except AttributeError:
+            print('School {} does not have dise\n'.format(self.school_code))
+            raise ValueError('Invalid school name\n')
 
         try:
             gp = school_obj.gp.const_ward_name.title() # GP name
@@ -443,13 +446,17 @@ class ClusterReport(BaseReport):
 
         schools = []
         for school in cluster_schools:
-            r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
             try:
-                school_data = r.get_data(neighbour_required=False)
-                if not school_data:
-                  continue
-                schools.append(school_data['schools'][0])
-            except ValueError:
+                r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
+                try:
+                    school_data = r.get_data(neighbour_required=False)
+                    if not school_data:
+                        continue
+                    schools.append(school_data['schools'][0])
+                except ValueError:
+                    continue
+            except AttributeError:
+                print('School {} does not have dise\n'.format(self.school_code))
                 continue
 
         household = self.getHouseholdServey(cluster_obj, dates)
@@ -523,7 +530,7 @@ class BlockReport(BaseReport):
 
         district = block.parent.parent.name.title()    # District name
 
-        clusters  = Boundary.objects.filter(parent=block) # Clusters that belong to the block
+        clusters  = Boundary.objects.filter(parent=block, boundary_type__char_id='SC') # Clusters that belong to the block
         num_clusters = clusters.count()
 
         num_schools = 0
@@ -650,7 +657,7 @@ class DistrictReport(BaseReport):
         number_of_students = num_boys + num_girls
         num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
 
-        blocks  = Boundary.objects.filter(parent=district) # Blocks that belong to the district
+        blocks  = Boundary.objects.filter(parent=district, boundary_type__char_id='SB') # Blocks that belong to the district
         num_blocks = blocks.count()
 
         num_schools = 0
