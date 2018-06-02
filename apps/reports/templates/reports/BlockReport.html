@@ -70,19 +70,19 @@
       color: #594633;
       }
       .r-dot {
-      color: #ff0000;
+      color: #ff0000!important;
       }
       .g-dot {
-      color:#008000;
+      color:#008000 !important;
       }
       .b-dot{
       color: #595959;
       }
       .red{
-      color: #ff0000
+      color: #ff0000 !important;
       }
       .green{
-      color: #008000
+      color: #008000 !important;
       }
       .arrow_box {
       position: relative;
@@ -266,42 +266,42 @@
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Addition" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Division" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Multiplication" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Number Concept" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Subtraction" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Other Areas" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>

@@ -115,7 +115,7 @@
       }
       .mark {
       font-family: Open Sans;
-      font-size: 24px;
+      font-size: 17px;
       text-align: center;
       }
       td{
@@ -271,42 +271,42 @@
 	  <td align="center">
 	    {% for value in item.values %}
             {% if "Addition" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 20 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in item.values%}
             {% if "Division" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 20 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in item.values%}
             {% if "Multiplication" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 20 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in item.values%}
             {% if "Number Concept" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 20 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in item.values%}
             {% if "Subtraction" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 20 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in item.values%}
             {% if "Other Areas" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 20 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
@@ -348,42 +348,42 @@
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Addition" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Division" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Multiplication" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Number Concept" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Subtraction" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
 	  <td align="center">
 	    {% for value in g.values%}
             {% if "Other Areas" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 20 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
             {% endif %}
             {% endfor %}
 	  </td>
