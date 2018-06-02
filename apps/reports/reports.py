@@ -454,6 +454,9 @@ class ClusterReport(BaseReport):
                 schools.append(school_data['schools'][0])
             except ValueError:
                 continue
+            except AttributeError:
+                print('School {} does not exist\n'.format(self.school_code))
+                continue
 
         household = self.getHouseholdServey(cluster_obj, dates)
         gka = self.getGKAData(cluster_obj, dates)
