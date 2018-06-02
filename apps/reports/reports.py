@@ -274,6 +274,9 @@ class SchoolReport(BaseReport):
         except Institution.DoesNotExist:
             print('School {} does not exist\n'.format(self.school_code))
             raise ValueError('Invalid school name\n')
+        except AttributeError:
+            print('School {} does not have dise\n'.format(self.school_code))
+            raise ValueError('Invalid school name\n')
 
         try:
             gp = school_obj.gp.const_ward_name.title() # GP name
