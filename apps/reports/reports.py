@@ -456,7 +456,7 @@ class ClusterReport(BaseReport):
                 except ValueError:
                     continue
             except AttributeError:
-                print('School {} does not have dise\n'.format(self.school_code))
+                print('School {} does not have dise\n'.format(school.name))
                 continue
 
         household = self.getHouseholdServey(cluster_obj, dates)
@@ -761,7 +761,7 @@ class DistrictReport(BaseReport):
                 # except ZeroDivisionError:
                 #     HHSurvey.append({'text':i.question_text,'percentage':0.0})
         else:
-             print("No HH data for District {} for academic year {}".format(block.name, block.parent.name, self.academic_year))
+             print("No HH data for District {} for academic year {}".format(district.name, self.academic_year))
         return HHSurvey
 
 if __name__ == "__main__":
