@@ -446,16 +446,17 @@ class ClusterReport(BaseReport):
 
         schools = []
         for school in cluster_schools:
-            r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
             try:
-                school_data = r.get_data(neighbour_required=False)
-                if not school_data:
-                  continue
-                schools.append(school_data['schools'][0])
-            except ValueError:
-                continue
+                r = SchoolReport(school_code=school.dise.school_code, academic_year=self.academic_year)
+                try:
+                    school_data = r.get_data(neighbour_required=False)
+                    if not school_data:
+                        continue
+                    schools.append(school_data['schools'][0])
+                except ValueError:
+                    continue
             except AttributeError:
-                print('School {} does not exist\n'.format(self.school_code))
+                print('School {} does not have dise\n'.format(self.school_code))
                 continue
 
         household = self.getHouseholdServey(cluster_obj, dates)
