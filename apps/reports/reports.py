@@ -456,7 +456,7 @@ class ClusterReport(BaseReport):
                 except ValueError:
                     continue
             except AttributeError:
-                print('School {} does not have dise\n'.format(self.school_code))
+                print('School {} does not have dise\n'.format(school.name))
                 continue
 
         household = self.getHouseholdServey(cluster_obj, dates)
