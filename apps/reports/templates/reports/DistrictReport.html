@@ -225,9 +225,9 @@
 	  {% for item in data.gka_blocks %}
 	  <tr>
 	    <td>{{item.block}}:</td>
-	    <td>Teacher Trained : <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
-	    <td>Kit Usage:  <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
-	    <td>Group Work:  <span class="{% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{item.group_work}}%</span></td>
+	    <td>Teacher Trained : <span class="{% if item.teachers_trained < 40 %} red{% endif %} {% if item.teachers_trained >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
+	    <td>Kit Usage:  <span class="{% if item.kit_usage < 40 %} red{% endif %} {% if item.kit_usage >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
+	    <td>Group Work:  <span class="{% if item.group_work < 40 %} red{% endif %} {% if item.group_work >= 70 %} green{% endif %}">{{item.group_work}}%</span></td>
 	  </tr>
 	 {% endfor %}
 	</table>
