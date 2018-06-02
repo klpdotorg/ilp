@@ -526,7 +526,7 @@ class BlockReport(BaseReport):
 
         district = block.parent.parent.name.title()    # District name
 
-        clusters  = Boundary.objects.filter(parent=block) # Clusters that belong to the block
+        clusters  = Boundary.objects.filter(parent=block, boundary_type__char_id='SC') # Clusters that belong to the block
         num_clusters = clusters.count()
 
         num_schools = 0
@@ -653,7 +653,7 @@ class DistrictReport(BaseReport):
         number_of_students = num_boys + num_girls
         num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
 
-        blocks  = Boundary.objects.filter(parent=district) # Blocks that belong to the district
+        blocks  = Boundary.objects.filter(parent=district, boundary_type__char_id='SB') # Blocks that belong to the district
         num_blocks = blocks.count()
 
         num_schools = 0
