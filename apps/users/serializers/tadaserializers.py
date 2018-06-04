@@ -56,3 +56,9 @@ class TadaUserSerializer(serializers.ModelSerializer):
         user = obj
         groups = user.groups.all().values_list('name', flat=True)
         return groups
+
+class PasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+    new_password = serializers.CharField(required=True)

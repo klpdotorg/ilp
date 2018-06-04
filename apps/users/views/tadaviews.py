@@ -5,19 +5,22 @@ from django.contrib.auth.models import Group
 
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
-
+from rest_framework.decorators import list_route, detail_route
 from users.models import User
 from users.serializers import (
     TadaUserRegistrationSerializer,
     UserLoginSerializer,
-    TadaUserSerializer
+    TadaUserSerializer,
+    PasswordSerializer
 )
 from users.permission import IsAdminOrIsSelf, IsAdminUser
 from users.utils import login_user
 from rest_framework import filters
-
+from django.contrib.auth.hashers import make_password
 from common.views import ILPViewSet
+import logging
 
+logger = logging.getLogger(__name__)
 
 class UsersViewSet(viewsets.ModelViewSet):
     """
@@ -71,10 +74,25 @@ class UsersViewSet(viewsets.ModelViewSet):
         response_data = TadaUserRegistrationSerializer(user)
         headers = self.get_success_headers(serializer.data)
         return Response(response_data.data, status=status.HTTP_201_CREATED, headers=headers)
-    
+
+    @detail_route(
+        methods=['put', 'patch'], 
+        serializer_class = PasswordSerializer, 
+        url_path='reset-password')
+    def set_password(self, request, pk=None):
+        serializer = PasswordSerializer(data=request.data)
+        user = User.objects.get(id=pk)
+        if serializer.is_valid():
+            # set_password also hashes the password that the user will get
+            user.set_password(serializer.data.get('new_password'))
+            user.save()
+            return Response({'status': 'password set'}, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
+
     def update(self, request, *args, **kwargs):
         data = request.data.copy()
-        print("Inside TADA user update view", request.data)
         try:
             groups = data.pop("groups")
         except:
@@ -85,11 +103,10 @@ class UsersViewSet(viewsets.ModelViewSet):
         user = serializer.save()
         user.groups.clear()
         user.save()
+       
         for group_name in groups:
             try:
-                print("Group name is: ", group_name)
                 group_obj = Group.objects.get(name=group_name)
-                print("Retrieved group object:", group_obj)
             except:
                 print("Did not find group")
             else:
@@ -97,11 +114,9 @@ class UsersViewSet(viewsets.ModelViewSet):
         if user.is_superuser:
             user.groups.add(Group.objects.get(name='tada_admin'))
         else:
-            print("Adding user to default groups")
             user.groups.add(Group.objects.get(name='ilp_auth_user'))
             user.groups.add(Group.objects.get(name='ilp_konnect_user'))
         user.save()
-        print("saving user")
         response_data = TadaUserSerializer(user)
         headers = self.get_success_headers(serializer.data)
         return Response(response_data.data, status=status.HTTP_201_CREATED, headers=headers)

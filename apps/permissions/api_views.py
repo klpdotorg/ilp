@@ -14,7 +14,6 @@ class BasicDefaultPermission(permissions.BasePermission):
     """
     def has_permission(self, request, view):
         user = request.user
-        print("user is: ", user.first_name)
         user.groups.filter(name='ilp_auth_user').exists()
         if request.user.is_authenticated and request.method in ('POST', 'GET', 'OPTIONS'):
             print("User is authenticated.PERMIT POST, GET AND HEAD")
