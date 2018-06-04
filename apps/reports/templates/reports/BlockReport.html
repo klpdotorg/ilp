@@ -55,7 +55,7 @@
       padding: 8px;
       }
       #cluster td {
-      padding: 8px 71px 8px 16px;
+      padding: 8px 15px 8px 16px;
       text-align: left;
       }
       
@@ -223,6 +223,7 @@
 	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
 	  </div>
 	</div>
+	<h2>PERFORMANCE BY CLUSTER</h2>
 	<table id="cluster">
 	  {% for cluster in data.gka_clusters %}
 	  <tr>
@@ -234,84 +235,87 @@
 	 {% endfor %}
 	</table>
       </div>
-      <table class="school-list" id="customers">
-	<tr>
-	  <th>Cluster Name</th>
-	  <th>Grade</th>
-	  <th>
-	      Addition
-	  </th>
-	  <th>
-	      Division
-	  </th>
-	  <th>
-	      Multiplication
-	  </th>
-	  <th>
-	      Number Concept
-	  </th>
-	  <th>
-	      Subtraction
-	  </th>
-	  <th>
-	      Other Areas
-	  </th>
-	</tr>
-	{% for item in data.gpc_clusters %}
-	{% for g in item.grades%}
-	<tr>
-	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.cluster }}</td> {% endif %}
-	  <td>{{g.name}}</td>
-
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Addition" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Division" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Multiplication" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Number Concept" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Subtraction" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Other Areas" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  
-	</tr>
-	{% endfor %}
-	{% endfor %}
-      </table>
       <div class="outer-line">
-	<h2>HOUSEHOLD SURVEY</h2>
+	<h2>GP Contest</h2>
+	<table style="margin: auto;" id="customers">	  
+	  <tr>
+	    <th>Cluster Name</th>
+	    <th>Grade</th>
+	    <th>
+	      Addition
+	    </th>
+	    <th>
+	      Division
+	    </th>
+	    <th>
+	      Multiplication
+	    </th>
+	    <th>
+	      Number Concept
+	    </th>
+	    <th>
+	      Subtraction
+	    </th>
+	    <th>
+	      Other Areas
+	    </th>
+	  </tr>
+	  {% for item in data.gpc_clusters %}
+	  {% for g in item.grades%}
+	  <tr>
+	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.cluster }}</td> {% endif %}
+	    <td>{{g.name}}</td>
+
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Addition" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Division" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Multiplication" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Number Concept" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Subtraction" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Other Areas" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    
+	  </tr>
+	  {% endfor %}
+	  {% endfor %}
+	</table>
+      </div>
+      <div class="outer-line">
+	<h2>COMMUNITY SURVEY</h2>
 	{% for s in data.household %}
 	<div class="half-box">
 	  {{s.text}}
@@ -323,7 +327,7 @@
 	</div>
 	{% endfor %}
       </div>
-       <div class="outer-line" style="line-height: 26px;">
+      <div class="outer-line" style="line-height: 26px;">
 	FOCUS AREAS :
 	<ul>
 	  <li>
@@ -333,10 +337,10 @@
 	    To improve math learning levels of children please encourage use of GKA Math kit in classrooms.
 	  </li>
 	</ul>
-       </div>
-       <div class="red" style="text-align: center;padding: 20px;">
-	 FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 98XXXXXXXX
-       </div>
+      </div>
+      <div class="red" style="text-align: center;padding: 20px;">
+	FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 98XXXXXXXX
+      </div>
     </div>
   </body>
 </html>
