@@ -656,6 +656,7 @@ class DistrictReport(BaseReport):
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
         num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
+        num_gp = district.institution_admin1.all().values_list('gp__id',flat=True).distinct().count()
 
         blocks  = Boundary.objects.filter(parent=district, boundary_type__char_id='SB') # Blocks that belong to the district
         num_blocks = blocks.count()
@@ -741,7 +742,7 @@ class DistrictReport(BaseReport):
                 values[j] = round(k/len(gpc_blocks), 2)
             gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
-        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc}
+        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc, 'num_gp':num_gp}
         return self.data
 
     def getHouseholdServey(self,district,date_range):
