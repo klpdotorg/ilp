@@ -224,6 +224,7 @@
 	<table id="cluster">
 	  {% for item in data.gka_blocks %}
 	  <tr>
+	  <tr><td colspan="4"><h2 style="margin-bottom: 0px;margin-top: 20px;">PERFORMANCE BY CLUSTER</h2></td></tr>
 	    <td>{{item.block}}:</td>
 	    <td>Teacher Trained : <span class="{% if item.teachers_trained < 40 %} red{% endif %} {% if item.teachers_trained >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
 	    <td>Kit Usage:  <span class="{% if item.kit_usage < 40 %} red{% endif %} {% if item.kit_usage >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
@@ -235,7 +236,7 @@
       <div class="outer-line">
 	<h2>GP Contest</h2>
 	<span style="line-height:22px;">
-	Total No of GPs : XX <br>
+	Total No of GPs : {{data.num_gp}} <br>
 	Total No of Contest: {{data.num_contests}}<br>
 	 <strong>Participation : </strong>{{ data.num_students}} {
 	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_boys }}
