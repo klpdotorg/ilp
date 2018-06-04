@@ -222,9 +222,9 @@
 	  </div>
 	</div>
 	<table id="cluster">
+	  <tr><td colspan="4"><h2 style="margin-bottom: 0px;margin-top: 20px;">PERFORMANCE BY Block</h2></td></tr>
 	  {% for item in data.gka_blocks %}
 	  <tr>
-	  <tr><td colspan="4"><h2 style="margin-bottom: 0px;margin-top: 20px;">PERFORMANCE BY CLUSTER</h2></td></tr>
 	    <td>{{item.block}}:</td>
 	    <td>Teacher Trained : <span class="{% if item.teachers_trained < 40 %} red{% endif %} {% if item.teachers_trained >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
 	    <td>Kit Usage:  <span class="{% if item.kit_usage < 40 %} red{% endif %} {% if item.kit_usage >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
