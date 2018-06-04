@@ -9,11 +9,14 @@ from .reportlist import reportlist, param_ids
 from .contacts import contacts
 from common.utils import send_sms
 
-def send_link(dry, filepath, gp_name, r_type):
+def send_link(dry, filepath, gp_name,arg_two, r_type):
     print(r_type)
    
-    frequency_str = '1,16,17,18,24,30'
-    params = {param_ids[r_type]: gp_name, 'academic_year': '2017-2018'}
+    frequency_str = '1,16,17,18,04,30'
+    if r_type == "ClusterReport":
+        params =  {param_ids[r_type]: gp_name,'block_name':arg_two, 'academic_year': '2017-2018'}
+    else:
+        params = {param_ids[r_type]: gp_name, 'academic_year': '2017-2018'}
     print(params)
     frequency = frequency_str.split(',')
     today = datetime.datetime.now().strftime("%d")

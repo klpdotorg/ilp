@@ -23,12 +23,16 @@ class Command(BaseCommand):
             '--r_type',
             help='report type',
         )
+        parser.add_argument(
+            '--arg_two',
+            help='second argument' 
+        )
 
     def handle(self, *args, **options):
         dry = False
         filename = 'contacts.csv'
         gp_name = 'abbinahole'
-
+        arg_two = ''
         r_type = 'GPMathContestReport'
         
         if options['filename']:
@@ -40,5 +44,7 @@ class Command(BaseCommand):
            gp_name = options['gp_name']
         if options['r_type']:
             r_type = options['r_type']
+        if options['arg_two']:
+            arg_two = options['arg_two']
 
-        send_link(dry, filename, gp_name, r_type)
+        send_link(dry, filename, gp_name, arg_two, r_type)
