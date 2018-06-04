@@ -223,8 +223,9 @@
 	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
 	  </div>
 	</div>
-	<h2>PERFORMANCE BY CLUSTER</h2>
+
 	<table id="cluster">
+	  <tr><td colspan="4"><h2 style="margin-bottom: 0px;margin-top: 20px;">PERFORMANCE BY CLUSTER</h2></td></tr>
 	  {% for cluster in data.gka_clusters %}
 	  <tr>
 	    <td>{{cluster.cluster}}:</td>
