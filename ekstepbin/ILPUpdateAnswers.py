@@ -35,6 +35,7 @@ for line in open(input_file, 'r'):
         question = row[1]
         sqlselect = "select ans.id, ans.answer from assessments_answerstudent ans, assessments_answergroup_student ansgrp,  assessments_question ques where ans.answergroup_id = ansgrp.id and ansgrp.comments = %s and ans.question_id = ques.id and ques.question_text = %s;" 
         tocursor.execute(sqlselect, (assess_uid, question))
+        #print(tocursor.mogrify(sqlselect,(assess_uid, question)))
         answer_present = tocursor.rowcount
         if answer_present != 0:
             sqlupdate = "update assessments_answerstudent ans set answer ='1' from assessments_answergroup_student ansgrp,  assessments_question ques where ans.answergroup_id = ansgrp.id and ansgrp.comments = %s and ans.question_id = ques.id and ques.question_text = %s;"
