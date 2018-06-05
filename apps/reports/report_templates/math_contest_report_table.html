@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <style>
+      body {
+     
+      }
+      .outer-box{
+      border: 5px solid #989898;
+      padding: 20px;
+      margin: auto;
+      width: 700px;
+      }
+      .container{
+      width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      }
+      .dialog-left{
+      width:50%;
+      display: inline-block;
+      }
+      .dialog-right{
+      width:40%;
+      display: inline-block;
+      float: right;
+      }
+      
+      h1 {
+      text-align: center;
+      font-size: 36px;
+      }
+      
+      p {
+      font-family: verdana;
+      font-size: 20px;
+      }
+      
+      #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      }
+
+      #customers td, #customers th {
+      border: 1px solid #BABABA;
+      padding: 8px;
+      }
+      
+      #customers tr:nth-child(odd){background-color: #F3F3F3;}
+      
+      #customers tr:hover {background-color: #ddd;}
+      
+      #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #D8D8D8;
+      color: #594633;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer-box">
+      <div class="container">
+	<h1>Gram Panchayat Math Contest Report</h1>
+
+	
+      </div>
+      <table id="customers">
+	<tr>
+	  <th>School Name</th>
+	  <th>Grade</th>
+	  {% for c in data['cs']%}
+	  <th>{{c}}</th>
+	  {% endfor %}
+	</tr>
+	{% for item in data['schools']%}
+	{% for g in item['grades']%}
+	<tr>
+	  <td>{% if loop.index ==1 %}{{ item['school'] }}{% endif %}</td>
+	  <td>{{g['name']}}</td>
+	  {% for c in data['cs']%}
+	  <td>
+	  {% for value in g['values']%}
+	  {% if c == value.contest %}{{value['count']}}{% endif %}
+	  {% endfor %}
+	  </td>
+	  {% endfor %}
+	</tr>
+	{% endfor %}
+	{% endfor %}	
+      </table>
+    </div>
+  </body>
+</html>
