@@ -126,7 +126,7 @@ class GPMathContestReport(BaseReport):
 
 
         # Get the answergroup_institution from gp name and academic year
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name=self.gp_name, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name=self.gp_name, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
         
         if not AGI.exists():
             raise ValueError("No contests found for {} in the year {}".format(gp, ay))
@@ -229,7 +229,7 @@ class GPMathContestReport(BaseReport):
 
     def getHouseholdServey(self,gp_name,date_range):
         #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin3__name=gp_name, entered_at__range=date_range, questiongroup_id__in=[18, 20])
+        a = AnswerGroup_Institution.objects.filter(institution__admin3__name=gp_name, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
 
         questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
 
@@ -286,7 +286,7 @@ class SchoolReport(BaseReport):
         block = school_obj.admin2.name.title()           # Block name
         district = school_obj.admin1.parent.name.title()    # District name
 
-        AGI = AnswerGroup_Institution.objects.filter(institution=school_obj, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        AGI = AnswerGroup_Institution.objects.filter(institution=school_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
         if not AGI.exists():
             # raise ValueError("No contests found for {} in the year {}".format(self.school_code, ay))
@@ -326,7 +326,7 @@ class SchoolReport(BaseReport):
         if neighbour_required:
             neighbour_list = []
             for i in Institution.objects.filter(gp=school_obj.gp):
-                neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+                neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
                 neighbour_data, _ = self.get_school_data(neighbour_agi)
                 neighbour_list += neighbour_data
 
@@ -467,7 +467,7 @@ class ClusterReport(BaseReport):
 
     def getHouseholdServey(self,cluster,date_range):
         #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, entered_at__range=date_range, questiongroup_id__in=[18, 20])
+        a = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
         HHSurvey = []
         if a.exists():
             questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
@@ -486,7 +486,7 @@ class ClusterReport(BaseReport):
         return HHSurvey
 
     def getGKAData(self, cluster, date_range):
-        GKA = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, entered_at__range=date_range, questiongroup__survey_id=11)
+        GKA = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=date_range, questiongroup__survey_id=11)
         if GKA.exists():
             teachers_trained = GKA.filter(answers__question__question_text__icontains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='trained').count()
             kit_usage = GKA.filter(answers__question__question_text__contains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='Ganitha Kalika Andolana TLM').count()
@@ -604,7 +604,7 @@ class BlockReport(BaseReport):
 
     def getHouseholdServey(self,block,date_range):
         #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin2=block, entered_at__range=date_range, questiongroup_id__in=[18, 20])
+        a = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
         HHSurvey = []
         if a.exists():
             questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
@@ -650,7 +650,7 @@ class DistrictReport(BaseReport):
 
         district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, entered_at__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
@@ -747,7 +747,7 @@ class DistrictReport(BaseReport):
 
     def getHouseholdServey(self,district,date_range):
         #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin1=district, entered_at__range=date_range, questiongroup_id__in=[18, 20])
+        a = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
         HHSurvey = []
         if a.exists():
             questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
