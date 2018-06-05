@@ -31,4 +31,6 @@ update common_respondenttype set active_id='IA' where char_id='CM';
 update common_respondenttype set active_id='IA' where char_id='LL'; 
 --15. Remove entry for Educated Youth (Make it inactive)
 update common_respondenttype set active_id='IA' where char_id='EY'; 
+--16. Remove entry for State Official (Make it inactive)
+update common_respondenttype set active_id='IA' where char_id='SO'; 
 
