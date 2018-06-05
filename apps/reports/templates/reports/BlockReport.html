@@ -264,7 +264,7 @@
 	  {% for item in data.gpc_clusters %}
 	  {% for g in item.grades%}
 	  <tr>
-	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}">{{ item.cluster }}</td> {% endif %}
+	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.cluster }}</td> {% endif %}
 	    <td>{{g.name}}</td>
 
 	    <td align="center">
