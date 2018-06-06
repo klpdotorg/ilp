@@ -5,20 +5,17 @@
     <style>
       body {
       font-family: 'Questrial', sans-serif;
+      font-size:15px
+      }
+      .cap{
       text-transform: capitalize;
       }
       .outer-box{
-      padding: 20px;
+      padding: 20px 0 20px 0;
       margin: auto;
       width: 100%;
       background-color: #efeaea;
       overflow: hidden;
-      }
-      .school-list{
-      padding: 20px;
-      margin: auto;
-      width: 80%;
-      margin-top: 35px;
       }
       .container{
       width: 80%;
@@ -26,32 +23,37 @@
       margin-right: auto;
       line-height: 26px;
       }
-      
       h1 {
       text-align: center;
       font-size: 24px;
       padding-top: 35px;
+      text-transform: uppercase;
       }
-       h2 {
+      h2 {
       text-align: center;
       font-size: 20px;
       font-weight: 100;
+      text-transform: uppercase;
       }
-      
       p {
       font-family: verdana;
       font-size: 20px;
       }
-      
       #customers {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
+      text-transform: capitalize;
+      text-align: center;
       }
-
       #customers td, #customers th {
       border: 1px solid #BABABA;
       padding: 8px;
-      text-align:center;
+      font-size: small;
+      text-align: center;
+      }
+      #cluster td {
+      padding: 8px 15px 8px 16px;
+      text-align: left;
       }
       
       #customers tr:nth-child(odd){background-color: #F3F3F3;}
@@ -64,60 +66,18 @@
       background-color: #ddcbcb;
       color: #594633;
       }
-      .r-dot {
-      color: #ff0000!important;
-      }
-      .g-dot {
-      color: #008000 !important;
-      }
       .b-dot{
-      color : #595959;
-      }
-      .green{
-      color:#008000;
+      color: #595959;
       }
       .red{
-      color:#ff0000;
+      color: #ff0000
       }
-      .arrow_box {
-      position: relative;
-      background: #ffffff;
-      border: 2px solid #cccccc;
-      width: 100px;
-      height: 33px;
-      text-align: center;
-      font-size: 13px;
-      }
-      .arrow_box:after, .arrow_box:before {
-      top: 100%;
-      left: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-      }
-      
-      .arrow_box:after {
-      border-color: rgba(136, 183, 213, 0);
-      border-top-color: #ffffff;
-      border-width: 50px;
-      margin-left: -50px;
-      border-top: 7px solid #ffffff;
-      }
-      .arrow_box:before {
-      border-color: rgba(194, 225, 245, 0);
-      border-top-color: #cccccc;
-      border-width: 54px;
-      margin-left: -54px;
-      border-top: 8px solid #cccccc;
-      margin-top: 1px;
+      .green{
+      color: #008000
       }
       .mark {
       font-family: Open Sans;
-      font-size: 17px;
-      text-align: center;
+      font-size: medium;
       }
       td{
       padding:10px;
@@ -129,13 +89,26 @@
       margin-right: 38px;
       height: 15px;
       }
+      .green{
+      border-radius:5px;
+      }
+      .pink{
+      border-radius:5px;
+      margin-left: 40px !important;
+      }
       .p-bar-fill{     
       color: #fff!important;
-      background-color: #008BE3!important;
+      background-color: #4CAF50!important;
       }
       .half-box{
       float: left;
       width: 50%;
+      box-sizing: border-box;
+      padding: 10px;
+      }
+      .three-box{
+      float: left;
+      width: 16%;
       box-sizing: border-box;
       padding: 10px;
       }
@@ -155,127 +128,123 @@
       img{
       vertical-align: middle;
       }
-
     </style>
   </head>
   <body>
-    <h1>Gram Panchayat Math Contest Report</h1>
+    <h1><u>GKA : {{data.gp_name}} gram panchayat Report</u></h1>
     <div class="wrapper">
       <div class="outer-box">
 	<div class="container">
-	 
-	  <strong> Gram Panchayat Name:</strong> {{data.gp_name}}
-	  <span style="float:right">
-	    <strong>Test conducted on:</strong> {{data.academic_year}}
+	  <strong> Gram Panchayat Name : </strong><span class="cap">{{data.gp_name}}</span>
+	  <span class="cap" style="float:right">
+	    <strong>Academic Year : </strong>{{data.academic_year}}
 	  </span>
 	  <br>
-	    
-	  <strong>Block Name:</strong> {{data.block}}
-	  <span style="float:right">
-	    <strong>Report Generated on:</strong> {{data.today}}
-	  </span>
-	    <br>
-	    <strong> District Name:</strong> {{data.district}}<br>
-	    <strong> No. of schools in GP:</strong> {{data.no_schools_gp}}<br>
-	   
-	  <strong>Participation : </strong>{{ data.no_students}} {
-	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.boys }}
-	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls }}
-	  }
-
-	  <span style="float:right"><b>Student with ZERO score:</b> {{ data.score_zero }}
-	  {
-	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">: {{ data.boys_zero }}
-	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">: {{ data.girls_zero }}
-	  }
+	  <strong> Block Name : </strong><span class="cap">{{data.block}}</span>
+	  <span style="float:right" class="cap">
+	    <strong>Report Generated on : </strong>{{data.today}}
 	  </span>
 	  <br>
-	   <span style="float:right">
-	  <b>Student with 100% score:</b> {{ data.score_100 }}
-	  {
-	  <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">{{ data.boys_100 }}
-	  <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.girls_100 }}
-	  }
-	  </span>
+	  <strong> District Name : </strong><span class="cap">{{data.district}}</span>
+	  <br>
+	  <strong> No.of schools : </strong><span class="cap">{{data.no_schools}}</span>
+	  <br>
 	</div>
-	
       </div>
-      <table class="school-list" id="customers">
-	<tr>
-	  <th>School Name</th>
-	  <th>Grade</th>
-	  <th>
-	      Addition
-	  </th>
-	  <th>
-	      Division
-	  </th>
-	  <th>
-	      Multiplication
-	  </th>
-	  <th>
-	      Number Concept
-	  </th>
-	  <th>
-	      Subtraction
-	  </th>
-	  <th>
+      <div class="outer-line">
+	<h2>GP Contest</h2>
+	<span style="line-height:22px;">
+	  Participation : {{ data.no_students}} {
+	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;"> : {{ data.boys }}
+	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;"> : {{ data.girls }}
+	    }
+	     Student with ZERO score : {{ data.score_zero}} {
+	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;"> : {{ data.boys_zero }}
+	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;"> : {{ data.girls_zero }}
+	    }
+	  <span style="float:right;">
+	    Student with FULL score : {{ data.score_100}} {
+	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;"> : {{ data.boys_100 }}
+	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;"> : {{ data.girls_100 }}
+	    }
+	  </span>
+	</span>
+	<h2>Performance by Schools</h2>
+	<table id="customers" style="margin:auto;">
+	  <tr>
+	    <th>School Name</th>
+	    <th>Grade</th>
+	    <th>
+	      Number Concept <br>(123)
+	    </th>
+	    <th>
+	      Addition<br>(+)
+	    </th>
+	    <th>
+	      Subtraction<br>(-)
+	    </th>
+	    <th>
+	      Multiplication<br>(&times;)
+	    </th>
+	    <th>
+	      Division<br>(&divide;)
+	    </th>
+	    <th>
 	      Other Areas
-	  </th>
-	</tr>
-	{% for item in data.schools%}
-	{% for g in item.grades%}
-	<tr>
-	  {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
-	  <td>{{g.name}}</td>
-
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Addition" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Division" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Multiplication" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Number Concept" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Subtraction" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in g.values%}
-            {% if "Other Areas" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  
-	</tr>
-	{% endfor %}
-	{% endfor %}
-      </table>
+	    </th>
+	  </tr>
+	  {% for item in data.schools %}
+	  {% for g in item.grades %}
+	  <tr>
+	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
+	    <td>{{g.name}}</td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Number Concept" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Addition" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Subtraction" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Multiplication" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Division" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in g.values%}
+              {% if "Other Areas" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	  </tr>
+	  {% endfor %}
+	  {% endfor %}
+	</table>
+      </div>
       <div class="outer-line">
 	<h2>COMMUNITY SURVEY</h2>
 	{% for s in data.survey %}
@@ -297,7 +266,8 @@
 	  </li>
 	  <li>
 	    To improve math learning levels of children please encourage use of GKA Math kit in classrooms.
-	    </li>
+	  </li>
+	</ul>
       </div>
       <div class="red" style="text-align: center;padding: 20px;">
 	FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 98XXXXXXXX
