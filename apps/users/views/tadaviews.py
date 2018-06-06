@@ -11,12 +11,13 @@ from users.serializers import (
     TadaUserRegistrationSerializer,
     UserLoginSerializer,
     TadaUserSerializer,
-    PasswordSerializer
+    PasswordSerializer,
+    ChangePasswordSerializer
 )
 from users.permission import IsAdminOrIsSelf, IsAdminUser
 from users.utils import login_user
 from rest_framework import filters
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from common.views import ILPViewSet
 import logging
 
@@ -89,6 +90,30 @@ class UsersViewSet(viewsets.ModelViewSet):
             user.set_password(serializer.data.get('new_password'))
             user.save()
             return Response({'status': 'password set'}, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
+
+    @detail_route(
+        methods=['put', 'patch'],
+        serializer_class=ChangePasswordSerializer,
+        url_path='change-password',
+        permission_classes=((IsAdminOrIsSelf, )))
+    def change_password(self, request, pk=None):
+        serializer = ChangePasswordSerializer(data=request.data)
+        user = User.objects.get(id=pk)
+        if serializer.is_valid():
+            # set_password also hashes the password that the user will get
+            old_password = serializer.data.get('old_password')
+            if check_password(old_password, user.password):
+                logger.debug("Old password matches what was passed in. Proceeding with changing pwd")
+                user.set_password(serializer.data.get('new_password'))
+                user.save()
+                return Response({'status': 'password set'}, status=status.HTTP_200_OK)
+            else:
+                logger.debug("Authentication Error. Existing password entered incorrectly")
+                return Response({'Authentication Error: Existing password entered incorrectly'},
+                                status = status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.errors,
                         status=status.HTTP_400_BAD_REQUEST)
