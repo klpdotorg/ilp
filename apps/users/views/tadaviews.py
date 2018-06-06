@@ -32,9 +32,10 @@ class UsersViewSet(viewsets.ModelViewSet):
     )
     serializer_class = TadaUserSerializer
     queryset = User.objects.all()
-    filter_backends = (filters.OrderingFilter,)
+    filter_backends = (filters.OrderingFilter, filters.SearchFilter)
     ordering_fields = ('first_name', 'last_name', 'email')
     ordering = ('first_name',)
+    search_fields = ('first_name', 'last_name', 'email', 'mobile_no')
 
     def get_queryset(self):
         search_query = self.request.query_params.get('search', None)
