@@ -5,20 +5,17 @@
     <style>
       body {
       font-family: 'Questrial', sans-serif;
+      font-size:15px
+      }
+      .cap{
       text-transform: capitalize;
       }
       .outer-box{
-      padding: 20px;
+      padding: 20px 0 20px 0;
       margin: auto;
       width: 100%;
       background-color: #efeaea;
       overflow: hidden;
-      }
-      .school-list{
-      padding: 20px;
-      margin: auto;
-      width: 80%;
-      margin-top: 35px;
       }
       .container{
       width: 80%;
@@ -26,33 +23,33 @@
       margin-right: auto;
       line-height: 26px;
       }
-      
       h1 {
       text-align: center;
       font-size: 24px;
       padding-top: 35px;
-      text-transform: capitalize;
+      text-transform: uppercase;
       }
-       h2 {
+      h2 {
       text-align: center;
       font-size: 20px;
       font-weight: 100;
       text-transform: uppercase;
       }
-      
       p {
       font-family: verdana;
       font-size: 20px;
       }
-      
       #customers {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
+      text-transform: capitalize;
+      text-align: center;
       }
-
       #customers td, #customers th {
       border: 1px solid #BABABA;
       padding: 8px;
+      font-size: small;
+      text-align: center;
       }
       #cluster td {
       padding: 8px 15px 8px 16px;
@@ -69,60 +66,18 @@
       background-color: #ddcbcb;
       color: #594633;
       }
-      .r-dot {
-      color: #ff0000!important;
-      }
-      .g-dot {
-      color:#008000 !important;
-      }
       .b-dot{
       color: #595959;
       }
       .red{
-      color: #ff0000 !important;
+      color: #ff0000
       }
       .green{
-      color: #008000 !important;
-      }
-      .arrow_box {
-      position: relative;
-      background: #ffffff;
-      border: 2px solid #cccccc;
-      width: 100px;
-      height: 33px;
-      text-align: center;
-      font-size: 13px;
-      }
-      .arrow_box:after, .arrow_box:before {
-      top: 100%;
-      left: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-      }
-      
-      .arrow_box:after {
-      border-color: rgba(136, 183, 213, 0);
-      border-top-color: #ffffff;
-      border-width: 50px;
-      margin-left: -50px;
-      border-top: 7px solid #ffffff;
-      }
-      .arrow_box:before {
-      border-color: rgba(194, 225, 245, 0);
-      border-top-color: #cccccc;
-      border-width: 54px;
-      margin-left: -54px;
-      border-top: 8px solid #cccccc;
-      margin-top: 1px;
+      color: #008000
       }
       .mark {
       font-family: Open Sans;
-      font-size: 17px;
-      text-align: center;
+      font-size: medium;
       }
       td{
       padding:10px;
@@ -135,17 +90,15 @@
       height: 15px;
       }
       .green{
-      background-color: ##B6D7A8!important;
       border-radius:5px;
       }
       .pink{
-      background-color: #F1CACA!important;
       border-radius:5px;
       margin-left: 40px !important;
       }
       .p-bar-fill{     
       color: #fff!important;
-      background-color: #008BE3!important;
+      background-color: #4CAF50!important;
       }
       .half-box{
       float: left;
@@ -172,30 +125,34 @@
       font-weight: 600;
       float: left;
       }
-
+      img{
+      vertical-align: middle;
+      }
     </style>
   </head>
   <body>
-    <h1> {{data.block}} Block Report</h1>
+    <h1><u>GKA : {{data.block}} District Report</u></h1>
     <div class="wrapper">
       <div class="outer-box">
 	<div class="container">
-	  <strong>Block Name:</strong> {{data.block}}
-	  <span style="float:right">
-	    <strong>Test conducted on:</strong> {{data.academic_year}}
+	  <strong> Block Name : </strong><span class="cap">{{data.block}}</span>
+	  <span class="cap" style="float:right">
+	    <strong>Academic Year : </strong>{{data.academic_year}}
 	  </span>
 	  <br>
-	    
-	  <strong> District Name:</strong> {{data.district}}
-	  <span style="float:right">
-	    <strong>Report Generated on:</strong> {{data.today}}
+
+	  <strong> District Name : </strong><span class="cap">{{data.district}}</span>
+	  <span style="float:right" class="cap">
+	    <strong>Report Generated on : </strong>{{data.today}}
 	  </span>
 	  <br>
-	  <strong> No. of schools:</strong> {{data.no_schools}}<br>
+	  <strong> No.of schools : </strong><span class="cap">{{data.no_schools}}</span>
+	  <br>
 	</div>
       </div>
       <div class="outer-line">
-	<h2>GKA IMPLEMENTATION IN {{data.block}} BLOCK</h2>
+	<h2>GKA IMPLEMENTATION in {{data.block}} block</h2>
+	<div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;">
 	<div class="three-box" style="text-align: right;">
 	  Teacher's Trained :
 	</div>
@@ -223,93 +180,109 @@
 	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
 	  </div>
 	</div>
-
-	<table id="cluster">
-	  <tr><td colspan="4"><h2 style="margin-bottom: 0px;margin-top: 20px;">PERFORMANCE BY CLUSTER</h2></td></tr>
-	  {% for cluster in data.gka_clusters %}
+	</div>
+	<h2>PERFORMANCE BY Cluster</h2>
+	<table style="margin: auto;" id="customers">
 	  <tr>
-	    <td>{{cluster.cluster}}:</td>
-	     <td>Teacher Trained : <span class="{% if cluster.teachers_trained < 40 %} red{% endif %} {% if cluster.teachers_trained >= 70 %} green{% endif %}">{{cluster.teachers_trained}}%</span></td>
-	    <td>Kit Usage:  <span class="{% if cluster.kit_usage < 40 %} red{% endif %} {% if cluster.kit_usage  >= 70 %} green{% endif %}">{{cluster.kit_usage}}%</span></td>
-	    <td>Group Work:  <span class="{% if cluster.group_work < 40 %} red{% endif %} {% if cluster.group_work >= 70 %} green{% endif %}">{{cluster.group_work}}%</span></td>
+	    <th>Cluster Name</th>
+	    <th>Teacher Trained</th>
+	    <th>Kit Usage</th>
+	    <th>Group Work</th>
+	  </tr>
+	  {% for item in data.gka_clusters %}
+	  <tr>
+	    <td>{{item.cluster}} </td>
+	    <td><span class="mark {% if item.teachers_trained < 40 %} red{% endif %} {% if item.teachers_trained >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
+	    <td><span class="mark {% if item.kit_usage < 40 %} red{% endif %} {% if item.kit_usage >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
+	    <td><span class="mark {% if item.group_work < 40 %} red{% endif %} {% if item.group_work >= 70 %} green{% endif %}">{{item.group_work}}%</span></td>
 	  </tr>
 	 {% endfor %}
 	</table>
       </div>
       <div class="outer-line">
 	<h2>GP Contest</h2>
-	<table style="margin: auto;" id="customers">	  
+	<span style="line-height:22px;">
+	  Total No.of Contest : xxx&nbsp;
+	  <span style="float:right;">
+	    Participation : xxx {
+	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;"> : xx
+	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;"> : xx
+	    }
+	  </span>
+	</span>
+	
+	<h2>Performance by Cluster</h2>
+
+	<table id="customers" style="margin:auto;">
 	  <tr>
 	    <th>Cluster Name</th>
 	    <th>Grade</th>
 	    <th>
-	      Addition
+	      Number Concept (123)
 	    </th>
 	    <th>
-	      Division
+	      Addition<br>(+)
 	    </th>
 	    <th>
-	      Multiplication
+	      Subtraction<br>(-)
 	    </th>
 	    <th>
-	      Number Concept
+	      Multiplication<br>(&times;)
 	    </th>
 	    <th>
-	      Subtraction
+	      Division<br>(&divide;)
 	    </th>
 	    <th>
 	      Other Areas
 	    </th>
-	  </tr>
+	  </tr>	  
 	  {% for item in data.gpc_clusters %}
 	  {% for g in item.grades%}
 	  <tr>
-	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.cluster }}</td> {% endif %}
+	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.block }}</td> {% endif %}
 	    <td>{{g.name}}</td>
-
 	    <td align="center">
 	      {% for value in g.values%}
-              {% if "Addition" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% if "Number Concept" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
 	      {% for value in g.values%}
-              {% if "Division" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% if "Addition" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	     <td align="center">
+	      {% for value in g.values%}
+              {% if "Subtraction" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
 	      {% for value in g.values%}
               {% if "Multiplication" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
 	      {% for value in g.values%}
-              {% if "Number Concept" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Subtraction" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+              {% if "Division" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
 	      {% for value in g.values%}
               {% if "Other Areas" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} r-dot{% endif %} {% if value.count >= 70 %} g-dot{% endif %}">{{value.count}}%</span>
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
-	    
 	  </tr>
 	  {% endfor %}
 	  {% endfor %}
