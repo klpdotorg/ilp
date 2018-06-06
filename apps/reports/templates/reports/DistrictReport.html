@@ -17,12 +17,6 @@
       background-color: #efeaea;
       overflow: hidden;
       }
-      .school-list{
-      padding: 20px;
-      margin: auto;
-      width: 80%;
-      margin-top: 35px;
-      }
       .container{
       width: 80%;
       margin-left: auto;
@@ -49,10 +43,13 @@
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
       text-transform: capitalize;
+      text-align: center;
       }
       #customers td, #customers th {
       border: 1px solid #BABABA;
       padding: 8px;
+      font-size: small;
+      text-align: center;
       }
       #cluster td {
       padding: 8px 15px 8px 16px;
@@ -78,45 +75,9 @@
       .green{
       color: #008000
       }
-      .arrow_box {
-      position: relative;
-      background: #ffffff;
-      border: 2px solid #cccccc;
-      width: 100px;
-      height: 33px;
-      text-align: center;
-      font-size: 13px;
-      }
-      .arrow_box:after, .arrow_box:before {
-      top: 100%;
-      left: 50%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-      }
-      
-      .arrow_box:after {
-      border-color: rgba(136, 183, 213, 0);
-      border-top-color: #ffffff;
-      border-width: 50px;
-      margin-left: -50px;
-      border-top: 7px solid #ffffff;
-      }
-      .arrow_box:before {
-      border-color: rgba(194, 225, 245, 0);
-      border-top-color: #cccccc;
-      border-width: 54px;
-      margin-left: -54px;
-      border-top: 8px solid #cccccc;
-      margin-top: 1px;
-      }
       .mark {
       font-family: Open Sans;
-      font-size: 17px;
-      text-align: center;
+      font-size: medium;
       }
       td{
       padding:10px;
@@ -189,6 +150,7 @@
       </div>
       <div class="outer-line">
 	<h2>GKA IMPLEMENTATION in {{data.district}} district</h2>
+	<div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;">
 	<div class="three-box" style="text-align: right;">
 	  Teacher's Trained :
 	</div>
@@ -216,7 +178,8 @@
 	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
 	  </div>
 	</div>
-	<h2 style="margin-bottom: 0px;margin-top: 20px;">PERFORMANCE BY Block</h2>
+	</div>
+	<h2>PERFORMANCE BY Block</h2>
 	<table style="margin: auto;" id="customers">
 	  <tr>
 	    <th>Cluster Name</th>
@@ -226,10 +189,10 @@
 	  </tr>
 	  {% for item in data.gka_blocks %}
 	  <tr>
-	    <td>{{item.block}} :</td>
-	    <td><span class="{% if item.teachers_trained < 40 %} red{% endif %} {% if item.teachers_trained >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
-	    <td><span class="{% if item.kit_usage < 40 %} red{% endif %} {% if item.kit_usage >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
-	    <td><span class="{% if item.group_work < 40 %} red{% endif %} {% if item.group_work >= 70 %} green{% endif %}">{{item.group_work}}%</span></td>
+	    <td>{{item.block}} </td>
+	    <td><span class="mark {% if item.teachers_trained < 40 %} red{% endif %} {% if item.teachers_trained >= 70 %} green{% endif %}">{{item.teachers_trained}}%</span></td>
+	    <td><span class="mark {% if item.kit_usage < 40 %} red{% endif %} {% if item.kit_usage >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
+	    <td><span class="mark {% if item.group_work < 40 %} red{% endif %} {% if item.group_work >= 70 %} green{% endif %}">{{item.group_work}}%</span></td>
 	  </tr>
 	 {% endfor %}
 	</table>
@@ -251,7 +214,7 @@
 	  <tr>
 	    <th>Grade</th>
 	    <th>
-	      Number Concept (123)
+	      Number Concept <br>(123)
 	    </th>
 	    <th>
 	      Addition<br>(+)
@@ -320,7 +283,7 @@
 	<br>
 	<h2>Performance by block</h2>
 
-	<table class="school-list" id="customers">
+	<table id="customers" style="margin:auto;">
 	  <tr>
 	    <th>Block Name</th>
 	    <th>Grade</th>
