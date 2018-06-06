@@ -131,7 +131,7 @@
     </style>
   </head>
   <body>
-    <h1><u>GKA : {{data.block}} District Report</u></h1>
+    <h1><u>GKA : {{data.block}} Block Report</u></h1>
     <div class="wrapper">
       <div class="outer-box">
 	<div class="container">
@@ -239,7 +239,7 @@
 	  {% for item in data.gpc_clusters %}
 	  {% for g in item.grades%}
 	  <tr>
-	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.block }}</td> {% endif %}
+	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.cluster }}</td> {% endif %}
 	    <td>{{g.name}}</td>
 	    <td align="center">
 	      {% for value in g.values%}
