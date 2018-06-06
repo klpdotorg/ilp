@@ -8,7 +8,8 @@
       font-size:15px
       }
       .cap{
-      text-transform: capitalize;}
+      text-transform: capitalize;
+      }
       .outer-box{
       padding: 20px 0 20px 0;
       margin: auto;
@@ -47,6 +48,7 @@
       #customers {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
+      text-transform: capitalize;
       }
       #customers td, #customers th {
       border: 1px solid #BABABA;
@@ -168,7 +170,7 @@
     </style>
   </head>
   <body>
-    <h1>GKA : {{data.district}} District Report</h1>
+    <h1><u>GKA : {{data.district}} District Report</u></h1>
     <div class="wrapper">
       <div class="outer-box">
 	<div class="container">
@@ -235,12 +237,12 @@
       <div class="outer-line">
 	<h2>GP Contest</h2>
 	<span style="line-height:22px;">
-	  Total No.of GPs : {{data.num_gp}} &nbsp;
+	  Total No.of GPs : {{data.num_gp}} &nbsp; &nbsp; &nbsp;
 	  Total No.of Contest : {{data.num_contests}}&nbsp;
 	  <span style="float:right;">
 	    Participation : {{ data.num_students}} {
-	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_boys }}
-	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;">:{{ data.num_girls }}
+	    <img src="/static/images/boy.png" alt="Icon" class="icn" style="width:27px;"> : {{ data.num_boys }}
+	    <img src="/static/images/girl.png" alt="Icon" class="icn" style="width:27px;"> : {{ data.num_girls }}
 	    }
 	  </span>
 	</span>
