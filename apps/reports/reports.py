@@ -407,15 +407,18 @@ class SchoolReport(BaseReport):
         return out
 
 class ClusterReport(BaseReport):
-    def __init__(self, cluster_name=None, block_name=None, academic_year=None, **kwargs):
+    def __init__(self, cluster_name=None, block_name=None, district_name=None, report_from=None, report_to=None, **kwargs):
         self.cluster_name = cluster_name
-        self.academic_year = academic_year
         self.block_name = block_name
-        self.params = dict(cluster_name=self.cluster_name, block_name=self.block_name, academic_year=self.academic_year)
+        self.district_name = district_name
+        self.report_from = report_from
+        self.report_to = report_to
+        self.params = dict(cluster_name=self.cluster_name, block_name=self.block_name, district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--cluster_name', required=True)
         self.parser.add_argument('--block_name', required=True)
-        self.parser.add_argument('--academic_year', required=True)
+        self.parser.add_argument('--report_from', required=True)
+        self.parser.add_argument('--report_to', required=True)
         self._template_path = 'ClusterReport.html'
         self._type = 'ClusterReport'
         self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
@@ -424,18 +427,18 @@ class ClusterReport(BaseReport):
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
         self.cluster_name = arguments.cluster_name
-        self.block_name = argument.block_name
-        self.academic_year = arguments.academic_year
-        self.params = dict(cluster_name=self.cluster_name, block_name=self.block_name, academic_year=self.academic_year)
+        self.block_name = arguments.block_name
+        self.district_name = arguments.district_name
+        self.report_from = arguments.report_from
+        self.report_to = arguments.report_to
+        self.params = dict(cluster_name=self.cluster_name, block_name=self.block_name, district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-        ay = self.academic_year.split('-')
-        dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
-
+        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
         report_generated_on = datetime.datetime.now().date().isoformat()
-
         try:
-            cluster_obj = Boundary.objects.get(name=self.cluster_name, parent__name = self.block_name, boundary_type__char_id='SC') # Take the cluster from db
+             # Take the cluster from db
+            cluster = Boundary.objects.get(name=self.cluster_name, parent__name=self.block_name, parent__parent__name=self.district_name, boundary_type__char_id='SC')
         except Boundary.DoesNotExist:
             print('Cluster {} does not exist\n'.format(self.cluster_name))
             raise ValueError('Invalid cluster name\n')
@@ -445,6 +448,8 @@ class ClusterReport(BaseReport):
 
         cluster_schools = Institution.objects.filter(admin3=cluster_obj) # schools in GP
         no_of_schools_in_cluster = cluster_schools.count()
+        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools}
+        return self.data
 
         schools = []
         for school in cluster_schools:
@@ -464,8 +469,6 @@ class ClusterReport(BaseReport):
         household = self.getHouseholdServey(cluster_obj, dates)
         gka = self.getGKAData(cluster_obj, dates)
 
-        self.data = {'cluster':self.cluster_name, 'academic_year':self.academic_year, 'block':block, 'district':district, 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools}
-        return self.data
 
     def getHouseholdServey(self,cluster,date_range):
         #Husehold Survey
