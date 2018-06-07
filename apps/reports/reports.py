@@ -292,7 +292,7 @@ class SchoolReport(BaseReport):
 
         if not AGI.exists():
             # raise ValueError("No contests found for {} in the year {}".format(self.school_code, ay))
-            print("No data school data for {} in academic year {}".format(self.school_code, self.academic_year))
+            print("No school data for {} between {}".format(self.school_code, [self.report_from, self.report_to]))
             return {}
 
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
