@@ -445,9 +445,7 @@ class ClusterReport(BaseReport):
             print('Cluster {} does not exist\n'.format(self.cluster_name))
             raise ValueError('Invalid cluster name\n')
 
-        cluster_schools = Institution.objects.filter(admin3=cluster) # schools in cluster
-        no_of_schools_in_cluster = cluster_schools.count() # Number of schools in cluster
-        cluster_schools = cluster_schools.exclude(gp=None) # Remove schools without GP information
+        no_of_schools_in_cluster = Institution.objects.filter(admin3=cluster).count() # Number of schools in cluster
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
@@ -580,7 +578,7 @@ class BlockReport(BaseReport):
             print('Block {} does not exist\n'.format(self.block_name))
             raise ValueError('Invalid block name\n')
 
-        num_schools = Institution.objects.filter(admin2=block).exclude(gp=None).count() # schools in block
+        num_schools = Institution.objects.filter(admin2=block).count() # schools in block
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
         cluster_gpc_data = self.get_cluster_GPC(AGI)
@@ -716,7 +714,7 @@ class DistrictReport(BaseReport):
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
-        num_schools = Institution.objects.filter(admin1=district).exclude(gp=None).count()
+        num_schools = Institution.objects.filter(admin1=district).count()
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
