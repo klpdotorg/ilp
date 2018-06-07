@@ -245,13 +245,15 @@ class GPMathContestReport(BaseReport):
         return HHSurvey
 
 class SchoolReport(BaseReport):
-    def __init__(self, school_code=None, academic_year=None, **kwargs):
+    def __init__(self, school_code=None, report_from=None, report_to=None, **kwargs):
         self.school_code = school_code
-        self.academic_year = academic_year
-        self.params = dict(school_code=self.school_code,academic_year=self.academic_year)
+        self.report_from = report_from
+        self.report_to = report_to
+        self.params = dict(school_code=self.school_code, reprot_from=self.report_from, report_to=self.report_to)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--school_code', required=True)
-        self.parser.add_argument('--academic_year', required=True)
+        self.parser.add_argument('--report_from', required=True)
+        self.parser.add_argument('--report_to', required=True)
         self._template_path = 'SchoolReport.html'
         self._type = 'SchoolReport'
         self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
@@ -260,12 +262,12 @@ class SchoolReport(BaseReport):
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
         self.school_code = arguments.school_code
-        self.academic_year = arguments.academic_year
-        self.params = dict(school_code=self.school_code,academic_year=self.academic_year)
+        self.report_from = arguments.report_from
+        self.report_to = arguments.report_to
+        self.params = dict(school_code=self.school_code, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self, neighbour_required=True):
-        ay = self.academic_year.split('-')
-        dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
+        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
         report_generated_on = datetime.datetime.now().date().isoformat()
 
@@ -334,7 +336,7 @@ class SchoolReport(BaseReport):
         else:
             neighbours = []
 
-        self.data =  {'gp_name': gp, 'academic_year': self.academic_year, 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':neighbours}
+        self.data =  {'gp_name': gp, 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':neighbours}
         return self.data
 
     def get_school_data(self,answergroup):
