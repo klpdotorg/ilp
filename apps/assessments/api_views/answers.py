@@ -274,7 +274,7 @@ class AnswerViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             answer_ids.append(answer_data['id'])
             ans_obj = answer_model.objects.get(id=answer_data['id'])
             ans_obj.question_id = answer_data['question']
-            ans_obj.answer_id = answer_data['answer']
+            ans_obj.answer = answer_data['answer']
             ans_obj.save()
         ans_qs = answer_model.objects.filter(id__in=answer_ids)
 
