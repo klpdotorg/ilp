@@ -286,7 +286,7 @@ class SchoolReport(BaseReport):
             gp = 'Not Available'
         cluster = school_obj.admin3.name.title()         # Cluster name
         block = school_obj.admin2.name.title()           # Block name
-        district = school_obj.admin1.parent.name.title()    # District name
+        district = school_obj.admin1.name.title()    # District name
 
         AGI = AnswerGroup_Institution.objects.filter(institution=school_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
