@@ -634,13 +634,15 @@ class BlockReport(BaseReport):
         return HHSurvey
 
 class DistrictReport(BaseReport):
-    def __init__(self, district_name=None, academic_year=None, **kwargs):
+    def __init__(self, district_name=None, report_from=None, report_to=None, **kwargs):
         self.district_name = district_name
-        self.academic_year = academic_year
-        self.params = dict(district_name=self.district_name,academic_year=self.academic_year)
+        self.report_from = report_from
+        self.report_to = report_to
+        self.params = dict(district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--district_name', required=True)
-        self.parser.add_argument('--academic_year', required=True)
+        self.parser.add_argument('--report_from', required=True)
+        self.parser.add_argument('--report_to', required=True)
         self._template_path = 'DistrictReport.html'
         self._type = 'DistrictReport'
         self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
@@ -649,17 +651,19 @@ class DistrictReport(BaseReport):
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
         self.distrct_name = arguments.district_name
-        self.academic_year = arguments.academic_year
-        self.params = dict(district_name=self.district_name,academic_year=self.academic_year)
+        self.report_from = arguments.report_from
+        self.report_to = arguments.report_to
+        self.params = dict(district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-
-        ay = self.academic_year.split('-')
-        dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
-
+        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
         report_generated_on = datetime.datetime.now().date().isoformat()
 
-        district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
+        try:
+            district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
+        except Boundary.DoesNotExist:
+            print('District {} does not exist\n'.format(self.district_name))
+            raise ValueError('Invalid district name\n')
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
@@ -753,7 +757,7 @@ class DistrictReport(BaseReport):
                 values[j] = round(k/len(gpc_blocks), 2)
             gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
-        self.data = {'academic_year':self.academic_year, 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc, 'num_gp':num_gp}
+        self.data = {'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc, 'num_gp':num_gp}
         return self.data
 
     def getHouseholdServey(self,district,date_range):
