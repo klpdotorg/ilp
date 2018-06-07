@@ -41,14 +41,19 @@ class StudentSerializer(serializers.ModelSerializer):
             raise ValidationError(studentgroup_id + " not found.")
 
         academic_year = validated_data.pop('academic_year')
-        student = Student.objects.create(**validated_data)
-        student.save()
-
-        StudentStudentGroupRelation.objects.get_or_create(
+        newuid = validated_data.get('uid')
+        studentuid = None
+        studentuid = Student.objects.filter(uid=newuid)
+        if not studentuid:
+            student = Student.objects.create(**validated_data)
+            student.save()
+            StudentStudentGroupRelation.objects.get_or_create(
             student=student, student_group=student_group,
             status=status, academic_year=academic_year
-        )
-        return student
+            )
+            return student
+        else:
+            raise ValidationError(newuid + " already exists.")
 
     def get_classes(self, student):
         grps = StudentStudentGroupRelation.objects.filter(student=student, status = 'AC')
