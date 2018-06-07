@@ -10,11 +10,14 @@ class Reports(models.Model):
 
 class Tracking(models.Model):
     report_id = models.ForeignKey('Reports', db_column="link_id")
+    report_type = models.CharField(max_length=100)
     track_id = models.CharField(max_length=10)
+    recipient = models.CharField(max_length=100,null=True)
     visit_count = models.IntegerField(default=0)
     download_count = models.IntegerField(default=0)
     visited_at = models.DateField(null=True)
     downloaded_at = models.DateField(null=True)
+    status = models.CharField(max_length=10)
 
 class Sending_Information(models.Model):
     frequency = models.CharField(max_length=50) 
