@@ -35,10 +35,6 @@
       font-weight: 100;
       text-transform: uppercase;
       }
-      p {
-      font-family: verdana;
-      font-size: 20px;
-      }
       #customers {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
@@ -152,34 +148,36 @@
       </div>
       <div class="outer-line">
 	<h2>GKA IMPLEMENTATION in {{data.district}} district</h2>
+	<p>This report is based on the survey feedbacks received from HMs/CRP/Akshara staff and other department officials on implementation of GKA Program
+	</p>
 	<div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;">
-	<div class="three-box" style="text-align: right;">
-	  Teacher's Trained :
-	</div>
-	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}</span>
-	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
+	  <div class="three-box" style="text-align: right;">
+	    Teacher's Trained :
 	  </div>
-	</div>
-	<div class="three-box" style="text-align: right;">
-	  Kit Usage :
-	</div>
-	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}</span>
-	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
+	  <div class="three-box">
+	    <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}</span>
+	    <div class="p-bar-grey pink" style="width: 80%;">
+	      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
+	    </div>
 	  </div>
-	</div>
-      	<div class="three-box" style="text-align: right;">
-	  Group Work :
-	</div>
-	<div class="three-box">
-	  <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}</span>
-	  <div class="p-bar-grey pink" style="width: 80%;">
-	    <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
+	  <div class="three-box" style="text-align: right;">
+	    Kit Usage :
 	  </div>
-	</div>
+	  <div class="three-box">
+	    <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}</span>
+	    <div class="p-bar-grey pink" style="width: 80%;">
+	      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
+	    </div>
+	  </div>
+      	  <div class="three-box" style="text-align: right;">
+	    Group Work :
+	  </div>
+	  <div class="three-box">
+	    <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}</span>
+	    <div class="p-bar-grey pink" style="width: 80%;">
+	      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
+	    </div>
+	  </div>
 	</div>
 	<h2>PERFORMANCE BY Block</h2>
 	<table style="margin: auto;" id="customers">
@@ -196,7 +194,7 @@
 	    <td><span class="mark {% if item.kit_usage < 40 %} red{% endif %} {% if item.kit_usage >= 70 %} green{% endif %}">{{item.kit_usage}}%</span></td>
 	    <td><span class="mark {% if item.group_work < 40 %} red{% endif %} {% if item.group_work >= 70 %} green{% endif %}">{{item.group_work}}%</span></td>
 	  </tr>
-	 {% endfor %}
+	  {% endfor %}
 	</table>
       </div>
       <div class="outer-line">
@@ -211,6 +209,7 @@
 	    }
 	  </span>
 	</span>
+	<p> This report provides the details of Math learning levels of children by school who participated in Gram Panchayat Mathematics Contests this academic year.</p>
 	<h2>PERFORMANCE BY GRADE</h2>
 	<table style="margin: auto;" id="customers">
 	  <tr>
@@ -235,52 +234,52 @@
 	    </th>
 	  </tr>
 	  {% for item in data.gpc_grades %}
-	<tr>
-	  <td>{{ item.grade }}</td>
-	  <td align="center">
-	    {% for value in item.values%}
-            {% if "Number Concept" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in item.values %}
-            {% if "Addition" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in item.values%}
-            {% if "Subtraction" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in item.values%}
-            {% if "Multiplication" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in item.values%}
-            {% if "Division" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	  <td align="center">
-	    {% for value in item.values%}
-            {% if "Other Areas" == value.contest %}
-	    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-            {% endif %}
-            {% endfor %}
-	  </td>
-	</tr>
-	{% endfor %}
+	  <tr>
+	    <td>{{ item.grade }}</td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Number Concept" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values %}
+              {% if "Addition" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Subtraction" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Multiplication" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Division" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Other Areas" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	  </tr>
+	  {% endfor %}
 	</table>
 	<br>
 	<h2>Performance by block</h2>
@@ -327,7 +326,7 @@
               {% endif %}
               {% endfor %}
 	    </td>
-	     <td align="center">
+	    <td align="center">
 	      {% for value in g.values%}
               {% if "Subtraction" == value.contest %}
 	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
@@ -362,6 +361,7 @@
       </div>
       <div class="outer-line">
 	<h2>COMMUNITY SURVEY</h2>
+	<p>This report is based on the feedback received from the parents on functioning of the school in your boundary</p>
 	{% for s in data.household %}
 	<div class="half-box">
 	  {{s.text}}
