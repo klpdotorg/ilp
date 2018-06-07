@@ -49,12 +49,12 @@ class BaseReport(ABC):
         pdf = pdfkit.PDFKit(html, 'string', configuration=config).to_pdf()
         return pdf
 
-    def get_sms(self, track_id, name, param_id):
+    def get_sms(self, track_id, name):
         t = Tracking.objects.get(track_id = track_id)
         url = reverse('view_report',kwargs={'report_id':t.report_id.link_id,'tracking_id':track_id})
         request = None
         full_url = ''.join(['http://', get_current_site(request).domain, url])
-        return self.sms_template.format(name, t.report_id.parameters[param_id].title(),full_url)
+        return self.sms_template.format(name, full_url)
 
     def save(self):
         r= Reports(report_type=self._type,parameters=self.params, data=self.data)
@@ -95,7 +95,7 @@ class GPMathContestReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
+        self.sms_template ="Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s . Please click the link {}"% self.gp_name
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -254,7 +254,7 @@ class SchoolReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'SchoolReport.html'
         self._type = 'SchoolReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
+        self.sms_template ="Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -271,6 +271,7 @@ class SchoolReport(BaseReport):
 
         try:
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
+            self.sms_template = self.sms_template % school_obj.name
         except Institution.DoesNotExist:
             print('School {} does not exist\n'.format(self.school_code))
             raise ValueError('Invalid school name\n')
@@ -421,7 +422,7 @@ class ClusterReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'ClusterReport.html'
         self._type = 'ClusterReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.cluster_name
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -554,7 +555,7 @@ class BlockReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'BlockReport.html'
         self._type = 'BlockReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.block_name
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -690,7 +691,7 @@ class DistrictReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'DistrictReport.html'
         self._type = 'DistrictReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.district_name
         super().__init__(**kwargs)
 
     def parse_args(self, args):

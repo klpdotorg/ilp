@@ -9,7 +9,7 @@ from .reportlist import reportlist, param_ids
 from .contacts import contacts
 from common.utils import send_sms
 
-def send_link(dry, filepath, gp_name,arg_two, r_type):
+def send_link_scheduled(dry, filepath, gp_name,arg_two, r_type):
     print(r_type)
    
     frequency_str = '1,16,17,18,04,30'
@@ -43,3 +43,16 @@ def send_link(dry, filepath, gp_name,arg_two, r_type):
                         # send_sms(person[1],sms)
     if report_status:
         print("No reports scheduled today")
+
+def send_link(report_type, args, recipients, dry_run=False):
+    if not dry_run:
+        report = reportlist[report_type]
+        r = report(**args)
+        report.get_data()
+        result = report.save()
+        for recipient in recipients:
+            link = report.save_link(result)
+            sms = report.get_sms(link.track_id, recipient)
+            send_sms(recipient, sms)
+    else:
+        print("sending {} with arguments {} to {}".format(report_type, args, recipients)
