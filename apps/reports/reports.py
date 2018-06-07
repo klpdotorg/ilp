@@ -502,13 +502,17 @@ class ClusterReport(BaseReport):
             return {}
 
 class BlockReport(BaseReport):
-    def __init__(self, block_name=None, academic_year=None, **kwargs):
+    def __init__(self, block_name=None, district_name=None, report_from=None, report_to=None, **kwargs):
         self.block_name = block_name
-        self.academic_year = academic_year
-        self.params = dict(block_name=self.block_name,academic_year=self.academic_year)
+        self.district_name = district_name
+        self.report_from = report_from
+        self.report_to = report_to
+        self.params = dict(block_name=self.block_name, district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--block_name', required=True)
-        self.parser.add_argument('--academic_year', required=True)
+        self.parser.add_argument('--district_name', required=True)
+        self.parser.add_argument('--report_from', required=True)
+        self.parser.add_argument('--report_to', required=True)
         self._template_path = 'BlockReport.html'
         self._type = 'BlockReport'
         self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
@@ -517,18 +521,18 @@ class BlockReport(BaseReport):
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
         self.block_name = arguments.block_name
-        self.academic_year = arguments.academic_year
-        self.params = dict(block_name=self.block_name,academic_year=self.academic_year)
+        self.district_name = arguments.district_name
+        self.report_from = arguments.report_from
+        self.report_to = arguments.report_to
+        self.params = dict(block_name=self.block_name, district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-
-        ay = self.academic_year.split('-')
-        dates = [ay[0]+'-06-01', ay[1]+'-03-31'] # [2016-06-01, 2017-03-31]
-
+        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
         report_generated_on = datetime.datetime.now().date().isoformat()
 
         try:
-            block = Boundary.objects.get(name=self.block_name, boundary_type__char_id='SB') # Take the block from db
+            # Take the block from db
+            block = Boundary.objects.get(name=self.block_name, parent__name=self.district_name, boundary_type__char_id='SB') 
         except Boundary.DoesNotExist:
             print('Block {} does not exist\n'.format(self.block_name))
             raise ValueError('Invalid block name\n')
@@ -555,6 +559,8 @@ class BlockReport(BaseReport):
                 group_work += cluster_gka['group_work']
                 cluster_gka['cluster'] = cluster.name
                 gka_clusters.append(cluster_gka)
+        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household}
+        return self.data
             else:
                 print("No GKA data for CLUSTER {} in block {} for academic year {}".format(cluster.name, block.name, self.academic_year))
             # Aggregating GP contest data
