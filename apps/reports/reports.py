@@ -8,7 +8,7 @@ import pdfkit
 import os.path
 import datetime
 
-from boundary.models import Boundary
+from boundary.models import Boundary, ElectionBoundary
 from assessments.models import SurveyInstitutionAgg
 from schools.models import Institution
 from assessments import models as assess_models
@@ -112,23 +112,23 @@ class GPMathContestReport(BaseReport):
         report_generated_on = datetime.datetime.now().date().isoformat()
 
         try:
-            gp_obj = Boundary.objects.get(name=gp) # Take the GP from db
-        except Boundary.DoesNotExist:
+            gp_obj = ElectionBoundary.objects.get(const_ward_name=gp, const_ward_type__char_id='GP') # Take the GP from db
+        except ElectionBoundary.DoesNotExist:
             print('Gram panchayat {} does not exist\n'.format(self.gp_name))
             raise ValueError('Invalid Gram Panchayat name\n')
 
-        block = gp_obj.parent.name           # Block name
-        district = gp_obj.parent.parent.name    # District name
+        # block = gp_obj.parent.name           # Block name
+        # district = gp_obj.parent.parent.name    # District name
 
-        gp_schools = Institution.objects.filter(admin3__name=gp).count() # Number of schools in GP
-
+        gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
 
         # Get the answergroup_institution from gp name and academic year
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin3__name=self.gp_name, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
-        
+        AGI = AnswerGroup_Institution.objects.filter(institution__gp=gp_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
         if not AGI.exists():
-            raise ValueError("No contests found for {} in the year {}".format(gp, ay))
+            raise ValueError("No contests found for {} in the year {}".format(gp, dates))
 
+        block = AGI.values_list('institution__admin2__name', flat=True).distinct()[0]
+        district = AGI.values_list('institution__admin3__name', flat=True).distinct()[0]
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
@@ -220,14 +220,14 @@ class GPMathContestReport(BaseReport):
                 grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
 
 
-        survey = self.getHouseholdServey(gp, dates)
+        survey = self.getHouseholdServey(gp_obj, dates)
 
-        self.data =  {'gp_name': gp.title(), 'academic_year': ay, 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
+        self.data =  {'gp_name': gp.title(), 'academic_year': dates, 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
         return self.data
 
-    def getHouseholdServey(self,gp_name,date_range):
+    def getHouseholdServey(self,gp_obj,date_range):
         #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin3__name=gp_name, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
+        a = AnswerGroup_Institution.objects.filter(institution__gp=gp_obj, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
 
         questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
 
