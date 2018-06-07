@@ -84,13 +84,15 @@ class ReportOne(BaseReport):
         return ['name','some','dfdfdfa','dfdafad']
 
 class GPMathContestReport(BaseReport):
-    def __init__(self, gp_name=None, academic_year=None, **kwargs):
+    def __init__(self, gp_name=None, report_from=None, report_to=None, **kwargs):
         self.gp_name = gp_name
-        self.academic_year = academic_year
-        self.params = dict(gp_name=self.gp_name,academic_year=self.academic_year)
+        self.report_from = report_from
+        self.report_to = report_to
+        self.params = dict(gp_name=self.gp_name, report_from=self.report_from, report_to=self.report_to)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--gp_name', required=True)
-        self.parser.add_argument('--academic_year', required=True)
+        self.parser.add_argument('--report_from', required=True)
+        self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
         self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for {}. Please click the link {}'
@@ -99,17 +101,13 @@ class GPMathContestReport(BaseReport):
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
         self.gp_name = arguments.gp_name
-        self.academic_year = arguments.academic_year
-        self.params = dict(gp_name=self.gp_name,academic_year=self.academic_year)
+        self.report_from = arguments.report_from
+        self.report_to = arguments.report_to
+        self.params = dict(gp_name=self.gp_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-        print(self.gp_name)
-        print(self.academic_year)
         gp = self.gp_name #"peramachanahalli"
-        ay = self.academic_year #"2016-2017"
-
-        ay2 = ay.split('-')
-        dates = [ay2[0]+'-06-01', ay2[1]+'-03-31'] # [2016-06-01, 2017-03-31]
+        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
         report_generated_on = datetime.datetime.now().date().isoformat()
 
