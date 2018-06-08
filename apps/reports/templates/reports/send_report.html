@@ -1,0 +1,69 @@
+<form method="POST">
+    {% csrf_token %}
+    <table center>
+        <tr>
+            <th colspan="5">Send Report</th>
+        </tr>
+
+        <tr>
+            <td>
+                <p>Report Type</p>
+                <p>
+                    <select name="report_type">
+                        {% for i in reports %}
+                            <option value={{ i  }}>{{ i }} </option>
+                        {% endfor %}
+                    </select>
+                </p>
+            </td>
+
+            <td>
+                <p>From</p>
+                <p><input type="text" name="from"></p>
+            </td>
+
+            <td>
+                <p>To</p>
+                <p><input type="text" name="to"></p>
+            </td>
+
+            <td>
+                <p>Recipients</p>
+                <p><input type="text" name="recipients"></p>
+            </td>
+
+            <td>
+                <p><input type="submit"</p>
+            </td>
+            
+        </tr>
+
+        <tr>
+            <td>
+                <p>School Code</p>
+                <p><input type="text" name="school_code"></p>
+            </td>
+
+            <td>
+                <p>GP</p>
+                <p><input type="text" name="gp_name"></p>
+            </td>
+
+            <td>
+                <p>Cluster</p>
+                <p><input type="text" name="cluster_name"></p>
+            </td>
+
+            <td>
+                <p>Block</p>
+                <p><input type="text" name="block_name"></p>
+            </td>
+
+            <td>
+                <p>District</p>
+                <p><input type="text" name="district_name"></p>
+            </td>
+            
+        </tr>
+    </table>
+</form>

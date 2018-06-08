@@ -2,7 +2,9 @@ import datetime, os
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.views import View
 
+from .links import send_link
 from .models import Reports, Tracking
 from .reportlist import reportlist
 # Create your views here.
@@ -32,3 +34,23 @@ def download_report(request, report_id, tracking_id='default'):
     response = HttpResponse(pdf, content_type="application/pdf")
     response['Content-Disposition'] = 'inline; filename=' + filename
     return response
+
+class SendReport(View):
+    def get(self,request):
+        return render(request, 'reports/send_report.html', context={'reports':reportlist})
+
+    def post(self,request):
+        report_type = request.POST.get('report_type')
+        report_from = request.POST.get('from')
+        report_to = request.POST.get('to')
+        recipients = request.POST.get('recipients').split(',')
+        dry = True #request.POST.get('dry_run')
+        report_args = {}
+        for i in reportlist[report_type].parameters:
+            report_args[i] = request.POST.get(i)
+        report_args['report_from'] = report_from
+        report_args['report_to'] = report_to
+
+        send_link(report_type, report_args, recipients, dry_run=dry)
+
+        return HttpResponse((report_type, report_args, recipients))
