@@ -84,6 +84,7 @@ class ReportOne(BaseReport):
         return ['name','some','dfdfdfa','dfdafad']
 
 class GPMathContestReport(BaseReport):
+    parameters = ('gp_name', )
     def __init__(self, gp_name=None, report_from=None, report_to=None, **kwargs):
         self.gp_name = gp_name
         self.report_from = report_from
@@ -243,6 +244,7 @@ class GPMathContestReport(BaseReport):
         return HHSurvey
 
 class SchoolReport(BaseReport):
+    parameters = ('school_code', )
     def __init__(self, school_code=None, report_from=None, report_to=None, **kwargs):
         self.school_code = school_code
         self.report_from = report_from
@@ -408,6 +410,7 @@ class SchoolReport(BaseReport):
         return out
 
 class ClusterReport(BaseReport):
+    parameters = ('cluster_name', 'block_name', 'district_name')
     def __init__(self, cluster_name=None, block_name=None, district_name=None, report_from=None, report_to=None, **kwargs):
         self.cluster_name = cluster_name
         self.block_name = block_name
@@ -542,6 +545,7 @@ class ClusterReport(BaseReport):
             return {}
 
 class BlockReport(BaseReport):
+    parameters = ('block_name', 'district_name')
     def __init__(self, block_name=None, district_name=None, report_from=None, report_to=None, **kwargs):
         self.block_name = block_name
         self.district_name = district_name
@@ -680,6 +684,7 @@ class BlockReport(BaseReport):
         return HHSurvey
 
 class DistrictReport(BaseReport):
+    parameters = ('district_name', )
     def __init__(self, district_name=None, report_from=None, report_to=None, **kwargs):
         self.district_name = district_name
         self.report_from = report_from

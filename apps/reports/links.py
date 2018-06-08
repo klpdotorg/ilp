@@ -55,4 +55,4 @@ def send_link(report_type, args, recipients, dry_run=False):
             sms = report.get_sms(link.track_id, recipient)
             send_sms(recipient, sms)
     else:
-        print("sending {} with arguments {} to {}".format(report_type, args, recipients)
+        print("sending {} with arguments {} to {}".format(report_type, args, recipients))
