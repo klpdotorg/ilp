@@ -248,7 +248,7 @@ class SchoolReport(BaseReport):
         self.school_code = school_code
         self.report_from = report_from
         self.report_to = report_to
-        self.params = dict(school_code=self.school_code, reprot_from=self.report_from, report_to=self.report_to)
+        self.params = dict(school_code=self.school_code, report_from=self.report_from, report_to=self.report_to)
         self.parser = argparse.ArgumentParser()
         self.parser.add_argument('--school_code', required=True)
         self.parser.add_argument('--report_from', required=True)
