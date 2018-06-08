@@ -450,6 +450,12 @@ class ClusterReport(BaseReport):
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
+        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
+        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        number_of_students = num_boys + num_girls
+
+        num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
+
         schools_data = self.get_school_data(AGI)
         schools = self.format_schools_data(schools_data)
 
@@ -457,7 +463,7 @@ class ClusterReport(BaseReport):
 
         household = self.getHouseholdSurvey(cluster,dates)
 
-        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools}
+        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
     def get_school_data(self,answergroup):
@@ -583,6 +589,13 @@ class BlockReport(BaseReport):
         num_schools = Institution.objects.filter(admin2=block).count() # schools in block
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
+
+        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
+        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        number_of_students = num_boys + num_girls
+
+        num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
+
         cluster_gpc_data = self.get_cluster_GPC(AGI)
         gpc_clusters = self.format_cluster_data(cluster_gpc_data)
 
@@ -590,7 +603,7 @@ class BlockReport(BaseReport):
 
         household = self.getHouseholdSurvey(block, dates)
 
-        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household}
+        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
     def get_cluster_GPC(self,answergroup):
