@@ -49,12 +49,12 @@ def send_link(report_type, params, args, dry_run=False):
         report = reportlist[report_type]
         r = report(**params)
         r.get_data()
-        result = report.save()
-        link = report.save_link(result)
+        result = r.save()
+        link = r.save_link(result)
         link.report_type = ''
         link.recipient = args['name']
         link.save()
-        sms = report.get_sms(link, args['name'])
+        sms = r.get_sms(link, args['name'])
         send_sms(args['number'], sms)
     else:
         print("sending {} with arguments {} to {}".format(report_type, params, args['name']))
