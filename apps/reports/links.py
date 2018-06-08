@@ -52,7 +52,10 @@ def send_link(report_type, args, recipients, dry_run=False):
         result = report.save()
         for recipient in recipients:
             link = report.save_link(result)
-            sms = report.get_sms(link.track_id, recipient)
+            link.report_type = report_args
+            link.recipient = recipient
+            link.save()
+            sms = report.get_sms(link, recipient)
             send_sms(recipient, sms)
     else:
         print("sending {} with arguments {} to {}".format(report_type, args, recipients))

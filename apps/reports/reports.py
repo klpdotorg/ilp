@@ -49,9 +49,8 @@ class BaseReport(ABC):
         pdf = pdfkit.PDFKit(html, 'string', configuration=config).to_pdf()
         return pdf
 
-    def get_sms(self, track_id, name):
-        t = Tracking.objects.get(track_id = track_id)
-        url = reverse('view_report',kwargs={'report_id':t.report_id.link_id,'tracking_id':track_id})
+    def get_sms(self, tracker, name):
+        url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.link_id})
         request = None
         full_url = ''.join(['http://', get_current_site(request).domain, url])
         return self.sms_template.format(name, full_url)
