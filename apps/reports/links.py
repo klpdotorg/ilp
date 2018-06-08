@@ -44,18 +44,18 @@ def send_link_scheduled(dry, filepath, gp_name,arg_two, r_type):
     if report_status:
         print("No reports scheduled today")
 
-def send_link(report_type, args, recipients, dry_run=False):
+def send_link(report_type, params, args, dry_run=False):
     if not dry_run:
         report = reportlist[report_type]
-        r = report(**args)
+        r = report(**params)
         r.get_data()
         result = report.save()
-        for recipient in recipients:
-            link = report.save_link(result)
-            link.report_type = report_args
-            link.recipient = recipient
-            link.save()
-            sms = report.get_sms(link, recipient)
-            send_sms(recipient, sms)
+        link = report.save_link(result)
+        link.report_type = ''
+        link.recipient = args['name']
+        link.save()
+        sms = report.get_sms(link, args['name'])
+        send_sms(args['number'], sms)
     else:
-        print("sending {} with arguments {} to {}".format(report_type, args, recipients))
+        print("sending {} with arguments {} to {}".format(report_type, params, args['name']))
+        

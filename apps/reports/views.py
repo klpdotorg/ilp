@@ -1,4 +1,5 @@
-import datetime, os
+import datetime, os, csv
+from io import TextIOWrapper
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
@@ -44,15 +45,32 @@ class SendReport(View):
         report_from = request.POST.get('from')
         report_to = request.POST.get('to')
         dry = request.POST.get('dry_run')
+        print(dry)
+        recipients = TextIOWrapper(request.FILES['recipients'].file, encoding=request.encoding)
+        reader = csv.reader(recipients)
+        is_head_set = False
+        head = []
+        params = {}
 
-        recipients = request.FILES.get('recipients').split(',')
-        report_args = {}
-        for i in reportlist[report_type].parameters:
-            report_args[i] = request.POST.get(i)
-
-        report_args['report_from'] = report_from
-        report_args['report_to'] = report_to
-
-        send_link(report_type, report_args, recipients, dry_run=dry)
-
+        for person in reader:
+            if not is_head_set:
+                head = person
+                is_head_set = True
+            else:
+                if person[0] and person[2]:
+                    arg = {'name': self.getValue(person, head,'first_name'),
+                           'number':self.getValue(person, head,'mobile_number'),
+                           'report_from': report_from,
+                           'report_to':report_to
+                    }
+                    for i in reportlist[report_type].parameters:
+                        params[i] = self.getValue(person, head,i)                        
+                    send_link(report_type,params, arg, dry_run=dry)
+        report_args=[]
         return HttpResponse((report_type, report_args, recipients))
+
+    def getValue(self, person, head, i):
+
+        index = head.index(i)
+        value = person[index]
+        return value
