@@ -48,7 +48,7 @@ def send_link(report_type, args, recipients, dry_run=False):
     if not dry_run:
         report = reportlist[report_type]
         r = report(**args)
-        report.get_data()
+        r.get_data()
         result = report.save()
         for recipient in recipients:
             link = report.save_link(result)

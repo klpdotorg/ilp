@@ -44,7 +44,7 @@ class SendReport(View):
         report_from = request.POST.get('from')
         report_to = request.POST.get('to')
         recipients = request.POST.get('recipients').split(',')
-        dry = True #request.POST.get('dry_run')
+        dry = request.POST.get('dry_run')
         report_args = {}
         for i in reportlist[report_type].parameters:
             report_args[i] = request.POST.get(i)
