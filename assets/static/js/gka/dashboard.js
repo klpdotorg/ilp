@@ -753,7 +753,21 @@ var topSummaryData = {};
                 CRCC:"Cluster Resource Coordinator",
                 PC:"Pedagogy Coordinator",
                 UK:"Unknown"
-            };
+            },
+            defaultUserGroups = [
+                'BRC',
+                'GO',
+                'BRP',
+                'EO',
+                'CRP',
+                'DIET',
+                'VR',
+                'HM',
+                'TR',
+                'SM',
+                'AS',
+                'PR'
+            ];
 
         for (var m in users) {
             if(m && (m !== 'null' && m !== 'UK')) {
@@ -764,6 +778,21 @@ var topSummaryData = {};
                 labels.push(m);
             }
         }
+
+        // Add zero values for some default user groups till we reach 12.
+        if(meta_values.length < 12) {
+            _.each(defaultUserGroups, function(d){
+                if(labels.indexOf(d) === -1) {
+                    labels.push(d);
+                    meta_values.push({
+                        meta: userFullName[d] ? userFullName[d]: d,
+                        value: 0
+                    });
+                }
+            });
+        }
+
+        console.log(users, meta_values, labels);
 
         // Build data for bar chart and render it
         var sms_sender = {
