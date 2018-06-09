@@ -151,23 +151,37 @@ var topSummaryData = {};
         var $compareEmptyMessage = $('#compareEmptyMessage'),
             $compareTable = $('#compareTable');
 
-        // No comparison for schools
-        if(params.institution_id) {
+        function hideComparisonShowEmptyMessage() {
             $compareTable.hide();
             $compareEmptyMessage.show();
-            return;
-        } else {
+        }
+
+        function showComparisonHideEmptyMessage() {
             $compareTable.show();
             $compareEmptyMessage.hide();
         }
 
         // Spinners
         $compareTable.startLoading();
+        showComparisonHideEmptyMessage();
 
         var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
         );
         $compareXHR.done(function(comparisonData) {
+
+            if(comparisonData.count === 0) {
+                $compareTable.startLoading();
+                hideComparisonShowEmptyMessage();
+                return;
+            }
+
+            if(params.institution_id) {
+                hideComparisonShowEmptyMessage();
+                return;
+            } else {
+                showComparisonHideEmptyMessage();
+            }
 
             var neighbours = _.map(comparisonData.results, function(c){
                 var data = {
