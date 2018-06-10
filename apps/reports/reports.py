@@ -114,8 +114,7 @@ class GPMathContestReport(BaseReport):
         try:
             gp_obj = ElectionBoundary.objects.get(const_ward_name=gp, const_ward_type__char_id='GP') # Take the GP from db
         except ElectionBoundary.DoesNotExist:
-            print('Gram panchayat {} does not exist\n'.format(self.gp_name))
-            raise ValueError('Invalid Gram Panchayat name\n')
+            raise ValueError("Gram panchayat '{}' does not exist".format(self.gp_name))
 
         # block = gp_obj.parent.name           # Block name
         # district = gp_obj.parent.parent.name    # District name
@@ -125,7 +124,7 @@ class GPMathContestReport(BaseReport):
         # Get the answergroup_institution from gp name and academic year
         AGI = AnswerGroup_Institution.objects.filter(institution__gp=gp_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
         if not AGI.exists():
-            raise ValueError("No contests found for {} in the year {}".format(gp, dates))
+            raise ValueError("No contests found for '{}' in the year {}".format(gp, dates))
 
         block = AGI.values_list('institution__admin2__name', flat=True).distinct()[0]
         district = AGI.values_list('institution__admin3__name', flat=True).distinct()[0]
@@ -274,11 +273,9 @@ class SchoolReport(BaseReport):
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
             self.sms_template = self.sms_template % school_obj.name
         except Institution.DoesNotExist:
-            print('School {} does not exist\n'.format(self.school_code))
-            raise ValueError('Invalid school name\n')
+            raise ValueError("School '{}' does not exist".format(self.school_code))
         except AttributeError:
-            print('School {} does not have dise\n'.format(self.school_code))
-            raise ValueError('Invalid school name\n')
+            raise("School '{}' does not have dise\n".format(self.school_code))
 
         try:
             gp = school_obj.gp.const_ward_name.title() # GP name
@@ -291,9 +288,7 @@ class SchoolReport(BaseReport):
         AGI = AnswerGroup_Institution.objects.filter(institution=school_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
         if not AGI.exists():
-            # raise ValueError("No contests found for {} in the year {}".format(self.school_code, ay))
-            print("No school data for {} between {}".format(self.school_code, [self.report_from, self.report_to]))
-            return {}
+            raise ValueError("No GP contest data for '{}' between {} and {}".format(self.school_code, self.report_from, self.report_to))
 
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
@@ -443,12 +438,13 @@ class ClusterReport(BaseReport):
              # Take the cluster from db
             cluster = Boundary.objects.get(name=self.cluster_name, parent__name=self.block_name, parent__parent__name=self.district_name, boundary_type__char_id='SC')
         except Boundary.DoesNotExist:
-            print('Cluster {} does not exist\n'.format(self.cluster_name))
-            raise ValueError('Invalid cluster name\n')
+            raise ValueError("Cluster '{}' does not exist".format(self.cluster_name))
 
         no_of_schools_in_cluster = Institution.objects.filter(admin3=cluster).count() # Number of schools in cluster
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        if not AGI.exists():
+            raise ValueError("No GP contest data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
 
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
@@ -535,7 +531,7 @@ class ClusterReport(BaseReport):
                 count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
                 HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
         else:
-             print("No HH data for CLUSTER {} in {} block for academic year {}".format(cluster.name, cluster.parent.name, date_range))
+             raise ValueError("No community survey data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
         return HHSurvey
 
     def getGKAData(self, cluster, date_range):
@@ -546,8 +542,7 @@ class ClusterReport(BaseReport):
             group_work = GKA.filter(answers__question__question_text__contains='group', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
             return dict(teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2))
         else:
-            print("No GKA data for CLUSTER {} in {} block for academic year {}".format(cluster.name, cluster.parent.name, date_range))
-            return {}
+            raise ValueError("No GKA data for '{}' between {} and {}.".format(self.cluster_name, self.report_from, self.report_to))
 
 class BlockReport(BaseReport):
     parameters = ('block_name', 'district_name')
@@ -583,12 +578,13 @@ class BlockReport(BaseReport):
             # Take the block from db
             block = Boundary.objects.get(name=self.block_name, parent__name=self.district_name, boundary_type__char_id='SB') 
         except Boundary.DoesNotExist:
-            print('Block {} does not exist\n'.format(self.block_name))
-            raise ValueError('Invalid block name\n')
+            raise ValueError("Block '{}' does not exist".format(self.block_name))
 
         num_schools = Institution.objects.filter(admin2=block).count() # schools in block
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        if not AGI.exists():
+            raise ValueError("No GP contest data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
 
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
@@ -674,6 +670,10 @@ class BlockReport(BaseReport):
             else:
                 print("No GKA data for CLUSTER {} in {} block for academic year {}".format(cluster.name, cluster.parent.name, date_range))
                 continue
+
+        if not cluster_gka:
+            raise ValueError("No GKA data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
+
         gka = dict(teachers_trained=round(sum([i['teachers_trained'] for i in cluster_gka])/len(cluster_gka), 2),  kit_usage=round(sum([i['kit_usage'] for i in cluster_gka])/len(cluster_gka), 2), group_work=round(sum([i['group_work'] for i in cluster_gka])/len(cluster_gka), 2))
 
         return gka, cluster_gka
@@ -692,7 +692,7 @@ class BlockReport(BaseReport):
                 count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
                 HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
         else:
-             print("No HH data for BLOCK {} in {} District for academic year {}".format(block.name, block.parent.name, date_range))
+             raise ValueError("No community survey data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
         return HHSurvey
 
 class DistrictReport(BaseReport):
@@ -725,10 +725,11 @@ class DistrictReport(BaseReport):
         try:
             district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
         except Boundary.DoesNotExist:
-            print('District {} does not exist\n'.format(self.district_name))
-            raise ValueError('Invalid district name\n')
+            raise ValueError("District '{}' does not exist".format(self.district_name))
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        if not AGI.exists():
+            raise ValueError("No GP contest data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
 
         num_schools = Institution.objects.filter(admin1=district).count()
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
@@ -830,6 +831,10 @@ class DistrictReport(BaseReport):
             else:
                 print("No GKA data for BLOCK {} in {} district for academic year {}".format(block.name, block.parent.name, date_range))
                 continue
+
+        if not block_gka:
+            raise ValueError("No GKA data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
+
         gka = dict(teachers_trained=round(sum([i['teachers_trained'] for i in block_gka])/len(block_gka), 2),  kit_usage=round(sum([i['kit_usage'] for i in block_gka])/len(block_gka), 2), group_work=round(sum([i['group_work'] for i in block_gka])/len(block_gka), 2))
 
         return gka, block_gka
@@ -848,7 +853,7 @@ class DistrictReport(BaseReport):
                 count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
                 HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
         else:
-             print("No HH data for DISTRICT {} in {} District for academic year {}".format(district.name, district.parent.name, date_range))
+             raise ValueError("No community survey data for '{}' between {} and {}".format(self.deistrict_name, self.report_from, self.report_to))
         return HHSurvey
 
 

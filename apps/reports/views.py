@@ -77,8 +77,11 @@ class SendReport(View):
                            'report_to':report_to
                     }
                     for i in reportlist[report_type].parameters:
-                        params[i] = self.getValue(person, head,i)                        
-                    send_link(report_type,params, arg, dry_run=dry)
+                        params[i] = self.getValue(person, head,i)
+                    try:
+                        send_link(report_type,params, arg, dry_run=dry)
+                    except ValueError as e:
+                        print(e.args[0])
         report_args=[]
         return HttpResponse((report_type, report_args, recipients))
 
