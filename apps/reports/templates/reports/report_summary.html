@@ -1,4 +1,5 @@
 <p>Reports sent successfully: {{ success }}</p>
+<p><a href="{{ request.get_full_path }}/admin/reports/tracking">Tracking information</a></p>
 <h3>Errors</h3>
 <ul>
 {% for i in messages %}
