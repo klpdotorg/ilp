@@ -37,7 +37,7 @@ def download_report(request, report_id, tracking_id='default'):
         return render(request, 'reports/not_found.html', context={'data': report_id})
 
     report = reportlist[report_model.report_type](data=report_model.data)
-    pdf = report.get_pdf()
+    pdf = report.get_pdf(lang=request.GET.get('lang'))
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
 
     try:

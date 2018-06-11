@@ -37,14 +37,19 @@ class BaseReport(ABC):
         else:
             raise ValueError('Invalid report format')
 
-    def get_html(self):
+    def get_html(self, lang=None):
         if not self.data:
             self.data = self.get_data();
-        html = render_to_string('reports/{}.html'.format(self._type), {'data':self.data})
+
+        if lang == 'kannada':
+            template = 'reports/{}kannada.html'.format(self._type)
+        else:
+            template = 'reports/{}.html'.format(self._type)
+        html = render_to_string(template, {'data':self.data})
         return html
 
-    def get_pdf(self):
-        html = self.get_html()
+    def get_pdf(self, lang=None):
+        html = self.get_html(lang)
         config = pdfkit.configuration()
         pdf = pdfkit.PDFKit(html, 'string', configuration=config).to_pdf()
         return pdf
