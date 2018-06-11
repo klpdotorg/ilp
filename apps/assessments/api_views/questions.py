@@ -14,6 +14,9 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 from django.db.models import Q
 from django.db import IntegrityError
 
+from permissions.permissions import (
+    HasAssignPermPermission
+)
 from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
     AnswerGroup_Institution, QuestionGroup_Institution_Association,
@@ -39,6 +42,7 @@ class QuestionViewSet(ILPStateMixin, viewsets.ModelViewSet):
     '''Return all questions'''
     queryset = Question.objects.exclude(status=Status.DELETED)
     serializer_class = QuestionSerializer
+    permission_classes = (HasAssignPermPermission,)
 
     def get_queryset(self):
         survey_id = self.request.query_params.get('survey_id', None)
@@ -102,6 +106,7 @@ class QuestionGroupViewSet(
 ):
     '''Returns all questiongroups belonging to a survey'''
     serializer_class = QuestionGroupSerializer
+    permission_classes = (HasAssignPermPermission,)
 
     def get_queryset(self):
         queryset = QuestionGroup.objects.exclude(status=Status.DELETED)

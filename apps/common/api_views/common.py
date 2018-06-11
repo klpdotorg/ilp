@@ -1,10 +1,20 @@
-from common.models import Language,AcademicYear
+from common.models import (
+    Language,
+    AcademicYear,
+    RespondentType
+)
 from rest_framework import generics
-from common.serializers import LanguageSerializer
+from common.serializers import (
+    LanguageSerializer,
+    RespondentTypeSerializer
+)
 from rest_framework import viewsets
 from django.http import Http404
 from common.serializers import AcademicYearSerializer
 from common.pagination import LargeResultsSetPagination
+from common.views import ILPListAPIView
+from common.mixins import ILPStateMixin
+from django.db.models import Q
 
 class LanguagesListView(generics.ListAPIView):
     serializer_class = LanguageSerializer
@@ -12,6 +22,17 @@ class LanguagesListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Language.objects.all()
+
+
+class RespondentTypeView(ILPListAPIView, ILPStateMixin):
+    serializer_class = RespondentTypeSerializer
+
+    def get_queryset(self):
+        state = self.get_state()
+        return RespondentType.objects.filter(active='AC').filter(
+            Q(state_code__boundary=state) |
+            Q(state_code=None)
+        )
 
 class BaseSchoolAggView(object):
     def get_aggregations(self, active_schools, academic_year):
