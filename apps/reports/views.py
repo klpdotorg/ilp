@@ -32,12 +32,12 @@ def view_report(request, report_id, tracking_id='default'):
 
 def download_report(request, report_id, tracking_id='default'):
     try:
-        report = Reports.objects.get(link_id=report_id)
+        report_model = Reports.objects.get(link_id=report_id)
     except Reports.DoesNotExist:
         return render(request, 'reports/not_found.html', context={'data': report_id})
 
     report = reportlist[report_model.report_type](data=report_model.data)
-    pdf = report.get_pdf()
+    pdf = report.get_pdf(lang=request.GET.get('lang'))
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
 
     try:
@@ -69,6 +69,7 @@ class SendReport(View):
         params = dict(report_from=report_from, report_to=report_to)
 
         messages = []
+        successfull = 0
 
         for person in reader:
             if not is_head_set:
@@ -76,18 +77,18 @@ class SendReport(View):
                 is_head_set = True
             else:
                 if person[0] and person[2]:
-                    arg = {'name': self.getValue(person, head,'first_name'),
-                           'number':self.getValue(person, head,'mobile_number'),
+                    arg = {'name': self.getValue(person, head,'First Name'),
+                           'number':self.getValue(person, head,'Mobile Number'),
                     }
                     for i in reportlist[report_type].parameters:
                         params[i] = self.getValue(person, head,i)
                     try:
-                        sms = send_link(report_type,params, arg, dry_run=dry)
-                        messages.append(sms)
+                        send_link(report_type,params, arg, dry_run=dry)
+                        successfull += 1
                     except ValueError as e:
                         messages.append(e.args[0])
 
-        return render(request, 'reports/report_summary.html', context={'messages':messages})
+        return render(request, 'reports/report_summary.html', context={'messages':messages, 'success':successfull})
 
     def getValue(self, person, head, i):
 

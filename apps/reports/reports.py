@@ -37,14 +37,19 @@ class BaseReport(ABC):
         else:
             raise ValueError('Invalid report format')
 
-    def get_html(self):
+    def get_html(self, lang=None):
         if not self.data:
             self.data = self.get_data();
-        html = render_to_string('reports/{}.html'.format(self._type), {'data':self.data})
+
+        if lang == 'kannada':
+            template = 'reports/{}kannada.html'.format(self._type)
+        else:
+            template = 'reports/{}.html'.format(self._type)
+        html = render_to_string(template, {'data':self.data})
         return html
 
-    def get_pdf(self):
-        html = self.get_html()
+    def get_pdf(self, lang=None):
+        html = self.get_html(lang)
         config = pdfkit.configuration()
         options = {
             'encoding':'utf-8',
@@ -117,7 +122,7 @@ class GPMathContestReport(BaseReport):
         try:
             gp_obj = ElectionBoundary.objects.get(const_ward_name=gp, const_ward_type__char_id='GP') # Take the GP from db
         except ElectionBoundary.DoesNotExist:
-            raise ValueError("Gram panchayat '{}' does not exist".format(self.gp_name))
+            raise ValueError("Gram panchayat '{}' is not found in the database.".format(self.gp_name))
 
         # block = gp_obj.parent.name           # Block name
         # district = gp_obj.parent.parent.name    # District name
@@ -127,7 +132,7 @@ class GPMathContestReport(BaseReport):
         # Get the answergroup_institution from gp name and academic year
         AGI = AnswerGroup_Institution.objects.filter(institution__gp=gp_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
         if not AGI.exists():
-            raise ValueError("No contests found for '{}' in the year {}".format(gp, dates))
+            raise ValueError("No GP contests found for '{}' between {} and {}".format(gp, self.report_from, self.report_to))
 
         block = AGI.values_list('institution__admin2__name', flat=True).distinct()[0]
         district = AGI.values_list('institution__admin3__name', flat=True).distinct()[0]
@@ -276,7 +281,7 @@ class SchoolReport(BaseReport):
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
             self.sms_template = self.sms_template % school_obj.name
         except Institution.DoesNotExist:
-            raise ValueError("School '{}' does not exist".format(self.school_code))
+            raise ValueError("School with code '{}' cannot be found in the database".format(self.school_code))
         except AttributeError:
             raise("School '{}' does not have dise\n".format(self.school_code))
 
@@ -441,7 +446,7 @@ class ClusterReport(BaseReport):
              # Take the cluster from db
             cluster = Boundary.objects.get(name=self.cluster_name, parent__name=self.block_name, parent__parent__name=self.district_name, boundary_type__char_id='SC')
         except Boundary.DoesNotExist:
-            raise ValueError("Cluster '{}' does not exist".format(self.cluster_name))
+            raise ValueError("Cluster '{}' cannot be found in the database".format(self.cluster_name))
 
         no_of_schools_in_cluster = Institution.objects.filter(admin3=cluster).count() # Number of schools in cluster
 
@@ -581,7 +586,7 @@ class BlockReport(BaseReport):
             # Take the block from db
             block = Boundary.objects.get(name=self.block_name, parent__name=self.district_name, boundary_type__char_id='SB') 
         except Boundary.DoesNotExist:
-            raise ValueError("Block '{}' does not exist".format(self.block_name))
+            raise ValueError("Block '{}' cannot be found in the database".format(self.block_name))
 
         num_schools = Institution.objects.filter(admin2=block).count() # schools in block
 
@@ -728,7 +733,7 @@ class DistrictReport(BaseReport):
         try:
             district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
         except Boundary.DoesNotExist:
-            raise ValueError("District '{}' does not exist".format(self.district_name))
+            raise ValueError("District '{}' cannot be found in the database".format(self.district_name))
 
         AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
         if not AGI.exists():

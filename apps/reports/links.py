@@ -56,7 +56,6 @@ def send_link(report_type, params, args, dry_run=False):
         link.save()
         sms = r.get_sms(link, args['name'])
         send_sms(args['number'], sms)
-        return sms
     else:
         return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
         
