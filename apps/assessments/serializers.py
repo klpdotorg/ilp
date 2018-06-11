@@ -141,6 +141,9 @@ class OptionField(serializers.Field):
 
     def to_representation(self, obj):
         return obj.lstrip('{').rstrip('}').split(',')
+    
+    def to_internal_value(self, data):
+        return str(data)
 
 
 class QuestionSerializer(ILPSerializer):
