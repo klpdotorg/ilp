@@ -66,7 +66,7 @@ class SendReport(View):
         reader = csv.reader(recipients)
         is_head_set = False
         head = []
-        params = {}
+        params = dict(report_from=report_from, report_to=report_to)
 
         for person in reader:
             if not is_head_set:
@@ -76,8 +76,6 @@ class SendReport(View):
                 if person[0] and person[2]:
                     arg = {'name': self.getValue(person, head,'first_name'),
                            'number':self.getValue(person, head,'mobile_number'),
-                           'report_from': report_from,
-                           'report_to':report_to
                     }
                     for i in reportlist[report_type].parameters:
                         params[i] = self.getValue(person, head,i)
