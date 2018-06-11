@@ -51,7 +51,7 @@ def send_link(report_type, params, args, dry_run=False):
         r.get_data()
         result = r.save()
         link = r.save_link(result)
-        link.report_type = ''
+        link.report_type = '{} for {} between {} and {}'.format(report_type, params[report.parameters[0]], params['report_from'], params['report_to'])
         link.recipient = args['name']
         link.save()
         sms = r.get_sms(link, args['name'])
