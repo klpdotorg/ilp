@@ -19,6 +19,9 @@ class Tracking(models.Model):
     downloaded_at = models.DateField(null=True)
     status = models.CharField(max_length=10)
 
+    def __str__(self):
+        return '{} sent to {}'.format(self.report_type, self.recipient)
+
 class Sending_Information(models.Model):
     frequency = models.CharField(max_length=50) 
     contacts = models.CharField(max_length=50)
