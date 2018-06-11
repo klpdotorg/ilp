@@ -46,7 +46,10 @@ class BaseReport(ABC):
     def get_pdf(self):
         html = self.get_html()
         config = pdfkit.configuration()
-        pdf = pdfkit.PDFKit(html, 'string', configuration=config).to_pdf()
+        options = {
+            'encoding':'utf-8',
+        }
+        pdf = pdfkit.PDFKit(html, 'string', configuration=config, options=options).to_pdf()
         return pdf
 
     def get_sms(self, tracker, name):
