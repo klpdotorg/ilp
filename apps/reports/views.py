@@ -76,8 +76,8 @@ class SendReport(View):
                 is_head_set = True
             else:
                 if person[0] and person[2]:
-                    arg = {'name': self.getValue(person, head,'first_name'),
-                           'number':self.getValue(person, head,'mobile_number'),
+                    arg = {'name': self.getValue(person, head,'First Name'),
+                           'number':self.getValue(person, head,'Mobile Number'),
                     }
                     for i in reportlist[report_type].parameters:
                         params[i] = self.getValue(person, head,i)
