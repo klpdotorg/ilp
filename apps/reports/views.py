@@ -68,6 +68,8 @@ class SendReport(View):
         head = []
         params = dict(report_from=report_from, report_to=report_to)
 
+        messages = []
+
         for person in reader:
             if not is_head_set:
                 head = person
@@ -80,11 +82,12 @@ class SendReport(View):
                     for i in reportlist[report_type].parameters:
                         params[i] = self.getValue(person, head,i)
                     try:
-                        send_link(report_type,params, arg, dry_run=dry)
+                        sms = send_link(report_type,params, arg, dry_run=dry)
+                        messages.append(sms)
                     except ValueError as e:
-                        print(e.args[0])
-        report_args=[]
-        return HttpResponse((report_type, report_args, recipients))
+                        messages.append(e.args[0])
+
+        return render(request, 'reports/report_summary.html', context={'messages':messages})
 
     def getValue(self, person, head, i):
 
