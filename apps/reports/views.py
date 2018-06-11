@@ -80,18 +80,22 @@ class SendReport(View):
                     arg = {'name': self.getValue(person, head,'First Name'),
                            'number':self.getValue(person, head,'Mobile Number'),
                     }
-                    try:
-                        for i in reportlist[report_type].parameters:
-                            params[i] = self.getValue(person, head,i)
-                    except ValueError:
-                        messages.append("Field {} required for {} not found in csv file".format(i, report_type))
-                        break
-                    try:
-                        send_link(report_type,params, arg, dry_run=dry)
-                        successfull += 1
-                    except ValueError as e:
-                        messages.append(e.args[0])
-
+                    if dry:
+                        messages.append("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
+                    else:
+                        try:
+                            for i in reportlist[report_type].parameters:
+                                params[i] = self.getValue(person, head,i)
+                        except ValueError:
+                            messages.append("Field {} required for {} not found in csv file".format(i, report_type))
+                            break
+                        try:
+                            send_link(report_type,params, arg, dry_run=dry)
+                            successfull += 1
+                            messages.append("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
+                        except ValueError as e:
+                            messages.append(e.args[0])
+                        
         return render(request, 'reports/report_summary.html', context={'messages':messages, 'success':successfull})
 
     def getValue(self, person, head, i):
