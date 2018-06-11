@@ -50,7 +50,7 @@ class BaseReport(ABC):
         return pdf
 
     def get_sms(self, tracker, name):
-        url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.link_id})
+        url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
         request = None
         full_url = ''.join(['http://', get_current_site(request).domain, url])
         return self.sms_template.format(name, full_url)
