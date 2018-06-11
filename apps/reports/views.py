@@ -11,26 +11,42 @@ from .reportlist import reportlist
 # Create your views here.
 
 def view_report(request, report_id, tracking_id='default'):
-    report = get_object_or_404(Reports, link_id=report_id)
-    data = report.data
+    try:
+        report = Reports.objects.get(link_id=report_id)
+        data = report.data
+    except Reports.DoesNotExist:
+        return render(request, 'reports/not_found.html', context={'data': report_id})
 
-    tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
-    tracker.visit_count += 1
-    tracker.visited_at = datetime.datetime.now()
-    tracker.save()
+    try:
+        tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
+        tracker.visit_count += 1
+        tracker.visited_at = datetime.datetime.now()
+        tracker.save()
+    except Tracking.DoesNotExist:
+        pass
 
-    return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data})
+    if request.GET.get('lang') == 'kannada':
+        return render(request, 'reports/{}kannada.html'.format(report.report_type), context={'data':data})
+    else:
+        return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data})
 
 def download_report(request, report_id, tracking_id='default'):
-    report_model = get_object_or_404(Reports, link_id=report_id)
+    try:
+        report = Reports.objects.get(link_id=report_id)
+    except Reports.DoesNotExist:
+        return render(request, 'reports/not_found.html', context={'data': report_id})
+
     report = reportlist[report_model.report_type](data=report_model.data)
     pdf = report.get_pdf()
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
 
-    tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
-    tracker.download_count += 1
-    tracker.downloaded_at = datetime.datetime.now()
-    tracker.save()
+    try:
+        tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
+        tracker.download_count += 1
+        tracker.downloaded_at = datetime.datetime.now()
+        tracker.save()
+    except Tracking.DoesNotExist:
+        pass
 
     response = HttpResponse(pdf, content_type="application/pdf")
     response['Content-Disposition'] = 'inline; filename=' + filename
@@ -50,7 +66,9 @@ class SendReport(View):
         reader = csv.reader(recipients)
         is_head_set = False
         head = []
-        params = {}
+        params = dict(report_from=report_from, report_to=report_to)
+
+        messages = []
 
         for person in reader:
             if not is_head_set:
@@ -60,14 +78,16 @@ class SendReport(View):
                 if person[0] and person[2]:
                     arg = {'name': self.getValue(person, head,'first_name'),
                            'number':self.getValue(person, head,'mobile_number'),
-                           'report_from': report_from,
-                           'report_to':report_to
                     }
                     for i in reportlist[report_type].parameters:
-                        params[i] = self.getValue(person, head,i)                        
-                    send_link(report_type,params, arg, dry_run=dry)
-        report_args=[]
-        return HttpResponse((report_type, report_args, recipients))
+                        params[i] = self.getValue(person, head,i)
+                    try:
+                        sms = send_link(report_type,params, arg, dry_run=dry)
+                        messages.append(sms)
+                    except ValueError as e:
+                        messages.append(e.args[0])
+
+        return render(request, 'reports/report_summary.html', context={'messages':messages})
 
     def getValue(self, person, head, i):
 
