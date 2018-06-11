@@ -20,7 +20,11 @@ from common.views import ILPViewSet
 from common.models import (
     AcademicYear, Status, InstitutionType
 )
-from permissions.permissions import AppPostPermissions
+from permissions.permissions import (
+    AppPostPermissions,
+    HasAssignPermPermission
+)
+
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
@@ -63,6 +67,8 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
     queryset = Survey.objects.exclude(status__in=[
         Status.DELETED, Status.INACTIVE])
     filter_class = SurveyTagFilter
+    permission_classes = (HasAssignPermPermission,)
+
 
     def get_serializer_class(self):
         if self.request.method in ['POST', ]:
