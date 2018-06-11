@@ -25,7 +25,10 @@ def view_report(request, report_id, tracking_id='default'):
     except Tracking.DoesNotExist:
         pass
 
-    return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data})
+    if request.GET.get('lang') == 'kannada':
+        return render(request, 'reports/{}kannada.html'.format(report.report_type), context={'data':data})
+    else:
+        return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data})
 
 def download_report(request, report_id, tracking_id='default'):
     try:
