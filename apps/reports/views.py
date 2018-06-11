@@ -32,7 +32,7 @@ def view_report(request, report_id, tracking_id='default'):
 
 def download_report(request, report_id, tracking_id='default'):
     try:
-        report = Reports.objects.get(link_id=report_id)
+        report_model = Reports.objects.get(link_id=report_id)
     except Reports.DoesNotExist:
         return render(request, 'reports/not_found.html', context={'data': report_id})
 
