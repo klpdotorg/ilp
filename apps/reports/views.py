@@ -103,3 +103,24 @@ class SendReport(View):
         index = head.index(i)
         value = person[index]
         return value
+
+class ReportAnalytics(View):
+    def get(self,request):
+        return render(request, 'reports/report_analytics.html', context={'reports':reportlist})
+
+    def post(self,request):
+        report_type = request.POST.get('report_type')
+        report_from = request.POST.get('from')
+        report_to = request.POST.get('to')
+        messages = []
+        successfull=True
+        data = {'district_level':[{}
+        ]}
+                        
+        return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successfull})
+
+    def getValue(self, person, head, i):
+
+        index = head.index(i)
+        value = person[index]
+        return value
