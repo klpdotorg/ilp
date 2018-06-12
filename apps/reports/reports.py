@@ -229,7 +229,7 @@ class GPMathContestReport(BaseReport):
 
         survey = self.getHouseholdServey(gp_obj, dates)
 
-        self.data =  {'gp_name': gp.title(), 'academic_year': dates, 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
+        self.data =  {'gp_name': gp.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
         return self.data
 
     def getHouseholdServey(self,gp_obj,date_range):
