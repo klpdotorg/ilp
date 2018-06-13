@@ -164,14 +164,15 @@
 	    <th>No.of views</th>
 	    <th>No.of Downloads</th>
 	  </tr>
-	  
+	  {% for district in data.district_level %}
 	  <tr>
-	    <td> Bangalore</td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
+	    <td>{{district.district}}</td>
+	    <td><span class="mark">{{district.sent}}</span></td>
+	    <td><span class="mark">{{district.read}}</span></td>
+	    <td><span class="mark">{{district.visit}}</span></td>
+	    <td><span class="mark">{{district.download}}</span></td>
 	  </tr>
+	  {% endfor %}
 
 	</table>
 	<h2>Block Level report</h2>
@@ -186,14 +187,16 @@
 	    <th>No.of Downloads</th>
 	  </tr>
 	  
+	  {% for b in data.block_level %}
 	  <tr>
-	    <td> Bangalore</td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
+	    <td>{{b.district}}</td>
+	    <td><span class="mark">{{b.block_num}}</span></td>
+	    <td><span class="mark">{{b.sent}}</span></td>
+	    <td><span class="mark">{{b.read}}</span></td>
+	    <td><span class="mark">{{b.visit}}</span></td>
+	    <td><span class="mark">{{b.download}}</span></td>
 	  </tr>
+	  {% endfor %}
 
 	</table>
 	<h2>Cluster Level report</h2>
@@ -208,14 +211,16 @@
 	    <th>No.of Downloads</th>
 	  </tr>
 	  
+	 {% for c in data.cluster_level %}
 	  <tr>
-	    <td> Bangalore</td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
+	    <td>{{c.block}}</td>
+	    <td><span class="mark">{{c.cluster_num}}</span></td>
+	    <td><span class="mark">{{c.sent}}</span></td>
+	    <td><span class="mark">{{c.read}}</span></td>
+	    <td><span class="mark">{{c.visit}}</span></td>
+	    <td><span class="mark">{{c.download}}</span></td>
 	  </tr>
+	  {% endfor %}
 
 	</table>
 	<h2>Top summary</h2>
@@ -229,10 +234,10 @@
 	  </tr>
 	  
 	  <tr>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
+	    <td><span class="mark">{{data.top_summary.sent}}</span></td>
+	    <td><span class="mark">{{data.top_summary.read}}</span></td>
+	    <td><span class="mark">{{data.top_summary.visit}}</span></td>
+	    <td><span class="mark">{{data.top_summary.download}}</span></td>
 	  </tr>
 
 	</table>
@@ -248,11 +253,39 @@
 	  </tr>
 	  
 	  <tr>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
-	    <td><span class="mark">12</span></td>
+	    <td><span class="mark">District</span></td>
+	    <td><span class="mark">{{data.by_user.district.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.district.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.district.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.district.download}}</span></td>
+	  </tr>
+	  <tr>
+	    <td><span class="mark">Block</span></td>
+	    <td><span class="mark">{{data.by_user.block.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.block.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.block.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.block.download}}</span></td>
+	  </tr>
+	  <tr>
+	    <td><span class="mark">Cluster</span></td>
+	    <td><span class="mark">{{data.by_user.cluster.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.cluster.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.cluster.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.cluster.download}}</span></td>
+	  </tr>
+	  <tr>
+	    <td><span class="mark">School</span></td>
+	    <td><span class="mark">{{data.by_user.school.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.school.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.school.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.school.download}}</span></td>
+	  </tr>
+	  <tr>
+	    <td><span class="mark">Gram Panchayat</span></td>
+	    <td><span class="mark">{{data.by_user.gp.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp.download}}</span></td>
 	  </tr>
 
 	</table>

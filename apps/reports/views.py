@@ -1,13 +1,18 @@
 import datetime, os, csv
 from io import TextIOWrapper
+from pprint import pprint
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
+from django.contrib.postgres.fields.jsonb import KeyTextTransform
+from django.db.models import Sum
 
 from .links import send_link
 from .models import Reports, Tracking
 from .reportlist import reportlist
+
+
 # Create your views here.
 
 def view_report(request, report_id, tracking_id='default'):
@@ -114,13 +119,90 @@ class ReportAnalytics(View):
         report_to = request.POST.get('to')
         messages = []
         successfull=True
-        data = {'district_level':[{}
-        ]}
-                        
-        return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successfull})
+        data_from = '2018-06-01'
+        data_to = '2018-06-12'
+        reports = Reports.objects.filter(data__today__range=[data_from, data_to])
+        data = {'district_level':self.getDistrictLevel(reports),
+                'block_level':self.getBlockLevel(reports),
+                'cluster_level':self.getClusterLevel(reports),
+                'top_summary':self.getTopSummary(reports),
+                'by_user':self.getByUser(reports)
+        }
+        
+        return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successfull,'data':data})
 
+    def getDistrictLevel(self,reports):
+        districtreport = reports.filter(report_type='DistrictReport').annotate(district_name=KeyTextTransform('district_name', 'parameters'))
+        districts = districtreport.values_list('district_name', flat=True).distinct() # Get district names
+        ##for cluster replace district_name with cluster_name and similarly for block and others
+        count = []
+        for district in districts:
+            c = districtreport.filter(district_name=district)
+            sent = c.count()
+            visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
+            read = c.filter(tracking__visit_count__gt=0).count()
+            download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
+            count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district))
+        return count
+
+    def getBlockLevel(self,reports):
+        blockreport = reports.filter(report_type='BlockReport').annotate(district_name=KeyTextTransform('district_name', 'parameters'),
+                                                                         block_name=KeyTextTransform('block_name', 'parameters'))
+        districts = blockreport.values_list('district_name', flat=True).distinct() # Get district names
+        count = []
+        for district in districts:
+            c = blockreport.filter(district_name=district)
+            block_num =  c.values_list('block_name', flat=True).distinct().count() # Get district names
+            sent = c.count()
+            visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
+            read = c.filter(tracking__visit_count__gt=0).count()
+            download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
+            count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district,block_num=block_num))   
+        return count
+
+    def getClusterLevel(self,reports):
+        clusterreport = reports.filter(report_type='ClusterReport').annotate(cluster_name=KeyTextTransform('cluster_name', 'parameters'),
+                                                                             block_name=KeyTextTransform('block_name', 'parameters'))
+        blocks = clusterreport.values_list('block_name', flat=True).distinct() 
+        count = []
+        for block in blocks:
+            c = clusterreport.filter(block_name=block)
+            cluster_num =  c.values_list('cluster_name', flat=True).distinct().count() 
+            sent = c.count()
+            visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
+            read = c.filter(tracking__visit_count__gt=0).count()
+            download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
+            count.append(dict(sent=sent, read=read, visit=visit, download=download,block=block,cluster_num=cluster_num))  
+        return count
+
+    def getTopSummary(self,reports):
+        sent = reports.count()
+        visit = reports.aggregate(sum=Sum('tracking__visit_count'))['sum']
+        read = reports.filter(tracking__visit_count__gt=0).count()
+        download = reports.aggregate(sum=Sum('tracking__download_count'))['sum']
+        return dict(sent=sent, read=read, visit=visit, download=download)
+
+    def getByUser(self,reports):
+        district_report = reports.filter(report_type='DistrictReport')
+        block_report = reports.filter(report_type='BlockReport')
+        clusterreport = reports.filter(report_type='ClusterReport')
+        school_report = reports.filter(report_type='SchoolReport')
+        gp_report = reports.filter(report_type='GPMathContestReport')
+
+        district = self.getTopSummary(district_report)
+        block = self.getTopSummary(block_report)
+        cluster = self.getTopSummary(clusterreport)
+        school = self.getTopSummary(school_report)
+        gp = self.getTopSummary(gp_report)
+
+        return dict(district=district, block=block, cluster=cluster, school=school, gp=gp)
+        
+        
+
+    
     def getValue(self, person, head, i):
 
         index = head.index(i)
         value = person[index]
         return value
+    
