@@ -60,6 +60,7 @@ class QuestionGroupQuestions(
         NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questions belonging to a questiongroup'''
+    permission_classes = (HasAssignPermPermission,)
 
     def get_queryset(self):
         parents_query_dict = self.get_parents_query_dict()

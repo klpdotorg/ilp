@@ -51,9 +51,11 @@ class PermissionMixin(object):
 
     def assign_assessment_permissions(self, user_to_be_permitted, assessment_id):
         try:
-            assessment = Assessment.objects.get(id=assessment_id)
+            assessment = QuestionGroup.objects.get(id=assessment_id)
         except Exception as ex:
             raise APIException(ex)
+        print("Assigning crud_answers to %s " % user_to_be_permitted)
+        print("Assessment id is: %s", assessment_id)
         assign_perm('crud_answers', user_to_be_permitted, assessment)
 
     def unassign_institution_permissions(self, user_to_be_denied, institution_id):

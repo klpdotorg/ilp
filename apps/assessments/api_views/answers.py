@@ -38,7 +38,10 @@ from assessments.serializers import (
     AnswerStudentSerializer, AnswerStudentGroupSerializer
 )
 
-from permissions.permissions import AppPostPermissions
+from permissions.permissions import (
+    AppPostPermissions,
+    WorkUnderAssessmentPermission
+)
 from users.models import User
 from dateutil.parser import parse as date_parse
 
@@ -165,6 +168,8 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
 
 class AnswerGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
+    permission_classes = (WorkUnderAssessmentPermission,)
+
     def get_model(self, survey_id):
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         if survey_on == 'institution':
@@ -222,6 +227,8 @@ class AnswerGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
 
 class AnswerViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+
+    permission_classes = (WorkUnderAssessmentPermission,)
 
     def get_model(self, survey_id):
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk

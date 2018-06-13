@@ -3,6 +3,7 @@ from rest_framework.permissions import BasePermission
 
 from django.contrib.auth.models import Group
 from boundary.models import Boundary
+from assessments.models import QuestionGroup
 import logging
 
 logger = logging.getLogger(__name__)
@@ -111,11 +112,12 @@ class WorkUnderAssessmentPermission(IlpBasePermission):
         if self.is_user_permitted(request):
             return True
         else:
+            print("kwargs passed to permissions is: ", view.kwargs)
             assessment_id = view.kwargs.get(
-                'parent_lookup_student__studentgroup__asssessment', None
+                'parent_lookup_questiongroup_id', None
             )
             try:
-                assessment = Assessment.objects.get(id=assessment_id)
+                assessment = QuestionGroup.objects.get(id=assessment_id)
             except Exception as ex:
                 return False
         return request.user.has_perm('crud_answers', assessment)
