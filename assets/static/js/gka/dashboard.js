@@ -58,8 +58,8 @@ var topSummaryData = {};
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
-        $('#startDate').yearMonthSelect("setDate", moment("20180601", "YYYYMMDD"));
-        $('#endDate').yearMonthSelect("setDate", moment("20190331", "YYYYMMDD"));
+        $('#startDate').yearMonthSelect("setDate", moment("20170601", "YYYYMMDD"));
+        $('#endDate').yearMonthSelect("setDate", moment("20180331", "YYYYMMDD"));
         var startDate = $('#startDate').yearMonthSelect("getFirstDay");
 
         $('#search_button').click(function(e){
@@ -124,8 +124,8 @@ var topSummaryData = {};
     function loadData(params, reloadOpenSection) {
         // As of August 1st, 2017, data from June 2017 is shown as default
         if(!params.from && !params.to) {
-            params.from = '2018-06-01';
-            params.to = '2019-03-31';
+            params.from = '2017-06-01';
+            params.to = '2018-03-31';
         }
 
         klp.GKA.routerParams = params;
