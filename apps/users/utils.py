@@ -8,3 +8,10 @@ def login_user(request, user):
 
 def logout_user(request):
     Token.objects.filter(user=request.user).delete()
+
+
+def check_source_and_add_user_to_group(user):
+    """
+        Checks user's mobile number and PreGroupUser 
+    """
+    pass
