@@ -20,6 +20,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class UserRegisterView(generics.CreateAPIView):
     """
     This endpoint registers a new user in ILP.
@@ -51,6 +52,10 @@ class UserRegisterView(generics.CreateAPIView):
             if instance.is_superuser:
                 instance.groups.add(Group.objects.get(name='tada_admin'))
             instance.save()
+
+            # See if the user belongs to PreUserGroup and add him
+            check_source_and_add_user_to_group(self.request, instance)
+
             logger.debug("User creation is done successfully")
 
 
