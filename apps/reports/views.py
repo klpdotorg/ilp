@@ -167,7 +167,7 @@ def getDistrictLevel(self,reports):
     for district in districts:
         c = districtreport.filter(district_name=district)
         sent = c.count()
-            visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
+        visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
         read = c.filter(tracking__visit_count__gt=0).count()
         download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
         count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district))
