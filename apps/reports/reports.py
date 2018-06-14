@@ -1541,6 +1541,167 @@ class BlockReportSummarized(BaseReport):
              raise ValueError("No community survey data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
         return HHSurvey
 
+class DistrictReportSummarized(BaseReport):
+    parameters = ('district_name', )
+    def __init__(self, district_name=None, report_from=None, report_to=None, **kwargs):
+        self.district_name = district_name
+        self.report_from = report_from
+        self.report_to = report_to
+        self.params = dict(district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
+        self.parser = argparse.ArgumentParser()
+        self.parser.add_argument('--district_name', required=True)
+        self.parser.add_argument('--report_from', required=True)
+        self.parser.add_argument('--report_to', required=True)
+        self._template_path = 'DistrictReportSummarized.html'
+        self._type = 'DistrictReportSummarized'
+        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.district_name
+        super().__init__(**kwargs)
+
+    def parse_args(self, args):
+        arguments = self.parser.parse_args(args)
+        self.distrct_name = arguments.district_name
+        self.report_from = arguments.report_from
+        self.report_to = arguments.report_to
+        self.params = dict(district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
+
+    def get_data(self):
+        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
+        report_generated_on = datetime.datetime.now().date().isoformat()
+
+        try:
+            district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
+        except Boundary.DoesNotExist:
+            raise ValueError("District '{}' cannot be found in the database".format(self.district_name))
+
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        if not AGI.exists():
+            raise ValueError("No GP contest data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
+
+        num_schools = Institution.objects.filter(admin1=district).count()
+        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
+        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        number_of_students = num_boys + num_girls
+        num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
+        num_gp = district.institution_admin1.exclude(gp=None).values_list('gp__id',flat=True).distinct().count()
+
+        block_gpc_data = self.get_block_GPC(AGI)
+        gpc_blocks = self.format_block_data(block_gpc_data)
+
+        gka, gka_blocks = self.getGKAData(district, dates)
+
+        household = self.getHouseholdSurvey(district, dates)
+
+        #GPC Gradewise data
+        gpc_grades = {'Class 4 Assessment':{}, 'Class 5 Assessment':{}, 'Class 6 Assessment':{}}
+        for block in gpc_blocks:
+            for grade in block['grades']:
+                for value in grade['values']:
+                    try:
+                        gpc_grades[grade['name']][value['contest']]+=value['count']
+                    except KeyError:
+                        gpc_grades[grade['name']][value['contest']]=value['count']
+        gradewise_gpc = []
+        for grade, values in gpc_grades.items():
+            for j ,k in values.items():
+                values[j] = round(k/len(gpc_blocks), 2)
+            gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
+
+        self.data = {'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gradewise_gpc, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'num_gp':num_gp}
+        return self.data
+
+    def get_block_GPC(self,answergroup):
+        conditions = answergroup.values_list('institution__admin2__name', 'questiongroup__name').distinct()
+        contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
+        contests.pop(contests.index('Gender'))
+        blocks = []
+
+        for block, qgroup in conditions:
+            block_ag = answergroup.filter(institution__admin2__name=block, questiongroup__name=qgroup)
+            for contest in contests:
+                try:
+                    score = block_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/block_ag.filter(answers__question__key=contest).count()
+                except ZeroDivisionError:
+                    continue
+                details = dict(block=block, grade=qgroup)
+                details['contest'] = contest
+                details['percent'] = score*100
+                blocks.append(details)
+
+        return blocks
+
+    def format_block_data(self, blocks):
+        blocks_out = []
+        out= []
+
+        for item in blocks:
+            if not item['block'] in blocks_out:
+                blocks_out.append(item['block'])
+                out.append({'block':item['block'],
+                            'grades':[{
+                                'name':item['grade'],
+                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+                })
+            else:
+                for o in out:
+                    if o['block']==item['block']:
+                        gradeExist= False
+                        for grade in o['grades']:
+                            if item['grade'] == grade['name']:
+                                gradeExist = True
+                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+                        if not gradeExist:
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+
+        for i in out:
+            for grade in i['grades']:
+                count = 0
+                num = 0
+                for value in grade['values']:
+                    if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
+                        count += value['count']
+                        num += 1
+                grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
+                grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
+        return out
+
+    def getGKAData(self, district, date_range):
+        blocks  = Boundary.objects.filter(parent=district, boundary_type__char_id='SB') # Blocks that belong to the district
+        block_gka = []
+        for block in blocks:
+            GKA = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=date_range, questiongroup__survey_id=11)
+            if GKA.exists():
+                teachers_trained = GKA.filter(answers__question__question_text__icontains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='trained').count()
+                kit_usage = GKA.filter(answers__question__question_text__contains='Ganitha Kalika Andolana TLM', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='Ganitha Kalika Andolana TLM').count()
+                group_work = GKA.filter(answers__question__question_text__contains='group', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
+                block_gka.append(dict(block=block.name, teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2)))
+            else:
+                print("No GKA data for BLOCK {} in {} district for academic year {}".format(block.name, block.parent.name, date_range))
+                continue
+
+        if not block_gka:
+            raise ValueError("No GKA data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
+
+        gka = dict(teachers_trained=round(sum([i['teachers_trained'] for i in block_gka])/len(block_gka), 2),  kit_usage=round(sum([i['kit_usage'] for i in block_gka])/len(block_gka), 2), group_work=round(sum([i['group_work'] for i in block_gka])/len(block_gka), 2))
+
+        return gka, block_gka
+
+    def getHouseholdSurvey(self,district,date_range):
+        #Husehold Survey
+        a = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
+        HHSurvey = []
+        if a.exists():
+            questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
+
+            total_response = a.count()
+
+            for i in questions:
+                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+                HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
+        else:
+             raise ValueError("No community survey data for '{}' between {} and {}".format(self.deistrict_name, self.report_from, self.report_to))
+        return HHSurvey
+
 if __name__ == "__main__":
     r= ReportOne();
     r.get_data
