@@ -29,14 +29,6 @@
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="report_type">Report Type</label>
-                        <select name="report_type" class="form-control">
-                            {% for i in reports %}
-                                <option value={{ i  }}>{{ i }} </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
                       <label for="from">From Date</label>
 		      <input type="text" name="daterange" value="01/06/2017 - 03/31/2018" class="form-control" />
                       <input type="hidden" id="from" name="from" value="2017-06-01" >
