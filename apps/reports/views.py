@@ -151,10 +151,6 @@ class ReportAnalytics(View):
         else:
             return render(request, 'reports/report_analytics.html', context={'reports':reportlist})
     
-        
-        
-
-    
     def getValue(self, person, head, i):
 
         index = head.index(i)
@@ -170,7 +166,7 @@ def getDistrictLevel(reports):
         c = districtreport.filter(district_name=district)
         sent = c.count()
         visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
-        read = c.filter(tracking__visit_count__gt=0).count()
+        read = c.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
         download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
         count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district))
     return count
@@ -185,7 +181,7 @@ def getBlockLevel(reports):
         block_num =  c.values_list('block_name', flat=True).distinct().count() # Get district names
         sent = c.count()
         visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
-        read = c.filter(tracking__visit_count__gt=0).count()
+        read = c.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
         download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
         count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district,block_num=block_num))   
     return count
@@ -200,7 +196,7 @@ def getClusterLevel(reports):
         cluster_num =  c.values_list('cluster_name', flat=True).distinct().count() 
         sent = c.count()
         visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
-        read = c.filter(tracking__visit_count__gt=0).count()
+        read = c.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
         download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
         count.append(dict(sent=sent, read=read, visit=visit, download=download,block=block,cluster_num=cluster_num))  
     return count
@@ -208,7 +204,7 @@ def getClusterLevel(reports):
 def getTopSummary(reports):
     sent = reports.count()
     visit = reports.aggregate(sum=Sum('tracking__visit_count'))['sum']
-    read = reports.filter(tracking__visit_count__gt=0).count()
+    read = reports.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
     download = reports.aggregate(sum=Sum('tracking__download_count'))['sum']
     return dict(sent=sent, read=read, visit=visit, download=download)
 
