@@ -65,11 +65,11 @@ def download_analytics(request ):
     messages = []
     successfull=True
     reports = Reports.objects.filter(data__today__range=[data_from, data_to])
-    data = {'district_level':self.getDistrictLevel(reports),
-            'block_level':self.getBlockLevel(reports),
-            'cluster_level':self.getClusterLevel(reports),
-            'top_summary':self.getTopSummary(reports),
-            'by_user':self.getByUser(reports)
+    data = {'district_level':getDistrictLevel(reports),
+            'block_level':getBlockLevel(reports),
+            'cluster_level':getClusterLevel(reports),
+            'top_summary':getTopSummary(reports),
+            'by_user':getByUser(reports)
     }
     html = render_to_string(template, {'data':data})
        
