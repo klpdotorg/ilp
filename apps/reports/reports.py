@@ -1005,8 +1005,8 @@ class GPMathContestReportSummarized(BaseReport):
 
         #GPC Gradewise data
         gpc_grades = {'Class 4 Assessment':{}, 'Class 5 Assessment':{}, 'Class 6 Assessment':{}}
-        for block in gpc_blocks:
-            for grade in block['grades']:
+        for school in out:
+            for grade in school['grades']:
                 for value in grade['values']:
                     try:
                         gpc_grades[grade['name']][value['contest']]+=value['count']
@@ -1015,12 +1015,12 @@ class GPMathContestReportSummarized(BaseReport):
         gradewise_gpc = []
         for grade, values in gpc_grades.items():
             for j ,k in values.items():
-                values[j] = round(k/len(gpc_blocks), 2)
+                values[j] = round(k/len(out), 2)
             gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
         survey = self.getHouseholdServey(gp_obj, dates)
 
-        self.data =  {'gp_name': gp.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':gpc_grades,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
+        self.data =  {'gp_name': gp.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':gradewise_gpc,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
         return self.data
 
     def getHouseholdServey(self,gp_obj,date_range):
