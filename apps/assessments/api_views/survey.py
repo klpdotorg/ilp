@@ -127,12 +127,14 @@ class SurveyAssociateBoundaryAPIView(ListAPIView, ILPStateMixin):
     def get_queryset(self):
         survey_id = self.kwargs['survey_id']
         state_id = BoundaryStateCode.objects.get(
-            char_id=settings.ILP_STATE_ID).boundary_id
+            char_id=settings.ILP_STATE_ID).boundary_id        
         boundary_id = self.request.query_params.get('boundary_id', state_id)
         boundary_type = self.request.query_params.get('boundary_type', None)
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        # survey_qgroups = QuestionGroup.objects.filter(survey_id=survey_id).values_list('id', flat=True)
         if survey_on == 'institution':
-            institution_ids = QuestionGroup_Institution_Association.objects.\
+            institution_ids = QuestionGroup_Institution_Association.objects.filter(
+                questiongroup__survey_id=survey_id).\
                 filter(Q(institution__admin0_id=boundary_id) |
                        Q(institution__admin1_id=boundary_id) |
                        Q(institution__admin2_id=boundary_id) |
