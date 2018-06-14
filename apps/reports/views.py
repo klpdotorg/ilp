@@ -159,7 +159,7 @@ class ReportAnalytics(View):
         value = person[index]
         return value
 
-def getDistrictLevel(self,reports):
+def getDistrictLevel(reports):
     districtreport = reports.filter(report_type='DistrictReport').annotate(district_name=KeyTextTransform('district_name', 'parameters'))
     districts = districtreport.values_list('district_name', flat=True).distinct() # Get district names
     ##for cluster replace district_name with cluster_name and similarly for block and others
@@ -173,7 +173,7 @@ def getDistrictLevel(self,reports):
         count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district))
     return count
 
-def getBlockLevel(self,reports):
+def getBlockLevel(reports):
     blockreport = reports.filter(report_type='BlockReport').annotate(district_name=KeyTextTransform('district_name', 'parameters'),
                                                                      block_name=KeyTextTransform('block_name', 'parameters'))
     districts = blockreport.values_list('district_name', flat=True).distinct() # Get district names
@@ -188,7 +188,7 @@ def getBlockLevel(self,reports):
         count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district,block_num=block_num))   
     return count
 
-def getClusterLevel(self,reports):
+def getClusterLevel(reports):
     clusterreport = reports.filter(report_type='ClusterReport').annotate(cluster_name=KeyTextTransform('cluster_name', 'parameters'),
                                                                          block_name=KeyTextTransform('block_name', 'parameters'))
     blocks = clusterreport.values_list('block_name', flat=True).distinct() 
@@ -203,7 +203,7 @@ def getClusterLevel(self,reports):
         count.append(dict(sent=sent, read=read, visit=visit, download=download,block=block,cluster_num=cluster_num))  
     return count
 
-def getTopSummary(self,reports):
+def getTopSummary(reports):
     sent = reports.count()
     visit = reports.aggregate(sum=Sum('tracking__visit_count'))['sum']
     read = reports.filter(tracking__visit_count__gt=0).count()
