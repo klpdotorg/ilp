@@ -14,11 +14,12 @@ from users.serializers import (
     OtpGenerateSerializer,
     OtpPasswordResetSerializer
 )
-from users.utils import login_user
+from users.utils import login_user, check_source_and_add_user_to_group
 from users.permission import IsAdminOrIsSelf, AllowAny
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 class UserRegisterView(generics.CreateAPIView):
     """
@@ -51,6 +52,10 @@ class UserRegisterView(generics.CreateAPIView):
             if instance.is_superuser:
                 instance.groups.add(Group.objects.get(name='tada_admin'))
             instance.save()
+
+            # See if the user belongs to PreUserGroup and add him
+            check_source_and_add_user_to_group(self.request, instance)
+
             logger.debug("User creation is done successfully")
 
 
@@ -68,6 +73,10 @@ class UserLoginView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         data = UserSerializer(serializer.user).data
         data['token'] = login_user(self.request, serializer.user).key
+
+        # See if the user belongs to PreUserGroup and add him
+        check_source_and_add_user_to_group(request, serializer.user)
+
         return Response(data, status=status.HTTP_200_OK)
 
 
