@@ -64,6 +64,9 @@ def download_analytics(request ):
     data_to = request.GET.get('to')
     messages = []
     successfull=True
+    data_from = '2018-06-01'
+    data_to = '2018-06-12'
+
     reports = Reports.objects.filter(data__today__range=[data_from, data_to])
     data = {'district_level':getDistrictLevel(reports),
             'block_level':getBlockLevel(reports),
@@ -217,10 +220,10 @@ def getByUser(reports):
     school_report = reports.filter(report_type='SchoolReport')
     gp_report = reports.filter(report_type='GPMathContestReport')
 
-    district = self.getTopSummary(district_report)
-    block = self.getTopSummary(block_report)
-    cluster = self.getTopSummary(clusterreport)
-    school = self.getTopSummary(school_report)
-    gp = self.getTopSummary(gp_report)
+    district = getTopSummary(district_report)
+    block = getTopSummary(block_report)
+    cluster = getTopSummary(clusterreport)
+    school = getTopSummary(school_report)
+    gp = getTopSummary(gp_report)
 
     return dict(district=district, block=block, cluster=cluster, school=school, gp=gp)
