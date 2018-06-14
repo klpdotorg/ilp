@@ -65,9 +65,6 @@ def download_analytics(request ):
     data_to = request.GET.get('to')
     messages = []
     successfull=True
-    data_from = '2018-06-01'
-    data_to = '2018-06-12'
-
     reports = Reports.objects.filter(data__today__range=[data_from, data_to])
     data = {'district_level':getDistrictLevel(reports),
             'block_level':getBlockLevel(reports),
