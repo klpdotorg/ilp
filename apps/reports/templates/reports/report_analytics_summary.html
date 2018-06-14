@@ -154,13 +154,81 @@
     </h1>
     <div class="wrapper">
       <div class="outer-line" style="margin-top: 38px;">
+	<h2>Top summary</h2>
+	
+	<table style="margin: auto;" id="customers">
+	  <tr>
+	    <th>No.of Report Sent</th>
+	    <th>No.of Unique Views</th>
+	    <th>No.of views</th>
+	    <th>No.of Downloads</th>
+	  </tr>
+	  
+	  <tr>
+	    <td><span class="mark">{{data.top_summary.sent}}</span></td>
+	    <td><span class="mark">{{data.top_summary.read}}</span></td>
+	    <td><span class="mark">{{data.top_summary.visit}}</span></td>
+	    <td><span class="mark">{{data.top_summary.download}}</span></td>
+	  </tr>
+
+	</table>
+	<h2>By USER</h2>
+	
+	<table style="margin: auto;" id="customers">
+	  <tr>
+	    <th>Report Type</th>
+	    <th>No.of Report Sent</th>
+	    <th>No.of Unique Views</th>
+	    <th>No.of views</th>
+	    <th>No.of Downloads</th>
+	  </tr>
+	  
+	  <tr>
+	    <td><span class="mark">District Report</span></td>
+	    <td><span class="mark">{{data.by_user.district.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.district.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.district.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.district.download}}</span></td>
+	  </tr>
+	  <tr>
+	    <td><span class="mark">Block Report</span></td>
+	    <td><span class="mark">{{data.by_user.block.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.block.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.block.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.block.download}}</span></td>
+	  </tr>
+	  <tr>
+	    <td><span class="mark">Cluster Report</span></td>
+	    <td><span class="mark">{{data.by_user.cluster.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.cluster.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.cluster.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.cluster.download}}</span></td>
+	  </tr>
+	  <tr>
+	    <td><span class="mark">School Report</span></td>
+	    <td><span class="mark">{{data.by_user.school.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.school.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.school.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.school.download}}</span></td>
+	  </tr>
+	  <tr>
+	    <td><span class="mark">Gram Panchayat Report</span></td>
+	    <td><span class="mark">{{data.by_user.gp.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp.download}}</span></td>
+	  </tr>
+
+	</table>
+	
+	
 	<h2>District Level report</h2>
 	
 	<table style="margin: auto;" id="customers">
 	  <tr>
 	    <th>District Name</th>
 	    <th>No.of Report Sent</th>
-	    <th>No.of Read</th>
+	    <th>No.of Unique Views</th>
 	    <th>No.of views</th>
 	    <th>No.of Downloads</th>
 	  </tr>
@@ -182,7 +250,7 @@
 	    <th>District Name</th>
 	    <th>No.of Blocks</th>
 	    <th>No.of Report Sent</th>
-	    <th>No.of Read</th>
+	    <th>No.of Unique Views</th>
 	    <th>No.of views</th>
 	    <th>No.of Downloads</th>
 	  </tr>
@@ -206,7 +274,7 @@
 	    <th>Block Name</th>
 	    <th>No.of Clusters</th>
 	    <th>No.of Report Sent</th>
-	    <th>No.of Read</th>
+	    <th>No.of Unique Views</th>
 	    <th>No.of views</th>
 	    <th>No.of Downloads</th>
 	  </tr>
@@ -223,80 +291,14 @@
 	  {% endfor %}
 
 	</table>
-	<h2>Top summary</h2>
-		
-	<table style="margin: auto;" id="customers">
-	  <tr>
-	    <th>No.of Report Sent</th>
-	    <th>No.of Read</th>
-	    <th>No.of views</th>
-	    <th>No.of Downloads</th>
-	  </tr>
-	  
-	  <tr>
-	    <td><span class="mark">{{data.top_summary.sent}}</span></td>
-	    <td><span class="mark">{{data.top_summary.read}}</span></td>
-	    <td><span class="mark">{{data.top_summary.visit}}</span></td>
-	    <td><span class="mark">{{data.top_summary.download}}</span></td>
-	  </tr>
 
-	</table>
-		<h2>By USER</h2>
-		
-	<table style="margin: auto;" id="customers">
-	  <tr>
-	    <th>User Name</th>
-	    <th>No.of Report Sent</th>
-	    <th>No.of Read</th>
-	    <th>No.of views</th>
-	    <th>No.of Downloads</th>
-	  </tr>
-	  
-	  <tr>
-	    <td><span class="mark">District</span></td>
-	    <td><span class="mark">{{data.by_user.district.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.district.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.district.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.district.download}}</span></td>
-	  </tr>
-	  <tr>
-	    <td><span class="mark">Block</span></td>
-	    <td><span class="mark">{{data.by_user.block.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.block.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.block.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.block.download}}</span></td>
-	  </tr>
-	  <tr>
-	    <td><span class="mark">Cluster</span></td>
-	    <td><span class="mark">{{data.by_user.cluster.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.cluster.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.cluster.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.cluster.download}}</span></td>
-	  </tr>
-	  <tr>
-	    <td><span class="mark">School</span></td>
-	    <td><span class="mark">{{data.by_user.school.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.school.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.school.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.school.download}}</span></td>
-	  </tr>
-	  <tr>
-	    <td><span class="mark">Gram Panchayat</span></td>
-	    <td><span class="mark">{{data.by_user.gp.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.gp.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.gp.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.gp.download}}</span></td>
-	  </tr>
-
-	</table>
-	
 	
       </div>
      
       <div class="red" style="text-align: center;padding: 20px;">
 	FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 98XXXXXXXX
       </div>
-      <a href="{{ request.get_full_path }}download" class="button button5">Download</a>
+      <a href="{{ request.path }}download" class="button button5">Download</a>
     </div>
   </body>
 </html>
