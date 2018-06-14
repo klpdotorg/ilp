@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import View
 from django.contrib.postgres.fields.jsonb import KeyTextTransform
-from django.db.models import Sum
+from django.db.models import Sum, Count, Case, When
 from django.template.loader import render_to_string
 
 from .links import send_link
