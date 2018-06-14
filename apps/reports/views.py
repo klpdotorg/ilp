@@ -1,6 +1,7 @@
 import datetime, os, csv
 from io import TextIOWrapper
 from pprint import pprint
+import pdfkit
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
@@ -75,10 +76,11 @@ def download_analytics(request ):
             'by_user':getByUser(reports)
     }
     html = render_to_string(template, {'data':data})
-       
+    config = pdfkit.configuration()
+    pdf = pdfkit.PDFKit(html, 'string', configuration=config).to_pdf()
 
     response = HttpResponse(pdf, content_type="application/pdf")
-    response['Content-Disposition'] = 'inline; filename=' + filename
+    response['Content-Disposition'] = 'inline; filename=' + 'REPORTANALYTICS.pdf'
     return response
 
 class SendReport(View):
