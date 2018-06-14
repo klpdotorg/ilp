@@ -1,4 +1,5 @@
 import logging
+from rest_condition import Or
 
 from django.http import Http404
 
@@ -21,7 +22,9 @@ from schools.filters import (
 )
 
 from common.models import Status
-from permissions.permissions import WorkUnderInstitutionPermission
+from permissions.permissions import (
+    WorkUnderInstitutionPermission, StudentRegisterPermission
+)
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +37,7 @@ class StudentViewSet(
     queryset = Student.objects.exclude(status=Status.DELETED)
     serializer_class = StudentSerializer
     filter_class = StudentFilter
-    permission_classes = (WorkUnderInstitutionPermission,)
+    permission_classes = (Or(WorkUnderInstitutionPermission, StudentRegisterPermission))
 
 
     def create(self, request, *args, **kwargs):
