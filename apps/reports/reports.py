@@ -1040,7 +1040,7 @@ class GPMathContestReportSummarized(BaseReport):
 
         return HHSurvey
 
-class SchoolReport(BaseReport):
+class SchoolReportSummarized(BaseReport):
     parameters = ('school_code', )
     def __init__(self, school_code=None, report_from=None, report_to=None, **kwargs):
         self.school_code = school_code
@@ -1051,8 +1051,8 @@ class SchoolReport(BaseReport):
         self.parser.add_argument('--school_code', required=True)
         self.parser.add_argument('--report_from', required=True)
         self.parser.add_argument('--report_to', required=True)
-        self._template_path = 'SchoolReport.html'
-        self._type = 'SchoolReport'
+        self._template_path = 'SchoolReportSummarized.html'
+        self._type = 'SchoolReportSummarized'
         self.sms_template ="Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}"
         super().__init__(**kwargs)
 
