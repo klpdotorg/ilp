@@ -18,7 +18,8 @@ from assessments.api_views import (
     SurveyDetailEBoundaryAPIView, SurveyUsersCountAPIView,
     SurveyBoundaryAPIView, SurveyInstitutionAPIView,
     BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView,
-    SurveyAssociateInstitutionAPIView
+    SurveyAssociateInstitutionAPIView, SurveyPartnersViewSet,
+    SurveySourceViewSet
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -33,6 +34,19 @@ simple_router.register(
     r'surveys/questions',
     QuestionViewSet,
     base_name='survey-questions'
+)
+
+#survey/partner URL
+simple_router.register(
+    r'surveys/partners',
+    SurveyPartnersViewSet,
+    base_name='survey-partners'
+)
+
+simple_router.register(
+    r'surveys/sources',
+    SurveySourceViewSet,
+    base_name='survey-sources'
 )
 
 # surveys -> questiongroup -> questions

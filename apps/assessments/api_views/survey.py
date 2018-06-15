@@ -50,16 +50,32 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
     SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg,
     SurveyBoundaryUserTypeAgg, SurveyBoundaryElectionTypeCount,
-    SurveyTagInstitutionMapping
+    SurveyTagInstitutionMapping, Partner, Source
 )
 from common.models import RespondentType, Status
 from assessments.serializers import (
     SurveySerializer, RespondentTypeSerializer,
-    SurveyCreateSerializer
+    SurveyCreateSerializer, SurveyPartnerSerializer,
+    SurveySourceSerializer
 )
 from assessments.filters import (
     SurveyFilter, SurveyTagFilter
 )
+
+
+class SurveyPartnersViewSet(ILPViewSet, ILPStateMixin):
+    queryset = Partner.objects.all()
+    serializer_class = SurveyPartnerSerializer
+
+    def get_queryset(self):
+        state = self.get_state()
+        queryset = self.queryset.filter(admin0=state)
+        return queryset
+
+
+class SurveySourceViewSet(ILPViewSet, ILPStateMixin):
+    queryset = Source.objects.all()
+    serializer_class = SurveySourceSerializer
 
 
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
