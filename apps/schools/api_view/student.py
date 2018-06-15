@@ -37,8 +37,7 @@ class StudentViewSet(
     queryset = Student.objects.exclude(status=Status.DELETED)
     serializer_class = StudentSerializer
     filter_class = StudentFilter
-    permission_classes = (Or(WorkUnderInstitutionPermission, StudentRegisterPermission))
-
+    permission_classes = [Or(StudentRegisterPermission, WorkUnderInstitutionPermission,)]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, many=True)
