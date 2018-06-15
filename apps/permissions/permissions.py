@@ -129,3 +129,15 @@ class UserPermission(IlpBasePermission):
             return True
         else:
             return request.user.id == obj.id
+
+
+class StudentRegisterPermission(BasePermission):
+    def has_permission(self, request, view):
+        GROUPS_ALLOWED = [u'a3_users']
+        groups = Group.objects.filter(name__in=GROUPS_ALLOWED)
+        if not request.user.groups.filter(id__in=groups).exists():
+            return False
+        elif not request.method in ('GET', 'POST'):
+            return False
+        else:
+            return True
