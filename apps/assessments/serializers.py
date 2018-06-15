@@ -11,7 +11,8 @@ from assessments.models import (
     QuestionGroup_Institution_Association,
     AnswerStudent, QuestionGroup_StudentGroup_Association,
     QuestionGroup_Institution_Association,
-    SurveyUserTypeMapping, AnswerStudentGroup
+    SurveyUserTypeMapping, AnswerStudentGroup,
+    Partner, Source
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
@@ -54,6 +55,19 @@ class SurveyCreateSerializer(ILPSerializer):
 class SurveyUserTypeMappingSerializer(ILPSerializer):
     class Meta:
         model = SurveyUserTypeMapping
+        fields = '__all__'
+
+
+class SurveySourceSerializer(ILPSerializer):
+    class Meta:
+        model = Source
+        fields = '__all__'
+
+
+class SurveyPartnerSerializer(ILPSerializer):
+
+    class Meta:
+        model = Partner
         fields = '__all__'
 
 
