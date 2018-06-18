@@ -1,22 +1,30 @@
-<html>
+<!DOCTYPE html>
     <head>
-        <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <style>
-         body {
-             font-family: 'Questrial', sans-serif;
-             font-size:15px
-         }
-         .cap{
-             text-transform: capitalize;
-         }
-         .outer-box{
-             padding: 20px 0 20px 0;
-             margin: auto;
-             width: 100%;
-             background-color: #efeaea;
-             overflow: hidden;
-         }
+      <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type = "text/css">
+	@font-face {
+	font-family: "Kannada";
+	src: url("fonts/kannada/akshar.ttf");
+	} 
+      </style>
+      
+      <style>
+	body {
+	font-family: 'Questrial', sans-serif;
+	font-size:15px
+	}
+	.cap{
+	text-transform: capitalize;
+	}
+	.outer-box{
+	padding: 20px 0 20px 0;
+	margin: auto;
+	width: 100%;
+	background-color: #efeaea;
+	overflow: hidden;
+	}
          .container{
              width: 80%;
              margin-left: auto;
@@ -255,7 +263,7 @@
 	                        Other Areas
 	                    </th>
 	                </tr>
-	                {% for item in data.gpc_grades %}
+	                {% for item in data.gpc_blocks %}
 	                <tr>
 	                    <td>{{ item.grade }}</td>
 	                    <td align="center">
@@ -304,82 +312,7 @@
 	                {% endfor %}
 	            </table>
 	            <br>
-	            <h2>Performance by block</h2>
-
-	            <table id="customers" style="margin:auto;">
-	                <tr>
-	                    <th>Block Name</th>
-	                    <th>Grade</th>
-	                    <th>
-	                        Number Concept <br>(123)
-	                    </th>
-	                    <th>
-	                        Addition<br>(+)
-	                    </th>
-	                    <th>
-	                        Subtraction<br>(-)
-	                    </th>
-	                    <th>
-	                        Multiplication<br>(&times;)
-	                    </th>
-	                    <th>
-	                        Division<br>(&divide;)
-	                    </th>
-	                    <th>
-	                        Other Areas
-	                    </th>
-	                </tr>
-	                {% for item in data.gpc_blocks %}
-	                {% for g in item.grades%}
-	                <tr>
-	                    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.block }}</td> {% endif %}
-	                    <td>{{g.name}}</td>
-	                    <td align="center">
-	                        {% for value in g.values%}
-                            {% if "Number Concept" == value.contest %}
-	                        <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-                            {% endif %}
-                            {% endfor %}
-	                    </td>
-	                    <td align="center">
-	                        {% for value in g.values%}
-                            {% if "Addition" == value.contest %}
-	                        <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-                            {% endif %}
-                            {% endfor %}
-	                    </td>
-	                    <td align="center">
-	                        {% for value in g.values%}
-                            {% if "Subtraction" == value.contest %}
-	                        <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-                            {% endif %}
-                            {% endfor %}
-	                    </td>
-	                    <td align="center">
-	                        {% for value in g.values%}
-                            {% if "Multiplication" == value.contest %}
-	                        <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-                            {% endif %}
-                            {% endfor %}
-	                    </td>
-	                    <td align="center">
-	                        {% for value in g.values%}
-                            {% if "Division" == value.contest %}
-	                        <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-                            {% endif %}
-                            {% endfor %}
-	                    </td>
-	                    <td align="center">
-	                        {% for value in g.values%}
-                            {% if "Other Areas" == value.contest %}
-	                        <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-                            {% endif %}
-                            {% endfor %}
-	                    </td>
-	                </tr>
-	                {% endfor %}
-	                {% endfor %}
-	            </table>
+	       
             </div>
             <div class="outer-line">
 	            <h2>COMMUNITY SURVEY</h2>
