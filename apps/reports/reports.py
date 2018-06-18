@@ -458,7 +458,7 @@ class ClusterReport(BaseReport):
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
 
-        num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
+        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
 
         schools_data = self.get_school_data(AGI)
         schools = self.format_schools_data(schools_data)
@@ -598,7 +598,7 @@ class BlockReport(BaseReport):
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
 
-        num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
+        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
 
         cluster_gpc_data = self.get_cluster_GPC(AGI)
         gpc_clusters = self.format_cluster_data(cluster_gpc_data)
@@ -743,7 +743,7 @@ class DistrictReport(BaseReport):
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
-        num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
+        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
         num_gp = district.institution_admin1.exclude(gp=None).values_list('gp__id',flat=True).distinct().count()
 
         block_gpc_data = self.get_block_GPC(AGI)
@@ -1264,7 +1264,7 @@ class ClusterReportSummarized(BaseReport):
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
 
-        num_contests = AGI.values_list('answers__question__key', flat=True).distinct().count()
+        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
 
         schools_data = self.get_school_data(AGI)
         schools = self.format_schools_data(schools_data)
