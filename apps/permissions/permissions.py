@@ -81,7 +81,7 @@ class InstitutionCreateUpdatePermission(IlpBasePermission):
             logger.debug("Attempting POST to institution endpoint")
             boundary_id = request.data.get('admin3', None)
             if boundary_id is not None:
-                boundary_id = int(boundary_id.strip())
+                boundary_id = int(boundary_id)
                 try:
                     boundary = Boundary.objects.get(id = boundary_id)
                 except:
