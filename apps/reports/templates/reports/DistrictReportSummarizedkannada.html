@@ -317,17 +317,55 @@
       <div class="outer-line">
 	<h2>ಸಮುದಾಯದ ಸರ್ವೆ</h2>
 	<p>[ಈ ವರದಿಯು ಆಯಾ ಗ್ರಾಮದ ಶಾಲೆಗಳ ಕಾರ್ಯಚಟುವಟಿಗಳ ಬಗೆಗೆ ಪೋಷಕರಿಂದ ಪಡೆದ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ
-ಮೇಲೆ ತಯಾರಿಸಲಾಗಿದೆ]</p>
+	  ಮೇಲೆ ತಯಾರಿಸಲಾಗಿದೆ]</p>
+		{% for s in data.household %}
+        {% if s.text == 'Is there a teacher shortage in the school?'%}
+        <div class="half-box">
+	  ಶಾಲೆಯಲ್ಲಿ ಶಿಕ್ಷಕರ ಕೊರತೆ ಇದೆಯೇ?
+          <br><br>
+          <span class="percent">{{s.percentage}}%</span>
+          <div class="p-bar-grey" style="width: 80%;">
+            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
+          </div>
+        </div>
+        {% endif%}
+        {% endfor %}
 	{% for s in data.household %}
-	<div class="half-box">
-	  {{s.text}}
-	  <br><br>
-	  <span class="percent">{{s.percentage}}%</span>
-	  <div class="p-bar-grey" style="width: 80%;">
-	    <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
-	  </div>
-	</div>
-	{% endfor %}
+        {% if s.text == 'Does the school have a separate functional toilet for girls?'%}
+        <div class="half-box">
+	  ಶಾಲೆಯಲ್ಲಿ ಗಂಡು ಮತ್ತು ಹೆಣ್ಣು ಮಕ್ಕಳಿಗೆ ಪ್ರತ್ಯೇಕ ಶೌಚಾಲಯದ ವ್ಯವಸ್ತೆ ಇದೆಯೆ?
+          <br><br>
+          <span class="percent">{{s.percentage}}%</span>
+          <div class="p-bar-grey" style="width: 80%;">
+            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
+          </div>
+        </div>
+        {% endif%}
+        {% endfor %}
+	{% for s in data.household %}
+        {% if s.text == 'Does the SDMC meet every month?' %}
+        <div class="half-box">
+	 ಶಾಲಾ ಅಭಿವೃದ್ಧಿ  ಮತ್ತು ಮೆಲುಸ್ತುವಾರಿ ಸಭೆ ಪ್ರತಿ ತಿಂಗಳು ನಡೆಯುತ್ತಿದೆಯೇ ?
+          <br><br>
+          <span class="percent">{{s.percentage}}%</span>
+          <div class="p-bar-grey" style="width: 80%;">
+            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
+          </div>
+        </div>
+        {% endif%}
+        {% endfor %}
+	{% for s in data.household %}
+        {% if s.text == "Are you satisfied with the Mid Day Meal served in your child's school?" %}
+        <div class="half-box">
+	  ನಿಮ್ಮ ಮಗುವಿಗೆ ಶಾಲೆಯಲ್ಲಿ ನೀಡುವ ಬಿಸಿಯೂಟದ ಬಗ್ಗೆ ನಿಮಗೆ ತೃಪ್ತಿ  ಇದೆಯೆ ?
+          <br><br>
+          <span class="percent">{{s.percentage}}%</span>
+          <div class="p-bar-grey" style="width: 80%;">
+            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
+          </div>
+        </div>
+        {% endif%}
+        {% endfor %}
       </div>
       <div class="outer-line" style="line-height: 26px;">
 	ಗಮನಿಸ ಬೇಕಾದ ವಿಷಯಗಳು :
