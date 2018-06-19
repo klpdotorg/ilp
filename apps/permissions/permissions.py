@@ -77,13 +77,13 @@ class InstitutionCreateUpdatePermission(IlpBasePermission):
         elif self.is_user_permitted(request):
             logger.debug("Checking if is_user_permitted", self.is_user_permitted(request))
             return True
-        elif request.method == 'POST':
+        elif request.method in ('POST', 'PUT', 'PATCH'):
             logger.debug("Attempting POST to institution endpoint")
             boundary_id = request.data.get('admin3', None)
             if boundary_id is not None:
                 boundary_id = int(boundary_id.strip())
                 try:
-                    boundary = Boundary.objects.get(id = boundary_id)
+                    boundary = Boundary.objects.get(id=boundary_id)
                 except:
                     return False
                 hasperm = request.user.has_perm('add_institution', boundary)
@@ -96,15 +96,19 @@ class InstitutionCreateUpdatePermission(IlpBasePermission):
 
 class WorkUnderInstitutionPermission(IlpBasePermission):
     def has_permission(self, request, view):
+        print("WorkUnderInstitutionPermission")
         if self.is_user_permitted(request):
             return True
         else:
+            print("institution ID is: ", institution_id)
             institution_id = request.data.get('institution', None)
             try:
                 institution = Institution.objects.get(id=institution_id)
             except:
                 return False
-        return request.user.has_perm('crud_student_class_staff', institution)
+        hasperm = request.user.has_perm('crud_student_class_staff', institution)
+        print("User has perm: ", hasperm)
+        return hasperm
 
 
 class WorkUnderAssessmentPermission(IlpBasePermission):

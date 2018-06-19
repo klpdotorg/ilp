@@ -15,6 +15,7 @@ from users.serializers import (
     ChangePasswordSerializer
 )
 from users.permission import IsAdminOrIsSelf, IsAdminUser
+from permissions.permissions import HasAssignPermPermission
 from users.utils import login_user
 from rest_framework import filters
 from django.contrib.auth.hashers import make_password, check_password
@@ -28,7 +29,7 @@ class UsersViewSet(viewsets.ModelViewSet):
     This endpoint registers a new TADA user
     """
     permission_classes = (
-        IsAdminUser,
+        IsAdminUser, HasAssignPermPermission, 
     )
     serializer_class = TadaUserSerializer
     queryset = User.objects.all()
@@ -39,12 +40,16 @@ class UsersViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         search_query = self.request.query_params.get('search', None)
-        if search_query:
-            self.queryset = self.queryset.filter(
+        role_query = self.request.query_params.get('role', 'ilp_auth_user')
+        if role_query:
+            self.queryset = self.queryset.filter(groups__name=role_query)
+        if search_query is not None:
+            self.queryset = User.objects.all().filter(
                 Q(email__icontains=search_query) |
                 Q(mobile_no__icontains=search_query) |
                 Q(first_name__icontains=search_query) |
-                Q(last_name__icontains=search_query)
+                Q(last_name__icontains=search_query) |
+                Q(groups__name=search_query)
             )
         return self.queryset.filter(is_active='True')
 

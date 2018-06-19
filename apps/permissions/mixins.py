@@ -31,6 +31,8 @@ class PermissionMixin(object):
             institution = Institution.objects.get(id=institution_id)
         except Exception as ex:
             raise APIException(ex)
+        print("Assigning institution permissions to: ", user_to_be_permitted)
+        print("institution id is: ", institution_id)
         assign_perm('change_institution', user_to_be_permitted, institution)
         assign_perm('crud_student_class_staff', user_to_be_permitted, institution)
 
