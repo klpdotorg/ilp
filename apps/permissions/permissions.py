@@ -100,8 +100,8 @@ class WorkUnderInstitutionPermission(IlpBasePermission):
         if self.is_user_permitted(request):
             return True
         else:
-            print("institution ID is: ", institution_id)
             institution_id = request.data.get('institution', None)
+            print("institution ID is: ", institution_id)
             try:
                 institution = Institution.objects.get(id=institution_id)
             except:
