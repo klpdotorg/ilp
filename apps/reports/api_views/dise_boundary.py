@@ -23,7 +23,7 @@ class DiseBoundaryDetails(APIView, BaseBoundaryReport):
         try:
             boundary = Boundary.objects.get(pk=boundaryid)
         except Exception:
-            raise APIError('Boundary not found', 404)
+            raise APIException('Boundary not found', 404)
         self.get_boundary_summary_data(boundary, self.reportInfo)
         if boundary.boundary_type_id == 'SD':
             self.reportInfo["neighbours"] = []

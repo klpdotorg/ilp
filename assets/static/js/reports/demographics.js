@@ -49,7 +49,8 @@
             "gender" : klpData["gender"],
             "student_total": klpData["student_count"],
             "ptr" : klpData["ptr"],
-            "school_perc" : klpData["school_perc"]
+            "school_perc" : klpData["school_perc"],
+            "academic_year": acadYear
         };
 
         summaryData['girl_perc'] = Math.round(( summaryData["gender"]["girls"]/summaryData["student_total"] )* 100);
@@ -65,10 +66,9 @@
         var tplReportDate = swig.compile($('#tpl-reportDate').html());
         
         var now = new Date();
-        var today = {'date' : moment(now).format("MMMM D, YYYY")};
-        var dateHTML = tplReportDate({"today":today});
+        var header_date = {'date' : moment(now).format("MMMM D, YYYY"), academic_year: summaryData.academic_year};
+        var dateHTML = tplReportDate({"header_date":header_date});
         $('#report-date').html(dateHTML);
-        
         var topSummaryHTML = tplTopSummary({"data":summaryData});
         $('#top-summary').html(topSummaryHTML);
     }
