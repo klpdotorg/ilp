@@ -189,6 +189,7 @@
 	<h2>Performance by Schools</h2>
 	<table id="customers" style="margin:auto;">
 	  <tr>
+	    <th>School Name</th>
 	    <th>Grade</th>
 	    <th>
 	      Number Concept <br>(123)
@@ -210,55 +211,81 @@
 	    </th>
 	  </tr>
 	  {% for item in data.schools %}
+	  {% for g in item.grades %}
 	  <tr>
-	    <td>{{ item.grade }}</td>
+	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
+	    <td>{{g.name}}</td>
 	    <td align="center">
-	      {% for value in item.values%}
+	      {% for value in g.values%}
               {% if "Number Concept" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
-	      {% for value in item.values %}
+	      {% for value in g.values%}
               {% if "Addition" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
-	      {% for value in item.values%}
+	      {% for value in g.values%}
               {% if "Subtraction" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
-	      {% for value in item.values%}
+	      {% for value in g.values%}
               {% if "Multiplication" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
-	      {% for value in item.values%}
+	      {% for value in g.values%}
               {% if "Division" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	    <td align="center">
-	      {% for value in item.values%}
+	      {% for value in g.values%}
               {% if "Other Areas" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
 	    </td>
 	  </tr>
 	  {% endfor %}
-	  
+	  {% endfor %}
+	  </table>
+	<table id="customers" style="margin:auto;">
 	  <tr>
 	    <td colspan="8"> neighbouring schools</td></tr>
+	  <tr>
+	    <th>Grade</th>
+	    <th>
+	      Number Concept <br>(123)
+	    </th>
+	    <th>
+	      Addition<br>(+)
+	    </th>
+	    <th>
+	      Subtraction<br>(-)
+	    </th>
+	    <th>
+	      Multiplication<br>(&times;)
+	    </th>
+	    <th>
+	      Division<br>(&divide;)
+	    </th>
+	    <th>
+	      Other Areas
+	    </th>
+	  </tr>
+	  
 	  {% for item in data.neighbours%}
 	  <tr>
 	    <td>{{ item.grade }}</td>
