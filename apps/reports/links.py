@@ -53,6 +53,7 @@ def send_link(report_type, params, args, dry_run=False):
         link = r.save_link(result)
         link.report_type = '{} for {} between {} and {}'.format(report_type, params[report.parameters[0]], params['report_from'], params['report_to'])
         link.recipient = args['name']
+        link.role = args['role']
         link.save()
         sms = r.get_sms(link, args['name'])
         send_sms(args['number'], sms)

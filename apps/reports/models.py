@@ -18,6 +18,7 @@ class Tracking(models.Model):
     visited_at = models.DateField(null=True)
     downloaded_at = models.DateField(null=True)
     status = models.CharField(max_length=10)
+    role = models.CharField(max_length=20, null=True)
 
     def __str__(self):
         return '{} sent to {}'.format(self.report_type, self.recipient)

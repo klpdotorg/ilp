@@ -107,6 +107,7 @@ class SendReport(View):
                 if person[0] and person[2]:
                     arg = {'name': self.getValue(person, head,'First Name'),
                            'number':self.getValue(person, head,'Mobile Number'),
+                           'role':self.getValue(person, head,'role'),
                     }
                     if dry:
                         messages.append("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
