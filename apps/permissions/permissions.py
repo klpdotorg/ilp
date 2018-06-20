@@ -3,6 +3,7 @@ from rest_framework.permissions import BasePermission
 
 from django.contrib.auth.models import Group
 from boundary.models import Boundary
+from schools.models import Institution
 from assessments.models import QuestionGroup
 import logging
 
@@ -67,7 +68,14 @@ class InstitutionCreateUpdatePermission(IlpBasePermission):
             logger.debug("User %s is permitted to complete request", request.user)
             return True
         else:
-            return request.user.has_perm('change_institution', obj)
+            logger.debug("Checking if user has change_institution permission")
+            hasperm = request.user.has_perm('change_institution', obj)
+            print(hasperm)
+            if hasperm:
+                logger.debug("User has permission to change institution")
+            else:
+                logger.debug("User does not have permission to change institution")
+            return hasperm
 
     def has_permission(self, request, view):
         logger.debug("Inside InstitutionCreateUpdatePermission has_permission")
@@ -77,7 +85,7 @@ class InstitutionCreateUpdatePermission(IlpBasePermission):
         elif self.is_user_permitted(request):
             logger.debug("Checking if is_user_permitted", self.is_user_permitted(request))
             return True
-        elif request.method in ('POST', 'PUT', 'PATCH'):
+        elif request.method == 'POST':
             logger.debug("Attempting POST to institution endpoint")
             boundary_id = request.data.get('admin3', None)
             if boundary_id is not None:
@@ -85,29 +93,50 @@ class InstitutionCreateUpdatePermission(IlpBasePermission):
                 try:
                     boundary = Boundary.objects.get(id=boundary_id)
                 except:
+                    logger.error("unable to retrieve boundary object", boundary_id)
                     return False
                 hasperm = request.user.has_perm('add_institution', boundary)
+                logger.debug("User has request to modify institution: ", hasperm)
                 return hasperm
             else:
+                logger.error("Unable to retrieve admin3 or admin3 is None")
                 return False
         else:
             return True
 
 
 class WorkUnderInstitutionPermission(IlpBasePermission):
-    def has_permission(self, request, view):
-        print("WorkUnderInstitutionPermission")
+
+    def has_object_permission(self, request, view, obj):
+        logger.debug("Entering has_object_permission")
         if self.is_user_permitted(request):
+            logger.debug("User %s is permitted to complete request", request.user)
             return True
         else:
+            logger.debug("Checking if user has crud_student_class_staff permission")
+            hasperm = request.user.has_perm('crud_student_class_staff', obj.institution)
+            print(hasperm)
+            if hasperm:
+                logger.debug("User has permission to change studetngroup")
+            else:
+                logger.debug("User does not have permission to change studentgroup")
+            return hasperm
+
+    def has_permission(self, request, view):
+        logger.debug("Entering has_permission under WorkUnderInstitutionPermission")
+        if self.is_user_permitted(request):
+            return True
+        elif request.method == 'POST':
             institution_id = request.data.get('institution', None)
-            print("institution ID is: ", institution_id)
             try:
-                institution = Institution.objects.get(id=institution_id)
+                institution = Institution.objects.get(id=int(institution_id))
             except:
+                logger.error("Unable to retrieve institution object: ", int(institution_id))
                 return False
-        hasperm = request.user.has_perm('crud_student_class_staff', institution)
-        print("User has perm: ", hasperm)
+            hasperm = request.user.has_perm('crud_student_class_staff', institution)
+            logger.debug("User has permission to work under institution: ", hasperm)
+        else:
+            return True
         return hasperm
 
 
@@ -121,7 +150,7 @@ class WorkUnderAssessmentPermission(IlpBasePermission):
                 'parent_lookup_questiongroup_id', None
             )
             try:
-                assessment = QuestionGroup.objects.get(id=assessment_id)
+                assessment = QuestionGroup.objects.get(id=int(assessment_id))
             except Exception as ex:
                 return False
         return request.user.has_perm('crud_answers', assessment)

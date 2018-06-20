@@ -137,7 +137,7 @@ class InstitutionViewSet(NestedViewSetMixin, ILPViewSet):
         logger.debug("Checking validity of serializer data", request.data)
         serializer.is_valid(raise_exception=True)
         institution = serializer.save()
-        # self._assign_permissions(serializer.instance)
+        self._assign_permissions(institution)
         headers = self.get_success_headers(serializer.data)
         logger.debug("Returning response")
         return Response(
