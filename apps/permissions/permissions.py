@@ -136,11 +136,12 @@ class WorkUnderInstitutionPermission(IlpBasePermission):
                     return False
                 hasperm = request.user.has_perm('crud_student_class_staff', institution)
                 logger.debug("User has permission to work under institution: ", hasperm)
+                return hasperm
             else:
                 logger.debug("Institution ID is None")
         else:
             return True
-        return hasperm
+       
 
 
 class WorkUnderAssessmentPermission(IlpBasePermission):
