@@ -103,7 +103,9 @@ class GPMathContestReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
-        self.sms_template ="Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s . Please click the link {}"% self.gp_name
+        self.sms_template ="Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -262,7 +264,9 @@ class SchoolReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'SchoolReport.html'
         self._type = 'SchoolReport'
-        self.sms_template ="Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}"
+        self.sms_template ="Hi {},ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -279,7 +283,6 @@ class SchoolReport(BaseReport):
 
         try:
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
-            self.sms_template = self.sms_template % school_obj.name
         except Institution.DoesNotExist:
             raise ValueError("School with code '{}' cannot be found in the database".format(self.school_code))
         except AttributeError:
@@ -427,7 +430,9 @@ class ClusterReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'ClusterReport.html'
         self._type = 'ClusterReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.cluster_name
+        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -567,7 +572,9 @@ class BlockReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'BlockReport.html'
         self._type = 'BlockReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.block_name
+        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -716,7 +723,9 @@ class DistrictReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'DistrictReport.html'
         self._type = 'DistrictReport'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.district_name
+        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -879,7 +888,9 @@ class GPMathContestReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReportSummarized.html'
         self._type = 'GPMathContestReportSummarized'
-        self.sms_template ="Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s . Please click the link {}"% self.gp_name
+        self.sms_template ="Hi {},ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1053,7 +1064,9 @@ class SchoolReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'SchoolReportSummarized.html'
         self._type = 'SchoolReportSummarized'
-        self.sms_template ="Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}"
+        self.sms_template ="Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1070,7 +1083,6 @@ class SchoolReportSummarized(BaseReport):
 
         try:
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
-            self.sms_template = self.sms_template % school_obj.name
         except Institution.DoesNotExist:
             raise ValueError("School with code '{}' cannot be found in the database".format(self.school_code))
         except AttributeError:
@@ -1233,7 +1245,9 @@ class ClusterReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'ClusterReportSummarized.html'
         self._type = 'ClusterReportSummarized'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.cluster_name
+        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1389,7 +1403,9 @@ class BlockReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'BlockReportSummarized.html'
         self._type = 'BlockReportSummarized'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.block_name
+        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1554,7 +1570,9 @@ class DistrictReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'DistrictReportSummarized.html'
         self._type = 'DistrictReportSummarized'
-        self.sms_template ='Hi {}, We at Akshara Foundation are continuously working to provide Gram panchayat math contest report for %s. Please click the link {}'% self.district_name
+        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು
+
+ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
         super().__init__(**kwargs)
 
     def parse_args(self, args):
