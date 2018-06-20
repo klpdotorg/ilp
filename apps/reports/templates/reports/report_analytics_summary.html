@@ -220,7 +220,7 @@
 	  </tr>
 
 	</table>
-	<h2>By User/h2>
+	<h2>By User</h2>
 	
 	<table style="margin: auto;" id="customers">
 	  <tr>
@@ -247,10 +247,10 @@
 	  </tr>
 	  <tr>
 	    <td><span class="mark">BRP/BEO</span></td>
-	    <td><span class="mark">{{data.by_user.brp.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.download}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.sent+data.by_user.beo.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.read+data.by_user.beo.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.visit+data.by_user.beo.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.download+data.by_user.beo.download}}</span></td>
 	  </tr>
 	  <tr>
 	    <td><span class="mark">AKSHARA STAFF</span></td>
@@ -261,10 +261,10 @@
 	  </tr>
 	  <tr>
 	    <td><span class="mark">DDPI/DIET</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.download}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.sent+data.by_user.diet.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.read+data.by_user.diet.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.visit+data.by_user.diet.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.download+data.by_user.diet.download}}</span></td>
 	  </tr>
 
 	</table>
