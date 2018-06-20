@@ -128,13 +128,16 @@ class WorkUnderInstitutionPermission(IlpBasePermission):
             return True
         elif request.method == 'POST':
             institution_id = request.data.get('institution', None)
-            try:
-                institution = Institution.objects.get(id=int(institution_id))
-            except:
-                logger.error("Unable to retrieve institution object: ", int(institution_id))
-                return False
-            hasperm = request.user.has_perm('crud_student_class_staff', institution)
-            logger.debug("User has permission to work under institution: ", hasperm)
+            if institution_id is not None:
+                try:
+                    institution = Institution.objects.get(id=int(institution_id))
+                except:
+                    logger.error("Unable to retrieve institution object: ", int(institution_id))
+                    return False
+                hasperm = request.user.has_perm('crud_student_class_staff', institution)
+                logger.debug("User has permission to work under institution: ", hasperm)
+            else:
+                logger.debug("Institution ID is None")
         else:
             return True
         return hasperm
