@@ -135,7 +135,7 @@ class WorkUnderInstitutionPermission(IlpBasePermission):
                     logger.error("Unable to retrieve institution object: ", int(institution_id))
                     return False
                 hasperm = request.user.has_perm('crud_student_class_staff', institution)
-                logger.debug("User has permission to work under institution: ", hasperm)
+                logger.debug("User has permission to work under institution: %s" % hasperm)
                 return hasperm
             else:
                 logger.debug("Institution ID is None")

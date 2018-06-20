@@ -5,7 +5,8 @@ from django.http import Http404
 
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import APIException, ValidationError
+
 from rest_framework import status
 
 from rest_framework_extensions.mixins import NestedViewSetMixin
@@ -37,15 +38,39 @@ class StudentViewSet(
     queryset = Student.objects.exclude(status=Status.DELETED)
     serializer_class = StudentSerializer
     filter_class = StudentFilter
-    permission_classes = [Or(StudentRegisterPermission, WorkUnderInstitutionPermission,)]
+    permission_classes = [Or(StudentRegisterPermission,
+                             WorkUnderInstitutionPermission,
+                        )]
+
+    # M2M query returns duplicates. Overrode this function
+    # from NestedViewSetMixin to implement the .distinct()
+    def filter_queryset_by_parents_lookups(self, queryset):
+        parents_query_dict = self.get_parents_query_dict()
+        logger.debug("Arguments passed into view is: %s", parents_query_dict)
+        if parents_query_dict:
+            try:
+                queryset = queryset.filter(
+                    **parents_query_dict
+                ).order_by().distinct('id')
+            except ValueError:
+                logger.exception(
+                    ("Exception while filtering queryset based on dictionary."
+                     "Params: %s, Queryset is: %s"),
+                    parents_query_dict, queryset)
+                raise Http404
+
+        return queryset.order_by('id')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, many=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        try:
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(
+                serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        except ValidationError:
+            raise ValidationError(serializer.errors)
 
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
