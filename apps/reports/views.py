@@ -104,7 +104,7 @@ class SendReport(View):
                 head = person
                 is_head_set = True
             else:
-                if person[0] and person[2]:
+                if self.getValue(person, head,'First Name') and self.getValue(person, head,'Mobile Number'):
                     arg = {'name': self.getValue(person, head,'First Name'),
                            'number':self.getValue(person, head,'Mobile Number'),
                            'role':self.getValue(person, head,'role'),
