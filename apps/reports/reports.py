@@ -41,10 +41,10 @@ class BaseReport(ABC):
         if not self.data:
             self.data = self.get_data();
 
-        if lang == 'kannada':
-            template = 'reports/{}kannada.html'.format(self._type)
-        else:
+        if lang == 'english':
             template = 'reports/{}.html'.format(self._type)
+        else:
+            template = 'reports/{}kannada.html'.format(self._type)
         html = render_to_string(template, {'data':self.data})
         return html
 
