@@ -10,15 +10,16 @@ class Reports(models.Model):
 
 class Tracking(models.Model):
     report_id = models.ForeignKey('Reports', db_column="link_id")
-    report_type = models.CharField(max_length=100)
+    report_type = models.CharField(max_length=100, null=True)
     track_id = models.CharField(max_length=10)
     recipient = models.CharField(max_length=100,null=True)
     visit_count = models.IntegerField(default=0)
     download_count = models.IntegerField(default=0)
     visited_at = models.DateField(null=True)
     downloaded_at = models.DateField(null=True)
-    status = models.CharField(max_length=10)
+    status = models.CharField(max_length=10, null=True)
     role = models.CharField(max_length=20, null=True)
+    created_at = models.DateField(auto_now=True,null=True)
 
     def __str__(self):
         return '{} sent to {}'.format(self.report_type, self.recipient)

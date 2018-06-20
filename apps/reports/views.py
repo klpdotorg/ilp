@@ -70,7 +70,7 @@ def download_analytics(request ):
             'block_level':getBlockLevel(reports),
             'cluster_level':getClusterLevel(reports),
             'top_summary':getTopSummary(reports),
-            'by_user':getByUser(reports)
+            'by_user':getByReportType(reports)
     }
     html = render_to_string(template, {'data':data})
     config = pdfkit.configuration()
@@ -141,11 +141,13 @@ class ReportAnalytics(View):
             messages = []
             successfull=True
             reports = Reports.objects.filter(data__today__range=[data_from, data_to])
+            trackings = Tracking.objects.filter(created_at__range=[data_from, data_to])
             data = {'district_level':getDistrictLevel(reports),
                     'block_level':getBlockLevel(reports),
                     'cluster_level':getClusterLevel(reports),
                     'top_summary':getTopSummary(reports),
-                    'by_user':getByUser(reports)
+                    'by_type':getByReportType(reports),
+                    'by_user':getByUser(trackings)
             }
             
             return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successfull,'data':data})
@@ -209,7 +211,7 @@ def getTopSummary(reports):
     download = reports.aggregate(sum=Sum('tracking__download_count'))['sum']
     return dict(sent=sent, read=read, visit=visit, download=download)
 
-def getByUser(reports):
+def getByReportType(reports):
     district_report = reports.filter(report_type='DistrictReport')
     block_report = reports.filter(report_type='BlockReport')
     clusterreport = reports.filter(report_type='ClusterReport')
@@ -223,3 +225,23 @@ def getByUser(reports):
     gp = getTopSummary(gp_report)
 
     return dict(district=district, block=block, cluster=cluster, school=school, gp=gp)
+
+def getByUser(trackings):
+    
+    beo =  trackings.filter(role='BEO')
+    brp = trackings.filter(role='BRP')
+    ddpi = trackings.filter(role='DDPI')
+    diet = trackings.filter(role='DIET')
+    crps = trackings.filter(role='CRPS')
+    hms = trackings.filter(role='HMS')
+    staff = trackings.filter(role='AKSHARA STAFF')
+    
+    return dict(beo=getSentData(beo), brp=getSentData(brp), ddpi=getSentData(ddpi), diet=getSentData(diet),
+                       crps=getSentData(crps), hms=getSentData(hms), staff = getSentData(staff))
+
+def getSentData(trackings):
+    sent = trackings.count()
+    visit = trackings.aggregate(sum=Sum('visit_count'))['sum']
+    read = trackings.aggregate(read_unique = Count(Case(When(visit_count__gt=0, then=1))))['read_unique']
+    download = trackings.aggregate(sum=Sum('download_count'))['sum']
+    return dict(sent=sent, read=read, visit=visit, download=download)
