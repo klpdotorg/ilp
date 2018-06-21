@@ -7,12 +7,9 @@ from .reportlist import reportlist
 from .links import send_recipient
 
 
-def generate_report_internal(report_type, filepath, report_from, report_to, args, dry):
+def generate_report_internal(report_type, filepath, report_from, report_to, dry):
     try:
         r = reportlist[report_type]
-        report = r()
-        report.parse_args(args)
-
         with open(filepath, 'rt') as f:
             reader = csv.reader(f)
             print(dry)
@@ -25,9 +22,9 @@ def generate_report_internal(report_type, filepath, report_from, report_to, args
         sys.stderr.write("Error in Report generation\n")
         raise
 
-def generate_report(report_type, filename, report_from, report_to, args, dry):
+def generate_report(report_type, filename, report_from, report_to, dry):
     try:
-        rid = generate_report_internal(report_type, filename, report_from, report_to, args, dry)
+        rid = generate_report_internal(report_type, filename, report_from, report_to, dry)
         print ("Report created. Id is {} \n".format(rid))
 
     except (KeyError, ValueError) as e:
