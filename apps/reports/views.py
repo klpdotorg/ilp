@@ -10,7 +10,7 @@ from django.contrib.postgres.fields.jsonb import KeyTextTransform
 from django.db.models import Sum, Count, Case, When
 from django.template.loader import render_to_string
 
-from .links import send_link
+from .links import send_link, send_recipient
 from .models import Reports, Tracking
 from .reportlist import reportlist
 
@@ -92,40 +92,10 @@ class SendReport(View):
         print(dry)
         recipients = TextIOWrapper(request.FILES['recipients'].file, encoding=request.encoding)
         reader = csv.reader(recipients)
-        is_head_set = False
-        head = []
-        params = dict(report_from=report_from, report_to=report_to)
 
-        messages = []
-        successfull = 0
-
-        for person in reader:
-            if not is_head_set:
-                head = person
-                is_head_set = True
-            else:
-                if self.getValue(person, head,'First Name') and self.getValue(person, head,'Mobile Number'):
-                    arg = {'name': self.getValue(person, head,'First Name'),
-                           'number':self.getValue(person, head,'Mobile Number'),
-                           'role':self.getValue(person, head,'role'),
-                    }
-                    if dry:
-                        messages.append("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
-                    else:
-                        try:
-                            for i in reportlist[report_type].parameters:
-                                params[i] = self.getValue(person, head,i)
-                        except ValueError:
-                            messages.append("Field {} required for {} not found in csv file".format(i, report_type))
-                            break
-                        try:
-                            send_link(report_type,params, arg, dry_run=dry)
-                            successfull += 1
-                            messages.append("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
-                        except ValueError as e:
-                            messages.append(e.args[0])
-                        
-        return render(request, 'reports/report_summary.html', context={'messages':messages, 'success':successfull})
+        res= send_recipient(report_type, report_from, report_to, reader, dry)
+        
+        return render(request, 'reports/report_summary.html', context={'messages':res['messages'], 'success':res['successfull']})
 
     def getValue(self, person, head, i):
 

@@ -93,7 +93,7 @@ def send_recipient(report_type, report_from, report_to, reader, dry):
                             messages.append("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
                         except ValueError as e:
                             messages.append(e.args[0])
-    return messages
+    return dict(messages=messages, successfull=successfull)
         
 def getValue( person, head, i):
     index = head.index(i)
