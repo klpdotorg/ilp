@@ -12,8 +12,9 @@ def generate_report_internal(report_type, filepath, report_from, report_to, dry)
         r = reportlist[report_type]
         with open(filepath, 'rt') as f:
             reader = csv.reader(f)
-            print(dry)
-            send_recipient(report_type, report_from, report_to, reader, dry)
+            messages = send_recipient(report_type, report_from, report_to, reader, dry)
+            for m in messages:
+                print(m)
         print('success')
     except KeyError:
         sys.stderr.write("{} is not a valid report type\n".format(report_type))
