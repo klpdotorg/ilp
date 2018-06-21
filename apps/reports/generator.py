@@ -1,18 +1,23 @@
 import sys
+import csv
 import django_filters
 
 from reports.reports import ReportOne, GPMathContestReport
 from .reportlist import reportlist
+from .links import send_recipient
 
 
-def generate_report_internal(report_format, report_type, output_name, args):
+def generate_report_internal(report_type, filepath, report_from, report_to, args, dry):
     try:
         r = reportlist[report_type]
         report = r()
         report.parse_args(args)
-        report.generate(report_format, output_name)
-        result = report.save()
-        return result.link_id
+
+        with open(filepath, 'rt') as f:
+            reader = csv.reader(f)
+            print(dry)
+            send_recipient(report_type, report_from, report_to, reader, dry)
+        print('success')
     except KeyError:
         sys.stderr.write("{} is not a valid report type\n".format(report_type))
         raise
@@ -20,9 +25,9 @@ def generate_report_internal(report_format, report_type, output_name, args):
         sys.stderr.write("Error in Report generation\n")
         raise
 
-def generate_report(report_format, report_type, output_name, args):
+def generate_report(report_type, filename, report_from, report_to, args, dry):
     try:
-        rid = generate_report_internal(report_format, report_type, output_name, args)
+        rid = generate_report_internal(report_type, filename, report_from, report_to, args, dry)
         print ("Report created. Id is {} \n".format(rid))
 
     except (KeyError, ValueError) as e:

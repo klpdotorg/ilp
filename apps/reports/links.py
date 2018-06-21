@@ -60,3 +60,46 @@ def send_link(report_type, params, args, dry_run=False):
     else:
         return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
         
+def send_recipient(report_type, report_from, report_to, reader, dry):
+    
+    is_head_set = False
+    head = []
+    params = dict(report_from=report_from, report_to=report_to)
+    
+    messages = []
+    successfull = 0
+    for person in reader:
+            if not is_head_set:
+                head = person
+                is_head_set = True
+            else:
+                if getValue(person, head,'First Name') and getValue(person, head,'Mobile Number'):
+                    arg = {'name': getValue(person, head,'First Name'),
+                           'number':getValue(person, head,'Mobile Number'),
+                           'role':getValue(person, head,'role'),
+                    }
+                    if dry:
+                        messages.append("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
+                        print("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
+                    else:
+                        try:
+                            for i in reportlist[report_type].parameters:
+                                params[i] = getValue(person, head,i)
+                        except ValueError:
+                            messages.append("Field {} required for {} not found in csv file".format(i, report_type))
+                            print("Field {} required for {} not found in csv file".format(i, report_type))
+                            break
+                        try:
+                            send_link(report_type,params, arg, dry_run=dry)
+                            successfull += 1
+                            messages.append("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number']))
+                            print("{} is send to {} ,in this number {}".format(report_type, arg['name'], arg['number'])))
+                        except ValueError as e:
+                            messages.append(e.args[0])
+                            print(e.args[0])
+    return messages
+        
+def getValue( person, head, i):
+    index = head.index(i)
+    value = person[index]
+    return value
