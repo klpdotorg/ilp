@@ -48,7 +48,6 @@ class InstitutionSummaryView(ILPStateMixin, ILPListAPIView):
 
     def get_serializer_class(self):
         lean =  self.request.GET.get('lean', False)
-        print("Lean is: ", lean)
         if lean == "True" or lean == 'true':
             print("Returning lean institution serializer")
             return LeanInstitutionSummarySerializer
@@ -131,15 +130,12 @@ class InstitutionViewSet(NestedViewSetMixin, ILPViewSet):
         return qset
 
     def create(self, request, *args, **kwargs):
-        logger.debug("Inside Institution Create")
         logger.debug("Institution request data is: %s" % request.data)
         serializer = InstitutionCreateSerializer(data=request.data)
-        logger.debug("Checking validity of serializer data", request.data)
         serializer.is_valid(raise_exception=True)
         institution = serializer.save()
         self._assign_permissions(institution)
         headers = self.get_success_headers(serializer.data)
-        logger.debug("Returning response")
         return Response(
             InstitutionSerializer(institution).data,
             status=status.HTTP_201_CREATED, headers=headers
@@ -153,7 +149,6 @@ class InstitutionViewSet(NestedViewSetMixin, ILPViewSet):
 
 
     def update(self, request, *args, **kwargs):
-        logger.debug("Entering institution update")
         try:
             instance = self.get_object()
             serializer = InstitutionCreateSerializer(

@@ -21,6 +21,9 @@ from schools.serializers import (
 from schools.filters import (
     StudentFilter, StudentGroupFilter
 )
+from common.views import (
+    ILPViewSet
+)
 
 from common.models import Status
 from permissions.permissions import (
@@ -32,7 +35,7 @@ logger = logging.getLogger(__name__)
 
 class StudentViewSet(
         NestedViewSetMixin,
-        viewsets.ModelViewSet
+        ILPViewSet
 ):
 
     queryset = Student.objects.exclude(status=Status.DELETED)
@@ -46,7 +49,6 @@ class StudentViewSet(
     # from NestedViewSetMixin to implement the .distinct()
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
-        logger.debug("Arguments passed into view is: %s", parents_query_dict)
         if parents_query_dict:
             try:
                 queryset = queryset.filter(
@@ -106,7 +108,6 @@ class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
-        logger.debug("Arguments passed into view is: %s", parents_query_dict)
         if parents_query_dict:
             try:
                 queryset = queryset.filter(

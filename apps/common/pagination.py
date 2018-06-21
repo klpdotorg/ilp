@@ -23,7 +23,6 @@ class ILPDefaultPagination(PageNumberPagination):
         per_page = int(self.request.query_params.get(
             "per_page",
             settings.LARGESETPAGINATION))
-        print("Pagination per_page is: ", per_page)
         # length = None
         if isinstance(data, list):
             length = len(data)
