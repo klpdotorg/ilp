@@ -12,6 +12,11 @@ class Command(BaseCommand):
             help='Dry run of command instead of actual run',
         )
         parser.add_argument(
+            '--kannada',
+            action= 'store_true',
+            help='Dry run of command instead of actual run',
+        )
+        parser.add_argument(
             '--filename',
             help='file name of contacts in csv format',
         )
@@ -30,6 +35,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         dry = False
+        kannada = False
         filename = 'contacts.csv'
         gp_name = 'abbinahole'
         arg_two = ''
@@ -40,6 +46,9 @@ class Command(BaseCommand):
         if options['dry']:
             print('dry running')
             dry = True
+        if options['kannada']:
+            print('kannada report')
+            kannada = True
         if options['gp_name']:
            gp_name = options['gp_name']
         if options['r_type']:
@@ -47,4 +56,4 @@ class Command(BaseCommand):
         if options['arg_two']:
             arg_two = options['arg_two']
 
-        send_link(dry, filename, gp_name, arg_two, r_type)
+        send_link(dry,kannada, filename, gp_name, arg_two, r_type)
