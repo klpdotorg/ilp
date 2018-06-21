@@ -15,6 +15,7 @@ def generate_report_internal(report_type, filepath, report_from, report_to, dry)
             res = send_recipient(report_type, report_from, report_to, reader, dry)
             for m in res['messages']:
                 print(m)
+            return(res['successfull'])
         print('success')
     except KeyError:
         sys.stderr.write("{} is not a valid report type\n".format(report_type))
@@ -26,6 +27,7 @@ def generate_report_internal(report_type, filepath, report_from, report_to, dry)
 def generate_report(report_type, filename, report_from, report_to, dry):
     try:
         rid = generate_report_internal(report_type, filename, report_from, report_to, dry)
+        print ("{} Report created and Successfully sent \n".format(rid))
 
     except (KeyError, ValueError) as e:
         sys.exit(-2)
