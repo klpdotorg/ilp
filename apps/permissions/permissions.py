@@ -124,10 +124,17 @@ class WorkUnderInstitutionPermission(IlpBasePermission):
 
     def has_permission(self, request, view):
         logger.debug("Entering has_permission under WorkUnderInstitutionPermission")
+        print("data is: ", request.data)
         if self.is_user_permitted(request):
             return True
         elif request.method == 'POST':
-            institution_id = request.data.get('institution', None)
+            institution_id = None
+            #Students endpoint passes an array. hence check if data is a list and then grab institution
+            if isinstance(request.data, list):
+                array = request.data[0]
+                institution_id = array['institution']
+            else:
+                institution_id = request.data.get('institution', None)
             if institution_id is not None:
                 try:
                     institution = Institution.objects.get(id=int(institution_id))

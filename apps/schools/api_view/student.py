@@ -65,12 +65,13 @@ class StudentViewSet(
         serializer = self.get_serializer(data=request.data, many=True)
         try:
             serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
+            instance = self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(
-                serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        except ValidationError:
-            raise ValidationError(serializer.errors)
+                instance, status=status.HTTP_201_CREATED, headers=headers)
+        except ValidationError as exception:
+            logger.debug("Validation error during creation of student")
+            raise ValidationError(exception.get_full_details())
 
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
