@@ -160,7 +160,7 @@ urlpatterns = [
         name='survey-detail-class-key'),
     url(r'survey/detail/questiongroup/key/$',
         SurveyQuestionGroupQuestionKeyAPIView.as_view(),
-        name='survey-detail-class-key'),
+        name='survey-detail-questiongroup-key'),
     url(r'survey/volume/$', SurveyVolumeAPIView.as_view(),
         name='survey-volume'),
     url(r'survey/detail/class/$', SurveyDetailClassAPIView.as_view(),
