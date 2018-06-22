@@ -135,7 +135,7 @@ class GPMathContestReport(BaseReport):
             raise ValueError("No GP contests found for '{}' between {} and {}".format(gp, self.report_from, self.report_to))
 
         block = AGI.values_list('institution__admin2__name', flat=True).distinct()[0]
-        district = AGI.values_list('institution__admin3__name', flat=True).distinct()[0]
+        district = AGI.values_list('institution__admin1__name', flat=True).distinct()[0]
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
@@ -910,7 +910,7 @@ class GPMathContestReportSummarized(BaseReport):
             raise ValueError("No GP contests found for '{}' between {} and {}".format(gp, self.report_from, self.report_to))
 
         block = AGI.values_list('institution__admin2__name', flat=True).distinct()[0]
-        district = AGI.values_list('institution__admin3__name', flat=True).distinct()[0]
+        district = AGI.values_list('institution__admin1__name', flat=True).distinct()[0]
         num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
         num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
         number_of_students = num_boys + num_girls
