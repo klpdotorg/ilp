@@ -24,22 +24,23 @@ router.register(r'institutestudents', InstituteStudentsViewSet, base_name='insti
 router.register(r'institutestudentgroups', InstituteStudentGroupViewSet, base_name='institutestudentgroup')
 
 # Institution -> StudentGroup -> Students
-nested_router.register(
+institution_routes = nested_router.register(
     r'institutions',
     InstitutionViewSet,
     base_name='institution'
-    ).register(
-        r'studentgroups',
-        StudentGroupViewSet,
-        base_name='institution-studentgroup',
-        parents_query_lookups=['institution']
-        ).register(
-            r'students',
-            StudentViewSet,
-            base_name='institution-studentgroup-students',
-            parents_query_lookups=[
-                'institution', 'studentgroups']
-        )
+)
+institution_routes.register(
+    r'studentgroups',
+    StudentGroupViewSet,
+    base_name='institutions-studentgroup',
+    parents_query_lookups=['institution']
+)
+institution_routes.register(
+    r'students',
+    StudentViewSet,
+    base_name='institutions-student',
+    parents_query_lookups=['institution']
+)
 
 # StudentGroups -> Students -> StudentStudentGroupRelation
 nested_router.register(
@@ -57,7 +58,6 @@ nested_router.register(
             base_name='studentstudentgrouprelation',
             parents_query_lookups=['student__studentgroups', 'student']
         )
-#  Students -> StudentGroups -> StudentStudentGroupRelation
 
 # Programme
 nested_router.register(r'programmes', ProgrammeViewSet, base_name='programme')

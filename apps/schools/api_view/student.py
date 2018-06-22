@@ -34,16 +34,15 @@ logger = logging.getLogger(__name__)
 
 
 class StudentViewSet(
-        NestedViewSetMixin,
-        ILPViewSet
+        NestedViewSetMixin, ILPViewSet
 ):
 
     queryset = Student.objects.exclude(status=Status.DELETED)
     serializer_class = StudentSerializer
     filter_class = StudentFilter
-    permission_classes = [Or(StudentRegisterPermission,
-                             WorkUnderInstitutionPermission,
-                        )]
+    permission_classes = [
+        Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
+    ]
 
     # M2M query returns duplicates. Overrode this function
     # from NestedViewSetMixin to implement the .distinct()
