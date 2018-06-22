@@ -49,7 +49,7 @@ nested_router.register(
     ).register(
         r'students',
         StudentViewSet,
-        base_name='nested_students',
+        base_name='studentgroups-student',
         parents_query_lookups=['studentgroups']
         ).register(
             r'enrollment',

@@ -30,7 +30,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=50, blank=True, null=True)
     uid = models.CharField(max_length=100, blank=True, null=True)
     dob = models.DateField(max_length=20, null=True)
-    gender = models.ForeignKey('common.Gender', default='m')
+    gender = models.ForeignKey('common.Gender', default='male')
     mt = models.ForeignKey('common.Language', default='kan')
     religion = models.ForeignKey('common.Religion', null=True)
     category = models.ForeignKey('common.StudentCategory', null=True)

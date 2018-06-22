@@ -10,7 +10,64 @@ from django.core.management import call_command
 from schools.api_view import StudentGroupViewSet
 
 
-class StudentGroupApiTests(APITestCase):
+class StudentGroupAPITest(APITestCase):
+
+    @classmethod
+    def setUpTestData(self):
+        call_command('loaddata',
+                     'apps/schools/tests/test_fixtures/studentgroup')
+        call_command('loaddata',
+                     'apps/schools/tests/test_fixtures/student')
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_superuser(
+            'test_admin', 'admin')
+
+    def test_list_studentgroups(self):
+        url = reverse('institution:studentgroup-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_create_studentgroups(self):
+        url = reverse('institution:studentgroup-list')
+        post_data = {
+            'institution': '36172',
+            'name': 'test_class_1A',
+            'section': 'A',
+            'group_type': 'class',
+            'status': 'AC'
+        }
+        self.client.force_authenticate(user=self.user)
+        response = self.client.post(url, post_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_studentgroups_students(self):
+        url = reverse('institution:studentgroups-student-list',
+                      args=[3486429, ])
+        post_data = [{
+            "first_name": "1",
+            "middle_name": "middle",
+            "last_name": "last",
+            "dob": "2007-07-04",
+            "father_name": "first father",
+            "mother_name": "first_mother",
+            "status": "AC",
+            "studentgroup": 3486429,
+            "institution": 36172,
+            "academic_year": "1516"
+        }, ]
+        self.client.force_authenticate(user=self.user)
+        response = self.client.post(url, post_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_list_studentgroups_students(self):
+        url = reverse('institution:studentgroups-student-list',
+                      args=[3486429, ])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class InstitutionStudentGroupApiTests(APITestCase):
 
     # setupTestData is invoked in the parent class
     # which sets up fixtures just once for all

@@ -26,7 +26,6 @@ class InstitutionAPITests(APITestCase):
             '3322233323', 'admin')
         self.regular_user = get_user_model().objects.create('1111122222', 'regular')
 
-
     def test_list_api(self):
         url = reverse('institution:institution-list')
         response = self.client.get(url, {'state': 'ka'})
@@ -192,7 +191,7 @@ class InstitutionAPITests(APITestCase):
                 "last_verified_year": "1516"
             }
         )
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_nonadmin_post_institution(self):
         url = reverse('institution:institution-list')
