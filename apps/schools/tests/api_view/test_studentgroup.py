@@ -42,7 +42,7 @@ class StudentGroupAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_create_studentgroups_students(self):
-        url = reverse('institution:studentgroups-student-list',
+        url = reverse('institution:studentgroup-student-list',
                       args=[3486429, ])
         post_data = [{
             "first_name": "1",
@@ -61,7 +61,7 @@ class StudentGroupAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_list_studentgroups_students(self):
-        url = reverse('institution:studentgroups-student-list',
+        url = reverse('institution:studentgroup-student-list',
                       args=[3486429, ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

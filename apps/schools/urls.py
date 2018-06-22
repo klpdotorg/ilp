@@ -12,7 +12,8 @@ from schools.api_view import (
 )
 from schools.api_view import (
     StudentViewSet, StudentGroupViewSet, StudentStudentGroupViewSet,
-    ProgrammeViewSet, StaffViewSet, InstituteStudentsViewSet, InstituteStudentGroupViewSet
+    ProgrammeViewSet, StaffViewSet, InstituteStudentsViewSet,
+    InstituteStudentGroupViewSet
 )
 from schools.views import SchoolPageView
 
@@ -32,13 +33,13 @@ institution_routes = nested_router.register(
 institution_routes.register(
     r'studentgroups',
     StudentGroupViewSet,
-    base_name='institutions-studentgroup',
+    base_name='institution-studentgroup',
     parents_query_lookups=['institution']
 )
 institution_routes.register(
     r'students',
     StudentViewSet,
-    base_name='institutions-student',
+    base_name='institution-student',
     parents_query_lookups=['institution']
 )
 
@@ -50,7 +51,7 @@ nested_router.register(
     ).register(
         r'students',
         StudentViewSet,
-        base_name='studentgroups-student',
+        base_name='studentgroup-student',
         parents_query_lookups=['studentgroups']
         ).register(
             r'enrollment',
