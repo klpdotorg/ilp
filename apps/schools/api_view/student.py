@@ -78,12 +78,6 @@ class StudentViewSet(
         instance.status_id = Status.DELETED
         instance.save()
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         response = []
