@@ -111,7 +111,7 @@ class QuestionGroupViewSet(
 
     def get_queryset(self):
         queryset = QuestionGroup.objects.exclude(status=Status.DELETED)
-        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_id = self.get_parents_query_dict()['survey']
         queryset = queryset.filter(survey_id=survey_id)
         return queryset
 

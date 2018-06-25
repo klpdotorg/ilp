@@ -6,9 +6,8 @@ from django.http import Http404
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException, ValidationError
-
+from rest_framework.decorators import action
 from rest_framework import status
-
 from rest_framework_extensions.mixins import NestedViewSetMixin
 from rest_framework_bulk import BulkCreateModelMixin
 
@@ -34,16 +33,15 @@ logger = logging.getLogger(__name__)
 
 
 class StudentViewSet(
-        NestedViewSetMixin,
-        ILPViewSet
+        NestedViewSetMixin, ILPViewSet
 ):
 
     queryset = Student.objects.exclude(status=Status.DELETED)
     serializer_class = StudentSerializer
     filter_class = StudentFilter
-    permission_classes = [Or(StudentRegisterPermission,
-                             WorkUnderInstitutionPermission,
-                        )]
+    permission_classes = [
+        Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
+    ]
 
     # M2M query returns duplicates. Overrode this function
     # from NestedViewSetMixin to implement the .distinct()
@@ -51,9 +49,8 @@ class StudentViewSet(
         parents_query_dict = self.get_parents_query_dict()
         if parents_query_dict:
             try:
-                queryset = queryset.filter(
-                    **parents_query_dict
-                ).order_by().distinct('id')
+                queryset = queryset.filter(**parents_query_dict).\
+                    order_by().distinct('id')
             except ValueError:
                 logger.exception(
                     ("Exception while filtering queryset based on dictionary."
@@ -79,13 +76,8 @@ class StudentViewSet(
         instance.status_id = Status.DELETED
         instance.save()
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def update(self, request, *args, **kwargs):
+    @action(methods=['put'], detail=False, url_path='bulk-update')
+    def bulk_update(self, request, **kwargs):
         partial = kwargs.pop('partial', False)
         response = []
         for datum in request.data:
@@ -103,16 +95,15 @@ class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = StudentGroup.objects.exclude(status=Status.DELETED)
     serializer_class = StudentGroupSerializer
     filter_class = StudentGroupFilter
+
     # M2M query returns duplicates. Overrode this function
     # from NestedViewSetMixin to implement the .distinct()
-
     def filter_queryset_by_parents_lookups(self, queryset):
         parents_query_dict = self.get_parents_query_dict()
         if parents_query_dict:
             try:
-                queryset = queryset.filter(
-                    **parents_query_dict
-                ).order_by().distinct('id')
+                queryset = queryset.filter(**parents_query_dict).\
+                    order_by().distinct('id')
             except ValueError:
                 logger.exception(
                     ("Exception while filtering queryset based on dictionary."

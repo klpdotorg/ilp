@@ -55,16 +55,16 @@ questiongroup_router = \
     nested_router.register(
         r'surveys',
         SurveysViewSet,
-        base_name='surveys').register(
+        base_name='survey').register(
             r'questiongroup',
             QuestionGroupViewSet,
-            base_name='survey-questiongroups',
-            parents_query_lookups=['survey_id']
+            base_name='survey-questiongroup',
+            parents_query_lookups=['survey']
         )
 
 questiongroup_router.register(
     r'questions', QuestionGroupQuestions,
-    base_name="survey-questiongroup-questions",
+    base_name="survey-questiongroup-question",
     parents_query_lookups=[
         'survey', 'questiongroup']
 )
