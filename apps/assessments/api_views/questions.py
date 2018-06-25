@@ -216,7 +216,7 @@ class QuestionGroupViewSet(
 
     @action(methods=['get'], detail=False, url_path='mappings')
     def mappings(self, request, *args, **kwargs):
-        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_id = self.get_parents_query_dict()['survey']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         institution_id = request.query_params.get('institution_id', None)
 

@@ -64,10 +64,13 @@ class StudentViewSet(
         serializer = self.get_serializer(data=request.data, many=True)
         try:
             serializer.is_valid(raise_exception=True)
-            instance = self.perform_create(serializer)
+            self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
             return Response(
-                instance, status=status.HTTP_201_CREATED, headers=headers)
+                serializer.data,
+                status=status.HTTP_201_CREATED,
+                headers=headers
+            )
         except ValidationError as exception:
             logger.debug("Validation error during creation of student")
             raise ValidationError(exception.get_full_details())
@@ -76,8 +79,15 @@ class StudentViewSet(
         instance.status_id = Status.DELETED
         instance.save()
 
-    @action(methods=['put'], detail=False, url_path='bulk-update')
-    def bulk_update(self, request, **kwargs):
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def get_object(self):
+        if self.request.method == 'PUT':
+            return None
+        return super(StudentViewSet, self).get_object()
+
+    def update(self, request, **kwargs):
         partial = kwargs.pop('partial', False)
         response = []
         for datum in request.data:
