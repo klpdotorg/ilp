@@ -107,7 +107,9 @@ DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
     'assessments.AnswerGroup_Institution',
     'assessments.AnswerInstitution',
     'assessments.AnswerGroup_Student',
-    'assessments.AnswerStudent'
+    'assessments.AnswerStudent',
+    'assessments.AnswerGroup_StudentGroup',
+    'assessments.AnswerStudentGroup'
 ]
 # Root URL Config
 ROOT_URLCONF = 'ilp.urls'
