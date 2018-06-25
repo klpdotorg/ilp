@@ -79,8 +79,15 @@ class StudentViewSet(
         instance.status_id = Status.DELETED
         instance.save()
 
-    @action(methods=['put'], detail=False, url_path='bulk-update')
-    def bulk_update(self, request, **kwargs):
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def get_object(self):
+        if self.request.method == 'PUT':
+            return None
+        return super(StudentViewSet, self).get_object()
+
+    def update(self, request, **kwargs):
         partial = kwargs.pop('partial', False)
         response = []
         for datum in request.data:
