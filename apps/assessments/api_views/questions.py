@@ -98,7 +98,7 @@ class BoundaryQuestionGroupMapping(ILPListAPIView):
                 Q(institution__admin1_id__in=boundary_ids) |
                 Q(institution__admin2_id__in=boundary_ids) |
                 Q(institution__admin3_id__in=boundary_ids)
-            )
+            ).distinct('questiongroup__id')
         return result
 
 

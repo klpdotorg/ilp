@@ -228,10 +228,14 @@ class RespondentTypeSerializer(ILPSerializer):
 class QuestionGroupInstitutionAssociationSerializer(
         serializers.ModelSerializer):
 
+    name = serializers.CharField(
+        source="questiongroup.name")
+    questiongroup_id = serializers.CharField(source='questiongroup.id')
+    
     class Meta:
         model = QuestionGroup_Institution_Association
         fields = (
-                'questiongroup', 'institution', 'status',
+                'id', 'questiongroup_id', 'name', 'status'
         )
 
 class QuestionGroupStudentGroupAssociationSerializer(
