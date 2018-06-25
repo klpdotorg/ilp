@@ -1,8 +1,6 @@
 import sys
 import csv
-import django_filters
 
-from reports.reports import ReportOne, GPMathContestReport
 from .reportlist import reportlist
 from .links import send_recipient
 

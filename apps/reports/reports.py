@@ -1,6 +1,5 @@
 import argparse, hashlib, random
 from abc import ABC, abstractmethod
-from jinja2 import Environment, FileSystemLoader
 from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -75,20 +74,6 @@ class BaseReport(ABC):
         t = Tracking(report_id = report, track_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:7])
         t.save()
         return t
-
-class ReportOne(BaseReport):
-    def __init__(self, from_date, to_date, **kwargs):
-        self.from_date = from_date
-        self.to_date = to_date
-        self._template_path  = 'report_one.html'
-        self.sms_template = 'some_url/{}/{}'
-        self._type = 'reportOne'
-        self.params = dict(from_date=self.from_date,to_date=self.to_date)
-        super().__init__(**kwargs)
-
-    def get_data(self):
-#        return assess_models.AnswerGroup_Institution.objects.all()[:5]
-        return ['name','some','dfdfdfa','dfdafad']
 
 class GPMathContestReport(BaseReport):
     parameters = ('gp_name', )

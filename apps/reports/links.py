@@ -1,11 +1,4 @@
-import datetime
-import csv
-import sys
-
-
-from reports.reports import ReportOne,GPMathContestReport, SchoolReport, ClusterReport, BlockReport, DistrictReport
-from reports.models import Reports
-from .reportlist import reportlist, param_ids
+from .reportlist import reportlist
 from common.utils import send_sms
 
 def send_link(report_type, params, args, dry_run=False):
