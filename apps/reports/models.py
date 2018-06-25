@@ -23,10 +23,3 @@ class Tracking(models.Model):
 
     def __str__(self):
         return '{} sent to {}'.format(self.report_type, self.recipient)
-
-class Sending_Information(models.Model):
-    frequency = models.CharField(max_length=50) 
-    contacts = models.CharField(max_length=50)
-    parameters = JSONField()
-    report_type = models.CharField(max_length=50) 
-    
