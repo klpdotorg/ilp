@@ -4,7 +4,7 @@ id,question_text,display_text,key,options,is_featured,question type,status,max s
 651,How many schools participated in the GP contest ?,How many schools participated in the GP contest ?,Count of GP,"{}",True,2,AC,,,ಒಟ್ಟೂ ಎಷ್ಟು ಶಾಲೆಗಳು ಭಾಗವಹಿಸಿದವು?,
 652,How many parents were present (including SDMC) ?,How many parents were present (including SDMC) ?,Count of parents,"{}",True,2,AC,,,ಒಟ್ಟೂ ಎಷ್ಟು ಪೋಷಕರು ಭಾಗವಹಿಸಿದವು?,
 653,How many children participated ?,How many children participated ?,Count of children,"{}",True,2,AC,,,ಒಟ್ಟೂ ಎಷ್ಟು ಮಕ್ಕಳು ಭಾಗವಹಿಸಿದರು?,
-654,How many Education officers were present (BEO"," CRP"," EO"," DDPI"," DIET etc)" ?,How many Education officers were present (BEO"," CRP"," EO"," DDPI"," DIET etc) ?,Count of Govt official,"{}",True,2,AC,,,ಶಿಕ್ಷಣ ಇಲಾಖೆಯಿಂದ ಎಷ್ಟು ಜನ ಹಾಜರಿದ್ದರು? (BEO, CRP, EO, DDPI, DIET etc),
+654,How many Education officers were present "{BEO, CRP, EO, DDPI, DIET etc}" ?,How many Education officers were present "{BEO, CRP, EO, DDPI, DIET etc}" ?,Count of Govt official,"{}",True,2,AC,,,ಶಿಕ್ಷಣ ಇಲಾಖೆಯಿಂದ ಎಷ್ಟು ಜನ ಹಾಜರಿದ್ದರು? (BEO, CRP, EO, DDPI, DIET etc),
 655,How many GP Members/President were present?,How many GP Members/President were present ?,Count of Gp members,"{}",True,2,AC,,,ಗ್ರಾಮ ಪಂಚಾಯತಿ ಇಂದ ಎಷ್ಟು ಮಂದಿ ಭಾಗವಹಿಸಿದರು?,
 656,Was there any official circular/letter issued by GP/CEO/DDPI/BEO to conduct GP Contest ?,Was there any official circular/letter issued by GP/CEO/DDPI/BEO to conduct GP Contest ?,"{Yes,No}",True,1,AC,,,ಗ್ರಾಮ ಪಂಚಾಯತಿ ಗಣಿತ ಸ್ಪರ್ಧೆ ನಡೆಸಲು ಮೇಲಧಿಕಾರಿಯಿಂದ (BEO/CEO/DDPI/DIET/GP) ಸುತ್ತೋಲೆ, ಆದೇಶ ಹೊರಡಿಸಲಾಗಿತ್ತೆ ?,"{ಹೌದು,ಇಲ್ಲ}"
 657,How many education volunteers helped ?,How many education volunteers helped ?,Count of Education Volunteers,"{}",True,2,AC,,,ಎಷ್ಟು ಶಿಕ್ಷಣ ಸ್ವಯಂಸೇವಕರು ಸಹಾಯ ಮಾಡಿದರು?,
