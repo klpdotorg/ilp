@@ -67,10 +67,10 @@ class SharedAssessmentsView(ListAPIView):
         })
 
 
-class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
+class ShareYourStoryAPIView(ILPViewSet):
     serializer_class = AnswerSerializer
     permission_classes = (AppPostPermissions,)
-    
+
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
         data['questiongroup'] = 6
@@ -90,30 +90,30 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
         }
         serializer = AnswerGroupInstSerializer(data=answergroup)
         serializer.is_valid()
-        answergroup_obj=serializer.save()
-        response_json={}
+        answergroup_obj = serializer.save()
+        response_json = {}
         # Form the response JSON with AnwerGroup details
         for key, value in serializer.data.items():
             response_json[key] = value
         # Now work on Answers. Modify input data to suit serializer format
-        answers=[]
-        for key,value in data.items():
-            answer={}
+        answers = []
+        for key, value in data.items():
+            answer = {}
             if(key.startswith("question_")):
                 qn, id = key.split("_")
-                answer["question"]=int(id)
-                answer["answer"]=value
+                answer["question"] = int(id)
+                answer["answer"] = value
                 answers.append(answer)
-        
-        answergroup["answers"]=answers
-                
+
+        answergroup["answers"] = answers
+
         # Create answers
-        answer_serializer_data = self.create_answers(request,answers, answergroup_obj)
+        answer_serializer_data = self.create_answers(
+            request, answers, answergroup_obj)
         headers = self.get_success_headers(answer_serializer_data)
         response_json['answers'] = answer_serializer_data
 
         # Store images
-        print("Storing images")
         images = request.POST.getlist('images[]')
         for image in images:
             image_type, data = image.split(',')
@@ -138,8 +138,8 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
             except Exception as e:
                 print(e)
 
-        return Response(response_json, status=status.HTTP_201_CREATED, headers=headers)
-      
+        return Response(
+            response_json, status=status.HTTP_201_CREATED, headers=headers)
 
     def create_answers(self, request, answers, answergroup_obj):
         bulk = isinstance(answers, list)
@@ -148,17 +148,14 @@ class ShareYourStoryAPIView(ILPViewSet, CompensationLogMixin):
             data['answergroup'] = answergroup_obj
             serializer = self.get_serializer(data=data)
             serializer.is_valid(raise_exception=True)
-            # Invokes the CompensationLogMixin which sets double_entry correctly
-            print("Logged in user is: ", self.request.user)
             self.perform_create(serializer)
             return serializer.data
         else:
             data = answers
             for answer in data:
-                answer['answergroup']=answergroup_obj.id
+                answer['answergroup'] = answergroup_obj.id
             serializer = self.get_serializer(data=data, many=True)
             serializer.is_valid(raise_exception=True)
-            # Invokes the CompensationLogMixin which sets double_entry correctly
             self.perform_bulk_create(serializer)
             return serializer.data
 
