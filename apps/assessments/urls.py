@@ -2,6 +2,7 @@ from django.conf.urls import url
 from assessments.api_views import (
     SurveysViewSet, QuestionGroupViewSet,
     QuestionViewSet, QuestionGroupQuestions,
+    QuestionTypeListView,
     QGroupStoriesInfoView, SurveySummaryAPIView,
     SurveyInfoSourceAPIView, SurveyInfoUserAPIView,
     SurveyInfoRespondentAPIView, SurveyInfoSchoolAPIView,
@@ -181,4 +182,7 @@ urlpatterns = [
     url(r'^boundary/questiongroup-map/$',
         BoundaryQuestionGroupMapping.as_view(),
         name='boundary-qgroup-map'),
+    url(r'^surveys/questiontype/$',
+        QuestionTypeListView.as_view(),
+        name='question-type')
 ] + simple_router.urls + nested_router.urls

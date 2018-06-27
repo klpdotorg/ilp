@@ -27,6 +27,12 @@ class SurveyOnTypeSerializer(ILPSerializer):
         )
 
 
+class QuestionTypeSerializer(ILPSerializer):
+    class Meta:
+        model = QuestionType
+        fields = '__all__'
+
+
 class QuestionGroupSerializer(ILPSerializer):
     source_name = serializers.ReadOnlyField(source='source.name')
 
