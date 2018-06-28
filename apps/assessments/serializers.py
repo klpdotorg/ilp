@@ -147,9 +147,6 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
         return obj.questiongroup.double_entry
 
 
-
-
-
 class AnswerSerializer(ILPSerializer, CompensationLogMixin):
     answergroup = serializers.PrimaryKeyRelatedField(
         queryset=AnswerGroup_Institution.objects.all(),
@@ -189,7 +186,8 @@ class QuestionSerializer(ILPSerializer):
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
             'options', 'is_featured', 'status', 'id', 'question_type_id',
-            'lang_name', 'sequence', 'lang_options',
+            'lang_name', 'sequence', 'lang_options', 'pass_score',
+            'max_score'
         )
 
     def get_sequence(self, question):
