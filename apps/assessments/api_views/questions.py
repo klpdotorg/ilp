@@ -33,7 +33,8 @@ from assessments.serializers import (
     QuestionGroupQuestionSerializer,
     QuestionGroupInstitutionAssociationSerializer,
     QuestionGroupStudentGroupAssociationSerializer,
-    QuestionTypeSerializer
+    QuestionTypeSerializer,
+    QuestionGroupInstitutionAssociationCreateSerializer
 )
 
 logger = logging.getLogger(__name__)
@@ -175,7 +176,7 @@ class QuestionGroupViewSet(
                     'status': 'AC'
                 })
         try:
-            serializer = QuestionGroupInstitutionAssociationSerializer(
+            serializer = QuestionGroupInstitutionAssociationCreateSerializer(
                 data=data, many=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()

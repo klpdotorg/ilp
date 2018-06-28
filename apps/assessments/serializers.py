@@ -244,6 +244,15 @@ class QuestionGroupInstitutionAssociationSerializer(
                 'id', 'questiongroup_id', 'name', 'status'
         )
 
+
+class QuestionGroupInstitutionAssociationCreateSerializer(
+        serializers.ModelSerializer):
+    class Meta:
+        model = QuestionGroup_Institution_Association
+        fields = (
+                'id', 'questiongroup', 'status'
+        )
+
 class QuestionGroupStudentGroupAssociationSerializer(
         serializers.ModelSerializer):
 
