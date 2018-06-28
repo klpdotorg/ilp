@@ -332,7 +332,7 @@ class AnswerField(serializers.Field):
     def to_representation(self, obj):
         if obj[0] == '[':
             answer_list = obj.lstrip('[').rstrip(']').split(',')
-            return [x.strip() for x in answer_list]
+            return [x.strip().replace("'", "") for x in answer_list]
         return obj
 
     def to_internal_value(self, data):
