@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from common.serializers import ILPSerializer
 from common.mixins import CompensationLogMixin
+from common.field import Base64ImageField
 
 from assessments.models import (
     Survey, QuestionGroup, Question, QuestionType,
@@ -12,7 +13,7 @@ from assessments.models import (
     AnswerStudent, QuestionGroup_StudentGroup_Association,
     QuestionGroup_Institution_Association,
     SurveyUserTypeMapping, AnswerStudentGroup,
-    Partner, Source
+    Partner, Source, InstitutionImages
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
@@ -74,6 +75,12 @@ class SurveyPartnerSerializer(ILPSerializer):
 
     class Meta:
         model = Partner
+        fields = '__all__'
+
+
+class InstitutionImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InstitutionImages
         fields = '__all__'
 
 
@@ -245,14 +252,6 @@ class QuestionGroupInstitutionAssociationSerializer(
         )
 
 
-class QuestionGroupInstitutionAssociationCreateSerializer(
-        serializers.ModelSerializer):
-    class Meta:
-        model = QuestionGroup_Institution_Association
-        fields = (
-                'id', 'questiongroup', 'status'
-        )
-
 class QuestionGroupStudentGroupAssociationSerializer(
         serializers.ModelSerializer):
 
@@ -264,9 +263,45 @@ class QuestionGroupStudentGroupAssociationSerializer(
 
 
 class AnswerGroupInstitutionSerializer(serializers.ModelSerializer):
+    institution_images = serializers.ListField(
+        child=Base64ImageField(max_length=None, use_url=True),
+        write_only=True
+    )
+    school_images = serializers.SerializerMethodField()
+
     class Meta:
         model = AnswerGroup_Institution
         fields = '__all__'
+
+    def get_school_images(self, obj):
+        images = obj.institutionimages_set.values_list(
+            'image', flat=True
+        )
+        return ['/media/' + img for img in images]
+
+    def validate(self, data):
+        questiongroup = data['questiongroup']
+        image_required = questiongroup.image_required
+        if image_required:
+            institution_images = data.get('institution_images', None)
+            if not institution_images:
+                raise serializers.ValidationError(
+                    "institution_images is required for this questiongroup."
+                )
+        return data
+
+    def create(self, validated_data):
+        institution_images = validated_data.pop('institution_images', None)
+        ans_inst = AnswerGroup_Institution.objects.create(
+            **validated_data)
+        if institution_images:
+            for inst_image in institution_images:
+                InstitutionImages.objects.create(
+                    answergroup=ans_inst,
+                    image=inst_image,
+                    filename=inst_image.name
+                )
+        return ans_inst
 
 
 class AnswerGroupStudentSerializer(serializers.ModelSerializer):
@@ -291,7 +326,7 @@ class AnswerStudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerStudent
         fields = '__all__'
-    
+
 
 class AnswerStudentGroupSerializer(serializers.ModelSerializer):
     class Meta:
