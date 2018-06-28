@@ -147,7 +147,7 @@ class QuestionGroupViewSet(
 
     @action(methods=['post'], detail=False, url_path='map-institution')
     def map_institution(self, request, *args, **kwargs):
-        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_id = self.get_parents_query_dict()['survey']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         if not survey_on == 'institution':
             raise ParseError('This survey is not an institution survey')
