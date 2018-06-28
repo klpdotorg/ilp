@@ -147,6 +147,9 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
         return obj.questiongroup.double_entry
 
 
+
+
+
 class AnswerSerializer(ILPSerializer, CompensationLogMixin):
     answergroup = serializers.PrimaryKeyRelatedField(
         queryset=AnswerGroup_Institution.objects.all(),
@@ -254,6 +257,7 @@ class QuestionGroupInstitutionAssociationSerializer(
 
 class QuestionGroupInstitutionAssociationCreateSerializer(
         serializers.ModelSerializer):
+
     class Meta:
         model = QuestionGroup_Institution_Association
         fields = (
@@ -325,19 +329,37 @@ class AnswerGroupStudentGroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AnswerField(serializers.Field):
+
+    def to_representation(self, obj):
+        if obj[0] == '[':
+            answer_list = obj.lstrip('[').rstrip(']').split(',')
+            return [x.strip() for x in answer_list]
+        return obj
+
+    def to_internal_value(self, data):
+        return str(data)
+
+
 class AnswerInstitutionSerializer(serializers.ModelSerializer):
+    answer = AnswerField()
+
     class Meta:
         model = AnswerInstitution
         fields = '__all__'
 
 
 class AnswerStudentSerializer(serializers.ModelSerializer):
+    answer = AnswerField()
+
     class Meta:
         model = AnswerStudent
         fields = '__all__'
 
 
 class AnswerStudentGroupSerializer(serializers.ModelSerializer):
+    answer = AnswerField()
+
     class Meta:
         model = AnswerStudentGroup
         fields = '__all__'
