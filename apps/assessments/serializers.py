@@ -169,7 +169,7 @@ class OptionField(serializers.Field):
 class QuestionSerializer(ILPSerializer):
     options = OptionField(required=False)
     lang_options = OptionField(required=False)
-    question_type_id = serializers.IntegerField(write_only=True)
+    question_type_id = serializers.IntegerField()
     question_type = serializers.CharField(
         read_only=True, source="question_type.display.char_id")
     sequence = serializers.SerializerMethodField()
