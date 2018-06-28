@@ -38,11 +38,11 @@ class SurveyTag(models.Model):
 class Survey(models.Model):
     """Survey/Programme"""
     name = models.CharField(max_length=100)
-    lang_name = models.CharField(max_length=100, null=True)
+    lang_name = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     partner = models.ForeignKey('Partner', null=True)
-    description = models.CharField(max_length=200, null=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
     survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
