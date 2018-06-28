@@ -127,8 +127,8 @@ class Question(models.Model):
     """pool of questions"""
     question_text = models.CharField(max_length=300)
     display_text = models.CharField(max_length=300)
-    lang_name = models.CharField(max_length=300, null=True)
-    key = models.CharField(max_length=50, null=True)
+    lang_name = models.CharField(max_length=300, null=True, blank=True)
+    key = models.CharField(max_length=50, null=True, blank=True)
     question_type = models.ForeignKey('QuestionType', null=True)
     options = models.CharField(max_length=750, null=True)
     lang_options = models.CharField(max_length=750, null=True)
