@@ -184,7 +184,8 @@ class QuestionGroupViewSet(
             return Response(
                 serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         except:
-            raise ValidationError
+            print(serializer.errors)
+            raise ValidationError(detail=serializer.errors, code=status.HTTP_400_BAD_REQUEST)
        
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):

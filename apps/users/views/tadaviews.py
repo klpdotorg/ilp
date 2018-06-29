@@ -21,6 +21,7 @@ from rest_framework import filters
 from django.contrib.auth.hashers import make_password, check_password
 from common.views import ILPViewSet
 import logging
+from rest_condition import Or
 
 logger = logging.getLogger(__name__)
 
@@ -28,9 +29,9 @@ class UsersViewSet(viewsets.ModelViewSet):
     """
     This endpoint registers a new TADA user
     """
-    permission_classes = (
-        IsAdminUser, HasAssignPermPermission, 
-    )
+    permission_classes = [
+        Or(IsAdminUser, HasAssignPermPermission)
+    ]
     serializer_class = TadaUserSerializer
     queryset = User.objects.all()
     filter_backends = (filters.OrderingFilter, filters.SearchFilter)
