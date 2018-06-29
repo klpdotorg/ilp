@@ -19,7 +19,7 @@ class StudentGroupSerializer(serializers.ModelSerializer):
             'id', 'institution', 'name', 'section', 'status', 'group_type'
         )
 
-       
+
 class StudentSerializer(serializers.ModelSerializer):
     academic_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), write_only=True)

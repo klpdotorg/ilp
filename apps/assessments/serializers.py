@@ -180,6 +180,8 @@ class QuestionSerializer(ILPSerializer):
     question_type = serializers.CharField(
         read_only=True, source="question_type.display.char_id")
     sequence = serializers.SerializerMethodField()
+    max_score = serializers.IntegerField(required=False)
+    pass_score = serializers.CharField(required=False)
 
     class Meta:
         model = Question
