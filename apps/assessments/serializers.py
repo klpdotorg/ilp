@@ -259,7 +259,7 @@ class QuestionGroupInstitutionAssociationCreateSerializer(
     class Meta:
         model = QuestionGroup_Institution_Association
         fields = (
-            'id', 'questiongroup', 'status'
+            'institution', 'questiongroup', 'status'
         )
 
 

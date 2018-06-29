@@ -3,7 +3,7 @@ import logging
 from common.views import ILPListAPIView
 from common.mixins import ILPStateMixin
 from common.models import Status
-from rest_framework.exceptions import ParseError
+from rest_framework.exceptions import ParseError, ValidationError
 
 from rest_framework.decorators import action
 from rest_framework import status
@@ -180,12 +180,12 @@ class QuestionGroupViewSet(
                 data=data, many=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-        except IntegrityError as e:
-            print("Integrity error")
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
+            headers = self.get_success_headers(serializer.data)
+            return Response(
+                serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        except:
+            raise ValidationError
+       
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
         survey_id = self.get_parents_query_dict()['survey_id']
