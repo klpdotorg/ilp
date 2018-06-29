@@ -15,7 +15,9 @@ from users.serializers import (
     ChangePasswordSerializer
 )
 from users.permission import IsAdminOrIsSelf, IsAdminUser
-from permissions.permissions import HasAssignPermPermission
+from permissions.permissions import (
+    HasAssignPermPermission,
+    ManageUsersPermission)
 from users.utils import login_user
 from rest_framework import filters
 from django.contrib.auth.hashers import make_password, check_password
@@ -30,7 +32,7 @@ class UsersViewSet(viewsets.ModelViewSet):
     This endpoint registers a new TADA user
     """
     permission_classes = [
-        Or(IsAdminUser, HasAssignPermPermission)
+        Or(IsAdminUser, ManageUsersPermission)
     ]
     serializer_class = TadaUserSerializer
     queryset = User.objects.all()

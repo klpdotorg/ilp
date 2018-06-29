@@ -60,6 +60,16 @@ class HasAssignPermPermission(BasePermission):
             return True
 
 
+class ManageUsersPermission(BasePermission):
+    def has_permission(self, request, view):
+        GROUPS_ALLOWED = [u'tada_admin',u'tada_dee']
+        groups = Group.objects.filter(name__in=GROUPS_ALLOWED)
+        if not request.user.groups.filter(id__in=groups).exists():
+            return False
+        else:
+            return True
+
+            
 # # Only applicable to TADA users
 class InstitutionCreateUpdatePermission(IlpBasePermission):
     def has_object_permission(self, request, view, obj):
