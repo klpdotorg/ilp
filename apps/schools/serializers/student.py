@@ -20,18 +20,17 @@ class StudentGroupSerializer(serializers.ModelSerializer):
         )
 
 
-class StudentSerializer(serializers.ModelSerializer):
+class StudentCreateSerializer(serializers.ModelSerializer):
     academic_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), write_only=True)
-    classes = serializers.SerializerMethodField()
 
     class Meta:
         model = Student
         fields = (
             'id', 'first_name', 'middle_name', 'last_name',
             'uid', 'dob', 'gender', 'mt', 'status',
-            'institution', 'academic_year', 'classes',
-            'father_name', 'mother_name'
+            'institution', 'academic_year', 'father_name',
+            'mother_name'
         )
 
         extra_kwargs = {'academic_year': {'write_only': True}}
@@ -59,13 +58,30 @@ class StudentSerializer(serializers.ModelSerializer):
         )
         return student
 
-    def get_classes(self, student):
-        grps = StudentStudentGroupRelation.objects.filter(student=student, status = 'AC')
-        studgrp_id = grps.values_list('student_group',flat=True)
-        qs = StudentGroup.objects.filter(id__in=studgrp_id, group_type = 'class')
-        return StudentGroupSerializer(qs, many=True).data
 
-        
+class StudentSerializer(serializers.ModelSerializer):
+    academic_year = serializers.PrimaryKeyRelatedField(
+        queryset=AcademicYear.objects.all(), write_only=True)
+    classes = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Student
+        fields = (
+            'id', 'first_name', 'middle_name', 'last_name',
+            'uid', 'dob', 'gender', 'mt', 'status',
+            'institution', 'academic_year', 'classes',
+            'father_name', 'mother_name'
+        )
+
+    def get_classes(self, student):
+        groups = StudentStudentGroupRelation.objects.filter(
+            student=student, status='AC')
+        studentgroup_id = groups.values_list('student_group', flat=True)
+        qs = StudentGroup.objects.filter(
+            id__in=studentgroup_id, group_type='class')
+        return StudentGroupSerializer(qs, many=True).data       
+
+
 class StudentStudentGroupSerializer(serializers.ModelSerializer):
 
     class Meta:

@@ -15,7 +15,8 @@ from schools.models import (
     Student, StudentGroup, StudentStudentGroupRelation
 )
 from schools.serializers import (
-    StudentSerializer, StudentGroupSerializer, StudentStudentGroupSerializer
+    StudentSerializer, StudentGroupSerializer,
+    StudentStudentGroupSerializer, StudentCreateSerializer
 )
 from schools.filters import (
     StudentFilter, StudentGroupFilter
@@ -37,10 +38,9 @@ class StudentViewSet(
 ):
 
     queryset = Student.objects.exclude(status=Status.DELETED)
-    serializer_class = StudentSerializer
     filter_class = StudentFilter
     permission_classes = [
-        Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
+    #     Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
     ]
 
     # M2M query returns duplicates. Overrode this function
@@ -60,20 +60,19 @@ class StudentViewSet(
 
         return queryset.order_by('id')
 
+    def get_serializer_class(self):
+        if self.request.method in ['POST', ]:
+            return StudentCreateSerializer
+        return StudentSerializer
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, many=True)
-        # try:
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(
-            serializer.data,
-            status=status.HTTP_201_CREATED,
-            headers=headers
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
-        # except ValidationError as exception:
-        #     logger.debug("Validation error during creation of student")
-        #     raise ValidationError(exception.get_full_details())
 
     def perform_destroy(self, instance):
         instance.status_id = Status.DELETED
