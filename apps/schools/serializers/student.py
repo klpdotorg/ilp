@@ -1,10 +1,15 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
+
+from rest_framework.exceptions import (
+    NotFound, ParseError
+)
+from rest_framework import status
 
 from schools.models import (
     Student, StudentGroup, StudentStudentGroupRelation
 )
 from common.models import Status, AcademicYear
+
 
 class StudentGroupSerializer(serializers.ModelSerializer):
     
@@ -31,29 +36,28 @@ class StudentSerializer(serializers.ModelSerializer):
 
         extra_kwargs = {'academic_year': {'write_only': True}}
 
+    def validate_uid(self, uid):
+        if Student.objects.filter(uid=uid).exists():
+            raise serializers.ValidationError(uid + " uid already exists.")
+        return uid
+
     def create(self, validated_data):
         studentgroup_id = self.context['view'].kwargs[
             'parent_lookup_studentgroups']
-        status = validated_data.get('status', Status.ACTIVE)
         try:
             student_group = StudentGroup.objects.get(id=studentgroup_id)
         except:
-            raise ValidationError(studentgroup_id + " not found.")
+            raise NotFound(studentgroup_id + " not found.")
 
         academic_year = validated_data.pop('academic_year')
-        newuid = validated_data.get('uid')
-        studentuid = None
-        studentuid = Student.objects.filter(uid=newuid)
-        if not studentuid:
-            student = Student.objects.create(**validated_data)
-            student.save()
-            StudentStudentGroupRelation.objects.get_or_create(
+        status = validated_data.get('status', Status.ACTIVE)
+        student = Student.objects.create(**validated_data)
+        student.save()
+        StudentStudentGroupRelation.objects.get_or_create(
             student=student, student_group=student_group,
             status=status, academic_year=academic_year
-            )
-            return student
-        else:
-            raise ValidationError(newuid + " already exists.")
+        )
+        return student
 
     def get_classes(self, student):
         grps = StudentStudentGroupRelation.objects.filter(student=student, status = 'AC')
