@@ -189,7 +189,7 @@ class QuestionGroupViewSet(
        
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
-        survey_id = self.get_parents_query_dict()['survey_id']
+        survey_id = self.get_parents_query_dict()['survey']
         print("Survey ID is: ", survey_id)
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         print("Survey on: ", survey_on)
