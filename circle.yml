@@ -13,7 +13,7 @@ machine:
 general:
   branches:
     only:
-      - master
+      - nextrelease
       - /*/
   artifacts:
     - /tmp/artifacts
@@ -51,12 +51,12 @@ test:
 
 deployment:
   development:
-    branch: master
+    branch: nextrelease
     codedeploy:
       ilpdev:
         application_root: /
         region: ap-south-1
-        deployment_group: ilpstaging-group
+        deployment_group: ilpdev-group
         deployment_config: CodeDeployDefault.OneAtATime
         revision_location:
           revision_type: S3
