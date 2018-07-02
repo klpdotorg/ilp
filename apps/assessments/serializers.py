@@ -263,6 +263,12 @@ class QuestionGroupInstitutionAssociationCreateSerializer(
         fields = (
             'institution', 'questiongroup', 'status'
         )
+        validators = []
+
+    def create(self, validated_data):
+        obj, _ = QuestionGroup_Institution_Association.objects.\
+            get_or_create(**validated_data)
+        return obj
 
 
 class QuestionGroupStudentGroupAssociationSerializer(
@@ -271,8 +277,14 @@ class QuestionGroupStudentGroupAssociationSerializer(
     class Meta:
         model = QuestionGroup_StudentGroup_Association
         fields = (
-                'questiongroup', 'studentgroup', 'status',
+            'questiongroup', 'studentgroup', 'status',
         )
+        validators = []
+
+    def create(self, validated_data):
+        obj, _ = QuestionGroup_StudentGroup_Association.objects.\
+            get_or_create(**validated_data)
+        return obj
 
 
 class AnswerGroupInstitutionSerializer(serializers.ModelSerializer):

@@ -175,17 +175,16 @@ class QuestionGroupViewSet(
                     'institution': institution_id,
                     'status': 'AC'
                 })
-        try:
-            serializer = QuestionGroupInstitutionAssociationCreateSerializer(
-                data=data, many=True)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            headers = self.get_success_headers(serializer.data)
-            return Response(
-                serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        except:
-            print(serializer.errors)
-            raise ValidationError(detail=serializer.errors, code=status.HTTP_400_BAD_REQUEST)
+
+        serializer = QuestionGroupInstitutionAssociationCreateSerializer(
+            data=data, many=True
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
        
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
@@ -217,7 +216,8 @@ class QuestionGroupViewSet(
                     'status': 'AC'
                 })
         serializer = QuestionGroupStudentGroupAssociationSerializer(
-            data=data, many=True)
+            data=data, many=True
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
         headers = self.get_success_headers(serializer.data)
