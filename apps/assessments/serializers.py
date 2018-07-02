@@ -124,7 +124,8 @@ class AnswerGroupInstSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerGroup_Institution
         fields = (
-            'id', 'double_entry','questiongroup', 'institution', 'institution_name', 'group_value',
+            'id', 'double_entry', 'questiongroup', 'institution',
+            'institution_name', 'group_value',
             'created_by', 'created_by_username', 'date_of_visit',
             'respondent_type', 'comments', 'is_verified',
             'status', 'sysid', 'entered_at'
@@ -191,7 +192,7 @@ class QuestionSerializer(ILPSerializer):
             'lang_name', 'sequence', 'lang_options', 'pass_score',
             'max_score'
         )
-    
+
     def get_sequence(self, question):
         try:
             qgroup = self.context['request'].parser_context['kwargs'].get(
@@ -293,10 +294,19 @@ class AnswerGroupInstitutionSerializer(serializers.ModelSerializer):
         write_only=True
     )
     school_images = serializers.SerializerMethodField()
+    comments = serializers.CharField(required=False, allow_blank=True)
+    institution_name = serializers.SerializerMethodField()
+    created_by_username = serializers.SerializerMethodField()
 
     class Meta:
         model = AnswerGroup_Institution
-        fields = '__all__'
+        fields = (
+            'id', 'double_entry', 'questiongroup', 'institution',
+            'institution_name', 'group_value',
+            'created_by', 'created_by_username', 'date_of_visit',
+            'respondent_type', 'comments', 'is_verified',
+            'status', 'sysid', 'entered_at'
+        )
 
     def get_school_images(self, obj):
         images = obj.institutionimages_set.values_list(
@@ -304,16 +314,16 @@ class AnswerGroupInstitutionSerializer(serializers.ModelSerializer):
         )
         return ['/media/' + img for img in images]
 
-    def validate(self, data):
-        questiongroup = data['questiongroup']
+    def validate(self, attrs):
+        questiongroup = attrs['questiongroup']
         image_required = questiongroup.image_required
         if image_required:
-            institution_images = data.get('institution_images', None)
+            institution_images = attrs.get('institution_images', None)
             if not institution_images:
                 raise serializers.ValidationError(
                     "institution_images is required for this questiongroup."
                 )
-        return data
+        return attrs
 
     def create(self, validated_data):
         institution_images = validated_data.pop('institution_images', None)
@@ -327,6 +337,20 @@ class AnswerGroupInstitutionSerializer(serializers.ModelSerializer):
                     filename=inst_image.name
                 )
         return ans_inst
+
+    def get_created_by_username(self, obj):
+        username = ''
+        if obj and obj.created_by and obj.created_by.first_name:
+            username = username + obj.created_by.first_name
+        if obj and obj.created_by and obj.created_by.last_name:
+            username = username + ' ' + obj.created_by.last_name
+        return username
+
+    def get_institution_name(self, obj):
+        return obj.institution.name
+
+    def get_double_entry(self, obj):
+        return obj.questiongroup.double_entry
 
 
 class AnswerGroupStudentSerializer(serializers.ModelSerializer):
