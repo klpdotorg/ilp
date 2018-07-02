@@ -1,5 +1,7 @@
 {% extends "base_static.html" %}
 
+{% load state_variables %}
+
 {% load static %}
 {% load compress %}
 {% block css_extra %}
@@ -61,8 +63,6 @@
     <div id="comparison" class="container">
       <div class="base-spacing-sm"></div>
       <hr/>
-      <div class="heading-secondary heading-border"> Comparison </div>
-      <div class="base-spacing-sm"></div>
       <div id="comparison-neighbour"></div>
     </div><!-- comparison -->
     <div id="disclaimer" class="container">

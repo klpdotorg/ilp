@@ -56,10 +56,10 @@ var topSummaryData = {};
         klp.router.start();
         premodalQueryParams = klp.router.getHash().queryParams;
 
-        $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
-        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
-        $('#startDate').yearMonthSelect("setDate", moment("20170601", "YYYYMMDD"));
-        $('#endDate').yearMonthSelect("setDate", moment("20180331", "YYYYMMDD"));
+        $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
+        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
+        $('#startDate').yearMonthSelect("setDate", moment("20180601", "YYYYMMDD"));
+        $('#endDate').yearMonthSelect("setDate", moment("20190331", "YYYYMMDD"));
         var startDate = $('#startDate').yearMonthSelect("getFirstDay");
 
         $('#search_button').click(function(e){
@@ -124,8 +124,8 @@ var topSummaryData = {};
     function loadData(params, reloadOpenSection) {
         // As of August 1st, 2017, data from June 2017 is shown as default
         if(!params.from && !params.to) {
-            params.from = '2017-06-01';
-            params.to = '2018-03-31';
+            params.from = '2018-06-01';
+            params.to = '2019-03-31';
         }
 
         klp.GKA.routerParams = params;
@@ -151,23 +151,37 @@ var topSummaryData = {};
         var $compareEmptyMessage = $('#compareEmptyMessage'),
             $compareTable = $('#compareTable');
 
-        // No comparison for schools
-        if(params.institution_id) {
+        function hideComparisonShowEmptyMessage() {
             $compareTable.hide();
             $compareEmptyMessage.show();
-            return;
-        } else {
+        }
+
+        function showComparisonHideEmptyMessage() {
             $compareTable.show();
             $compareEmptyMessage.hide();
         }
 
         // Spinners
         $compareTable.startLoading();
+        showComparisonHideEmptyMessage();
 
         var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
         );
         $compareXHR.done(function(comparisonData) {
+
+            if(comparisonData.count === 0) {
+                $compareTable.startLoading();
+                hideComparisonShowEmptyMessage();
+                return;
+            }
+
+            if(params.institution_id) {
+                hideComparisonShowEmptyMessage();
+                return;
+            } else {
+                showComparisonHideEmptyMessage();
+            }
 
             var neighbours = _.map(comparisonData.results, function(c){
                 var data = {
@@ -753,7 +767,21 @@ var topSummaryData = {};
                 CRCC:"Cluster Resource Coordinator",
                 PC:"Pedagogy Coordinator",
                 UK:"Unknown"
-            };
+            },
+            defaultUserGroups = [
+                'BRC',
+                'GO',
+                'BRP',
+                'EO',
+                'CRP',
+                'DIET',
+                'VR',
+                'HM',
+                'TR',
+                'SM',
+                'AS',
+                'PR'
+            ];
 
         for (var m in users) {
             if(m && (m !== 'null' && m !== 'UK')) {
@@ -764,6 +792,21 @@ var topSummaryData = {};
                 labels.push(m);
             }
         }
+
+        // Add zero values for some default user groups till we reach 12.
+        if(meta_values.length < 12) {
+            _.each(defaultUserGroups, function(d){
+                if(labels.indexOf(d) === -1) {
+                    labels.push(d);
+                    meta_values.push({
+                        meta: userFullName[d] ? userFullName[d]: d,
+                        value: 0
+                    });
+                }
+            });
+        }
+
+        console.log(users, meta_values, labels);
 
         // Build data for bar chart and render it
         var sms_sender = {

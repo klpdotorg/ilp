@@ -179,7 +179,7 @@ DISE_ACADEMIC_YEAR = '16-17'
 # DISE app endpoints.When the above changes, this also has to change
 DISE_FRONTEND_ACADEMIC_YEAR = '16-17'
 # This is the year KLP uses to query data in the DB
-DEFAULT_ACADEMIC_YEAR = '1718'
+DEFAULT_ACADEMIC_YEAR = '1819'
 
 DISE_API_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
 
@@ -188,6 +188,8 @@ DISE_APP_URL = 'https://dise.dev.ilp.org.in/'
 BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
 
 EMAIL_DEFAULT_FROM = 'India Learning Partnership <dev@ilp.org.in>'
+
+SERVER_EMAIL = 'no-reply@klp.org.in'
 
 SITE_ID = 1
 
@@ -247,6 +249,11 @@ LOGGING = {
             'filename': BASE_DIR + '/django_dba.log',
             'formatter': 'simple'
         },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
     },
     'root': {
         'level': 'DEBUG',
@@ -271,6 +278,11 @@ LOGGING = {
         },
         'py.warnings': {
             'handlers': ['development_logfile'],
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
         },
     }
 }

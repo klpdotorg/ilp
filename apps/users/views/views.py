@@ -23,7 +23,8 @@ logger = logging.getLogger(__name__)
 
 class UserRegisterView(generics.CreateAPIView):
     """
-    This endpoint registers a new user in ILP.
+    This endpoint registers a new user in ILP. Used by the
+    website
     """
     serializer_class = UserRegistrationSerializer
     permission_classes = (

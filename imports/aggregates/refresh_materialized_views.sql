@@ -13,11 +13,17 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_boundary_hierarchy;
 CREATE UNIQUE INDEX ON mvw_boundary_basic_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_boundary_basic_agg;
 
+CREATE UNIQUE INDEX ON mvw_electionboundary_basic_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_electionboundary_basic_agg;
+
 CREATE UNIQUE INDEX ON mvw_boundary_school_gender_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_boundary_school_gender_agg;
 
 CREATE UNIQUE INDEX ON mvw_boundary_school_category_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_boundary_school_category_agg;
+
+CREATE UNIQUE INDEX ON mvw_electionboundary_school_category_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_electionboundary_school_category_agg;
 
 CREATE UNIQUE INDEX ON mvw_boundary_school_mgmt_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_boundary_school_mgmt_agg;
@@ -25,8 +31,14 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_boundary_school_mgmt_agg;
 CREATE UNIQUE INDEX ON mvw_boundary_student_mt_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_boundary_student_mt_agg;
 
+CREATE UNIQUE INDEX ON mvw_electionboundary_student_mt_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_electionboundary_student_mt_agg;
+
 CREATE UNIQUE INDEX ON mvw_boundary_school_moi_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_boundary_school_moi_agg;
+
+CREATE UNIQUE INDEX ON mvw_electionboundary_school_moi_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_electionboundary_school_moi_agg;
 
 CREATE UNIQUE INDEX ON mvw_survey_institution_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_institution_agg;

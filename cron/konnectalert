@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+dt=`date +"%Y-%m-%d"`
+echo "Running konnectstatus at: $dt"
+source /home/ubuntu/ilp/venv/bin/activate
+cd /home/ubuntu/ilp && python manage.py konnectstatus --reportdate=$dt
+echo "konnectstatus done."
+
+exit 0

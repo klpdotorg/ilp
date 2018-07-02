@@ -14,9 +14,12 @@ class AssemblyBoundariesViewSet(ILPStateMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         state = self.get_state()
-        queryset = ElectionBoundary.objects.filter(const_ward_type__char_id="MLA")
+        queryset = ElectionBoundary.objects.filter(const_ward_type__char_id="MLA").order_by('id')
         if state:
             queryset = queryset.filter(state_id=state.id)
+        mapped = self.request.query_params.get('mapped')
+        if mapped:
+            queryset = queryset.filter(institution_mla__isnull = False).distinct('id')
         return queryset
 
 
@@ -29,8 +32,11 @@ class ParliamentBoundariesViewSet(ILPStateMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         state = self.get_state()
-        queryset = ElectionBoundary.objects.filter(const_ward_type__char_id="MP")
+        queryset = ElectionBoundary.objects.filter(const_ward_type__char_id="MP").order_by('id')
         if state:
             queryset = queryset.filter(state_id=state.id)
+        mapped = self.request.query_params.get('mapped')
+        if mapped:
+            queryset = queryset.filter(institution_mp__isnull = False).distinct('id')
         return queryset
 

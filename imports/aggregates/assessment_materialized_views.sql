@@ -1149,7 +1149,7 @@ FROM(
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
         and q.is_featured = true
-        and stusg.academic_year_id = case when to_char(ag.date_of_visit,'MM')::int >5 then to_char(ag.date_of_visit,'YY')||to_char(ag.date_of_visit,'YY')::int+1 else to_char(ag.date_of_visit,'YY')::int-1||to_char(ag.date_of_visit,'YY') end
+        and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
@@ -1202,8 +1202,8 @@ FROM(
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
+        and stusg.academic_year_id = qg.academic_year_id
         and q.is_featured = true
-        and stusg.academic_year_id = case when to_char(ag.date_of_visit,'MM')::int >5 then to_char(ag.date_of_visit,'YY')||to_char(ag.date_of_visit,'YY')::int+1 else to_char(ag.date_of_visit,'YY')::int-1||to_char(ag.date_of_visit,'YY') end
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
@@ -1252,7 +1252,7 @@ FROM(
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
-        and stusg.academic_year_id = case when to_char(ag.date_of_visit,'MM')::int >5 then to_char(ag.date_of_visit,'YY')||to_char(ag.date_of_visit,'YY')::int+1 else to_char(ag.date_of_visit,'YY')::int-1||to_char(ag.date_of_visit,'YY') end
+        and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
@@ -1302,7 +1302,7 @@ FROM(
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
-        and stusg.academic_year_id = case when to_char(ag.date_of_visit,'MM')::int >5 then to_char(ag.date_of_visit,'YY')||to_char(ag.date_of_visit,'YY')::int+1 else to_char(ag.date_of_visit,'YY')::int-1||to_char(ag.date_of_visit,'YY') end
+        and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
@@ -1359,7 +1359,7 @@ FROM(SELECT
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
-        and stusg.academic_year_id = case when to_char(ag.date_of_visit,'MM')::int >5 then to_char(ag.date_of_visit,'YY')||to_char(ag.date_of_visit,'YY')::int+1 else to_char(ag.date_of_visit,'YY')::int-1||to_char(ag.date_of_visit,'YY') end
+        and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
@@ -1416,7 +1416,7 @@ FROM(SELECT
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
-        and stusg.academic_year_id = case when to_char(ag.date_of_visit,'MM')::int >5 then to_char(ag.date_of_visit,'YY')||to_char(ag.date_of_visit,'YY')::int+1 else to_char(ag.date_of_visit,'YY')::int-1||to_char(ag.date_of_visit,'YY') end
+        and stusg.academic_year_id = stusg.academic_year_id
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
@@ -1891,6 +1891,7 @@ FROM
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
+        and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
@@ -1941,6 +1942,7 @@ FROM
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
+        and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
     GROUP BY q.key,ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,sg.institution_id
     having sum(ans.answer::int)=qgk.max_score)correctanswers
@@ -2445,6 +2447,104 @@ GROUP BY
 data.survey_tag,
 data.boundary_id,
 data.academic_year_id
+union
+SELECT distinct format('A%s_%s_%s', data.survey_tag, data.boundary_id, data.academic_year_id) as id,
+    data.survey_tag as survey_tag,
+    data.boundary_id as boundary_id, 
+    data.academic_year_id as academic_year_id,
+    count(distinct school_id) as num_schools,
+    count(distinct student_id) as num_students
+FROM
+(
+ SELECT distinct 
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id, 
+    '1819' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM    
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id  
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1617'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id 
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id, 
+    '1819' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id 
+FROM    
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id  
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1718'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id 
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id, 
+    '1819' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id 
+FROM    
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id  
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1819'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id 
+    and stu.status_id !='DL'
+)data
+GROUP BY
+data.survey_tag,
+data.boundary_id,
+data.academic_year_id
+
 ;
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_gender_correctans_agg CASCADE;
@@ -2611,6 +2711,7 @@ FROM
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
+        and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
@@ -2661,6 +2762,7 @@ FROM
         and ag.student_id = stu.id
         and stu.id = stusg.student_id
         and stusg.student_group_id = sg.id
+        and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
     GROUP BY ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,sg.institution_id
     having sum(ans.answer::int)=qgk.max_score)correctanswers
