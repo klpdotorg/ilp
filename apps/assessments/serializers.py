@@ -305,7 +305,7 @@ class AnswerGroupInstitutionSerializer(serializers.ModelSerializer):
             'institution_name', 'group_value', 'institution_images',
             'created_by', 'created_by_username', 'date_of_visit',
             'respondent_type', 'comments', 'is_verified',
-            'status', 'sysid', 'entered_at'
+            'status', 'sysid', 'entered_at', 'school_images'
         )
 
     def get_school_images(self, obj):
