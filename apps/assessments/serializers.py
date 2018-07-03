@@ -302,7 +302,7 @@ class AnswerGroupInstitutionSerializer(serializers.ModelSerializer):
         model = AnswerGroup_Institution
         fields = (
             'id', 'double_entry', 'questiongroup', 'institution',
-            'institution_name', 'group_value',
+            'institution_name', 'group_value', 'institution_images',
             'created_by', 'created_by_username', 'date_of_visit',
             'respondent_type', 'comments', 'is_verified',
             'status', 'sysid', 'entered_at'
