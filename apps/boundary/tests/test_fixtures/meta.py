@@ -1,0 +1,1 @@
+# ./manage.py dump_object boundary.BoundaryStateCode '*' > test_boundarystatecode.json

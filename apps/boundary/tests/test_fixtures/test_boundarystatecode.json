@@ -43,9 +43,16 @@
         "lang_name": null,
         "boundary_type": "ST",
         "type": null,
-        "dise_slug": "Odisha",
+        "dise_slug": "India-Odisha",
         "geom": null,
         "status": "AC"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "kan",
+    "fields": {
+        "name": "Kannada"
     }
 },
 {
@@ -57,7 +64,7 @@
         "lang_name": null,
         "boundary_type": "ST",
         "type": null,
-        "dise_slug": "Karnataka",
+        "dise_slug": "India-Karnataka",
         "geom": null,
         "status": "AC"
     }
@@ -66,14 +73,16 @@
     "model": "boundary.boundarystatecode",
     "pk": "od",
     "fields": {
-        "boundary": 3
+        "boundary": 3,
+        "language": "kan"
     }
 },
 {
     "model": "boundary.boundarystatecode",
     "pk": "ka",
     "fields": {
-        "boundary": 2
+        "boundary": 2,
+        "language": "kan"
     }
 }
 ]
