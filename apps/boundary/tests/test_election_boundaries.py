@@ -17,6 +17,9 @@ class ElectionBoundaryTests(APITestCase):
     @classmethod
     def setUpTestData(self):
         call_command('loaddata',
+                     'apps/boundary/tests/test_fixtures/common',
+                     verbosity=0)
+        call_command('loaddata',
                      'apps/boundary/tests/test_fixtures/election_boundaries',
                      verbosity=0)
 
