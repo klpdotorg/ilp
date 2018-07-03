@@ -46,6 +46,14 @@ class Boundary(models.Model):
         else:
             return {}
 
+    def get_clusters(self):
+        if self.boundary_type.char_id == 'SD':
+            return Boundary.objects.filter(parent__parent=self.id)
+        elif self.boundary_type.char_id in ['SB', 'PP']:
+            return Boundary.objects.filter(parent=self.id)
+        else:
+            return Boundary.objects.filter(id=self.id)
+
     def schools(self):
         return Institution.objects.filter(
             Q(status='AC'),

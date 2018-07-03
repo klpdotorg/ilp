@@ -9,7 +9,7 @@ from schools.models import (
 )
 
 from boundary.models import Boundary
-from assessments.models import Assessment
+from assessments.models import QuestionGroup
 
 from rest_framework.exceptions import APIException
 
@@ -17,7 +17,7 @@ class PermissionMixin(object):
 
     def get_permitted_entities(self, permitted_user, permission=None, klass=None):
         model_map = {
-            'assessment':Assessment,
+            'assessment':QuestionGroup,
             'boundary':Boundary,
             None:None,
         }
@@ -31,6 +31,8 @@ class PermissionMixin(object):
             institution = Institution.objects.get(id=institution_id)
         except Exception as ex:
             raise APIException(ex)
+        print("Assigning institution permissions to: ", user_to_be_permitted)
+        print("institution id is: ", institution_id)
         assign_perm('change_institution', user_to_be_permitted, institution)
         assign_perm('crud_student_class_staff', user_to_be_permitted, institution)
 
@@ -39,9 +41,10 @@ class PermissionMixin(object):
             boundary = Boundary.objects.get(id=boundary_id)
         except Exception as ex:
             raise APIException(ex)
-
-        institutions_under_boundary = boundary.get_institutions()
+        print("Boundary id is: ", boundary_id)
+        institutions_under_boundary = boundary.schools()
         for institution in institutions_under_boundary:
+            print("Institution id is: ", institution.id)
             self.assign_institution_permissions(user_to_be_permitted, institution.id)
 
         child_clusters = boundary.get_clusters()
@@ -50,9 +53,11 @@ class PermissionMixin(object):
 
     def assign_assessment_permissions(self, user_to_be_permitted, assessment_id):
         try:
-            assessment = Assessment.objects.get(id=assessment_id)
+            assessment = QuestionGroup.objects.get(id=assessment_id)
         except Exception as ex:
             raise APIException(ex)
+        print("Assigning crud_answers to %s " % user_to_be_permitted)
+        print("Assessment id is: %s", assessment_id)
         assign_perm('crud_answers', user_to_be_permitted, assessment)
 
     def unassign_institution_permissions(self, user_to_be_denied, institution_id):
@@ -79,7 +84,7 @@ class PermissionMixin(object):
 
     def unassign_assessment_permissions(self, user_to_be_denied, assessment_id):
         try:
-            assessment = Assessment.objects.get(id=assessment_id)
+            assessment = QuestionGroup.objects.get(id=assessment_id)
         except Exception as ex:
             raise APIException(ex)
         remove_perm('crud_answers', user_to_be_denied, assessment)

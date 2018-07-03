@@ -20,7 +20,11 @@ from common.views import ILPViewSet
 from common.models import (
     AcademicYear, Status, InstitutionType
 )
-from permissions.permissions import AppPostPermissions
+from permissions.permissions import (
+    AppPostPermissions,
+    HasAssignPermPermission
+)
+
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
@@ -46,22 +50,41 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyAgg, SurveyInstitutionAgg,
     SurveyTagMapping, AnswerGroup_Student, SurveyElectionBoundaryAgg,
     SurveyBoundaryUserTypeAgg, SurveyBoundaryElectionTypeCount,
-    SurveyTagInstitutionMapping
+    SurveyTagInstitutionMapping, Partner, Source
 )
 from common.models import RespondentType, Status
 from assessments.serializers import (
     SurveySerializer, RespondentTypeSerializer,
-    SurveyCreateSerializer
+    SurveyCreateSerializer, SurveyPartnerSerializer,
+    SurveySourceSerializer
 )
 from assessments.filters import (
     SurveyFilter, SurveyTagFilter
 )
 
 
+class SurveyPartnersViewSet(ILPViewSet, ILPStateMixin):
+    queryset = Partner.objects.all()
+    serializer_class = SurveyPartnerSerializer
+
+    def get_queryset(self):
+        state = self.get_state()
+        queryset = self.queryset.filter(admin0=state)
+        return queryset
+
+
+class SurveySourceViewSet(ILPViewSet, ILPStateMixin):
+    queryset = Source.objects.all()
+    serializer_class = SurveySourceSerializer
+
+
 class SurveysViewSet(ILPViewSet, ILPStateMixin):
     '''Returns all surveys'''
-    queryset = Survey.objects.exclude(status=Status.DELETED)
+    queryset = Survey.objects.exclude(status__in=[
+        Status.DELETED, Status.INACTIVE])
     filter_class = SurveyTagFilter
+    permission_classes = (HasAssignPermPermission,)
+
 
     def get_serializer_class(self):
         if self.request.method in ['POST', ]:
@@ -77,7 +100,7 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
         # SurveyTagFilter or use a new filter altogether
         # Filter status
         status = self.request.query_params.get('status', None)
-        if status is not None:
+        if status:
             queryset = queryset.filter(status__char_id=status)
 
         return queryset
@@ -105,6 +128,66 @@ class SurveyBoundaryAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
+class SurveyAssociateBoundaryAPIView(ListAPIView, ILPStateMixin):
+    queryset = Boundary.objects.exclude(status=Status.DELETED)
+    serializer_class = BoundarySerializer
+
+    def get_institution_boundaries(self, institution_ids, boundary_type):
+        institutions = Institution.objects.filter(id__in=institution_ids)
+        if boundary_type == 'admin3':
+            return institutions.values_list('admin3', flat=True)
+        elif boundary_type == 'admin2':
+            return institutions.values_list('admin2', flat=True)
+        return institutions.values_list('admin1', flat=True)
+
+    def get_queryset(self):
+        survey_id = self.kwargs['survey_id']
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id        
+        boundary_id = self.request.query_params.get('boundary_id', state_id)
+        boundary_type = self.request.query_params.get('boundary_type', None)
+        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
+        # survey_qgroups = QuestionGroup.objects.filter(survey_id=survey_id).values_list('id', flat=True)
+        if survey_on == 'institution':
+            institution_ids = QuestionGroup_Institution_Association.objects.filter(
+                questiongroup__survey_id=survey_id).\
+                filter(Q(institution__admin0_id=boundary_id) |
+                       Q(institution__admin1_id=boundary_id) |
+                       Q(institution__admin2_id=boundary_id) |
+                       Q(institution__admin3_id=boundary_id)
+                       ).values_list('institution_id', flat=True)
+        else:
+            institution_ids = QuestionGroup_StudentGroup_Association.objects.\
+                filter(Q(studentgroup__institution__admin0_id=boundary_id) |
+                       Q(studentgroup__institution__admin1_id=boundary_id) |
+                       Q(studentgroup__institution__admin2_id=boundary_id) |
+                       Q(studentgroup__institution__admin3_id=boundary_id)
+                       ).distinct('studentgroup__institution').values_list(
+                           'studentgroup__institution_id', flat=True)
+        boundary_ids = self.get_institution_boundaries(
+            institution_ids, boundary_type)
+        return self.queryset.filter(id__in=boundary_ids)
+
+
+class SurveyAssociateInstitutionAPIView(ListAPIView, ILPStateMixin):
+    queryset = Institution.objects.exclude(status=Status.DELETED)
+    serializer_class = InstitutionSerializer
+
+    def get_queryset(self):
+        survey_id = self.kwargs['survey_id']
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        boundary_id = self.request.query_params.get('boundary_id', state_id)
+        institution_ids = QuestionGroup_StudentGroup_Association.objects.\
+            filter(questiongroup__survey_id=survey_id).\
+            filter(Q(studentgroup__institution__admin0_id=boundary_id) |
+                   Q(studentgroup__institution__admin1_id=boundary_id) |
+                   Q(studentgroup__institution__admin2_id=boundary_id) |
+                   Q(studentgroup__institution__admin3_id=boundary_id)
+                   ).values_list('studentgroup__institution_id', flat=True)
+        return self.queryset.filter(id__in=institution_ids)
+
+
 class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
     queryset = SurveyTagInstitutionMapping.objects.all()
 
@@ -128,47 +211,6 @@ class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
-class SurveyInstitutionDetailAPIView(ListAPIView, ILPStateMixin):
-
-    def list(self, request, *args, **kwargs):
-        survey_id = self.request.query_params.get('survey_id', None)
-        survey_on = Survey.objects.get(id=survey_id).survey_on.pk
-        institution_id = self.request.query_params.get('institution_id', None)
-        response = []
-        if survey_on == 'institution':
-            res = {}
-            qset = QuestionGroup_Institution_Association.objects.filter(
-                institution_id=institution_id,
-                questiongroup__survey_id=survey_id)
-            for qgroup_inst in qset:
-                res = {
-                    "id": qgroup_inst.questiongroup_id,
-                    "name": qgroup_inst.questiongroup.name,
-                    "type": qgroup_inst.questiongroup.type.char_id
-                }
-                response.append(res)
-        else:
-            res = {}
-            sg_qset = QuestionGroup_StudentGroup_Association.\
-                objects.filter(
-                    studentgroup__institution_id=institution_id,
-                )
-            for sgroup_inst in sg_qset:
-                sg_name = sgroup_inst.studentgroup.name
-                sg_id = sgroup_inst.studentgroup.id
-                res[sg_name] = {
-                    "id": sg_id, "name": sg_name
-                }
-                for studgroup_qgroup in sg_qset.filter(
-                        questiongroup__survey_id=survey_id):
-                    qgroup = studgroup_qgroup.questiongroup
-                    res[sg_name][qgroup.id] = {
-                        "id": qgroup.id, "name": qgroup.name
-                    }
-                    response.append(res)
-        return Response(response)
-
-
 class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
     '''Returns all survey answers for a specific institution'''
     queryset = SurveyInstitutionQuestionGroupAnsAgg.objects.all()
@@ -180,12 +222,14 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
         if surveyid and schoolid:
             queryset = SurveyInstitutionQuestionGroupAnsAgg.objects.\
                 filter(survey_id=surveyid).filter(institution_id=schoolid)
-            num_stories = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(questiongroup_id__in=(1,6)).count()
-            comments = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(questiongroup_id__in=(1,6)).values('comments', 'group_value')
-            
+            num_stories = AnswerGroup_Institution.objects.filter(
+                institution_id=schoolid).filter(questiongroup_id__in=(1, 6)).count()
+            comments = AnswerGroup_Institution.objects.filter(institution_id=schoolid).filter(
+                questiongroup_id__in=(1, 6)).values('comments', 'group_value')
+
             question_answers = queryset.distinct('answer_option')
             distinct_questions = queryset.distinct('question_desc')
-            
+
             for question in distinct_questions:
                 answers = question_answers.values(
                     'answer_option')
@@ -193,10 +237,12 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
                 for answer in answers:
                     # There may be multiple rows with "Yes" for the same question. We need to calculate sum of all answers with "Yes".
                     # Get all rows from the queryset which have "Yes" and do a SUM (num_answers) on this distinct answer_option
-                    filter_queryset = queryset.filter(answer_option=answer['answer_option'])
-                    sum = queryset.filter(question_desc=question.question_desc).filter(answer_option=answer['answer_option']).aggregate(total_answers=Sum('num_answers'))
+                    filter_queryset = queryset.filter(
+                        answer_option=answer['answer_option'])
+                    sum = queryset.filter(question_desc=question.question_desc).filter(
+                        answer_option=answer['answer_option']).aggregate(total_answers=Sum('num_answers'))
                     if sum['total_answers'] is None:
-                        sum['total_answers']=0
+                        sum['total_answers'] = 0
                     answer_list[answer['answer_option']] =\
                         sum['total_answers']
                 answer = {
@@ -205,34 +251,40 @@ class SurveyInstitutionAnsAggView(ListAPIView, ILPStateMixin):
                     "answers": answer_list,
                 }
                 questions_list.append(answer)
-        return Response({'num_stories': num_stories, 'results': questions_list, 'comments': comments})
+        return Response({
+            'num_stories': num_stories,
+            'results': questions_list,
+            'comments': comments
+        })
 
 
 class SurveyQuestionGroupDetailsAPIView(ListAPIView):
     filter_backends = [SurveyFilter, ]
+    queryset = SurveyInstitutionQuestionGroupAgg.objects.all()
 
     def institution_qs(self):
-        return self.filter_queryset(
-            SurveyInstitutionQuestionGroupAgg.objects.all()
-        )
+        return self.filter_queryset(self.queryset)
 
     def get(self, request, *args, **kwargs):
-        questiongroup_id = self.request.query_params.get(
-            'questiongroup_id', None
-        )
+        survey_id = self.request.query_params.get('survey_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
         institution_id = self.request.query_params.get('institution_id', None)
         state_id = BoundaryStateCode.objects.filter(
             char_id=settings.ILP_STATE_ID).\
             values("boundary_id")[0]["boundary_id"]
+        if not survey_id:
+            raise ParseError("Mandatory param survey_id is not passed.")
+        questiongroup_ids = Survey.objects.get(id=survey_id).\
+            questiongroup_set.values_list('id', flat=True)
 
         if institution_id:
             queryset = SurveyInstitutionQuestionGroupAgg.objects.filter(
                 institution_id=institution_id
             )
             queryset = self.filter_queryset(queryset)
-            if questiongroup_id:
-                queryset = queryset.filter(questiongroup_id=questiongroup_id)
+            if questiongroup_ids:
+                queryset = queryset.filter(
+                    questiongroup_id__in=questiongroup_ids)
 
             qs_agg = queryset.aggregate(
                 Sum('num_children'), Sum('num_assessments'))
@@ -248,28 +300,32 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                 institution_id=institution_id
             )
             ans_queryset = self.filter_queryset(ans_queryset)
-            if questiongroup_id:
+            if questiongroup_ids:
                 ans_queryset = ans_queryset.filter(
-                    questiongroup_id=questiongroup_id)
+                    questiongroup_id__in=questiongroup_ids)
         else:
             if not boundary_id:
                 boundary_id = state_id
             queryset = SurveyBoundaryQuestionGroupAgg.objects.\
                 filter(boundary_id=boundary_id)
             queryset = self.filter_queryset(queryset)
-            if questiongroup_id:
-                queryset = queryset.filter(questiongroup_id=questiongroup_id)
+            if questiongroup_ids:
+                queryset = queryset.filter(
+                    questiongroup_id__in=questiongroup_ids)
 
             qs_agg = queryset.aggregate(
                 Sum('num_schools'), Sum('num_children'), Sum('num_assessments')
             )
-            
+
             institution_qs = self.institution_qs()
             institution_qs = institution_qs.filter(
-                Q(institution_id__admin0_id=boundary_id) | Q(institution_id__admin1_id=boundary_id) |
-                Q(institution_id__admin2_id=boundary_id) | Q(institution_id__admin3_id=boundary_id)
+                Q(institution_id__admin0_id=boundary_id) |
+                Q(institution_id__admin1_id=boundary_id) |
+                Q(institution_id__admin2_id=boundary_id) |
+                Q(institution_id__admin3_id=boundary_id)
             )
-            institution_qs = institution_qs.filter(questiongroup_id=questiongroup_id)
+            institution_qs = institution_qs.filter(
+                questiongroup_id__in=questiongroup_ids)
             summary_res = {
                 "schools_impacted": institution_qs.distinct(
                     'institution_id').count(),
@@ -279,17 +335,19 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
             inst_count = Institution.objects.filter(
                 institution_type_id=InstitutionType.PRIMARY_SCHOOL
             ).filter(
-                Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
-                Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
+                Q(admin0_id=boundary_id) |
+                Q(admin1_id=boundary_id) |
+                Q(admin2_id=boundary_id) |
+                Q(admin3_id=boundary_id)
             ).count()
             summary_res["total_schools"] = inst_count
 
             ans_queryset = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(
-                    boundary_id=boundary_id)
+                boundary_id=boundary_id)
             ans_queryset = self.filter_queryset(ans_queryset)
-            if questiongroup_id:
+            if questiongroup_ids:
                 ans_queryset = ans_queryset.filter(
-                    questiongroup_id=questiongroup_id)       
+                    questiongroup_id__in=questiongroup_ids)
 
         ans_queryset = ans_queryset.values(
             'question_desc', 'answer_option', 'num_answers', 'question_id'
@@ -304,16 +362,17 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
         survey_res = {'surveys': {}}
         for s_id in survey_ids:
+            questiongroups = []
             questiongroup_res = {}
             for qg_id, qg_name in questiongroup_ids:
                 qgroup_ans_queryset = ans_queryset.filter(
                     survey_id=s_id, questiongroup_id=qg_id)
                 question_dict = {}
                 for row in qgroup_ans_queryset:
-                    if (
-                        row["question_desc"] in question_dict
-                    ):
-                        if (row["answer_option"] in question_dict[row["question_desc"]] ):
+                    if (row["question_desc"] in question_dict):
+                        if (
+                            row["answer_option"] in question_dict[row["question_desc"]]
+                        ):
                             question_dict[row["question_desc"]][
                                 row["answer_option"]] += row["num_answers"]
                         else:
@@ -324,14 +383,20 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
                             {
                                 "text": row["question_desc"],
                                 row["answer_option"]: row["num_answers"]
-                            }
-                        question_dict[row["question_desc"]]['id'] = row['question_id']
+                        }
+                        question_dict[row["question_desc"]]['id'] = \
+                            row['question_id']
+
                 if question_dict:
-                    questiongroup_res[qg_name] = {}
-                    questiongroup_res[qg_name]['id'] = qg_id 
-                    questiongroup_res[qg_name]['questions'] = question_dict
+                    questiongroup_res['id'] = qg_id
+                    questions = []
+                    for key in question_dict:
+                        questions.append(question_dict[key])
+                    questiongroup_res['questions'] = questions
+                    questiongroup_res['survey_id'] = s_id
+            questiongroups.append(questiongroup_res)
             survey_res['surveys'][s_id] = {}
-            survey_res['surveys'][s_id]['questiongroups'] = questiongroup_res
+            survey_res['questiongroups'] = questiongroups
         response.update(survey_res)
         return Response(response)
 
@@ -788,14 +853,14 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
                             "score": qgroup_qs.values('question_key').filter(
                                 question_key=key).aggregate(
                                     Sum('num_assessments')
-                                )['num_assessments__sum'],
+                            )['num_assessments__sum'],
                             "totol": self.ans_queryset.filter(
                                     boundary_id=n_id, survey_id=survey_id,
                                     questiongroup_id=qgroup_id,
                                     question_key=key
-                                ).aggregate(
+                            ).aggregate(
                                     Sum('num_assessments')
-                                )['num_assessments__sum']
+                            )['num_assessments__sum']
                         }
                     qgroup_res[qgroup_id] = {
                         'name': qgroup_name, 'question_keys': qkey_res
@@ -829,7 +894,7 @@ class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
 
         queryset = AnswerGroup_Institution.objects.\
             filter(questiongroup_id__in=questiongroup_ids)
-        
+
         queryset = queryset.filter(
             Q(institution_id__admin0_id=boundary_id) |
             Q(institution_id__admin1_id=boundary_id) |

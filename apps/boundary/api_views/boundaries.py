@@ -8,17 +8,18 @@ from boundary.models import Boundary, BoundaryType
 from common.mixins import ILPStateMixin
 from common.models import Status
 from rest_framework import viewsets
-
+from permissions.permissions import IlpBasePermission
 
 logger = logging.getLogger(__name__)
 
 
 class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
-    '''Boundary endpoint'''
+    '''Boundary endpoint for all CRUD related to boundaries'''
     queryset = Boundary.objects.exclude(status=Status.DELETED)
     serializer_class = BoundarySerializer
     filter_class = BoundaryFilter
     bbox_filter_field = "geom"
+    permission_classes = (IlpBasePermission,)
 
     def get_queryset(self):
         state = self.get_state()
@@ -38,5 +39,8 @@ class BoundaryViewSet(ILPStateMixin, viewsets.ModelViewSet):
 
 
 class BoundaryTypeViewSet(viewsets.ModelViewSet):
+    """
+        Endpoint handling all operations related to BoundaryType (SD, SC, SB, PD, PP, PC)
+    """
     queryset = BoundaryType.objects.all()
     serializer_class = BoundaryTypeSerializer

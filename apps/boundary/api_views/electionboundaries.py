@@ -6,6 +6,9 @@ from rest_framework import viewsets
 
 
 class AssemblyBoundariesViewSet(ILPStateMixin, viewsets.ModelViewSet):
+    '''
+        Endpoint handling all assembly election boundaries related operations
+    '''
     queryset = ElectionBoundary.objects.all()
     serializer_class = ElectionBoundarySerializer
 
@@ -21,6 +24,9 @@ class AssemblyBoundariesViewSet(ILPStateMixin, viewsets.ModelViewSet):
 
 
 class ParliamentBoundariesViewSet(ILPStateMixin, viewsets.ModelViewSet):
+    '''
+        Endpoint handling all parliament election boundaries related operations
+    '''
     queryset = ElectionBoundary.objects.all()
     serializer_class = ElectionBoundarySerializer
 

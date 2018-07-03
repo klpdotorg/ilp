@@ -2,10 +2,11 @@ from rest_framework import viewsets
 
 from schools.models import Staff
 from schools.serializers import StaffSerializer
+from permissions.permissions import WorkUnderInstitutionPermission
 
 
 class StaffViewSet(viewsets.ModelViewSet):
-    # permission_classes = (WorkUnderInstitutionPermission,)
+    permission_classes = (WorkUnderInstitutionPermission,)
     serializer_class = StaffSerializer
     # filter_class = TeacherFilter
 
