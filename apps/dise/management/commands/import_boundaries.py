@@ -38,7 +38,6 @@ class Command(BaseCommand):
         return connection, cursor
 
     def insertBoundary(self, name, slug, parent_name, boundary_type_name):
-        print("Trying to create: "+name)
         if boundary_type_name == 'district':
             parent_type = BoundaryType.objects.get(pk='ST')
         elif boundary_type_name == 'block':
@@ -61,7 +60,6 @@ class Command(BaseCommand):
         boundary_type_name = "school "+boundary_type_name
         boundary_type = BoundaryType.objects.get(name__iexact= boundary_type_name)
         type = InstitutionType.objects.get(pk='primary')
-        print(name+" "+slug+" "+str(parent_boundary.id))
         boundary,created = Boundary.objects.get_or_create(name = name,
                                 dise_slug = slug,
                                 parent = parent_boundary,
@@ -87,10 +85,4 @@ class Command(BaseCommand):
                      parent_name = state 
                  else:
                      parent_name = row[2]
-                     #newslug = re.split('-',slug)
-                     #if len(newslug) > 2:
-                        #print("old slug: "+slug+" ,newslug: "+str(newslug))
-                        #slug = newslug[1]
-                        #for i in range(2,len(newslug)):
-                            #slug = slug + "-"+newslug[i]
                  self.insertBoundary(name.lower(),slug,parent_name.lower(), boundary_type)

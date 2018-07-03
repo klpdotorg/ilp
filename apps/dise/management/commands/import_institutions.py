@@ -7,10 +7,10 @@ from django.core.management.base import BaseCommand
 from django.core.exceptions import MultipleObjectsReturned
 from django.db import transaction
 from django.conf import settings
-from common.models import Status, InstitutionType, InstitutionGender
-from boundary.models import Boundary, BoundaryType
+from common.models import Status, InstitutionType, InstitutionGender, Language
+from boundary.models import Boundary, BoundaryType, BoundaryStateCode
 from dise.models import BasicData
-from schools.models import Institution, InstitutionCategory, Management
+from schools.models import Institution, InstitutionCategory, Management, InstitutionLanguage
 
 
 class Command(BaseCommand):
@@ -48,6 +48,39 @@ class Command(BaseCommand):
     rural_urban = {
                     1:  'Rural',
                     2: 'Urban'}
+
+
+    moi = {
+            1: 'ass', #Assamese=01, 
+            2: 'ben', #Bengali=02, 
+            3: 'guj', #Gujarati=03, 
+            4: 'hin', #Hindi=04, 
+            5: 'kan', #Kannada=05, 
+            6: 'kas', #Kashmiri=06, 
+            7: 'kon', #Konkani=07, 
+            8: 'mal', #Malayalam=08, 
+            9: 'man', #Manipuri=09, 
+            10: 'mar', #Marathi=10, 
+            11: 'nep', #Nepali=11, 
+            12: 'ori', #Oriya=12, 
+            13: 'pun', #Punjabi=13, 
+            14: 'san', #Sanskrit=14, 
+            15: 'sin', #Sindhi=15, 
+            16: 'tam', #Tamil=16, 
+            17: 'tel', #Telugu=17, 
+            18: 'urd', #Urdu=18, 
+            19: 'eng', #English=19, 
+            20: 'bod', #Bodo=20, 
+            21: 'dog', #Dogri=22, 
+            23: 'kha', #Khasi=23, 
+            24: 'gar', #Garo=24, 
+            25: 'miz', #Mizo=25, 
+            26: 'bhu', #Bhutia=26, 
+            27: 'lep', #Lepcha=27, 
+            28: 'lim', #Limboo=28, 
+            29: 'fre', #French=29, 
+            99: 'oth', #Other=99
+    }
        
     #help = """Import data from DISE 
 
@@ -125,8 +158,24 @@ class Command(BaseCommand):
                          institution_type = institution_type,
                          management = management,
                          status = status)
+        print("Institution: "+school_name+", created:"+str(created))
          
         Institution.objects.filter(pk=institution.id).update(dise = schoolData)
+
+        if schoolData.medium_of_instruction in self.moi:
+            try:
+                language = Language.objects.get(char_id = self.moi[schoolData.medium_of_instruction])
+            except InstitutionGender.DoesNotExist:
+                print("School Moi does not exist :"+str(schoolData.medium_of_instruction))
+        else:
+            language_id = BoundaryStateCode.objects.get(boundary=admin0)
+            print(language_id.language.char_id)
+            language = Language.objects.get(char_id = language_id.language.char_id)
+        
+        id, created = InstitutionLanguage.objects.get_or_create(
+                    moi = language,
+                    institution = institution)
+                    
 
                         
     def handle(self, *args, **options):
@@ -137,6 +186,5 @@ class Command(BaseCommand):
                             state_name=state,
                             academic_year=academic_year)
         for school in dise_schools:
-           print(school.id)
            self.insertInstitution(school)
                                

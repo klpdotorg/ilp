@@ -104,6 +104,7 @@ class BoundaryStateCode(models.Model):
     """stores the state codes"""
     char_id = models.CharField(max_length=10, primary_key=True)
     boundary = models.ForeignKey('Boundary')
+    language = models.ForeignKey('common.Language')
 
     class Meta:
         ordering = ['char_id', ]
