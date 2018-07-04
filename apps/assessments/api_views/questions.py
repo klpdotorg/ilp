@@ -69,21 +69,15 @@ class QuestionGroupQuestions(
         NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
     '''Returns all questions belonging to a questiongroup'''
-    # permission_classes = (HasAssignPermPermission,)
+    serializer_class = QuestionGroupQuestionSerializer
+    permission_classes = (HasAssignPermPermission,)
 
     def get_queryset(self):
         parents_query_dict = self.get_parents_query_dict()
         questiongroup_id = parents_query_dict['questiongroup']
-        question_list = QuestionGroup_Questions.objects\
+        return QuestionGroup_Questions.objects\
             .filter(questiongroup_id=questiongroup_id)\
-            .order_by('sequence')\
-            .values_list('question', flat=True)
-        return Question.objects.filter(id__in=question_list).order_by('key')
-
-    def get_serializer_class(self):
-        if self.request.method in ['GET', 'PUT']:
-            return QuestionSerializer
-        return QuestionGroupQuestionSerializer
+            .order_by('sequence')
 
     def get_serializer_context(self):
         context = super().get_serializer_context()

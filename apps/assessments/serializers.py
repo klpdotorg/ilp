@@ -180,7 +180,6 @@ class QuestionSerializer(ILPSerializer):
     question_type_id = serializers.IntegerField()
     question_type = serializers.CharField(
         read_only=True, source="question_type.display.char_id")
-    sequence = serializers.SerializerMethodField()
     max_score = serializers.IntegerField(required=False)
     pass_score = serializers.CharField(allow_blank=True, required=False)
 
@@ -189,24 +188,8 @@ class QuestionSerializer(ILPSerializer):
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
             'options', 'is_featured', 'status', 'id', 'question_type_id',
-            'lang_name', 'sequence', 'lang_options', 'pass_score',
-            'max_score'
+            'lang_name', 'lang_options', 'pass_score', 'max_score'
         )
-
-    def get_sequence(self, question):
-        try:
-            qgroup = self.context['request'].parser_context['kwargs'].get(
-                'parent_lookup_questiongroup'
-            )
-            questiongroup_question = QuestionGroup_Questions.objects.get(
-                question=question,
-                questiongroup__id=qgroup
-            )
-        except Exception as e:
-            print(e)
-            return 0
-        else:
-            return questiongroup_question.sequence
 
 
 class QuestionGroupQuestionSerializer(ILPSerializer):
@@ -220,12 +203,25 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
 
     def create(self, validated_data):
         new_id = QuestionGroup_Questions.objects.latest('id').id + 1
+        sequence = validated_data.pop('sequence', None)
         question_dict = validated_data['question']
         questiongroup_id = self.context['questiongroup']
         question = Question.objects.create(**question_dict)
         return QuestionGroup_Questions.objects.create(
-            id=new_id, questiongroup_id=questiongroup_id, question=question
+            id=new_id, questiongroup_id=questiongroup_id,
+            question=question, sequence=sequence
         )
+
+    def update(self, instance, validated_data):
+        sequence = validated_data.pop('sequence', None)
+        question = validated_data['question']
+        questiongroup_id = self.context['questiongroup']
+
+        instance.questiongroup_id = questiongroup_id
+        instance.question = question
+        instance.sequence = sequence
+        instance.save()
+        return instance
 
 
 class QuestionGroupInstitutionSerializer(ILPSerializer):
