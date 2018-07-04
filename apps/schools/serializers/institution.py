@@ -249,6 +249,7 @@ class InstitutionCreateSerializer(ILPSerializer):
         )
 
     def validate_dise(self, school_code):
+        dise_academic_year = settings.DISE_ACADEMIC_YEAR.replace('-', '')
         try:
             dise = BasicData.objects.get(
                 school_code=school_code,
@@ -259,7 +260,7 @@ class InstitutionCreateSerializer(ILPSerializer):
             raise serializers.ValidationError(
                 str(school_code) + \
                 " school_code doesn't not exist in dise data." +
-                " Academic year is " + str(settings.DISE_ACADEMIC_YEAR)
+                " Academic year is " + dise_academic_year
             )
 
     def save(self, *args, **kwargs):
