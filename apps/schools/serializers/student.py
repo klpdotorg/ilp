@@ -39,6 +39,8 @@ class StudentCreateSerializer(serializers.ModelSerializer):
             return uid
         if Student.objects.filter(uid=uid).exists():
             raise serializers.ValidationError(uid + " uid already exists.")
+        if not len(str(uid)) == 9:
+            raise serializers.ValidationError("uid should be of 9 digits.")
         return uid
 
     def create(self, validated_data):
