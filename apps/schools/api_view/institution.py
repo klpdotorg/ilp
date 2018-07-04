@@ -147,7 +147,6 @@ class InstitutionViewSet(NestedViewSetMixin, ILPViewSet):
             assign_perm('change_institution', user_to_be_permitted, institution)
             assign_perm('crud_student_class_staff', user_to_be_permitted, institution)
 
-
     def update(self, request, *args, **kwargs):
         try:
             instance = self.get_object()
