@@ -32,10 +32,11 @@ class StudentCreateSerializer(serializers.ModelSerializer):
             'institution', 'academic_year', 'father_name',
             'mother_name'
         )
-
         extra_kwargs = {'academic_year': {'write_only': True}}
 
     def validate_uid(self, uid):
+        if not uid:
+            return uid
         if Student.objects.filter(uid=uid).exists():
             raise serializers.ValidationError(uid + " uid already exists.")
         return uid
