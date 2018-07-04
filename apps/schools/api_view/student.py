@@ -40,7 +40,7 @@ class StudentViewSet(
     queryset = Student.objects.exclude(status=Status.DELETED)
     filter_class = StudentFilter
     permission_classes = [
-    #     Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
+        Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
     ]
 
     # M2M query returns duplicates. Overrode this function
