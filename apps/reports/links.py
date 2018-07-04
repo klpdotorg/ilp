@@ -13,7 +13,9 @@ def send_link(report_type, params, args, dry_run=False):
         link.role = args['role']
         link.save()
         sms = r.get_sms(link, args['name'])
-        send_sms(args['number'], sms)
+        print(sms)
+        # TODO: Remove the below comment to send SMS
+        # send_sms(args['number'], sms)
     else:
         return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
         

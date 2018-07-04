@@ -603,13 +603,24 @@ class BlockReport(BaseReport):
         for cluster, qgroup in conditions:
             cluster_ag = answergroup.filter(institution__admin3__name=cluster, questiongroup__name=qgroup)
             for contest in contests:
-                try:
-                    score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
-                except ZeroDivisionError:
-                    continue
+                # try:
+                #     score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
+                # except ZeroDivisionError:
+                #     continue
+
+                total_students_appeared = cluster_ag.count()
+                score = 0
+                for c in cluster_ag:
+                    if c.answers.filter(
+                        question__key=contest, answer='Yes'
+                    ).exists():
+                        score += 1
+                score = score / total_students_appeared
+
                 details = dict(cluster=cluster, grade=qgroup)
                 details['contest'] = contest
                 details['percent'] = score*100
+                # print(contest, details['percent'])
                 clusters.append(details)
 
         return clusters
