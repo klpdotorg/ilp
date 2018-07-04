@@ -11,6 +11,7 @@ drf-extensions==0.3.1
 django-compressor==2.2
 django-rest-swagger==2.1.2
 geojson>1.0.1
+pdfkit==0.6.1
 psycopg2==2.7.2
 python-dateutil==2.3
 pytz==2017.2
