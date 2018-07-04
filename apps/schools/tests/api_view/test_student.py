@@ -14,6 +14,7 @@ class StudentAPITests(APITestCase):
     @classmethod
     def setUpTestData(cls):
         print("loading fixtures")
+       
         call_command('loaddata',
                      'apps/schools/tests/test_fixtures/institution')
         call_command('loaddata',
