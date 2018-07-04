@@ -14,7 +14,7 @@ general:
   branches:
     only:
       - nextrelease
-      - /*/
+      - master
   artifacts:
     - /tmp/artifacts
 
