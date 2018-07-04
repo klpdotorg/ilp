@@ -27,7 +27,7 @@ from rest_condition import Or
 
 logger = logging.getLogger(__name__)
 
-class UsersViewSet(viewsets.ModelViewSet):
+class UsersViewSet(ILPViewSet):
     """
     This endpoint registers a new TADA user
     """
@@ -42,19 +42,41 @@ class UsersViewSet(viewsets.ModelViewSet):
     search_fields = ('first_name', 'last_name', 'email', 'mobile_no')
 
     def get_queryset(self):
-        search_query = self.request.query_params.get('search', None)
-        role_query = self.request.query_params.get('role', 'ilp_auth_user')
-        if role_query:
-            self.queryset = self.queryset.filter(groups__name=role_query)
-        if search_query is not None:
-            self.queryset = User.objects.all().filter(
-                Q(email__icontains=search_query) |
-                Q(mobile_no__icontains=search_query) |
-                Q(first_name__icontains=search_query) |
-                Q(last_name__icontains=search_query) |
-                Q(groups__name=search_query)
-            )
-        return self.queryset.filter(is_active='True')
+        try:
+            search_query = self.request.query_params.get('search', None)
+            role_query = self.request.query_params.get('role', 'ilp_auth_user')
+            if role_query:
+                self.queryset = self.queryset.filter(groups__name=role_query)
+            if search_query is not None:
+                self.queryset = User.objects.all().filter(
+                    Q(email__icontains=search_query) |
+                    Q(mobile_no__icontains=search_query) |
+                    Q(first_name__icontains=search_query) |
+                    Q(last_name__icontains=search_query) |
+                    Q(groups__name=search_query)
+                )
+            user = self.request.user
+            if self.is_in_group(self.request.user, u'tada_dee'):
+                self.queryset = self.queryset.filter(groups__name__in=["tada_dee", "tada_deo"]).filter(
+                    is_active='True'
+                )
+            elif user.is_superuser or self.is_in_group(self.request.user, u'tada_admin'):
+                self.queryset = self.queryset.filter(is_active='True')
+            else:
+                return None
+            return self.queryset
+        except Exception as e:
+            print(e)
+
+
+    def is_in_group(self, user, group_name):
+        """
+        Takes a user and a group name, and returns `True` if the user is in that group.
+        """
+        try:
+            return Group.objects.get(name=group_name).user_set.filter(id=user.id).exists()
+        except Group.DoesNotExist:
+            return None
 
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
