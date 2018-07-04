@@ -4,7 +4,8 @@ from rest_framework import serializers
 
 from schools.models import (
     Institution, Management, PinCode, InstitutionCategory,
-    InstitutionAggregation, InstitutionLanguage, Student, StudentStudentGroupRelation, StudentGroup
+    InstitutionAggregation, InstitutionLanguage, Student,
+    StudentStudentGroupRelation, StudentGroup
 )
 from common.serializers import ILPSerializer, InstitutionTypeSerializer
 from common.models import (
@@ -15,6 +16,7 @@ from boundary.serializers import (
 )
 
 from dise import dise_constants
+from dise.models import BasicData
 
 
 class LeanInstitutionSummarySerializer(ILPSerializer):
@@ -216,6 +218,7 @@ class InstitutionSerializer(ILPSerializer):
 
 
 class InstitutionCreateSerializer(ILPSerializer):
+    dise = serializers.IntegerField()
     status = serializers.PrimaryKeyRelatedField(
         queryset=Status.objects.all()
     )
@@ -230,7 +233,8 @@ class InstitutionCreateSerializer(ILPSerializer):
     pincode = serializers.PrimaryKeyRelatedField(
         queryset=PinCode.objects.all(), default=None, allow_null=True
     )
-    landmark = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    landmark = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True)
     last_verified_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), required=True)
     institution_languages = serializers.ListField(write_only=True)
@@ -243,6 +247,20 @@ class InstitutionCreateSerializer(ILPSerializer):
             'area', 'pincode', 'landmark', 'last_verified_year',
             'institution_languages'
         )
+
+    def validate_dise(self, school_code):
+        try:
+            dise = BasicData.objects.get(
+                school_code=school_code,
+                academic_year=settings.DISE_ACADEMIC_YEAR
+            )
+            return dise
+        except BasicData.DoesNotExist:
+            raise serializers.ValidationError(
+                str(school_code) + \
+                " school_code doesn't not exist in dise data." +
+                " Academic year is " + str(settings.DISE_ACADEMIC_YEAR)
+            )
 
     def save(self, *args, **kwargs):
         admin3 = self.validated_data['admin3']
@@ -310,6 +328,7 @@ class InstitutionManagementSerializer(ILPSerializer):
         fields = (
             'id', 'name'
         )
+
 
 class InstitutionLanguageSerializer(ILPSerializer):
 
