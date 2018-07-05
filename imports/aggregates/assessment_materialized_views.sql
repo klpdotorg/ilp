@@ -1472,7 +1472,7 @@ FROM
         and stu.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         GROUP BY q.key,ag.id,b.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
-        having sum(ans.answer::int)=qgk.max_score)correctanswers
+        having sum(ans.answer::int)>=qgk.max_score)correctanswers
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key
 union
 SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,yearmonth) as id,
@@ -1497,40 +1497,23 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        (SELECT distinct
-            qg.id as qgid,
-            q.key as key,
-            count(q.id) as maxscore
-        FROM
-            assessments_question q,
-            assessments_questiongroup_questions qgq,
-            assessments_questiongroup qg
-        WHERE
-            q.is_featured=true
-            and q.max_score is null
-            and qgq.question_id =q.id
-            and qgq.questiongroup_id = qg.id
-            and qg.type_id='assessment'
-        GROUP BY 
-            qg.survey_id,
-            qg.id,
-            q.key)max_score,
+        assessments_questiongroupkey qgk,
         schools_institution s,
         boundary_boundary b
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=max_score.qgid
+        and qg.id=qgk.questiongroup_id
         and ans.question_id=q.id
-        and q.key=max_score.key
+        and q.key=qgk.key
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    GROUP BY q.key,ag.id,b.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)>=qgk.max_score)correctanswers
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key ;
 
 
@@ -1572,7 +1555,7 @@ FROM
         and ag.is_verified=true
         and ag.student_id = stu.id
         GROUP BY q.key,ag.id,stu.institution_id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
-        having sum(ans.answer::int)=qgk.max_score)correctanswers
+        having sum(ans.answer::int)>=qgk.max_score)correctanswers
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key
 union
 SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,yearmonth) as id,
@@ -1597,36 +1580,19 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        (SELECT distinct
-            qg.id as qgid,
-            q.key as key,
-            count(q.id) as maxscore
-        FROM
-            assessments_question q,
-            assessments_questiongroup_questions qgq,
-            assessments_questiongroup qg
-        WHERE
-            q.is_featured=true
-            and q.max_score is null
-            and qgq.question_id =q.id
-            and qgq.questiongroup_id = qg.id
-            and qg.type_id='assessment'
-        GROUP BY 
-            qg.survey_id,
-            qg.id,
-            q.key)max_score
+        assessments_questiongroupkey qgk
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=max_score.qgid
+        and qg.id=qgk.questiongroup_id
         and ans.question_id=q.id
-        and q.key=max_score.key
+        and q.key=qgk.key
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,ag.institution_id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    GROUP BY q.key,ag.id,ag.institution_id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)>=qgk.max_score)correctanswers
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key ;
 
 
@@ -1676,7 +1642,7 @@ FROM
     and stu.institution_id = s.id
     and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.key,ag.id,b.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(ans.answer::int)=qgk.max_score)correctanswers
+    having sum(ans.answer::int)>=qgk.max_score)correctanswers
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,yearmonth) as id,
@@ -1705,40 +1671,23 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        (SELECT distinct
-            qg.id as qgid,
-            q.key as key,
-            count(q.id) as maxscore
-        FROM
-            assessments_question q,
-            assessments_questiongroup_questions qgq,
-            assessments_questiongroup qg
-        WHERE
-            q.is_featured=true
-            and q.max_score is null
-            and qgq.question_id =q.id
-            and qgq.questiongroup_id = qg.id
-            and qg.type_id='assessment'
-        GROUP BY 
-            qg.survey_id,
-            qg.id,
-            q.key)max_score,
+        assessments_questiongroupkey qgk,
         schools_institution s,
         boundary_boundary b
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=max_score.qgid
+        and qg.id=qgk.questiongroup_id
         and ans.question_id=q.id
-        and q.key=max_score.key
+        and q.key=qgk.key
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    GROUP BY q.key,ag.id,b.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)>=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 
@@ -1785,7 +1734,7 @@ FROM
     and ag.is_verified=true
     and ag.student_id = stu.id
     GROUP BY q.key,ag.id,stu.institution_id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(ans.answer::int)=qgk.max_score)correctanswers
+    having sum(ans.answer::int)>=qgk.max_score)correctanswers
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,yearmonth) as id,
@@ -1814,36 +1763,19 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        (SELECT distinct
-            qg.id as qgid,
-            q.key as key,
-            count(q.id) as maxscore
-        FROM
-            assessments_question q,
-            assessments_questiongroup_questions qgq,
-            assessments_questiongroup qg
-        WHERE
-            q.is_featured=true
-            and q.max_score is null
-            and qgq.question_id =q.id
-            and qgq.questiongroup_id = qg.id
-            and qg.type_id='assessment'
-        GROUP BY 
-            qg.survey_id,
-            qg.id,
-            q.key)max_score
+        assessments_questiongroupkey qgk
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=max_score.qgid
+        and qg.id=qgk.questiongroup_id
         and ans.question_id=q.id
-        and q.key=max_score.key
+        and q.key=qgk.key
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
-    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    GROUP BY q.key,ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)>=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 
@@ -1896,7 +1828,7 @@ FROM
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.key,ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,b.id
-    having sum(ans.answer::int)=qgk.max_score)correctanswers
+    having sum(ans.answer::int)>=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,boundary_id;
 
 
@@ -1945,7 +1877,7 @@ FROM
         and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
     GROUP BY q.key,ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,sg.institution_id
-    having sum(ans.answer::int)=qgk.max_score)correctanswers
+    having sum(ans.answer::int)>=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,institution_id;
 
 
@@ -2575,28 +2507,13 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        (SELECT distinct
-            qg.id as qgid,
-            count(q.id) as maxscore
-        FROM
-            assessments_question q,
-            assessments_questiongroup_questions qgq,
-            assessments_questiongroup qg
-        WHERE
-            q.is_featured=true
-            and q.max_score is null
-            and qgq.question_id =q.id
-            and qgq.questiongroup_id = qg.id
-            and qg.survey_id = 2 
-        GROUP BY 
-            qg.survey_id,
-            qg.id)max_score,
+        assessments_questiongroupkey qgk,
         schools_institution s,
         boundary_boundary b
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=max_score.qgid
+        and qg.id=qgk.questiongroup_id
         and ans.question_id=q.id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
@@ -2604,8 +2521,8 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY ag.id,b.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name
-    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    GROUP BY ag.id,b.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)>=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
 
 
@@ -2637,33 +2554,18 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        (SELECT distinct
-            qg.id as qgid,
-            count(q.id) as maxscore
-        FROM
-            assessments_question q,
-            assessments_questiongroup_questions qgq,
-            assessments_questiongroup qg
-        WHERE
-            q.is_featured=true
-            and q.max_score is null
-            and qgq.question_id =q.id
-            and qgq.questiongroup_id = qg.id
-            and qg.survey_id = 2 
-        GROUP BY 
-            qg.survey_id,
-            qg.id)max_score
+        assessments_questiongroupkey qgk
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=max_score.qgid
+        and qg.id=qgk.questiongroup_id
         and ans.question_id=q.id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.survey_id=2
         and ag.is_verified=true
-    GROUP BY ag.id,max_score.maxscore,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name,ag.institution_id
-    having sum(case ans.answer when 'Yes'then 1 else 0 end)=max_score.maxscore)correctanswers
+    GROUP BY ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name,ag.institution_id
+    having sum(case ans.answer when 'Yes'then 1 else 0 end)>=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,source,yearmonth,questiongroup_id,questiongroup_name,gender,institution_id ;
 
 
@@ -2716,7 +2618,7 @@ FROM
         and sg.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,b.id
-    having sum(ans.answer::int)=qgk.max_score)correctanswers
+    having sum(ans.answer::int)>=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,source,yearmonth,sg_name,gender,boundary_id;
 
 
@@ -2765,7 +2667,7 @@ FROM
         and stusg.academic_year_id = qg.academic_year_id
         and ag.is_verified=true
     GROUP BY ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,sg.name,stu.gender_id,sg.institution_id
-    having sum(ans.answer::int)=qgk.max_score)correctanswers
+    having sum(ans.answer::int)>=qgk.max_score)correctanswers
 GROUP BY survey_id, survey_tag,source,yearmonth,sg_name,gender,institution_id;
 
 
