@@ -212,17 +212,6 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
             question=question, sequence=sequence
         )
 
-    def update(self, instance, validated_data):
-        sequence = validated_data.pop('sequence', None)
-        question = validated_data['question']
-        questiongroup_id = self.context['questiongroup']
-
-        instance.questiongroup_id = questiongroup_id
-        instance.question = question
-        instance.sequence = sequence
-        instance.save()
-        return instance
-
 
 class QuestionGroupInstitutionSerializer(ILPSerializer):
     class Meta:

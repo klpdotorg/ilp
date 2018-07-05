@@ -13,6 +13,7 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from django.db.models import Q
 from django.db import IntegrityError
+from django.shortcuts import get_object_or_404
 
 from permissions.permissions import (
     HasAssignPermPermission
@@ -78,6 +79,19 @@ class QuestionGroupQuestions(
         return QuestionGroup_Questions.objects\
             .filter(questiongroup_id=questiongroup_id)\
             .order_by('sequence')
+
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        obj = get_object_or_404(queryset, question=self.kwargs['pk'])
+        self.check_object_permissions(self.request, obj)
+        if self.request.method in ['PUT', ]:
+            return obj.question
+        return obj
+
+    def get_serializer_class(self):
+        if self.request.method in ['PUT', ]:
+            return QuestionSerializer
+        return QuestionGroupQuestionSerializer
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
