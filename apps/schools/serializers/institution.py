@@ -217,8 +217,16 @@ class InstitutionSerializer(ILPSerializer):
         return langs
 
 
+class DiseField(serializers.Field):
+    def to_representation(self, obj):
+        return obj
+
+    def to_internal_value(self, data):
+        return data
+
+
 class InstitutionCreateSerializer(ILPSerializer):
-    dise = serializers.IntegerField()
+    dise = DiseField()
     status = serializers.PrimaryKeyRelatedField(
         queryset=Status.objects.all()
     )
@@ -253,7 +261,7 @@ class InstitutionCreateSerializer(ILPSerializer):
         try:
             dise = BasicData.objects.get(
                 school_code=school_code,
-                academic_year=settings.DISE_ACADEMIC_YEAR
+                academic_year=dise_academic_year
             )
             return dise
         except BasicData.DoesNotExist:
