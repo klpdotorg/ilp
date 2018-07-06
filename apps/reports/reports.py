@@ -603,6 +603,10 @@ class BlockReport(BaseReport):
         for cluster, qgroup in conditions:
             cluster_ag = answergroup.filter(institution__admin3__name=cluster, questiongroup__name=qgroup)
             for contest in contests:
+                # This was the original logic for generating GP contest report
+                # In July, the logic has been changed to the block below this
+                # block.
+                # 
                 # try:
                 #     score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
                 # except ZeroDivisionError:
@@ -620,7 +624,6 @@ class BlockReport(BaseReport):
                 details = dict(cluster=cluster, grade=qgroup)
                 details['contest'] = contest
                 details['percent'] = score*100
-                # print(contest, details['percent'])
                 clusters.append(details)
 
         return clusters
