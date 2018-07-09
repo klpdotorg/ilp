@@ -336,9 +336,9 @@
 	    <th>
 	      ಭಾಗಾಕಾ ರ<br>(&divide;)
 	    </th>
-	    <th>
-	      ಇತರೆ ಪರಿಕಲ್ಪನೆಗಳು
-	    </th>
+	    <!-- <th>
+            ಇತರೆ ಪರಿಕಲ್ಪನೆಗಳು
+          </th> -->
 	  </tr>
 	  {% for item in data.gpc_blocks %}
 	  {% for g in item.grades%}
@@ -380,13 +380,13 @@
               {% endif %}
               {% endfor %}
 	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
+	    <!-- <td align="center">
+            {% for value in g.values%}
               {% if "Other Areas" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+            <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
-	    </td>
+          </td> -->
 	  </tr>
 	  {% endfor %}
 	  {% endfor %}
