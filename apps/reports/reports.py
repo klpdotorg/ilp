@@ -495,13 +495,31 @@ class ClusterReport(BaseReport):
         for school, qgroup in conditions:
             school_ag = answergroup.filter(institution__name=school, questiongroup__name=qgroup)
             for contest in contests:
-                try:
-                    score = school_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/school_ag.filter(answers__question__key=contest).count()
-                except ZeroDivisionError:
-                    continue
+                # This was the original logic for generating GP contest report
+                # In July, the logic has been changed to the block below this
+                # block.
+                # 
+                # try:
+                #     score = school_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/school_ag.filter(answers__question__key=contest).count()
+                # except ZeroDivisionError:
+                #     continue
+                # details = dict(school=school, grade=qgroup)
+                # details['contest'] = contest
+                # details['percent'] = score*100
+
+                total_students_appeared = school_ag.count()
+                score = 0
+                for s in school_ag:
+                    if s.answers.filter(
+                        question__key=contest, answer='Yes'
+                    ).exists():
+                        score += 1
+                score = score / total_students_appeared
+
                 details = dict(school=school, grade=qgroup)
                 details['contest'] = contest
                 details['percent'] = score*100
+
                 schools.append(details)
 
         return schools
