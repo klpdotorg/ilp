@@ -223,9 +223,9 @@
 	    <th>
 	      ಭಾಗಾಕಾ ರ<br>(&divide;)
 	    </th>
-	    <th>
-	      ಇತರೆ ಪರಿಕಲ್ಪನೆಗಳು
-	    </th>
+	    <!-- <th>
+            ಇತರೆ ಪರಿಕಲ್ಪನೆಗಳು
+          </th> -->
 	  </tr>
 	  {% for item in data.schools %}
 	  <tr>
@@ -265,13 +265,13 @@
               {% endif %}
               {% endfor %}
 	    </td>
-	    <td align="center">
-	      {% for value in item.values%}
+	    <!-- <td align="center">
+            {% for value in item.values%}
               {% if "Other Areas" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+            <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
               {% endif %}
               {% endfor %}
-	    </td>
+          </td> -->
 	  </tr>
 	  {% endfor %}
 	</table>
