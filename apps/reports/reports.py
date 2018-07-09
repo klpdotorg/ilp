@@ -1570,19 +1570,19 @@ class BlockReportSummarized(BaseReport):
                 # In July, the logic has been changed to the block below this
                 # block.
                 #
-                try:
-                    score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
-                except ZeroDivisionError:
-                    continue
+                # try:
+                #     score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
+                # except ZeroDivisionError:
+                #     continue
 
-                # total_students_appeared = cluster_ag.count()
-                # score = 0
-                # for c in cluster_ag:
-                #     if c.answers.filter(
-                #         question__key=contest, answer='Yes'
-                #     ).exists():
-                #         score += 1
-                # score = score / total_students_appeared
+                total_students_appeared = cluster_ag.count()
+                score = 0
+                for c in cluster_ag:
+                    if c.answers.filter(
+                        question__key=contest, answer='Yes'
+                    ).exists():
+                        score += 1
+                score = score / total_students_appeared
 
                 details = dict(cluster=cluster, grade=qgroup)
                 details['contest'] = contest
@@ -1775,17 +1775,17 @@ class DistrictReportSummarized(BaseReport):
                         if not gradeExist:
                             o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
 
-        for i in out:
-            for grade in i['grades']:
-                count = 0
-                num = 0
-                for value in grade['values']:
-                    if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
-                        count += value['count']
-                        num += 1
-                grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-                grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-        return out
+        # for i in out:
+        #     for grade in i['grades']:
+        #         count = 0
+        #         num = 0
+        #         for value in grade['values']:
+        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
+        #                 count += value['count']
+        #                 num += 1
+        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
+        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
+        # return out
 
     def getGKAData(self, district, date_range):
         blocks  = Boundary.objects.filter(parent=district, boundary_type__char_id='SB') # Blocks that belong to the district
