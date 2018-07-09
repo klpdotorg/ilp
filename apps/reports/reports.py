@@ -995,8 +995,23 @@ class GPMathContestReportSummarized(BaseReport):
                     num_q = ag.answers.filter(question__key=contest).count()
                     if num_q == 0:
                         continue
-                    answered = ag.answers.filter(question__key=contest, answer='Yes').count()
-                    mark = (answered/num_q)*100
+
+                    # This was the original logic for generating GP contest report
+                    # In July, the logic has been changed to the block below this
+                    # block.
+                    # 
+                    # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
+                    # mark = (answered/num_q)*100
+
+                    total_students_appeared = school_ag.count()
+                    answered = 0
+                    for s in school_ag:
+                        if s.answers.filter(
+                            question__key=contest, answer='Yes'
+                        ).exists():
+                            answered += 1
+                    mark = (answered / total_students_appeared) * 100
+
                     try:
                         scores[ag.id]['mark'].append(mark)
                     except KeyError:
