@@ -831,10 +831,24 @@ class DistrictReport(BaseReport):
         for block, qgroup in conditions:
             block_ag = answergroup.filter(institution__admin2__name=block, questiongroup__name=qgroup)
             for contest in contests:
-                try:
-                    score = block_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/block_ag.filter(answers__question__key=contest).count()
-                except ZeroDivisionError:
-                    continue
+                # This was the original logic for generating GP contest report
+                # In July, the logic has been changed to the block below this
+                # block.
+                # 
+                # try:
+                #     score = block_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/block_ag.filter(answers__question__key=contest).count()
+                # except ZeroDivisionError:
+                #     continue
+
+                total_students_appeared = block_ag.count()
+                score = 0
+                for b in block_ag:
+                    if b.answers.filter(
+                        question__key=contest, answer='Yes'
+                    ).exists():
+                        score += 1
+                score = score / total_students_appeared
+
                 details = dict(block=block, grade=qgroup)
                 details['contest'] = contest
                 details['percent'] = score*100
