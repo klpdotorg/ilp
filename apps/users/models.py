@@ -8,7 +8,8 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager,
     AbstractBaseUser,
-    PermissionsMixin
+    PermissionsMixin,
+    Group
 )
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -129,11 +130,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __unicode__(self):
         return self.mobile_no
 
+    class Meta:
+        ordering = ['id', ]
+
 
 @receiver(post_save, sender=User)
 def user_created_verify_email(sender, instance=None, created=False, **kwargs):
     if created and instance.email:
         instance.send_verification_email()
+
 
 class UserBoundary(models.Model):
     user = models.ForeignKey('User')
@@ -142,6 +147,20 @@ class UserBoundary(models.Model):
     class Meta:
         unique_together = (('user', 'boundary'), )
 
-''' This is specifically for django-guardian '''
-def get_anonymous_user_instance(User):
-    return User(first_name='Anonymous', last_name='Anonymous', mobile_no='00000000000')
+
+class PreGroupUser(models.Model):
+    """
+        A list of mobile numbers that will be added to a particular user group
+        when the user logins/signs up with a number frm the list.
+
+        This was initially added to add existing/new users who are part of the
+        new A3 assessment app to a new user group called a3_users.
+    """
+
+    mobile_no = models.CharField(max_length=32)
+    source = models.CharField(max_length=32)
+    group = models.ForeignKey(Group)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('mobile_no', 'source', 'group', )

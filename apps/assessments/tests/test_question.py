@@ -27,7 +27,7 @@ class QuestionGroupQuestionTests(APITestCase):
 
     def test_surveys_questiongroup_list(self):
         url = reverse(
-            'surveys:surveys-questiongroup-list',
+            'surveys:survey-questiongroup-list',
             kwargs={'parent_lookup_survey': self.test_survey_id}
         )
         response = self.client.get(url)
@@ -36,7 +36,7 @@ class QuestionGroupQuestionTests(APITestCase):
 
     def test_surveys_questiongroup_detail(self):
         url = reverse(
-            'surveys:surveys-questiongroup-detail',
+            'surveys:survey-questiongroup-detail',
             kwargs={'parent_lookup_survey': self.test_survey_id,
                     'pk': QUESTIONGROUP_ID}
         )
@@ -46,7 +46,7 @@ class QuestionGroupQuestionTests(APITestCase):
 
     def test_surveys_questiongroup_question_list(self):
         url = reverse(
-            'surveys:surveys-questiongroup-questions-list',
+            'surveys:survey-questiongroup-question-list',
             kwargs={'parent_lookup_survey': self.test_survey_id,
                     'parent_lookup_questiongroup': QUESTIONGROUP_ID}
         )
@@ -56,7 +56,7 @@ class QuestionGroupQuestionTests(APITestCase):
 
     def test_surveys_questiongroup_question_post(self):
         url = reverse(
-            'surveys:surveys-questiongroup-questions-list',
+            'surveys:survey-questiongroup-question-list',
             kwargs={'parent_lookup_survey': self.test_survey_id,
                     'parent_lookup_questiongroup': QUESTIONGROUP_ID}
         )

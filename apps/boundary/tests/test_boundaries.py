@@ -156,6 +156,19 @@ class BoundaryApiTests(APITestCase):
         response.render()
         data = response.data
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_boundary_create_deo_user(self):
+        request = self.factory.post('/boundaries',
+                                    {'parent': '2',
+                                     'name': 'test_SD',
+                                     'boundary_type': 'SD',
+                                     'type': 'primary',
+                                     'status': 'AC'}, format='json')
+        force_authenticate(request, user=self.regular_user)
+        response = self.createView(request)
+        response.render()
+        data = response.data
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
        
     
     def test_boundary_create(self):

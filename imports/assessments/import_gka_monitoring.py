@@ -20,15 +20,15 @@ loadsqlfile = scriptdir+"/"+basename+"_loaddata.sql"
 tables = [
     {
         'name': 'assessments_survey',
-        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(11, 'GKA Monitoring', to_date('2016-06-06', 'YYYY-MM-DD'),'akshara','AC', 2,'institution');"
+        'insertquery': "insert into replacetablename(id, name,created_at,partner_id,status_id, admin0_id, survey_on_id) values(11, 'GKA School Visit', to_date('2016-06-06', 'YYYY-MM-DD'),'akshara','AC', 2,'institution');"
     },
     {
         'name': 'assessments_questiongroup',
-        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, inst_type_id, status_id, survey_id, type_id, source_id, image_required, comments_required, group_text) values(17,'GKA SMS Monitoring',to_date('2016-07-12', 'YYYY-MM-DD'),false, to_date('2016-07-12', 'YYYY-MM-DD'),to_date('2016-07-12', 'YYYY-MM-DD'),'primary','AC',11,'monitor', 7, true, true, 'grade'), (24,'GKA Konnect Monitoring',to_date('2017-11-04', 'YYYY-MM-DD'),false, to_date('2017-11-04','YYYY-MM-DD'),to_date('2017-11-04','YYYY-MM-DD'),'primary','AC',11,'monitor', 4, true, true, 'grade');"
+        'insertquery': "insert into replacetablename(id, name, start_date, double_entry, created_at, updated_at, inst_type_id, status_id, survey_id, type_id, source_id, image_required, comments_required, group_text) values(17,'GKA SMS Monitoring',to_date('2016-07-12', 'YYYY-MM-DD'),false, to_date('2016-07-12', 'YYYY-MM-DD'),to_date('2016-07-12', 'YYYY-MM-DD'),'primary','AC',11,'monitor', 7, true, true, 'grade'), (24,'GKA Konnect Monitoring',to_date('2017-11-04', 'YYYY-MM-DD'),false, to_date('2017-11-04','YYYY-MM-DD'),to_date('2017-11-04','YYYY-MM-DD'),'primary','IA',11,'monitor', 4, true, true, 'grade');"
     },
     {
         'name': 'assessments_question',
-        'getquery': "\COPY (select distinct id, text, display_text, key, options, is_featured, 1,case(is_active) when 't' then 'AC' when 'f' then 'IA' end from stories_question where id in (select question_id from stories_questiongroup_questions where questiongroup_id in (17,24))) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
+        'getquery': "\COPY (select distinct id, text, display_text, key, options, true, 1,case(is_active) when 't' then 'AC' when 'f' then 'IA' end from stories_question where id in (select question_id from stories_questiongroup_questions where questiongroup_id in (17,24))) TO 'replacefilename' NULL 'null' DELIMITER ',' quote '\\\"' csv;",
         'tempquery': "CREATE TEMP TABLE temp_replacetablename(id integer, text text, display_text text, key text, options text, is_featured boolean, question_type_id integer, status text ); \COPY temp_replacetablename(id, text, display_text, key, options, is_featured, question_type_id,status) FROM 'replacefilename' with csv NULL 'null';",
         'insertquery': "INSERT INTO replacetablename(id, question_text, display_text, key, options, is_featured, question_type_id, status_id) select temp.id, temp.text, temp.display_text, temp.key, temp.options, temp.is_featured, temp.question_type_id, temp.status from temp_replacetablename temp where temp.id not in (select id from replacetablename);"
     },

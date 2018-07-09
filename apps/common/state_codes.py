@@ -40,7 +40,7 @@ STATES = {
         'header_logo': '/static/images/states/od/OLP_logo@2x.png',
         'footer_logo': '/static/images/states/od/OLP_logo_footer@2x.png',
         'state_code': 'od',
-        'lang_name': 'Odiya',
+        'lang_name': 'Odia',
         'lang_key': 'od'
     },
 }

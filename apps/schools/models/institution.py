@@ -86,8 +86,18 @@ class Institution(models.Model):
         for image in images_queryset:
             print("Image URL is: ", image.image.url)
             images.append(image.image.url)
-
         return images
+
+    def get_grades(self):
+        from .student_staff import (Student, StudentStudentGroupRelation, StudentGroup)
+        group_queryset = StudentGroup.objects.filter(institution_id = self, status='AC', group_type='class')
+        grades=[]
+        for grp in group_queryset:
+            gradesdict={}
+            gradesdict['grpid'] = grp.id
+            gradesdict['grpname'] = grp.name
+            grades.append(gradesdict)
+        return grades
 
     def get_geometry(self):
         if hasattr(self, 'coord') and self.coord is not None:
@@ -98,18 +108,18 @@ class Institution(models.Model):
     def get_mt_profile(self):
         profile = {}
         aggregation = self.institutionaggregation_set.filter(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
-        # print("Inside institution model, printing inst aggregation",# aggregation)
         for agg in aggregation:
             if agg.mt in profile:
                 profile[agg.mt.name] += agg.num
             else:
                 profile[agg.mt.name] = agg.num
-        # print("Profile is: ", profile)
         return profile
-
 
     class Meta:
         unique_together = (('name', 'dise', 'admin3'), )
+        permissions = (
+            ('crud_student_class_staff', 'CRUD Student Class and Staff'),
+        )
 
     def __unicode__(self):
         return "%s" % self.name

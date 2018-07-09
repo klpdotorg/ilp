@@ -3,17 +3,18 @@
     "model": "boundary.BoundaryStateCode",
     "pk": "ka",
     "fields": {
-        "boundary_id": 2
+        "boundary_id": 2,
+        "language": "kan"
     }
 },
 {
     "model": "boundary.BoundaryStateCode",
     "pk": "od",
     "fields":{
-        "boundary_id": 3
+        "boundary_id": 3,
+        "language": "kan"
     }
 },
-
 {
     "model": "boundary.boundary",
     "pk": 418,

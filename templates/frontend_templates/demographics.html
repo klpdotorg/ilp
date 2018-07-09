@@ -1,6 +1,6 @@
 {% verbatim %}
   <script type="text/html" id="tpl-reportDate">
-    <div class="heading-tiny date-header"> Primary School Report | {{today.date}} | Source: KLP</div>
+    <div class="heading-tiny date-header"> Primary School Report ({{header_date.academic_year}}) | {{header_date.date}} | Source: KLP</div>
   </script>
 
   <script type="text/html" id="tpl-topSummary">
@@ -14,12 +14,12 @@
           {% elseif  data.info.type == "school" %}
             <div class="heading-tiny-uppercase">School</div>
           {% else %}
-            <div class="heading-tiny-uppercase">Electoral Region</div>
+            <div class="heading-tiny-uppercase">Region</div>
           {% endif %}
           <h2 class="heading-secondary brand-blue align-left">{{data.info.name|capitalize}}</h2> 
           <div class="heading-tiny-uppercase">Type</div>
           <h2 class="heading-secondary brand-blue align-left">{{data.info.type}}</h2>
-          {% if data.info.type == "mp constituency" || data.info.type == "mla constituency" || data.info.type == "ward" %}
+          {% if 'commision_code' in data.info %}
             <div class="heading-tiny-uppercase">Elected Representative</div>
             <div class="brand-blue font-light align-left">{{data.info.elected_rep |upper}}<br/>({{data.info.elected_party|title}})</div>
           {% else %}
@@ -51,7 +51,7 @@
               <div class="sect-half">
                   <div class="heading-tiny-uppercase">Schools</div>
                   <h2 class="heading-secondary black align-left">{{data.school_count}}</h2> 
-                  <div class="heading-tiny-uppercase">Teachers</div>
+                  <!--div class="heading-tiny-uppercase">Teachers</div>
                   <h2 class="heading-secondary black align-left">{{data.teacher_count| checkzero}}</h2> 
                   <div class="heading-tiny-uppercase">Pupil-to-Teacher Ratio</div>
                   <div class="align-left"> 
@@ -70,9 +70,7 @@
                     </span>  
                     <span class="heading-tiny brand-blue">Recommended</span>
                     <span class="heading-secondary black">)</span>
-                  </div>
-              </div><!--sect-half-->
-              <div class="sect-half">
+                  </div--!>
                   <div class="heading-tiny-uppercase">Students</div>
                   <div class="module-stats-icon module-stats-boygirl"><!--1-->
                       <span class="icon-boy-girl"></span>
@@ -82,7 +80,10 @@
                       </div><!--2-->
                   </div><!--1-->
 
-                  <div class="heading-tiny-uppercase">Gender Profile</div>
+
+              </div><!--sect-half-->
+              <div class="sect-half">
+                                    <div class="heading-tiny-uppercase">Gender Profile</div>
                   <div class="module-stats-icon module-stats-girl"><!--2-->
                       <span class="icon-girl"></span>
                       <div class="module-stats-info"><!--3-->
@@ -147,8 +148,8 @@
                 </td>
                 <td class="label-schcount">
                   <div class="bar-graph-wrap float-left"><!--1-->
-                      <div class="bar-num-label font-smaller bold brand-blue">{{each.school_count}}/{{each.school_total}}</div>
-                        <div class="bar-custom tooltip" aria-label="{{each.school_count}} Schools"><!--2-->
+                      <div class="bar-num-label font-smaller bold brand-blue">{{each.num_schools}}/{{each.school_total}}</div>
+                        <div class="bar-custom tooltip" aria-label="{{each.num_schools}} Schools"><!--2-->
                           <div class="bar-value grey-gravel-bg float-left" style="width:{{each.cat_perc}}%;"></div><!--3-->
                         </div><!--2-->
                       <div class="bar-percent grey-gravel">{{each.cat_perc}}%</div><!--6-->
@@ -211,7 +212,7 @@
         <th>Year</th>
         <th>Average Enrolment <br/>in Upper Primary</th>
         <th>Average Enrolment <br/>in Lower Primary</th>
-        <th>PTR</th>
+        <!--th>PTR</th--!>
         <th>Schools</th>
       </tr>
       {% for each in years %}
@@ -225,7 +226,7 @@
             <td>
               <div class="td-label-enroll">{{each.avg_enrol_lower|checkzero}}</div>  
             </td>
-            <td>
+            <!--td>
               <div class="td-label-ptr">
               {% if each.ptr !== "NA" && each.ptr !== 0 %}
                 {{each.ptr|round}}:1
@@ -233,7 +234,7 @@
                 No data
               {% endif %}
               </div>
-            </td>
+            </td--!>
             <td>
               <div class="td-label-enroll">{{each.school_count|checkzero}}</div>  
             </td>
@@ -258,7 +259,7 @@
         <th>Boundary</th>
         <th>Average Enrolment <br/>in Upper Primary</th>
         <th>Average Enrolment <br/>in Lower Primary</th>
-        <th>PTR</th>
+        <!--th>PTR</th--!>
         <th>Schools</th>
       </tr>
       {% for each in neighbours %}
@@ -266,8 +267,8 @@
             {% set highlight= "" %}
             {% set barcolor= "grey-gravel-bg" %}
             {% if each.name == name %}
-              {% set highlight= "brand-red" %}
-              {% set barcolor= "brand-red-bg" %}
+              {% set highlight= "brand-blue" %}
+              {% set barcolor= "brand-blue-bg" %}
             {% endif %}
             <td>
                 <div class="{{highlight}} td-label-boundary ">{{each.name|title}}</div>
@@ -281,7 +282,7 @@
             <td>
               <div class="{{highlight}} td-label-enroll">{{each.avg_enrol_lower|checkzero}}</div>  
             </td>
-            <td>
+            <!--td>
               <div class="{{highlight}} td-label-ptr">
                 {% if each.ptr !== "NA" && each.ptr !== 0 %}
                   {{each.ptr|round}}:1
@@ -289,7 +290,7 @@
                   No data
                 {% endif %}
               </div>
-            </td>
+            </td--!>
             <td>
               <!-- Value is percentage of the nearest 100 to the highest value-->
               <div class="bar-graph-wrap">

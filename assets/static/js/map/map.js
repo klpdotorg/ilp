@@ -20,6 +20,29 @@
         'addPopupCloseHistory': true
     };
 
+    //Get the state code that is set from the templates
+    var state_code = window.klp.STATE_CODE;
+
+    var stateLatLongs = {
+        "ka": {"SW_lat": 11.57, 
+               "SW_long": 73.87,
+               "NE_lat": 18.45, 
+               "NE_long": 78.57,
+               "default_lat":12.9793998, 
+               "default_long":77.5903608
+            },
+        "od": {
+            "SW_lat": 17.839831,  
+            "SW_long": 81.405900,
+            "NE_lat": 21.756571, 
+            "NE_long": 87.409928,
+            "default_lat":20.296059, 
+            "default_long":85.824539
+        }
+    };
+    console.log("State is: ", state_code)
+    console.log("State lat longs", stateLatLongs[state_code])
+
     var districtLayer,
         preschoolDistrictLayer,
         blockLayer,
@@ -157,7 +180,7 @@
 
             if (searchEntityType === 'school') {
                 searchPoint = L.latLng(data.geometry.coordinates[1], data.geometry.coordinates[0]);
-                var marker = L.marker(searchPoint, {icon: mapIcon(data.properties.type.name)});
+                var marker = L.marker(searchPoint, {icon: mapIcon(data.properties.type)});
                 markerPopup(marker, data);
                 map.setView(searchPoint, 14);
             }
@@ -848,12 +871,20 @@
 
     function load_map() {
 
-        var southWest = L.latLng(11.57, 73.87),
-            northEast = L.latLng(18.45, 78.57),
+        var southWest_lat = stateLatLongs[state_code]["SW_lat"]
+        var southWest_long = stateLatLongs[state_code]["SW_long"]
+        var northEast_lat = stateLatLongs[state_code]["NE_lat"]
+        var northEast_long = stateLatLongs[state_code]["NE_long"]
+        var default_lat = stateLatLongs[state_code]["default_lat"]
+        var default_long = stateLatLongs[state_code]["default_long"]
+        // var southWest = L.latLng(11.57, 73.87),
+        //     northEast = L.latLng(18.45, 78.57),
+        var southWest = L.latLng(southWest_lat, southWest_long),
+            northEast = L.latLng(northEast_lat, northEast_long),
             bounds = L.latLngBounds(southWest, northEast);
 
         marker_overlay_html = $("#tpl_marker_overlay").html();
-        t.map = map = L.map('js-map-canvas', {maxBounds: bounds}).setView([12.9793998, 77.5903608], 14);
+        t.map = map = L.map('js-map-canvas', {maxBounds: bounds}).setView([default_lat, default_long], 14);
         L.tileLayer(klp.settings.tilesURL, {
             maxZoom: 16,
             //attribution: 'OpenStreetMap, OSM-Bright'

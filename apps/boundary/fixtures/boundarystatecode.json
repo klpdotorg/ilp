@@ -3,14 +3,16 @@
         "model": "boundary.BoundaryStateCode",
         "fields":{
             "char_id": "ka",
-            "boundary_id": 2
+            "boundary_id": 2,
+            "language_id": "kan"
         }
     },
     {
         "model": "boundary.BoundaryStateCode",
         "fields":{
             "char_id": "od",
-            "boundary_id": 3
+            "boundary_id": 3,
+            "language_id": "ori"
         }
     }
 ]

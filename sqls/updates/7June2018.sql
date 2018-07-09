@@ -1,0 +1,2 @@
+insert into assessments_surveytagclassmapping (sg_name, academic_year_id, tag_id) values ('4', '1819', 'gka');
+insert into assessments_surveytagclassmapping (sg_name, academic_year_id, tag_id) values ('5', '1819', 'gka');

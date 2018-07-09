@@ -14,34 +14,50 @@ from users.serializers import (
     OtpGenerateSerializer,
     OtpPasswordResetSerializer
 )
-from users.utils import login_user
-from users.permission import IsAdminOrIsSelf
+from users.utils import login_user, check_source_and_add_user_to_group
+from users.permission import IsAdminOrIsSelf, AllowAny
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class UserRegisterView(generics.CreateAPIView):
     """
-    This endpoint registers a new user in ILP.
+    This endpoint registers a new user in ILP. Used by the
+    website
     """
     serializer_class = UserRegistrationSerializer
     permission_classes = (
-        permissions.AllowAny,
+        AllowAny,
     )
 
     def perform_create(self, serializer):
+        logger.debug("Entering user creation method")
         try:
+            logger.debug("Saving to serializer")
             instance = serializer.save()
         except Exception as e:
+            logger.error("There was an error with registering users: ", e)
             raise e
         else:
+            logger.debug("Generating SMS pin")
             # Generate SMS pin and send OTP
             instance.generate_sms_pin()
+            logger.debug("Sending OTP")
             instance.send_otp()
 
             # Add user to groups
+            logger.debug("Adding user to appropriate groups")
             instance.groups.add(Group.objects.get(name='ilp_auth_user'))
             instance.groups.add(Group.objects.get(name='ilp_konnect_user'))
-
+            if instance.is_superuser:
+                instance.groups.add(Group.objects.get(name='tada_admin'))
             instance.save()
+
+            # See if the user belongs to PreUserGroup and add him
+            check_source_and_add_user_to_group(self.request, instance)
+
+            logger.debug("User creation is done successfully")
 
 
 class UserLoginView(generics.GenericAPIView):
@@ -58,6 +74,10 @@ class UserLoginView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         data = UserSerializer(serializer.user).data
         data['token'] = login_user(self.request, serializer.user).key
+
+        # See if the user belongs to PreUserGroup and add him
+        check_source_and_add_user_to_group(request, serializer.user)
+
         return Response(data, status=status.HTTP_200_OK)
 
 
@@ -67,7 +87,7 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     """
     allowed_methods = ['GET', 'PATCH']
     serializer_class = UserSerializer
-    permission_classes = (IsAdminOrIsSelf, permissions.IsAuthenticated, )
+    permission_classes = (IsAdminOrIsSelf,)
 
     def get_object(self):
         return User.objects.get(id=self.request.user.id)

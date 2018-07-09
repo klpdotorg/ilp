@@ -56,10 +56,10 @@ var topSummaryData = {};
         klp.router.start();
         premodalQueryParams = klp.router.getHash().queryParams;
 
-        $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
-        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018']});
-        $('#startDate').yearMonthSelect("setDate", moment("20170601", "YYYYMMDD"));
-        $('#endDate').yearMonthSelect("setDate", moment("20180331", "YYYYMMDD"));
+        $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
+        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
+        $('#startDate').yearMonthSelect("setDate", moment("20180601", "YYYYMMDD"));
+        $('#endDate').yearMonthSelect("setDate", moment("20190331", "YYYYMMDD"));
         var startDate = $('#startDate').yearMonthSelect("getFirstDay");
 
         $('#search_button').click(function(e){
@@ -88,8 +88,6 @@ var topSummaryData = {};
                         url += '&boundary_id=' + district_id;
                     }
                 }
-
-                console.log(url)
 
                 e.originalEvent.currentTarget.href = url;
 
@@ -126,8 +124,8 @@ var topSummaryData = {};
     function loadData(params, reloadOpenSection) {
         // As of August 1st, 2017, data from June 2017 is shown as default
         if(!params.from && !params.to) {
-            params.from = '2017-06-01';
-            params.to = '2018-03-31';
+            params.from = '2018-06-01';
+            params.to = '2019-03-31';
         }
 
         klp.GKA.routerParams = params;
@@ -150,13 +148,40 @@ var topSummaryData = {};
     }
 
     function loadComparison(params) {
+        var $compareEmptyMessage = $('#compareEmptyMessage'),
+            $compareTable = $('#compareTable');
+
+        function hideComparisonShowEmptyMessage() {
+            $compareTable.hide();
+            $compareEmptyMessage.show();
+        }
+
+        function showComparisonHideEmptyMessage() {
+            $compareTable.show();
+            $compareEmptyMessage.hide();
+        }
+
         // Spinners
-        $('#compareTable').startLoading();
+        $compareTable.startLoading();
+        showComparisonHideEmptyMessage();
 
         var $compareXHR = klp.api.do(
             "surveys/boundaryneighbour/info/?survey_tag=gka", params
         );
         $compareXHR.done(function(comparisonData) {
+
+            if(comparisonData.count === 0) {
+                $compareTable.startLoading();
+                hideComparisonShowEmptyMessage();
+                return;
+            }
+
+            if(params.institution_id) {
+                hideComparisonShowEmptyMessage();
+                return;
+            } else {
+                showComparisonHideEmptyMessage();
+            }
 
             var neighbours = _.map(comparisonData.results, function(c){
                 var data = {
@@ -204,8 +229,8 @@ var topSummaryData = {};
             });
             var tplComparison= swig.compile($('#tpl-compareTable').html());
             var compareHTML = tplComparison({"neighbours":neighbours});
-            $('#compareTable').html(compareHTML);
-            $('#compareTable').stopLoading();
+            $compareTable.html(compareHTML);
+            $compareTable.stopLoading();
         });
 
         return; // No need to render comparison graphs for version 1
@@ -573,7 +598,14 @@ var topSummaryData = {};
 
         // Top summary needs a year
         if(params.from && params.to) {
-            year = (parseInt(params.to.slice(2, 4)) - 1) + params.to.slice(2, 4);
+            var toMonth = parseInt(params.to.slice(5,7), 10),
+                toYear = parseInt(params.to.slice(2, 4), 10);
+
+            if(toMonth >= 6) {
+                year = '' + toYear + '' + (toYear + 1);
+            } else {
+                year = (toYear - 1) + '' + toYear;
+            }
         }
 
         // Top summary doesn't need a from and to
@@ -641,6 +673,20 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
+        function updatePercentageUsingMathClassNo(data, key, score) {
+
+            if(score !== 0) {
+                data[key].total = score;
+                data[key].percent = getPercent(data[key].score, score);
+            } else {
+                data[key].score = 0;
+                data[key].percent = 0;
+            }
+
+            return data;
+
+        }
+
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -649,7 +695,9 @@ var topSummaryData = {};
                 "ivrss-group-work"
             ],
             data = combineDataSources(
-                detailsData.source, ['sms', 'konnectsms'], SMSQuestionKeys
+                detailsData.source, 
+                ['sms', 'mobile', 'konnectsms'],
+                SMSQuestionKeys
             ),
             questionObjects = _.map(SMSQuestionKeys, function(key) {
                 return getQuestion(data, 'combinedData', key);
@@ -662,7 +710,7 @@ var topSummaryData = {};
             regroup[questions[each]["key"]] = questions[each];
         }
 
-        // Add default values to prevent JS errors at the template lebel
+        // Add default values to prevent JS errors at the template level
         _.each(SMSQuestionKeys, function(qKey){
             if(!regroup[qKey]) {
                 regroup[qKey] = {
@@ -672,6 +720,18 @@ var topSummaryData = {};
                 };
             }
         });
+
+        /*  On April 18th, 2018, we introduced a new logic to calculate 
+            tlm usage and group work percentages.
+            Now, instead of using the whole survey score to calculate percentage (the denomincator), we only take "math class hapenning" key's Yes count.
+        */
+        var mathClassScore = regroup['ivrss-math-class-happening'].score;
+        regroup = updatePercentageUsingMathClassNo(
+            regroup, 'ivrss-gka-tlm-in-use', mathClassScore
+        );
+        regroup = updatePercentageUsingMathClassNo(
+            regroup, 'ivrss-group-work', mathClassScore
+        );
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
@@ -706,12 +766,25 @@ var topSummaryData = {};
                 BRC:"Block Resource Coordinator",
                 CRCC:"Cluster Resource Coordinator",
                 PC:"Pedagogy Coordinator",
-                UK:"Unknown",
-                "null":"Unknown"
-            };
+                UK:"Unknown"
+            },
+            defaultUserGroups = [
+                'BRC',
+                'GO',
+                'BRP',
+                'EO',
+                'CRP',
+                'DIET',
+                'VR',
+                'HM',
+                'TR',
+                'SM',
+                'AS',
+                'PR'
+            ];
 
         for (var m in users) {
-            if(m) {
+            if(m && (m !== 'null' && m !== 'UK')) {
                 meta_values.push({
                     meta: userFullName[m] ? userFullName[m]: m,
                     value: users[m]
@@ -719,6 +792,21 @@ var topSummaryData = {};
                 labels.push(m);
             }
         }
+
+        // Add zero values for some default user groups till we reach 12.
+        if(meta_values.length < 12) {
+            _.each(defaultUserGroups, function(d){
+                if(labels.indexOf(d) === -1) {
+                    labels.push(d);
+                    meta_values.push({
+                        meta: userFullName[d] ? userFullName[d]: d,
+                        value: 0
+                    });
+                }
+            });
+        }
+
+        console.log(users, meta_values, labels);
 
         // Build data for bar chart and render it
         var sms_sender = {
@@ -804,7 +892,8 @@ var topSummaryData = {};
         // Spinners
         $('#assmtSummary').startLoading();
         $('#assmtVolume').startLoading();
-        $('#assmtCompetancy').startLoading();
+        $('#assmtCompetancy-4').startLoading();
+        $('#assmtCompetancy-5').startLoading();
 
         var assessmentId = getSurveyId('Ganitha Kalika Andolana');
         
@@ -814,7 +903,7 @@ var topSummaryData = {};
             summaryData = summaryData.summary;
 
             // Load details next
-            var $keyXHR = klp.api.do("survey/detail/key/?survey_id=" + assessmentId, params);
+            var $keyXHR = klp.api.do("survey/detail/class/key/?survey_id=" + assessmentId, params);
             $keyXHR.done(function(detailKeydata) {
 
                 var topSummary = klp.GKA.topSummaryData;
@@ -836,9 +925,11 @@ var topSummaryData = {};
                     "last_assmt": last_assmt ?  formatLastStory(last_assmt, true) : 'NA'
                 }
                 renderAssmtSummary(dataSummary);
-                renderAssmtCharts(detailKeydata);
+                renderAssmtCharts(detailKeydata, '4');
+                renderAssmtCharts(detailKeydata, '5');
                 $('#assmtSummary').stopLoading();
-                $('#assmtCompetancy').stopLoading();
+                $('#assmtCompetancy-4').stopLoading();
+                $('#assmtCompetancy-5').stopLoading();
 
             });
 
@@ -860,7 +951,7 @@ var topSummaryData = {};
 
     }
 
-    function renderAssmtCharts(data) {
+    function renderAssmtCharts(data, className) {
 
         function getAssmtPerc(scores, topic) {
             if (scores[topic]) {
@@ -870,9 +961,12 @@ var topSummaryData = {};
             }
         }
 
-        var scores = data.scores;
+        var scores = data[className];
 
-        const labels = Object.keys(data.scores);
+        // var labels = Object.keys(data.scores);
+        // TODO: Find a better way to pack all the graph data from the server
+        // rather than hard coding labels.
+        var labels = ['Number Sense', 'Addition', 'Subtraction', 'Multiplication', 'Division', 'Fractions', 'Decimals', 'Shapes', 'Area of Shapes', 'Money Problem', 'Word Problems'];
         var meta_values = _.map(labels, (label) => {
           return {
             meta: label,
@@ -890,7 +984,11 @@ var topSummaryData = {};
                 }
             ],
         }
-        renderBarChart('#assmtCompetancy', competencies, "Percentage of Children");
+        renderBarChart(
+            '#assmtCompetancy-' + className,
+            competencies,
+            "Percentage of Children"
+        );
     }
 
     function renderAssmtVolumeChart(volumes, params) {
@@ -1356,39 +1454,33 @@ var topSummaryData = {};
 
 
     function combineDataSources(sourceData, sources, keys) {
-        var s1 = sources[0],
-            s2 = sources[1];
-
 
         var combined = _.map(keys, function(k){
+            var combinedData = {
+                answers: {Yes: 0, No: 0}, question: {}
+            };
 
-            var s1Data = _.find(sourceData[s1], function(d){
-                return d.question.key === k;
-            });
+            _.each(sources, function(s) {
 
-            var s2Data = _.find(sourceData[s2], function(d){
-                return d.question.key === k;
-            });
+                var data = _.find(sourceData[s], function(d){
+                    return d.question.key === k;
+                });
 
-            var answers = {Yes: 0, No: 0};
-            if(s1Data) {
-                answers.Yes += s1Data.answers.Yes;
-                answers.No += s1Data.answers.No;
-            }
-            if(s2Data) {
-                answers.Yes += s2Data.answers.Yes;
-                answers.No += s2Data.answers.No;
-            }
+                if(data) {
+                    if(!isNaN(data.answers.Yes)) {
+                        combinedData.answers.Yes += data.answers.Yes;
+                    }
+                    if(!isNaN(data.answers.No)) {
+                        combinedData.answers.No += data.answers.No;
+                    }
 
-            if (s1Data || s2Data) {
-                return {
-                    answers: answers,
-                    question: (s1Data && s1Data.question) ? s1Data.question : s2Data.question
+                    if(data.question) {
+                        combinedData.question = data.question;
+                    }
                 }
-            } else {
-                return {answers:{}, question: {}};
-            }
+            });
 
+            return combinedData;
         });
 
         return {combinedData: combined};

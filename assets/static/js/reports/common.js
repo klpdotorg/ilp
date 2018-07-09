@@ -5,14 +5,14 @@
     var repType;
     var acadYear;
     var diseType = {
-        "mp constituency": "parliament",
-        "ward": "ward",
-        "mla constituency": "assembly",
+        "parliament constituency": "parliament",
+        "muncipal ward": "ward",
+        "assembly constituency": "assembly",
     };
 
 
     t.getElectedRepType = function(type){
-        return diseType[type];
+        return diseType[type.toLowerCase()];
     };
 
     /*
@@ -28,7 +28,8 @@
                                         diseData["properties"]["sum_female_tch"],
             "gender" : categoryData["gendercount"],
             "student_total": categoryData["gendercount"]["boys"] +
-                                        categoryData["gendercount"]["girls"]
+                                        categoryData["gendercount"]["girls"],
+            "academic_year": acadYear
         };
         if( summaryData["teacher_count"] === 0 )
             summaryData['ptr'] = "NA";
@@ -70,8 +71,8 @@
         var tplTopSummary = swig.compile($('#tpl-topSummary').html());
         var tplReportDate = swig.compile($('#tpl-reportDate').html());
         var now = new Date();
-        var today = {'date' : moment(now).format("MMMM D, YYYY")};
-        var dateHTML = tplReportDate({"today":today});
+        var header_date = {'date' : moment(now).format("MMMM D, YYYY"), academic_year: summaryData.academic_year};
+        var dateHTML = tplReportDate({"header_date":header_date});
         $('#report-date').html(dateHTML);
         var topSummaryHTML = tplTopSummary({"data":summaryData});
         $('#top-summary').html(topSummaryHTML);
@@ -87,7 +88,11 @@
         var passBoundaryData = {"acadYear": acadYear};
         if( repType == "boundary" )
         {
-            var type = klpData["report_info"]["type"];
+            var type = klpData["report_info"]["type"].split(" ");
+            if(type.length > 1)
+                type = type[1].toLowerCase();
+            else
+                type = type[0];
             if(type == "district")
                 loopData = klpData["neighbours"];
             else
@@ -162,7 +167,13 @@
         var data = loop.iteration();
         var type;
         if( repType == "boundary" ) //for district/block/cluster
-            type = data["value"]["type"];
+        {
+            type = data["value"]["type"].split(" ")
+            if(type.length > 1)
+                type = type[1].toLowerCase();
+            else
+                type = type[0];
+        }
         else //for electedrep
             type = repType;
         var boundary = {"id": data["value"]["dise"], "type": type};
@@ -206,7 +217,13 @@
         var data = loop.iteration();
         var type;
         if( repType == "boundary" ) //for district/block/cluster
-            type = data["type"];
+        {
+            type = data["type"].split(" ")
+            if(type.length > 1)
+                type = type[1].toLowerCase();
+            else
+                type = type[0];
+        }
         else //for electedrep
             type = repType;
         var boundary = {"id": data["dise"], "type": type};
@@ -218,6 +235,7 @@
         })
         .fail(function(err) {
             klp.utils.alertMessage("Sorry, could not dise data", "for "+data["dise"]);
+            loop.next();
         });
     };
 

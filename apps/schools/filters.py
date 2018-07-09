@@ -26,8 +26,8 @@ class InstitutionSurveyFilter(BaseFilterBackend):
         if not survey_id:
             return queryset
 
-        boundary_ids = SurveyInstitutionAgg.objects\
+        institution_ids = SurveyInstitutionAgg.objects\
             .filter(survey_id=survey_id)\
             .distinct('institution_id')\
             .values_list('institution_id', flat=True)
-        return queryset.filter(id__in=boundary_ids)
+        return queryset.filter(id__in=institution_ids)

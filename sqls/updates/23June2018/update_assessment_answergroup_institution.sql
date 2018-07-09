@@ -1,0 +1,6 @@
+update assessments_answergroup_institution set institution_id=36297 where institution_id=36397 and questiongroup_id=20;
+update assessments_answergroup_institution set institution_id=38394 where institution_id=39384 and questiongroup_id=20;
+update assessments_answergroup_institution set institution_id=43459 where institution_id=42459 and questiongroup_id=20;
+update assessments_answergroup_institution set institution_id=24064 where institution_id=32010 and questiongroup_id=20;
+update assessments_answergroup_institution set institution_id=42521 where institution_id=45521 and questiongroup_id=20;
+update assessments_answergroup_institution set institution_id=25052 where institution_id=35052 and questiongroup_id=20;

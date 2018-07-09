@@ -1,5 +1,6 @@
-from django.db import models
 from users.models import User
+
+from django.db import models
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
@@ -38,11 +39,11 @@ class SurveyTag(models.Model):
 class Survey(models.Model):
     """Survey/Programme"""
     name = models.CharField(max_length=100)
-    lang_name = models.CharField(max_length=100, null=True)
+    lang_name = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     partner = models.ForeignKey('Partner', null=True)
-    description = models.CharField(max_length=200, null=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
     survey_on = models.ForeignKey('SurveyOnType')
     admin0 = models.ForeignKey('boundary.Boundary')
     status = models.ForeignKey('common.Status')
@@ -92,15 +93,15 @@ class SurveyUserTypeMapping(models.Model):
 class QuestionGroup(models.Model):
     """Group of questions for a Survey"""
     name = models.CharField(max_length=100)
-    lang_name = models.CharField(max_length=100, null=True)
+    lang_name = models.CharField(max_length=100, null=True, blank=True)
     survey = models.ForeignKey('Survey')
     type = models.ForeignKey('SurveyType')
     inst_type = models.ForeignKey('common.InstitutionType')
-    description = models.CharField(max_length=100, null=True)
-    group_text = models.CharField(max_length=100, null=True)
+    description = models.CharField(max_length=100, null=True, blank=True)
+    group_text = models.CharField(max_length=100, null=True, blank=True)
     start_date = models.DateField(max_length=20)
-    end_date = models.DateField(max_length=20, null=True)
-    academic_year = models.ForeignKey('common.AcademicYear', null=True)
+    end_date = models.DateField(max_length=20, null=True, blank=True)
+    academic_year = models.ForeignKey('common.AcademicYear', null=True, blank=True)
     version = models.IntegerField(blank=True, null=True)
     source = models.ForeignKey("Source", null=True)
     double_entry = models.BooleanField(default=True)
@@ -111,6 +112,7 @@ class QuestionGroup(models.Model):
     image_required = models.NullBooleanField(default=False)
     comments_required = models.NullBooleanField(default=False)
     respondenttype_required = models.NullBooleanField(default=False)
+    default_respondent_type = models.ForeignKey('common.RespondentType', null=True)
 
     questions = models.ManyToManyField(
         'Question', through='Questiongroup_Questions'
@@ -126,8 +128,8 @@ class Question(models.Model):
     """pool of questions"""
     question_text = models.CharField(max_length=300)
     display_text = models.CharField(max_length=300)
-    lang_name = models.CharField(max_length=300, null=True)
-    key = models.CharField(max_length=50, null=True)
+    lang_name = models.CharField(max_length=300, null=True, blank=True)
+    key = models.CharField(max_length=50, null=True, blank=True)
     question_type = models.ForeignKey('QuestionType', null=True)
     options = models.CharField(max_length=750, null=True)
     lang_options = models.CharField(max_length=750, null=True)

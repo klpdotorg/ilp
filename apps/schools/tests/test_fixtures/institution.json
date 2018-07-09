@@ -14,17 +14,26 @@
     }
 },
 {
-    "model": "boundary.BoundaryStateCode",
-    "pk": "ka",
+    "model": "boundary.boundarystatecode",
+    "pk": "od",
     "fields": {
-        "boundary_id": 2
+        "boundary": 3,
+        "language": "kan"
     }
 },
 {
-    "model": "boundary.BoundaryStateCode",
-    "pk": "od",
-    "fields":{
-        "boundary_id": 3
+    "model": "boundary.boundarystatecode",
+    "pk": "ka",
+    "fields": {
+        "boundary": 2,
+        "language": "kan"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "kan",
+    "fields": {
+        "name": "Kannada"
     }
 },
 {

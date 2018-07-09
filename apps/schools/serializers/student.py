@@ -1,5 +1,9 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
+
+from rest_framework.exceptions import (
+    NotFound, ParseError
+)
+from rest_framework import status
 
 from schools.models import (
     Student, StudentGroup, StudentStudentGroupRelation
@@ -7,31 +11,50 @@ from schools.models import (
 from common.models import Status, AcademicYear
 
 
-class StudentSerializer(serializers.ModelSerializer):
+class StudentGroupSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = StudentGroup
+        fields = (
+            'id', 'institution', 'name', 'section', 'status', 'group_type'
+        )
+
+
+class StudentCreateSerializer(serializers.ModelSerializer):
     academic_year = serializers.PrimaryKeyRelatedField(
         queryset=AcademicYear.objects.all(), write_only=True)
 
     class Meta:
         model = Student
         fields = (
-            'id', 'first_name', 'middle_name', 'last_name', 'uid', 'dob',
-            'gender', 'mt', 'status', "institution", "academic_year"
+            'id', 'first_name', 'middle_name', 'last_name',
+            'uid', 'dob', 'gender', 'mt', 'status',
+            'institution', 'academic_year', 'father_name',
+            'mother_name'
         )
         extra_kwargs = {'academic_year': {'write_only': True}}
+
+    def validate_uid(self, uid):
+        if not uid:
+            return uid
+        if Student.objects.filter(uid=uid).exists():
+            raise serializers.ValidationError(uid + " uid already exists.")
+        if not len(str(uid)) == 9:
+            raise serializers.ValidationError("uid should be of 9 digits.")
+        return uid
 
     def create(self, validated_data):
         studentgroup_id = self.context['view'].kwargs[
             'parent_lookup_studentgroups']
-        status = validated_data.get('status', Status.ACTIVE)
         try:
             student_group = StudentGroup.objects.get(id=studentgroup_id)
         except:
-            raise ValidationError(studentgroup_id + " not found.")
+            raise NotFound(studentgroup_id + " not found.")
 
         academic_year = validated_data.pop('academic_year')
+        status = validated_data.get('status', Status.ACTIVE)
         student = Student.objects.create(**validated_data)
         student.save()
-
         StudentStudentGroupRelation.objects.get_or_create(
             student=student, student_group=student_group,
             status=status, academic_year=academic_year
@@ -39,13 +62,27 @@ class StudentSerializer(serializers.ModelSerializer):
         return student
 
 
-class StudentGroupSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
+    academic_year = serializers.PrimaryKeyRelatedField(
+        queryset=AcademicYear.objects.all(), write_only=True)
+    classes = serializers.SerializerMethodField()
 
     class Meta:
-        model = StudentGroup
+        model = Student
         fields = (
-            'id', 'institution', 'name', 'section', 'status', 'group_type'
+            'id', 'first_name', 'middle_name', 'last_name',
+            'uid', 'dob', 'gender', 'mt', 'status',
+            'institution', 'academic_year', 'classes',
+            'father_name', 'mother_name'
         )
+
+    def get_classes(self, student):
+        groups = StudentStudentGroupRelation.objects.filter(
+            student=student, status='AC')
+        studentgroup_id = groups.values_list('student_group', flat=True)
+        qs = StudentGroup.objects.filter(
+            id__in=studentgroup_id, group_type='class')
+        return StudentGroupSerializer(qs, many=True).data       
 
 
 class StudentStudentGroupSerializer(serializers.ModelSerializer):

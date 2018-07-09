@@ -15,6 +15,13 @@
 },
 {
     "model": "boundary.boundarytype",
+    "pk": "GP",
+    "fields": {
+        "name": "Gram Panchayat"
+    }
+},
+{
+    "model": "boundary.boundarytype",
     "pk": "ST",
     "fields": {
         "name": "State"
@@ -26,6 +33,7 @@
     "fields": {
         "parent": null,
         "name": "India",
+        "lang_name": null,
         "boundary_type": "C",
         "type": null,
         "dise_slug": "India",
@@ -63,11 +71,27 @@
     }
 },
 {
+    "model": "boundary.electionboundary",
+    "pk": 2049,
+    "fields": {
+        "state": 2,
+        "dise_slug": "",
+        "elec_comm_code": null,
+        "const_ward_name": "Gangavara",
+        "const_ward_type": "GP",
+        "current_elected_rep": null,
+        "current_elected_party": null,
+        "status": "AC",
+        "geom": null
+    }
+},
+{
     "model": "boundary.boundary",
     "pk": 2,
     "fields": {
         "parent": 1,
         "name": "Karnataka",
+        "lang_name": null,
         "boundary_type": "ST",
         "type": null,
         "dise_slug": "India-Karnataka",
@@ -81,9 +105,10 @@
     "fields": {
         "parent": 2,
         "name": "bengaluru rural",
+        "lang_name": null,
         "boundary_type": "SD",
         "type": "primary",
-        "dise_slug": "Karnataka-bengaluru rural",
+        "dise_slug": "Karnataka-bengaluru-rural",
         "geom": "SRID=4326;POINT (77.83026257600002 13.11876424799999)",
         "status": "AC"
     }
@@ -94,9 +119,10 @@
     "fields": {
         "parent": 433,
         "name": "devanahalli",
+        "lang_name": null,
         "boundary_type": "SB",
         "type": "primary",
-        "dise_slug": "bengaluru rural-devanahalli",
+        "dise_slug": "bengaluru-rural-devanahalli",
         "geom": "SRID=4326;POINT (77.71915364999998 13.20899746666667)",
         "status": "AC"
     }
@@ -107,6 +133,7 @@
     "fields": {
         "parent": 586,
         "name": "boodigere",
+        "lang_name": null,
         "boundary_type": "SC",
         "type": "primary",
         "dise_slug": "devanahalli-boodigere",
@@ -145,11 +172,11 @@
 },
 {
     "model": "dise.basicdata",
-    "pk": 599419,
+    "pk": 222515,
     "fields": {
         "academic_year": "1516",
         "district": "BENGALURU RURAL",
-        "school_code": 29210316801,
+        "school_code": 29210316802,
         "school_name": "G HPS SOMATHANAHALLI",
         "block_name": "DEVANAHALLI",
         "cluster_name": "BOODIGERE",
@@ -258,7 +285,7 @@
     "model": "schools.institution",
     "pk": 36172,
     "fields": {
-        "dise": 599419,
+        "dise": 222515,
         "name": "G HPS SOMATHANAHALLI",
         "category": 14,
         "gender": "co-ed",
@@ -281,7 +308,7 @@
         "admin0": 2,
         "mp": null,
         "mla": null,
-        "gp": null,
+        "gp": 2049,
         "ward": null,
         "coord": "SRID=4326;POINT (77.76826 13.16838)",
         "last_verified_year": null,

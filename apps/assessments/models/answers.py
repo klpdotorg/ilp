@@ -42,6 +42,7 @@ class AnswerInstitution(models.Model):
     class Meta:
         unique_together = (('answergroup', 'question'), )
 
+
 class AnswerGroup_StudentGroup(models.Model):
     """Stores common value for the answers to a particular QuestionGroup for a
     group value"""

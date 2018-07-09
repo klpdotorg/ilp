@@ -183,4 +183,30 @@ urlpatterns = [
     url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/download', download_report, name='download_report'),
     url(r'^reportanalytics/$', ReportAnalytics.as_view(), name='report_analytics'),
     url(r'^reportanalytics/download$', download_analytics, name='download_analytics'),
+
+    # report pages
+    url(r'^reports/search$', StaticPageView.as_view(
+        template_name='report_search.html'
+        ), name='report_search'),
+
+    url(r'^reports/demographics/(?P<report_type>electedrep|boundary)/(?P<language>english|kannada)/(?P<id>[0-9]+)/$', StaticPageView.as_view(
+        template_name='demographics.html'
+        ), name='demographics'),
+
+    url(r'^reports/demographics_dise/(?P<report_type>electedrep|boundary)/(?P<language>english|kannada)/(?P<id>[0-9]+)/$', StaticPageView.as_view(
+        template_name='demographics_dise.html'
+        ), name='demographics_dise'),
+
+    url(r'^reports/finance/(?P<report_type>electedrep|boundary)/(?P<language>english|kannada)/(?P<id>[0-9]+)/$', StaticPageView.as_view(
+        template_name='finance.html'
+        ), name='finance'),
+
+    url(r'^reports/infrastructure/(?P<report_type>electedrep|boundary)/(?P<language>english|kannada)/(?P<id>[0-9]+)/$', StaticPageView.as_view(
+        template_name='infrastructure.html'
+        ), name='infrastructure'),
+
+    url(r'^reports/surveys$', StaticPageView.as_view(
+        template_name='story_report.html'
+        ), name='stories'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

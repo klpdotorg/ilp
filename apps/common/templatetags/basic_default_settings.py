@@ -47,6 +47,17 @@ def get_formatted_default_academic_year(context):
         return formatted_value
 
 @register.simple_tag(takes_context=True)
+def get_full_formatted_default_academic_year(context):
+    try:
+        value = settings.DEFAULT_ACADEMIC_YEAR
+    except KeyError:
+        return ''
+    else:
+        formatted_value = '20' + value[0:2] + "-" + '20' + value[2:]
+        return formatted_value
+
+
+@register.simple_tag(takes_context=True)
 def get_full_dise_academic_year(context):
 
     try:
