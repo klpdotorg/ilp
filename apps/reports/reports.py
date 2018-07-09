@@ -1570,19 +1570,19 @@ class BlockReportSummarized(BaseReport):
                 # In July, the logic has been changed to the block below this
                 # block.
                 #
-                # try:
-                #     score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
-                # except ZeroDivisionError:
-                #     continue
+                try:
+                    score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
+                except ZeroDivisionError:
+                    continue
 
-                total_students_appeared = cluster_ag.count()
-                score = 0
-                for c in cluster_ag:
-                    if c.answers.filter(
-                        question__key=contest, answer='Yes'
-                    ).exists():
-                        score += 1
-                score = score / total_students_appeared
+                # total_students_appeared = cluster_ag.count()
+                # score = 0
+                # for c in cluster_ag:
+                #     if c.answers.filter(
+                #         question__key=contest, answer='Yes'
+                #     ).exists():
+                #         score += 1
+                # score = score / total_students_appeared
 
                 details = dict(cluster=cluster, grade=qgroup)
                 details['contest'] = contest
