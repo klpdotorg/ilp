@@ -214,17 +214,18 @@ class GPMathContestReport(BaseReport):
                         if not gradeExist:
                             o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
 
+        # We dont need Other Areas
         #Combine data to get the 'Other Areas' contest
-        for i in out:
-            for grade in i['grades']:
-                count = 0
-                num = 0
-                for value in grade['values']:
-                    if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
-                        count += value['count']
-                        num += 1
-                grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-                grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
+        # for i in out:
+        #     for grade in i['grades']:
+        #         count = 0
+        #         num = 0
+        #         for value in grade['values']:
+        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
+        #                 count += value['count']
+        #                 num += 1
+        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
+        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
 
 
         survey = self.getHouseholdServey(gp_obj, dates)
