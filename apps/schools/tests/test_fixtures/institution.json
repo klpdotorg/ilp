@@ -66,6 +66,14 @@
     }
 },
 {
+    "model": "common.academicyear",
+    "pk": "1617",
+    "fields": {
+        "year": "2016-2017",
+        "active": "IA"
+    }
+},
+{
     "model": "boundary.electionparty",
     "pk": "JD(S)",
     "fields": {
@@ -206,7 +214,7 @@
     "model": "dise.basicdata",
     "pk": 599419,
     "fields": {
-        "academic_year": "1516",
+        "academic_year": "1617",
         "district": "BENGALURU RURAL",
         "school_code": 29210316801,
         "school_name": "G HPS SOMATHANAHALLI",

@@ -1,0 +1,7 @@
+<p>Reports sent successfully: {{ success }}</p>
+<h3>Errors</h3>
+<ul>
+{% for i in messages %}
+    <li><p> {{ i }}</p></li>
+{% endfor %}
+</ul>

@@ -15,6 +15,7 @@ from users.views import (
     ProfileEditPageView
 )
 from assessments.views import SYSView, gka_dashboard
+from reports.views import view_report, download_report, SendReport, ReportAnalytics, download_analytics
 
 
 api_docs_view = get_swagger_view(title='ILP API')
@@ -173,6 +174,15 @@ urlpatterns = [
     # API URLs.
     url(r'^api/v1/', include('ilp.api_urls')),
     url(r'^api/docs/', api_docs_view, name='api_docs'),
+
+    #URLs for viewing generated reports
+    url(r'^reportgen/sendreport/$', SendReport.as_view(), name='send_report'),
+    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/$', view_report, name='view_report_no_track_id'),
+    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/$', view_report, name='view_report'),
+    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/download', download_report, name='download_report_no_track_id'),
+    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/download', download_report, name='download_report'),
+    url(r'^reportanalytics/$', ReportAnalytics.as_view(), name='report_analytics'),
+    url(r'^reportanalytics/download$', download_analytics, name='download_analytics'),
 
     # report pages
     url(r'^reports/search$', StaticPageView.as_view(

@@ -111,19 +111,25 @@ class UsersViewSet(ILPViewSet):
 
     @detail_route(
         methods=['put', 'patch', 'options', 'head'], 
-        serializer_class = PasswordSerializer, 
+        serializer_class=PasswordSerializer, 
         url_path='reset-password')
     def set_password(self, request, pk=None):
-        serializer = PasswordSerializer(data=request.data)
-        user = User.objects.get(id=pk)
-        if serializer.is_valid():
-            # set_password also hashes the password that the user will get
-            user.set_password(serializer.data.get('new_password'))
-            user.save()
-            return Response({'status': 'password set'}, status=status.HTTP_200_OK)
+        if request.method in ('OPTIONS', 'HEAD'):
+            return Response({
+                'name': "TADA Users Viewset",
+                'description': "Method allows reset of password of a user"
+            })
+        else:
+            serializer = PasswordSerializer(data=request.data)
+            user = User.objects.get(id=pk)
+            if serializer.is_valid():
+                # set_password also hashes the password that the user will get
+                user.set_password(serializer.data.get('new_password'))
+                user.save()
+                return Response({'status': 'password set'}, status=status.HTTP_200_OK)
 
-        return Response(serializer.errors,
-                        status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     @detail_route(
         methods=['put', 'patch', 'options', 'head'],
@@ -131,23 +137,29 @@ class UsersViewSet(ILPViewSet):
         url_path='change-password',
         permission_classes=((IsAdminOrIsSelf, )))
     def change_password(self, request, pk=None):
-        serializer = ChangePasswordSerializer(data=request.data)
-        user = User.objects.get(id=pk)
-        if serializer.is_valid():
-            # set_password also hashes the password that the user will get
-            old_password = serializer.data.get('old_password')
-            if check_password(old_password, user.password):
-                logger.debug("Old password matches what was passed in. Proceeding with changing pwd")
-                user.set_password(serializer.data.get('new_password'))
-                user.save()
-                return Response({'status': 'password set'}, status=status.HTTP_200_OK)
-            else:
-                logger.debug("Authentication Error. Existing password entered incorrectly")
-                return Response({'Authentication Error: Existing password entered incorrectly'},
-                                status = status.HTTP_400_BAD_REQUEST)
+        if request.method in ('OPTIONS', 'HEAD'):
+            return Response({
+                'name': 'TADAUsersViewset',
+                'description': 'TADA users viewset'
+            })
+        else:
+            serializer = ChangePasswordSerializer(data=request.data)
+            user = User.objects.get(id=pk)
+            if serializer.is_valid():
+                # set_password also hashes the password that the user will get
+                old_password = serializer.data.get('old_password')
+                if check_password(old_password, user.password):
+                    logger.debug("Old password matches what was passed in. Proceeding with changing pwd")
+                    user.set_password(serializer.data.get('new_password'))
+                    user.save()
+                    return Response({'status': 'password set'}, status=status.HTTP_200_OK)
+                else:
+                    logger.debug("Authentication Error. Existing password entered incorrectly")
+                    return Response({'Authentication Error: Existing password entered incorrectly'},
+                                    status = status.HTTP_400_BAD_REQUEST)
 
-        return Response(serializer.errors,
-                        status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, *args, **kwargs):
         data = request.data.copy()
