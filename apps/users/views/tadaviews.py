@@ -110,7 +110,7 @@ class UsersViewSet(ILPViewSet):
         return Response(response_data.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @detail_route(
-        methods=['put', 'patch'], 
+        methods=['put', 'patch', 'options', 'head'], 
         serializer_class = PasswordSerializer, 
         url_path='reset-password')
     def set_password(self, request, pk=None):
@@ -126,7 +126,7 @@ class UsersViewSet(ILPViewSet):
                         status=status.HTTP_400_BAD_REQUEST)
 
     @detail_route(
-        methods=['put', 'patch'],
+        methods=['put', 'patch', 'options', 'head'],
         serializer_class=ChangePasswordSerializer,
         url_path='change-password',
         permission_classes=((IsAdminOrIsSelf, )))
