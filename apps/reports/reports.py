@@ -763,13 +763,13 @@ class BlockReport(BaseReport):
                     institution__admin2=block,
                     date_of_visit__range=date_range,
                     questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='kit_usage',
+                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM',
                     answers__answer='Yes'
                 ).count() / AnswerGroup_Institution.objects.filter(
                     institution__admin2=block,
                     date_of_visit__range=date_range,
                     questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='kit_usage'
+                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM'
                 ).count() * 100,
                 2
             ),
@@ -778,17 +778,19 @@ class BlockReport(BaseReport):
                     institution__admin2=block,
                     date_of_visit__range=date_range,
                     questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='group_work',
+                    answers__question__question_text__icontains='group',
                     answers__answer='Yes'
                 ).count() / AnswerGroup_Institution.objects.filter(
                     institution__admin2=block,
                     date_of_visit__range=date_range,
                     questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='group_work'
+                    answers__question__question_text__icontains='group'
                 ).count() * 100,
                 2
             )
         }
+
+        print(gka)
 
         return gka, cluster_gka
 

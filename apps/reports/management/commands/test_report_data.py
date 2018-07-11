@@ -7,8 +7,8 @@ class Command(BaseCommand):
     help = 'Test for reports data'
 
     def handle(self, *args, **options):
-        date_range = ['2017-06-01', '2018-04-30']
-        block_name = 'chintamani'
+        date_range = ['2017-06-01', '2018-03-31']
+        block_name = 'hosakote'
         block = Boundary.objects.get(boundary_type_id='SB', name=block_name)
 
         # Traditional way
