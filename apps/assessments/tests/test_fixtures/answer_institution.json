@@ -25,7 +25,14 @@
     "pk": "akshara",
     "fields": {
         "name": "Akshara Foundation",
-        "admin0": 2
+        "partner_type_id": "primary"
+    }
+},
+{
+    "model": "assessments.partnerboundarymap",
+    "fields": {
+        "boundary_id": 2,
+        "partner_id": "akshara"
     }
 },
 {
