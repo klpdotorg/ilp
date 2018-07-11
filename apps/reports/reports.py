@@ -102,7 +102,7 @@ class GPMathContestReport(BaseReport):
         gp = self.gp_name #"peramachanahalli"
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
             gp_obj = ElectionBoundary.objects.get(const_ward_name=gp, const_ward_type__char_id='GP') # Take the GP from db
@@ -276,7 +276,7 @@ class SchoolReport(BaseReport):
     def get_data(self, neighbour_required=True):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
@@ -457,7 +457,7 @@ class ClusterReport(BaseReport):
 
     def get_data(self):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
         try:
              # Take the cluster from db
             cluster = Boundary.objects.get(name=self.cluster_name, parent__name=self.block_name, parent__parent__name=self.district_name, boundary_type__char_id='SC')
@@ -614,7 +614,7 @@ class BlockReport(BaseReport):
 
     def get_data(self):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
             # Take the block from db
@@ -779,7 +779,7 @@ class DistrictReport(BaseReport):
 
     def get_data(self):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
             district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
@@ -958,7 +958,7 @@ class GPMathContestReportSummarized(BaseReport):
         gp = self.gp_name #"peramachanahalli"
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
             gp_obj = ElectionBoundary.objects.get(const_ward_name=gp, const_ward_type__char_id='GP') # Take the GP from db
@@ -1146,7 +1146,7 @@ class SchoolReportSummarized(BaseReport):
     def get_data(self, neighbour_required=True):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
@@ -1342,7 +1342,7 @@ class ClusterReportSummarized(BaseReport):
 
     def get_data(self):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
         try:
              # Take the cluster from db
             cluster = Boundary.objects.get(name=self.cluster_name, parent__name=self.block_name, parent__parent__name=self.district_name, boundary_type__char_id='SC')
@@ -1511,7 +1511,7 @@ class BlockReportSummarized(BaseReport):
 
     def get_data(self):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
             # Take the block from db
@@ -1689,7 +1689,7 @@ class DistrictReportSummarized(BaseReport):
 
     def get_data(self):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
-        report_generated_on = datetime.datetime.now().date().isoformat()
+        report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
             district = Boundary.objects.get(name=self.district_name, boundary_type__char_id='SD')
