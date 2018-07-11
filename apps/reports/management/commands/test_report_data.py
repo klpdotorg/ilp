@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         date_range = ['2017-06-01', '2018-04-30']
-        block_name = 'chamaraja nagar'
+        block_name = 'chintamani'
         block = Boundary.objects.get(boundary_type_id='SB', name=block_name)
 
         # Traditional way

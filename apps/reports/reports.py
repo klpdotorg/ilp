@@ -742,7 +742,53 @@ class BlockReport(BaseReport):
         if not cluster_gka:
             raise ValueError("No GKA data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
 
-        gka = dict(teachers_trained=round(sum([i['teachers_trained'] for i in cluster_gka])/len(cluster_gka), 2),  kit_usage=round(sum([i['kit_usage'] for i in cluster_gka])/len(cluster_gka), 2), group_work=round(sum([i['group_work'] for i in cluster_gka])/len(cluster_gka), 2))
+        gka = {
+            'teachers_trained': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='trained',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='trained'
+                ).count() * 100,
+                2
+            ),
+            'kit_usage': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='kit_usage',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='kit_usage'
+                ).count() * 100,
+                2
+            ),
+            'group_work': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='group_work',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='group_work'
+                ).count() * 100,
+                2
+            )
+        }
 
         return gka, cluster_gka
 
