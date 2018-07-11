@@ -14,6 +14,15 @@ from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
 from .models import Reports, Tracking
 
+
+def format_academic_year(date_string):
+    return '{}-{}-{}'.format(
+        date_string[-2:],
+        date_string[-5:-3],
+        date_string[:4]
+    )
+
+
 class BaseReport(ABC):
     def __init__(self, data=None):
         self.data = data
@@ -230,7 +239,7 @@ class GPMathContestReport(BaseReport):
 
         survey = self.getHouseholdServey(gp_obj, dates)
 
-        self.data =  {'gp_name': gp.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
+        self.data =  {'gp_name': gp.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
         return self.data
 
     def getHouseholdServey(self,gp_obj,date_range):
@@ -340,7 +349,7 @@ class SchoolReport(BaseReport):
         else:
             neighbours = []
 
-        self.data =  {'gp_name': gp, 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':neighbours}
+        self.data =  {'gp_name': gp, 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':neighbours}
         return self.data
 
     def get_school_data(self,answergroup):
@@ -483,7 +492,7 @@ class ClusterReport(BaseReport):
 
         household = self.getHouseholdSurvey(cluster,dates)
 
-        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
     def get_school_data(self,answergroup):
@@ -641,7 +650,7 @@ class BlockReport(BaseReport):
 
         household = self.getHouseholdSurvey(block, dates)
 
-        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
     def get_cluster_GPC(self,answergroup):
@@ -819,7 +828,7 @@ class DistrictReport(BaseReport):
                 values[j] = round(k/len(gpc_blocks), 2)
             gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
-        self.data = {'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc, 'num_gp':num_gp}
+        self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc, 'num_gp':num_gp}
         return self.data
 
     def get_block_GPC(self,answergroup):
@@ -1100,7 +1109,7 @@ class GPMathContestReportSummarized(BaseReport):
 
         survey = self.getHouseholdServey(gp_obj, dates)
 
-        self.data =  {'gp_name': gp.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':gradewise_gpc,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
+        self.data =  {'gp_name': gp.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':gradewise_gpc,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
         return self.data
 
     def getHouseholdServey(self,gp_obj,date_range):
@@ -1225,7 +1234,7 @@ class SchoolReportSummarized(BaseReport):
                 values[j] = round(k/len(neighbours), 2)
             gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
-        self.data =  {'gp_name': gp, 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':gradewise_gpc}
+        self.data =  {'gp_name': gp, 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':gradewise_gpc}
         return self.data
 
     def get_school_data(self,answergroup):
@@ -1383,7 +1392,7 @@ class ClusterReportSummarized(BaseReport):
                 values[j] = round(k/len(schools), 2)
             gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
-        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':gradewise_gpc, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':gradewise_gpc, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
     def get_school_data(self,answergroup):
@@ -1554,7 +1563,7 @@ class BlockReportSummarized(BaseReport):
             gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
 
-        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gradewise_gpc, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gradewise_gpc, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
     def get_cluster_GPC(self,answergroup):
@@ -1729,7 +1738,7 @@ class DistrictReportSummarized(BaseReport):
                 values[j] = round(k/len(gpc_blocks), 2)
             gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
-        self.data = {'academic_year':'{} - {}'.format(self.report_from, self.report_to), 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gradewise_gpc, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'num_gp':num_gp}
+        self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gradewise_gpc, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'num_gp':num_gp}
         return self.data
 
     def get_block_GPC(self,answergroup):
