@@ -69,7 +69,7 @@ class SurveyPartnersViewSet(ILPViewSet, ILPStateMixin):
 
     def get_queryset(self):
         state = self.get_state()
-        queryset = self.queryset.filter(admin0=state)
+        queryset = self.queryset.filter(partnerboundarymap__boundary=state)
         return queryset
 
 

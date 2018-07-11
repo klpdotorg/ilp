@@ -1,3 +1,2 @@
-insert into assessments_partner(char_id, name, admin0_id, website, logo_file, partner_type_id) values('kseeb', 'KSEEB', 2, 'kseeb.kar.nic.in', 'partners_logo_kseeb.png', 'primary');
-insert into assessments_partner(char_id, name, admin0_id, website, logo_file, partner_type_id) values('akshayapatra', 'Akshaya Patra', 2, 'https://www.akshayapatra.org', 'partners_logo_akshaya_patra.png', 'primary');
-insert into assessments_partner(char_id, name, admin0_id, website, logo_file, partner_type_id) values('akshara', 'Akshara Foundation', 3, 'www.aksharafoundation.org', 'partners_logo_akshara.png', 'primary');
+insert into assessments_partner(char_id, name, website, logo_file, partner_type_id) values('kseeb', 'KSEEB', 'kseeb.kar.nic.in', 'partners_logo_kseeb.png', 'primary');
+insert into assessments_partner(char_id, name, website, logo_file, partner_type_id) values('akshayapatra', 'Akshaya Patra', 'https://www.akshayapatra.org', 'partners_logo_akshaya_patra.png', 'primary');

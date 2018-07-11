@@ -156,7 +156,6 @@ class Partner(models.Model):
     """Boundary that partner is associated with"""
     char_id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=100)
-    admin0 = models.ForeignKey('boundary.Boundary')
     website = models.CharField(max_length=100, null=True, blank=True)
     logo_file = models.CharField(max_length=50, null=True, blank=True)
     partner_type = models.ForeignKey('PartnerType', default='primary')
