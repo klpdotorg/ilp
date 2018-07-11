@@ -146,11 +146,28 @@ class QuestionGroupKey(models.Model):
     max_score = models.IntegerField(null=True)
 
 
+class PartnerType(models.Model):
+    """Type of partner"""
+    char_id = models.CharField(max_length=20, primary_key=True)
+    description = models.CharField(max_length=50)
+
+
 class Partner(models.Model):
     """Boundary that partner is associated with"""
     char_id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=100)
-    admin0 = models.ForeignKey('boundary.Boundary')
+    website = models.CharField(max_length=100, null=True, blank=True)
+    logo_file = models.CharField(max_length=50, null=True, blank=True)
+    partner_type = models.ForeignKey('PartnerType', default='primary')
+
+
+class PartnerBoundaryMap(models.Model):
+    """Mapping partner to boundary"""
+    partner = models.ForeignKey('Partner')
+    boundary = models.ForeignKey('boundary.Boundary')
+
+    class Meta:
+        unique_together = (('partner', 'boundary'), )
 
 
 class Source(models.Model):
