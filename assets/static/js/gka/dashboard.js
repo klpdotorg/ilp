@@ -68,7 +68,7 @@ var topSummaryData = {};
                 cluster_id = $("#select-cluster").val(),
                 institution_id = $("#select-school").val(),
                 start_date = $('#startDate').yearMonthSelect("getFirstDay"),
-                end_date = $('#endDate').yearMonthSelect("getFirstDay"),
+                end_date = $('#endDate').yearMonthSelect("getLastDay"),
                 url = '/gka/#searchmodal';
 
                 if(start_date && end_date) {
