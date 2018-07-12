@@ -199,17 +199,35 @@ class InstitutionSerializer(ILPSerializer):
                 get(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
         return None
 
-    def get_num_boys(self, obj):
-        gender_count = self.get_gender_counts(obj)
-        if gender_count:
-            return gender_count.num_boys
-        return None
+    # def get_num_boys(self, obj):
+    #     gender_count = self.get_gender_counts(obj)
+    #     if gender_count:
+    #         return gender_count.num_boys
+    #     return None
 
+    # def get_num_girls(self, obj):
+    #     gender_count = self.get_gender_counts(obj)
+    #     if gender_count:
+    #         return gender_count.num_girls
+    #     return None
+    
+    ''' Subha: Jul 12, 18. Per conversation with Menaka,
+    we are showing ONLY dise data for gender counts 
+    because this is recent, verified data. KLP data is stale'''
+    def get_num_boys(self, obj):
+        # print("get_num_boys_dise obj is: ", obj.dise)
+        if obj.dise is not None:
+            num_boys = obj.dise.total_boys
+            return num_boys
+        else:
+            return None
+    
     def get_num_girls(self, obj):
-        gender_count = self.get_gender_counts(obj)
-        if gender_count:
-            return gender_count.num_girls
-        return None
+        if obj.dise is not None:
+            num_girls = obj.dise.total_girls
+            return num_girls
+        else:
+            return None
 
     def get_institution_languages(self, obj):
         langs = [
