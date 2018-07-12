@@ -88,8 +88,20 @@ class QuestionGroupQuestions(
             return obj.question
         return obj
 
+    def list(self, request, *args, **kwargs):
+        question_list = self.get_queryset().values_list('question', flat=True)
+        queryset = Question.objects.filter(id__in=question_list).order_by('key')
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer_class()(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer_class()(queryset, many=True)
+        return Response(serializer.data)
+
     def get_serializer_class(self):
-        if self.request.method in ['PUT', ]:
+        if self.request.method in ['PUT', 'GET', ]:
             return QuestionSerializer
         return QuestionGroupQuestionSerializer
 
