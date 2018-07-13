@@ -131,17 +131,19 @@
     </div>
   </section>
   
-  <section>
-    <div class="center-text">
-      <h2 class="heading-section">Other Programmes</h2>
-      <div class="heading-section-block">
-        <ul class="heading-section-ul-alt">
-          <li><a href="{% url 'reading_programme' %}">Reading Programme</a></li>
-          <li><a href="{% url 'library_programme' %}">Library Programme</a></li>
-          <li><a href="{% url 'preschool_programme' %}">Pre-School Programme</a></li>
-        </ul>
+  {% if window.klp.STATE_CODE == 'ka' %} 
+    <section>
+      <div class="center-text">
+        <h2 class="heading-section">Other Programmes</h2>
+        <div class="heading-section-block">
+          <ul class="heading-section-ul-alt">
+            <li><a href="{% url 'reading_programme' %}">Reading Programme</a></li>
+            <li><a href="{% url 'library_programme' %}">Library Programme</a></li>
+            <li><a href="{% url 'preschool_programme' %}">Pre-School Programme</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {% endif %}
 </div>
 {% endblock %}

@@ -40,8 +40,8 @@
             "default_long":85.824539
         }
     };
-    console.log("State is: ", state_code)
-    console.log("State lat longs", stateLatLongs[state_code])
+    // console.log("State is: ", state_code)
+    // console.log("State lat longs", stateLatLongs[state_code])
 
     var districtLayer,
         preschoolDistrictLayer,
