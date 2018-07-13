@@ -19,45 +19,48 @@
       <div class="base-spacing-lg-x">
         <p class="text-bordered center-text">If your organisation is interested in partnering with the <span>{%get_state_value "short_form" %}</span>, please do write to us at <a href="mailto:{%get_state_value "email" %}">{%get_state_value "email" %}</a></p>
       </div>
+      
+      {% if window.klp.STATE_CODE == 'ka' %} 
 
-      <p class="center-text">When the original {%get_state_value "short_form" %} project was conceived, we had many local partners across {%get_state_value "name" %} who helped with data collection and assessments across multiple districts in {%get_state_value "name" %}. They are:</p>
+        <p class="center-text">When the original {%get_state_value "short_form" %} project was conceived, we had many local partners across {%get_state_value "name" %} who helped with data collection and assessments across multiple districts in {%get_state_value "name" %}. They are:</p>
 
-      <div class="partners-list-block">
-        <div class="partners-list">
-          <h2 class="heading-secondary brand-red">Gulbarga</h2>
-          <ul>
-            <li>Arunnodaya resource Center (Myrada), Nagaidalai</li>
-            <li>Bhoruka Charities</li>
-            <li>Development Resource Center (Myrada), Mudhol</li>
-            <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
-            <li>Janani Resource Center (Myrada), Kamlapur</li>
-            <li>Jyoti Resource Center (Myrada), Kodli</li>
-            <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
-            <li>Janani Resource Center (Myrada), Kamlapur</li>
-            <li>Jyoti Resource Center (Myrada), Kodli</li>
-            <li>Local Resource Center (Myrada), Ratakal</li>
-            <li>Shri. Charbasaveshwar Mutt, Shapur</li>
-            <li>Jyoti Resource Center (Myrada), Kodli</li>
-            <li>Development Resource Center (Myrada), Mudhol</li>
-            <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
-            <li>Janani Resource Center (Myrada), Kamlapur</li>
-            <li>Jyoti Resource Center (Myrada), Kodli</li>
-          </ul>
-        </div>
-        <div class="partners-list">
-          <h2 class="heading-secondary brand-red">Bangalore</h2>
-          <ul>
-            <li>Bhoruka Charities</li>
-            <li>Development Resource Center (Myrada), Mudhol</li>
-            <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
-            <li>Janani Resource Center (Myrada), Kamlapur</li>
-            <li>Jyoti Resource Center (Myrada), Kodli</li>
-            <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
-            <li>Janani Resource Center (Myrada), Kamlapur</li>
-            <li>Jyoti Resource Center (Myrada), Kodli</li>
-          </ul>
-        </div>
-      </div> <!-- /partners-list-block -->
+        <div class="partners-list-block">
+          <div class="partners-list">
+            <h2 class="heading-secondary brand-red">Gulbarga</h2>
+            <ul>
+              <li>Arunnodaya resource Center (Myrada), Nagaidalai</li>
+              <li>Bhoruka Charities</li>
+              <li>Development Resource Center (Myrada), Mudhol</li>
+              <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
+              <li>Janani Resource Center (Myrada), Kamlapur</li>
+              <li>Jyoti Resource Center (Myrada), Kodli</li>
+              <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
+              <li>Janani Resource Center (Myrada), Kamlapur</li>
+              <li>Jyoti Resource Center (Myrada), Kodli</li>
+              <li>Local Resource Center (Myrada), Ratakal</li>
+              <li>Shri. Charbasaveshwar Mutt, Shapur</li>
+              <li>Jyoti Resource Center (Myrada), Kodli</li>
+              <li>Development Resource Center (Myrada), Mudhol</li>
+              <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
+              <li>Janani Resource Center (Myrada), Kamlapur</li>
+              <li>Jyoti Resource Center (Myrada), Kodli</li>
+            </ul>
+          </div>
+          <div class="partners-list">
+            <h2 class="heading-secondary brand-red">Bangalore</h2>
+            <ul>
+              <li>Bhoruka Charities</li>
+              <li>Development Resource Center (Myrada), Mudhol</li>
+              <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
+              <li>Janani Resource Center (Myrada), Kamlapur</li>
+              <li>Jyoti Resource Center (Myrada), Kodli</li>
+              <li>Grameen Abhiruddi Kendra Vasavadatta Cement, Sedam</li>
+              <li>Janani Resource Center (Myrada), Kamlapur</li>
+              <li>Jyoti Resource Center (Myrada), Kodli</li>
+            </ul>
+          </div>
+        </div> <!-- /partners-list-block -->
+      {% endif %}
     </div> <!-- /center-text -->
   </div> <!-- /container -->
 </section>
