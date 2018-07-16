@@ -1,0 +1,1 @@
+delete from assessments_answerinstitution where answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id  in (21,22,23) and date_of_visit::timestamp BETWEEN to_timestamp('01/06/2016','dd/mm/yyyy') and to_timestamp('31/04/2017','dd/mm/yyyy'));

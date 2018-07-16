@@ -1,0 +1,18 @@
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6215,'','Arkera (k)','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6216,'','Bhomanagunda','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6217,'','Yerrayyana halli','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6218,'','Shivajinagar','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6219,'','Yelekudalagi','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6220,'','Yempad','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6221,'','Yardona','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6222,'','Bennuru (sh)','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6223,'','Bennur (kp)','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6224,'','Chikka benakal','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6225,'','Hulkihal','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6226,'','Hemnal','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6227,'','Vadigera','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6228,'','Kakkera','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6229,'','Bidarahalli','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6230,'','Lingadahalli (br)','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6231,'','Lingadahalli (ch)','GP','2','AC');
+insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_type_id,state_id,status_id) values (6232,'','Lingadahalli (rb)','GP','2','AC');
