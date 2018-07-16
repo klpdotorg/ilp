@@ -6,8 +6,25 @@
     <a href="{% url 'map' %}">School Map</a>
   <li class="brand-green">
     <a href="#">Programmes</a>
+    
     <ul>
-      <li><a href="/partners/akshara/maths/">Akshara</a></li>
+        <li class="hover-menu-item">
+            <a href="/partners/akshara/maths/">Akshara</a>
+            <ul class="js-dropdown hover-menu">
+              <li class="brand-green">
+                <a href="/partners/akshara/maths/">GKA</a>
+              </li>
+              {% if window.klp.STATE_CODE == 'ka' %} 
+
+              <li class="brand-green">
+                <a href="/partners/akshara/maths/">Reading</a>
+              </li>
+              <li class="brand-green">
+                <a href="/partners/akshara/maths/">Preschool</a>
+              </li>
+              {% endif %}
+            </ul>
+          </li>
       <!--<li><a href="{% url 'reading_programme' %}">Akshara</a></li> -->
       <!-- Subha: 15/02/2018. Archiving per decision from Menaka/Ashok -->
     <!--  <li><a href="{% url 'sikshana_programme' %}">Sikshana</a></li>

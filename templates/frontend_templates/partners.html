@@ -1,0 +1,11 @@
+{% verbatim %}
+
+<script type="text/html" id="tpl-primary-partners">
+    <div class="logo-wrapper">
+      {% for partner in partners %}
+        <img src="/static/images/{{partner.logo_file}}" alt="{{partner.name}}">
+      {%endfor%} 
+    </div>  
+  </script>
+
+{% endverbatim %}

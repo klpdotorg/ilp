@@ -29,7 +29,6 @@
             var context = {
                 'stories': data.institutions
             };
-            console.log("Stories is: ", context)
             var html = tplSys(context);
             $('#sysInfo').html(html);
         });
