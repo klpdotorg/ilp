@@ -53,6 +53,8 @@ def send_recipient(report_type, report_from, report_to, reader, dry, start_from 
                     if quit_on_error:
                         print("Error on line {}. Use --skip parameter with this value to continue.".format(line_no))
                         break
+                    else:
+                        print("Error on line {} - {}.".format(line_no, e))
     return dict(messages=messages, successfull=successfull)
         
 def get_value(person, head, i):

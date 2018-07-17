@@ -18,4 +18,4 @@ class Command(BaseCommand):
         parser.add_argument('filename')
        
     def handle(self, *args, **options):
-        generate_report(options['type'], options['filename'], options['from'], options['to'], options['dry'], options['skip'], True)
+        generate_report(options['type'], options['filename'], options['from'], options['to'], options['dry'], options['skip'], False)
