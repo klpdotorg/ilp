@@ -64,7 +64,7 @@ class BasicBoundaryAggView(ILPAPIView):
             print(boundaryCatAgg.values())
             for aggregate in boundaryCatAgg:
                 aggregate = {
-                    'cat': aggregate.cat_id,
+                    'cat': aggregate.cat,
                     'num_boys': aggregate.num_boys,
                     'num_girls': aggregate.num_girls,
                     'num_schools': aggregate.num_schools
@@ -111,7 +111,7 @@ class BasicBoundaryAggView(ILPAPIView):
             aggregation = []
             for moi in moiAgg:
                 result = {
-                    'name': moi.moi_id,
+                    'name': moi.moi,
                     'num_boys': moi.num_boys,
                     'num_girls': moi.num_girls,
                     'num': moi.num_students,
@@ -128,7 +128,7 @@ class BasicBoundaryAggView(ILPAPIView):
             aggregation = []
             for gender in genderAgg:
                 result = {
-                    'sex': gender.gender_id,
+                    'sex': gender.gender,
                     'num': gender.num_students
                 }
                 aggregation.append(result)
