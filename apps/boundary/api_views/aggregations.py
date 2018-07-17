@@ -80,7 +80,7 @@ class BasicBoundaryAggView(ILPAPIView):
             mgmt = []
             for mgmtAgg in boundaryMgmtAgg:
                 aggregate = {
-                    'management': mgmtAgg.management_id,
+                    'management': mgmtAgg.management,
                     'num_boys': mgmtAgg.num_boys,
                     'num_girls': mgmtAgg.num_girls,
                     'num_schools': mgmtAgg.num_schools
