@@ -95,7 +95,7 @@ class BasicBoundaryAggView(ILPAPIView):
             mtAgg = []
             for mt in studentMtAgg:
                 result = {
-                    'name': mt.mt_id,
+                    'name': mt.mt,
                     'num_boys': mt.num_boys,
                     'num_girls': mt.num_girls,
                     'num_students': mt.num_students,
