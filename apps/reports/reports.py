@@ -790,8 +790,6 @@ class BlockReport(BaseReport):
             )
         }
 
-        print(gka)
-
         return gka, cluster_gka
 
     def getHouseholdSurvey(self,block,date_range):
