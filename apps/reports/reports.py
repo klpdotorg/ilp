@@ -69,7 +69,7 @@ class BaseReport(ABC):
         url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
         request = None
         full_url = ''.join(['http://', get_current_site(request).domain, url])
-        return self.sms_template.format(name, full_url)
+        return self.sms_template.format(full_url)
 
     def save(self):
         r= Reports(report_type=self._type,parameters=self.params, data=self.data)
