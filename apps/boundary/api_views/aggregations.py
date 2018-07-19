@@ -62,12 +62,12 @@ class BasicBoundaryAggView(ILPAPIView):
         if boundaryCatAgg is not None:
             cat = []
             print(boundaryCatAgg.values())
-            for aggregate in boundaryCatAgg:
+            for category in boundaryCatAgg:
                 aggregate = {
-                    'cat': aggregate.cat,
-                    'num_boys': aggregate.num_boys,
-                    'num_girls': aggregate.num_girls,
-                    'num_schools': aggregate.num_schools
+                    'cat': category.cat,
+                    'num_boys': category.num_boys,
+                    'num_girls': category.num_girls,
+                    'num_schools': category.num_schools
                 }
                 cat.append(aggregate) # End of for-loop
             agg['cat'] = cat

@@ -16,7 +16,7 @@ class Command(BaseCommand):
     boundaries = ["district", "block", "cluster"]
     select_queries = { "district": "select district, slug from dise_replaceyear_district_aggregations where lower(state_name) = %s",
                         "block": "select block_name, slug, district from dise_replaceyear_block_aggregations where lower(state_name) = %s",
-                        "cluster": "select cluster_name, slug, block_name from dise_replaceyear_cluster_aggregations where lower(state_name) = %s"}
+                        "cluster": "select cluster_name, slug, block_name, district from dise_replaceyear_cluster_aggregations where lower(state_name) = %s"}
 
        
     #help = """Import data from DISE 
@@ -37,7 +37,7 @@ class Command(BaseCommand):
         cursor = connection.cursor()
         return connection, cursor
 
-    def insertBoundary(self, name, slug, parent_name, boundary_type_name):
+    def insertBoundary(self, name, slug, parent_name, boundary_type_name, parent_parent_name=''):
         if boundary_type_name == 'district':
             parent_type = BoundaryType.objects.get(pk='ST')
         elif boundary_type_name == 'block':
@@ -48,11 +48,8 @@ class Command(BaseCommand):
         try:
             parent_boundary = Boundary.objects.get(name__iexact=parent_name, boundary_type = parent_type)
         except MultipleObjectsReturned:
-            print("MULTIPLE FOUND :"+parent_name+" "+parent_type.char_id)
-            parent_boundary = Boundary.objects.filter(name__iexact=parent_name, boundary_type = parent_type)
-            for parent in parent_boundary:
-                print(parent.id)
-            parent_boundary = parent_boundary[0]
+            print("MULTIPLE FOUND :"+parent_name+" "+parent_type.char_id+","+parent_parent_name)
+            parent_boundary = Boundary.objects.get(name__iexact=parent_name, boundary_type = parent_type, parent__name=parent_parent_name)
         except Boundary.DoesNotExist:
             print("Parent Boundary not found "+parent_name)                  
             return
@@ -83,6 +80,12 @@ class Command(BaseCommand):
                  slug = row[1]
                  if boundary_type == 'district':
                      parent_name = state 
-                 else:
+                     self.insertBoundary(name.lower(),slug,parent_name.lower(), boundary_type)
+                 elif boundary_type == 'block':
                      parent_name = row[2]
-                 self.insertBoundary(name.lower(),slug,parent_name.lower(), boundary_type)
+                     self.insertBoundary(name.lower(),slug,parent_name.lower(), boundary_type)
+                 else: 
+                     parent_name = row[2]
+                     parent_parent_name = row[3]
+                     print(parent_parent_name)
+                     self.insertBoundary(name.lower(),slug,parent_name.lower(), boundary_type,parent_parent_name.lower())
