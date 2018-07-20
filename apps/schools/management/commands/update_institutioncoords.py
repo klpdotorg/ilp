@@ -45,7 +45,7 @@ class Command(BaseCommand):
 
                         
     def handle(self, *args, **options):
-        state= options['state'].title()
+        state= options['state']
         file_name = options['coords']
      
         try:
