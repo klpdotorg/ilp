@@ -17,7 +17,7 @@ class Command(BaseCommand):
         print('Reports created:', round(TRACKING.count()))
 
         # Report types
-        print('Report Types:')
+        print('\nReport Types:')
         print('DistrictReport', TRACKING.filter(
             report_type__contains='DistrictReport').count()
         )
@@ -30,3 +30,9 @@ class Command(BaseCommand):
         print('SchoolReport', TRACKING.filter(
             report_type__contains='SchoolReport').count()
         )
+
+        # User types
+        print('\nUser Types:')
+        user_types = TRACKING.values_list('role').distinct()
+        for user in user_types:
+            print(user[0], TRACKING.filter(role=user[0]).count())
