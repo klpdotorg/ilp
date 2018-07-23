@@ -13,8 +13,8 @@ def send_link(report_type, params, args, dry_run=False):
         link.role = args['role']
         link.save()
         sms = r.get_sms(link, args['name'])
-        print(sms)
-        send_sms(args['number'], sms)
+        print(args['number'], sms)
+        # send_sms(args['number'], sms)
     else:
         return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
         
