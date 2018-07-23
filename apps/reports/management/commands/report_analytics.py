@@ -37,4 +37,12 @@ class Command(BaseCommand):
         for user in user_types:
             print(user[0], TRACKING.filter(role=user[0]).count())
 
-        # 
+        # Total views and downloads
+        print('\nViews and Downloads')
+        for report_type in REPORT_TYPES:
+            t = TRACKING.filter(report_type__contains=report_type)
+            print(
+                report_type,
+                'Views', t.exclude(visited_at=None).count(),
+                'Downloads', t.exclude(downloaded_at=None).count()
+            )
