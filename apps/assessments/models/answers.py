@@ -19,7 +19,7 @@ class AnswerGroup_Institution(models.Model):
     group value"""
     institution = models.ForeignKey("schools.Institution")
     questiongroup = models.ForeignKey("QuestionGroup")
-    group_value = models.CharField(max_length=100, null=True)
+    group_value = models.CharField(max_length=100, null=True, blank=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey(RespondentType, null=True)
