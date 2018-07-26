@@ -38,10 +38,18 @@
             "NE_long": 87.409928,
             "default_lat":20.296059, 
             "default_long":85.824539
+        },
+        "jk" : {
+            "SW_lat": 32.776456, 
+            "SW_long": 79.486463,
+            "NE_lat": 35.919102, 
+            "NE_long": 72.504737,
+            "default_lat":34.087733, 
+            "default_long":74.797132
         }
     };
-    console.log("State is: ", state_code)
-    console.log("State lat longs", stateLatLongs[state_code])
+    // console.log("State is: ", state_code)
+    // console.log("State lat longs", stateLatLongs[state_code])
 
     var districtLayer,
         preschoolDistrictLayer,

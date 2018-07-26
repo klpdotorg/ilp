@@ -6,8 +6,25 @@
     <a href="{% url 'map' %}">School Map</a>
   <li class="brand-green">
     <a href="#">Programmes</a>
+    
     <ul>
-      <li><a href="/partners/akshara/maths/">Akshara</a></li>
+        <li class="hover-menu-item">
+            <a href="/partners/akshara/maths/">Akshara</a>
+            <ul class="js-dropdown hover-menu">
+              <li class="brand-green">
+                <a href="/partners/akshara/maths/">GKA</a>
+              </li>
+              {% if window.klp.STATE_CODE == 'ka' %} 
+
+              <li class="brand-green">
+                <a href="/partners/akshara/maths/">Reading</a>
+              </li>
+              <li class="brand-green">
+                <a href="/partners/akshara/maths/">Preschool</a>
+              </li>
+              {% endif %}
+            </ul>
+          </li>
       <!--<li><a href="{% url 'reading_programme' %}">Akshara</a></li> -->
       <!-- Subha: 15/02/2018. Archiving per decision from Menaka/Ashok -->
     <!--  <li><a href="{% url 'sikshana_programme' %}">Sikshana</a></li>
@@ -16,6 +33,8 @@
   <!--Subha S: 15/02/2018 Archiving this because we don't have Volunteer infra for now
     <li class="brand-blue">
     <a href="{% url 'volunteer' %}">Volunteer</a>-->
+  {% if window.klp.STATE_CODE == 'ka' %} 
+
   <li class="brand-turquoise">
     <a href="#">Data</a>
     <ul>
@@ -24,19 +43,23 @@
       <li><a target="_blank" href="{% url 'api_docs' %}#/api/">API</a></li>
       <li><a href="http://github.com/klpdotorg" target="_blank">Code</a></li>
     </ul>
+  {% endif %}
+
   <li class="brand-purple">
     <a href="#">Reports</a>
     <ul>
       <!-- <li><a href="/stories/">Field Stories</a></li> -->
       <li><a href="/gka" target="_blank">GKA Dashboard</a></li>
-      <li><a href="{% get_dise_app_url %}" target="_blank">DISE</a></li>
-      <li><a href="/reports/search" target="_blank">{%get_state_value "short_form" %} Reports</a></li>
-      <li><a href="http://sslc.klp.org.in" target="_blank">SSLC</a></li> 
+      {% if window.klp.STATE_CODE == 'ka' %} 
+        <li><a href="{% get_dise_app_url %}" target="_blank">DISE</a></li>
+        <li><a href="/reports/search" target="_blank">{%get_state_value "short_form" %} Reports</a></li>
+        <li><a href="http://sslc.klp.org.in" target="_blank">SSLC</a></li> 
+      {% endif %}
       <!-- <li><a href="/sdmc" target="_blank">SDMC Reports</a></li> -->
       <!-- <li><a href="{% url 'reports' %}">Other Reports</a></li> -->
     </ul>
   <li class="brand-red">
-    <a href="#">About</a>
+    <a href="#">About</a> 
     <ul>
       <li><a href="{% url 'aboutus' %}">About</a></li>
       <li><a href="{% url 'partners' %}">Partners</a></li>

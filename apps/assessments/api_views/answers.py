@@ -48,16 +48,23 @@ from dateutil.parser import parse as date_parse
 logger = logging.getLogger(__name__)
 
 
-class SharedAssessmentsView(ListAPIView):
+class SharedAssessmentsView(ListAPIView,ILPStateMixin):
     """
         This view returns recent 6 assessments from our three assesment groups.
         The data is consumed in the ILP home page "Shared Stories" section.
     """
 
     def list(self, request, *args, **kwargs):
-        inst = AnswerGroup_Institution.objects.all().order_by('-pk')[:6]
-        st_group = AnswerGroup_StudentGroup.objects.all().order_by('-pk')[:6]
-        st = AnswerGroup_Student.objects.all().order_by('-pk')[:6]
+        state = self.get_state()
+        inst = AnswerGroup_Institution.objects.all().filter(
+                    questiongroup__survey__admin0=state
+                ).order_by('-pk')[:6]
+        st_group = AnswerGroup_StudentGroup.objects.all().filter(
+                    questiongroup__survey__admin0=state
+                ).order_by('-pk')[:6]
+        st = AnswerGroup_Student.objects.all().filter(
+                    questiongroup__survey__admin0=state
+                ).order_by('-pk')[:6]
 
         return Response({
             'institutions': AnswerGroupInstSerializer(inst, many=True).data,
