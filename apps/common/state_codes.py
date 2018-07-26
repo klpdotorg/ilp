@@ -43,4 +43,17 @@ STATES = {
         'lang_name': 'Odia',
         'lang_key': 'od'
     },
+    'jk': {
+        'name': 'Jammu & Kashmir',
+        'short_form': 'JKLP',
+        'long_form': 'J&K Learning Partnership',
+        'email': 'info@jklp.org.in',
+        'site_url': 'https://jk.ilp.org.in',
+        'home_logo': '/static/images/states/jk/home_olp_logo@2x.png',
+        'header_logo': '/static/images/states/jk/OLP_logo@2x.png',
+        'footer_logo': '/static/images/states/jk/OLP_logo_footer@2x.png',
+        'state_code': 'jk',
+        'lang_name': 'Kashmiri',
+        'lang_key': 'jk'
+    },
 }
