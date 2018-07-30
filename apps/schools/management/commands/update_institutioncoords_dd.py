@@ -69,19 +69,14 @@ class Command(BaseCommand):
             try:
                 dise_object = BasicData.objects.get(school_code = dise_code)
             except BasicData.DoesNotExist:
-                print("Dise code does not exist: "+dise_code) 
+                print("Dise code does not exist :"+dise_code+".") 
                 continue
    
-            latitudeDeg = self.getValidFloatValues(row[1])
-            latitudeMin = self.getValidFloatValues(row[2])
-            latitudeSec = self.getValidFloatValues(row[3])
-            longitudeDeg = self.getValidFloatValues(row[4])
-            longitudeMin = self.getValidFloatValues(row[5])
-            longitudeSec = self.getValidFloatValues(row[6])
+            latitudeDD = row[1].strip()
+            longitudeDD = row[2].strip()
            
-            if latitudeDeg == 0:
+            if latitudeDD == '0':
+                print("latitude is 0 for dise_code :"+dise_code)
                 continue
 
-            latitudeDD = self.getDecimalDegree(latitudeDeg,latitudeMin,latitudeSec)
-            longitudeDD = self.getDecimalDegree(longitudeDeg,longitudeMin,longitudeSec)
             self.updateInstitutionCoords(dise_code, state, latitudeDD, longitudeDD) 

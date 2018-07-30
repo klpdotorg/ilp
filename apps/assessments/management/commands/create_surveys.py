@@ -55,7 +55,6 @@ class Command(BaseCommand):
             survey_on_id = SurveyOnType.objects.get(char_id=row[6].strip())
             lang_name = row[7].strip()
             survey = Survey.objects.create(
-                         id = id,
                          name = name,
                          description = description,
                          partner = partner,
@@ -91,7 +90,6 @@ class Command(BaseCommand):
             comments_required = row[15].strip()
             respondenttype_required = row[16].strip()
             questiongroup = QuestionGroup.objects.create(
-                                id = id,
                                 name = name,
                                 group_text = group_text,
                                 start_date = start_date,
@@ -122,10 +120,11 @@ class Command(BaseCommand):
             count += 1
 
             id = row[0].strip()
-            question = Question.objects.filter(pk=id)
-            if question:
-                questions.append(question[0])
-                continue
+            if id != '':
+                question = Question.objects.filter(pk=id)
+                if question:
+                    questions.append(question[0])
+                    continue
             question_text = row[1].strip()
             display_text = row[2].strip()
             key = self.check_value(row[3].strip())
@@ -138,7 +137,6 @@ class Command(BaseCommand):
             lang_name = self.check_value(row[10].strip())
             lang_options = self.check_value(row[11].strip())
             question = Question.objects.create(
-                            id = id,
                             question_text = question_text,
                             display_text = display_text,
                             key = key,
