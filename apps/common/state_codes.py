@@ -49,9 +49,9 @@ STATES = {
         'long_form': 'J&K Learning Partnership',
         'email': 'info@jklp.org.in',
         'site_url': 'https://jk.ilp.org.in',
-        'home_logo': '/static/images/states/jk/home_olp_logo@2x.png',
-        'header_logo': '/static/images/states/jk/OLP_logo@2x.png',
-        'footer_logo': '/static/images/states/jk/OLP_logo_footer@2x.png',
+        'home_logo': '/static/images/states/jk/home_jklp_logo@2x.png',
+        'header_logo': '/static/images/states/jk/JKLP_logo@2x.png',
+        'footer_logo': '/static/images/states/jk/JKLP_logo_footer@2x.png',
         'state_code': 'jk',
         'lang_name': 'Kashmiri',
         'lang_key': 'jk'

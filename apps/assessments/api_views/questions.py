@@ -298,16 +298,25 @@ class QuestionGroupViewSet(
         return Response(response)
 
 
-class QGroupStoriesInfoView(ILPListAPIView):
+class QGroupStoriesInfoView(ILPListAPIView, ILPStateMixin):
     """
     Returns total number of stories for the home page
     """
     def get(self, request, *args, **kwargs):
+        state = self.get_state()
         return Response({
             'total_stories': AnswerGroup_Institution.objects.filter(
-                questiongroup__survey__id=5).count(),
+                questiongroup__survey__id=5).filter(
+                    questiongroup__survey__admin0=state
+                    ).count(),
             'total_verified_stories': AnswerGroup_Institution.objects.filter(
-                questiongroup__survey__id=5).filter(is_verified=True).count(),
+                questiongroup__survey__id=5).filter(
+                    is_verified=True
+                    ).filter(
+                    questiongroup__survey__admin0=state
+                    ).count(),
             'total_images': InstitutionImages.objects.filter(
-                answergroup__questiongroup__survey=5).count()
+                answergroup__questiongroup__survey=5).filter(
+                    answergroup__questiongroup__survey__admin0=state
+                    ).count()
         })
