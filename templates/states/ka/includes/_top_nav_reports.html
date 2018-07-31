@@ -1,0 +1,13 @@
+{% load state_variables %}
+{% load basic_default_settings %}
+
+<li class="brand-purple">
+    <a href="#">Reports</a>
+    <ul>
+      <li><a href="/gka" target="_blank">GKA Dashboard</a></li>
+      <li><a href="{% get_dise_app_url %}" target="_blank">DISE</a></li>
+      <li><a href="/reports/search" target="_blank">{%get_state_value "short_form" %} Reports</a></li>
+      <li><a href="http://sslc.klp.org.in" target="_blank">SSLC</a></li> 
+      <!-- <li><a href="/sdmc" target="_blank">SDMC Reports</a></li> -->
+      <!-- <li><a href="{% url 'reports' %}">Other Reports</a></li> -->
+    </ul>
