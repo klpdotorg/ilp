@@ -39,6 +39,7 @@ class Command(BaseCommand):
 
     def create_questiongroup(self):
         count=0
+        questiongroups = []
         for row in self.csv_files["questiongroup"]:
             if count == 0:
                 count += 1
@@ -63,7 +64,6 @@ class Command(BaseCommand):
             comments_required = row[16].strip()
             respondenttype_required = row[17].strip()
             questiongroup = QuestionGroup.objects.create(
-                                id = id,
                                 name = name,
                                 group_text = group_text,
                                 start_date = start_date,
@@ -81,10 +81,11 @@ class Command(BaseCommand):
                                 image_required = image_required,
                                 comments_required = comments_required,
                                 respondenttype_required = respondenttype_required)
-            return questiongroup 
+            questiongroups.append(questiongroup)
+        return questiongroups
 
 
-    def create_questions(self, questiongroup):
+    def create_questions(self):
         count=0
         questions = []
         for row in self.csv_files["questions"]:
@@ -106,7 +107,6 @@ class Command(BaseCommand):
             lang_name = self.check_value(row[10].strip())
             lang_options = self.check_value(row[11].strip())
             question = Question.objects.create(
-                            id = id,
                             question_text = question_text,
                             display_text = display_text,
                             key = key,
@@ -122,18 +122,15 @@ class Command(BaseCommand):
         return questions
 
 
-    def map_questiongroup_questions(self, questiongroup, questions):
-        qgq_maps = []
-        sequence = 1
-        for question in questions:
-            qgq_map = QuestionGroup_Questions.objects.create(
-                      sequence = sequence,
-                      question = question,
-                      questiongroup = questiongroup)
-            sequence += 1
-            qgq_maps.append(qgq_map)
-
-        return qgq_maps
+    def map_questiongroup_questions(self, questiongroups, questions):
+        for questiongroup in questiongroups:
+            sequence = 1
+            for question in questions:
+                qgq_map = QuestionGroup_Questions.objects.create(
+                          sequence = sequence,
+                          question = question,
+                          questiongroup = questiongroup)
+                sequence += 1
 
 
     def handle(self, *args, **options):
@@ -141,18 +138,15 @@ class Command(BaseCommand):
            return
         
         #create questiongroup
-        questiongroup = self.create_questiongroup()
-        if not questiongroup:
+        questiongroups = self.create_questiongroup()
+        if not questiongroups:
             print("QuestionGroup did not get created")
             return
 
         if options["questions"]:
-            questions = self.create_questions(questiongroup)
+            questions = self.create_questions()
             if not questions:
                 print("Questions did not get created")
                 return
   
-            qgq_maps = self.map_questiongroup_questions(questiongroup, questions)
-            if not qgq_maps:
-                print("QuestionGroup Question Mapping did not happen")
-                return
+            self.map_questiongroup_questions(questiongroups, questions)

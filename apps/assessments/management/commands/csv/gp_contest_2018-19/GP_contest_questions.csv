@@ -1,6 +1,6 @@
 id,question_text,display_text,key,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
-649,Area 1,,Area,"{Yes,No}",True,2,AC,,Yes,,
-650,Angle 1,,Angle,"{Yes,No}",True,2,AC,,Yes,,
-651,Measurement: Volume 1,,Measurement,"{Yes,No}",True,2,AC,,Yes,,
-652,Measurement: Time 2,,Measurement,"{Yes,No}",True,2,AC,,Yes,,
-653,Measurement: Length 1,,Measurement,"{Yes,No}",True,2,AC,,Yes,,
+,Area 1,,Area,"{Yes,No}",True,2,AC,,Yes,,
+,Angle 1,,Angle,"{Yes,No}",True,2,AC,,Yes,,
+,Measurement: Volume 1,,Measurement,"{Yes,No}",True,2,AC,,Yes,,
+,Measurement: Time 2,,Measurement,"{Yes,No}",True,2,AC,,Yes,,
+,Measurement: Length 1,,Measurement,"{Yes,No}",True,2,AC,,Yes,,
