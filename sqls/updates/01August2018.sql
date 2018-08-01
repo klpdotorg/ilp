@@ -4,3 +4,7 @@ insert into boundary_electionboundary (id,dise_slug,const_ward_name,const_ward_t
 --update schools_institution
 update schools_institution set gp_id=6234 where id in (47982,47981,48045,47951);
 update schools_institution set gp_id=5825 where id in (24775,24776);
+
+--delete duplicate student
+update schools_student set status_id='DL' where id='2492683';
+update schools_studentstudentgrouprelation set status_id='DL' where student_id='2492683' and academic_year_id='1819';
