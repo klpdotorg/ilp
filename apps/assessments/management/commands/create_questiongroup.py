@@ -95,18 +95,22 @@ class Command(BaseCommand):
             count += 1
 
             id = row[0].strip()
-            question_text = row[1].strip()
-            display_text = row[2].strip()
-            key = self.check_value(row[3].strip())
-            options = self.check_value(row[4].strip())
-            is_featured = self.check_value(row[5].strip(), True)
-            question_type = QuestionType.objects.get(id = self.check_value(row[6].strip(),4))
-            status = Status.objects.get(char_id=row[7].strip())
-            max_score = self.check_value(row[8].strip(),0)
-            pass_score = self.check_value(row[9].strip(),0)
-            lang_name = self.check_value(row[10].strip())
-            lang_options = self.check_value(row[11].strip())
-            question = Question.objects.create(
+            if id != '':
+                question = Question.objects.get(pk=id)
+                questions.append(question)
+            else:
+                question_text = row[1].strip()
+                display_text = row[2].strip()
+                key = self.check_value(row[3].strip())
+                options = self.check_value(row[4].strip())
+                is_featured = self.check_value(row[5].strip(), True)
+                question_type = QuestionType.objects.get(id = self.check_value(row[6].strip(),4))
+                status = Status.objects.get(char_id=row[7].strip())
+                max_score = self.check_value(row[8].strip(),0)
+                pass_score = self.check_value(row[9].strip(),0)
+                lang_name = self.check_value(row[10].strip())
+                lang_options = self.check_value(row[11].strip())
+                question = Question.objects.create(
                             question_text = question_text,
                             display_text = display_text,
                             key = key,
@@ -118,7 +122,7 @@ class Command(BaseCommand):
                             pass_score = pass_score,
                             lang_name = lang_name,
                             lang_options = lang_options)
-            questions.append(question)
+                questions.append(question)
         return questions
 
 
