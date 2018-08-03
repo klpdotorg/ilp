@@ -3,6 +3,7 @@ import os
 import json
 from datetime import datetime
 now = datetime.now()
+from dateutil import parser
 import sys
 from django.core.management.base import BaseCommand, CommandError
 import argparse
@@ -30,10 +31,12 @@ class Command(BaseCommand):
             for row in data:
                 group_value = row[9]
                 ddmmyyyy = row[3]
-                dov = datetime.strptime(ddmmyyyy, "%Y-%m-%d")
+                parsed = datetime.strptime(ddmmyyyy, '%d/%m/%Y')
+                date_string = parsed.strftime('%Y-%m-%d')
+                dov = parser.parse(date_string)
                 inst_id = row[4]
                 entererd_at = now
-
+                
                 answergroup = AnswerGroup_Institution.objects.create(
                         group_value = group_value,
                        	date_of_visit = dov,
