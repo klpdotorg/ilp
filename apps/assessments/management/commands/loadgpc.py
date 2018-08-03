@@ -44,11 +44,12 @@ class Command(BaseCommand):
                        	institution_id = inst_id,
                        	status_id = 'AC',
                        	is_verified = True)
-                
+
+                question_id = QuestionGroup_Questions.objects.filter(questiongroup=qgroup,sequence=1).values('question_id')
                 answer = AnswerInstitution.objects.create(
                         answer = grade,
                         answergroup_id = answergroup.id,
-                        question_id = 130)
+                        question_id = question_id[0]['question_id'])
                 
                 quescnt = QuestionGroup_Questions.objects.filter(questiongroup=qgroup).count()
                 anscnt = 9 #the answers to questions begin here
