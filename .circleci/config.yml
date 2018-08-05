@@ -1,4 +1,3 @@
-
 version: 2
 jobs:
   build:
@@ -51,4 +50,9 @@ steps:
          ##python manage.py test
    - store_artifacts:
       path: test-reports
-      destination: test-reports
+      destination: test-report
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
