@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
        - image: circleci/python:3.6.2
           environment:
