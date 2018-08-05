@@ -6,12 +6,12 @@ jobs:
        - image: circleci/python:3.6.2
           environment:
            FLASK_CONFIG: testing
-           TEST_DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+           TEST_DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
        - image: circleci/postgres:9.6.5
          environment:
-           POSTGRES_USER: root
-           POSTGRES_DB: circle_test
-           POSTGRES_PASSWORD: ""
+           POSTGRES_USER: ubuntu
+           POSTGRES_DB: test_ilp
+           #POSTGRES_PASSWORD: ""
 steps:
   - checkout
   - restore_cache:
@@ -22,20 +22,33 @@ steps:
   - run:
       name: install dependencies
       command: |
-        python3 -m venv venv
-        . venv/bin/activate
-        pip install -r requirements.txt
-
+       sudo apt-get update
+       sudo apt-get install -y libgdal-dev
+       sudo apt-get install -y postgis
+       sudo apt-get install -y postgresql-client
+       sudo apt-get install -y python-virtualenv
+       python -m venv venv
+       . venv/bin/activate
+       pip install -r requirements/test.txt
+     ##source venv/bin/activate &&
   - save_cache:
       paths:
         - ./venv
-      key: v1-dependencies-{{ checksum "requirements.txt" }}
+      key: v1-dependencies-{{ checksum "requirements/test.txt" }}
+   database:
+        pre:
+    - mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
   - run:
       name: run tests
       command: |
-        . venv/bin/activate
-        python manage.py test
-
-  - store_artifacts:
+      override:
+       . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
+       . venv/bin/activate && coverage report
+       . venv/bin/activate && coverage html
+       - mkdir -p /tmp/artifacts
+       - mv htmlcov /tmp/artifacts
+         ##. venv/bin/activate
+         ##python manage.py test
+   - store_artifacts:
       path: test-reports
       destination: test-reports
