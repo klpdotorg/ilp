@@ -2,58 +2,50 @@ version: 2
 jobs:
   build:
     docker:
-       - image: circleci/python:3.6.2
-          environment:
-           FLASK_CONFIG: testing
-           TEST_DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
-       - image: circleci/postgres:9.6.5
-         environment:
-           POSTGRES_USER: ubuntu
-           POSTGRES_DB: test_ilp
-           #POSTGRES_PASSWORD: ""
-steps:
-  - checkout
-  - restore_cache:
-      keys:
-      - v1-dependencies-{{ checksum "requirements/test.txt" }}
-      - v1-dependencies-
+    - image: circleci/postgres:9.6.1
+    environment:
+     DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
+     POSTGRES_USER: ubuntu 
+     POSTGRES_DB: test_ilp
+     image: circleci/python:3.6.1
 
-  - run:
-      name: install dependencies
-      command: |
-       sudo apt-get update
-       sudo apt-get install -y libgdal-dev
-       sudo apt-get install -y postgis
-       sudo apt-get install -y postgresql-client
-       sudo apt-get install -y python-virtualenv
-       python -m venv venv
-       . venv/bin/activate
-       pip install -r requirements/test.txt
-     ##source venv/bin/activate &&
-  - save_cache:
-      paths:
-        - ./venv
-      key: v1-dependencies-{{ checksum "requirements/test.txt" }}
-   database:
-        pre:
+
+general:
+  branches:
+    only:
+      - circleci-upgrade
+  artifacts:
+    - /tmp/artifacts
+
+dependencies:
+  pre:
+    - sudo apt-get update
+    - sudo apt-get install -y libgdal-dev
+    - sudo apt-get install -y postgis
+    - sudo apt-get install -y postgresql-client
+    - sudo apt-get install -y python-virtualenv
+    - python -m venv venv
+    - source venv/bin/activate && pip install -r requirements/test.txt
+  
+  cache_directories:
+    - "venv"   # relative to the build directory
+
+
+database:
+  pre:
     - mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
-  - run:
-      name: run tests
-      command: |
-      ##override:
-        . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
-        . venv/bin/activate && coverage report
-        . venv/bin/activate && coverage html
-        - mkdir -p /tmp/artifacts
-       - mv htmlcov /tmp/artifacts
-         ##. venv/bin/activate
-         ##python manage.py test
-   - store_artifacts:
-      path: test-reports
-      destination: test-report
 
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build
+
+test:
+  override:
+    - . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
+    - . venv/bin/activate && coverage report
+    - . venv/bin/activate && coverage html
+    - mkdir -p /tmp/artifacts
+    - mv htmlcov /tmp/artifacts
+
+  post:
+    - git clean -dxf            # clean up for deployment
+
+
+  
