@@ -671,12 +671,28 @@ class BlockReport(BaseReport):
                 # except ZeroDivisionError:
                 #     continue
 
+                # The second logic we came up in July
+                # total_students_appeared = cluster_ag.count()
+                # score = 0
+                # for c in cluster_ag:
+                #     if c.answers.filter(
+                #         question__key=contest, answer='Yes'
+                #     ).exists():
+                #         score += 1
+                # score = score / total_students_appeared
+
+                # The new logic proposed by Nagraj & Vaijayanthi
                 total_students_appeared = cluster_ag.count()
                 score = 0
                 for c in cluster_ag:
-                    if c.answers.filter(
-                        question__key=contest, answer='Yes'
-                    ).exists():
+                    total_questions = c.answers.filter(
+                        question__key=contest
+                    ).count()
+                    correct_answers = c.answers.filter(
+                        question__key=contest,
+                        answer='Yes'
+                    ).count()
+                    if total_questions == correct_answers:
                         score += 1
                 score = score / total_students_appeared
 
