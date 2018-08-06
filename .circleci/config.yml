@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3.6.1
         environment:
@@ -32,7 +32,6 @@ jobs:
             'pip install -r requirements/test.txt'
 
   test:
-  override:
     '- . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
     '- . venv/bin/activate && coverage report'
     '- . venv/bin/activate && coverage html'
