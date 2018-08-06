@@ -57,6 +57,7 @@ class AnswerGroup_StudentGroup(models.Model):
     status = models.ForeignKey("common.Status")
     location = models.GeometryField(null=True)
     mobile = models.CharField(max_length=32, null=True)
+    entered_at = models.DateTimeField(default=timezone.now, null=True)
 
 
 class AnswerStudentGroup(models.Model):
@@ -84,6 +85,7 @@ class AnswerGroup_Student(models.Model):
     status = models.ForeignKey("common.Status")
     location = models.GeometryField(null=True)
     mobile = models.CharField(max_length=32, null=True)
+    entered_at = models.DateTimeField(default=timezone.now, null=True)
 
 
 class AnswerStudent(models.Model):
