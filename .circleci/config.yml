@@ -1,32 +1,27 @@
 version: 2
 jobs:
- build:
+  build:
     working_directory: ~/ilp
     parallelism: 1
     shell: /bin/bash --login
- docker:
+  docker:
     - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
       command: /sbin/init
-    steps:
+  steps:
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
     - run:
         working_directory: ~/klpdotorg/ilp
-        command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure
-          -f noninteractive tzdata; sudo service mysql restart; sudo service postgresql
-          restart; '
+        command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure -f noninteractive tzdata; sudo service mysql restart; sudo service postgresql restart; '
     - run:
         working_directory: ~/ilp
-        command: if ["3.6.1" == "system"] || pyenv versions --bare | grep -x -q '3.6.1'; then   
-        pyenv global version;else pyenv install --skip-existing  3.6.1 && pyenv global version && 
-        pyenv rehash && pip install virtualenv && pip install nose && pip install pep8 && pyenv 
-        rehash;fi
+        command: echo buhahaha
     - restore_cache:
         keys:
         - v1-dep-{{ .Branch }}-
-        
+       
         #- v1-dep-master-
-    - run: if [ -e requirements.txt ]; then pip install -r requirements.txt; else pip install -r 
+    - run: if [ -e requirements.txt ]; then pip install -r requirements.txt; else pip install -r
            requirements.pip; fi
     - run: pip install unittest-xml-reporting
     - save_cache:
