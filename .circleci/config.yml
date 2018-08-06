@@ -1,10 +1,10 @@
 version: 2
 jobs:
-  build:
+ build:
     working_directory: ~/ilp
     parallelism: 1
     shell: /bin/bash --login
-  docker:
+ docker:
     - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
       command: /sbin/init
     steps:
