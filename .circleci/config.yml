@@ -45,9 +45,9 @@ jobs:
     - run:
         working_directory: ~/klpdotorg/ilp
         command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone'
-    - run:
-        working_directory: ~/klpdotorg/ilp
-        command: 'echo hi'
+#    - run:
+#        working_directory: ~/klpdotorg/ilp
+#        command: 'echo hi'
 	# if [[ "3.6.1" == "system" ]] || pyenv versions --bare | grep -x -q '3.6.1'; then pyenv global version;else pyenv install --skip-existing  3.6.1 && pyenv global version && pyenv rehash && pip install virtualenv && pip install nose && pip install pep8 && pyenv rehash;fi
     # Dependencies
     #   This would typically go in either a build or a build-and-test job when using workflows
