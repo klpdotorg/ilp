@@ -25,11 +25,11 @@ jobs:
           name: Install awscli
           command: 'sudo pip install awscli'
       - run:
-      name: install dependencies
-      command: |
-        python3 -m venv venv
-        . venv/bin/activate
-        pip install -r requirements/test.txt
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/test.txt
 
   test:
   override:
