@@ -42,6 +42,7 @@ jobs:
         key: v1-dep-{{ .Branch }}-{{ epoch }}
         paths:
          - venv
+  test:
     - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
     - run: . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
     - run: . venv/bin/activate && coverage report
@@ -51,10 +52,13 @@ jobs:
     - run: git clean -dxf
     - store_test_results:
         path: /tmp/circleci-test-results
-    # Save artifacts
     - store_artifacts:
         path: /tmp/circleci-artifacts
     - store_artifacts:
         path: /tmp/artifacts
-    - store_artifacts:
-        path: /tmp/circleci-test-results
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
