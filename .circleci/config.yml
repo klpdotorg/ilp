@@ -11,7 +11,7 @@ jobs:
   build:
     working_directory: ~/klpdotorg/ilp
     parallelism: 1
-    shell: /bin/bash
+    shell: /bin/bash 
     # CircleCI 2.0 does not support environment variables that refer to each other the same way as 1.0 did.
     # If any of these refer to each other, rewrite them so that they don't or see https://circleci.com/docs/2.0/env-vars/#interpolating-environment-variables-to-set-other-environment-variables .
     environment:
@@ -30,7 +30,7 @@ jobs:
     # To see the list of pre-built images that CircleCI provides for most common languages see
     # https://circleci.com/docs/2.0/circleci-images/
     docker:
-    - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
+    - image: circleci/python:3.6-jessie-node
       command: /sbin/init
     steps:
     # Machine Setup
