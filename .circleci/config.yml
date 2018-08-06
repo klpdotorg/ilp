@@ -27,21 +27,21 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements/test.txt
+            'python3 -m venv venv'
+            '. venv/bin/activate'
+            'pip install -r requirements/test.txt'
 
   test:
   override:
-    - . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
-    - . venv/bin/activate && coverage report
-    - . venv/bin/activate && coverage html
-    - mkdir -p /tmp/artifacts
-    - mv htmlcov /tmp/artifacts 
+    '- . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
+    '- . venv/bin/activate && coverage report'
+    '- . venv/bin/activate && coverage html'
+    '- mkdir -p /tmp/artifacts'
+    '- mv htmlcov /tmp/artifacts '
     
 workflows:
   version: 2
-  deploy:
+  test:
     jobs:
       - test:
           filters:
