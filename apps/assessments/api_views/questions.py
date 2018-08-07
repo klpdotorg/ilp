@@ -74,6 +74,9 @@ class QuestionGroupQuestions(
     permission_classes = (HasAssignPermPermission,)
 
     def get_queryset(self):
+        """ 
+        Returns QuestionGroup_Question object in sequence order.
+        """
         parents_query_dict = self.get_parents_query_dict()
         questiongroup_id = parents_query_dict['questiongroup']
         return QuestionGroup_Questions.objects\
@@ -81,6 +84,10 @@ class QuestionGroupQuestions(
             .order_by('sequence')
 
     def get_object(self):
+        """
+        Returns QuestionGroup_Question object.
+        When PUT returns QuestionGroup_Question.question
+        """
         queryset = self.filter_queryset(self.get_queryset())
         obj = get_object_or_404(queryset, question=self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
@@ -89,6 +96,11 @@ class QuestionGroupQuestions(
         return obj
 
     def list(self, request, *args, **kwargs):
+        """
+        Makes question list from QuestionGroup_Question and
+        returns question objects. Ideally it should return QG_question objects.
+        But can't change it now(Konnect uses).
+        """
         question_list = self.get_queryset().values_list('question', flat=True)
         queryset = Question.objects.filter(id__in=question_list).order_by('key')
 
@@ -102,6 +114,9 @@ class QuestionGroupQuestions(
 
     @action(methods=['get'], detail=False)
     def sequence(self, request, *args, **kwargs):
+        """
+        Returns QuestionGroup_Question object order by sequence.
+        """
         queryset = self.get_queryset()
 
         page = self.paginate_queryset(queryset)
@@ -113,6 +128,11 @@ class QuestionGroupQuestions(
         return Response(serializer.data)
 
     def get_serializer_class(self):
+        """
+        GET/PUT uses QuestionSerializer.
+        POST uses QuestionGroupQuestionSerializer.
+        For GET all - use /sequences/ endpoint.
+        """
         if self.request.method in ['PUT', 'GET', ]:
             return QuestionSerializer
         return QuestionGroupQuestionSerializer
