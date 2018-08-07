@@ -100,6 +100,18 @@ class QuestionGroupQuestions(
         serializer = self.get_serializer_class()(queryset, many=True)
         return Response(serializer.data)
 
+    @action(methods=['get'], detail=False)
+    def sequence(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = QuestionGroupQuestionSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = QuestionGroupQuestionSerializer(queryset, many=True)
+        return Response(serializer.data)
+
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'GET', ]:
             return QuestionSerializer
