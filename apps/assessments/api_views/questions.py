@@ -129,13 +129,19 @@ class QuestionGroupQuestions(
 
     def get_serializer_class(self):
         """
-        GET/PUT uses QuestionSerializer.
+        GET all & PUT uses QuestionSerializer by default.
+        For GET all - use /sequences/ endpoint, if you need sequence field.
+        GET /:id/ see retrive method.
         POST uses QuestionGroupQuestionSerializer.
-        For GET all - use /sequences/ endpoint.
         """
         if self.request.method in ['PUT', 'GET', ]:
             return QuestionSerializer
         return QuestionGroupQuestionSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = QuestionGroupQuestionSerializer(instance)
+        return Response(serializer.data)
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
