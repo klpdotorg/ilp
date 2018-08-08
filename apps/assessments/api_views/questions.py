@@ -310,7 +310,7 @@ class QuestionGroupViewSet(
             sg_qset = QuestionGroup_StudentGroup_Association.\
                 objects.filter(
                     studentgroup__institution_id__in=institution_ids,
-                )
+                ).distinct('studentgroup')
             for sgroup_inst in sg_qset:
                 sg_name = sgroup_inst.studentgroup.name
                 sg_id = sgroup_inst.studentgroup.id
@@ -326,7 +326,7 @@ class QuestionGroupViewSet(
                         "id": qgroup.id,
                         "name": qgroup.name,
                     }
-                response.append(res)
+                    response.append(res)
         return Response(response)
 
 
