@@ -195,12 +195,9 @@ class QuestionGroupViewSet(
         ).distinct().values_list('id', flat=True)
         return institution_ids
 
-    def get_boundary_studentgroup_ids(self, boundary_id):
+    def get_institution_studentgroup_ids(self, institution):
         studentgroup_ids = StudentGroup.objects.filter(
-            Q(institution_id__admin0_id=boundary_id) |
-            Q(institution_id__admin1_id=boundary_id) |
-            Q(institution_id__admin2_id=boundary_id) |
-            Q(institution_id__admin3_id=boundary_id)
+            Q(institution_id=institution)
         ).distinct().values_list('id', flat=True)
         return studentgroup_ids
 
@@ -249,23 +246,21 @@ class QuestionGroupViewSet(
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
         survey_id = self.get_parents_query_dict()['survey']
-        print("Survey ID is: ", survey_id)
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
-        print("Survey on: ", survey_on)
         if not survey_on == 'studentgroup' and not survey_on == 'student':
             raise ParseError('This survey is not a studengroup or student survey')
         questiongroup_ids = request.data.get('questiongroup_ids', [])
         studentgroup_ids = request.data.get('studentgroup_ids', [])
-        boundary_ids = request.data.get('boundary_ids', [])
-        if not studentgroup_ids and not boundary_ids:
-            raise ParseError('Please pass studentgroup_ids OR boundary_ids')
+        institution_ids = request.data.get('institution_ids', [])
+        if not studentgroup_ids and not institution_ids:
+            raise ParseError('Please pass studentgroup_ids OR institution_ids')
         # Make a copy of the institution_ids param.
         list_of_studentgroups = list(studentgroup_ids)
-        # Fetch all studentgroups under a boundary and append to the list
-        for boundary in boundary_ids:
-            studentgroups_under_boundary = self.get_boundary_studentgroup_ids(
-                boundary)
-            for studentgroup in studentgroups_under_boundary:
+        # Fetch all studentgroups under a institution and append to the list
+        for institution in institution_ids:
+            studentgroups_under_institution = self.get_institution_studentgroup_ids(
+                institution)
+            for studentgroup in studentgroups_under_institution:
                 list_of_studentgroups.append(studentgroup)
         data = []
         for questiongroup_id in questiongroup_ids:
