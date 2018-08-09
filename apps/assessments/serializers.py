@@ -13,7 +13,7 @@ from assessments.models import (
     AnswerStudent, QuestionGroup_StudentGroup_Association,
     QuestionGroup_Institution_Association,
     SurveyUserTypeMapping, AnswerStudentGroup,
-    Partner, Source, InstitutionImages
+    Partner, Source, InstitutionImages, SurveyType
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
@@ -192,6 +192,12 @@ class QuestionSerializer(ILPSerializer):
             'options', 'is_featured', 'status', 'id', 'question_type_id',
             'lang_name', 'lang_options', 'pass_score', 'max_score'
         )
+
+
+class SurveyTypeSerializer(ILPSerializer):
+    class Meta:
+        model = SurveyType
+        fields = '__all__'
 
 
 class QuestionGroupQuestionSerializer(ILPSerializer):

@@ -22,7 +22,7 @@ from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
     AnswerGroup_Institution, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association, InstitutionImages,
-    Survey, SurveyInstitutionAgg, QuestionType
+    Survey, SurveyInstitutionAgg, QuestionType, SurveyType
 )
 
 from schools.models import (
@@ -35,8 +35,10 @@ from assessments.serializers import (
     QuestionGroupInstitutionAssociationSerializer,
     QuestionGroupStudentGroupAssociationSerializer,
     QuestionTypeSerializer,
-    QuestionGroupInstitutionAssociationCreateSerializer
+    QuestionGroupInstitutionAssociationCreateSerializer,
+    SurveyTypeSerializer
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +66,13 @@ class QuestionTypeListView(ILPListAPIView):
 
     def get_queryset(self):
         return QuestionType.objects.all()
+
+
+class SurveyTypeListView(ILPListAPIView):
+    serializer_class = SurveyTypeSerializer
+
+    def get_queryset(self):
+        return SurveyType.objects.all()
 
 
 class QuestionGroupQuestions(
@@ -153,20 +162,35 @@ class QuestionGroupQuestions(
 class BoundaryQuestionGroupMapping(ILPListAPIView):
     ''' Returns all questiongroups under boundary ids. Boundary ids
     can be a comma separated list passed as params'''
-    serializer_class = QuestionGroupInstitutionAssociationSerializer
-
-    def get_queryset(self):
+    
+    def list(self, request, *args, **kwargs):
         boundary_ids = self.request.query_params.getlist('boundary_ids', [])
-        print("boundary_ids received is: ", boundary_ids)
-        queryset = QuestionGroup_Institution_Association.objects.exclude(
-            status=Status.DELETED)
-        result = queryset.filter(
-                Q(institution__admin0_id__in=boundary_ids) |
-                Q(institution__admin1_id__in=boundary_ids) |
-                Q(institution__admin2_id__in=boundary_ids) |
-                Q(institution__admin3_id__in=boundary_ids)
-            ).distinct('questiongroup__id')
-        return result
+        result = []
+        qg_inst_qs = QuestionGroup_Institution_Association.objects.exclude(
+            status=Status.DELETED
+        ).filter(
+            Q(institution__admin0_id__in=boundary_ids) |
+            Q(institution__admin1_id__in=boundary_ids) |
+            Q(institution__admin2_id__in=boundary_ids) |
+            Q(institution__admin3_id__in=boundary_ids)
+        ).distinct('questiongroup__id')
+        qg_stud_qs = QuestionGroup_StudentGroup_Association.objects.exclude(
+            status=Status.DELETED
+        ).filter(
+            Q(studentgroup__institution__admin0_id__in=boundary_ids) |
+            Q(studentgroup__institution__admin1_id__in=boundary_ids) |
+            Q(studentgroup__institution__admin2_id__in=boundary_ids) |
+            Q(studentgroup__institution__admin3_id__in=boundary_ids)
+        ).distinct('questiongroup__id')
+        qg_inst_data = QuestionGroupInstitutionAssociationCreateSerializer(
+            qg_inst_qs, many=True
+        )
+        qg_stud_data = QuestionGroupStudentGroupAssociationSerializer(
+            qg_stud_qs, many=True
+        )
+        result += qg_inst_data.data
+        result += qg_stud_data.data
+        return Response(result)
 
 
 class QuestionGroupViewSet(
