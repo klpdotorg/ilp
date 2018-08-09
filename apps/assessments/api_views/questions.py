@@ -74,6 +74,9 @@ class QuestionGroupQuestions(
     permission_classes = (HasAssignPermPermission,)
 
     def get_queryset(self):
+        """ 
+        Returns QuestionGroup_Question object in sequence order.
+        """
         parents_query_dict = self.get_parents_query_dict()
         questiongroup_id = parents_query_dict['questiongroup']
         return QuestionGroup_Questions.objects\
@@ -81,6 +84,10 @@ class QuestionGroupQuestions(
             .order_by('sequence')
 
     def get_object(self):
+        """
+        Returns QuestionGroup_Question object.
+        When PUT returns QuestionGroup_Question.question
+        """
         queryset = self.filter_queryset(self.get_queryset())
         obj = get_object_or_404(queryset, question=self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
@@ -89,6 +96,11 @@ class QuestionGroupQuestions(
         return obj
 
     def list(self, request, *args, **kwargs):
+        """
+        Makes question list from QuestionGroup_Question and
+        returns question objects. Ideally it should return QG_question objects.
+        But can't change it now(Konnect uses).
+        """
         question_list = self.get_queryset().values_list('question', flat=True)
         queryset = Question.objects.filter(id__in=question_list).order_by('key')
 
@@ -100,10 +112,36 @@ class QuestionGroupQuestions(
         serializer = self.get_serializer_class()(queryset, many=True)
         return Response(serializer.data)
 
+    @action(methods=['get'], detail=False)
+    def sequence(self, request, *args, **kwargs):
+        """
+        Returns QuestionGroup_Question object order by sequence.
+        """
+        queryset = self.get_queryset()
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = QuestionGroupQuestionSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = QuestionGroupQuestionSerializer(queryset, many=True)
+        return Response(serializer.data)
+
     def get_serializer_class(self):
+        """
+        GET all & PUT uses QuestionSerializer by default.
+        For GET all - use /sequences/ endpoint, if you need sequence field.
+        GET /:id/ see retrive method.
+        POST uses QuestionGroupQuestionSerializer.
+        """
         if self.request.method in ['PUT', 'GET', ]:
             return QuestionSerializer
         return QuestionGroupQuestionSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = QuestionGroupQuestionSerializer(instance)
+        return Response(serializer.data)
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -278,22 +316,20 @@ class QuestionGroupViewSet(
             sg_qset = QuestionGroup_StudentGroup_Association.\
                 objects.filter(
                     studentgroup__institution_id__in=institution_ids,
+                    questiongroup__survey_id=survey_id
                 ).distinct('studentgroup')
             for sgroup_inst in sg_qset:
                 sg_name = sgroup_inst.studentgroup.name
                 sg_id = sgroup_inst.studentgroup.id
+                qgroup = sgroup_inst.questiongroup
                 res = {
-                    "id": sg_id,
-                    "name": sg_name,
-                    "assessment-type": "studentgroup"
+                   "id": sg_id,
+                   "name": sg_name,
+                   "assessment-type": "studentgroup",
+                   "assessment": {
+                       "id": qgroup.id, "name": qgroup.name
+                   }
                 }
-                for studgroup_qgroup in sg_qset.filter(
-                        questiongroup__survey_id=survey_id):
-                    qgroup = studgroup_qgroup.questiongroup
-                    res["assessment"] = {
-                        "id": qgroup.id,
-                        "name": qgroup.name,
-                    }
                 response.append(res)
         return Response(response)
 
