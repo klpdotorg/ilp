@@ -20,7 +20,7 @@ from assessments.api_views import (
     SurveyBoundaryAPIView, SurveyInstitutionAPIView,
     BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView,
     SurveyAssociateInstitutionAPIView, SurveyPartnersViewSet,
-    SurveySourceViewSet, QuestionGroupTypeListView
+    SurveySourceViewSet, SurveyTypeListView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -184,7 +184,7 @@ urlpatterns = [
     url(r'^surveys/questiontype/$',
         QuestionTypeListView.as_view(),
         name='question-type'),
-    url(r'surveys/questiongroup-type/',
-        QuestionGroupTypeListView.as_view(),
-        name='questiongroup-type')
+    url(r'survey-type/',
+        SurveyTypeListView.as_view(),
+        name='survey-type')
 ] + simple_router.urls + nested_router.urls

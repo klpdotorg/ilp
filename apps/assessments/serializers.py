@@ -13,11 +13,10 @@ from assessments.models import (
     AnswerStudent, QuestionGroup_StudentGroup_Association,
     QuestionGroup_Institution_Association,
     SurveyUserTypeMapping, AnswerStudentGroup,
-    Partner, Source, InstitutionImages
+    Partner, Source, InstitutionImages, SurveyType
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
-from ivrs.models import QuestionGroupType
 
 
 class SurveyOnTypeSerializer(ILPSerializer):
@@ -195,9 +194,9 @@ class QuestionSerializer(ILPSerializer):
         )
 
 
-class QuestionGroupTypeSerializer(ILPSerializer):
+class SurveyTypeSerializer(ILPSerializer):
     class Meta:
-        model = QuestionGroupType
+        model = SurveyType
         fields = '__all__'
 
 

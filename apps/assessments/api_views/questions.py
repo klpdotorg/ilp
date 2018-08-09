@@ -22,7 +22,7 @@ from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
     AnswerGroup_Institution, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association, InstitutionImages,
-    Survey, SurveyInstitutionAgg, QuestionType
+    Survey, SurveyInstitutionAgg, QuestionType, SurveyType
 )
 
 from schools.models import (
@@ -36,10 +36,9 @@ from assessments.serializers import (
     QuestionGroupStudentGroupAssociationSerializer,
     QuestionTypeSerializer,
     QuestionGroupInstitutionAssociationCreateSerializer,
-    QuestionGroupTypeSerializer
+    SurveyTypeSerializer
 )
 
-from ivrs.models import QuestionGroupType
 
 logger = logging.getLogger(__name__)
 
@@ -69,11 +68,11 @@ class QuestionTypeListView(ILPListAPIView):
         return QuestionType.objects.all()
 
 
-class QuestionGroupTypeListView(ILPListAPIView):
-    serializer_class = QuestionGroupTypeSerializer
+class SurveyTypeListView(ILPListAPIView):
+    serializer_class = SurveyTypeSerializer
 
     def get_queryset(self):
-        return QuestionGroupType.objects.all()
+        return SurveyType.objects.all()
 
 
 class QuestionGroupQuestions(
