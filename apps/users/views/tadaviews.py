@@ -6,9 +6,15 @@ from django.contrib.auth.models import Group
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import list_route, detail_route
-from users.models import User
+from users.models import ( 
+    User,
+    UserBoundary
+)
+from boundary.models import (
+    BoundaryStateCode
+)
 from users.serializers import (
-    TadaUserRegistrationSerializer,
+    TadaUserCreateUpdateSerializer,
     UserLoginSerializer,
     TadaUserSerializer,
     PasswordSerializer,
@@ -80,13 +86,11 @@ class UsersViewSet(ILPViewSet):
 
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
-        print("Inside tada user register view", request.data)
         try:
             groups = data.pop("groups")
         except:
             groups=[]
-
-        serializer = TadaUserRegistrationSerializer(data=data,partial=True)
+        serializer = TadaUserCreateUpdateSerializer(data=data,partial=True)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         
@@ -105,8 +109,8 @@ class UsersViewSet(ILPViewSet):
             user.groups.add(Group.objects.get(name='ilp_auth_user'))
             user.groups.add(Group.objects.get(name='ilp_konnect_user'))
         user.save()
-        response_data = TadaUserRegistrationSerializer(user)
-        headers = self.get_success_headers(serializer.data)
+        response_data = TadaUserSerializer(user)
+        headers = self.get_success_headers(response_data.data)
         return Response(response_data.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @detail_route(
@@ -164,14 +168,21 @@ class UsersViewSet(ILPViewSet):
     def update(self, request, *args, **kwargs):
         data = request.data.copy()
         try:
-            groups = data.pop("groups")
+            groups = data.pop("groups")       
         except:
             groups = []
+
+        # try:
+        #     userboundaries = data.pop("userboundaries")
+        # except:
+        #     userboundaries = []
+
         instance = self.get_object()
-        serializer = TadaUserSerializer(instance, data=data, partial=True)
+        serializer = TadaUserCreateUpdateSerializer(instance, data=data, partial=True)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         user.groups.clear()
+
         user.save()
        
         for group_name in groups:
@@ -187,8 +198,9 @@ class UsersViewSet(ILPViewSet):
             user.groups.add(Group.objects.get(name='ilp_auth_user'))
             user.groups.add(Group.objects.get(name='ilp_konnect_user'))
         user.save()
+
         response_data = TadaUserSerializer(user)
-        headers = self.get_success_headers(serializer.data)
+        headers = self.get_success_headers(response_data.data)
         return Response(response_data.data, status=status.HTTP_201_CREATED, headers=headers)
 
 

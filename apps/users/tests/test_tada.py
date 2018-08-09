@@ -15,6 +15,8 @@ class TadaUserTests(APITestCase):
         call_command('loaddata',
                      'apps/users/tests/test_fixtures/auth_groups')
         call_command('loaddata',
+                     'apps/users/tests/test_fixtures/test_boundarystatecode')
+        call_command('loaddata',
                      'apps/users/tests/test_fixtures/users')
        
     def setUp(self):
@@ -34,6 +36,7 @@ class TadaUserTests(APITestCase):
                 "first_name": "Tada",
                 "last_name": "DEO",
                 "groups": ["tada_deo"],
+                "userboundaries": ["ka", "od"]
             }
         )
     
@@ -58,7 +61,7 @@ class TadaUserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(
             set(['id', 'groups', 'email', 'mobile_no', 'first_name', 'last_name', 'groups', 'is_active',
-                'is_superuser']).issubset(response.data.keys())
+                'is_superuser', 'userboundaries']).issubset(response.data.keys())
         )
         self.assertTrue(response.data['is_active'])
         created_user_id = response.data['id']
@@ -68,7 +71,7 @@ class TadaUserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(
             set(['id', 'groups', 'email', 'mobile_no', 'first_name', 'last_name', 'groups', 'is_active',
-                'is_superuser']).issubset(response.data.keys())
+                'is_superuser', 'userboundaries']).issubset(response.data.keys())
         )
 
     def test_failing_register(self):
@@ -89,10 +92,11 @@ class TadaUserTests(APITestCase):
        
         self.client.force_authenticate(user=self.user)
         response = self.registerUser()
+        print(response)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(
             set(['id', 'groups', 'email', 'mobile_no', 'first_name', 'last_name', 'groups', 'is_active',
-                'is_superuser']).issubset(response.data.keys())
+                'is_superuser', 'userboundaries']).issubset(response.data.keys())
         )
         mobile_no = response.data['mobile_no']
 
@@ -119,7 +123,7 @@ class TadaUserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(
             set(['id', 'groups', 'email', 'mobile_no', 'first_name', 'last_name', 'groups', 'is_active',
-                'is_superuser']).issubset(response.data.keys())
+                'is_superuser', 'userboundaries']).issubset(response.data.keys())
         )
         mobile_no = response.data['mobile_no']
 
@@ -169,10 +173,25 @@ class TadaUserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(
             set(['id', 'groups', 'email', 'mobile_no', 'first_name', 'last_name', 'groups', 'is_active',
-                'is_superuser']).issubset(response.data.keys())
+                'is_superuser', 'userboundaries']).issubset(response.data.keys())
         )
         self.assertEqual(response.data['id'], 21002)
     
+    def test_admin_user_modify(self):
+        url = reverse('user:tada-users-detail',kwargs={'pk': '21002'})
+        print("Testing user details %s" % url)
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(
+            set(['id', 'groups', 'email', 'mobile_no', 'first_name', 'last_name', 'groups', 'is_active',
+                'is_superuser', 'userboundaries']).issubset(response.data.keys())
+        )
+        self.assertEqual(response.data['id'], 21002)
+        response = self.client.patch(url, {"userboundaries": ["od"]})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+
     # User 21002 is in the text_fixtures/users.json file
     def test_nonadmin_user_detail(self):
         url = reverse('user:tada-users-detail',kwargs={'pk': '21002'})

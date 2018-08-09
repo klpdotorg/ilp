@@ -21,7 +21,7 @@ class LanguagesListView(generics.ListAPIView):
     paginator = None
 
     def get_queryset(self):
-        return Language.objects.all()
+        return Language.objects.all().order_by('name')
 
 
 class RespondentTypeView(ILPListAPIView, ILPStateMixin):
