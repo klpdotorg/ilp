@@ -317,7 +317,7 @@ class QuestionGroupViewSet(
                 objects.filter(
                     studentgroup__institution_id__in=institution_ids,
                     questiongroup__survey_id=survey_id
-                ).distinct('studentgroup')
+                )
             for sgroup_inst in sg_qset:
                 sg_name = sgroup_inst.studentgroup.name
                 sg_id = sgroup_inst.studentgroup.id
