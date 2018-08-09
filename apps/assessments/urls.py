@@ -20,7 +20,7 @@ from assessments.api_views import (
     SurveyBoundaryAPIView, SurveyInstitutionAPIView,
     BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView,
     SurveyAssociateInstitutionAPIView, SurveyPartnersViewSet,
-    SurveySourceViewSet
+    SurveySourceViewSet, QuestionGroupTypeListView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -36,7 +36,6 @@ simple_router.register(
     QuestionViewSet,
     base_name='survey-questions'
 )
-
 #survey/partner URL
 simple_router.register(
     r'surveys/partners',
@@ -184,5 +183,8 @@ urlpatterns = [
         name='boundary-qgroup-map'),
     url(r'^surveys/questiontype/$',
         QuestionTypeListView.as_view(),
-        name='question-type')
+        name='question-type'),
+    url(r'surveys/questiongroup-type/',
+        QuestionGroupTypeListView.as_view(),
+        name='questiongroup-type')
 ] + simple_router.urls + nested_router.urls

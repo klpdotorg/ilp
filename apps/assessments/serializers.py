@@ -17,6 +17,7 @@ from assessments.models import (
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
+from ivrs.models import QuestionGroupType
 
 
 class SurveyOnTypeSerializer(ILPSerializer):
@@ -192,6 +193,12 @@ class QuestionSerializer(ILPSerializer):
             'options', 'is_featured', 'status', 'id', 'question_type_id',
             'lang_name', 'lang_options', 'pass_score', 'max_score'
         )
+
+
+class QuestionGroupTypeSerializer(ILPSerializer):
+    class Meta:
+        model = QuestionGroupType
+        fields = '__all__'
 
 
 class QuestionGroupQuestionSerializer(ILPSerializer):

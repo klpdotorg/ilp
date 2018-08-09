@@ -35,8 +35,11 @@ from assessments.serializers import (
     QuestionGroupInstitutionAssociationSerializer,
     QuestionGroupStudentGroupAssociationSerializer,
     QuestionTypeSerializer,
-    QuestionGroupInstitutionAssociationCreateSerializer
+    QuestionGroupInstitutionAssociationCreateSerializer,
+    QuestionGroupTypeSerializer
 )
+
+from ivrs.models import QuestionGroupType
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +67,13 @@ class QuestionTypeListView(ILPListAPIView):
 
     def get_queryset(self):
         return QuestionType.objects.all()
+
+
+class QuestionGroupTypeListView(ILPListAPIView):
+    serializer_class = QuestionGroupTypeSerializer
+
+    def get_queryset(self):
+        return QuestionGroupType.objects.all()
 
 
 class QuestionGroupQuestions(
