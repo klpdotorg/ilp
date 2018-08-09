@@ -204,6 +204,13 @@ class QuestionGroupViewSet(
         ).distinct().values_list('id', flat=True)
         return studentgroup_ids
 
+    def format_input_data(self, questiongroup_id, institution_id):
+        return {
+            'questiongroup': questiongroup_id,
+            'institution': institution_id,
+            'status': 'AC'
+            }
+
     @action(methods=['post'], detail=False, url_path='map-institution')
     def map_institution(self, request, *args, **kwargs):
         survey_id = self.get_parents_query_dict()['survey']
@@ -225,15 +232,10 @@ class QuestionGroupViewSet(
             )
             for institution in institutions_under_boundary:
                 list_of_institutions.append(institution)
-        data = []
-        for questiongroup_id in questiongroup_ids:
-            for institution_id in list_of_institutions:
-                data.append({
-                    'questiongroup': questiongroup_id,
-                    'institution': institution_id,
-                    'status': 'AC'
-                })
 
+        for questiongroup_id in questiongroup_ids:
+            data = [self.format_input_data(questiongroup_id,institution_id) for institution_id in list_of_institutions]
+        
         serializer = QuestionGroupInstitutionAssociationCreateSerializer(
             data=data, many=True
         )
