@@ -3,7 +3,6 @@ from rest_framework import serializers
 from users.models import User, UserBoundary
 from boundary.models import BoundaryStateCode
 from boundary.serializers import BoundarySerializer
-from drf_writable_nested import WritableNestedModelSerializer
 
 class TadaUserBoundarySerializer(serializers.ModelSerializer):
     boundary = BoundarySerializer()
