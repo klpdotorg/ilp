@@ -34,6 +34,7 @@ from assessments.serializers import (
     QuestionGroupQuestionSerializer,
     QuestionGroupInstitutionAssociationSerializer,
     QuestionGroupStudentGroupAssociationSerializer,
+    QuestionGroupStudentGroupAssociationCreateSerializer,
     QuestionTypeSerializer,
     QuestionGroupInstitutionAssociationCreateSerializer,
     SurveyTypeSerializer
@@ -294,7 +295,7 @@ class QuestionGroupViewSet(
                     'studentgroup': studentgroup_id,
                     'status': 'AC'
                 })
-        serializer = QuestionGroupStudentGroupAssociationSerializer(
+        serializer = QuestionGroupStudentGroupAssociationCreateSerializer(
             data=data, many=True
         )
         serializer.is_valid(raise_exception=True)

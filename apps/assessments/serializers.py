@@ -264,6 +264,21 @@ class QuestionGroupInstitutionAssociationCreateSerializer(
             get_or_create(**validated_data)
         return obj
 
+class QuestionGroupStudentGroupAssociationCreateSerializer(
+        serializers.ModelSerializer):
+
+    class Meta:
+        model = QuestionGroup_StudentGroup_Association
+        fields = (
+            'studentgroup', 'questiongroup', 'status'
+        )
+        validators = []
+
+    def create(self, validated_data):
+        obj, _ = QuestionGroup_StudentGroup_Association.objects.\
+            get_or_create(**validated_data)
+        return obj
+
 
 class QuestionGroupStudentGroupAssociationSerializer(
         serializers.ModelSerializer):
