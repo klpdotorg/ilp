@@ -149,15 +149,20 @@ class SurveyAssociateBoundaryAPIView(ListAPIView, ILPStateMixin):
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         # survey_qgroups = QuestionGroup.objects.filter(survey_id=survey_id).values_list('id', flat=True)
         if survey_on == 'institution':
-            institution_ids = QuestionGroup_Institution_Association.objects.filter(
-                questiongroup__survey_id=survey_id).\
-                filter(Q(institution__admin0_id=boundary_id) |
-                       Q(institution__admin1_id=boundary_id) |
-                       Q(institution__admin2_id=boundary_id) |
-                       Q(institution__admin3_id=boundary_id)
-                       ).values_list('institution_id', flat=True)
+            institution_ids = QuestionGroup_Institution_Association.objects.\
+                filter(
+                    questiongroup__status='AC'
+                ).filter(
+                    questiongroup__survey_id=survey_id).\
+                filter(
+                    Q(institution__admin0_id=boundary_id) |
+                    Q(institution__admin1_id=boundary_id) |
+                    Q(institution__admin2_id=boundary_id) |
+                    Q(institution__admin3_id=boundary_id)
+                ).values_list('institution_id', flat=True)
         else:
             institution_ids = QuestionGroup_StudentGroup_Association.objects.\
+                filter(questiongroup__status='AC').\
                 filter(Q(studentgroup__institution__admin0_id=boundary_id) |
                        Q(studentgroup__institution__admin1_id=boundary_id) |
                        Q(studentgroup__institution__admin2_id=boundary_id) |

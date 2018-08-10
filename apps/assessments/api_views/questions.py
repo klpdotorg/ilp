@@ -170,6 +170,8 @@ class BoundaryQuestionGroupMapping(ILPListAPIView):
         qg_inst_qs = QuestionGroup_Institution_Association.objects.exclude(
             status=Status.DELETED
         ).filter(
+            questiongroup__status=Status.ACTIVE
+        ).filter(
             Q(institution__admin0_id__in=boundary_ids) |
             Q(institution__admin1_id__in=boundary_ids) |
             Q(institution__admin2_id__in=boundary_ids) |
@@ -177,6 +179,8 @@ class BoundaryQuestionGroupMapping(ILPListAPIView):
         ).distinct('questiongroup__id')
         qg_stud_qs = QuestionGroup_StudentGroup_Association.objects.exclude(
             status=Status.DELETED
+        ).filter(
+            questiongroup__status=Status.ACTIVE
         ).filter(
             Q(studentgroup__institution__admin0_id__in=boundary_ids) |
             Q(studentgroup__institution__admin1_id__in=boundary_ids) |
@@ -320,6 +324,8 @@ class QuestionGroupViewSet(
         if survey_on == 'institution':
             res = {}
             qset = QuestionGroup_Institution_Association.objects.filter(
+                    questiongroup__status='AC'
+                ).filter(
                 institution_id__in=institution_ids,
                 questiongroup__survey_id=survey_id)
             for qgroup_inst in qset:
@@ -337,6 +343,8 @@ class QuestionGroupViewSet(
             res = {}
             sg_qset = QuestionGroup_StudentGroup_Association.\
                 objects.filter(
+                        questiongroup__status='AC'
+                    ).filter(
                     studentgroup__institution_id__in=institution_ids,
                     questiongroup__survey_id=survey_id
                 )
