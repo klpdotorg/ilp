@@ -13,18 +13,18 @@ from assessments.models import AnswerGroup_Institution, AnswerInstitution, Quest
 class Command(BaseCommand):
 
     args = ""
-    help = """python3 manage.py loadgpc [--filepath=filepath] [--grade=4] [--qgroup=47] """
+    help = """python3 manage.py loadgpc [--filename=filename] [--grade=4] [--qgroup=47] """
     
     def add_arguments(self, parser):
-        parser.add_argument('--filepath')
+        parser.add_argument('--filename')
         parser.add_argument('--grade')
         parser.add_argument('--qgroup')
         
     def handle(self, *args, **options):
-        file_path = options.get('filepath', None)
+        file_name = options.get('filename', None)
         grade = options.get('grade', None)
         qgroup= options.get('qgroup', None)
-        csv_file = settings.PROJECT_ROOT + '/../'+ file_path
+        csv_file = settings.PROJECT_ROOT + '/../'+ file_name
 
         with open(csv_file, 'r+') as data_file:
             data = csv.reader(data_file)

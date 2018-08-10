@@ -13,16 +13,15 @@ from assessments.models import AnswerGroup_Institution, AnswerInstitution, Quest
 class Command(BaseCommand):
 
     args = ""
-    help = """python3 manage.py load_community_survey --filepath=filepath"""
+    help = """python3 manage.py load_community_survey --filename=filename"""
     
     def add_arguments(self, parser):
-        parser.add_argument('--filepath')
+        parser.add_argument('--filename')
    
     def handle(self, *args, **options):
-        file_path = options.get('filepath', None)
-        csv_file = settings.PROJECT_ROOT + '/../'+ file_path
+        file_name = options.get('filename', None)
+        csv_file = settings.PROJECT_ROOT + '/../'+ file_name
          
-
         with open(csv_file, 'r+') as data_file:
             data = csv.reader(data_file)
             header = 1
