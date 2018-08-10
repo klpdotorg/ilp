@@ -241,11 +241,12 @@ class QuestionGroupInstitutionAssociationSerializer(
     name = serializers.CharField(
         source="questiongroup.name")
     questiongroup_id = serializers.CharField(source='questiongroup.id')
+    survey_name = serializers.CharField(source='questiongroup.survey.name')
 
     class Meta:
         model = QuestionGroup_Institution_Association
         fields = (
-            'id', 'questiongroup_id', 'name', 'status'
+            'id', 'questiongroup_id', 'name', 'survey_name', 'status'
         )
 
 
@@ -286,11 +287,12 @@ class QuestionGroupStudentGroupAssociationSerializer(
     name = serializers.CharField(
         source="questiongroup.name")
     questiongroup_id = serializers.CharField(source='questiongroup.id')
+    survey_name = serializers.CharField(source='questiongroup.survey.name')
 
     class Meta:
         model = QuestionGroup_StudentGroup_Association
         fields = (
-            'questiongroup_id', 'name', 'studentgroup', 'status',
+            'questiongroup_id', 'name', 'survey_name','studentgroup', 'status',
         )
         validators = []
 
