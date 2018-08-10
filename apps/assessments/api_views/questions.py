@@ -182,7 +182,7 @@ class BoundaryQuestionGroupMapping(ILPListAPIView):
             Q(studentgroup__institution__admin2_id__in=boundary_ids) |
             Q(studentgroup__institution__admin3_id__in=boundary_ids)
         ).distinct('questiongroup__id')
-        qg_inst_data = QuestionGroupInstitutionAssociationCreateSerializer(
+        qg_inst_data = QuestionGroupInstitutionAssociationSerializer(
             qg_inst_qs, many=True
         )
         qg_stud_data = QuestionGroupStudentGroupAssociationSerializer(

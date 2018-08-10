@@ -268,10 +268,14 @@ class QuestionGroupInstitutionAssociationCreateSerializer(
 class QuestionGroupStudentGroupAssociationSerializer(
         serializers.ModelSerializer):
 
+    name = serializers.CharField(
+        source="questiongroup.name")
+    questiongroup_id = serializers.CharField(source='questiongroup.id')
+
     class Meta:
         model = QuestionGroup_StudentGroup_Association
         fields = (
-            'questiongroup', 'studentgroup', 'status',
+            'questiongroup_id', 'name', 'studentgroup', 'status',
         )
         validators = []
 
