@@ -1,0 +1,13 @@
+{% load state_variables %}
+{% load basic_default_settings %}
+
+<ul class="js-dropdown nav">
+  {%block schoolmap %}
+    {% include "includes/_top_nav_schoolmap.html" %}
+  {% endblock %}
+  
+  {% block aboutus %}
+      {% include "includes/_top_nav_aboutus.html" %}
+  {% endblock %}
+</ul>
+
