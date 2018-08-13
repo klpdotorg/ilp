@@ -226,14 +226,16 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
         sequence = validated_data.pop('sequence', None)
         question_dict = validated_data['question']
 
-        info = model_meta.get_field_info(instance.question)
+        question = instance.question
+        info = model_meta.get_field_info(question)
         for attr, value in question_dict.items():
             if attr in info.relations and info.relations[attr].to_many:
-                field = getattr(instance, attr)
+                field = getattr(question, attr)
                 field.set(value)
             else:
-                setattr(instance, attr, value)
-        instance.question.save()
+                setattr(question, attr, value)
+        question.save()
+
         instance.sequence = sequence
         instance.save()
         return instance
