@@ -4,6 +4,8 @@ from common.serializers import ILPSerializer
 from common.mixins import CompensationLogMixin
 from common.field import Base64ImageField
 
+from rest_framework.utils import model_meta
+
 from assessments.models import (
     Survey, QuestionGroup, Question, QuestionType,
     QuestionGroup_Questions, AnswerGroup_Institution,
@@ -219,6 +221,22 @@ class QuestionGroupQuestionSerializer(ILPSerializer):
             id=new_id, questiongroup_id=questiongroup_id,
             question=question, sequence=sequence
         )
+
+    def update(self, instance, validated_data):
+        sequence = validated_data.pop('sequence', None)
+        question_dict = validated_data['question']
+
+        info = model_meta.get_field_info(instance.question)
+        for attr, value in question_dict.items():
+            if attr in info.relations and info.relations[attr].to_many:
+                field = getattr(instance, attr)
+                field.set(value)
+            else:
+                setattr(instance, attr, value)
+        instance.question.save()
+        instance.sequence = sequence
+        instance.save()
+        return instance
 
 
 class QuestionGroupInstitutionSerializer(ILPSerializer):

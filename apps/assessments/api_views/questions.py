@@ -101,8 +101,6 @@ class QuestionGroupQuestions(
         queryset = self.filter_queryset(self.get_queryset())
         obj = get_object_or_404(queryset, question=self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
-        if self.request.method in ['PUT', ]:
-            return obj.question
         return obj
 
     def list(self, request, *args, **kwargs):
@@ -139,12 +137,12 @@ class QuestionGroupQuestions(
 
     def get_serializer_class(self):
         """
-        GET all & PUT uses QuestionSerializer by default.
-        For GET all - use /sequences/ endpoint, if you need sequence field.
+        GET all uses QuestionSerializer by default.
         GET /:id/ see retrive method.
-        POST uses QuestionGroupQuestionSerializer.
+        For GET all - use /sequences/ endpoint, if you need sequence field.
+        POST/PUT uses QuestionGroupQuestionSerializer.
         """
-        if self.request.method in ['PUT', 'GET', ]:
+        if self.request.method in ['GET', ]:
             return QuestionSerializer
         return QuestionGroupQuestionSerializer
 
