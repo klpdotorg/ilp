@@ -285,6 +285,7 @@ class QuestionGroupInstitutionAssociationCreateSerializer(
             get_or_create(**validated_data)
         return obj
 
+
 class QuestionGroupStudentGroupAssociationCreateSerializer(
         serializers.ModelSerializer):
 
@@ -312,7 +313,7 @@ class QuestionGroupStudentGroupAssociationSerializer(
     class Meta:
         model = QuestionGroup_StudentGroup_Association
         fields = (
-            'questiongroup_id', 'name', 'survey_name','studentgroup', 'status',
+            'questiongroup_id', 'name', 'survey_name', 'studentgroup', 'status',
         )
         validators = []
 
@@ -392,11 +393,57 @@ class AnswerGroupStudentSerializer(serializers.ModelSerializer):
         model = AnswerGroup_Student
         fields = '__all__'
 
+    def validate_group_value(self, attrs):
+        questiongroup_id = self.initial_data['questiongroup'] 
+        questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
+        comments_required = questiongroup.comments_required
+        group_text = questiongroup.group_text
+        if comments_required or group_text:
+            if attrs is None or attrs == "":
+                raise serializers.ValidationError(
+                    "group_value can't be empty/None, comments required "
+                    "is True or group_text is not empty")
+        return attrs
+
+    def validate_comments(self, attrs):
+        questiongroup_id = self.initial_data['questiongroup'] 
+        questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
+        comments_required = questiongroup.comments_required
+        if comments_required:
+            if not bool(attrs): 
+                raise serializers.ValidationError(
+                    "comments_required is True, comment can't be empty"
+                )
+        return attrs
+
 
 class AnswerGroupStudentGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = AnswerGroup_StudentGroup
         fields = '__all__'
+
+    def validate_group_value(self, attrs):
+        questiongroup_id = self.initial_data['questiongroup'] 
+        questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
+        comments_required = questiongroup.comments_required
+        group_text = questiongroup.group_text
+        if comments_required or group_text:
+            if attrs is None or attrs == "":
+                raise serializers.ValidationError(
+                    "group_value can't be empty/None, comments required "
+                    "is True or group_text is not empty")
+        return attrs
+
+    def validate_comments(self, attrs):
+        questiongroup_id = self.initial_data['questiongroup'] 
+        questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
+        comments_required = questiongroup.comments_required
+        if comments_required:
+            if not bool(attrs): 
+                raise serializers.ValidationError(
+                    "comments_required is True, comment can't be empty"
+                )
+        return attrs
 
 
 class AnswerField(serializers.Field):
