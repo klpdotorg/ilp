@@ -1,32 +1,65 @@
 from rest_framework import serializers
 
-from users.models import User
+from users.models import User, UserBoundary
+from boundary.models import BoundaryStateCode
+from boundary.serializers import BoundarySerializer
 
-class TadaUserRegistrationSerializer(serializers.ModelSerializer):
+class TadaUserBoundarySerializer(serializers.ModelSerializer):
+    boundary = BoundarySerializer()
+    
+    class Meta:
+        model = UserBoundary
+        fields = ('boundary',)
+
+class TadaUserCreateUpdateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         style={'input_type': 'password'},
         write_only=True
     )
     groups = serializers.SerializerMethodField()
+    userboundaries = serializers.ListField()
 
     class Meta:
-        exclude = (
-            'is_email_verified',
-            'email_verification_code',
+        # exclude = (
+        #     'email_verification_code',
+        #     'is_email_verified'
+        # )
+        fields = (
+            'email', 'mobile_no', 'first_name',
+            'last_name', 'user_type', 'is_active',
+            'groups', 'is_staff', 'is_superuser',
+            'dob', 'source', 'created', 'image',
+            'about', 'twitter_handle', 'fb_url',
+            'website', 'photos_url', 'youtube_url',
+            'userboundaries', 'password'
         )
         model = User
     
     def create(self, validated_data):
-        print("Validated data is: ", validated_data)
+        print(validated_data)
+        state_codes = validated_data.pop('userboundaries')
         user = User.objects.create(**validated_data)
-        user.is_active=True
+        user.is_active = True
         user.save()
+        print("state codes are:", state_codes)   
+        for state_code in state_codes:
+            state = BoundaryStateCode.objects.get(char_id=state_code)
+            userboundary = UserBoundary.objects.create(user=user, boundary=state.boundary)
+            user.save()
+            userboundary.save()
         return user
 
     def update(self, instance, validated_data):
         instance.email = validated_data.get('email', instance.email)
-        instance.content = validated_data.get('content', instance.content)
-        instance.created = validated_data.get('created', instance.created)
+        new_boundaries = validated_data.get('userboundaries', [])
+        instance.userboundaries.clear()
+        existing_boundaries = UserBoundary.objects.filter(user_id=instance.id)
+        existing_boundaries.delete()
+        for state_code in new_boundaries:
+            state = BoundaryStateCode.objects.get(char_id=state_code)
+            userboundary = UserBoundary.objects.create(user=instance, boundary=state.boundary)
+            userboundary.save()
+            instance.userboundaries.add(userboundary)
         instance.save()
         return instance
 
@@ -35,6 +68,9 @@ class TadaUserRegistrationSerializer(serializers.ModelSerializer):
         groups = user.groups.all().values('name')
         return groups
 
+
+
+
 class TadaUserSerializer(serializers.ModelSerializer):
     is_active = serializers.BooleanField(read_only=True)
     is_staff = serializers.BooleanField(read_only=True)
@@ -42,6 +78,7 @@ class TadaUserSerializer(serializers.ModelSerializer):
     is_email_verified = serializers.BooleanField(read_only=True)
     is_mobile_verified = serializers.BooleanField(read_only=True)
     groups = serializers.SerializerMethodField()
+    userboundaries = TadaUserBoundarySerializer(many=True)
 
     class Meta:
         model = User

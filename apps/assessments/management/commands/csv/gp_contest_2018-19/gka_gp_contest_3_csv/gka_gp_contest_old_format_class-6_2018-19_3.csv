@@ -1,0 +1,216 @@
+Village,District,Block,Date,KLP ID,Name of the school,GP ID,Grama Panchayat,GP President Name,Student Name,Sex ( Male / Female ),Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Total
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Kavitha,Female,1,1,1,1,0,1,0,0,0,0,1,1,0,1,0,1,1,0,0,1,11
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Soundarya,Female,1,1,1,1,0,1,0,0,0,0,1,1,0,1,0,1,1,0,0,0,10
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Abhishek,Male,0,0,1,1,1,1,1,1,0,0,0,1,0,1,0,0,1,0,0,0,9
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Pavithra,Female,1,1,1,1,0,0,0,0,0,0,0,1,0,1,0,1,1,0,0,0,8
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Aravind,Male,1,0,1,1,0,1,0,0,0,0,0,1,0,1,0,1,1,0,0,0,8
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Kaveri,Female,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,7
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Pallavi,Female,1,1,0,0,0,1,0,0,0,0,0,1,0,1,0,1,1,0,0,0,7
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Vijayalakshmi,Female,1,1,0,0,0,0,0,0,0,0,1,1,0,1,0,1,1,0,0,0,7
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Rohith,Male,1,1,0,1,0,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,7
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Vyshali,Female,0,0,0,0,0,0,1,1,0,0,0,1,0,1,0,1,1,0,0,0,6
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Shekamma,Female,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,5
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Rohith,Male,1,1,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,5
+Chikli (J),Bidar ,Aurad,19/07/2018,4515,GHPS Chikli (J),1618,Chikli (J),Shobha Prabhakar,Nikhil,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Shilpasree,Female,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,11
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Geetha,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0,0,0,13
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Mahananda,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Nadeem,Male,1,1,1,1,1,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0,9
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Darshan,Male,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,1,0,0,0,10
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Fouziya,Female,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,4
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Ishrath,Female,1,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,6
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Aishwarya,Female,1,1,1,0,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,10
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Anand,Male,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+Hedgapur,Bidar,Aurad,10/07/2018,4549,GMPS Hedgapur,2549,Hedgapur,Surekha Sunil,Umesh,Male,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,10
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Sangeetha,Female,0,0,0,1,0,0,1,0,0,0,1,0,1,1,0,1,1,0,0,0,7
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Pradeep,Male,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,16
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Rajeshwari,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,17
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Manjunath,Male,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Shravan,Male,1,1,1,1,1,1,1,1,1,0,1,1,0,0,1,1,1,0,1,1,16
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Ambika,Female,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,0,0,15
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Ambika,Female,1,1,1,1,0,0,1,1,1,1,1,0,1,0,1,1,1,0,0,0,13
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Deepika,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,0,0,15
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Pooja,Female,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,1,1,0,0,1,14
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Seenu,Male,0,0,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,5
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Ashwini,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Jayasree,Female,1,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,0,0,0,14
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Akash,Male,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,1,1,1,0,1,15
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Savitha,Female,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,13
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Deepa,Female,1,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,0,0,0,14
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Sandhyarani,Female,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,0,0,0,0,13
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Maheshwari,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,12
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Karthik,Male,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,1,1,0,0,1,13
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Hansika,Female,1,1,1,1,0,0,1,1,0,0,1,1,1,0,1,1,1,0,1,0,13
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Sulochana,Female,1,1,1,1,0,0,1,1,0,0,1,1,1,0,1,1,1,0,0,0,12
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Jaipal,Male,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,0,0,0,11
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Arathi,Female,0,0,1,0,0,1,1,0,1,0,1,1,0,0,1,1,1,1,0,1,11
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Arun,Male,1,1,1,1,0,0,0,1,0,0,1,0,1,1,1,1,1,0,0,0,11
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Shankar,Male,1,1,1,1,0,0,1,1,0,1,1,0,0,0,0,0,1,1,0,1,11
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Sachin,Male,1,0,1,1,1,1,1,0,1,1,1,1,0,0,1,1,1,0,1,1,15
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Kajal,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,0,1,1,16
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Aruna,Female,1,1,1,1,0,1,1,1,1,1,0,1,0,0,1,0,1,0,0,0,12
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Renuka,Female,1,0,1,1,1,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0,9
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Mahesh,Male,0,0,1,1,1,1,1,1,1,1,0,0,1,0,0,0,1,0,0,0,10
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Karuna,Female,0,0,1,1,1,0,1,1,1,1,1,0,0,1,0,1,0,0,1,0,11
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Latha,Female,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Karthik,Male,1,1,1,1,1,0,1,1,0,0,0,1,0,0,0,1,1,0,0,0,10
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Kishore,Male,1,1,1,1,1,0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,10
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Charan,Male,1,1,1,1,0,1,1,1,0,1,0,1,0,0,0,0,0,0,0,0,9
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Praveenkumar,Male,0,0,1,1,0,1,1,1,1,0,1,1,0,0,0,0,1,0,0,0,9
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Kiran,Male,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,6
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Nikhitha,Female,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,6
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Ramesh,Male,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,6
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Lalitha,Female,0,0,1,1,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,5
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Nounath,Male,0,0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,4
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Fayam,Male,0,0,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,5
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Nithin,Male,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,4
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Pooja,Female,0,0,1,1,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,8
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Jaipal,Male,0,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,5
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Ruchitha,Female,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Sunitha,Female,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,4
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Vikas,Male,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Rahul,Male,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Sandeep,Male,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Nounath,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Sachin,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Kiran,Male,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Mahesh,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Santhosh,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Savitha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Tejamma,Female,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Jyothi,Female,1,1,1,1,0,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,8
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Arasi bai,Female,0,0,1,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,5
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Mahadeva,Female,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,3
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Gangappa,Male,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Pooja,Female,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,7
+Wadagaon (D),Bidar,Aurad,11/07/2018,4532,GMPS Wadagaon (D),6014,Wadagaon (D),Siddayyaswamy,Divya,Female,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,8
+Sorahalli,Bidar,Aurad,11/07/2018,4528,GHPS Sorahalli,6014,Wadagaon (D),Siddayyaswamy,Harsha,Male,1,1,1,1,1,0,1,1,0,1,1,0,0,0,1,0,0,1,0,0,11
+Sorahalli,Bidar,Aurad,11/07/2018,4528,GHPS Sorahalli,6014,Wadagaon (D),Siddayyaswamy,Ambadas,Male,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,1,1,1,13
+Sorahalli,Bidar,Aurad,11/07/2018,4528,GHPS Sorahalli,6014,Wadagaon (D),Siddayyaswamy,Prashanth,Male,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,1,1,1,0,16
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Shivani,Female,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,0,15
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Maheshwari,Female,1,1,1,1,1,0,0,1,0,1,1,1,0,1,1,1,1,0,0,0,13
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Geetha,Female,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Anushka,Female,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,5
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Priyanaka,Female,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,2
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Farhana,Female,0,0,1,1,0,1,0,0,0,0,0,0,0,1,1,0,1,0,0,0,6
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Ramu,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,3
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Avinesh,Male,0,0,1,1,1,1,0,1,0,1,1,1,1,0,0,0,1,1,0,0,11
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Bhagyashri,Female,1,1,1,1,1,0,0,1,0,0,1,1,1,1,1,0,1,0,0,0,12
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Divya,Female,1,1,1,1,1,0,1,1,0,1,0,0,1,1,0,0,1,0,0,0,11
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Champa,Male,1,1,1,1,0,0,1,1,0,1,0,0,1,1,1,0,0,0,0,0,10
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Bhagavathi,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,19
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Abrar,Male,0,0,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,5
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Viki,Male,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,6
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Govind,Male,0,0,1,1,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,5
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Akash,Male,0,0,1,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,5
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Sumeet,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Veersh,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,3
+Murki,Bidar,Aurad,11/07/2018,4488,GMPS Murki,4574,Murki,Sasabhaji,Likhana,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+Hakayal,Bidar,Aurad,11/07/2018,4487,GHPS Hakayal,4574,Murki,Sasabhaji,Ameeth,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,4
+Hakayal,Bidar,Aurad,11/07/2018,4487,GHPS Hakayal,4574,Murki,Sasabhaji,Divanth,Male,0,0,1,1,1,1,0,0,1,1,0,0,0,0,1,0,0,0,0,0,7
+Hakayal,Bidar,Aurad,11/07/2018,4487,GHPS Hakayal,4574,Murki,Sasabhaji,Kallesh,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,5
+Hakayal,Bidar,Aurad,11/07/2018,4487,GHPS Hakayal,4574,Murki,Sasabhaji,Bhagyashri,Female,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,0,0,0,11
+Hakayal,Bidar,Aurad,11/07/2018,4487,GHPS Hakayal,4574,Murki,Sasabhaji,Shruti,Female,0,0,1,1,1,1,1,1,0,0,1,0,0,0,0,1,0,0,0,0,8
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Chandrakanth,Male,0,0,1,1,1,1,0,1,1,1,1,0,1,1,1,0,1,1,0,0,13
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Vijayalakshmi,Female,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,0,1,0,0,0,13
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Balau,Male,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,16
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Akash,Male,1,1,1,1,0,1,0,1,0,0,1,1,0,1,1,0,1,1,0,0,12
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Vijayalakshmi,Female,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,0,1,1,0,0,14
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Sangeetha,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,1,17
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Shweta,Female,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,0,1,15
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Sunanda,Female,1,1,1,1,1,0,0,1,1,0,1,1,0,1,1,0,1,0,0,0,12
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Shivani,Female,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,0,1,0,0,0,13
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Arathi,Female,1,1,1,1,1,1,0,1,0,1,0,1,1,1,1,0,1,0,0,0,13
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Sakshitha,Female,1,0,1,1,0,1,0,1,0,0,1,1,1,1,1,0,1,1,0,0,12
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Rukshar,Male,1,0,1,1,1,1,0,0,0,0,1,1,1,0,1,0,1,0,0,0,10
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Manju,Male,1,1,1,1,1,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,10
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Shridevi,Female,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,18
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Keerthi,Female,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,0,1,0,0,0,13
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Divya,Female,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,16
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Santhosh,Male,1,1,1,1,1,1,1,0,1,0,0,1,0,1,0,0,1,1,0,0,12
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Asif,Male,0,0,1,1,0,1,0,0,0,0,1,1,0,1,1,0,1,0,0,0,8
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Anjali,Female,1,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,5
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Sanjana,Female,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,17
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Meenakshi,Female,1,1,1,1,0,1,0,0,0,0,1,1,0,1,1,0,1,0,0,0,10
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Vijay kumar,Male,0,0,1,1,0,0,0,1,1,1,0,0,1,1,1,1,0,1,0,0,10
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Kiran,Male,1,1,1,1,0,0,0,1,1,1,1,1,0,1,0,0,1,1,0,0,12
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Prajwal,Male,1,1,1,1,0,1,0,1,1,1,1,0,0,1,0,0,1,1,0,0,12
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Thimaya,Male,1,1,1,1,1,1,1,0,0,1,1,1,0,1,0,0,0,1,0,0,12
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Lakshmi bai,Female,1,0,1,1,0,1,0,1,0,0,1,1,1,0,1,0,1,1,0,0,11
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Pallavi,Female,0,0,1,1,0,1,0,1,0,0,1,0,0,1,1,0,1,0,0,0,8
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Nageshwari,Female,1,1,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1,0,0,0,13
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Yogesh,Male,1,1,1,1,0,0,0,1,0,1,1,1,0,0,1,0,1,0,0,0,10
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Suhail,Male,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,0,1,1,0,0,14
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Sahil,Male,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,1,0,16
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Sameer,Male,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,0,0,15
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Tulasi bai,Female,1,1,1,1,0,1,1,0,0,0,1,1,1,1,1,0,1,1,1,1,15
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Ravikanth,Male,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,0,1,0,1,0,14
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Ajmaiya,Male,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,0,1,1,0,0,14
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Sanjana,Female,0,1,1,1,0,1,0,0,0,1,1,1,0,1,1,0,1,0,0,1,11
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Shishyala,Female,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,0,1,16
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Pallavi,Female,0,0,1,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,5
+Kushanoor T,Bidar,Aurad,11/07/2018,4464,GMPS Kushanoor T,3956,Kushanoor T,Dhanaraj,Bharath,Male,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,17
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Ajay,Male,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,0,0,15
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Bhagyashri,Female,0,1,1,1,0,1,0,1,0,0,1,0,1,0,1,0,1,1,1,0,11
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Bhagyashri,Female,0,1,0,1,0,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,10
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Preeti,Female,0,1,1,1,0,1,0,1,0,0,1,1,1,0,1,0,1,1,1,0,12
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Mallamma,Female,0,1,1,1,0,1,0,1,0,0,0,1,1,0,1,0,0,1,1,0,10
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Parmeshwar,Male,1,1,1,1,1,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,10
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Priyanaka,Female,0,1,1,1,0,1,0,1,0,0,1,1,1,0,1,0,1,1,0,0,11
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Shalini,Female,0,1,1,1,0,0,0,0,0,0,1,1,0,1,1,0,1,0,0,0,8
+Nidoda,Bidar,Aurad,11/07/2018,4467,GHPS Nidoda,3956,Kushanoor T,Dhanaraj,Sunil,Male,1,1,1,1,0,1,0,0,1,1,1,1,1,1,1,0,1,0,0,0,13
+Chandeshwar,Bidar,Aurad,12/07/2018,4474,GHPS Chandeshwar,1848,Diggi,Priyanaka,Arun,Male,0,0,1,1,1,1,0,0,0,1,1,1,0,0,0,1,1,1,1,0,11
+Chandeshwar,Bidar,Aurad,12/07/2018,4474,GHPS Chandeshwar,1848,Diggi,Priyanaka,Lokesh,Male,0,0,1,1,0,1,0,0,0,0,1,1,0,0,0,1,1,1,0,0,8
+Chandeshwar,Bidar,Aurad,12/07/2018,4474,GHPS Chandeshwar,1848,Diggi,Priyanaka,Pradeep,Male,0,0,1,1,0,1,0,0,0,0,1,1,0,0,0,1,1,1,0,0,8
+Chandeshwar,Bidar,Aurad,12/07/2018,4474,GHPS Chandeshwar,1848,Diggi,Priyanaka,Narasa bai,Female,1,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,0,0,0,0,13
+Chandeshwar,Bidar,Aurad,12/07/2018,4474,GHPS Chandeshwar,1848,Diggi,Priyanaka,Aishwriya,Female,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,15
+Chandeshwar,Bidar,Aurad,12/07/2018,4474,GHPS Chandeshwar,1848,Diggi,Priyanaka,Bhagyashri,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,17
+Chandeshwar,Bidar,Aurad,12/07/2018,4474,GHPS Chandeshwar,1848,Diggi,Priyanaka,Bhagyashri,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,17
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Keerthana,Female,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,9
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Sudharani,Female,0,0,1,1,1,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,6
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Geetha,Female,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Deepika,Female,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,5
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Manisha,Female,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Sidda,Male,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Janu,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Tukaram,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Vishal,Male,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Surekha,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,3
+Maskal ,Bidar,Aurad,10/07/2018,4507,GHPS Maskal,5231,Santhpur,Padmavathi,Pooja,Female,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,4
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Geetha,Female,1,1,1,1,0,1,0,1,1,1,0,0,0,0,1,0,0,0,1,0,10
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Sunitha,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Sonabai,Female,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,5
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Tanuja,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,3
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Muttabai,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Preethi,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,3
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Sofiyana,Female,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Sachin,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,3
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Mahadeva,Male,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,5
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Bhavani,Female,1,1,1,1,0,1,1,1,0,0,0,0,0,0,1,1,1,0,1,0,11
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Balaji,Male,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Nandini,Female,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,13
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Renuka,Female,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Renuka,Female,1,1,1,1,0,1,0,1,1,1,0,0,0,0,1,0,0,0,1,1,11
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Akhila,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,3
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Aishwarya,Female,1,1,1,1,1,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,12
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Vikram,Male,0,0,1,1,1,1,1,0,1,1,1,1,0,0,1,0,1,0,0,0,11
+Santhpur,Bidar,Aurad,10/07/2018,4511,GMPS Santhpur,5231,Santhpur,Padmavathi,Jyothi,Female,1,1,1,1,0,0,1,1,1,1,0,0,0,0,1,1,0,0,1,0,11
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Nageshwari,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,18
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Preetham,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,18
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Sumithra,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,17
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Husenabi,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,17
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Rohan,Male,1,1,1,1,1,1,0,1,1,1,1,0,0,1,1,1,0,0,0,1,14
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Shamakka,Female,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,0,0,1,16
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Shivashankar,Male,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,0,0,1,15
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Srujala,Male,1,0,1,1,1,0,0,0,1,1,1,0,0,1,1,1,1,0,0,1,12
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Krishna,Male,1,0,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,0,0,1,14
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Sangeetha,Female,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,0,0,0,14
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Sneha,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,17
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Kavya,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,17
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Bushan,Male,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,17
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Nisharath,Male,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,17
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Nikhitha,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,17
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Kaveri,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,17
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Shalooq,Female,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,1,0,0,1,15
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Seema,Female,1,1,1,1,0,1,0,1,1,0,1,1,0,1,1,1,1,0,0,1,14
+Mudhol B,Bidar,Aurad,11/07/2018,4622,GMPS Mudhol B,4507,Mudhol B,Shobha shivanand,Somiya,Female,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,0,1,16

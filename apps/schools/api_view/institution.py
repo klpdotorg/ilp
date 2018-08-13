@@ -181,7 +181,7 @@ class InstitutionManagementListView(generics.ListAPIView):
     paginator = None
 
     def get_queryset(self):
-        return Management.objects.all()
+        return Management.objects.all().order_by('name')
 
 
 class InstitutionLanguageListView(generics.ListAPIView):

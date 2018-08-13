@@ -69,18 +69,18 @@ class BaseReport(ABC):
         url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
         request = None
         full_url = ''.join(['http://', get_current_site(request).domain, url])
-        return self.sms_template.format(name, full_url)
+        return self.sms_template.format(full_url)
 
     def save(self):
         r= Reports(report_type=self._type,parameters=self.params, data=self.data)
-        r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:7]
+        r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:5]
         r.save()
         t = Tracking(report_id=r, track_id='default')
         t.save()
         return r
 
     def save_link(self, report):
-        t = Tracking(report_id = report, track_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:7])
+        t = Tracking(report_id = report, track_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:5])
         t.save()
         return t
 
@@ -97,7 +97,7 @@ class GPMathContestReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
-        self.sms_template ="Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}"
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -272,7 +272,7 @@ class SchoolReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'SchoolReport.html'
         self._type = 'SchoolReport'
-        self.sms_template ="Hi {},ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}"
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -452,7 +452,7 @@ class ClusterReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'ClusterReport.html'
         self._type = 'ClusterReport'
-        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -610,7 +610,7 @@ class BlockReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'BlockReport.html'
         self._type = 'BlockReport'
-        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -671,12 +671,28 @@ class BlockReport(BaseReport):
                 # except ZeroDivisionError:
                 #     continue
 
+                # The second logic we came up in July
+                # total_students_appeared = cluster_ag.count()
+                # score = 0
+                # for c in cluster_ag:
+                #     if c.answers.filter(
+                #         question__key=contest, answer='Yes'
+                #     ).exists():
+                #         score += 1
+                # score = score / total_students_appeared
+
+                # The new logic proposed by Nagraj & Vaijayanthi
                 total_students_appeared = cluster_ag.count()
                 score = 0
                 for c in cluster_ag:
-                    if c.answers.filter(
-                        question__key=contest, answer='Yes'
-                    ).exists():
+                    total_questions = c.answers.filter(
+                        question__key=contest
+                    ).count()
+                    correct_answers = c.answers.filter(
+                        question__key=contest,
+                        answer='Yes'
+                    ).count()
+                    if total_questions == correct_answers:
                         score += 1
                 score = score / total_students_appeared
 
@@ -790,8 +806,6 @@ class BlockReport(BaseReport):
             )
         }
 
-        print(gka)
-
         return gka, cluster_gka
 
     def getHouseholdSurvey(self,block,date_range):
@@ -824,7 +838,7 @@ class DistrictReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'DistrictReport.html'
         self._type = 'DistrictReport'
-        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -965,7 +979,53 @@ class DistrictReport(BaseReport):
         if not block_gka:
             raise ValueError("No GKA data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
 
-        gka = dict(teachers_trained=round(sum([i['teachers_trained'] for i in block_gka])/len(block_gka), 2),  kit_usage=round(sum([i['kit_usage'] for i in block_gka])/len(block_gka), 2), group_work=round(sum([i['group_work'] for i in block_gka])/len(block_gka), 2))
+        gka = {
+            'teachers_trained': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='trained',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='trained'
+                ).count() * 100,
+                2
+            ),
+            'kit_usage': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM'
+                ).count() * 100,
+                2
+            ),
+            'group_work': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='group',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='group'
+                ).count() * 100,
+                2
+            )
+        }
 
         return gka, block_gka
 
@@ -1001,7 +1061,7 @@ class GPMathContestReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReportSummarized.html'
         self._type = 'GPMathContestReportSummarized'
-        self.sms_template ="Hi {},ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}"
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1190,7 +1250,7 @@ class SchoolReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'SchoolReportSummarized.html'
         self._type = 'SchoolReportSummarized'
-        self.sms_template ="Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}"
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1385,7 +1445,7 @@ class ClusterReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'ClusterReportSummarized.html'
         self._type = 'ClusterReportSummarized'
-        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1555,7 +1615,7 @@ class BlockReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'BlockReportSummarized.html'
         self._type = 'BlockReportSummarized'
-        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1700,7 +1760,53 @@ class BlockReportSummarized(BaseReport):
         if not cluster_gka:
             raise ValueError("No GKA data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
 
-        gka = dict(teachers_trained=round(sum([i['teachers_trained'] for i in cluster_gka])/len(cluster_gka), 2),  kit_usage=round(sum([i['kit_usage'] for i in cluster_gka])/len(cluster_gka), 2), group_work=round(sum([i['group_work'] for i in cluster_gka])/len(cluster_gka), 2))
+        gka = {
+            'teachers_trained': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='trained',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='trained'
+                ).count() * 100,
+                2
+            ),
+            'kit_usage': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM'
+                ).count() * 100,
+                2
+            ),
+            'group_work': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='group',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin2=block,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='group'
+                ).count() * 100,
+                2
+            )
+        }
 
         return gka, cluster_gka
 
@@ -1734,7 +1840,7 @@ class DistrictReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'DistrictReportSummarized.html'
         self._type = 'DistrictReportSummarized'
-        self.sms_template ='Hi {}, ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಶಾಲಾ ಭೇಟಿಯ ವರದಿಯ ಮುಖ್ಯಾಂಶಗಳು ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಸರ್ವ ಶಿಕ್ಷಣ ಅಭಿಯಾನ, ಶಿಕ್ಷಣ ಇಲಾಖೆಯ ಜೊತೆ ನಿರಂತರವಾಗಿ ನಿಮಗೆ ಗುಣಮಟ್ಟದ ಹಾಗೂ ಕ್ರಿಯಾತ್ಮಕ ವರದಿಯನ್ನು ಸಲ್ಲಿಸಲು ಶ್ರಮಿಸುತ್ತಿದೆ. ಈ ನಿಟ್ಟಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ಈ ಕೆಳಕಂಡ ಅಂಶಗಳು ಕಂಡು ಬಂದಿವೆ. ನಿಮ್ಮ ಗಮನಕ್ಕೆ - {}'
+        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1875,7 +1981,53 @@ class DistrictReportSummarized(BaseReport):
         if not block_gka:
             raise ValueError("No GKA data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
 
-        gka = dict(teachers_trained=round(sum([i['teachers_trained'] for i in block_gka])/len(block_gka), 2),  kit_usage=round(sum([i['kit_usage'] for i in block_gka])/len(block_gka), 2), group_work=round(sum([i['group_work'] for i in block_gka])/len(block_gka), 2))
+        gka = {
+            'teachers_trained': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='trained',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='trained'
+                ).count() * 100,
+                2
+            ),
+            'kit_usage': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM'
+                ).count() * 100,
+                2
+            ),
+            'group_work': round(
+                AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='group',
+                    answers__answer='Yes'
+                ).count() / AnswerGroup_Institution.objects.filter(
+                    institution__admin1=district,
+                    date_of_visit__range=date_range,
+                    questiongroup__survey_id=11,
+                    answers__question__question_text__icontains='group'
+                ).count() * 100,
+                2
+            )
+        }        
 
         return gka, block_gka
 

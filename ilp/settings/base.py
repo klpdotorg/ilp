@@ -105,6 +105,9 @@ MIDDLEWARE = [
 DJANGO_EASY_AUDIT_WATCH_AUTH_EVENTS = False
 DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False
 DJANGO_EASY_AUDIT_REGISTERED_CLASSES = [
+    'schools.Institution',
+    'schools.StudentGroup',
+    'schools.Student',
     'assessments.AnswerGroup_Institution',
     'assessments.AnswerInstitution',
     'assessments.AnswerGroup_Student',

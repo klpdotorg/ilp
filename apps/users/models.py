@@ -141,7 +141,7 @@ def user_created_verify_email(sender, instance=None, created=False, **kwargs):
 
 
 class UserBoundary(models.Model):
-    user = models.ForeignKey('User')
+    user = models.ForeignKey('User', null=True, related_name="userboundaries")
     boundary = models.ForeignKey('boundary.Boundary')
 
     class Meta:

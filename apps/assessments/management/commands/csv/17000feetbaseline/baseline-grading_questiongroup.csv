@@ -1,0 +1,2 @@
+id ,name,group_text,start_date,end_date,version,double_entry (True/False),academic_year(1819),institution_type (primary/pre),Source (1/2/3/4/5/6/7/8),status ,"type (perception, assessment, monitor)",description,image_required (True/False),local lang name,comments_required (True/False),respondenttype_required (True/False)
+,17000 ft baseline grade,,01-08-2018,,1,False,1819,primary,8,AC,assessment,,False,,True,False

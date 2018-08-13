@@ -13,7 +13,7 @@ from assessments.models import (
     AnswerStudent, QuestionGroup_StudentGroup_Association,
     QuestionGroup_Institution_Association,
     SurveyUserTypeMapping, AnswerStudentGroup,
-    Partner, Source, InstitutionImages
+    Partner, Source, InstitutionImages, SurveyType
 )
 from boundary.models import BoundaryNeighbours
 from common.models import RespondentType
@@ -194,6 +194,12 @@ class QuestionSerializer(ILPSerializer):
         )
 
 
+class SurveyTypeSerializer(ILPSerializer):
+    class Meta:
+        model = SurveyType
+        fields = '__all__'
+
+
 class QuestionGroupQuestionSerializer(ILPSerializer):
     question_details = QuestionSerializer(source='question')
 
@@ -235,11 +241,12 @@ class QuestionGroupInstitutionAssociationSerializer(
     name = serializers.CharField(
         source="questiongroup.name")
     questiongroup_id = serializers.CharField(source='questiongroup.id')
+    survey_name = serializers.CharField(source='questiongroup.survey.name')
 
     class Meta:
         model = QuestionGroup_Institution_Association
         fields = (
-            'id', 'questiongroup_id', 'name', 'status'
+            'id', 'questiongroup_id', 'name', 'survey_name', 'status'
         )
 
 
@@ -258,14 +265,34 @@ class QuestionGroupInstitutionAssociationCreateSerializer(
             get_or_create(**validated_data)
         return obj
 
-
-class QuestionGroupStudentGroupAssociationSerializer(
+class QuestionGroupStudentGroupAssociationCreateSerializer(
         serializers.ModelSerializer):
 
     class Meta:
         model = QuestionGroup_StudentGroup_Association
         fields = (
-            'questiongroup', 'studentgroup', 'status',
+            'studentgroup', 'questiongroup', 'status'
+        )
+        validators = []
+
+    def create(self, validated_data):
+        obj, _ = QuestionGroup_StudentGroup_Association.objects.\
+            get_or_create(**validated_data)
+        return obj
+
+
+class QuestionGroupStudentGroupAssociationSerializer(
+        serializers.ModelSerializer):
+
+    name = serializers.CharField(
+        source="questiongroup.name")
+    questiongroup_id = serializers.CharField(source='questiongroup.id')
+    survey_name = serializers.CharField(source='questiongroup.survey.name')
+
+    class Meta:
+        model = QuestionGroup_StudentGroup_Association
+        fields = (
+            'questiongroup_id', 'name', 'survey_name','studentgroup', 'status',
         )
         validators = []
 

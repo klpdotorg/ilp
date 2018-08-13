@@ -13,8 +13,7 @@ def send_link(report_type, params, args, dry_run=False):
         link.role = args['role']
         link.save()
         sms = r.get_sms(link, args['name'])
-        print(sms)
-        # TODO: Remove the below comment to send SMS
+        print(args['number'], sms)
         # send_sms(args['number'], sms)
     else:
         return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
@@ -53,6 +52,8 @@ def send_recipient(report_type, report_from, report_to, reader, dry, start_from 
                     if quit_on_error:
                         print("Error on line {}. Use --skip parameter with this value to continue.".format(line_no))
                         break
+                    else:
+                        print("Error on line {} - {}.".format(line_no, e))
     return dict(messages=messages, successfull=successfull)
         
 def get_value(person, head, i):

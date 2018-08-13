@@ -19,7 +19,7 @@ class AnswerGroup_Institution(models.Model):
     group value"""
     institution = models.ForeignKey("schools.Institution")
     questiongroup = models.ForeignKey("QuestionGroup")
-    group_value = models.CharField(max_length=100, null=True)
+    group_value = models.CharField(max_length=100, null=True, blank=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey(RespondentType, null=True)
@@ -57,6 +57,7 @@ class AnswerGroup_StudentGroup(models.Model):
     status = models.ForeignKey("common.Status")
     location = models.GeometryField(null=True)
     mobile = models.CharField(max_length=32, null=True)
+    entered_at = models.DateTimeField(default=timezone.now, null=True)
 
 
 class AnswerStudentGroup(models.Model):
@@ -84,6 +85,7 @@ class AnswerGroup_Student(models.Model):
     status = models.ForeignKey("common.Status")
     location = models.GeometryField(null=True)
     mobile = models.CharField(max_length=32, null=True)
+    entered_at = models.DateTimeField(default=timezone.now, null=True)
 
 
 class AnswerStudent(models.Model):

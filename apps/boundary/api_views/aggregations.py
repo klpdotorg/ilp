@@ -62,12 +62,12 @@ class BasicBoundaryAggView(ILPAPIView):
         if boundaryCatAgg is not None:
             cat = []
             print(boundaryCatAgg.values())
-            for aggregate in boundaryCatAgg:
+            for category in boundaryCatAgg:
                 aggregate = {
-                    'cat': aggregate.cat_id,
-                    'num_boys': aggregate.num_boys,
-                    'num_girls': aggregate.num_girls,
-                    'num_schools': aggregate.num_schools
+                    'cat': category.cat,
+                    'num_boys': category.num_boys,
+                    'num_girls': category.num_girls,
+                    'num_schools': category.num_schools
                 }
                 cat.append(aggregate) # End of for-loop
             agg['cat'] = cat
@@ -80,7 +80,7 @@ class BasicBoundaryAggView(ILPAPIView):
             mgmt = []
             for mgmtAgg in boundaryMgmtAgg:
                 aggregate = {
-                    'management': mgmtAgg.management_id,
+                    'management': mgmtAgg.management,
                     'num_boys': mgmtAgg.num_boys,
                     'num_girls': mgmtAgg.num_girls,
                     'num_schools': mgmtAgg.num_schools
@@ -95,7 +95,7 @@ class BasicBoundaryAggView(ILPAPIView):
             mtAgg = []
             for mt in studentMtAgg:
                 result = {
-                    'name': mt.mt_id,
+                    'name': mt.mt,
                     'num_boys': mt.num_boys,
                     'num_girls': mt.num_girls,
                     'num_students': mt.num_students,
@@ -111,7 +111,7 @@ class BasicBoundaryAggView(ILPAPIView):
             aggregation = []
             for moi in moiAgg:
                 result = {
-                    'name': moi.moi_id,
+                    'name': moi.moi,
                     'num_boys': moi.num_boys,
                     'num_girls': moi.num_girls,
                     'num': moi.num_students,
@@ -128,7 +128,7 @@ class BasicBoundaryAggView(ILPAPIView):
             aggregation = []
             for gender in genderAgg:
                 result = {
-                    'sex': gender.gender_id,
+                    'sex': gender.gender,
                     'num': gender.num_students
                 }
                 aggregation.append(result)

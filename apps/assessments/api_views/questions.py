@@ -22,7 +22,7 @@ from assessments.models import (
     QuestionGroup, Question, QuestionGroup_Questions,
     AnswerGroup_Institution, QuestionGroup_Institution_Association,
     QuestionGroup_StudentGroup_Association, InstitutionImages,
-    Survey, SurveyInstitutionAgg, QuestionType
+    Survey, SurveyInstitutionAgg, QuestionType, SurveyType
 )
 
 from schools.models import (
@@ -34,9 +34,12 @@ from assessments.serializers import (
     QuestionGroupQuestionSerializer,
     QuestionGroupInstitutionAssociationSerializer,
     QuestionGroupStudentGroupAssociationSerializer,
+    QuestionGroupStudentGroupAssociationCreateSerializer,
     QuestionTypeSerializer,
-    QuestionGroupInstitutionAssociationCreateSerializer
+    QuestionGroupInstitutionAssociationCreateSerializer,
+    SurveyTypeSerializer
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -66,6 +69,13 @@ class QuestionTypeListView(ILPListAPIView):
         return QuestionType.objects.all()
 
 
+class SurveyTypeListView(ILPListAPIView):
+    serializer_class = SurveyTypeSerializer
+
+    def get_queryset(self):
+        return SurveyType.objects.all()
+
+
 class QuestionGroupQuestions(
         NestedViewSetMixin, ILPStateMixin, viewsets.ModelViewSet
 ):
@@ -74,6 +84,9 @@ class QuestionGroupQuestions(
     permission_classes = (HasAssignPermPermission,)
 
     def get_queryset(self):
+        """ 
+        Returns QuestionGroup_Question object in sequence order.
+        """
         parents_query_dict = self.get_parents_query_dict()
         questiongroup_id = parents_query_dict['questiongroup']
         return QuestionGroup_Questions.objects\
@@ -81,6 +94,10 @@ class QuestionGroupQuestions(
             .order_by('sequence')
 
     def get_object(self):
+        """
+        Returns QuestionGroup_Question object.
+        When PUT returns QuestionGroup_Question.question
+        """
         queryset = self.filter_queryset(self.get_queryset())
         obj = get_object_or_404(queryset, question=self.kwargs['pk'])
         self.check_object_permissions(self.request, obj)
@@ -89,6 +106,11 @@ class QuestionGroupQuestions(
         return obj
 
     def list(self, request, *args, **kwargs):
+        """
+        Makes question list from QuestionGroup_Question and
+        returns question objects. Ideally it should return QG_question objects.
+        But can't change it now(Konnect uses).
+        """
         question_list = self.get_queryset().values_list('question', flat=True)
         queryset = Question.objects.filter(id__in=question_list).order_by('key')
 
@@ -100,10 +122,36 @@ class QuestionGroupQuestions(
         serializer = self.get_serializer_class()(queryset, many=True)
         return Response(serializer.data)
 
+    @action(methods=['get'], detail=False)
+    def sequence(self, request, *args, **kwargs):
+        """
+        Returns QuestionGroup_Question object order by sequence.
+        """
+        queryset = self.get_queryset()
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = QuestionGroupQuestionSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = QuestionGroupQuestionSerializer(queryset, many=True)
+        return Response(serializer.data)
+
     def get_serializer_class(self):
+        """
+        GET all & PUT uses QuestionSerializer by default.
+        For GET all - use /sequences/ endpoint, if you need sequence field.
+        GET /:id/ see retrive method.
+        POST uses QuestionGroupQuestionSerializer.
+        """
         if self.request.method in ['PUT', 'GET', ]:
             return QuestionSerializer
         return QuestionGroupQuestionSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = QuestionGroupQuestionSerializer(instance)
+        return Response(serializer.data)
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -115,20 +163,39 @@ class QuestionGroupQuestions(
 class BoundaryQuestionGroupMapping(ILPListAPIView):
     ''' Returns all questiongroups under boundary ids. Boundary ids
     can be a comma separated list passed as params'''
-    serializer_class = QuestionGroupInstitutionAssociationSerializer
-
-    def get_queryset(self):
+    
+    def list(self, request, *args, **kwargs):
         boundary_ids = self.request.query_params.getlist('boundary_ids', [])
-        print("boundary_ids received is: ", boundary_ids)
-        queryset = QuestionGroup_Institution_Association.objects.exclude(
-            status=Status.DELETED)
-        result = queryset.filter(
-                Q(institution__admin0_id__in=boundary_ids) |
-                Q(institution__admin1_id__in=boundary_ids) |
-                Q(institution__admin2_id__in=boundary_ids) |
-                Q(institution__admin3_id__in=boundary_ids)
-            ).distinct('questiongroup__id')
-        return result
+        result = []
+        qg_inst_qs = QuestionGroup_Institution_Association.objects.exclude(
+            status=Status.DELETED
+        ).filter(
+            questiongroup__status=Status.ACTIVE
+        ).filter(
+            Q(institution__admin0_id__in=boundary_ids) |
+            Q(institution__admin1_id__in=boundary_ids) |
+            Q(institution__admin2_id__in=boundary_ids) |
+            Q(institution__admin3_id__in=boundary_ids)
+        ).distinct('questiongroup__id')
+        qg_stud_qs = QuestionGroup_StudentGroup_Association.objects.exclude(
+            status=Status.DELETED
+        ).filter(
+            questiongroup__status=Status.ACTIVE
+        ).filter(
+            Q(studentgroup__institution__admin0_id__in=boundary_ids) |
+            Q(studentgroup__institution__admin1_id__in=boundary_ids) |
+            Q(studentgroup__institution__admin2_id__in=boundary_ids) |
+            Q(studentgroup__institution__admin3_id__in=boundary_ids)
+        ).distinct('questiongroup__id')
+        qg_inst_data = QuestionGroupInstitutionAssociationSerializer(
+            qg_inst_qs, many=True
+        )
+        qg_stud_data = QuestionGroupStudentGroupAssociationSerializer(
+            qg_stud_qs, many=True
+        )
+        result += qg_inst_data.data
+        result += qg_stud_data.data
+        return Response(result)
 
 
 class QuestionGroupViewSet(
@@ -157,14 +224,18 @@ class QuestionGroupViewSet(
         ).distinct().values_list('id', flat=True)
         return institution_ids
 
-    def get_boundary_studentgroup_ids(self, boundary_id):
+    def get_institution_studentgroup_ids(self, institution):
         studentgroup_ids = StudentGroup.objects.filter(
-            Q(institution_id__admin0_id=boundary_id) |
-            Q(institution_id__admin1_id=boundary_id) |
-            Q(institution_id__admin2_id=boundary_id) |
-            Q(institution_id__admin3_id=boundary_id)
+            Q(institution_id=institution)
         ).distinct().values_list('id', flat=True)
         return studentgroup_ids
+
+    def format_input_data(self, questiongroup_id, institution_id):
+        return {
+            'questiongroup': questiongroup_id,
+            'institution': institution_id,
+            'status': 'AC'
+            }
 
     @action(methods=['post'], detail=False, url_path='map-institution')
     def map_institution(self, request, *args, **kwargs):
@@ -187,15 +258,10 @@ class QuestionGroupViewSet(
             )
             for institution in institutions_under_boundary:
                 list_of_institutions.append(institution)
-        data = []
-        for questiongroup_id in questiongroup_ids:
-            for institution_id in list_of_institutions:
-                data.append({
-                    'questiongroup': questiongroup_id,
-                    'institution': institution_id,
-                    'status': 'AC'
-                })
 
+        for questiongroup_id in questiongroup_ids:
+            data = [self.format_input_data(questiongroup_id,institution_id) for institution_id in list_of_institutions]
+        
         serializer = QuestionGroupInstitutionAssociationCreateSerializer(
             data=data, many=True
         )
@@ -209,23 +275,21 @@ class QuestionGroupViewSet(
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
         survey_id = self.get_parents_query_dict()['survey']
-        print("Survey ID is: ", survey_id)
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
-        print("Survey on: ", survey_on)
         if not survey_on == 'studentgroup' and not survey_on == 'student':
             raise ParseError('This survey is not a studengroup or student survey')
         questiongroup_ids = request.data.get('questiongroup_ids', [])
         studentgroup_ids = request.data.get('studentgroup_ids', [])
-        boundary_ids = request.data.get('boundary_ids', [])
-        if not studentgroup_ids and not boundary_ids:
-            raise ParseError('Please pass studentgroup_ids OR boundary_ids')
+        institution_ids = request.data.get('institution_ids', [])
+        if not studentgroup_ids and not institution_ids:
+            raise ParseError('Please pass studentgroup_ids OR institution_ids')
         # Make a copy of the institution_ids param.
         list_of_studentgroups = list(studentgroup_ids)
-        # Fetch all studentgroups under a boundary and append to the list
-        for boundary in boundary_ids:
-            studentgroups_under_boundary = self.get_boundary_studentgroup_ids(
-                boundary)
-            for studentgroup in studentgroups_under_boundary:
+        # Fetch all studentgroups under a institution and append to the list
+        for institution in institution_ids:
+            studentgroups_under_institution = self.get_institution_studentgroup_ids(
+                institution)
+            for studentgroup in studentgroups_under_institution:
                 list_of_studentgroups.append(studentgroup)
         data = []
         for questiongroup_id in questiongroup_ids:
@@ -235,7 +299,7 @@ class QuestionGroupViewSet(
                     'studentgroup': studentgroup_id,
                     'status': 'AC'
                 })
-        serializer = QuestionGroupStudentGroupAssociationSerializer(
+        serializer = QuestionGroupStudentGroupAssociationCreateSerializer(
             data=data, many=True
         )
         serializer.is_valid(raise_exception=True)
@@ -260,6 +324,8 @@ class QuestionGroupViewSet(
         if survey_on == 'institution':
             res = {}
             qset = QuestionGroup_Institution_Association.objects.filter(
+                    questiongroup__status='AC'
+                ).filter(
                 institution_id__in=institution_ids,
                 questiongroup__survey_id=survey_id)
             for qgroup_inst in qset:
@@ -277,23 +343,23 @@ class QuestionGroupViewSet(
             res = {}
             sg_qset = QuestionGroup_StudentGroup_Association.\
                 objects.filter(
+                        questiongroup__status='AC'
+                    ).filter(
                     studentgroup__institution_id__in=institution_ids,
-                ).distinct('studentgroup')
+                    questiongroup__survey_id=survey_id
+                )
             for sgroup_inst in sg_qset:
                 sg_name = sgroup_inst.studentgroup.name
                 sg_id = sgroup_inst.studentgroup.id
+                qgroup = sgroup_inst.questiongroup
                 res = {
-                    "id": sg_id,
-                    "name": sg_name,
-                    "assessment-type": "studentgroup"
+                   "id": sg_id,
+                   "name": sg_name,
+                   "assessment-type": "studentgroup",
+                   "assessment": {
+                       "id": qgroup.id, "name": qgroup.name
+                   }
                 }
-                for studgroup_qgroup in sg_qset.filter(
-                        questiongroup__survey_id=survey_id):
-                    qgroup = studgroup_qgroup.questiongroup
-                    res["assessment"] = {
-                        "id": qgroup.id,
-                        "name": qgroup.name,
-                    }
                 response.append(res)
         return Response(response)
 

@@ -1,0 +1,88 @@
+[
+{
+    "model": "boundary.boundarytype",
+    "pk": "C",
+    "fields": {
+        "name": "Country"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ST",
+    "fields": {
+        "name": "State"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "name": "India",
+        "lang_name": null,
+        "boundary_type": "C",
+        "type": null,
+        "dise_slug": "India",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 3,
+    "fields": {
+        "parent": 1,
+        "name": "Odisha",
+        "lang_name": null,
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "India-Odisha",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "common.language",
+    "pk": "kan",
+    "fields": {
+        "name": "Kannada"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 2,
+    "fields": {
+        "parent": 1,
+        "name": "Karnataka",
+        "lang_name": null,
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "India-Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "boundary.boundarystatecode",
+    "pk": "od",
+    "fields": {
+        "boundary": 3,
+        "language": "kan"
+    }
+},
+{
+    "model": "boundary.boundarystatecode",
+    "pk": "ka",
+    "fields": {
+        "boundary": 2,
+        "language": "kan"
+    }
+}
+]
