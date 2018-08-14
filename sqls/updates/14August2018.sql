@@ -1,0 +1,1 @@
+insert into assessments_questiongroupkey(key,questiongroup_id,max_score) select distinct q.key, qgq.questiongroup_id,1 from assessments_questiongroup_questions qgq, assessments_question q where qgq.question_id=q.id and questiongroup_id in (45,46,47);
