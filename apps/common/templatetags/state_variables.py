@@ -11,6 +11,7 @@ register = template.Library()
 def get_state_value(context, variable):
 
     try:
+        print("State_ID is: ", settings.ILP_STATE_ID)
         value = STATES[settings.ILP_STATE_ID][variable]
     except KeyError:
         return ''  # If the state or variable is not found, return an empty
