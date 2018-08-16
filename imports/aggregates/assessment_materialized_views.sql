@@ -1513,7 +1513,7 @@ FROM
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.key,ag.id,b.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when 0 then 0 end)>=qgk.max_score)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key ;
 
 
