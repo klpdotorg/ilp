@@ -504,7 +504,8 @@ class SurveyQuestionGroupQuestionKeyAPIView(
             for q_key in question_keys:
                 total = key_agg.get(question_key=q_key)['num_assess']
                 try:
-                    score = ans_key_agg.get(question_key=q_key)['num_assess']
+                    score_qs = ans_key_agg.get(question_key=q_key)
+                    score = score_qs['num_assess']
                 except TypeError:
                     score = 0
                 q_res[q_key] = {
