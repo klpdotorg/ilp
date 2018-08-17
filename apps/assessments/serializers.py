@@ -398,7 +398,7 @@ class AnswerGroupStudentSerializer(serializers.ModelSerializer):
         questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
         comments_required = questiongroup.comments_required
         group_text = questiongroup.group_text
-        if comments_required or group_text:
+        if group_text:
             if attrs is None or attrs == "":
                 raise serializers.ValidationError(
                     "group_value can't be empty/None, comments required "
@@ -427,7 +427,7 @@ class AnswerGroupStudentGroupSerializer(serializers.ModelSerializer):
         questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
         comments_required = questiongroup.comments_required
         group_text = questiongroup.group_text
-        if comments_required or group_text:
+        if group_text:
             if attrs is None or attrs == "":
                 raise serializers.ValidationError(
                     "group_value can't be empty/None, comments required "
