@@ -644,9 +644,6 @@ class RespondentTypeList(ListAPIView):
     queryset = RespondentType.objects.all()
     serializer_class = RespondentTypeSerializer
 
-    def get_queryset(self):
-        return RespondentType.objects.all().order_by('name')
-
 
 class SurveyUserSummary(APIView):
     authentication_classes = (authentication.TokenAuthentication,)

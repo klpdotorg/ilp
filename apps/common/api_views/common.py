@@ -32,7 +32,7 @@ class RespondentTypeView(ILPListAPIView, ILPStateMixin):
         return RespondentType.objects.filter(active='AC').filter(
             Q(state_code__boundary=state) |
             Q(state_code=None)
-        )
+        ).order_by('name')
 
 class BaseSchoolAggView(object):
     def get_aggregations(self, active_schools, academic_year):
