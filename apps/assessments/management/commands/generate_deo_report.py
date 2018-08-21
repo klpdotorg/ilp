@@ -59,7 +59,11 @@ class Command(BaseCommand):
                 "answer_institution-create, answer_institution-update, answer_institution-delete \n")
             )
             for sl_no, user in enumerate(user_ids):
-                user_name = User.objects.get(id=user).get_full_name()
+                try:
+                    user_name = User.objects.get(id=user).get_full_name()
+                except:
+                    print(str(user)+" does not exist")
+                    continue
                 csvfile.write(str(sl_no)+","+str(user)+","+str(user_name)+",")
                 for model_name in model_names:
                     content_type = ContentType.objects.get(model=model_name)
