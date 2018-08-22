@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/klpdotorg/ilp
+    working_directory: /klpdotorg/ilp
     parallelism: 1
     shell: /bin/bash 
     environment:
@@ -16,34 +16,26 @@ jobs:
     steps:
      - checkout
      - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
-    # This is based on your 1.0 configuration file or project settings
-    - run:
+     - run:
         working_directory: ~/klpdotorg/ilp
         command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone'
-
-    - restore_cache:
+     - restore_cache:
         keys:
-        
         - v1-dep-{{ .Branch }}-
-        
         - v1-dep-master-
         - v1-dep-
-    # This is based on your 1.0 configuration file or project settings
-    - run: sudo apt-get update
-    - run: sudo apt-get install -y libgdal-dev
-    - run: sudo apt-get install -y postgis
-    - run: sudo apt-get install -y postgresql-client
-    - run: sudo apt-get install -y python-virtualenv
-    - run: python -m venv venv
-    - run: source venv/bin/activate && pip install -r requirements/test.txt
-    - run: if [ -e requirements.txt ]; then pip install -r requirements.txt; else pip install -r requirements.pip; fi
-    - run: pip install unittest-xml-reporting
-    # Save dependency cache
-    - save_cache:
+     - run: sudo apt-get update
+     - run: sudo apt-get install -y libgdal-dev
+     - run: sudo apt-get install -y postgis
+     - run: sudo apt-get install -y postgresql-client
+     - run: sudo apt-get install -y python-virtualenv
+     - run: python -m venv venv
+     - run: source venv/bin/activate && pip install -r requirements/test.txt
+     - run: if [ -e requirements.txt ]; then pip install -r requirements.txt; else pip install -r requirements.pip; fi
+     - run: pip install unittest-xml-reporting
+     - save_cache:
         key: v1-dep-{{ .Branch }}-{{ epoch }}
         paths:
-        # This is a broad list of cache paths to include many possible development environments
-        # You can probably delete some of these entries
         - vendor/bundle
         - ~/virtualenvs
         - ~/.m2
@@ -52,38 +44,23 @@ jobs:
         - ~/.go_workspace
         - ~/.gradle
         - ~/.cache/bower
-        # These cache paths were specified in the 1.0 config
-        - venv
-    # This is based on your 1.0 configuration file or project settings
-    - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
-    # Test
-    #   This would typically be a build job when using workflows, possibly combined with build
-    # This is based on your 1.0 configuration file or project settings
-    - run: . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
-    - run: . venv/bin/activate && coverage report
-    - run: . venv/bin/activate && coverage html
-    - run: mkdir -p /tmp/artifacts
-    - run: mv htmlcov /tmp/artifacts
-    # This is based on your 1.0 configuration file or project settings
-    - run: git clean -dxf
-    # Deployment
-    # Your existing circle.yml file contains deployment steps.
-    # The config translation tool does not support translating deployment steps
-    # since deployment in CircleCI 2.0 are better handled through workflows.
-    # See the documentation for more information https://circleci.com/docs/2.0/workflows/
-    # Teardown
-    #   If you break your build into multiple jobs with workflows, you will probably want to do the parts of this that are relevant in each
-    # Save test results
-    - store_test_results:
+        - venv    
+     - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
+     - run: . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
+     - run: . venv/bin/activate && coverage report
+     - run: . venv/bin/activate && coverage html
+     - run: mkdir -p /tmp/artifacts
+     - run: mv htmlcov /tmp/artifacts
+     - run: git clean -dxf
+     - store_test_results:
         path: /tmp/circleci-test-results
-    # Save artifacts
-    - store_artifacts:
+     - store_artifacts:
         path: /tmp/circleci-artifacts
-    - store_artifacts:
+     - store_artifacts:
         path: /tmp/artifacts
-    - store_artifacts:
+     - store_artifacts:
         path: /tmp/circleci-test-result
 workflows:
  version: 2
-  jobs:
-    - test
+ jobs :
+    -test
