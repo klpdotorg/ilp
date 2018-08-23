@@ -1,6 +1,6 @@
 version: 2
 jobs:
- # build:
+  build:
     working_directory: /klpdotorg/ilp
     parallelism: 1
     shell: /bin/bash 
