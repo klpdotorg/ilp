@@ -63,4 +63,7 @@ jobs:
 workflows:
  version: 2
  jobs:
-    - test
+   - build:
+          filters:
+            branches:
+              only: circleci-upgrade
