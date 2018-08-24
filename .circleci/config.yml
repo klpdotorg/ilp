@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     working_directory: /klpdotorg/ilp
-    parallelism: 1
+    #parallelism: 1
     shell: /bin/bash 
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
