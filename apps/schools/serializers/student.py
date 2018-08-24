@@ -58,8 +58,6 @@ class StudentCreateSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    academic_year = serializers.PrimaryKeyRelatedField(
-        queryset=AcademicYear.objects.all(), write_only=True)
     classes = serializers.SerializerMethodField()
 
     class Meta:
@@ -67,8 +65,8 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'first_name', 'middle_name', 'last_name',
             'uid', 'dob', 'gender', 'mt', 'status',
-            'institution', 'academic_year', 'classes',
-            'father_name', 'mother_name'
+            'institution', 'classes', 'father_name',
+            'mother_name'
         )
 
     def get_classes(self, student):
@@ -77,7 +75,7 @@ class StudentSerializer(serializers.ModelSerializer):
         studentgroup_id = groups.values_list('student_group', flat=True)
         qs = StudentGroup.objects.filter(
             id__in=studentgroup_id, group_type='class')
-        return StudentGroupSerializer(qs, many=True).data       
+        return StudentGroupSerializer(qs, many=True).data
 
 
 class StudentStudentGroupSerializer(serializers.ModelSerializer):
