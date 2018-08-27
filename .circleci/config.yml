@@ -58,7 +58,7 @@ workflows:
       - build
       - deploy:
           requires:
-           - build
+           - build:
            filters:
             branches:
               only: circleci-upgrade_test
