@@ -1,28 +1,29 @@
 version: 2.0
 
 jobs:
-  test:
+ test:
     working_directory: ~/ilp
     docker:
       - image: circleci/python:3.6.1
     
-    #environment:
-    #  CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-    #  CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-    #  DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
-    #  POSTGRES_USER: ubuntu
-    #  POSTGRES_DB: test_ilp
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+      DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
+      POSTGRES_USER: ubuntu
+      POSTGRES_DB: test_ilp
     steps:
       - checkout
-      - run:
-          name: Create venv
-          command: |
-             'python3 -m venv venv'
-             'source venv/bin/activate && pip install -r requirements/test.txt'   
+      #- run:
+          #name: Create venv
+          #command: |
+          #   'python3 -m venv venv'
+          #   'source venv/bin/activate && pip install -r requirements/test.txt'   
       - run:
           name: Report creation
           command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py'
-  build:
+ 
+ build:
     working_directory: ~/ilp
     #docker:
       #- image: circleci/python:3.6.1
@@ -39,7 +40,7 @@ jobs:
           name: Move artifacts
           command: 'mkdir -p /tmp/circleci-artifacts && mv htmlcov /tmp/circleci-artifacts'
 
-  deploy:
+ deploy:
     working_directory: ~/ilp
     docker:
       - image: circleci/python:3.6.1
