@@ -23,11 +23,11 @@ jobs:
           command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py'
   build:
     working_directory: ~/ilp
-    docker:
-      - image: circleci/python:3.6.1
-      #- run:
-          #name: creating venv
-       # command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
+    #docker:
+      #- image: circleci/python:3.6.1
+      - run:
+        name: creating venv
+        command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
       - run:
           name: Report
           command: |
@@ -54,6 +54,8 @@ jobs:
 workflows:
   version: 2
   jobs:
+      - test
+      - build
       - deploy:
            filters:
             branches:
