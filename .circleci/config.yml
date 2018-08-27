@@ -6,12 +6,12 @@ jobs:
     docker:
       - image: circleci/python:3.6.1
     
-    environment:
-      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-      DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
-      POSTGRES_USER: ubuntu
-      POSTGRES_DB: test_ilp
+    #environment:
+    #  CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+    #  CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+    #  DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
+    #  POSTGRES_USER: ubuntu
+    #  POSTGRES_DB: test_ilp
     steps:
       - checkout
       - run:
