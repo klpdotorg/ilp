@@ -26,6 +26,15 @@ jobs:
       - run:
           name: Install awscli
           command: 'sudo pip install awscli'
+      - run:
+          name: Create venv
+          command: 'python -m venv venv | source venv/bin/activate && pip install -r requirements/test.txt'
+      - run:
+          name: Test
+          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py | venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments | venv/bin/activate && coverage report | venv/bin/activate && coverage html |
+      - run:
+          name: Move artifacts
+          command: 'mkdir -p /tmp/artifacts | mv htmlcov /tmp/artifacts'
       
 workflows:
   version: 2
