@@ -7,7 +7,7 @@ jobs:
       - image: circleci/python:3.5.6-stretch-node-browsers
     environment:
      # CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-     # CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+     # #CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
       DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
       POSTGRES_USER: ubuntu
       POSTGRES_DB: test_ilp
