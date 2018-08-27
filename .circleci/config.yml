@@ -12,6 +12,12 @@ jobs:
       DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
       POSTGRES_USER: ubuntu
       POSTGRES_DB: test_ilp
+  build:
+     docker: 
+      - image: circleci:3.6.1
+     working_directory: ~/ilp
+     steps:
+      - checkout
       - run:
           name: Create venv
           command: 'python3 -m venv venv | source venv/bin/activate && pip install -r requirements/test.txt'
