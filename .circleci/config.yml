@@ -31,7 +31,7 @@ jobs:
           command: 'python3 -m venv venv | source venv/bin/activate && pip install -r requirements/test.txt'
       - run:
           name: Report creation
-          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py | venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments | venv/bin/activate && coverage report | venv/bin/activate && coverage html |
+          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py | venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments | venv/bin/activate && coverage report | venv/bin/activate && coverage html'
       - run:
           name: Move artifacts
           command: 'mkdir -p /tmp/artifacts | mv htmlcov /tmp/artifacts'
