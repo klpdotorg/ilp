@@ -33,21 +33,11 @@ jobs:
           name: create venv
           command: 'python -m venv venv | source venv/bin/activate && pip install -r requirements/test.txt'
       - run:
-          name: 
-          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py'
+          name: test
+          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py | venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments | venv/bin/activate && coverage report | venv/bin/activate && coverage html'
       - run:
-          name: 
-          command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
-      - run:
-          name:
-          command: 'venv/bin/activate && coverage report'
-      - run:
-          name:
-          command: 'venv/bin/activate && coverage html'
-      - run:
-          name: 
+          name: Srtoring artifacts
           command: 'mkdir -p /tmp/artifacts | mv htmlcov /tmp/artifacts'
-
 workflows:
   version: 2
   deploy:
