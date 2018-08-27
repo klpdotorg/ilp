@@ -4,8 +4,6 @@ jobs:
     docker:
       - image: circleci/python:3.6.1
     working_directory: ~/ilp
-    steps:
-      - checkout
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
@@ -16,10 +14,20 @@ jobs:
       - checkout
       - run:
           name: Create venv
-          command: 'python3 -m venv venv && source venv/bin/activate && pip install -r requirements/test.txt'
+          command: |
+             'python3 -m venv venv'
+             'source venv/bin/activate && pip install -r requirements/test.txt'   
       - run:
           name: Report creation
-          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py && venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments && venv/bin/activate && coverage report && venv/bin/activate && coverage html'
+          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py'
+      - run:
+          name: Testing
+          command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
+      - run:
+          name: Report
+          command: |
+              'venv/bin/activate && coverage report'
+              'venv/bin/activate && coverage html'
       - run:
           name: Move artifacts
           command: 'mkdir -p /tmp/artifacts && mv htmlcov /tmp/artifacts'
@@ -36,14 +44,11 @@ jobs:
           command: 'sudo apt-get update && sudo apt-get install -y python-pip'
       - run:
           name: Install awscli
-          command: 'sudo pip install awscli'
-      
-      
+          command: 'sudo pip install awscli'      
 workflows:
   version: 2
   deploy:
     jobs:
-      - build:
       - deploy:
           filters:
             branches:
