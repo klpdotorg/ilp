@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     working_directory: ~/ilp
     docker:
       - image: circleci/python:3.6.1
@@ -21,6 +21,10 @@ jobs:
       - run:
           name: Report creation
           command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py'
+  build:
+    working_directory: ~/ilp
+    docker:
+      - image: circleci/python:3.6.1
       - run:
           name: Testing
           command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
