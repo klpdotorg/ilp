@@ -55,7 +55,7 @@ jobs:
 
 workflows:
   version: 2.0
-  #test_build_deploy:
+  build-test-and-deploy:
    jobs:
       - test
       - build
