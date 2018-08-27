@@ -15,7 +15,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/python:3.6-jessie-node
+      - image: circleci/python:3.6.1
         command: /sbin/init
     working_directory: ~/ilp
     steps:
@@ -28,9 +28,9 @@ jobs:
           command: 'sudo pip install awscli'
       - run:
           name: Create venv
-          command: 'python -m venv venv | source venv/bin/activate && pip install -r requirements/test.txt'
+          command: 'python3 -m venv venv | source venv/bin/activate && pip install -r requirements/test.txt'
       - run:
-          name: Test
+          name: Report creation
           command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py | venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments | venv/bin/activate && coverage report | venv/bin/activate && coverage html |
       - run:
           name: Move artifacts
