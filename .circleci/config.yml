@@ -1,9 +1,10 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/ilp
     docker:
       - image: circleci/python:3.6.1
-    working_directory: ~/ilp
+    
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
@@ -30,13 +31,13 @@ jobs:
               'venv/bin/activate && coverage html'
       - run:
           name: Move artifacts
-          command: 'mkdir -p /tmp/artifacts && mv htmlcov /tmp/artifacts'
+          command: 'mkdir -p /tmp/circleci-artifacts && mv htmlcov /tmp/circleci-artifacts'
 
   deploy:
+    working_directory: ~/ilp
     docker:
       - image: circleci/python:3.6.1
         command: /sbin/init
-    working_directory: ~/ilp
     steps:
       - checkout
       - run:
