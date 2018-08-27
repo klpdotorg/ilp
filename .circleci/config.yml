@@ -13,11 +13,11 @@ jobs:
       POSTGRES_DB: test_ilp
     steps:
       - checkout
-      #- run:
-          #name: Create venv
-          #command: |
-          #   'python3 -m venv venv'
-          #   'source venv/bin/activate && pip install -r requirements/test.txt'   
+      - run:
+          name: Create venv
+          command: |
+             'python3 -m venv venv'
+             'source venv/bin/activate && pip install -r requirements/test.txt'   
       - run:
           name: Report creation
           command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py'
