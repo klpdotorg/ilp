@@ -8,5 +8,5 @@ if __name__ == "__main__":
     sys.path.append(os.path.join(os.getcwd(), 'apps'))
 
     from django.core.management import execute_from_command_line
-    from urllib.request import urlopen
+    from urllib.request import urlopen, Request
     execute_from_command_line(sys.argv)
