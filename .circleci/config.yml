@@ -54,8 +54,8 @@ jobs:
           command: 'sudo pip install awscli'      
 
 workflows:
-  version: 2
-  test_build_deploy:
+  version: 2.0
+  #test_build_deploy:
    jobs:
       - test
       - build
