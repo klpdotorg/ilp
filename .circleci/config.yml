@@ -59,7 +59,11 @@ workflows:
    jobs:
       - test
       - build
+         requires:
+          - test
       - deploy:
+         requires:
+          - build
            filters:
             branches:
               only: circleci-upgrade_test
