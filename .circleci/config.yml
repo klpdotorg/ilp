@@ -40,11 +40,7 @@ jobs:
     - run: sudo apt-get install -y python-virtualenv
     - run:
       name: install dependencies
-      command: |
-        mkdir -p ./venv
-        virtualenv ./venv
-        . venv/bin/activate
-        pip install -r requirements.txt
+      command: mkdir -p ./venv && virtualenv ./venv && venv/bin/activate && pip install -r requirements.txt
     #- run: python3 -m venv venv
     #- run: source venv/bin/activate && pip install -r requirements/test.txt    
     # The following line was run implicitly in your 1.0 builds based on what CircleCI inferred about the structure of your project. In 2.0 you need to be explicit about which commands should be run. In some cases you can discard inferred commands if they are not relevant to your project.
