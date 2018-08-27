@@ -68,9 +68,12 @@ jobs:
     # Test
     #   This would typically be a build job when using workflows, possibly combined with build
     # This is based on your 1.0 configuration file or project settings
-    - run: virtualenv ./venv && source venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
-    - run: virtualenv ./venv && source venv/bin/activate && coverage report
-    - run: virtualenv ./venv && source venv/bin/activate && coverage html
+    - run: 
+        command: source venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
+    - run: 
+        command: source venv/bin/activate && coverage report
+    - run: 
+        command: source venv/bin/activate && coverage html
     - run: mkdir -p /tmp/artifacts
     - run: mv htmlcov /tmp/artifacts
     # This is based on your 1.0 configuration file or project settings
