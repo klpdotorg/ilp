@@ -53,7 +53,8 @@ jobs:
 
 workflows:
   version: 2
-  jobs:
+  test_build_deploy:
+   jobs:
       - test
       - build
       - deploy:
