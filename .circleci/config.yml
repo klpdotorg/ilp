@@ -27,7 +27,7 @@ jobs:
       - image: circleci/python:3.6.1
       #- run:
           #name: creating venv
-        command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
+       # command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
       - run:
           name: Report
           command: |
