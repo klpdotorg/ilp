@@ -38,7 +38,6 @@ jobs:
         paths:
         - vendor/bundle
         - ~/virtualenvs
-        - ~/.m2
         - ~/.ivy2
         - ~/.bundle
         - ~/.go_workspace
