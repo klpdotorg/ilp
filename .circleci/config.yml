@@ -1,69 +1,39 @@
-version: 2.0
-
+version: 2
 jobs:
- test:
-    working_directory: ~/ilp
+  build:
     docker:
-      - image: circleci/python:3.5.6-stretch-node-browsers
+      - image: circleci/python:3.6.1
+    working_directory: ~/ilp
+    steps:
+      - checkout
     environment:
-     # CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-     # #CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
       DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
       POSTGRES_USER: ubuntu
       POSTGRES_DB: test_ilp
+
+  deploy:
+    docker:
+      - image: circleci/python:3.6-jessie-node
+        command: /sbin/init
+    working_directory: ~/ilp
     steps:
       - checkout
       - run:
-          name: Create venv
-          command: |
-             'python3 -m venv venv'
-             'source venv/bin/activate && pip install -r requirements/test.txt'   
+          name: Install pip
+          command: 'sudo apt-get update && sudo apt-get install -y python-pip'
       - run:
-          name: Report creation
-          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py'
- 
- #build:
- #   working_directory: ~/ilp
- #   docker:
- #     - image: circleci/python:3.5.6-stretch-node-browsers
- #   steps:
- #     - run:
- #       name: creating venv
- #       command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
- #     - run:
- #         name: Report
- #         command: |
- #             'venv/bin/activate && coverage report'
- #             'venv/bin/activate && coverage html'
- #     - run:
- #         name: Move artifacts
- #         command: 'mkdir -p /tmp/circleci-artifacts && mv htmlcov /tmp/circleci-artifacts'
-#
-# deploy:
-#    working_directory: ~/ilp
-#    docker:
-#      - image: circleci/python:3.5.6-stretch-node-browsers
-#        command: /sbin/init
-#    steps:
-#      - checkout
-#      - run:
-#          name: Install pip
-#          command: 'sudo apt-get update && sudo apt-get install -y python-pip'
-#      - run:
-#          name: Install awscli
-#          command: 'sudo pip install awscli'      
-
+          name: Install awscli
+          command: 'sudo pip install awscli'
+      - run:
+          name: 
+      
 workflows:
-  version: 2.0
-  build-test-and-deploy:
-   jobs:
-      - test
-      - build
-         requires:
-          - test
+  version: 2
+  deploy:
+    jobs:
       - deploy:
-         requires:
-          - build
-           filters:
+          filters:
             branches:
               only: circleci-upgrade_test
