@@ -6,6 +6,9 @@ jobs:
     working_directory: ~/ilp
     steps:
       - checkout
+      - run:
+        working_directory: ~/klpdotorg/ilp
+        command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone'
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
@@ -26,7 +29,25 @@ jobs:
       - run:
           name: Install awscli
           command: 'sudo pip install awscli'
-      
+      - run:
+          name: create venv
+          command: 'python -m venv venv | source venv/bin/activate && pip install -r requirements/test.txt'
+      - run:
+          name: 
+          command: 'mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py'
+      - run:
+          name: 
+          command: 'venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments'
+      - run:
+          name:
+          command: 'venv/bin/activate && coverage report'
+      - run:
+          name:
+          command: 'venv/bin/activate && coverage html'
+      - run:
+          name: 
+          command: 'mkdir -p /tmp/artifacts | mv htmlcov /tmp/artifacts'
+
 workflows:
   version: 2
   deploy:
