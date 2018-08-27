@@ -1,68 +1,37 @@
 version: 2
 jobs:
   build:
-    working_directory: /klpdotorg/ilp
-    #parallelism: 1
-    shell: /bin/bash 
+    docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/ilp
+    steps:
+      - checkout
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
       DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
       POSTGRES_USER: ubuntu
       POSTGRES_DB: test_ilp
+
+  deploy:
     docker:
-    - image: circleci/python:3.6-jessie-node
-      command: /sbin/init
+      - image: circleci/python:3.6-jessie-node
+        command: /sbin/init
+    working_directory: ~/ilp
     steps:
-     - checkout
-     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
-     - run:
-        working_directory: ~/klpdotorg/ilp
-        command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone'
-     - restore_cache:
-        keys:
-        - v1-dep-{{ .Branch }}-
-        - v1-dep-master-
-        - v1-dep-
-     - run: sudo apt-get update
-     - run: sudo apt-get install -y libgdal-dev
-     - run: sudo apt-get install -y postgis
-     - run: sudo apt-get install -y postgresql-client
-     - run: sudo apt-get install -y python-virtualenv
-     - run: python -m venv venv
-     - run: source venv/bin/activate && pip install -r requirements/test.txt
-     - run: if [ -e requirements.txt ]; then pip install -r requirements.txt; else pip install -r requirements.pip; fi
-     - run: pip install unittest-xml-reporting
-     - save_cache:
-        key: v1-dep-{{ .Branch }}-{{ epoch }}
-        paths:
-        - vendor/bundle
-        - ~/virtualenvs
-        - ~/.ivy2
-        - ~/.bundle
-        - ~/.go_workspace
-        - ~/.gradle
-        - ~/.cache/bower
-        - venv    
-     - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
-     - run: . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
-     - run: . venv/bin/activate && coverage report
-     - run: . venv/bin/activate && coverage html
-     - run: mkdir -p /tmp/artifacts
-     - run: mv htmlcov /tmp/artifacts
-     - run: git clean -dxf
-     - store_test_results:
-        path: /tmp/circleci-test-results
-     - store_artifacts:
-        path: /tmp/circleci-artifacts
-     - store_artifacts:
-        path: /tmp/artifacts
-     - store_artifacts:
-        path: /tmp/circleci-test-result
+      - checkout
+      - run:
+          name: Install pip
+          command: 'sudo apt-get update && sudo apt-get install -y python-pip'
+      - run:
+          name: Install awscli
+          command: 'sudo pip install awscli'
+      
 workflows:
- version: 2
- jobs:
-   - build:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
           filters:
             branches:
-              only: circleci-upgrade
+              only: circleci-upgrade_test
