@@ -11,7 +11,7 @@ jobs:
       - image: circleci/python:3.6.1
         environment:
           DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
-      - image: circleci/postgres:9.4 # database image for service container available at `localhost:<port>`
+      - image: mdillon/postgis:9.4 # database image for service container available at `localhost:<port>`
         environment: # environment variables for database
           POSTGRES_USER: ubuntu
           POSTGRES_DB: test_ilp
