@@ -86,7 +86,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer'
     ),
 
-    'DEFAULT_PAGINATION_CLASS': 'common.pagination.ILPDefaultPagination',
+    'DEFAULT_PAGINATION_CLASS': 'apps.common.pagination.ILPDefaultPagination',
 }
 
 
