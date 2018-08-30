@@ -20,7 +20,7 @@ jobs:
     - run:
         working_directory: ~/klpdotorg/ilp
         command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure
-          -f noninteractive tzdata; sudo service postgresql
+          -f noninteractive tzdata;
           restart; '
     # - run:
         # command: if [ "3.6.1" == "system" ] || pyenv versions --bare | grep -x -q '3.6.1'; then pyenv global version;else pyenv install --skip-existing  3.6.1 && pyenv global version && pyenv rehash && pip install virtualenv && pip install nose && pip install pep8 && pyenv rehash;fi
