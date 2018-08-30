@@ -11,8 +11,7 @@ jobs:
       POSTGRES_USER: ubuntu
       POSTGRES_DB: test_ilp
     docker:
-    - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
-      command: /sbin/init
+      - image: circleci/python:3.6.1
     steps:
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
