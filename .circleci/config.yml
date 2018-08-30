@@ -19,55 +19,26 @@ jobs:
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
     - run:
         working_directory: ~/klpdotorg/ilp
-        command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure
-          -f noninteractive tzdata;
-          restart; '
-    # - run:
-        # command: if [ "3.6.1" == "system" ] || pyenv versions --bare | grep -x -q '3.6.1'; then pyenv global version;else pyenv install --skip-existing  3.6.1 && pyenv global version && pyenv rehash && pip install virtualenv && pip install nose && pip install pep8 && pyenv rehash;fi
-    # Dependencies:
-    # - restore_cache:
-    #     keys:
-    #     # This branch if available
-    #     - v1-dep-{{ .Branch }}-
-    #     # Default branch if not
-    #     - v1-dep-master-
-    #     # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
-    #     - v1-dep-
-    # This is based on your 1.0 configuration file or project settings
+        command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure -f noninteractive tzdata;'
     - run: sudo apt-get update
-    - run: sudo apt-get install -y libgdal-dev
+    - run: sudo apt-get install -y libgdal-dev python3-dev python-dev
     - run: sudo apt-get install -y postgis
     - run: sudo apt-get install -y postgresql-client
     - run: sudo apt-get install -y python-virtualenv
     - run: 
         name: install dependencies
         command: mkdir -p ./venv && virtualenv ./venv && source venv/bin/activate && pip install -r requirements.txt
-    - run: if [[ $(which python3) ]]; then sudo ln -sf /usr/bin/python /usr/bin/python3; fi
     # - run: python -m venv venv
-    - run: source venv/bin/activate && pip install -r requirements/test.txt    
+    - run: # install and activate virtual environment with pip
+        command: |
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install -r requirements.txt
     # The following line was run implicitly in your 1.0 builds based on what CircleCI inferred about the structure of your project. In 2.0 you need to be explicit about which commands should be run. In some cases you can discard inferred commands if they are not relevant to your project.
     # You can remove the conditional and simply install the requirements file you use
-    - run: if [ -e requirements.txt ]; then pip install -r requirements.txt; else pip install -r requirements.pip; fi
     - run: pip install unittest-xml-reporting
-    # Save dependency cache
-    - save_cache:
-        key: v1-dep-{{ .Branch }}-{{ epoch }}
-        paths:
-        # This is a broad list of cache paths to include many possible development environments
-        # You can probably delete some of these entries
-        - vendor/bundle
-        - ~/virtualenvs
-        - ~/.m2
-        - ~/.ivy2
-        - ~/.bundle
-        - ~/.go_workspace
-        - ~/.gradle
-        - ~/.cache/bower
-        # These cache paths were specified in the 1.0 config
-        - venv
-    # This is based on your 1.0 configuration file or project settings
     - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
-    - run: python -m pip install coverage && pip install requests
+    - run: python3 -m pip install coverage && pip install requests
     - run: . venv/bin/activate && pip install requests && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
     - run: . venv/bin/activate && coverage report
     - run: . venv/bin/activate && coverage html
