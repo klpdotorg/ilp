@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import os
 import sys
-import urllib
+#import urllib
+from urllib2 import urlopen
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ilp.settings")
