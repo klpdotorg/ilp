@@ -21,8 +21,8 @@ jobs:
         command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure
           -f noninteractive tzdata; sudo service mysql restart; sudo service postgresql
           restart; '
-    - run:
-        command: if [ "3.6.1" == "system" ] || pyenv versions --bare | grep -x -q '3.6.1'; then pyenv global version;else pyenv install --skip-existing  3.6.1 && pyenv global version && pyenv rehash && pip install virtualenv && pip install nose && pip install pep8 && pyenv rehash;fi
+    # - run:
+        # command: if [ "3.6.1" == "system" ] || pyenv versions --bare | grep -x -q '3.6.1'; then pyenv global version;else pyenv install --skip-existing  3.6.1 && pyenv global version && pyenv rehash && pip install virtualenv && pip install nose && pip install pep8 && pyenv rehash;fi
     # Dependencies:
     # - restore_cache:
     #     keys:
@@ -41,8 +41,8 @@ jobs:
     - run: 
         name: install dependencies
         command: mkdir -p ./venv && virtualenv ./venv && source venv/bin/activate && pip install -r requirements.txt
-    #- run: python3 -m venv venv
-    #- run: source venv/bin/activate && pip install -r requirements/test.txt    
+    - run: python3 -m venv venv
+    - run: source venv/bin/activate && pip install -r requirements/test.txt    
     # The following line was run implicitly in your 1.0 builds based on what CircleCI inferred about the structure of your project. In 2.0 you need to be explicit about which commands should be run. In some cases you can discard inferred commands if they are not relevant to your project.
     # You can remove the conditional and simply install the requirements file you use
     - run: if [ -e requirements.txt ]; then pip install -r requirements.txt; else pip install -r requirements.pip; fi
