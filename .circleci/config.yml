@@ -61,6 +61,7 @@ jobs:
             --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1
 workflows:
   version: 2
+  parallelism: 1
   build_and_deploy:
     jobs:
       - build
