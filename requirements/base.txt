@@ -7,8 +7,7 @@ djangorestframework-bulk==0.2.1
 djangorestframework==3.8.2
 djangorestframework-csv==2.1.0
 djangorestframework-gis==0.13
-# drf-extensions==0.3.1
--e git+https://github.com/chibisov/drf-extensions.git@aa9ac667169b083ab2ebf054cf7d682c06e5e8d0#egg=drf_extensions
+https://github.com/chibisov/drf-extensions/archive/master.zip
 django-compressor==2.2
 django-rest-swagger==2.1.2
 geojson>1.0.1
