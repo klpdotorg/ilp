@@ -17,7 +17,7 @@ jobs:
           POSTGRES_DB: test_ilp
     steps:
     - checkout
-    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS && chown -R www-data:www-data .
     - run:
         working_directory: ~/klpdotorg/ilp
         command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure -f noninteractive tzdata;'
