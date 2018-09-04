@@ -81,14 +81,12 @@ workflows:
             - deploy:
           filters:
             branches:
-              only: 
-                - circlecli-upgrade
-                - nextrelease
-      - deploy-staging:
+              only: circlecli-upgrade
+       - deploy-staging:
           requires:
             - build
             - deploy:
           filters:
             branches:
-              only: 
-                - master
+              only: master 
+              
