@@ -1,5 +1,4 @@
 #!/bin/bash
-
 WORK_DIR=/home/ubuntu/ilp
 cd $WORK_DIR
 source venv/bin/activate || exit 1
