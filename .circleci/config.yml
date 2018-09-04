@@ -36,7 +36,8 @@ jobs:
     - store_artifacts:
         path: /tmp/artifacts
     
-  deploy:
+  deploy: &deploy
+    
     docker:
       # Python image required for AWS client
       - image: circleci/python:2.7
@@ -44,8 +45,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install pip & Intall awscli
+          name: Install pip
           command: 'sudo apt-get update && sudo apt-get install python-pip && sudo pip install awscli'
+  deploy-dev:
       - run:
           name: Deploy using CodeDeploy
           command: |
@@ -56,16 +58,37 @@ jobs:
             --ignore-application-stop-failures \
             --description 'ILP GitHub deployment' \
             --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1
+  
+  deploy-staging:
+      - run:
+          name: Deploy using CodeDeploy
+          command: |
+            aws deploy create-deployment \
+            --application-name ilpdev \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --deployment-group-name ilpstaging-group \
+            --ignore-application-stop-failures \
+            --description 'ILP GitHub deployment' \
+            --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1   
+
 workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - build
-      - deploy:
+      - deploy-dev:
+          requires:
+            - build
+            - deploy:
           filters:
             branches:
               only: 
                 - circlecli-upgrade
                 - nextrelease
+      - deploy-staging:
           requires:
             - build
+            - deploy:
+          filters:
+            branches:
+              only: 
+                - master
