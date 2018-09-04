@@ -71,7 +71,6 @@ deploy-staging:
             --description 'ILP GitHub deployment' \
             --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1   
 workflows:
-workflows:
   version: 2
   build_and_deploy:
     jobs:
