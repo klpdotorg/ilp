@@ -56,17 +56,6 @@ jobs:
             --ignore-application-stop-failures \
             --description 'ILP GitHub deployment' \
             --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1
-  deploy-staging:
-        - run:
-            name: Deploy using CodeDeploy
-            command: |
-              aws deploy create-deployment \
-              --application-name ilpdev \
-              --deployment-config-name CodeDeployDefault.OneAtATime \
-              --deployment-group-name ilpstaging-group \
-              --ignore-application-stop-failures \
-              --description 'ILP GitHub deployment' \
-              --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1   
 workflows:
   version: 2
   build_and_deploy:
@@ -78,4 +67,5 @@ workflows:
               only: 
                 - circlecli-upgrade
                 - nextrelease
-          
+            requires:
+              - build
