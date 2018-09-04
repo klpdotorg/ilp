@@ -1,0 +1,33 @@
+{
+  "id": "7698f819-b0b8-43c7-9ab9-3b3a9a554272",
+  "name": "Production",
+  "values": [
+    {
+      "key": "server",
+      "value": "prod.ilp.org.in",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "protocol",
+      "value": "https",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "dise_server",
+      "value": "dise.prod.ilp.org.in",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "primary_district",
+      "value": "414",
+      "enabled": true,
+      "type": "text"
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-09-04T04:55:52.484Z",
+  "_postman_exported_using": "Postman/6.2.3"
+}
