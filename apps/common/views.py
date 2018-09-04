@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+#from urllib2 import urlopen
 
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
