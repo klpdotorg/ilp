@@ -67,6 +67,8 @@ workflows:
       - deploy:
           filters:
             branches:
-              only: circlecli-upgrade
+              only: 
+                - circlecli-upgrade
+                - nextrelease
           requires:
             - build
