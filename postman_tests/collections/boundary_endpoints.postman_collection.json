@@ -1,0 +1,243 @@
+{
+	"id": "54035b77-c631-4c72-80e0-7bfc4e51ac76",
+	"name": "Boundary Endpoints",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"3f60ded7-6b8a-4ebc-a516-3689f8c4f6f0",
+		"e7111336-0be3-4fb5-b926-4b177c047a4f",
+		"27d58246-8f36-450e-9037-bb627fb797b7",
+		"84f8921d-5b86-4ca3-942e-0cc1d1075d8c"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "27d58246-8f36-450e-9037-bb627fb797b7",
+			"name": "GET all KA preschool boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundaries/?state={{state}}&type=pre",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "state",
+					"value": "{{state}}",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "type",
+					"value": "pre",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2c60a13-dc99-4ebd-a094-00d1cf4bec96",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.success",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"JSON has results\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('results');",
+							"});",
+							"pm.test(\"School type is primary\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var random = Math.floor(Math.random() * 9) + 1  ",
+							"    console.log(random)",
+							"    boundary = jsonData.results[random];",
+							"    pm.expect(boundary).to.have.property('type')",
+							"    pm.expect(boundary.type).to.eql(\"pre\")",
+							"});",
+							"pm.test(\"Has all requisite fields\", function(){",
+							"    var body = pm.response.json().results;",
+							"    var random = Math.floor(Math.random() * 9) + 1 ",
+							"    var bound = body[random];",
+							"    requiredKeys =[\"id\", \"name\", \"parent\", \"dise_slug\", \"boundary_type\", \"status\", \"type\"];",
+							"    requiredKeys.every(k => pm.expect(bound).to.have.property(k));",
+							"})",
+							" "
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "3f60ded7-6b8a-4ebc-a516-3689f8c4f6f0",
+			"name": "GET all KA boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundaries/?state={{state}}",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "state",
+					"value": "{{state}}",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa1c39a7-48c0-4eb3-ac3a-00acf911fcc9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.success",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"JSON has results\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('results');",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "84f8921d-5b86-4ca3-942e-0cc1d1075d8c",
+			"name": "GET primary boundary details",
+			"url": "{{protocol}}://{{server}}/api/v1/boundaries/{{primary_district}}/",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "79177e61-c240-4974-b9d8-ae9ec5b7e26d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.success",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"Has all requisite fields\", function(){",
+							"    var body = pm.response.json();",
+							"    requiredKeys =[\"id\", \"name\", \"parent\", \"dise_slug\", \"boundary_type\", \"status\", \"type\"];",
+							"    requiredKeys.every(k => pm.expect(body).to.have.property(k));",
+							"})",
+							" "
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "e7111336-0be3-4fb5-b926-4b177c047a4f",
+			"name": "GET all KA primary school boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundaries/?state={{state}}&type=primary",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "state",
+					"value": "{{state}}",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "type",
+					"value": "primary",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cba9ae73-6808-42ef-8d49-a18ddc15fdff",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.success",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"JSON has results\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('results');",
+							"});",
+							"pm.test(\"School type is primary\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    var random = Math.floor(Math.random() * 9) + 1  ",
+							"    console.log(random)",
+							"    boundary = jsonData.results[random];",
+							"    pm.expect(boundary).to.have.property('type')",
+							"    pm.expect(boundary.type).to.eql(\"primary\")",
+							"});",
+							"pm.test(\"Has all requisite fields\", function(){",
+							"    var body = pm.response.json().results;",
+							"    var random = Math.floor(Math.random() * 9) + 1 ",
+							"    var bound = body[random];",
+							"    requiredKeys =[\"id\", \"name\", \"parent\", \"dise_slug\", \"boundary_type\", \"status\", \"type\"];",
+							"    requiredKeys.every(k => pm.expect(bound).to.have.property(k));",
+							"})",
+							" "
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}

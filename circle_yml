@@ -13,7 +13,8 @@ machine:
 general:
   branches:
     only:
-      - nextrelease
+     ## - nextrelease
+      - circlecli-upgrade
       - master
   artifacts:
     - /tmp/artifacts
@@ -51,7 +52,8 @@ test:
 
 deployment:
   development:
-    branch: nextrelease
+    ##branch: nextrelease
+      branch: circlecli-upgrade
     codedeploy:
       ilpdev:
         application_root: /

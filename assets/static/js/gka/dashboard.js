@@ -33,7 +33,8 @@ var topSummaryData = {};
                     assessment: loadAssmtData,
                     gpcontest: loadGPContestData,
                     surveys: loadSurveys,
-                    comparison: loadComparison
+                    comparison: loadComparison,
+                    dummy: loadDummy
                 };
 
             if(!isSectionVisible) { return; }
@@ -806,8 +807,6 @@ var topSummaryData = {};
             });
         }
 
-        console.log(users, meta_values, labels);
-
         // Build data for bar chart and render it
         var sms_sender = {
             labels: labels,
@@ -818,6 +817,7 @@ var topSummaryData = {};
                 }
             ],
         }
+        console.log(sms_sender)
         renderBarChart('#smsSender', sms_sender);
     }
 
@@ -1244,6 +1244,192 @@ var topSummaryData = {};
             ]
         }
         return competencies
+    }
+
+    function loadDummy() {
+
+        function loadDummy1() {
+            var data = {
+                labels: [],
+                series: [
+                    {
+                        className: 'ct-series-d',
+                        data: []
+                    }
+                ]
+            };
+
+            for(var i=20; i >= 1; i--) {
+                data.labels.push('MC ' + i);
+                data.series[0].data.push({
+                    meta: 'Micro Concept ' + i,
+                    'value': 100 - (i * 5)
+                });
+            }
+
+            var elementId = '#dummyChart';
+            var yTitle = ' ';
+            var options = {
+                seriesBarDistance: 10,
+                horizontalBars: true,
+                position: 'start',
+                axisX: {
+                    showGrid: true,
+                },
+                axisY: {
+                    showGrid: false,
+                },
+                plugins: [
+                    Chartist.plugins.tooltip(),
+                    Chartist.plugins.ctAxisTitle({
+                      axisX: {
+                        //No label
+                      },
+                      axisY: {
+                        axisTitle: yTitle,
+                        axisClass: 'ct-axis-title',
+                        offset: {
+                          x: 0,
+                          y: 0
+                        },
+                        textAnchor: 'middle',
+                        flipTitle: false
+                      }
+                    })
+                ]
+            };
+
+            var responsiveOptions = [
+                ['screen and (max-width: 749px)', {
+                    seriesBarDistance: 1,
+                    height: '300px',
+                    axisX: {
+                      labelInterpolationFnc: function (value) {
+                        if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR) {
+                          return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR) + '..'
+                        }
+
+                        return value;
+                      },
+                      offset: 80
+                    }
+                }]
+            ];
+
+            var $chart_element = Chartist.Bar(elementId, data, options, responsiveOptions).on('draw', function(chartData) {
+                if (chartData.type === 'bar') {
+                    chartData.element.attr({
+                        style: 'stroke-width: 15px;'
+                    });
+                }
+                if (chartData.type === 'label' && chartData.axis === 'y') {
+                    chartData.element.attr({
+                        width: 200
+                    })
+                }
+            });
+        }
+
+        function loadDummy2() {
+            var data = {
+                labels: [],
+                series: [
+                    {
+                        className: 'ct-series-k',
+                        data: []
+                    },
+                    {
+                        className: 'ct-series-h',
+                        data: []
+                    },
+                    {
+                        className: 'ct-series-d',
+                        data: []
+                    }
+                ]
+            };
+
+            for(var i=20, j=1; i >= 1; i=i-2,j++) {
+                data.labels.push('C ' + j);
+                data.series[2].data.push({
+                    meta: 'Micro Concept ' + i,
+                    'value': 100 - (i * 5)
+                });
+                data.series[1].data.push({
+                    meta: 'Micro Concept ' + i,
+                    'value': _.random(100 - (i * 5))
+                });
+                data.series[0].data.push({
+                    meta: 'Micro Concept ' + i,
+                    'value': _.random(100 - (i * 5))
+                });
+            }
+
+            var elementId = '#dummyChart2';
+            var yTitle = ' ';
+            var options = {
+                seriesBarDistance: 15,
+                horizontalBars: true,
+                position: 'start',
+                axisX: {
+                    showGrid: true,
+                },
+                axisY: {
+                    showGrid: false,
+                },
+                plugins: [
+                    Chartist.plugins.tooltip(),
+                    Chartist.plugins.ctAxisTitle({
+                      axisX: {
+                        //No label
+                      },
+                      axisY: {
+                        axisTitle: yTitle,
+                        axisClass: 'ct-axis-title',
+                        offset: {
+                          x: 0,
+                          y: 0
+                        },
+                        textAnchor: 'middle',
+                        flipTitle: false
+                      }
+                    })
+                ]
+            };
+
+            var responsiveOptions = [
+                ['screen and (max-width: 749px)', {
+                    seriesBarDistance: 1,
+                    height: '300px',
+                    axisX: {
+                      labelInterpolationFnc: function (value) {
+                        if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR) {
+                          return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR) + '..'
+                        }
+
+                        return value;
+                      },
+                      offset: 80
+                    }
+                }]
+            ];
+
+            var $chart_element = Chartist.Bar(elementId, data, options, responsiveOptions).on('draw', function(chartData) {
+                if (chartData.type === 'bar') {
+                    chartData.element.attr({
+                        style: 'stroke-width: 15px;'
+                    });
+                }
+                if (chartData.type === 'label' && chartData.axis === 'y') {
+                    chartData.element.attr({
+                        width: 200
+                    })
+                }
+            });
+        }
+
+        loadDummy1();
+        loadDummy2();
     }
 
     function renderBarChart(elementId, data, yTitle=' ') {

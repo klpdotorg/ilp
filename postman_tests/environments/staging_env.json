@@ -1,0 +1,63 @@
+{
+  "id": "09859ac0-d384-4a0f-abfd-570c5862b22c",
+  "name": "Staging",
+  "values": [
+    {
+      "key": "server",
+      "value": "staging.ilp.org.in",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "protocol",
+      "value": "https",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "dise_server",
+      "value": "dise.staging.ilp.org.in",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "primary_district",
+      "value": "414",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "admin_username",
+      "value": "superuser1@klp.org.in",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "admin_password",
+      "value": "changeme",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "token",
+      "value": "12d7adbeab38ae4c925da38640e6a18acd9d5e8b",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "userid",
+      "value": 5260,
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "admin_token",
+      "value": "4ddc08be26c07541a25f11345e7ed96cc08ee270",
+      "enabled": true,
+      "type": "text"
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-09-04T04:55:17.484Z",
+  "_postman_exported_using": "Postman/6.2.3"
+}
