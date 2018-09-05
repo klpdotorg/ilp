@@ -1,22 +1,25 @@
 from .reportlist import reportlist
 from common.utils import send_sms
 
+
 def send_link(report_type, params, args, dry_run=False):
-    if not dry_run:
-        report = reportlist[report_type]
-        r = report(**params)
-        r.get_data()
-        result = r.save()
-        link = r.save_link(result)
-        link.report_type = '{} for {} between {} and {}'.format(report_type, params[report.parameters[0]], params['report_from'], params['report_to'])
-        link.recipient = args['name']
-        link.role = args['role']
-        link.save()
-        sms = r.get_sms(link, args['name'])
-        print(args['number'], sms)
-        # send_sms(args['number'], sms)
-    else:
-        return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
+    pass
+#     if not dry_run:
+#         report = reportlist[report_type]
+#         r = report(**params)
+#         r.get_data()
+#         result = r.save()
+#         link = r.save_link(result)
+#         link.report_type = '{} for {} between {} and {}'.format(report_type, params[report.parameters[0]], params['report_from'], params['report_to'])
+#         link.recipient = args['name']
+#         link.role = args['role']
+#         link.save()
+#         sms = r.get_sms(link, args['name'])
+#         print(args['number'], sms)
+#         # send_sms(args['number'], sms)
+#     else:
+#         return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
+
         
 def send_recipient(report_type, report_from, report_to, reader, dry, start_from = 0, quit_on_error = False):
     # is_head_set = False
