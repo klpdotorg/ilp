@@ -50,7 +50,7 @@ jobs:
           name: Deploy using CodeDeploy
           command: |
             # Changing env based on branch
-            [[ $CIRCLE_BRANCH != 'master' ]] || env=staging && env=dev ;\
+            [[ $CIRCLE_BRANCH == 'master' ]] && env=staging || env=dev ;\
             aws deploy create-deployment \
             --application-name ilpdev \
             --deployment-config-name CodeDeployDefault.OneAtATime \
