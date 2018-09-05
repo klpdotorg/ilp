@@ -22,7 +22,8 @@ jobs:
         working_directory: ~/klpdotorg/ilp
         command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure -f noninteractive tzdata;'
     - run: sudo apt-get update && sudo apt-get install -y libgdal-dev python3-dev postgis postgresql-client python3-virtualenv
-    - run: python -m venv venv; source venv/bin/activate && pip --no-cache install -r requirements/test.txt
+    #- run: python -m venv venv; source venv/bin/activate && pip --no-cache install -r requirements/test.txt
+    - run: python -m venv venv; source venv/bin/activate && pip install --exists-action w -r requirements.txt
     - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
     - run: sudo python -m pip --no-cache install coverage requests
     - run: . venv/bin/activate && pip --no-cache install -r requirements.txt && pip --no-cache install requests && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
