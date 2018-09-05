@@ -49,50 +49,19 @@ jobs:
       - run:
           name: Deploy using CodeDeploy
           command: |
+            [[ $CIRCLE_BRANCH != 'master' ]] || env=staging && env=dev ;\
             aws deploy create-deployment \
             --application-name ilpdev \
             --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name ilpdev-group \
+            --deployment-group-name ilp${env}-group \
             --ignore-application-stop-failures \
             --description 'ILP GitHub deployment' \
             --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1
-  deploy-staging:
-    docker:
-      # Python image required for AWS client
-      - image: circleci/python:2.7
-    working_directory: ~/ilp
-    steps:
-      - checkout
-      - run:
-          name: Install pip & Intall awscli
-          command: 'sudo apt-get update && sudo apt-get install python-pip && sudo pip install awscli'
-      - run:
-          name: Deploy using CodeDeploy
-          command: |
-            aws deploy create-deployment \
-            --application-name ilpdev \
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name ilpstaging-group \
-            --ignore-application-stop-failures \
-            --description 'ILP GitHub deployment' \
-            --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1   
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build
       - deploy:
-          filters:
-            branches:
-              only: 
-                - circlecli-upgrade
-                - nextrelease
-          requires:
-            - build
-      - deploy-staging:
-          filters:
-            branches:
-              only: 
-                - master 
           requires:
             - build
