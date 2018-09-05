@@ -13,7 +13,6 @@
 	    <strong>Academic Year : </strong>{{data.academic_year}}
 	  </span>
 	  <br>
-
 	  <strong> District Name : </strong><span class="cap">{{data.district}}</span>
 	  <span style="float:right" class="cap">
 	    <strong>Report Generated on : </strong>{{data.today}}
@@ -80,8 +79,8 @@
 	  Total No.of Contest : {{data.num_contests}}&nbsp;
 	  <span style="float:right;">
 	    Participation : {{data.num_students}} {
-	     {% include "./boy-shadow.html" %} : {{data.num_boys}}
- {% include "./girl-shadow.html" %} : {{data.num_girls}}
+	   		{% include "./boy-shadow.html" %} : {{data.num_boys}}
+ 				{% include "./girl-shadow.html" %} : {{data.num_girls}}
 	    }
 	  </span>
 	</span>
