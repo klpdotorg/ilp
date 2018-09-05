@@ -817,7 +817,6 @@ var topSummaryData = {};
                 }
             ],
         }
-        console.log(sms_sender)
         renderBarChart('#smsSender', sms_sender);
     }
 
