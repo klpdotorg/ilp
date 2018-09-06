@@ -5097,3 +5097,16 @@ span.tab {
     page-break-inside: avoid; } }
 
 /*# sourceMappingURL=style.css.map */
+
+/* GP contest dasboard */
+.gp-contest-graphs {
+  display: flex;
+  flex-direction: row;
+}
+
+.gp-contest-graph {
+  flex: 1;
+  border: 1px solid;
+  padding: 10px;
+  margin: 10px;
+}

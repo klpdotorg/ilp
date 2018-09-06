@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+{% load state_variables %}
+
+{% block page_title %}GP Contest Dashboard{% endblock %}
+
+{% block endbody %}
+  {% compress js %}
+  <script type="text/javascript" src="{% static 'js/gp-contest/params.json' %}"></script>
+  <script type="text/javascript" src="{% static 'js/gp-contest/dashboard.js' %}"></script>
+  {% endcompress %}
+{% endblock %}
+
+{% block content %}
+
+<section class="container">
+  <div class="base-spacing-mid"></div>
+  <h2 class="heading-border grey-steel">GP CONTEST DASHBOARD</h2>
+  <div class="base-spacing-mid"></div>
+  <p>
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+  </p>
+</section>
+
+
+<section class="container">
+  <div class="base-spacing-mid"></div>
+  <div class="brand-blue font-large font-light uppercase">Section 2 : District Performance:</div>
+  <div class="base-spacing-mid"></div>
+  <div>
+    <div class="gp-contest-graphs">
+      <div class="gp-contest-graph">
+        <iframe
+          id="district-graph"
+          width="100%"
+          height="400"
+          seamless
+          frameBorder="0"
+          scrolling="no"
+        >
+        </iframe>
+      </div>
+      <div class="gp-contest-graph">
+        <iframe
+          id="district-class-graph"
+          width="100%"
+          height="400"
+          seamless
+          frameBorder="0"
+          scrolling="no"
+        >
+        </iframe>
+      </div>
+    </div>
+  <div>
+</section>
+
+
+<section class="container">
+  <div class="base-spacing-mid"></div>
+  <div class="brand-blue font-large font-light uppercase">Section 3: District-Block-Cluster-Village Performance</div>
+  <div class="base-spacing-mid"></div>
+  <div class="row">
+    <select id="districtFilter" onchange="setDistrictFilter()" multiple>
+      <option value="raichur">raichur</option>
+      <option value="dharwad">dharwad</option>
+      <option value="koppal">koppal</option>
+      <option value="bengaluru rural">bengaluru rural</option>
+    </select>
+    <select id="blockFilter" onchange="setBlockFilter()" multiple>
+      <option value="lingasugur">lingasugur</option>
+      <option value="shorapur">shorapur</option>
+      <option value="manvi">manvi</option>
+      <option value="shahapur">shahapur</option>
+    </select>
+    <select id="villageFilter" onchange="setVillageFilter()" multiple>
+      <option value="Malladagudda">Malladagudda</option>
+      <option value="Halagapura">Halagapura</option>
+      <option value="Hebbal">Hebbal</option>
+      <option value="Kurdi">Kurdi</option>
+    </select>
+  </div>
+  <div>
+  <div>
+    <div class="gp-contest-graphs">
+      <div class="gp-contest-graph">
+        <iframe
+          id="district-block-graph"
+          width="100%"
+          height="400"
+          seamless
+          frameBorder="1"
+          scrolling="no"
+        >
+        </iframe>
+      </div>
+      <div class="gp-contest-graph">
+        <iframe
+          id="block-village-graph"
+          width="100%"
+          height="400"
+          seamless
+          frameBorder="1"
+          scrolling="no"
+        >
+      </iframe>
+      </div>
+    </div>
+  <div>
+</section>
+
+
+{% endblock %}
