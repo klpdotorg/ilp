@@ -10,7 +10,10 @@ from .models import PreGroupUser, User, Group
 
 # Add PreGroupUser object so that program team members can
 # add teachers/users of A3 app
-admin.site.register(PreGroupUser)
+class PreGroupUserAdmin(admin.ModelAdmin):
+    search_fields = ('mobile_no',)
+admin.site.register(PreGroupUser, PreGroupUserAdmin)
+
 
 # Unregister all unwanted models
 admin.site.unregister(Group)
