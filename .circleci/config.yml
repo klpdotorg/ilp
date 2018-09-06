@@ -64,5 +64,10 @@ workflows:
     jobs:
       - build
       - deploy:
+          filters:
+            branches:
+              only: 
+                - nextrelease
+                - master
           requires:
             - build
