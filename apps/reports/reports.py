@@ -1,18 +1,25 @@
-import argparse, hashlib, random
-from abc import ABC, abstractmethod
-from django.urls import reverse
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
+import argparse
+import hashlib
+import random
 import pdfkit
 import os.path
 import datetime
 
+from abc import ABC, abstractmethod
+
+from django.urls import reverse
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+
 from boundary.models import Boundary, ElectionBoundary
-from assessments.models import SurveyInstitutionAgg
 from schools.models import Institution
+
+from assessments.models import SurveyInstitutionAgg
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
+
 from .models import Reports, Tracking
+from .helpers import calc_stud_performance
 
 
 def format_academic_year(date_string):
@@ -179,26 +186,8 @@ class GPMathContestReport(BaseReport):
                 details['percent'] = sum(percent)/len(percent)
                 schools.append(details)
 
-        #Calculate the perfomance of students
-        boys_100 = 0
-        girls_100 = 0
-        boys_zero = 0
-        girls_zero = 0
-        for i in scores.values():
-            total = sum(i['mark'])/len(i['mark'])
-            if total == 100.0:
-                if i['gender'] == 'Male':
-                    boys_100 += 1
-                else:
-                    girls_100 += 1
-            elif total == 0.0:
-                if i['gender'] == 'Male':
-                    boys_zero += 1
-                else:
-                    girls_zero += 1
-
-        score_100 = boys_100 + girls_100
-        score_zero = boys_zero + girls_zero
+        # Calculate the perfomance of students
+        score_100, score_zero = calc_stud_performance(scores)
 
         contest_list = [i['contest'] for i in schools]
         schools_out = []
@@ -313,26 +302,8 @@ class SchoolReport(BaseReport):
 
         schools,scores = self.get_school_data(AGI)
 
-        #Calculate the perfomance of students
-        boys_100 = 0
-        girls_100 = 0
-        boys_zero = 0
-        girls_zero = 0
-        for i in scores.values():
-            total = sum(i['mark'])/len(i['mark'])
-            if total == 100.0:
-                if i['gender'] == 'Male':
-                    boys_100 += 1
-                else:
-                    girls_100 += 1
-            elif total == 0.0:
-                if i['gender'] == 'Male':
-                    boys_zero += 1
-                else:
-                    girls_zero += 1
-
-        score_100 = boys_100 + girls_100
-        score_zero = boys_zero + girls_zero
+        # Calculate the perfomance of students
+        score_100, score_zero = calc_stud_performance(scores)
 
         contest_list = [i['contest'] for i in schools]
 
@@ -1143,26 +1114,8 @@ class GPMathContestReportSummarized(BaseReport):
                 details['percent'] = sum(percent)/len(percent)
                 schools.append(details)
 
-        #Calculate the perfomance of students
-        boys_100 = 0
-        girls_100 = 0
-        boys_zero = 0
-        girls_zero = 0
-        for i in scores.values():
-            total = sum(i['mark'])/len(i['mark'])
-            if total == 100.0:
-                if i['gender'] == 'Male':
-                    boys_100 += 1
-                else:
-                    girls_100 += 1
-            elif total == 0.0:
-                if i['gender'] == 'Male':
-                    boys_zero += 1
-                else:
-                    girls_zero += 1
-
-        score_100 = boys_100 + girls_100
-        score_zero = boys_zero + girls_zero
+        # Calculate the perfomance of students
+        score_100, score_zero = calc_stud_performance(scores)
 
         contest_list = [i['contest'] for i in schools]
         schools_out = []
@@ -1291,26 +1244,8 @@ class SchoolReportSummarized(BaseReport):
 
         schools,scores = self.get_school_data(AGI)
 
-        #Calculate the perfomance of students
-        boys_100 = 0
-        girls_100 = 0
-        boys_zero = 0
-        girls_zero = 0
-        for i in scores.values():
-            total = sum(i['mark'])/len(i['mark'])
-            if total == 100.0:
-                if i['gender'] == 'Male':
-                    boys_100 += 1
-                else:
-                    girls_100 += 1
-            elif total == 0.0:
-                if i['gender'] == 'Male':
-                    boys_zero += 1
-                else:
-                    girls_zero += 1
-
-        score_100 = boys_100 + girls_100
-        score_zero = boys_zero + girls_zero
+        # Calculate the perfomance of students
+        score_100, score_zero = calc_stud_performance(scores)
 
         contest_list = [i['contest'] for i in schools]
 
