@@ -5097,3 +5097,82 @@ span.tab {
     page-break-inside: avoid; } }
 
 /*# sourceMappingURL=style.css.map */
+
+/* App links Page */
+.apps-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+  justify-content: center;
+}
+
+.app-link-cont {
+  flex-basis: auto;
+  flex-grow: 1;
+  min-width: 200px;
+  max-width: 200px;
+  text-align: center;
+  margin: 20px;
+  border: 1px solid #d8d8d8;
+  box-shadow: 0px 1px 1px 0px #d8d8d8;
+  letter-spacing: 1px;
+  font-size: 91%;
+  border-radius: 2px;
+}
+
+.apps-container .app-name-link {
+  text-align: center;
+}
+
+.apps-container .app-name-link:hover {
+  text-decoration: underline;
+}
+
+.apps-container .app-name {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 15px;
+  padding-bottom: 6px;
+  padding-left: 13px;
+  padding-right: 14px;
+  margin: 0;
+  width: 200px;
+  vertical-align: middle;
+}
+
+.apps-container .app-image {
+  height: 179px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 6px;
+}
+
+.apps-container .app-image:hover {
+  opacity: 0.5;
+}
+
+.apps-container .app-img-link {
+  margin-top: 7px;
+}
+
+.apps-container .app-img-link img {
+  border-radius: 5px;
+}
+.apps-container .app-details {
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  padding-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.brand-lime {
+  color: #827717;
+}
+.brand-lime a {
+  color: #827717;
+}
+
+.brand-lime a:hover {
+  color: #827717; 
+}

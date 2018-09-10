@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block page_title %}Our Applications{% endblock %}
+{% block content %}
+{% load staticfiles %}
+
+  <section class="app-links">
+    <div class="container">
+      <div class="center-text">
+        <h1 class="heading-primary brand-lime">Our Applications</h1>
+        <p>KLP recognizes the data gap at the local-level and actively invested in developing a holistic data ecosystem for connecting and empowering Gram Panchayat Members, Education officials, Headmasters/Teachers, Parents and Community. KLP has developed multiple mobile apps for monitoring roll out of the programs, for assessing children, for receiving community feedback. To download the app please click the icons below.</p>
+        <div class="base-spacing-mid"></div>
+      </div>
+      <div class="apps-container">
+        <div class="app-link-cont">
+          <div class="app-image">
+            <a href="https://play.google.com/store/apps/details?id=in.org.klp.ilpkonnect" class="app-img-link">
+              <img src="{% static 'images/ilp_app.png' %}" />
+            </a>
+          </div>
+          <p class="app-name"><a href="https://play.google.com/store/apps/details?id=in.org.klp.ilpkonnect" class="app-name-link">ILP Konnect</a></p>
+          <p class="app-details">For Program Monitoring and Community Feedback</p>
+        </div>
+        <div class="app-link-cont">
+          <div class="app-image">
+            <a href="https://play.google.com/store/apps/details?id=com.gkadashboard" class="app-name-link">
+              <img src="{% static 'images/gka_dashboard_app.png' %}" />
+            </a>
+          </div>
+          <p class="app-name"><a href="https://play.google.com/store/apps/details?id=com.gkadashboard" class="app-name-link">GKA Dashboard</a></p>
+          <p class="app-details">Data Access via GKA Dashboard</p>
+        </div>
+        <div class="app-link-cont">
+          <div class="app-image">
+            <a href="https://play.google.com/store/apps/details?id=com.akshara.assessment.a3" class="app-img-link">
+              <img src="{% static 'images/akshara_app.png' %}" />
+            </a>
+          </div>
+          <p class="app-name"><a href="https://play.google.com/store/apps/details?id=com.akshara.assessment.a3" class="app-name-link">Akshara Formative Assessment</a></p>
+          <p class="app-details">Measuring Learning Outcomes</p>
+        </div>
+        <div class="app-link-cont">
+          <div class="app-image">
+            <a href="https://play.google.com/store/apps/details?id=com.akshara.easymath" class="app-img-link">
+              <img src="{% static 'images/building_block_app.png' %}" />
+            </a>
+          </div>
+          <p class="app-name"><a href="https://play.google.com/store/apps/details?id=com.akshara.easymath" class="app-name-link">Building Blocks Learning App</a></p>
+          <p class="app-details">Fun Math Learning App</p>
+        </div>
+      </div>
+      <div class="center-text">
+        <div class="base-spacing-sm"></div>
+        <p>
+          <a href="/" class="button icon-left">Back to home</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
