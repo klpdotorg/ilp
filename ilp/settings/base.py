@@ -137,8 +137,11 @@ USE_TZ = True
 
 # Authentication model
 AUTH_USER_MODEL = 'users.User'
-AUTHENTICATION_BACKENDS = ['users.backends.EmailMobileUsernameBackend',
-'guardian.backends.ObjectPermissionBackend',]
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailMobileUsernameBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
