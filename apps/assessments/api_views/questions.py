@@ -257,8 +257,10 @@ class QuestionGroupViewSet(
             for institution in institutions_under_boundary:
                 list_of_institutions.append(institution)
 
+        data = []
         for questiongroup_id in questiongroup_ids:
-            data = [self.format_input_data(questiongroup_id,institution_id) for institution_id in list_of_institutions]
+            for institution_id in list_of_institutions:
+                data.append(self.format_input_data(questiongroup_id, institution_id))
         
         serializer = QuestionGroupInstitutionAssociationCreateSerializer(
             data=data, many=True

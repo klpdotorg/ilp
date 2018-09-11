@@ -1,8 +1,7 @@
-from rest_framework import serializers
+from django.conf import settings
 
-from rest_framework.exceptions import (
-    NotFound, ParseError
-)
+from rest_framework import serializers
+from rest_framework.exceptions import NotFound
 from rest_framework import status
 
 from schools.models import (
@@ -21,18 +20,13 @@ class StudentGroupSerializer(serializers.ModelSerializer):
 
 
 class StudentCreateSerializer(serializers.ModelSerializer):
-    academic_year = serializers.PrimaryKeyRelatedField(
-        queryset=AcademicYear.objects.all(), write_only=True)
-
     class Meta:
         model = Student
         fields = (
             'id', 'first_name', 'middle_name', 'last_name',
             'uid', 'dob', 'gender', 'mt', 'status',
-            'institution', 'academic_year', 'father_name',
-            'mother_name'
+            'institution', 'father_name', 'mother_name'
         )
-        extra_kwargs = {'academic_year': {'write_only': True}}
 
     def validate_uid(self, uid):
         if not uid:
@@ -51,20 +45,19 @@ class StudentCreateSerializer(serializers.ModelSerializer):
         except:
             raise NotFound(studentgroup_id + " not found.")
 
-        academic_year = validated_data.pop('academic_year')
-        status = validated_data.get('status', Status.ACTIVE)
+        academic_year = AcademicYear.objects.get(
+            char_id=settings.DEFAULT_ACADEMIC_YEAR)
+        student_status = validated_data.get('status', Status.ACTIVE)
         student = Student.objects.create(**validated_data)
         student.save()
         StudentStudentGroupRelation.objects.get_or_create(
             student=student, student_group=student_group,
-            status=status, academic_year=academic_year
+            status=student_status, academic_year=academic_year
         )
         return student
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    academic_year = serializers.PrimaryKeyRelatedField(
-        queryset=AcademicYear.objects.all(), write_only=True)
     classes = serializers.SerializerMethodField()
 
     class Meta:
@@ -72,8 +65,8 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'first_name', 'middle_name', 'last_name',
             'uid', 'dob', 'gender', 'mt', 'status',
-            'institution', 'academic_year', 'classes',
-            'father_name', 'mother_name'
+            'institution', 'classes', 'father_name',
+            'mother_name'
         )
 
     def get_classes(self, student):
@@ -82,7 +75,7 @@ class StudentSerializer(serializers.ModelSerializer):
         studentgroup_id = groups.values_list('student_group', flat=True)
         qs = StudentGroup.objects.filter(
             id__in=studentgroup_id, group_type='class')
-        return StudentGroupSerializer(qs, many=True).data       
+        return StudentGroupSerializer(qs, many=True).data
 
 
 class StudentStudentGroupSerializer(serializers.ModelSerializer):

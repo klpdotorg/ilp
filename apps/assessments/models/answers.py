@@ -48,11 +48,11 @@ class AnswerGroup_StudentGroup(models.Model):
     group value"""
     studentgroup = models.ForeignKey("schools.StudentGroup")
     questiongroup = models.ForeignKey("QuestionGroup")
-    group_value = models.CharField(max_length=100, null=True)
+    group_value = models.CharField(max_length=100, null=True, blank=True)
     created_by = models.ForeignKey(User, null=True)
     date_of_visit = models.DateTimeField(default=timezone.now)
     respondent_type = models.ForeignKey(RespondentType, null=True)
-    comments = models.CharField(max_length=2000, null=True)
+    comments = models.CharField(max_length=2000, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     status = models.ForeignKey("common.Status")
     location = models.GeometryField(null=True)

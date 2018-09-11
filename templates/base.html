@@ -23,6 +23,7 @@
     <script>
         window.klp = {};
         window.klp.STATE_CODE = '{%get_state_value "state_code"%}';
+        console.log("State code in base.html is: ", window.klp.STATE_CODE)
         window.klp.DISE_ACADEMIC_YEAR = '{%get_dise_academic_year%}'
         window.klp.DEFAULT_ACADEMIC_YEAR = '{%get_default_academic_year%}'
         window.klp.DISE_FRONTEND_ACADEMIC_YEAR = '{%get_full_dise_academic_year%}'

@@ -1,13 +1,15 @@
 from rest_framework import serializers
 
 from common.serializers import ILPSerializer
-from boundary.models import (Boundary, ElectionBoundary,
-                             BoundaryHierarchy,
-                             BoundaryType,
-                             ElectionParty
-                             )
-from rest_framework_gis.serializers import (GeoFeatureModelSerializer,
-        GeometrySerializerMethodField)
+from boundary.models import (
+    Boundary, ElectionBoundary, BoundaryHierarchy,
+    BoundaryType, ElectionParty, BoundaryStateCode
+)
+
+from rest_framework_gis.serializers import (
+    GeoFeatureModelSerializer,
+    GeometrySerializerMethodField
+)
 
 
 class BoundarySerializer(ILPSerializer):
@@ -45,7 +47,11 @@ class ElectionBoundarySerializer(ILPSerializer):
 
     class Meta:
         model = ElectionBoundary
-        fields = ('id', 'name',  'const_ward_type', 'dise_slug', 'elec_comm_code', 'current_elected_rep', 'current_elected_party', 'state')
+        fields = (
+            'id', 'name',  'const_ward_type', 'dise_slug',
+            'elec_comm_code', 'current_elected_rep',
+            'current_elected_party', 'state'
+        )
 
 
 class BoundaryTypeSerializer(serializers.ModelSerializer):
@@ -60,3 +66,13 @@ class ElectionParty(serializers.ModelSerializer):
     class Meta:
         model = ElectionParty
         fields = ('char_id', 'name')
+
+
+class StateListSerializer(serializers.ModelSerializer):
+    state_name = serializers.CharField(source='boundary.name')
+    boundary_id = serializers.CharField(source='boundary.id')
+
+    class Meta:
+        model = BoundaryStateCode
+        fields = ('char_id', 'boundary_id', 'state_name')
+

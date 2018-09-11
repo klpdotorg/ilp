@@ -36,7 +36,10 @@
   </div> <!-- /banner-home-container -->
 </div> <!-- /banner-full -->
 
-{% if window.klp.STATE_CODE == 'ka' %} <!-- Don't need to show any of this stuff below for other states -->
+
+{% get_state_value "state_code" as state_code %}
+{% if state_code == 'ka' %}
+<!-- Don't need to show any of this stuff below for other states -->
 
 <section class="module-img-wrapper home-help-block">
   <div class="container">
@@ -106,7 +109,6 @@
     </ul>
   </div> <!-- /container -->
 </section> <!-- /home-current-block -->
-{% endif %}
 <!--<section class="home-volunteer-request">
   <div class="container">
     <h2 class="heading-secondary heading-border">Come Volunteer Now!</h2>
@@ -119,5 +121,6 @@
     </div>
   </div>
 </section>-->
+{% endif %}
 {% include 'frontend_templates/home.html' %}
 {% endblock %}

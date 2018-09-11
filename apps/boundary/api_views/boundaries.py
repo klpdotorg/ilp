@@ -1,10 +1,16 @@
 import logging
 from django.db.models import Q
 from boundary.serializers import (
-    BoundarySerializer, BoundaryTypeSerializer
+    BoundarySerializer, BoundaryTypeSerializer,
+    StateListSerializer
 )
+
 from boundary.filters import BoundaryFilter
-from boundary.models import Boundary, BoundaryType
+from boundary.models import (
+    Boundary, BoundaryType, BoundaryStateCode
+)
+
+from common.views import ILPListAPIView, ILPDetailAPIView
 from common.mixins import ILPStateMixin
 from common.models import Status
 from rest_framework import viewsets
@@ -44,3 +50,8 @@ class BoundaryTypeViewSet(viewsets.ModelViewSet):
     """
     queryset = BoundaryType.objects.all()
     serializer_class = BoundaryTypeSerializer
+
+
+class StateListAPIView(ILPListAPIView):
+    queryset = BoundaryStateCode.objects.all()
+    serializer_class = StateListSerializer

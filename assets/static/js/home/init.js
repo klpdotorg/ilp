@@ -2,6 +2,7 @@
     klp.init = function() {
         //handle getting blog feeds
         //var feedURL = "http://blog.klp.org.in/feeds/posts/default?alt=json-in-script&callback=?";
+        if(window.klp.STATE_CODE == 'ka'){
         var feedURL = '/blog-feed';
         $.getJSON(feedURL, null, function(data) {
             processRequest(data.feed);
@@ -32,7 +33,7 @@
             var html = tplSys(context);
             $('#sysInfo').html(html);
         });
-
+        }
     };
 
     var months = new Array("Nothing","Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec");

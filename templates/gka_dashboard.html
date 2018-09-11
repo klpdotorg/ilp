@@ -135,9 +135,8 @@
         </section>
         <hr/>
       </li>
-
-    {% if window.klp.STATE_CODE == 'ka' %} 
-
+    {% get_state_value "state_code" as state_code %}
+      {% if state_code == 'ka' %}
       <li><a href='' class='head js-accordion-header brand-orange align-right'>
       ASSESSMENTS  <span class="fa fa-angle-down"></span></a>
 

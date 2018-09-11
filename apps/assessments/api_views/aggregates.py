@@ -1,5 +1,6 @@
 from django.db.models import Sum, Q
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -504,8 +505,9 @@ class SurveyQuestionGroupQuestionKeyAPIView(
             for q_key in question_keys:
                 total = key_agg.get(question_key=q_key)['num_assess']
                 try:
-                    score = ans_key_agg.get(question_key=q_key)['num_assess']
-                except TypeError:
+                    score_qs = ans_key_agg.get(question_key=q_key)
+                    score = score_qs['num_assess']
+                except ObjectDoesNotExist:
                     score = 0
                 q_res[q_key] = {
                     "total": total,

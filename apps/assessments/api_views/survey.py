@@ -163,6 +163,9 @@ class SurveyAssociateBoundaryAPIView(ListAPIView, ILPStateMixin):
         else:
             institution_ids = QuestionGroup_StudentGroup_Association.objects.\
                 filter(questiongroup__status='AC').\
+                filter(
+                    questiongroup__survey_id=survey_id
+                ).\
                 filter(Q(studentgroup__institution__admin0_id=boundary_id) |
                        Q(studentgroup__institution__admin1_id=boundary_id) |
                        Q(studentgroup__institution__admin2_id=boundary_id) |
