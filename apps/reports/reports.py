@@ -156,12 +156,28 @@ class GPMathContestReport(BaseReport):
                     # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
                     # mark = (answered/num_q)*100
 
+                    # The second logic we used in July
+                    # total_students_appeared = school_ag.count()
+                    # answered = 0
+                    # for s in school_ag:
+                    #     if s.answers.filter(
+                    #         question__key=contest, answer='Yes'
+                    #     ).exists():
+                    #         answered += 1
+                    # mark = (answered / total_students_appeared) * 100
+
+                    # New logic from Nagraj & Vaijayanthi
                     total_students_appeared = school_ag.count()
                     answered = 0
                     for s in school_ag:
-                        if s.answers.filter(
-                            question__key=contest, answer='Yes'
-                        ).exists():
+                        total_questions = s.answers.filter(
+                            question__key=contest
+                        ).count()
+                        correct_answers = s.answers.filter(
+                            question__key=contest,
+                            answer='Yes'
+                        ).count()
+                        if total_questions == correct_answers:
                             answered += 1
                     mark = (answered / total_students_appeared) * 100
 
@@ -398,7 +414,7 @@ class SchoolReport(BaseReport):
                         ).count()
                         if total_questions == correct_answers:
                             answered += 1
-                        mark = (answered / total_students_appeared) * 100
+                    mark = (answered / total_students_appeared) * 100
 
 
                     try:
