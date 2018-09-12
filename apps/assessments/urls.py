@@ -20,7 +20,8 @@ from assessments.api_views import (
     SurveyBoundaryAPIView, SurveyInstitutionAPIView,
     BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView,
     SurveyAssociateInstitutionAPIView, SurveyPartnersViewSet,
-    SurveySourceViewSet, SurveyTypeListView
+    SurveySourceViewSet, SurveyTypeListView,
+    SurveyQuestionGroupQDetailsAPIView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -127,6 +128,9 @@ urlpatterns = [
     url(r'survey/detail/questiongroup/key/$',
         SurveyQuestionGroupQuestionKeyAPIView.as_view(),
         name='survey-detail-class-key'),
+    url(r'survey/detail/questiongroup/qdetails/$',
+        SurveyQuestionGroupQDetailsAPIView.as_view(),
+        name='survey-detail-questiongroup-qdetails'),
     url(r'survey/volume/$',
         SurveyVolumeAPIView.as_view(),
         name='survey-volume'),
