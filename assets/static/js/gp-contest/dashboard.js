@@ -1,131 +1,61 @@
-var districtURL = generateDistrictIframeURL();
-var districtBlockURL = generateDistrictBlockIframeUrl();
-var districtClassURL = generateDistrictClassIframeURL();
-var blockVillageURL = generateBlockVillageIframeURL();
+'use strict';
+console.log('Coming here');
 
+(function() {
+  klp.init = function() {
+    let searchByGPs = false;
+    const $educational_hierarchy_checkbox = $("#select-educational-hrc");
+    const $gp_checkbox = $("#select-gp-checkbox");
+    const $select_school_cont = $("#select-school-cont");
+    const $select_cluster_cont = $("#select-cluster-cont");
+    const $select_gp_cont = $("#select-gp-cont");
 
-updateDistrictIframeURL(districtURL)
-updateDistrictBlockIframeURL(districtBlockURL);
-updateDistrictClassIframeURL(districtClassURL);
-updateBlockVillageIframeURL(blockVillageURL);
+    // Initialize accordion, filters and router
+    console.log(klp);
+    klp.gp_filters.init();
+    klp.router = new KLPRouter();
+    klp.router.init();
 
-function getSelectedValues(el) {
-  return Array(...el.options).reduce((acc, option) => {
-    if (option.selected === true) {
-      acc.push(option.value);
+    $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
+    $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
+    $('#startDate').yearMonthSelect("setDate", moment("20180601", "YYYYMMDD"));
+    $('#endDate').yearMonthSelect("setDate", moment("20190331", "YYYYMMDD"));
+
+    function showDefaultFilters() {
+      // Setting educational_hierarchy by default true
+      $educational_hierarchy_checkbox.prop("checked", true)
     }
-    return acc;
-  }, []);
-}
 
-function updateDistrictBlockParams(params) {
-  const preselect_filters = JSON.stringify(params.preselect_filters);
-  const form_data = JSON.stringify(params.form_data);
+    // hideSearchFields to hide search fields based on searchByGPs filter
+    function hideSearchFields() {
+      if (searchByGPs) {
+        $select_school_cont.css("display", "none");
+        $select_cluster_cont.css("display", "none");
+        $select_gp_cont.css("display", "block");
+      } else {
+        $select_school_cont.css("display", "block");
+        $select_cluster_cont.css("display", "block");
+        $select_gp_cont.css("display", "none");
+      }
+    }
 
-  const url = `${districtBlockParams.url}?preselect_filters=${preselect_filters}&form_data=${form_data}&standalone=${params.standalone}&height=${params.height}`;
-  updateDistrictBlockIframeURL(url);
-}
+    $educational_hierarchy_checkbox.on("change", function(value) {
+      searchByGPs = false;
+      $gp_checkbox.prop("checked", false);
 
-function updateBlockVillageParams(params) {
-  const preselect_filters = JSON.stringify(params.preselect_filters);
-  const form_data = JSON.stringify(params.form_data);
+      hideSearchFields();
+    })
 
-  const url = `${blockVillageParams.url}?preselect_filters=${preselect_filters}&form_data=${form_data}&standalone=${params.standalone}&height=${params.height}`;
-  updateBlockVillageIframeURL(url);
-}
+    $gp_checkbox.on("change", function(value) {
+      searchByGPs = true;
+      $educational_hierarchy_checkbox.prop("checked", false)
 
-function setDistrictFilter() {
-  const el = document.getElementById("districtFilter");
-  const values = getSelectedValues(el);
-  const params1 = blockVillageParams.params;
-  const params2 = districtBlockParams.params;
+      hideSearchFields();
+    })
 
-  params1.form_data.filters[0].val = values
-  params2.form_data.filters[0].val = values
-  params1.preselect_filters['1'].District = values
-  params2.preselect_filters['1'].District = values
+    hideSearchFields();
+    showDefaultFilters();
+  }
+})()
 
-  updateDistrictBlockParams(params2);
-  updateBlockVillageParams(params1);
-}
 
-function setBlockFilter() {
-  const el = document.getElementById("blockFilter");
-  const values = getSelectedValues(el);
-  const params1 = blockVillageParams.params;
-  const params2 = districtBlockParams.params;
-
-  params1.form_data.filters[1].val = values
-  params2.form_data.filters[1].val = values
-  params1.preselect_filters['2'].Block = values
-  params2.preselect_filters['2'].Block = values
-
-  updateDistrictBlockParams(params2);
-  updateBlockVillageParams(params1);
-}
-
-function setVillageFilter() {
-  const el = document.getElementById("villageFilter");
-  const values = getSelectedValues(el);
-  const params1 = blockVillageParams.params;
-  const params2 = districtBlockParams.params;
-
-  params1.form_data.filters[2].val = values
-  params2.form_data.filters[2].val = values
-
-  updateDistrictBlockParams(params2);
-  updateBlockVillageParams(params1);
-}
-
-// This function generate the iframe url for district block graph.
-function generateDistrictBlockIframeUrl() {
-  const params = districtBlockParams.params;
-  const preselect_filters = JSON.stringify(params.preselect_filters);
-  const form_data = JSON.stringify(params.form_data);
-
-  return `${districtBlockParams.url}?preselect_filters=${preselect_filters}&form_data=${form_data}&standalone=${params.standalone}&height=${params.height}`;
-}
-
-// This function generate the iframe url for district graph.
-function generateDistrictIframeURL() {
-  const params = districtParams.params;
-  const form_data = JSON.stringify(params.form_data);
-
-  return `${districtParams.url}?form_data=${form_data}&standalone=${params.standalone}&height=${params.height}`;
-}
-
-// This function generate the iframe url for district class graph.
-function generateDistrictClassIframeURL() {
-  const params = districtClassParams.params;
-  const form_data = JSON.stringify(params.form_data);
-
-  return `${districtClassParams.url}?form_data=${form_data}&standalone=${params.standalone}&height=${params.height}`;
-}
-
-// This function generate the iframe url for block village graph.
-function generateBlockVillageIframeURL() {
-  const params = blockVillageParams.params;
-  const form_data = JSON.stringify(params.form_data);
-
-  return `${blockVillageParams.url}?form_data=${form_data}&standalone=${params.standalone}&height=${params.height}`;
-}
-
-function updateDistrictBlockIframeURL(url) {
-  var iframe = document.getElementById('district-block-graph');
-  iframe.src = url;
-}
-
-function updateDistrictIframeURL(url) {
-  var iframe = document.getElementById('district-graph');
-  iframe.src = url;
-}
-
-function updateDistrictClassIframeURL(url) {
-  var iframe = document.getElementById('district-class-graph');
-  iframe.src = url;
-}
-
-function updateBlockVillageIframeURL(url) {
-  var iframe = document.getElementById('block-village-graph');
-  iframe.src = url;
-}
