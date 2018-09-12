@@ -755,3 +755,105 @@ class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
             res[electioncount['const_ward_type']] = \
                 electioncount['electionboundary_count__sum']
         return Response(res)
+
+
+class SurveyQuestionGroupQDetailsAPIView(
+        AggMixin, ListAPIView, ILPStateMixin
+):
+    filter_backends = [SurveyFilter, ]
+    institution_queryset = SurveyInstitutionQuestionGroupQDetailsAgg.\
+        objects.all()
+    boundary_queryset = SurveyBoundaryQuestionGroupQDetailsAgg.\
+        objects.all()
+
+    def get_answer_queryset(self):
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionQuestionGroupQDetailsCorrectAnsAgg.\
+                objects.filter(institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg.\
+                objects.filter(boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg.objects.\
+            filter(boundary_id=state_id)
+
+    def list(self, request, *args, **kwargs):
+        """
+        Returns questiongroups.
+        Each questiongroups contains dicts.
+        Each concept dict contains microconceptgroup dict that contains 
+        microconcept dict that contains answer_total, answer_score.
+
+        Question Details is fetched from `self.get_queryset()` and,
+        Question Details  Answer is fetched from `self.get_answer_queryset()`.
+        """
+        qgroup_res = {}
+        qs = self.filter_queryset(self.get_queryset())
+
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
+
+        qgroups = qs.distinct('questiongroup_id')\
+            .values_list('questiongroup_id', 'questiongroup_name')
+
+        for qgroup_id, qgroup_name in qgroups:
+            q_res = {}
+            qgroup_qs = qs.filter(questiongroup_id=qgroup_id)
+            qgroup_ans_qs = ans_qs.filter(questiongroup_id=qgroup_id)
+            qdetails = qgroup_qs.values(
+                'concept__description','microconcept_group__description','microconcept__description').annotate(
+                    Sum('num_assessments'))
+            ans_qdetails = qgroup_ans_qs.values(
+                'concept__description','microconcept_group__description','microconcept__description').annotate(
+                    Sum('num_assessments'))
+
+            for row in qdetails:
+                concept = row['concept__description']
+                microconcept_group = row['microconcept_group__description']
+                microconcept = row['microconcept__description']
+                if concept in q_res:
+                    if microconcept_group in q_res[concept]:
+                        if microconcept in q_res[concept][microconcept_group]:
+                            q_res[concept][microconcept_group][microconcept]["total"] += row['num_assessments__sum']
+                            q_res[concept]["total"] += row['num_assessments__sum']
+                            q_res[concept][microconcept_group]["total"] += row['num_assessments__sum']
+                        else:
+                            q_res[concept][microconcept_group][microconcept] = {"total": row['num_assessments__sum'], "score":0}
+                            q_res[concept]["total"] += row['num_assessments__sum']
+                            q_res[concept][microconcept_group]["total"] += row['num_assessments__sum']
+                    else:
+                        q_res[concept][microconcept_group] = {microconcept:{"total": row['num_assessments__sum'], "score":0}, "total":0, "score":0}
+                        q_res[concept]["total"] += row['num_assessments__sum']
+                        q_res[concept][microconcept_group]["total"] += row['num_assessments__sum']
+                else:
+                    q_res[concept] = {microconcept_group: {microconcept:{"total":row['num_assessments__sum'],"score":0},"total":0, "score":0}, "total":0, "score":0}
+                    q_res[concept]["total"] += row['num_assessments__sum']
+                    q_res[concept][microconcept_group]["total"] += row['num_assessments__sum']
+ 
+            for row in ans_qdetails:
+                concept = row['concept__description']
+                microconcept_group = row['microconcept_group__description']
+                microconcept = row['microconcept__description']
+                if concept in q_res:
+                    if microconcept_group in q_res[concept]:
+                        if microconcept in q_res[concept][microconcept_group]:
+                            q_res[concept][microconcept_group][microconcept]["score"] += row['num_assessments__sum']
+                            q_res[concept]["score"] += row['num_assessments__sum']
+                            q_res[concept][microconcept_group]["score"] += row['num_assessments__sum']
+                        else:
+                            q_res[concept][microconcept_group][microconcept] = {"score": row['num_assessments__sum'], "total":0}
+                            q_res[concept]["score"] += row['num_assessments__sum']
+                            q_res[concept][microconcept_group]["score"] += row['num_assessments__sum']
+                    else:
+                        q_res[concept][microconcept_group] = {microconcept:{"score": row['num_assessments__sum'], "total":0}, "total":0, "score":0}
+                        q_res[concept]["score"] += row['num_assessments__sum']
+                        q_res[concept][microconcept_group]["score"] += row['num_assessments__sum']
+                else:
+                    q_res[concept] = {microconcept_group: {microconcept:{"score":row['num_assessments__sum'],"total":0},"total":0, "score":0}, "total":0, "score":0}
+                    q_res[concept]["score"] += row['num_assessments__sum']
+                    q_res[concept][microconcept_group]["score"] += row['num_assessments__sum']
+            qgroup_res[qgroup_name] = q_res
+        return Response(qgroup_res)

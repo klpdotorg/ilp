@@ -192,7 +192,8 @@ class QuestionSerializer(ILPSerializer):
         fields = (
             'question_text', 'display_text', 'key', 'question_type',
             'options', 'is_featured', 'status', 'id', 'question_type_id',
-            'lang_name', 'lang_options', 'pass_score', 'max_score'
+            'lang_name', 'lang_options', 'pass_score', 'max_score',
+            'concept','microconcept_group','microconcept'
         )
 
 
