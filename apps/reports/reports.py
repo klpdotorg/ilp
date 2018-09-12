@@ -376,14 +376,14 @@ class SchoolReport(BaseReport):
                     # mark = (answered/num_q)*100
 
                     # The second logic we used in July
-                    total_students_appeared = school_ag.count()
-                    answered = 0
-                    for s in school_ag:
-                        if s.answers.filter(
-                            question__key=contest, answer='Yes'
-                        ).exists():
-                            answered += 1
-                    mark = (answered / total_students_appeared) * 100
+                    # total_students_appeared = school_ag.count()
+                    # answered = 0
+                    # for s in school_ag:
+                    #     if s.answers.filter(
+                    #         question__key=contest, answer='Yes'
+                    #     ).exists():
+                    #         answered += 1
+                    # mark = (answered / total_students_appeared) * 100
 
                     # The new logic proposed by Nagraj & Vaijayanthi
                     total_students_appeared = school_ag.count()
