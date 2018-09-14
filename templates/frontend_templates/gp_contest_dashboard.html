@@ -1,0 +1,24 @@
+{% verbatim %}
+
+<script type="text/html" id="tpl-year-tabs">
+  {% for tab in tabs %}
+    <button class="gp-tab" id="{{ tab.value }}-year" data-value="{{ tab.value }}">{{ tab.value }}</button>
+  {% endfor %}
+  <div class="full-width-border-bottom"></div>
+</script>
+
+<script type="text/html" id="tpl-coverage">
+  <div class="sect-parent">
+    <div class="sect-half">
+      <div class="brand-blue font-large font-light uppercase">Number of Schools Assessed</div>
+      <div class=" base-spacing-sm">{{data.total_assessments}}</div>
+      <div class="brand-blue font-large font-light uppercase">Number of Children Assessed</div>
+      <div class=" base-spacing-sm">{{data.children_impacted}}</div>
+    </div>
+    <div class="sect-half">
+      <div class="brand-blue font-large font-light uppercase">Number of GP Contests</div>
+      <div class=" base-spacing-sm">{{data.schools_impacted}}</div>
+    </div>
+  </div>
+</script>
+{% endverbatim %}

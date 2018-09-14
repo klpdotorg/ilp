@@ -103,11 +103,23 @@
 </section>
 
 <section class="container">
-  <div class="brand-blue font-large bold uppercase center-text">About GP Contest</div>
+  <div class="brand-blue font-large uppercase center-text">About GP Contest</div>
   <div class="base-spacing-mid"></div>
   <p>
     Gram Panchayat (GP) Level Mathematics Contests is organised by the Community for government school children in all GKA (Ganitha Kalika Andolana) districts of Karnataka. It’s a strategy to empower the community to take up quality to take up quality issues in the public school system within the framework of participatory democracy. Akshara Foundation acts as a facilitator to conduct these contests. The child’s numeracy levels data gathered through this contest is the most accurate and census level data available as the contests are conducted in the community with the presence of all stakeholders (Gram Panchayat members, parents, SDMC members, donors and the village community) in a transparent way
   </p>
+  <hr />
 </section>
 
+<section class="container">
+  <div class="brand-blue font-large uppercase center-text">Coverage</div>
+  <div class="base-spacing-mid"></div>
+  <div id="year-tabs" class="gp-year-tabs"></div>
+  <section class="container gp-coverage-section" id="top">
+    <div class="base-spacing-mid"></div>
+    <div id="gp-coverage" class="js-summary-container"></div>
+    <div class="base-spacing-mid"></div>
+  </section>
+</section>
+{% include 'frontend_templates/gp_contest_dashboard.html' %}
 {% endblock %}
