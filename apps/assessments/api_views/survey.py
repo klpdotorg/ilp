@@ -921,3 +921,31 @@ class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
 
         count = queryset.distinct('created_by_id').count()
         return Response({"count": count})
+
+
+class SurveyInstitutionLocationAPIView(ListAPIView, ILPStateMixin):
+    queryset = SurveyTagInstitutionMapping.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        survey_tag = self.request.query_params.get('survey_tag', None)
+        survey_id = self.request.query_params.get('survey_id', None)
+        longitude = self.request.query_params.get('longitude',None)
+        latitude = self.request.query_params.get('latitude',None)
+        distance = self.request.query_params.get('distance',5000)
+
+        if survey_tag:
+            qset = SurveyTagInstitutionMapping.objects.filter(tag=survey_tag)
+        elif survey_id:
+            qset = AnswerGroup_Institution.objects.filter(questiongroup__survey_id=survey_id)
+        else:
+            raise ParseError("Mandatory parameter survey_id or survey_tag not passed")
+
+        if longitude==None or latitude==None:
+            raise ParseError("Mandatory parameter longitude and latitude not passed")
+       
+        center = Point(float(longitude), float(latitude))
+        qset = qset.filter(institution__coord__distance_lte=(center, distance))
+        institution_ids = qset.values_list('institution_id', flat=True)
+        institutions = Institution.objects.filter(id__in=institution_ids)
+        response = InstitutionSerializer(institutions, many=True).data
+        return Response(response)

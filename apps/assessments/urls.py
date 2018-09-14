@@ -21,7 +21,7 @@ from assessments.api_views import (
     BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView,
     SurveyAssociateInstitutionAPIView, SurveyPartnersViewSet,
     SurveySourceViewSet, SurveyTypeListView,
-    SurveyQuestionGroupQDetailsAPIView
+    SurveyQuestionGroupQDetailsAPIView, SurveyInstitutionLocationAPIView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -95,6 +95,9 @@ urlpatterns = [
     url(r'institutionsurveys/$',
         SurveyInstitutionAnsAggView.as_view(),
         name='stories'),
+    url(r'institutionsurvey/location/$',
+        SurveyInstitutionLocationAPIView.as_view(),
+        name='survey_location'),
     url(r'surveys/storiesinfo/$',
         QGroupStoriesInfoView.as_view(),
         name='stories-info'),
