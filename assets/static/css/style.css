@@ -5147,7 +5147,7 @@ span.tab {
   border-top-right-radius: 6px;
 }
 
-.gp-year-tabs {
+.gp-tabs {
   display: flex;
   flex-direction: row;
 }
@@ -5155,5 +5155,10 @@ span.tab {
 .gp-coverage-section {
   border-left: 1px solid #f0f0f0;
   border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.full-width-border-bottom {
+  flex: 1;
   border-bottom: 1px solid #f0f0f0;
 }

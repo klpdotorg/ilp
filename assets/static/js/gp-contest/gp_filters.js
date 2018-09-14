@@ -1,7 +1,5 @@
 'use strict';
 (function() {
-
-  console.log('In GP filters');
     var t = klp.gp_filters = {},
         $_filter_button,
         $trigger,

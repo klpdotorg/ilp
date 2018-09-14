@@ -3,8 +3,30 @@
 (function() {
   klp.init = function() {
     let searchByGPs = false;
-    let selectedTab = '2016';
+    let selectedConverageTab = '2016';
+    let selectedPerformanceTab = 'basic';
+    let selectedComparisonTab = 'year';
     const years = ["2016", "2017", "2018"];
+    const performanceTabs = [
+      {
+        text: 'Basic',
+        value: 'basic',
+      },
+      {
+        text: 'Details',
+        value: 'details',
+      }
+    ];
+    const comparisonTabs = [
+      {
+        text: 'Year',
+        value: 'year'
+      },
+      {
+        text: 'Neighbour',
+        value: 'neighbour',
+      }
+    ];
     const tabs = years.map((tab) => {
       return {
         value: tab,
@@ -46,50 +68,87 @@
       }
     }
 
-    // This function renders tabs
+    // This function renders coverage tabs
     function renderYearsTabs() {
-      var tplYearTab = swig.compile($('#tpl-year-tabs').html());
-      var yearTabHTML = tplYearTab({ tabs: tabs });
+      var tplYearTab = swig.compile($('#tpl-tabs').html());
+      var yearTabHTML = tplYearTab({ tabs: tabs.map((tab) => ({ text: tab.value, value: tab.value })) });
        
       $('#year-tabs').html(yearTabHTML);
     }
 
+    // This function renders performance tabs
+    function renderPerformanceTabs() {
+      var tplPerformanceTab = swig.compile($('#tpl-tabs').html());
+      var performanceTabHTML = tplPerformanceTab({ tabs: performanceTabs });
+
+      $('#performance-tabs').html(performanceTabHTML);
+    }
+
+    // this function renders comparison tabs
+    function renderComaprisonTabs() {
+      var tplComparisonTab = swig.compile($('#tpl-tabs').html());
+      var comparisonTabHTML = tplComparisonTab({ tabs: comparisonTabs });
+
+      $('#comparison-tabs').html(comparisonTabHTML);
+    }
+
+    function selectTab(tab, goingToSelectTab) {
+      const $currentTab = $(`#${tab.value}`);
+      if (tab.value === goingToSelectTab) {
+        $currentTab.addClass("selected-gp-tab");
+      } else {
+        $currentTab.removeClass("selected-gp-tab");
+      }
+    }
+
     // This function select the tab
-    function selectYearTab(year) {
+    function selectYearTab(goingToSelectTab) {
       tabs.forEach((tab) => {
-        const $currentTab = $(`#${tab.value}-year`);
-        if (tab.value === year) {
-          $currentTab.addClass("selected-gp-tab");
-        } else {
-          $currentTab.removeClass("selected-gp-tab");
-        }
+        selectTab(tab, goingToSelectTab);
+      })
+    }
+
+    // This function select the performance tab
+    function selectPerformanceTab(goingToSelectTab) {
+      performanceTabs.forEach((tab) => {
+        selectTab(tab, goingToSelectTab);
+      })
+    }
+
+    // This function select the Comparison Tab
+    function selectComparisonTab(goingToSelectTab) {
+      comparisonTabs.forEach((tab) => {
+        selectTab(tab, goingToSelectTab);
       })
     }
 
     // Fetch coverage information
     function loadCoverage() {
       const selectedYearInfo = tabs.find((tab) => {
-        return tab.value === selectedTab;
+        return tab.value === selectedConverageTab;
       });
-      console.log(selectedYearInfo, 'Printing the selectedYearInfo');
 
       var $coverageXHR = klp.api.do(
          `survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}&state=ka`
       )
 
       $coverageXHR.done(function(result) {
-        console.log(result);
         var tplCoverage = swig.compile($('#tpl-coverage').html());
         var coverageHTML = tplCoverage({ data: result.summary });
         
         $('#gp-coverage').html(coverageHTML);
       });
     }
+
     // Calling all functions
     hideSearchFields();
     showDefaultFilters();
     renderYearsTabs();
-    selectYearTab(selectedTab);
+    selectYearTab(selectedConverageTab);
+    renderPerformanceTabs();
+    selectPerformanceTab(selectedPerformanceTab);
+    renderComaprisonTabs();
+    selectComparisonTab(selectedComparisonTab);
     loadCoverage();
 
     // listeners for checkboxes
@@ -107,15 +166,32 @@
       hideSearchFields();
     })
 
-    // Button year listener
+    // Coverage tabs listener
     tabs.forEach((tab) => {
-      const $tabYearId = $(`#${tab.value}-year`);
-      $tabYearId.on("click", function(e) {
-        const selectedYear = e.target.dataset.value;
-        selectedTab = selectedYear;
-        selectYearTab(tab.value);
+      const $tabId = $(`#${tab.value}`);
+      $tabId.on("click", function(e) {
+        selectedConverageTab = e.target.dataset.value;
+        selectYearTab(selectedConverageTab);
         loadCoverage();
       });
+    })
+
+    // Performance tabs listener
+    performanceTabs.forEach((tab) => {
+      const $tabId = $(`#${tab.value}`);
+      $tabId.on("click", function(e) {
+        selectedPerformanceTab = e.target.dataset.value;
+        selectPerformanceTab(selectedPerformanceTab);
+      })
+    })
+
+    // Comparison tab listener
+    comparisonTabs.forEach((tab) => {
+      const $tabId = $(`#${tab.value}`);
+      $tabId.on("click", function(e) {
+        selectedComparisonTab = e.target.dataset.value;
+        selectComparisonTab(selectedComparisonTab);
+      })
     })
 
   }

@@ -1,8 +1,8 @@
 {% verbatim %}
 
-<script type="text/html" id="tpl-year-tabs">
+<script type="text/html" id="tpl-tabs">
   {% for tab in tabs %}
-    <button class="gp-tab" id="{{ tab.value }}-year" data-value="{{ tab.value }}">{{ tab.value }}</button>
+    <button class="gp-tab" id="{{ tab.value }}" data-value="{{ tab.value }}">{{ tab.text }}</button>
   {% endfor %}
   <div class="full-width-border-bottom"></div>
 </script>
