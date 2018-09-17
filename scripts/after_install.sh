@@ -9,4 +9,4 @@ python3 manage.py migrate || exit 1
 python3 manage.py loaddata apps/*/fixtures/*.json || exit 1
 python3 manage.py collectstatic -c --noinput || exit 1
 sudo npm install -g newman || exit 1
-
+sudo npm install -g newman-reporter-html || exit 1a
