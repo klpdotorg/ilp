@@ -14,7 +14,11 @@ from django.template.loader import render_to_string
 from boundary.models import Boundary, ElectionBoundary
 from schools.models import Institution
 
-from assessments.models import SurveyInstitutionAgg
+from assessments.models import (
+    SurveyInstitutionAgg,
+    SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg,
+    SurveyInstitutionQuestionGroupQuestionKeyAgg
+)
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
 
@@ -456,7 +460,7 @@ class ClusterReport(BaseReport):
 
         num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
 
-        schools_data = self.get_school_data(AGI)
+        schools_data = self.get_school_data2(cluster, dates)
         schools = self.format_schools_data(schools_data)
 
         gka = self.getGKAData(cluster, dates)
@@ -466,6 +470,25 @@ class ClusterReport(BaseReport):
         self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
+    def get_school_data2(self, cluster, dates):
+        correct_answers = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=cluster, yearmonth__range=dates)
+        total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=cluster, yearmonth__range=dates)
+        conditions = correct_answers.values_list('institution_id__name', 'questiongroup_name').distinct()
+        contests = list(correct_answers.values_list('question_key', flat=True).distinct())
+        schools = []
+        for school, qgroup in conditions:
+            for contest in contests:
+                sum_correct_ans = correct_answers.filter(question_key=contest).aggregate(correct=Sum(num_assessments))
+                sum_total = total_assessments.filter(question_key=contest).aggregate(total=Sum(num_asessments))
+                percent = sum_correct_ans['correct']/sum_total['total'] * 100
+                details = dict(school=school, grade=qgroup)
+                details['contest'] = contest
+                details['percent'] = score*100
+
+                schools.append(details)
+        print(schools)
+        return schools
+
     def get_school_data(self,answergroup):
         conditions = answergroup.values_list('institution__name', 'questiongroup__name').distinct()
         contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
@@ -473,6 +496,7 @@ class ClusterReport(BaseReport):
         schools = []
 
         for school, qgroup in conditions:
+            # Answergroups for GP contest are one row per child
             school_ag = answergroup.filter(institution__name=school, questiongroup__name=qgroup)
             for contest in contests:
                 # This was the original logic for generating GP contest report
@@ -486,10 +510,12 @@ class ClusterReport(BaseReport):
                 # details = dict(school=school, grade=qgroup)
                 # details['contest'] = contest
                 # details['percent'] = score*100
-
+                # Number of answergroup rows == number of students
                 total_students_appeared = school_ag.count()
                 score = 0
                 for s in school_ag:
+                    #Optimistic approach to evaluating students. If a student can solve even
+                    # one question, he/she will be considered as capable of doing that key
                     if s.answers.filter(
                         question__key=contest, answer='Yes'
                     ).exists():
