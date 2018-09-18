@@ -28,9 +28,9 @@ from permissions.permissions import (
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
-    BoundaryType
+    BoundaryType, ElectionBoundary
 )
-from boundary.serializers import BoundarySerializer
+from boundary.serializers import BoundarySerializer, ElectionBoundarySerializer
 
 from schools.models import (
     Institution, InstitutionClassYearStuCount
@@ -948,4 +948,33 @@ class SurveyInstitutionLocationAPIView(ListAPIView, ILPStateMixin):
         institution_ids = qset.values_list('institution_id', flat=True)
         institutions = Institution.objects.filter(id__in=institution_ids)
         response = InstitutionSerializer(institutions, many=True).data
+        return Response(response)
+
+
+class SurveyGPAPIView(ListAPIView, ILPStateMixin):
+   
+    queryset = Institution.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        survey_tag = self.request.query_params.get('survey_tag', None)
+        survey_id = self.request.query_params.get('survey_id', None)
+        admin2_id = self.request.query_params.get('admin2_id',None)
+
+
+        if admin2_id:
+            qset = self.queryset.filter(admin2_id=admin2_id)
+        else:
+            raise ParseError("Mandatory parameter admin2_id not passed")
+
+        if survey_tag:
+            qset = qset.filter(gp__surveyelectionboundaryagg__survey_tag=survey_tag)
+        elif survey_id:
+            qset = qset.filter(gp__surveyelectionboundaryagg__survey_id=survey_id)
+        else:
+            raise ParseError("Mandatory parameter survey_id or survey_tag not passed")
+
+       
+        gp_ids = qset.values_list('gp__id', flat=True)
+        eb_qs = ElectionBoundary.objects.filter(id__in = gp_ids)
+        response = ElectionBoundarySerializer(eb_qs, many=True).data
         return Response(response)
