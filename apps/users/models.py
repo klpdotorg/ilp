@@ -162,5 +162,8 @@ class PreGroupUser(models.Model):
     group = models.ForeignKey(Group)
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return '{} - {} - {}'.format(self.source, self.mobile_no, self.group)
+
     class Meta:
         unique_together = ('mobile_no', 'source', 'group', )

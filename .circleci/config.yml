@@ -1,0 +1,73 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/klpdotorg/ilp
+    parallelism: 1
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+    shell: /bin/bash --login
+    docker:
+      - image: circleci/python:3.6.1
+        environment:
+          DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
+      - image: mdillon/postgis:9.6 # database image for service container available at `localhost:<port>`
+        environment: # environment variables for database
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: test_ilp
+    steps:
+    - checkout
+    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+    - run:
+        working_directory: ~/klpdotorg/ilp
+        command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure -f noninteractive tzdata;'
+    - run: sudo apt-get update && sudo apt-get install -y libgdal-dev python3-dev postgis postgresql-client python3-virtualenv
+    - run: python -m venv venv; source venv/bin/activate && pip --no-cache install -r requirements/test.txt
+    - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
+    - run: sudo python -m pip --no-cache install coverage requests
+    - run: . venv/bin/activate && pip --no-cache install --exists-action w -r requirements.txt && pip --no-cache install requests && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
+    - run: . venv/bin/activate && coverage report
+    - run: . venv/bin/activate && coverage html
+    - run: mkdir -p /tmp/artifacts
+    - run: mv htmlcov /tmp/artifacts
+    - run: git clean -dxf
+    - store_test_results:
+        path: /tmp/circleci-test-results
+    - store_artifacts:
+        path: /tmp/artifacts
+    
+  deploy:
+    docker:
+      # Python image required for AWS client
+      - image: circleci/python:2.7
+    working_directory: ~/ilp
+    steps:
+      - checkout
+      - run:
+          name: Install pip & Intall awscli
+          command: 'sudo apt-get update && sudo apt-get install python-pip && sudo pip install awscli'
+      - run:
+          name: Deploy using CodeDeploy
+          command: |
+            # Changing env based on branch
+            [[ $CIRCLE_BRANCH == 'master' ]] && env=staging || env=dev ;\
+            aws deploy create-deployment \
+            --application-name ilpdev \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --deployment-group-name ilp${env}-group \
+            --ignore-application-stop-failures \
+            --description 'ILP GitHub deployment' \
+            --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          filters:
+            branches:
+              only: 
+                - nextrelease
+                - master
+          requires:
+            - build

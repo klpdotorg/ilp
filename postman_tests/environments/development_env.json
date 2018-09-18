@@ -1,0 +1,41 @@
+{
+  "id": "b113a2f8-6b5e-4275-9d83-8fdc6b39a5dd",
+  "name": "Development",
+  "values": [
+    {
+      "key": "server",
+      "value": "dev.ilp.org.in",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "protocol",
+      "value": "https",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "dise_server",
+      "value": "dise.dev.ilp.org.in",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "state",
+      "value": "ka",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    },
+    {
+      "key": "primary_district",
+      "value": "414",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-08-13T05:06:31.654Z",
+  "_postman_exported_using": "Postman/6.1.4"
+}
