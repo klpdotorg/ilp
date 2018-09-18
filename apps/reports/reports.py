@@ -17,21 +17,22 @@ from schools.models import Institution
 from assessments.models import (
     SurveyInstitutionAgg,
     SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyInstitutionQuestionGroupQuestionKeyAgg
+    SurveyInstitutionQuestionGroupQuestionKeyAgg,
+    SurveyInstitutionQuestionGroupGenderAgg,
+    SurveyInstitutionQuestionGroupAgg
 )
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
-
+from django.db.models import Sum
 from .models import Reports, Tracking
 from .helpers import calc_stud_performance
 
 
 def format_academic_year(date_string):
-    return '{}-{}-{}'.format(
-        date_string[-2:],
-        date_string[-5:-3],
-        date_string[:4]
-    )
+    print("Inside format_academic_year", date_string)
+    date = datetime(year=int(date_string[0:4]), month=int(date_string[4:6]))
+    print("Date is: ", date)
+    return date.strftime("%m%Y")
 
 
 class BaseReport(ABC):
@@ -440,7 +441,7 @@ class ClusterReport(BaseReport):
         self.params = dict(cluster_name=self.cluster_name, block_name=self.block_name, district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
+        dates = [self.report_from, self.report_to] # [201606,201702]
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
         try:
              # Take the cluster from db
@@ -449,25 +450,29 @@ class ClusterReport(BaseReport):
             raise ValueError("Cluster '{}' cannot be found in the database".format(self.cluster_name))
 
         no_of_schools_in_cluster = Institution.objects.filter(admin3=cluster).count() # Number of schools in cluster
-
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
-        if not AGI.exists():
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin3=cluster,survey_id=2,yearmonth__range=dates)
+        #AGI = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        if not aggregates.exists():
             raise ValueError("No GP contest data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
-
-        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
-        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(institution_id__admin3=cluster, survey_id=2, yearmonth__range=dates)
+        num_boys = gender_agg.filter(gender='Male').count()
+        num_girls = gender_agg.filter(gender='Female').count()
         number_of_students = num_boys + num_girls
+        # num_boys = aggregates.filter(answers__question__key='Gender', answers__answer='Male').count()
+        # num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
 
-        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
+        num_contests = aggregates.values_list('institution_id', flat=True).distinct().count()
 
         schools_data = self.get_school_data2(cluster, dates)
         schools = self.format_schools_data(schools_data)
 
-        gka = self.getGKAData(cluster, dates)
+        #gka = self.getGKAData(cluster, dates)
 
-        household = self.getHouseholdSurvey(cluster,dates)
+        # household = self.getHouseholdSurvey(cluster,dates)
 
-        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        # self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {'cluster':self.cluster_name.title(), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+
         return self.data
 
     def get_school_data2(self, cluster, dates):
@@ -478,15 +483,15 @@ class ClusterReport(BaseReport):
         schools = []
         for school, qgroup in conditions:
             for contest in contests:
-                sum_correct_ans = correct_answers.filter(question_key=contest).aggregate(correct=Sum(num_assessments))
-                sum_total = total_assessments.filter(question_key=contest).aggregate(total=Sum(num_asessments))
+                sum_correct_ans = correct_answers.filter(question_key=contest).aggregate(correct=Sum('num_assessments'))
+                sum_total = total_assessments.filter(question_key=contest).aggregate(total=Sum('num_assessments'))
                 percent = sum_correct_ans['correct']/sum_total['total'] * 100
                 details = dict(school=school, grade=qgroup)
                 details['contest'] = contest
-                details['percent'] = score*100
+                details['percent'] = percent
 
                 schools.append(details)
-        print(schools)
+        # print(schools)
         return schools
 
     def get_school_data(self,answergroup):
