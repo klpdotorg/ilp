@@ -18,6 +18,8 @@ do
     echo "Exit code from newman is: $exit_code"
     if [ $exit_code != 0 ]
     then
+        zip -r test_results_summary.zip test_results_summary
+        echo "Warning: Postman tests failure post-deployment. Check deployment" | mail -s "Subject Here" anutha.m@optit.co -A test_results_summary.zip
         echo "Exit is not clean. $f collection failed"
         exit $exit_code
     else
