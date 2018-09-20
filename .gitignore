@@ -63,3 +63,5 @@ collected-static/
 
 # media folder (uploads)
 media/
+
+.idea/
