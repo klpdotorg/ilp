@@ -153,6 +153,33 @@
       });
     }
 
+    // Fetch performance info
+    function loadPerformance() {
+      const selectedYearInfo = tabs.find((tab) => {
+        return tab.value === selectedConverageTab;
+      });
+
+      var $performanceXHR = klp.api.do(
+         `survey/detail/questiongroup/key/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
+      );
+      $performanceXHR.done(function(result) {
+        var chartData = {};
+        for(var i = 4; i <= 6; i++) {
+          chartData['class' + i] = {
+            labels: _.keys(result['Class ' + i +' Assessment']),
+            series: [_.map(result['Class ' + i +' Assessment'], function(r){
+              return Math.round((r.score / r.total) * 100);
+            })]
+          };
+        }
+
+        console.log(chartData);
+        renderBarChart('#gp-performance-class-4', chartData.class4);
+        renderBarChart('#gp-performance-class-5', chartData.class5);
+        renderBarChart('#gp-performance-class-6', chartData.class6);
+      });
+    }
+
     // Calling all functions
     hideSearchFields();
     showDefaultFilters();
@@ -162,7 +189,10 @@
     selectPerformanceTab(selectedPerformanceTab);
     renderComaprisonTabs();
     selectComparisonTab(selectedComparisonTab);
+
+    // Start filling the default views/tabs
     loadCoverage();
+    loadPerformance();
 
     // listeners for checkboxes
     $educational_hierarchy_checkbox.on("change", function(value) {
@@ -195,6 +225,7 @@
       $tabId.on("click", function(e) {
         selectedPerformanceTab = e.target.dataset.value;
         selectPerformanceTab(selectedPerformanceTab);
+        loadPerformance();
       })
     })
 
@@ -206,6 +237,71 @@
         selectComparisonTab(selectedComparisonTab);
       })
     })
+
+    // Charts renderers
+    function renderBarChart(elementId, data, yTitle=' ') {
+
+        var options = {
+            seriesBarDistance: 10,
+            axisX: {
+                showGrid: true,
+                offset: 80
+            },
+            axisY: {
+                showGrid: true,
+                // offset: 80
+            },
+            position: 'start',
+            plugins: [
+                Chartist.plugins.tooltip(),
+                Chartist.plugins.ctAxisTitle({
+                  axisX: {
+                    //No label
+                  },
+                  axisY: {
+                    axisTitle: yTitle,
+                    axisClass: 'ct-axis-title',
+                    offset: {
+                      x: 0,
+                      y: 0
+                    },
+                    textAnchor: 'middle',
+                    flipTitle: false
+                  }
+                })
+            ]
+        };
+
+        var responsiveOptions = [
+            ['screen and (max-width: 749px)', {
+                seriesBarDistance: 5,
+                height: '200px',
+                axisX: {
+                  labelInterpolationFnc: function (value) {
+                    if (value.length > klp.GKA.GRAP_LABEL_MAX_CHAR) {
+                      return value.slice(0, klp.GKA.GRAP_LABEL_MAX_CHAR) + '..'
+                    }
+
+                    return value;
+                  },
+                  offset: 80
+                }
+            }]
+        ];
+
+        var $chart_element = Chartist.Bar(elementId, data, options, responsiveOptions).on('draw', function(chartData) {
+            if (chartData.type === 'bar') {
+                chartData.element.attr({
+                    style: 'stroke-width: 15px;'
+                });
+            }
+            if (chartData.type === 'label' && chartData.axis === 'x') {
+                chartData.element.attr({
+                    width: 200
+                })
+            }
+        });
+    }
 
   }
 })()
