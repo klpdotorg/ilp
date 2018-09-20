@@ -5106,3 +5106,68 @@ span.tab {
     page-break-inside: avoid; } }
 
 /*# sourceMappingURL=style.css.map */
+
+/* GP contest dasboard */
+.gp-contest-graphs {
+  display: flex;
+  flex-direction: row;
+}
+
+.gp-contest-graph {
+  flex: 1;
+  border: 1px solid;
+  padding: 10px;
+  margin: 10px;
+}
+
+.center-elements {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tabs style */
+.gp-tab {
+  font-size: 15px;
+  font-weight: 600;
+  background: #f0f0f0;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 8px;
+  padding-bottom: 13px;
+  border-top-width: 6px;
+  border-top-color: #f0f0f0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  outline: 0;
+}
+
+.selected-gp-tab {
+  border-top-width: 6px;
+  border-top-color: green;
+  background: white;
+  border-bottom-width: 0;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-left-color: #f0f0f0;
+  border-right-color: #f0f0f0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.gp-tabs {
+  display: flex;
+  flex-direction: row;
+}
+
+.gp-coverage-section {
+  border-left: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.full-width-border-bottom {
+  flex: 1;
+  border-bottom: 1px solid #f0f0f0;
+}
