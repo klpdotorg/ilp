@@ -706,6 +706,8 @@ var topSummaryData = {};
             questions = getQuestionsArray(questionObjects),
             regroup = {},
             tplResponses = swig.compile($('#tpl-smsResponses').html());
+
+            console.log(data)
         
         for (var each in questions) {
             regroup[questions[each]["key"]] = questions[each];
@@ -724,8 +726,8 @@ var topSummaryData = {};
 
         /*  On April 18th, 2018, we introduced a new logic to calculate 
             tlm usage and group work percentages.
-            Now, instead of using the whole survey score to calculate percentage (the denomincator), we only take "math class hapenning" key's Yes count.
-        */
+            Now, instead of using the whole survey score to calculate percentage (the denominator), we only take "math class hapenning" key's Yes count.
+
         var mathClassScore = regroup['ivrss-math-class-happening'].score;
         regroup = updatePercentageUsingMathClassNo(
             regroup, 'ivrss-gka-tlm-in-use', mathClassScore
@@ -733,6 +735,11 @@ var topSummaryData = {};
         regroup = updatePercentageUsingMathClassNo(
             regroup, 'ivrss-group-work', mathClassScore
         );
+
+        We have reverted back the old logic as of September 5, 2018.
+
+        */
+
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
@@ -817,7 +824,6 @@ var topSummaryData = {};
                 }
             ],
         }
-        console.log(sms_sender)
         renderBarChart('#smsSender', sms_sender);
     }
 
@@ -1647,6 +1653,8 @@ var topSummaryData = {};
             };
 
             _.each(sources, function(s) {
+
+                combinedData.key = k;
 
                 var data = _.find(sourceData[s], function(d){
                     return d.question.key === k;
