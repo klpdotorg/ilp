@@ -124,6 +124,35 @@ class QuestionGroup(models.Model):
         )
 
 
+class Concept(models.Model):
+    char_id = models.CharField(max_length=50, primary_key=True)
+    description = models.CharField(max_length=50)
+
+
+class MicroConceptGroup(models.Model):
+    char_id = models.CharField(max_length=50, primary_key=True)
+    description = models.CharField(max_length=50)
+
+class MicroConcept(models.Model):
+    char_id = models.CharField(max_length=150, primary_key=True)
+    description = models.CharField(max_length=150)
+
+
+class QuestionLevel(models.Model):
+    char_id = models.CharField(max_length=20, primary_key=True)
+    description = models.CharField(max_length=50)
+
+
+class QuestionInformationType(models.Model):
+    char_id = models.CharField(max_length=20, primary_key=True)
+    description = models.CharField(max_length=50)
+
+
+class LearningIndicator(models.Model):
+    char_id = models.CharField(max_length=20, primary_key=True)
+    description = models.CharField(max_length=50)
+
+
 class Question(models.Model):
     """pool of questions"""
     question_text = models.CharField(max_length=300)
@@ -137,6 +166,13 @@ class Question(models.Model):
     status = models.ForeignKey('common.Status')
     max_score = models.IntegerField(null=True)
     pass_score = models.CharField(max_length=100, null=True)
+    concept = models.ForeignKey('Concept', null=True, blank=True)
+    microconcept_group = models.ForeignKey('MicroConceptGroup', null=True, blank=True)
+    microconcept = models.ForeignKey('MicroConcept', null=True, blank=True)
+    question_level = models.ForeignKey('QuestionLevel', null=True, blank=True)# (beginner, intermediate and advanced) ,  i
+    question_info_type = models.ForeignKey('QuestionInformationType', null=True, blank=True)# (abstract, comprehend, semi_abstract, visual), 
+    learning_indicator = models.ForeignKey('LearningIndicator', null=True, blank=True)#(analytical_skills, knowledge, understanding, application)
+    
 
 
 class QuestionGroupKey(models.Model):
@@ -144,6 +180,23 @@ class QuestionGroupKey(models.Model):
     questiongroup = models.ForeignKey('QuestionGroup')
     key = models.CharField(max_length=50, null=True)
     max_score = models.IntegerField(null=True)
+
+
+class QuestionGroupConcept(models.Model):
+    """question key information"""
+    questiongroup = models.ForeignKey('QuestionGroup')
+    concept = models.CharField(max_length=50, null=True)
+    microconcept_group = models.CharField(max_length=50, null=True)
+    microconcept = models.CharField(max_length=150, null=True)
+    pass_score = models.IntegerField(null=True)
+
+
+class QuestionGroupKey(models.Model):
+    """question key information"""
+    questiongroup = models.ForeignKey('QuestionGroup')
+    key = models.CharField(max_length=50, null=True)
+    max_score = models.IntegerField(null=True)
+
 
 
 class PartnerType(models.Model):

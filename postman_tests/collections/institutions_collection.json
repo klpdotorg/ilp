@@ -1,0 +1,528 @@
+{
+	"id": "f1debb90-8401-41ad-9687-358648ad1112",
+	"name": "Institution Endpoints",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"096d061e-9649-4f4d-ac23-4ef2c1cdd385",
+		"2be474a8-3e15-4c1c-a729-655e148f139b",
+		"283016ce-89c5-460a-9e73-91d4bf14f8d7",
+		"406e06a7-564c-453c-a789-83fc84504237",
+		"cf5e560b-2eaa-460f-9d7b-88da3a35a7cd",
+		"a3e993e9-b528-46ce-a2dc-c462a2f8a326",
+		"5fe47685-0e43-47a8-b15e-bef2bce0a11c"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "096d061e-9649-4f4d-ac23-4ef2c1cdd385",
+			"name": "School Map page - fetch all preschools",
+			"url": "{{protocol}}://{{server}}/api/v1/institutions/list?lean=true&school_type=preschools&geometry=yes&bbox=77.46687412261963%2C12.952912333491295%2C77.71389484405518%2C13.005938686345594&state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "lean",
+					"value": "true",
+					"equals": true,
+					"description": "Requests only bare minimum info from endpoint",
+					"enabled": true
+				},
+				{
+					"key": "school_type",
+					"value": "preschools",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "bbox",
+					"value": "77.46687412261963%2C12.952912333491295%2C77.71389484405518%2C13.005938686345594",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8eb45a48-5ca0-4fe5-ab2e-78f21a83e37d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"pm.test(\"Feature has geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   feature = jsonData.features[0]",
+							"   pm.expect(feature).to.have.property('geometry')",
+							"   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"});",
+							"pm.test(\"Coords in bbox sent in request\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    coords = feature.geometry.coordinates;",
+							"    //x coord",
+							"    pm.expect(coords[0]).to.be.above(77.46687);",
+							"    pm.expect(coords[0]).to.be.below(77.71389);",
+							"    ",
+							"    //y coord",
+							"    pm.expect(coords[1]).to.be.above(12.952912);",
+							"    pm.expect(coords[1]).to.be.below(13.005938);",
+							"    ",
+							"})",
+							"",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"pre\")",
+							"",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "283016ce-89c5-460a-9e73-91d4bf14f8d7",
+			"name": "School Map page - fetch all primaryschools No BBOX",
+			"url": "{{protocol}}://{{server}}/api/v1/institutions/list?lean=true&state=ka&school_type=primaryschools&geometry=yes",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "lean",
+					"value": "true",
+					"equals": true,
+					"description": "Requests only bare minimum info from endpoint",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "school_type",
+					"value": "primaryschools",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "bbox",
+					"value": "77.46687412261963%2C12.952912333491295%2C77.71389484405518%2C13.005938686345594",
+					"equals": true,
+					"description": "",
+					"enabled": false
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4413d945-7fe8-43cf-9b00-098dec7b7757",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Count > 0 \", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('count')",
+							"    pm.expect(jsonData.count).to.be.above(0)",
+							"})",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"// pm.test(\"Feature has geometry\", function() {",
+							"//   var jsonData = pm.response.json();",
+							"//   feature = jsonData.features[0]",
+							"//   pm.expect(feature).to.have.property('geometry')",
+							"//   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"// });",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"primary\")",
+							"",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "2be474a8-3e15-4c1c-a729-655e148f139b",
+			"name": "School Map page - fetch all primaryschools",
+			"url": "{{protocol}}://{{server}}/api/v1/institutions/list?lean=true&school_type=primaryschools&geometry=yes&bbox=77.46687412261963%2C12.952912333491295%2C77.71389484405518%2C13.005938686345594",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "lean",
+					"value": "true",
+					"equals": true,
+					"description": "Requests only bare minimum info from endpoint",
+					"enabled": true
+				},
+				{
+					"key": "school_type",
+					"value": "primaryschools",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "bbox",
+					"value": "77.46687412261963%2C12.952912333491295%2C77.71389484405518%2C13.005938686345594",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea1018da-8460-4c8d-8cd8-65674aefd478",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Count > 0 \", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('count')",
+							"    pm.expect(jsonData.count).to.be.above(0)",
+							"})",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"pm.test(\"Feature has geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   feature = jsonData.features[0]",
+							"   pm.expect(feature).to.have.property('geometry')",
+							"   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"});",
+							"pm.test(\"Coords in bbox sent in request\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    coords = feature.geometry.coordinates;",
+							"    //x coord",
+							"    pm.expect(coords[0]).to.be.above(77.46687);",
+							"    pm.expect(coords[0]).to.be.below(77.71389);",
+							"    ",
+							"    //y coord",
+							"    pm.expect(coords[1]).to.be.above(12.952912);",
+							"    pm.expect(coords[1]).to.be.below(13.005938);",
+							"    ",
+							"})",
+							"",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"primary\")",
+							"",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "406e06a7-564c-453c-a789-83fc84504237",
+			"name": "GET preschool INFO",
+			"url": "{{protocol}}://{{server}}/api/v1/institutions/29560?state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1dbcaea9-88f2-4e68-ab05-528d3ad417ad",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"Body doesn't have geometry\", function () {",
+							"    body = pm.response.json();",
+							"    pm.expect(body).to.not.have.property(\"geometry\")",
+							"})",
+							"pm.test(\"Body has requisite values\", function () {",
+							"    body = pm.response.json();",
+							"    requiredKeys =[\"id\", \"name\", \"address\", \"boundary\", \"admin1\", \"admin2\", \"admin3\", \"type\", \"category\"];",
+							"    requiredKeys.every(k => pm.expect(body).to.have.property(k));",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "5fe47685-0e43-47a8-b15e-bef2bce0a11c",
+			"name": "GET primary school INFO",
+			"url": "{{protocol}}://{{server}}/api/v1/institutions/32005?state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2accdc5-2723-4438-ba8c-6baf7e4476d9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"Body has requisite values\", function () {",
+							"    body = pm.response.json();",
+							"    requiredKeys =[\"id\", \"name\", \"address\", \"boundary\", \"admin1\", \"admin2\", \"admin3\", \"type\", \"category\"];",
+							"    requiredKeys.every(k => pm.expect(body).to.have.property(k));",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "a3e993e9-b528-46ce-a2dc-c462a2f8a326",
+			"name": "GET primary school INFO with GEO",
+			"url": "{{protocol}}://{{server}}/api/v1/institutions/32005?state=ka&geometry=yes",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f901a77-e0e0-4389-a55a-6cc721ec3948",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"Body has requisite values\", function () {",
+							"    body = pm.response.json();",
+							"    pm.expect(body).to.have.property(\"properties\")",
+							"    properties = body.properties",
+							"    pm.expect(body).to.have.property(\"geometry\")",
+							"    requiredKeys =[\"id\", \"name\", \"address\", \"boundary\", \"admin1\", \"admin2\", \"admin3\", \"type\", \"category\"];",
+							"    requiredKeys.every(k => pm.expect(properties).to.have.property(k));",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "cf5e560b-2eaa-460f-9d7b-88da3a35a7cd",
+			"name": "GET preschool INFO with GEO",
+			"url": "{{protocol}}://{{server}}/api/v1/institutions/29560?state=ka&geometry=yes",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f901a77-e0e0-4389-a55a-6cc721ec3948",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"Body has requisite values\", function () {",
+							"    body = pm.response.json();",
+							"    pm.expect(body).to.have.property(\"properties\")",
+							"    properties = body.properties",
+							"    pm.expect(body).to.have.property(\"geometry\")",
+							"    requiredKeys =[\"id\", \"name\", \"address\", \"boundary\", \"admin1\", \"admin2\", \"admin3\", \"type\", \"category\"];",
+							"    requiredKeys.every(k => pm.expect(properties).to.have.property(k));",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}

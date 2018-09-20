@@ -1,0 +1,644 @@
+{
+	"info": {
+		"_postman_id": "65bca5a4-fc1a-4ea3-9da1-762a91a2fbcf",
+		"name": "DISE API endpoints",
+		"description": "Tests all the DISE API endpoints for schools",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DISE finance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "41a75800-9ed1-4520-a312-a7ec163a51c7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"JSON has id\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   jsonData.id !== null",
+							"});",
+							"pm.test(\"JSON has properties\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   console.log(jsonData.properties)",
+							"   jsonData.properties !== null",
+							"});",
+							"",
+							"pm.test(\"ID value matches request\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(29200905643);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/school/29200905643/finance/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"school",
+						"29200905643",
+						"finance",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE infra",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c9bbd80-59ab-4394-bfd4-eb49114bebf0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"JSON has id\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   jsonData.id !== undefined",
+							"   pm.expect(jsonData).to.have.property('id');",
+							"   pm.expect(jsonData.id).to.eql(29200905643);",
+							"});",
+							"pm.test(\"JSON has properties\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('properties');",
+							"",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/school/29200905643/infrastructure/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"school",
+						"29200905643",
+						"infrastructure",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE school details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ee964958-02e9-4828-90a0-0530a24059e1",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"JSON has id\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   jsonData.id !== undefined",
+							"   pm.expect(jsonData).to.have.property('id');",
+							"   pm.expect(jsonData.id).to.eql(29200905643);",
+							"});",
+							"pm.test(\"JSON has properties\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('properties')",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/school/29200905643/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"school",
+						"29200905643",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE schools list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a45b5b3-3b4d-4767-a025-23bce2e52c7f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Response has results field\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('results');",
+							"});",
+							"pm.test(\"Results has a features field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results).to.have.property('features');",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/school/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"school",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE ALL districts aggregation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2045b9d7-69b8-4747-89c6-d5bbe56b574f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Response has results field\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('results');",
+							"});",
+							"pm.test(\"Results has a features field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results).to.have.property('features');",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/district/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"district",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE single block details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9648d5eb-864d-4f73-8fbc-290f6784873b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Results has a properties field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('properties');",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/block/bengaluru-u-south-south3/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"block",
+						"bengaluru-u-south-south3",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE single cluster aggregation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00bfb4f4-2630-4dd3-b137-02d7e4451126",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Results has a properties field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('properties');",
+							"});",
+							"pm.test(\"Results has an ID field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('id');",
+							"});",
+							"",
+							"",
+							"pm.test(\"ID matches query\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(\"nelamangala-manne\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/cluster/nelamangala-manne/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"cluster",
+						"nelamangala-manne",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE schools assembly aggregation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2045b9d7-69b8-4747-89c6-d5bbe56b574f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Response has results field\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('results');",
+							"});",
+							"pm.test(\"Results has a features field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results).to.have.property('features');",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/assembly/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"assembly",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE schools parliament aggregation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2045b9d7-69b8-4747-89c6-d5bbe56b574f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Response has results field\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('results');",
+							"});",
+							"pm.test(\"Results has a features field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results).to.have.property('features');",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/parliament/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"parliament",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE clusters inside blocks agg",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86c83f62-f9b7-4f22-8cb6-91a533a47921",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Response has results field\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('results');",
+							"});",
+							"pm.test(\"Results has a features field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results).to.have.property('features');",
+							"});",
+							"pm.test(\"Actual blocks are present in the data\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.count).to.be.above(0);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/district/karnataka-bengaluru-u-south/blocks/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"district",
+						"karnataka-bengaluru-u-south",
+						"blocks",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DISE blocks inside districts agg",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86c83f62-f9b7-4f22-8cb6-91a533a47921",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData !== undefined",
+							"});",
+							"pm.test(\"Response has results field\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('results');",
+							"});",
+							"pm.test(\"Results has a features field\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results).to.have.property('features');",
+							"});",
+							"pm.test(\"Actual blocks are present in the data\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.count).to.be.above(0);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{dise_server}}/api/16-17/district/karnataka-bengaluru-u-south/blocks/?format=json",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{dise_server}}"
+					],
+					"path": [
+						"api",
+						"16-17",
+						"district",
+						"karnataka-bengaluru-u-south",
+						"blocks",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,566 @@
+{
+	"id": "0ac694ad-3389-4983-a765-bfee120921d2",
+	"name": "Admin Boundary Endpoints",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"d97d087a-2183-4c87-ae26-dd5e844947b0",
+		"1426ec9f-bf2c-4f48-8d0b-791e06d1f974",
+		"8d0b74a6-1ea7-4685-b4db-ef6bfbcdd18b",
+		"1edad89c-cdbe-4fa2-b41c-61ccf1f45375",
+		"2c6d4502-5b70-4516-90aa-284c6f5e7328",
+		"d9b6087c-52e5-478e-b803-c862a58e19f9"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "1426ec9f-bf2c-4f48-8d0b-791e06d1f974",
+			"name": "GET Preschool Admin1 Boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundary/admin1s?school_type=pre&geometry=yes&per_page=0&state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "school_type",
+					"value": "pre",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "per_page",
+					"value": "0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "963129ec-b648-41b1-ad7f-f3aac8e089a4",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"    pm.expect(pm.response.json().count).to.be.above(0)",
+							"});",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"pm.test(\"Feature has geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   //Pick some value in the middle between 0-10",
+							"   feature = jsonData.features[3]",
+							"   pm.expect(feature).to.have.property('geometry')",
+							"   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"});",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"});",
+							"pm.test(\"School type is primary\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"pre\")",
+							"    ",
+							"});",
+							"pm.test(\"Boundary type is preschool districts\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature.properties.boundary_type).to.eql(\"PD\")",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "1edad89c-cdbe-4fa2-b41c-61ccf1f45375",
+			"name": "GET Preschool Admin2 Boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundary/admin2s?school_type=pre&geometry=yes&per_page=0&state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "school_type",
+					"value": "pre",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "per_page",
+					"value": "0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92e82b12-698a-4815-b9ea-e05d71aa8b78",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"    pm.expect(pm.response.json().count).to.be.above(0)",
+							"});",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"pm.test(\"Feature has geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   //Pick some value in the middle between 0-10",
+							"   feature = jsonData.features[3]",
+							"   pm.expect(feature).to.have.property('geometry')",
+							"   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"});",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"});",
+							"pm.test(\"School type is preschool\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"pre\")",
+							"    ",
+							"});",
+							"pm.test(\"Boundary type is preschool projects\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature.properties.boundary_type).to.eql(\"PP\")",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "2c6d4502-5b70-4516-90aa-284c6f5e7328",
+			"name": "GET Preschool Admin3 Boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundary/admin3s?school_type=pre&geometry=yes&per_page=0&state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "school_type",
+					"value": "pre",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "per_page",
+					"value": "0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e6bf38a-28ed-402a-8d74-f89974a4f1e2",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"    pm.expect(pm.response.json().count).to.be.above(0)",
+							"});",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"pm.test(\"Feature has geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   //Pick some value in the middle between 0-10",
+							"   feature = jsonData.features[10]",
+							"   pm.expect(feature).to.have.property('geometry')",
+							"   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"});",
+							"pm.test(\"Feature does not have geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"// Ananda nagara (heggeri) doesn't have co-ordinates",
+							"feature = jsonData.features[3]",
+							"   pm.expect(feature.geometry).to.eql({})",
+							"});",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"});",
+							"pm.test(\"School type is preschool\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"pre\")",
+							"    ",
+							"});",
+							"pm.test(\"Boundary type is preschool projects\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[3]",
+							"    pm.expect(feature.properties.boundary_type).to.eql(\"PC\")",
+							"})"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "8d0b74a6-1ea7-4685-b4db-ef6bfbcdd18b",
+			"name": "GET Primary Admin2 Boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundary/admin2s?school_type=primary&geometry=yes&per_page=0&state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "school_type",
+					"value": "primary",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "per_page",
+					"value": "0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "001f6d4b-99d1-495d-8428-19e42b795b7d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.success",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"pm.test(\"Feature has geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   //Pick some value in the middle between 0-10",
+							"   feature = jsonData.features[8]",
+							"   pm.expect(feature).to.have.property('geometry')",
+							"   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"});",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"});",
+							"pm.test(\"School type is primary\", function() {",
+							"     var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"primary\")",
+							"    pm.expect(feature.properties.boundary_type).to.eql(\"SB\")",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "d97d087a-2183-4c87-ae26-dd5e844947b0",
+			"name": "GET Primary Admin1 Boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundary/admin1s?school_type=primary&geometry=yes&per_page=0&state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "school_type",
+					"value": "primary",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "per_page",
+					"value": "0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3aa5580a-1619-4358-9534-bff50a62bf06",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.ok",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"pm.test(\"Feature has geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   //Pick some value in the middle between 0-10",
+							"   feature = jsonData.features[8]",
+							"   pm.expect(feature).to.have.property('geometry')",
+							"   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"});",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"});",
+							"pm.test(\"School type is primary\", function() {",
+							"     var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"primary\")",
+							"    pm.expect(feature.properties.boundary_type).to.eql(\"SD\")",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "d9b6087c-52e5-478e-b803-c862a58e19f9",
+			"name": "GET Primary Admin3 Boundaries",
+			"url": "{{protocol}}://{{server}}/api/v1/boundary/admin3s?school_type=primary&geometry=yes&per_page=0&state=ka",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [
+				{
+					"key": "school_type",
+					"value": "primary",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "geometry",
+					"value": "yes",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "per_page",
+					"value": "0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "state",
+					"value": "ka",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2cc26620-025b-47b3-a527-b6b8e9942c90",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.be.success",
+							"});",
+							"pm.test(\"Response has body\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody('')",
+							"});",
+							"pm.test(\"JSON has features\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   pm.expect(jsonData).to.have.property('features');",
+							"});",
+							"pm.test(\"Feature has geometry\", function() {",
+							"   var jsonData = pm.response.json();",
+							"   //Pick some value in the middle between 0-10",
+							"   feature = jsonData.features[8]",
+							"   pm.expect(feature).to.have.property('geometry')",
+							"   pm.expect(feature.geometry).to.have.property('coordinates')",
+							"});",
+							"pm.test(\"Feature has properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"});",
+							"pm.test(\"School type is primary\", function() {",
+							"     var jsonData = pm.response.json();",
+							"    feature = jsonData.features[0]",
+							"    pm.expect(feature).to.have.property('properties')",
+							"    pm.expect(feature.properties).to.have.property('type')",
+							"    pm.expect(feature.properties.type).to.eql(\"primary\")",
+							"    pm.expect(feature.properties.boundary_type).to.eql(\"SC\")",
+							"});"
+						]
+					}
+				}
+			],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}
