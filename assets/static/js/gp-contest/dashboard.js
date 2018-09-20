@@ -44,11 +44,24 @@
     klp.gp_filters.init();
     klp.router = new KLPRouter();
     klp.router.init();
+    klp.router.events.on('hashchange', function(event, params) {
+      hashChanged(params);
+    });
+    klp.router.start();
 
     $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
     $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
     $('#startDate').yearMonthSelect("setDate", moment("20180601", "YYYYMMDD"));
     $('#endDate').yearMonthSelect("setDate", moment("20190331", "YYYYMMDD"));
+
+    // Triggers hash changes into appropriate function calls
+    function hashChanged(params) {
+      if(window.location.hash) {
+        if(window.location.hash == '#resetButton') {
+          window.location.href = '/gp-contest';
+        }
+      }
+    }
 
     function showDefaultFilters() {
       // Setting educational_hierarchy by default true
