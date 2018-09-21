@@ -14,7 +14,8 @@ do
     echo "Processing $f file..."
     file_name=$(basename $f .json)
     echo $file_name
-    sudo newman run $f -e $1 -r cli,html --reporter-html-export $TEST_RESULTS_DIR/$file_name.html
+    #sudo newman run $f -e $1 -r cli,html --reporter-html-export $TEST_RESULTS_DIR/$file_name.html
+    newman run $f -e $1
     exit_code=$?
     echo "Exit code from newman is: $exit_code"
     if [ $exit_code != 0 ]
