@@ -159,25 +159,48 @@
         return tab.value === selectedConverageTab;
       });
 
-      var $performanceXHR = klp.api.do(
-         `survey/detail/questiongroup/key/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
-      );
-      $performanceXHR.done(function(result) {
-        var chartData = {};
-        for(var i = 4; i <= 6; i++) {
-          chartData['class' + i] = {
-            labels: _.keys(result['Class ' + i +' Assessment']),
-            series: [_.map(result['Class ' + i +' Assessment'], function(r){
-              return Math.round((r.score / r.total) * 100);
-            })]
-          };
-        }
+      if(selectedPerformanceTab === 'basic') {
+        var $performanceXHR = klp.api.do(
+           `survey/detail/questiongroup/key/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
+        );
+        $performanceXHR.done(function(result) {
+          var chartData = {};
+          for(var i = 4; i <= 6; i++) {
+            chartData['class' + i] = {
+              labels: _.keys(result['Class ' + i +' Assessment']),
+              series: [_.map(result['Class ' + i +' Assessment'], function(r){
+                return Math.round((r.score / r.total) * 100);
+              })]
+            };
+          }
 
-        console.log(chartData);
-        renderBarChart('#gp-performance-class-4', chartData.class4);
-        renderBarChart('#gp-performance-class-5', chartData.class5);
-        renderBarChart('#gp-performance-class-6', chartData.class6);
-      });
+          console.log(chartData);
+          renderBarChart('#gp-performance-class-4', chartData.class4);
+          renderBarChart('#gp-performance-class-5', chartData.class5);
+          renderBarChart('#gp-performance-class-6', chartData.class6);
+        });
+      } else {
+        var $performanceXHR = klp.api.do(
+           `survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
+        );
+        $performanceXHR.done(function(result) {
+          var chartData = {};
+          for(var i = 4; i <= 6; i++) {
+            chartData['class' + i] = {
+              labels: _.keys(result['Class ' + i +' Assessment']),
+              series: [_.map(result['Class ' + i +' Assessment'], function(r){
+                return Math.round((r.score / r.total) * 100);
+              })]
+            };
+          }
+
+          console.log(chartData);
+          renderBarChart('#gp-performance-class-4', chartData.class4);
+          renderBarChart('#gp-performance-class-5', chartData.class5);
+          renderBarChart('#gp-performance-class-6', chartData.class6);
+        });
+      } /* if else ends */
+
     }
 
     // Calling all functions
