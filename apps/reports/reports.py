@@ -601,17 +601,18 @@ class BlockReport(BaseReport):
         except Boundary.DoesNotExist:
             raise ValueError("Block '{}' cannot be found in the database".format(self.block_name))
 
-        num_schools = Institution.objects.filter(admin2=block).count() # schools in block
+        no_of_schools_in_block = Institution.objects.filter(admin3=cluster).count() # Number of schools in cluster
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin2=block,survey_id=2,yearmonth__range=dates)
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
-        if not AGI.exists():
+        if not aggregates.exists():
             raise ValueError("No GP contest data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
-
-        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
-        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(institution_id__admin2=block, survey_id=2, yearmonth__range=dates)
+        num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
+        num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
         number_of_students = num_boys + num_girls
+   
+        num_contests = aggregates.values_list('institution_id', flat=True).distinct().count()
 
-        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
 
         cluster_gpc_data = self.get_cluster_GPC(AGI)
         gpc_clusters = self.format_cluster_data(cluster_gpc_data)
@@ -620,7 +621,7 @@ class BlockReport(BaseReport):
 
         household = self.getHouseholdSurvey(block, dates)
 
-        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'no_schools':num_schools_in_block, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
     def get_cluster_GPC(self,answergroup):

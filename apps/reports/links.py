@@ -50,6 +50,7 @@ def send_recipient(report_type, report_from, report_to, reader, dry, start_from 
                     successfull += 1
                     messages.append("{} has been sent to {} ({})".format(report_type, arg['name'], arg['number']))
                 except Exception as e:
+                    print(e)
                     messages.append(e.args[0])
                     if quit_on_error:
                         print("Error on line {}. Use --skip parameter with this value to continue.".format(line_no))
