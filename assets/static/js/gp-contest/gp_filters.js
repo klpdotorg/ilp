@@ -64,8 +64,8 @@
 
 
     function setBoundaryAttributes(attr) {
-        // var $search_button = $("#search_button");
-        // $search_button.attr('href', '/gka/#searchmodal?' + attr);
+        var $search_button = $("#search_button");
+        $search_button.attr('href', '/gp-contest/#searchmodal?' + attr);
     }
 
        
@@ -75,6 +75,7 @@
         var $select_cluster = $("#select-cluster");
         var $select_school = $("#select-school");
         var $select_gp = $("#select-gp");
+        var $radio_gp = $('#select-gp-checkbox');
         
         clearSelect($select_district);
         clearSelect($select_block);
@@ -114,12 +115,21 @@
 
             clearSelect($select_cluster);
             clearSelect($select_school);
+            clearSelect($select_gp);
             setBoundaryAttributes('boundary_id=' + selected.val);
 
+            // Populate the cluster select box
             var clusterXHR = klp.api.do('surveys/boundary/?per_page=0&boundary_id=' + selected.val);
             clusterXHR.done(function (data) {
                 data.features = data.results;
                 populateSelect($select_cluster, data);
+            });
+
+            // Populate the GP select box
+            var clusterXHR = klp.api.do('survey/gp/?&survey_id=2&admin2_id=' + selected.val);
+            clusterXHR.done(function (data) {
+                data.features = data.results;
+                populateSelect($select_gp, data);
             });
         });
 
