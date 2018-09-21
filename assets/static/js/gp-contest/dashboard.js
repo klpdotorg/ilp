@@ -155,6 +155,14 @@
 
     // Fetch performance info
     function loadPerformance() {
+      var LABELS_REQUIRED = [
+        'Addition',
+        'Subtraction',
+        'Division',
+        'Multiplication',
+        'Number Concept'
+      ];
+
       const selectedYearInfo = tabs.find((tab) => {
         return tab.value === selectedConverageTab;
       });
@@ -164,14 +172,30 @@
            `survey/detail/questiongroup/key/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
         );
         $performanceXHR.done(function(result) {
-          var chartData = {};
+          var chartData = {},
+              labels = [],
+              series = [];
           for(var i = 4; i <= 6; i++) {
-            chartData['class' + i] = {
-              labels: _.keys(result['Class ' + i +' Assessment']),
-              series: [_.map(result['Class ' + i +' Assessment'], function(r){
-                return Math.round((r.score / r.total) * 100);
-              })]
-            };
+            labels = _.keys(result['Class ' + i +' Assessment']);
+            series = _.map(result['Class ' + i +' Assessment'], function(r){
+              return Math.round((r.score / r.total) * 100);
+            });
+
+            chartData['class' + i] = {labels: [], series: [[]]};
+            _.forEach(labels, function(l, index){
+              if(!_.includes(LABELS_REQUIRED, l)) { return; }
+
+              chartData['class' + i].labels.push(l);
+              chartData['class' + i].series[0].push(series[index]);
+            });
+
+
+            // chartData['class' + i] = {
+            //   labels: _.keys(result['Class ' + i +' Assessment']),
+            //   series: [_.map(result['Class ' + i +' Assessment'], function(r){
+            //     return Math.round((r.score / r.total) * 100);
+            //   })]
+            // };
           }
 
           console.log(chartData);
