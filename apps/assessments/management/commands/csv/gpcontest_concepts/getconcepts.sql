@@ -1,0 +1,1 @@
+select distinct qgq.questiongroup_id,q.concept_id,q.microconcept_group_id,q.microconcept_id from assessments_questiongroup_questions qgq, assessments_question q where qgq.question_id=q.id and qgq.questiongroup_id in (select id from assessments_questiongroup where survey_id=2) and q.concept_id is not null order by qgq.questiongroup_id;

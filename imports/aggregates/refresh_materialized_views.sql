@@ -133,3 +133,27 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_tagmapping_agg;
 
 CREATE UNIQUE INDEX ON mvw_survey_boundary_electiontype_count(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_boundary_electiontype_count;
+
+CREATE UNIQUE INDEX ON mvw_survey_boundary_qdetails_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_boundary_qdetails_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_institution_qdetails_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_institution_qdetails_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_boundary_questiongroup_qdetails_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_boundary_questiongroup_qdetails_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_institution_questiongroup_qdetails_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_institution_questiongroup_qdetails_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_boundary_qdetails_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_boundary_qdetails_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_institution_qdetails_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_institution_qdetails_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_boundary_questiongroup_qdetails_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_boundary_questiongroup_qdetails_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_institution_questiongroup_qdetails_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_institution_questiongroup_qdetails_correctans_agg;

@@ -18,6 +18,6 @@ hooks:
     - location: scripts/after_install.sh
       timeout: 180
       runas: ubuntu
-  ApplicationStart:
+   ApplicationStart:
     - location: scripts/application_start.sh
       timeout: 180
