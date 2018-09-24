@@ -1,6 +1,7 @@
 from .reportlist import reportlist
 from common.utils import send_sms
 
+
 def send_link(report_type, params, args, dry_run=False):
     if not dry_run:
         report = reportlist[report_type]
@@ -17,6 +18,7 @@ def send_link(report_type, params, args, dry_run=False):
         # send_sms(args['number'], sms)
     else:
         return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
+
         
 def send_recipient(report_type, report_from, report_to, reader, dry, start_from = 0, quit_on_error = False):
     # is_head_set = False
@@ -48,6 +50,7 @@ def send_recipient(report_type, report_from, report_to, reader, dry, start_from 
                     successfull += 1
                     messages.append("{} has been sent to {} ({})".format(report_type, arg['name'], arg['number']))
                 except Exception as e:
+                    print(e)
                     messages.append(e.args[0])
                     if quit_on_error:
                         print("Error on line {}. Use --skip parameter with this value to continue.".format(line_no))

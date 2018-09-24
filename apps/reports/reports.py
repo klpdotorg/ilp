@@ -1,26 +1,39 @@
-import argparse, hashlib, random
-from abc import ABC, abstractmethod
-from django.urls import reverse
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
+import argparse
+import hashlib
+import random
 import pdfkit
 import os.path
 import datetime
 
+from abc import ABC, abstractmethod
+
+from django.urls import reverse
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+
 from boundary.models import Boundary, ElectionBoundary
-from assessments.models import SurveyInstitutionAgg
 from schools.models import Institution
+
+from assessments.models import (
+    SurveyInstitutionAgg,
+    SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg,
+    SurveyInstitutionQuestionGroupQuestionKeyAgg,
+    SurveyInstitutionQuestionGroupGenderAgg,
+    SurveyInstitutionQuestionGroupAgg,
+    SurveyBoundaryQuestionGroupAnsAgg,
+    Question
+)
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
+from django.db.models import Sum
 from .models import Reports, Tracking
+from .helpers import calc_stud_performance
 
 
-def format_academic_year(date_string):
-    return '{}-{}-{}'.format(
-        date_string[-2:],
-        date_string[-5:-3],
-        date_string[:4]
-    )
+def format_academic_year(yearmonth_format):
+    # The day attribute is a dummy one just to get a clean date object. Ignore the day param 
+    date = datetime.datetime(year=int(yearmonth_format[0:4]), month=int(yearmonth_format[4:6]), day=1)
+    return date.strftime("%m%Y")
 
 
 class BaseReport(ABC):
@@ -195,26 +208,8 @@ class GPMathContestReport(BaseReport):
                 details['percent'] = sum(percent)/len(percent)
                 schools.append(details)
 
-        #Calculate the perfomance of students
-        boys_100 = 0
-        girls_100 = 0
-        boys_zero = 0
-        girls_zero = 0
-        for i in scores.values():
-            total = sum(i['mark'])/len(i['mark'])
-            if total == 100.0:
-                if i['gender'] == 'Male':
-                    boys_100 += 1
-                else:
-                    girls_100 += 1
-            elif total == 0.0:
-                if i['gender'] == 'Male':
-                    boys_zero += 1
-                else:
-                    girls_zero += 1
-
-        score_100 = boys_100 + girls_100
-        score_zero = boys_zero + girls_zero
+        # Calculate the perfomance of students
+        score_100, score_zero = calc_stud_performance(scores)
 
         contest_list = [i['contest'] for i in schools]
         schools_out = []
@@ -329,26 +324,8 @@ class SchoolReport(BaseReport):
 
         schools,scores = self.get_school_data(AGI)
 
-        #Calculate the perfomance of students
-        boys_100 = 0
-        girls_100 = 0
-        boys_zero = 0
-        girls_zero = 0
-        for i in scores.values():
-            total = sum(i['mark'])/len(i['mark'])
-            if total == 100.0:
-                if i['gender'] == 'Male':
-                    boys_100 += 1
-                else:
-                    girls_100 += 1
-            elif total == 0.0:
-                if i['gender'] == 'Male':
-                    boys_zero += 1
-                else:
-                    girls_zero += 1
-
-        score_100 = boys_100 + girls_100
-        score_zero = boys_zero + girls_zero
+        # Calculate the perfomance of students
+        score_100, score_zero = calc_stud_performance(scores)
 
         contest_list = [i['contest'] for i in schools]
 
@@ -497,7 +474,7 @@ class ClusterReport(BaseReport):
         self.params = dict(cluster_name=self.cluster_name, block_name=self.block_name, district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
+        dates = [self.report_from, self.report_to] # [201606,201702]
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
         try:
              # Take the cluster from db
@@ -506,20 +483,19 @@ class ClusterReport(BaseReport):
             raise ValueError("Cluster '{}' cannot be found in the database".format(self.cluster_name))
 
         no_of_schools_in_cluster = Institution.objects.filter(admin3=cluster).count() # Number of schools in cluster
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin3=cluster,survey_id=2,yearmonth__range=dates)
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
-        if not AGI.exists():
+        if not aggregates.exists():
             raise ValueError("No GP contest data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
-
-        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
-        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(institution_id__admin3=cluster, survey_id=2, yearmonth__range=dates)
+        num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
+        num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
         number_of_students = num_boys + num_girls
+   
+        num_contests = aggregates.values_list('institution_id', flat=True).distinct().count()
 
-        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
-
-        schools_data = self.get_school_data(AGI)
+        schools_data = self.get_school_data(cluster, dates)
         schools = self.format_schools_data(schools_data)
-
         gka = self.getGKAData(cluster, dates)
 
         household = self.getHouseholdSurvey(cluster,dates)
@@ -527,58 +503,31 @@ class ClusterReport(BaseReport):
         self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':no_of_schools_in_cluster, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
-    def get_school_data(self,answergroup):
-        conditions = answergroup.values_list('institution__name', 'questiongroup__name').distinct()
-        contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
-        contests.pop(contests.index('Gender'))
+    def get_school_data(self, cluster, dates):
+        correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=cluster, yearmonth__range=dates)\
+            .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+            .annotate(Sum('num_assessments'))
+        total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=cluster, yearmonth__range=dates)\
+            .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')
         schools = []
-
-        for school, qgroup in conditions:
-            school_ag = answergroup.filter(institution__name=school, questiongroup__name=qgroup)
-            for contest in contests:
-                # This was the original logic for generating GP contest report
-                # In July, the logic has been changed to the block below this
-                # block.
-                # 
-                # try:
-                #     score = school_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/school_ag.filter(answers__question__key=contest).count()
-                # except ZeroDivisionError:
-                #     continue
-                # details = dict(school=school, grade=qgroup)
-                # details['contest'] = contest
-                # details['percent'] = score*100
-
-                # The second logic used in July
-                # total_students_appeared = school_ag.count()
-                # score = 0
-                # for s in school_ag:
-                #     if s.answers.filter(
-                #         question__key=contest, answer='Yes'
-                #     ).exists():
-                #         score += 1
-                # score = score / total_students_appeared
-
-                # The new logic proposed by Nagraj & Vaijayanthi
-                total_students_appeared = school_ag.count()
-                score = 0
-                for s in school_ag:
-                    total_questions = s.answers.filter(
-                        question__key=contest
-                    ).count()
-                    correct_answers = s.answers.filter(
-                        question__key=contest,
-                        answer='Yes'
-                    ).count()
-                    if total_questions == correct_answers:
-                        score += 1
-                score = score / total_students_appeared
-
-                details = dict(school=school, grade=qgroup)
-                details['contest'] = contest
-                details['percent'] = score*100
-
-                schools.append(details)
-
+        for each_row in correct_answers_agg:
+            sum_correct_ans = each_row['num_assessments__sum']
+            sum_total = total_assessments.filter(question_key=each_row['question_key'])\
+                .filter(institution_id=each_row['institution_id'])\
+                .filter(questiongroup_id=each_row['questiongroup_id'])\
+                .aggregate(total=Sum('num_assessments'))
+          
+            percent = 0
+            total=sum_total['total']
+            if sum_correct_ans is None:
+                sum_correct_ans=0
+            if total is not None:
+                percent = sum_correct_ans/total * 100
+            #import pdb; pdb.set_trace()
+            details = dict(school=Institution.objects.get(id=each_row['institution_id']).name, grade=each_row['questiongroup_name'])
+            details['contest'] = each_row['question_key']
+            details['percent'] = percent
+            schools.append(details)
         return schools
 
     def format_schools_data(self,schools):
@@ -618,27 +567,31 @@ class ClusterReport(BaseReport):
 
     def getHouseholdSurvey(self,cluster,date_range):
         #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
+        hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=cluster)\
+            .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
+            .filter(question_id__in=[269, 144, 145, 138])
+        total_hh_answers = hh_answers_agg.values('question_desc').annotate(Sum('num_answers'))
+        total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_desc', 'question_id').annotate(Sum('num_answers'))
+
         HHSurvey = []
-        if a.exists():
-            questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
-
-            total_response = a.count()
-
-            for i in questions:
-                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-                HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
+        if hh_answers_agg.exists():
+            for each_answer in total_yes_answers:
+                question_desc = total_hh_answers.get(question_desc=each_answer['question_desc'])
+                total_count = question_desc['num_answers__sum']
+                question_text = Question.objects.get(id=each_answer['question_id']).question_text
+                HHSurvey.append({'text':question_text,'percentage': round((each_answer['num_answers__sum']/total_count)*100, 2)})
         else:
              raise ValueError("No community survey data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
         return HHSurvey
 
     def getGKAData(self, cluster, date_range):
-        GKA = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=date_range, questiongroup__survey_id=11)
+        GKA = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=cluster)\
+            .filter(yearmonth__range=date_range)\
+            .filter(survey_id=11)
         if GKA.exists():
-            teachers_trained = GKA.filter(answers__question__question_text__icontains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='trained').count()
-            kit_usage = GKA.filter(answers__question__question_text__contains='Ganitha Kalika Andolana TLM', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='Ganitha Kalika Andolana TLM').count()
-            group_work = GKA.filter(answers__question__question_text__contains='group', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
+            teachers_trained = GKA.filter(question_desc__icontains='trained', answer_option='Yes').count()/GKA.filter(question_desc__icontains='trained').count()
+            kit_usage = GKA.filter(question_desc__icontains='Ganitha Kalika Andolana TLM', answer_option='Yes').count()/GKA.filter(question_desc__icontains='Ganitha Kalika Andolana TLM').count()
+            group_work = GKA.filter(question_desc__icontains='group', answer_option='Yes').count()/GKA.filter(question_desc__icontains='group').count()
             return dict(teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2))
         else:
             raise ValueError("No GKA data for '{}' between {} and {}.".format(self.cluster_name, self.report_from, self.report_to))
@@ -679,17 +632,18 @@ class BlockReport(BaseReport):
         except Boundary.DoesNotExist:
             raise ValueError("Block '{}' cannot be found in the database".format(self.block_name))
 
-        num_schools = Institution.objects.filter(admin2=block).count() # schools in block
+        no_of_schools_in_block = Institution.objects.filter(admin3=cluster).count() # Number of schools in cluster
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin2=block,survey_id=2,yearmonth__range=dates)
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
-        if not AGI.exists():
+        if not aggregates.exists():
             raise ValueError("No GP contest data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
-
-        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
-        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(institution_id__admin2=block, survey_id=2, yearmonth__range=dates)
+        num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
+        num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
         number_of_students = num_boys + num_girls
+   
+        num_contests = aggregates.values_list('institution_id', flat=True).distinct().count()
 
-        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
 
         cluster_gpc_data = self.get_cluster_GPC(AGI)
         gpc_clusters = self.format_cluster_data(cluster_gpc_data)
@@ -698,7 +652,7 @@ class BlockReport(BaseReport):
 
         household = self.getHouseholdSurvey(block, dates)
 
-        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'no_schools':num_schools_in_block, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gpc_clusters, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
     def get_cluster_GPC(self,answergroup):
@@ -856,6 +810,23 @@ class BlockReport(BaseReport):
 
         return gka, cluster_gka
 
+    # def getHouseholdSurvey(self,block,date_range):
+    #     #Husehold Survey
+    #     a = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
+    #     HHSurvey = []
+    #     if a.exists():
+    #         questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
+
+    #         total_response = a.count()
+
+    #         for i in questions:
+    #             count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+    #             count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+    #             HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
+    #     else:
+    #          raise ValueError("No community survey data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
+    #     return HHSurvey
+    
     def getHouseholdSurvey(self,block,date_range):
         #Husehold Survey
         a = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
@@ -1207,26 +1178,8 @@ class GPMathContestReportSummarized(BaseReport):
                 details['percent'] = sum(percent)/len(percent)
                 schools.append(details)
 
-        #Calculate the perfomance of students
-        boys_100 = 0
-        girls_100 = 0
-        boys_zero = 0
-        girls_zero = 0
-        for i in scores.values():
-            total = sum(i['mark'])/len(i['mark'])
-            if total == 100.0:
-                if i['gender'] == 'Male':
-                    boys_100 += 1
-                else:
-                    girls_100 += 1
-            elif total == 0.0:
-                if i['gender'] == 'Male':
-                    boys_zero += 1
-                else:
-                    girls_zero += 1
-
-        score_100 = boys_100 + girls_100
-        score_zero = boys_zero + girls_zero
+        # Calculate the perfomance of students
+        score_100, score_zero = calc_stud_performance(scores)
 
         contest_list = [i['contest'] for i in schools]
         schools_out = []
@@ -1355,26 +1308,8 @@ class SchoolReportSummarized(BaseReport):
 
         schools,scores = self.get_school_data(AGI)
 
-        #Calculate the perfomance of students
-        boys_100 = 0
-        girls_100 = 0
-        boys_zero = 0
-        girls_zero = 0
-        for i in scores.values():
-            total = sum(i['mark'])/len(i['mark'])
-            if total == 100.0:
-                if i['gender'] == 'Male':
-                    boys_100 += 1
-                else:
-                    girls_100 += 1
-            elif total == 0.0:
-                if i['gender'] == 'Male':
-                    boys_zero += 1
-                else:
-                    girls_zero += 1
-
-        score_100 = boys_100 + girls_100
-        score_zero = boys_zero + girls_zero
+        # Calculate the perfomance of students
+        score_100, score_zero = calc_stud_performance(scores)
 
         contest_list = [i['contest'] for i in schools]
 
