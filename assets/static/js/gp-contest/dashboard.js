@@ -2,12 +2,16 @@
 
 (function() {
   klp.init = function() {
-    let searchByGPs = false;
-    let selectedConverageTab = '2016';
-    let selectedPerformanceTab = 'basic';
-    let selectedComparisonTab = 'year';
-    const years = ["2016", "2017", "2018"];
-    const performanceTabs = [
+    // All GKA related data are stored in GKA
+    klp.GP = {};
+		klp.GP.routerParams = {};
+		
+    var searchByGPs = false;
+    var selectedConverageTab = '2016';
+    var selectedPerformanceTab = 'basic';
+    var selectedComparisonTab = 'year';
+    var years = ["2016", "2017", "2018"];
+    var performanceTabs = [
       {
         text: 'Basic',
         value: 'basic',
@@ -17,7 +21,7 @@
         value: 'details',
       }
     ];
-    const comparisonTabs = [
+    var comparisonTabs = [
       {
         text: 'Year',
         value: 'year'
@@ -27,20 +31,44 @@
         value: 'neighbour',
       }
     ];
-    const tabs = years.map((tab) => {
+    var tabs = years.map((tab) => {
       return {
         value: tab,
         start_date: `${tab}-01-01`,
         end_date: `${Number(tab) + 1}-01-01`
       }
     })
-    const $educational_hierarchy_checkbox = $("#select-educational-hrc");
-    const $gp_checkbox = $("#select-gp-checkbox");
-    const $select_school_cont = $("#select-school-cont");
-    const $select_cluster_cont = $("#select-cluster-cont");
-    const $select_gp_cont = $("#select-gp-cont");
+    var $educational_hierarchy_checkbox = $("#select-educational-hrc");
+    var $gp_checkbox = $("#select-gp-checkbox");
+    var $select_school_cont = $("#select-school-cont");
+    var $select_cluster_cont = $("#select-cluster-cont");
+		var $select_gp_cont = $("#select-gp-cont");
+		
+		// This function is used as a callback to accordion init function
+		// to determine which section to load when a user clicks a
+		// section
+    klp.GP.accordionClicked = function($el) {
+			console.log($el);
+    	var isSectionVisible = $el.is(':visible'),
+      	elId = $el.attr('id'),
+        functionMap = {
+					"class-4-performance": loadPerformance,
+					"class-5-performance": loadPerformance,
+					"class-6-performance": loadPerformance,
+		  	};
+
+			console.log(isSectionVisible, elId);
+      if(!isSectionVisible) { return; }
+  
+      if(typeof(functionMap[elId]) === 'function') {
+          functionMap[elId](klp.GP.routerParams);
+      } else {
+          console.log('Accordion event handler returned an unknow id');
+      }
+  	}
 
     // Initialize accordion, filters and router
+    klp.accordion.init();
     klp.gp_filters.init();
     klp.router = new KLPRouter();
     klp.router.init();
@@ -56,10 +84,19 @@
 
     // Triggers hash changes into appropriate function calls
     function hashChanged(params) {
+			var queryParams = params.queryParams;
+
+			klp.GP.routerParams = queryParams;
+
+			loadPerformance();
+			
       if(window.location.hash) {
         if(window.location.hash == '#resetButton') {
           window.location.href = '/gp-contest';
-        }
+				}
+				else if(window.location.hash != '#datemodal' && window.location.hash !='#close' && window.location.hash != '#searchmodal') {
+					console.log('Coming here');
+				}
       }
     }
 
@@ -151,10 +188,45 @@
         
         $('#gp-coverage').html(coverageHTML);
       });
-    }
+		}
+		
+		$('#search_button').click(function(e){
+			var district_id = $("#select-district").val(),
+				block_id = $("#select-block").val(),
+				cluster_id = $("#select-cluster").val(),
+				institution_id = $("#select-school").val(),
+				start_date = $('#startDate').yearMonthSelect("getFirstDay"),
+				end_date = $('#endDate').yearMonthSelect("getLastDay"),
+				url = '/gp-contest/#searchmodal';
+
+				if(start_date && end_date) {
+						url += '?from=' + start_date + '&to=' + end_date;
+				} else {
+						// url += 'default_date=true';
+				}
+
+				if(institution_id) {
+						url += '&institution_id=' + institution_id;
+				} else {
+						if(cluster_id) {
+								url += '&boundary_id=' + cluster_id;
+						} else if(block_id) {
+								url += '&boundary_id=' + block_id;
+						} else if(district_id) {
+								url += '&boundary_id=' + district_id;
+						}
+				}
+
+				e.originalEvent.currentTarget.href = url;
+		});
 
     // Fetch performance info
     function loadPerformance() {
+			// $("#gp-performance-class-4").startLoading();
+			console.log('Calling this functuon', klp.GP.routerParams)
+			const routerParams = klp.GP.routerParams;
+			const dateParams = {};
+
       var LABELS_REQUIRED = [
         'Addition',
         'Subtraction',
@@ -165,11 +237,19 @@
 
       const selectedYearInfo = tabs.find((tab) => {
         return tab.value === selectedConverageTab;
-      });
+			});
+
+			if (routerParams.from && routerParams.to) {
+				dateParams.from = routerParams.from;
+				dateParams.to = routerParams.to;
+			} else {
+				dateParams.from = selectedYearInfo.start_date;
+				dateParams.to = selectedYearInfo.end_date; 
+			}
 
       if(selectedPerformanceTab === 'basic') {
         var $performanceXHR = klp.api.do(
-           `survey/detail/questiongroup/key/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
+           `survey/detail/questiongroup/key/?survey_id=2&from=${dateParams.from}&${dateParams.to}`
         );
         $performanceXHR.done(function(result) {
           var chartData = {},
@@ -239,7 +319,7 @@
 
     // Start filling the default views/tabs
     loadCoverage();
-    loadPerformance();
+    // loadPerformance();
 
     // listeners for checkboxes
     $educational_hierarchy_checkbox.on("change", function(value) {

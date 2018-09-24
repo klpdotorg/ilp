@@ -14,6 +14,7 @@
   <script type="text/javascript" src="{% static 'js/gp-contest/dashboard.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/common/jquery.yearMonthSelect.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/lib/moment.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/gp-contest/accordion.js' %}"></script>
   {% endcompress %}
 {% endblock %}
 
@@ -129,19 +130,37 @@
   <div class="base-spacing-mid"></div>
   <div id="performance-tabs" class="gp-tabs"></div>
   <section class="container gp-performance-section" id="top">
-    <div class="base-spacing-mid"></div>
-    <div class="brand-blue font-large font-light center-text uppercase">Class 4</div>
-    <div id="gp-performance-class-4" class="ct-chart ct-minor-seventh js-detail-container chartist-container bar-chart one-row-chart"></div>
-    <div class="base-spacing-mid"></div>
-    <div class="brand-blue font-large font-light center-text uppercase">Class 5</div>
-    <div id="gp-performance-class-5" class="ct-chart ct-minor-seventh js-detail-container chartist-container bar-chart one-row-chart"></div>
-    <div class="base-spacing-mid"></div>
-    <div class="brand-blue font-large font-light center-text uppercase">Class 6</div>
-    <div id="gp-performance-class-6" class="ct-chart ct-minor-seventh js-detail-container chartist-container bar-chart one-row-chart"></div>
-    <div class="base-spacing-mid"></div>
+    <ul id='improved' class="js-accordion-container">
+      <li>
+        <div class="base-spacing-mid"></div>
+        <a href='' class='head js-accordion-header brand-green align-right'>
+          Class 4 <span class="fa fa-angle-down"></span>
+        </a>
+        <section class="content" id="class-4-performance">
+          <div id="gp-performance-class-4" class="ct-chart ct-minor-seventh js-detail-container chartist-container bar-chart one-row-chart"></div>
+        </section>
+        <hr />
+      </li>
+      <li>
+        <a href='' class='head js-accordion-header brand-green align-right'>
+          Class 5 <span class="fa fa-angle-down"></span>
+        </a>
+        <section class="content" id="class-5-performance">
+          <div id="gp-performance-class-5" class="ct-chart ct-minor-seventh js-detail-container chartist-container bar-chart one-row-chart"></div>
+        </section>
+        <hr />
+      </li>
+      <li>
+        <a href='' class='head js-accordion-header brand-green align-right'>
+          Class 6 <span class="fa fa-angle-down"></span>
+        </a>
+        <section class="content" id="class-6-performance">
+          <div id="gp-performance-class-6" class="ct-chart ct-minor-seventh js-detail-container chartist-container bar-chart one-row-chart"></div>
+        </section>
+        <hr />
+      </li>
+    </ul>
   </section>
-  <div class="base-spacing-mid"></div>
-  <hr />
 </section>
 
 <section class="container">
