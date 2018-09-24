@@ -31,7 +31,7 @@
         value: 'neighbour',
       }
     ];
-    var tabs = years.map((tab) => {
+    var tabs = _.map(years, function(tab) {
       return {
         value: tab,
         start_date: `${tab}-01-01`,
@@ -48,7 +48,6 @@
 		// to determine which section to load when a user clicks a
 		// section
     klp.GP.accordionClicked = function($el) {
-			console.log($el);
     	var isSectionVisible = $el.is(':visible'),
       	elId = $el.attr('id'),
         functionMap = {
@@ -121,7 +120,9 @@
     // This function renders coverage tabs
     function renderYearsTabs() {
       var tplYearTab = swig.compile($('#tpl-tabs').html());
-      var yearTabHTML = tplYearTab({ tabs: tabs.map((tab) => ({ text: tab.value, value: tab.value })) });
+      var yearTabHTML = tplYearTab({ tabs: _.map(tabs, function(tab) {
+				return { text: tab.value, value: tab.value };
+			})});
        
       $('#year-tabs').html(yearTabHTML);
     }
@@ -143,7 +144,7 @@
     }
 
     function selectTab(tab, goingToSelectTab) {
-      const $currentTab = $(`#${tab.value}`);
+      var $currentTab = $(`#${tab.value}`);
       if (tab.value === goingToSelectTab) {
         $currentTab.addClass("selected-gp-tab");
       } else {
@@ -153,30 +154,33 @@
 
     // This function select the tab
     function selectYearTab(goingToSelectTab) {
-      tabs.forEach((tab) => {
+      _.forEach(tabs, function(tab) {
         selectTab(tab, goingToSelectTab);
-      })
+      });
     }
 
     // This function select the performance tab
     function selectPerformanceTab(goingToSelectTab) {
-      performanceTabs.forEach((tab) => {
+      _.forEach(performanceTabs, function(tab) {
         selectTab(tab, goingToSelectTab);
-      })
+      });
     }
 
     // This function select the Comparison Tab
     function selectComparisonTab(goingToSelectTab) {
-      comparisonTabs.forEach((tab) => {
+      _.forEach(comparisonTabs, function(tab) {
         selectTab(tab, goingToSelectTab);
-      })
+      });
     }
 
     // Fetch coverage information
     function loadCoverage() {
-      const selectedYearInfo = tabs.find((tab) => {
+			console.log(tabs);
+      var selectedYearInfo = tabs.find(function(tab) {
+				console.log(tab, selectedComparisonTab)
         return tab.value === selectedConverageTab;
-      });
+			});
+			console.log(selectedYearInfo)
 
       var $coverageXHR = klp.api.do(
          `survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
@@ -224,8 +228,8 @@
     function loadPerformance() {
 			// $("#gp-performance-class-4").startLoading();
 			console.log('Calling this functuon', klp.GP.routerParams)
-			const routerParams = klp.GP.routerParams;
-			const dateParams = {};
+			var routerParams = klp.GP.routerParams;
+			var dateParams = {};
 
       var LABELS_REQUIRED = [
         'Addition',
@@ -235,7 +239,7 @@
         'Number Concept'
       ];
 
-      const selectedYearInfo = tabs.find((tab) => {
+      var selectedYearInfo = tabs.find(function(tab) {
         return tab.value === selectedConverageTab;
 			});
 
@@ -337,8 +341,8 @@
     })
 
     // Coverage tabs listener
-    tabs.forEach((tab) => {
-      const $tabId = $(`#${tab.value}`);
+    _.forEach(tabs, function(tab) {
+      var $tabId = $(`#${tab.value}`);
       $tabId.on("click", function(e) {
         selectedConverageTab = e.target.dataset.value;
         selectYearTab(selectedConverageTab);
@@ -347,8 +351,8 @@
     })
 
     // Performance tabs listener
-    performanceTabs.forEach((tab) => {
-      const $tabId = $(`#${tab.value}`);
+   	_.forEach(performanceTabs, function(tab) {
+      var $tabId = $(`#${tab.value}`);
       $tabId.on("click", function(e) {
         selectedPerformanceTab = e.target.dataset.value;
         selectPerformanceTab(selectedPerformanceTab);
@@ -357,8 +361,8 @@
     })
 
     // Comparison tab listener
-    comparisonTabs.forEach((tab) => {
-      const $tabId = $(`#${tab.value}`);
+    _.forEach(comparisonTabs, function(tab) {
+      var $tabId = $(`#${tab.value}`);
       $tabId.on("click", function(e) {
         selectedComparisonTab = e.target.dataset.value;
         selectComparisonTab(selectedComparisonTab);
