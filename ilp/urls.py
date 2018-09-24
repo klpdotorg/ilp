@@ -14,7 +14,7 @@ from users.views import (
     ProfilePageView,
     ProfileEditPageView
 )
-from assessments.views import SYSView, gka_dashboard
+from assessments.views import SYSView, gka_dashboard, gp_contest_dashboard
 from reports.views import view_report, download_report, SendReport, ReportAnalytics, download_analytics
 
 
@@ -100,7 +100,7 @@ urlpatterns = [
     # Akshara Math programme
     url(r'^text/maths/$',
         RedirectView.as_view(url='/partners/akshara/maths/')),
-    
+
     url(r'^partners/akshara/maths/$', StaticPageView.as_view(
         template_name='partners/akshara/maths.html',
     ), name='maths_programme'),
@@ -136,6 +136,9 @@ urlpatterns = [
 
     # GKA Dashboard
     url(r'^gka/$', gka_dashboard, name='gka_dashboard'),
+
+    # GP Contest Dashboard
+    url(r'^gp-contest/$', gp_contest_dashboard, name='gp_contest_dashboard'),
 
     url(r'text/reports/$', RedirectView.as_view(url='/reports')),
 

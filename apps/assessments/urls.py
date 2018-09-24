@@ -20,7 +20,9 @@ from assessments.api_views import (
     SurveyBoundaryAPIView, SurveyInstitutionAPIView,
     BoundaryQuestionGroupMapping, SurveyAssociateBoundaryAPIView,
     SurveyAssociateInstitutionAPIView, SurveyPartnersViewSet,
-    SurveySourceViewSet, SurveyTypeListView
+    SurveySourceViewSet, SurveyTypeListView,
+    SurveyQuestionGroupQDetailsAPIView, SurveyInstitutionLocationAPIView,
+    SurveyGPAPIView, SurveyQuestionGroupQuestionKeyYearComparisonAPIView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -94,6 +96,12 @@ urlpatterns = [
     url(r'institutionsurveys/$',
         SurveyInstitutionAnsAggView.as_view(),
         name='stories'),
+    url(r'institutionsurvey/location/$',
+        SurveyInstitutionLocationAPIView.as_view(),
+        name='survey_location'),
+    url(r'survey/gp/$',
+        SurveyGPAPIView.as_view(),
+        name='survey_gp'),
     url(r'surveys/storiesinfo/$',
         QGroupStoriesInfoView.as_view(),
         name='stories-info'),
@@ -127,6 +135,9 @@ urlpatterns = [
     url(r'survey/detail/questiongroup/key/$',
         SurveyQuestionGroupQuestionKeyAPIView.as_view(),
         name='survey-detail-class-key'),
+    url(r'survey/detail/questiongroup/qdetails/$',
+        SurveyQuestionGroupQDetailsAPIView.as_view(),
+        name='survey-detail-questiongroup-qdetails'),
     url(r'survey/volume/$',
         SurveyVolumeAPIView.as_view(),
         name='survey-volume'),
@@ -186,5 +197,8 @@ urlpatterns = [
         name='question-type'),
     url(r'survey-type/',
         SurveyTypeListView.as_view(),
-        name='survey-type')
+        name='survey-type'),
+    url(r'survey/comparison/year',
+        SurveyQuestionGroupQuestionKeyYearComparisonAPIView.as_view(),
+        name='survey_comparision_year')
 ] + simple_router.urls + nested_router.urls

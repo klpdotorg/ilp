@@ -829,7 +829,6 @@ FROM(
 ;
 
 
-
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_questionkey_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,yearmonth) as id,
@@ -931,6 +930,108 @@ FROM(
         yearmonth)data
 ;
 
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_questionkey_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_questionkey_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,question_key,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    yearmonth,
+    question_key,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.key as question_key,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.gp_id = eb.id or s.ward_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        eb.id,
+        qg.source_id,
+        qg.name,qg.id,
+        q.key,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,question_key,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    yearmonth,
+    question_key,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.key as question_key,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        assessments_question q,
+        schools_institution s,
+        boundary_electionboundary eb,
+        schools_student stu
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.gp_id = eb.id or s.ward_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        eb.id,
+        qg.source_id,
+        qg.name,qg.id,
+        q.key,
+        yearmonth)data
+;
+
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,yearmonth) as id,
@@ -1023,6 +1124,49 @@ FROM(
         q.key,
         yearmonth)data
 ;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_gender_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_gender_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,gender,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    gender,
+    yearmonth,
+    count(ag_id) as num_assessments
+from
+    (select distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        ans1.answer as gender,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    from assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        schools_institution s,
+        boundary_electionboundary eb
+    where
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and ans.question_id=q.id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.survey_id=2
+        and ag.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.gp_id = eb.id or s.ward_id = eb.id) 
+    group by ag.id,qg.survey_id,eb.id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer)data
+GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
+
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_agg AS
@@ -1429,6 +1573,93 @@ FROM(SELECT
 ;
 
 
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questionkey_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questionkey_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,question_key,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    eboundary_id,
+    source,
+    question_key,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        q.key as question_key,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupkey qgk,
+        schools_student stu,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qgk.questiongroup_id
+        and ans.question_id=q.id
+        and q.key=qgk.key
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+        GROUP BY q.key,ag.id,eb.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+        having sum(ans.answer::int)>=qgk.max_score)correctanswers
+GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,question_key
+union
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,question_key,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    eboundary_id,
+    source,
+    question_key,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        q.key as question_key,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupkey qgk,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qgk.questiongroup_id
+        and ans.question_id=q.id
+        and q.key=qgk.key
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+    GROUP BY q.key,ag.id,eb.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,question_key ;
+
+
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questionkey_correctans_agg AS
@@ -1594,6 +1825,101 @@ FROM
     GROUP BY q.key,ag.id,ag.institution_id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key ;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_questionkey_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_questionkey_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,question_key,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    question_key,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.key as question_key,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupkey qgk,
+        schools_student stu,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+    ans.answergroup_id=ag.id
+    and ag.questiongroup_id=qg.id
+    and qg.id=qgk.questiongroup_id
+    and ans.question_id=q.id
+    and q.key=qgk.key
+    and q.is_featured=true
+    and stmap.survey_id=qg.survey_id
+    and qg.type_id='assessment'
+    and ag.is_verified=true
+    and ag.student_id = stu.id
+    and stu.institution_id = s.id
+    and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+    GROUP BY q.key,ag.id,eb.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(ans.answer::int)>=qgk.max_score)correctanswers
+GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name
+union
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,question_key,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    question_key,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.key as question_key,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupkey qgk,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qgk.questiongroup_id
+        and ans.question_id=q.id
+        and q.key=qgk.key
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+    GROUP BY q.key,ag.id,eb.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_questionkey_correctans_agg CASCADE;
@@ -1881,6 +2207,117 @@ FROM
 GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,institution_id;
 
 
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_ans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_ans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    yearmonth,
+    question_id,
+    question_desc,
+    answer_option,
+    num_answers
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ans.question_id as question_id,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
+        ans.answer as answer_option,
+        count(ans) as num_answers
+    FROM assessments_survey survey,
+        assessments_questiongroup as qg,
+        assessments_answergroup_institution as ag,
+        assessments_surveytagmapping as surveytag,
+        assessments_question q,
+        assessments_answerinstitution ans,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        qg.source_id,
+        eb.id,
+        qg.id,
+        q.display_text,
+        q.question_text,
+        ans.question_id,
+        ans.answer,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    yearmonth,
+    question_id,
+    question_desc,
+    answer_option,
+    num_answers
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ans.question_id as question_id,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
+        ans.answer as answer_option,
+        count(ans) as num_answers
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_question q,
+        assessments_answerstudent ans,
+        schools_institution s,
+        schools_student stu,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        eb.id,       
+        qg.source_id,
+        qg.id,
+        q.display_text,
+        q.question_text,
+        ans.question_id,
+        ans.answer,
+        yearmonth)data
+;
+
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_ans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
@@ -2100,6 +2537,98 @@ FROM(
         yearmonth)data
 ;
 
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_agg AS
+SELECT format('A%s_%s_%s_%s', survey_id,eboundary_id,questiongroup_id,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    questiongroup_id,
+    yearmonth,
+    num_assessments,
+    num_schools,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        qg.id as questiongroup_id,
+        eb.id as eboundary_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        count(distinct ag.id) as num_assessments,
+        count(distinct ag.institution_id) as num_schools,
+        case survey.id when 2 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        qg.id,
+        ag.is_verified,
+        eb.id,
+        yearmonth)data
+union
+SELECT format('A%s_%s_%s_%s', survey_id,eboundary_id,questiongroup_id,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    questiongroup_id,
+    yearmonth,
+    num_assessments,
+    num_schools,
+    num_children,
+    num_users,
+    last_assessment
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        qg.id as questiongroup_id,
+        eb.id as eboundary_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        count(distinct ag.id) as num_assessments,
+        count(distinct stu.institution_id) as num_schools,
+        count(distinct ag.student_id) as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        schools_student stu,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        qg.id,
+        ag.is_verified,
+        eb.id,
+        yearmonth)data
+;
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_agg AS
@@ -2476,8 +3005,54 @@ GROUP BY
 data.survey_tag,
 data.boundary_id,
 data.academic_year_id
-
 ;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_gender_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_gender_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,gender,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    gender,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        ans1.answer as gender,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag inner join assessments_answerinstitution ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupkey qgk,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qgk.questiongroup_id
+        and ans.question_id=q.id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.survey_id=2
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY ag.id,eb.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
+
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_correctans_agg AS
@@ -2743,3 +3318,1219 @@ FROM(
         and ag.is_verified=true
     GROUP BY survey.id, surveytag.tag_id, b.id, yearmonth, eb.const_ward_type_id)data
 ;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_qdetails_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_qdetails_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,concept, microconcept_group, microconcept, yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id, 
+    source,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (2)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        eb.id,
+        qg.source_id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id, 
+    source,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        schools_student stu,
+        assessments_question q,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        eb.id,
+        qg.source_id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_qdetails_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_qdetails_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,concept, microconcept_group, microconcept, yearmonth) as id,
+    survey_id,
+    survey_tag,
+    boundary_id, 
+    source,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q,
+        schools_institution s,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (2)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        b.id,
+        qg.source_id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    boundary_id, 
+    source,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        schools_student stu,
+        assessments_question q,
+        schools_institution s,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        b.id,
+        qg.source_id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_qdetails_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_qdetails_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept, microconcept_group, microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    source,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        ag.institution_id as institution_id,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (2)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        ag.institution_id,
+        surveytag.tag_id,
+        qg.source_id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    source,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        stu.institution_id as institution_id,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        assessments_question q,
+        schools_student stu
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        stu.institution_id,
+        qg.source_id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_qdetails_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_qdetails_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (2)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        eb.id,
+        qg.source_id,
+        qg.name,qg.id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept, microconcept_group, microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        assessments_question q,
+        schools_institution s,
+        boundary_electionboundary eb,
+        schools_student stu
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        eb.id,
+        qg.source_id,
+        qg.name,qg.id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_qdetails_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_qdetails_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    boundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q,
+        schools_institution s,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (2)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        b.id,
+        qg.source_id,
+        qg.name,qg.id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept, microconcept_group, microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    boundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        assessments_question q,
+        schools_institution s,
+        boundary_boundary b,
+        schools_student stu
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        b.id,
+        qg.source_id,
+        qg.name,qg.id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_qdetails_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_qdetails_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        ag.institution_id as institution_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerinstitution ans,
+        assessments_question q
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (2)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        ag.institution_id,
+        qg.source_id,
+        qg.name,qg.id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    yearmonth,
+    concept,
+    microconcept_group,
+    microconcept,
+    num_assessments
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        stu.institution_id as institution_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        assessments_question q,
+        schools_student stu
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        stu.institution_id,
+        qg.source_id,
+        qg.name,qg.id,
+        q.concept_id,q.microconcept_group_id,q.microconcept_id,
+        yearmonth)data
+;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_qdetails_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_qdetails_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    eboundary_id,
+    source,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_student stu,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+        GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
+        having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept
+union
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    eboundary_id,
+    source,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.survey_id = 2
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_qdetails_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_qdetails_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    boundary_id,
+    source,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_student stu,
+        schools_institution s,
+        boundary_boundary b
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
+        having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept
+union
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    boundary_id,
+    source,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_institution s,
+        boundary_boundary b
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.survey_id = 2
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_qdetails_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_qdetails_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    institution_id,
+    source,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        stu.institution_id as institution_id,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_student stu
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,stu.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
+        having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept
+union
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    institution_id,
+    source,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        ag.institution_id as institution_id,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.survey_id=2
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,ag.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_qdetails_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_qdetails_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_student stu,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+    ans.answergroup_id=ag.id
+    and ag.questiongroup_id=qg.id
+    and qg.id=qgc.questiongroup_id
+    and ans.question_id=q.id
+    and q.concept_id=qgc.concept
+    and q.microconcept_group_id=qgc.microconcept_group
+    and q.microconcept_id=qgc.microconcept
+    and q.is_featured=true
+    and stmap.survey_id=qg.survey_id
+    and qg.type_id='assessment'
+    and ag.is_verified=true
+    and ag.student_id = stu.id
+    and stu.institution_id = s.id
+    and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
+union
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        eb.id as eboundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.survey_id=2
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_qdetails_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_qdetails_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    boundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_student stu,
+        schools_institution s,
+        boundary_boundary b
+    WHERE
+    ans.answergroup_id=ag.id
+    and ag.questiongroup_id=qg.id
+    and qg.id=qgc.questiongroup_id
+    and ans.question_id=q.id
+    and q.concept_id=qgc.concept
+    and q.microconcept_group_id=qgc.microconcept_group
+    and q.microconcept_id=qgc.microconcept
+    and q.is_featured=true
+    and stmap.survey_id=qg.survey_id
+    and qg.type_id='assessment'
+    and ag.is_verified=true
+    and ag.student_id = stu.id
+    and stu.institution_id = s.id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
+union
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    boundary_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_institution s,
+        boundary_boundary b
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.survey_id=2
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_qdetails_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_qdetails_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    institution_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        stu.institution_id as institution_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc,
+        schools_student stu
+    WHERE
+    ans.answergroup_id=ag.id
+    and ag.questiongroup_id=qg.id
+    and qg.id=qgc.questiongroup_id
+    and ans.question_id=q.id
+    and q.concept_id=qgc.concept
+    and q.microconcept_group_id=qgc.microconcept_group
+    and q.microconcept_id=qgc.microconcept
+    and q.is_featured=true
+    and stmap.survey_id=qg.survey_id
+    and qg.type_id='assessment'
+    and ag.is_verified=true
+    and ag.student_id = stu.id
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,stu.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
+union
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    institution_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        ag.institution_id as institution_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_questiongroupconcept qgc
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.survey_id=2
+        and qg.id=qgc.questiongroup_id
+        and ans.question_id=q.id
+        and q.concept_id=qgc.concept
+        and q.microconcept_group_id=qgc.microconcept_group
+        and q.microconcept_id=qgc.microconcept
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;

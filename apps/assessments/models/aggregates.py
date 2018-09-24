@@ -44,7 +44,7 @@ class SurveyElectionBoundaryAgg(models.Model):
     """Survey Election Boundary Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
-    boundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="electionboundary_id")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="electionboundary_id")
     source = models.ForeignKey('Source', db_column="source")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_schools = models.IntegerField(db_column="num_schools")
@@ -192,6 +192,23 @@ class SurveyInstitutionClassQuestionKeyAgg(models.Model):
         db_table = 'mvw_survey_institution_class_questionkey_agg'
 
 
+class SurveyEBoundaryQuestionGroupQuestionKeyAgg(models.Model):
+    """Survey QuestionKey Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    question_key = models.CharField(max_length=100, db_column="question_key")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questiongroup_questionkey_agg'
+
+
 class SurveyBoundaryQuestionGroupQuestionKeyAgg(models.Model):
     """Survey QuestionKey Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
@@ -224,6 +241,24 @@ class SurveyInstitutionQuestionGroupQuestionKeyAgg(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_survey_institution_questiongroup_questionkey_agg'
+
+
+class SurveyEBoundaryQuestionGroupGenderAgg(models.Model):
+    """Survey QuestionGroup Gender Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    gender = models.ForeignKey("common.Gender", db_column="gender")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questiongroup_gender_agg'
+
 
 
 class SurveyBoundaryQuestionGroupGenderAgg(models.Model):
@@ -326,6 +361,21 @@ class SurveyInstitutionClassAnsAgg(models.Model):
         db_table = 'mvw_survey_institution_class_ans_agg'
 
 
+class SurveyEBoundaryQuestionKeyCorrectAnsAgg(models.Model):
+    """Survey QuestionKey CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    question_key = models.CharField(max_length=100, db_column="question_key")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questionkey_correctans_agg'
+
+
 class SurveyBoundaryQuestionKeyCorrectAnsAgg(models.Model):
     """Survey QuestionKey CorrectAns Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
@@ -388,6 +438,23 @@ class SurveyInstitutionClassQuestionKeyCorrectAnsAgg(models.Model):
         db_table = 'mvw_survey_institution_class_questionkey_correctans_agg'
 
 
+class SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
+    """Survey QuestionGroup QuestionKey CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    question_key = models.CharField(max_length=100, db_column="question_key")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questiongroup_questionkey_correctans_agg'
+
+
 class SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     """Survey QuestionGroup QuestionKey CorrectAns Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
@@ -421,6 +488,22 @@ class SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
         managed = False
         db_table = 'mvw_survey_institution_questiongroup_questionkey_correctans_agg'
 
+
+class SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg(models.Model):
+    """Survey QuestionGroup Gender CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    gender = models.ForeignKey("common.Gender", db_column="gender")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questiongroup_gender_correctans_agg'
 
 
 class SurveyBoundaryQuestionGroupGenderCorrectAnsAgg(models.Model):
@@ -489,6 +572,24 @@ class SurveyInstitutionClassGenderCorrectAnsAgg(models.Model):
         db_table = 'mvw_survey_institution_class_gender_correctans_agg'
 
 
+class SurveyEBoundaryQuestionGroupAnsAgg(models.Model):
+    """Survey Answer Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    question_id = models.ForeignKey('Question', db_column="question_id")
+    question_desc = models.CharField(max_length=200, db_column="question_desc")
+    answer_option = models.CharField(max_length=100, db_column="answer_option")
+    num_answers = models.IntegerField(db_column="num_answers")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questiongroup_ans_agg'
+
+
 class SurveyBoundaryQuestionGroupAnsAgg(models.Model):
     """Survey Answer Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
@@ -542,6 +643,24 @@ class SurveyInstitutionQuestionGroupAgg(models.Model):
         db_table = 'mvw_survey_institution_questiongroup_agg'
 
 
+class SurveyEBoundaryQuestionGroupAgg(models.Model):
+    """Survey Election Boundary QuestionGroup Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_schools = models.IntegerField(db_column="num_schools")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+    num_children = models.IntegerField(db_column="num_children")
+    num_users = models.IntegerField(db_column="num_users")
+    last_assessment = models.DateField(db_column="last_assessment")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questiongroup_agg'
+
+
 class SurveyBoundaryQuestionGroupAgg(models.Model):
     """Survey Boundary QuestionGroup Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
@@ -584,3 +703,222 @@ class SurveyBoundaryElectionTypeCount(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_survey_boundary_electiontype_count'
+
+
+class SurveyEBoundaryQDetailsAgg(models.Model):
+    """Survey Election Boundary Question Details Aggregates (for concept, microconcept, microconceptgroup)"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    source = models.ForeignKey('Source', db_column="source")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_qdetails_agg'
+
+
+class SurveyBoundaryQDetailsAgg(models.Model):
+    """Survey Boundary Question Details Aggregates (for concept, microconcept, microconceptgroup)"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    source = models.ForeignKey('Source', db_column="source")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_boundary_qdetails_agg'
+
+
+class SurveyInstitutionQDetailsAgg(models.Model):
+    """Survey Institution Question Details Aggregates (for concept, microconcept, microconceptgroup)"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    institution_id = models.ForeignKey('schools.Institution', db_column="boundary_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    source = models.ForeignKey('Source', db_column="source")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_qdetails_agg'
+
+
+class SurveyEBoundaryQuestionGroupQDetailsAgg(models.Model):
+    """Survey Election Boundary QuestionGroup Question Details Aggregates (for concept, microconcept, microconceptgroup)"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questiongroup_qdetails_agg'
+
+
+class SurveyBoundaryQuestionGroupQDetailsAgg(models.Model):
+    """Survey Boundary QuestionGroup Question Details Aggregates (for concept, microconcept, microconceptgroup)"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_boundary_questiongroup_qdetails_agg'
+
+
+class SurveyInstitutionQuestionGroupQDetailsAgg(models.Model):
+    """Survey Institution QuestionGroup Question Details Aggregates (for concept, microconcept, microconceptgroup)"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    institution_id = models.ForeignKey('schools.Institution', db_column="boundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_questiongroup_qdetails_agg'
+
+
+class SurveyEBoundaryQDetailsCorrectAnsAgg(models.Model):
+    """Survey Election Boundary Question Details CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_qdetails_correctans_agg'
+
+
+class SurveyBoundaryQDetailsCorrectAnsAgg(models.Model):
+    """Survey Boundary Question Details CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_boundary_qdetails_correctans_agg'
+
+
+class SurveyInstitutionQDetailsCorrectAnsAgg(models.Model):
+    """Survey Institution Question Details CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    institution_id = models.ForeignKey('schools.Institution', db_column="boundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_qdetails_correctans_agg'
+
+
+class SurveyEBoundaryQuestionGroupQDetailsCorrectAnsAgg(models.Model):
+    """Survey Election Boundary QuestionGroup Question Details CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_questiongroup_qdetails_correctans_agg'
+
+
+class SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg(models.Model):
+    """Survey Boundary QuestionGroup Question Details CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_boundary_questiongroup_qdetails_correctans_agg'
+
+
+class SurveyInstitutionQuestionGroupQDetailsCorrectAnsAgg(models.Model):
+    """Survey Institution QuestionGroup Question Details CorrectAns Agg"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    institution_id = models.ForeignKey('schools.Institution', db_column="boundary_id")
+    source = models.ForeignKey('Source', db_column="source")
+    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    concept = models.ForeignKey('Concept', db_column="concept")
+    microconcept_group = models.ForeignKey('MicroConceptGroup', db_column="microconcept_group")
+    microconcept = models.ForeignKey('MicroConcept', db_column="microconcept")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    num_assessments = models.IntegerField(db_column="num_assessments")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_questiongroup_qdetails_correctans_agg'
