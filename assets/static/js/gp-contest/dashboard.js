@@ -179,7 +179,7 @@
       });
 
       var $coverageXHR = klp.api.do(
-         `survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}&state=ka`
+         `survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
       )
 
       $coverageXHR.done(function(result) {
