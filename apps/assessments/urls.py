@@ -22,7 +22,7 @@ from assessments.api_views import (
     SurveyAssociateInstitutionAPIView, SurveyPartnersViewSet,
     SurveySourceViewSet, SurveyTypeListView,
     SurveyQuestionGroupQDetailsAPIView, SurveyInstitutionLocationAPIView,
-    SurveyGPAPIView
+    SurveyGPAPIView, SurveyQuestionGroupQuestionKeyYearComparisonAPIView
 )
 from schools.api_view import (
     InstitutionViewSet, StudentViewSet, StudentGroupViewSet
@@ -197,5 +197,8 @@ urlpatterns = [
         name='question-type'),
     url(r'survey-type/',
         SurveyTypeListView.as_view(),
-        name='survey-type')
+        name='survey-type'),
+    url(r'survey/comparison/year',
+        SurveyQuestionGroupQuestionKeyYearComparisonAPIView.as_view(),
+        name='survey_comparision_year')
 ] + simple_router.urls + nested_router.urls

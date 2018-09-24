@@ -112,72 +112,23 @@
 	  </tr>
 	  {% endfor %}
 	  {% endfor %}
-	  <tr>
-	    <td colspan="8"> ಆಸುಪಾಸಿನ ಶಾಲೆಗಳು</td></tr>
-	  {% for item in data.neighbours%}
-	  {% for g in item.grades%}
-	  <tr>
-	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
-	    <td>{{g.name}}</td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Number Concept" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Addition" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Subtraction" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Multiplication" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Division" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <!-- <td align="center">
-            {% for value in g.values%}
-              {% if "Other Areas" == value.contest %}
-            <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-          </td> -->
-	  </tr>
-	  {% endfor %}
-	  {% endfor %}
 	</table>
       </div>
       <div class="outer-line" style="line-height: 26px;">
 	ಗಮನಿಸ ಬೇಕಾದ ವಿಷಯಗಳು :
 	<ul>
 	  <li>
-	   40% ಕಿಂತ ಕಡಿಮೆ ಇರುವ ಸಂಖ್ಯೆಗಳನ್ನು  <span class="red">ಕೆಂಪು</span> ಬಣ್ಣದಿಂದ ಪ್ರದರ್ಶಿಸಲಾಗಿದೆ . ಅದು ಮಕ್ಕಳ ಕೆಳ ಮಟ್ಟದ ಕಲಿಕಾ
-ಮಟ್ಟವನ್ನು ಪ್ರತಿನಿಧಿಸುತ್ತದೆ.ಮುಖ್ಯ ಶಿಕ್ಷಕರು ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಹಾಗು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಸದಸ್ಯರು ಈ
-ಸಮಸ್ಯೆಯನ್ನು ಗಂಭೀರವಾಗಿ ಪರಿಗಣಿಸಿ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸಲು ಕೆಲಸವನ್ನು ಮಾಡಬೇಕಾಗಿದೆ.
+	   40% ಕಿಂತ ಕಡಿಮೆ ಇರುವ ಫಲಿತಾಂಶವನ್ನ್ನು  <span class="red">ಕೆಂಪು</span> ಬಣ್ಣದಿಂದ ಪ್ರದರ್ಶಿಸಲಾಗಿದೆ . ಅದು ಮಕ್ಕಳ ಕೆಳ ಮಟ್ಟದ ಕಲಿಕಾ
+ಮಟ್ಟವನ್ನು ಪ್ರತಿನಿಧಿಸುತ್ತದೆ. ಮುಖ್ಯ ಶಿಕ್ಷಕರು ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಹಾಗು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಸದಸ್ಯರು ಈ
+ಸಮಸ್ಯೆಯನ್ನು ಗಂಭೀರವಾಗಿ ಪರಿಗಣಿಸಿ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸಲು ಸೂಕ್ತ ಕ್ರಮವನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದು.
 	  </li>
 	  <li>
-	    ಮಕ್ಕಳ ಗಣಿತ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ವೃದ್ಧಿಸಲು ತರಗತಿಯಲ್ಲಿ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಕಿಟ್ ಅನ್ನು ಬಳಸಲು ಹೆಚ್ಚು
-ಒಟ್ಟು ನೀಡಬೇಕು
+	    ಮಕ್ಕಳ ಗಣಿತ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸಲು ತರಗತಿಯಲ್ಲಿ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಕಿಟ್ ಅನ್ನು ಬಳಸಲು ಹೆಚ್ಚು
+ಒತ್ತು ನೀಡಬೇಕು.
 	  </li>
+	  <li>
+            ಶಾಲಾವಾರು ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವಿವರವಾದ ವರದಿಯ ಪ್ರತಿಯು ಗ್ರಾಮ ಪಂಚಾಯಿತಿಯಿಂದ ಶಾಲೆಗೆ ತಲುಪಲಿದೆ.   
+          </li>
 	</ul>
       </div>
       <div class="red" style="text-align: center;padding: 20px;">

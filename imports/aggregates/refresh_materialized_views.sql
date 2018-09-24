@@ -157,3 +157,36 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_boundary_questiongroup_qdetail
 
 CREATE UNIQUE INDEX ON mvw_survey_institution_questiongroup_qdetails_correctans_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_institution_questiongroup_qdetails_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_questionkey_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_questionkey_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_gender_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_gender_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questionkey_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questionkey_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_questionkey_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_questionkey_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_ans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_ans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_gender_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_gender_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_qdetails_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_qdetails_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_qdetails_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_qdetails_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_qdetails_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_qdetails_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_qdetails_correctans_agg(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_qdetails_correctans_agg;

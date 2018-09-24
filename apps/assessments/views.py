@@ -16,7 +16,7 @@ class SYSView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(SYSView, self).get_context_data(**kwargs)
         school = context['object']
-        context['school_type'] = 'school' if school.institution_type.char_id == "primary" else 'preschool' 
+        context['school_type'] = 'school' if school.institution_type.char_id == "primary" else 'preschool'
         context['total_verified_stories'] = AnswerGroup_Institution.objects.filter(questiongroup_id__in=[1,6],
                                             is_verified=True).count()
         imageCount = InstitutionImages.objects.filter(answergroup__questiongroup__survey=5).count()
@@ -42,3 +42,8 @@ def gka_dashboard(request):
     }
 
     return TemplateResponse(request, 'gka_dashboard.html', response)
+
+def gp_contest_dashboard(request):
+    """ Renders the GP Contest Dashboard """
+
+    return TemplateResponse(request, 'gp_contest_dashboard.html', {})

@@ -169,12 +169,28 @@ class GPMathContestReport(BaseReport):
                     # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
                     # mark = (answered/num_q)*100
 
+                    # The second logic we used in July
+                    # total_students_appeared = school_ag.count()
+                    # answered = 0
+                    # for s in school_ag:
+                    #     if s.answers.filter(
+                    #         question__key=contest, answer='Yes'
+                    #     ).exists():
+                    #         answered += 1
+                    # mark = (answered / total_students_appeared) * 100
+
+                    # New logic from Nagraj & Vaijayanthi
                     total_students_appeared = school_ag.count()
                     answered = 0
                     for s in school_ag:
-                        if s.answers.filter(
-                            question__key=contest, answer='Yes'
-                        ).exists():
+                        total_questions = s.answers.filter(
+                            question__key=contest
+                        ).count()
+                        correct_answers = s.answers.filter(
+                            question__key=contest,
+                            answer='Yes'
+                        ).count()
+                        if total_questions == correct_answers:
                             answered += 1
                     mark = (answered / total_students_appeared) * 100
 
@@ -352,12 +368,28 @@ class SchoolReport(BaseReport):
                     # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
                     # mark = (answered/num_q)*100
 
+                    # The second logic we used in July
+                    # total_students_appeared = school_ag.count()
+                    # answered = 0
+                    # for s in school_ag:
+                    #     if s.answers.filter(
+                    #         question__key=contest, answer='Yes'
+                    #     ).exists():
+                    #         answered += 1
+                    # mark = (answered / total_students_appeared) * 100
+
+                    # The new logic proposed by Nagraj & Vaijayanthi
                     total_students_appeared = school_ag.count()
                     answered = 0
                     for s in school_ag:
-                        if s.answers.filter(
-                            question__key=contest, answer='Yes'
-                        ).exists():
+                        total_questions = s.answers.filter(
+                            question__key=contest
+                        ).count()
+                        correct_answers = s.answers.filter(
+                            question__key=contest,
+                            answer='Yes'
+                        ).count()
+                        if total_questions == correct_answers:
                             answered += 1
                     mark = (answered / total_students_appeared) * 100
 
@@ -495,7 +527,6 @@ class ClusterReport(BaseReport):
             details = dict(school=Institution.objects.get(id=each_row['institution_id']).name, grade=each_row['questiongroup_name'])
             details['contest'] = each_row['question_key']
             details['percent'] = percent
-
             schools.append(details)
         return schools
 
@@ -899,12 +930,28 @@ class DistrictReport(BaseReport):
                 # except ZeroDivisionError:
                 #     continue
 
+                # The second logic used in July
+                # total_students_appeared = block_ag.count()
+                # score = 0
+                # for b in block_ag:
+                #     if b.answers.filter(
+                #         question__key=contest, answer='Yes'
+                #     ).exists():
+                #         score += 1
+                # score = score / total_students_appeared
+
+                # The new logic proposed by Nagraj & Vaijayanthi
                 total_students_appeared = block_ag.count()
                 score = 0
                 for b in block_ag:
-                    if b.answers.filter(
-                        question__key=contest, answer='Yes'
-                    ).exists():
+                    total_questions = b.answers.filter(
+                        question__key=contest
+                    ).count()
+                    correct_answers = b.answers.filter(
+                        question__key=contest,
+                        answer='Yes'
+                    ).count()
+                    if total_questions == correct_answers:
                         score += 1
                 score = score / total_students_appeared
 

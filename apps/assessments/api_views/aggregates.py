@@ -18,6 +18,7 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
     institution_queryset = SurveyInstitutionAgg.objects.all()
     boundary_queryset = SurveyBoundaryAgg.objects.all()
+    eboundary_queryset = SurveyElectionBoundaryAgg.objects.all()
 
     def institution_qs(self):
         """
@@ -28,7 +29,16 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
         state_id = BoundaryStateCode.objects.get(
             char_id=settings.ILP_STATE_ID).boundary_id
         boundary_id = self.request.query_params.get('boundary_id', state_id)
-        institution_qs = SurveyInstitutionAgg.objects.filter(
+        eboundary_id = self.request.query_params.get('electionboundary_id', None)
+        if eboundary_id:
+           institution_qs = SurveyInstitutionAgg.objects.filter(
+                Q(institution_id__gp_id=eboundary_id) |
+                Q(institution_id__mp_id=eboundary_id) |
+                Q(institution_id__mla_id=eboundary_id) |
+                Q(institution_id__ward_id=eboundary_id)
+            )
+        else:
+            institution_qs = SurveyInstitutionAgg.objects.filter(
                 Q(institution_id__admin0_id=boundary_id) |
                 Q(institution_id__admin1_id=boundary_id) |
                 Q(institution_id__admin2_id=boundary_id) |
@@ -459,16 +469,22 @@ class SurveyQuestionGroupQuestionKeyAPIView(
         objects.all()
     boundary_queryset = SurveyBoundaryQuestionGroupQuestionKeyAgg.\
         objects.all()
+    eboundary_queryset = SurveyEBoundaryQuestionGroupQuestionKeyAgg.\
+        objects.all()
 
     def get_answer_queryset(self):
         institution_id = self.request.query_params.get('institution_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
+        eboundary_id = self.request.query_params.get('electionboundary_id', None)
         if institution_id:
             return SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.\
                 objects.filter(institution_id=institution_id)
         if boundary_id:
             return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
                 objects.filter(boundary_id=boundary_id)
+        if eboundary_id:
+            return SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
+                objects.filter(eboundary_id=eboundary_id)
 
         state_id = BoundaryStateCode.objects.get(
             char_id=settings.ILP_STATE_ID).boundary_id
@@ -486,8 +502,10 @@ class SurveyQuestionGroupQuestionKeyAPIView(
         """
         qgroup_res = {}
         qs = self.filter_queryset(self.get_queryset())
+        print(qs.count())
 
         ans_qs = self.filter_queryset(self.get_answer_queryset())
+        print(ans_qs.count())
 
         qgroups = qs.distinct('questiongroup_id')\
             .values_list('questiongroup_id', 'questiongroup_name')
@@ -765,16 +783,22 @@ class SurveyQuestionGroupQDetailsAPIView(
         objects.all()
     boundary_queryset = SurveyBoundaryQuestionGroupQDetailsAgg.\
         objects.all()
+    eboundary_queryset = SurveyEBoundaryQuestionGroupQDetailsAgg.\
+        objects.all()
 
     def get_answer_queryset(self):
         institution_id = self.request.query_params.get('institution_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
+        eboundary_id = self.request.query_params.get('electionboundary_id', None)
         if institution_id:
             return SurveyInstitutionQuestionGroupQDetailsCorrectAnsAgg.\
                 objects.filter(institution_id=institution_id)
         if boundary_id:
             return SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg.\
                 objects.filter(boundary_id=boundary_id)
+        if eboundary_id:
+            return SurveyEBoundaryQuestionGroupQDetailsCorrectAnsAgg.\
+                objects.filter(eboundary_id=eboundary_id)
 
         state_id = BoundaryStateCode.objects.get(
             char_id=settings.ILP_STATE_ID).boundary_id
@@ -857,3 +881,110 @@ class SurveyQuestionGroupQDetailsAPIView(
                     q_res[concept][microconcept_group]["score"] += row['num_assessments__sum']
             qgroup_res[qgroup_name] = q_res
         return Response(qgroup_res)
+
+
+class SurveyQuestionGroupQuestionKeyYearComparisonAPIView(
+        AggMixin, ListAPIView, ILPStateMixin
+):
+    institution_queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.\
+        objects.all()
+    boundary_queryset = SurveyBoundaryQuestionGroupQuestionKeyAgg.\
+        objects.all()
+
+    def get_answer_queryset(self):
+        institution_id = self.request.query_params.get('institution_id', None)
+        boundary_id = self.request.query_params.get('boundary_id', None)
+        if institution_id:
+            return SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.\
+                objects.filter(institution_id=institution_id)
+        if boundary_id:
+            return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
+                objects.filter(boundary_id=boundary_id)
+
+        state_id = BoundaryStateCode.objects.get(
+            char_id=settings.ILP_STATE_ID).boundary_id
+        return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects.\
+            filter(boundary_id=state_id)
+
+    def getYearData(self, year, survey_id, survey_tag):
+        qgroup_res = {} 
+            
+        qs = self.filter_queryset(self.get_queryset())
+        if survey_id:
+            qs = qs.filter(survey_id=survey_id)
+
+        if survey_tag:
+            qs = qs.filter(survey_tag=survey_tag)
+
+        to_yearmonth = year.split('-')[1]+'04'
+        from_yearmonth = year.split('-')[0]+'06'
+        print('to_yearmonth: '+to_yearmonth+", from_yearmonth: "+from_yearmonth)
+        qs = qs.filter(yearmonth__lte=to_yearmonth, yearmonth__gte=from_yearmonth)
+
+
+        ans_qs = self.filter_queryset(self.get_answer_queryset())
+        if survey_id:
+            ans_qs = ans_qs.filter(survey_id=survey_id)
+
+        if survey_tag:
+            ans_qs = ans_qs.filter(survey_tag=survey_tag)
+
+        ans_qs = ans_qs.filter(yearmonth__lte=to_yearmonth, yearmonth__gte=from_yearmonth)
+
+        qgroups = qs.distinct('questiongroup_id')\
+            .values_list('questiongroup_id', 'questiongroup_name')
+
+        for qgroup_id, qgroup_name in qgroups:
+            q_res = {}
+            qgroup_qs = qs.filter(questiongroup_id=qgroup_id)
+            qgroup_ans_qs = ans_qs.filter(questiongroup_id=qgroup_id)
+            key_agg = qgroup_qs.values(
+                'question_key').annotate(num_assess=Sum('num_assessments'))
+            ans_key_agg = qgroup_ans_qs.values(
+                'question_key').annotate(num_assess=Sum('num_assessments'))
+
+            question_keys = key_agg.values_list('question_key', flat=True)           
+            for q_key in question_keys:
+                total = key_agg.get(question_key=q_key)['num_assess']
+                try:
+                    score_qs = ans_key_agg.get(question_key=q_key)
+                    score = score_qs['num_assess']
+                except ObjectDoesNotExist:
+                    score = 0
+                q_res[q_key] = {
+                    "total": total,
+                    "score": score
+                }
+            qgroup_res[qgroup_name] = q_res
+        return qgroup_res
+
+    def list(self, request, *args, **kwargs):
+        """
+        Returns questiongroups.
+        Each questiongroups contains questionkey dicts.
+        Each questionkey dict contains answer_total, answer_score.
+
+        Question Keys is fetched from `self.get_queryset()` and,
+        Question Keys Answer is fetched from `self.get_answer_queryset()`.
+        """
+        qgroup_res = {}
+
+        survey_tag = request.query_params.get('survey_tag', None)
+        survey_id = request.query_params.get('survey_id', None)
+        year = request.query_params.get('year', None)
+
+        if year==None:
+            raise ParseError("Mandatory param year is not passed.")
+        
+        startyear = int('20'+year[0]+year[1])
+        endyear = int('20'+year[2]+year[3])
+        current_year = str(startyear)+"-"+str(endyear)
+        pre_startyear = int('20'+year[0]+year[1])-1
+        pre_endyear = int('20'+year[2]+year[3])-1
+        pre_year = str(pre_startyear)+"-"+str(pre_endyear)
+
+        qgroup_res[current_year] = self.getYearData(current_year, survey_id, survey_tag)
+        qgroup_res[pre_year] = self.getYearData(pre_year, survey_id, survey_tag)
+        return Response(qgroup_res)
+
+
