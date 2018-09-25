@@ -56,7 +56,6 @@
 					"class-6-performance": loadPerformance,
 		  	};
 
-			console.log(isSectionVisible, elId);
       if(!isSectionVisible) { return; }
   
       if(typeof(functionMap[elId]) === 'function') {
@@ -94,7 +93,6 @@
           window.location.href = '/gp-contest';
 				}
 				else if(window.location.hash != '#datemodal' && window.location.hash !='#close' && window.location.hash != '#searchmodal') {
-					console.log('Coming here');
 				}
       }
     }
@@ -175,12 +173,9 @@
 
     // Fetch coverage information
     function loadCoverage() {
-			console.log(tabs);
       var selectedYearInfo = tabs.find(function(tab) {
-				console.log(tab, selectedComparisonTab)
         return tab.value === selectedConverageTab;
 			});
-			console.log(selectedYearInfo)
 
       var $coverageXHR = klp.api.do(
          `survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
@@ -198,7 +193,8 @@
 			var district_id = $("#select-district").val(),
 				block_id = $("#select-block").val(),
 				cluster_id = $("#select-cluster").val(),
-				institution_id = $("#select-school").val(),
+        institution_id = $("#select-school").val(),
+        gp_id = $("#select-gp").val(),
 				start_date = $('#startDate').yearMonthSelect("getFirstDay"),
 				end_date = $('#endDate').yearMonthSelect("getLastDay"),
 				url = '/gp-contest/#searchmodal';
@@ -207,29 +203,77 @@
 						url += '?from=' + start_date + '&to=' + end_date;
 				} else {
 						// url += 'default_date=true';
-				}
-
-				if(institution_id) {
-						url += '&institution_id=' + institution_id;
-				} else {
-						if(cluster_id) {
-								url += '&boundary_id=' + cluster_id;
-						} else if(block_id) {
-								url += '&boundary_id=' + block_id;
-						} else if(district_id) {
-								url += '&boundary_id=' + district_id;
-						}
-				}
-
+        }
+        
+        if (searchByGPs) {
+          if (gp_id) {
+            url += '&electionboundary_id=' + gp_id;
+          } else {
+            if (block_id) {
+              url += '&boundary_id' + block_id;
+            } else if (district_id) {
+              url += '&boundary_id' + district_id;
+            }
+          }
+        } else {
+          if (institution_id) {
+              url += '&institution_id=' + institution_id;
+          } else {
+              if(cluster_id) {
+                  url += '&boundary_id=' + cluster_id;
+              } else if(block_id) {
+                  url += '&boundary_id=' + block_id;
+              } else if(district_id) {
+                  url += '&boundary_id=' + district_id;
+              }
+          }
+        }
+          
 				e.originalEvent.currentTarget.href = url;
-		});
+    });
+    
+    // This returns search entity type and entity Id
+    function getSearchedEntityInfo() {
+      var routerParams = klp.GP.routerParams;
+
+      if (routerParams.electionboundary_id) {
+        return {
+          type: 'electionboundary_id',
+          value: routerParams.electionboundary_id,
+        }
+      }
+
+      if (routerParams.institution_id) {
+        return {
+          type: 'institution_id',
+          value: routerParams.institution_id,
+        }
+      }
+
+      if (routerParams.boundaryId) {
+        return {
+          type: 'boundary_id',
+          value: routerParams.boundaryId,
+        }
+      }
+
+      return null;
+    }
+
+    function checkForUrlParams(url) {
+      var entityInfo = getSearchedEntityInfo();
+      if (!entityInfo) {
+        return url;
+      }
+
+      return `${url}&${entityInfo.type}=${entityInfo.value}`;
+    };
 
     // Fetch performance info
     function loadPerformance() {
 			// $("#gp-performance-class-4").startLoading();
-			console.log('Calling this functuon', klp.GP.routerParams)
-			var routerParams = klp.GP.routerParams;
-			var dateParams = {};
+      var routerParams = klp.GP.routerParams;	
+      var dateParams = {};
 
       var LABELS_REQUIRED = [
         'Addition',
@@ -252,9 +296,8 @@
 			}
 
       if(selectedPerformanceTab === 'basic') {
-        var $performanceXHR = klp.api.do(
-           `survey/detail/questiongroup/key/?survey_id=2&from=${dateParams.from}&${dateParams.to}`
-        );
+        var basicPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/key/?survey_id=2&from=${dateParams.from}&${dateParams.to}`);
+        var $performanceXHR = klp.api.do(basicPerformanceUrl);
         $performanceXHR.done(function(result) {
           var chartData = {},
               labels = [],
@@ -288,9 +331,8 @@
           renderBarChart('#gp-performance-class-6', chartData.class6);
         });
       } else {
-        var $performanceXHR = klp.api.do(
-           `survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
-        );
+        const detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`);
+        var $performanceXHR = klp.api.do(detailsPerformanceUrl);
         $performanceXHR.done(function(result) {
           var chartData = {};
           for(var i = 4; i <= 6; i++) {

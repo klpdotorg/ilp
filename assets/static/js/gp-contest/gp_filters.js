@@ -7,6 +7,7 @@
 
     var surveyId = 1;
     var questionGroupId = 7;
+    var gpSearch = false;
 
     t.init = function() {
         klp.router = new KLPRouter();
@@ -112,7 +113,6 @@
         });
 
         $select_block.on("change", function(selected) {
-
             clearSelect($select_cluster);
             clearSelect($select_school);
             clearSelect($select_gp);
