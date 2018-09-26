@@ -173,6 +173,8 @@
 
     // Fetch coverage information
     function loadCoverage() {
+      $("#gp-coverage").startLoading();
+      
       var selectedYearInfo = tabs.find(function(tab) {
         return tab.value === selectedConverageTab;
 			});
@@ -186,6 +188,7 @@
         var coverageHTML = tplCoverage({ data: result.summary });
         
         $('#gp-coverage').html(coverageHTML);
+        $("#gp-coverage").stopLoading();
       });
 		}
 		
@@ -271,7 +274,11 @@
 
     // Fetch performance info
     function loadPerformance() {
-			// $("#gp-performance-class-4").startLoading();
+      // Starting all spinners
+      $("#gp-performance-class-4").startLoading();
+      $("#gp-performance-class-5").startLoading();
+      $("#gp-performance-class-6").startLoading();
+
       var routerParams = klp.GP.routerParams;	
       var dateParams = {};
 
@@ -329,6 +336,11 @@
           renderBarChart('#gp-performance-class-4', chartData.class4);
           renderBarChart('#gp-performance-class-5', chartData.class5);
           renderBarChart('#gp-performance-class-6', chartData.class6);
+
+          // Stoping all spinners
+          $("#gp-performance-class-4").stopLoading();
+          $("#gp-performance-class-5").stopLoading();
+          $("#gp-performance-class-6").stopLoading();
         });
       } else {
         const detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`);
@@ -348,6 +360,11 @@
           renderBarChart('#gp-performance-class-4', chartData.class4);
           renderBarChart('#gp-performance-class-5', chartData.class5);
           renderBarChart('#gp-performance-class-6', chartData.class6);
+
+          // Stoping all spinners
+          $("#gp-performance-class-4").stopLoading();
+          $("#gp-performance-class-5").stopLoading();
+          $("#gp-performance-class-6").stopLoading();
         });
       } /* if else ends */
 
@@ -477,6 +494,19 @@
     }
 
   }
+
+  /* Helper function */
+  $.fn.startLoading = function() {
+    var $this = $(this);
+    var $loading = $('<div />').addClass('fa fa-cog fa-spin loading-icon-base js-loading');
+    $this.empty().append($loading);
+  }
+
+  $.fn.stopLoading = function() {
+      var $this = $(this);
+      $this.find('.js-loading').remove();
+  }
+
 })()
 
 
