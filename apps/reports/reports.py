@@ -570,7 +570,7 @@ class ClusterReport(BaseReport):
         hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=cluster)\
             .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
             .filter(question_id__in=[269, 144, 145, 138])
-        total_hh_answers = hh_answers_agg.values('question_desc').annotate(Sum('num_answers'))
+        total_hh_answers = hh_answers_agg.values('question_desc', 'question_id').annotate(Sum('num_answers'))
         total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_desc', 'question_id').annotate(Sum('num_answers'))
 
         HHSurvey = []
@@ -582,6 +582,7 @@ class ClusterReport(BaseReport):
                 HHSurvey.append({'text':question_text,'percentage': round((each_answer['num_answers__sum']/total_count)*100, 2)})
         else:
              raise ValueError("No community survey data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
+        print(HHSurvey)
         return HHSurvey
 
     def getGKAData(self, cluster, date_range):
@@ -589,10 +590,21 @@ class ClusterReport(BaseReport):
             .filter(yearmonth__range=date_range)\
             .filter(survey_id=11)
         if GKA.exists():
-            teachers_trained = GKA.filter(question_desc__icontains='trained', answer_option='Yes').count()/GKA.filter(question_desc__icontains='trained').count()
-            kit_usage = GKA.filter(question_desc__icontains='Ganitha Kalika Andolana TLM', answer_option='Yes').count()/GKA.filter(question_desc__icontains='Ganitha Kalika Andolana TLM').count()
-            group_work = GKA.filter(question_desc__icontains='group', answer_option='Yes').count()/GKA.filter(question_desc__icontains='group').count()
-            return dict(teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2))
+            # Teachers trained percentage
+            teachers_trained = GKA.filter(question_desc__icontains='trained', answer_option='Yes').aggregate(trained = Sum('num_answers'))
+            total_teachers = GKA.filter(question_desc__icontains='trained').aggregate(total = Sum('num_answers'))
+            percent_teachers_trained = teachers_trained['trained']/total_teachers['total']*100
+            
+            #Kit usage percentage
+            kits_used = GKA.filter(question_desc__icontains='Ganitha Kalika Andolana TLM', answer_option='Yes').aggregate(kits_used= Sum('num_answers'))
+            kits_total = GKA.filter(question_desc__icontains='Ganitha Kalika Andolana TLM').aggregate(total_kits = Sum('num_answers'))
+            percent_kit_usage = kits_used['kits_used']/kits_total['total_kits']*100
+            
+            #Group work percentage
+            group_work_done = GKA.filter(question_desc__icontains='group', answer_option='Yes').aggregate(group_work_yes = Sum('num_answers'))
+            group_work_total = GKA.filter(question_desc__icontains='group').aggregate(group_work_total = Sum('num_answers'))
+            group_work_percent = group_work_done['group_work_yes']/group_work_total['group_work_total'] * 100
+            return dict(teachers_trained=round(percent_teachers_trained, 2),  kit_usage=round(percent_kit_usage, 2), group_work=round(group_work_percent, 2))
         else:
             raise ValueError("No GKA data for '{}' between {} and {}.".format(self.cluster_name, self.report_from, self.report_to))
 
