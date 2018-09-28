@@ -34,8 +34,8 @@
         var tabs = _.map(years, function(tab) {
             return {
                 value: tab,
-                start_date: `${tab}-01-01`,
-                end_date: `${Number(tab) + 1}-01-01`
+                start_date: `${tab}-06-01`,
+                end_date: `${Number(tab) + 1}-03-01`
             }
         })
         var $educational_hierarchy_checkbox = $("#select-educational-hrc");
@@ -86,6 +86,7 @@
             klp.GP.routerParams = queryParams;
 
             loadPerformance();
+            loadCoverage();
                 
             if (window.location.hash) {
                 if (window.location.hash == '#resetButton') {
