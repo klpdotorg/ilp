@@ -297,8 +297,9 @@
                 dateParams.from = routerParams.from;
                 dateParams.to = routerParams.to;
             } else {
-                dateParams.from = selectedYearInfo.start_date;
-                dateParams.to = selectedYearInfo.end_date; 
+                var defaultDateParams = getDefaultAcademicYear();
+                dateParams.from = defaultDateParams.from;
+                dateParams.to = defaultDateParams.to; 
             }
 
             if (selectedPerformanceTab === 'basic') {
@@ -505,6 +506,15 @@
     $.fn.stopLoading = function() {
         var $this = $(this);
         $this.find('.js-loading').remove();
+    }
+
+    function getDefaultAcademicYear() {
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        return {
+            from: currentYear + '-06-01',
+            to: (currentYear + 1) + '-03-01',
+        }
     }
 })()
 
