@@ -258,7 +258,7 @@
             var selectedYearInfo = tabs.find(function(tab) {
                 return tab.value === selectedConverageTab;
             });
-            var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`);
+            var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
             var $coverageXHR = klp.api.do(
                 coverageUrl
             )
@@ -304,7 +304,7 @@
             }
 
             if (selectedPerformanceTab === 'basic') {
-                var basicPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/key/?survey_id=2&from=${dateParams.from}&${dateParams.to}`);
+                var basicPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/key/?survey_id=2&from=${dateParams.from}&to=${dateParams.to}`);
                 var $performanceXHR = klp.api.do(basicPerformanceUrl);
 
                 $performanceXHR.done(function(result) {
@@ -346,7 +346,7 @@
                     $("#gp-performance-class-6").stopLoading();
                 });
             } else {
-                var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`);
+                var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
                 var $performanceXHR = klp.api.do(detailsPerformanceUrl);
                 
                 $performanceXHR.done(function(result) {
@@ -513,8 +513,8 @@
         var currentDate = new Date();
         var currentYear = currentDate.getFullYear();
         return {
-            from: currentYear + '-06-01',
-            to: (currentYear + 1) + '-03-01',
+            from: currentYear + '-03-31',
+            to: (currentYear + 1) + '-06-30',
         }
     }
 })()
