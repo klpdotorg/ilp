@@ -251,10 +251,10 @@
                 }
             }
 
-            if (routerParams.boundaryId) {
+            if (routerParams.boundary_id) {
                 return {
                     type: 'boundary_id',
-                    value: routerParams.boundaryId,
+                    value: routerParams.boundary_id,
                 }
             }
 
