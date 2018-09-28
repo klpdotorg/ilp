@@ -34,8 +34,8 @@
         var tabs = _.map(years, function(tab) {
             return {
                 value: tab,
-                start_date: `${tab}-06-01`,
-                end_date: `${Number(tab) + 1}-03-01`
+                start_date: `${tab}-03-31`,
+                end_date: `${Number(tab) + 1}-06-30`
             }
         })
         var $educational_hierarchy_checkbox = $("#select-educational-hrc");
@@ -171,27 +171,6 @@
             });
         }
 
-        // Fetch coverage information
-        function loadCoverage() {
-            $("#gp-coverage").startLoading();
-        
-            var selectedYearInfo = tabs.find(function(tab) {
-                return tab.value === selectedConverageTab;
-            });
-
-            var $coverageXHR = klp.api.do(
-                `survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`
-            )
-
-            $coverageXHR.done(function(result) {
-                var tplCoverage = swig.compile($('#tpl-coverage').html());
-                var coverageHTML = tplCoverage({ data: result.summary });
-                
-                $('#gp-coverage').html(coverageHTML);
-                $("#gp-coverage").stopLoading();
-            });
-        }
-            
         $('#search_button').click(function(e){
             var district_id = $("#select-district").val(),
                 block_id = $("#select-block").val(),
@@ -271,6 +250,27 @@
 
             return `${url}&${entityInfo.type}=${entityInfo.value}`;
         };
+
+        // Fetch coverage information
+        function loadCoverage() {
+            $("#gp-coverage").startLoading();
+        
+            var selectedYearInfo = tabs.find(function(tab) {
+                return tab.value === selectedConverageTab;
+            });
+            var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&${selectedYearInfo.end_date}`);
+            var $coverageXHR = klp.api.do(
+                coverageUrl
+            )
+
+            $coverageXHR.done(function(result) {
+                var tplCoverage = swig.compile($('#tpl-coverage').html());
+                var coverageHTML = tplCoverage({ data: result.summary });
+                
+                $('#gp-coverage').html(coverageHTML);
+                $("#gp-coverage").stopLoading();
+            });
+        }
 
         // Fetch performance info
         function loadPerformance() {
