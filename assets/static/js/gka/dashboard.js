@@ -358,6 +358,7 @@ var topSummaryData = {};
 
     function loadSmsData(params) {
         // Spinners
+        // $('#smsSummary11').startLoading();
         $('#smsSummary').startLoading();
         $('#smsSender').startLoading();
         $('#smsVolume').startLoading();
