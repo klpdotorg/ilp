@@ -357,18 +357,27 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
+        var gkaSchoolVisit;
+
         // Spinners
         $('#smsSummary').startLoading();
         $('#smsSender').startLoading();
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
-        // var smsSurvey = getSurveyId('gka school visit');
-        var smsSurvey = 11;
+        // var gkaSchoolVisit = getSurveyId('gka school visit');
+        if(klp.STATE_CODE === 'ka') {
+            gkaSchoolVisit = 11;
+        } else if(klp.STATE_CODE === 'od') {
+            gkaSchoolVisit = 14;
+        } else {
+            alert('Not enough data to load GKA school visit.');
+            return;
+        }
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
-            "survey/summary/?survey_tag=gka&survey_id=" + smsSurvey, params
+            "survey/summary/?survey_tag=gka&survey_id=" + gkaSchoolVisit, params
         );
         $smsSummaryXHR.done(function(data) {;
             klp.GKA.smsSummary = data;
@@ -378,7 +387,7 @@ var topSummaryData = {};
 
         // Fetch users
         var $usersXHR = klp.api.do(
-            "survey/info/users/?survey_tag=gka&survey_id=" + smsSurvey,
+            "survey/info/users/?survey_tag=gka&survey_id=" + gkaSchoolVisit,
             params
         );
         $usersXHR.done(function(userGroups) {
@@ -388,7 +397,7 @@ var topSummaryData = {};
 
         // Fetch volumes
         var $volumesXHR = klp.api.do(
-            "survey/volume/?survey_tag=gka&survey_id=" + smsSurvey,
+            "survey/volume/?survey_tag=gka&survey_id=" + gkaSchoolVisit,
             params
         );
         $volumesXHR.done(function(volumes) {
@@ -401,7 +410,7 @@ var topSummaryData = {};
 
         // Fetch SMS Details
         var $detailXHR = klp.api.do(
-            "survey/detail/source/?survey_tag=gka&survey_id=" + smsSurvey,
+            "survey/detail/source/?survey_tag=gka&survey_id=" + gkaSchoolVisit,
             params
         );
         $detailXHR.done(function(data) {
