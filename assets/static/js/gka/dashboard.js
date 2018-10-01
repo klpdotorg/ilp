@@ -1606,7 +1606,9 @@ var topSummaryData = {};
         if (!answers) { return 0; }
         var yes = answers['Yes'] ? answers['Yes'] : 0;
         var no = answers['No'] ? answers['No'] : 0;
-        return yes + no;
+        var dontKnow = answers['Don\'t Know'] ? answers['Don\'t Know'] : 0;
+        var unknown = answers['Unknown'] ? answers['Unknown'] : 0;
+        return yes + no + dontKnow + unknown;
     }
 
     function getPercent(score, total) {
