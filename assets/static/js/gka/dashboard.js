@@ -1658,7 +1658,13 @@ var topSummaryData = {};
 
         var combined = _.map(keys, function(k){
             var combinedData = {
-                answers: {Yes: 0, No: 0}, question: {}
+                answers: {
+                    Yes: 0,
+                    No: 0,
+                    'Don\'t Know': 0,
+                    Unknown: 0
+                },
+                question: {}
             };
 
             _.each(sources, function(s) {
@@ -1675,6 +1681,12 @@ var topSummaryData = {};
                     }
                     if(!isNaN(data.answers.No)) {
                         combinedData.answers.No += data.answers.No;
+                    }
+                    if(!isNaN(data.answers['Don\'t Know'])) {
+                        combinedData.answers['Don\'t Know'] += data.answers['Don\'t Know'];
+                    }
+                    if(!isNaN(data.answers.Unknown)) {
+                        combinedData.answers.Unknown += data.answers.Unknown;
                     }
 
                     if(data.question) {
