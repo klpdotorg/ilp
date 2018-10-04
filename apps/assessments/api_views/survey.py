@@ -418,18 +418,13 @@ class SurveyTagAggAPIView(APIView):
             "num_students": 0
         }
 
-        queryset = BoundarySchoolCategoryAgg.objects.\
-            filter(boundary_id=boundary_id, cat_ac_year=year,
-                   institution_type='primary')
-
-        if queryset:
-            inst_count = Institution.objects.filter(
-                institution_type_id=InstitutionType.PRIMARY_SCHOOL
-            ).filter(
-                Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
-                Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
-            ).count()
-            response["total_schools"] = inst_count
+        inst_count = Institution.objects.filter(
+            institution_type_id=InstitutionType.PRIMARY_SCHOOL
+        ).filter(
+            Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
+            Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
+        ).count()
+        response["total_schools"] = inst_count
 
         queryset = SurveyTagMappingAgg.objects.\
             filter(boundary_id=boundary_id, survey_tag=survey_tag,

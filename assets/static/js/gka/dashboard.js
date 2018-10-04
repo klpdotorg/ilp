@@ -357,6 +357,8 @@ var topSummaryData = {};
     }
 
     function loadSmsData(params) {
+        var gkaSchoolVisit;
+
         // Spinners
         // $('#smsSummary11').startLoading();
         $('#smsSummary').startLoading();
@@ -364,12 +366,19 @@ var topSummaryData = {};
         $('#smsVolume').startLoading();
         $('#smsQuestions').startLoading();
 
-        // var smsSurvey = getSurveyId('gka school visit');
-        var smsSurvey = 11;
+        // var gkaSchoolVisit = getSurveyId('gka school visit');
+        if(klp.STATE_CODE === 'ka') {
+            gkaSchoolVisit = 11;
+        } else if(klp.STATE_CODE === 'od') {
+            gkaSchoolVisit = 14;
+        } else {
+            alert('Not enough data to load GKA school visit.');
+            return;
+        }
 
         // Fetch SMS Summary
         var $smsSummaryXHR = klp.api.do(
-            "survey/summary/?survey_tag=gka&survey_id=" + smsSurvey, params
+            "survey/summary/?survey_tag=gka&survey_id=" + gkaSchoolVisit, params
         );
         $smsSummaryXHR.done(function(data) {;
             klp.GKA.smsSummary = data;
@@ -379,7 +388,7 @@ var topSummaryData = {};
 
         // Fetch users
         var $usersXHR = klp.api.do(
-            "survey/info/users/?survey_tag=gka&survey_id=" + smsSurvey,
+            "survey/info/users/?survey_tag=gka&survey_id=" + gkaSchoolVisit,
             params
         );
         $usersXHR.done(function(userGroups) {
@@ -389,7 +398,7 @@ var topSummaryData = {};
 
         // Fetch volumes
         var $volumesXHR = klp.api.do(
-            "survey/volume/?survey_tag=gka&survey_id=" + smsSurvey,
+            "survey/volume/?survey_tag=gka&survey_id=" + gkaSchoolVisit,
             params
         );
         $volumesXHR.done(function(volumes) {
@@ -402,7 +411,7 @@ var topSummaryData = {};
 
         // Fetch SMS Details
         var $detailXHR = klp.api.do(
-            "survey/detail/source/?survey_tag=gka&survey_id=" + smsSurvey,
+            "survey/detail/source/?survey_tag=gka&survey_id=" + gkaSchoolVisit,
             params
         );
         $detailXHR.done(function(data) {
@@ -1598,7 +1607,9 @@ var topSummaryData = {};
         if (!answers) { return 0; }
         var yes = answers['Yes'] ? answers['Yes'] : 0;
         var no = answers['No'] ? answers['No'] : 0;
-        return yes + no;
+        var dontKnow = answers['Don\'t Know'] ? answers['Don\'t Know'] : 0;
+        var unknown = answers['Unknown'] ? answers['Unknown'] : 0;
+        return yes + no + dontKnow + unknown;
     }
 
     function getPercent(score, total) {
@@ -1650,7 +1661,13 @@ var topSummaryData = {};
 
         var combined = _.map(keys, function(k){
             var combinedData = {
-                answers: {Yes: 0, No: 0}, question: {}
+                answers: {
+                    Yes: 0,
+                    No: 0,
+                    'Don\'t Know': 0,
+                    Unknown: 0
+                },
+                question: {}
             };
 
             _.each(sources, function(s) {
@@ -1667,6 +1684,12 @@ var topSummaryData = {};
                     }
                     if(!isNaN(data.answers.No)) {
                         combinedData.answers.No += data.answers.No;
+                    }
+                    if(!isNaN(data.answers['Don\'t Know'])) {
+                        combinedData.answers['Don\'t Know'] += data.answers['Don\'t Know'];
+                    }
+                    if(!isNaN(data.answers.Unknown)) {
+                        combinedData.answers.Unknown += data.answers.Unknown;
                     }
 
                     if(data.question) {

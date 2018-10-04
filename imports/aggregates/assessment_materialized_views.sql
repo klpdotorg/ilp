@@ -29,7 +29,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
@@ -115,7 +115,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         and ag.is_verified=true
@@ -209,7 +209,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
         and ag.is_verified=true
@@ -304,7 +304,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.respondent_type_id = rt.char_id
         and ag.is_verified=true
         and ag.institution_id = s.id
@@ -403,7 +403,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.respondent_type_id = rt.char_id
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -497,7 +497,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.created_by_id = users.id
         and ag.is_verified=true
         and ag.institution_id = s.id
@@ -595,7 +595,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.created_by_id = ut.id
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -684,7 +684,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -774,7 +774,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -864,7 +864,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -966,7 +966,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -1065,7 +1065,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -2244,7 +2244,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -2355,7 +2355,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -2466,7 +2466,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -2572,7 +2572,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
         and ag.is_verified=true
@@ -2665,7 +2665,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         and ag.is_verified=true
@@ -2755,7 +2755,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
@@ -3274,7 +3274,7 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
