@@ -24,93 +24,93 @@
   <div class="base-spacing-mid"></div>
   <h2 class="heading-border grey-steel">GP CONTEST DASHBOARD</h2>
   <div class="base-spacing-mid"></div>
-  <div class="center-text">
-    <form class="form-base">
-      <div class="form-field-wrap">
-          <div class="chart-parent dateform">
-          <div class="chart-half-item align-fromdate">
-            <div class="form-field-wrap" id="startDate">
-                <label class="label-inline bold">Start Date</label><br/>
-                <select class="month">
-
-                </select>
-                <select class="year">
-
-                </select>
-             </div>
-          </div>
-          <div class="chart-half-item align-left">
-            <!--input name="to" id="todate" type="date" class="js-input-date input-text calendar-icon" placeholder="End Date"-->
-            <div class="form-field-wrap" id="endDate">
-                <label class="label-inline bold">End Date</label><br/>
-                <select class="month">
-
-                </select>
-                <select class="year">
-
-                </select>
-             </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="base-spacing-mid"></div>
-  <div class="sect-parent">
-    <div class="educational box sect-parent center-elements">
-      <div class="sect-quarter center-text">
-        <input type="radio" class="js-example-basic-single input-text" id="select-educational-hrc">
-        <label for="select-educational-hrc"> Educational Hierarchy</label>
-      </div>
-      <div class="sect-quarter center-text">
-        <input type="radio" class="js-example-basic-single input-text" id="select-gp-checkbox">
-        <label for="select-gp"> GP</label>
-      </div>
-    </div>
-  </div>
-  <div class="base-spacing-mid"></div>
-  <div class="sect-parent">
-    <div class="sect-parent">
-      <div class="educational box sect-parent center-elements">
-        <div class="sect-quarter">
-          <input type="text" placeholder="District" class="js-example-basic-single input-text full-width" id="select-district">
-        </div>
-        <div class="sect-quarter">
-          <input type="text" placeholder="Block" class="js-example-basic-single input-text full-width" id="select-block">
-        </div>
-        <div class="sect-quarter" id="select-cluster-cont">
-          <input type="text" placeholder="Cluster" class="js-example-basic-single input-text full-width" id="select-cluster">
-        </div>
-        <div class="sect-quarter" id="select-school-cont">
-          <input type="text" placeholder="School" class="js-example-basic-single input-text full-width" id="select-school">
-        </div>
-        <div class="sect-quarter" id="select-gp-cont">
-          <input type="text" placeholder="GP" class="js-example-basic-single input-text full-width" id="select-gp">
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="base-spacing-mid"></div>
-  <div class="sect-parent">
-    <div class="sect-half">
-      <a id="search_button" href="#searchButton"><div class="square full-width" aria-label="Generate Report" >Generate Report <span class="white fa fa-search"></span></div></a>
-    </div>
-    <div class="sect-half">
-      <a href="#resetButton"><div class="button-orange square full-width" aria-label="Reset" >Reset <span class="white fa fa-refresh"></span></div></a>
-    </div>
-  </div>
-  <hr />
-</section>
-
-<section class="container">
-  <div class="brand-blue font-large uppercase center-text">About GP Contest</div>
-  <div class="base-spacing-mid"></div>
+  <!-- <div class="brand-blue font-large uppercase center-text">About GP Contest</div> -->
+  <!-- <div class="base-spacing-mid"></div> -->
   <p>
     Gram Panchayat (GP) Level Mathematics Contests is organised by the Community for government school children in all GKA (Ganitha Kalika Andolana) districts of Karnataka. It’s a strategy to empower the community to take up quality to take up quality issues in the public school system within the framework of participatory democracy. Akshara Foundation acts as a facilitator to conduct these contests. The child’s numeracy levels data gathered through this contest is the most accurate and census level data available as the contests are conducted in the community with the presence of all stakeholders (Gram Panchayat members, parents, SDMC members, donors and the village community) in a transparent way
   </p>
   <hr />
 </section>
+
+<section class="container js-accordion-container search-container">
+  <a href='' class='head js-accordion-header brand-green align-right'>
+      Search <span class="fa fa-angle-down"></span>
+  </a>
+  <div class="content">
+    <div class="center-text">
+      <form class="form-base">
+        <div class="form-field-wrap">
+          <div class="chart-parent dateform">
+            <div class="chart-half-item align-fromdate">
+              <div class="form-field-wrap" id="startDate">
+                <label class="label-inline bold">Start Date</label><br/>
+                <select class="month">
+                </select>
+                <select class="year">
+                </select>
+              </div>
+            </div>
+          <div class="chart-half-item align-left">
+          <!--input name="to" id="todate" type="date" class="js-input-date input-text calendar-icon" placeholder="End Date"-->
+            <div class="form-field-wrap" id="endDate">
+              <label class="label-inline bold">End Date</label><br/>
+              <select class="month"></select>
+              <select class="year"></select>
+            </div>
+          </div>
+        </div>
+        </div>
+      </form>
+    </div>
+    <div class="base-spacing-mid"></div>
+    <div class="sect-parent">
+        <div class="educational box sect-parent center-elements">
+          <div class="sect-quarter center-text">
+            <input type="radio" class="js-example-basic-single input-text" id="select-educational-hrc">
+            <label for="select-educational-hrc"> Educational Hierarchy</label>
+          </div>
+          <div class="sect-quarter center-text">
+            <input type="radio" class="js-example-basic-single input-text" id="select-gp-checkbox">
+            <label for="select-gp"> GP</label>
+          </div>
+        </div>
+    </div>
+    <div class="base-spacing-mid"></div>
+    <div class="sect-parent">
+      <div class="sect-parent">
+        <div class="educational box sect-parent center-elements">
+          <div class="sect-quarter">
+            <input type="text" placeholder="District" class="js-example-basic-single input-text full-width" id="select-district">
+          </div>
+          <div class="sect-quarter">
+              <input type="text" placeholder="Block" class="js-example-basic-single input-text full-width" id="select-block">
+          </div>
+          <div class="sect-quarter" id="select-cluster-cont">
+              <input type="text" placeholder="Cluster" class="js-example-basic-single input-text full-width" id="select-cluster">
+          </div>
+          <div class="sect-quarter" id="select-school-cont">
+              <input type="text" placeholder="School" class="js-example-basic-single input-text full-width" id="select-school">
+          </div>
+          <div class="sect-quarter" id="select-gp-cont">
+              <input type="text" placeholder="GP" class="js-example-basic-single input-text full-width" id="select-gp">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="base-spacing-mid"></div>
+    <div class="sect-parent">
+      <div class="sect-half">
+        <a id="search_button" href="#searchButton"><div class="square full-width" aria-label="Generate Report" >Generate Report <span class="white fa fa-search"></span></div></a>
+      </div>
+      <div class="sect-half">
+        <a href="#resetButton"><div class="button-orange square full-width" aria-label="Reset" >Reset <span class="white fa fa-refresh"></span></div></a>
+      </div>
+    </div>
+  </div>
+  <hr />
+</section>
+
+
 
 <section class="container">
   <div class="brand-blue font-large uppercase center-text">Coverage</div>

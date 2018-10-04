@@ -259,16 +259,23 @@
                 return tab.value === selectedConverageTab;
             });
             var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+            var fetchGPUrl = checkForUrlParams(`survey/detail/electionboundary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
             var $coverageXHR = klp.api.do(
                 coverageUrl
-            )
+            );
 
             $coverageXHR.done(function(result) {
-                var tplCoverage = swig.compile($('#tpl-coverage').html());
-                var coverageHTML = tplCoverage({ data: result.summary });
-                
-                $('#gp-coverage').html(coverageHTML);
-                $("#gp-coverage").stopLoading();
+                var $gpXHR = klp.api.do(
+                    fetchGPUrl
+                );
+
+                $gpXHR.done(function(gpData) {
+                    var tplCoverage = swig.compile($('#tpl-coverage').html());
+                    var coverageHTML = tplCoverage({ data: result.summary, gp: gpData.GP });
+                    
+                    $('#gp-coverage').html(coverageHTML);
+                    $("#gp-coverage").stopLoading();
+                });
             });
         }
 
