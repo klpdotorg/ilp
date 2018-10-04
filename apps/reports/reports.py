@@ -118,8 +118,9 @@ class BaseReport(ABC):
              raise ValueError("No community survey data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
         return HHSurvey
 
-    def getClusterGKAData(self, cluster, date_range):
-        GKA = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=cluster)\
+    ''' Boundary type is one of district, block or cluster '''
+    def getBoundaryGKAData(self, boundary, boundary_type, date_range):
+        GKA = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
             .filter(yearmonth__range=date_range)\
             .filter(survey_id=11)
         if GKA.exists():
@@ -130,12 +131,13 @@ class BaseReport(ABC):
             
             #Group work percentage
             group_work_percent_rounded = self.getGroupWorkPercent(GKA,date_range)
-            return dict(cluster=cluster.name,\
-                        teachers_trained=teachers_trained_rounded,\
+            gka_summary = dict(teachers_trained=teachers_trained_rounded,\
                         kit_usage=percent_kit_usage_rounded,\
                         group_work=group_work_percent_rounded)
+            gka_summary[boundary_type] = boundary.name
+            return gka_summary
         else:
-            raise ValueError("No Cluster GKA data for '{}' between {} and {}.".format(self.cluster_name, self.report_from, self.report_to))
+            raise ValueError("No boundary GKA data for '{}' between {} and {}.".format(boundary.name, date_range[0], date_range[1]))
 
     def getTeacherTrainedPercent(self, gka_aggregate_obj, date_range):
         # Teachers trained percentage
@@ -759,55 +761,55 @@ class BlockReport(BaseReport):
                 clusters_gpc.append(details)
         return clusters_gpc
 
-    def get_cluster_GPC(self,answergroup):
-        conditions = answergroup.values_list('institution__admin3__name', 'questiongroup__name').distinct()
-        contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
-        contests.pop(contests.index('Gender'))
-        clusters = []
+    # def get_cluster_GPC(self,answergroup):
+    #     conditions = answergroup.values_list('institution__admin3__name', 'questiongroup__name').distinct()
+    #     contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
+    #     contests.pop(contests.index('Gender'))
+    #     clusters = []
 
-        for cluster, qgroup in conditions:
-            cluster_ag = answergroup.filter(institution__admin3__name=cluster, questiongroup__name=qgroup)
-            for contest in contests:
-                # This was the original logic for generating GP contest report
-                # In July, the logic has been changed to the block below this
-                # block.
-                # 
-                # try:
-                #     score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
-                # except ZeroDivisionError:
-                #     continue
+    #     for cluster, qgroup in conditions:
+    #         cluster_ag = answergroup.filter(institution__admin3__name=cluster, questiongroup__name=qgroup)
+    #         for contest in contests:
+    #             # This was the original logic for generating GP contest report
+    #             # In July, the logic has been changed to the block below this
+    #             # block.
+    #             # 
+    #             # try:
+    #             #     score = cluster_ag.filter(answers__question__key=contest, answers__answer='Yes').count()/cluster_ag.filter(answers__question__key=contest).count()
+    #             # except ZeroDivisionError:
+    #             #     continue
 
-                # The second logic we came up in July
-                # total_students_appeared = cluster_ag.count()
-                # score = 0
-                # for c in cluster_ag:
-                #     if c.answers.filter(
-                #         question__key=contest, answer='Yes'
-                #     ).exists():
-                #         score += 1
-                # score = score / total_students_appeared
+    #             # The second logic we came up in July
+    #             # total_students_appeared = cluster_ag.count()
+    #             # score = 0
+    #             # for c in cluster_ag:
+    #             #     if c.answers.filter(
+    #             #         question__key=contest, answer='Yes'
+    #             #     ).exists():
+    #             #         score += 1
+    #             # score = score / total_students_appeared
 
-                # The new logic proposed by Nagraj & Vaijayanthi
-                total_students_appeared = cluster_ag.count()
-                score = 0
-                for c in cluster_ag:
-                    total_questions = c.answers.filter(
-                        question__key=contest
-                    ).count()
-                    correct_answers = c.answers.filter(
-                        question__key=contest,
-                        answer='Yes'
-                    ).count()
-                    if total_questions == correct_answers:
-                        score += 1
-                score = score / total_students_appeared
+    #             # The new logic proposed by Nagraj & Vaijayanthi
+    #             total_students_appeared = cluster_ag.count()
+    #             score = 0
+    #             for c in cluster_ag:
+    #                 total_questions = c.answers.filter(
+    #                     question__key=contest
+    #                 ).count()
+    #                 correct_answers = c.answers.filter(
+    #                     question__key=contest,
+    #                     answer='Yes'
+    #                 ).count()
+    #                 if total_questions == correct_answers:
+    #                     score += 1
+    #             score = score / total_students_appeared
 
-                details = dict(cluster=cluster, grade=qgroup)
-                details['contest'] = contest
-                details['percent'] = score*100
-                clusters.append(details)
+    #             details = dict(cluster=cluster, grade=qgroup)
+    #             details['contest'] = contest
+    #             details['percent'] = score*100
+    #             clusters.append(details)
 
-        return clusters
+    #     return clusters
 
     def format_cluster_data(self, clusters):
         clusters_out = []
@@ -852,7 +854,7 @@ class BlockReport(BaseReport):
         clusters  = Boundary.objects.filter(parent=block, boundary_type__char_id='SC') # Clusters that belong to the block
         cluster_gka = []
         for cluster in clusters:
-            cluster_gka.append(self.getClusterGKAData(cluster, date_range))
+            cluster_gka.append(self.getBoundaryGKAData(cluster, 'cluster', date_range))
 
         if not cluster_gka:
             raise ValueError("No GKA data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
@@ -911,7 +913,8 @@ class DistrictReport(BaseReport):
         self.params = dict(district_name=self.district_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-        dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
+        # import pdb; pdb.set_trace()
+        dates = [self.report_from, self.report_to] # [2016-06, 2017-03]
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
@@ -919,41 +922,176 @@ class DistrictReport(BaseReport):
         except Boundary.DoesNotExist:
             raise ValueError("District '{}' cannot be found in the database".format(self.district_name))
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
-        if not AGI.exists():
+        # AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        # if not AGI.exists():
+        #     raise ValueError("No GP contest data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
+
+        # num_schools = Institution.objects.filter(admin1=district).count()
+        # num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
+        # num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        # number_of_students = num_boys + num_girls
+        # num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
+        # num_gp = district.institution_admin1.exclude(gp=None).values_list('gp__id',flat=True).distinct().count()
+
+        num_schools_in_block = Institution.objects.filter(admin1=district).count() # Number of schools in cluster
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin1=district,survey_id=2)\
+                                                            .filter(yearmonth__gte = self.report_from)\
+                                                            .filter(yearmonth__lte = self.report_to)
+
+        if not aggregates.exists():
             raise ValueError("No GP contest data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
-
-        num_schools = Institution.objects.filter(admin1=district).count()
-        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
-        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(institution_id__admin1=district, survey_id=2, yearmonth__range=dates)
+        num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
+        num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
         number_of_students = num_boys + num_girls
-        num_contests = AGI.values_list('institution__gp__id', flat=True).distinct().count()
+   
+        num_contests = aggregates.values_list('institution_id__gp__id', flat=True).distinct().count()
         num_gp = district.institution_admin1.exclude(gp=None).values_list('gp__id',flat=True).distinct().count()
-
-        block_gpc_data = self.get_block_GPC(AGI)
+        
+        block_gpc_data = self.get_childboundary_GPC_agg(district,'block',dates)
         gpc_blocks = self.format_block_data(block_gpc_data)
-
         gka, gka_blocks = self.getGKAData(district, dates)
-
         household = self.getHouseholdSurvey(district, dates)
 
         #GPC Gradewise data
-        gpc_grades = {'Class 4 Assessment':{}, 'Class 5 Assessment':{}, 'Class 6 Assessment':{}}
-        for block in gpc_blocks:
-            for grade in block['grades']:
-                for value in grade['values']:
-                    try:
-                        gpc_grades[grade['name']][value['contest']]+=value['count']
-                    except KeyError:
-                        gpc_grades[grade['name']][value['contest']]=value['count']
-        gradewise_gpc = []
-        for grade, values in gpc_grades.items():
-            for j ,k in values.items():
-                values[j] = round(k/len(gpc_blocks), 2)
-            gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
+        gpc_district_gradewise_percent = self.get_boundary_gradewise_agg(district, self.report_from, self.report_to)
+       
+        #self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc, 'num_gp':num_gp}
+        self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'no_schools':num_schools_in_block, 
+        'gka':gka, 'gka_blocks':gka_blocks,'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gpc_district_gradewise_percent, 'num_gp':num_gp}
 
-        self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'gka':gka, 'gka_blocks':gka_blocks, 'no_schools':num_schools, 'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gradewise_gpc, 'num_gp':num_gp}
         return self.data
+
+    # Refactor this! All repots ahve similar method..
+    def getGKAData(self,district, date_range):
+        blocks  = Boundary.objects.filter(parent=district, boundary_type__char_id='SB') # Clusters that belong to the block
+        blocks_gka = []
+        for block in blocks:
+            blocks_gka.append(self.getBoundaryGKAData(block, 'block', date_range))
+
+        if not blocks_gka:
+            print("no data")
+            raise ValueError("No GKA data for '{}' between {} and {}".format(district.name, date_range[0], date_range[1]))
+        
+        GKA = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=district)\
+            .filter(yearmonth__gte=date_range[0], yearmonth__lte=date_range[1])\
+            .filter(survey_id=11)
+
+        gka = {
+            'teachers_trained': self.getTeacherTrainedPercent(GKA, date_range),
+            'kit_usage': self.getKitUsagePercent(GKA,date_range),
+            'group_work': self.getGroupWorkPercent(GKA,date_range)
+        }
+
+        return gka, blocks_gka
+
+    ''' Returns the district wise aggregation per grade per contest. Move this to base class '''
+    def get_boundary_gradewise_agg(self, boundary, report_from, report_to):
+        correct_answers_agg = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
+                .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                .annotate(correct_answers = Sum('num_assessments'))
+        total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
+                .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                .annotate(total_answers = Sum('num_assessments'))
+        distinct_grades=total_assessments\
+                .values('questiongroup_id','questiongroup_name')\
+                .distinct()
+
+        gpc_gradewise_percent = []
+        
+        for each_grade in distinct_grades:
+            qgroup_id = each_grade['questiongroup_id']
+            gradewise_total_agg = total_assessments.filter(questiongroup_id = qgroup_id)
+            gradewise_correctans_agg = correct_answers_agg.filter(questiongroup_id = qgroup_id)
+            if total_assessments is not None:
+                scores = []
+                for each_row in gradewise_total_agg:
+                    concept_scores = dict()
+                    try:
+                        sum_total = gradewise_total_agg.get(question_key=each_row['question_key'])
+                    except SurveyBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
+                        print("No assessment matches this question_key, questiongroup_id combo")
+                        sum_total = None
+                    try:
+                        sum_correct_ans = gradewise_correctans_agg.get(question_key=each_row['question_key'])
+                    except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
+                        print("No answer for questionkey/questiongroup_id combo")
+                        sum_correct_ans = None
+                
+                    percent = 0
+                    if sum_correct_ans is None or sum_correct_ans['correct_answers'] is None:
+                        correct_ans_total =0
+                    else:
+                        correct_ans_total = sum_correct_ans['correct_answers']
+                    
+                    if sum_total is not None and sum_total['total_answers'] > 0:
+                        percent = round(correct_ans_total/sum_total['total_answers'] * 100,2)
+                    else:
+                        percent = 0
+                    concept_scores['contest']= each_row['question_key']
+                    concept_scores['score'] = percent
+                    scores.append(concept_scores) # End of for-loop
+                
+                details = dict(grade = each_grade['questiongroup_name'], 
+                                    values = scores)
+                gpc_gradewise_percent.append(details)
+        
+        return gpc_gradewise_percent
+
+    '''
+        This is a generic method that returns the Gram Panchayat contest aggregations
+        for a given boundary type. The child_bound_type parameter can be one of
+        'block', 'cluster'. Move to base class
+    '''
+    def get_childboundary_GPC_agg(self,parent_boundary, child_bound_type, dates):
+        children_under_parent = Boundary.objects.filter(parent=parent_boundary)\
+                                .values_list('id', flat=True)
+        
+        child_gpc_dict = []
+        for child_boundary in children_under_parent:
+            correct_answers_agg = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
+                .filter(survey_id=2, boundary_id=child_boundary, survey_tag='gka')\
+                .filter(yearmonth__gte = dates[0])\
+                .filter(yearmonth__lte = dates[1])\
+                .values('question_key', 'questiongroup_id', 'questiongroup_name', 'boundary_id')\
+                .annotate(total = Sum('num_assessments'))
+            total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
+                .filter(survey_id=2, boundary_id=child_boundary, survey_tag='gka')\
+                .filter(yearmonth__gte = dates[0])\
+                .filter(yearmonth__lte = dates[1])\
+                .values('question_key', 'questiongroup_id', 'questiongroup_name', 'boundary_id')\
+                .annotate(Sum('num_assessments'))
+            for each_row in total_assessments:
+                sum_total = each_row['num_assessments__sum']
+                percent = 0
+                try:
+                    sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
+                        .get(questiongroup_id=each_row['questiongroup_id'])
+                #import pdb; pdb.set_trace()                 
+                    if sum_correct_ans is None or sum_correct_ans['total'] is None:
+                        #import pdb; pdb.set_trace()
+                        correct_ans_total =0
+                    else:
+                        correct_ans_total = sum_correct_ans['total']
+                except Exception as e:
+                    import pdb; pdb.set_trace()
+                if sum_total is not None and sum_total > 0:
+                    percent = correct_ans_total/sum_total * 100
+                else:
+                    percent = 0
+                #import pdb; pdb.set_trace()
+                details = dict(grade=each_row['questiongroup_name'])
+                details[child_bound_type] = (Boundary.objects.get(id=child_boundary)).name
+                details['contest'] = each_row['question_key']
+                details['percent'] = percent
+                child_gpc_dict.append(details)
+        return child_gpc_dict
 
     def get_block_GPC(self,answergroup):
         conditions = answergroup.values_list('institution__admin2__name', 'questiongroup__name').distinct()
@@ -1040,89 +1178,89 @@ class DistrictReport(BaseReport):
         #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
         return out
 
-    def getGKAData(self, district, date_range):
-        blocks  = Boundary.objects.filter(parent=district, boundary_type__char_id='SB') # Blocks that belong to the district
-        block_gka = []
-        for block in blocks:
-            GKA = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=date_range, questiongroup__survey_id=11)
-            if GKA.exists():
-                teachers_trained = GKA.filter(answers__question__question_text__icontains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='trained').count()
-                kit_usage = GKA.filter(answers__question__question_text__contains='Ganitha Kalika Andolana TLM', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='Ganitha Kalika Andolana TLM').count()
-                group_work = GKA.filter(answers__question__question_text__contains='group', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
-                block_gka.append(dict(block=block.name, teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2)))
-            else:
-                print("No GKA data for BLOCK {} in {} district for academic year {}".format(block.name, block.parent.name, date_range))
-                continue
+    # def getGKAData(self, district, date_range):
+    #     blocks  = Boundary.objects.filter(parent=district, boundary_type__char_id='SB') # Blocks that belong to the district
+    #     block_gka = []
+    #     for block in blocks:
+    #         GKA = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=date_range, questiongroup__survey_id=11)
+    #         if GKA.exists():
+    #             teachers_trained = GKA.filter(answers__question__question_text__icontains='trained', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='trained').count()
+    #             kit_usage = GKA.filter(answers__question__question_text__contains='Ganitha Kalika Andolana TLM', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='Ganitha Kalika Andolana TLM').count()
+    #             group_work = GKA.filter(answers__question__question_text__contains='group', answers__answer='Yes').count()/GKA.filter(answers__question__question_text__icontains='group').count()
+    #             block_gka.append(dict(block=block.name, teachers_trained=round(teachers_trained*100, 2),  kit_usage=round(kit_usage*100, 2), group_work=round(group_work*100, 2)))
+    #         else:
+    #             print("No GKA data for BLOCK {} in {} district for academic year {}".format(block.name, block.parent.name, date_range))
+    #             continue
 
-        if not block_gka:
-            raise ValueError("No GKA data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
+    #     if not block_gka:
+    #         raise ValueError("No GKA data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
 
-        gka = {
-            'teachers_trained': round(
-                AnswerGroup_Institution.objects.filter(
-                    institution__admin1=district,
-                    date_of_visit__range=date_range,
-                    questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='trained',
-                    answers__answer='Yes'
-                ).count() / AnswerGroup_Institution.objects.filter(
-                    institution__admin1=district,
-                    date_of_visit__range=date_range,
-                    questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='trained'
-                ).count() * 100,
-                2
-            ),
-            'kit_usage': round(
-                AnswerGroup_Institution.objects.filter(
-                    institution__admin1=district,
-                    date_of_visit__range=date_range,
-                    questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM',
-                    answers__answer='Yes'
-                ).count() / AnswerGroup_Institution.objects.filter(
-                    institution__admin1=district,
-                    date_of_visit__range=date_range,
-                    questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='Ganitha Kalika Andolana TLM'
-                ).count() * 100,
-                2
-            ),
-            'group_work': round(
-                AnswerGroup_Institution.objects.filter(
-                    institution__admin1=district,
-                    date_of_visit__range=date_range,
-                    questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='group',
-                    answers__answer='Yes'
-                ).count() / AnswerGroup_Institution.objects.filter(
-                    institution__admin1=district,
-                    date_of_visit__range=date_range,
-                    questiongroup__survey_id=11,
-                    answers__question__question_text__icontains='group'
-                ).count() * 100,
-                2
-            )
-        }
+    #     gka = {
+    #         'teachers_trained': round(
+    #             AnswerGroup_Institution.objects.filter(
+    #                 institution__admin1=district,
+    #                 date_of_visit__range=date_range,
+    #                 questiongroup__survey_id=11,
+    #                 answers__question__question_text__icontains='trained',
+    #                 answers__answer='Yes'
+    #             ).count() / AnswerGroup_Institution.objects.filter(
+    #                 institution__admin1=district,
+    #                 date_of_visit__range=date_range,
+    #                 questiongroup__survey_id=11,
+    #                 answers__question__question_text__icontains='trained'
+    #             ).count() * 100,
+    #             2
+    #         ),
+    #         'kit_usage': round(
+    #             AnswerGroup_Institution.objects.filter(
+    #                 institution__admin1=district,
+    #                 date_of_visit__range=date_range,
+    #                 questiongroup__survey_id=11,
+    #                 answers__question__question_text__icontains='Ganitha Kalika Andolana TLM',
+    #                 answers__answer='Yes'
+    #             ).count() / AnswerGroup_Institution.objects.filter(
+    #                 institution__admin1=district,
+    #                 date_of_visit__range=date_range,
+    #                 questiongroup__survey_id=11,
+    #                 answers__question__question_text__icontains='Ganitha Kalika Andolana TLM'
+    #             ).count() * 100,
+    #             2
+    #         ),
+    #         'group_work': round(
+    #             AnswerGroup_Institution.objects.filter(
+    #                 institution__admin1=district,
+    #                 date_of_visit__range=date_range,
+    #                 questiongroup__survey_id=11,
+    #                 answers__question__question_text__icontains='group',
+    #                 answers__answer='Yes'
+    #             ).count() / AnswerGroup_Institution.objects.filter(
+    #                 institution__admin1=district,
+    #                 date_of_visit__range=date_range,
+    #                 questiongroup__survey_id=11,
+    #                 answers__question__question_text__icontains='group'
+    #             ).count() * 100,
+    #             2
+    #         )
+    #     }
 
-        return gka, block_gka
+    #     return gka, block_gka
 
-    def getHouseholdSurvey(self,district,date_range):
-        #Husehold Survey
-        a = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
-        HHSurvey = []
-        if a.exists():
-            questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
+    # def getHouseholdSurvey(self,district,date_range):
+    #     #Husehold Survey
+    #     a = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
+    #     HHSurvey = []
+    #     if a.exists():
+    #         questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
 
-            total_response = a.count()
+    #         total_response = a.count()
 
-            for i in questions:
-                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-                count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-                HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
-        else:
-             raise ValueError("No community survey data for '{}' between {} and {}".format(self.deistrict_name, self.report_from, self.report_to))
-        return HHSurvey
+    #         for i in questions:
+    #             count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+    #             count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
+    #             HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
+    #     else:
+    #          raise ValueError("No community survey data for '{}' between {} and {}".format(self.deistrict_name, self.report_from, self.report_to))
+    #     return HHSurvey
 
 # Summarized reports
 
