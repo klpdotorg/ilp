@@ -104,7 +104,40 @@ class Command(BaseCommand):
             # Finally save data to Sqlite
             connection.execute(
                 'insert into classes values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                list(data.values())
+                [
+                    data['index'],
+                    data["Block"],
+                    data["Date"],
+                    data["District"],
+                    data["Government School -1 / Private School - 2"],
+                    data["Grama Panchayat"],
+                    data["KLP ID"],
+                    data["Name of the school"],
+                    data["Q1"],
+                    data["Q2"],
+                    data["Q3"],
+                    data["Q4"],
+                    data["Q5"],
+                    data["Q6"],
+                    data["Q7"],
+                    data["Q8"],
+                    data["Q9"],
+                    data["Q10"],
+                    data["Q11"],
+                    data["Q12"],
+                    data["Q13"],
+                    data["Q14"],
+                    data["Q15"],
+                    data["Q16"],
+                    data["Q17"],
+                    data["Q18"],
+                    data["Q19"],
+                    data["Q20"],
+                    data["Sex ( Male / Female )"],
+                    data["Total"],
+                    data["Village"],
+                    data["class"],
+                 ]
             )
             connection.commit()
 
