@@ -83,7 +83,7 @@
         clearSelect($select_school);
 
         //var url = "surv"eys/boundary/?per_page=0";
-        var url = "boundary/admin1s/?per_page=0"
+        var url = "boundary/admin1s/?per_page=0&survey_tag=gka"
         var districtsXHR = klp.api.do(url);
         districtsXHR.done(function(data) {
             var districts = {};
