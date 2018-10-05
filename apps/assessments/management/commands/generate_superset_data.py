@@ -61,6 +61,12 @@ class Command(BaseCommand):
                 question__question_text='Gender'
             )
 
+            # Safety checks
+            if answers.count() != 20 or other_answers.count() != 1:
+                print('Error on ', ag.id)
+                i += 1
+                continue
+
             data = {
                 'index': i - 1,
                 "Block": ag.institution.admin2.name,
