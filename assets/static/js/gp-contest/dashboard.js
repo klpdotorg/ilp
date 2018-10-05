@@ -25,17 +25,13 @@
             {
                 text: 'Year',
                 value: 'year'
-            },
-            {
-                text: 'Neighbour',
-                value: 'neighbour',
             }
         ];
         var tabs = _.map(years, function(tab) {
             return {
                 value: tab,
-                start_date: `${tab}-03-31`,
-                end_date: `${Number(tab) + 1}-06-30`
+                start_date: `${tab}-06-01`,
+                end_date: `${Number(tab) + 1}-04-30`
             }
         })
         var $educational_hierarchy_checkbox = $("#select-educational-hrc");
@@ -520,8 +516,8 @@
         var currentDate = new Date();
         var currentYear = currentDate.getFullYear();
         return {
-            from: currentYear + '-03-31',
-            to: (currentYear + 1) + '-06-30',
+            from: currentYear + '-06-01',
+            to: (currentYear + 1) + '-04-30',
         }
     }
 })()
