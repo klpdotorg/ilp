@@ -25,17 +25,13 @@
             {
                 text: 'Year',
                 value: 'year'
-            },
-            {
-                text: 'Neighbour',
-                value: 'neighbour',
             }
         ];
         var tabs = _.map(years, function(tab) {
             return {
                 value: tab,
-                start_date: `${tab}-03-31`,
-                end_date: `${Number(tab) + 1}-06-30`
+                start_date: `${tab}-06-01`,
+                end_date: `${Number(tab) + 1}-04-30`
             }
         })
         var $educational_hierarchy_checkbox = $("#select-educational-hrc");
@@ -259,16 +255,23 @@
                 return tab.value === selectedConverageTab;
             });
             var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+            var fetchGPUrl = checkForUrlParams(`survey/detail/electionboundary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
             var $coverageXHR = klp.api.do(
                 coverageUrl
-            )
+            );
 
             $coverageXHR.done(function(result) {
-                var tplCoverage = swig.compile($('#tpl-coverage').html());
-                var coverageHTML = tplCoverage({ data: result.summary });
-                
-                $('#gp-coverage').html(coverageHTML);
-                $("#gp-coverage").stopLoading();
+                var $gpXHR = klp.api.do(
+                    fetchGPUrl
+                );
+
+                $gpXHR.done(function(gpData) {
+                    var tplCoverage = swig.compile($('#tpl-coverage').html());
+                    var coverageHTML = tplCoverage({ data: result.summary, gp: gpData.GP });
+                    
+                    $('#gp-coverage').html(coverageHTML);
+                    $("#gp-coverage").stopLoading();
+                });
             });
         }
 
@@ -513,8 +516,8 @@
         var currentDate = new Date();
         var currentYear = currentDate.getFullYear();
         return {
-            from: currentYear + '-03-31',
-            to: (currentYear + 1) + '-06-30',
+            from: currentYear + '-06-01',
+            to: (currentYear + 1) + '-04-30',
         }
     }
 })()
