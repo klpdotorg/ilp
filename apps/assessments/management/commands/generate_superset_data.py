@@ -15,7 +15,7 @@ YES_NO = {
 }
 connection = sqlite3.connect('klp.db')
 cursor = connection.cursor()
-cursor.execute('CREATE TABLE classes ( "index" BIGINT, "Sex ( Male / Female )" TEXT, class FLOAT, "Block" TEXT, "Cluster" TEXT, "Date" TEXT, "District" TEXT, "Grama Panchayat" TEXT, "KLP ID" FLOAT, "Name of the school" TEXT, "Q1" FLOAT, "Q10" FLOAT, "Q11" FLOAT, "Q12" FLOAT, "Q13" FLOAT, "Q14" FLOAT, "Q15" FLOAT, "Q16" FLOAT, "Q17" FLOAT, "Q18" FLOAT, "Q19" FLOAT, "Q2" FLOAT, "Q20" FLOAT, "Q3" FLOAT, "Q4" FLOAT, "Q5" FLOAT, "Q6" FLOAT, "Q7" FLOAT, "Q8" FLOAT, "Q9" FLOAT, "Total" FLOAT )')
+cursor.execute('CREATE TABLE classes ( "index" BIGINT, "Block" TEXT, "Date" TEXT, "District" TEXT, "Government School -1 / Private School - 2" TEXT, "Grama Panchayat" TEXT, "KLP ID" BIGINT, "Name of the school" TEXT, "Q1" BIGINT, "Q10" BIGINT, "Q11" BIGINT, "Q12" BIGINT, "Q13" BIGINT, "Q14" BIGINT, "Q15" BIGINT, "Q16" BIGINT, "Q17" BIGINT, "Q18" BIGINT, "Q19" BIGINT, "Q2" BIGINT, "Q20" BIGINT, "Q3" BIGINT, "Q4" BIGINT, "Q5" BIGINT, "Q6" BIGINT, "Q7" BIGINT, "Q8" BIGINT, "Q9" BIGINT, "Sex ( Male / Female )" TEXT, "Total" BIGINT, "Village" TEXT, class BIGINT )')
 connection.commit()
 cursor.execute('CREATE INDEX ix_classes_index ON classes ("index")')
 connection.commit()
@@ -62,13 +62,11 @@ class Command(BaseCommand):
             )
 
             data = {
-                'index': i,
-                "Sex ( Male / Female )": other_answers[0].answer,
-                "class": ag.questiongroup.name.split(' ')[1],
+                'index': i - 1,
                 "Block": ag.institution.admin2.name,
-                "Cluster": ag.institution.admin3.name,
                 "Date": ag.entered_at,
                 "District": ag.institution.admin1.name,
+                "Government School -1 / Private School - 2": 1,
                 "Grama Panchayat": ag.institution.gp.const_ward_name,
                 "KLP ID": ag.institution.id,
                 "Name of the school": ag.institution.name,
@@ -92,7 +90,10 @@ class Command(BaseCommand):
                 "Q18": YES_NO[answers[17].answer],
                 "Q19": YES_NO[answers[18].answer],
                 "Q20": YES_NO[answers[19].answer],
-                "Total": 0
+                "Sex ( Male / Female )": other_answers[0].answer,
+                "Total": 0,
+                "Village": ag.institution.gp.const_ward_name,
+                "class": ag.questiongroup.name.split(' ')[1],
             }
             # Collect all data needed to insert one row in the classes table
 
@@ -102,7 +103,7 @@ class Command(BaseCommand):
 
             # Finally save data to Sqlite
             connection.execute(
-                'insert into classes values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                'insert into classes values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 list(data.values())
             )
             connection.commit()
