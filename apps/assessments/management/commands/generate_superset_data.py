@@ -13,7 +13,12 @@ YES_NO = {
     'Yes': 1,
     'No': 0
 }
-
+connection = sqlite3.connect('klp.db')
+cursor = connection.cursor()
+cursor.execute('CREATE TABLE classes ( "index" BIGINT, "Sex ( Male / Female )" TEXT, class FLOAT, "Block" TEXT, "Cluster" TEXT, "Date" TEXT, "District" TEXT, "Grama Panchayat" TEXT, "KLP ID" FLOAT, "Name of the school" TEXT, "Q1" FLOAT, "Q10" FLOAT, "Q11" FLOAT, "Q12" FLOAT, "Q13" FLOAT, "Q14" FLOAT, "Q15" FLOAT, "Q16" FLOAT, "Q17" FLOAT, "Q18" FLOAT, "Q19" FLOAT, "Q2" FLOAT, "Q20" FLOAT, "Q3" FLOAT, "Q4" FLOAT, "Q5" FLOAT, "Q6" FLOAT, "Q7" FLOAT, "Q8" FLOAT, "Q9" FLOAT, "Total" FLOAT )')
+connection.commit()
+cursor.execute('CREATE INDEX ix_classes_index ON classes ("index")')
+connection.commit()
 
 class Command(BaseCommand):
     help = 'Generates data in sqlite form to be fed to superset dashboard'
@@ -46,17 +51,19 @@ class Command(BaseCommand):
 
         i = 1
         total = answer_group.count()
-        connection = sqlite3.connect('klp.db')
-        cursor = connection.cursor()
 
         for ag in answer_group:
-            answers = AnswerInstitution.objects.filter(answergroup=ag).order_by(
-                'question__key'
+            answers = AnswerInstitution.objects.filter(answergroup=ag).exclude(
+                question__question_text__in=['Gender', 'Class visited']
+            )
+            other_answers = AnswerInstitution.objects.filter(
+                answergroup=ag,
+                question__question_text='Gender'
             )
 
             data = {
-                'id': None,
-                "Sex ( Male / Female )": answers[10].answer,
+                'index': i,
+                "Sex ( Male / Female )": other_answers[0].answer,
                 "class": ag.questiongroup.name.split(' ')[1],
                 "District": ag.institution.admin1.name,
                 "Block": ag.institution.admin2.name,
@@ -65,33 +72,32 @@ class Command(BaseCommand):
                 "Grama Panchayat": ag.institution.gp.const_ward_name,
                 "KLP ID": ag.institution.id,
                 "Name of the school": ag.institution.name,
-                "Q1": YES_NO[answers[2].answer],
-                "Q2": YES_NO[answers[3].answer],
-                "Q3": YES_NO[answers[4].answer],
-                "Q4": YES_NO[answers[5].answer],
-                "Q5": YES_NO[answers[6].answer],
-                "Q6": YES_NO[answers[7].answer],
-                "Q7": YES_NO[answers[8].answer],
-                "Q8": YES_NO[answers[9].answer],
-                "Q9": YES_NO[answers[0].answer],
-                "Q10": YES_NO[answers[1].answer],
-                "Q11": YES_NO[answers[12].answer],
-                "Q12": YES_NO[answers[13].answer],
-                "Q13": YES_NO[answers[14].answer],
-                "Q14": YES_NO[answers[15].answer],
-                "Q15": YES_NO[answers[16].answer],
-                "Q16": YES_NO[answers[17].answer],
-                "Q17": YES_NO[answers[18].answer],
-                "Q18": YES_NO[answers[19].answer],
-                "Q19": YES_NO[answers[20].answer],
-                "Q20": YES_NO[answers[21].answer],
+                "Q1": YES_NO[answers[0].answer],
+                "Q2": YES_NO[answers[1].answer],
+                "Q3": YES_NO[answers[2].answer],
+                "Q4": YES_NO[answers[3].answer],
+                "Q5": YES_NO[answers[4].answer],
+                "Q6": YES_NO[answers[5].answer],
+                "Q7": YES_NO[answers[6].answer],
+                "Q8": YES_NO[answers[7].answer],
+                "Q9": YES_NO[answers[8].answer],
+                "Q10": YES_NO[answers[9].answer],
+                "Q11": YES_NO[answers[10].answer],
+                "Q12": YES_NO[answers[11].answer],
+                "Q13": YES_NO[answers[12].answer],
+                "Q14": YES_NO[answers[13].answer],
+                "Q15": YES_NO[answers[14].answer],
+                "Q16": YES_NO[answers[15].answer],
+                "Q17": YES_NO[answers[16].answer],
+                "Q18": YES_NO[answers[17].answer],
+                "Q19": YES_NO[answers[18].answer],
+                "Q20": YES_NO[answers[19].answer],
                 "Total": 0
             }
             # Collect all data needed to insert one row in the classes table
 
             # Calculate total as sum of all Yes and Nos
-            for ans in answers[2:]:
-                if ans.question.question_text not in ['Gender', 'Class visited']:
+            for ans in answers:
                     data['Total'] += YES_NO[ans.answer]
 
             # Finally save data to Sqlite
