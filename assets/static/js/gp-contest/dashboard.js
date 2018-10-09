@@ -478,7 +478,7 @@
                         var clickedConceptValue = value.target.getAttribute('ct:value');
                         handleConcepts(clickedConceptValue, chartData, performanceResult, '6');
                     });
-                // });
+                });
             } /* if else ends */
         }
 
