@@ -275,6 +275,102 @@
             });
         }
 
+        function getConcepts(conceptsData, classNumber) {
+            var assessments = conceptsData[`Class ${classNumber} Assessment`];
+            return Object.keys(assessments).map(function(key) {
+                return assessments[key];
+            })
+        }
+
+        function getConceptGroupChartData(conceptData) {
+            var chartData = _.reduce(conceptData, function(soFar, value, key) {
+                if (typeof value === 'object') {
+                    soFar.labels.push(key);
+                    soFar.series.push(Math.round((value.score / value.total ) * 100));
+                }
+
+                return soFar;
+            }, { labels: [], series: []});
+
+            return {
+                labels: chartData.labels,
+                series: [chartData.series]
+            };
+        }
+
+        function getConceptGroups(concepts, selectedConceptGroupIndex) {
+            return _.reduce(concepts[selectedConceptGroupIndex], function(soFar, value, index) {
+                if (typeof value === 'object') {
+                    soFar.push(value);
+                }
+                return soFar;
+            }, []);
+        }
+
+        // This function creates graph element
+        function createGraphElement(id, appendToId) {
+            $('<div/>', {
+                id: id,
+                class: 'ct-chart ct-minor-seventh js-detail-container chartist-container bar-chart one-row-chart',
+            }).appendTo(`#${appendToId}`);
+        }
+
+        // This function shows concepts groups and micro concepts
+        function handleConcepts(clickedConceptValue, chartData, performanceResult, classNumber) {
+            var seriesValues = chartData[`class${classNumber}`].series[0];
+            var selectedConceptIndex = seriesValues.indexOf(Number(clickedConceptValue));
+
+            var concepts = getConcepts(performanceResult, classNumber);
+            var conceptGroupChartData = getConceptGroupChartData(concepts[selectedConceptIndex]); 
+
+            if ($(`#gp-performance-class-${classNumber}-concept-group`).length !== 0) {
+                $(`#gp-performance-class-${classNumber}-concept-group`).remove();
+            }
+            createGraphElement(`gp-performance-class-${classNumber}-concept-group`, `concept-groups-class-${classNumber}`);
+
+            renderBarChart(`#gp-performance-class-${classNumber}-concept-group`, conceptGroupChartData);
+
+            $(`#close-concept-group-class-${classNumber}`).css('display', 'inline-block');
+
+            $(`#close-concept-group-class-${classNumber}`).click(() => {
+                $(`#gp-performance-class-${classNumber}-concept-group`).remove();
+                $(`#close-concept-group-class-${classNumber}`).css('display', 'none');
+            })
+            
+            $(`#gp-performance-class-${classNumber}-concept-group`).click(function(conceptGroupEvent) {
+                var clickedConceptGroupValue = conceptGroupEvent.target.getAttribute('ct:value');
+                var conceptGroups = getConceptGroups(concepts, selectedConceptIndex);
+                var selectedConceptGroupIndex = conceptGroupChartData.series[0].indexOf(Number(clickedConceptGroupValue))
+                var selectedConceptGroup = conceptGroups[selectedConceptGroupIndex]
+                var microConceptChartData = getConceptGroupChartData(selectedConceptGroup);
+
+                if ($(`#gp-performance-class-${classNumber}-micro-concept`).length !== 0) {
+                    $(`#gp-performance-class-${classNumber}-micro-concept`).remove(); 
+                }
+                createGraphElement(`gp-performance-class-${classNumber}-micro-concept`, `micro-concepts-class-${classNumber}`);
+
+                renderBarChart(`#gp-performance-class-${classNumber}-micro-concept`, microConceptChartData);
+
+                // showing close button
+                $(`#close-micro-concept-class-${classNumber}`).css('display', 'inline-block');
+
+                $(`#close-micro-concept-class-${classNumber}`).click(() => {
+                    $(`#gp-performance-class-${classNumber}-micro-concept`).remove();
+                    $(`#close-micro-concept-class-${classNumber}`).css('display', 'none');
+                })
+            })
+        }
+
+        // For resetting the details graph
+        function resetDetailsGraph() {
+            for (var i = 4; i <= 6; i++) {
+                $(`#gp-performance-class-${i}-micro-concept`).remove();
+                $(`#close-micro-concept-class-${i}`).css('display', 'none');
+                $(`#gp-performance-class-${i}-concept-group`).remove();
+                $(`#close-concept-group-class-${i}`).css('display', 'none');
+            }
+        }
+
         // Fetch performance info
         function loadPerformance() {
             // Starting all spinners
@@ -338,7 +434,6 @@
                 // };
                     }
 
-                    console.log(chartData);
                     renderBarChart('#gp-performance-class-4', chartData.class4);
                     renderBarChart('#gp-performance-class-5', chartData.class5);
                     renderBarChart('#gp-performance-class-6', chartData.class6);
@@ -352,18 +447,17 @@
                 var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
                 var $performanceXHR = klp.api.do(detailsPerformanceUrl);
                 
-                $performanceXHR.done(function(result) {
+                $performanceXHR.done(function(performanceResult) {
                     var chartData = {};
                     for(var i = 4; i <= 6; i++) {
                         chartData['class' + i] = {
-                            labels: _.keys(result['Class ' + i +' Assessment']),
-                            series: [_.map(result['Class ' + i +' Assessment'], function(r){
+                            labels: _.keys(performanceResult['Class ' + i +' Assessment']),
+                            series: [_.map(performanceResult['Class ' + i +' Assessment'], function(r, index){
                                 return Math.round((r.score / r.total) * 100);
                             })]
                         };
                     }
 
-                    console.log(chartData);
                     renderBarChart('#gp-performance-class-4', chartData.class4);
                     renderBarChart('#gp-performance-class-5', chartData.class5);
                     renderBarChart('#gp-performance-class-6', chartData.class6);
@@ -372,6 +466,18 @@
                     $("#gp-performance-class-4").stopLoading();
                     $("#gp-performance-class-5").stopLoading();
                     $("#gp-performance-class-6").stopLoading();
+                    $('#gp-performance-class-4').click(function(conceptEvent) {
+                        var clickedConceptValue = conceptEvent.target.getAttribute('ct:value');
+                        handleConcepts(clickedConceptValue, chartData, performanceResult, '4');
+                    });
+                    $('#gp-performance-class-5').click(function(value) {
+                        var clickedConceptValue = value.target.getAttribute('ct:value');
+                        handleConcepts(clickedConceptValue, chartData, performanceResult, '5');
+                    });
+                    $('#gp-performance-class-6').click(function(value) {
+                        var clickedConceptValue = value.target.getAttribute('ct:value');
+                        handleConcepts(clickedConceptValue, chartData, performanceResult, '6');
+                    });
                 });
             } /* if else ends */
         }
@@ -421,6 +527,11 @@
             $tabId.on("click", function(e) {
                 selectedPerformanceTab = e.target.dataset.value;
                 selectPerformanceTab(selectedPerformanceTab);
+
+                // removing if user has opened the details graph
+                resetDetailsGraph();
+
+                // Loading performance
                 loadPerformance();
             })
         })
