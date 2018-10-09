@@ -5171,3 +5171,22 @@ span.tab {
   flex: 1;
   border-bottom: 1px solid #f0f0f0;
 }
+
+.concept-group-wrapper {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  background: #fffffff0;
+  width: 97%;
+  transform: translate(-50%, -50%);
+  /* z-index: -3; */
+  box-shadow: 10px 7px 10px 0px #d2d2d2;
+  border-radius: 3px;
+}
+
+.close-concept-button {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  display: none;
+}
