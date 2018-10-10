@@ -191,14 +191,6 @@ class QuestionGroupConcept(models.Model):
     pass_score = models.IntegerField(null=True)
 
 
-class QuestionGroupKey(models.Model):
-    """question key information"""
-    questiongroup = models.ForeignKey('QuestionGroup')
-    key = models.CharField(max_length=50, null=True)
-    max_score = models.IntegerField(null=True)
-
-
-
 class PartnerType(models.Model):
     """Type of partner"""
     char_id = models.CharField(max_length=20, primary_key=True)

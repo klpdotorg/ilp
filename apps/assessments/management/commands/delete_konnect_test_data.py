@@ -6,7 +6,7 @@ from assessments.models import AnswerGroup_Institution
 
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = 'Deletes ILP Konnect test data from a mobile number'
 
     def add_arguments(self, parser):
         parser.add_argument('mobile_no', nargs='+', type=str)
