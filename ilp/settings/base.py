@@ -133,7 +133,7 @@ LANGUAGES = (
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
-LANGUAGE_CODE = 'kn'
+LANGUAGE_CODE = 'en'
 USE_I18N = True
 USE_L10N = True
 
