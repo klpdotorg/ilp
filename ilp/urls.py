@@ -22,7 +22,7 @@ from reports.views import view_report, download_report, SendReport, ReportAnalyt
 api_docs_view = get_swagger_view(title='ILP API')
 
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
     url(r'^back-office/', admin.site.urls),
 
     # Home page
@@ -135,9 +135,6 @@ urlpatterns = i18n_patterns(
         template_name='reports.html',
     ), name='reports'),
 
-    # GKA Dashboard
-    url(r'^gka/$', gka_dashboard, name='gka_dashboard'),
-
     # GP Contest Dashboard
     url(r'^gp-contest/$', gp_contest_dashboard, name='gp_contest_dashboard'),
 
@@ -213,4 +210,6 @@ urlpatterns = i18n_patterns(
         template_name='story_report.html'
         ), name='stories'),
 
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += i18n_patterns(url(r'^gka/$', gka_dashboard, name='gka_dashboard'))
