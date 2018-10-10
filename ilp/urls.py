@@ -4,6 +4,7 @@ from django.views.generic.base import RedirectView
 from rest_framework_swagger.views import get_swagger_view
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from common.views import StaticPageView, BlogFeedView
 from schools.views import (
     AdvancedMapView, BoundaryPageView,
@@ -21,7 +22,7 @@ from reports.views import view_report, download_report, SendReport, ReportAnalyt
 api_docs_view = get_swagger_view(title='ILP API')
 
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     url(r'^back-office/', admin.site.urls),
 
     # Home page
@@ -212,4 +213,4 @@ urlpatterns = [
         template_name='story_report.html'
         ), name='stories'),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

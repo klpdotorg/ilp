@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-10 13:37+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: templates/gka_dashboard.html:37
+msgid "GKA DASHBOARD"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ ಡಾಷ್ಬೋರ್ಡ್ "
+
+#: templates/gka_dashboard.html:47
+msgid "Start Date"
+msgstr "ಆರಂಭ ತಾರೀಕು "
+
+#: templates/gka_dashboard.html:59
+msgid "End Date"
+msgstr "ಕೊನೆಯ ತಾರೀಕು "
+
+#: templates/gka_dashboard.html:78
+msgid "District"
+msgstr "ಜಿಲ್ಲೆ "
+
+#: templates/gka_dashboard.html:81
+msgid "Block"
+msgstr "ಬ್ಲಾಕ್ "
+
+#: templates/gka_dashboard.html:84
+msgid "Cluster"
+msgstr "ಕ್ಲಸ್ಟರ್ "
+
+#: templates/gka_dashboard.html:87
+msgid "School"
+msgstr "ಶಾಲೆ "
+
+#: templates/gka_dashboard.html:95
+msgid "Generate Report"
+msgstr "ವರದಿಯನ್ನು ತಯಾರಿಸಿ "
+
+#: templates/gka_dashboard.html:98
+msgid "Reset"
+msgstr "ರಿಸೆಟ್ ಮಾಡಿ "
+
+#: templates/gka_dashboard.html:115
+msgid "GKA IMPLEMENTATION"
+msgstr "ಜಿ ಕೆ ಏ ಅನುಷ್ಠಾನ ತರಗತಿ ಭೇಟಿ ವರದಿ ( ILP Konnect )"
+
+#: templates/gka_dashboard.html:142
+msgid "ASSESSMENTS"
+msgstr "ಜಿ ಕೆ ಏ ರೂಪಣಾತ್ಮಕ ಮೌಲ್ಯಮಾಪನ "
+
+#: templates/gka_dashboard.html:168
+msgid "GP CONTESTS"
+msgstr "ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ ವರದಿ "
+
+#: templates/gka_dashboard.html:191
+msgid "SURVEYS"
+msgstr "ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಂಗ್ರಹಣೆ "
+
+#: templates/gka_dashboard.html:213
+msgid "COMPARISON"
+msgstr "ಅಸರ್ ಮತ್ತು ಅಕ್ಷರ ಹೋಲಿಕೆ "
