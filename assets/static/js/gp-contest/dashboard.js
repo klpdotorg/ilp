@@ -331,10 +331,12 @@
             renderBarChart(`#gp-performance-class-${classNumber}-concept-group`, conceptGroupChartData);
 
             $(`#close-concept-group-class-${classNumber}`).css('display', 'inline-block');
+            $(`#concept-group-header-class-${classNumber}`).css('display', 'block');
 
             $(`#close-concept-group-class-${classNumber}`).click(() => {
                 $(`#gp-performance-class-${classNumber}-concept-group`).remove();
                 $(`#close-concept-group-class-${classNumber}`).css('display', 'none');
+                $(`#concept-group-header-class-${classNumber}`).css('display', 'none');
             })
             
             $(`#gp-performance-class-${classNumber}-concept-group`).click(function(conceptGroupEvent) {
@@ -351,23 +353,36 @@
 
                 renderBarChart(`#gp-performance-class-${classNumber}-micro-concept`, microConceptChartData);
 
-                // showing close button
+                // showing close button and header
                 $(`#close-micro-concept-class-${classNumber}`).css('display', 'inline-block');
+                $(`#micro-concept-header-class-${classNumber}`).css('display', 'block');
 
                 $(`#close-micro-concept-class-${classNumber}`).click(() => {
                     $(`#gp-performance-class-${classNumber}-micro-concept`).remove();
                     $(`#close-micro-concept-class-${classNumber}`).css('display', 'none');
+                    $(`#micro-concept-header-class-${classNumber}`).css('display', 'none');
                 })
             })
         }
 
         // For resetting the details graph
-        function resetDetailsGraph() {
-            for (var i = 4; i <= 6; i++) {
-                $(`#gp-performance-class-${i}-micro-concept`).remove();
-                $(`#close-micro-concept-class-${i}`).css('display', 'none');
-                $(`#gp-performance-class-${i}-concept-group`).remove();
-                $(`#close-concept-group-class-${i}`).css('display', 'none');
+        function resetDetailsGraph(value) {
+            if (value !== 'details') {
+                for (var i = 4; i <= 6; i++) {
+                    $(`#gp-performance-class-${i}-micro-concept`).remove();
+                    $(`#close-micro-concept-class-${i}`).css('display', 'none');
+                    $(`#gp-performance-class-${i}-concept-group`).remove();
+                    $(`#close-concept-group-class-${i}`).css('display', 'none');
+                    $(`#concepts-header-class-${i}`).css('display', 'none');
+                    $(`#concept-group-header-class-${i}`).css('display', 'none');
+                    $(`#micro-concept-header-class-${i}`).css('display', 'none');
+                }
+            }
+
+            if (value === "details") {
+                for (var i = 4; i <= 6; i++) {
+                    $(`#concepts-header-class-${i}`).css('display', 'block');
+                }
             }
         }
 
@@ -382,11 +397,11 @@
             var dateParams = {};
 
             var LABELS_REQUIRED = [
+                'Number Concept',
                 'Addition',
                 'Subtraction',
-                'Division',
                 'Multiplication',
-                'Number Concept'
+                'Division',
             ];
 
             var selectedYearInfo = tabs.find(function(tab) {
@@ -412,10 +427,21 @@
                         series = [];
 
                     for (var i = 4; i <= 6; i++) {
-                        labels = _.keys(result['Class ' + i +' Assessment']);
-                        series = _.map(result['Class ' + i +' Assessment'], function(r){
-                            return Math.round((r.score / r.total) * 100);
-                        });
+                        if (Object.keys(result).length) {
+                            labels = LABELS_REQUIRED;
+                            series = _.map(LABELS_REQUIRED, function(label) {
+                                var graphVals = result['Class ' + i +' Assessment'];
+                                if (!graphVals[label]) {
+                                    return 0;
+                                }
+
+                                return Math.round((graphVals[label].score / graphVals[label].total) * 100);
+                            });
+                        } else {
+                            labels = [];
+                            series = [];
+                        }
+                        
 
                         chartData['class' + i] = {labels: [], series: [[]]};
                         _.forEach(labels, function(l, index) {
@@ -458,6 +484,7 @@
                         };
                     }
 
+                    // Rendering the all the graphs
                     renderBarChart('#gp-performance-class-4', chartData.class4);
                     renderBarChart('#gp-performance-class-5', chartData.class5);
                     renderBarChart('#gp-performance-class-6', chartData.class6);
@@ -466,6 +493,8 @@
                     $("#gp-performance-class-4").stopLoading();
                     $("#gp-performance-class-5").stopLoading();
                     $("#gp-performance-class-6").stopLoading();
+
+                    // concepts graph listeners
                     $('#gp-performance-class-4').click(function(conceptEvent) {
                         var clickedConceptValue = conceptEvent.target.getAttribute('ct:value');
                         handleConcepts(clickedConceptValue, chartData, performanceResult, '4');
@@ -478,7 +507,7 @@
                         var clickedConceptValue = value.target.getAttribute('ct:value');
                         handleConcepts(clickedConceptValue, chartData, performanceResult, '6');
                     });
-                });
+               });
             } /* if else ends */
         }
 
@@ -529,7 +558,7 @@
                 selectPerformanceTab(selectedPerformanceTab);
 
                 // removing if user has opened the details graph
-                resetDetailsGraph();
+                resetDetailsGraph(tab.value);
 
                 // Loading performance
                 loadPerformance();
