@@ -331,10 +331,12 @@
             renderBarChart(`#gp-performance-class-${classNumber}-concept-group`, conceptGroupChartData);
 
             $(`#close-concept-group-class-${classNumber}`).css('display', 'inline-block');
+            $(`#concept-group-header-class-${classNumber}`).css('display', 'block');
 
             $(`#close-concept-group-class-${classNumber}`).click(() => {
                 $(`#gp-performance-class-${classNumber}-concept-group`).remove();
                 $(`#close-concept-group-class-${classNumber}`).css('display', 'none');
+                $(`#concept-group-header-class-${classNumber}`).css('display', 'none');
             })
             
             $(`#gp-performance-class-${classNumber}-concept-group`).click(function(conceptGroupEvent) {
@@ -351,23 +353,36 @@
 
                 renderBarChart(`#gp-performance-class-${classNumber}-micro-concept`, microConceptChartData);
 
-                // showing close button
+                // showing close button and header
                 $(`#close-micro-concept-class-${classNumber}`).css('display', 'inline-block');
+                $(`#micro-concept-header-class-${classNumber}`).css('display', 'block');
 
                 $(`#close-micro-concept-class-${classNumber}`).click(() => {
                     $(`#gp-performance-class-${classNumber}-micro-concept`).remove();
                     $(`#close-micro-concept-class-${classNumber}`).css('display', 'none');
+                    $(`#micro-concept-header-class-${classNumber}`).css('display', 'none');
                 })
             })
         }
 
         // For resetting the details graph
-        function resetDetailsGraph() {
-            for (var i = 4; i <= 6; i++) {
-                $(`#gp-performance-class-${i}-micro-concept`).remove();
-                $(`#close-micro-concept-class-${i}`).css('display', 'none');
-                $(`#gp-performance-class-${i}-concept-group`).remove();
-                $(`#close-concept-group-class-${i}`).css('display', 'none');
+        function resetDetailsGraph(value) {
+            if (value !== 'details') {
+                for (var i = 4; i <= 6; i++) {
+                    $(`#gp-performance-class-${i}-micro-concept`).remove();
+                    $(`#close-micro-concept-class-${i}`).css('display', 'none');
+                    $(`#gp-performance-class-${i}-concept-group`).remove();
+                    $(`#close-concept-group-class-${i}`).css('display', 'none');
+                    $(`#concepts-header-class-${i}`).css('display', 'none');
+                    $(`#concept-group-header-class-${i}`).css('display', 'none');
+                    $(`#micro-concept-header-class-${i}`).css('display', 'none');
+                }
+            }
+
+            if (value === "details") {
+                for (var i = 4; i <= 6; i++) {
+                    $(`#concepts-header-class-${i}`).css('display', 'block');
+                }
             }
         }
 
@@ -382,11 +397,11 @@
             var dateParams = {};
 
             var LABELS_REQUIRED = [
+                'Number Concept',
                 'Addition',
                 'Subtraction',
-                'Division',
                 'Multiplication',
-                'Number Concept'
+                'Division',
             ];
 
             var selectedYearInfo = tabs.find(function(tab) {
@@ -412,9 +427,14 @@
                         series = [];
 
                     for (var i = 4; i <= 6; i++) {
-                        labels = _.keys(result['Class ' + i +' Assessment']);
-                        series = _.map(result['Class ' + i +' Assessment'], function(r){
-                            return Math.round((r.score / r.total) * 100);
+                        labels = LABELS_REQUIRED;
+                        series = _.map(LABELS_REQUIRED, function(label) {
+                            var graphVals = result['Class ' + i +' Assessment'];
+                            if (!graphVals[label]) {
+                                return 0;
+                            }
+
+                            return Math.round((graphVals[label].score / graphVals[label].total) * 100);
                         });
 
                         chartData['class' + i] = {labels: [], series: [[]]};
@@ -444,10 +464,11 @@
                     $("#gp-performance-class-6").stopLoading();
                 });
             } else {
-                var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
-                var $performanceXHR = klp.api.do(detailsPerformanceUrl);
+                // var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+                // var $performanceXHR = klp.api.do(detailsPerformanceUrl);
                 
-                $performanceXHR.done(function(performanceResult) {
+                // $performanceXHR.done(function(performanceResult) {
+                    var performanceResult = {"Class 6 Assessment":{"Shapes":{"score":10174,"total":31700,"Mensuration":{"Mesuration (Area, perimeter, circumference, radius, diameter etc)":{"score":2236,"total":15850},"total":15850,"score":2236},"Flat shapes":{"2D shapes attributes":{"score":7938,"total":15850},"score":7938,"total":15850}},"Number Operations":{"Multiplication":{"score":6201,"total":15850,"Long Multiplication (Abstract)":{"score":6201,"total":15850}},"Subtraction":{"score":10349,"total":15850,"Subtraction with Borrow (Abstratct)":{"score":10349,"total":15850}},"score":40777,"total":79250,"Addition":{"score":14135,"Addition with Carry (Abstract)":{"score":14135,"total":15850},"total":15850},"Money":{"score":2995,"total":15850,"Word Problem - Measurements - Money":{"score":2995,"total":15850}},"Division":{"score":7097,"Long Division without Reminder":{"score":7097,"total":15850},"total":15850}},"Number Sense":{"Multiplication":{"score":6025,"total":15850,"Long Multiplication (Abstract)":{"score":6025,"total":15850}},"score":43515,"Decimals":{"total":15850,"Relate Fractions to Decimal numbers and vice versa":{"score":4972,"total":15850},"score":4972},"total":95100,"Division":{"score":7155,"Division - word problem":{"score":7155,"total":15850},"total":15850},"Numbers":{"score":12564,"Oral number name association":{"score":12564,"total":15850},"total":15850},"Fractions":{"score":12799,"Part of a whole object (2D shapes) - Fractions":{"score":4533,"total":15850},"total":31700,"Fractions using pictures":{"score":8266,"total":15850}}},"Measurements":{"Time":{"Word Problem - Measurements - Time":{"score":4852,"total":15850},"total":15850,"score":4852},"score":21239,"Division":{"score":7757,"total":15850,"Word Problem - Measurements - Money":{"score":7757,"total":15850}},"total":47550,"Weight":{"total":15850,"Convert larger units to smaller units and vice versa - Weight":{"score":8630,"total":15850},"score":8630}}},"Class 5 Assessment":{"Shapes":{"score":11495,"total":35115,"Patterns in shapes":{"score":5479,"total":17558,"Observes and extends patterns in sequence of shapes":{"score":5479,"total":17558}},"Flat shapes":{"2D shapes attributes":{"score":6016,"total":17557},"score":6016,"total":17557}},"Number Operations":{"Multiplication":{"score":6235,"total":17558,"Long Multiplication (Abstract)":{"score":6235,"total":17558}},"Subtraction":{"score":10235,"total":17558,"Subtraction with Borrow (Abstratct)":{"score":10235,"total":17558}},"score":56291,"total":105348,"Addition":{"score":15414,"Addition with Carry (Abstract)":{"score":15414,"total":17558},"total":17558},"Money":{"score":10103,"total":17558,"Word Problem - Measurements - Money":{"score":10103,"total":17558}},"Division":{"score":14304,"Division - word problem":{"score":6197,"total":17558},"total":35116,"Long Division without Reminder":{"score":8107,"total":17558}}},"Number Sense":{"Numbers":{"score":14567,"Oral number name association":{"score":14567,"total":17558},"total":17558},"score":55020,"Sequence":{"total":17558,"Arranging in Ascending or Descending order":{"score":6800,"total":17558},"score":6800},"Decimals":{"total":17558,"Relate Fractions to Decimal numbers and vice versa":{"score":9800,"total":17558},"score":9800},"Multiplication":{"score":6908,"total":17558,"Long Multiplication (Abstract)":{"score":6908,"total":17558}},"Number patterns":{"score":8029,"total":17558,"Number patterns with logic":{"score":8029,"total":17558}},"total":105348,"Fractions":{"score":8916,"Part of a whole object (2D shapes) - Fractions":{"score":8916,"total":17558},"total":17558}},"Measurements":{"score":3776,"Division":{"score":3776,"total":17558,"Word Problem - Measurements - Money":{"score":3776,"total":17558}},"total":17558}},"Class 4 Assessment":{"Shapes":{"score":24600,"total":51782,"Patterns in shapes":{"score":3488,"total":17261,"Observes and extends patterns in sequence of shapes":{"score":3488,"total":17261}},"Mensuration":{"Mesuration (Area, perimeter, circumference, radius, diameter etc)":{"score":8744,"total":17260},"total":17260,"score":8744},"Flat shapes":{"2D shapes attributes":{"score":12368,"total":17261},"score":12368,"total":17261}},"Number Operations":{"Multiplication":{"score":5285,"total":17262,"Long Multiplication (Abstract)":{"score":5285,"total":17262}},"Subtraction":{"score":9018,"total":17263,"Subtraction with Borrow (Abstratct)":{"score":9018,"total":17263}},"score":46701,"total":86310,"Addition":{"score":14594,"Addition with Carry (Abstract)":{"score":14594,"total":17263},"total":17263},"Money":{"score":8949,"total":17261,"Word Problem - Measurements - Money":{"score":8949,"total":17261}},"Division":{"score":8855,"Long Division without Reminder":{"score":8855,"total":17261},"total":17261}},"Number Sense":{"total":51789,"Numbers":{"score":14345,"Oral number name association":{"score":14345,"total":17263},"total":17263},"Multiplication":{"score":6693,"total":17263,"Long Multiplication (Abstract)":{"score":6693,"total":17263}},"score":31110,"Sequence":{"total":17263,"Arranging in Ascending or Descending order":{"score":10072,"total":17263},"score":10072}},"Measurements":{"score":9424,"Division":{"score":4752,"total":17261,"Word Problem - Measurements - Money":{"score":4752,"total":17261}},"total":34522,"Length":{"Word Problem - Measurements - Four Arithmetic operations on Length":{"score":4672,"total":17261},"total":17261,"score":4672}}}}
                     var chartData = {};
                     for(var i = 4; i <= 6; i++) {
                         chartData['class' + i] = {
@@ -458,6 +479,7 @@
                         };
                     }
 
+                    // Rendering the all the graphs
                     renderBarChart('#gp-performance-class-4', chartData.class4);
                     renderBarChart('#gp-performance-class-5', chartData.class5);
                     renderBarChart('#gp-performance-class-6', chartData.class6);
@@ -466,6 +488,8 @@
                     $("#gp-performance-class-4").stopLoading();
                     $("#gp-performance-class-5").stopLoading();
                     $("#gp-performance-class-6").stopLoading();
+
+                    // concepts graph listeners
                     $('#gp-performance-class-4').click(function(conceptEvent) {
                         var clickedConceptValue = conceptEvent.target.getAttribute('ct:value');
                         handleConcepts(clickedConceptValue, chartData, performanceResult, '4');
@@ -478,7 +502,7 @@
                         var clickedConceptValue = value.target.getAttribute('ct:value');
                         handleConcepts(clickedConceptValue, chartData, performanceResult, '6');
                     });
-                });
+               // });
             } /* if else ends */
         }
 
@@ -529,7 +553,7 @@
                 selectPerformanceTab(selectedPerformanceTab);
 
                 // removing if user has opened the details graph
-                resetDetailsGraph();
+                resetDetailsGraph(tab.value);
 
                 // Loading performance
                 loadPerformance();

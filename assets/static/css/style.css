@@ -5190,3 +5190,43 @@ span.tab {
   z-index: 1;
   display: none;
 }
+
+#concepts-header-class-4 {
+  display: none;
+}
+
+#concepts-header-class-5 {
+  display: none;
+}
+
+#concepts-header-class-6 {
+  display: none;
+}
+
+#concept-group-header-class-4 {
+  display: none;
+}
+
+#concept-group-header-class-5 {
+  display: none;
+}
+
+#concept-group-header-class-6 {
+  display: none;
+}
+
+#micro-concept-header-class-5 {
+  display: none;
+}
+
+#micro-concept-header-class-4 {
+  display: none;
+}
+
+#micro-concept-header-class-6 {
+  display: none;
+}
+
+.concepts-popover {
+  top: 47%;
+}
