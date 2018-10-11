@@ -77,7 +77,7 @@ class ClusterReport(BaseReport):
             self.report_from, 
             self.report_to)
 
-        schools_data = self.get_school_data(cluster, dates)
+        schools_data = self.get_schools_data(cluster, dates)
         schools = self.format_schools_data(schools_data)
         gka = self.getGKAData(cluster, dates)
 
@@ -86,76 +86,7 @@ class ClusterReport(BaseReport):
         self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':num_schools, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
         return self.data
 
-    def get_school_data(self, cluster, dates):
-        correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=cluster, yearmonth__range=dates)\
-            .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
-            .annotate(total = Sum('num_assessments'))
-        total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=cluster, yearmonth__range=dates)\
-            .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
-            .annotate(Sum('num_assessments'))
-        schools = []
-        for each_row in total_assessments:
-            sum_total = each_row['num_assessments__sum']
-            percent = 0
-            total = 0
-            total_correct_answers = 0
-            try:
-                sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
-                    .filter(institution_id=each_row['institution_id'])\
-                    .get(questiongroup_id=each_row['questiongroup_id'])        
-                if sum_total is not None:
-                    total = sum_total
-                if sum_correct_ans is None or sum_correct_ans['total'] is None:
-                    total_correct_answers = 0
-                else:
-                    total_correct_answers = sum_correct_ans['total']
-            except Exception as e:
-                print(e)
-            
-            if total is not None and total > 0:
-                percent = total_correct_answers/total * 100
-            #import pdb; pdb.set_trace()
-            details = dict(school=Institution.objects.get(id=each_row['institution_id']).name, grade=each_row['questiongroup_name'])
-            details['contest'] = each_row['question_key']
-            details['percent'] = percent
-            schools.append(details)
-        return schools
-
-    def format_schools_data(self,schools):
-        schools_out = []
-        out= []
-
-        for item in schools:
-            if not item['school'] in schools_out:
-                schools_out.append(item['school'])
-                out.append({'school':item['school'],
-                            'grades':[{
-                                'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
-                })
-            else:
-                for o in out:
-                    if o['school']==item['school']:
-                        gradeExist= False
-                        for grade in o['grades']:
-                            if item['grade'] == grade['name']:
-                                gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
-                        if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
-
-        # for i in out:
-        #     for grade in i['grades']:
-        #         count = 0
-        #         num = 0
-        #         for value in grade['values']:
-        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
-        #                 count += value['count']
-        #                 num += 1
-        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-        return out
-
+   
     def getGKAData(self, cluster, date_range):
         GKA = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=cluster)\
             .filter(yearmonth__range=date_range)\

@@ -236,7 +236,7 @@ class GPMathContestReport(BaseReport):
         #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
         #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
 
-        schools_out = self.get_school_data(gp_obj,dates)
+        schools_out = self.get_schools_data(gp_obj,dates)
         formatted_schools_out = self.format_schools_data(schools_out)
         survey = self.getHouseholdSurvey(gp_obj, dates)
         self.data =  {
@@ -259,90 +259,7 @@ class GPMathContestReport(BaseReport):
             'survey':survey}
         return self.data
 
-    def format_schools_data(self,schools):
-        schools_out = []
-        out= []
-
-        for item in schools:
-            if not item['school'] in schools_out:
-                schools_out.append(item['school'])
-                out.append({'school':item['school'],
-                            'grades':[{
-                                'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
-                })
-            else:
-                for o in out:
-                    if o['school']==item['school']:
-                        gradeExist= False
-                        for grade in o['grades']:
-                            if item['grade'] == grade['name']:
-                                gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
-                        if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
-
-        # for i in out:
-        #     for grade in i['grades']:
-        #         count = 0
-        #         num = 0
-        #         for value in grade['values']:
-        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
-        #                 count += value['count']
-        #                 num += 1
-        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-        return out
-    def get_school_data(self, gp, dates):
-        correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__gp=gp, yearmonth__range=dates)\
-            .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
-            .annotate(total = Sum('num_assessments'))
-        total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__gp=gp, yearmonth__range=dates)\
-            .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
-            .annotate(Sum('num_assessments'))
-        schools = []
-        for each_row in total_assessments:
-            sum_total = each_row['num_assessments__sum']
-            percent = 0
-            total = 0
-            total_correct_answers = 0
-            try:
-                sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
-                    .filter(institution_id=each_row['institution_id'])\
-                    .get(questiongroup_id=each_row['questiongroup_id'])        
-                if sum_total is not None:
-                    total = sum_total
-                if sum_correct_ans is None or sum_correct_ans['total'] is None:
-                    total_correct_answers = 0
-                else:
-                    total_correct_answers = sum_correct_ans['total']
-            except Exception as e:
-                pass
-            
-            if total is not None and total > 0:
-                percent = total_correct_answers/total * 100
-            details = dict(school=Institution.objects.get(id=each_row['institution_id']).name, grade=each_row['questiongroup_name'])
-            details['contest'] = each_row['question_key']
-            details['percent'] = percent
-            schools.append(details)
-        return schools
-
-    # def getHouseholdServey(self,gp_obj,date_range):
-    #     #Husehold Survey
-    #     a = AnswerGroup_Institution.objects.filter(institution__gp=gp_obj, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
-
-    #     questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
-
-    #     total_response = a.count()
-
-    #     HHSurvey = []
-
-    #     for i in questions:
-    #         count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-    #         count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-    #         HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
-
-    #     return HHSurvey
+ 
 
 class GPMathContestReportSummarized(BaseReport):
     parameters = ('gp_name', )
