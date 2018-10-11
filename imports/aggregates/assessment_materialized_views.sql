@@ -3005,6 +3005,34 @@ GROUP BY
 data.survey_tag,
 data.boundary_id,
 data.academic_year_id
+union
+SELECT distinct format('A%s_%s_%s', data.survey_tag, data.boundary_id, data.academic_year_id) as id,
+    data.survey_tag as survey_tag,
+    data.boundary_id as boundary_id,
+    data.academic_year_id as academic_year_id,
+    count(distinct school_id) as num_schools,
+    0 as num_students
+FROM
+(
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '1819' as academic_year_id,
+    instmap.institution_id as school_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    boundary_boundary b
+WHERE
+    instmap.institution_id = s.id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1819'
+)data
+GROUP BY
+data.survey_tag,
+data.boundary_id,
+data.academic_year_id
 ;
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_gender_correctans_agg CASCADE;
