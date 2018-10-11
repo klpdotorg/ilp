@@ -65,3 +65,6 @@ collected-static/
 media/
 
 .idea/
+
+# Locale
+.django.mo

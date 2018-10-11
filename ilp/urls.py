@@ -4,6 +4,7 @@ from django.views.generic.base import RedirectView
 from rest_framework_swagger.views import get_swagger_view
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from common.views import StaticPageView, BlogFeedView
 from schools.views import (
     AdvancedMapView, BoundaryPageView,
@@ -134,9 +135,6 @@ urlpatterns = [
         template_name='reports.html',
     ), name='reports'),
 
-    # GKA Dashboard
-    url(r'^gka/$', gka_dashboard, name='gka_dashboard'),
-
     # GP Contest Dashboard
     url(r'^gp-contest/$', gp_contest_dashboard, name='gp_contest_dashboard'),
 
@@ -213,3 +211,5 @@ urlpatterns = [
         ), name='stories'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += i18n_patterns(url(r'^gka/$', gka_dashboard, name='gka_dashboard'))

@@ -4562,3 +4562,37 @@ FROM
     GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
 GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
+
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_electiontype_count CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_eboundary_electiontype_count AS
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,yearmonth,const_ward_type) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    yearmonth,
+    const_ward_type,
+    electionboundary_count
+FROM(
+    SELECT distinct 
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        eb.const_ward_type_id as const_ward_type,
+        1 as electionboundary_count
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and ag.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+        and ag.is_verified=true
+        )data;

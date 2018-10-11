@@ -502,10 +502,8 @@ class SurveyQuestionGroupQuestionKeyAPIView(
         """
         qgroup_res = {}
         qs = self.filter_queryset(self.get_queryset())
-        print(qs.count())
 
         ans_qs = self.filter_queryset(self.get_answer_queryset())
-        print(ans_qs.count())
 
         qgroups = qs.distinct('questiongroup_id')\
             .values_list('questiongroup_id', 'questiongroup_name')
@@ -753,15 +751,20 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
-class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
+class SurveyDetailEBoundaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-    queryset = SurveyBoundaryElectionTypeCount.objects.all()
+    boundary_queryset = SurveyBoundaryElectionTypeCount.objects.all()
+    eboundary_queryset = SurveyEBoundaryElectionTypeCount.objects.all()
 
     def list(self, request, *args, **kwargs):
         boundary_id = self.request.GET.get('boundary_id', None)
+        eboundary_id = self.request.query_params.get('electionboundary_id', None)
+
         queryset = self.filter_queryset(self.get_queryset())
         res = {}
 
+        if eboundary_id:
+            queryset = queryset.filter(eboundary_id=eboundary_id)
         if boundary_id:
             queryset = queryset.filter(boundary_id=boundary_id)
         elif self.request.GET.get('state', None):
