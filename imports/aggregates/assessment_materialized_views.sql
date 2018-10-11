@@ -4568,3 +4568,73 @@ FROM(
         and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
         and ag.is_verified=true
         )data;
+
+
+DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_electiontype_count CASCADE;
+CREATE MATERIALIZED VIEW mvw_survey_institution_electiontype_count AS
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,yearmonth,const_ward_type) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    yearmonth,
+    const_ward_type,
+    electionboundary_count
+FROM(
+    SELECT distinct 
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        s.id as institution_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        eb.const_ward_type_id as const_ward_type,
+	count(distinct eb.id) as electionboundary_count
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_institution ag,
+        assessments_surveytagmapping surveytag,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and ag.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+        and ag.is_verified=true
+    GROUP BY
+        survey.id, surveytag.tag_id, s.id, yearmonth, eb.const_ward_type_id
+        )data
+union
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,yearmonth,const_ward_type) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    yearmonth,
+    const_ward_type,
+    electionboundary_count
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        s.id as institution_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        eb.const_ward_type_id as const_ward_type,
+	count(distinct eb.id) as electionboundary_count
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        schools_student stu,
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and survey.id in (3)
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
+        and ag.is_verified=true
+    GROUP BY survey.id, surveytag.tag_id, s.id, yearmonth, eb.const_ward_type_id)data
+;
+

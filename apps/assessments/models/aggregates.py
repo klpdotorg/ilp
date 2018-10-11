@@ -719,6 +719,20 @@ class SurveyEBoundaryElectionTypeCount(models.Model):
         db_table = 'mvw_survey_eboundary_electiontype_count'
 
 
+class SurveyInstitutionElectionTypeCount(models.Model):
+    """Survey Institution ElectionType Count"""
+    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
+    institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    const_ward_type = models.ForeignKey('boundary.BoundaryType', db_column="const_ward_type")
+    electionboundary_count = models.IntegerField(db_column="electionboundary_count")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_electiontype_count'
+
+
 class SurveyEBoundaryQDetailsAgg(models.Model):
     """Survey Election Boundary Question Details Aggregates (for concept, microconcept, microconceptgroup)"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
