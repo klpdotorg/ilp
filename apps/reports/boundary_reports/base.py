@@ -459,10 +459,10 @@ class BaseReport(ABC):
                     try:
                         sum_correct_ans = gradewise_correctans_agg.get(question_key=each_row['question_key'])
                     except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
-                        print("No answer for questionkey/questiongroup_id combo")
                         sum_correct_ans = None
                 
                     percent = 0
+                    correct_ans_total = 0
                     if sum_correct_ans is None or sum_correct_ans['correct_answers'] is None:
                         correct_ans_total =0
                     else:
@@ -512,14 +512,14 @@ class BaseReport(ABC):
                 try:
                     sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
                         .get(questiongroup_id=each_row['questiongroup_id'])
-                #import pdb; pdb.set_trace()                 
                     if sum_correct_ans is None or sum_correct_ans['total'] is None:
                         #import pdb; pdb.set_trace()
                         correct_ans_total =0
                     else:
                         correct_ans_total = sum_correct_ans['total']
                 except Exception as e:
-                    print(e)
+                    #Can't find any correct answers at all
+                    correct_ans_total =0
                     # import pdb; pdb.set_trace()
                 if sum_total is not None and sum_total > 0:
                     percent = correct_ans_total/sum_total * 100
