@@ -203,11 +203,11 @@ class BaseReport(ABC):
         #If the boundary is a district, get all the blocks under it and loop
         if parent_boundary.boundary_type.char_id == 'SD':
             child_boundaries = Boundary.objects.filter(parent=parent_boundary, boundary_type__char_id='SB')
-            boundary_type_string = 'district'
+            boundary_type_string = 'block'
         # If boundary is a block, get all clusters under it
         elif parent_boundary.boundary_type.char_id == 'SB':
             child_boundaries = Boundary.objects.filter(parent=parent_boundary, boundary_type__char_id='SC')
-            boundary_type_string = 'block'
+            boundary_type_string = 'cluster'
         child_boundaries_gka = []
         # Calculate aggregate GKA data for each child boundary. The boundary_type_string is needed for JSON structure
         for boundary in child_boundaries:
