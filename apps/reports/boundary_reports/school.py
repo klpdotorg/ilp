@@ -20,6 +20,7 @@ from schools.models import Institution
 from assessments.models import (
     SurveyInstitutionAgg,
     SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg,
+    SurveyInstitutionQuestionGroupGenderCorrectAnsAgg,
     SurveyInstitutionQuestionGroupQuestionKeyAgg,
     SurveyInstitutionQuestionGroupGenderAgg,
     SurveyInstitutionQuestionGroupAgg,
@@ -61,7 +62,6 @@ class SchoolReport(BaseReport):
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
-
         try:
             school_obj = Institution.objects.get(dise__school_code=self.school_code) # Take the school from db
         except Institution.DoesNotExist:
@@ -77,137 +77,172 @@ class SchoolReport(BaseReport):
         block = school_obj.admin2.name.title()           # Block name
         district = school_obj.admin1.name.title()    # District name
 
-        AGI = AnswerGroup_Institution.objects.filter(institution=school_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        # AGI = AnswerGroup_Institution.objects.filter(institution=school_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
 
-        if not AGI.exists():
-            raise ValueError("No GP contest data for '{}' between {} and {}".format(self.school_code, self.report_from, self.report_to))
+        # if not AGI.exists():
+        #     raise ValueError("No GP contest data for '{}' between {} and {}".format(self.school_code, self.report_from, self.report_to))
 
-        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
-        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        # num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
+        # num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
+        # number_of_students = num_boys + num_girls
+
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id=school_obj,survey_id=2)\
+                                                            .filter(yearmonth__gte = self.report_from)\
+                                                            .filter(yearmonth__lte = self.report_to)
+        gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
+                institution_id=school_obj, 
+                survey_id=2, 
+                yearmonth__gte=self.report_from,
+                yearmonth__lte=self.report_to)        
+        
+        if not aggregates.exists():
+            raise ValueError("No GP contests found for '{}' between {} and {}".format(gp, self.report_from, self.report_to))
+        block = aggregates.values_list('institution_id__admin2__name', flat=True).distinct()[0]
+        district = aggregates.values_list('institution_id__admin1__name', flat=True).distinct()[0]
+        num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
+        num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
         number_of_students = num_boys + num_girls
 
-        schools,scores = self.get_school_data(AGI)
+        schools = self.get_schools_data(school_obj, dates)
 
         # Calculate the perfomance of students
-        score_100, score_zero = calc_stud_performance(scores)
+        male_total, female_total, male_correct, female_correct, male_zero_ans_per_gp, female_zero_ans_per_gp = \
+            self.calculate_student_performance(school_obj, self.report_from, self.report_to)
 
-        contest_list = [i['contest'] for i in schools]
+        #contest_list = [i['contest'] for i in schools]
 
         out = self.format_schools_data(schools)
 
         if neighbour_required:
             neighbour_list = []
-            for i in Institution.objects.filter(gp=school_obj.gp):
-                neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
-                neighbour_data, _ = self.get_school_data(neighbour_agi)
-                neighbour_list += neighbour_data
-
-            neighbours = self.format_schools_data(neighbour_list)
+            # for i in Institution.objects.filter(gp=school_obj.gp):
+            #     neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+            #     neighbour_data, _ = self.get_school_data(neighbour_agi)
+            #     neighbour_list += neighbour_data
+            # Get data for all schools in this GP
+            neighbouring_schools_data = self.get_schools_data(school_obj.gp,dates)
+            neighbours = self.format_schools_data(neighbouring_schools_data)
         else:
             neighbours = []
 
-        self.data =  {'gp_name': gp, 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':neighbours}
+        self.data =  {'gp_name': gp,\
+         'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
+            'cluster':cluster,\
+            'block':block,\
+            'district':district,\
+            'no_students':number_of_students,\
+            'today':report_generated_on,\
+            'boys':num_boys,\
+            'girls':num_girls,\
+            'schools':out,\
+            'score_100':female_correct+male_correct,\
+            'score_zero':male_zero_ans_per_gp+ female_zero_ans_per_gp,\
+            'girls_zero':female_zero_ans_per_gp,\
+            'boys_zero':male_zero_ans_per_gp,\
+            'boys_100':male_correct,\
+            'girls_100':female_correct,\
+            'neighbours':neighbours}
         return self.data
 
-    def get_school_data(self,answergroup):
-        conditions = answergroup.values_list('institution__name', 'questiongroup__name').distinct()
-        contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
-        contests.pop(contests.index('Gender'))
-        schools = []
-        scores = {}
+    # def get_school_data(self,answergroup):
+    #     conditions = answergroup.values_list('institution__name', 'questiongroup__name').distinct()
+    #     contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
+    #     contests.pop(contests.index('Gender'))
+    #     schools = []
+    #     scores = {}
 
-        for school, qgroup in conditions:
-            school_ag = answergroup.filter(institution__name=school, questiongroup__name=qgroup)
-            for contest in contests:
-                percent = []
-                for ag in school_ag:
-                    num_q = ag.answers.filter(question__key=contest).count()
-                    if num_q == 0:
-                        continue
+    #     for school, qgroup in conditions:
+    #         school_ag = answergroup.filter(institution__name=school, questiongroup__name=qgroup)
+    #         for contest in contests:
+    #             percent = []
+    #             for ag in school_ag:
+    #                 num_q = ag.answers.filter(question__key=contest).count()
+    #                 if num_q == 0:
+    #                     continue
 
-                    # This was the original logic for generating GP contest report
-                    # In July, the logic has been changed to the block below this
-                    # block.
-                    # 
-                    # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
-                    # mark = (answered/num_q)*100
+    #                 # This was the original logic for generating GP contest report
+    #                 # In July, the logic has been changed to the block below this
+    #                 # block.
+    #                 # 
+    #                 # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
+    #                 # mark = (answered/num_q)*100
 
-                    # The second logic we used in July
-                    # total_students_appeared = school_ag.count()
-                    # answered = 0
-                    # for s in school_ag:
-                    #     if s.answers.filter(
-                    #         question__key=contest, answer='Yes'
-                    #     ).exists():
-                    #         answered += 1
-                    # mark = (answered / total_students_appeared) * 100
+    #                 # The second logic we used in July
+    #                 # total_students_appeared = school_ag.count()
+    #                 # answered = 0
+    #                 # for s in school_ag:
+    #                 #     if s.answers.filter(
+    #                 #         question__key=contest, answer='Yes'
+    #                 #     ).exists():
+    #                 #         answered += 1
+    #                 # mark = (answered / total_students_appeared) * 100
 
-                    # The new logic proposed by Nagraj & Vaijayanthi
-                    total_students_appeared = school_ag.count()
-                    answered = 0
-                    for s in school_ag:
-                        total_questions = s.answers.filter(
-                            question__key=contest
-                        ).count()
-                        correct_answers = s.answers.filter(
-                            question__key=contest,
-                            answer='Yes'
-                        ).count()
-                        if total_questions == correct_answers:
-                            answered += 1
-                    mark = (answered / total_students_appeared) * 100
+    #                 # The new logic proposed by Nagraj & Vaijayanthi
+    #                 total_students_appeared = school_ag.count()
+    #                 answered = 0
+    #                 for s in school_ag:
+    #                     total_questions = s.answers.filter(
+    #                         question__key=contest
+    #                     ).count()
+    #                     correct_answers = s.answers.filter(
+    #                         question__key=contest,
+    #                         answer='Yes'
+    #                     ).count()
+    #                     if total_questions == correct_answers:
+    #                         answered += 1
+    #                 mark = (answered / total_students_appeared) * 100
 
 
-                    try:
-                        scores[ag.id]['mark'].append(mark)
-                    except KeyError:
-                        scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
-                        scores[ag.id]['mark'].append(mark)
-                    percent.append(mark)
+    #                 try:
+    #                     scores[ag.id]['mark'].append(mark)
+    #                 except KeyError:
+    #                     scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
+    #                     scores[ag.id]['mark'].append(mark)
+    #                 percent.append(mark)
 
-                if len(percent) == 0:
-                    continue
-                details = dict(school=school, grade=qgroup)
-                details['contest'] = contest
-                details['percent'] = sum(percent)/len(percent)
-                schools.append(details)
+    #             if len(percent) == 0:
+    #                 continue
+    #             details = dict(school=school, grade=qgroup)
+    #             details['contest'] = contest
+    #             details['percent'] = sum(percent)/len(percent)
+    #             schools.append(details)
 
-        return schools,scores
+    #     return schools,scores
 
-    def format_schools_data(self,schools):
-        schools_out = []
-        out= []
+    # def format_schools_data(self,schools):
+    #     schools_out = []
+    #     out= []
 
-        for item in schools:
-            if not item['school'] in schools_out:
-                schools_out.append(item['school'])
-                out.append({'school':item['school'],
-                            'grades':[{
-                                'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
-                })
-            else:
-                for o in out:
-                    if o['school']==item['school']:
-                        gradeExist= False
-                        for grade in o['grades']:
-                            if item['grade'] == grade['name']:
-                                gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
-                        if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+    #     for item in schools:
+    #         if not item['school'] in schools_out:
+    #             schools_out.append(item['school'])
+    #             out.append({'school':item['school'],
+    #                         'grades':[{
+    #                             'name':item['grade'],
+    #                             'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+    #             })
+    #         else:
+    #             for o in out:
+    #                 if o['school']==item['school']:
+    #                     gradeExist= False
+    #                     for grade in o['grades']:
+    #                         if item['grade'] == grade['name']:
+    #                             gradeExist = True
+    #                             grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+    #                     if not gradeExist:
+    #                         o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
 
-        # for i in out:
-        #     for grade in i['grades']:
-        #         count = 0
-        #         num = 0
-        #         for value in grade['values']:
-        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
-        #                 count += value['count']
-        #                 num += 1
-        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-        return out
+    #     # for i in out:
+    #     #     for grade in i['grades']:
+    #     #         count = 0
+    #     #         num = 0
+    #     #         for value in grade['values']:
+    #     #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
+    #     #                 count += value['count']
+    #     #                 num += 1
+    #     #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
+    #     #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
+    #     return out
 
 
 class SchoolReportSummarized(BaseReport):
@@ -273,12 +308,13 @@ class SchoolReportSummarized(BaseReport):
 
         if neighbour_required:
             neighbour_list = []
-            for i in Institution.objects.filter(gp=school_obj.gp):
-                neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
-                neighbour_data, _ = self.get_school_data(neighbour_agi)
-                neighbour_list += neighbour_data
-
-            neighbours = self.format_schools_data(neighbour_list)
+            # for i in Institution.objects.filter(gp=school_obj.gp):
+            #     neighbour_agi = AnswerGroup_Institution.objects.filter(institution=i, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+            #     neighbour_data, _ = self.get_school_data(neighbour_agi)
+            #     neighbour_list += neighbour_data
+            # Get data for all schools in this GP
+            neighbouring_schools_data = self.get_schools_data(school_obj.gp,dates)
+            neighbours = self.format_schools_data(neighbouring_schools_data)
         else:
             neighbours = []
 
@@ -300,77 +336,77 @@ class SchoolReportSummarized(BaseReport):
         self.data =  {'gp_name': gp, 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'cluster':cluster, 'block':block, 'district':district,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':out,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'neighbours':gradewise_gpc}
         return self.data
 
-    def get_school_data(self,answergroup):
-        conditions = answergroup.values_list('institution__name', 'questiongroup__name').distinct()
-        contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
-        contests.pop(contests.index('Gender'))
-        schools = []
-        scores = {}
+    # def get_school_data(self,answergroup):
+    #     conditions = answergroup.values_list('institution__name', 'questiongroup__name').distinct()
+    #     contests = list(answergroup.values_list('answers__question__key', flat=True).distinct())
+    #     contests.pop(contests.index('Gender'))
+    #     schools = []
+    #     scores = {}
 
-        for school, qgroup in conditions:
-            school_ag = answergroup.filter(institution__name=school, questiongroup__name=qgroup)
-            for contest in contests:
-                percent = []
-                for ag in school_ag:
-                    num_q = ag.answers.filter(question__key=contest).count()
-                    if num_q == 0:
-                        continue
+    #     for school, qgroup in conditions:
+    #         school_ag = answergroup.filter(institution__name=school, questiongroup__name=qgroup)
+    #         for contest in contests:
+    #             percent = []
+    #             for ag in school_ag:
+    #                 num_q = ag.answers.filter(question__key=contest).count()
+    #                 if num_q == 0:
+    #                     continue
 
-                    # This was the original logic for generating GP contest report
-                    # In July, the logic has been changed to the block below this
-                    # block.
-                    # 
-                    # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
-                    # mark = (answered/num_q)*100
+    #                 # This was the original logic for generating GP contest report
+    #                 # In July, the logic has been changed to the block below this
+    #                 # block.
+    #                 # 
+    #                 # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
+    #                 # mark = (answered/num_q)*100
 
-                    total_students_appeared = school_ag.count()
-                    answered = 0
-                    for s in school_ag:
-                        if s.answers.filter(
-                            question__key=contest, answer='Yes'
-                        ).exists():
-                            answered += 1
-                    mark = (answered / total_students_appeared) * 100
+    #                 total_students_appeared = school_ag.count()
+    #                 answered = 0
+    #                 for s in school_ag:
+    #                     if s.answers.filter(
+    #                         question__key=contest, answer='Yes'
+    #                     ).exists():
+    #                         answered += 1
+    #                 mark = (answered / total_students_appeared) * 100
 
 
-                    try:
-                        scores[ag.id]['mark'].append(mark)
-                    except KeyError:
-                        scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
-                        scores[ag.id]['mark'].append(mark)
-                    percent.append(mark)
+    #                 try:
+    #                     scores[ag.id]['mark'].append(mark)
+    #                 except KeyError:
+    #                     scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
+    #                     scores[ag.id]['mark'].append(mark)
+    #                 percent.append(mark)
 
-                if len(percent) == 0:
-                    continue
-                details = dict(school=school, grade=qgroup)
-                details['contest'] = contest
-                details['percent'] = sum(percent)/len(percent)
-                schools.append(details)
+    #             if len(percent) == 0:
+    #                 continue
+    #             details = dict(school=school, grade=qgroup)
+    #             details['contest'] = contest
+    #             details['percent'] = sum(percent)/len(percent)
+    #             schools.append(details)
 
-        return schools,scores
+    #     return schools,scores
 
-    def format_schools_data(self,schools):
-        schools_out = []
-        out= []
+    # def format_schools_data(self,schools):
+    #     schools_out = []
+    #     out= []
 
-        for item in schools:
-            if not item['school'] in schools_out:
-                schools_out.append(item['school'])
-                out.append({'school':item['school'],
-                            'grades':[{
-                                'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
-                })
-            else:
-                for o in out:
-                    if o['school']==item['school']:
-                        gradeExist= False
-                        for grade in o['grades']:
-                            if item['grade'] == grade['name']:
-                                gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
-                        if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+    #     for item in schools:
+    #         if not item['school'] in schools_out:
+    #             schools_out.append(item['school'])
+    #             out.append({'school':item['school'],
+    #                         'grades':[{
+    #                             'name':item['grade'],
+    #                             'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+    #             })
+    #         else:
+    #             for o in out:
+    #                 if o['school']==item['school']:
+    #                     gradeExist= False
+    #                     for grade in o['grades']:
+    #                         if item['grade'] == grade['name']:
+    #                             gradeExist = True
+    #                             grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+    #                     if not gradeExist:
+    #                         o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
 
         # for i in out:
         #     for grade in i['grades']:
@@ -382,4 +418,4 @@ class SchoolReportSummarized(BaseReport):
         #                 num += 1
         #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
         #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-        return out
+    #    return out

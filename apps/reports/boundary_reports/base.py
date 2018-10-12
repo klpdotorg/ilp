@@ -16,6 +16,7 @@ from schools.models import Institution
 
 from assessments.models import (
     SurveyInstitutionAgg,
+    SurveyInstitutionQuestionGroupGenderCorrectAnsAgg,
     SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyInstitutionQuestionGroupQuestionKeyAgg,
     SurveyInstitutionQuestionGroupGenderAgg,
@@ -202,11 +203,11 @@ class BaseReport(ABC):
         #If the boundary is a district, get all the blocks under it and loop
         if parent_boundary.boundary_type.char_id == 'SD':
             child_boundaries = Boundary.objects.filter(parent=parent_boundary, boundary_type__char_id='SB')
-            boundary_type_string = 'district'
+            boundary_type_string = 'block'
         # If boundary is a block, get all clusters under it
         elif parent_boundary.boundary_type.char_id == 'SB':
             child_boundaries = Boundary.objects.filter(parent=parent_boundary, boundary_type__char_id='SC')
-            boundary_type_string = 'block'
+            boundary_type_string = 'cluster'
         child_boundaries_gka = []
         # Calculate aggregate GKA data for each child boundary. The boundary_type_string is needed for JSON structure
         for boundary in child_boundaries:
@@ -256,7 +257,170 @@ class BaseReport(ABC):
             group_work_done['group_work_yes']=0
         group_work_percent = group_work_done['group_work_yes']/group_work_total['group_work_total'] * 100
         return round(group_work_percent,2)
+
+    ''' boundary can be either a school OR a GP. Student performance is shown only in GP and school reports so far'''
+    def calculate_student_performance(self, boundary, report_from, report_to):
+        male_correct_ans_per_gp = None
+        female_correct_ans_per_gp = None
+        male_total_ans_per_gp = None
+        female_total_ans_per_gp = None
+        if isinstance(boundary, ElectionBoundary):
+            male_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
+                eboundary_id=gp_obj, survey_id=2)\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .filter(gender='Male')\
+                .aggregate(male_correct=Sum('num_assessments'))
+            female_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
+                eboundary_id=gp_obj, survey_id=2)\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .filter(gender='Female')\
+                .aggregate(female_correct=Sum('num_assessments'))
+            male_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
+                eboundary_id=gp_obj, survey_id=2)\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .filter(gender='Male')\
+                .aggregate(male_total=Sum('num_assessments'))
+            female_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
+                eboundary_id=gp_obj, survey_id=2)\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .filter(gender='Female')\
+                .aggregate(female_total=Sum('num_assessments'))
+        elif isinstance(boundary, Institution):
+            male_correct_ans_per_gp = SurveyInstitutionQuestionGroupGenderCorrectAnsAgg.objects.filter(
+                institution_id=boundary, survey_id=2)\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .filter(gender='Male')\
+                .aggregate(male_correct=Sum('num_assessments'))
+            female_correct_ans_per_gp = SurveyInstitutionQuestionGroupGenderCorrectAnsAgg.objects.filter(
+                institution_id=boundary, survey_id=2)\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .filter(gender='Female')\
+                .aggregate(female_correct=Sum('num_assessments'))
+            male_total_ans_per_gp = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
+                institution_id=boundary, survey_id=2)\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .filter(gender='Male')\
+                .aggregate(male_total=Sum('num_assessments'))
+            female_total_ans_per_gp = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
+                institution_id=boundary, survey_id=2)\
+                .filter(yearmonth__gte = report_from)\
+                .filter(yearmonth__lte = report_to)\
+                .filter(gender='Female')\
+                .aggregate(female_total=Sum('num_assessments'))
+
+        male_total = male_total_ans_per_gp['male_total']
+        female_total =  female_total_ans_per_gp['female_total']
+        male_correct = male_correct_ans_per_gp['male_correct']
+        female_correct = female_correct_ans_per_gp['female_correct']
+        if male_total is None:
+            male_total = 0
+        if male_correct is None:
+            male_correct = 0
+        if female_total is None:
+            female_total =0
+        if female_correct is None:
+            female_correct = 0
+        male_zero_ans_per_gp = int(male_total) - int(male_correct)
+        female_zero_ans_per_gp = int(female_total) - int(female_correct)
+        return male_total, female_total, male_correct, female_correct, male_zero_ans_per_gp, female_zero_ans_per_gp
+
+    def get_schools_data(self, boundary, dates):
+        correct_answers_agg = None
+        total_assessments = None
+        if isinstance(boundary, Boundary):
+            if boundary.boundary_type.char_id == 'SC':
+                correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
+                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .annotate(total = Sum('num_assessments'))
+                total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
+                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .annotate(Sum('num_assessments'))
+        elif isinstance(boundary, ElectionBoundary):
+            if boundary.const_ward_type_id == 'GP':
+                correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__gp=boundary, yearmonth__range=dates)\
+                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .annotate(total = Sum('num_assessments'))
+                total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__gp=boundary, yearmonth__range=dates)\
+                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .annotate(Sum('num_assessments'))
+        elif isinstance(boundary, Institution):
+            correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id=boundary.id, yearmonth__range=dates)\
+                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .annotate(total = Sum('num_assessments'))
+            total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id=boundary.id, yearmonth__range=dates)\
+                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .annotate(Sum('num_assessments'))
+
+        schools = []
+        for each_row in total_assessments:
+            sum_total = each_row['num_assessments__sum']
+            percent = 0
+            total = 0
+            total_correct_answers = 0
+            try:
+                sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
+                    .filter(institution_id=each_row['institution_id'])\
+                    .get(questiongroup_id=each_row['questiongroup_id'])        
+                if sum_total is not None:
+                    total = sum_total
+                if sum_correct_ans is None or sum_correct_ans['total'] is None:
+                    total_correct_answers = 0
+                else:
+                    total_correct_answers = sum_correct_ans['total']
+            except Exception as e:
+                pass
             
+            if total is not None and total > 0:
+                percent = total_correct_answers/total * 100
+            #import pdb; pdb.set_trace()
+            details = dict(school=Institution.objects.get(id=each_row['institution_id']).name, grade=each_row['questiongroup_name'])
+            details['contest'] = each_row['question_key']
+            details['percent'] = percent
+            schools.append(details)
+        return schools
+
+    def format_schools_data(self,schools):
+        schools_out = []
+        out= []
+
+        for item in schools:
+            if not item['school'] in schools_out:
+                schools_out.append(item['school'])
+                out.append({'school':item['school'],
+                            'grades':[{
+                                'name':item['grade'],
+                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+                })
+            else:
+                for o in out:
+                    if o['school']==item['school']:
+                        gradeExist= False
+                        for grade in o['grades']:
+                            if item['grade'] == grade['name']:
+                                gradeExist = True
+                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+                        if not gradeExist:
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+
+        # for i in out:
+        #     for grade in i['grades']:
+        #         count = 0
+        #         num = 0
+        #         for value in grade['values']:
+        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
+        #                 count += value['count']
+        #                 num += 1
+        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
+        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
+        return out
+     
     ''' Returns the boundary wise aggregation per grade per contest. 
         For example: Class 4 aggregates at the boundary level for all concepts (Addition, Subtraction etc..)
      '''
@@ -295,10 +459,10 @@ class BaseReport(ABC):
                     try:
                         sum_correct_ans = gradewise_correctans_agg.get(question_key=each_row['question_key'])
                     except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
-                        print("No answer for questionkey/questiongroup_id combo")
                         sum_correct_ans = None
                 
                     percent = 0
+                    correct_ans_total = 0
                     if sum_correct_ans is None or sum_correct_ans['correct_answers'] is None:
                         correct_ans_total =0
                     else:
@@ -348,14 +512,14 @@ class BaseReport(ABC):
                 try:
                     sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
                         .get(questiongroup_id=each_row['questiongroup_id'])
-                #import pdb; pdb.set_trace()                 
                     if sum_correct_ans is None or sum_correct_ans['total'] is None:
                         #import pdb; pdb.set_trace()
                         correct_ans_total =0
                     else:
                         correct_ans_total = sum_correct_ans['total']
                 except Exception as e:
-                    print(e)
+                    #Can't find any correct answers at all
+                    correct_ans_total =0
                     # import pdb; pdb.set_trace()
                 if sum_total is not None and sum_total > 0:
                     percent = correct_ans_total/sum_total * 100
