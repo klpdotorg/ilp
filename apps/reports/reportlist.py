@@ -1,4 +1,4 @@
-from .reports import GPMathContestReport, SchoolReport, ClusterReport, BlockReport, DistrictReport, GPMathContestReportSummarized, SchoolReportSummarized, ClusterReportSummarized, BlockReportSummarized, DistrictReportSummarized
+from .boundary_reports import GPMathContestReport, SchoolReport, ClusterReport, BlockReport, DistrictReport, GPMathContestReportSummarized, SchoolReportSummarized, ClusterReportSummarized, BlockReportSummarized, DistrictReportSummarized
 reportlist = {"GPMathContestReport": GPMathContestReport,
               "SchoolReport":SchoolReport,
               "ClusterReport":ClusterReport,

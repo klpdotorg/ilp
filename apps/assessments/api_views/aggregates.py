@@ -126,6 +126,8 @@ class SurveyVolumeAPIView(AggMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
     institution_queryset = SurveyInstitutionAgg.objects.all()
     boundary_queryset = SurveyBoundaryAgg.objects.all()
+    eboundary_queryset = SurveyElectionBoundaryAgg.objects.all()
+    
 
     def list(self, request, *args, **kwargs):
         """
@@ -157,6 +159,7 @@ class SurveyInfoSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
     institution_queryset = SurveyInstitutionAgg.objects.all()
     boundary_queryset = SurveyBoundaryAgg.objects.all()
+    eboundary_queryset = SurveyElectionBoundaryAgg.objects.all()
 
     def institution_qs(self):
         """
@@ -502,10 +505,8 @@ class SurveyQuestionGroupQuestionKeyAPIView(
         """
         qgroup_res = {}
         qs = self.filter_queryset(self.get_queryset())
-        print(qs.count())
 
         ans_qs = self.filter_queryset(self.get_answer_queryset())
-        print(ans_qs.count())
 
         qgroups = qs.distinct('questiongroup_id')\
             .values_list('questiongroup_id', 'questiongroup_name')
@@ -753,19 +754,18 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
         return Response(response)
 
 
-class SurveyDetailEBoundaryAPIView(ListAPIView, ILPStateMixin):
+class SurveyDetailEBoundaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-    queryset = SurveyBoundaryElectionTypeCount.objects.all()
+    boundary_queryset = SurveyBoundaryElectionTypeCount.objects.all()
+    eboundary_queryset = SurveyEBoundaryElectionTypeCount.objects.all()
+    institution_queryset = SurveyInstitutionElectionTypeCount.objects.all()
 
     def list(self, request, *args, **kwargs):
         boundary_id = self.request.GET.get('boundary_id', None)
+        eboundary_id = self.request.query_params.get('electionboundary_id', None)
+
         queryset = self.filter_queryset(self.get_queryset())
         res = {}
-
-        if boundary_id:
-            queryset = queryset.filter(boundary_id=boundary_id)
-        elif self.request.GET.get('state', None):
-            queryset = queryset.filter(boundary_id=self.get_state().id)
 
         electioncount_agg = queryset.values('const_ward_type').annotate(
             Sum('electionboundary_count'))
