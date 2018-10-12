@@ -335,11 +335,11 @@ class BaseReport(ABC):
         correct_answers_agg = None
         total_assessments = None
         if isinstance(boundary, Boundary):
-            if boundary.boundary_type__char_id == 'SC':
-                correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=cluster, yearmonth__range=dates)\
+            if boundary.boundary_type.char_id == 'SC':
+                correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
-                total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=cluster, yearmonth__range=dates)\
+                total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, ElectionBoundary):

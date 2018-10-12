@@ -145,7 +145,7 @@ class ClusterReportSummarized(ClusterReport):
             'cluster',
             self.report_from, 
             self.report_to)
-        schools_data = self.get_school_data(cluster, dates)
+        schools_data = self.get_schools_data(cluster, dates)
         schools = self.format_schools_data(schools_data)
 
         gka = self.getGKAData(cluster, dates)
@@ -153,19 +153,20 @@ class ClusterReportSummarized(ClusterReport):
         household = self.getHouseholdSurvey(cluster,dates)
 
         #GPC Gradewise data
-        gpc_grades = {'Class 4 Assessment':{}, 'Class 5 Assessment':{}, 'Class 6 Assessment':{}}
-        for school in schools:
-            for grade in school['grades']:
-                for value in grade['values']:
-                    try:
-                        gpc_grades[grade['name']][value['contest']]+=value['count']
-                    except KeyError:
-                        gpc_grades[grade['name']][value['contest']]=value['count']
-        gradewise_gpc = []
-        for grade, values in gpc_grades.items():
-            for j ,k in values.items():
-                values[j] = round(k/len(schools), 2)
-            gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
+        gradewise_gpc = self.get_boundary_gpc_gradewise_agg(cluster, self.report_from, self.report_to)
+        # gpc_grades = {'Class 4 Assessment':{}, 'Class 5 Assessment':{}, 'Class 6 Assessment':{}}
+        # for school in schools:
+        #     for grade in school['grades']:
+        #         for value in grade['values']:
+        #             try:
+        #                 gpc_grades[grade['name']][value['contest']]+=value['count']
+        #             except KeyError:
+        #                 gpc_grades[grade['name']][value['contest']]=value['count']
+        # gradewise_gpc = []
+        # for grade, values in gpc_grades.items():
+        #     for j ,k in values.items():
+        #         values[j] = round(k/len(schools), 2)
+        #     gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
         self.data = {\
                         'cluster':self.cluster_name.title(),\
