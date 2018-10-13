@@ -2419,7 +2419,7 @@ body {
       .nav li li:hover a:before {
         background: currentColor; } }
   .nav li li a {
-    line-height: 1;
+    line-height: 1.3;
     padding: 10px; }
     @media only print, only screen and (min-width: 990px) {
       .nav li li a {
@@ -5142,7 +5142,6 @@ span.tab {
   border-right-width: 0;
   outline: 0;
 }
-
 .selected-gp-tab {
   border-top-width: 6px;
   border-top-color: green;
@@ -5155,23 +5154,19 @@ span.tab {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
-
 .gp-tabs {
   display: flex;
   flex-direction: row;
 }
-
 .gp-coverage-section {
   border-left: 1px solid #f0f0f0;
   border-right: 1px solid #f0f0f0;
   border-bottom: 1px solid #f0f0f0;
 }
-
 .full-width-border-bottom {
   flex: 1;
   border-bottom: 1px solid #f0f0f0;
 }
-
 .concept-group-wrapper {
   position: absolute;
   top: 49%;
@@ -5183,50 +5178,39 @@ span.tab {
   box-shadow: 10px 7px 10px 0px #d2d2d2;
   border-radius: 3px;
 }
-
 .close-concept-button {
   position: absolute;
   right: 0;
   z-index: 1;
   display: none;
 }
-
 #concepts-header-class-4 {
   display: none;
 }
-
 #concepts-header-class-5 {
   display: none;
 }
-
 #concepts-header-class-6 {
   display: none;
 }
-
 #concept-group-header-class-4 {
   display: none;
 }
-
 #concept-group-header-class-5 {
   display: none;
 }
-
 #concept-group-header-class-6 {
   display: none;
 }
-
 #micro-concept-header-class-5 {
   display: none;
 }
-
 #micro-concept-header-class-4 {
   display: none;
 }
-
 #micro-concept-header-class-6 {
   display: none;
 }
-
 .concepts-popover {
   top: 47%;
 }
