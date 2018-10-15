@@ -435,13 +435,6 @@ var topSummaryData = {};
             klp.GKA.surveySummaryData = surveySummaryData;
             renderSurveySummary(surveySummaryData);
             $('#surveySummary').stopLoading();
-
-            // Load the respondent summary
-            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=" + surveyId, params);
-            $respondentXHR.done(function(respondentData) {
-                renderRespondentChart(respondentData);
-                $('#mobRespondent').stopLoading();
-            });
         });
 
         // Load the volumes
