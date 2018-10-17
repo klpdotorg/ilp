@@ -113,6 +113,7 @@ class QuestionGroup(models.Model):
     comments_required = models.NullBooleanField(default=False)
     respondenttype_required = models.NullBooleanField(default=False)
     default_respondent_type = models.ForeignKey('common.RespondentType', null=True)
+    max_score = models.IntegerField(null=True)
 
     questions = models.ManyToManyField(
         'Question', through='Questiongroup_Questions'

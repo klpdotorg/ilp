@@ -111,6 +111,19 @@ Visit `http://127.0.0.1:8000/`
 ### Code Formattng guidelines
 See PEP8 @ https://www.python.org/dev/peps/pep-0008/
 
+
+### Git workflow
+
+    ILP has two main branches:
+        * master
+        * nextrelease
+
+    These two branches are exclusively used for feature releases. Developers should create new branches while developing new features. Once the feature is ready for a "dev release", the branch can be merged to nextrelease.
+
+    And when the feature is ready to be tested by users, it can merged to the master, which gets auto-deployed to staging.
+
+    Emergeny bug fixes can be pushed to master directly without creating any branches
+
 =========================
 End of document
 
