@@ -78,7 +78,8 @@ class BlockReport(BaseReport):
         gpc_clusters = self.format_cluster_data(cluster_gpc_data)
 
         gka, gka_clusters = self.getGKAData(block, dates)
-
+        #GPC Gradewise data
+        gradewise_gpc = self.get_boundary_gpc_gradewise_agg(block, self.report_from, self.report_to)
         household = self.getHouseholdSurvey(block, dates)
 
         self.data = {'block':self.block_name.title(),\
@@ -88,6 +89,7 @@ class BlockReport(BaseReport):
                      'no_schools':num_schools,\
                      'gka':gka,\
                      'gka_clusters':gka_clusters,\
+                     'overall_gradewise_perf': gradewise_gpc,\
                      'gpc_clusters':gpc_clusters,\
                      'household':household,\
                      'num_boys':num_boys,\

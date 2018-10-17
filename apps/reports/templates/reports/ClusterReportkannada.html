@@ -77,6 +77,77 @@
 	<h2>ಶಾಲಾವಾರು ಸಾಧನೆ ಪಟ್ಟಿ</h2>
 	<table id="customers" style="margin:auto;">
 	  <tr>
+	    <th>ತರಗತಿ</th>
+	    <th>
+	      ಒಟ್ಟು ಪರಿಕಲ್ಪನೆಗಳು <br>(123)
+	    </th>
+	    <th>
+	      ಸಂಕಲನ<br>(+)
+	    </th>
+	    <th>
+	      ವ್ಯವಕಲನ<br>(-)
+	    </th>
+	    <th>
+	      ಗುಣಾಕಾ ರ<br>(&times;)
+	    </th>
+	    <th>
+	      ಭಾಗಾಕಾ ರ<br>(&divide;)
+	    </th>
+	    <!-- <th>
+            ಇತರೆ ಪರಿಕಲ್ಪನೆಗಳು
+          </th> -->
+	  </tr>
+	  {% for item in data.overall_cluster_performance %}
+	  <tr>
+	    <td>{{ item.grade }}</td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Number Concept" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values %}
+              {% if "Addition" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Subtraction" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Multiplication" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <td align="center">
+	      {% for value in item.values%}
+              {% if "Division" == value.contest %}
+	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+	    </td>
+	    <!-- <td align="center">
+            {% for value in item.values%}
+              {% if "Other Areas" == value.contest %}
+            <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+              {% endif %}
+              {% endfor %}
+          </td> -->
+	  </tr>
+	  {% endfor %}
+	</table>
+	<h2>ಶಾಲಾವಾರು ಸಾಧನೆ ಪಟ್ಟಿ</h2>
+	<table id="customers" style="margin:auto;">
+	  <tr>
 	    <th>ಶಾಲೆಯ ಹೆಸರು</th>
 	    <th>ತರಗತಿ</th>
 	    <th>

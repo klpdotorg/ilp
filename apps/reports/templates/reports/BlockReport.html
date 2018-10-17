@@ -84,7 +84,80 @@
 	    }
 	  </span>
 	</span>
+
 	<p> [This report provides the details of Math learning levels of children by school who participated in Gram Panchayat Mathematics Contests this academic year.]</p>
+         
+	<h2>Performance by Grade</h2>
+		 <table style="margin: auto;" id="customers">
+			<tr>
+					<th>Grade</th>
+					<th>
+							Number Concept <br>(123)
+					</th>
+					<th>
+							Addition<br>(+)
+					</th>
+					<th>
+							Subtraction<br>(-)
+					</th>
+					<th>
+							Multiplication<br>(&times;)
+					</th>
+					<th>
+							Division<br>(&divide;)
+					</th>
+					<!-- <th>
+								 Other Areas
+						 </th> -->
+			</tr>
+			{% for item in data.overall_gradewise_perf %}
+			<tr>
+					<td>{{ item.grade }}</td>
+					<td align="center">
+							{% for value in item.values%}
+								 {% if "Number Concept" == value.contest %}
+							<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+								 {% endif %}
+								 {% endfor %}
+					</td>
+					<td align="center">
+							{% for value in item.values %}
+								 {% if "Addition" == value.contest %}
+							<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+								 {% endif %}
+								 {% endfor %}
+					</td>
+					<td align="center">
+							{% for value in item.values%}
+								 {% if "Subtraction" == value.contest %}
+							<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+								 {% endif %}
+								 {% endfor %}
+					</td>
+					<td align="center">
+							{% for value in item.values%}
+								 {% if "Multiplication" == value.contest %}
+							<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+								 {% endif %}
+								 {% endfor %}
+					</td>
+					<td align="center">
+							{% for value in item.values%}
+								 {% if "Division" == value.contest %}
+							<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+								 {% endif %}
+								 {% endfor %}
+					</td>
+					<!-- <td align="center">
+								 {% for value in item.values%}
+								 {% if "Other Areas" == value.contest %}
+								 <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+								 {% endif %}
+								 {% endfor %}
+						 </td> -->
+			</tr>
+			{% endfor %}
+	</table>
 	
 	<h2>Performance by Cluster</h2>
 
