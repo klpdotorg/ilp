@@ -97,7 +97,7 @@ class GPMathContestReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -288,7 +288,7 @@ class SchoolReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'SchoolReport.html'
         self._type = 'SchoolReport'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -484,7 +484,7 @@ class ClusterReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'ClusterReport.html'
         self._type = 'ClusterReport'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -658,7 +658,7 @@ class BlockReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'BlockReport.html'
         self._type = 'BlockReport'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -886,7 +886,7 @@ class DistrictReport(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'DistrictReport.html'
         self._type = 'DistrictReport'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1125,7 +1125,7 @@ class GPMathContestReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReportSummarized.html'
         self._type = 'GPMathContestReportSummarized'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1314,7 +1314,7 @@ class SchoolReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'SchoolReportSummarized.html'
         self._type = 'SchoolReportSummarized'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1525,7 +1525,7 @@ class ClusterReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'ClusterReportSummarized.html'
         self._type = 'ClusterReportSummarized'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1710,7 +1710,7 @@ class BlockReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'BlockReportSummarized.html'
         self._type = 'BlockReportSummarized'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
@@ -1951,7 +1951,7 @@ class DistrictReportSummarized(BaseReport):
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'DistrictReportSummarized.html'
         self._type = 'DistrictReportSummarized'
-        self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        self.sms_template ="GKA Quarterly Update:\n {} \n Please click the Link to get the Jun-Sep'18 update on \"GKA Class Visit\" Survey"
         super().__init__(**kwargs)
 
     def parse_args(self, args):
