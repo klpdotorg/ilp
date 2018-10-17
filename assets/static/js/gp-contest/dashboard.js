@@ -7,7 +7,7 @@
         klp.GP.routerParams = {};
 
         var searchByGPs = false;
-        var selectedConverageTab = '2016';
+        var selectedCoverageTab = '2018';
         var selectedPerformanceTab = 'basic';
         var selectedComparisonTab = 'year';
         var years = ["2016", "2017", "2018"];
@@ -147,7 +147,7 @@
         }
 
         // This function select the tab
-        function selectYearTab(goingToSelectTab) {
+        function selectCoverageTab(goingToSelectTab) {
             _.forEach(tabs, function(tab) {
                 selectTab(tab, goingToSelectTab);
             });
@@ -206,6 +206,13 @@
                     }
                 }
             }
+
+            // Update coverage tab with filter start_date year and loading coverage
+            var dateObject = new Date(start_date);
+            selectedCoverageTab = String(dateObject.getFullYear());
+            selectCoverageTab(selectedCoverageTab);
+            loadCoverage();
+
             e.originalEvent.currentTarget.href = url;
         });
         
@@ -252,7 +259,7 @@
             $("#gp-coverage").startLoading();
         
             var selectedYearInfo = tabs.find(function(tab) {
-                return tab.value === selectedConverageTab;
+                return tab.value === selectedCoverageTab;
             });
             var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
             var fetchGPUrl = checkForUrlParams(`survey/detail/electionboundary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
@@ -405,7 +412,7 @@
             ];
 
             var selectedYearInfo = tabs.find(function(tab) {
-                return tab.value === selectedConverageTab;
+                return tab.value === selectedCoverageTab;
             });
 
             if (routerParams.from && routerParams.to) {
@@ -515,7 +522,7 @@
         hideSearchFields();
         showDefaultFilters();
         renderYearsTabs();
-        selectYearTab(selectedConverageTab);
+        selectCoverageTab(selectedCoverageTab);
         renderPerformanceTabs();
         selectPerformanceTab(selectedPerformanceTab);
         renderComaprisonTabs();
@@ -544,8 +551,8 @@
         _.forEach(tabs, function(tab) {
             var $tabId = $(`#${tab.value}`);
             $tabId.on("click", function(e) {
-                selectedConverageTab = e.target.dataset.value;
-                selectYearTab(selectedConverageTab);
+                selectedCoverageTab = e.target.dataset.value;
+                selectCoverageTab(selectedCoverageTab);
                 loadCoverage();
             });
         })
