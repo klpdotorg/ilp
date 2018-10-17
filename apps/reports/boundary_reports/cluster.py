@@ -80,10 +80,23 @@ class ClusterReport(BaseReport):
         schools_data = self.get_schools_data(cluster, dates)
         schools = self.format_schools_data(schools_data)
         gka = self.getGKAData(cluster, dates)
-
+        #GPC Gradewise data
+        gradewise_gpc = self.get_boundary_gpc_gradewise_agg(cluster, self.report_from, self.report_to)
         household = self.getHouseholdSurvey(cluster,dates)
 
-        self.data = {'cluster':self.cluster_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':self.block_name.title(), 'district':self.district_name.title(), 'no_schools':num_schools, 'today':report_generated_on, 'gka':gka, 'household':household, 'schools':schools, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {'cluster':self.cluster_name.title(),\
+                       'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
+                       'block':self.block_name.title(),\
+                       'district':self.district_name.title(),\
+                       'no_schools':num_schools, 'today':report_generated_on,\
+                       'gka':gka,\
+                       'household':household,\
+                       'overall_cluster_performance': gradewise_gpc,\
+                       'schools':schools,\
+                       'num_boys':num_boys,\
+                       'num_girls':num_girls,\
+                       'num_students':number_of_students,\
+                       'num_contests':num_contests}
         return self.data
 
    

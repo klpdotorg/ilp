@@ -131,6 +131,7 @@ class DistrictReportSummarized(DistrictReport):
         self._template_path = 'DistrictReportSummarized.html'
         self._type = 'DistrictReportSummarized'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        
         #super().__init__(**kwargs)
 
     def parse_args(self, args):
