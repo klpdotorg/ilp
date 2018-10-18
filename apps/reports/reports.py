@@ -507,7 +507,7 @@ class ClusterReport(BaseReport):
 
         no_of_schools_in_cluster = Institution.objects.filter(admin3=cluster).count() # Number of schools in cluster
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin3=cluster, date_of_visit__range=['2017-06-01', '2018-03-31'], respondent_type_id='CH', questiongroup__survey_id=2)
         if not AGI.exists():
             raise ValueError("No GP contest data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
 
@@ -1733,7 +1733,7 @@ class BlockReportSummarized(BaseReport):
 
         num_schools = Institution.objects.filter(admin2=block).count() # schools in block
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin2=block, date_of_visit__range=['2017-06-01', '2018-03-31'], respondent_type_id='CH', questiongroup__survey_id=2)
         if not AGI.exists():
             raise ValueError("No GP contest data for '{}' between {} and {}".format(self.block_name, self.report_from, self.report_to))
 
@@ -1970,7 +1970,7 @@ class DistrictReportSummarized(BaseReport):
         except Boundary.DoesNotExist:
             raise ValueError("District '{}' cannot be found in the database".format(self.district_name))
 
-        AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
+        AGI = AnswerGroup_Institution.objects.filter(institution__admin1=district, date_of_visit__range = ['2017-06-01', '2018-03-31'], respondent_type_id='CH', questiongroup__survey_id=2)
         if not AGI.exists():
             raise ValueError("No GP contest data for '{}' between {} and {}".format(self.district_name, self.report_from, self.report_to))
 
