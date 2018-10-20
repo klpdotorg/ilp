@@ -1640,23 +1640,24 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupkey qgk,
+        assessments_competencyquestionmap qmap,
         schools_institution s,
         boundary_electionboundary eb
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=qgk.questiongroup_id
+        and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qgk.key
+        and q.key=qmap.key
+        and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
-    GROUP BY q.key,ag.id,eb.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+    GROUP BY q.key,ag.id,eb.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,question_key ;
 
 
@@ -1728,23 +1729,24 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupkey qgk,
+        assessments_competencyquestionmap qmap,
         schools_institution s,
         boundary_boundary b
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=qgk.questiongroup_id
+        and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qgk.key
+        and q.key=qmap.key
+        and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+    GROUP BY q.key,ag.id,b.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key ;
 
 
@@ -1811,19 +1813,20 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupkey qgk
+        assessments_competencyquestionmap qmap
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=qgk.questiongroup_id
+        and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qgk.key
+        and q.key=qmap.key
+        and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,ag.institution_id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+    GROUP BY q.key,ag.id,ag.institution_id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key ;
 
 
@@ -1902,23 +1905,24 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupkey qgk,
+        assessments_competencyquestionmap qmap,
         schools_institution s,
         boundary_electionboundary eb
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=qgk.questiongroup_id
+        and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qgk.key
+        and q.key=qmap.key
+        and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
-    GROUP BY q.key,ag.id,eb.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+    GROUP BY q.key,ag.id,eb.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 
@@ -1997,23 +2001,24 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupkey qgk,
+        assessments_competencyquestionmap qmap,
         schools_institution s,
         boundary_boundary b
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=qgk.questiongroup_id
+        and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qgk.key
+        and q.key=qmap.key
+        and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+    GROUP BY q.key,ag.id,b.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 
@@ -2089,19 +2094,20 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupkey qgk
+        assessments_competencyquestionmap qmap
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
-        and qg.id=qgk.questiongroup_id
+        and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qgk.key
+        and q.key=qmap.key
+        and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,qgk.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgk.max_score)correctanswers
+    GROUP BY q.key,ag.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
 

@@ -270,6 +270,7 @@ class CompetencyQuestionMap(models.Model):
     key = models.CharField(max_length=50, null=True, blank=True)
     questiongroup = models.ForeignKey('QuestionGroup')
     question = models.ForeignKey('Question')
+    max_score = models.IntegerField()
 
     class Meta:
         unique_together = (('questiongroup', 'question'), )
@@ -278,7 +279,7 @@ class CompetencyQuestionMap(models.Model):
 class CompetencyOrder(models.Model):
     key = models.CharField(max_length=50, null=True, blank=True)
     questiongroup = models.ForeignKey('QuestionGroup')
-    order = models.IntegerField()
+    sequence = models.IntegerField()
 
     class Meta:
         unique_together = (('key', 'questiongroup'), )
