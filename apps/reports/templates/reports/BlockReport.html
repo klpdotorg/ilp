@@ -92,7 +92,14 @@
 			<tr>
 					<th>Grade</th>
 					<th>
+<<<<<<< Updated upstream
 							Number Concept <br>(123)
+=======
+							Number Recognition <br>(123)
+					</th>
+					<th>
+							Place Value <br>(1,10,100,...)
+>>>>>>> Stashed changes
 					</th>
 					<th>
 							Addition<br>(+)
@@ -195,7 +202,18 @@
 	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
               {% endfor %}
-	    </td>
+			</td>
+			<td align="center">
+				{% for value in item.values%}
+					 {% if "Place Value" == value.contest %}
+							{% if value.score is None%}
+									<span class="font-effect-outline mark b-dot grey">NA</span>
+							{% elif %}
+								<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+								{% endif %}
+					 {% endif %}
+				{% endfor %}
+		</td>
 	    <td align="center">
 	      {% for value in g.values%}
               {% if "Addition" == value.contest %}
