@@ -205,7 +205,7 @@
 			</td>
 			<td align="center">
 				{% for value in item.values%}
-					 {% if "Place Value" == value.contest and g.name == "Class 5 Assessment"|"Class 6 Assessment" %}
+					 {% if "Place Value" == value.contest and g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment" %}
 									<span class="font-effect-outline mark b-dot grey">NA</span>
 					 {% endif %}
 					 {% if "Place Value" == value.contest and g.name == "Class 4 Assessment" %}
