@@ -670,13 +670,14 @@ FROM(
         b.id as boundary_id,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        q.key as question_key,
+        qmap.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
         assessments_surveytagmapping surveytag,
         assessments_answerinstitution ans,
+        assessments_competencyquestionmap qmap,
         assessments_question q,
         schools_institution s,
         boundary_boundary b
@@ -684,7 +685,8 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and qg.id = qmap. questiongroup_id
+        and q.id = qmap.question_id
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
@@ -695,7 +697,7 @@ FROM(
         surveytag.tag_id,
         b.id,
         qg.source_id,
-        q.key,
+        qmap.key,
         yearmonth)data
 union 
 SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,question_key,yearmonth) as id,
@@ -762,28 +764,30 @@ FROM(
         ag.institution_id as institution_id,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        q.key as question_key,
+        qmap.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
         assessments_surveytagmapping surveytag,
         assessments_answerinstitution ans,
+        assessments_competencyquestionmap qmap,
         assessments_question q
     WHERE 
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
+        and qmap.questiongroup_id = qg.id
+        and qmap.question_id = q.id
         and q.is_featured = true
         and ag.is_verified=true
     GROUP BY survey.id,
         ag.institution_id,
         surveytag.tag_id,
         qg.source_id,
-        q.key,
+        qmap.key,
         yearmonth)data
 union 
 SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,question_key,yearmonth) as id,
@@ -850,7 +854,7 @@ FROM(
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        q.key as question_key,
+        qmap.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
         assessments_questiongroup qg,
@@ -859,14 +863,16 @@ FROM(
         assessments_answerinstitution ans,
         assessments_question q,
         schools_institution s,
+        assessments_competencyquestionmap qmap,
         boundary_boundary b
     WHERE 
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
+        and qmap.questiongroup_id = qg.id
+        and qmap.question_id = q.id
         and q.is_featured = true
         and ag.is_verified=true
         and ag.institution_id = s.id
@@ -876,7 +882,7 @@ FROM(
         b.id,
         qg.source_id,
         qg.name,qg.id,
-        q.key,
+        qmap.key,
         yearmonth)data
 union 
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_key,yearmonth) as id,
@@ -952,7 +958,7 @@ FROM(
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        q.key as question_key,
+        qmap.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
         assessments_questiongroup qg,
@@ -961,14 +967,16 @@ FROM(
         assessments_answerinstitution ans,
         assessments_question q,
         schools_institution s,
+        assessments_competencyquestionmap qmap,
         boundary_electionboundary eb
     WHERE 
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
+        and qmap.questiongroup_id = qg.id
+        and qmap.question_id = q.id
         and q.is_featured = true
         and ag.is_verified=true
         and ag.institution_id = s.id
@@ -978,7 +986,7 @@ FROM(
         eb.id,
         qg.source_id,
         qg.name,qg.id,
-        q.key,
+        qmap.key,
         yearmonth)data
 union 
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,question_key,yearmonth) as id,
@@ -1053,21 +1061,23 @@ FROM(
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        q.key as question_key,
+        qmap.key as question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
         assessments_questiongroup qg,
         assessments_answergroup_institution ag,
         assessments_surveytagmapping surveytag,
         assessments_answerinstitution ans,
+        assessments_competencyquestionmap qmap,
         assessments_question q
     WHERE 
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
+        and qmap.questiongroup_id = qg.id
+        and qmap.question_id = q.id
         and q.is_featured = true
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -1075,7 +1085,7 @@ FROM(
         ag.institution_id,
         qg.source_id,
         qg.name,qg.id,
-        q.key,
+        qmap.key,
         yearmonth)data
 union 
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_key,yearmonth) as id,
@@ -1631,7 +1641,7 @@ FROM
         qg.survey_id as survey_id, 
         stmap.tag_id as survey_tag, 
         eb.id as eboundary_id,
-        q.key as question_key,
+        qmap.key as question_key,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
@@ -1648,7 +1658,6 @@ FROM
         and ag.questiongroup_id=qg.id
         and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qmap.key
         and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
@@ -1656,7 +1665,7 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
-    GROUP BY q.key,ag.id,eb.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    GROUP BY qmap.key,ag.id,eb.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,question_key ;
 
@@ -1720,7 +1729,7 @@ FROM
         qg.survey_id as survey_id, 
         stmap.tag_id as survey_tag, 
         b.id as boundary_id,
-        q.key as question_key,
+        qmap.key as question_key,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
@@ -1737,7 +1746,6 @@ FROM
         and ag.questiongroup_id=qg.id
         and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qmap.key
         and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
@@ -1745,7 +1753,7 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    GROUP BY qmap.key,ag.id,b.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key ;
 
@@ -1804,7 +1812,7 @@ FROM
         qg.survey_id as survey_id, 
         stmap.tag_id as survey_tag, 
         ag.institution_id as institution_id,
-        q.key as question_key,
+        qmap.key as question_key,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
@@ -1819,13 +1827,12 @@ FROM
         and ag.questiongroup_id=qg.id
         and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qmap.key
         and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,ag.institution_id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    GROUP BY qmap.key,ag.id,ag.institution_id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,question_key ;
 
@@ -1896,7 +1903,7 @@ FROM
         eb.id as eboundary_id,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        q.key as question_key,
+        qmap.key as question_key,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
@@ -1913,7 +1920,6 @@ FROM
         and ag.questiongroup_id=qg.id
         and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qmap.key
         and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
@@ -1921,7 +1927,7 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
-    GROUP BY q.key,ag.id,eb.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    GROUP BY qmap.key,ag.id,eb.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
@@ -1992,7 +1998,7 @@ FROM
         b.id as boundary_id,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        q.key as question_key,
+        qmap.key as question_key,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
@@ -2009,7 +2015,6 @@ FROM
         and ag.questiongroup_id=qg.id
         and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qmap.key
         and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
@@ -2017,7 +2022,7 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.key,ag.id,b.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    GROUP BY qmap.key,ag.id,b.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 
@@ -2085,7 +2090,7 @@ FROM
         ag.institution_id as institution_id,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
-        q.key as question_key,
+        qmap.key as question_key,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
@@ -2100,13 +2105,12 @@ FROM
         and ag.questiongroup_id=qg.id
         and qg.id=qmap.questiongroup_id
         and ans.question_id=q.id
-        and q.key=qmap.key
         and q.id = qmap.question_id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
         and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.key,ag.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
+    GROUP BY qmap.key,ag.id,qmap.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=sum(qmap.max_score))correctanswers
 GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,question_key,questiongroup_id,questiongroup_name;
 

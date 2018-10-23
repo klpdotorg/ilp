@@ -527,9 +527,11 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                     score = score_qs['num_assess']
                 except ObjectDoesNotExist:
                     score = 0
+                order = CompetencyOrder.objects.get(key=q_key, questiongroup_id = qgroup_id)
                 q_res[q_key] = {
                     "total": total,
-                    "score": score
+                    "score": score,
+                    "order": order.sequence
                 }
             qgroup_res[qgroup_name] = q_res
         return Response(qgroup_res)
