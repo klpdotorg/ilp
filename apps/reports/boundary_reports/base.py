@@ -531,4 +531,5 @@ class BaseReport(ABC):
                 details['contest'] = each_row['question_key']
                 details['percent'] = percent
                 child_gpc_dict.append(details)
+        print(child_gpc_dict)
         return child_gpc_dict
