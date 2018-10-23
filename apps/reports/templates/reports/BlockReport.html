@@ -124,10 +124,10 @@
 								 {% endfor %}
 					</td>
 					<td align="center">
+						{%if item.grade == "Class 5 Assessment" or item.grade == "Class 6 Assessment"%}
+							<span class="font-effect-outline mark b-dot grey">NA</span>
+						{% endif %}
 						{% for value in item.values%}
-							 {% if "Place Value" == value.contest and item.grade == "Class 5 Assessment" or item.grade == "Class 6 Assessment" %}
-											<span class="font-effect-outline mark b-dot grey">NA</span>
-							 {% endif %}
 							 {% if "Place Value" == value.contest and item.grade == "Class 4 Assessment" %}
 										<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
 							 {% endif %}
@@ -213,9 +213,12 @@
         {% endfor %}
 			</td>
 			<td align="center">
-				{% for value in item.values%}
-					{% if "Place Value" == value.contest%}
-							<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+					{%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
+								<span class="font-effect-outline mark b-dot grey">NA</span>
+					{% endif %}
+				{% for value in g.values%}
+					{% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
+								<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
 					{%endif%}
 				{% endfor %}
 		</td>
