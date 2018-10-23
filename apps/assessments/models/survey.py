@@ -264,3 +264,22 @@ class GuardianUserObjectPermission(models.Model):
     content_type_id = models.ForeignKey(ContentType)
     user_id = models.ForeignKey(User)
     permission_id = models.ForeignKey(Permission)
+
+
+class CompetencyQuestionMap(models.Model):
+    key = models.CharField(max_length=50, null=True, blank=True)
+    questiongroup = models.ForeignKey('QuestionGroup')
+    question = models.ForeignKey('Question')
+    max_score = models.IntegerField()
+
+    class Meta:
+        unique_together = (('questiongroup', 'question'), )
+
+
+class CompetencyOrder(models.Model):
+    key = models.CharField(max_length=50, null=True, blank=True)
+    questiongroup = models.ForeignKey('QuestionGroup')
+    sequence = models.IntegerField()
+
+    class Meta:
+        unique_together = (('key', 'questiongroup'), )
