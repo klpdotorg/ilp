@@ -50,9 +50,8 @@
 	  <tr>
 	    <th>ಶಾಲೆಯ ಹೆಸರು</th>
 	    <th>ತರಗತಿ</th>
-	    <th>
-	      ಒಟ್ಟು ಪರಿಕಲ್ಪನೆಗಳು <br>(123)
-	    </th>
+			<th>ಸಂಖ್ಯಾ ಪರಿಚಯ<br>(123)</th>
+			<th>ಸ್ಥಾನ ಬೆಲೆ<br>(1,10,100)</th>
 	    <th>
 	      ಸಂಕಲನ<br>(+)
 	    </th>
@@ -75,12 +74,22 @@
 	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
 	    <td>{{g.name}}</td>
 	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Number Concept" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
+					{% for value in g.values%}
+						{% if "Number Recognition" == value.contest %}
+							<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+						{% endif %}
+					{% endfor %}
+				</td>
+			<td align="center">
+					{%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
+									<span class="font-effect-outline mark b-dot grey">NA</span>
+					{% endif %}
+					{% for value in g.values%}
+						{% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
+									<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+						{%endif%}
+					{% endfor %}
+			</td>
 	    <td align="center">
 	      {% for value in g.values%}
               {% if "Addition" == value.contest %}
