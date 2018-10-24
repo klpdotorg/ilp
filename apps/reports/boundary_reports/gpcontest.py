@@ -261,7 +261,7 @@ class GPMathContestReport(BaseReport):
 
  
 
-class GPMathContestReportSummarized(BaseReport):
+class GPMathContestReportSummarized(GPMathContestReport):
     parameters = ('gp_name', )
     def __init__(self, gp_name=None, report_from=None, report_to=None, **kwargs):
         self.gp_name = gp_name
@@ -275,7 +275,7 @@ class GPMathContestReportSummarized(BaseReport):
         self._template_path = 'GPMathContestReportSummarized.html'
         self._type = 'GPMathContestReportSummarized'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
-        super().__init__(**kwargs)
+        #super().__init__(**kwargs)
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
