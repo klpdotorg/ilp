@@ -91,7 +91,10 @@
              <tr>
                  <th>Grade</th>
                  <th>
-                     Number Concept <br>(123)
+                    Number Recognition <br>(123)
+                 </th>
+                 <th>
+                    Place Value <br> (1,10,100..)
                  </th>
                  <th>
                      Addition<br>(+)
@@ -113,12 +116,22 @@
              <tr>
                  <td>{{ item.grade }}</td>
                  <td align="center">
-                     {% for value in item.values%}
-                        {% if "Number Concept" == value.contest %}
-                     <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+                    {% for value in g.values%}
+                        {% if "Number Recognition" == value.contest %}
+                    <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
                         {% endif %}
-                        {% endfor %}
-                 </td>
+                    {% endfor %}
+                </td>
+                <td align="center">
+                    {%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
+                                <span class="font-effect-outline mark b-dot grey">NA</span>
+                    {% endif %}
+                    {% for value in g.values%}
+                        {% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
+                                <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+                        {%endif%}
+                    {% endfor %}
+                </td>
                  <td align="center">
                      {% for value in item.values %}
                         {% if "Addition" == value.contest %}
