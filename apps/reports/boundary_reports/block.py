@@ -81,9 +81,6 @@ class BlockReport(BaseReport):
         #GPC Gradewise data
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(block, self.report_from, self.report_to)
         household = self.getHouseholdSurvey(block, dates)
-        print(gpc_clusters)
-        print("========================")
-        print(gradewise_gpc)
         self.data = {'block':self.block_name.title(),\
                      'district':self.district_name.title(),\
                      'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\

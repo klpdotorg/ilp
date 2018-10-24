@@ -90,8 +90,11 @@
              <tr>
                  <th>Grade</th>
                  <th>
-                     Number Concept <br>(123)
-                 </th>
+                        Number Recognition <br>(123)
+                </th>
+                <th>
+                    Place Value <br> (1,10,100..)
+                </th>
                  <th>
                      Addition<br>(+)
                  </th>
@@ -112,12 +115,22 @@
              <tr>
                  <td>{{ item.grade }}</td>
                  <td align="center">
-                     {% for value in item.values%}
-                        {% if "Number Concept" == value.contest %}
-                     <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-                        {% endif %}
-                        {% endfor %}
-                 </td>
+                        {% for value in item.values%}
+                             {% if "Number Recognition" == value.contest %}
+                        <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+                             {% endif %}
+                             {% endfor %}
+                </td>
+                <td align="center">
+                    {%if item.grade == "Class 5 Assessment" or item.grade == "Class 6 Assessment"%}
+                        <span class="font-effect-outline mark b-dot grey">NA</span>
+                    {% endif %}
+                    {% for value in item.values%}
+                         {% if "Place Value" == value.contest and item.grade == "Class 4 Assessment" %}
+                                    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+                         {% endif %}
+                    {% endfor %}
+                </td>
                  <td align="center">
                      {% for value in item.values %}
                         {% if "Addition" == value.contest %}
