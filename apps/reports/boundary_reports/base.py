@@ -25,7 +25,9 @@ from assessments.models import (
     Question,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg,
-    SurveyEBoundaryQuestionGroupAnsAgg
+    SurveyEBoundaryQuestionGroupAnsAgg,
+    SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
+    SurveyEBoundaryQuestionGroupQuestionKeyAgg,
 )
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
@@ -161,11 +163,10 @@ class BaseReport(ABC):
             hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
                 .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
                 .filter(question_id__in=[269, 144, 145, 138])
-        total_hh_answers = hh_answers_agg.values('question_desc', 'question_id').annotate(Sum('num_answers'))
-        total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_desc', 'question_id').annotate(Sum('num_answers'))
-
-        HHSurvey = []
-        if hh_answers_agg.exists():
+        if hh_answers_agg is not None and hh_answers_agg.exists():
+            total_hh_answers = hh_answers_agg.values('question_desc', 'question_id').annotate(Sum('num_answers'))
+            total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_desc', 'question_id').annotate(Sum('num_answers'))
+            HHSurvey = []
             for each_answer in total_hh_answers:
                 question_desc = total_yes_answers.get(question_desc=each_answer['question_desc'])
                 total_yes_count = question_desc['num_answers__sum']
@@ -421,64 +422,94 @@ class BaseReport(ABC):
         #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
         return out
      
-    ''' Returns the boundary wise aggregation per grade per contest. 
+    ''' Returns the boundary wise aggregation per grade per contest. This method can take an election boundary
+        (GP) or a boundary object
         For example: Class 4 aggregates at the boundary level for all concepts (Addition, Subtraction etc..)
      '''
     def get_boundary_gpc_gradewise_agg(self, boundary, report_from, report_to):
-        correct_answers_agg = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
-                .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
-                .filter(yearmonth__gte = report_from)\
-                .filter(yearmonth__lte = report_to)\
-                .values('question_key', 'questiongroup_id', 'questiongroup_name')\
-                .annotate(correct_answers = Sum('num_assessments'))
-        total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
-                .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
-                .filter(yearmonth__gte = report_from)\
-                .filter(yearmonth__lte = report_to)\
-                .values('question_key', 'questiongroup_id', 'questiongroup_name')\
-                .annotate(total_answers = Sum('num_assessments'))
-        distinct_grades=total_assessments\
-                .values('questiongroup_id','questiongroup_name')\
-                .distinct()
+        correct_answers_agg= None
+        total_assessments=None 
+        distinct_grades = None
+
+        if isinstance(boundary, Boundary):
+            correct_answers_agg = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
+                    .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
+                    .filter(yearmonth__gte = report_from)\
+                    .filter(yearmonth__lte = report_to)\
+                    .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                    .annotate(correct_answers = Sum('num_assessments'))
+            total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
+                    .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
+                    .filter(yearmonth__gte = report_from)\
+                    .filter(yearmonth__lte = report_to)\
+                    .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                    .annotate(total_answers = Sum('num_assessments'))
+            distinct_grades=total_assessments\
+                    .values('questiongroup_id','questiongroup_name')\
+                    .distinct()
+        elif isinstance(boundary, ElectionBoundary):
+            try:
+                correct_answers_agg = SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
+                        .filter(survey_id=2, eboundary_id=boundary, survey_tag='gka')\
+                        .filter(yearmonth__gte = report_from)\
+                        .filter(yearmonth__lte = report_to)\
+                        .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                        .annotate(correct_answers = Sum('num_assessments'))
+            except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
+                pass
+            try:
+                total_assessments = SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects\
+                        .filter(survey_id=2, eboundary_id=boundary, survey_tag='gka')\
+                        .filter(yearmonth__gte = report_from)\
+                        .filter(yearmonth__lte = report_to)\
+                        .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                        .annotate(total_answers = Sum('num_assessments'))
+                if total_assessments is not None:
+                    distinct_grades=total_assessments\
+                            .values('questiongroup_id','questiongroup_name')\
+                            .distinct()
+            except SurveyEBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
+                pass
 
         gpc_gradewise_percent = []
-        
-        for each_grade in distinct_grades:
-            qgroup_id = each_grade['questiongroup_id']
-            gradewise_total_agg = total_assessments.filter(questiongroup_id = qgroup_id)
-            gradewise_correctans_agg = correct_answers_agg.filter(questiongroup_id = qgroup_id)
-            if total_assessments is not None:
-                scores = []
-                for each_row in gradewise_total_agg:
-                    concept_scores = dict()
-                    try:
-                        sum_total = gradewise_total_agg.get(question_key=each_row['question_key'])
-                    except SurveyBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
-                        print("No assessment matches this question_key, questiongroup_id combo")
-                        sum_total = None
-                    try:
-                        sum_correct_ans = gradewise_correctans_agg.get(question_key=each_row['question_key'])
-                    except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
-                        sum_correct_ans = None
-                
-                    percent = 0
-                    correct_ans_total = 0
-                    if sum_correct_ans is None or sum_correct_ans['correct_answers'] is None:
-                        correct_ans_total =0
-                    else:
-                        correct_ans_total = sum_correct_ans['correct_answers']
+        #We actually have assessments for this particular boundary
+        if total_assessments is not None and correct_answers_agg is not None and distinct_grades is not None:    
+            for each_grade in distinct_grades:
+                qgroup_id = each_grade['questiongroup_id']
+                gradewise_total_agg = total_assessments.filter(questiongroup_id = qgroup_id)
+                gradewise_correctans_agg = correct_answers_agg.filter(questiongroup_id = qgroup_id)
+                if total_assessments is not None:
+                    scores = []
+                    for each_row in gradewise_total_agg:
+                        concept_scores = dict()
+                        try:
+                            sum_total = gradewise_total_agg.get(question_key=each_row['question_key'])
+                        except SurveyBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
+                            print("No assessment matches this question_key, questiongroup_id combo")
+                            sum_total = None
+                        try:
+                            sum_correct_ans = gradewise_correctans_agg.get(question_key=each_row['question_key'])
+                        except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
+                            sum_correct_ans = None
                     
-                    if sum_total is not None and sum_total['total_answers'] > 0:
-                        percent = round(correct_ans_total/sum_total['total_answers'] * 100,2)
-                    else:
                         percent = 0
-                    concept_scores['contest']= each_row['question_key']
-                    concept_scores['score'] = percent
-                    scores.append(concept_scores) # End of for-loop
-                
-                details = dict(grade = each_grade['questiongroup_name'], 
-                                    values = scores)
-                gpc_gradewise_percent.append(details)
+                        correct_ans_total = 0
+                        if sum_correct_ans is None or sum_correct_ans['correct_answers'] is None:
+                            correct_ans_total =0
+                        else:
+                            correct_ans_total = sum_correct_ans['correct_answers']
+                        
+                        if sum_total is not None and sum_total['total_answers'] > 0:
+                            percent = round(correct_ans_total/sum_total['total_answers'] * 100,2)
+                        else:
+                            percent = 0
+                        concept_scores['contest']= each_row['question_key']
+                        concept_scores['score'] = percent
+                        scores.append(concept_scores) # End of for-loop
+                    
+                    details = dict(grade = each_grade['questiongroup_name'], 
+                                        values = scores)
+                    gpc_gradewise_percent.append(details)
         
         return gpc_gradewise_percent
 

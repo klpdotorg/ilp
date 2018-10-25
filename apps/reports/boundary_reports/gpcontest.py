@@ -72,10 +72,37 @@ class GPMathContestReport(BaseReport):
             gp_obj = ElectionBoundary.objects.get(const_ward_name=gp, const_ward_type_id='GP') # Take the GP from db
         except ElectionBoundary.DoesNotExist:
             raise ValueError("Gram panchayat '{}' is not found in the database.".format(self.gp_name))
+        gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
 
-        # block = gp_obj.parent.name           # Block name
-        # district = gp_obj.parent.parent.name    # District name
+        block, district,num_boys, num_girls, number_of_students,\
+                   male_total, female_total, male_correct, female_correct,\
+                   male_zero_ans_per_gp, female_zero_ans_per_gp=\
+                   self.get_basic_GP_data(gp_obj)
 
+        schools_out = self.get_schools_data(gp_obj,dates)
+        formatted_schools_out = self.format_schools_data(schools_out)
+        survey = self.getHouseholdSurvey(gp_obj, dates)
+        self.data =  {
+            'gp_name': gp.title(),\
+            'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
+            'block':block,\
+            'district':district.title(),\
+            'no_schools_gp':gp_schools,\
+            'no_students':number_of_students,\
+            'today':report_generated_on,\
+            'boys':num_boys,\
+            'girls':num_girls,\
+            'schools':formatted_schools_out,\
+            'score_100':female_correct+male_correct,\
+            'score_zero':male_zero_ans_per_gp+ female_zero_ans_per_gp,\
+            'girls_zero':female_zero_ans_per_gp,\
+            'boys_zero':male_zero_ans_per_gp,\
+            'boys_100':male_correct,\
+            'girls_100':female_correct,\
+            'survey':survey}
+        return self.data
+
+    def get_basic_GP_data(self, gp_obj):
         gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
 
         # Get the answergroup_institution from gp name and academic year
@@ -90,7 +117,6 @@ class GPMathContestReport(BaseReport):
         
         if not aggregates.exists():
             raise ValueError("No GP contests found for '{}' between {} and {}".format(gp, self.report_from, self.report_to))
-        #import pdb; pdb.set_trace()
         block = aggregates.values_list('institution_id__admin2__name', flat=True).distinct()[0]
         district = aggregates.values_list('institution_id__admin1__name', flat=True).distinct()[0]
         num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
@@ -136,128 +162,10 @@ class GPMathContestReport(BaseReport):
             female_correct = 0
         male_zero_ans_per_gp = int(male_total) - int(male_correct)
         female_zero_ans_per_gp = int(female_total) - int(female_correct)
-        # conditions = AGI.values_list('institution__name', 'questiongroup__name').distinct()
-        # contests = list(AGI.values_list('answers__question__key', flat=True).distinct())
-        # contests.pop(contests.index('Gender'))
-        # schools = []
-        # scores = {}
-        
-        # for school, qgroup in conditions:
-        #     school_ag = AGI.filter(institution__name=school, questiongroup__name=qgroup)
-        #     for contest in contests:
-        #         percent = []
-        #         for ag in school_ag:
-        #             num_q = ag.answers.filter(question__key=contest).count()
-        #             if num_q == 0:
-        #                 continue
 
-        #             # This was the original logic for generating GP contest report
-        #             # In July, the logic has been changed to the block below this
-        #             # block.
-        #             # 
-        #             # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
-        #             # mark = (answered/num_q)*100
-
-        #             # The second logic we used in July
-        #             # total_students_appeared = school_ag.count()
-        #             # answered = 0
-        #             # for s in school_ag:
-        #             #     if s.answers.filter(
-        #             #         question__key=contest, answer='Yes'
-        #             #     ).exists():
-        #             #         answered += 1
-        #             # mark = (answered / total_students_appeared) * 100
-
-        #             # New logic from Nagraj & Vaijayanthi
-        #             total_students_appeared = school_ag.count()
-        #             answered = 0
-        #             for s in school_ag:
-        #                 total_questions = s.answers.filter(
-        #                     question__key=contest
-        #                 ).count()
-        #                 correct_answers = s.answers.filter(
-        #                     question__key=contest,
-        #                     answer='Yes'
-        #                 ).count()
-        #                 if total_questions == correct_answers:
-        #                     answered += 1
-        #             mark = (answered / total_students_appeared) * 100
-
-        #             try:
-        #                 scores[ag.id]['mark'].append(mark)
-        #             except KeyError:
-        #                 scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
-        #                 scores[ag.id]['mark'].append(mark)
-        #             percent.append(mark)
-
-        #         if len(percent) == 0:
-        #             continue
-        #         details = dict(school=school, grade=qgroup)
-        #         details['contest'] = contest
-        #         details['percent'] = sum(percent)/len(percent)
-        #         schools.append(details)
-
-        # # Calculate the perfomance of students
-        # score_100, score_zero = calc_stud_performance(scores)
-
-        # contest_list = [i['contest'] for i in schools]
-        # schools_out = []
-        # out= []
-
-        # for item in schools:
-        #     if not item['school'] in schools_out:
-        #         schools_out.append(item['school'])
-        #         out.append({'school':item['school'],
-        #                     'grades':[{
-        #                         'name':item['grade'],
-        #                         'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
-        #         })
-        #     else:
-        #         for o in out:
-        #             if o['school']==item['school']:
-        #                 gradeExist= False
-        #                 for grade in o['grades']:
-        #                     if item['grade'] == grade['name']:
-        #                         gradeExist = True
-        #                         grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
-        #                 if not gradeExist:
-        #                     o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
-
-        # We dont need Other Areas
-        #Combine data to get the 'Other Areas' contest
-        # for i in out:
-        #     for grade in i['grades']:
-        #         count = 0
-        #         num = 0
-        #         for value in grade['values']:
-        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
-        #                 count += value['count']
-        #                 num += 1
-        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-
-        schools_out = self.get_schools_data(gp_obj,dates)
-        formatted_schools_out = self.format_schools_data(schools_out)
-        survey = self.getHouseholdSurvey(gp_obj, dates)
-        self.data =  {
-            'gp_name': gp.title(),\
-            'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
-            'block':block,\
-            'district':district.title(),\
-            'no_schools_gp':gp_schools,\
-            'no_students':number_of_students,\
-            'today':report_generated_on,\
-            'boys':num_boys,\
-            'girls':num_girls,\
-            'schools':formatted_schools_out,\
-            'score_100':female_correct+male_correct,\
-            'score_zero':male_zero_ans_per_gp+ female_zero_ans_per_gp,\
-            'girls_zero':female_zero_ans_per_gp,\
-            'boys_zero':male_zero_ans_per_gp,\
-            'boys_100':male_correct,\
-            'girls_100':female_correct,\
-            'survey':survey}
-        return self.data
+        return block, district,num_boys, num_girls, number_of_students,\
+                male_total, female_total, male_correct, female_correct,\
+                male_zero_ans_per_gp, female_zero_ans_per_gp 
 
  
 
@@ -295,124 +203,34 @@ class GPMathContestReportSummarized(GPMathContestReport):
         except ElectionBoundary.DoesNotExist:
             raise ValueError("Gram panchayat '{}' is not found in the database.".format(self.gp_name))
 
-        # block = gp_obj.parent.name           # Block name
-        # district = gp_obj.parent.parent.name    # District name
-
         gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
-
-        # Get the answergroup_institution from gp name and academic year
-        AGI = AnswerGroup_Institution.objects.filter(institution__gp=gp_obj, date_of_visit__range = dates, respondent_type_id='CH', questiongroup__survey_id=2)
-        if not AGI.exists():
-            raise ValueError("No GP contests found for '{}' between {} and {}".format(gp, self.report_from, self.report_to))
-
-        block = AGI.values_list('institution__admin2__name', flat=True).distinct()[0]
-        district = AGI.values_list('institution__admin1__name', flat=True).distinct()[0]
-        num_boys = AGI.filter(answers__question__key='Gender', answers__answer='Male').count()
-        num_girls = AGI.filter(answers__question__key='Gender', answers__answer='Female').count()
-        number_of_students = num_boys + num_girls
-
-        conditions = AGI.values_list('institution__name', 'questiongroup__name').distinct()
-        contests = list(AGI.values_list('answers__question__key', flat=True).distinct())
-        contests.pop(contests.index('Gender'))
-        schools = []
-        scores = {}
-
-        for school, qgroup in conditions:
-            school_ag = AGI.filter(institution__name=school, questiongroup__name=qgroup)
-            for contest in contests:
-                percent = []
-                for ag in school_ag:
-                    num_q = ag.answers.filter(question__key=contest).count()
-                    if num_q == 0:
-                        continue
-
-                    # This was the original logic for generating GP contest report
-                    # In July, the logic has been changed to the block below this
-                    # block.
-                    # 
-                    # answered = ag.answers.filter(question__key=contest, answer='Yes').count()
-                    # mark = (answered/num_q)*100
-
-                    total_students_appeared = school_ag.count()
-                    answered = 0
-                    for s in school_ag:
-                        if s.answers.filter(
-                            question__key=contest, answer='Yes'
-                        ).exists():
-                            answered += 1
-                    mark = (answered / total_students_appeared) * 100
-
-                    try:
-                        scores[ag.id]['mark'].append(mark)
-                    except KeyError:
-                        scores[ag.id] = dict(mark=[], gender=ag.answers.get(question__key='Gender').answer)
-                        scores[ag.id]['mark'].append(mark)
-                    percent.append(mark)
-
-                if len(percent) == 0:
-                    continue
-                details = dict(school=school, grade=qgroup)
-                details['contest'] = contest
-                details['percent'] = sum(percent)/len(percent)
-                schools.append(details)
-
-        # Calculate the perfomance of students
-        score_100, score_zero = calc_stud_performance(scores)
-
-        contest_list = [i['contest'] for i in schools]
-        schools_out = []
-        out= []
-
-        for item in schools:
-            if not item['school'] in schools_out:
-                schools_out.append(item['school'])
-                out.append({'school':item['school'],
-                            'grades':[{
-                                'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
-                })
-            else:
-                for o in out:
-                    if o['school']==item['school']:
-                        gradeExist= False
-                        for grade in o['grades']:
-                            if item['grade'] == grade['name']:
-                                gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
-                        if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
-
-        #Combine data to get the 'Other Areas' contest
-        # for i in out:
-        #     for grade in i['grades']:
-        #         count = 0
-        #         num = 0
-        #         for value in grade['values']:
-        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
-        #                 count += value['count']
-        #                 num += 1
-        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-
-
-        #GPC Gradewise data
-        gpc_grades = {'Class 4 Assessment':{}, 'Class 5 Assessment':{}, 'Class 6 Assessment':{}}
-        for school in out:
-            for grade in school['grades']:
-                for value in grade['values']:
-                    try:
-                        gpc_grades[grade['name']][value['contest']]+=value['count']
-                    except KeyError:
-                        gpc_grades[grade['name']][value['contest']]=value['count']
-        gradewise_gpc = []
-        for grade, values in gpc_grades.items():
-            for j ,k in values.items():
-                values[j] = round(k/len(out), 2)
-            gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
-
-        survey = self.getHouseholdServey(gp_obj, dates)
-
-        self.data =  {'gp_name': gp.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'block':block, 'district':district.title(),'no_schools_gp':gp_schools,'no_students':number_of_students,'today':report_generated_on,'boys':num_boys,'girls':num_girls,'schools':gradewise_gpc,'cs':contest_list,'score_100':score_100,'score_zero':score_zero,'girls_zero':girls_zero,'boys_zero':boys_zero,'boys_100':boys_100,'girls_100':girls_100, 'survey':survey}
+     
+        block, district,num_boys, num_girls, number_of_students,\
+                   male_total, female_total, male_correct, female_correct,\
+                   male_zero_ans_per_gp, female_zero_ans_per_gp=\
+                   self.get_basic_GP_data(gp_obj)
+        print("getting gradewise agg")
+        gradewise_gpc = self.get_boundary_gpc_gradewise_agg(gp_obj, self.report_from, self.report_to)
+        print("finished")
+        survey = self.getHouseholdSurvey(gp_obj, dates)
+        self.data =  {
+                        'gp_name': gp.title(),\
+                        'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
+                        'block':block,\
+                        'district':district.title(),\
+                        'no_schools_gp':gp_schools,\
+                        'no_students':number_of_students,\
+                        'today':report_generated_on,\
+                        'boys':num_boys,\
+                        'girls':num_girls,\
+                        'schools':gradewise_gpc,\
+                        'score_100':score_100,\
+                        'score_zero':score_zero,\
+                        'girls_zero':girls_zero,\
+                        'boys_zero':boys_zero,\
+                        'boys_100':boys_100,\
+                        'girls_100':girls_100,\
+                        'survey':survey}
         return self.data
 
     # def getHouseholdServey(self,gp_obj,date_range):
