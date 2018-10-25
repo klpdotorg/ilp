@@ -16,10 +16,10 @@
                 text: 'Basic',
                 value: 'basic',
             },
-            {
-                text: 'Details',
-                value: 'details',
-            }
+            // {
+            //     text: 'Details',
+            //     value: 'details',
+            // }
         ];
         var comparisonTabs = [
             {
