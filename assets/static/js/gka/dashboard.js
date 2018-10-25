@@ -1175,8 +1175,6 @@ var topSummaryData = {};
         $questionGroupXHR.done(function(questiongroupData) {
             renderGPContestCharts(questiongroupData);
         });
-
-        renderGPContestCharts(questiongroupData);
     }
 
 
