@@ -31,8 +31,8 @@
                  Teacher's Trained :
              </div>
              <div class="three-box">
-                 <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}</span>
-                 <div class="p-bar-grey pink" style="width: 80%;">
+                 <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>
+                 <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
                      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
                  </div>
              </div>
@@ -40,8 +40,8 @@
                  Kit Usage :
              </div>
              <div class="three-box">
-                 <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}</span>
-                 <div class="p-bar-grey pink" style="width: 80%;">
+                 <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
+                 <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
                      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
                  </div>
              </div>
@@ -49,8 +49,8 @@
                  Group Work :
              </div>
              <div class="three-box">
-                 <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}</span>
-                 <div class="p-bar-grey pink" style="width: 80%;">
+                 <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
+                 <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
                      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
                  </div>
              </div>
@@ -91,8 +91,11 @@
              <tr>
                  <th>Grade</th>
                  <th>
-                     Number Concept <br>(123)
-                 </th>
+                    Number Recognition <br>(123)
+                </th>
+                <th>
+                    Place Value <br>(1,10,100)
+                </th>
                  <th>
                      Addition<br>(+)
                  </th>
@@ -114,11 +117,18 @@
                  <td>{{ item.grade }}</td>
                  <td align="center">
                      {% for value in item.values%}
-                        {% if "Number Concept" == value.contest %}
+                        {% if "Number Recognition" == value.contest %}
                      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
                         {% endif %}
                         {% endfor %}
                  </td>
+                 <td align="center">
+                    {% for value in item.values%}
+                       {% if "Place Value" == value.contest %}
+                    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+                       {% endif %}
+                       {% endfor %}
+                </td>
                  <td align="center">
                      {% for value in item.values %}
                         {% if "Addition" == value.contest %}

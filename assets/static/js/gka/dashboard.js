@@ -436,13 +436,6 @@ var topSummaryData = {};
             klp.GKA.surveySummaryData = surveySummaryData;
             renderSurveySummary(surveySummaryData);
             $('#surveySummary').stopLoading();
-
-            // Load the respondent summary
-            var $respondentXHR = klp.api.do("survey/info/respondent/?survey_tag=gka&survey_id=" + surveyId, params);
-            $respondentXHR.done(function(respondentData) {
-                renderRespondentChart(respondentData);
-                $('#mobRespondent').stopLoading();
-            });
         });
 
         // Load the volumes
@@ -1182,7 +1175,6 @@ var topSummaryData = {};
         $questionGroupXHR.done(function(questiongroupData) {
             renderGPContestCharts(questiongroupData);
         });
-
     }
 
 
@@ -1204,11 +1196,28 @@ var topSummaryData = {};
                     score = classData[c].score,
                     item = {
                         meta: c,
-                        value: getPercent(score, total)
+                        value: getPercent(score, total),
+                        order: classData[c].order
                     };
                 result.series[0].data.push(item);
             }
             return result;
+        }
+
+        function sortCompetanciesBasedOnOrder(classData) {
+            if(!classData
+                    || !classData.series[0]
+                    || !classData.series[0].data) {
+                return classData;
+            }
+            classData.series[0].data = _.sortBy(
+                classData.series[0].data,
+                function(d){return d.order}
+            );
+            classData.labels = _.map(
+                classData.series[0].data, function(c){ return c.meta; }
+            );
+            return classData;
         }
 
 
@@ -1226,6 +1235,11 @@ var topSummaryData = {};
         try {
             class6competancies = genCompetancyChartObj(data['Class 6 Assessment']);
         } catch(e) {}
+
+        // Update sort order
+        class4competancies = sortCompetanciesBasedOnOrder(class4competancies);
+        class5competancies = sortCompetanciesBasedOnOrder(class5competancies);
+        class6competancies = sortCompetanciesBasedOnOrder(class6competancies);
 
         renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
         renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");

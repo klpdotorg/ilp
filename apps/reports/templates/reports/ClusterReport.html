@@ -33,8 +33,8 @@
     Teacher's Trained :
   </div>
   <div class="three-box">
-    <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}</span>
-    <div class="p-bar-grey pink" style="width: 80%;">
+    <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>
+    <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
       <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
     </div>
   </div>
@@ -42,8 +42,8 @@
     Kit Usage :
   </div>
   <div class="three-box">
-    <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}</span>
-    <div class="p-bar-grey pink" style="width: 80%;">
+    <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
+    <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
       <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
     </div>
   </div>
@@ -51,8 +51,8 @@
     Group Work :
   </div>
   <div class="three-box">
-    <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}</span>
-    <div class="p-bar-grey pink" style="width: 80%;">
+    <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
+    <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
       <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
     </div>
   </div>
@@ -70,6 +70,78 @@
     </span>
   </span>
 <p>[This report provides the details of Math learning levels of children by school who participated in Gram Panchayat Mathematics Contests this academic year.]</p>
+<h2>Performance by Grade</h2>
+<table style="margin: auto;" id="customers">
+  <tr>
+    <th>Grade</th>
+    <th>
+      Number Concept <br>(123)
+    </th>
+    <th>
+      Addition<br>(+)
+    </th>
+    <th>
+      Subtraction<br>(-)
+    </th>
+    <th>
+      Multiplication<br>(&times;)
+    </th>
+    <th>
+      Division<br>(&divide;)
+    </th>
+    <!-- <th>
+          Other Areas
+        </th> -->
+  </tr>
+  {% for item in data.overall_cluster_performance %}
+  <tr>
+    <td>{{ item.grade }}</td>
+    <td align="center">
+      {% for value in item.values%}
+            {% if "Number Concept" == value.contest %}
+      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+            {% endif %}
+            {% endfor %}
+    </td>
+    <td align="center">
+      {% for value in item.values %}
+            {% if "Addition" == value.contest %}
+      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+            {% endif %}
+            {% endfor %}
+    </td>
+    <td align="center">
+      {% for value in item.values%}
+            {% if "Subtraction" == value.contest %}
+      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+            {% endif %}
+            {% endfor %}
+    </td>
+    <td align="center">
+      {% for value in item.values%}
+            {% if "Multiplication" == value.contest %}
+      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+            {% endif %}
+            {% endfor %}
+    </td>
+    <td align="center">
+      {% for value in item.values%}
+            {% if "Division" == value.contest %}
+      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+            {% endif %}
+            {% endfor %}
+    </td>
+    <!-- <td align="center">
+          {% for value in item.values%}
+            {% if "Other Areas" == value.contest %}
+          <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+            {% endif %}
+          {% endfor %}
+        </td> -->
+  </tr>
+  {% endfor %}
+</table>
+
 <h2>Performance by Schools</h2>
 <table id="customers" style="margin:auto;">
   <tr>

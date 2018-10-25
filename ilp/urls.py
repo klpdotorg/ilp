@@ -135,6 +135,9 @@ urlpatterns = [
         template_name='reports.html',
     ), name='reports'),
 
+    # The GKA dashboard
+    url(r'^gka/$', gka_dashboard, name='gka_dashboard'),
+
     # GP Contest Dashboard
     url(r'^gp-contest/$', gp_contest_dashboard, name='gp_contest_dashboard'),
 
@@ -211,5 +214,3 @@ urlpatterns = [
         ), name='stories'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-urlpatterns += i18n_patterns(url(r'^gka/$', gka_dashboard, name='gka_dashboard'))
