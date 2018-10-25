@@ -224,12 +224,12 @@ class GPMathContestReportSummarized(GPMathContestReport):
                         'boys':num_boys,\
                         'girls':num_girls,\
                         'schools':gradewise_gpc,\
-                        'score_100':score_100,\
-                        'score_zero':score_zero,\
-                        'girls_zero':girls_zero,\
-                        'boys_zero':boys_zero,\
-                        'boys_100':boys_100,\
-                        'girls_100':girls_100,\
+                        'score_100':female_correct+male_correct,\
+                        'score_zero':male_zero_ans_per_gp+ female_zero_ans_per_gp,\
+                        'girls_zero':female_zero_ans_per_gp,\
+                        'boys_zero':male_zero_ans_per_gp,\
+                        'boys_100':male_correct,\
+                        'girls_100':female_correct,\
                         'survey':survey}
         return self.data
 
