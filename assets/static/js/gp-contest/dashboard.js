@@ -393,6 +393,25 @@
             }
         }
 
+        // return sorted labels based on order field
+        function getSortedCompetancyLabelsBasedOnOrder(classData) {
+            if (classData && !Object.keys(classData)) {
+                return [];
+            }
+
+            classData = _.map(classData, function(value, key) {
+                value.label = key;
+                return value
+            });
+            var sortedClassData = _.sortBy(
+                classData,
+                function(d){return d.order}
+            );
+            return _.map(sortedClassData, function(value) {
+                return value.label
+            })
+        }
+
         // Fetch performance info
         function loadPerformance() {
             // Starting all spinners
@@ -402,14 +421,6 @@
 
             var routerParams = klp.GP.routerParams;	
             var dateParams = {};
-
-            var LABELS_REQUIRED = [
-                'Number Concept',
-                'Addition',
-                'Subtraction',
-                'Multiplication',
-                'Division',
-            ];
 
             var selectedYearInfo = tabs.find(function(tab) {
                 return tab.value === selectedCoverageTab;
@@ -434,9 +445,11 @@
                         series = [];
 
                     for (var i = 4; i <= 6; i++) {
+                        var sortedLabels = getSortedCompetancyLabelsBasedOnOrder(result['Class ' + i +' Assessment']);
+
                         if (Object.keys(result).length) {
-                            labels = LABELS_REQUIRED;
-                            series = _.map(LABELS_REQUIRED, function(label) {
+                            labels = sortedLabels;
+                            series = _.map(sortedLabels, function(label) {
                                 var graphVals = result['Class ' + i +' Assessment'];
                                 if (!graphVals[label]) {
                                     return 0;
@@ -451,13 +464,12 @@
                         
 
                         chartData['class' + i] = {labels: [], series: [[]]};
-                        _.forEach(labels, function(l, index) {
-                            if(!_.includes(LABELS_REQUIRED, l)) { return; }
+                        _.forEach(sortedLabels, function(l, index) {
+                            if(!_.includes(sortedLabels, l)) { return; }
 
                             chartData['class' + i].labels.push(l);
                             chartData['class' + i].series[0].push(series[index]);
                         });
-
 
                     // chartData['class' + i] = {
                     //   labels: _.keys(result['Class ' + i +' Assessment']),
