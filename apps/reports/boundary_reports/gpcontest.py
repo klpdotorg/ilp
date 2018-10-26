@@ -209,9 +209,7 @@ class GPMathContestReportSummarized(GPMathContestReport):
                    male_total, female_total, male_correct, female_correct,\
                    male_zero_ans_per_gp, female_zero_ans_per_gp=\
                    self.get_basic_GP_data(gp_obj)
-        print("getting gradewise agg")
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(gp_obj, self.report_from, self.report_to)
-        print("finished")
         survey = self.getHouseholdSurvey(gp_obj, dates)
         self.data =  {
                         'gp_name': gp.title(),\
@@ -233,19 +231,3 @@ class GPMathContestReportSummarized(GPMathContestReport):
                         'survey':survey}
         return self.data
 
-    # def getHouseholdServey(self,gp_obj,date_range):
-    #     #Husehold Survey
-    #     a = AnswerGroup_Institution.objects.filter(institution__gp=gp_obj, date_of_visit__range=date_range, questiongroup_id__in=[18, 20])
-
-    #     questions = QuestionGroup.objects.get(id=18).questions.filter(id__in=[269, 144, 145, 138])
-
-    #     total_response = a.count()
-
-    #     HHSurvey = []
-
-    #     for i in questions:
-    #         count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-    #         count = a.filter(answers__question__question_text=i.question_text, answers__answer='Yes').count()
-    #         HHSurvey.append({'text':i.question_text,'percentage': round((count/total_response)*100, 2)})
-
-    #     return HHSurvey
