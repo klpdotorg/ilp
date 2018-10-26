@@ -1,6 +1,5 @@
 {% extends "./base.html" %}
 {% block body %}
-<body>
     <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}" >ಕನ್ನಡ</a>
     <h1><u>GKA : {{data.district}} District Summarized Report</u>
         {% include "./akshara-img.html" %}
@@ -26,28 +25,28 @@
          <p>[This report is based on the survey feedbacks received from HMs/CRP/Akshara staff and other department officials on implementation of GKA Program]
          </p>
          <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;">
-             <div class="three-box" style="text-align: right;">
+             <div class="three-box text-left">
                  Teacher's Trained :
              </div>
-             <div class="three-box">
+             <div class="three-box text-left">
                  <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>
                  <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
                      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
                  </div>
              </div>
-             <div class="three-box" style="text-align: right;">
+             <div class="three-box text-left">
                  Kit Usage :
              </div>
-             <div class="three-box">
+             <div class="three-box text-left">
                  <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
                  <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
                      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
                  </div>
              </div>
-  	            <div class="three-box" style="text-align: right;">
+  	            <div class="three-box text-left">
                  Group Work :
              </div>
-             <div class="three-box">
+             <div class="three-box text-left">
                  <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
                  <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
                      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
@@ -186,21 +185,4 @@
          </div>
          {% endfor %}
         </div>
-        <div class="outer-line" style="line-height: 26px;">
-         FOCUS AREAS :
-         <ul>
-             <li>
-                 All the numbers which is less than 40% is highlighted in <span class="red">RED</span>  and this reflects poor learning levels of children. HMs/CRPs/GP Members should take serious note and work towards improving these numbers.
-             </li>
-             <li>
-                 To improve math learning levels of children please encourage use of GKA Math kit in classrooms.
-             </li>
-         </ul>
-        </div>
-        <div class="red" style="text-align: center;padding: 20px;">
-         FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 9845079590
-        </div>
-        <a href="{{ request.path }}download?lang={{request.GET.lang}}" class="button button5">Download</a>
-    </div>
-</body>
 {% endblock %}
