@@ -26,7 +26,7 @@
 	<p>[ಈ ವರದಿಯನ್ನು ಮುಖ್ಯ ಶಿಕ್ಷಕರು/ ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಅಕ್ಷರ ಸಿಬ್ಬಂದಿಗಳು ಮತ್ತು ಇತರೆ ಇಲಾಖೆ
 ಅಧಿಕಾರಿಗಳಿಂದ ಪಡೆದ ಸಮೀಕ್ಷೆಯ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ ಮೇಲೆ ತಯಾರಿಸಲಾಗಿದೆ]
 	</p>
-	<div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;">
+	<div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;display: flex; align-items: center;">
 	  <div class="three-box" style="text-align: right;">
 	    ಗಣಿತ ಶಿಕ್ಷಕರು ಜಿ ಕೆ ಏ ತರಬೇತಿ ಪಡೆದಿದ್ದಾರೆಯೇ? :
 	  </div>
@@ -76,10 +76,10 @@
       <div class="outer-line">
   <h2>ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ.</h2>
 	<span style="line-height:22px;">
-	  ಒಟ್ಟು ಗ್ರಾಮ ಪಂಚಾಯಿತಿಗಳು : {{data.num_gp}} &nbsp; &nbsp; &nbsp;
-	  ಒಟ್ಟು ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ ಗಳು : {{data.num_contests}}&nbsp;
+	<b>ಒಟ್ಟು ಗ್ರಾಮ ಪಂಚಾಯಿತಿಗಳು : </b>{{data.num_gp}} &nbsp; &nbsp; &nbsp;
+<b> ಒಟ್ಟು ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ ಗಳು : </b>{{data.num_contests}}&nbsp;
 	  <span style="float:right;">
-	    ಸ್ಪರ್ಧಿಗಳು : {{data.num_students}} {
+		<b>ಸ್ಪರ್ಧಿಗಳು :</b> {{data.num_students}} {
         {% include "./boy-shadow.html" %} : {{data.num_boys}}
         {% include "./girl-shadow.html" %} : {{data.num_girls}}
 	    }

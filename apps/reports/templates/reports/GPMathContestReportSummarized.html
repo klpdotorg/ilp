@@ -27,7 +27,7 @@
       <div class="outer-line">
 	<h2>GP Contest</h2>
 	<span style="line-height:22px;">
-	  Participation : {{ data.no_students}} {
+	<b>Participation :</b> {{ data.no_students}} {
 	      {% include "./boy-shadow.html" %} : {{ data.boys }}
         {% include "./girl-shadow.html" %} : {{ data.girls }}
 	  } &nbsp; &nbsp; &nbsp;
@@ -36,7 +36,7 @@
 	    {% include "./girl-shadow.html" %} : {{ data.girls_zero }}
 	  } &nbsp;  -->
 	  <span style="float:right;">
-	    Student with FULL score : {{ data.score_100}} {
+		<b>Student with FULL score : </b>{{ data.score_100}} {
 	     {% include "./boy-shadow.html" %} : {{ data.boys_100 }}
        {% include "./girl-shadow.html" %} : {{ data.girls_100 }}
 	    }

@@ -27,7 +27,7 @@
       <div class="outer-line">
 	<h2>ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ</h2>
 	<span style="line-height:22px;">
-	  ಸ್ಪರ್ಧಿಗಳು : {{ data.no_students}} {
+	<b>ಸ್ಪರ್ಧಿಗಳು :</b> {{ data.no_students}} {
 	    {% include "./boy-shadow.html" %} : {{ data.boys }}
 	    {% include "./girl-shadow.html" %} : {{ data.girls }}
 	    } &nbsp; &nbsp; &nbsp;
@@ -36,7 +36,7 @@
 	    {% include "./girl-shadow.html" %} : {{ data.girls_zero }}
 	    } &nbsp;  -->
 	  <span style="float:right;">
-	    ಪೂರ್ಣ ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳು : {{ data.score_100}} {
+		<b>ಪೂರ್ಣ ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳು : </b>{{ data.score_100}} {
 	    {% include "./boy-shadow.html" %} : {{ data.boys_100 }}
 	    {% include "./girl-shadow.html" %} : {{ data.girls_100 }}
 	    }
