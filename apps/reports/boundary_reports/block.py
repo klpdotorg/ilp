@@ -143,6 +143,7 @@ class BlockReport(BaseReport):
 class BlockReportSummarized(BlockReport):
     parameters = ('block_name', 'district_name')
     def __init__(self, block_name=None, district_name=None, report_from=None, report_to=None, **kwargs):
+        super().__init__(**kwargs)
         self.block_name = block_name
         self.district_name = district_name
         self.report_from = report_from
@@ -156,7 +157,6 @@ class BlockReportSummarized(BlockReport):
         self._template_path = 'BlockReportSummarized.html'
         self._type = 'BlockReportSummarized'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
-        #super().__init__(**kwargs)
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
