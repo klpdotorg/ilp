@@ -38,6 +38,7 @@ from reports.helpers import calc_stud_performance
 class SchoolReport(BaseReport):
     parameters = ('school_code', )
     def __init__(self, school_code=None, report_from=None, report_to=None, **kwargs):
+        super().__init__(**kwargs)
         self.school_code = school_code
         self.report_from = report_from
         self.report_to = report_to
@@ -49,7 +50,6 @@ class SchoolReport(BaseReport):
         self._template_path = 'SchoolReport.html'
         self._type = 'SchoolReport'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
-        super().__init__(**kwargs)
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
