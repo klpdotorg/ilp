@@ -94,7 +94,7 @@
 							Number Recognition <br>(123)
 					</th>
 					<th>
-							Place Value <br>(1,10,100,...)
+							Place Value <br>(1,10,100)
 					</th>
 					<th>
 							Addition<br>(+)
@@ -123,6 +123,7 @@
 								 {% endfor %}
 					</td>
 					<td align="center">
+<<<<<<< HEAD
 						{%if item.grade == "Class 5 Assessment" or item.grade == "Class 6 Assessment"%}
 							<span class="font-effect-outline mark b-dot grey">NA</span>
 						{% endif %}
@@ -131,6 +132,13 @@
 										<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
 							 {% endif %}
 						{% endfor %}
+=======
+						{% for value in item.values%}
+							 {% if "Place Value" == value.contest %}
+						<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+							 {% endif %}
+							 {% endfor %}
+>>>>>>> dcf5c2e02e76a496ac00a7252fdc86a379e34009
 					</td>
 					<td align="center">
 							{% for value in item.values %}
@@ -181,7 +189,11 @@
 	      Number Recognition <br>(123)
 			</th>
 			<th>
+<<<<<<< HEAD
 				Place Value <br> (1,10,100..)
+=======
+				Place Value <br>(1,10,100)
+>>>>>>> dcf5c2e02e76a496ac00a7252fdc86a379e34009
 			</th>
 	    <th>
 	      Addition<br>(+)
@@ -209,6 +221,7 @@
               {% if "Number Recognition" == value.contest %}
 	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
+<<<<<<< HEAD
         {% endfor %}
 			</td>
 			<td align="center">
@@ -220,6 +233,16 @@
 								<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
 					{%endif%}
 				{% endfor %}
+=======
+              {% endfor %}
+			</td>
+			<td align="center">
+				{% for value in item.values%}
+					 {% if "Place Value" == value.contest %}
+				<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+					 {% endif %}
+					 {% endfor %}
+>>>>>>> dcf5c2e02e76a496ac00a7252fdc86a379e34009
 		</td>
 	    <td align="center">
 	      {% for value in g.values%}
