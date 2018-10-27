@@ -15,14 +15,13 @@ from .models import Reports, Tracking
 from .reportlist import reportlist
 
 
-# Create your views here.
-
+'''This is the view used to view the reports'''
 def view_report(request, report_id, tracking_id='default'):
     try:
         report = Reports.objects.get(link_id=report_id)
         data = report.data
     except Reports.DoesNotExist:
-        return render(request, 'reports/not_found.html', context={'data': report_id})
+        return render(request, 'reports/404.html', context={'data': report_id})
 
     try:
         tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
@@ -41,7 +40,7 @@ def download_report(request, report_id, tracking_id='default'):
     try:
         report_model = Reports.objects.get(link_id=report_id)
     except Reports.DoesNotExist:
-        return render(request, 'reports/not_found.html', context={'data': report_id})
+        return render(request, 'reports/404.html', context={'data': report_id})
 
     report = reportlist[report_model.report_type](data=report_model.data)
     pdf = report.get_pdf(lang=request.GET.get('lang'))
