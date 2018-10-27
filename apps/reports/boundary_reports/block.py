@@ -81,7 +81,6 @@ class BlockReport(BaseReport):
         #GPC Gradewise data
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(block, self.report_from, self.report_to)
         household = self.getHouseholdSurvey(block, dates)
-
         self.data = {'block':self.block_name.title(),\
                      'district':self.district_name.title(),\
                      'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
@@ -144,6 +143,7 @@ class BlockReport(BaseReport):
 class BlockReportSummarized(BlockReport):
     parameters = ('block_name', 'district_name')
     def __init__(self, block_name=None, district_name=None, report_from=None, report_to=None, **kwargs):
+        super().__init__(**kwargs)
         self.block_name = block_name
         self.district_name = district_name
         self.report_from = report_from
@@ -157,7 +157,6 @@ class BlockReportSummarized(BlockReport):
         self._template_path = 'BlockReportSummarized.html'
         self._type = 'BlockReportSummarized'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
-        #super().__init__(**kwargs)
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)

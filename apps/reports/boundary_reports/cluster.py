@@ -119,6 +119,7 @@ class ClusterReport(BaseReport):
 class ClusterReportSummarized(ClusterReport):
     parameters = ('cluster_name', 'block_name', 'district_name')
     def __init__(self, cluster_name=None, block_name=None, district_name=None, report_from=None, report_to=None, **kwargs):
+        super().__init__(**kwargs)
         self.cluster_name = cluster_name
         self.block_name = block_name
         self.district_name = district_name
@@ -133,7 +134,6 @@ class ClusterReportSummarized(ClusterReport):
         self._template_path = 'ClusterReportSummarized.html'
         self._type = 'ClusterReportSummarized'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
-        # super().__init__(**kwargs)
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)

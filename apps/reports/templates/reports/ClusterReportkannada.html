@@ -1,6 +1,5 @@
-{% extends "./base.html" %}
+{% extends "./base_kannada.html" %}
 {% block body %}
-  <body>
     <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}?lang=english" >English</a>
     <h1><u>ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : {{data.cluster}} ಕ್ಲಸ್ಟರ್ ವರದಿ</u>
       {% include "./akshara-img.html" %}
@@ -30,29 +29,29 @@
 ಅಧಿಕಾರಿಗಳಿಂದ ಪಡೆದ ಸಮೀಕ್ಷೆಯ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ ಮೇಲೆ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಅನುಷ್ಠಾನದ ಬಗ್ಗೆ
 ತಯಾರಿಸಲಾಗಿದೆ]
 	</p>
-	<div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;">
-	  <div class="three-box" style="text-align: right;">
+	<div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden; display: flex; align-items: center;">
+	  <div class="three-box" style="text-align: right; ">
 	    ಗಣಿತ ಶಿಕ್ಷಕರು ಜಿ ಕೆ ಏ ತರಬೇತಿ ಪಡೆದಿದ್ದಾರೆಯೇ? : 
 	  </div>
-	  <div class="three-box">
+	  <div class="three-box text-left">
 	    <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>
 			<div class="p-bar-grey" style="width: 80%;border-radius:5px;">
 	      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
 	    </div>
 	  </div>
-	  <div class="three-box" style="text-align: right;">
+	  <div class="three-box text-left">
 	    ಮಕ್ಕಳು ಅಥವಾ ಶಿಕ್ಷಕರು ಗಣಿತ ಕಿಟ್ ಉಪಯೋಗಿಸುತ್ತಿದ್ದರೇ? : 
 	  </div>
-	  <div class="three-box">
+	  <div class="three-box text-left">
 	    <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
 			<div class="p-bar-grey" style="width: 80%;border-radius:5px;">
 	      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
 	    </div>
 	  </div>
-      	  <div class="three-box" style="text-align: right;">
+      	  <div class="three-box text-left">
 	    ಗುಂಪು ಕಲಿಕೆ ಆಗುತ್ತಿತೇ? : 
 	  </div>
-	  <div class="three-box">
+	  <div class="three-box text-left">
 	    <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
 			<div class="p-bar-grey" style="width: 80%;border-radius:5px;">
 	      <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
@@ -63,9 +62,9 @@
       <div class="outer-line">
 	<h2>ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ</h2>
 	<span style="line-height:22px;">
-	  ಒಟ್ಟು ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಗಳು : {{data.num_contests}}&nbsp;
+	  <b>ಒಟ್ಟು ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಗಳು :</b> {{data.num_contests}}&nbsp;
 	  <span style="float:right;">
-	    ಸ್ಪರ್ಧಿಗಳು : {{data.num_students}} {
+	    <b>ಸ್ಪರ್ಧಿಗಳು :</b> {{data.num_students}} {
         {% include "./boy-shadow.html" %} : {{data.num_boys}}
         {% include "./girl-shadow.html" %} : {{data.num_girls}}
 	    }
@@ -78,9 +77,8 @@
 	<table id="customers" style="margin:auto;">
 	  <tr>
 	    <th>ತರಗತಿ</th>
-	    <th>
-	      ಒಟ್ಟು ಪರಿಕಲ್ಪನೆಗಳು <br>(123)
-	    </th>
+			<th>ಸಂಖ್ಯಾ ಪರಿಚಯ<br>(123)</th>
+			<th>ಸ್ಥಾನ ಬೆಲೆ<br>(1,10,100)</th>
 	    <th>
 	      ಸಂಕಲನ<br>(+)
 	    </th>
@@ -100,13 +98,23 @@
 	  {% for item in data.overall_cluster_performance %}
 	  <tr>
 	    <td>{{ item.grade }}</td>
-	    <td align="center">
-	      {% for value in item.values%}
-              {% if "Number Concept" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
+			<td align="center">
+					{% for value in item.values%}
+						 {% if "Number Recognition" == value.contest %}
+					<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+						 {% endif %}
+						 {% endfor %}
+			</td>
+			<td align="center">
+				{%if item.grade == "Class 5 Assessment" or item.grade == "Class 6 Assessment"%}
+					<span class="font-effect-outline mark b-dot grey">NA</span>
+				{% endif %}
+				{% for value in item.values%}
+					 {% if "Place Value" == value.contest and item.grade == "Class 4 Assessment" %}
+								<span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
+					 {% endif %}
+				{% endfor %}
+			</td>
 	    <td align="center">
 	      {% for value in item.values %}
               {% if "Addition" == value.contest %}
@@ -150,9 +158,8 @@
 	  <tr>
 	    <th>ಶಾಲೆಯ ಹೆಸರು</th>
 	    <th>ತರಗತಿ</th>
-	    <th>
-	      ಸಂಖ್ಯಾ ಪರಿಚಯ <br>
-	    </th>
+			<th>ಸಂಖ್ಯಾ ಪರಿಚಯ<br>(123)</th>
+			<th>ಸ್ಥಾನ ಬೆಲೆ<br>(1,10,100)</th>
 	    <th>
 	      ಸಂಕಲನ<br>(+)
 	    </th>
@@ -174,13 +181,23 @@
 	  <tr>
 	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
 	    <td>{{g.name}}</td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Number Concept" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
+			<td align="center">
+					{% for value in g.values%}
+								{% if "Number Recognition" == value.contest %}
+					<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+								{% endif %}
+					{% endfor %}
+				</td>
+			<td align="center">
+					{%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
+									<span class="font-effect-outline mark b-dot grey">NA</span>
+					{% endif %}
+					{% for value in g.values%}
+						{% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
+									<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+						{%endif%}
+					{% endfor %}
+			</td>
 	    <td align="center">
 	      {% for value in g.values%}
               {% if "Addition" == value.contest %}
@@ -274,25 +291,4 @@
         {% endif%}
         {% endfor %}
       </div>
-      <div class="outer-line" style="line-height: 26px;">
-	ಗಮನಿಸ ಬೇಕಾದ ವಿಷಯಗಳು :
-	<ul>
-	  <li>
-	   40% ಕಿಂತ ಕಡಿಮೆ ಇರುವ ಸಂಖ್ಯೆಗಳನ್ನು  <span class="red">ಕೆಂಪು</span> ಬಣ್ಣದಿಂದ ಪ್ರದರ್ಶಿಸಲಾಗಿದೆ . ಅದು ಮಕ್ಕಳ ಕೆಳ ಮಟ್ಟದ ಕಲಿಕಾ
-ಮಟ್ಟವನ್ನು ಪ್ರತಿನಿಧಿಸುತ್ತದೆ.ಮುಖ್ಯ ಶಿಕ್ಷಕರು ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಹಾಗು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಸದಸ್ಯರು ಈ
-ಸಮಸ್ಯೆಯನ್ನು ಗಂಭೀರವಾಗಿ ಪರಿಗಣಿಸಿ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸಲು ಕೆಲಸವನ್ನು ಮಾಡಬೇಕಾಗಿದೆ.
-	  </li>
-	  <li>
-	    ಮಕ್ಕಳ ಗಣಿತ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ವೃದ್ಧಿಸಲು ತರಗತಿಯಲ್ಲಿ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಕಿಟ್ ಅನ್ನು ಬಳಸಲು ಹೆಚ್ಚು
-ಒಟ್ಟು ನೀಡಬೇಕು
-	  </li>
-	</ul>
-      </div>
-      <div class="red" style="text-align: center;padding: 20px;">
-            <img src="/static/images/gka-ka-logo.png" alt="KLP Logo" height="75px"> <br>
-	ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ಹಾಗು ಹೆಚ್ಚಿನ ವಿವರಣೆ ಬೇಕಿದ್ದಲ್ಲಿ ಈ ಸಂಖ್ಯೆಗೆ ಸಂಪರ್ಕಿಸಿ: 9845079590
-      </div>
-      <a href="{{ request.path }}download" class="button button5">Download</a>
-    </div>
-  </body>
 {% endblock %}

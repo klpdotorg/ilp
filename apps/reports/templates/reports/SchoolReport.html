@@ -27,13 +27,13 @@
       <div class="outer-line">
 	<h2>GP Contest</h2>
 	<span style="line-height:22px;">
-	  Participation : {{ data.no_students}} {
+	<b>Participation : </b>{{ data.no_students}} {
 	    {% include "./boy-shadow.html" %} : {{ data.boys }}
 	    {% include "./girl-shadow.html" %} : {{ data.girls }}
 	    } &nbsp; &nbsp; &nbsp;
-	     Student with ZERO score : {{ data.score_zero}} &nbsp; 
+	    <!--Student with ZERO score : {{ data.score_zero}} &nbsp; -->
 	  <span style="float:right;">
-	    Student with FULL score : {{ data.score_100}} 
+		<b>Students with FULL score :</b> {{ data.score_100}} 
 	  </span>
 	</span>
 	<p>[This report provides the details of Math learning levels of children by school who participated in Gram Panchayat Mathematics Contests this academic year.]</p>
@@ -43,8 +43,11 @@
 	    <th>School Name</th>
 	    <th>Grade</th>
 	    <th>
-	      Number Concept <br>(123)
-	    </th>
+					Number Recognition <br>(123)
+			</th>
+			<th>
+				Place Value <br> (1,10,100..)
+			</th>
 	    <th>
 	      Addition<br>(+)
 	    </th>
@@ -66,13 +69,23 @@
 	  <tr>
 	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
 	    <td>{{g.name}}</td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Number Concept" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
+			<td align="center">
+					{% for value in g.values%}
+								{% if "Number Recognition" == value.contest %}
+					<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+								{% endif %}
+					{% endfor %}
+				</td>
+			<td align="center">
+					{%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
+									<span class="font-effect-outline mark b-dot grey">NA</span>
+					{% endif %}
+					{% for value in g.values%}
+						{% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
+									<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+						{%endif%}
+					{% endfor %}
+			</td>
 	    <td align="center">
 	      {% for value in g.values%}
               {% if "Addition" == value.contest %}

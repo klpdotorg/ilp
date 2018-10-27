@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base_kannada.html" %}
 {% block body %}
   <body>
     <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}?lang=english" >English</a>
@@ -27,13 +27,13 @@
       <div class="outer-line">
 	<h2>ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ</h2>
 	<span style="line-height:22px;">
-	  ಸ್ಪರ್ಧಿಗಳು : {{ data.no_students}} {
+	<b>ಸ್ಪರ್ಧಿಗಳು :</b> {{ data.no_students}} {
 	    {% include "./boy-shadow.html" %} : {{ data.boys }}
 	    {% include "./girl-shadow.html" %} : {{ data.girls }}
 	    } &nbsp; &nbsp; &nbsp;
-	     ಸೊನ್ನೆ ಅಂಕ ಪಡೆದ ಮಕ್ಕಳು : {{ data.score_zero}} &nbsp; 
+	    <!-- ಸೊನ್ನೆ ಅಂಕ ಪಡೆದ ಮಕ್ಕಳು : {{ data.score_zero}} &nbsp; -->
 	  <span style="float:right;">
-	    ಪೂರ್ಣ ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳು : {{ data.score_100}} 
+		<b>ಪೂರ್ಣ ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳು : </b>{{ data.score_100}} 
 	  </span>
 	</span>
 	<p>[ಈ ವರದಿಯು ಈ ಶೈಕ್ಷಣಿಕ ವರ್ಷದಲ್ಲಿ ಗ್ರಾಮ ಪಂಚಾಯತ್ ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಪಾಲ್ಗೊಂಡಿದ್ದ ಮಕ್ಕಳ ಕಲಿಕೆಯ ಮಟ್ಟಗಳ
@@ -43,9 +43,8 @@
 	   <tr>
 	    <th>ಶಾಲೆಯ ಹೆಸರು</th>
 	    <th>ತರಗತಿ</th>
-	    <th>
-	      ಸಂಖ್ಯಾ ಪರಿಚಯ <br>
-	    </th>
+			<th>ಸಂಖ್ಯಾ ಪರಿಚಯ<br>(123)</th>
+			<th>ಸ್ಥಾನ ಬೆಲೆ<br>(1,10,100)</th>
 	    <th>
 	      ಸಂಕಲನ<br>(+)
 	    </th>
@@ -68,12 +67,22 @@
 	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
 	    <td>{{g.name}}</td>
 	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Number Concept" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
+					{% for value in g.values%}
+						{% if "Number Recognition" == value.contest %}
+							<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+						{% endif %}
+					{% endfor %}
+				</td>
+			<td align="center">
+					{%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
+									<span class="font-effect-outline mark b-dot grey">NA</span>
+					{% endif %}
+					{% for value in g.values%}
+						{% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
+									<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
+						{%endif%}
+					{% endfor %}
+			</td>
 	    <td align="center">
 	      {% for value in g.values%}
               {% if "Addition" == value.contest %}
@@ -114,28 +123,4 @@
 	  {% endfor %}
 	</table>
       </div>
-      <div class="outer-line" style="line-height: 26px;">
-	ಗಮನಿಸ ಬೇಕಾದ ವಿಷಯಗಳು :
-	<ul>
-	  <li>
-	   40% ಕಿಂತ ಕಡಿಮೆ ಇರುವ ಫಲಿತಾಂಶವನ್ನ್ನು  <span class="red">ಕೆಂಪು</span> ಬಣ್ಣದಿಂದ ಪ್ರದರ್ಶಿಸಲಾಗಿದೆ . ಅದು ಮಕ್ಕಳ ಕೆಳ ಮಟ್ಟದ ಕಲಿಕಾ
-ಮಟ್ಟವನ್ನು ಪ್ರತಿನಿಧಿಸುತ್ತದೆ. ಮುಖ್ಯ ಶಿಕ್ಷಕರು ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಹಾಗು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಸದಸ್ಯರು ಈ
-ಸಮಸ್ಯೆಯನ್ನು ಗಂಭೀರವಾಗಿ ಪರಿಗಣಿಸಿ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸಲು ಸೂಕ್ತ ಕ್ರಮವನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದು.
-	  </li>
-	  <li>
-	    ಮಕ್ಕಳ ಗಣಿತ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸಲು ತರಗತಿಯಲ್ಲಿ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಕಿಟ್ ಅನ್ನು ಬಳಸಲು ಹೆಚ್ಚು
-ಒತ್ತು ನೀಡಬೇಕು.
-	  </li>
-	  <li>
-            ಶಾಲಾವಾರು ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವಿವರವಾದ ವರದಿಯ ಪ್ರತಿಯು ಗ್ರಾಮ ಪಂಚಾಯಿತಿಯಿಂದ ಶಾಲೆಗೆ ತಲುಪಲಿದೆ.   
-          </li>
-	</ul>
-      </div>
-      <div class="red" style="text-align: center;padding: 20px;">
-            <img src="/static/images/gka-ka-logo.png" alt="KLP Logo" height="75px"> <br>
-	ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ಹಾಗು ಹೆಚ್ಚಿನ ವಿವರಣೆ ಬೇಕಿದ್ದಲ್ಲಿ ಈ ಸಂಖ್ಯೆಗೆ ಸಂಪರ್ಕಿಸಿ: 9845079590
-      </div>
-      <a href="{{ request.path }}download" class="button button5">Download</a>
-    </div>
-  </body>
 {% endblock %}
