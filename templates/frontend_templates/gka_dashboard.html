@@ -97,7 +97,14 @@
       <div class="sect-third" style="float: center;">
         <div class="brand-blue font-large font-light center-text uppercase">SCHOOL VISITS WITH</div>
 
-        <div class="font-light">Ongoing class 4 and 5 Math sessions</div>
+        {% if window.klp.STATE_CODE == 'ka' %}
+          <div class="font-light">Ongoing Math Sessions (in class 4 and 5)</div>
+        {% elif window.klp.STATE_CODE == 'od' %}
+          <div class="font-light">Ongoing Math Sessions (in class 1 to 5)</div>
+        {% else %}
+          <div class="font-light">Ongoing math sessions</div>
+        {% endif %}
+
         <div class="bar-graph-wrap" st>
           <div class="bar-graph">
             <div class="bar-percent grey-gravel">{{ questions["ivrss-math-class-happening"].percent }}%</div>
