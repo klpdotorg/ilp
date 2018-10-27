@@ -120,6 +120,7 @@ returning gpc_gradewise_percent. '''
 class DistrictReportSummarized(DistrictReport):
     parameters = ('district_name', )
     def __init__(self, district_name=None, report_from=None, report_to=None, **kwargs):
+        super().__init__(**kwargs)
         self.district_name = district_name
         self.report_from = report_from
         self.report_to = report_to
@@ -132,7 +133,6 @@ class DistrictReportSummarized(DistrictReport):
         self._type = 'DistrictReportSummarized'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
         
-        #super().__init__(**kwargs)
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
