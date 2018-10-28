@@ -132,13 +132,6 @@
                     {% endfor %}
                 </td>
                  <td align="center">
-                    {% for value in item.values%}
-                       {% if "Place Value" == value.contest %}
-                    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-                       {% endif %}
-                       {% endfor %}
-                </td>
-                 <td align="center">
                      {% for value in item.values %}
                         {% if "Addition" == value.contest %}
                      <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
