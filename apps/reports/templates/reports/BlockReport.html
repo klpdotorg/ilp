@@ -247,15 +247,8 @@
               {% if "Division" == value.contest %}
 	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
               {% endif %}
-              {% endfor %}
+        {% endfor %}
 	    </td>
-	    <!-- <td align="center">
-            {% for value in g.values%}
-              {% if "Other Areas" == value.contest %}
-            <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-          </td> -->
 	  </tr>
 	  {% endfor %}
 	  {% endfor %}
@@ -275,6 +268,6 @@
 	</div>
 	{% endfor %}
 	</div>
-	{% endblock %}
+	{% endblock body%}
 
   
