@@ -58,7 +58,8 @@ INSTALLED_APPS = (
     'assessments',
     'ivrs',
     'permissions',
-    'reports'
+    'reports',
+    'django_template_check'
 )
 
 # DRF Settings

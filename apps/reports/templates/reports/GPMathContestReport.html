@@ -1,6 +1,5 @@
 {% extends "./base.html" %}
 {% block body %}
-  <body>
     <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}" >ಕನ್ನಡ</a>
     <h1><u>GKA : {{data.gp_name}} gram panchayat Report</u>
     </h1>
@@ -154,21 +153,4 @@
 	</div>
 	{% endfor %}
       </div>
-      <div class="outer-line" style="line-height: 26px;">
-	FOCUS AREAS :
-	<ul>
-	  <li>
-	    All the numbers which is less than 40% is highlighted in <span class="red">RED</span>  and this reflects poor learning levels of children. HMs/CRPs/GP Members should take serious note and work towards improving these numbers.
-	  </li>
-	  <li>
-	    To improve math learning levels of children please encourage use of GKA Math kit in classrooms.
-	  </li>
-	</ul>
-      </div>
-      <div class="red" style="text-align: center;padding: 20px;">
-	FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 9845079590
-      </div>
-       <a href="{{ request.path }}download?lang={{request.GET.lang}}" class="button button5">Download</a>
-    </div>
-  </body>
 {% endblock %}
