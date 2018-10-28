@@ -115,7 +115,6 @@
              <tr>
                  <td>{{ item.grade }}</td>
                  <td align="center">
-<<<<<<< HEAD
                         {% for value in item.values%}
                              {% if "Number Recognition" == value.contest %}
                         <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
@@ -131,21 +130,6 @@
                                     <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
                          {% endif %}
                     {% endfor %}
-                </td>
-=======
-                     {% for value in item.values%}
-                        {% if "Number Recognition" == value.contest %}
-                     <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-                        {% endif %}
-                        {% endfor %}
-                 </td>
->>>>>>> dcf5c2e02e76a496ac00a7252fdc86a379e34009
-                 <td align="center">
-                    {% for value in item.values%}
-                       {% if "Place Value" == value.contest %}
-                    <span class="font-effect-outline mark b-dot {% if value.score < 40 %} red{% endif %} {% if value.score >= 70 %} green{% endif %}">{{value.score}}%</span>
-                       {% endif %}
-                       {% endfor %}
                 </td>
                  <td align="center">
                      {% for value in item.values %}
