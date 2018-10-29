@@ -6,8 +6,8 @@ if [ $# -eq 0 ]
 fi
 FILES=collections/*.json
 TEST_RESULTS_DIR=test_results_summary
-chown -R ubuntu:www-data test_results_summary
 mkdir -p $TEST_RESULTS_DIR
+chown -R ubuntu:www-data test_results_summary
 rm -rf $TEST_RESULTS_DIR/*.*
 for f in $FILES
 do
