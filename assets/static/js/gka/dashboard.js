@@ -30,7 +30,7 @@ var topSummaryData = {};
                 elId = $el.attr('id'),
                 functionMap = {
                     sms: loadSmsData,
-                    assessment: loadAssmtData,
+                    // assessment: loadAssmtData, We don't need assessment section as of 30th Oct 2018
                     gpcontest: loadGPContestData,
                     surveys: loadSurveys,
                     comparison: loadComparison,
