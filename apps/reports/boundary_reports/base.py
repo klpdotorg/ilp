@@ -195,7 +195,7 @@ class BaseReport(ABC):
             gka_summary[boundary_type] = boundary.name
             return gka_summary
         else:
-            raise ValueError("No boundary GKA data for '{}' between {} and {}.".format(boundary.name, date_range[0], date_range[1]))
+            print("No boundary GKA data for '{}' between {} and {}.".format(boundary.name, date_range[0], date_range[1]))
 
     ''' Calculates the GKA aggregates both at the parent boundary level and aggregates per
     child boundary '''
