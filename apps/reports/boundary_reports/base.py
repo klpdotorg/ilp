@@ -196,6 +196,7 @@ class BaseReport(ABC):
             return gka_summary
         else:
             print("No boundary GKA data for '{}' between {} and {}.".format(boundary.name, date_range[0], date_range[1]))
+            return None
 
     ''' Calculates the GKA aggregates both at the parent boundary level and aggregates per
     child boundary '''
@@ -212,7 +213,9 @@ class BaseReport(ABC):
         child_boundaries_gka = []
         # Calculate aggregate GKA data for each child boundary. The boundary_type_string is needed for JSON structure
         for boundary in child_boundaries:
-            child_boundaries_gka.append(self.getBoundaryGKAData(boundary, boundary_type_string, date_range))
+            child_boundary_gka = self.getBoundaryGKAData(boundary, boundary_type_string, date_range)
+            if child_boundary_gka is not None:
+                child_boundaries_gka.append(child_boundary_gka)
 
         if not child_boundaries_gka:
             print("no data")
@@ -436,16 +439,16 @@ class BaseReport(ABC):
                     .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
                     .filter(yearmonth__gte = report_from)\
                     .filter(yearmonth__lte = report_to)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                    .values('question_key', 'questiongroup_name')\
                     .annotate(correct_answers = Sum('num_assessments'))
             total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
                     .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
                     .filter(yearmonth__gte = report_from)\
                     .filter(yearmonth__lte = report_to)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                    .values('question_key', 'questiongroup_name')\
                     .annotate(total_answers = Sum('num_assessments'))
             distinct_grades=total_assessments\
-                    .values('questiongroup_id','questiongroup_name')\
+                    .values('questiongroup_name')\
                     .distinct()
         elif isinstance(boundary, ElectionBoundary):
             try:
@@ -453,7 +456,7 @@ class BaseReport(ABC):
                         .filter(survey_id=2, eboundary_id=boundary, survey_tag='gka')\
                         .filter(yearmonth__gte = report_from)\
                         .filter(yearmonth__lte = report_to)\
-                        .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                        .values('question_key',  'questiongroup_name')\
                         .annotate(correct_answers = Sum('num_assessments'))
             except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
                 pass
@@ -462,11 +465,11 @@ class BaseReport(ABC):
                         .filter(survey_id=2, eboundary_id=boundary, survey_tag='gka')\
                         .filter(yearmonth__gte = report_from)\
                         .filter(yearmonth__lte = report_to)\
-                        .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                        .values('question_key', 'questiongroup_name')\
                         .annotate(total_answers = Sum('num_assessments'))
                 if total_assessments is not None:
                     distinct_grades=total_assessments\
-                            .values('questiongroup_id','questiongroup_name')\
+                            .values('questiongroup_name')\
                             .distinct()
             except SurveyEBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
                 pass
@@ -475,9 +478,9 @@ class BaseReport(ABC):
         #We actually have assessments for this particular boundary
         if total_assessments is not None and correct_answers_agg is not None and distinct_grades is not None:    
             for each_grade in distinct_grades:
-                qgroup_id = each_grade['questiongroup_id']
-                gradewise_total_agg = total_assessments.filter(questiongroup_id = qgroup_id)
-                gradewise_correctans_agg = correct_answers_agg.filter(questiongroup_id = qgroup_id)
+                qgroup_id = each_grade['questiongroup_name']
+                gradewise_total_agg = total_assessments.filter(questiongroup_name = qgroup_id)
+                gradewise_correctans_agg = correct_answers_agg.filter(questiongroup_name = qgroup_id)
                 if total_assessments is not None:
                     scores = []
                     for each_row in gradewise_total_agg:
@@ -529,20 +532,20 @@ class BaseReport(ABC):
                 .filter(survey_id=2, boundary_id=child_boundary, survey_tag='gka')\
                 .filter(yearmonth__gte = dates[0])\
                 .filter(yearmonth__lte = dates[1])\
-                .values('question_key', 'questiongroup_id', 'questiongroup_name', 'boundary_id')\
+                .values('question_key', 'questiongroup_name', 'boundary_id')\
                 .annotate(total = Sum('num_assessments'))
             total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
                 .filter(survey_id=2, boundary_id=child_boundary, survey_tag='gka')\
                 .filter(yearmonth__gte = dates[0])\
                 .filter(yearmonth__lte = dates[1])\
-                .values('question_key', 'questiongroup_id', 'questiongroup_name', 'boundary_id')\
+                .values('question_key', 'questiongroup_name', 'boundary_id')\
                 .annotate(Sum('num_assessments'))
             for each_row in total_assessments:
                 sum_total = each_row['num_assessments__sum']
                 percent = 0
                 try:
                     sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
-                        .get(questiongroup_id=each_row['questiongroup_id'])
+                        .get(questiongroup_name=each_row['questiongroup_name'])
                     if sum_correct_ans is None or sum_correct_ans['total'] is None:
                         #import pdb; pdb.set_trace()
                         correct_ans_total =0

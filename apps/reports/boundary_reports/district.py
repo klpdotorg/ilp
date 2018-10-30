@@ -75,6 +75,7 @@ class DistrictReport(BaseReport):
         num_gp = district.institution_admin1.exclude(gp=None).values_list('gp__id',flat=True).distinct().count()
         
         block_gpc_data = self.get_childboundary_GPC_agg(district,'block',dates)
+       
         gpc_blocks = self.format_block_data(block_gpc_data)
         gka, gka_blocks = self.getGKAData(district, dates)
         household = self.getHouseholdSurvey(district, dates)
@@ -84,7 +85,6 @@ class DistrictReport(BaseReport):
        
         self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'no_schools':num_schools_in_block, 
         'gka':gka, 'gka_blocks':gka_blocks,'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gpc_district_gradewise_percent, 'num_gp':num_gp}
-        print(self.data)
         return self.data
 
   
