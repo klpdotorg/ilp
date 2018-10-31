@@ -259,16 +259,17 @@
 	</table>
       </div>
       <div class="outer-line">
-	<h2>COMMUNITY SURVEY</h2>
-	<p>[This report is based on the feedback received from the parents on functioning of the school in your boundary]</p>
-	{% for s in data.household %}
-	<div class="half-box">
-	  {{s.text}}
-	  <br><br>
-	  <span class="percent">{{s.percentage}}%</span>
-	  <div class="p-bar-grey" style="width: 80%;">
-	    <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
-	  </div>
+		<h2>COMMUNITY SURVEY</h2>
+		<p>[This report is based on the feedback received from the parents on functioning of the school in your boundary]</p>
+		{% for s in data.household %}
+		<div class="half-box">
+		  {{s.text}}
+		  <br><br>
+		  <span class="percent">{{s.percentage}}%</span>
+		  <div class="p-bar-grey" style="width: 80%;">
+		    <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
+		  </div>
+		</div>
+		{% endfor %}
 	</div>
-	{% endfor %}
 {% endblock body%}
