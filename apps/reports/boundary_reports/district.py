@@ -76,7 +76,7 @@ class DistrictReport(BaseReport):
         
         block_gpc_data = self.get_childboundary_GPC_agg(district,'block',dates)
        
-        gpc_blocks = self.format_block_data(block_gpc_data)
+        gpc_blocks = self.format_boundary_data(block_gpc_data)
         gka, gka_blocks = self.getGKAData(district, dates)
         household = self.getHouseholdSurvey(district, dates)
 
@@ -84,7 +84,10 @@ class DistrictReport(BaseReport):
         gpc_district_gradewise_percent = self.get_boundary_gpc_gradewise_agg(district, self.report_from, self.report_to)
        
         self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'no_schools':num_schools_in_block, 
-        'gka':gka, 'gka_blocks':gka_blocks,'gpc_blocks':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests, 'gpc_grades':gpc_district_gradewise_percent, 'num_gp':num_gp}
+        'gka':gka, 'gka_child_boundaries':gka_blocks,'gpc_child_boundaries':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests,\
+        'overall_gradewise_perf':gpc_district_gradewise_percent,\
+        'num_gp':num_gp,\
+        'report_type': 'district'}
         return self.data
 
   
@@ -167,13 +170,14 @@ class DistrictReportSummarized(DistrictReport):
                     'today':report_generated_on,\
                     'district':self.district_name.title(),\
                     'gka':gka,\
-                    'gka_blocks':gka_blocks,\
+                    'gka_child_boundaries':gka_blocks,\
                     'no_schools':num_schools,\
-                    'gpc_blocks':gpc_district_gradewise_percent,\
+                    'overall_gradewise_perf':gpc_district_gradewise_percent,\
                     'household':household,\
                     'num_boys':num_boys,\
                     'num_girls':num_girls,\
                     'num_students':number_of_students,\
                     'num_contests':num_contests,\
-                    'num_gp':num_gp}
+                    'num_gp':num_gp,\
+                    'report_type': 'districtsummarized'}
         return self.data

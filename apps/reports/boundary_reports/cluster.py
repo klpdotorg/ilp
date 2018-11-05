@@ -78,7 +78,7 @@ class ClusterReport(BaseReport):
             self.report_to)
 
         schools_data = self.get_schools_data(cluster, dates)
-        schools = self.format_schools_data(schools_data)
+        schools = self.format_boundary_data(schools_data)
         gka = self.getGKAData(cluster, dates)
         #GPC Gradewise data
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(cluster, self.report_from, self.report_to)
@@ -91,12 +91,13 @@ class ClusterReport(BaseReport):
                        'no_schools':num_schools, 'today':report_generated_on,\
                        'gka':gka,\
                        'household':household,\
-                       'overall_cluster_performance': gradewise_gpc,\
-                       'schools':schools,\
+                       'overall_gradewise_perf': gradewise_gpc,\
+                       'gpc_child_boundaries':schools,\
                        'num_boys':num_boys,\
                        'num_girls':num_girls,\
                        'num_students':number_of_students,\
-                       'num_contests':num_contests}
+                       'num_contests':num_contests,\
+                       'report_type': 'cluster'}
         return self.data
 
    
@@ -158,8 +159,8 @@ class ClusterReportSummarized(ClusterReport):
             'cluster',
             self.report_from, 
             self.report_to)
-        schools_data = self.get_schools_data(cluster, dates)
-        schools = self.format_schools_data(schools_data)
+        # schools_data = self.get_schools_data(cluster, dates)
+        # schools = self.format_boundary_data(schools_data)
 
         gka = self.getGKAData(cluster, dates)
 
@@ -189,11 +190,12 @@ class ClusterReportSummarized(ClusterReport):
                         'no_schools':num_schools,\
                         'today':report_generated_on,\
                         'gka':gka, 'household':household,\
-                        'schools':gradewise_gpc,\
+                        'overall_gradewise_perf':gradewise_gpc,\
                         'num_boys':num_boys,\
                         'num_girls':num_girls,\
                         'num_students':number_of_students,\
-                        'num_contests':num_contests}
+                        'num_contests':num_contests,\
+                        'report_type': 'clustersummarized'}
         return self.data
 
    

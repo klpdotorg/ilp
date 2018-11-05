@@ -102,13 +102,13 @@ class SchoolReport(BaseReport):
 
         #contest_list = [i['contest'] for i in schools]
 
-        out = self.format_schools_data(schools)
+        out = self.format_boundary_data(schools)
 
         if neighbour_required:
             neighbour_list = []
             # Get data for all schools in this GP
             neighbouring_schools_data = self.get_schools_data(school_obj.gp,dates)
-            neighbours = self.format_schools_data(neighbouring_schools_data)
+            neighbours = self.format_boundary_data(neighbouring_schools_data)
         else:
             neighbours = []
 
@@ -117,17 +117,18 @@ class SchoolReport(BaseReport):
             'cluster':cluster,\
             'block':block,\
             'district':district,\
-            'no_students':number_of_students,\
+            'num_students':number_of_students,\
             'today':report_generated_on,\
-            'boys':num_boys,\
-            'girls':num_girls,\
-            'schools':out,\
+            'num_boys':num_boys,\
+            'num_girls':num_girls,\
+            'gpc_child_boundaries':out,\
             'score_100':female_correct+male_correct,\
             'score_zero':male_zero_ans_per_gp+ female_zero_ans_per_gp,\
             'girls_zero':female_zero_ans_per_gp,\
             'boys_zero':male_zero_ans_per_gp,\
             'boys_100':male_correct,\
             'girls_100':female_correct,\
-            'neighbours':neighbours}
+            'neighbours':neighbours,\
+            'report_type': 'school'}
         return self.data
 
