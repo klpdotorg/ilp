@@ -1,0 +1,71 @@
+Class,District,Block,Date,KLP ID,Name of the school,GP ID,Grama Panchayat,GP President Name,Student Name,Sex ( Male / Female ),Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Total
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Anju Merly,Female,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,18
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Arpita Kumar,Female,1,1,1,1,1,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,17
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Bablu Kuanr,Male,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,0,1,0,14
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Gayatri Kuanr,Female,1,0,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,1,1,0,11
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Sayansu Hanuman,Male,1,1,1,1,1,1,0,0,0,1,0,1,1,0,1,0,1,1,1,0,13
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Mukesh Bag,Male,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,0,1,1,14
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Subham Putel,Male  ,1,1,1,1,1,0,0,0,1,0,0,1,1,1,1,0,0,0,1,0,11
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Roji Bagar,Female,1,0,1,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,1,1,7
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Bhabanishankar Pandey,Male,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,1,7
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Hitesh Kalta,Male,1,1,1,0,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,9
+5,Balangir,Balangir,10/10/2018,120965,NAIKENPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Anita Parua,Female,1,1,1,1,1,0,0,1,0,0,0,1,1,0,0,0,0,0,1,0,9
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Santosini Dharua,Female,1,0,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,5
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Chandramani Bhoi,Male,0,1,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,5
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Anju Dharua,Female,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+5,Balangir,Balangir,10/10/2018,120965,LUCHKIBANDH UPS,212402021,Sibatala,Balakrusna Behera,Subrat Dharua,Male,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Ashish Jani,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Rubita Putel,Female,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Bipin Bagar,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Giridhari Majhi,Male  ,1,0,1,0,0,0,0,0,1,0,0,,0,0,0,0,0,0,1,0,4
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Sekhar Seth,Male,1,1,1,1,0,1,1,0,1,1,0,1,0,1,1,1,1,1,1,0,15
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Mahesh Bhue,Male,1,1,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,9
+5,Balangir,Balangir,10/10/2018,144413,NUAPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Susama Meher,Female,1,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,6
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Sahil Rana,Male,1,1,1,0,1,0,0,1,1,0,1,0,0,0,1,0,0,0,1,0,9
+5,Balangir,Balangir,10/10/2018,120965,LUCHKIBANDH UPS,212402021,Sibatala,Balakrusna Behera,Rahul Bhoi,Male,1,1,1,1,0,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,8
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Jashobanta Dharua,Male,1,0,1,0,1,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,7
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Sashmita Bisi,Female,1,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,6
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Sandhya Chhatria,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Balangir,Balangir,10/10/2018,120965,NAIKENPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Rinki Mallick,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Sneha Padhi,Female,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Jagan Das,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Jubuli Dharua,Female,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Dingar Meher,Male,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,4
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Rakesh Kumbhar,Male,1,1,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,5
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Snehamayi Suna,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,17
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Omprakash Rana,Male,1,1,1,1,1,1,0,0,1,0,0,1,1,1,1,1,1,0,1,1,15
+5,Balangir,Balangir,10/10/2018,120965,NAIKENPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Jagesh Parua,Male,1,1,1,1,1,0,0,1,0,0,1,1,0,0,1,0,0,0,1,1,11
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Jinia Putel,Female,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,1,0,1,1,11
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Sameer Deheri,Male,1,0,0,0,1,1,0,0,0,0,0,1,0,0,1,0,0,1,0,0,6
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Subhankara Karmi,Male,1,1,1,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,7
+5,Balangir,Balangir,10/10/2018,144413,NUAPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Sujata Rana,Female,1,1,1,0,0,0,0,1,0,1,0,0,0,1,0,0,1,1,1,1,10
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,China Chhatria,Female,1,0,1,0,0,0,0,1,0,0,0,1,1,0,0,0,0,1,1,0,7
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Sasmita Pandey,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Balangir,Balangir,10/10/2018,120965,NAIKENPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Swadhin Bisi,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,4
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Kalpana Putel,Female,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Keshab Bhoi,Male,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,5
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Ghanashyam Kumbhar,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Rajesh Nag,Male,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,5
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Sapna Hati,Female,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Bijaykanta Mallick,Male,1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,4
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Dinesh Gadua,Male,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+5,Balangir,Balangir,10/10/2018,144413,NUAPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Ankit Putel,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Subrat Chhatria,Male,1,1,1,1,1,1,0,0,1,0,1,1,1,0,1,1,1,1,1,1,16
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Priyanka Tandi,Female,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,0,1,0,15
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Mausumi Putel,Female,1,1,1,1,1,1,1,0,0,1,1,0,1,1,1,0,1,0,1,1,15
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Krishna Matari,Male,1,1,1,0,1,1,0,1,1,0,0,1,0,0,1,1,1,1,1,1,14
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Monalisha Chhatria,Female,1,1,1,1,1,1,0,0,1,0,1,1,1,0,0,1,1,0,1,1,14
+5,Balangir,Balangir,10/10/2018,120965,LUCHKIBANDH UPS,212402021,Sibatala,Balakrusna Behera,Srikanta Dharua,Male,1,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,6
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Belmatee Kumbhar,Female,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,6
+5,Balangir,Balangir,10/10/2018,144413,NUAPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Akash Bagar,Male,1,0,0,1,1,0,0,0,0,0,0,1,0,1,0,0,1,0,1,0,7
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Biswanath Padhan,Male,1,0,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,1,0,0,8
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Pradip Bagarti,Male,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,5
+5,Balangir,Balangir,10/10/2018,145687,ADENDUNGURI UPS,212402021,Sibatala,Balakrusna Behera,Kumudini Bisi,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Satyanarayana Kalasay,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Lipi Dharua,Female,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,4
+5,Balangir,Balangir,10/10/2018,144413,NUAPALI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Anita Ratha,Female,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Kishori Bhua,Female,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+5,Balangir,Balangir,10/10/2018,176662,KUNDAPANI GOVT. PS,212402021,Sibatala,Balakrusna Behera,Renuka Mahar,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Akash Kuar,Male,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,4
+5,Balangir,Balangir,10/10/2018,145687,JAGANNATHPARA NPS,212402021,Sibatala,Balakrusna Behera,Sasmita Gual,Female,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,5
+5,Balangir,Balangir,10/10/2018,164454,SIBTALA GOVT. PS,212402021,Sibatala,Balakrusna Behera,Badal Pandey,Male,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,4
