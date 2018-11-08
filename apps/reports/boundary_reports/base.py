@@ -191,8 +191,9 @@ class BaseReport(ABC):
             group_work_percent_rounded = self.getGroupWorkPercent(GKA,date_range)
             gka_summary = dict(teachers_trained=teachers_trained_rounded,\
                         kit_usage=percent_kit_usage_rounded,\
-                        group_work=group_work_percent_rounded)
-            gka_summary[boundary_type] = boundary.name
+                        group_work=group_work_percent_rounded,\
+                        boundary=boundary_type)
+            gka_summary['boundary'] = boundary.name
             return gka_summary
         else:
             print("No boundary GKA data for '{}' between {} and {}.".format(boundary.name, date_range[0], date_range[1]))
@@ -384,7 +385,7 @@ class BaseReport(ABC):
             if total is not None and total > 0:
                 percent = total_correct_answers/total * 100
             #import pdb; pdb.set_trace()
-            details = dict(school=Institution.objects.get(id=each_row['institution_id']).name, grade=each_row['questiongroup_name'])
+            details = dict(boundary=Institution.objects.get(id=each_row['institution_id']).name, boundary_type='school',grade=each_row['questiongroup_name'])
             details['contest'] = each_row['question_key']
             details['percent'] = percent
             schools.append(details)
@@ -560,9 +561,35 @@ class BaseReport(ABC):
                 else:
                     percent = 0
                 #import pdb; pdb.set_trace()
-                details = dict(grade=each_row['questiongroup_name'])
-                details[child_bound_type] = (Boundary.objects.get(id=child_boundary)).name
+                details = dict(grade=each_row['questiongroup_name'],boundary_type=child_bound_type)
+                details['boundary'] = (Boundary.objects.get(id=child_boundary)).name
                 details['contest'] = each_row['question_key']
                 details['percent'] = percent
                 child_gpc_dict.append(details)
         return child_gpc_dict
+
+    def format_boundary_data(self, blocks):
+        blocks_out = []
+        out= []
+
+        for item in blocks:
+            if not item['boundary'] in blocks_out:
+                blocks_out.append(item['boundary'])
+                out.append({'boundary':item['boundary'],
+                            'boundary_type': item['boundary_type'],
+                            'grades':[{
+                                'name':item['grade'],
+                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+                })
+            else:
+                for o in out:
+                    if o['boundary']==item['boundary']:
+                        gradeExist= False
+                        for grade in o['grades']:
+                            if item['grade'] == grade['name']:
+                                gradeExist = True
+                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+                        if not gradeExist:
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+
+        return out

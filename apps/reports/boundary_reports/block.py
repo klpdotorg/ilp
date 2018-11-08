@@ -75,7 +75,7 @@ class BlockReport(BaseReport):
             self.report_from, 
             self.report_to)
         cluster_gpc_data = self.get_childboundary_GPC_agg(block, 'cluster', dates)
-        gpc_clusters = self.format_cluster_data(cluster_gpc_data)
+        gpc_clusters = self.format_boundary_data(cluster_gpc_data)
 
         gka, gka_clusters = self.getGKAData(block, dates)
         #GPC Gradewise data
@@ -87,14 +87,15 @@ class BlockReport(BaseReport):
                      'today':report_generated_on,\
                      'no_schools':num_schools,\
                      'gka':gka,\
-                     'gka_clusters':gka_clusters,\
+                     'gka_child_boundaries':gka_clusters,\
                      'overall_gradewise_perf': gradewise_gpc,\
-                     'gpc_clusters':gpc_clusters,\
+                     'gpc_child_boundaries':gpc_clusters,\
                      'household':household,\
                      'num_boys':num_boys,\
                      'num_girls':num_girls,\
                      'num_students':number_of_students,\
-                     'num_contests':num_contests
+                     'num_contests':num_contests,\
+                     'report_type': 'block'
                     }
         return self.data
 
@@ -189,5 +190,21 @@ class BlockReportSummarized(BlockReport):
 
         #GPC Gradewise data
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(block, self.report_from, self.report_to)
-        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gradewise_gpc, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {
+                        'block':self.block_name.title(),\
+                        'district':self.district_name.title(),\
+                        'academic_year':'{} - {}'.format(format_academic_year(self.report_from),\
+                            format_academic_year(self.report_to)),\
+                        'today':report_generated_on,\
+                        'no_schools':num_schools,\
+                        'gka':gka,\
+                        'gka_child_boundaries':gka_clusters,\
+                        'overall_gradewise_perf':gradewise_gpc,\
+                        'household':household,\
+                        'num_boys':num_boys,\
+                        'num_girls':num_girls,\
+                        'num_students':number_of_students,\
+                        'num_contests':num_contests,
+                        'report_type':'blocksummarized'
+                    }
         return self.data
