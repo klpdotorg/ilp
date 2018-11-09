@@ -677,20 +677,6 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
-        function updatePercentageUsingMathClassNo(data, key, score) {
-
-            if(score !== 0) {
-                data[key].total = score;
-                data[key].percent = getPercent(data[key].score, score);
-            } else {
-                data[key].score = 0;
-                data[key].percent = 0;
-            }
-
-            return data;
-
-        }
-
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -710,7 +696,7 @@ var topSummaryData = {};
             regroup = {},
             tplResponses = swig.compile($('#tpl-smsResponses').html());
 
-            console.log(data)
+        console.log(questions)
         
         for (var each in questions) {
             regroup[questions[each]["key"]] = questions[each];
@@ -726,23 +712,6 @@ var topSummaryData = {};
                 };
             }
         });
-
-        /*  On April 18th, 2018, we introduced a new logic to calculate 
-            tlm usage and group work percentages.
-            Now, instead of using the whole survey score to calculate percentage (the denominator), we only take "math class hapenning" key's Yes count.
-
-        var mathClassScore = regroup['ivrss-math-class-happening'].score;
-        regroup = updatePercentageUsingMathClassNo(
-            regroup, 'ivrss-gka-tlm-in-use', mathClassScore
-        );
-        regroup = updatePercentageUsingMathClassNo(
-            regroup, 'ivrss-group-work', mathClassScore
-        );
-
-        We have reverted back the old logic as of September 5, 2018.
-
-        */
-
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
