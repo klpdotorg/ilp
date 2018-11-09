@@ -51,6 +51,7 @@ class DistrictReport(BaseReport):
         super().__init__(**kwargs)
 
     def parse_args(self, args):
+        import pdb; pdb.set_trace()
         arguments = self.parser.parse_args(args)
         self.district_name = arguments.district_name
         self.report_from = arguments.report_from
@@ -59,7 +60,10 @@ class DistrictReport(BaseReport):
 
    
     def get_data(self):
-        # import pdb; pdb.set_trace()
+        print("Generate GKA: %s", self.generate_gka)
+        print("Generate GP: %s", self.generate_gp)
+        print("Generate HH: %s", self.generate_hh)
+
         dates = [self.report_from, self.report_to] # [2016-06, 2017-03]
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
@@ -74,50 +78,34 @@ class DistrictReport(BaseReport):
             self.report_to)
         num_gp = district.institution_admin1.exclude(gp=None).values_list('gp__id',flat=True).distinct().count()
         
-        block_gpc_data = self.get_childboundary_GPC_agg(district,'block',dates)
-       
-        gpc_blocks = self.format_boundary_data(block_gpc_data)
-        gka, gka_blocks = self.getGKAData(district, dates)
-        household = self.getHouseholdSurvey(district, dates)
+        gpc_blocks = []
+        gpc_district_gradewise_percent = {}
+        if self.generate_gp == "True":
+            block_gpc_data = self.get_childboundary_GPC_agg(district,'block',dates)
+            gpc_blocks = self.format_boundary_data(block_gpc_data)
+            #GPC Gradewise data
+            gpc_district_gradewise_percent = self.get_boundary_gpc_gradewise_agg(district, self.report_from, self.report_to)
+        
+        gka = {}
+        gka_blocks = []
+        if self.generate_gka == "True":
+            print("Generating gka data")
+            gka, gka_blocks = self.getGKAData(district, dates)
 
-        #GPC Gradewise data
-        gpc_district_gradewise_percent = self.get_boundary_gpc_gradewise_agg(district, self.report_from, self.report_to)
+        household = []
+        if self.generate_hh == "True":
+            household = self.getHouseholdSurvey(district, dates)
        
-        self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'no_schools':num_schools_in_block, 
+        self.output = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'no_schools':num_schools_in_block, 
         'gka':gka, 'gka_child_boundaries':gka_blocks,'gpc_child_boundaries':gpc_blocks, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests,\
         'overall_gradewise_perf':gpc_district_gradewise_percent,\
         'num_gp':num_gp,\
-        'report_type': 'district'}
+        'report_type': 'district',
+        }
+        self.data = {**self.output, **self.common_data}
         return self.data
 
   
-
-    def format_block_data(self, blocks):
-        blocks_out = []
-        out= []
-
-        for item in blocks:
-            if not item['block'] in blocks_out:
-                blocks_out.append(item['block'])
-                out.append({'block':item['block'],
-                            'grades':[{
-                                'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
-                })
-            else:
-                for o in out:
-                    if o['block']==item['block']:
-                        gradeExist= False
-                        for grade in o['grades']:
-                            if item['grade'] == grade['name']:
-                                gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
-                        if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
-
-        return out
-
-
 ''' Exactly like DistrictReport except instead of returning gpc_blocks we are just
 returning gpc_gradewise_percent. '''
 class DistrictReportSummarized(DistrictReport):

@@ -80,12 +80,19 @@ class GPMathContestReport(BaseReport):
                    male_zero_ans_per_gp, female_zero_ans_per_gp=\
                    self.get_basic_GP_data(gp_obj)
 
-        schools_out = self.get_schools_data(gp_obj,dates)
-        formatted_schools_out = self.format_boundary_data(schools_out)
-        gradewise_gpc = self.get_boundary_gpc_gradewise_agg(gp_obj, self.report_from, self.report_to)
-        survey = self.getHouseholdSurvey(gp_obj, dates)
+        formatted_schools_out = []
+        gradewise_gpc=[]
+        if self.generate_gp == "True":
+            schools_out = self.get_schools_data(gp_obj,dates)
+            formatted_schools_out = self.format_boundary_data(schools_out)
+            gradewise_gpc = self.get_boundary_gpc_gradewise_agg(gp_obj, self.report_from, self.report_to)
+        
+        survey = {}
+        if self.generate_hh == "True":
+            survey = self.getHouseholdSurvey(gp_obj, dates)
+
         num_contests = 1 # Logic is that only one GP contest will be held per GP per academic year.
-        self.data =  {
+        self.output =  {
             'gp_name': gp.title(),\
             'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
             'block':block,\
@@ -106,7 +113,7 @@ class GPMathContestReport(BaseReport):
             'girls_100':female_correct,\
             'household':survey,
             'report_type': 'gp'}
-        import pdb; pdb.set_trace()
+        self.data = {**self.output, **self.common_data}
         return self.data
 
     def get_basic_GP_data(self, gp_obj):

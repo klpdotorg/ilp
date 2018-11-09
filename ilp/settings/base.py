@@ -199,6 +199,10 @@ DISE_API_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
 
 DISE_APP_URL = 'https://dise.dev.ilp.org.in/'
 
+# Project 1 million related config settings
+REPORTS_SERVER_BASE_URL = 'https://dev.ilp.org.in'
+
+
 BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
 
 EMAIL_DEFAULT_FROM = 'India Learning Partnership <dev@ilp.org.in>'
