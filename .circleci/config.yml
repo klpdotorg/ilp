@@ -44,7 +44,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install pip & Intall awscli
+          name: Install pip & Install awscli
           command: 'sudo apt-get update && sudo apt-get install python-pip && sudo pip install awscli'
       - run:
           name: Deploy using CodeDeploy

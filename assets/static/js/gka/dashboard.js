@@ -677,17 +677,20 @@ var topSummaryData = {};
 
     function renderSMSDetails(detailsData) {
 
-        function updatePercentageUsingMathClassNo(data, key, score) {
+        // This function uses math class numbers to calculate
+        // percentages for other questions
+        function reCalculateGroupWorkRelatedKeys(main, key) {
+            var mathClassCount = main['ivrss-math-class-happening'];
 
-            if(score !== 0) {
-                data[key].total = score;
-                data[key].percent = getPercent(data[key].score, score);
-            } else {
-                data[key].score = 0;
-                data[key].percent = 0;
-            }
+            if(!mathClassCount || !mathClassCount['score']) { return main; }
 
-            return data;
+            main[key]['total'] = mathClassCount['score'];
+            main[key]['percent'] = getPercent(
+                main[key]['score'],
+                mathClassCount['score']
+            );
+
+            return main;
 
         }
 
@@ -709,8 +712,6 @@ var topSummaryData = {};
             questions = getQuestionsArray(questionObjects),
             regroup = {},
             tplResponses = swig.compile($('#tpl-smsResponses').html());
-
-            console.log(data)
         
         for (var each in questions) {
             regroup[questions[each]["key"]] = questions[each];
@@ -727,22 +728,18 @@ var topSummaryData = {};
             }
         });
 
-        /*  On April 18th, 2018, we introduced a new logic to calculate 
-            tlm usage and group work percentages.
-            Now, instead of using the whole survey score to calculate percentage (the denominator), we only take "math class hapenning" key's Yes count.
+        console.log(regroup)
 
-        var mathClassScore = regroup['ivrss-math-class-happening'].score;
-        regroup = updatePercentageUsingMathClassNo(
-            regroup, 'ivrss-gka-tlm-in-use', mathClassScore
+        // For GKA Methodology section, use Ongoing Class visit count
+        // as the denominator to calculate the percentages
+        regroup = reCalculateGroupWorkRelatedKeys(
+            regroup, "ivrss-gka-tlm-in-use"
         );
-        regroup = updatePercentageUsingMathClassNo(
-            regroup, 'ivrss-group-work', mathClassScore
+        regroup = reCalculateGroupWorkRelatedKeys(
+            regroup, "ivrss-group-work"
         );
 
-        We have reverted back the old logic as of September 5, 2018.
-
-        */
-
+        console.log(regroup);
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
