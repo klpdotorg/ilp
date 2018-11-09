@@ -24,6 +24,7 @@
     {%comment%}<!-- End of report summary top section-->{%endcomment%}
     {%comment%}<!-- Start of GKA implementation section box-->{%endcomment%}
     {%comment%}<!-- This section is not applicable to GP and school reports -->{%endcomment%}
+    {%if data.render_gka == 'True' %}
     {% with 'gp gpsummarized school schoolsummarized' as list %}
     {%if data.report_type not in list%}
     <div class="outer-line">
@@ -31,7 +32,7 @@
       <p>[This report is based on the survey feedbacks received from HMs/CRP/Akshara staff and other department
         officials on implementation of GKA Program]
       </p>
-      <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;">
+      <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;display: flex; align-items: center;">
         <div class="three-box text-left">
           Teacher's Trained :
         </div>
@@ -60,6 +61,7 @@
           </div>
         </div>
       </div>{%comment%}<!-- End of GKA summary-->{%endcomment%}
+
       <!-- Show this section only for district/block reports -->
       {%with 'district block districtsummarized blocksummarized' as to_show_list%}
       {%if data.report_type in to_show_list %}
@@ -87,8 +89,10 @@
     </div>
     {%endif%}
     {%endwith%}
+    {%endif%}<!-- End of check to see whether GKA section is to be rendered-->
     {%comment%}<!-- End of GKA section box-->{%endcomment%}
     {%comment%} <!-- Start of GP contest section--> {%endcomment%}
+    {%if data.render_gp == 'True' %}
     <div class="outer-line">
       <h2>GP Contest</h2>
       <span style="line-height:22px;">
@@ -285,6 +289,8 @@
       {%comment%}<!-- End if block checking for report types -->{%endcomment%}
     </div>
     {%comment%}<!-- End of GP contest section -->{%endcomment%}
+    {%endif%} <!-- End of data.render_gp check-->
+    {%if data.render_hh == 'True' %}
     <!-- Start of community survey section. Don't show for schools. Show for everything else -->
     {%if data.report_type != "school"%}
       <div class="outer-line">
@@ -304,6 +310,7 @@
       </div>
       {%comment%}<!-- End of community survey section-->{%endcomment%}
     {%endif%}
+    {%endif%}<!-- End of data.render_hh check -->
     {%block footer %}
     <div class="outer-line" style="line-height: 26px;">
       <b>FOCUS AREAS</b> :
