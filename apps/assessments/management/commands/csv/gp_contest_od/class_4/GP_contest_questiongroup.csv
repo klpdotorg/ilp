@@ -1,2 +1,2 @@
 id,name,group_text,start_date,end_date,version,double_entry,academic_year,institutuion type,source,status,survey_id,type,description,image required,kannada name,comments required,respondenttype_required,max_score
-,Class 4 Assessment-Odisha,child_name,01-06-2018,,1,False,1819,primary,1,AC,2,assessment,,False,,False,False,20
+,Class 4 Assessment-Odisha,child_name,01-06-2018,,1,False,1819,primary,1,AC,,assessment,,False,,False,False,20
