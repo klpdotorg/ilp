@@ -4,6 +4,7 @@ import random
 import pdfkit
 import os.path
 import datetime
+from django.conf import settings
 
 from abc import ABC, abstractmethod
 
@@ -41,8 +42,15 @@ def format_academic_year(yearmonth_format):
     return date.strftime("%m/%Y")
 
 class BaseReport(ABC):
-    def __init__(self, data=None):
-        self.data = data
+    def __init__(self,**args):
+        self.generate_gka = args.pop('generate_gka')
+        self.generate_gp = args.pop('generate_gp')
+        self.generate_hh = args.pop('generate_hhsurvey')
+        self.common_data= { 
+            'render_gka':str(self.generate_gka),
+            'render_gp': str(self.generate_gp),
+            'render_hh': str(self.generate_hh)
+        }
 
     @abstractmethod
     def get_data(self):
@@ -85,7 +93,7 @@ class BaseReport(ABC):
     def get_sms(self, tracker, name):
         url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
         request = None
-        full_url = ''.join(['http://', get_current_site(request).domain, url])
+        full_url = ''.join([settings.REPORTS_SERVER_BASE_URL, url])
         return self.sms_template.format(full_url)
 
     def save(self):

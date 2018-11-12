@@ -24,6 +24,7 @@
     {%comment%}<!-- End of report summary top section-->{%endcomment%}
     {%comment%}<!-- Start of GKA implementation section box-->{%endcomment%}
     {%comment%}<!-- This section is not applicable to GP and school reports -->{%endcomment%}
+    {%if data.render_gka == 'True' %}
     {% with 'gp gpsummarized school schoolsummarized' as list %}
     {%if data.report_type not in list%}
     <div class="outer-line">
@@ -32,7 +33,7 @@
           ಅಧಿಕಾರಿಗಳಿಂದ ಪಡೆದ ಸಮೀಕ್ಷೆಯ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ ಮೇಲೆ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಅನುಷ್ಠಾನದ ಬಗ್ಗೆ
           ತಯಾರಿಸಲಾಗಿದೆ]
       </p>
-      <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;">
+      <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;display: flex; align-items: center;">
         <div class="three-box text-left">
             ಗಣಿತ ಶಿಕ್ಷಕರು ಜಿ ಕೆ ಏ ತರಬೇತಿ ಪಡೆದಿದ್ದಾರೆಯೇ? :
           </div>
@@ -88,11 +89,14 @@
     </div>
     {%endif%}
     {%endwith%}
+    {%endif%}<!-- End of check to see whether GKA section is to be rendered-->
     {%comment%}<!-- End of GKA section box-->{%endcomment%}
     {%comment%} <!-- Start of GP contest section--> {%endcomment%}
+    {%if data.render_gp == 'True' %}
     <div class="outer-line">
       <h2>ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ</h2>
       <span style="line-height:22px;">
+        
         {%with 'gp gpsummarized school' as reports_list%}
         <!-- For all reports except school show number of contests-->
         {%if data.report_type not in reports_list %}
@@ -276,8 +280,10 @@
       {%endwith%}
       {%comment%}<!-- End if block checking for report types -->{%endcomment%}
     </div>
+    {%endif%} <!-- End of data.render_gp check-->
     {%comment%}<!-- End of GP contest section -->{%endcomment%}
     <!-- Start of community survey section. Don't show for schools. Show for everything else -->
+    {%if data.render_hh == 'True' %}
     {%if data.report_type != "school"%}
     <div class="outer-line">
         <h2>ಸಮುದಾಯದ ಸರ್ವೆ</h2>
@@ -334,6 +340,7 @@
             </div>
       {%comment%}<!-- End of community survey section-->{%endcomment%}
     {%endif%}
+    {%endif%}<!-- End of data.render_hh check-->
     {%block footer %}
       <div class="outer-line" style="line-height: 26px;">
           <b>ಗಮನಿಸ ಬೇಕಾದ ವಿಷಯಗಳು :</b>
