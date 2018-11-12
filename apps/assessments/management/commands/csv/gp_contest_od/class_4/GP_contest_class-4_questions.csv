@@ -1,8 +1,8 @@
 id,question_text,display_text,key,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
 130,Class visited,,ivrss-class-visited,"{1, 2, 3, 4, 5, 6, 7, 8}",False,3,AC,,,,
 291,Gender,,Gender,"{Male,Female}",False,4,AC,,,,
-,Numbers,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,
-,Numbers,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,
+,Numbers 1,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,
+,Numbers 2,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,
 ,Place Value,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,
 ,Addition 1,,Number Operations,"{Yes,No}",True,2,AC,,Yes,,
 ,Subtraction 1,,Number Operations,"{Yes,No}",True,2,AC,,Yes,,
