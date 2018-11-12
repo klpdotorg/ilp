@@ -192,7 +192,7 @@ class ClusterReportSummarized(ClusterReport):
         #         values[j] = round(k/len(schools), 2)
         #     gradewise_gpc.append({'grade':grade, 'values':[{'contest':contest, 'score':score} for contest,score in values.items()]})
 
-        self.data = {\
+        self.output = {\
                         'cluster':self.cluster_name.title(),\
                         'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
                         'block':self.block_name.title(),\
@@ -206,6 +206,7 @@ class ClusterReportSummarized(ClusterReport):
                         'num_students':number_of_students,\
                         'num_contests':num_contests,\
                         'report_type': 'clustersummarized'}
+        self.data = {**self.output, **self.common_data}
         return self.data
 
    

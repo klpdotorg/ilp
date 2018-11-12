@@ -154,7 +154,7 @@ class DistrictReportSummarized(DistrictReport):
         #GPC Gradewise data
         gpc_district_gradewise_percent = self.get_boundary_gpc_gradewise_agg(district, self.report_from, self.report_to)
 
-        self.data = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from),format_academic_year(self.report_to)),\
+        self.output = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from),format_academic_year(self.report_to)),\
                     'today':report_generated_on,\
                     'district':self.district_name.title(),\
                     'gka':gka,\
@@ -168,4 +168,5 @@ class DistrictReportSummarized(DistrictReport):
                     'num_contests':num_contests,\
                     'num_gp':num_gp,\
                     'report_type': 'districtsummarized'}
+        self.data = {**self.output, **self.common_data}
         return self.data
