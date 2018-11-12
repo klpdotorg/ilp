@@ -1,185 +1,25 @@
 {% extends "./base_kannada.html" %}
-{% block body %}
-    <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}?lang=english" >English</a>
-    <h1><u>ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : {{data.gp_name}} ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ವರದಿ</u>
-      {% include "./akshara-img.html" %}
-    </h1>
-    <div class="wrapper">
-      <div class="outer-box">
-	<div class="container">
-	  <strong> ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಹೆಸರು : </strong><span class="cap">{{data.gp_name}}</span>
-	  <span class="cap" style="float:right">
-	    <strong>ಶೈಕ್ಷಣಿಕ ವರ್ಷ : </strong>{{data.academic_year}}
-	  </span>
-	  <br>
-	  <strong> ಬ್ಲಾಕ್ ಹೆಸರು : </strong><span class="cap">{{data.block}}</span>
-	  <span style="float:right" class="cap">
-	    <strong>ವರದಿ ತಯಾರಿಸಿದ ದಿನಾಂಕ : </strong>{{data.today}}
-	  </span>
-	  <br>
-	  <strong> ಜಿಲ್ಲೆಯ ಹೆಸರು: : </strong><span class="cap">{{data.district}}</span>
-	  <br>
-	  <strong> ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ವ್ಯಾಪ್ತಿಯಲ್ಲಿರುವ ಶಾಲೆಗಳ ಸಂಖ್ಯೆ : </strong><span class="cap">{{data.no_schools_gp}}</span>
-	  <br>
-	</div>
-      </div>
-      <div class="outer-line">
-	<h2>ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ</h2>
-	<span style="line-height:22px;">
-	<b>ಸ್ಪರ್ಧಿಗಳು :</b> {{ data.no_students}} {
-	    {% include "./boy-shadow.html" %} : {{ data.boys }}
-	    {% include "./girl-shadow.html" %} : {{ data.girls }}
-	    } &nbsp; &nbsp; &nbsp;
-	    <!-- ಸೊನ್ನೆ ಅಂಕ ಪಡೆದ ಮಕ್ಕಳು : {{ data.score_zero}} {
-	    {% include "./boy-shadow.html" %} : {{ data.boys_zero }}
-	    {% include "./girl-shadow.html" %} : {{ data.girls_zero }}
-	    } &nbsp;  -->
-	  <span style="float:right;">
-		<b>ಪೂರ್ಣ ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳು :</b> {{ data.score_100}} {
-	    {% include "./boy-shadow.html" %} : {{ data.boys_100 }}
-	    {% include "./girl-shadow.html" %} : {{ data.girls_100 }}
-	    }
-	  </span>
-	</span>
-	<p> [ಈ ವರದಿಯು ಈ ಶೈಕ್ಷಣಿಕ ವರ್ಷದಲ್ಲಿ ಗ್ರಾಮ ಪಂಚಾಯತ್ ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಪಾಲ್ಗೊಂಡಿದ್ದ ಮಕ್ಕಳ ಕಲಿಕೆಯ ಮಟ್ಟಗಳ
-	  ವಿವರಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ.]
-	</p>
-	<h2>ಶಾಲಾವಾರು ಸಾಧನೆ ಪಟ್ಟಿ</h2>
-	<table id="customers" style="margin:auto;">
-	  <tr>
-	    <th>ಶಾಲೆಯ ಹೆಸರು</th>
-	    <th>ತರಗತಿ</th>
-			<th>ಸಂಖ್ಯಾ ಪರಿಚಯ<br>(123)</th>
-			<th>ಸ್ಥಾನ ಬೆಲೆ<br>(1,10,100)</th>
-	    <th>
-	      ಸಂಕಲನ<br>(+)
-	    </th>
-	    <th>
-	      ವ್ಯವಕಲನ<br>(-)
-	    </th>
-	    <th>
-	      ಗುಣಾಕಾ ರ<br>(&times;)
-	    </th>
-	    <th>
-	      ಭಾಗಾಕಾ ರ<br>(&divide;)
-	    </th>
-	    <!-- <th>
-            ಇತರೆ ಪರಿಕಲ್ಪನೆಗಳು
-          </th> -->
-	  </tr>
-	  {% for item in data.schools %}
-	  {% for g in item.grades %}
-	  <tr>
-	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
-	    <td>{{g.name}}</td>
-	    <td align="center">
-					{% for value in g.values%}
-						{% if "Number Recognition" == value.contest %}
-							<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-						{% endif %}
-					{% endfor %}
-				</td>
-			<td align="center">
-					{%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
-									<span class="font-effect-outline mark b-dot grey">NA</span>
-					{% endif %}
-					{% for value in g.values%}
-						{% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
-									<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-						{%endif%}
-					{% endfor %}
-			</td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Addition" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Subtraction" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Multiplication" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Division" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <!-- <td align="center">
-            {% for value in g.values%}
-              {% if "Other Areas" == value.contest %}
-            <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-          </td> -->
-	  </tr>
-	  {% endfor %}
-	  {% endfor %}
-	</table>
-      </div>
-      <div class="outer-line">
-	<h2>ಸಮುದಾಯದ ಸರ್ವೆ</h2>
-	<p>[ಈ ವರದಿಯು ಆಯಾ ಗ್ರಾಮದ ಶಾಲೆಗಳ ಕಾರ್ಯಚಟುವಟಿಗಳ ಬಗೆಗೆ ಪೋಷಕರಿಂದ ಪಡೆದ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ
-ಮೇಲೆ ತಯಾರಿಸಲಾಗಿದೆ]</p>
-	{% for s in data.survey %}
-        {% if s.text == 'Is there a teacher shortage in the school?'%}
-        <div class="half-box">
-	  ಶಾಲೆಯಲ್ಲಿ ಶಿಕ್ಷಕರ ಕೊರತೆ ಇದೆಯೇ?
-          <br><br>
-          <span class="percent">{{s.percentage}}%</span>
-          <div class="p-bar-grey" style="width: 80%;">
-            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
-          </div>
-        </div>
-        {% endif%}
-        {% endfor %}
-	{% for s in data.survey %}
-        {% if s.text == 'Does the school have a separate functional toilet for girls?'%}
-        <div class="half-box">
-	  ಶಾಲೆಯಲ್ಲಿ ಗಂಡು ಮತ್ತು ಹೆಣ್ಣು ಮಕ್ಕಳಿಗೆ ಪ್ರತ್ಯೇಕ ಶೌಚಾಲಯದ ವ್ಯವಸ್ತೆ ಇದೆಯೆ?
-          <br><br>
-          <span class="percent">{{s.percentage}}%</span>
-          <div class="p-bar-grey" style="width: 80%;">
-            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
-          </div>
-        </div>
-        {% endif%}
-        {% endfor %}
-	{% for s in data.survey %}
-        {% if s.text == 'Does the SDMC meet every month?' %}
-        <div class="half-box">
-	 ಶಾಲಾ ಅಭಿವೃದ್ಧಿ  ಮತ್ತು ಮೆಲುಸ್ತುವಾರಿ ಸಭೆ ಪ್ರತಿ ತಿಂಗಳು ನಡೆಯುತ್ತಿದೆಯೇ ?
-          <br><br>
-          <span class="percent">{{s.percentage}}%</span>
-          <div class="p-bar-grey" style="width: 80%;">
-            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
-          </div>
-        </div>
-        {% endif%}
-        {% endfor %}
-	{% for s in data.survey %}
-        {% if s.text == "Are you satisfied with the Mid Day Meal served in your child's school?" %}
-        <div class="half-box">
-	  ನಿಮ್ಮ ಮಗುವಿಗೆ ಶಾಲೆಯಲ್ಲಿ ನೀಡುವ ಬಿಸಿಯೂಟದ ಬಗ್ಗೆ ನಿಮಗೆ ತೃಪ್ತಿ  ಇದೆಯೆ ?
-          <br><br>
-          <span class="percent">{{s.percentage}}%</span>
-          <div class="p-bar-grey" style="width: 80%;">
-            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
-          </div>
-        </div>
-        {% endif%}
-        {% endfor %}
-      </div>
-{% endblock %}
+
+{%block report_title%}ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : {{data.gp_name}} ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ವರದಿ{%endblock report_title%}
+<!-- Report summary -->
+{%block report_summary_section%}
+<strong> ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಹೆಸರು : </strong><span class="cap">{{data.gp_name}}</span>
+<span class="cap" style="float:right">
+	<strong>ಶೈಕ್ಷಣಿಕ ವರ್ಷ : </strong>{{data.academic_year}}
+</span>
+<br>
+<strong> ಬ್ಲಾಕ್ ಹೆಸರು : </strong><span class="cap">{{data.block}}</span>
+<span style="float:right" class="cap">
+	<strong>ವರದಿ ತಯಾರಿಸಿದ ದಿನಾಂಕ : </strong>{{data.today}}
+</span>
+<br>
+<strong> ಜಿಲ್ಲೆಯ ಹೆಸರು: : </strong><span class="cap">{{data.district}}</span>
+<br>
+<strong> ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ವ್ಯಾಪ್ತಿಯಲ್ಲಿರುವ ಶಾಲೆಗಳ ಸಂಖ್ಯೆ : </strong><span class="cap">{{data.no_schools_gp}}</span>
+<br>
+{%endblock report_summary_section%}
+<!-- End of report summary -->
+<!-- NO GKA by child boundary section for GPs. SKIP-->
+<!-- GP contest section fill-ins-->
+{%block gpc_performance_title%}ಶಾಲಾವಾರು ಸಾಧನೆ ಪಟ್ಟಿ{%endblock gpc_performance_title%}
+{%block child_boundary_col_header_name%}ಶಾಲೆಯ ಹೆಸರು{%endblock child_boundary_col_header_name%}

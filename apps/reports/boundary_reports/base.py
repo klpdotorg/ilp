@@ -4,6 +4,7 @@ import random
 import pdfkit
 import os.path
 import datetime
+from django.conf import settings
 
 from abc import ABC, abstractmethod
 
@@ -41,8 +42,15 @@ def format_academic_year(yearmonth_format):
     return date.strftime("%m/%Y")
 
 class BaseReport(ABC):
-    def __init__(self, data=None):
-        self.data = data
+    def __init__(self,**args):
+        self.generate_gka = args.pop('generate_gka')
+        self.generate_gp = args.pop('generate_gp')
+        self.generate_hh = args.pop('generate_hhsurvey')
+        self.common_data= { 
+            'render_gka': self.generate_gka,
+            'render_gp': self.generate_gp,
+            'render_hh': self.generate_hh
+        }
 
     @abstractmethod
     def get_data(self):
@@ -85,7 +93,7 @@ class BaseReport(ABC):
     def get_sms(self, tracker, name):
         url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
         request = None
-        full_url = ''.join(['http://', get_current_site(request).domain, url])
+        full_url = ''.join([settings.REPORTS_SERVER_BASE_URL, url])
         return self.sms_template.format(full_url)
 
     def save(self):
@@ -191,11 +199,13 @@ class BaseReport(ABC):
             group_work_percent_rounded = self.getGroupWorkPercent(GKA,date_range)
             gka_summary = dict(teachers_trained=teachers_trained_rounded,\
                         kit_usage=percent_kit_usage_rounded,\
-                        group_work=group_work_percent_rounded)
-            gka_summary[boundary_type] = boundary.name
+                        group_work=group_work_percent_rounded,\
+                        boundary=boundary_type)
+            gka_summary['boundary'] = boundary.name
             return gka_summary
         else:
             print("No boundary GKA data for '{}' between {} and {}.".format(boundary.name, date_range[0], date_range[1]))
+            return None
 
     ''' Calculates the GKA aggregates both at the parent boundary level and aggregates per
     child boundary '''
@@ -212,7 +222,9 @@ class BaseReport(ABC):
         child_boundaries_gka = []
         # Calculate aggregate GKA data for each child boundary. The boundary_type_string is needed for JSON structure
         for boundary in child_boundaries:
-            child_boundaries_gka.append(self.getBoundaryGKAData(boundary, boundary_type_string, date_range))
+            child_boundary_gka = self.getBoundaryGKAData(boundary, boundary_type_string, date_range)
+            if child_boundary_gka is not None:
+                child_boundaries_gka.append(child_boundary_gka)
 
         if not child_boundaries_gka:
             print("no data")
@@ -381,7 +393,7 @@ class BaseReport(ABC):
             if total is not None and total > 0:
                 percent = total_correct_answers/total * 100
             #import pdb; pdb.set_trace()
-            details = dict(school=Institution.objects.get(id=each_row['institution_id']).name, grade=each_row['questiongroup_name'])
+            details = dict(boundary=Institution.objects.get(id=each_row['institution_id']).name, boundary_type='school',grade=each_row['questiongroup_name'])
             details['contest'] = each_row['question_key']
             details['percent'] = percent
             schools.append(details)
@@ -436,16 +448,16 @@ class BaseReport(ABC):
                     .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
                     .filter(yearmonth__gte = report_from)\
                     .filter(yearmonth__lte = report_to)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                    .values('question_key', 'questiongroup_name')\
                     .annotate(correct_answers = Sum('num_assessments'))
             total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
                     .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
                     .filter(yearmonth__gte = report_from)\
                     .filter(yearmonth__lte = report_to)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                    .values('question_key', 'questiongroup_name')\
                     .annotate(total_answers = Sum('num_assessments'))
             distinct_grades=total_assessments\
-                    .values('questiongroup_id','questiongroup_name')\
+                    .values('questiongroup_name')\
                     .distinct()
         elif isinstance(boundary, ElectionBoundary):
             try:
@@ -453,7 +465,7 @@ class BaseReport(ABC):
                         .filter(survey_id=2, eboundary_id=boundary, survey_tag='gka')\
                         .filter(yearmonth__gte = report_from)\
                         .filter(yearmonth__lte = report_to)\
-                        .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                        .values('question_key',  'questiongroup_name')\
                         .annotate(correct_answers = Sum('num_assessments'))
             except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
                 pass
@@ -462,11 +474,11 @@ class BaseReport(ABC):
                         .filter(survey_id=2, eboundary_id=boundary, survey_tag='gka')\
                         .filter(yearmonth__gte = report_from)\
                         .filter(yearmonth__lte = report_to)\
-                        .values('question_key', 'questiongroup_id', 'questiongroup_name')\
+                        .values('question_key', 'questiongroup_name')\
                         .annotate(total_answers = Sum('num_assessments'))
                 if total_assessments is not None:
                     distinct_grades=total_assessments\
-                            .values('questiongroup_id','questiongroup_name')\
+                            .values('questiongroup_name')\
                             .distinct()
             except SurveyEBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
                 pass
@@ -475,9 +487,9 @@ class BaseReport(ABC):
         #We actually have assessments for this particular boundary
         if total_assessments is not None and correct_answers_agg is not None and distinct_grades is not None:    
             for each_grade in distinct_grades:
-                qgroup_id = each_grade['questiongroup_id']
-                gradewise_total_agg = total_assessments.filter(questiongroup_id = qgroup_id)
-                gradewise_correctans_agg = correct_answers_agg.filter(questiongroup_id = qgroup_id)
+                qgroup_id = each_grade['questiongroup_name']
+                gradewise_total_agg = total_assessments.filter(questiongroup_name = qgroup_id)
+                gradewise_correctans_agg = correct_answers_agg.filter(questiongroup_name = qgroup_id)
                 if total_assessments is not None:
                     scores = []
                     for each_row in gradewise_total_agg:
@@ -529,20 +541,20 @@ class BaseReport(ABC):
                 .filter(survey_id=2, boundary_id=child_boundary, survey_tag='gka')\
                 .filter(yearmonth__gte = dates[0])\
                 .filter(yearmonth__lte = dates[1])\
-                .values('question_key', 'questiongroup_id', 'questiongroup_name', 'boundary_id')\
+                .values('question_key', 'questiongroup_name', 'boundary_id')\
                 .annotate(total = Sum('num_assessments'))
             total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
                 .filter(survey_id=2, boundary_id=child_boundary, survey_tag='gka')\
                 .filter(yearmonth__gte = dates[0])\
                 .filter(yearmonth__lte = dates[1])\
-                .values('question_key', 'questiongroup_id', 'questiongroup_name', 'boundary_id')\
+                .values('question_key', 'questiongroup_name', 'boundary_id')\
                 .annotate(Sum('num_assessments'))
             for each_row in total_assessments:
                 sum_total = each_row['num_assessments__sum']
                 percent = 0
                 try:
                     sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
-                        .get(questiongroup_id=each_row['questiongroup_id'])
+                        .get(questiongroup_name=each_row['questiongroup_name'])
                     if sum_correct_ans is None or sum_correct_ans['total'] is None:
                         #import pdb; pdb.set_trace()
                         correct_ans_total =0
@@ -557,9 +569,35 @@ class BaseReport(ABC):
                 else:
                     percent = 0
                 #import pdb; pdb.set_trace()
-                details = dict(grade=each_row['questiongroup_name'])
-                details[child_bound_type] = (Boundary.objects.get(id=child_boundary)).name
+                details = dict(grade=each_row['questiongroup_name'],boundary_type=child_bound_type)
+                details['boundary'] = (Boundary.objects.get(id=child_boundary)).name
                 details['contest'] = each_row['question_key']
                 details['percent'] = percent
                 child_gpc_dict.append(details)
         return child_gpc_dict
+
+    def format_boundary_data(self, blocks):
+        blocks_out = []
+        out= []
+
+        for item in blocks:
+            if not item['boundary'] in blocks_out:
+                blocks_out.append(item['boundary'])
+                out.append({'boundary':item['boundary'],
+                            'boundary_type': item['boundary_type'],
+                            'grades':[{
+                                'name':item['grade'],
+                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+                })
+            else:
+                for o in out:
+                    if o['boundary']==item['boundary']:
+                        gradeExist= False
+                        for grade in o['grades']:
+                            if item['grade'] == grade['name']:
+                                gradeExist = True
+                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+                        if not gradeExist:
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+
+        return out

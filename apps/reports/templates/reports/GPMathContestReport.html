@@ -1,11 +1,8 @@
 {% extends "./base.html" %}
-{% block body %}
-    <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}" >ಕನ್ನಡ</a>
-    <h1><u>GKA : {{data.gp_name}} gram panchayat Report</u>
-    </h1>
-    <div class="wrapper">
-      <div class="outer-box">
-	<div class="container">
+
+{%block report_title%}GKA : {{data.gp_name}} gram panchayat Report{%endblock report_title%}
+<!-- Report summary -->
+{%block report_summary_section%}
 	  <strong> Gram Panchayat Name : </strong><span class="cap">{{data.gp_name}}</span>
 	  <span class="cap" style="float:right">
 	    <strong>Academic Year : </strong>{{data.academic_year}}
@@ -19,138 +16,10 @@
 	  <strong> District Name : </strong><span class="cap">{{data.district}}</span>
 	  <br>
 	  <strong> No.of Schools in GP : </strong><span class="cap">{{data.no_schools_gp}}</span>
-	  <br>
-	</div>
-      </div>
-      <div class="outer-line">
-  <h2>GP Contest</h2>
-	<span style="line-height:22px;">
-	<b>Total No of Contests :</b> {{data.num_contests}}&nbsp;
-	  <!-- <span style="float:right;">
-	    Participation : {{data.num_students}} {
-	   		{% include "./boy-shadow.html" %} : {{data.num_boys}}
- 				{% include "./girl-shadow.html" %} : {{data.num_girls}}
-	    }
-	  </span> -->
-	</span>
-	<span style="line-height:22px;">
-	<b>Participation :</b> {{ data.no_students}} {
-	    {% include "./boy-shadow.html" %} : {{ data.boys }}
-	    {% include "./girl-shadow.html" %} : {{ data.girls }}
-	  } &nbsp; &nbsp; &nbsp;
-	  <!-- Student with ZERO score : {{ data.score_zero}} {
-	    {% include "./boy-shadow.html" %} : {{ data.boys_zero }}
-	    {% include "./girl-shadow.html" %} : {{ data.girls_zero }}
-	  } &nbsp;  -->
-	  <span style="float:right;">
-		<b>Student with FULL score :</b> {{ data.score_100}} {
-        {% include "./boy-shadow.html" %} : {{ data.boys_100 }}
-	      {% include "./girl-shadow.html" %} : {{ data.girls_100 }}
-	    }
-	  </span>
-	</span>
-	<p> [This report provides the details of Math learning levels of children by school who participated in Gram Panchayat Mathematics Contests this academic year.]</p>
-	<h2>Performance by Schools</h2>
-	<table id="customers" style="margin:auto;">
-	  <tr>
-	    <th>School Name</th>
-	    <th>Grade</th>
-	    <th>
-					Number Recognition <br>(123)
-				</th>
-				<th>
-					Place Value <br> (1,10,100..)
-				</th>
-	    <th>
-	      Addition<br>(+)
-	    </th>
-	    <th>
-	      Subtraction<br>(-)
-	    </th>
-	    <th>
-	      Multiplication<br>(&times;)
-	    </th>
-	    <th>
-	      Division<br>(&divide;)
-	    </th>
-	    <!-- <th>
-            Other Areas
-          </th> -->
-	  </tr>
-	  {% for item in data.schools %}
-	  {% for g in item.grades %}
-	  <tr>
-	    {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">{{ item.school }}</td> {% endif %}
-	    <td>{{g.name}}</td>
-	  	<td align="center">
-					{% for value in g.values%}
-								{% if "Number Recognition" == value.contest %}
-					<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-								{% endif %}
-					{% endfor %}
-				</td>
-			<td align="center">
-					{%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
-									<span class="font-effect-outline mark b-dot grey">NA</span>
-					{% endif %}
-					{% for value in g.values%}
-						{% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
-									<span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-						{%endif%}
-					{% endfor %}
-			</td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Addition" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Subtraction" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Multiplication" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <td align="center">
-	      {% for value in g.values%}
-              {% if "Division" == value.contest %}
-	      <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-	    </td>
-	    <!-- <td align="center">
-            {% for value in g.values%}
-              {% if "Other Areas" == value.contest %}
-            <span class="font-effect-outline mark b-dot {% if value.count < 40 %} red{% endif %} {% if value.count >= 70 %} green{% endif %}">{{value.count}}%</span>
-              {% endif %}
-              {% endfor %}
-          </td> -->
-	  </tr>
-	  {% endfor %}
-	  {% endfor %}
-	</table>
-      </div>
-      <div class="outer-line">
-	<h2>COMMUNITY SURVEY</h2>
-	<p>[This report is based on the feedback received from the parents on functioning of the school in your boundary]</p>
-	{% for s in data.survey %}
-	<div class="half-box">
-	  {{s.text}}
-	  <br><br>
-	  <span class="percent">{{s.percentage}}%</span>
-	  <div class="p-bar-grey" style="width: 80%;">
-	    <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
-	  </div>
-	</div>
-	{% endfor %}
-      </div>
-{% endblock %}
+		<br>
+{%endblock report_summary_section%}
+<!-- End of report summary -->
+<!-- NO GKA by child boundary section for GPs. SKIP-->
+<!-- GP contest section fill-ins-->
+{%block gpc_performance_title%}Performance by Schools{%endblock gpc_performance_title%}
+{%block child_boundary_col_header_name%}School Name{%endblock child_boundary_col_header_name%}

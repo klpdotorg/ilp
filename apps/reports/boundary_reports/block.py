@@ -74,71 +74,41 @@ class BlockReport(BaseReport):
             block, 'block',
             self.report_from, 
             self.report_to)
-        cluster_gpc_data = self.get_childboundary_GPC_agg(block, 'cluster', dates)
-        gpc_clusters = self.format_cluster_data(cluster_gpc_data)
 
-        gka, gka_clusters = self.getGKAData(block, dates)
-        #GPC Gradewise data
-        gradewise_gpc = self.get_boundary_gpc_gradewise_agg(block, self.report_from, self.report_to)
-        household = self.getHouseholdSurvey(block, dates)
-        self.data = {'block':self.block_name.title(),\
+        gpc_clusters = []
+        gradewise_gpc = {}
+        if self.generate_gp == 'True':
+            cluster_gpc_data = self.get_childboundary_GPC_agg(block, 'cluster', dates)
+            gpc_clusters = self.format_boundary_data(cluster_gpc_data)
+            #GPC Gradewise data
+            gradewise_gpc = self.get_boundary_gpc_gradewise_agg(block, self.report_from, self.report_to)
+
+        gka = {}
+        gka_clusters=[]
+        if self.generate_gka == 'True':
+            gka, gka_clusters = self.getGKAData(block, dates)
+        
+        household = {}
+        if self.generate_hh == 'True':
+            household = self.getHouseholdSurvey(block, dates)
+        self.output = {'block':self.block_name.title(),\
                      'district':self.district_name.title(),\
                      'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
                      'today':report_generated_on,\
                      'no_schools':num_schools,\
                      'gka':gka,\
-                     'gka_clusters':gka_clusters,\
+                     'gka_child_boundaries':gka_clusters,\
                      'overall_gradewise_perf': gradewise_gpc,\
-                     'gpc_clusters':gpc_clusters,\
+                     'gpc_child_boundaries':gpc_clusters,\
                      'household':household,\
                      'num_boys':num_boys,\
                      'num_girls':num_girls,\
                      'num_students':number_of_students,\
-                     'num_contests':num_contests
+                     'num_contests':num_contests,\
+                     'report_type': 'block',\
                     }
+        self.data = {**self.output, **self.common_data}
         return self.data
-
-  
-    def format_cluster_data(self, clusters):
-        clusters_out = []
-        out= []
-
-        for item in clusters:
-            if not item['cluster'] in clusters_out:
-                clusters_out.append(item['cluster'])
-                out.append({'cluster':item['cluster'],
-                            'grades':[{
-                                'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
-                })
-            else:
-                for o in out:
-                    if o['cluster']==item['cluster']:
-                        # import pdb; pdb.set_trace()
-                        gradeExist= False
-                        for grade in o['grades']:
-                            if item['grade'] == grade['name']:
-                                gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
-                        if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
-
-        # As of July 5th, we don't need to show "Other Areas" in the report
-        # 
-        # for i in out:
-        #     for grade in i['grades']:
-        #         count = 0
-        #         num = 0
-        #         for value in grade['values']:
-        #             if value['contest'] not in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']:
-        #                 count += value['count']
-        #                 num += 1
-        #         grade['values']  = [k for k in grade['values'] if k['contest'] in ['Addition', 'Subtraction', 'Number Concept', 'Multiplication', 'Division']]
-        #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
-
-        return out
-
-  
     
 class BlockReportSummarized(BlockReport):
     parameters = ('block_name', 'district_name')
@@ -189,5 +159,21 @@ class BlockReportSummarized(BlockReport):
 
         #GPC Gradewise data
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(block, self.report_from, self.report_to)
-        self.data = {'block':self.block_name.title(), 'district':self.district_name.title(), 'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'no_schools':num_schools, 'gka':gka, 'gka_clusters':gka_clusters, 'gpc_clusters':gradewise_gpc, 'household':household, 'num_boys':num_boys, 'num_girls':num_girls, 'num_students':number_of_students, 'num_contests':num_contests}
+        self.data = {
+                        'block':self.block_name.title(),\
+                        'district':self.district_name.title(),\
+                        'academic_year':'{} - {}'.format(format_academic_year(self.report_from),\
+                            format_academic_year(self.report_to)),\
+                        'today':report_generated_on,\
+                        'no_schools':num_schools,\
+                        'gka':gka,\
+                        'gka_child_boundaries':gka_clusters,\
+                        'overall_gradewise_perf':gradewise_gpc,\
+                        'household':household,\
+                        'num_boys':num_boys,\
+                        'num_girls':num_girls,\
+                        'num_students':number_of_students,\
+                        'num_contests':num_contests,
+                        'report_type':'blocksummarized'
+                    }
         return self.data

@@ -199,6 +199,10 @@ DISE_API_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
 
 DISE_APP_URL = 'https://dise.dev.ilp.org.in/'
 
+# Project 1 million related config settings
+REPORTS_SERVER_BASE_URL = 'https://dev.ilp.org.in'
+
+
 BLOG_FEED_URL = 'http://blog.klp.org.in/feeds/posts/default?alt=json'
 
 EMAIL_DEFAULT_FROM = 'India Learning Partnership <dev@ilp.org.in>'
@@ -207,7 +211,12 @@ SERVER_EMAIL = 'no-reply@klp.org.in'
 
 SITE_ID = 1
 
-#Django-guardian settings
+# We have to set this to None to get big file uploads from Konnect.
+# For more information, please see this -
+# https://docs.djangoproject.com/en/dev/ref/settings/#data-upload-max-memory-size
+DATA_UPLOAD_MAX_MEMORY_SIZE = None
+
+# Django-guardian settings
 ANONYMOUS_USER_NAME = None
 
 # Logging

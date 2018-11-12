@@ -80,27 +80,40 @@ class GPMathContestReport(BaseReport):
                    male_zero_ans_per_gp, female_zero_ans_per_gp=\
                    self.get_basic_GP_data(gp_obj)
 
-        schools_out = self.get_schools_data(gp_obj,dates)
-        formatted_schools_out = self.format_schools_data(schools_out)
-        survey = self.getHouseholdSurvey(gp_obj, dates)
-        self.data =  {
+        formatted_schools_out = []
+        gradewise_gpc=[]
+        if self.generate_gp == "True":
+            schools_out = self.get_schools_data(gp_obj,dates)
+            formatted_schools_out = self.format_boundary_data(schools_out)
+            gradewise_gpc = self.get_boundary_gpc_gradewise_agg(gp_obj, self.report_from, self.report_to)
+        
+        survey = {}
+        if self.generate_hh == "True":
+            survey = self.getHouseholdSurvey(gp_obj, dates)
+
+        num_contests = 1 # Logic is that only one GP contest will be held per GP per academic year.
+        self.output =  {
             'gp_name': gp.title(),\
             'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
             'block':block,\
             'district':district.title(),\
             'no_schools_gp':gp_schools,\
-            'no_students':number_of_students,\
+            'num_contests': num_contests,\
+            'num_students':number_of_students,\
             'today':report_generated_on,\
-            'boys':num_boys,\
-            'girls':num_girls,\
-            'schools':formatted_schools_out,\
+            'num_boys':num_boys,\
+            'num_girls':num_girls,\
+            'overall_gradewise_perf': gradewise_gpc,\
+            'gpc_child_boundaries':formatted_schools_out,\
             'score_100':female_correct+male_correct,\
             'score_zero':male_zero_ans_per_gp+ female_zero_ans_per_gp,\
             'girls_zero':female_zero_ans_per_gp,\
             'boys_zero':male_zero_ans_per_gp,\
             'boys_100':male_correct,\
             'girls_100':female_correct,\
-            'survey':survey}
+            'household':survey,
+            'report_type': 'gp'}
+        self.data = {**self.output, **self.common_data}
         return self.data
 
     def get_basic_GP_data(self, gp_obj):
@@ -218,17 +231,17 @@ class GPMathContestReportSummarized(GPMathContestReport):
                         'block':block,\
                         'district':district.title(),\
                         'no_schools_gp':gp_schools,\
-                        'no_students':number_of_students,\
+                        'num_students':number_of_students,\
                         'today':report_generated_on,\
                         'boys':num_boys,\
                         'girls':num_girls,\
-                        'schools':gradewise_gpc,\
+                        'overall_gradewise_perf':gradewise_gpc,\
                         'score_100':female_correct+male_correct,\
                         'score_zero':male_zero_ans_per_gp+ female_zero_ans_per_gp,\
                         'girls_zero':female_zero_ans_per_gp,\
                         'boys_zero':male_zero_ans_per_gp,\
                         'boys_100':male_correct,\
                         'girls_100':female_correct,\
-                        'survey':survey}
+                        'household':survey}
         return self.data
 
