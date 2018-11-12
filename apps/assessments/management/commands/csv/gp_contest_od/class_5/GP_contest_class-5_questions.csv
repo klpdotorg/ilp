@@ -9,7 +9,7 @@ id,question_text,display_text,key,options,is_featured,question type,status,max s
 ,Division 1,,Number Operations,"{Yes,No}",True,2,AC,,Yes,,
 ,Addition 3,,Number Operations-Word Problem,"{Yes,No}",True,2,AC,,Yes,,
 ,Patterns in shapes,,Shapes,"{Yes,No}",True,2,AC,,Yes,,
-,Fractions 1,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,	
+,Fractions 2,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,	
 ,Decimal 1,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,
 ,Place Value,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,
 ,Sequence 2,,Number Sense,"{Yes,No}",True,2,AC,,Yes,,
