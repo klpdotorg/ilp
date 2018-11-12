@@ -112,7 +112,7 @@ class SchoolReport(BaseReport):
         else:
             neighbours = []
 
-        self.data =  {'gp_name': gp,\
+        self.output =  {'gp_name': gp,\
          'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
             'cluster':cluster,\
             'block':block,\
@@ -130,5 +130,6 @@ class SchoolReport(BaseReport):
             'girls_100':female_correct,\
             'neighbours':neighbours,\
             'report_type': 'school'}
+        self.data = {**self.output, **self.common_data}
         return self.data
 

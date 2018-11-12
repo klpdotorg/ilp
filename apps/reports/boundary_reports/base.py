@@ -47,9 +47,9 @@ class BaseReport(ABC):
         self.generate_gp = args.pop('generate_gp')
         self.generate_hh = args.pop('generate_hhsurvey')
         self.common_data= { 
-            'render_gka': self.generate_gka,
-            'render_gp': self.generate_gp,
-            'render_hh': self.generate_hh
+            'render_gka':str(self.generate_gka),
+            'render_gp': str(self.generate_gp),
+            'render_hh': str(self.generate_hh)
         }
 
     @abstractmethod

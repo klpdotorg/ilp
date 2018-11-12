@@ -159,7 +159,7 @@ class BlockReportSummarized(BlockReport):
 
         #GPC Gradewise data
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(block, self.report_from, self.report_to)
-        self.data = {
+        self.output = {
                         'block':self.block_name.title(),\
                         'district':self.district_name.title(),\
                         'academic_year':'{} - {}'.format(format_academic_year(self.report_from),\
@@ -176,4 +176,5 @@ class BlockReportSummarized(BlockReport):
                         'num_contests':num_contests,
                         'report_type':'blocksummarized'
                     }
+        self.data = {**self.output, **self.common_data}
         return self.data

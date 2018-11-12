@@ -82,13 +82,13 @@ class GPMathContestReport(BaseReport):
 
         formatted_schools_out = []
         gradewise_gpc=[]
-        if self.generate_gp == "True":
+        if self.generate_gp == "True" or self.generate_gp == True:
             schools_out = self.get_schools_data(gp_obj,dates)
             formatted_schools_out = self.format_boundary_data(schools_out)
             gradewise_gpc = self.get_boundary_gpc_gradewise_agg(gp_obj, self.report_from, self.report_to)
         
         survey = {}
-        if self.generate_hh == "True":
+        if self.generate_hh == "True" or self.generate_gp == True:
             survey = self.getHouseholdSurvey(gp_obj, dates)
 
         num_contests = 1 # Logic is that only one GP contest will be held per GP per academic year.
