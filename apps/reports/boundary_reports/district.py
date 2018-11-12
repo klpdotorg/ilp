@@ -80,7 +80,7 @@ class DistrictReport(BaseReport):
         
         gpc_blocks = []
         gpc_district_gradewise_percent = {}
-        if self.generate_gp == "True":
+        if str(self.generate_gp) == "True":
             block_gpc_data = self.get_childboundary_GPC_agg(district,'block',dates)
             gpc_blocks = self.format_boundary_data(block_gpc_data)
             #GPC Gradewise data
@@ -88,12 +88,12 @@ class DistrictReport(BaseReport):
         
         gka = {}
         gka_blocks = []
-        if self.generate_gka == "True":
+        if str(self.generate_gka) == "True":
             print("Generating gka data")
             gka, gka_blocks = self.getGKAData(district, dates)
 
         household = []
-        if self.generate_hh == "True":
+        if str(self.generate_hh) == "True":
             household = self.getHouseholdSurvey(district, dates)
        
         self.output = {'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)), 'today':report_generated_on, 'district':self.district_name.title(), 'no_schools':num_schools_in_block, 

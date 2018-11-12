@@ -256,7 +256,10 @@ class BaseReport(ABC):
     def getKitUsagePercent(self, gka_aggregate_obj, date_range):
         #Kit usage percentage
         kits_used = gka_aggregate_obj.filter(question_desc__icontains='Ganitha Kalika Andolana TLM', answer_option='Yes').aggregate(kits_used= Sum('num_answers'))
-        kits_total = gka_aggregate_obj.filter(question_desc__icontains='Ganitha Kalika Andolana TLM').aggregate(total_kits = Sum('num_answers'))
+        #kits_total = gka_aggregate_obj.filter(question_desc__icontains='Ganitha Kalika Andolana TLM').aggregate(total_kits = Sum('num_answers'))
+        #11/11/2018: Making this change per change in logic per program team. Need to compute TLM usage only based on observation.
+        #i.e. surveys that happened while a math class was on-going
+        kits_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(total_kits = Sum('num_answers'))
         if kits_used['kits_used'] is None:
             kits_used['kits_used'] = 0
         percent_kit_usage = kits_used['kits_used']/kits_total['total_kits']*100
@@ -265,7 +268,10 @@ class BaseReport(ABC):
     def getGroupWorkPercent(self, gka_aggregate_obj, date_range):
          #Group work percentage
         group_work_done = gka_aggregate_obj.filter(question_desc__icontains='group', answer_option='Yes').aggregate(group_work_yes = Sum('num_answers'))
-        group_work_total = gka_aggregate_obj.filter(question_desc__icontains='group').aggregate(group_work_total = Sum('num_answers'))
+        #group_work_total = gka_aggregate_obj.filter(question_desc__icontains='group').aggregate(group_work_total = Sum('num_answers'))
+        #11/11/2018: Making this change per change in logic per program team. Need to compute TLM usage only based on observation.
+        #i.e. surveys that happened while a math class was on-going
+        group_work_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(group_work_total = Sum('num_answers'))
         if group_work_done['group_work_yes'] is None:
             group_work_done['group_work_yes']=0
         group_work_percent = group_work_done['group_work_yes']/group_work_total['group_work_total'] * 100

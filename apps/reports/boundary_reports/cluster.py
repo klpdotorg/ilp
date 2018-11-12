@@ -79,18 +79,18 @@ class ClusterReport(BaseReport):
 
         schools = []
         gradewise_gpc = {}
-        if self.generate_gp == "True":
+        if str(self.generate_gp) == "True":
             schools_data = self.get_schools_data(cluster, dates)
             schools = self.format_boundary_data(schools_data)
             #GPC Gradewise data
             gradewise_gpc = self.get_boundary_gpc_gradewise_agg(cluster, self.report_from, self.report_to)
         
         gka = {}
-        if self.generate_gka == "True":
+        if str(self.generate_gka) == "True":
             gka = self.getGKAData(cluster, dates)
        
         household = {}
-        if self.generate_hh == "True":
+        if str(self.generate_hh) == "True":
             household = self.getHouseholdSurvey(cluster,dates)
 
         self.output = {'cluster':self.cluster_name.title(),\

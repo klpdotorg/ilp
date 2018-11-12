@@ -77,7 +77,7 @@ class BlockReport(BaseReport):
 
         gpc_clusters = []
         gradewise_gpc = {}
-        if self.generate_gp == 'True':
+        if str(self.generate_gp) == 'True':
             cluster_gpc_data = self.get_childboundary_GPC_agg(block, 'cluster', dates)
             gpc_clusters = self.format_boundary_data(cluster_gpc_data)
             #GPC Gradewise data
@@ -85,11 +85,11 @@ class BlockReport(BaseReport):
 
         gka = {}
         gka_clusters=[]
-        if self.generate_gka == 'True':
+        if str(self.generate_gka) == 'True':
             gka, gka_clusters = self.getGKAData(block, dates)
         
         household = {}
-        if self.generate_hh == 'True':
+        if str(self.generate_hh) == 'True':
             household = self.getHouseholdSurvey(block, dates)
         self.output = {'block':self.block_name.title(),\
                      'district':self.district_name.title(),\
