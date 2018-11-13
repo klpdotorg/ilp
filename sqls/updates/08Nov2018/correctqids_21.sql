@@ -1,6 +1,6 @@
 --assign temp questions
-update assessments_answerinstitution set question_id=45 where question_id=271 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
-update assessments_answerinstitution set question_id=46 where question_id=272 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
+update assessments_answerinstitution set question_id=50 where question_id=271 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
+update assessments_answerinstitution set question_id=51 where question_id=272 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
 
 --start swapping
 update assessments_answerinstitution set question_id=271 where question_id=273 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
@@ -25,5 +25,5 @@ update assessments_answerinstitution set question_id=289 where question_id=130 a
 update assessments_answerinstitution set question_id=290 where question_id=291 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
 
 --update temp questions
-update assessments_answerinstitution set question_id=130 where question_id=45 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
-update assessments_answerinstitution set question_id=291 where question_id=46 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
+update assessments_answerinstitution set question_id=130 where question_id=50 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
+update assessments_answerinstitution set question_id=291 where question_id=51 and answergroup_id in (select id from assessments_answergroup_institution where questiongroup_id=21 and to_char(date_of_visit, 'YYYY-MM') in ('2018-06', '2018-07', '2018-08'));
