@@ -134,7 +134,7 @@ class Command(BaseCommand):
         for questiongroup in questiongroups:
             sequence = 1
             for question in questions:
-                qgq_map = QuestionGroup_Questions.objects.create(
+                qgq_map,created = QuestionGroup_Questions.objects.get_or_create(
                           sequence = sequence,
                           question = question,
                           questiongroup = questiongroup)
