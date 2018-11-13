@@ -1,4 +1,5 @@
 {%load static %}
+{% load i18n %}
 <!DOCTYPE html>
 
 <head>
@@ -28,13 +29,15 @@
     {% with 'gp gpsummarized school schoolsummarized' as list %}
     {%if data.report_type not in list%}
     <div class="outer-line">
-      <h2>GKA IMPLEMENTATION</h2>
+      {%comment%}Translators: GKA implementation header title{%endcomment%}
+      <h2>{%trans "GKA IMPLEMENTATION"%}</h2>
       <p>[This report is based on the survey feedbacks received from HMs/CRP/Akshara staff and other department
         officials on implementation of GKA Program]
       </p>
       <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;display: flex; align-items: center;">
         <div class="three-box text-left">
-          Teacher's Trained :
+          {%comment%}Translators: Teacher's trained label{%endcomment%}
+          {%trans "Teacher's Trained :"%}
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>

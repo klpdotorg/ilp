@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+#, #fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 13:37+0530\n"
+"POT-Creation-Date: 2018-11-13 20:35+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Translators: GKA implementation header title
+#: apps/reports/templates/reports/base.html:37 templates/gka_dashboard.html:115
+msgid "GKA IMPLEMENTATION"
+msgstr "ಜಿ ಕೆ ಏ ಅನುಷ್ಠಾನ ತರಗತಿ ಭೇಟಿ ವರದಿ ( ILP Konnect )"
+
+#. Translators: Teacher's trained label
+#: apps/reports/templates/reports/base.html:44
+msgid "Teacher's Trained :"
+msgstr ""
 
 #: templates/gka_dashboard.html:37
 msgid "GKA DASHBOARD"
@@ -54,22 +64,17 @@ msgstr "ವರದಿಯನ್ನು ತಯಾರಿಸಿ "
 msgid "Reset"
 msgstr "ರಿಸೆಟ್ ಮಾಡಿ "
 
-#: templates/gka_dashboard.html:115
-msgid "GKA IMPLEMENTATION"
-msgstr "ಜಿ ಕೆ ಏ ಅನುಷ್ಠಾನ ತರಗತಿ ಭೇಟಿ ವರದಿ ( ILP Konnect )"
-
 #: templates/gka_dashboard.html:142
-msgid "ASSESSMENTS"
-msgstr "ಜಿ ಕೆ ಏ ರೂಪಣಾತ್ಮಕ ಮೌಲ್ಯಮಾಪನ "
-
-#: templates/gka_dashboard.html:168
 msgid "GP CONTESTS"
 msgstr "ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ ವರದಿ "
 
-#: templates/gka_dashboard.html:191
+#: templates/gka_dashboard.html:165
 msgid "SURVEYS"
 msgstr "ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಂಗ್ರಹಣೆ "
 
-#: templates/gka_dashboard.html:213
+#: templates/gka_dashboard.html:183
 msgid "COMPARISON"
 msgstr "ಅಸರ್ ಮತ್ತು ಅಕ್ಷರ ಹೋಲಿಕೆ "
+
+#~ msgid "ASSESSMENTS"
+#~ msgstr "ಜಿ ಕೆ ಏ ರೂಪಣಾತ್ಮಕ ಮೌಲ್ಯಮಾಪನ "
