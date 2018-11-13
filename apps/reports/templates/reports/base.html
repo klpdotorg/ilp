@@ -315,11 +315,14 @@
     <div class="outer-line" style="line-height: 26px;">
       <b>FOCUS AREAS</b> :
       <ul>
+        {%if data.render_gka == 'True' or data.render_gp == 'True' %}
         <li>
           <b>Colour Code: </b>All the numbers more than 70% are highlighted in <span class="green"><b>GREEN</b></span>,
           All the numbers which are less than 40% are highlighted in <span class="red"><b>RED</b></span>. HMs/CRPs/GP
           Members should take serious note and work towards improving the learning levels in Math.
         </li>
+        {%endif%}
+        {%if data.render_gp == 'True'%}
         <li>
           <b>Question Design: </b> In GP contest, all the children are tested based on the previous year's competency
           level. For example, a Class-5 child is given a question paper prepared based on the Class-4 level
@@ -330,10 +333,13 @@
           asked should be answered correctly. For Division and Multiplication, one question should be answered
           correctly.
         </li>
+        {%endif%}
+        {%if data.render_gka == 'True' or data.render_gp == 'True' %}
         <li>
           <b>Recommendation: </b>To improve math learning levels of children please encourage the use of GKA Math kit
           in classrooms.
         </li>
+        {%endif%}
       </ul>
     </div>
     <div class="red" style="text-align: center;padding: 20px;">
