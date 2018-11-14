@@ -1,0 +1,8 @@
+update assessments_competencyquestionmap set question_id = (select question_id from assessments_questiongroup_questions where questiongroup_id=45 and sequence=3) where questiongroup_id=45 and question_id=271;
+update assessments_competencyquestionmap set question_id = (select question_id from assessments_questiongroup_questions where questiongroup_id=45 and sequence=5) where questiongroup_id=45 and question_id=273;
+update assessments_competencyquestionmap set question_id = (select question_id from assessments_questiongroup_questions where questiongroup_id=45 and sequence=6) where questiongroup_id=45 and question_id=276;
+update assessments_competencyquestionmap set question_id = (select question_id from assessments_questiongroup_questions where questiongroup_id=45 and sequence=7) where questiongroup_id=45 and question_id=278;
+update assessments_competencyquestionmap set question_id = (select question_id from assessments_questiongroup_questions where questiongroup_id=45 and sequence=8) where questiongroup_id=45 and question_id=280;
+update assessments_competencyquestionmap set question_id = (select question_id from assessments_questiongroup_questions where questiongroup_id=45 and sequence=15) where questiongroup_id=45 and question_id=277;
+update assessments_competencyquestionmap set question_id = (select question_id from assessments_questiongroup_questions where questiongroup_id=45 and sequence=16) where questiongroup_id=45 and question_id=279;
+update assessments_competencyquestionmap set question_id = (select question_id from assessments_questiongroup_questions where questiongroup_id=45 and sequence=18) where questiongroup_id=45 and question_id=283;
