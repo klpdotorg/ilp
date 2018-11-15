@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, #fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-13 20:35+0530\n"
+"POT-Creation-Date: 2018-11-15 10:18+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,14 +18,23 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: GKA implementation header title
-#: apps/reports/templates/reports/base.html:37 templates/gka_dashboard.html:115
+#: apps/reports/templates/reports/base.html:39 templates/gka_dashboard.html:115
 msgid "GKA IMPLEMENTATION"
 msgstr "ಜಿ ಕೆ ಏ ಅನುಷ್ಠಾನ ತರಗತಿ ಭೇಟಿ ವರದಿ ( ILP Konnect )"
 
 #. Translators: Teacher's trained label
-#: apps/reports/templates/reports/base.html:44
+#: apps/reports/templates/reports/base.html:46
 msgid "Teacher's Trained :"
-msgstr ""
+msgstr "ಗಣಿತ ಶಿಕ್ಷಕರು ಜಿ ಕೆ ಏ ತರಬೇತಿ ಪಡೆದಿದ್ದಾರೆಯೇ? :"
+
+#. Translators: Kit usage label
+#: apps/reports/templates/reports/base.html:56
+msgid "Kit Usage :"
+msgstr "ಮಕ್ಕಳು ಅಥವಾ ಶಿಕ್ಷಕರು ಗಣಿತ ಕಿಟ್ ಉಪಯೋಗಿಸುತ್ತಿದ್ದರೇ ? :"
+
+#: apps/reports/templates/reports/base.html:65
+msgid "Group Work :"
+msgstr "ಗುಂಪು ಕಲಿಕೆ ಆಗುತ್ತಿತೇ? :"
 
 #: templates/gka_dashboard.html:37
 msgid "GKA DASHBOARD"

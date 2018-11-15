@@ -13,6 +13,7 @@ from django.template.loader import render_to_string
 from .links import send_link, send_recipient
 from .models import Reports, Tracking
 from .reportlist import reportlist
+from django.utils.translation import activate
 
 
 '''This is the view used to view the reports'''
@@ -34,6 +35,7 @@ def view_report(request, report_id, tracking_id='default'):
     if request.GET.get('lang') == 'english':
         return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data})
     else:
+        activate('kn')
         return render(request, 'reports/{}kannada.html'.format(report.report_type), context={'data':data})
 
 def download_report(request, report_id, tracking_id='default'):

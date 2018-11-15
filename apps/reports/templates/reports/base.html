@@ -10,7 +10,9 @@
 </head>
 
 <body>
-  <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}">ಕನ್ನಡ</a>
+  {%language "kn"%}
+    <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}">ಕನ್ನಡ</a>
+  {%endlanguage%}
   <h1><u>{%block report_title%} {%endblock report_title%}</u>
     {% include "./akshara-img.html" %}
   </h1>
@@ -46,7 +48,8 @@
           </div>
         </div>
         <div class="three-box text-left">
-          Kit Usage :
+          {%comment%}Translators: Kit usage label{%endcomment%}
+          {%trans "Kit Usage :" %}
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
@@ -55,7 +58,7 @@
           </div>
         </div>
         <div class="three-box text-left">
-          Group Work :
+          {%trans "Group Work :"%}
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
