@@ -646,9 +646,9 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
                     .aggregate(Sum('num_assessments'))
 
                 gender_res[gender] = {
-                    "total_count": gender_agg['num_assessments__sum'],
+                    "total_count": gender_agg['num_assessments__sum'] or 0,
                     "perfect_score_count": gender_ans_agg[
-                        'num_assessments__sum']
+                        'num_assessments__sum'] or 0
                 }
             group_res[group_name] = {
                 "gender": gender_res
