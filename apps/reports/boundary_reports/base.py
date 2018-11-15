@@ -43,14 +43,20 @@ def format_academic_year(yearmonth_format):
 
 class BaseReport(ABC):
     def __init__(self,**args):
-        self.generate_gka = args.pop('generate_gka')
-        self.generate_gp = args.pop('generate_gp')
-        self.generate_hh = args.pop('generate_hhsurvey')
-        self.common_data= { 
-            'render_gka':str(self.generate_gka),
-            'render_gp': str(self.generate_gp),
-            'render_hh': str(self.generate_hh)
-        }
+        #Below if will be executed if the key called 'data' is in the args
+        #This happens when PDF report is generated and the object is created
+        #with data
+        if 'data' in args:
+            self.data = args.pop('data')
+        else:
+            self.generate_gka = args.pop('generate_gka', True)
+            self.generate_gp = args.pop('generate_gp', True)
+            self.generate_hh = args.pop('generate_hhsurvey', True)
+            self.common_data= { 
+                'render_gka':str(self.generate_gka),
+                'render_gp': str(self.generate_gp),
+                'render_hh': str(self.generate_hh)
+            }
 
     @abstractmethod
     def get_data(self):
@@ -71,9 +77,8 @@ class BaseReport(ABC):
             raise ValueError('Invalid report format')
 
     def get_html(self, lang=None):
-        #if not self.data:
-        self.data = (**self.common_data, **self.get_data());
-
+        if not self.data:
+            self.data = self.get_data();
         if lang == 'english':
             template = 'reports/{}.html'.format(self._type)
         else:
