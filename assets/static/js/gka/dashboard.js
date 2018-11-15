@@ -1058,7 +1058,7 @@ var topSummaryData = {};
         } else if(klp.STATE_CODE === 'od') {
             gpContestId = 18;
         } else {
-            alert('Not enough data to load GKA school visit.');
+            alert('Not enough data to load GP contest data.');
             return;
         }
 
