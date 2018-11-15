@@ -367,12 +367,13 @@ var topSummaryData = {};
         $('#smsQuestions').startLoading();
 
         // var gkaSchoolVisit = getSurveyId('gka school visit');
+        // TODO: FIXME: Remove this hard coding
         if(klp.STATE_CODE === 'ka') {
             gkaSchoolVisit = 11;
         } else if(klp.STATE_CODE === 'od') {
             gkaSchoolVisit = 14;
         } else {
-            alert('Not enough data to load GKA school visit.');
+            alert('Not enough data to load GKA school visit section.');
             return;
         }
 
@@ -1050,7 +1051,16 @@ var topSummaryData = {};
         $('#gpcGender_class5').startLoading();
         $('#gpcGender_class6').startLoading();
 
-        var gpContestId = getSurveyId('GP Contest');
+        // var gpContestId = getSurveyId('GP Contest');
+        // TODO: FIXME: Remove this hard coding
+        if(klp.STATE_CODE === 'ka') {
+            gpContestId = 2;
+        } else if(klp.STATE_CODE === 'od') {
+            gpContestId = 18;
+        } else {
+            alert('Not enough data to load GKA school visit.');
+            return;
+        }
 
         var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=" + gpContestId, params);
         $summaryXHR.done(function(summaryData) {
