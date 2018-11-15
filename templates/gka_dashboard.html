@@ -136,8 +136,6 @@
         </section>
         <hr/>
       </li>
-    {% get_state_value "state_code" as state_code %}
-      {% if state_code == 'ka' %}
       <li><a href='' class='head js-accordion-header brand-turquoise align-right'>
       {% trans 'GP CONTESTS'%}  <span class="fa fa-angle-down"></span></a>
         <section class="content container" id="gpcontest">
@@ -161,6 +159,8 @@
         </section>
         <hr/>
       </li>
+    {% get_state_value "state_code" as state_code %}
+      {% if state_code == 'ka' %}
       <li><a href='#' class='head js-accordion-header brand-purple align-right'>
       {% trans 'SURVEYS'%}  <span class="fa fa-angle-down"></span></a>
 
