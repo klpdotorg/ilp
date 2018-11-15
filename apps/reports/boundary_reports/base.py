@@ -71,8 +71,8 @@ class BaseReport(ABC):
             raise ValueError('Invalid report format')
 
     def get_html(self, lang=None):
-        #if not self.data:
-        self.data = (**self.common_data, **self.get_data());
+        if not self.data:
+            self.data = self.get_data()
 
         if lang == 'english':
             template = 'reports/{}.html'.format(self._type)
