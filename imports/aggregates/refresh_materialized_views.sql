@@ -190,3 +190,11 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_qdetails_correctans_
 
 CREATE UNIQUE INDEX ON mvw_survey_eboundary_questiongroup_qdetails_correctans_agg(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_questiongroup_qdetails_correctans_agg;
+
+CREATE UNIQUE INDEX ON mvw_survey_institution_electiontype_count(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_institution_electiontype_count;
+
+CREATE UNIQUE INDEX ON mvw_survey_eboundary_electiontype_count(id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_electiontype_count;
+
+
