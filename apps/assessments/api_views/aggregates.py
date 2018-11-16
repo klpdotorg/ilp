@@ -520,7 +520,8 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                 'question_key').annotate(num_assess=Sum('num_assessments'))
 
             question_keys = key_agg.values_list('question_key', flat=True)           
-            qgroup_res[qgroup_name] = {}
+            qgroup_res = qgroup_res.get(qgroup_name, {})
+
             for q_key in question_keys:
                 total = key_agg.get(question_key=q_key)['num_assess']
                 try:
