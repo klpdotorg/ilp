@@ -1175,7 +1175,6 @@ var topSummaryData = {};
         });
     }
 
-
     function renderGPContestCharts(data) {
 
         function genCompetancyChartObj(classData) {
@@ -1204,6 +1203,7 @@ var topSummaryData = {};
 
         function sortCompetanciesBasedOnOrder(classData) {
             if(!classData
+                    || !classData.series
                     || !classData.series[0]
                     || !classData.series[0].data) {
                 return classData;
@@ -1239,9 +1239,26 @@ var topSummaryData = {};
         class5competancies = sortCompetanciesBasedOnOrder(class5competancies);
         class6competancies = sortCompetanciesBasedOnOrder(class6competancies);
 
-        renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
-        renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");
-        renderBarChart('#gpcGraph_class6', class6competancies, "Percentage of Children");
+	console.log(class4competancies, class5competancies, class6competancies)
+
+        if(class4competancies.labels && class4competancies.series) {
+            renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
+        } else {
+            $('#gpcGraph_class4').hide();
+        }
+
+        if(class5competancies.labels && class5competancies.series) {
+            renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");
+        } else {
+            $('#gpcGraph_class4').hide();
+        }
+
+
+        if(class6competancies.labels && class5competancies.series) {
+            renderBarChart('#gpcGraph_class6', class6competancies, "Percentage of Children");
+        } else {
+            $('#gpcGraph_class6').hide();
+        }        
     }
 
     function OBSgenCompetancyChartObj(aggCompetancies) {
