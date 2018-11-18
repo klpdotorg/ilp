@@ -1,7 +1,28 @@
 Changelog
 ---
-Release 1.1.5: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-10-21
-  -   
+Release 1.1.5: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
+  - Karnataka GKA dashboard
+    - Removed "Assessment" section
+    - Bug fixes and improvements
+  - ILP Konnect
+    - Resent OTP feature
+    - Improved crash analytics
+    - Ability to sync large amounts of assessment data
+    - Dropped support for Androind version <= 4
+  - Odisha GKA dashboard
+    - Enabled GP contest section
+  - GP contest data
+    - Bug fixes
+    - New logic for calcuating correct answer for competencies
+    - New questions for current academic year
+  - Project 1 million
+    - Uses aggregates to query data and there by runs faster
+    - Supports sending only one section of a report or a combination of sections
+    - Various bug fixes
+  - ILP Superset
+    - Fetches data directly from ILP DB to show current data
+    - Upgraded superset version
+
 
 Release 1.1.5: 2018-10-21
   - Corrected the logic for gender correct answer calculation 
