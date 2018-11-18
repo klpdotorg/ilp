@@ -1,6 +1,6 @@
 Changelog
 ---
-Release 1.1.5: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
+Release 1.2.0: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
   - Karnataka GKA dashboard
     - Removed "Assessment" section
     - Bug fixes and improvements
