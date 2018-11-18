@@ -677,24 +677,6 @@ var topSummaryData = {};
 
 
     function renderSMSDetails(detailsData) {
-
-        // This function uses math class numbers to calculate
-        // percentages for other questions
-        function reCalculateGroupWorkRelatedKeys(main, key) {
-            var mathClassCount = main['ivrss-math-class-happening'];
-
-            if(!mathClassCount || !mathClassCount['score']) { return main; }
-
-            main[key]['total'] = mathClassCount['score'];
-            main[key]['percent'] = getPercent(
-                main[key]['score'],
-                mathClassCount['score']
-            );
-
-            return main;
-
-        }
-
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -728,19 +710,6 @@ var topSummaryData = {};
                 };
             }
         });
-
-        console.log(regroup)
-
-        // For GKA Methodology section, use Ongoing Class visit count
-        // as the denominator to calculate the percentages
-        regroup = reCalculateGroupWorkRelatedKeys(
-            regroup, "ivrss-gka-tlm-in-use"
-        );
-        regroup = reCalculateGroupWorkRelatedKeys(
-            regroup, "ivrss-group-work"
-        );
-
-        console.log(regroup);
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }

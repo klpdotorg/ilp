@@ -1,17 +1,19 @@
 Changelog
 ---
+Release 1.1.5: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-10-21
+  -   
 
 Release 1.1.5: 2018-10-21
-    - Corrected the logic for gender correct answer calculation 
-    - Corrected the spelling mistakes of gender in GP Contest assessments
-    - GKA Dashboard updates
-        - Changed the text for Odisha GKA Dashboard
-        - Removed respondent graph from "Surveys section"
+  - Corrected the logic for gender correct answer calculation 
+  - Corrected the spelling mistakes of gender in GP Contest assessments
+  - GKA Dashboard updates
+      - Changed the text for Odisha GKA Dashboard
+      - Removed respondent graph from "Surveys section"
 
 Release 1.1.4: 7245329b5d57c6d424fa0cfe23de1daf6a211dba 2018-10-12
-    - Removed respondent section in GKA dashboard's "Survey" section
-    - Upgraded django in production for 1.11.5 security fix
-    - SQL updates for Odisha data
+  - Removed respondent section in GKA dashboard's "Survey" section
+  - Upgraded django in production for 1.11.5 security fix
+  - SQL updates for Odisha data
 
 Release 1.1.3: ac5c630dc5ced82c9466196e839fa66b64b6600e - 2018-10-11
   - GKA dashboard bug fixes
