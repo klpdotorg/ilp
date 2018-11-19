@@ -71,7 +71,7 @@ class GPMathContestReport(BaseReport):
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
-            gp_obj = ElectionBoundary.objects.get(const_ward_name=gp, const_ward_type_id='GP') # Take the GP from db
+            gp_obj = ElectionBoundary.objects.get(const_ward_name=gp.capitalize(), const_ward_type_id='GP') # Take the GP from db
         except ElectionBoundary.DoesNotExist:
             raise ValueError("Gram panchayat '{}' is not found in the database.".format(self.gp_name))
         gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
@@ -92,11 +92,14 @@ class GPMathContestReport(BaseReport):
         if self.generate_hh == "True" or self.generate_gp == True:
             survey = self.getHouseholdSurvey(gp_obj, dates)
 
-        num_contests = SurveyEBoundaryElectionTypeCount.objects.filter(survey_id=2)\
-                                               .filter(eboundary_id=gp)\
-                                               .filter(yearmonth__gte = report_from)\
-                                               .filter(yearmonth__lte = report_to)\
-                                               .filter(const_ward_type='GP').aggregate(Sum('electionboundary_count'))['electionboundary_count__sum']
+        num_contests_agg = SurveyEBoundaryElectionTypeCount.objects.filter(survey_id=2)\
+                                               .filter(eboundary_id=gp_obj)\
+                                               .filter(yearmonth__gte = self.report_from)\
+                                               .filter(yearmonth__lte = self.report_to)\
+                                               .filter(const_ward_type='GP')
+        num_contests = 1
+        if num_contests_agg.exists():
+            num_contests = num_contests_agg.aggregate(Sum('electionboundary_count'))['electionboundary_count__sum']
         self.output =  {
             'gp_name': gp.title(),\
             'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
