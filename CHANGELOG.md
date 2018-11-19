@@ -11,8 +11,10 @@ Release 1.2.0: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
     - Dropped support for Androind version <= 4
   - Odisha GKA dashboard
     - Enabled GP contest section
+    - Added new Survey, QuestionGroups etc.
+    - Loaded the GP Contest data.
   - GP contest data
-    - Bug fixes
+    - Bug fixes (Fixed the 21,22,23 answer issue for current academic year)
     - New logic for calcuating correct answer for competencies
     - New questions for current academic year
   - Project 1 million
