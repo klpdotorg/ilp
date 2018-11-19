@@ -29,6 +29,7 @@ from assessments.models import (
     SurveyEBoundaryQuestionGroupAnsAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
+    SurveyBoundaryElectionTypeCount
 )
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
@@ -160,8 +161,12 @@ class BaseReport(ABC):
         num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
         num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
         number_of_students = num_boys + num_girls
-   
-        num_contests = aggregates.values_list('institution_id__gp__id', flat=True).distinct().count()
+        num_contests = SurveyBoundaryElectionTypeCount.objects.filter(survey_id=2)\
+                                               .filter(boundary_id=boundary)\
+                                               .filter(yearmonth__gte = report_from)\
+                                               .filter(yearmonth__lte = report_to)\
+                                               .filter(const_ward_type='GP').aggregate(Sum('electionboundary_count'))['electionboundary_count__sum']
+        #num_contests = aggregates.values_list('institution_id__gp__id', flat=True).distinct().count()
         return num_schools_in_boundary, num_boys, num_girls, number_of_students, num_contests
 
     ''' Returns household survey aggregate values per boundary '''
