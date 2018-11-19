@@ -26,6 +26,7 @@ Release 1.2.0: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
     - Added an overall gradewise performance summary for districts/blocks/clusters and gram panchayats
     - Modified footer verbiage per direction from program/research/field and KLP team leads.
     - Fixed alignment issues with Kannada reports
+    - Bug fix: fixed # of Gp contests number to show proper count
   - ILP Superset
     - Fetches data directly from ILP DB to show current data
     - Upgraded superset version
