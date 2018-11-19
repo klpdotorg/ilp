@@ -18,9 +18,14 @@ Release 1.2.0: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
     - New logic for calcuating correct answer for competencies
     - New questions for current academic year
   - Project 1 million
-    - Uses aggregates to query data and there by runs faster
+    - Uses aggregates to query data and thereby runs faster
     - Supports sending only one section of a report or a combination of sections
-    - Various bug fixes
+    - Added new competency evaluations 
+    - Refactored templates to use inheritance
+    - Fixed issues with generating reports when GKA data for a child boundary was not present
+    - Added an overall gradewise performance summary for districts/blocks/clusters and gram panchayats
+    - Modified footer verbiage per direction from program/research/field and KLP team leads.
+    - Fixed alignment issues with Kannada reports
   - ILP Superset
     - Fetches data directly from ILP DB to show current data
     - Upgraded superset version
