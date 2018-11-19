@@ -29,7 +29,8 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg,
     SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg,
-    SurveyEBoundaryQuestionGroupGenderAgg
+    SurveyEBoundaryQuestionGroupGenderAgg,
+    SurveyEBoundaryElectionTypeCount
 )
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
@@ -91,7 +92,11 @@ class GPMathContestReport(BaseReport):
         if self.generate_hh == "True" or self.generate_gp == True:
             survey = self.getHouseholdSurvey(gp_obj, dates)
 
-        num_contests = 1 # Logic is that only one GP contest will be held per GP per academic year.
+        num_contests = SurveyEBoundaryElectionTypeCount.objects.filter(survey_id=2)\
+                                               .filter(eboundary_id=gp)\
+                                               .filter(yearmonth__gte = report_from)\
+                                               .filter(yearmonth__lte = report_to)\
+                                               .filter(const_ward_type='GP').aggregate(Sum('electionboundary_count'))['electionboundary_count__sum']
         self.output =  {
             'gp_name': gp.title(),\
             'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
