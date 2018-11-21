@@ -691,13 +691,15 @@ class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
                 values_list('neighbour_id', flat=True)
         else:
             _sd = BoundaryType.SCHOOL_DISTRICT
+            state_id = BoundaryStateCode.objects.get(
+                char_id=settings.ILP_STATE_ID).boundary_id
             btype = {
                 "boundary_id__boundary_type__char_id": _sd
             }
             neighbour_ids = SurveyTagMappingAgg.objects.\
+                filter(boundary_id=state_id).\
                 filter(survey_tag=survey_tag).\
-                filter(**btype).\
-                values_list('boundary_id', flat=True)
+                filter(**btype).values_list('boundary_id', flat=True)
         return neighbour_ids
 
     def get_electionboundary(
