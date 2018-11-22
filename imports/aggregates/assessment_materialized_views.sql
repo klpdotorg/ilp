@@ -2258,6 +2258,61 @@ FROM(
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
+        and q.key not in ('ivrss-gka-tlm-in-use','ivrss-group-work')
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        qg.source_id,
+        eb.id,
+        qg.id,
+        q.display_text,
+        q.question_text,
+        ans.question_id,
+        ans.answer,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    eboundary_id,
+    source,
+    questiongroup_id,
+    yearmonth,
+    question_id,
+    question_desc,
+    answer_option,
+    num_answers
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        eb.id as eboundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ans.question_id as question_id,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
+        ans.answer as answer_option,
+        count(ans) as num_answers
+    FROM assessments_survey survey,
+        assessments_questiongroup as qg,
+        assessments_answergroup_institution as ag,
+        assessments_surveytagmapping as surveytag,
+        assessments_question q,
+        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer='Yes',
+        schools_institution s,
+        boundary_electionboundary eb
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and q.key in ('ivrss-gka-tlm-in-use','ivrss-group-work')
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
@@ -2369,6 +2424,62 @@ FROM(
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
+        and q.key not in ('ivrss-gka-tlm-in-use','ivrss-group-work')
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        qg.source_id,
+        b.id,
+        qg.id,
+        q.display_text,
+        q.question_text,
+        ans.question_id,
+        ans.answer,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    boundary_id,
+    source,
+    questiongroup_id,
+    yearmonth,
+    question_id,
+    question_desc,
+    answer_option,
+    num_answers
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ans.question_id as question_id,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
+        ans.answer as answer_option,
+        count(ans) as num_answers
+    FROM assessments_survey survey,
+        assessments_questiongroup as qg,
+        assessments_answergroup_institution as ag,
+        assessments_surveytagmapping as surveytag,
+        assessments_question q,
+        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer='Yes',
+        schools_institution s,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ans.question_id = q.id
+        and q.key in ('ivrss-gka-tlm-in-use','ivrss-group-work')
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
@@ -2480,6 +2591,59 @@ FROM(
         and ag.id = ans.answergroup_id
         and ans.question_id = q.id
         and q.is_featured = true
+        and q.key not in ('ivrss-gka-tlm-in-use','ivrss-group-work')
+        and ag.is_verified=true
+        and ag.institution_id = s.id
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        s.id,
+        qg.source_id,
+        qg.id,
+        q.display_text,
+        q.question_text,
+        ans.question_id,
+        ans.answer,
+        yearmonth)data
+union 
+SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
+    survey_id,
+    survey_tag,
+    institution_id,
+    source,
+    questiongroup_id,
+    yearmonth,
+    question_id,
+    question_desc,
+    answer_option,
+    num_answers
+FROM(
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        s.id as institution_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ans.question_id as question_id,
+        case q.display_text when '' then q.question_text else q.display_text end as question_desc,
+        ans.answer as answer_option,
+        count(ans) as num_answers
+    FROM assessments_survey survey,
+        assessments_questiongroup as qg,
+        assessments_answergroup_institution as ag,
+        assessments_surveytagmapping as surveytag,
+        assessments_question q,
+        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer='Yes',
+        schools_institution s
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and q.key in ('ivrss-gka-tlm-in-use','ivrss-group-work')
         and ag.is_verified=true
         and ag.institution_id = s.id
     GROUP BY survey.id,
