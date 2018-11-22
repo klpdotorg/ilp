@@ -291,8 +291,9 @@
     {%if data.report_type != "school"%}
     <div class="outer-line">
         <h2>ಸಮುದಾಯದ ಸರ್ವೆ</h2>
-        <p>[ಈ ವರದಿಯು ಆಯಾ ಗ್ರಾಮದ ಶಾಲೆಗಳ ಕಾರ್ಯ ಚಟುವಟಿಕೆಗಳ ಬಗೆಗೆ ಪೋಷಕರಿಂದ ಪಡೆದ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ
+        <p style="text-align:center">[ಈ ವರದಿಯು ಆಯಾ ಗ್ರಾಮದ ಶಾಲೆಗಳ ಕಾರ್ಯ ಚಟುವಟಿಕೆಗಳ ಬಗೆಗೆ ಪೋಷಕರಿಂದ ಪಡೆದ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ
           ಮೇಲೆ ತಯಾರಿಸಲಾಗಿದೆ]</p>
+        {%if data.household %}
         {% for s in data.household %}
               {% if s.text == 'Is there a teacher shortage in the school?'%}
               <div class="half-box">
@@ -341,6 +342,9 @@
               </div>
               {% endif%}
               {% endfor %}
+      {%else%}
+        <h3 style="text-align:center;color:grey">ಸಮುದಾಯದ ಸರ್ವೇ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ</h3>
+      {%endif%}
             </div>
       {%comment%}<!-- End of community survey section-->{%endcomment%}
     {%endif%}

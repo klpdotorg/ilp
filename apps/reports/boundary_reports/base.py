@@ -153,7 +153,7 @@ class BaseReport(ABC):
         
 
         if aggregates is None or not aggregates.exists():
-            raise ValueError("No GP contest data for '{}' between {} and {}".format(boundary.name, report_from, report_to))
+            raise ValueError("No GP contest data for '{}' - {} between {} and {}".format(boundary.name,boundary.id,report_from, report_to))
         
         if gender_agg is None or not gender_agg.exists():
             raise ValueError("No gender data for '{}' between {} and {}".format(boundary.name, report_from, report_to))
@@ -173,9 +173,12 @@ class BaseReport(ABC):
     def getHouseholdSurvey(self,boundary,date_range):
         hh_answers_agg = None
         if isinstance(boundary, ElectionBoundary):
-            hh_answers_agg = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(eboundary_id=boundary)\
-                .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
-                .filter(question_id__in=[269, 144, 145, 138])
+            try:
+                hh_answers_agg = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(eboundary_id=boundary)\
+                    .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
+                    .filter(question_id__in=[269, 144, 145, 138])
+            except SurveyEBoundaryQuestionGroupAnsAgg.DoesNotExist:
+                print("No community survey data for '{}' between {} and {}".format(boundary.const_ward_name, self.report_from, self.report_to))
         else:
         #Household Survey
             hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
@@ -191,7 +194,7 @@ class BaseReport(ABC):
                 question_text = Question.objects.get(id=each_answer['question_id']).question_text
                 HHSurvey.append({'text':question_text,'percentage': round((total_yes_count/each_answer['num_answers__sum'])*100, 2)})
         else:
-             raise ValueError("No community survey data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
+             print("No community survey data for '{}' between {} and {}".format(boundary.name, self.report_from, self.report_to))
         return HHSurvey
 
     ''' boundary_type is one of 'district', 'block'. Needed for formatting the JSON structure '''
@@ -366,25 +369,25 @@ class BaseReport(ABC):
         if isinstance(boundary, Boundary):
             if boundary.boundary_type.char_id == 'SC':
                 correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
                 total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, ElectionBoundary):
             if boundary.const_ward_type_id == 'GP':
                 correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__gp=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name','institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
                 total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__gp=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, Institution):
             correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id=boundary.id, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
             total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id=boundary.id, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
 
         schools = []
@@ -396,7 +399,7 @@ class BaseReport(ABC):
             try:
                 sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
                     .filter(institution_id=each_row['institution_id'])\
-                    .get(questiongroup_id=each_row['questiongroup_id'])        
+                    .get(questiongroup_name=each_row['questiongroup_name'])        
                 if sum_total is not None:
                     total = sum_total
                 if sum_correct_ans is None or sum_correct_ans['total'] is None:
@@ -512,12 +515,13 @@ class BaseReport(ABC):
                         concept_scores = dict()
                         try:
                             sum_total = gradewise_total_agg.get(question_key=each_row['question_key'])
-                        except SurveyBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
+                        except:
                             print("No assessment matches this question_key, questiongroup_id combo")
                             sum_total = None
                         try:
                             sum_correct_ans = gradewise_correctans_agg.get(question_key=each_row['question_key'])
-                        except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
+                        except:
+                            #print("No correct answers available")
                             sum_correct_ans = None
                     
                         percent = 0

@@ -298,8 +298,9 @@
     {%if data.report_type != "school"%}
       <div class="outer-line">
         <h2>COMMUNITY SURVEY</h2>
-        <p>[This report is based on the feedback received from the parents on functioning of the school in your
+        <p style="text-align:center">[This report is based on the feedback received from the parents on functioning of the school in your
           boundary]</p>
+        {% if data.household %}
         {% for s in data.household %}
         <div class="half-box">
           {{s.text}}
@@ -310,6 +311,9 @@
           </div>
         </div>
         {% endfor %}
+        {%else%}
+          <h3 style="text-align:center;color:grey">No community survey data available</h3>
+        {%endif%}
       </div>
       {%comment%}<!-- End of community survey section-->{%endcomment%}
     {%endif%}

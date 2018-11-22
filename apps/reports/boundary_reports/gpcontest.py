@@ -40,15 +40,15 @@ from reports.helpers import calc_stud_performance
 
 
 class GPMathContestReport(BaseReport):
-    parameters = ('gp_name', )
-    def __init__(self, gp_name=None, report_from=None, report_to=None, **kwargs):
+    parameters = ('gp_code', )
+    def __init__(self, gp_code=None, report_from=None, report_to=None, **kwargs):
         super().__init__(**kwargs)
-        self.gp_name = gp_name
+        self.gp_code = int(gp_code)
         self.report_from = report_from
         self.report_to = report_to
-        self.params = dict(gp_name=self.gp_name, report_from=self.report_from, report_to=self.report_to)
+        self.params = dict(gp_code=self.gp_code, report_from=self.report_from, report_to=self.report_to)
         self.parser = argparse.ArgumentParser()
-        self.parser.add_argument('--gp_name', required=True)
+        self.parser.add_argument('--gp_code', required=True)
         self.parser.add_argument('--report_from', required=True)
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReport.html'
@@ -58,22 +58,23 @@ class GPMathContestReport(BaseReport):
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
-        self.gp_name = arguments.gp_name
+        self.gp_code = arguments.gp_code
         self.report_from = arguments.report_from
         self.report_to = arguments.report_to
         self.params = dict(gp_name=self.gp_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-        gp = self.gp_name #"peramachanahalli"
+        gp = self.gp_code #"peramachanahalli"
         #import pdb; pdb.set_trace()
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
-            gp_obj = ElectionBoundary.objects.get(const_ward_name=gp.capitalize(), const_ward_type_id='GP') # Take the GP from db
+            # gp_obj = ElectionBoundary.objects.get(const_ward_name=gp.capitalize(), const_ward_type_id='GP') # Take the GP from db
+            gp_obj = ElectionBoundary.objects.get(id=gp, const_ward_type_id='GP') # Take the GP from db
         except ElectionBoundary.DoesNotExist:
-            raise ValueError("Gram panchayat '{}' is not found in the database.".format(self.gp_name))
+            raise ValueError("Gram panchayat '{}' is not found in the database.".format(self.gp_code))
         gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
 
         block, district,num_boys, num_girls, number_of_students,\
@@ -90,7 +91,10 @@ class GPMathContestReport(BaseReport):
         
         survey = {}
         if self.generate_hh == "True" or self.generate_gp == True:
-            survey = self.getHouseholdSurvey(gp_obj, dates)
+            try:
+                survey = self.getHouseholdSurvey(gp_obj, dates)
+            except:
+                print("No household community survey data available for GP ", gp_obj.const_ward_name)
 
         num_contests_agg = SurveyEBoundaryElectionTypeCount.objects.filter(survey_id=2)\
                                                .filter(eboundary_id=gp_obj)\
@@ -101,7 +105,7 @@ class GPMathContestReport(BaseReport):
         if num_contests_agg.exists():
             num_contests = num_contests_agg.aggregate(Sum('electionboundary_count'))['electionboundary_count__sum']
         self.output =  {
-            'gp_name': gp.title(),\
+            'gp_name': gp_obj.const_ward_name,\
             'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
             'block':block,\
             'district':district.title(),\
@@ -138,12 +142,14 @@ class GPMathContestReport(BaseReport):
                 yearmonth__lte=self.report_to)        
         
         if not aggregates.exists():
-            raise ValueError("No GP contests found for '{}' between {} and {}".format(gp, self.report_from, self.report_to))
+            raise ValueError("No GP contests found for '{}'-{} between {} and {}".format(gp_obj.const_ward_name,gp_obj.id, self.report_from, self.report_to))
         block = aggregates.values_list('institution_id__admin2__name', flat=True).distinct()[0]
         district = aggregates.values_list('institution_id__admin1__name', flat=True).distinct()[0]
         num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
         num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
-        number_of_students = num_boys + num_girls
+        number_of_students=0
+        if num_boys is not None and num_girls is not None:
+            number_of_students = num_boys + num_girls
         male_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
             eboundary_id=gp_obj, survey_id=2)\
             .filter(yearmonth__gte = self.report_from)\
@@ -192,15 +198,15 @@ class GPMathContestReport(BaseReport):
  
 
 class GPMathContestReportSummarized(GPMathContestReport):
-    parameters = ('gp_name', )
-    def __init__(self, gp_name=None, report_from=None, report_to=None, **kwargs):
+    parameters = ('gp_code', )
+    def __init__(self, gp_code=None, report_from=None, report_to=None, **kwargs):
         super().__init__(**kwargs)
-        self.gp_name = gp_name
+        self.gp_code = gp_code
         self.report_from = report_from
         self.report_to = report_to
-        self.params = dict(gp_name=self.gp_name, report_from=self.report_from, report_to=self.report_to)
+        self.params = dict(gp_code=self.gp_code, report_from=self.report_from, report_to=self.report_to)
         self.parser = argparse.ArgumentParser()
-        self.parser.add_argument('--gp_name', required=True)
+        self.parser.add_argument('--gp_code', required=True)
         self.parser.add_argument('--report_from', required=True)
         self.parser.add_argument('--report_to', required=True)
         self._template_path = 'GPMathContestReportSummarized.html'
@@ -209,21 +215,21 @@ class GPMathContestReportSummarized(GPMathContestReport):
 
     def parse_args(self, args):
         arguments = self.parser.parse_args(args)
-        self.gp_name = arguments.gp_name
+        self.gp_code = arguments.gp_code
         self.report_from = arguments.report_from
         self.report_to = arguments.report_to
         self.params = dict(gp_name=self.gp_name, report_from=self.report_from, report_to=self.report_to)
 
     def get_data(self):
-        gp = self.gp_name #"peramachanahalli"
+        gp = self.gp_code #"peramachanahalli"
         dates = [self.report_from, self.report_to] # [2016-06-01, 2017-03-31]
 
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 
         try:
-            gp_obj = ElectionBoundary.objects.get(const_ward_name=gp, const_ward_type_id='GP') # Take the GP from db
+            gp_obj = ElectionBoundary.objects.get(id=gp, const_ward_type_id='GP') # Take the GP from db
         except ElectionBoundary.DoesNotExist:
-            raise ValueError("Gram panchayat '{}' is not found in the database.".format(self.gp_name))
+            raise ValueError("Gram panchayat '{}' is not found in the database.".format(self.gp_code))
 
         gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
      
