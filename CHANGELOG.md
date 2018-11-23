@@ -1,5 +1,12 @@
 Changelog
 ---
+Release xxxx: Nov. 23, 2018
+
+- Modified 1 million reports code to read gp_code instead of gp_name
+- Fixed bug related to multiple qgroups mapped to a gp or school
+- Reports will now be generated even if community survey data is not present for a boundary.
+
+---------
 Release 1.2.0: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
   - Karnataka GKA dashboard
     - Removed "Assessment" section
