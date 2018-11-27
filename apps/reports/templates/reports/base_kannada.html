@@ -1,4 +1,6 @@
 {%load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 
 <head>
@@ -9,7 +11,11 @@
 </head>
 
 <body>
-  <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}?lang=english">English</a>
+    {%language "en"%}
+      <!--<a style="top: 20px;position: absolute;left: 203px;" href="{{request.path}}?lang=english">English</a>-->
+      <a style="top: 20px;position: absolute;left: 203px;" href="/en/{{request.path}}">English</a>
+
+    {%endlanguage%}
   <h1><u>{%block report_title%} {%endblock report_title%}</u>
     {% include "./akshara-img.html" %}
   </h1>

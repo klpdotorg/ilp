@@ -1,26 +1,27 @@
 {% extends "./base.html" %}
+{% load i18n %}
 <!-- Report title -->
-{%block report_title%}GKA : {{data.district}} District Report{%endblock report_title%}
+{%block report_title%}{%blocktrans with district_name=data.district %}GKA : {{district_name}} District Report{%endblocktrans%}{%endblock report_title%}
 <!-- Report summary -->
 {%block report_summary_section%}
-	  <strong> District Name : </strong><span class="cap">{{data.district}}</span>
+	  <strong> {%trans "District Name :" %} </strong><span class="cap">{{data.district}}</span>
 	  <span class="cap" style="float:right">
-	    <strong>Academic Year : </strong>{{data.academic_year}}
+	    <strong>{%trans "Academic Year :"%}" </strong>{{data.academic_year}}
 	  </span>
 	  <br>
 
-	  <strong> No.of schools : </strong><span class="cap">{{data.no_schools}}</span>
+	  <strong> {%trans "No.of schools : "%}</strong><span class="cap">{{data.no_schools}}</span>
 	  <span style="float:right" class="cap">
-	    <strong>Report Generated on : </strong>{{data.today}}
+	    <strong>{%trans "Report Generated on :"%}" </strong>{{data.today}}
 	  </span>
 		<br>
 {%endblock report_summary_section%}
 <!-- End of report summary-->
 
 <!-- GKA section fill ins-->
-{%block gka_perf_title%}Performance by Block{%endblock gka_perf_title%}
-{%block boundary_column_header%}Block Name{%endblock boundary_column_header%}
+{%block gka_perf_title%}{%trans "Performance by Block"%}{%endblock gka_perf_title%}
+{%block boundary_column_header%}{%trans "Block Name"%}{%endblock boundary_column_header%}
 
 <!-- GP contest section fill-ins-->
-{%block gpc_performance_title%}Performance by Block{%endblock gpc_performance_title%}
-{%block child_boundary_col_header_name%}Block Name{%endblock child_boundary_col_header_name%}
+{%block gpc_performance_title%}{%trans "Performance by Block"%}{%endblock gpc_performance_title%}
+{%block child_boundary_col_header_name%}{%trans "Block Name"%}{%endblock child_boundary_col_header_name%}

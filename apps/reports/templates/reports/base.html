@@ -1,5 +1,6 @@
 {%load static %}
 {% load i18n %}
+{%load translation %}
 <!DOCTYPE html>
 
 <head>
@@ -10,9 +11,19 @@
 </head>
 
 <body>
-  {%language "kn"%}
-    <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}">ಕನ್ನಡ</a>
-  {%endlanguage%}
+  {% get_current_language as current_lang %}
+  {% get_available_languages as languages %}
+  {% for lang_code, lang_name in languages %}
+      {% language lang_code %}
+      {% get_language_info for lang_code as lang %}
+      {%if lang_code != current_lang%}
+          <a style="top: 20px;position: absolute;left: 203px;" href="{% url 'view_report' report_id=reportid tracking_id=trackid %}">{{ lang.name_local}}</a>
+      {%endif%}
+      {% endlanguage %}
+  {% endfor %}
+  <!--{%language "kn"%}
+    <a style="top: 20px;position: absolute;left: 203px;" href="/kn/{{request.path}}">ಕನ್ನಡ</a>
+  {%endlanguage%}-->
   <h1><u>{%block report_title%} {%endblock report_title%}</u>
     {% include "./akshara-img.html" %}
   </h1>
@@ -33,13 +44,14 @@
     <div class="outer-line">
       {%comment%}Translators: GKA implementation header title{%endcomment%}
       <h2>{%trans "GKA IMPLEMENTATION"%}</h2>
-      <p>[This report is based on the survey feedbacks received from HMs/CRP/Akshara staff and other department
-        officials on implementation of GKA Program]
+      {%comment%}Translators: GKA  implementation program information{%endcomment%}
+      <p>{%blocktrans%} [This report is based on the survey feedbacks received from HMs/CRP/Akshara staff and other department
+        officials on implementation of GKA Program] {%endblocktrans%}
       </p>
       <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;display: flex; align-items: center;">
         <div class="three-box text-left">
           {%comment%}Translators: Teacher's trained label{%endcomment%}
-          {%trans "Teacher's Trained :"%}
+          {%trans "Teachers Trained :" context "gka_question"%}
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>
@@ -49,7 +61,7 @@
         </div>
         <div class="three-box text-left">
           {%comment%}Translators: Kit usage label{%endcomment%}
-          {%trans "Kit Usage :" %}
+          {%trans "Kit Usage :" context "gka_question"%}
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
@@ -58,7 +70,8 @@
           </div>
         </div>
         <div class="three-box text-left">
-          {%trans "Group Work :"%}
+          {%comment%}Translators: GKA group work label{%endcomment%}
+          {%trans "Group Work :" context "gka_question"%}
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
@@ -75,9 +88,9 @@
         <table style="margin: auto;" id="customers">
           <tr>
             <th>{%block boundary_column_header%}{%endblock boundary_column_header%}</th>
-            <th>Teacher Trained</th>
-            <th>Kit Usage</th>
-            <th>Group Work</th>
+            <th>{%trans "Teachers Trained" context "table header"%}</th>
+            <th>{%trans "Kit Usage" context "table header"%}</th>
+            <th>{%trans "Group Work" context "table header"%}</th>
           </tr>
           {%comment%}<!-- Change gka_clusters to gka_children -->{%endcomment%}
           {% for item in data.gka_child_boundaries %}
@@ -100,56 +113,61 @@
     {%comment%} <!-- Start of GP contest section--> {%endcomment%}
     {%if data.render_gp == 'True' %}
     <div class="outer-line">
-      <h2>GP Contest</h2>
+      {%comment%}Translators: Gram Panchayar (GP) header title{%endcomment%}
+      <h2>{%trans "GP Contest"%}</h2>
       <span style="line-height:22px;">
         {%with 'gp gpsummarized school' as reports_list%}
         <!-- For all reports except school show number of contests-->
         {%if data.report_type not in reports_list %}
-          <b>Total No of Contests:</b> {{data.num_contests}}&nbsp;
+          {%comment%}Translators: Total number of contests label {%endcomment%}
+          <b>{%trans "Total No of Contests:"%}</b> {{data.num_contests}}&nbsp;
           <span style="float:right;">
-              <b>Participation :</b> {{data.num_students}} {
+            {%comment%}Translators: Participation in GP contests label{%endcomment%}
+              <b>{%trans "Participation :"%}</b> {{data.num_students}} {
               {% include "./boy-shadow.html" %} : {{data.num_boys}}
               {% include "./girl-shadow.html" %} : {{data.num_girls}}
               }
           </span>
         <!-- For school reports show only number of students-->
         {%else%}
-          <b>Participation :</b>  {{ data.num_students}} 
+          {%comment%}Translators: Participation in GP contests label{%endcomment%}
+          <b>{%trans "Participation :"%}</b>  {{ data.num_students}} 
           { {% include "./boy-shadow.html" %} :  {{ data.num_boys }}
           {% include "./girl-shadow.html" %} : {{ data.num_girls }}
           } &nbsp; &nbsp; &nbsp;
           <span style="float:right;">
-            <b>Students with FULL score : </b>{{ data.score_100}} 
+            {%comment%}Translators: Students with full score in GP contests label{%endcomment%}
+            <b>{%trans "Students with FULL score : "%}</b>{{ data.score_100}} 
           </span>
         {%endif%}
         {%endwith%}
       </span>
-
-      <p> [This report provides the details of Math learning levels of children by school who participated in Gram
-        Panchayat Mathematics Contests this academic year.]</p>
+      {%comment%}Translators: Intro blurb for GP contest report section{%endcomment%}
+      <p> {%blocktrans%} [This report provides the details of Math learning levels of children by school who participated in Gram
+        Panchayat Mathematics Contests this academic year.] {%endblocktrans%}</p>
       <!-- Overall gradewise performance not applicable to schools. SHOW ONLY BREAKDOWN BY SCHOOL/GRADE. See below-->
       {%if data.report_type != "school" %}
-      <h2>Performance by Grade</h2>
+      <h2>{%trans "Performance by Grade"%}</h2>
       <table style="margin: auto;" id="customers">
         <tr>
-          <th>Grade</th>
+          <th>{%trans "Grade"%}</th>
           <th>
-            Number Recognition <br>(123)
+            {%trans "Number Recognition"%} <br>(123)
           </th>
           <th>
-            Place Value <br>(1,10,100)
+            {%trans "Place Value"%} <br>(1,10,100)
           </th>
           <th>
-            Addition<br>(+)
+            {%trans "Addition"%}<br>(+)
           </th>
           <th>
-            Subtraction<br>(-)
+            {%trans "Subtraction"%}<br>(-)
           </th>
           <th>
-            Multiplication<br>(&times;)
+            {%trans "Multiplication"%}<br>(&times;)
           </th>
           <th>
-            Division<br>(&divide;)
+            {%trans "Division"%}<br>(&divide;)
           </th>
          
         </tr>
@@ -214,24 +232,24 @@
       <table id="customers" style="margin:auto;">
         <tr>
           <th>{%block child_boundary_col_header_name%}{%endblock child_boundary_col_header_name%}</th>
-          <th>Grade</th>
+          <th>{%trans "Grade"%}</th>
           <th>
-            Number Recognition <br>(123)
+            {%trans "Number Recognition"%} <br>(123)
           </th>
           <th>
-            Place Value <br>(1,10,100)
+            {%trans "Place Value"%} <br>(1,10,100)
           </th>
           <th>
-            Addition<br>(+)
+            {%trans "Addition"%}<br>(+)
           </th>
           <th>
-            Subtraction<br>(-)
+            {%trans "Subtraction"%}<br>(-)
           </th>
           <th>
-            Multiplication<br>(&times;)
+            {%trans "Multiplication"%}<br>(&times;)
           </th>
           <th>
-            Division<br>(&divide;)
+            {%trans "Division"%}<br>(&divide;)
           </th>
          
         </tr>
@@ -300,12 +318,13 @@
     <!-- Start of community survey section. Don't show for schools. Show for everything else -->
     {%if data.report_type != "school"%}
       <div class="outer-line">
-        <h2>COMMUNITY SURVEY</h2>
-        <p>[This report is based on the feedback received from the parents on functioning of the school in your
-          boundary]</p>
+        {%comment%}Translators: Community survey section label{%endcomment%}
+        <h2>{%trans "COMMUNITY SURVEY"%}</h2>
+        <p>{%blocktrans%} [This report is based on the feedback received from the parents on functioning of the school in your
+          boundary]{%endblocktrans%}</p>
         {% for s in data.household %}
         <div class="half-box">
-          {{s.text}}
+          {%blocktrans with question=s.text|translate%} {{question}}{%endblocktrans%}<!-- Include the question translations manually in the .po file-->
           <br><br>
           <span class="percent">{{s.percentage}}%</span>
           <div class="p-bar-grey" style="width: 80%;">
@@ -319,38 +338,38 @@
     {%endif%}<!-- End of data.render_hh check -->
     {%block footer %}
     <div class="outer-line" style="line-height: 26px;">
-      <b>FOCUS AREAS</b> :
+      <b>{%trans "FOCUS AREAS"%}</b> :
       <ul>
         {%if data.render_gka == 'True' or data.render_gp == 'True' %}
         <li>
-          <b>Colour Code: </b>All the numbers more than 70% are highlighted in <span class="green"><b>GREEN</b></span>,
+          {% blocktrans %}<b>Colour Code: </b>All the numbers more than 70% are highlighted in <span class="green"><b>GREEN</b></span>,
           All the numbers which are less than 40% are highlighted in <span class="red"><b>RED</b></span>. HMs/CRPs/GP
-          Members should take serious note and work towards improving the learning levels in Math.
+          Members should take serious note and work towards improving the learning levels in Math.{% endblocktrans %}
         </li>
         {%endif%}
         {%if data.render_gp == 'True'%}
         <li>
-          <b>Question Design: </b> In GP contest, all the children are tested based on the previous year's competency
+          {% blocktrans %}<b>Question Design: </b> In GP contest, all the children are tested based on the previous year's competency
           level. For example, a Class-5 child is given a question paper prepared based on the Class-4 level
-          competencies.
+          competencies.{% endblocktrans %}
         </li>
         <li>
-          <b>Evaluation Scheme: </b> For Number Recognition, Place Value, Addition, Subtraction all the questions
+          {% blocktrans %}<b>Evaluation Scheme: </b> For Number Recognition, Place Value, Addition, Subtraction all the questions
           asked should be answered correctly. For Division and Multiplication, one question should be answered
-          correctly.
+          correctly.{% endblocktrans %}
         </li>
         {%endif%}
         {%if data.render_gka == 'True' or data.render_gp == 'True' %}
         <li>
-          <b>Recommendation: </b>To improve math learning levels of children please encourage the use of GKA Math kit
-          in classrooms.
+          {% blocktrans %}<b>Recommendation: </b>To improve math learning levels of children please encourage the use of GKA Math kit
+          in classrooms.{% endblocktrans %}
         </li>
         {%endif%}
       </ul>
     </div>
     <div class="red" style="text-align: center;padding: 20px;">
       {% include "./gka_logo_english.html" %} <br>
-      FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 9845079590
+      {%blocktrans%}FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT :{%endblocktrans%} 9845079590
     </div>
     <a href="{{ request.path }}download?lang={{request.GET.lang}}" class="button button5">Download</a>
   </div>

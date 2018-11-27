@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 10:18+0530\n"
+"POT-Creation-Date: 2018-11-27 11:28+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,24 +17,237 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: apps/reports/templates/reports/DistrictReport.html:4
+#, python-format
+msgid "GKA : %(district_name)s District Report"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(district_name)s ಜಿಲ್ಲಾ ವರದಿ"
+
+#: apps/reports/templates/reports/DistrictReport.html:7
+msgid "District Name :"
+msgstr "ಜಿಲ್ಲೆಯ ಹೆಸರು :"
+
+#: apps/reports/templates/reports/DistrictReport.html:9
+msgid "Academic Year :"
+msgstr "ಶೈಕ್ಷಣಿಕ ವರ್ಷ :"
+
+#: apps/reports/templates/reports/DistrictReport.html:13
+msgid "No.of schools : "
+msgstr "ಶಾಲೆಗಳ ಸಂಖ್ಯೆ :"
+
+#: apps/reports/templates/reports/DistrictReport.html:15
+msgid "Report Generated on :"
+msgstr "ವರದಿ ತಯಾರಾದ ದಿನ :"
+
+#: apps/reports/templates/reports/DistrictReport.html:22
+#: apps/reports/templates/reports/DistrictReport.html:26
+msgid "Performance by Block"
+msgstr "ಕ್ಲಸ್ಟರ್ ಅನುಸಾರವಾಗಿ ಸಾಧನೆ ಪಟ್ಟಿ"
+
+#: apps/reports/templates/reports/DistrictReport.html:23
+#: apps/reports/templates/reports/DistrictReport.html:27
+msgid "Block Name"
+msgstr "ಬ್ಲಾಕ್ "
+
 #. Translators: GKA implementation header title
-#: apps/reports/templates/reports/base.html:39 templates/gka_dashboard.html:115
+#: apps/reports/templates/reports/base.html:50
+#: apps/reports/templates/reports/test_languages.html:15
+#: templates/gka_dashboard.html:115
 msgid "GKA IMPLEMENTATION"
-msgstr "ಜಿ ಕೆ ಏ ಅನುಷ್ಠಾನ ತರಗತಿ ಭೇಟಿ ವರದಿ ( ILP Konnect )"
+msgstr "ಜಿ ಕೆ ಏ ಅನುಷ್ಠಾನ ತರಗತಿ ಭೇಟಿ ವರದಿ"
+
+#. Translators: GKA  implementation program information
+#: apps/reports/templates/reports/base.html:52
+msgid ""
+" [This report is based on the survey feedbacks received from HMs/CRP/Akshara "
+"staff and other department\n"
+"        officials on implementation of GKA Program] "
+msgstr "[ಈ ವರದಿಯನ್ನು ಮುಖ್ಯ ಶಿಕ್ಷಕರು/ ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಅಕ್ಷರ ಸಿಬ್ಬಂದಿಗಳು ಮತ್ತು ಇತರೆ ಇಲಾಖೆ
+          ಅಧಿಕಾರಿಗಳಿಂದ ಪಡೆದ ಸಮೀಕ್ಷೆಯ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ ಮೇಲೆ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಅನುಷ್ಠಾನದ ಬಗ್ಗೆ
+          ತಯಾರಿಸಲಾಗಿದೆ]"
 
 #. Translators: Teacher's trained label
-#: apps/reports/templates/reports/base.html:46
-msgid "Teacher's Trained :"
+#: apps/reports/templates/reports/base.html:58
+msgctxt "gka_question"
+msgid "Teachers Trained :"
 msgstr "ಗಣಿತ ಶಿಕ್ಷಕರು ಜಿ ಕೆ ಏ ತರಬೇತಿ ಪಡೆದಿದ್ದಾರೆಯೇ? :"
 
 #. Translators: Kit usage label
-#: apps/reports/templates/reports/base.html:56
+#: apps/reports/templates/reports/base.html:68
+msgctxt "gka_question"
 msgid "Kit Usage :"
 msgstr "ಮಕ್ಕಳು ಅಥವಾ ಶಿಕ್ಷಕರು ಗಣಿತ ಕಿಟ್ ಉಪಯೋಗಿಸುತ್ತಿದ್ದರೇ ? :"
 
-#: apps/reports/templates/reports/base.html:65
+#. Translators: GKA group work label
+#: apps/reports/templates/reports/base.html:78
+msgctxt "gka_question"
 msgid "Group Work :"
 msgstr "ಗುಂಪು ಕಲಿಕೆ ಆಗುತ್ತಿತೇ? :"
+
+#: apps/reports/templates/reports/base.html:96
+msgctxt "table header"
+msgid "Teachers Trained"
+msgstr "ತರಬೇತಿ ಪಡೆದ ಶಿಕ್ಷಕರು"
+
+#: apps/reports/templates/reports/base.html:97
+msgctxt "table header"
+msgid "Kit Usage"
+msgstr "ಕಿಟ್ ಬಳಕೆ"
+
+#: apps/reports/templates/reports/base.html:98
+msgctxt "table header"
+msgid "Group Work"
+msgstr "ಗುಂಪು ಕಲಿಕೆ"
+
+#. Translators: Gram Panchayar (GP) header title
+#: apps/reports/templates/reports/base.html:125
+msgid "GP Contest"
+msgstr "ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ"
+
+#. Translators: Total number of contests label
+#: apps/reports/templates/reports/base.html:131
+msgid "Total No of Contests:"
+msgstr "ಒಟ್ಟು ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಗಳು :"
+
+#. Translators: Participation in GP contests label
+#: apps/reports/templates/reports/base.html:134
+#: apps/reports/templates/reports/base.html:142
+msgid "Participation :"
+msgstr "ಸ್ಪರ್ಧಿಗಳು :"
+
+#. Translators: Students with full score in GP contests label
+#: apps/reports/templates/reports/base.html:148
+msgid "Students with FULL score : "
+msgstr "ಪೂರ್ಣ ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳು :"
+
+#. Translators: Intro blurb for GP contest report section
+#: apps/reports/templates/reports/base.html:154
+msgid ""
+" [This report provides the details of Math learning levels of children by "
+"school who participated in Gram\n"
+"        Panchayat Mathematics Contests this academic year.] "
+msgstr ""
+"[ಈ ವರದಿಯು ಈ ಶೈಕ್ಷಣಿಕ ವರ್ಷದಲ್ಲಿ ಗ್ರಾಮ ಪಂಚಾಯತ್ ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಪಾಲ್ಗೊಂಡಿದ್ದ ಮಕ್ಕಳ "
+"ಕಲಿಕೆಯ ಮಟ್ಟಗಳ  ವಿವರಗಳನ್ನು  ಒದಗಿಸುತ್ತದೆ.]"
+
+#: apps/reports/templates/reports/base.html:158
+msgid "Performance by Grade"
+msgstr "ಕ್ಲಸ್ಟರ್ ಅನುಸಾರವಾಗಿ ಸಾಧನೆ ಪಟ್ಟಿ"
+
+#: apps/reports/templates/reports/base.html:161
+#: apps/reports/templates/reports/base.html:243
+msgid "Grade"
+msgstr "ತರಗತಿ"
+
+#: apps/reports/templates/reports/base.html:163
+#: apps/reports/templates/reports/base.html:245
+msgid "Number Recognition"
+msgstr "ಸಂಖ್ಯಾ ಪರಿಚಯ"
+
+#: apps/reports/templates/reports/base.html:166
+#: apps/reports/templates/reports/base.html:248
+msgid "Place Value"
+msgstr "ಸ್ಥಾನ ಬೆಲೆ"
+
+#: apps/reports/templates/reports/base.html:169
+#: apps/reports/templates/reports/base.html:251
+msgid "Addition"
+msgstr "ಸಂಕಲನ"
+
+#: apps/reports/templates/reports/base.html:172
+#: apps/reports/templates/reports/base.html:254
+msgid "Subtraction"
+msgstr "ವ್ಯವಕಲನ"
+
+#: apps/reports/templates/reports/base.html:175
+#: apps/reports/templates/reports/base.html:257
+msgid "Multiplication"
+msgstr "ಗುಣಾಕಾ ರ"
+
+#: apps/reports/templates/reports/base.html:178
+#: apps/reports/templates/reports/base.html:260
+msgid "Division"
+msgstr "ಭಾಗಾಕಾ ರ"
+
+#. Translators: Community survey section label
+#: apps/reports/templates/reports/base.html:332
+msgid "COMMUNITY SURVEY"
+msgstr "ಸಮುದಾಯದ ಸರ್ವೆ"
+
+#: apps/reports/templates/reports/base.html:333
+msgid ""
+" [This report is based on the feedback received from the parents on "
+"functioning of the school in your\n"
+"          boundary]"
+msgstr ""
+"[ಈ ವರದಿಯು ಆಯಾ ಗ್ರಾಮದ ಶಾಲೆಗಳ ಕಾರ್ಯ ಚಟುವಟಿಕೆಗಳ ಬಗೆಗೆ ಪೋಷಕರಿಂದ ಪಡೆದ ಪ್ರತಿಕ್ರಿಯೆಯ "
+"ಆಧಾರದ  ಮೇಲೆ ತಯಾರಿಸಲಾಗಿದೆ]"
+
+#: apps/reports/templates/reports/base.html:337
+#, python-format
+msgid " %(question)s"
+msgstr ""
+
+#: apps/reports/templates/reports/base.html:352
+msgid "FOCUS AREAS"
+msgstr "ಗಮನಿಸ ಬೇಕಾದ ವಿಷಯಗಳು"
+
+#: apps/reports/templates/reports/base.html:356
+#, python-format
+msgid ""
+"<b>Colour Code: </b>All the numbers more than 70%% are highlighted in <span "
+"class=\"green\"><b>GREEN</b></span>,\n"
+"          All the numbers which are less than 40%% are highlighted in <span "
+"class=\"red\"><b>RED</b></span>. HMs/CRPs/GP\n"
+"          Members should take serious note and work towards improving the "
+"learning levels in Math."
+msgstr ""
+"<b>ವರದಿಯಲ್ಲಿ ಕೆಂಪು ಮತ್ತು ಹಸಿರು ಬಣ್ಣದ ಅರ್ಥ: </b>70%% ಕ್ಕಿಂತ ಮೇಲೆ  <span class="
+"\"green\"><b>ಹಸಿರು</b></span> ಬಣ್ಣದಿಂದ  ಸೂಚಿಸಲಾಗಿದೆ. 40%% ಕಿಂತ ಕಡಿಮೆ ಇರುವ "
+"ಸಂಖ್ಯೆಗಳನ್ನು <span class=\"red\"><b>ಕೆಂಪು</b></span> ಬಣ್ಣದಿಂದ ಸೂಚಿಸಲಾಗಿದೆ.   "
+"ಗಣಿತ ಶಿಕ್ಷಕರು, ಮುಖ್ಯ  ಶಿಕ್ಷಕರು, ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಹಾಗು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಸದಸ್ಯರು "
+"ಈ ಸಮಸ್ಯೆಯನ್ನು ಗಂಭೀರವಾಗಿ ಪರಿಗಣಿಸಿ  ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸುವ ನಿಟ್ಟಿನಲ್ಲಿ ಕೆಲಸವನ್ನು "
+"ಮಾಡಬೇಕಾಗಿದೆ."
+
+#: apps/reports/templates/reports/base.html:363
+msgid ""
+"<b>Question Design: </b> In GP contest, all the children are tested based on "
+"the previous year's competency\n"
+"          level. For example, a Class-5 child is given a question paper "
+"prepared based on the Class-4 level\n"
+"          competencies."
+msgstr ""
+"<b>ಪ್ರಶ್ನೆಪತ್ರಿಕೆ ವಿನ್ಯಾಸ: </b>ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಕೇಳಲಾಗುವ "
+"ಪ್ರಶ್ನೆಗಳು ಪ್ರತಿ ಒಂದು ತರಗತಿಗೆ ಹಿಂದಿನ ತರಗತಿಯ ಸಾಮರ್ಥ್ಯಗಳನ್ನು ಪರೀಕ್ಷಿಸುವುದು. "
+"ಉದಾಹರಣೆಗೆ: 5ನೇ ತರಗತಿಯ ಮಕ್ಕಳು 4ನೇ ತರಗತಿಯ ಸಾಮರ್ಥ್ಯದ ಪ್ರಶ್ನೆಗಳನ್ನು ಉತ್ತರಿಸುವುದು."
+
+#: apps/reports/templates/reports/base.html:368
+msgid ""
+"<b>Evaluation Scheme: </b> For Number Recognition, Place Value, Addition, "
+"Subtraction all the questions\n"
+"          asked should be answered correctly. For Division and "
+"Multiplication, one question should be answered\n"
+"          correctly."
+msgstr ""
+"<b>ಮೌಲ್ಯಮಾಪನ ವಿಧಾನ: </b>ಸಂಖ್ಯಾ ಪರಿಚಯ, ಸ್ಥಾನ ಬೆಲೆ, ಸಂಕಲನ, ವ್ಯವಕಲನ ಪರಿಕಲ್ಪನೆಯಲ್ಲಿ "
+"ಕೇಳಲಾದ ಎಲ್ಲಾ ಪ್ರಶ್ನೆಗಳನ್ನು ಸರಿಯಾಗಿ ಉತ್ತರಿಸಬೇಕು. ಗುಣಾಕಾರ ಮತ್ತು ಭಾಗಾಕಾರ ಪರಿಕಲ್ಪನೆಯಲ್ಲಿ "
+"ಒಂದು ಲೆಕ್ಕ ಸರಿಯಾಗಿ ಉತ್ತರಿಸಬೇಕು."
+
+#: apps/reports/templates/reports/base.html:375
+msgid ""
+"<b>Recommendation: </b>To improve math learning levels of children please "
+"encourage the use of GKA Math kit\n"
+"          in classrooms."
+msgstr ""
+"<b>ಸಲಹೆ :</b> ಮಕ್ಕಳ ಗಣಿತ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಉತ್ತಮಪಡಿಸಲು ತರಗತಿಯಲ್ಲಿ SSA ವತಿಯಿಂದ "
+"ಒದಗಿಸಲಾದ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಕಿಟ್ ಅನ್ನು ಬಳಸಲು ಹೆಚ್ಚು ಒತ್ತು ನೀಡಬೇಕು"
+
+#: apps/reports/templates/reports/base.html:383
+msgid "FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT :"
+msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ಹಾಗು ಹೆಚ್ಚಿನ ವಿವರಣೆ ಬೇಕಿದ್ದಲ್ಲಿ  ಈ ಸಂಖ್ಯೆಗೆ ಸಂಪರ್ಕಿಸಿ: "
+
+#: apps/reports/templates/reports/test_languages.html:6
+msgid "View this page in:"
+msgstr ""
 
 #: templates/gka_dashboard.html:37
 msgid "GKA DASHBOARD"
@@ -83,6 +296,19 @@ msgstr "ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಂಗ್ರಹಣೆ "
 #: templates/gka_dashboard.html:183
 msgid "COMPARISON"
 msgstr "ಅಸರ್ ಮತ್ತು ಅಕ್ಷರ ಹೋಲಿಕೆ "
+
+msgid "Is there a teacher shortage in the school?"
+msgstr "ಶಾಲೆಯಲ್ಲಿ ಶಿಕ್ಷಕರ ಕೊರತೆ ಇದೆಯೇ?"
+
+msgid "Does the school have a separate functional toilet for girls?"
+msgstr "ಶಾಲೆಯಲ್ಲಿ ಗಂಡು ಮತ್ತು ಹೆಣ್ಣು ಮಕ್ಕಳಿಗೆ ಪ್ರತ್ಯೇಕ ಶೌಚಾಲಯದ ವ್ಯವಸ್ಥೆ ಇದೆಯೆ?"
+
+msgid "Does the SDMC meet every month?"
+msgstr "ಶಾಲಾ ಅಭಿವೃದ್ಧಿ  ಮತ್ತು ಮೆಲುಸ್ತುವಾರಿ ಸಭೆ ಪ್ರತಿ ತಿಂಗಳು ನಡೆಯುತ್ತಿದೆಯೇ ?"
+
+msgid ""
+"Are you satisfied with the Mid Day Meal served in your child's school?"
+msgstr "ನಿಮ್ಮ ಮಗುವಿಗೆ ಶಾಲೆಯಲ್ಲಿ ನೀಡುವ ಬಿಸಿಯೂಟದ ಬಗ್ಗೆ ನಿಮಗೆ ತೃಪ್ತಿ  ಇದೆಯೆ ?"
 
 #~ msgid "ASSESSMENTS"
 #~ msgstr "ಜಿ ಕೆ ಏ ರೂಪಣಾತ್ಮಕ ಮೌಲ್ಯಮಾಪನ "
