@@ -4,15 +4,15 @@
 {%block report_title%}{%blocktrans with district_name=data.district %}GKA : {{district_name}} District Report{%endblocktrans%}{%endblock report_title%}
 <!-- Report summary -->
 {%block report_summary_section%}
-	  <strong> {%trans "District Name :" %} </strong><span class="cap">{{data.district}}</span>
+	  <strong> {%trans "District Name"%} : </strong><span class="cap">{{data.district}}</span>
 	  <span class="cap" style="float:right">
-	    <strong>{%trans "Academic Year :"%}" </strong>{{data.academic_year}}
+	    <strong>{%trans "Academic Year"%} :  </strong>{{data.academic_year}}
 	  </span>
 	  <br>
 
-	  <strong> {%trans "No.of schools : "%}</strong><span class="cap">{{data.no_schools}}</span>
+	  <strong> {%trans "No.of schools"%} : </strong><span class="cap">{{data.no_schools}}</span>
 	  <span style="float:right" class="cap">
-	    <strong>{%trans "Report Generated on :"%}" </strong>{{data.today}}
+	    <strong>{%trans "Report Generated on"%} : </strong>{{data.today}}
 	  </span>
 		<br>
 {%endblock report_summary_section%}

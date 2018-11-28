@@ -1,0 +1,8 @@
+Steps:-
+delete from assessments_questiongroup_questions where questiongroup_id in (45,46,47) and question_id not in (130,291);
+
+python manage.py create_questiongroup apps/assessments/management/commands/csv/gp_contest_ka/class_4/GP_contest_questiongroup.csv apps/assessments/management/commands/csv/gp_contest_ka/class_4/GP_contest_class-4_questions.csv
+
+python manage.py create_questiongroup apps/assessments/management/commands/csv/gp_contest_ka/class_5/GP_contest_questiongroup.csv apps/assessments/management/commands/csv/gp_contest_ka/class_5/GP_contest_class-5_questions.csv 
+
+python manage.py create_questiongroup apps/assessments/management/commands/csv/gp_contest_ka/class_6/GP_contest_questiongroup.csv apps/assessments/management/commands/csv/gp_contest_ka/class_6/GP_contest_class-6_questions.csv

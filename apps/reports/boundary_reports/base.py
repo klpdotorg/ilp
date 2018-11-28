@@ -29,6 +29,7 @@ from assessments.models import (
     SurveyEBoundaryQuestionGroupAnsAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
+    SurveyBoundaryElectionTypeCount
 )
 from assessments import models as assess_models
 from assessments.models import AnswerGroup_Institution, QuestionGroup
@@ -43,14 +44,20 @@ def format_academic_year(yearmonth_format):
 
 class BaseReport(ABC):
     def __init__(self,**args):
-        self.generate_gka = args.pop('generate_gka')
-        self.generate_gp = args.pop('generate_gp')
-        self.generate_hh = args.pop('generate_hhsurvey')
-        self.common_data= { 
-            'render_gka':str(self.generate_gka),
-            'render_gp': str(self.generate_gp),
-            'render_hh': str(self.generate_hh)
-        }
+        #Below if will be executed if the key called 'data' is in the args
+        #This happens when PDF report is generated and the object is created
+        #with data
+        if 'data' in args:
+            self.data = args.pop('data')
+        else:
+            self.generate_gka = args.pop('generate_gka', True)
+            self.generate_gp = args.pop('generate_gp', True)
+            self.generate_hh = args.pop('generate_hhsurvey', True)
+            self.common_data= { 
+                'render_gka':str(self.generate_gka),
+                'render_gp': str(self.generate_gp),
+                'render_hh': str(self.generate_hh)
+            }
 
     @abstractmethod
     def get_data(self):
@@ -73,7 +80,6 @@ class BaseReport(ABC):
     def get_html(self, lang=None):
         if not self.data:
             self.data = self.get_data();
-
         if lang == 'english':
             template = 'reports/{}.html'.format(self._type)
         else:
@@ -147,7 +153,7 @@ class BaseReport(ABC):
         
 
         if aggregates is None or not aggregates.exists():
-            raise ValueError("No GP contest data for '{}' between {} and {}".format(boundary.name, report_from, report_to))
+            raise ValueError("No GP contest data for '{}' - {} between {} and {}".format(boundary.name,boundary.id,report_from, report_to))
         
         if gender_agg is None or not gender_agg.exists():
             raise ValueError("No gender data for '{}' between {} and {}".format(boundary.name, report_from, report_to))
@@ -155,17 +161,24 @@ class BaseReport(ABC):
         num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
         num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
         number_of_students = num_boys + num_girls
-   
-        num_contests = aggregates.values_list('institution_id__gp__id', flat=True).distinct().count()
+        num_contests = SurveyBoundaryElectionTypeCount.objects.filter(survey_id=2)\
+                                               .filter(boundary_id=boundary)\
+                                               .filter(yearmonth__gte = report_from)\
+                                               .filter(yearmonth__lte = report_to)\
+                                               .filter(const_ward_type='GP').aggregate(Sum('electionboundary_count'))['electionboundary_count__sum']
+        #num_contests = aggregates.values_list('institution_id__gp__id', flat=True).distinct().count()
         return num_schools_in_boundary, num_boys, num_girls, number_of_students, num_contests
 
     ''' Returns household survey aggregate values per boundary '''
     def getHouseholdSurvey(self,boundary,date_range):
         hh_answers_agg = None
         if isinstance(boundary, ElectionBoundary):
-            hh_answers_agg = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(eboundary_id=boundary)\
-                .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
-                .filter(question_id__in=[269, 144, 145, 138])
+            try:
+                hh_answers_agg = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(eboundary_id=boundary)\
+                    .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
+                    .filter(question_id__in=[269, 144, 145, 138])
+            except SurveyEBoundaryQuestionGroupAnsAgg.DoesNotExist:
+                print("No community survey data for '{}' between {} and {}".format(boundary.const_ward_name, self.report_from, self.report_to))
         else:
         #Household Survey
             hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
@@ -181,7 +194,7 @@ class BaseReport(ABC):
                 question_text = Question.objects.get(id=each_answer['question_id']).question_text
                 HHSurvey.append({'text':question_text,'percentage': round((total_yes_count/each_answer['num_answers__sum'])*100, 2)})
         else:
-             raise ValueError("No community survey data for '{}' between {} and {}".format(self.cluster_name, self.report_from, self.report_to))
+             print("No community survey data for '{}' between {} and {}".format(boundary.name, self.report_from, self.report_to))
         return HHSurvey
 
     ''' boundary_type is one of 'district', 'block'. Needed for formatting the JSON structure '''
@@ -256,10 +269,10 @@ class BaseReport(ABC):
     def getKitUsagePercent(self, gka_aggregate_obj, date_range):
         #Kit usage percentage
         kits_used = gka_aggregate_obj.filter(question_desc__icontains='Ganitha Kalika Andolana TLM', answer_option='Yes').aggregate(kits_used= Sum('num_answers'))
-        #kits_total = gka_aggregate_obj.filter(question_desc__icontains='Ganitha Kalika Andolana TLM').aggregate(total_kits = Sum('num_answers'))
+        kits_total = gka_aggregate_obj.filter(question_desc__icontains='Ganitha Kalika Andolana TLM').aggregate(total_kits = Sum('num_answers'))
         #11/11/2018: Making this change per change in logic per program team. Need to compute TLM usage only based on observation.
         #i.e. surveys that happened while a math class was on-going
-        kits_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(total_kits = Sum('num_answers'))
+        #kits_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(total_kits = Sum('num_answers'))
         if kits_used['kits_used'] is None:
             kits_used['kits_used'] = 0
         percent_kit_usage = kits_used['kits_used']/kits_total['total_kits']*100
@@ -268,10 +281,10 @@ class BaseReport(ABC):
     def getGroupWorkPercent(self, gka_aggregate_obj, date_range):
          #Group work percentage
         group_work_done = gka_aggregate_obj.filter(question_desc__icontains='group', answer_option='Yes').aggregate(group_work_yes = Sum('num_answers'))
-        #group_work_total = gka_aggregate_obj.filter(question_desc__icontains='group').aggregate(group_work_total = Sum('num_answers'))
+        group_work_total = gka_aggregate_obj.filter(question_desc__icontains='group').aggregate(group_work_total = Sum('num_answers'))
         #11/11/2018: Making this change per change in logic per program team. Need to compute TLM usage only based on observation.
         #i.e. surveys that happened while a math class was on-going
-        group_work_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(group_work_total = Sum('num_answers'))
+        #group_work_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(group_work_total = Sum('num_answers'))
         if group_work_done['group_work_yes'] is None:
             group_work_done['group_work_yes']=0
         group_work_percent = group_work_done['group_work_yes']/group_work_total['group_work_total'] * 100
@@ -356,25 +369,25 @@ class BaseReport(ABC):
         if isinstance(boundary, Boundary):
             if boundary.boundary_type.char_id == 'SC':
                 correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
                 total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, ElectionBoundary):
             if boundary.const_ward_type_id == 'GP':
                 correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__gp=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name','institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
                 total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__gp=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, Institution):
             correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id=boundary.id, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
             total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id=boundary.id, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_id', 'questiongroup_name', 'institution_id', 'num_assessments')\
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
 
         schools = []
@@ -386,7 +399,7 @@ class BaseReport(ABC):
             try:
                 sum_correct_ans = correct_answers_agg.filter(question_key=each_row['question_key'])\
                     .filter(institution_id=each_row['institution_id'])\
-                    .get(questiongroup_id=each_row['questiongroup_id'])        
+                    .get(questiongroup_name=each_row['questiongroup_name'])        
                 if sum_total is not None:
                     total = sum_total
                 if sum_correct_ans is None or sum_correct_ans['total'] is None:
@@ -502,12 +515,13 @@ class BaseReport(ABC):
                         concept_scores = dict()
                         try:
                             sum_total = gradewise_total_agg.get(question_key=each_row['question_key'])
-                        except SurveyBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
+                        except:
                             print("No assessment matches this question_key, questiongroup_id combo")
                             sum_total = None
                         try:
                             sum_correct_ans = gradewise_correctans_agg.get(question_key=each_row['question_key'])
-                        except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
+                        except:
+                            #print("No correct answers available")
                             sum_correct_ans = None
                     
                         percent = 0

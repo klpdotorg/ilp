@@ -47,6 +47,10 @@ class Command(BaseCommand):
                 continue
             count += 1
             id = row[0].strip()
+            if id != '':
+                survey = Survey.objects.filter(pk=id)
+                if survey:
+                    return survey
             name = row[1].strip()
             description = row[2].strip()
             partner = Partner.objects.get(char_id=row[3].strip())
@@ -55,6 +59,7 @@ class Command(BaseCommand):
             survey_on_id = SurveyOnType.objects.get(char_id=row[6].strip())
             lang_name = row[7].strip()
             survey = Survey.objects.create(
+                         pk = id,
                          name = name,
                          description = description,
                          partner = partner,
@@ -74,6 +79,10 @@ class Command(BaseCommand):
             count += 1
 
             id = row[0].strip()
+            if id != '':
+                questiongroup = QuestionGroup.objects.filter(pk=id)
+                if questiongroup:
+                    return questiongroup 
             name = row[1].strip()
             group_text = row[2].strip()
             start_date = datetime.strptime(row[3].strip(), "%d-%m-%Y").date()

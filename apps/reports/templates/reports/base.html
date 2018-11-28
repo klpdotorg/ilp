@@ -1,12 +1,15 @@
 {%load static %}
 {% load i18n %}
 {%load translation %}
+{% load basic_default_settings %}
 <!DOCTYPE html>
 
 <head>
   <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+  <base href="{%get_reports_base_url%}">
   <link rel="stylesheet" href="{% static 'reports/reports.css' %}" type="text/css" charset="utf-8">
 </head>
 
@@ -43,7 +46,7 @@
     {%if data.report_type not in list%}
     <div class="outer-line">
       {%comment%}Translators: GKA implementation header title{%endcomment%}
-      <h2>{%trans "GKA IMPLEMENTATION"%}</h2>
+      <h2>{%trans "GKA IMPLEMENTATION"  context "gka_reports_title"%}</h2>
       {%comment%}Translators: GKA  implementation program information{%endcomment%}
       <p>{%blocktrans%} [This report is based on the survey feedbacks received from HMs/CRP/Akshara staff and other department
         officials on implementation of GKA Program] {%endblocktrans%}
@@ -51,7 +54,7 @@
       <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden;display: flex; align-items: center;">
         <div class="three-box text-left">
           {%comment%}Translators: Teacher's trained label{%endcomment%}
-          {%trans "Teachers Trained :" context "gka_question"%}
+          {%trans "Teachers Trained" context "gka_question"%} : 
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>
@@ -61,7 +64,7 @@
         </div>
         <div class="three-box text-left">
           {%comment%}Translators: Kit usage label{%endcomment%}
-          {%trans "Kit Usage :" context "gka_question"%}
+          {%trans "Kit Usage" context "gka_question"%} : 
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
@@ -71,7 +74,7 @@
         </div>
         <div class="three-box text-left">
           {%comment%}Translators: GKA group work label{%endcomment%}
-          {%trans "Group Work :" context "gka_question"%}
+          {%trans "Group Work" context "gka_question"%} : 
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
@@ -120,10 +123,10 @@
         <!-- For all reports except school show number of contests-->
         {%if data.report_type not in reports_list %}
           {%comment%}Translators: Total number of contests label {%endcomment%}
-          <b>{%trans "Total No of Contests:"%}</b> {{data.num_contests}}&nbsp;
+          <b>{%trans "Total No of Contests"%} : </b> {{data.num_contests}}&nbsp;
           <span style="float:right;">
             {%comment%}Translators: Participation in GP contests label{%endcomment%}
-              <b>{%trans "Participation :"%}</b> {{data.num_students}} {
+              <b>{%trans "Participation"%}:</b> {{data.num_students}} {
               {% include "./boy-shadow.html" %} : {{data.num_boys}}
               {% include "./girl-shadow.html" %} : {{data.num_girls}}
               }
@@ -131,13 +134,13 @@
         <!-- For school reports show only number of students-->
         {%else%}
           {%comment%}Translators: Participation in GP contests label{%endcomment%}
-          <b>{%trans "Participation :"%}</b>  {{ data.num_students}} 
+          <b>{%trans "Participation"%}:</b>  {{ data.num_students}} 
           { {% include "./boy-shadow.html" %} :  {{ data.num_boys }}
           {% include "./girl-shadow.html" %} : {{ data.num_girls }}
           } &nbsp; &nbsp; &nbsp;
           <span style="float:right;">
             {%comment%}Translators: Students with full score in GP contests label{%endcomment%}
-            <b>{%trans "Students with FULL score : "%}</b>{{ data.score_100}} 
+            <b>{%trans "Students with FULL score"%} : </b>{{ data.score_100}} 
           </span>
         {%endif%}
         {%endwith%}
@@ -173,7 +176,7 @@
         </tr>
         {% for item in data.overall_gradewise_perf %}
         <tr>
-          <td>{{ item.grade }}</td>
+          <td>{%blocktrans with translated_grade=item.grade|translate%}{{translated_grade}}{%endblocktrans%}</td>
           <td align="center">
             {% for value in item.values%}
             {% if "Number Recognition" == value.contest %}
@@ -258,7 +261,7 @@
         <tr>
           {% if forloop.counter == 1 %} <td rowspan="{{ item.grades|length }}" style="background-color:#fff;">
             {{ item.boundary }}</td> {% endif %}
-          <td>{{g.name}}</td>
+          <td>{%blocktrans with gradename=g.name|translate%}{{gradename}}{%endblocktrans%}</td>
           <td align="center">
             {% for value in g.values%}
             {% if "Number Recognition" == value.contest %}
@@ -320,8 +323,9 @@
       <div class="outer-line">
         {%comment%}Translators: Community survey section label{%endcomment%}
         <h2>{%trans "COMMUNITY SURVEY"%}</h2>
-        <p>{%blocktrans%} [This report is based on the feedback received from the parents on functioning of the school in your
+        <p> <p style="text-align:center">{%blocktrans%} [This report is based on the feedback received from the parents on functioning of the school in your
           boundary]{%endblocktrans%}</p>
+        {% if data.household %}
         {% for s in data.household %}
         <div class="half-box">
           {%blocktrans with question=s.text|translate%} {{question}}{%endblocktrans%}<!-- Include the question translations manually in the .po file-->
@@ -332,6 +336,9 @@
           </div>
         </div>
         {% endfor %}
+        {%else%}
+          <h3 style="text-align:center;color:grey">{%trans "No community survey data available"%}</h3>
+        {%endif%}
       </div>
       {%comment%}<!-- End of community survey section-->{%endcomment%}
     {%endif%}

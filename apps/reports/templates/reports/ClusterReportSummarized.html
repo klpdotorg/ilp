@@ -1,6 +1,8 @@
 {% extends "./base.html" %}
+{% load i18n %}
+
 <!-- Report title-->
-{%block report_title%}GKA : {{data.cluster}} Cluster Summarized Report{%endblock report_title%}
+{%block report_title%}{%blocktrans with cluster_name=data.cluster%}GKA : {{cluster_name}} Cluster Summarized Report{%endblocktrans%}{%endblock report_title%}
 <!-- Report summary -->
 {%block report_summary_section%}
   <strong> Cluster Name : </strong><span class="cap">{{data.cluster}}</span>
