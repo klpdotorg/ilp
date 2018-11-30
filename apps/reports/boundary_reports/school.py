@@ -77,7 +77,7 @@ class SchoolReport(BaseReport):
         block = school_obj.admin2.name.title()           # Block name
         district = school_obj.admin1.name.title()    # District name
 
-        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id=school_obj,survey_id=2)\
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id=school_obj,survey_id=self.gpcontest_survey_id)\
                                                             .filter(yearmonth__gte = self.report_from)\
                                                             .filter(yearmonth__lte = self.report_to)
         gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(

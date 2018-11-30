@@ -132,7 +132,7 @@ class GPMathContestReport(BaseReport):
         gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
 
         # Get the answergroup_institution from gp name and academic year
-        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__gp=gp_obj,survey_id=2)\
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__gp=gp_obj,survey_id=self.gpcontest_survey_id)\
                                                             .filter(yearmonth__gte = self.report_from)\
                                                             .filter(yearmonth__lte = self.report_to)
         gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
@@ -151,25 +151,25 @@ class GPMathContestReport(BaseReport):
         if num_boys is not None and num_girls is not None:
             number_of_students = num_boys + num_girls
         male_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
-            eboundary_id=gp_obj, survey_id=2)\
+            eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
             .filter(yearmonth__gte = self.report_from)\
             .filter(yearmonth__lte = self.report_to)\
             .filter(gender='Male')\
             .aggregate(male_correct=Sum('num_assessments'))
         female_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
-            eboundary_id=gp_obj, survey_id=2)\
+            eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
             .filter(yearmonth__gte = self.report_from)\
             .filter(yearmonth__lte = self.report_to)\
             .filter(gender='Female')\
             .aggregate(female_correct=Sum('num_assessments'))
         male_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
-            eboundary_id=gp_obj, survey_id=2)\
+            eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
             .filter(yearmonth__gte = self.report_from)\
             .filter(yearmonth__lte = self.report_to)\
             .filter(gender='Male')\
             .aggregate(male_total=Sum('num_assessments'))
         female_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
-            eboundary_id=gp_obj, survey_id=2)\
+            eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
             .filter(yearmonth__gte = self.report_from)\
             .filter(yearmonth__lte = self.report_to)\
             .filter(gender='Female')\

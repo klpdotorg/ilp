@@ -11,6 +11,16 @@
   <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
   <base href="{%get_reports_base_url%}">
   <link rel="stylesheet" href="{% static 'reports/reports.css' %}" type="text/css" charset="utf-8">
+  {% if not settings.DEBUG %}
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-3982320-11', 'auto');
+        ga('send', 'pageview');
+      </script>
+    {% endif %}
 </head>
 
 <body>
@@ -20,7 +30,7 @@
       {% language lang_code %}
       {% get_language_info for lang_code as lang %}
       {%if lang_code != current_lang%}
-          <a style="top: 20px;position: absolute;left: 203px;" href="{% url 'view_report' report_id=reportid tracking_id=trackid %}">{{ lang.name_local}}</a>
+          <a style="top: 20px;position: absolute;left: 203px;" href="{% url 'view_report' report_id=reportid tracking_id=trackid %}">{{lang.name_translated}}</a>
       {%endif%}
       {% endlanguage %}
   {% endfor %}
@@ -331,8 +341,8 @@
           {%blocktrans with question=s.text|translate%} {{question}}{%endblocktrans%}<!-- Include the question translations manually in the .po file-->
           <br><br>
           <span class="percent">{{s.percentage}}%</span>
-          <div class="p-bar-grey" style="width: 80%;">
-            <div class="p-bar-fill" style="height:15px;width:{{s.percentage}}%"></div>
+          <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
+            <div class="p-bar-fill green" style="height:15px;width:{{s.percentage}}%"></div>
           </div>
         </div>
         {% endfor %}

@@ -94,7 +94,7 @@ msgstr "ಕ್ಲಸ್ಟರ್ ಹೆಸರು"
 #: apps/reports/templates/reports/BlockReportSummarized.html:5
 #, python-format
 msgid "GKA : %(block_name)s Summarized Block Report"
-msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(data.block)s ಬ್ಲಾಕ್ ನ ವರದಿ"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(block_name)s ಬ್ಲಾಕ್ ನ ವರದಿ"
 
 #: apps/reports/templates/reports/ClusterReport.html:5
 #, python-format
@@ -284,7 +284,7 @@ msgstr "ಭಾಗಾಕಾ ರ"
 #. Translators: Community survey section label
 #: apps/reports/templates/reports/base.html:335
 msgid "COMMUNITY SURVEY"
-msgstr "ಸಮುದಾಯದ ಸರ್ವೆ"
+msgstr "ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಂಗ್ರಹಣೆ"
 
 #: apps/reports/templates/reports/base.html:336
 msgid ""
@@ -314,7 +314,7 @@ msgid ""
 "learning levels in Math."
 msgstr ""
 "<b>ವರದಿಯಲ್ಲಿ ಕೆಂಪು ಮತ್ತು ಹಸಿರು ಬಣ್ಣದ ಅರ್ಥ: </b>70%% ಕ್ಕಿಂತ ಮೇಲೆ  <span class=\"green\"><b>ಹಸಿರು</b></span> ಬಣ್ಣದಿಂದ  ಸೂಚಿಸಲಾಗಿದೆ. 40%% ಕಿಂತ ಕಡಿಮೆ ಇರುವ ಸಂಖ್ಯೆಗಳನ್ನು"
-"<span class=\"red\"><b>ಕೆಂಪು</b></span> ಬಣ್ಣದಿಂದ ಸೂಚಿಸಲಾಗಿದೆ."
+"<span class=\"red\"><b>ಕೆಂಪು</b></span>  ಬಣ್ಣದಿಂದ ಸೂಚಿಸಲಾಗಿದೆ."
 "ಗಣಿತ ಶಿಕ್ಷಕರು, ಮುಖ್ಯ  ಶಿಕ್ಷಕರು, ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಹಾಗು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಸದಸ್ಯರು ಈ ಸಮಸ್ಯೆಯನ್ನು ಗಂಭೀರವಾಗಿ ಪರಿಗಣಿಸಿ  ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸುವ ನಿಟ್ಟಿನಲ್ಲಿ ಕೆಲಸವನ್ನು ಮಾಡಬೇಕಾಗಿದೆ."
 
 

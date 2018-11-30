@@ -18,6 +18,7 @@ class Command(BaseCommand):
         parser.add_argument('--gka', default=True, help="Generate the gka section of the report. If no filter (gka, household, gp) is specified all sections will be generated")
         parser.add_argument('--gp', default=True, help="Generate the gp section of the report. If no filter (gka, household, gp) is specified all sections will be generated")
         parser.add_argument('--hhsurvey', default=True, help="Generate the household survey section of the report. If no filter (gka, household, gp) is specified all sections will be generated")
+        parser.add_argument('--config', required=True, help="Path to the state specific config file")
         parser.add_argument('filename')
        
     def handle(self, *args, **options):
@@ -26,4 +27,5 @@ class Command(BaseCommand):
                         options['gka'],\
                         options['gp'],\
                         options['hhsurvey'],\
+                        options['config'],\
                         False)
