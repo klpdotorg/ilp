@@ -4,12 +4,12 @@ equivalent_fractions|Equivalent Fractions
 part_of_a_whole_object(2d_shapes)_fractions|Part of a whole object (2D shapes) - Fractions
 fractions_to_quantities_volume|Fractions to Quantities - Volume
 fractions_to_quantities-weight|Fractions to Quantities - Weight
-fractions_in collection_of_objects|Fractions in collection of objects
+fractions_in_collection_of_objects|Fractions in collection of objects
 fractions_with_quantity_and_pictures|Fractions with Quantity and Pictures
 greater_than,equal_to_and_lesser_than_with_fractional_numbers|Greater Than, Equal to and lesser than with Fractional numbers
 form_biggest,smallest_number_from_given_set_of_digits|Form biggest, smallest number from given set of digits
-greater_than,equal_to_and_lesser_than_with_numbers only|Greater Than, Equal to and lesser than with Numbers only
-greater_than,equal_to_and_lesser_than_with_quantity only|Greater Than, Equal to and lesser than with Quantity only
+greater_than,equal_to_and_lesser_than_with_numbers_only|Greater Than, Equal to and lesser than with Numbers only
+greater_than,equal_to_and_lesser_than_with_quantity_only|Greater Than, Equal to and lesser than with Quantity only
 representation_of_decimal_numbers_using_math_TLMs|Representation of Decimal numbers using Math TLMs
 rounding_off_the_decimal_numbers_to_the_closest_next_place_value|Rounding off the Decimal numbers to the closest next place value
 number_patterns_with_logic|Number patterns with logic
@@ -23,8 +23,8 @@ representation_in_units,tens,hundreds|Representation in Units, Tens , Hundreds
 expansion_form_and_short_form_of_numbers|Expansion form and Short form of numbers
 decimals_using_pictures|Decimals using pictures
 fractions_using_pictures|Fractions using pictures
-numeral_quantity_association |Numeral quantity association 
-quantity_numeral_association |Quantity Numeral association
+numeral_quantity_association|Numeral quantity association 
+quantity_numeral_association|Quantity Numeral association
 odd_number_and_even_numbers|Odd Number and Even Numbers
 relate_fractions_to_decimal_numbers_and_vice_versa|Relate Fractions to Decimal numbers and vice versa
 oral_number_name_association|Oral number name association
@@ -77,7 +77,7 @@ word_problem_measurements_four_arithmetic_operations_on_length|Word Problem - Me
 nonvert_larger_units_to_smaller_units_and_vice_versa_money|Convert larger units to smaller units and vice versa - Money
 decimals_and_fractions_in_money|Decimals and Fractions in Money
 identify_currency_notes_and_coins|Identify Currency Notes and Coins
-rate_chart_or_invoice_or_expense_sheet_ money|Rate Chart or Invoice or expense sheet - Money
+rate_chart_or_invoice_or_expense_sheet_money|Rate Chart or Invoice or expense sheet - Money
 word_problem_measurements_money|Word Problem - Measurements - Money
 tabulation_using_money(word_problem)|Tabulation using Money  (word problem)
 days_of_the_week|Days of the Week
@@ -104,15 +104,15 @@ word_problem_measurements_weight|Word Problem - Measurements - Weight
 convert_larger_units_to_smaller_units_and_vice_versa_weight|Convert larger units to smaller units and vice versa - Weight
 compares_weight_heavy,light|Compares weight - heavy,light
 compares_weight_using_measuring_scale|Compares weight using measuring scale
-simple_balance_measuring_objects_using_non standard|Simple balance - measuring objects using non standard
-measuring_weight_non_standard |Measuring weight - non standard 
+simple_balance_measuring_objects_using_non_standard|Simple balance - measuring objects using non standard
+measuring_weight_non_standard|Measuring weight - non standard
 measuring_weight_standard|Measuring weight - standard
 decimals_and_fractions_in_length|Decimals and Fractions in Length
-tabulation_using_length(word_problem)|Tabulation using Length  (word problem)
+tabulation_using_length(word_problem)|Tabulation using Length (word problem)
 2d_shapes_attributes|2D shapes attributes
 spatial_relation_shapes(up,down,inside,outside,above,below,near,far,beforer,after,on,in)|Spatial relation shapes - up, down, inside, outside, above, below, near, far, before and after, on and in
 spatial_relation_numbers(more,less,near,far,before,after)|Spatial relation Numbers - more, less, near, far, before and after
-3d_shapes_attributes| 3D shapes attributes
+3d_shapes_attributes|3D shapes attributes
 3d_shapes_and_2d_shapes_relationship|3D shapes and 2D shapes relationship
 2d_shapes_area|2D shapes - Area
 observes_and_extends_patterns_in_sequence_of_shapes|Observes and extends patterns in sequence of shapes
@@ -126,3 +126,4 @@ identify_2d_shapes(pictures)|Identify 2D shapes (pictures)
 data_representation_graphs_understand_and_answer_the_question(word_problem)|Data Representation - Graphs - Understand and answer the question (word problem)
 collection_understand_and_answer_the_question(word_problem)|Collection - Understand and answer the question (word problem)
 interpretation_understand_and_answer_the_question(word_problem)|Interpretation - Understand and answer the question (word problem)
+shapes_and_spatial_understanding|Shapes and Spatial Understanding
