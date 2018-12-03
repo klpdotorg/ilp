@@ -367,12 +367,13 @@ var topSummaryData = {};
         $('#smsQuestions').startLoading();
 
         // var gkaSchoolVisit = getSurveyId('gka school visit');
+        // TODO: FIXME: Remove this hard coding
         if(klp.STATE_CODE === 'ka') {
             gkaSchoolVisit = 11;
         } else if(klp.STATE_CODE === 'od') {
             gkaSchoolVisit = 14;
         } else {
-            alert('Not enough data to load GKA school visit.');
+            alert('Not enough data to load GKA school visit section.');
             return;
         }
 
@@ -676,24 +677,6 @@ var topSummaryData = {};
 
 
     function renderSMSDetails(detailsData) {
-
-        // This function uses math class numbers to calculate
-        // percentages for other questions
-        function reCalculateGroupWorkRelatedKeys(main, key) {
-            var mathClassCount = main['ivrss-math-class-happening'];
-
-            if(!mathClassCount || !mathClassCount['score']) { return main; }
-
-            main[key]['total'] = mathClassCount['score'];
-            main[key]['percent'] = getPercent(
-                main[key]['score'],
-                mathClassCount['score']
-            );
-
-            return main;
-
-        }
-
         var SMSQuestionKeys = [
                 "ivrss-gka-trained",
                 "ivrss-math-class-happening",
@@ -727,19 +710,6 @@ var topSummaryData = {};
                 };
             }
         });
-
-        console.log(regroup)
-
-        // For GKA Methodology section, use Ongoing Class visit count
-        // as the denominator to calculate the percentages
-        regroup = reCalculateGroupWorkRelatedKeys(
-            regroup, "ivrss-gka-tlm-in-use"
-        );
-        regroup = reCalculateGroupWorkRelatedKeys(
-            regroup, "ivrss-group-work"
-        );
-
-        console.log(regroup);
 
         $('#smsQuestions').html(tplResponses({"questions":regroup}));
     }
@@ -1174,7 +1144,6 @@ var topSummaryData = {};
         });
     }
 
-
     function renderGPContestCharts(data) {
 
         function genCompetancyChartObj(classData) {
@@ -1203,6 +1172,7 @@ var topSummaryData = {};
 
         function sortCompetanciesBasedOnOrder(classData) {
             if(!classData
+                    || !classData.series
                     || !classData.series[0]
                     || !classData.series[0].data) {
                 return classData;
@@ -1238,9 +1208,26 @@ var topSummaryData = {};
         class5competancies = sortCompetanciesBasedOnOrder(class5competancies);
         class6competancies = sortCompetanciesBasedOnOrder(class6competancies);
 
-        renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
-        renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");
-        renderBarChart('#gpcGraph_class6', class6competancies, "Percentage of Children");
+	console.log(class4competancies, class5competancies, class6competancies)
+
+        if(class4competancies.labels && class4competancies.series) {
+            renderBarChart('#gpcGraph_class4', class4competancies, "Percentage of Children");
+        } else {
+            $('#gpcGraph_class4').hide();
+        }
+
+        if(class5competancies.labels && class5competancies.series) {
+            renderBarChart('#gpcGraph_class5', class5competancies, "Percentage of Children");
+        } else {
+            $('#gpcGraph_class4').hide();
+        }
+
+
+        if(class6competancies.labels && class5competancies.series) {
+            renderBarChart('#gpcGraph_class6', class6competancies, "Percentage of Children");
+        } else {
+            $('#gpcGraph_class6').hide();
+        }        
     }
 
     function OBSgenCompetancyChartObj(aggCompetancies) {

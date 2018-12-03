@@ -1,21 +1,22 @@
 {% extends "./base.html" %}
+{% load i18n %}
 
 {%block report_title%}GKA : {{data.gp_name}} gram panchayat Report{%endblock report_title%}
 <!-- Report summary -->
 {%block report_summary_section%}
-	  <strong> Gram Panchayat Name : </strong><span class="cap">{{data.gp_name}}</span>
+	  <strong> {%trans "Gram Panchayat Name"%} : </strong><span class="cap">{{data.gp_name}}</span>
 	  <span class="cap" style="float:right">
-	    <strong>Academic Year : </strong>{{data.academic_year}}
+	    <strong>{%trans "Academic Year"%} : </strong>{{data.academic_year}}
 	  </span>
 	  <br>
-	  <strong> Block Name : </strong><span class="cap">{{data.block}}</span>
+	  <strong> {%trans "Block Name"%} : </strong><span class="cap">{{data.block}}</span>
 	  <span style="float:right" class="cap">
-	    <strong>Report Generated on : </strong>{{data.today}}
+	    <strong>{%trans "Report Generated on"%} : </strong>{{data.today}}
 	  </span>
 	  <br>
-	  <strong> District Name : </strong><span class="cap">{{data.district}}</span>
+	  <strong>{%trans "District Name"%} : </strong><span class="cap">{{data.district}}</span>
 	  <br>
-	  <strong> No.of Schools in GP : </strong><span class="cap">{{data.no_schools_gp}}</span>
+	  <strong> {%trans "No.of Schools in GP"%} : </strong><span class="cap">{{data.no_schools_gp}}</span>
 		<br>
 {%endblock report_summary_section%}
 <!-- End of report summary -->

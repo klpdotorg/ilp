@@ -48,6 +48,10 @@ class Command(BaseCommand):
 
             survey_id = Survey.objects.get(id=row[0].strip())
             id = row[1].strip()
+            if id != '':
+                questiongroup = QuestionGroup.objects.filter(pk=id)
+                if questiongroup:
+                    return questiongroup 
             name = row[2].strip()
             group_text = row[3].strip()
             start_date = datetime.strptime(row[4].strip(), "%d-%m-%Y").date()
@@ -130,7 +134,7 @@ class Command(BaseCommand):
         for questiongroup in questiongroups:
             sequence = 1
             for question in questions:
-                qgq_map = QuestionGroup_Questions.objects.create(
+                qgq_map,created = QuestionGroup_Questions.objects.get_or_create(
                           sequence = sequence,
                           question = question,
                           questiongroup = questiongroup)

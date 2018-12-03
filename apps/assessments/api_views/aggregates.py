@@ -512,7 +512,6 @@ class SurveyQuestionGroupQuestionKeyAPIView(
             .values_list('questiongroup_id', 'questiongroup_name')
 
         for qgroup_id, qgroup_name in qgroups:
-            q_res = {}
             qgroup_qs = qs.filter(questiongroup_id=qgroup_id)
             qgroup_ans_qs = ans_qs.filter(questiongroup_id=qgroup_id)
             key_agg = qgroup_qs.values(
@@ -521,6 +520,8 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                 'question_key').annotate(num_assess=Sum('num_assessments'))
 
             question_keys = key_agg.values_list('question_key', flat=True)           
+            qgroup_res[qgroup_name] = qgroup_res.get(qgroup_name, {})
+
             for q_key in question_keys:
                 total = key_agg.get(question_key=q_key)['num_assess']
                 try:
@@ -528,13 +529,18 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                     score = score_qs['num_assess']
                 except ObjectDoesNotExist:
                     score = 0
-                order = CompetencyOrder.objects.get(key=q_key, questiongroup_id = qgroup_id)
-                q_res[q_key] = {
-                    "total": total,
-                    "score": score,
-                    "order": order.sequence
-                }
-            qgroup_res[qgroup_name] = q_res
+                order = CompetencyOrder.objects.get(
+                    key=q_key, questiongroup_id=qgroup_id
+                )
+                if qgroup_res[qgroup_name].get(q_key, None):
+                    qgroup_res[qgroup_name][q_key]["total"] += total
+                    qgroup_res[qgroup_name][q_key]["score"] += score
+                else:
+                    qgroup_res[qgroup_name][q_key] = {
+                        "total": total,
+                        "score": score,
+                        "order": order.sequence
+                    }
         return Response(qgroup_res)
 
 
@@ -646,9 +652,9 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
                     .aggregate(Sum('num_assessments'))
 
                 gender_res[gender] = {
-                    "total_count": gender_agg['num_assessments__sum'],
+                    "total_count": gender_agg['num_assessments__sum'] or 0,
                     "perfect_score_count": gender_ans_agg[
-                        'num_assessments__sum']
+                        'num_assessments__sum'] or 0
                 }
             group_res[group_name] = {
                 "gender": gender_res

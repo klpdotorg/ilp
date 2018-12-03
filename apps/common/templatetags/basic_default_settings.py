@@ -16,6 +16,16 @@ def get_dise_url(context):
         return value
 
 @register.simple_tag(takes_context=True)
+def get_reports_base_url(context):
+    try:
+        value = settings.REPORTS_SERVER_BASE_URL
+    except KeyError:
+        return ''  # If the state or variable is not found, return an empty
+        # string
+    else:
+        return value
+        
+@register.simple_tag(takes_context=True)
 def get_dise_app_url(context):
     try:
         value = settings.DISE_APP_URL

@@ -1,15 +1,24 @@
 {%load static %}
+{% load i18n %}
+{% load basic_default_settings %}
+
 <!DOCTYPE html>
 
 <head>
   <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+  <base href="{%get_reports_base_url%}">
   <link rel="stylesheet" href="{% static 'reports/reports.css' %}" type="text/css" charset="utf-8">
 </head>
 
 <body>
-  <a style="top: 20px;position: absolute;left: 203px;" href="{{ request.path }}?lang=english">English</a>
+    {%language "en"%}
+      <!--<a style="top: 20px;position: absolute;left: 203px;" href="{{request.path}}?lang=english">English</a>-->
+      <a style="top: 20px;position: absolute;left: 203px;" href="/en/{{request.path}}">English</a>
+
+    {%endlanguage%}
   <h1><u>{%block report_title%} {%endblock report_title%}</u>
     {% include "./akshara-img.html" %}
   </h1>
@@ -33,13 +42,13 @@
           ಅಧಿಕಾರಿಗಳಿಂದ ಪಡೆದ ಸಮೀಕ್ಷೆಯ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ ಮೇಲೆ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಅನುಷ್ಠಾನದ ಬಗ್ಗೆ
           ತಯಾರಿಸಲಾಗಿದೆ]
       </p>
-      <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden; align-items: left;">
+      <div style="width: 100%;    margin: auto;    margin-top: 30px;    overflow: hidden; align-items: center; display:flex; justify-content:center; align-content:center">
         <div class="three-box text-left">
             ಗಣಿತ ಶಿಕ್ಷಕರು ಜಿ ಕೆ ಏ ತರಬೇತಿ ಪಡೆದಿದ್ದಾರೆಯೇ? :
           </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.teachers_trained}}%</span>
-          <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
+          <div class="p-bar-grey" style="width: 70%;border-radius:5px;">
             <div class="p-bar-fill green" style="height:15px;width:{{data.gka.teachers_trained}}%"></div>
           </div>
         </div>
@@ -48,7 +57,7 @@
           </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.kit_usage}}%</span>
-          <div class="p-bar-grey" style="width: 80%;border-radius: 5px;">
+          <div class="p-bar-grey" style="width: 70%;border-radius: 5px;">
             <div class="p-bar-fill green" style="height:15px;width:{{data.gka.kit_usage}}%"></div>
           </div>
         </div>
@@ -57,7 +66,7 @@
         </div>
         <div class="three-box text-left">
           <span style=" font-size: 16px;float: left;">{{data.gka.group_work}}%</span>
-          <div class="p-bar-grey" style="width: 80%;border-radius:5px;">
+          <div class="p-bar-grey" style="width: 70%;border-radius:5px;">
             <div class="p-bar-fill green" style="height:15px;width:{{data.gka.group_work}}%"></div>
           </div>
         </div>
@@ -287,8 +296,9 @@
     {%if data.report_type != "school"%}
     <div class="outer-line">
         <h2>ಸಮುದಾಯದ ಸರ್ವೆ</h2>
-        <p>[ಈ ವರದಿಯು ಆಯಾ ಗ್ರಾಮದ ಶಾಲೆಗಳ ಕಾರ್ಯ ಚಟುವಟಿಕೆಗಳ ಬಗೆಗೆ ಪೋಷಕರಿಂದ ಪಡೆದ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ
+        <p style="text-align:center">[ಈ ವರದಿಯು ಆಯಾ ಗ್ರಾಮದ ಶಾಲೆಗಳ ಕಾರ್ಯ ಚಟುವಟಿಕೆಗಳ ಬಗೆಗೆ ಪೋಷಕರಿಂದ ಪಡೆದ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ
           ಮೇಲೆ ತಯಾರಿಸಲಾಗಿದೆ]</p>
+        {%if data.household %}
         {% for s in data.household %}
               {% if s.text == 'Is there a teacher shortage in the school?'%}
               <div class="half-box">
@@ -337,6 +347,9 @@
               </div>
               {% endif%}
               {% endfor %}
+      {%else%}
+        <h3 style="text-align:center;color:grey">ಸಮುದಾಯದ ಸರ್ವೇ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ</h3>
+      {%endif%}
             </div>
       {%comment%}<!-- End of community survey section-->{%endcomment%}
     {%endif%}
@@ -365,7 +378,7 @@
             </div>
             <div class="red" style="text-align: center;padding: 20px;">
                 {% include "./gka_logo_english.html" %} <br>
-            FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 9845079590
+                ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ಹಾಗು ಹೆಚ್ಚಿನ ವಿವರಣೆ ಬೇಕಿದ್ದಲ್ಲಿ  ಈ ಸಂಖ್ಯೆಗೆ ಸಂಪರ್ಕಿಸಿ : 9845079590
             </div>
             <a href="{{ request.path }}download?lang={{request.GET.lang}}" class="button button5">Download</a>
       </div>
