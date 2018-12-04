@@ -36,6 +36,8 @@ from assessments.models import AnswerGroup_Institution, QuestionGroup
 from django.db.models import Sum
 from reports.models import Reports, Tracking
 from reports.helpers import calc_stud_performance
+import configparser
+import ast
 
 def format_academic_year(yearmonth_format):
     # The day attribute is a dummy one just to get a clean date object. Ignore the day param 
@@ -58,10 +60,25 @@ class BaseReport(ABC):
                 'render_gp': str(self.generate_gp),
                 'render_hh': str(self.generate_hh)
             }
+            self.config_file_path = args.pop("config_file")
+            self.read_config(self.config_file_path)
 
     @abstractmethod
     def get_data(self):
         pass
+
+    def read_config(self, config_file_path):
+        config = configparser.ConfigParser()
+        try:
+            config.read(config_file_path)
+            self.gka_survey_id = int(config.get("gka", "gka_survey_id"))
+            self.gpcontest_survey_id=int(config.get("gpcontest", "gpcontest_survey_id"))
+            self.hh_survey_id = int(config.get("household_survey", "hh_survey_id"))
+            self.hh_questiongroup_ids = ast.literal_eval(config.get("household_survey", "hh_questiongroup_ids"))
+            self.hh_question_ids = ast.literal_eval(config.get("household_survey", "hh_question_ids"))
+        except:
+            raise ValueError("Configuration file incorrect. Cannot proceed with reports until it is fixed")
+
 
     def generate(self, report_type, output_name):
         if report_type == 'html':
@@ -122,32 +139,32 @@ class BaseReport(ABC):
         num_schools_in_boundary = 0
         if boundary_type == 'district':
             num_schools_in_boundary = Institution.objects.filter(admin1=boundary).count() # Number of schools in district
-            aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin1=boundary,survey_id=2)\
+            aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin1=boundary,survey_id=self.gpcontest_survey_id)\
                                                             .filter(yearmonth__gte = report_from)\
                                                             .filter(yearmonth__lte = report_to)
             gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
                 institution_id__admin1=boundary, 
-                survey_id=2, 
+                survey_id=self.gpcontest_survey_id, 
                 yearmonth__gte=report_from,
                 yearmonth__lte=report_to)
         elif boundary_type == 'block':
             num_schools_in_boundary = Institution.objects.filter(admin2=boundary).count() # Number of schools in block
-            aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin2=boundary,survey_id=2)\
+            aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin2=boundary,survey_id=self.gpcontest_survey_id)\
                                                             .filter(yearmonth__gte = report_from)\
                                                             .filter(yearmonth__lte = report_to)
             gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
                 institution_id__admin2=boundary, 
-                survey_id=2, 
+                survey_id=self.gpcontest_survey_id, 
                 yearmonth__gte=report_from,
                 yearmonth__lte=report_to)
         elif boundary_type == 'cluster':
             num_schools_in_boundary = Institution.objects.filter(admin3=boundary).count() # Number of schools in block
-            aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin3=boundary,survey_id=2)\
+            aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__admin3=boundary,survey_id=self.gpcontest_survey_id)\
                                                             .filter(yearmonth__gte = report_from)\
                                                             .filter(yearmonth__lte = report_to)
             gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
                 institution_id__admin3=boundary, 
-                survey_id=2, 
+                survey_id=self.gpcontest_survey_id, 
                 yearmonth__gte=report_from,
                 yearmonth__lte=report_to)
         
@@ -161,7 +178,7 @@ class BaseReport(ABC):
         num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
         num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
         number_of_students = num_boys + num_girls
-        num_contests = SurveyBoundaryElectionTypeCount.objects.filter(survey_id=2)\
+        num_contests = SurveyBoundaryElectionTypeCount.objects.filter(survey_id=self.gpcontest_survey_id)\
                                                .filter(boundary_id=boundary)\
                                                .filter(yearmonth__gte = report_from)\
                                                .filter(yearmonth__lte = report_to)\
@@ -175,15 +192,15 @@ class BaseReport(ABC):
         if isinstance(boundary, ElectionBoundary):
             try:
                 hh_answers_agg = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(eboundary_id=boundary)\
-                    .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
-                    .filter(question_id__in=[269, 144, 145, 138])
+                    .filter(yearmonth__range=date_range,questiongroup_id__in=self.hh_questiongroup_ids)\
+                    .filter(question_id__in=self.hh_question_ids)
             except SurveyEBoundaryQuestionGroupAnsAgg.DoesNotExist:
                 print("No community survey data for '{}' between {} and {}".format(boundary.const_ward_name, self.report_from, self.report_to))
         else:
         #Household Survey
             hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
-                .filter(yearmonth__range=date_range,questiongroup_id__in=[18, 20])\
-                .filter(question_id__in=[269, 144, 145, 138])
+                .filter(yearmonth__range=date_range,questiongroup_id__in=self.hh_questiongroup_ids)\
+                .filter(question_id__in=self.hh_question_ids)
         if hh_answers_agg is not None and hh_answers_agg.exists():
             total_hh_answers = hh_answers_agg.values('question_desc', 'question_id').annotate(Sum('num_answers'))
             total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_desc', 'question_id').annotate(Sum('num_answers'))
@@ -192,7 +209,7 @@ class BaseReport(ABC):
                 question_desc = total_yes_answers.get(question_desc=each_answer['question_desc'])
                 total_yes_count = question_desc['num_answers__sum']
                 question_text = Question.objects.get(id=each_answer['question_id']).question_text
-                HHSurvey.append({'text':question_text,'percentage': round((total_yes_count/each_answer['num_answers__sum'])*100, 2)})
+                HHSurvey.append({'text':question_text,'percentage': "{:.2f}".format(round((total_yes_count/each_answer['num_answers__sum'])*100, 2))})
         else:
              print("No community survey data for '{}' between {} and {}".format(boundary.name, self.report_from, self.report_to))
         return HHSurvey
@@ -201,7 +218,7 @@ class BaseReport(ABC):
     def getBoundaryGKAData(self, boundary, boundary_type, date_range):
         GKA = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
             .filter(yearmonth__range=date_range)\
-            .filter(survey_id=11)
+            .filter(survey_id=self.gka_survey_id)
         if GKA.exists():
             # Teachers trained percentage
             teachers_trained_rounded = self.getTeacherTrainedPercent(GKA,date_range)
@@ -246,7 +263,7 @@ class BaseReport(ABC):
         # Calculate overall GKA aggregates for the boundary
         GKA = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=parent_boundary)\
             .filter(yearmonth__gte=date_range[0], yearmonth__lte=date_range[1])\
-            .filter(survey_id=11)
+            .filter(survey_id=self.gka_survey_id)
 
         gka = {
             'teachers_trained': self.getTeacherTrainedPercent(GKA, date_range),
@@ -264,7 +281,7 @@ class BaseReport(ABC):
         if teachers_trained['trained'] is None:
             teachers_trained['trained']=0;
         percent_teachers_trained = teachers_trained['trained']/total_teachers['total']*100
-        return round(percent_teachers_trained,2)
+        return "{:.2f}".format(round(percent_teachers_trained,2))
     
     def getKitUsagePercent(self, gka_aggregate_obj, date_range):
         #Kit usage percentage
@@ -276,7 +293,7 @@ class BaseReport(ABC):
         if kits_used['kits_used'] is None:
             kits_used['kits_used'] = 0
         percent_kit_usage = kits_used['kits_used']/kits_total['total_kits']*100
-        return round(percent_kit_usage,2)
+        return "{:.2f}".format(round(percent_kit_usage,2))
     
     def getGroupWorkPercent(self, gka_aggregate_obj, date_range):
          #Group work percentage
@@ -288,7 +305,7 @@ class BaseReport(ABC):
         if group_work_done['group_work_yes'] is None:
             group_work_done['group_work_yes']=0
         group_work_percent = group_work_done['group_work_yes']/group_work_total['group_work_total'] * 100
-        return round(group_work_percent,2)
+        return "{:.2f}".format(round(group_work_percent,2))
 
     ''' boundary can be either a school OR a GP. Student performance is shown only in GP and school reports so far'''
     def calculate_student_performance(self, boundary, report_from, report_to):
@@ -298,50 +315,50 @@ class BaseReport(ABC):
         female_total_ans_per_gp = None
         if isinstance(boundary, ElectionBoundary):
             male_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
-                eboundary_id=gp_obj, survey_id=2)\
+                eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Male')\
                 .aggregate(male_correct=Sum('num_assessments'))
             female_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
-                eboundary_id=gp_obj, survey_id=2)\
+                eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Female')\
                 .aggregate(female_correct=Sum('num_assessments'))
             male_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
-                eboundary_id=gp_obj, survey_id=2)\
+                eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Male')\
                 .aggregate(male_total=Sum('num_assessments'))
             female_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
-                eboundary_id=gp_obj, survey_id=2)\
+                eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Female')\
                 .aggregate(female_total=Sum('num_assessments'))
         elif isinstance(boundary, Institution):
             male_correct_ans_per_gp = SurveyInstitutionQuestionGroupGenderCorrectAnsAgg.objects.filter(
-                institution_id=boundary, survey_id=2)\
+                institution_id=boundary, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Male')\
                 .aggregate(male_correct=Sum('num_assessments'))
             female_correct_ans_per_gp = SurveyInstitutionQuestionGroupGenderCorrectAnsAgg.objects.filter(
-                institution_id=boundary, survey_id=2)\
+                institution_id=boundary, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Female')\
                 .aggregate(female_correct=Sum('num_assessments'))
             male_total_ans_per_gp = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
-                institution_id=boundary, survey_id=2)\
+                institution_id=boundary, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Male')\
                 .aggregate(male_total=Sum('num_assessments'))
             female_total_ans_per_gp = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
-                institution_id=boundary, survey_id=2)\
+                institution_id=boundary, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Female')\
@@ -368,25 +385,25 @@ class BaseReport(ABC):
         total_assessments = None
         if isinstance(boundary, Boundary):
             if boundary.boundary_type.char_id == 'SC':
-                correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
+                correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id__admin3=boundary, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
-                total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__admin3=boundary, yearmonth__range=dates)\
+                total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id__admin3=boundary, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, ElectionBoundary):
             if boundary.const_ward_type_id == 'GP':
-                correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id__gp=boundary, yearmonth__range=dates)\
+                correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id__gp=boundary, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name','institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
-                total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id__gp=boundary, yearmonth__range=dates)\
+                total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id__gp=boundary, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, Institution):
-            correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=2, institution_id=boundary.id, yearmonth__range=dates)\
+            correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id=boundary.id, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(total = Sum('num_assessments'))
-            total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=2, institution_id=boundary.id, yearmonth__range=dates)\
+            total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id=boundary.id, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
 
@@ -428,7 +445,7 @@ class BaseReport(ABC):
                 out.append({'school':item['school'],
                             'grades':[{
                                 'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+                                'values':[{'contest':item['contest'],'count':"{:.2f}".format(round(item['percent'], 2)) }]}]
                 })
             else:
                 for o in out:
@@ -437,9 +454,9 @@ class BaseReport(ABC):
                         for grade in o['grades']:
                             if item['grade'] == grade['name']:
                                 gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+                                grade['values'].append({'contest':item['contest'],'count':"{:.2f}".format(round(item['percent'], 2)) })
                         if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':"{:.2f}".format(round(item['percent'], 2)) }]})
 
         # for i in out:
         #     for grade in i['grades']:
@@ -464,13 +481,13 @@ class BaseReport(ABC):
 
         if isinstance(boundary, Boundary):
             correct_answers_agg = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
-                    .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
+                    .filter(survey_id=self.gpcontest_survey_id, boundary_id=boundary, survey_tag='gka')\
                     .filter(yearmonth__gte = report_from)\
                     .filter(yearmonth__lte = report_to)\
                     .values('question_key', 'questiongroup_name')\
                     .annotate(correct_answers = Sum('num_assessments'))
             total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
-                    .filter(survey_id=2, boundary_id=boundary, survey_tag='gka')\
+                    .filter(survey_id=self.gpcontest_survey_id, boundary_id=boundary, survey_tag='gka')\
                     .filter(yearmonth__gte = report_from)\
                     .filter(yearmonth__lte = report_to)\
                     .values('question_key', 'questiongroup_name')\
@@ -481,7 +498,7 @@ class BaseReport(ABC):
         elif isinstance(boundary, ElectionBoundary):
             try:
                 correct_answers_agg = SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
-                        .filter(survey_id=2, eboundary_id=boundary, survey_tag='gka')\
+                        .filter(survey_id=self.gpcontest_survey_id, eboundary_id=boundary, survey_tag='gka')\
                         .filter(yearmonth__gte = report_from)\
                         .filter(yearmonth__lte = report_to)\
                         .values('question_key',  'questiongroup_name')\
@@ -490,7 +507,7 @@ class BaseReport(ABC):
                 pass
             try:
                 total_assessments = SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects\
-                        .filter(survey_id=2, eboundary_id=boundary, survey_tag='gka')\
+                        .filter(survey_id=self.gpcontest_survey_id, eboundary_id=boundary, survey_tag='gka')\
                         .filter(yearmonth__gte = report_from)\
                         .filter(yearmonth__lte = report_to)\
                         .values('question_key', 'questiongroup_name')\
@@ -532,7 +549,7 @@ class BaseReport(ABC):
                             correct_ans_total = sum_correct_ans['correct_answers']
                         
                         if sum_total is not None and sum_total['total_answers'] > 0:
-                            percent = round(correct_ans_total/sum_total['total_answers'] * 100,2)
+                            percent = "{:.2f}".format(round(correct_ans_total/sum_total['total_answers'] * 100,2))
                         else:
                             percent = 0
                         concept_scores['contest']= each_row['question_key']
@@ -558,13 +575,13 @@ class BaseReport(ABC):
         child_gpc_dict = []
         for child_boundary in children_under_parent:
             correct_answers_agg = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
-                .filter(survey_id=2, boundary_id=child_boundary, survey_tag='gka')\
+                .filter(survey_id=self.gpcontest_survey_id, boundary_id=child_boundary, survey_tag='gka')\
                 .filter(yearmonth__gte = dates[0])\
                 .filter(yearmonth__lte = dates[1])\
                 .values('question_key', 'questiongroup_name', 'boundary_id')\
                 .annotate(total = Sum('num_assessments'))
             total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
-                .filter(survey_id=2, boundary_id=child_boundary, survey_tag='gka')\
+                .filter(survey_id=self.gpcontest_survey_id, boundary_id=child_boundary, survey_tag='gka')\
                 .filter(yearmonth__gte = dates[0])\
                 .filter(yearmonth__lte = dates[1])\
                 .values('question_key', 'questiongroup_name', 'boundary_id')\
@@ -607,7 +624,7 @@ class BaseReport(ABC):
                             'boundary_type': item['boundary_type'],
                             'grades':[{
                                 'name':item['grade'],
-                                'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]}]
+                                'values':[{'contest':item['contest'],'count':"{:.2f}".format(round(item['percent'], 2)) }]}]
                 })
             else:
                 for o in out:
@@ -616,8 +633,8 @@ class BaseReport(ABC):
                         for grade in o['grades']:
                             if item['grade'] == grade['name']:
                                 gradeExist = True
-                                grade['values'].append({'contest':item['contest'],'count':round(item['percent'], 2) })
+                                grade['values'].append({'contest':item['contest'],'count':"{:.2f}".format(round(item['percent'], 2)) })
                         if not gradeExist:
-                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':round(item['percent'], 2) }]})
+                            o['grades'].append({'name':item['grade'],'values':[{'contest':item['contest'],'count':"{:.2f}".format(round(item['percent'], 2))}]})
 
         return out

@@ -20,10 +20,11 @@ def send_link(report_type, params, args, dry_run=False):
         return "sending {} with arguments {} to {}".format(report_type, params, args['name'])
 
         
-def send_recipient(report_type, report_from, report_to, reader, dry, start_from, gka, gp, hhsurvey, quit_on_error = False):
+def send_recipient(report_type, report_from, report_to, reader, dry, start_from, gka, gp, hhsurvey, config, quit_on_error = False):
     # is_head_set = False
     # head = []
-    params = dict(report_from=report_from, report_to=report_to, generate_gka = gka, generate_gp = gp, generate_hhsurvey = hhsurvey)
+    params = dict(report_from=report_from, report_to=report_to, generate_gka = gka, generate_gp = gp, generate_hhsurvey = hhsurvey,\
+                  config_file=config)
     messages = []
     successfull = 0
     head = next(reader)
