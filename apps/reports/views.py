@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from .links import send_link, send_recipient
 from .models import Reports, Tracking
 from .reportlist import reportlist
-from django.utils.translation import activate
+from django.utils.translation import activate, get_language_from_request, get_language_info
 
 '''This is the view used to view the reports'''
 def view_report(request, report_id, tracking_id='default'):
@@ -61,9 +61,10 @@ def download_report(request, report_id, tracking_id='default'):
         report_model = Reports.objects.get(link_id=report_id)
     except Reports.DoesNotExist:
         return render(request, 'reports/404.html', context={'data': report_id})
-
+    locale = get_language_from_request(request,check_path=True)
+    lang_info = get_language_info(locale)
     report = reportlist[report_model.report_type](data=report_model.data)
-    pdf = report.get_pdf(lang=request.GET.get('lang'))
+    pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
 
     try:

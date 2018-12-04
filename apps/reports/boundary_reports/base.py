@@ -94,18 +94,18 @@ class BaseReport(ABC):
         else:
             raise ValueError('Invalid report format')
 
-    def get_html(self, lang=None):
+    def get_html(self, report_id, tracking_id, lang=None):
         if not self.data:
             self.data = self.get_data();
-        if lang == 'english':
-            template = 'reports/{}.html'.format(self._type)
-        else:
-            template = 'reports/{}kannada.html'.format(self._type)
-        html = render_to_string(template, {'data':self.data})
+        #if lang == 'english':
+        template = 'reports/{}.html'.format(self._type)
+        #else:
+        #    template = 'reports/{}kannada.html'.format(self._type)
+        html = render_to_string(template, {'data':self.data, 'reportid': report_id, 'trackingid': tracking_id})
         return html
 
-    def get_pdf(self, lang=None):
-        html = self.get_html(lang)
+    def get_pdf(self, report_id, tracking_id,lang=None):
+        html = self.get_html(report_id, tracking_id, lang)
         config = pdfkit.configuration()
         options = {
             'encoding':'utf-8',
@@ -280,7 +280,9 @@ class BaseReport(ABC):
         total_teachers = gka_aggregate_obj.filter(question_desc__icontains='trained').aggregate(total = Sum('num_answers'))
         if teachers_trained['trained'] is None:
             teachers_trained['trained']=0;
-        percent_teachers_trained = teachers_trained['trained']/total_teachers['total']*100
+        percent_teachers_trained = 0
+        if total_teachers['total'] is not None:
+            percent_teachers_trained = teachers_trained['trained']/total_teachers['total']*100
         return "{:.2f}".format(round(percent_teachers_trained,2))
     
     def getKitUsagePercent(self, gka_aggregate_obj, date_range):
@@ -292,7 +294,9 @@ class BaseReport(ABC):
         #kits_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(total_kits = Sum('num_answers'))
         if kits_used['kits_used'] is None:
             kits_used['kits_used'] = 0
-        percent_kit_usage = kits_used['kits_used']/kits_total['total_kits']*100
+        percent_kit_usage = 0
+        if kits_total['total_kits'] is not None:
+            percent_kit_usage = kits_used['kits_used']/kits_total['total_kits']*100
         return "{:.2f}".format(round(percent_kit_usage,2))
     
     def getGroupWorkPercent(self, gka_aggregate_obj, date_range):

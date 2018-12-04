@@ -42,8 +42,11 @@ from reports.helpers import calc_stud_performance
 class GPMathContestReport(BaseReport):
     parameters = ('gp_code', )
     def __init__(self, gp_code=None, report_from=None, report_to=None, **kwargs):
-        super().__init__(**kwargs)
-        self.gp_code = int(gp_code)
+       
+        if gp_code is not None:
+            self.gp_code = int(gp_code)
+        else:
+            self.gp_code=None
         self.report_from = report_from
         self.report_to = report_to
         self.params = dict(gp_code=self.gp_code, report_from=self.report_from, report_to=self.report_to)
@@ -54,6 +57,7 @@ class GPMathContestReport(BaseReport):
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        super().__init__(**kwargs)
         
 
     def parse_args(self, args):
