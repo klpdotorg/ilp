@@ -263,7 +263,9 @@ class BaseReport(ABC):
         total_teachers = gka_aggregate_obj.filter(question_desc__icontains='trained').aggregate(total = Sum('num_answers'))
         if teachers_trained['trained'] is None:
             teachers_trained['trained']=0;
-        percent_teachers_trained = teachers_trained['trained']/total_teachers['total']*100
+        percent_teachers_trained = 0
+        if total_teachers['total'] is not None:
+            percent_teachers_trained = teachers_trained['trained']/total_teachers['total']*100
         return round(percent_teachers_trained,2)
     
     def getKitUsagePercent(self, gka_aggregate_obj, date_range):
@@ -275,7 +277,9 @@ class BaseReport(ABC):
         #kits_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(total_kits = Sum('num_answers'))
         if kits_used['kits_used'] is None:
             kits_used['kits_used'] = 0
-        percent_kit_usage = kits_used['kits_used']/kits_total['total_kits']*100
+        percent_kit_usage = 0
+        if kits_total['total_kits'] is not None:
+            percent_kit_usage = kits_used['kits_used']/kits_total['total_kits']*100
         return round(percent_kit_usage,2)
     
     def getGroupWorkPercent(self, gka_aggregate_obj, date_range):
@@ -287,7 +291,9 @@ class BaseReport(ABC):
         #group_work_total = gka_aggregate_obj.filter(question_desc__icontains='math class happening', answer_option='Yes').aggregate(group_work_total = Sum('num_answers'))
         if group_work_done['group_work_yes'] is None:
             group_work_done['group_work_yes']=0
-        group_work_percent = group_work_done['group_work_yes']/group_work_total['group_work_total'] * 100
+        group_work_percent = 0
+        if group_work_total['group_work_total'] is not None:
+            group_work_percent = group_work_done['group_work_yes']/group_work_total['group_work_total'] * 100
         return round(group_work_percent,2)
 
     ''' boundary can be either a school OR a GP. Student performance is shown only in GP and school reports so far'''
