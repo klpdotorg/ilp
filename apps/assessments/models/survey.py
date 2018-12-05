@@ -150,7 +150,7 @@ class QuestionInformationType(models.Model):
 
 
 class LearningIndicator(models.Model):
-    char_id = models.CharField(max_length=20, primary_key=True)
+    char_id = models.CharField(max_length=50, primary_key=True)
     description = models.CharField(max_length=50)
 
 
