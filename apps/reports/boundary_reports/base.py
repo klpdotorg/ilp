@@ -253,6 +253,7 @@ class BaseReport(ABC):
         # Calculate aggregate GKA data for each child boundary. The boundary_type_string is needed for JSON structure
         for boundary in child_boundaries:
             child_boundary_gka = self.getBoundaryGKAData(boundary, boundary_type_string, date_range)
+            import pdb; pdb.set_trace()
             if child_boundary_gka is not None:
                 child_boundaries_gka.append(child_boundary_gka)
 
