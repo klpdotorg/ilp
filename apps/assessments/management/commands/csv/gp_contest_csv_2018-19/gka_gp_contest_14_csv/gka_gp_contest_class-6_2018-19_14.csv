@@ -1,0 +1,460 @@
+Class,District,Block,Date,KLP ID,Name of the school,GP ID,Grama Panchayat,GP President Name,Student Name,Sex ( Male / Female ),Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Total
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Srinivasa,Male,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,5
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Poornima S,Female,1,1,1,1,1,1,0,0,0,0,1,1,1,0,1,1,0,0,0,0,11
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Sharath Kumar K,Male,1,1,1,0,1,1,0,0,0,0,1,1,1,0,1,1,0,0,0,0,10
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Shalini S,Female,1,1,1,0,1,1,1,0,0,0,0,1,1,1,0,1,0,0,0,0,10
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Pavana G,Female,1,1,1,0,0,1,0,1,0,1,0,1,1,0,0,1,0,1,0,0,10
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Johar,Male,0,1,1,1,0,1,0,1,0,1,0,0,1,0,0,1,0,1,0,0,9
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Nithya K M,Female,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,4
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Sanjay S,Male,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,1,0,0,6
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Munikrushna K M,Male,0,0,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,4
+6,bengaluru rural,nelamangala,03/11/2018,43247,G HPS MANTANAKURCHI,5448,Soladevanahalli,Prathima,Rakesh L,Male,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,03/11/2018,43246,G HPS BANASAVADI,5448,Soladevanahalli,Prathima,Chandan R,Male,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,0,1,0,0,13
+6,bengaluru rural,nelamangala,03/11/2018,43246,G HPS BANASAVADI,5448,Soladevanahalli,Prathima,Yashshwini B V,Female,1,1,1,1,1,1,0,0,1,1,0,1,1,1,0,1,0,1,1,0,14
+6,bengaluru rural,nelamangala,03/11/2018,43246,G HPS BANASAVADI,5448,Soladevanahalli,Prathima,Monisha,Female,0,1,1,0,1,0,0,0,1,1,0,0,1,0,1,1,0,1,0,1,10
+6,bengaluru rural,nelamangala,03/11/2018,43246,G HPS BANASAVADI,5448,Soladevanahalli,Prathima,Harshitha B U,Female,1,1,1,1,1,0,0,0,1,1,0,0,1,1,0,1,0,1,0,0,11
+6,bengaluru rural,nelamangala,03/11/2018,43246,G HPS BANASAVADI,5448,Soladevanahalli,Prathima,Usha,Female,0,0,1,1,1,1,0,0,1,1,0,0,1,1,0,1,0,1,0,0,10
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Sakamma,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,2
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Sandeep,Male,1,1,1,1,0,1,1,0,0,0,0,1,1,0,0,0,1,1,0,1,11
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Gayathri S,Female,0,1,0,0,1,1,0,0,0,1,0,0,1,0,0,1,0,1,0,1,8
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Prajwal H,Male,1,1,0,1,0,1,1,0,0,0,0,0,1,0,0,1,0,0,0,1,8
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Jeethendra,Male,0,1,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0,1,0,1,7
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Mounika,Female,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,1,7
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Kirthish H,Male,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,4
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Chandan K,Male,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Sneha,Female,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Ajay Kumar S P,Male,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,3
+6,bengaluru rural,nelamangala,03/11/2018,43244,G HPS SOLADEVANAHALLI,5448,Soladevanahalli,Prathima,Kavya,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Harsha H,Male,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,0,1,1,1,16
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Vashanth Kumar R,Male,1,1,1,0,1,1,1,0,0,1,1,0,1,1,0,0,0,1,0,1,12
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Shashank G,Male,1,1,1,1,1,1,1,0,0,1,1,1,0,1,0,0,0,1,0,1,13
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Jayalakshmi R,Female,1,1,1,0,0,1,0,0,1,1,0,1,1,0,0,0,0,1,0,1,10
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Vinodh S,Male,1,1,1,1,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,8
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Naveen Kumar M,Male,1,1,1,1,1,1,1,0,1,1,1,1,0,1,0,1,0,0,0,1,14
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Narasimahamurthy,Male,1,1,0,1,0,1,0,0,0,1,0,0,1,1,0,0,0,0,0,0,7
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Thanuja,Female,1,1,1,0,0,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,13
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Muthulakshmi,Female,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Chinmayi T,Female,1,1,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,14
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Latha M,Female,0,1,0,0,1,1,0,1,0,1,1,1,1,0,0,0,0,0,0,0,8
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Inchara G,Female,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,0,0,0,1,14
+6,bengaluru rural,nelamangala,03/11/2018,43240,G HPS CHOWDASANDRA,5448,Soladevanahalli,Prathima,Manu G,Female,1,1,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,1,9
+6,bengaluru rural,nelamangala,03/11/2018,43237,G HPS MANCHENAHALLI,5448,Soladevanahalli,Prathima,Pavan Nayak,Male,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,1,0,0,12
+6,bengaluru rural,nelamangala,03/11/2018,43237,G HPS MANCHENAHALLI,5448,Soladevanahalli,Prathima,Amith Kumar Naik,Male,1,1,1,0,1,1,1,1,1,1,1,0,0,0,0,1,0,1,0,0,12
+6,bengaluru rural,nelamangala,03/11/2018,43237,G HPS MANCHENAHALLI,5448,Soladevanahalli,Prathima,Muthun Gowda,Male,1,1,0,0,0,0,1,1,1,1,1,1,0,1,0,0,0,1,1,0,11
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Thara,Female,0,1,0,1,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,5
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Pavithra,Female,0,1,1,1,0,0,0,0,1,1,0,1,0,0,1,1,0,0,0,0,8
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Kushama M,Female,1,0,0,1,0,0,0,0,0,1,1,1,0,1,0,1,0,0,0,0,7
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Dhivyashree,Female,1,1,1,0,0,0,0,0,0,1,1,1,0,1,0,1,0,0,0,0,8
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Deepika R,Female,1,1,1,1,0,0,0,0,0,1,0,1,0,0,1,1,0,0,0,0,8
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Nanditha G S,Female,1,1,0,0,1,1,0,1,1,1,0,1,0,0,1,1,0,0,0,0,10
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Yeshwanth,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Harsha,Male,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Nithin,Male,1,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,7
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Dushvanth,Male,0,1,1,1,1,1,0,1,1,0,0,1,0,0,1,1,1,0,1,0,12
+6,bengaluru rural,nelamangala,03/11/2018,43127,G HPS ISUVANAHALLI,1885,Doddabele,Nanjamani Chandrappa,Chandrika B,Female,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,2
+6,bengaluru rural,nelamangala,03/11/2018,43128,G LPS TIGALARA PALYA,1885,Doddabele,Nanjamani Chandrappa,Pradeepa,Male,0,1,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Shwetha,Female,0,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,5
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Kiran D C,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Ramkumar,Male,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Harshan,Male,1,1,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,5
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Kishor,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Name Not Identifey,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Likith K,Male,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,5
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Nagarathnamma,Female,0,1,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Jalaja S,Female,1,1,0,0,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,1,9
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Chandu R,Male,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,1,0,0,1,0,14
+6,bengaluru rural,nelamangala,03/11/2018,43103,G HPS DODDABELE,1885,Doddabele,Nanjamani Chandrappa,Mohan A,Male,1,1,0,1,0,1,1,0,0,1,1,1,1,0,1,0,0,0,0,1,11
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,B V Shivaram,Male,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,17
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,Umesh P V,Male,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,0,16
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,Nandeesh P N,Male,1,1,1,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,7
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,Raghava,Male,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,4
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,Kavana ,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,Ashok,Male,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,2
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,Karthika P E,Male,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,4
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,N Chandrana,Male,1,1,1,1,0,1,1,0,0,1,1,0,1,0,0,1,0,0,0,0,10
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,Praveenakumar  P V,Male,1,1,1,0,0,1,0,0,1,1,1,0,1,0,0,1,0,0,0,0,9
+6,chikkaballapura,bagepally,02/11/2018,10493,GOVERNMENT HIGHER PRIMARY SCHOOL PASUPALAVARIPALLI,4039,M nallagutlapalli,Sumalatha,Arun,Male,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,3
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Nand Kishor N,Male,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,17
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,R Anushka,Male,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,4
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,kavya,Female,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Adilakshmamma,Female,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,R V Shruthi,Female,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,5
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Vasu R,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Sudarshan ,Male,1,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,6
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Yashavanta S V,Male,1,1,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,6
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Gangaraj J K,Male,0,1,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,1,0,6
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Aravinda R,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Manohar G N,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,V Shivaraj,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Sathyanarayan,Male,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,4
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Nikhil,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,N Sneha,Female,0,1,0,0,1,0,0,0,1,1,1,1,0,1,0,0,0,0,0,0,7
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Jaswanta,Male,0,1,1,1,0,1,1,0,1,1,1,1,0,0,1,0,0,0,1,0,11
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Shankara,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Ajayakumar,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Suneel,Male,0,1,1,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,6
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Salam,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,3
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Sharikhan,Male,0,1,1,0,0,1,1,0,0,1,1,0,1,0,0,1,0,0,0,0,8
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Vemshi nayak,Male,1,1,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,5
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Sathishkumar,Male,1,1,1,1,0,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,9
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Madavi ,Female,0,1,1,0,1,1,1,0,0,0,1,0,1,1,0,1,0,0,0,0,9
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Bengada rekha,Female,1,1,1,1,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,8
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Gowthami,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Sujatha,Male,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,4
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Mounika,Male,0,1,1,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,6
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Shri nandeesh,Male,0,1,0,0,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,0,5
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Madesh nayaka,Male,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Kiran R,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+6,chikkaballapura,bagepally,02/11/2018,10303,GOVERNMENT HIGHER PRIMARY SCHOOL  NALLAGUTTAPALLI (M),4039,M nallagutlapalli,Sumalatha,Chinnaraghava,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Sandesh  G,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Bhavya H,Female,0,1,1,0,1,0,0,0,0,0,0,1,1,1,0,1,1,0,0,1,9
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Nagarathna,Female,0,1,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1,6
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Rakshit G,Male,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,5
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Tejaswini N,Female,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Likhitha M,Female,1,1,0,1,0,0,1,0,0,0,0,1,1,1,0,0,0,1,1,1,10
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Shivakumar,Male,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0,6
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Annapoorna,Female,0,1,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Bindhu U,Female,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,1,0,0,0,1,10
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Mamatha  B K,Female,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Jeevitha,Female,1,0,1,0,1,1,1,0,1,1,0,1,1,0,0,0,0,0,0,0,9
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Susmitha,Female,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Sudarshan ,Male,1,1,0,0,1,1,1,0,0,1,1,1,1,0,1,1,0,1,0,1,13
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Chandu B M,Male,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,0,1,1,0,1,13
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Shilpa N,Female,1,1,0,1,1,0,1,1,0,1,0,1,0,1,1,1,0,0,1,1,13
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Poornima H S,Female,1,1,1,1,1,1,0,0,0,1,1,1,0,1,0,0,1,0,1,1,13
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Nanditha B V,Male,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,17
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Manjunatha M,Male,1,1,0,1,0,1,1,0,1,1,0,1,0,0,0,1,0,1,1,0,11
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Bhumika,Female,1,0,0,0,1,1,1,0,0,0,1,1,0,1,0,1,0,1,0,1,10
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Baby asha,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Mayur V,Male,0,1,0,0,0,0,1,0,1,1,1,1,0,0,0,1,0,0,0,0,7
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Vikasa M P,Male,1,1,0,0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,7
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Karthika j,Male,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Bhavya prasad,Female,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,3
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Rakesh G K,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Soraj,Male,0,1,1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,6
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Syed karim ,Male,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Bandenavaj,Male,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,3
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Ramesh  s,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,2
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Salavuddin ,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Suhelapasha,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,19
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Anjanakumar,Male,1,1,1,1,1,0,0,1,1,0,1,1,1,1,0,1,0,1,1,1,15
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Pavan Kumar,Male,1,1,1,1,1,0,0,1,1,0,1,1,1,1,0,1,0,1,1,0,14
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Manikanta B L,Male,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Sindoora N,Female,1,1,1,1,0,1,1,0,0,0,1,1,1,1,0,0,0,1,1,1,13
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Asha S,Female,0,1,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Rajesh S,Male,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,5
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Muthuraj M,Male,0,1,1,0,0,1,1,0,1,1,0,1,1,0,0,0,0,0,0,0,8
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Dhanush L,Male,0,1,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Dinesh T,Male,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,3
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Darshan S,Male,0,1,0,0,1,1,1,0,0,1,0,0,1,1,0,1,0,0,0,1,9
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Prajwal B R,Male,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Ravi TEJA,Male,0,1,1,1,0,1,1,0,1,0,0,0,0,1,0,0,0,1,0,0,8
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Jeevan  s,Male,0,1,1,0,0,0,1,0,0,1,0,0,1,1,0,1,0,0,0,1,8
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Venakatesh,Male,1,1,1,0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0,1,8
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Purushothama,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,2
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Dayananda S,Male,1,1,1,1,0,1,1,0,0,1,1,1,0,0,0,1,1,0,0,0,11
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Shivakumar,Male,0,1,1,0,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,7
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Manoj B,Male,1,1,1,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,7
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Kashim,Male,0,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,1,1,1,0,9
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Rachan,Female,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,1,5
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Yashash P,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Sandhya S,Female,1,1,0,0,0,1,0,0,0,1,1,1,0,1,0,1,1,0,1,1,11
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Vishal,Male,0,0,1,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,1,1,6
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Manjunatha,Male,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,3
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Keerthana,Female,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Meghana N C,Female,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,6
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Kavya N M,Female,0,1,0,1,1,0,1,0,0,0,1,1,0,0,0,1,0,0,1,1,9
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Mamatha H R,Female,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Shashikala,Female,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Chandana V,Male,0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,7
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Nanditha,Female,0,0,0,0,0,1,0,0,0,0,1,0,1,1,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Chidananda,Male,1,1,1,0,1,1,1,0,1,0,1,0,0,1,1,1,0,0,0,1,12
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,N Darshan,Male,1,1,1,0,0,1,0,0,0,1,1,1,0,0,0,1,0,1,1,1,11
+6,bengaluru rural,nelamangala,02/11/2018,43258,G HPS SOMPURA,5467,Sompura,Venkatalakshmamma,Prashanta,Male,1,1,1,1,0,0,0,0,1,1,0,0,0,0,0,1,0,1,1,0,9
+6,bengaluru rural,nelamangala,02/11/2018,43252,G LPS KARIMANNE,5467,Sompura,Venkatalakshmamma,Karthik,Male,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1,0,1,1,1,15
+6,bengaluru rural,doddaballapura,03/11/2018,42774,G HPS CHIKKA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Nandini,Female,1,1,1,1,1,0,0,0,0,1,0,1,0,0,0,1,1,1,0,0,10
+6,bengaluru rural,doddaballapura,03/11/2018,42774,G HPS CHIKKA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Gagan C N,Male,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,1,1,0,1,1,10
+6,bengaluru rural,doddaballapura,03/11/2018,42774,G HPS CHIKKA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Siddenagouda,Male,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Shrinivas D V,Male,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,1,1,1,1,16
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Sahan M,Female,0,1,1,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,7
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Pavan D A,Male,1,1,0,1,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,6
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Tejaswini ,Female,1,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,5
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Pavan D R,Male,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Rudresh G,Male,1,1,1,0,0,1,1,0,0,1,1,1,1,0,0,1,0,0,0,0,10
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Divya P,Female,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Manjunath K,Male,1,1,1,0,0,0,0,1,1,1,0,1,1,1,1,0,0,0,0,0,10
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Danusha  d l,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,4
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Jadnavi D U,Female,1,1,1,1,1,1,0,0,1,1,1,1,0,1,0,0,0,0,0,1,12
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Vijay,Male,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Tanushree  d r,Female,1,1,1,1,1,1,0,0,1,1,0,1,0,0,0,1,0,0,1,0,11
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Arunkumar H,Male,0,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,4
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Sahan DH,Female,1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,1,1,1,0,1,15
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Pavan A,Male,1,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,15
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Chethan,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Geethanjali,Female,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1,1,1,17
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Hanumantaraju ,Male,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Neeveditha,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,0,16
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Ranjitha N R,Female,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,17
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Goutham g,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Venugopal,Male,1,1,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,0,1,1,14
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Suneel B,Male,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Ranganathagouda,Male,0,0,1,0,0,0,0,0,1,1,1,1,0,1,1,1,0,1,0,0,9
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Bhoomika N,Female,1,1,1,1,0,1,0,0,1,1,1,1,0,0,0,0,0,0,0,1,10
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Aishwarya,Male,1,1,1,0,0,0,1,0,0,1,1,0,1,0,0,1,0,1,0,1,10
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Jeevith,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,2
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Kavya,Female,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Mounesh Kuri,Male,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Prajwal R S,Male,0,1,1,1,0,0,0,0,1,1,1,1,0,0,1,1,0,0,1,0,10
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Madhu R B,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Muruli ,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Chandana  R,Male,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Sagara B S,Male,1,1,1,0,0,1,0,0,1,0,1,1,0,0,0,1,0,1,0,0,9
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Sinchana R,Female,1,1,1,0,1,1,0,0,1,1,1,1,0,0,0,1,0,0,0,0,10
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Suma B L,Female,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1,0,0,1,0,13
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Tejaswini H,Female,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,7
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Harshitha  G,Female,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Lavanya G,Female,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Likhitha K,Female,1,1,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,8
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Lavanya ,Female,1,1,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,1,1,0,8
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Shreyasasagar K M,Male,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Apsana,Female,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1,0,0,0,1,13
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Hanumantagouda,Male,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,0,0,1,14
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Venkatesh M,Male,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Apoorva C S,Female,1,1,1,1,0,1,1,1,0,0,1,1,1,0,0,1,0,0,0,1,12
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Khushal,Male,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Gowtham,Male,0,1,0,0,0,0,1,0,0,1,0,0,1,1,0,1,0,0,0,0,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Vinutha,Female,0,1,1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Ajay,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Manjari,Female,1,1,1,0,1,1,1,1,0,1,0,1,0,0,1,1,0,0,0,0,11
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Noorasaba,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Suresh,Male,1,1,1,0,1,0,0,0,1,0,1,0,1,0,0,1,0,1,0,0,9
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Neelakanta,Male,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Udayajyothi,Male,1,1,1,1,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,8
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Vishwanatha,Male,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,5
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Nagarathna B D,Female,1,1,0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,0,0,1,10
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Spandana,Female,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,4
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Pavithra,Female,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,5
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Vinoda  M K,Male,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,1,0,0,0,1,14
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Muthuraja,Male,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,4
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Veeresh,Male,0,1,1,1,1,1,0,0,1,1,1,0,0,0,0,1,0,0,1,0,10
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Sahana,Female,0,1,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,5
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Lavanya K S,Female,0,1,1,0,1,1,0,0,1,1,1,1,0,0,0,1,0,0,1,0,10
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Deepthi K P,Female,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,4
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Praveen,Male,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,4
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Dileepa A N,Male,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Mamatha,Female,0,1,1,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Sanjaya gouda,Male,1,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,4
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Jeevan,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Lavanya,Female,0,1,1,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,5
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Darshan R,Male,1,1,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,8
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Mohan,Male,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Arpitha C S,Female,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,4
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Pallavi ,Female,1,1,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,1,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Nandini,Female,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,1,1,13
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Ravi C,Male,1,1,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,6
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Ambhika,Female,1,1,0,1,0,1,1,0,0,1,1,1,1,0,0,1,0,0,0,0,10
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Mala S,Female,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,15
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Charan J,Male,1,1,1,1,0,0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,15
+6,bengaluru rural,doddaballapura,03/11/2018,42772,G HPS DODDA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Rashmi J,Female,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,0,0,1,15
+6,bengaluru rural,doddaballapura,03/11/2018,42768,G LPS RAMPURA,1861,Dodda belavangala,K C Neelambhike,Rakshitha M,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,2
+6,bengaluru rural,doddaballapura,03/11/2018,42776,G HPS DODDA HEJJAJI,1861,Dodda belavangala,K C Neelambhike,Dhanushgouda D C,Male,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,18
+6,bengaluru rural,doddaballapura,03/11/2018,42774,G HPS CHIKKA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Mithun ,Male,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,3
+6,bengaluru rural,doddaballapura,03/11/2018,42774,G HPS CHIKKA BELAVANGALA,1861,Dodda belavangala,K C Neelambhike,Abhishek K,Male,1,1,0,0,1,1,0,0,0,1,0,1,1,0,0,1,1,0,0,1,10
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Karthik R,Male,1,1,1,0,0,0,1,0,1,0,0,1,0,0,1,1,1,1,0,1,11
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Gowtham,Male,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Delip,Male,1,1,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,6
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Rakesh,Male,1,1,1,1,0,0,1,0,0,1,0,1,0,0,0,1,0,0,0,0,8
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Chinmaye B M,Female,0,1,1,0,1,1,1,0,0,0,1,1,1,0,0,1,0,1,0,1,11
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Gowardhan,Male,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,4
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Navya,Female,1,1,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,6
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Pallavi C K,Female,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Aishwarya,Female,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,5
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Nikhil Kumar,Male,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,5
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Chethan Gowda,Male,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,5
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Naveen S,Male,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,2
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Vijay R,Male,0,1,1,0,1,1,1,1,0,1,1,0,1,0,0,1,0,0,0,0,10
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Rakshith D C,Male,0,1,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,5
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Soniya N S,Female,1,1,1,0,0,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,7
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Charan,Male,1,1,1,1,0,0,1,1,0,1,1,0,1,1,0,1,1,0,0,1,13
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Dhanush,Male,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1,1,1,0,1,16
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Kavana C A,Female,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,17
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Dhanushree,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,18
+6,bengaluru rural,devanahalli,02/11/2018,42646,G HPS BEERASANDRA,6239,Aluru Duddanahalli,Rekha,Chitra C M,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,18
+6,bengaluru rural,devanahalli,02/11/2018,42604,G HPS BANNIMANGALA,6239,Aluru Duddanahalli,Rekha,Keerthana B R,Female,1,1,0,0,1,0,0,0,1,1,1,1,1,0,1,1,1,1,0,1,13
+6,bengaluru rural,devanahalli,02/11/2018,42604,G HPS BANNIMANGALA,6239,Aluru Duddanahalli,Rekha,Nandan,Male,1,1,1,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,16
+6,bengaluru rural,devanahalli,02/11/2018,42604,G HPS BANNIMANGALA,6239,Aluru Duddanahalli,Rekha,Bindhu,Female,1,1,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,15
+6,bengaluru rural,devanahalli,02/11/2018,42604,G HPS BANNIMANGALA,6239,Aluru Duddanahalli,Rekha,Latha B M,Female,0,1,1,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,16
+6,bengaluru rural,devanahalli,02/11/2018,42604,G HPS BANNIMANGALA,6239,Aluru Duddanahalli,Rekha,Aishwarya,Female,1,1,1,0,1,1,0,1,1,0,1,1,1,1,0,1,1,1,1,1,16
+6,bengaluru rural,devanahalli,02/11/2018,42649,G HPS DUDDANAHALLI,6239,Aluru Duddanahalli,Rekha,Pavan N,Male,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,0,0,1,1,15
+6,bengaluru rural,devanahalli,02/11/2018,42649,G HPS DUDDANAHALLI,6239,Aluru Duddanahalli,Rekha,Nithin K,Male,1,1,1,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,1,1,9
+6,bengaluru rural,devanahalli,02/11/2018,42649,G HPS DUDDANAHALLI,6239,Aluru Duddanahalli,Rekha,Akhilesh D N,Male,1,1,0,1,1,0,0,0,0,0,1,0,1,1,0,0,0,0,1,1,9
+6,bengaluru rural,devanahalli,02/11/2018,42650,G HPS ALURU,6239,Aluru Duddanahalli,Rekha,Varalakshmi M,Male,1,1,1,1,0,1,0,0,1,1,1,0,0,0,1,1,0,0,0,0,10
+6,bengaluru rural,devanahalli,02/11/2018,42650,G HPS ALURU,6239,Aluru Duddanahalli,Rekha,Kishor,Male,1,1,1,0,0,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,13
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Basavaraju R,Male,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Shilpa L,Female,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,15
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Shashikala,Female,1,1,1,0,1,0,0,0,0,1,1,1,1,0,0,0,0,1,0,0,9
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Bharath R,Male,0,1,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,5
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Arpitha M,Female,1,1,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,1,1,0,9
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Keerthana B,Female,0,0,0,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,0,13
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Akshay M,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Sindhu A,Female,1,1,0,0,0,1,1,0,0,0,1,1,1,0,0,0,1,0,0,1,9
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Rajesh,Male,0,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Prashanth S,Male,1,1,1,1,1,1,0,1,0,1,0,0,1,1,0,1,0,1,1,1,14
+6,bengaluru rural,devanahalli,02/11/2018,42605,G HPS SUNNAGHATTA,6239,Aluru Duddanahalli,Rekha,Vinutha M,Female,1,1,1,0,1,1,0,1,1,1,1,1,1,0,1,0,1,1,1,1,16
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Yashswini B S,Female,1,1,1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,6
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Anushree,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Chaithrashree,Female,1,1,1,1,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,8
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Kishan M,Male,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,5
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Shivaraj B H,Male,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,3
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Delip,Male,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Arunkumar,Male,0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,5
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Gurumurthi,Male,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Raghu,Male,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,4
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Rashmitha P,Female,0,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,4
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Sumithi B S,Female,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Meghana K M,Female,1,1,1,1,1,0,0,0,1,0,1,1,0,0,0,1,0,0,0,0,9
+6,bengaluru rural,nelamangala,05/11/2018,43098,G HPS BALLAGERE,3659,Kodigenahalli,Naghamani,Keerthana B R,Female,1,1,1,1,0,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,10
+6,bengaluru rural,nelamangala,05/11/2018,43096,G HPS KODIGEHALLI,3659,Kodigenahalli,Naghamani,Ghanavi S,Female,0,1,1,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,7
+6,bengaluru rural,nelamangala,05/11/2018,43096,G HPS KODIGEHALLI,3659,Kodigenahalli,Naghamani,Hema H L,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,2
+6,bengaluru rural,nelamangala,05/11/2018,43096,G HPS KODIGEHALLI,3659,Kodigenahalli,Naghamani,Ramya K,Female,0,1,0,1,1,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,6
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Lokesh,Male,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,1,5
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Meghana,Female,0,1,1,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1,6
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Gangothri M,Female,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Harsha H,Male,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Nithin P,Male,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,3
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Prajwal U,Male,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,3
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Pallavi S,Female,1,1,1,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,6
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Nagesh,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Lalitha,Female,1,1,1,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,6
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Lakshmidevi S,Female,1,1,0,0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,0,0,6
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Roopashree,Female,1,1,1,0,1,1,0,0,0,1,1,1,0,1,0,1,0,0,0,0,10
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Sumanth,Male,0,1,1,1,0,1,0,0,0,1,1,1,0,1,1,0,0,1,0,1,11
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Rashi B,Female,1,1,1,0,1,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,13
+6,bengaluru rural,nelamangala,05/11/2018,43095,G HPS OBALAPURA,3659,Kodigenahalli,Naghamani,Veena,Female,1,1,1,1,1,1,1,0,0,1,0,0,0,0,0,1,0,1,0,0,10
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Madesh,Male,1,1,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,1,1,1,12
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Rakshith,Male,1,1,0,0,1,1,1,0,0,1,1,1,1,0,0,0,0,0,1,1,11
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Anjama sumayya,Female,1,1,1,0,1,1,0,0,1,0,1,1,1,1,0,0,0,0,0,1,11
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Gowramma,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Doreswamy,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Divya,Female,1,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,4
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Ravikumar,Male,1,1,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,6
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Nagarathna,Female,1,1,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,5
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,S Adarsha,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Yogeshwari,Female,1,1,1,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,7
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Pavan Kumar,Male,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Nagamani,Female,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Amrutha,Female,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Savitha G,Female,1,1,0,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,1,1,8
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Akash  S,Male,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Meghana,Female,0,1,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,0,6
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Susmitha,Female,0,1,1,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,5
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Madesh D,Male,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Chandrakala,Female,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,K Madesh,Male,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,S Ningaraju,Male,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Khaja maidin,Male,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,0,0,1,9
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,M Vijaya,Male,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Akash  k,Male,1,1,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,5
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Ajeeha S,Male,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,2
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Lakshmi,Female,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,4
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Krishna,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Ningaraju,Male,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,G Rooza,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Harish k,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Deepa,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Anusha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Pavithra,Female,0,1,1,1,0,1,0,0,0,0,0,0,1,1,0,0,0,0,1,0,7
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Rajeswari,Female,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,1,4
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Asharani,Female,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,2
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Abhishek,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Monika,Female,1,1,0,1,0,0,1,0,0,0,1,0,1,0,0,1,0,0,0,0,7
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,N Manu,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Sanjana,Female,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Shrinivas,Male,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Mahesh,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Manikanta C,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Pavithra,Female,1,1,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,5
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Ananda,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Megha,Female,0,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,6
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Praveena S,Male,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Suchithra,Female,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Madesh S,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Parvithi,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Karthika M,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,2
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Dhanalakshmi,Female,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,0,0,1,0,1,8
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Asha,Female,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Aishwarya,Female,1,1,0,1,0,0,1,0,0,1,0,1,0,0,0,0,0,0,1,0,7
+6,chamarajanagara,gundlupet,05/11/2018,6748,GHPS ANNURUKERI,734,Annuru,Mahesh,Sanju,Male,0,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,5
+6,bengaluru rural,devanahalli,03/11/2018,36731,G HPS BALEPURA,4699,Nalluru,Savithramma,Tulasi ,Female,1,1,1,1,0,0,0,1,1,0,0,0,0,0,1,1,1,0,0,1,10
+6,bengaluru rural,devanahalli,03/11/2018,36731,G HPS BALEPURA,4699,Nalluru,Savithramma,Venu C,Male,1,1,1,1,0,0,1,0,0,1,1,0,0,0,0,1,1,0,1,1,11
+6,bengaluru rural,devanahalli,03/11/2018,36731,G HPS BALEPURA,4699,Nalluru,Savithramma,Chethan ,Male,0,1,1,0,1,1,1,1,1,1,0,0,1,0,0,1,1,1,1,1,14
+6,bengaluru rural,devanahalli,03/11/2018,36731,G HPS BALEPURA,4699,Nalluru,Savithramma,Prameela ,Female,0,1,0,1,1,1,1,1,0,0,0,0,1,0,0,1,1,1,1,1,12
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Manojagouda,Male,0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,1,1,1,0,1,9
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Manohar ,Male,1,1,1,0,0,1,0,1,0,0,0,0,1,0,0,1,1,1,0,1,10
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Prashanta,Male,0,1,1,0,0,1,0,1,0,0,0,0,1,0,0,1,1,1,0,1,9
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Darshan M V,Male,0,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,6
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Pruthwiraj,Male,1,1,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,5
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Nithyashree ,Female,1,1,1,1,1,1,0,0,1,0,0,1,1,0,0,1,0,1,0,0,11
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Anusha,Female,0,1,0,0,0,1,1,0,1,0,0,1,1,0,0,0,0,1,0,0,7
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Raghava M,Male,1,1,1,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,8
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Chethan ,Male,0,1,0,1,1,1,0,0,1,1,0,0,0,1,0,0,1,1,0,0,9
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Vanitha ,Female,1,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,0,6
+6,bengaluru rural,devanahalli,03/11/2018,36727,G HPS NALLURU,4699,Nalluru,Savithramma,Vishal,Male,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+6,bengaluru rural,devanahalli,03/11/2018,36723,G HPS BIDALAPURA,4699,Nalluru,Savithramma,Nethra B M,Female,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,devanahalli,03/11/2018,36723,G HPS BIDALAPURA,4699,Nalluru,Savithramma,Yeshwanth,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+6,bengaluru rural,devanahalli,03/11/2018,36723,G HPS BIDALAPURA,4699,Nalluru,Savithramma,Goutham B V,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,devanahalli,03/11/2018,36723,G HPS BIDALAPURA,4699,Nalluru,Savithramma,Aishwarya,Female,0,1,0,1,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,5
+6,bengaluru rural,devanahalli,03/11/2018,36723,G HPS BIDALAPURA,4699,Nalluru,Savithramma,Sahana B N,Female,0,1,1,1,0,1,1,1,0,1,0,1,1,0,0,0,0,0,0,0,9
+6,bengaluru rural,devanahalli,03/11/2018,36723,G HPS BIDALAPURA,4699,Nalluru,Savithramma,Puneethakumar,Male,1,1,1,0,1,1,1,0,0,0,0,1,1,1,0,0,0,1,1,0,11
+6,bengaluru rural,devanahalli,03/11/2018,36723,G HPS BIDALAPURA,4699,Nalluru,Savithramma,Jeevitha b m,Female,1,1,1,1,1,1,0,0,1,0,1,0,1,0,1,0,0,0,0,0,10
+6,bengaluru rural,devanahalli,03/11/2018,36723,G HPS BIDALAPURA,4699,Nalluru,Savithramma,Pallavi ,Female,0,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,0,1,0,0,12
+6,bengaluru rural,devanahalli,03/11/2018,36745,G HPS MALLEPURA,4699,Nalluru,Savithramma,Gangothri M N,Female,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+6,bengaluru rural,devanahalli,03/11/2018,36745,G HPS MALLEPURA,4699,Nalluru,Savithramma,Harshitha m l,Female,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+6,bengaluru rural,devanahalli,03/11/2018,36739,G HPS RAMANAHALLI,4699,Nalluru,Savithramma,Amulya ,Female,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,3
+6,bengaluru rural,devanahalli,03/11/2018,36739,G HPS RAMANAHALLI,4699,Nalluru,Savithramma,Umesh,Male,1,1,1,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,6
+6,bengaluru rural,devanahalli,03/11/2018,36739,G HPS RAMANAHALLI,4699,Nalluru,Savithramma,Gowthami,Female,1,1,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,5
+6,bengaluru rural,devanahalli,03/11/2018,36739,G HPS RAMANAHALLI,4699,Nalluru,Savithramma,Shashanka L,Male,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+6,bengaluru rural,devanahalli,03/11/2018,36739,G HPS RAMANAHALLI,4699,Nalluru,Savithramma,Nandith,Male,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,6
+6,bengaluru rural,devanahalli,03/11/2018,36739,G HPS RAMANAHALLI,4699,Nalluru,Savithramma,Bharath R A,Male,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,5
+6,bengaluru rural,devanahalli,03/11/2018,36739,G HPS RAMANAHALLI,4699,Nalluru,Savithramma,Priyanka,Female,1,1,1,1,0,0,0,0,1,1,1,1,0,1,1,1,0,0,1,1,13
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Rajesha S,Male,1,1,1,1,1,0,1,0,0,1,0,0,1,1,0,0,0,0,0,1,10
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Praveen,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Arjun,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Mahadevaswmi,Male,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Sunetha,Female,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Suhas,Male,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Keshavmruathi,Male,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Bhomika H G,Female,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,4
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Shidara,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Snjayakumar,Male,0,1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,1,5
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Baby,Female,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Akila,Female,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,1,1,8
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Puttilakshmi,Female,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,6
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Harshitha,Female,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,4
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Ramadasa,Male,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Haraswami,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Maheshkumar,Male,0,1,0,1,1,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,6
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Madukumar,Male,1,1,1,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,6
+6,chamarajanagara,gundlupet,31/10/2018,6677,GHPS  HOREYALA,2771,Horeyala,Savitha,Amitha,Male,1,1,1,0,1,1,1,0,0,0,1,1,0,1,0,1,0,1,0,0,11
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Swamy,Male,1,1,0,1,1,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,16
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Banari,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Prayadrashini,Female,1,1,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,5
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Madu ,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Abhishek,Male,1,1,0,0,0,0,1,0,0,1,0,0,1,1,0,1,0,0,0,0,7
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Spandana,Female,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Bhagyalakshmi,Female,0,1,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,6
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Jeevan,Male,1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,1,6
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Sangeeth,Female,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,5
+6,chamarajanagara,gundlupet,31/10/2018,6682,GHPS  HIRIKATI-2,2771,Horeyala,Savitha,Punitha,Male,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,3
+6,chamarajanagara,gundlupet,31/10/2018,6680,GHPS  RANGU PURA,2771,Horeyala,Savitha,Nandan,Male,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,1,0,1,0,0,13
+6,chamarajanagara,gundlupet,31/10/2018,6680,GHPS  RANGU PURA,2771,Horeyala,Savitha,Amulya R,Female,1,1,1,0,1,1,1,0,0,1,0,1,0,1,1,0,1,0,1,1,13
+6,chamarajanagara,gundlupet,31/10/2018,6680,GHPS  RANGU PURA,2771,Horeyala,Savitha,Rashamahesha,Female,0,1,1,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1,10
+6,chamarajanagara,gundlupet,31/10/2018,6680,GHPS  RANGU PURA,2771,Horeyala,Savitha,Manjesha,Male,1,1,1,1,1,1,0,0,0,1,1,1,0,1,0,1,0,1,0,0,12
+6,chamarajanagara,gundlupet,31/10/2018,6680,GHPS  RANGU PURA,2771,Horeyala,Savitha,Manya,Female,1,1,1,0,1,1,0,0,1,1,0,1,0,1,0,1,1,1,0,0,12
+6,chamarajanagara,gundlupet,31/10/2018,6680,GHPS  RANGU PURA,2771,Horeyala,Savitha,Madesh,Male,1,1,1,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,1,9
+6,chamarajanagara,gundlupet,31/10/2018,6678,GHPS  HIRIKATI -1 (DODDAHUNDI),2771,Horeyala,Savitha,Kumari,Female,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,14
+6,chamarajanagara,gundlupet,31/10/2018,6678,GHPS  HIRIKATI -1 (DODDAHUNDI),2771,Horeyala,Savitha,Sunanda,Female,0,1,0,0,1,1,0,0,0,1,1,1,1,0,0,1,0,1,0,0,9
+6,chamarajanagara,gundlupet,31/10/2018,6678,GHPS  HIRIKATI -1 (DODDAHUNDI),2771,Horeyala,Savitha,Nanjundaswami,Female,0,1,1,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,5
+6,chamarajanagara,gundlupet,31/10/2018,6678,GHPS  HIRIKATI -1 (DODDAHUNDI),2771,Horeyala,Savitha,Sakshi,Female,1,1,0,1,0,1,1,0,1,1,1,1,0,1,1,1,0,0,0,0,12
+6,chamarajanagara,gundlupet,31/10/2018,6678,GHPS  HIRIKATI -1 (DODDAHUNDI),2771,Horeyala,Savitha,Punyashree,Female,0,1,1,1,1,1,0,0,0,1,1,1,0,0,1,0,1,0,0,0,10
+6,chamarajanagara,gundlupet,31/10/2018,6675,GHPS  HOSA PURA-B,2771,Horeyala,Savitha,Baby,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1

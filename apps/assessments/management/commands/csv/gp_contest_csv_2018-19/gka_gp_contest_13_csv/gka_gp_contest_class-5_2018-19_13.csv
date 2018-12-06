@@ -1,0 +1,89 @@
+Class,District,Block,Date,KLP ID,Name of the school,GP ID,Grama Panchayat,GP President Name,Student Name,Sex ( Male / Female ),Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Total
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Sanjana,Female,0,1,1,0,1,1,1,1,1,1,0,0,1,1,0,0,0,1,0,1,12
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Shwetha,Female,0,1,1,0,1,1,1,1,1,1,1,0,1,1,0,0,0,1,0,1,13
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Prathibha,Female,0,0,1,0,1,0,1,0,0,1,1,0,1,1,0,1,1,1,1,1,12
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Prajwal,Male,0,0,1,0,0,0,1,1,0,1,1,0,1,1,0,0,1,1,1,1,11
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Lakshmi,Female,1,1,1,1,0,0,1,0,1,1,1,0,1,1,1,0,0,0,1,1,13
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Lakshmi,Female,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,16
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Vedamani,Female,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,0,1,1,1,17
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Nandini,Female,0,0,0,1,1,0,1,1,1,1,1,1,0,0,0,0,0,1,0,1,10
+5,bidar,humnabad,28/09/2018,5562,GOVT HPS GADWANTI,4257,Maniknagar,Basavaraj Sharanappa,Vidhya,Female,0,1,1,0,1,0,1,1,0,1,1,1,1,1,0,1,1,1,0,0,13
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Nandini,Female,1,0,1,0,1,0,0,0,0,1,1,1,1,1,1,0,1,1,1,1,13
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Suvyani,Female,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Pravesh,Male,0,0,1,0,1,0,1,1,0,1,1,1,1,0,0,1,0,1,1,1,12
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Bhagyashree,Female,1,1,0,1,1,0,0,1,0,1,0,1,1,0,0,1,1,0,0,1,11
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Akshata,Female,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,0,16
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Amulya,Female,1,0,0,1,1,1,1,0,0,1,1,0,1,1,0,1,1,1,1,0,13
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Ameesha,Female,1,0,1,1,1,0,0,0,0,0,1,0,0,0,1,0,0,1,1,0,8
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Pooja,Female,1,0,1,1,1,0,1,0,0,1,1,0,0,1,1,0,1,0,1,1,12
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Ambika,Female,0,0,1,1,1,0,1,1,0,1,1,0,0,1,0,0,0,0,1,0,9
+5,bidar,humnabad,28/09/2018,5547,GOVT HPS MOLKHERA,4257,Maniknagar,Basavaraj Sharanappa,Sanjana,Female,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,0,0,1,0,1,13
+5,bidar,humnabad,28/09/2018,5568,GOVT HPS MANIKNAGAR WESTWING,4257,Maniknagar,Basavaraj Sharanappa,Sathish,Male,1,0,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,0,0,14
+5,bidar,humnabad,28/09/2018,5568,GOVT HPS MANIKNAGAR WESTWING,4257,Maniknagar,Basavaraj Sharanappa,Rohan,Male,0,1,1,1,0,0,1,1,0,1,1,1,1,0,1,0,0,1,1,1,13
+5,bidar,humnabad,28/09/2018,5568,GOVT HPS MANIKNAGAR WESTWING,4257,Maniknagar,Basavaraj Sharanappa,Supriya,Female,1,1,1,1,0,0,0,0,0,1,1,1,0,1,0,0,0,0,1,0,9
+5,bidar,humnabad,28/09/2018,5568,GOVT HPS MANIKNAGAR WESTWING,4257,Maniknagar,Basavaraj Sharanappa,Priyadarshini,Female,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,1,0,1,1,1,12
+5,bidar,humnabad,28/09/2018,5568,GOVT HPS MANIKNAGAR WESTWING,4257,Maniknagar,Basavaraj Sharanappa,Sangeetha,Female,1,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,0,9
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Pallavi,Female,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Paravani,Female,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,1,1,8
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Divya,Female,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,18
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Shivaleela,Female,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,5
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Pavithra  S,Female,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Ullasa,Male,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Sudeep,Male,1,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,5
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Isakha,Male,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Panduranga,Male,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Pallavi,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhagyalakshmi,Female,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Soundarya,Female,1,1,1,0,1,0,1,0,1,1,1,0,0,1,1,0,0,1,1,1,13
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Ishwarya,Female,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,16
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Shivananda,Male,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,17
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Prathibha,Female,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Gouravva,Female,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,5
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Sumeetha,Male,0,0,1,0,0,1,1,1,0,1,0,1,0,0,0,0,1,0,0,0,7
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Mallappa,Male,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Narasimhalu,Male,1,1,1,0,0,1,1,1,0,1,0,1,1,0,1,0,0,1,0,1,12
+5,bidar,humnabad,29/09/2018,5504,GOVT MPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Sanjana,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhavani,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Rangamma,Female,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,17
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Prabhavathi,Female,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,1,0,1,0,1,15
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Pandari,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Hivani,Female,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,0,1,16
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Lakshmi,Female,1,1,1,0,1,1,1,1,0,1,1,0,0,0,1,1,0,1,0,1,13
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhagyalakshmi,Female,0,0,1,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,14
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhagyalakshmi,Female,1,1,1,1,0,1,1,0,0,1,1,0,1,1,0,1,1,1,1,1,15
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Shilpa,Female,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1,17
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Mahanada,Male,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,1,1,1,8
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Vaishali,Female,0,0,1,1,0,0,1,0,0,1,0,0,0,0,1,1,0,1,0,1,8
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Girija,Female,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,19
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Manikamma,Female,0,0,0,0,1,1,1,1,0,1,1,1,0,0,1,0,1,1,1,1,12
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhagyashree,Female,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,19
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Ishwarya,Female,1,0,1,0,1,1,1,1,0,1,1,0,0,1,1,1,1,1,1,1,15
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Shivani,Female,1,1,1,1,1,1,1,1,0,1,1,0,0,1,1,1,1,1,1,1,17
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Narasamma,Female,1,1,1,1,1,1,1,1,0,0,1,0,0,1,1,1,1,1,1,1,16
+5,bidar,humnabad,29/09/2018,5505,GOVT GIRLS HPS BEMALKHEDA,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Sandhyarani,Female,0,0,1,1,1,1,1,0,0,1,0,0,0,0,1,1,1,1,1,1,12
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Japatapa,Male,1,1,1,0,0,0,0,0,1,0,1,0,0,0,1,1,0,1,1,1,10
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Sudharani,Female,0,0,1,1,1,0,1,0,0,1,1,0,0,0,1,1,0,1,1,1,11
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Kavitha,Female,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,1,8
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Ishwarya,Female,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,9
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhavani,Female,1,1,1,1,0,1,0,0,0,0,0,0,0,0,1,1,1,1,0,1,10
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Yamuna,Female,0,0,1,1,1,1,1,0,0,1,0,0,0,0,1,1,0,1,0,1,10
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Naveena,Male,1,0,1,1,1,0,1,0,0,0,0,0,0,0,1,1,0,1,0,1,9
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Archana,Female,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,6
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Ashwini,Female,1,0,1,0,0,1,1,0,0,1,0,0,0,0,1,0,0,0,0,1,7
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Jnanadevi,Female,1,0,1,1,1,1,0,0,0,1,0,0,0,0,1,1,0,1,0,1,10
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Sangeetha,Female,0,0,1,0,1,1,0,0,0,1,0,0,0,0,1,1,0,1,0,1,8
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Geetha,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,3
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Ambika,Female,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,1,1,1,0,1,9
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhagyashree,Female,0,0,1,1,1,1,1,0,0,1,1,0,0,0,1,1,1,0,1,1,12
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhavani,Female,1,0,0,0,0,1,1,0,0,1,1,0,0,0,1,0,0,1,0,1,8
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Ratnamma,Female,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,9
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Narasimha,Male,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,7
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Veeresh,Male,1,0,1,1,0,1,0,0,0,0,1,0,0,0,1,1,1,1,0,1,10
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Nagesh,Male,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,7
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Vinoda,Male,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Shwetha,Female,1,1,1,1,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,15
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Radhika,Female,1,0,1,0,0,1,1,0,1,1,0,0,0,0,1,1,1,1,1,1,12
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Shrinivas,Male,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,1,0,1,5
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Archana,Female,1,0,1,1,1,0,1,0,1,1,1,0,0,0,1,1,1,1,1,1,14
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Lakshmibhayi,Female,1,1,1,1,1,0,1,0,1,1,0,0,0,0,1,1,0,1,1,1,13
+5,bidar,humnabad,29/09/2018,5511,GOVT HPS VITHALPUR,1207,Bemalkheda,Tulasamma Jaganatha bhuri,Bhagyamathi,Female,1,1,1,0,0,0,1,0,1,1,0,0,0,0,1,1,1,1,1,1,12
