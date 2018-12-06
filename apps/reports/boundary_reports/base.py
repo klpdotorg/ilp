@@ -256,8 +256,6 @@ class BaseReport(ABC):
             if child_boundary_gka is not None:
                 child_boundaries_gka.append(child_boundary_gka)
         
-        import pdb; pdb.set_trace()
-
         if not child_boundaries_gka:
             print("no data")
             raise ValueError("No GKA data for '{}' between {} and {}".format(boundary.name, date_range[0], date_range[1]))
