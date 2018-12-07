@@ -129,6 +129,7 @@ WSGI_APPLICATION = 'ilp.wsgi.application'
 LANGUAGES = (
     ('en', 'English'),
     ('kn', 'Kannada'),
+    ('or', 'Odisha'),
 )
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
