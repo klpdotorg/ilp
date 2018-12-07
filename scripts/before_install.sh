@@ -1,5 +1,4 @@
 #!/bin/bash
-
 WORK_DIR=/home/ubuntu/ilp
 mkdir -p $WORK_DIR
 chown -vc ubuntu:www-data $WORK_DIR || exit 1
