@@ -55,13 +55,14 @@ class BaseReport(ABC):
             self.generate_gka = args.pop('generate_gka', True)
             self.generate_gp = args.pop('generate_gp', True)
             self.generate_hh = args.pop('generate_hhsurvey', True)
+            self.config_file_path = args.pop("config_file")
+            self.read_config(self.config_file_path)
             self.common_data= { 
                 'render_gka':str(self.generate_gka),
                 'render_gp': str(self.generate_gp),
-                'render_hh': str(self.generate_hh)
+                'render_hh': str(self.generate_hh),
+                'supported_languages': [self.lang_code, 'en']
             }
-            self.config_file_path = args.pop("config_file")
-            self.read_config(self.config_file_path)
 
     @abstractmethod
     def get_data(self):
@@ -76,6 +77,8 @@ class BaseReport(ABC):
             self.hh_survey_id = int(config.get("household_survey", "hh_survey_id"))
             self.hh_questiongroup_ids = ast.literal_eval(config.get("household_survey", "hh_questiongroup_ids"))
             self.hh_question_ids = ast.literal_eval(config.get("household_survey", "hh_question_ids"))
+            self.lang_code = config.get("language", "lang_code")
+
         except:
             raise ValueError("Configuration file incorrect. Cannot proceed with reports until it is fixed")
 

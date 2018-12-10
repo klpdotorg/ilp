@@ -129,7 +129,7 @@ WSGI_APPLICATION = 'ilp.wsgi.application'
 LANGUAGES = (
     ('en', 'English'),
     ('kn', 'Kannada'),
-    ('or', 'Odisha'),
+    ('or', 'Odia'),
 )
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
@@ -137,7 +137,16 @@ LOCALE_PATHS = (
 LANGUAGE_CODE = 'en'
 USE_I18N = True
 USE_L10N = True
-
+#Support for additional languages
+EXTRA_LANG_INFO = {
+    'or': {
+        'bidi': False, # right-to-left
+        'code': 'or',
+        'name': 'Odia',
+        'name_local': u'Odia', #unicode codepoints here
+        'name_translated': 'ଓଡ଼ିଆ'
+    },
+}
 # Time zone
 TIME_ZONE = 'Asia/Kolkata'
 USE_TZ = True
@@ -310,4 +319,9 @@ LOGGING = {
         },
     }
 }
+
+import django.conf.locale
+from django.conf import global_settings
+LANG_INFO = {**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO}
+django.conf.locale.LANG_INFO = LANG_INFO
 
