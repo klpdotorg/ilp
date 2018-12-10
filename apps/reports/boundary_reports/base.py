@@ -63,6 +63,7 @@ class BaseReport(ABC):
                 'render_hh': str(self.generate_hh),
                 'supported_languages': [self.lang_code, 'en']
             }
+            print(self.common_data)
 
     @abstractmethod
     def get_data(self):
@@ -78,7 +79,7 @@ class BaseReport(ABC):
             self.hh_questiongroup_ids = ast.literal_eval(config.get("household_survey", "hh_questiongroup_ids"))
             self.hh_question_ids = ast.literal_eval(config.get("household_survey", "hh_question_ids"))
             self.lang_code = config.get("language", "lang_code")
-
+            print("lang code is: ", self.lang_code)
         except:
             raise ValueError("Configuration file incorrect. Cannot proceed with reports until it is fixed")
 
