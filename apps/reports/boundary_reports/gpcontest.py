@@ -127,7 +127,7 @@ class GPMathContestReport(BaseReport):
             'boys_zero':male_zero_ans_per_gp,\
             'boys_100':male_correct,\
             'girls_100':female_correct,\
-            'household':survey,
+            'household':survey,\
             'report_type': 'gp'}
         self.data = {**self.output, **self.common_data}
         return self.data
@@ -260,6 +260,8 @@ class GPMathContestReportSummarized(GPMathContestReport):
                         'boys_zero':male_zero_ans_per_gp,\
                         'boys_100':male_correct,\
                         'girls_100':female_correct,\
-                        'household':survey}
+                        'household':survey,\
+                        'report_type': 'gpsummarized'}
+        self.data = {**self.output, **self.common_data}
         return self.data
 
