@@ -243,7 +243,7 @@ class GPMathContestReportSummarized(GPMathContestReport):
                    self.get_basic_GP_data(gp_obj)
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(gp_obj, self.report_from, self.report_to)
         survey = self.getHouseholdSurvey(gp_obj, dates)
-        self.data =  {
+        self.output =  {
                         'gp_name': gp.title(),\
                         'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
                         'block':block,\
