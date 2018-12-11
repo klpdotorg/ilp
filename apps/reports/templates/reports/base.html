@@ -29,8 +29,10 @@
   {% for lang_code, lang_name in languages %}
       {% language lang_code %}
       {% get_language_info for lang_code as lang %}
-      {%if lang_code != current_lang%}
-          <a style="top: 20px;position: absolute;left: 203px;" href="{% url 'view_report' report_id=reportid tracking_id=trackid %}">{{lang.name_translated}}</a>
+      {%if lang_code in data.supported_languages%}
+        {%if lang_code != current_lang%}
+            <a style="top: 20px;position: absolute;left: 203px;" href="{% url 'view_report' report_id=reportid tracking_id=trackid %}">{%trans lang.name %}</a>
+        {%endif%}
       {%endif%}
       {% endlanguage %}
   {% endfor %}

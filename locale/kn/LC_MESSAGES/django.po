@@ -34,6 +34,11 @@ msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(block_name)s ಬ್�
 msgid "Block Name"
 msgstr "ಬ್ಲಾಕ್ ಹೆಸರು"
 
+#: ilp/settings/base.py:133
+msgid "Kannada"
+msgstr "ಕನ್ನಡ"
+
+
 #: apps/reports/templates/reports/BlockReport.html:10
 #: apps/reports/templates/reports/BlockReportSummarized.html:10
 #: apps/reports/templates/reports/ClusterReport.html:10
