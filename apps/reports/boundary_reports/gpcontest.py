@@ -100,7 +100,7 @@ class GPMathContestReport(BaseReport):
             except:
                 print("No household community survey data available for GP ", gp_obj.const_ward_name)
 
-        num_contests_agg = SurveyEBoundaryElectionTypeCount.objects.filter(survey_id=2)\
+        num_contests_agg = SurveyEBoundaryElectionTypeCount.objects.filter(survey_id=self.gpcontest_survey_id)\
                                                .filter(eboundary_id=gp_obj)\
                                                .filter(yearmonth__gte = self.report_from)\
                                                .filter(yearmonth__lte = self.report_to)\
@@ -141,7 +141,7 @@ class GPMathContestReport(BaseReport):
                                                             .filter(yearmonth__lte = self.report_to)
         gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
                 institution_id__gp=gp_obj, 
-                survey_id=2, 
+                survey_id=self.gpcontest_survey_id, 
                 yearmonth__gte=self.report_from,
                 yearmonth__lte=self.report_to)        
         
