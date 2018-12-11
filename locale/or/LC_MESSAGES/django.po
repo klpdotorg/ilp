@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 12:23+0530\n"
+"POT-Creation-Date: 2018-12-11 11:27+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -154,13 +154,13 @@ msgid "Performance by Schools"
 msgstr "Performance by Schools"
 
 #. Translators: GKA implementation header title
-#: apps/reports/templates/reports/base.html:63
+#: apps/reports/templates/reports/base.html:65
 msgctxt "gka_reports_title"
 msgid "GKA IMPLEMENTATION"
 msgstr "OD GKA IMPLEMENTATION"
 
 #. Translators: GKA  implementation program information
-#: apps/reports/templates/reports/base.html:65
+#: apps/reports/templates/reports/base.html:67
 msgid ""
 " [This report is based on the survey feedbacks received from HMs/CRP/Akshara "
 "staff and other department\n"
@@ -171,61 +171,61 @@ msgstr ""
 "        officials on implementation of GKA Program] "
 
 #. Translators: Teacher's trained label
-#: apps/reports/templates/reports/base.html:71
+#: apps/reports/templates/reports/base.html:73
 msgctxt "gka_question"
 msgid "Teachers Trained"
 msgstr "Teachers Trained"
 
 #. Translators: Kit usage label
-#: apps/reports/templates/reports/base.html:81
+#: apps/reports/templates/reports/base.html:83
 msgctxt "gka_question"
 msgid "Kit Usage"
 msgstr "Kit Usage"
 
 #. Translators: GKA group work label
-#: apps/reports/templates/reports/base.html:91
+#: apps/reports/templates/reports/base.html:93
 msgctxt "gka_question"
 msgid "Group Work"
 msgstr "Group Work"
 
-#: apps/reports/templates/reports/base.html:109
+#: apps/reports/templates/reports/base.html:111
 msgctxt "table header"
 msgid "Teachers Trained"
 msgstr "Teachers Trained"
 
-#: apps/reports/templates/reports/base.html:110
+#: apps/reports/templates/reports/base.html:112
 msgctxt "table header"
 msgid "Kit Usage"
 msgstr "Kit Usage"
 
-#: apps/reports/templates/reports/base.html:111
+#: apps/reports/templates/reports/base.html:113
 msgctxt "table header"
 msgid "Group Work"
 msgstr "Group Work"
 
 #. Translators: Gram Panchayar (GP) header title
-#: apps/reports/templates/reports/base.html:138
+#: apps/reports/templates/reports/base.html:140
 msgid "GP Contest"
 msgstr "GP Contest"
 
 #. Translators: Total number of contests label
-#: apps/reports/templates/reports/base.html:144
+#: apps/reports/templates/reports/base.html:146
 msgid "Total No of Contests"
 msgstr "Total No of Contests"
 
 #. Translators: Participation in GP contests label
-#: apps/reports/templates/reports/base.html:147
-#: apps/reports/templates/reports/base.html:155
+#: apps/reports/templates/reports/base.html:149
+#: apps/reports/templates/reports/base.html:157
 msgid "Participation"
 msgstr "Participation"
 
 #. Translators: Students with full score in GP contests label
-#: apps/reports/templates/reports/base.html:161
+#: apps/reports/templates/reports/base.html:163
 msgid "Students with FULL score"
 msgstr "Students with FULL score"
 
 #. Translators: Intro blurb for GP contest report section
-#: apps/reports/templates/reports/base.html:167
+#: apps/reports/templates/reports/base.html:169
 msgid ""
 " [This report provides the details of Math learning levels of children by "
 "school who participated in Gram\n"
@@ -235,61 +235,61 @@ msgstr ""
 "school who participated in Gram\n"
 "        Panchayat Mathematics Contests this academic year.] "
 
-#: apps/reports/templates/reports/base.html:171
+#: apps/reports/templates/reports/base.html:173
 msgid "Performance by Grade"
 msgstr "Performance by Grade"
 
-#: apps/reports/templates/reports/base.html:174
-#: apps/reports/templates/reports/base.html:256
+#: apps/reports/templates/reports/base.html:176
+#: apps/reports/templates/reports/base.html:258
 msgid "Grade"
 msgstr "Grade"
 
-#: apps/reports/templates/reports/base.html:176
-#: apps/reports/templates/reports/base.html:258
+#: apps/reports/templates/reports/base.html:178
+#: apps/reports/templates/reports/base.html:260
 msgid "Number Recognition"
 msgstr "Number Recognition"
 
-#: apps/reports/templates/reports/base.html:179
-#: apps/reports/templates/reports/base.html:261
+#: apps/reports/templates/reports/base.html:181
+#: apps/reports/templates/reports/base.html:263
 msgid "Place Value"
 msgstr "Place Value"
 
-#: apps/reports/templates/reports/base.html:182
-#: apps/reports/templates/reports/base.html:264
+#: apps/reports/templates/reports/base.html:184
+#: apps/reports/templates/reports/base.html:266
 msgid "Addition"
 msgstr "Addition"
 
-#: apps/reports/templates/reports/base.html:185
-#: apps/reports/templates/reports/base.html:267
+#: apps/reports/templates/reports/base.html:187
+#: apps/reports/templates/reports/base.html:269
 msgid "Subtraction"
 msgstr "Subtraction"
 
-#: apps/reports/templates/reports/base.html:188
-#: apps/reports/templates/reports/base.html:270
+#: apps/reports/templates/reports/base.html:190
+#: apps/reports/templates/reports/base.html:272
 msgid "Multiplication"
 msgstr "Multiplication"
 
-#: apps/reports/templates/reports/base.html:191
-#: apps/reports/templates/reports/base.html:273
+#: apps/reports/templates/reports/base.html:193
+#: apps/reports/templates/reports/base.html:275
 msgid "Division"
 msgstr "Division"
 
-#: apps/reports/templates/reports/base.html:197
+#: apps/reports/templates/reports/base.html:199
 #, python-format
 msgid "%(translated_grade)s"
 msgstr ""
 
-#: apps/reports/templates/reports/base.html:282
+#: apps/reports/templates/reports/base.html:284
 #, python-format
 msgid "%(gradename)s"
 msgstr ""
 
 #. Translators: Community survey section label
-#: apps/reports/templates/reports/base.html:345
+#: apps/reports/templates/reports/base.html:347
 msgid "COMMUNITY SURVEY"
 msgstr "COMMUNITY SURVEY"
 
-#: apps/reports/templates/reports/base.html:346
+#: apps/reports/templates/reports/base.html:348
 msgid ""
 " [This report is based on the feedback received from the parents on "
 "functioning of the school in your\n"
@@ -299,20 +299,20 @@ msgstr ""
 "functioning of the school in your\n"
 "          boundary]"
 
-#: apps/reports/templates/reports/base.html:351
+#: apps/reports/templates/reports/base.html:353
 #, python-format
 msgid " %(question)s"
 msgstr ""
 
-#: apps/reports/templates/reports/base.html:360
+#: apps/reports/templates/reports/base.html:362
 msgid "No community survey data available"
 msgstr "No community survey data available"
 
-#: apps/reports/templates/reports/base.html:369
+#: apps/reports/templates/reports/base.html:371
 msgid "FOCUS AREAS"
 msgstr "FOCUS AREAS"
 
-#: apps/reports/templates/reports/base.html:373
+#: apps/reports/templates/reports/base.html:375
 #, python-format
 msgid ""
 "<b>Colour Code: </b>All the numbers more than 70%% are highlighted in <span "
@@ -329,7 +329,7 @@ msgstr ""
 "          Members should take serious note and work towards improving the "
 "learning levels in Math."
 
-#: apps/reports/templates/reports/base.html:380
+#: apps/reports/templates/reports/base.html:382
 msgid ""
 "<b>Question Design: </b> In GP contest, all the children are tested based on "
 "the previous year's competency\n"
@@ -343,7 +343,7 @@ msgstr ""
 "prepared based on the Class-4 level\n"
 "          competencies."
 
-#: apps/reports/templates/reports/base.html:385
+#: apps/reports/templates/reports/base.html:387
 msgid ""
 "<b>Evaluation Scheme: </b> For Number Recognition, Place Value, Addition, "
 "Subtraction all the questions\n"
@@ -357,7 +357,7 @@ msgstr ""
 "Multiplication, one question should be answered\n"
 "          correctly."
 
-#: apps/reports/templates/reports/base.html:392
+#: apps/reports/templates/reports/base.html:394
 msgid ""
 "<b>Recommendation: </b>To improve math learning levels of children please "
 "encourage the use of GKA Math kit\n"
@@ -367,9 +367,17 @@ msgstr ""
 "encourage the use of GKA Math kit\n"
 "          in classrooms."
 
-#: apps/reports/templates/reports/base.html:400
+#: apps/reports/templates/reports/base.html:402
 msgid "FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT :"
 msgstr "FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT :"
+
+#: ilp/settings/base.py:133
+msgid "Kannada"
+msgstr ""
+
+#: ilp/settings/base.py:134
+msgid "Odia"
+msgstr "ଓଡ଼ିଆ"
 
 #: templates/gka_dashboard.html:37
 msgid "GKA DASHBOARD"

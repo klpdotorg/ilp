@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -128,8 +130,8 @@ WSGI_APPLICATION = 'ilp.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 LANGUAGES = (
     ('en', 'English'),
-    ('kn', 'Kannada'),
-    ('or', 'Odia'),
+    ('kn', _('Kannada')),
+    ('or', _('Odia')),
 )
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
@@ -143,7 +145,7 @@ EXTRA_LANG_INFO = {
         'bidi': False, # right-to-left
         'code': 'or',
         'name': 'Odia',
-        'name_local': u'Odia', #unicode codepoints here
+        'name_local': u'ଓଡ଼ିଆ', #unicode codepoints here
         'name_translated': 'ଓଡ଼ିଆ'
     },
 }
