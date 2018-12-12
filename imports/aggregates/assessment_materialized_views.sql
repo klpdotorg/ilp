@@ -3088,7 +3088,7 @@ SELECT distinct format('A%s_%s_%s', data.survey_tag, data.boundary_id, data.acad
     data.boundary_id as boundary_id, 
     data.academic_year_id as academic_year_id,
     count(distinct school_id) as num_schools,
-    count(distinct student_id) as num_students
+    count(case when student_id!=0 then student_id end) as num_students
 FROM
 (
  SELECT distinct 
@@ -3174,25 +3174,13 @@ WHERE
     and sg.name = sgmap.sg_name
     and stusg.status_id !='DL' and stusg.student_id=stu.id 
     and stu.status_id !='DL'
-)data
-GROUP BY
-data.survey_tag,
-data.boundary_id,
-data.academic_year_id
 union
-SELECT distinct format('A%s_%s_%s', data.survey_tag, data.boundary_id, data.academic_year_id) as id,
-    data.survey_tag as survey_tag,
-    data.boundary_id as boundary_id,
-    data.academic_year_id as academic_year_id,
-    count(distinct school_id) as num_schools,
-    0 as num_students
-FROM
-(
  SELECT distinct
     instmap.tag_id  as  survey_tag,
     b.id as boundary_id,
     '1819' as academic_year_id,
-    instmap.institution_id as school_id
+    instmap.institution_id as school_id,
+    0 as student_id
 FROM
     assessments_surveytaginstitutionmapping instmap,
     schools_institution s,
@@ -3200,6 +3188,7 @@ FROM
 WHERE
     instmap.institution_id = s.id
     and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and s.id not in (select distinct institution_id from schools_studentgroup)
     and instmap.tag_id = 'gka'
     and instmap.academic_year_id = '1819'
 )data
@@ -3801,7 +3790,7 @@ FROM(
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_qdetails_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
     survey_id,
     survey_tag,
     eboundary_id,
@@ -3911,7 +3900,7 @@ FROM(
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_qdetails_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
