@@ -63,7 +63,6 @@ class BaseReport(ABC):
                 'render_hh': str(self.generate_hh),
                 'supported_languages': [self.lang_code, 'en']
             }
-            print(self.common_data)
 
     @abstractmethod
     def get_data(self):
