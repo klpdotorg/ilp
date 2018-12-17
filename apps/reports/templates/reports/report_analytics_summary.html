@@ -1,4 +1,11 @@
-{% extends "./base.html" %}
+{%load static %}
+<html>
+<head>
+ 	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="{% static 'reports/reports.css' %}" type="text/css" charset="utf-8">
+</head>
 {% block body %}
   <body>
     <a style="padding:20px; position:absolute;" href="{{ request.get_full_path }}?lang=kannada" ></a>
@@ -203,3 +210,4 @@
     </div>
 	</body>
 {% endblock %}
+</html>

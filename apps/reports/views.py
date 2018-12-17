@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from .links import send_link, send_recipient
 from .models import Reports, Tracking
 from .reportlist import reportlist
-
+from django.utils.translation import activate, get_language_from_request, get_language_info
 
 '''This is the view used to view the reports'''
 def view_report(request, report_id, tracking_id='default'):
@@ -31,19 +31,40 @@ def view_report(request, report_id, tracking_id='default'):
     except Tracking.DoesNotExist:
         pass
 
-    if request.GET.get('lang') == 'english':
-        return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data})
-    else:
-        return render(request, 'reports/{}kannada.html'.format(report.report_type), context={'data':data})
+    return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data, 'reportid': report_id,'trackid': tracking_id})
+    
+# '''This is the view used to view the reports'''
+# def view_report(request, report_id, tracking_id='default'):
+#     try:
+#         report = Reports.objects.get(link_id=report_id)
+#         data = report.data
+#     except Reports.DoesNotExist:
+#         return render(request, 'reports/404.html', context={'data': report_id})
+
+#     try:
+#         tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
+#         tracker.visit_count += 1
+#         tracker.visited_at = datetime.datetime.now()
+#         tracker.save()
+#     except Tracking.DoesNotExist:
+#         pass
+
+#     if request.GET.get('lang') == 'english':
+#         activate('en')
+#         return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data, 'reportid': report_id,'trackid': tracking_id})
+#     else:
+#         activate('kn')
+#         return render(request, 'reports/{}kannada.html'.format(report.report_type), context={'data':data,'reportid': report_id,'trackid': tracking_id})
 
 def download_report(request, report_id, tracking_id='default'):
     try:
         report_model = Reports.objects.get(link_id=report_id)
     except Reports.DoesNotExist:
         return render(request, 'reports/404.html', context={'data': report_id})
-
+    locale = get_language_from_request(request,check_path=True)
+    lang_info = get_language_info(locale)
     report = reportlist[report_model.report_type](data=report_model.data)
-    pdf = report.get_pdf(lang=request.GET.get('lang'))
+    pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
 
     try:
@@ -108,9 +129,10 @@ class ReportAnalytics(View):
             data_from = request.GET.get('from')
             data_to = request.GET.get('to')
             messages = []
-            successfull=True
-            reports = Reports.objects.filter(data__today__range=[data_from, data_to])
-            trackings = Tracking.objects.filter(created_at__range=[data_from, data_to])
+            successful=True
+            #reports = Reports.objects.filter(data__today__range=[data_from, data_to])
+            trackings = Tracking.objects.filter(created_at__range=[data_from, data_to]).values_list('report_id', flat=True)
+            reports = Reports.objects.filter(id__in=trackings)
             data = {'district_level':getDistrictLevel(reports),
                     'block_level':getBlockLevel(reports),
                     'cluster_level':getClusterLevel(reports),
@@ -118,8 +140,8 @@ class ReportAnalytics(View):
                     'by_type':getByReportType(reports),
                     'by_user':getByUser(trackings)
             }
-            
-            return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successfull,'data':data})
+            print(data)
+            return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successful,'data':data})
         else:
             return render(request, 'reports/report_analytics.html', context={'reports':reportlist})
     

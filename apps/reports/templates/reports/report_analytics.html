@@ -1,13 +1,14 @@
+{%load static %}
 <html>
     <head>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
       
       <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
       <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
       <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-      <script>
-      $(function() {
+      <script>-->
+      <!--$(function() {
       $('input[name="daterange"]').daterangepicker({
       opens: 'left'
       }, function(start, end, label) {
@@ -15,30 +16,97 @@
       $('#from').attr('value',start.format('YYYY-MM-DD'));
       $('#to').attr('value',end.format('YYYY-MM-DD'));
       });
-      });
-      </script>
-    </head>
+      });*/
+      </script>-->
+      <style>
+      html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px; /* Margin bottom by footer height */
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+      </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Project 1 million Report Analytics</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="sticky-footer.css" rel="stylesheet">
+  </head>
+   
     <body>
-        <center>
-            <h3>REPORT ANALYTICS</h3>
-        </center>
+   
+    <div class="bg-white border-bottom box-shadow">
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Project 1 Million Report Analytics</a>
+                 {% include "./akshara-img.html" %}
+        {% comment %} <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>
+         
+        </div> {% endcomment %}
+      </nav>
+    </div>
+    <main role="main" class="container">
+        <h1 class="mt-5">Report Analytics</h1>
+        <p class="lead">Please select a date range below to generate report analytics</p>
+        <form method="GET" enctype="multipart/form-data">
         <div class="row">
-            <div class="col-md-2">
+            <div class="form-group col-md-2">
+                <label for="from"><b>From Date</b></label>
             </div>
             <div class="col-md-8">
-                <form method="GET" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="form-group">
-                      <label for="from">From Date</label>
-		      <input type="text" name="daterange" value="06/01/2018 - 06/14/2018" class="form-control" />
-                      <input type="hidden" id="from" name="from" value="2018-06-01" >
-		       <input type="hidden" id="to" name="to" value="2018-06-14">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-            </div>
-            <div class="col-md-2">
+                {% csrf_token %}         
+                <input type="date" class="form-control" id="from" name="from" value="2018-06-01" required autofocus>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="to"><b>To Date</b></label>
+            </div>
+            <div class="form-group col-md-8">
+                <input type="date" class="form-control" id="to" name="to" value="2019-03-31">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+        </form>
+    </main><!-- End of container class-->
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">For more information, contact the KLP Akshara team</span>
+      </div>
+    </footer>
     </body>
 </html>
