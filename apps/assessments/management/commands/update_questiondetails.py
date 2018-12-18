@@ -4,7 +4,8 @@ from io import StringIO
 
 from django.utils import timezone
 from django.core.management.base import BaseCommand, CommandError
-from assessments.models import QuestionGroup, Question, QuestionGroup_Questions, Concept, MicroConceptGroup, MicroConcept, QuestionLevel, QuestionInformationType, LearningIndicator
+from assessments.models import QuestionGroup, Question, QuestionGroup_Questions, Concept, MicroConceptGroup, MicroConcept, QuestionLevel, QuestionInformationType, LearningIndicator, AnswerInstitution, CompetencyQuestionMap
+from common.models import Status
 
 
 class Command(BaseCommand):
@@ -25,6 +26,30 @@ class Command(BaseCommand):
             self.csv_files[fileoption] = csv.reader(f,delimiter='|')
         return True
 
+
+    def get_question(self, concept, microconceptgroup, microconcept, questionlevel, questioninformationtype, learningindicator, questiongroup, sequence):
+        question = QuestionGroup_Questions.objects.get(questiongroup = questiongroup, sequence=sequence).question
+        if question.concept == '' or question.concept == None:
+            print("updating for questiongroup: "+str(questiongroup.id)+", question: "+str(question.id)+", sequence: "+str(sequence))
+            question.concept_id = concept.pk
+            question.microconcept_group_id = microconceptgroup.pk
+            question.microconcept_id = microconcept.pk
+            question.question_level_id = questionlevel.pk
+            question.question_info_type_id = questioninformationtype.pk
+            question.learning_indicator_id = learningindicator.pk
+            question.save()
+            return question, False 
+        else:
+            if question.concept == concept and question.microconcept_group == microconceptgroup and question.microconcept == microconcept and question.question_level == questionlevel and question.question_info_type == questioninformationtype and question.learning_indicator == learningindicator:
+                print("present for questiongroup: "+str(questiongroup.id)+", question: "+str(question.id)+", sequence: "+str(sequence))
+                return question, False 
+            else:
+                print("creating question for questiongroup: "+str(questiongroup.id)+", question: "+str(question.id)+", sequence: "+str(sequence))
+                question = Question.objects.create(question_text=microconcept.description, display_text=microconcept.description, is_featured='True',status = Status.objects.get(pk='AC'), concept_id=concept.pk, microconcept_group_id=microconceptgroup.pk, microconcept_id=microconcept.pk, question_level_id=questionlevel.pk, question_info_type_id=questioninformationtype.pk,learning_indicator_id=learningindicator.pk)
+                return question, True 
+            
+
+
     def update_questiondetails(self):
         count=0
         for row in self.csv_files["questiondetails"]:
@@ -32,8 +57,7 @@ class Command(BaseCommand):
                 count += 1
                 continue
             count += 1
-            print(row)
-            questiongroup_id = row[0].strip()
+            questiongroup = QuestionGroup.objects.get(pk = row[0].strip())
             sequence = row[1].strip()
             concept = Concept.objects.get(char_id = row[2].strip())
             microconceptgroup = MicroConceptGroup.objects.get(char_id=row[3].strip())
@@ -41,7 +65,26 @@ class Command(BaseCommand):
             questionlevel = QuestionLevel.objects.get(char_id=row[5].strip())
             questioninformationtype = QuestionInformationType.objects.get(char_id=row[6].strip())
             learningindicator = LearningIndicator.objects.get(char_id=row[7].strip())
-            question = Question.objects.filter(pk = QuestionGroup_Questions.objects.get(questiongroup_id=questiongroup_id,sequence=sequence).question_id).update(concept=concept, microconcept_group=microconceptgroup, microconcept=microconcept, question_level=questionlevel, question_info_type=questioninformationtype,learning_indicator=learningindicator)
+            question, created = self.get_question(concept, microconceptgroup, microconcept, questionlevel, questioninformationtype, learningindicator, questiongroup, sequence)
+         
+            if created:
+                print("New question id: "+str(question.id))
+                ansinst = AnswerInstitution.objects.filter(answergroup__questiongroup=questiongroup,question__questiongroup_questions__sequence=sequence, question__questiongroup_questions__questiongroup=questiongroup)
+                print("Update answers: "+str(ansinst.count()))
+                for ans in ansinst:
+                    ans.question = question
+                    ans.save()
+                competencyqmap = CompetencyQuestionMap.objects.filter(questiongroup = questiongroup, question__questiongroup_questions__sequence=sequence, question__questiongroup_questions__questiongroup=questiongroup)
+                print("Update CompetencyQuestionMap: "+str(competencyqmap.count()))
+                for qentry in competencyqmap:
+                    qentry.question = question
+                    qentry.save()
+                
+                print("updating questiongroup: "+str(questiongroup.id)+" "+str(sequence))
+                qgq = QuestionGroup_Questions.objects.get(questiongroup=questiongroup, sequence=sequence)
+                qgq.question = question
+                qgq.save()
+
 
 
     def handle(self, *args, **options):

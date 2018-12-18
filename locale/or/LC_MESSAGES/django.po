@@ -362,8 +362,8 @@ msgstr "ସ୍କୁଲ୍ ରେ  କଣ ଶିକ୍ଷକଙ୍କ କମି 
 msgid "Does the school have a separate functional toilet for girls?"
 msgstr "କଣ ବିଦ୍ୟାଳୟରେ ଝିଅ ପିଲା ମାନେ ବ୍ୟବହାର କରିବା ପାଇଁ ଅଲଗାରେ ଶୌଚାଳୟ ଅଛି ?"
 
-msgid "Does the SDMC meet every month?"
-msgstr "କଣ ଏସଡିଏମସି( SDMC) ପ୍ରତି  ମାସ ମିଳୁଛି ?"
+msgid "Does the SMC meet every month?"
+msgstr "କଣ ଏସଡିଏମସି( SMC) ପ୍ରତି  ମାସ ମିଳୁଛି ?"
 
 msgid ""
 "Are you satisfied with the Mid Day Meal served in your child's school?"
