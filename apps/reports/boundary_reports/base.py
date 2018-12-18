@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 
-from boundary.models import Boundary, ElectionBoundary
+from boundary.models import Boundary, ElectionBoundary, BoundaryStateCode
 from schools.models import Institution
 
 from assessments.models import (
@@ -78,7 +78,8 @@ class BaseReport(ABC):
             self.hh_questiongroup_ids = ast.literal_eval(config.get("household_survey", "hh_questiongroup_ids"))
             self.hh_question_ids = ast.literal_eval(config.get("household_survey", "hh_question_ids"))
             self.lang_code = config.get("language", "lang_code")
-            print("lang code is: ", self.lang_code)
+            self.state_code = config.get("state", "state_code")
+            self.state_id = BoundaryStateCode.objects.get(char_id=self.state_code).boundary_id 
         except:
             raise ValueError("Configuration file incorrect. Cannot proceed with reports until it is fixed")
 
@@ -123,7 +124,8 @@ class BaseReport(ABC):
         return self.sms_template.format(full_url)
 
     def save(self):
-        r= Reports(report_type=self._type,parameters=self.params, data=self.data)
+        state = Boundary.objects.get(id=self.state_id)
+        r= Reports(report_type=self._type,state_id=state, parameters=self.params, data=self.data)
         r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:5]
         r.save()
         t = Tracking(report_id=r, track_id='default')

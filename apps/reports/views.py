@@ -128,6 +128,7 @@ class ReportAnalytics(View):
         if request.GET.get('from') and request.GET.get('to') :
             data_from = request.GET.get('from')
             data_to = request.GET.get('to')
+            state = request.GET.get('state')
             messages = []
             successfull=True
             reports = Reports.objects.filter(data__today__range=[data_from, data_to])
