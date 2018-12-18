@@ -136,10 +136,9 @@
           <b>{%trans "Total No of Contests"%} : </b> {{data.num_contests}}&nbsp;
           <span style="float:right;">
             {%comment%}Translators: Participation in GP contests label{%endcomment%}
-              <b>{%trans "Participation"%}:</b> {{data.num_students}} {
+              <b>{%trans "Participation"%}:</b> {{data.num_students}}{
               {% include "./boy-shadow.html" %} : {{data.num_boys}}
-              {% include "./girl-shadow.html" %} : {{data.num_girls}}
-              }
+              {% include "./girl-shadow.html" %} : {{data.num_girls}}}
           </span>
         <!-- For school reports show only number of students-->
         {%else%}
@@ -156,7 +155,7 @@
         {%endwith%}
       </span>
       {%comment%}Translators: Intro blurb for GP contest report section{%endcomment%}
-      <p> {%blocktrans%} [This report provides the details of Math learning levels of children by school who participated in Gram
+      <p style="clear:both;text-align:center"> {%blocktrans%} [This report provides the details of Math learning levels of children by school who participated in Gram
         Panchayat Mathematics Contests this academic year.] {%endblocktrans%}</p>
       <!-- Overall gradewise performance not applicable to schools. SHOW ONLY BREAKDOWN BY SCHOOL/GRADE. See below-->
       {%if data.report_type != "school" %}

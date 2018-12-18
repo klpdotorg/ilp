@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-11 11:27+0530\n"
+"POT-Creation-Date: 2018-12-18 13:01+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apps/reports/templates/reports/BlockReport.html:5
 #, python-format
 msgid "GKA : %(block_name)s Block Report"
-msgstr "GKA : %(block_name)s ବ୍ଲକ ରିପୋର୍ଟ "
+msgstr "జికేఏ: %(block_name)s బ్లాక్ నివేదిక "
 
 #: apps/reports/templates/reports/BlockReport.html:8
 #: apps/reports/templates/reports/BlockReportSummarized.html:8
@@ -32,7 +33,7 @@ msgstr "GKA : %(block_name)s ବ୍ଲକ ରିପୋର୍ଟ "
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:12
 #: apps/reports/templates/reports/SchoolReport.html:17
 msgid "Block Name"
-msgstr "ବ୍ଲକ ନାମ"
+msgstr "బ్లాక్ పేరు"
 
 #: apps/reports/templates/reports/BlockReport.html:10
 #: apps/reports/templates/reports/BlockReportSummarized.html:10
@@ -43,7 +44,7 @@ msgstr "ବ୍ଲକ ନାମ"
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:9
 #: apps/reports/templates/reports/SchoolReport.html:9
 msgid "Academic Year"
-msgstr "ଶିକ୍ଷଣି ବର୍ଷ"
+msgstr "విద్యా సంవత్సరం"
 
 #: apps/reports/templates/reports/BlockReport.html:13
 #: apps/reports/templates/reports/BlockReportSummarized.html:13
@@ -54,7 +55,7 @@ msgstr "ଶିକ୍ଷଣି ବର୍ଷ"
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:17
 #: apps/reports/templates/reports/SchoolReport.html:12
 msgid "District Name"
-msgstr "ଜିଲ୍ଲା ନାମ"
+msgstr "జిల్లా పేరు"
 
 #: apps/reports/templates/reports/BlockReport.html:15
 #: apps/reports/templates/reports/BlockReportSummarized.html:15
@@ -65,7 +66,7 @@ msgstr "ଜିଲ୍ଲା ନାମ"
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:14
 #: apps/reports/templates/reports/SchoolReport.html:14
 msgid "Report Generated on"
-msgstr "ରିପୋର୍ଟ ଏହି ଦିନ ତିଆରି ହୋଇଛି"
+msgstr "నివేదిక రూపొందించబడిన"
 
 #: apps/reports/templates/reports/BlockReport.html:18
 #: apps/reports/templates/reports/BlockReportSummarized.html:18
@@ -73,14 +74,14 @@ msgstr "ରିପୋର୍ଟ ଏହି ଦିନ ତିଆରି ହୋଇଛ�
 #: apps/reports/templates/reports/DistrictReport.html:13
 #: apps/reports/templates/reports/DistrictReportSummarized.html:14
 msgid "No.of schools"
-msgstr "ସ୍କୁଲର ସଂଖ୍ୟା"
+msgstr "పాఠశాలల సంఖ్య"
 
 #: apps/reports/templates/reports/BlockReport.html:24
 #: apps/reports/templates/reports/BlockReport.html:28
 #: apps/reports/templates/reports/BlockReportSummarized.html:24
 #: apps/reports/templates/reports/BlockReportSummarized.html:28
 msgid "Performance by Cluster"
-msgstr "କ୍ଲଷ୍ଟରର ସଫଳତା"
+msgstr "సమూహము ద్వారా ప్రదర్శన"
 
 #: apps/reports/templates/reports/BlockReport.html:25
 #: apps/reports/templates/reports/BlockReport.html:29
@@ -89,75 +90,75 @@ msgstr "କ୍ଲଷ୍ଟରର ସଫଳତା"
 #: apps/reports/templates/reports/ClusterReport.html:8
 #: apps/reports/templates/reports/SchoolReport.html:19
 msgid "Cluster Name"
-msgstr "କ୍ଲଷ୍ଟରର ନାମ"
+msgstr "సమూహము  పేరు"
 
 #: apps/reports/templates/reports/BlockReportSummarized.html:5
 #, python-format
 msgid "GKA : %(block_name)s Summarized Block Report"
-msgstr "GKA :%(block_name)s ସଂକ୍ଷପରେ ବ୍ଲକ ରିପୋର୍ଟ"
+msgstr "జికేఏ: %(block_name)s సంక్షిప్త బ్లాక్ నివేదిక "
 
 #: apps/reports/templates/reports/ClusterReport.html:5
 #, python-format
 msgid "GKA : %(cluster_name)s Cluster Report"
-msgstr "GKA : %(cluster_name)s କ୍ଲଷ୍ଟର ରିପୋର୍ଟ  "
+msgstr "జికేఏ: %(cluster_name)s సమూహ నివేదిక "
 
 #: apps/reports/templates/reports/ClusterReport.html:26
 msgid "Performance by School"
-msgstr "ସ୍କୁଲର ସଫଳତା"
+msgstr "పాఠశాల ద్వారా ప్రదర్శన"
 
 #: apps/reports/templates/reports/ClusterReport.html:27
 #: apps/reports/templates/reports/GPMathContestReport.html:26
 #: apps/reports/templates/reports/SchoolReport.html:27
 msgid "School Name"
-msgstr "ସ୍କୁଲର ନାମ"
+msgstr "పాఠశాల పేరు"
 
 #: apps/reports/templates/reports/ClusterReportSummarized.html:5
 #, python-format
 msgid "GKA : %(cluster_name)s Cluster Summarized Report"
-msgstr "GKA :%(cluster_name)s ସଂକ୍ଷପରେ କ୍ଲଷ୍ଟର ରିପୋର୍ଟ  "
+msgstr "జికేఏ: %(cluster_name)s సమూహ సంక్షిప్త నివేదిక"
 
 #: apps/reports/templates/reports/DistrictReport.html:4
 #, python-format
 msgid "GKA : %(district_name)s District Report"
-msgstr "GKA :%(district_name)s ଜିଲ୍ଲା ରିପୋର୍ଟ  "
+msgstr "జికేఏ: %(district_name)s జిల్లా నివేదిక"
 
 #: apps/reports/templates/reports/DistrictReport.html:22
 #: apps/reports/templates/reports/DistrictReport.html:26
 #: apps/reports/templates/reports/DistrictReportSummarized.html:23
 msgid "Performance by Block"
-msgstr "ବ୍ଲକର ସଫଳତା"
+msgstr "బ్లాక్ ద్వారా పనితీరు"
 
 #: apps/reports/templates/reports/DistrictReportSummarized.html:5
 #, python-format
 msgid "GKA : %(district_name)s District Report Summarized"
-msgstr "GKA : %(district_name)s ସଂକ୍ଷପରେ ଜିଲ୍ଲା  ରିପୋର୍ଟ"
+msgstr "జికేఏ:  %(district_name)s జిల్లా నివేదిక సంగ్రహించబడింది"
 
 #: apps/reports/templates/reports/GPMathContestReport.html:4
 #, python-format
 msgid "GKA : %(gp_name)s gram panchayat Report"
-msgstr "GKA : %(gp_name)s ଗ୍ରାମ ପଂଚାୟତର  ରିପୋର୍ଟ"
+msgstr "జికేఏ: %(gp_name)s గ్రామ పంచాయతీ నివేదిక"
 
 #: apps/reports/templates/reports/GPMathContestReport.html:7
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:7
 #: apps/reports/templates/reports/SchoolReport.html:7
 msgid "Gram Panchayat Name"
-msgstr "ଗ୍ରାମ ପଂଚାୟତର  ନାମ"
+msgstr "గ్రామ పంచాయతీ పేరు"
 
 #: apps/reports/templates/reports/GPMathContestReport.html:19
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:19
 msgid "No.of Schools in GP"
-msgstr "ଗ୍ରାମ ପଂଚାୟତରେ  ସ୍କୁଲର ସଂଖ୍ୟା"
+msgstr "జిపిలో పాఠశాలల  సంఖ్య"
 
 #: apps/reports/templates/reports/GPMathContestReport.html:25
 #: apps/reports/templates/reports/SchoolReport.html:26
 msgid "Performance by Schools"
-msgstr "ସ୍କୁଲର ସଫଳତା"
+msgstr "పాఠశాల చే  ప్రదర్శన"
 
 #. Translators: GKA implementation header title
 #: apps/reports/templates/reports/base.html:65
 msgctxt "gka_reports_title"
 msgid "GKA IMPLEMENTATION"
-msgstr "GKA କାର୍ଯ୍ୟାନ୍ୱୟନ"
+msgstr "జికేఏ అమలు"
 
 #. Translators: GKA  implementation program information
 #: apps/reports/templates/reports/base.html:67
@@ -165,148 +166,145 @@ msgid ""
 " [This report is based on the survey feedbacks received from HMs/CRP/Akshara "
 "staff and other department\n"
 "        officials on implementation of GKA Program] "
-msgstr ""
-" [ଏହି ରିପୋର୍ଟଟି GKA କାର୍ଯ୍ୟାନ୍ୱୟନ ବିଷୟରେ ମିଳିଥିବା HMs/CRCC/Akshara କର୍ମଚାରୀମାନଙ୍କଠୁ ଏବଂ ଅନ୍ୟ ବିଭାଗରେ ଅଧିକାରୀ ମାନଙ୍କଠୁ ପ୍ରାପ୍ତ ସର୍ବେକ୍ଷଣ ଫିଡବ୍ୟାକ ଉପରେ ଆଧାରିତ ଅଟେ] "
+msgstr "[ఈ నివేదిక హెచ్ఎంఎస్  / సి ఆర్ పి / అక్షర  సిబ్బంది మరియు ఇతర శాఖ అధికారుల నుంచి పొందబడిన సర్వే పునఃపుష్టిపై ఆధారపడి జికేఏ యొక్క  కార్యక్రమం అమలు చేయబడింది]"
 
 #. Translators: Teacher's trained label
 #: apps/reports/templates/reports/base.html:73
 msgctxt "gka_question"
 msgid "Teachers Trained"
-msgstr "ତାଲିମ ପ୍ରାପ୍ତ କରିଥିବା ଶିକ୍ଷକ"
+msgstr "ఉపాధ్యాయులు శిక్షణ పొందినవారు"
 
 #. Translators: Kit usage label
 #: apps/reports/templates/reports/base.html:83
 msgctxt "gka_question"
 msgid "Kit Usage"
-msgstr "କିଟର ଉପଯୋଗ"
+msgstr "చిన్నపిడీలు వాడుక"
 
 #. Translators: GKA group work label
 #: apps/reports/templates/reports/base.html:93
 msgctxt "gka_question"
 msgid "Group Work"
-msgstr "ଦଳଗତ କାର୍ଯ୍ୟ"
+msgstr "సముహ పని"
 
 #: apps/reports/templates/reports/base.html:111
 msgctxt "table header"
 msgid "Teachers Trained"
-msgstr "ତାଲିମ ପ୍ରାପ୍ତ କରିଥିବା ଶିକ୍ଷକ"
+msgstr "ఉపాధ్యాయులు శిక్షణ పొందినవారు"
 
 #: apps/reports/templates/reports/base.html:112
 msgctxt "table header"
 msgid "Kit Usage"
-msgstr "କିଟର ଉପଯୋଗ"
+msgstr "చిన్నపిడీలు వాడుక"
 
 #: apps/reports/templates/reports/base.html:113
 msgctxt "table header"
 msgid "Group Work"
-msgstr "ଦଳଗତ କାର୍ଯ୍ୟ"
+msgstr "సముహ పని"
 
 #. Translators: Gram Panchayar (GP) header title
 #: apps/reports/templates/reports/base.html:140
 msgid "GP Contest"
-msgstr "ଗ୍ରାମ ପଂଚାୟତ ପ୍ରତିଯୋଗିତା"
+msgstr "జిపి యొక్క పోటీ"
 
 #. Translators: Total number of contests label
 #: apps/reports/templates/reports/base.html:146
 msgid "Total No of Contests"
-msgstr "ପ୍ରତିଯୋଗିତା ଗୁଡିକର ମୋଟ ସଂଖ୍ୟା"
+msgstr "మొత్తం పోటీల సంఖ్య"
 
 #. Translators: Participation in GP contests label
 #: apps/reports/templates/reports/base.html:149
-#: apps/reports/templates/reports/base.html:157
+#: apps/reports/templates/reports/base.html:156
 msgid "Participation"
-msgstr "ସମୁଦାୟ ଭାଗ ନେଇ ଥିବା"
+msgstr "పాల్గొనటం"
 
 #. Translators: Students with full score in GP contests label
-#: apps/reports/templates/reports/base.html:163
+#: apps/reports/templates/reports/base.html:162
 msgid "Students with FULL score"
-msgstr "ପୁରା/ପୂର୍ଣ୍ଣ  ସ୍କୋର କରିଥିବା ଛାତ୍ରଛାତ୍ରୀମାନେ"
+msgstr "పూర్తి ఫలితాలతో విద్యార్థులు"
 
 #. Translators: Intro blurb for GP contest report section
-#: apps/reports/templates/reports/base.html:169
+#: apps/reports/templates/reports/base.html:168
 msgid ""
 " [This report provides the details of Math learning levels of children by "
 "school who participated in Gram\n"
 "        Panchayat Mathematics Contests this academic year.] "
-msgstr ""
-" [ଏହି ରିପୋର୍ଟଟି ଚଳିତ ଶିକ୍ଷଣ ବର୍ଷରେ ହୋଇଥିବା ଗ୍ରାମ ପଞ୍ଚାୟତ ଗଣିତ ପ୍ରତିଯୋଗିତା ପରିଣାମ ଅନୁଯାୟୀ ପ୍ରତ୍ୟେକ ସ୍କୁଲର ଗଣିତ ଦକ୍ଷତାର ସ୍ତର ବିବରଣୀ ପ୍ରଦାନ କରେ] "
+msgstr "[ఈ విద్యాసంవత్సరం గ్రామ పంచాయితీ గణిత  పోటీలలో పాల్గొన్న పాఠశాల మేధ్ నేర్చుకునే స్థాయిల వివరాలను ఈ నివేదిక అందిస్తుంది.]"
 
-#: apps/reports/templates/reports/base.html:173
+#: apps/reports/templates/reports/base.html:172
 msgid "Performance by Grade"
-msgstr "ଶ୍ରେଣୀ ଅନୁଯାୟୀ ସଫଳତା"
+msgstr "తరగతి ద్వారా ప్రదర్శన"
 
-#: apps/reports/templates/reports/base.html:176
-#: apps/reports/templates/reports/base.html:258
+#: apps/reports/templates/reports/base.html:175
+#: apps/reports/templates/reports/base.html:257
 msgid "Grade"
-msgstr "ଶ୍ରେଣୀ"
+msgstr "తరగతి"
 
-#: apps/reports/templates/reports/base.html:178
-#: apps/reports/templates/reports/base.html:260
+#: apps/reports/templates/reports/base.html:177
+#: apps/reports/templates/reports/base.html:259
 msgid "Number Recognition"
-msgstr "ସଂଖ୍ୟା ଚିହିଁବା"
+msgstr " గుర్తింపు సంఖ్య"
 
-#: apps/reports/templates/reports/base.html:181
-#: apps/reports/templates/reports/base.html:263
+#: apps/reports/templates/reports/base.html:180
+#: apps/reports/templates/reports/base.html:262
 msgid "Place Value"
-msgstr "ସ୍ଥାନୀୟମାନ"
+msgstr "స్ధానవిలువ"
 
-#: apps/reports/templates/reports/base.html:184
-#: apps/reports/templates/reports/base.html:266
+#: apps/reports/templates/reports/base.html:183
+#: apps/reports/templates/reports/base.html:265
 msgid "Addition"
-msgstr "ଯୋଗ"
+msgstr "కూడికలు"
 
-#: apps/reports/templates/reports/base.html:187
-#: apps/reports/templates/reports/base.html:269
+#: apps/reports/templates/reports/base.html:186
+#: apps/reports/templates/reports/base.html:268
 msgid "Subtraction"
-msgstr "ବିୟୋଗ"
+msgstr "తీసివేతలు"
 
-#: apps/reports/templates/reports/base.html:190
-#: apps/reports/templates/reports/base.html:272
+#: apps/reports/templates/reports/base.html:189
+#: apps/reports/templates/reports/base.html:271
 msgid "Multiplication"
-msgstr "ଗୁଣନ"
+msgstr "గుణకారం"
 
-#: apps/reports/templates/reports/base.html:193
-#: apps/reports/templates/reports/base.html:275
+#: apps/reports/templates/reports/base.html:192
+#: apps/reports/templates/reports/base.html:274
 msgid "Division"
-msgstr "ହରଣ"
+msgstr "విభజన"
 
-#: apps/reports/templates/reports/base.html:199
+#: apps/reports/templates/reports/base.html:198
 #, python-format
 msgid "%(translated_grade)s"
 msgstr ""
 
-#: apps/reports/templates/reports/base.html:284
+#: apps/reports/templates/reports/base.html:283
 #, python-format
 msgid "%(gradename)s"
 msgstr ""
 
 #. Translators: Community survey section label
-#: apps/reports/templates/reports/base.html:347
+#: apps/reports/templates/reports/base.html:346
 msgid "COMMUNITY SURVEY"
-msgstr "ସାମାଜିକ ସର୍ବେକ୍ଷଣ"
+msgstr "సమాజ సర్వే"
 
-#: apps/reports/templates/reports/base.html:348
+#: apps/reports/templates/reports/base.html:347
 msgid ""
 " [This report is based on the feedback received from the parents on "
 "functioning of the school in your\n"
 "          boundary]"
-msgstr ""
-"[ଏହି ରିପୋର୍ଟରେ  ସ୍କୁଲର ପରିଚାଳନା ଉପରେ ମାତାପିତାଙ୍କ ପ୍ରତିକ୍ରିୟାର ବିବରଣୀ ଅଛି.]"
+msgstr "[మీ సరిహద్దులో పాఠశాల యొక్క పనితీరుపై తల్లిదండ్రుల నుంచి వచ్చిన అభిప్రాయాలపై ఈ నివేదిక ఆధారపడి ఉంది]"
 
-#: apps/reports/templates/reports/base.html:353
+#: apps/reports/templates/reports/base.html:352
 #, python-format
 msgid " %(question)s"
 msgstr ""
 
-#: apps/reports/templates/reports/base.html:362
+#: apps/reports/templates/reports/base.html:361
 msgid "No community survey data available"
-msgstr "କୌଣସି ସାମାଜିକ ସର୍ବେକ୍ଷଣ ଡାଟା ଉପଲବ୍ଧ ନାହିଁ."
+msgstr "సమాజ సర్వే సమాచారం అందుబాటులో లేదు"
 
-#: apps/reports/templates/reports/base.html:371
+#: apps/reports/templates/reports/base.html:370
 msgid "FOCUS AREAS"
-msgstr "ଫୋକସ କ୍ଷେତ୍ର"
+msgstr "కేంద్రీకరణ ప్రాంతాలు"
 
-#: apps/reports/templates/reports/base.html:375
+#: apps/reports/templates/reports/base.html:374
 #, python-format
 msgid ""
 "<b>Colour Code: </b>All the numbers more than 70%% are highlighted in <span "
@@ -315,59 +313,44 @@ msgid ""
 "class=\"red\"><b>RED</b></span>. HMs/CRPs/GP\n"
 "          Members should take serious note and work towards improving the "
 "learning levels in Math."
-msgstr ""
-"<b>କଲର  କୋଡ଼ : </b>70%% ରୁ ଅଧିକ ସବୁ ସଂଖ୍ୟାଗୁଡିକକୁ <span class=\"green\"><b> ସବୁଜ </b></span> ରଙ୍ଗରେ ଚିନ୍ହିତ."
-"40%%ରୁ କମ ସବୁ ସଂଖ୍ୟାଗୁଡ଼ିକୁ <span class=\"red\"><b> ଲାଲ </b></span> ରଙ୍ଗରେ  ଚିନ୍ହିତ କରାଯାଇଛି "
-"HMs/CRCC/GP ସଦସ୍ୟମାନଙ୍କୁ ପିଲାଙ୍କର ଗଣିତ ଶିକ୍ଷଣ ଦକ୍ଷତାର ଉନ୍ନତି ନିମନ୍ତେ ଗମ୍ଭୀର ଧ୍ୟାନ ଦେବାକୁ ପଡ଼ିବ"
+msgstr "<b>రంగు కోడ్:</b>"
+"70%% కంటే ఎక్కువ సంఖ్యలో సంఖ్యలు పచ్చ రంగులో ప్రధానాంశం అవుతాయి."
+"40%% కంటే తక్కువ ఉన్న అన్ని సంఖ్యలు ఎరుపు రంగులో ప్రధానాంశం చేయాలి."
+"హెచ్ఎం లు  / సిఆర్పిలు  / జిపి  సభ్యులు మేధ్  అభ్యాస స్థాయిలను మెరుగుపర్చడానికి తీవ్రంగా శ్రద్ధ వహించాలి మరియు పని చేయాలి."
 
-#: apps/reports/templates/reports/base.html:382
+#: apps/reports/templates/reports/base.html:381
 msgid ""
 "<b>Question Design: </b> In GP contest, all the children are tested based on "
 "the previous year's competency\n"
 "          level. For example, a Class-5 child is given a question paper "
 "prepared based on the Class-4 level\n"
 "          competencies."
-msgstr ""
-"<b>ପ୍ରଶ୍ନପତ୍ର ଡିଜାଇନ: </b>ଜିପି (GP) ପ୍ରତିଯୋଗିତାରେ ପିଲାମାନେ  ପୂର୍ବ ବର୍ଷର ଶିକ୍ଷଣ ଫଳାଫଳ ଅନୁଯାୟୀ ପରୀକ୍ଷା ଦିଅନ୍ତି."
-"ଉଦାହରଣ: ପଞ୍ଚମ ଶ୍ରେଣୀ ପିଲାକୁ ଚତୁର୍ଥ ଶ୍ରେଣୀର ଶିକ୍ଷଣ ଫଳାଫଳ ଅନୁଯାୟୀ  ପ୍ରଶ୍ନପତ୍ର ଦିଆଯାଏ."
+msgstr "<b>ప్రశ్న పథకం: </b>"
+"జిపి పోటీలో, ముందటి సంవత్సరపు యోగ్యతా స్థాయి ఆధారంగా అన్ని పిల్లలను పరీక్షిస్తారు."
+"ఉదాహరణకు, తరగతి -5 స్థాయి బాలలక్షణాల ఆధారంగా తరగతి -4 బాల ఒక ప్రశ్నాపత్రాన్ని ఇస్తారు."
 
-#: apps/reports/templates/reports/base.html:387
+#: apps/reports/templates/reports/base.html:386
 msgid ""
 "<b>Evaluation Scheme: </b> For Number Recognition, Place Value, Addition, "
 "Subtraction all the questions\n"
 "          asked should be answered correctly. For Division and "
 "Multiplication, one question should be answered\n"
 "          correctly."
-msgstr ""
-"<b>ମୂଲ୍ୟାଙ୍କନ ଯୋଜନା : </b> ସଂଖ୍ୟାର ଚିନ୍ହିବା, ସ୍ଥାନୀୟମାନ ,ଯୋଗ ,ବିୟୋଗ ଉପରେ ପଚରାଯାଇଥିବା ସବୁ ପ୍ରଶ୍ନ ଗୁଡିକର ଠିକ ଉତ୍ତରଦେବା ଦରକାର."
-"ହରଣ ଏବଂ ଗୁଣନ ପାଇଁ ଗୋଟିଏ ପ୍ରଶ୍ନର ଠିକ ଉତର ଦେବା ଜରୁରୀ."
+msgstr "<b>మూల్యాంకన పథకం:</b>"
+"సంఖ్య గుర్తింపు కోసం, స్ధాన విలువ కూడికలు తీసివేతలు అడిగిన అన్ని ప్రశ్నలు సరిగ్గా సమాధానమివ్వాలి."
+"విభజన మరియు గుణకారం కోసం, ఎవరైనా ఒకరు ప్రశ్నకు సరిగ్గా సమాధానమివ్వాలి."
 
-#: apps/reports/templates/reports/base.html:394
+#: apps/reports/templates/reports/base.html:393
 msgid ""
 "<b>Recommendation: </b>To improve math learning levels of children please "
 "encourage the use of GKA Math kit\n"
 "          in classrooms."
-msgstr ""
-"<b>ପରାମର୍ଶ: </b>ପିଲାମଙ୍କର ଗଣିତ ଦକ୍ଷତା ସ୍ତର ଉନତି କରିବା ପାଇଁ ଦୟାକରି କ୍ଲାସରେ GKA  କିଟର ଉପଯୋଗକୁ ପ୍ରୋତ୍ସାହିତ କରନ୍ତୁ."
+msgstr "<b>సిఫార్సు:</b>"
+"పిల్లల గణిత అభ్యాస స్థాయిలను మెరుగుపర్చడానికి దయచేసి తరగతి గదులలో జికేఏ మాధ్ కిట్ యొక్క వాడకాన్ని ప్రోత్సహించండి."
 
-#: apps/reports/templates/reports/base.html:402
+#: apps/reports/templates/reports/base.html:401
 msgid "FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT :"
-msgstr "ଅନ୍ୟାନ୍ୟ ସୂଚନା ବା ପ୍ରଶ୍ନୋତ୍ତର ପାଇଁ ଦୟା କରି ସମ୍ପର୍କ କରନ୍ତୁ :"
-
-#Community survey questions in DB
-#These are strings in DB which require translation at the last minute before display
-msgid "Is there a teacher shortage in the school?"
-msgstr "ସ୍କୁଲ୍ ରେ  କଣ ଶିକ୍ଷକଙ୍କ କମି ଅଛି କି ?"
-
-msgid "Does the school have a separate functional toilet for girls?"
-msgstr "କଣ ବିଦ୍ୟାଳୟରେ ଝିଅ ପିଲା ମାନେ ବ୍ୟବହାର କରିବା ପାଇଁ ଅଲଗାରେ ଶୌଚାଳୟ ଅଛି ?"
-
-msgid "Does the SMC meet every month?"
-msgstr "କଣ ଏସଡିଏମସି( SMC) ପ୍ରତି  ମାସ ମିଳୁଛି ?"
-
-msgid ""
-"Are you satisfied with the Mid Day Meal served in your child''s school?"
-msgstr "କଣ ଆପଣ ସ୍କୁଲର ମଧ୍ୟାହ୍ନ ଭୋଜନ ସନ୍ତୁଷ୍ଟ ଅଛନ୍ତି କି ?"
+msgstr "మరింత సమాచారం కోసం లేదా ఏదైనా ప్రశ్నలకు దయచేసి సంప్రదించండి: "
 
 #: ilp/settings/base.py:133
 msgid "Kannada"
@@ -375,7 +358,10 @@ msgstr ""
 
 #: ilp/settings/base.py:134
 msgid "Odia"
-msgstr "ଓଡ଼ିଆ"
+msgstr ""
+
+msgid "Telugu"
+msgstr "తెలుగు"
 
 #: templates/gka_dashboard.html:37
 msgid "GKA DASHBOARD"
@@ -391,19 +377,19 @@ msgstr ""
 
 #: templates/gka_dashboard.html:78
 msgid "District"
-msgstr "ଜିଲ୍ଲା"
+msgstr ""
 
 #: templates/gka_dashboard.html:81
 msgid "Block"
-msgstr " ବ୍ଲକ"
+msgstr ""
 
 #: templates/gka_dashboard.html:84
 msgid "Cluster"
-msgstr "ସମଜାତୀୟ ବ୍ୟକ୍ତି"
+msgstr ""
 
 #: templates/gka_dashboard.html:87
 msgid "School"
-msgstr "ସ୍କୁଲ"
+msgstr ""
 
 #: templates/gka_dashboard.html:95
 msgid "Generate Report"

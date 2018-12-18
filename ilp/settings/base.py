@@ -132,6 +132,7 @@ LANGUAGES = (
     ('en', 'English'),
     ('kn', _('Kannada')),
     ('or', _('Odia')),
+    ('te', _('Telugu')),
 )
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
