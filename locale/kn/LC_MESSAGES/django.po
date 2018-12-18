@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 13:37+0530\n"
+"POT-Creation-Date: 2018-11-28 11:23+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +16,363 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: apps/reports/templates/reports/BlockReport.html:5
+#, python-format
+msgid "GKA : %(block_name)s Block Report"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(block_name)s ಬ್ಲಾಕ್ ವರದಿ"
+
+#: apps/reports/templates/reports/BlockReport.html:8
+#: apps/reports/templates/reports/BlockReportSummarized.html:8
+#: apps/reports/templates/reports/ClusterReport.html:13
+#: apps/reports/templates/reports/DistrictReport.html:23
+#: apps/reports/templates/reports/DistrictReport.html:27
+#: apps/reports/templates/reports/DistrictReportSummarized.html:24
+#: apps/reports/templates/reports/GPMathContestReport.html:12
+#: apps/reports/templates/reports/GPMathContestReportSummarized.html:12
+#: apps/reports/templates/reports/SchoolReport.html:17
+msgid "Block Name"
+msgstr "ಬ್ಲಾಕ್ ಹೆಸರು"
+
+#: ilp/settings/base.py:133
+msgid "Kannada"
+msgstr "ಕನ್ನಡ"
+
+
+#: apps/reports/templates/reports/BlockReport.html:10
+#: apps/reports/templates/reports/BlockReportSummarized.html:10
+#: apps/reports/templates/reports/ClusterReport.html:10
+#: apps/reports/templates/reports/DistrictReport.html:9
+#: apps/reports/templates/reports/DistrictReportSummarized.html:10
+#: apps/reports/templates/reports/GPMathContestReport.html:9
+#: apps/reports/templates/reports/GPMathContestReportSummarized.html:9
+#: apps/reports/templates/reports/SchoolReport.html:9
+msgid "Academic Year"
+msgstr "ಶೈಕ್ಷಣಿಕ ವರ್ಷ"
+
+#: apps/reports/templates/reports/BlockReport.html:13
+#: apps/reports/templates/reports/BlockReportSummarized.html:13
+#: apps/reports/templates/reports/ClusterReport.html:18
+#: apps/reports/templates/reports/DistrictReport.html:7
+#: apps/reports/templates/reports/DistrictReportSummarized.html:8
+#: apps/reports/templates/reports/GPMathContestReport.html:17
+#: apps/reports/templates/reports/GPMathContestReportSummarized.html:17
+#: apps/reports/templates/reports/SchoolReport.html:12
+msgid "District Name"
+msgstr "ಜಿಲ್ಲೆಯ ಹೆಸರು"
+
+#: apps/reports/templates/reports/BlockReport.html:15
+#: apps/reports/templates/reports/BlockReportSummarized.html:15
+#: apps/reports/templates/reports/ClusterReport.html:15
+#: apps/reports/templates/reports/DistrictReport.html:15
+#: apps/reports/templates/reports/DistrictReportSummarized.html:16
+#: apps/reports/templates/reports/GPMathContestReport.html:14
+#: apps/reports/templates/reports/GPMathContestReportSummarized.html:14
+#: apps/reports/templates/reports/SchoolReport.html:14
+msgid "Report Generated on"
+msgstr "ವರದಿ ತಯಾರಿಸಿದ ದಿನಾಂಕ"
+
+#: apps/reports/templates/reports/BlockReport.html:18
+#: apps/reports/templates/reports/BlockReportSummarized.html:18
+#: apps/reports/templates/reports/ClusterReport.html:20
+#: apps/reports/templates/reports/DistrictReport.html:13
+#: apps/reports/templates/reports/DistrictReportSummarized.html:14
+msgid "No.of schools"
+msgstr "ಒಟ್ಟು ಶಾಲೆಗಳ ಸಂಖ್ಯೆ"
+
+#: apps/reports/templates/reports/BlockReport.html:24
+#: apps/reports/templates/reports/BlockReport.html:28
+#: apps/reports/templates/reports/BlockReportSummarized.html:24
+#: apps/reports/templates/reports/BlockReportSummarized.html:28
+msgid "Performance by Cluster"
+msgstr "ಕ್ಲಸ್ಟರ್ ವಾರು ಸಾಧನೆ ಪಟ್ಟಿ"
+
+#: apps/reports/templates/reports/BlockReport.html:25
+#: apps/reports/templates/reports/BlockReport.html:29
+#: apps/reports/templates/reports/BlockReportSummarized.html:25
+#: apps/reports/templates/reports/BlockReportSummarized.html:29
+#: apps/reports/templates/reports/ClusterReport.html:8
+#: apps/reports/templates/reports/SchoolReport.html:19
+msgid "Cluster Name"
+msgstr "ಕ್ಲಸ್ಟರ್ ಹೆಸರು"
+
+#: apps/reports/templates/reports/BlockReportSummarized.html:5
+#, python-format
+msgid "GKA : %(block_name)s Summarized Block Report"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(block_name)s ಬ್ಲಾಕ್ ನ ವರದಿ"
+
+#: apps/reports/templates/reports/ClusterReport.html:5
+#, python-format
+msgid "GKA : %(cluster_name)s Cluster Report"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(cluster_name)s ಕ್ಲಸ್ಟರ್ ವರದಿ"
+
+#: apps/reports/templates/reports/ClusterReport.html:26
+msgid "Performance by School"
+msgstr "ಶಾಲಾವಾರು ಸಾಧನೆ ಪಟ್ಟಿ"
+
+#: apps/reports/templates/reports/ClusterReport.html:27
+#: apps/reports/templates/reports/GPMathContestReport.html:26
+#: apps/reports/templates/reports/SchoolReport.html:27
+msgid "School Name"
+msgstr "ಶಾಲೆಯ ಹೆಸರು"
+
+#: apps/reports/templates/reports/ClusterReportSummarized.html:5
+#, python-format
+msgid "GKA : %(cluster_name)s Cluster Summarized Report"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(cluster_name)s ಕ್ಲಸ್ಟರ್ ವರದಿ"
+
+#: apps/reports/templates/reports/DistrictReport.html:4
+#, python-format
+msgid "GKA : %(district_name)s District Report"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(district_name)s ಜಿಲ್ಲಾ ವರದಿ"
+
+#: apps/reports/templates/reports/DistrictReport.html:22
+#: apps/reports/templates/reports/DistrictReport.html:26
+#: apps/reports/templates/reports/DistrictReportSummarized.html:23
+msgid "Performance by Block"
+msgstr "ಬ್ಲಾಕ್ ವಾರು ಸಾಧನೆ ಪಟ್ಟಿ"
+
+#: apps/reports/templates/reports/DistrictReportSummarized.html:5
+#, python-format
+msgid "GKA : %(district_name)s District Report Summarized"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(district_name)s ಜಿಲ್ಲಾ ವರದಿ"
+
+#: apps/reports/templates/reports/GPMathContestReport.html:4
+#, python-format
+msgid "GKA : %(gp_name)s gram panchayat Report"
+msgstr "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ : %(gp_name)s ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ವರದಿ"
+
+#: apps/reports/templates/reports/GPMathContestReport.html:7
+#: apps/reports/templates/reports/GPMathContestReportSummarized.html:7
+#: apps/reports/templates/reports/SchoolReport.html:7
+msgid "Gram Panchayat Name"
+msgstr "ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಹೆಸರು"
+
+#: apps/reports/templates/reports/GPMathContestReport.html:19
+#: apps/reports/templates/reports/GPMathContestReportSummarized.html:19
+msgid "No.of Schools in GP"
+msgstr "ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ವ್ಯಾಪ್ತಿಯಲ್ಲಿರುವ ಶಾಲೆಗಳ ಸಂಖ್ಯೆ"
+
+#: apps/reports/templates/reports/SchoolReport.html:26
+msgid "Performance by Schools"
+msgstr "ಶಾಲಾವಾರು ಸಾಧನೆ ಪಟ್ಟಿ"
+
+#. Translators: GKA implementation header title
+#: apps/reports/templates/reports/base.html:53
+#: apps/reports/templates/reports/test_languages.html:15
+#: templates/gka_dashboard.html:115
+msgctxt "gka_reports_title"
+msgid "GKA IMPLEMENTATION"
+msgstr "ಜಿ ಕೆ ಏ ಅನುಷ್ಠಾನ ತರಗತಿ ಭೇಟಿ ವರದಿ"
+
+msgid "Class 4 Assessment"
+msgstr "4ನೇ ತರಗತಿ ಮೌಲ್ಯಮಾಪನ"
+
+msgid "Class 5 Assessment"
+msgstr "5ನೇ ತರಗತಿ ಮೌಲ್ಯಮಾಪನ"
+
+msgid "Class 6 Assessment"
+msgstr "6ನೇ ತರಗತಿ ಮೌಲ್ಯಮಾಪನ"
+
+#. Translators: GKA  implementation program information
+#: apps/reports/templates/reports/base.html:55
+msgid ""
+" [This report is based on the survey feedbacks received from HMs/CRP/Akshara "
+"staff and other department\n"
+"        officials on implementation of GKA Program] "
+msgstr "[ಈ ವರದಿಯನ್ನು ಮುಖ್ಯ ಶಿಕ್ಷಕರು/ ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಅಕ್ಷರ ಸಿಬ್ಬಂದಿಗಳು ಮತ್ತು ಇತರೆ ಇಲಾಖೆ"
+"ಅಧಿಕಾರಿಗಳಿಂದ ಪಡೆದ ಸಮೀಕ್ಷೆಯ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ ಮೇಲೆ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಅನುಷ್ಠಾನದ ಬಗ್ಗೆ"
+"ತಯಾರಿಸಲಾಗಿದೆ]"
+
+#. Translators: Teacher's trained label
+#: apps/reports/templates/reports/base.html:61
+msgctxt "gka_question"
+msgid "Teachers Trained"
+msgstr "ಗಣಿತ ಶಿಕ್ಷಕರು ಜಿ ಕೆ ಏ ತರಬೇತಿ ಪಡೆದಿದ್ದಾರೆಯೇ?"
+
+#. Translators: Kit usage label
+#: apps/reports/templates/reports/base.html:71
+msgctxt "gka_question"
+msgid "Kit Usage"
+msgstr "ಮಕ್ಕಳು ಅಥವಾ ಶಿಕ್ಷಕರು ಗಣಿತ ಕಿಟ್ ಉಪಯೋಗಿಸುತ್ತಿದ್ದರೇ?"
+
+#. Translators: GKA group work label
+#: apps/reports/templates/reports/base.html:81
+msgctxt "gka_question"
+msgid "Group Work"
+msgstr "ಗುಂಪು ಕಲಿಕೆ ಆಗುತ್ತಿತೇ?"
+
+#: apps/reports/templates/reports/base.html:99
+msgctxt "table header"
+msgid "Teachers Trained"
+msgstr "ತರಬೇತಿ ಪಡೆದ ಶಿಕ್ಷಕರು"
+
+#: apps/reports/templates/reports/base.html:100
+msgctxt "table header"
+msgid "Kit Usage"
+msgstr "ಕಿಟ್ ಬಳಕೆ"
+
+#: apps/reports/templates/reports/base.html:101
+msgctxt "table header"
+msgid "Group Work"
+msgstr "ಗುಂಪು ಕಲಿಕೆ"
+
+#. Translators: Gram Panchayar (GP) header title
+#: apps/reports/templates/reports/base.html:128
+msgid "GP Contest"
+msgstr "ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆ"
+
+#. Translators: Total number of contests label
+#: apps/reports/templates/reports/base.html:134
+msgid "Total No of Contests"
+msgstr "ಒಟ್ಟು ಗ್ರಾಮ ಪಂಚಾಯಿತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಗಳು"
+
+#. Translators: Participation in GP contests label
+#: apps/reports/templates/reports/base.html:137
+#: apps/reports/templates/reports/base.html:145
+msgid "Participation"
+msgstr "ಸ್ಪರ್ಧಿಗಳು"
+
+#. Translators: Students with full score in GP contests label
+#: apps/reports/templates/reports/base.html:151
+msgid "Students with FULL score"
+msgstr "ಪೂರ್ಣ ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳು"
+
+#. Translators: Intro blurb for GP contest report section
+#: apps/reports/templates/reports/base.html:157
+msgid ""
+" [This report provides the details of Math learning levels of children by "
+"school who participated in Gram\n"
+"        Panchayat Mathematics Contests this academic year.] "
+msgstr "[ಈ ವರದಿಯು ಈ ಶೈಕ್ಷಣಿಕ ವರ್ಷದಲ್ಲಿ ಗ್ರಾಮ ಪಂಚಾಯತ್ ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಪಾಲ್ಗೊಂಡಿದ್ದ ಮಕ್ಕಳ ಕಲಿಕೆಯ ಮಟ್ಟಗಳ"
+"ವಿವರಗಳನ್ನು  ಒದಗಿಸುತ್ತದೆ.]"
+
+#: apps/reports/templates/reports/base.html:161
+msgid "Performance by Grade"
+msgstr "ಕ್ಲಸ್ಟರ್ ಅನುಸಾರವಾಗಿ ಸಾಧನೆ ಪಟ್ಟಿ"
+
+#: apps/reports/templates/reports/base.html:164
+#: apps/reports/templates/reports/base.html:246
+msgid "Grade"
+msgstr "ತರಗತಿ"
+
+#: apps/reports/templates/reports/base.html:166
+#: apps/reports/templates/reports/base.html:248
+msgid "Number Recognition"
+msgstr "ಸಂಖ್ಯಾ ಪರಿಚಯ"
+
+#: apps/reports/templates/reports/base.html:169
+#: apps/reports/templates/reports/base.html:251
+msgid "Place Value"
+msgstr "ಸ್ಥಾನ ಬೆಲೆ"
+
+#: apps/reports/templates/reports/base.html:172
+#: apps/reports/templates/reports/base.html:254
+msgid "Addition"
+msgstr "ಸಂಕಲನ"
+
+#: apps/reports/templates/reports/base.html:175
+#: apps/reports/templates/reports/base.html:257
+msgid "Subtraction"
+msgstr "ವ್ಯವಕಲನ"
+
+#: apps/reports/templates/reports/base.html:178
+#: apps/reports/templates/reports/base.html:260
+msgid "Multiplication"
+msgstr "ಗುಣಾಕಾ ರ"
+
+#: apps/reports/templates/reports/base.html:181
+#: apps/reports/templates/reports/base.html:263
+msgid "Division"
+msgstr "ಭಾಗಾಕಾ ರ"
+
+#. Translators: Community survey section label
+#: apps/reports/templates/reports/base.html:335
+msgid "COMMUNITY SURVEY"
+msgstr "ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಂಗ್ರಹಣೆ"
+
+#: apps/reports/templates/reports/base.html:336
+msgid ""
+" [This report is based on the feedback received from the parents on "
+"functioning of the school in your\n"
+"          boundary]"
+msgstr "[ಈ ವರದಿಯು ಆಯಾ ಗ್ರಾಮದ ಶಾಲೆಗಳ ಕಾರ್ಯ ಚಟುವಟಿಕೆಗಳ ಬಗೆಗೆ ಪೋಷಕರಿಂದ ಪಡೆದ ಪ್ರತಿಕ್ರಿಯೆಯ ಆಧಾರದ"
+"ಮೇಲೆ ತಯಾರಿಸಲಾಗಿದೆ]"
+
+#: apps/reports/templates/reports/base.html:341
+#, python-format
+msgid " %(question)s"
+msgstr ""
+
+#: apps/reports/templates/reports/base.html:359
+msgid "FOCUS AREAS"
+msgstr "ಗಮನಿಸ ಬೇಕಾದ ವಿಷಯಗಳು"
+
+#: apps/reports/templates/reports/base.html:363
+#, python-format
+msgid ""
+"<b>Colour Code: </b>All the numbers more than 70%% are highlighted in <span "
+"class=\"green\"><b>GREEN</b></span>,\n"
+"          All the numbers which are less than 40%% are highlighted in <span "
+"class=\"red\"><b>RED</b></span>. HMs/CRPs/GP\n"
+"          Members should take serious note and work towards improving the "
+"learning levels in Math."
+msgstr ""
+"<b>ವರದಿಯಲ್ಲಿ ಕೆಂಪು ಮತ್ತು ಹಸಿರು ಬಣ್ಣದ ಅರ್ಥ: </b>70%% ಕ್ಕಿಂತ ಮೇಲೆ  <span class=\"green\"><b>ಹಸಿರು</b></span> ಬಣ್ಣದಿಂದ  ಸೂಚಿಸಲಾಗಿದೆ. 40%% ಕಿಂತ ಕಡಿಮೆ ಇರುವ ಸಂಖ್ಯೆಗಳನ್ನು"
+"<span class=\"red\"><b>ಕೆಂಪು</b></span>  ಬಣ್ಣದಿಂದ ಸೂಚಿಸಲಾಗಿದೆ."
+"ಗಣಿತ ಶಿಕ್ಷಕರು, ಮುಖ್ಯ  ಶಿಕ್ಷಕರು, ಕ್ಷೇತ್ರ ಸಂಪನ್ಮೂಲ ವ್ಯಕ್ತಿಗಳು ಹಾಗು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಸದಸ್ಯರು ಈ ಸಮಸ್ಯೆಯನ್ನು ಗಂಭೀರವಾಗಿ ಪರಿಗಣಿಸಿ  ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಹೆಚ್ಚಿಸುವ ನಿಟ್ಟಿನಲ್ಲಿ ಕೆಲಸವನ್ನು ಮಾಡಬೇಕಾಗಿದೆ."
+
+
+#: apps/reports/templates/reports/base.html:370
+msgid ""
+"<b>Question Design: </b> In GP contest, all the children are tested based on "
+"the previous year's competency\n"
+"          level. For example, a Class-5 child is given a question paper "
+"prepared based on the Class-4 level\n"
+"          competencies."
+msgstr ""
+"<b>ಪ್ರಶ್ನೆಪತ್ರಿಕೆ ವಿನ್ಯಾಸ: </b>ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು ಪ್ರತಿ ಒಂದು ತರಗತಿಗೆ ಹಿಂದಿನ ತರಗತಿಯ ಸಾಮರ್ಥ್ಯಗಳನ್ನು ಪರೀಕ್ಷಿಸುವುದು. ಉದಾಹರಣೆಗೆ: 5ನೇ ತರಗತಿಯ ಮಕ್ಕಳು 4ನೇ ತರಗತಿಯ ಸಾಮರ್ಥ್ಯದ ಪ್ರಶ್ನೆಗಳನ್ನು ಉತ್ತರಿಸುವುದು."
+
+
+#: apps/reports/templates/reports/base.html:375
+msgid ""
+"<b>Evaluation Scheme: </b> For Number Recognition, Place Value, Addition, "
+"Subtraction all the questions\n"
+"          asked should be answered correctly. For Division and "
+"Multiplication, one question should be answered\n"
+"          correctly."
+msgstr "<b>ಮೌಲ್ಯಮಾಪನ ವಿಧಾನ: </b>ಸಂಖ್ಯಾ ಪರಿಚಯ, ಸ್ಥಾನ ಬೆಲೆ, ಸಂಕಲನ, ವ್ಯವಕಲನ ಪರಿಕಲ್ಪನೆಯಲ್ಲಿ ಕೇಳಲಾದ ಎಲ್ಲಾ ಪ್ರಶ್ನೆಗಳನ್ನು ಸರಿಯಾಗಿ ಉತ್ತರಿಸಬೇಕು. ಗುಣಾಕಾರ ಮತ್ತು ಭಾಗಾಕಾರ ಪರಿಕಲ್ಪನೆಯಲ್ಲಿ ಒಂದು ಲೆಕ್ಕ ಸರಿಯಾಗಿ ಉತ್ತರಿಸಬೇಕು."
+
+
+#: apps/reports/templates/reports/base.html:382
+msgid ""
+"<b>Recommendation: </b>To improve math learning levels of children please "
+"encourage the use of GKA Math kit\n"
+"          in classrooms."
+msgstr "<b>ಸಲಹೆ :</b> ಮಕ್ಕಳ ಗಣಿತ ಕಲಿಕಾ ಮಟ್ಟವನ್ನು ಉತ್ತಮಪಡಿಸಲು ತರಗತಿಯಲ್ಲಿ SSA ವತಿಯಿಂದ ಒದಗಿಸಲಾದ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ"
+"ಕಿಟ್ ಅನ್ನು ಬಳಸಲು ಹೆಚ್ಚು ಒತ್ತು ನೀಡಬೇಕು"
+
+#: apps/reports/templates/reports/base.html:390
+msgid "FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT :"
+msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ ಹಾಗು ಹೆಚ್ಚಿನ ವಿವರಣೆ ಬೇಕಿದ್ದಲ್ಲಿ  ಈ ಸಂಖ್ಯೆಗೆ ಸಂಪರ್ಕಿಸಿ :"
+
+msgid "No community survey data available"
+msgstr "ಸಮುದಾಯದ ಸರ್ವೇ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ"
+
+#Community survey questions in DB
+#These are strings in DB which require translation at the last minute before display
+msgid "Is there a teacher shortage in the school?"
+msgstr "ಶಾಲೆಯಲ್ಲಿ ಶಿಕ್ಷಕರ ಕೊರತೆ ಇದೆಯೇ?"
+
+msgid "Does the school have a separate functional toilet for girls?"
+msgstr "ಶಾಲೆಯಲ್ಲಿ ಗಂಡು ಮತ್ತು ಹೆಣ್ಣು ಮಕ್ಕಳಿಗೆ ಪ್ರತ್ಯೇಕ ಶೌಚಾಲಯದ ವ್ಯವಸ್ಥೆ ಇದೆಯೆ?"
+
+msgid "Does the SDMC meet every month?"
+msgstr "ಶಾಲಾ ಅಭಿವೃದ್ಧಿ  ಮತ್ತು ಮೆಲುಸ್ತುವಾರಿ ಸಭೆ ಪ್ರತಿ ತಿಂಗಳು ನಡೆಯುತ್ತಿದೆಯೇ ?"
+
+msgid ""
+"Are you satisfied with the Mid Day Meal served in your child's school?"
+msgstr "ನಿಮ್ಮ ಮಗುವಿಗೆ ಶಾಲೆಯಲ್ಲಿ ನೀಡುವ ಬಿಸಿಯೂಟದ ಬಗ್ಗೆ ನಿಮಗೆ ತೃಪ್ತಿ  ಇದೆಯೆ ?"
 
 #: templates/gka_dashboard.html:37
 msgid "GKA DASHBOARD"
@@ -55,6 +411,7 @@ msgid "Reset"
 msgstr "ರಿಸೆಟ್ ಮಾಡಿ "
 
 #: templates/gka_dashboard.html:115
+msgctxt "gka_question"
 msgid "GKA IMPLEMENTATION"
 msgstr "ಜಿ ಕೆ ಏ ಅನುಷ್ಠಾನ ತರಗತಿ ಭೇಟಿ ವರದಿ ( ILP Konnect )"
 

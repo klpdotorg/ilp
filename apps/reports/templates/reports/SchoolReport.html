@@ -1,27 +1,28 @@
 {% extends "./base.html" %}
-
+{% load i18n %}
+{%load translation%}
 {%block report_title%}GKA : {{data.gpc_child_boundaries.0.boundary }} school Report{%endblock report_title%}
 <!-- Report summary -->
 {%block report_summary_section%}
-	  <strong> Gram Panchayat Name : </strong><span class="cap">{{data.gp_name}}</span>
+	  <strong> {%trans "Gram Panchayat Name"%} : </strong><span class="cap">{{data.gp_name}}</span>
 	  <span class="cap" style="float:right">
-	    <strong>Academic Year : </strong>{{data.academic_year}}
+	    <strong>{%trans "Academic Year"%} : </strong>{{data.academic_year}}
 	  </span>
 	  <br>
-	  <strong> District Name : </strong><span class="cap">{{data.district}}</span>
+	  <strong> {%trans "District Name"%} : </strong><span class="cap">{{data.district}}</span>
 	  <span style="float:right" class="cap">
-	    <strong>Report Generated on : </strong>{{data.today}}
+	    <strong>{%trans "Report Generated on"%} : </strong>{{data.today}}
 	  </span>
 	  <br>
-	  <strong> Block Name : </strong><span class="cap">{{data.block}}</span>
+	  <strong> {%trans "Block Name"%} : </strong><span class="cap">{{data.block}}</span>
 	  <br>
-	  <strong> Cluster Name : </strong><span class="cap">{{data.cluster}}</span>
+	  <strong> {%trans "Cluster Name"%} : </strong><span class="cap">{{data.cluster}}</span>
 		<br>
 {%endblock report_summary_section%}
 <!-- End of report summary -->
 <!-- No GKA section for schools-->
 <!-- NO GKA by child boundary section for schools. SKIP-->
 <!-- GP contest section fill-ins-->
-{%block gpc_performance_title%}Performance by Schools{%endblock gpc_performance_title%}
-{%block child_boundary_col_header_name%}School Name{%endblock child_boundary_col_header_name%}
+{%block gpc_performance_title%}{%trans "Performance by Schools"%}{%endblock gpc_performance_title%}
+{%block child_boundary_col_header_name%}{%trans "School Name"%}{%endblock child_boundary_col_header_name%}
 	
