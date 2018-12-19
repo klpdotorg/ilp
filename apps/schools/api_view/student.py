@@ -43,9 +43,9 @@ class StudentViewSet(
     # permission_classes = [
     #     Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
     # ]
-    #permission_classes = [
-    #    Or(StudentRegisterPermission, IsAdminUser)
-    #]
+    permission_classes = [
+        Or(StudentRegisterPermission, IsAdminUser)
+    ]
 
     # M2M query returns duplicates. Overrode this function
     # from NestedViewSetMixin to implement the .distinct()
