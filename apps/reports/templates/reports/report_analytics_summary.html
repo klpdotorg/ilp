@@ -1,4 +1,11 @@
-{% extends "./base.html" %}
+{%load static %}
+<html>
+<head>
+ 	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="{% static 'reports/reports.css' %}" type="text/css" charset="utf-8">
+</head>
 {% block body %}
   <body>
     <a style="padding:20px; position:absolute;" href="{{ request.get_full_path }}?lang=kannada" ></a>
@@ -43,12 +50,26 @@
 	    <td><span class="mark">{{data.by_type.district.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.district.download}}</span></td>
 	  </tr>
+		 <tr>
+	    <td><span class="mark">District Summarized Report</span></td>
+	    <td><span class="mark">{{data.by_type.district_summarized.sent}}</span></td>
+	    <td><span class="mark">{{data.by_type.district_summarized.read}}</span></td>
+	    <td><span class="mark">{{data.by_type.district_summarized.visit}}</span></td>
+	    <td><span class="mark">{{data.by_type.district_summarized.download}}</span></td>
+	  </tr>
 	  <tr>
 	    <td><span class="mark">Block Report</span></td>
 	    <td><span class="mark">{{data.by_type.block.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.block.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.block.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.block.download}}</span></td>
+	  </tr>
+		 <tr>
+	    <td><span class="mark">Block Summarized Report</span></td>
+	    <td><span class="mark">{{data.by_type.block_summarized.sent}}</span></td>
+	    <td><span class="mark">{{data.by_type.block_summarized.read}}</span></td>
+	    <td><span class="mark">{{data.by_type.block_summarized.visit}}</span></td>
+	    <td><span class="mark">{{data.by_type.block_summarized.download}}</span></td>
 	  </tr>
 	  <tr>
 	    <td><span class="mark">Cluster Report</span></td>
@@ -57,6 +78,27 @@
 	    <td><span class="mark">{{data.by_type.cluster.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.cluster.download}}</span></td>
 	  </tr>
+		<tr>
+	    <td><span class="mark">Cluster Summarized Report</span></td>
+	    <td><span class="mark">{{data.by_type.cluster_summarized.sent}}</span></td>
+	    <td><span class="mark">{{data.by_type.cluster_summarized.read}}</span></td>
+	    <td><span class="mark">{{data.by_type.cluster_summarized.visit}}</span></td>
+	    <td><span class="mark">{{data.by_type.cluster_summarized.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td><span class="mark">Gram Panchayat Report</span></td>
+	    <td><span class="mark">{{data.by_type.gp.sent}}</span></td>
+	    <td><span class="mark">{{data.by_type.gp.read}}</span></td>
+	    <td><span class="mark">{{data.by_type.gp.visit}}</span></td>
+	    <td><span class="mark">{{data.by_type.gp.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td><span class="mark">Gram Panchayat Summarized Report</span></td>
+	    <td><span class="mark">{{data.by_type.gp_summarized.sent}}</span></td>
+	    <td><span class="mark">{{data.by_type.gp_summarized.read}}</span></td>
+	    <td><span class="mark">{{data.by_type.gp_summarized.visit}}</span></td>
+	    <td><span class="mark">{{data.by_type.gp_summarized.download}}</span></td>
+	  </tr>
 	  <tr>
 	    <td><span class="mark">School Report</span></td>
 	    <td><span class="mark">{{data.by_type.school.sent}}</span></td>
@@ -64,14 +106,6 @@
 	    <td><span class="mark">{{data.by_type.school.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.school.download}}</span></td>
 	  </tr>
-	  <tr>
-	    <td><span class="mark">Gram Panchayat Report</span></td>
-	    <td><span class="mark">{{data.by_type.gp.sent}}</span></td>
-	    <td><span class="mark">{{data.by_type.gp.read}}</span></td>
-	    <td><span class="mark">{{data.by_type.gp.visit}}</span></td>
-	    <td><span class="mark">{{data.by_type.gp.download}}</span></td>
-	  </tr>
-
 	</table>
 	<h2>By User</h2>
 	
@@ -197,9 +231,10 @@
       </div>
      
       <div class="red" style="text-align: center;padding: 20px;">
-	FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 9845079590
+				FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 9845079590
       </div>
       <a href="{{ request.path }}download?from={{request.GET.from}}&to={{request.GET.to}}" class="button button5">Download</a>
     </div>
 	</body>
 {% endblock %}
+</html>

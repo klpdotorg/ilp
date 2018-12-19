@@ -29,6 +29,7 @@ from common.models import Status
 from permissions.permissions import (
     WorkUnderInstitutionPermission, StudentRegisterPermission
 )
+from users.permission import IsAdminUser
 
 logger = logging.getLogger(__name__)
 
@@ -39,8 +40,11 @@ class StudentViewSet(
 
     queryset = Student.objects.exclude(status=Status.DELETED)
     filter_class = StudentFilter
+    # permission_classes = [
+    #     Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
+    # ]
     permission_classes = [
-        Or(StudentRegisterPermission, WorkUnderInstitutionPermission)
+        Or(StudentRegisterPermission, IsAdminUser)
     ]
 
     # M2M query returns duplicates. Overrode this function
@@ -130,7 +134,8 @@ class StudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 class StudentStudentGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = StudentStudentGroupRelation.objects.all()
     serializer_class = StudentStudentGroupSerializer
-
+    permission_classes = (WorkUnderInstitutionPermission,)
+    
     # M2M query returns duplicates. Overrode this function
     # from NestedViewSetMixin to implement the .distinct()
     def filter_queryset_by_parents_lookups(self, queryset):

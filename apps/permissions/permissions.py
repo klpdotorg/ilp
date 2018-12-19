@@ -134,30 +134,30 @@ class WorkUnderInstitutionPermission(IlpBasePermission):
 
     def has_permission(self, request, view):
         logger.debug("Entering has_permission under WorkUnderInstitutionPermission")
-        print("data is: ", request.data)
         if self.is_user_permitted(request):
-            return True
-        elif request.method == 'POST':
-            institution_id = None
-            #Students endpoint passes an array. hence check if data is a list and then grab institution
-            if isinstance(request.data, list):
-                array = request.data[0]
-                institution_id = array['institution']
+            if request.method == 'POST':
+                institution_id = None
+                #Students endpoint passes an array. hence check if data is a list and then grab institution
+                if isinstance(request.data, list):
+                    array = request.data[0]
+                    institution_id = array['institution']
+                else:
+                    institution_id = request.data.get('institution', None)
+                if institution_id is not None:
+                    try:
+                        institution = Institution.objects.get(id=int(institution_id))
+                    except:
+                        logger.error("Unable to retrieve institution object: ", int(institution_id))
+                        return False
+                    hasperm = request.user.has_perm('crud_student_class_staff', institution)
+                    logger.debug("User has permission to work under institution: %s" % hasperm)
+                    return hasperm
+                else:
+                    logger.debug("Institution ID is None")
             else:
-                institution_id = request.data.get('institution', None)
-            if institution_id is not None:
-                try:
-                    institution = Institution.objects.get(id=int(institution_id))
-                except:
-                    logger.error("Unable to retrieve institution object: ", int(institution_id))
-                    return False
-                hasperm = request.user.has_perm('crud_student_class_staff', institution)
-                logger.debug("User has permission to work under institution: %s" % hasperm)
-                return hasperm
-            else:
-                logger.debug("Institution ID is None")
+                return True
         else:
-            return True
+            return False
        
 
 
@@ -189,9 +189,8 @@ class StudentRegisterPermission(BasePermission):
     def has_permission(self, request, view):
         GROUPS_ALLOWED = [u'a3_users']
         groups = Group.objects.filter(name__in=GROUPS_ALLOWED)
-        if not request.user.groups.filter(id__in=groups).exists():
-            return False
-        elif not request.method in ('GET', 'POST'):
-            return False
+        if request.user.groups.filter(id__in=groups).exists():
+            if request.method in ('GET', 'POST'):
+                return True
         else:
-            return True
+            return False

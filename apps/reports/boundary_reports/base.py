@@ -124,8 +124,8 @@ class BaseReport(ABC):
         return self.sms_template.format(full_url)
 
     def save(self):
-        state = Boundary.objects.get(id=self.state_id)
-        r= Reports(report_type=self._type,state_id=state, parameters=self.params, data=self.data)
+        #state = Boundary.objects.get(id=self.state_id)
+        r= Reports(report_type=self._type,state_id=self.state_id, parameters=self.params, data=self.data)
         r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:5]
         r.save()
         t = Tracking(report_id=r, track_id='default')
@@ -194,6 +194,8 @@ class BaseReport(ABC):
     ''' Returns household survey aggregate values per boundary '''
     def getHouseholdSurvey(self,boundary,date_range):
         hh_answers_agg = None
+        HHSurvey = []
+
         if isinstance(boundary, ElectionBoundary):
             try:
                 hh_answers_agg = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(eboundary_id=boundary)\
@@ -209,7 +211,6 @@ class BaseReport(ABC):
         if hh_answers_agg is not None and hh_answers_agg.exists():
             total_hh_answers = hh_answers_agg.values('question_desc', 'question_id').annotate(Sum('num_answers'))
             total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_desc', 'question_id').annotate(Sum('num_answers'))
-            HHSurvey = []
             for each_answer in total_hh_answers:
                 question_desc = total_yes_answers.get(question_desc=each_answer['question_desc'])
                 total_yes_count = question_desc['num_answers__sum']

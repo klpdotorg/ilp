@@ -3,7 +3,7 @@ from django.contrib.postgres.fields import JSONField
 from boundary.models import Boundary
 
 def get_default_state():
-    return Boundary.objects.get(id=2)
+    return 2
 
 # Create your models here.
 class Reports(models.Model):
@@ -11,7 +11,7 @@ class Reports(models.Model):
     link_id = models.CharField(max_length=10,unique=True,null=True)
     parameters = JSONField()
     data = JSONField()
-    state = models.ForeignKey('boundary.Boundary', default=get_default_state)
+    state = models.ForeignKey('boundary.Boundary', db_column="state_id", default=get_default_state)
 
 class Tracking(models.Model):
     report_id = models.ForeignKey('Reports', db_column="link_id")
