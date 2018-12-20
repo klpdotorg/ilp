@@ -363,6 +363,21 @@ msgstr ""
 msgid "Telugu"
 msgstr "తెలుగు"
 
+#Community survey questions in DB
+#These are strings in DB which require translation at the last minute before display
+msgid "Is there a teacher shortage in the school?"
+msgstr "పాఠశాలలో ఉపాధ్యాయుల కొరత ఉందా?"
+
+msgid "Does the school have a separate functional toilet for girls?"
+msgstr "పాఠశాలలో విడిగా ఉపయోగించుటకు ప్రత్యేకమైన బాలిక మరుగుదొడ్డి ఉందా?"
+
+msgid "Does the SDMC meet every month?"
+msgstr "ఎస్డిఎంసి ప్రతి నెలలో కలియడము జరుగుతుందా?"
+
+msgid ""
+"Are you satisfied with the Mid Day Meal served in your child's school?"
+msgstr "మీరు పాఠశాల భోజనంతో సంతృప్తి చెందారా?"
+
 #: templates/gka_dashboard.html:37
 msgid "GKA DASHBOARD"
 msgstr ""
