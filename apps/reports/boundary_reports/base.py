@@ -109,14 +109,19 @@ class BaseReport(ABC):
         return html
 
     def get_pdf(self, report_id, tracking_id,lang=None):
+        import pdb; pdb.set_trace()
         html = self.get_html(report_id, tracking_id, lang)
         config = pdfkit.configuration()
-        import pdb; pdb.set_trace()
         options = {
             'encoding':'utf-8',
         }
-        pdf = pdfkit.from_string(html,False, configuration=config, options=options)
-        return pdf
+        try:
+            pdf = pdfkit.from_string(html,False, configuration=config, options=options)
+        except Exception:
+            print("Exception in generating pdf")
+            return None
+        else:
+            return pdf
 
     def get_sms(self, tracker, name):
         url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
