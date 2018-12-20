@@ -115,7 +115,7 @@ class Command(BaseCommand):
             print("MULTIPLE FOUND :"+schoolData.block_name+" "+str(schoolData.school_code))
 
         try:
-            admin3 = Boundary.objects.get(name__iexact=schoolData.cluster_name , boundary_type='SC', parent__name__iexact=schoolData.block_name)
+            admin3 = Boundary.objects.get(name__iexact=schoolData.cluster_name , boundary_type='SC', parent__name__iexact=schoolData.block_name, parent__parent__name__iexact=schoolData.district)
         except Boundary.DoesNotExist:
             print("Cluster Boundary not found "+schoolData.cluster_name+" for school code: "+str(schoolData.school_code))
             return
@@ -158,7 +158,7 @@ class Command(BaseCommand):
                          institution_type = institution_type,
                          management = management,
                          status = status)
-        print("Institution: "+school_name+", created:"+str(created))
+        print("Institution: "+str(school_name.encode('utf-8'))+", created:"+str(created))
          
         Institution.objects.filter(pk=institution.id).update(dise = schoolData)
 

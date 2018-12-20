@@ -1,0 +1,3 @@
+delete from schools_institutionlanguage where institution_id in (select id from schools_institution where admin0_id in (3,4) and management_id not in (1,25,3) and id not in (select institution_id from assessments_surveytaginstitutionmapping));
+delete from schools_institution where admin0_id in (3,4) and management_id not in (1,25,3) and id not in (select institution_id from assessments_surveytaginstitutionmapping);
+delete from dise_basicdata where state_name in ('odisha','jammukashmir') and sch_management not in (1,2,3) and id not in (select dise_id from schools_institution where admin0_id in (3,4));
