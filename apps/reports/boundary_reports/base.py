@@ -111,10 +111,11 @@ class BaseReport(ABC):
     def get_pdf(self, report_id, tracking_id,lang=None):
         html = self.get_html(report_id, tracking_id, lang)
         config = pdfkit.configuration()
+        import pdb; pdb.set_trace()
         options = {
             'encoding':'utf-8',
         }
-        pdf = pdfkit.PDFKit(html, 'string', configuration=config, options=options).to_pdf()
+        pdf = pdfkit.from_string(html,False,configuration=config, options=options)
         return pdf
 
     def get_sms(self, tracker, name):
