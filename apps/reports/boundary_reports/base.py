@@ -111,7 +111,6 @@ class BaseReport(ABC):
     def get_pdf(self, report_id, tracking_id,lang=None):
         html = self.get_html(report_id, tracking_id, lang)
         config = pdfkit.configuration()
-        import pdb; pdb.set_trace()
         options = {
             'encoding':'utf-8',
         }
