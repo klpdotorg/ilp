@@ -66,20 +66,23 @@ def download_report(request, report_id, tracking_id='default'):
     locale = get_language_from_request(request,check_path=True)
     lang_info = get_language_info(locale)
     report = reportlist[report_model.report_type](data=report_model.data)
-    pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
-    filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
-
+    pdf=None
     try:
-        tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
-        tracker.download_count += 1
-        tracker.downloaded_at = datetime.datetime.now()
-        tracker.save()
-    except Tracking.DoesNotExist:
-        pass
-
-    response = HttpResponse(pdf, content_type="application/pdf")
-    response['Content-Disposition'] = 'inline; filename=' + filename
-    return response
+        pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
+    except Exception:
+        print("Error")
+    else:
+        filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
+        try:
+            tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
+            tracker.download_count += 1
+            tracker.downloaded_at = datetime.datetime.now()
+            tracker.save()
+        except Tracking.DoesNotExist:
+            pass
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response['Content-Disposition'] = 'inline; filename=' + filename
+        return response
 
 def download_analytics(request, *args, **kwargs):
     template = 'reports/report_analytics_summary.html'
@@ -169,8 +172,6 @@ class ReportAnalytics(View):
 
 '''reportType can be one of DistrictReport or DistrictReportSummarized'''
 def getDistrictLevel(reports, reportType):
-    import pdb; pdb.set_trace()
-
     districtreport = reports.filter(report_type=reportType).annotate(district_name=KeyTextTransform('district_name', 'parameters'))
     districts = districtreport.values_list('district_name', flat=True).distinct() # Get district names
     ##for cluster replace district_name with cluster_name and similarly for block and others
