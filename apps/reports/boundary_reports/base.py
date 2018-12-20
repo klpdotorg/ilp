@@ -116,7 +116,7 @@ class BaseReport(ABC):
             'encoding':'utf-8',
         }
         try:
-            pdf = pdfkit.from_string(html,False, configuration=config, options=options)
+            pdf = pdfkit.PDFKit(html,'string',configuration=config, options=options).to_pdf()
         except Exception:
             print("Exception in generating pdf")
             return None
