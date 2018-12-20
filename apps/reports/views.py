@@ -66,7 +66,10 @@ def download_report(request, report_id, tracking_id='default'):
     locale = get_language_from_request(request,check_path=True)
     lang_info = get_language_info(locale)
     report = reportlist[report_model.report_type](data=report_model.data)
-    pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
+    try:
+        pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
+    except Exception:
+        print("Error")
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
 
     try:
