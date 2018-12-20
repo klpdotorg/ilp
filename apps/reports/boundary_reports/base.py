@@ -115,7 +115,7 @@ class BaseReport(ABC):
         options = {
             'encoding':'utf-8',
         }
-        pdf = pdfkit.from_string(html,False,configuration=config, options=options)
+        pdf = pdfkit.from_string(html,False, configuration=config, options=options)
         return pdf
 
     def get_sms(self, tracker, name):

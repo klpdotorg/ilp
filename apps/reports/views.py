@@ -66,6 +66,7 @@ def download_report(request, report_id, tracking_id='default'):
     locale = get_language_from_request(request,check_path=True)
     lang_info = get_language_info(locale)
     report = reportlist[report_model.report_type](data=report_model.data)
+    pdf=None
     try:
         pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
     except Exception:
@@ -79,10 +80,9 @@ def download_report(request, report_id, tracking_id='default'):
             tracker.save()
         except Tracking.DoesNotExist:
             pass
-
-    response = HttpResponse(pdf, content_type="application/pdf")
-    response['Content-Disposition'] = 'inline; filename=' + filename
-    return response
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response['Content-Disposition'] = 'inline; filename=' + filename
+        return response
 
 def download_analytics(request, *args, **kwargs):
     template = 'reports/report_analytics_summary.html'
