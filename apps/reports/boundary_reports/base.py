@@ -106,7 +106,6 @@ class BaseReport(ABC):
         #else:
         #    template = 'reports/{}kannada.html'.format(self._type)
         html = render_to_string(template, {'data':self.data, 'reportid': report_id, 'trackingid': tracking_id})
-        import pdb; pdb.set_trace()
         return html
 
     def get_pdf(self, report_id, tracking_id,lang=None):
@@ -116,7 +115,6 @@ class BaseReport(ABC):
             'encoding':'utf-8',
         }
         pdf = pdfkit.PDFKit(html, 'string', configuration=config, options=options).to_pdf()
-        import pdb; pdb.set_trace()
         return pdf
 
     def get_sms(self, tracker, name):

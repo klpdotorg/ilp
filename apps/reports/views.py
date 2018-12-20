@@ -172,8 +172,6 @@ class ReportAnalytics(View):
 
 '''reportType can be one of DistrictReport or DistrictReportSummarized'''
 def getDistrictLevel(reports, reportType):
-    import pdb; pdb.set_trace()
-
     districtreport = reports.filter(report_type=reportType).annotate(district_name=KeyTextTransform('district_name', 'parameters'))
     districts = districtreport.values_list('district_name', flat=True).distinct() # Get district names
     ##for cluster replace district_name with cluster_name and similarly for block and others
