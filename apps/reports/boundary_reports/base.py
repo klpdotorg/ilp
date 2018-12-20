@@ -109,7 +109,6 @@ class BaseReport(ABC):
         return html
 
     def get_pdf(self, report_id, tracking_id,lang=None):
-        import pdb; pdb.set_trace()
         html = self.get_html(report_id, tracking_id, lang)
         config = pdfkit.configuration()
         options = {
