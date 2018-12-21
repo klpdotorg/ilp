@@ -67,22 +67,18 @@ def download_report(request, report_id, tracking_id='default'):
     lang_info = get_language_info(locale)
     report = reportlist[report_model.report_type](data=report_model.data)
     pdf=None
+    pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
+    filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
     try:
-        pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
-    except Exception:
-        print("Error")
-    else:
-        filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
-        try:
-            tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
-            tracker.download_count += 1
-            tracker.downloaded_at = datetime.datetime.now()
-            tracker.save()
-        except Tracking.DoesNotExist:
-            pass
-        response = HttpResponse(pdf, content_type="application/pdf")
-        response['Content-Disposition'] = 'inline; filename=' + filename
-        return response
+        tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
+        tracker.download_count += 1
+        tracker.downloaded_at = datetime.datetime.now()
+        tracker.save()
+    except Tracking.DoesNotExist:
+        pass
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response['Content-Disposition'] = 'inline; filename=' + filename
+    return response
 
 def download_analytics(request, *args, **kwargs):
     template = 'reports/report_analytics_summary.html'
