@@ -66,8 +66,13 @@ def download_report(request, report_id, tracking_id='default'):
     locale = get_language_from_request(request,check_path=True)
     lang_info = get_language_info(locale)
     report = reportlist[report_model.report_type](data=report_model.data)
-    pdf = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
+    pdf_file = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
+    pdf = open(pdf_file)
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
+    response = HttpResponse(pdf.read(), content_type='application/pdf')  # Generates the response as pdf response.
+    response['Content-Disposition'] = 'attachment; filename=' + filename
+    pdf.close()
+    os.remove("output.pdf")
     try:
         tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
         tracker.download_count += 1
@@ -75,8 +80,8 @@ def download_report(request, report_id, tracking_id='default'):
         tracker.save()
     except Tracking.DoesNotExist:
         pass
-    response = HttpResponse(pdf, content_type="application/pdf")
-    response['Content-Disposition'] = 'inline; filename=' + filename
+    #response = HttpResponse(pdf, content_type="application/pdf")
+    #response['Content-Disposition'] = 'inline; filename=' + filename
     return response
 
 def download_analytics(request, *args, **kwargs):

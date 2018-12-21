@@ -114,8 +114,8 @@ class BaseReport(ABC):
         options = {
             'encoding':'utf-8',
         }
-        pdf = pdfkit.PDFKit(html, 'string', configuration=config, options=options).to_pdf()
-        return pdf
+        pdfkit.from_string(html, 'output.pdf', configuration=config, options=options)
+        return 'output.pdf'
 
     def get_sms(self, tracker, name):
         url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
