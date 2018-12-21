@@ -133,7 +133,7 @@ LANGUAGES = (
     ('kn', _('Kannada')),
     ('or', _('Odia')),
     ('te', _('Telugu')),
-    ('gu', _('Gujarati'),
+    ('gu', _('Gujarati')),
 )
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
