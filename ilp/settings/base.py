@@ -150,6 +150,13 @@ EXTRA_LANG_INFO = {
         'name_local': u'ଓଡ଼ିଆ', #unicode codepoints here
         'name_translated': 'ଓଡ଼ିଆ'
     },
+    'gu': {
+        'bidi': False, # right-to-left
+        'code': 'gu',
+        'name': 'Gujarati',
+        'name_local': u'ગુજરાતી', #unicode codepoints here
+        'name_translated': 'ગુજરાતી'
+    },
 }
 # Time zone
 TIME_ZONE = 'Asia/Kolkata'
