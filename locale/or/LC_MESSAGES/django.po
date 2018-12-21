@@ -366,6 +366,11 @@ msgid "Does the SMC meet every month?"
 msgstr "କଣ ଏସଡିଏମସି( SMC) ପ୍ରତି  ମାସ ମିଳୁଛି ?"
 
 msgid ""
+"Are you satisfied with the Mid Day Meal served in your child's school?"
+msgstr "କଣ ଆପଣ ସ୍କୁଲର ମଧ୍ୟାହ୍ନ ଭୋଜନ ସନ୍ତୁଷ୍ଟ ଅଛନ୍ତି କି ?"
+
+#Remove this one. Accounting for bad DB entry which will be removed eventually
+msgid ""
 "Are you satisfied with the Mid Day Meal served in your child''s school?"
 msgstr "କଣ ଆପଣ ସ୍କୁଲର ମଧ୍ୟାହ୍ନ ଭୋଜନ ସନ୍ତୁଷ୍ଟ ଅଛନ୍ତି କି ?"
 
