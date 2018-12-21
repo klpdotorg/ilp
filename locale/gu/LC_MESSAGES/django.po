@@ -20,7 +20,7 @@ msgstr ""
 #: apps/reports/templates/reports/BlockReport.html:5
 #, python-format
 msgid "GKA : %(block_name)s Block Report"
-msgstr ""
+msgstr "જીકેએ (GKA): %(block_name)s બ્લોક રિપોર્ટ"
 
 #: apps/reports/templates/reports/BlockReport.html:8
 #: apps/reports/templates/reports/BlockReportSummarized.html:8
@@ -32,7 +32,7 @@ msgstr ""
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:12
 #: apps/reports/templates/reports/SchoolReport.html:17
 msgid "Block Name"
-msgstr ""
+msgstr "બ્લોક નું નામ"
 
 #: apps/reports/templates/reports/BlockReport.html:10
 #: apps/reports/templates/reports/BlockReportSummarized.html:10
@@ -43,7 +43,7 @@ msgstr ""
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:9
 #: apps/reports/templates/reports/SchoolReport.html:9
 msgid "Academic Year"
-msgstr ""
+msgstr "શૈક્ષણિક વર્ષ"
 
 #: apps/reports/templates/reports/BlockReport.html:13
 #: apps/reports/templates/reports/BlockReportSummarized.html:13
@@ -54,7 +54,7 @@ msgstr ""
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:17
 #: apps/reports/templates/reports/SchoolReport.html:12
 msgid "District Name"
-msgstr ""
+msgstr "જિલ્લા નું નામ"
 
 #: apps/reports/templates/reports/BlockReport.html:15
 #: apps/reports/templates/reports/BlockReportSummarized.html:15
@@ -65,7 +65,7 @@ msgstr ""
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:14
 #: apps/reports/templates/reports/SchoolReport.html:14
 msgid "Report Generated on"
-msgstr ""
+msgstr "રિપોર્ટ બનાવવામાં આવ્યો"
 
 #: apps/reports/templates/reports/BlockReport.html:18
 #: apps/reports/templates/reports/BlockReportSummarized.html:18
@@ -73,14 +73,14 @@ msgstr ""
 #: apps/reports/templates/reports/DistrictReport.html:13
 #: apps/reports/templates/reports/DistrictReportSummarized.html:14
 msgid "No.of schools"
-msgstr ""
+msgstr "સ્કૂલો ની સંખ્યા"
 
 #: apps/reports/templates/reports/BlockReport.html:24
 #: apps/reports/templates/reports/BlockReport.html:28
 #: apps/reports/templates/reports/BlockReportSummarized.html:24
 #: apps/reports/templates/reports/BlockReportSummarized.html:28
 msgid "Performance by Cluster"
-msgstr ""
+msgstr "ક્લસ્ટર દ્વારા પ્રદર્શન"
 
 #: apps/reports/templates/reports/BlockReport.html:25
 #: apps/reports/templates/reports/BlockReport.html:29
@@ -89,75 +89,75 @@ msgstr ""
 #: apps/reports/templates/reports/ClusterReport.html:8
 #: apps/reports/templates/reports/SchoolReport.html:19
 msgid "Cluster Name"
-msgstr ""
+msgstr "ક્લસ્ટર નું નામ"
 
 #: apps/reports/templates/reports/BlockReportSummarized.html:5
 #, python-format
 msgid "GKA : %(block_name)s Summarized Block Report"
-msgstr ""
+msgstr "જીકેએ (GKA): %(block_name)s સંક્ષિપ્ત માં બ્લોક રિપોર્ટ"
 
 #: apps/reports/templates/reports/ClusterReport.html:5
 #, python-format
 msgid "GKA : %(cluster_name)s Cluster Report"
-msgstr ""
+msgstr "જીકેએ (GKA): %(cluster_name)s ક્લસ્ટર રિપોર્ટ"
 
 #: apps/reports/templates/reports/ClusterReport.html:26
 msgid "Performance by School"
-msgstr ""
+msgstr "સ્કુલ દ્વારા પ્રદર્શન"
 
 #: apps/reports/templates/reports/ClusterReport.html:27
 #: apps/reports/templates/reports/GPMathContestReport.html:26
 #: apps/reports/templates/reports/SchoolReport.html:27
 msgid "School Name"
-msgstr ""
+msgstr "સ્કુલ નું નામ"
 
 #: apps/reports/templates/reports/ClusterReportSummarized.html:5
 #, python-format
 msgid "GKA : %(cluster_name)s Cluster Summarized Report"
-msgstr ""
+msgstr "જીકેએ (GKA): %(cluster_name)s સંક્ષેપ માં ક્લસ્ટર રિપોર્ટ"
 
 #: apps/reports/templates/reports/DistrictReport.html:4
 #, python-format
 msgid "GKA : %(district_name)s District Report"
-msgstr ""
+msgstr "જીકેએ(GKA):%(district_name)s જિલ્લા રિપોર્ટ"
 
 #: apps/reports/templates/reports/DistrictReport.html:22
 #: apps/reports/templates/reports/DistrictReport.html:26
 #: apps/reports/templates/reports/DistrictReportSummarized.html:23
 msgid "Performance by Block"
-msgstr ""
+msgstr "બ્લોક દ્વારા પ્રદર્શન"
 
 #: apps/reports/templates/reports/DistrictReportSummarized.html:5
 #, python-format
 msgid "GKA : %(district_name)s District Report Summarized"
-msgstr ""
+msgstr "જીકેએ(GKA): %(district_name)s સંક્ષેપ માં જિલ્લા નો રિપોર્ટ"
 
 #: apps/reports/templates/reports/GPMathContestReport.html:4
 #, python-format
 msgid "GKA : %(gp_name)s gram panchayat Report"
-msgstr ""
+msgstr "જીકેએ(GKA): %(gp_name)s ગ્રામપંચાયત રિપોર્ટ"
 
 #: apps/reports/templates/reports/GPMathContestReport.html:7
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:7
 #: apps/reports/templates/reports/SchoolReport.html:7
 msgid "Gram Panchayat Name"
-msgstr ""
+msgstr "ગ્રામ પંચાયત નું નામ"
 
 #: apps/reports/templates/reports/GPMathContestReport.html:19
 #: apps/reports/templates/reports/GPMathContestReportSummarized.html:19
 msgid "No.of Schools in GP"
-msgstr ""
+msgstr "જીપી (GP) માં સ્કુલ ની સંખ્યા"
 
 #: apps/reports/templates/reports/GPMathContestReport.html:25
 #: apps/reports/templates/reports/SchoolReport.html:26
 msgid "Performance by Schools"
-msgstr ""
+msgstr "સ્કુલ દ્વારા પ્રદર્શન"
 
 #. Translators: GKA implementation header title
 #: apps/reports/templates/reports/base.html:65
 msgctxt "gka_reports_title"
 msgid "GKA IMPLEMENTATION"
-msgstr ""
+msgstr "જીકેએ(GKA) અમલીકરણ"
 
 #. Translators: GKA  implementation program information
 #: apps/reports/templates/reports/base.html:67
@@ -165,61 +165,61 @@ msgid ""
 " [This report is based on the survey feedbacks received from HMs/CRP/Akshara "
 "staff and other department\n"
 "        officials on implementation of GKA Program] "
-msgstr ""
+msgstr "[આ રિપોર્ટ જીકેએ (GKA) કાર્યક્રમ ના અમલીકરણ પર  એચએમ(HM)/ સીઆરપી (CRP) / અક્ષરા કર્મચારી અને અન્ય વિભાગ ના અધિકારીઓ દ્વારા મળેલ સર્વે ના ફીડબેક પર આધારિત છે]"
 
 #. Translators: Teacher's trained label
 #: apps/reports/templates/reports/base.html:73
 msgctxt "gka_question"
 msgid "Teachers Trained"
-msgstr ""
+msgstr "પ્રશિક્ષિત શિક્ષકો"
 
 #. Translators: Kit usage label
 #: apps/reports/templates/reports/base.html:83
 msgctxt "gka_question"
 msgid "Kit Usage"
-msgstr ""
+msgstr "કીટ નો ઉપયોગ"
 
 #. Translators: GKA group work label
 #: apps/reports/templates/reports/base.html:93
 msgctxt "gka_question"
 msgid "Group Work"
-msgstr ""
+msgstr "સમૂહ માં કામ"
 
 #: apps/reports/templates/reports/base.html:111
 msgctxt "table header"
 msgid "Teachers Trained"
-msgstr ""
+msgstr "પ્રશિક્ષિત શિક્ષકો"
 
 #: apps/reports/templates/reports/base.html:112
 msgctxt "table header"
 msgid "Kit Usage"
-msgstr ""
+msgstr "કીટ નો ઉપયોગ"
 
 #: apps/reports/templates/reports/base.html:113
 msgctxt "table header"
 msgid "Group Work"
-msgstr ""
+msgstr "સમૂહ માં કામ"
 
 #. Translators: Gram Panchayar (GP) header title
 #: apps/reports/templates/reports/base.html:140
 msgid "GP Contest"
-msgstr ""
+msgstr "જીપી (GP) સ્પર્ધા"
 
 #. Translators: Total number of contests label
 #: apps/reports/templates/reports/base.html:146
 msgid "Total No of Contests"
-msgstr ""
+msgstr "પ્રતિસ્પર્ધાઓની કુલ સંખ્યા"
 
 #. Translators: Participation in GP contests label
 #: apps/reports/templates/reports/base.html:149
 #: apps/reports/templates/reports/base.html:156
 msgid "Participation"
-msgstr ""
+msgstr "ભાગ લેવો"
 
 #. Translators: Students with full score in GP contests label
 #: apps/reports/templates/reports/base.html:162
 msgid "Students with FULL score"
-msgstr ""
+msgstr "પૂર્ણ સ્કોર વાળા વિદ્યાર્થીઓ"
 
 #. Translators: Intro blurb for GP contest report section
 #: apps/reports/templates/reports/base.html:168
@@ -227,11 +227,11 @@ msgid ""
 " [This report provides the details of Math learning levels of children by "
 "school who participated in Gram\n"
 "        Panchayat Mathematics Contests this academic year.] "
-msgstr ""
+msgstr "[આ રિપોર્ટ સ્કુલ દ્વારા બાળકો ને ગણિત શીખવા ના સ્તર વિશે ની માહિતી પુરી પાડે છે જેમણે આ શૈક્ષણિક વર્ષ માં ગ્રામ પંચાયત ગણિત સ્પર્ધા માં ભાગ લીધો]"
 
 #: apps/reports/templates/reports/base.html:172
 msgid "Performance by Grade"
-msgstr ""
+msgstr "ગ્રેડ દ્વારા પ્રદર્શન"
 
 #: apps/reports/templates/reports/base.html:175
 #: apps/reports/templates/reports/base.html:257

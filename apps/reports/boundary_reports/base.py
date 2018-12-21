@@ -116,8 +116,8 @@ class BaseReport(ABC):
         }
         try:
             pdf = pdfkit.PDFKit(html,'string',configuration=config, options=options).to_pdf()
-        except Exception:
-            print("Exception in generating pdf")
+        except Exception as e:
+            print("Exception in generating pdf", e.message)
             return None
         else:
             return pdf
