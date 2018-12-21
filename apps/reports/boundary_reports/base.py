@@ -105,10 +105,12 @@ class BaseReport(ABC):
         template = 'reports/{}.html'.format(self._type)
         #else:
         #    template = 'reports/{}kannada.html'.format(self._type)
+        html = ""
         html = render_to_string(template, {'data':self.data, 'reportid': report_id, 'trackingid': tracking_id})
         return html
 
     def get_pdf(self, report_id, tracking_id,lang=None):
+        html = ""
         html = self.get_html(report_id, tracking_id, lang)
         config = pdfkit.configuration()
         options = {
