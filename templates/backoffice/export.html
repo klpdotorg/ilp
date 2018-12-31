@@ -1,4 +1,83 @@
 {% extends 'backoffice/base.html' %}
+
 {% block content %}
-Hello
+    <form action="" method="post">
+        {% csrf_token %}
+        <label>Select District</label>
+          <select id="sel_district" name="district" class="form-control">
+            <option value="">Select District</option>                    
+            {% for admin1 in admin1s %}
+              <option id="{{ admin1.id }}" value="{{ admin1.id }}">
+                    {{ admin1.name }}
+              </option>
+            {% endfor %}
+           </select>
+       
+        <label>Select Block</label>
+          <select id="sel_block" name="block" class="form-control">
+          </select>
+      
+        <label>Select Cluster</label>
+          <select id="sel_cluster" name="cluster" class="form-control">
+          </select>
+
+        <label>Select School</label>
+          <select id="sel_school" name="school" class="form-control">
+          </select>
+
+        <input type="submit" value="Submit">
+    </form>
 {% endblock content %}
+
+{% block extra_js %}
+    <script>
+        $('select[name=district]').change(function(){
+            district_id = $(this).val();
+            request_url = '/api/v1/boundary/admin1/' + district_id + '/admin2/?survey_tag=gka';
+                $.ajax({
+                    url: request_url,
+                    dataType: "json",
+                    success: function(data){
+                        results = data['results'];
+                        $('select[name=block]').empty();
+                        $.each(results, function(index, item){
+                            $('select[name=block]').append($('<option>', {value:item['id'], text:item['name']}));
+                        });
+                    }
+                })
+            }
+        );   
+        $('select[name=block]').change(function(){
+            block_id = $(this).val();
+            request_url = '/api/v1/boundary/admin2/' + block_id + '/admin3/?survey_tag=gka';
+                $.ajax({
+                    url: request_url,
+                    dataType: "json",
+                    success: function(data){
+                        results = data['results'];
+                        $('select[name=cluster]').empty();
+                        $.each(results, function(index, item){
+                            $('select[name=cluster]').append($('<option>', {value:item['id'], text:item['name']}));
+                        });
+                    }
+                })
+            }
+        );
+        $('select[name=cluster]').change(function(){
+            cluster_id = $(this).val();
+            request_url = '/api/v1/surveys/institution/?boundary_id=' + cluster_id;
+                $.ajax({
+                    url: request_url,
+                    dataType: "json",
+                    success: function(data){
+                        results = data['results'];
+                        $('select[name=school]').empty();
+                        $.each(results, function(index, item){
+                            $('select[name=school]').append($('<option>', {value:item['id'], text:item['name']}));
+                        });
+                    }
+                })
+            }
+        );
+    </script>
+{% endblock extra_js %}
