@@ -3,6 +3,21 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
+
+
+        {{ form }}
+        
+
+        <label>Select Survey</label>
+          <select id="sel_survey" name="survey" class="form-control">
+            <option value="">Select Survey</option>                    
+            {% for survey in surveys %}
+              <option id="{{ survey.id }}" value="{{ survey.id }}">
+                    {{ survey.name }}
+              </option>
+            {% endfor %}
+           </select>
+
         <label>Select District</label>
           <select id="sel_district" name="district" class="form-control">
             <option value="">Select District</option>                    
@@ -15,14 +30,17 @@
        
         <label>Select Block</label>
           <select id="sel_block" name="block" class="form-control">
+            <option value="">Select Block</option>                    
           </select>
       
         <label>Select Cluster</label>
           <select id="sel_cluster" name="cluster" class="form-control">
+            <option value="">Select Cluster</option>                    
           </select>
 
         <label>Select School</label>
           <select id="sel_school" name="school" class="form-control">
+            <option value="">Select School</option>                    
           </select>
 
         <input type="submit" value="Submit">
