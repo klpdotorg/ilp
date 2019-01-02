@@ -1,14 +1,9 @@
-import pdfkit
-
-from django.template.loader import render_to_string
-
 from assessments.models import(
-    AnswerGroup_Institution, AnswerInstitution,
-    QuestionGroup
+    AnswerGroup_Institution, QuestionGroup
 )
 
 
-def get_assessment_field_names(survey_id):
+def get_assessment_field_names(survey):
     field_names = [
         'survey',
         'state',
@@ -24,7 +19,7 @@ def get_assessment_field_names(survey_id):
         'respondent_type',
         'question_group',
     ]
-    question_groups = QuestionGroup.objects.filter(survey_id=survey_id)
+    question_groups = QuestionGroup.objects.filter(survey=survey)
     for question_group in question_groups:
         questions = question_group.questions.all()
         for q in questions:
@@ -33,14 +28,26 @@ def get_assessment_field_names(survey_id):
     return field_names
 
 
-def get_assessment_field_data(survey_id):
+def get_assessment_field_data(
+        survey, admin1=None, admin2=None, admin3=None,
+        institution=None
+):
     assessments = AnswerGroup_Institution.objects.filter(
-        questiongroup__survey__id=survey_id
+        questiongroup__survey=survey
     )
+    if admin1:
+        assessments = assessments.filter(institution__admin1=admin1)
+    if admin2:
+        assessments = assessments.filter(institution__admin2=admin2)
+    if admin3:
+        assessments = assessments.filter(institution__admin3=admin3)
+    if institution:
+        assessments = assessments.filter(institution=institution)
 
+    field_data = []
     for assessment in assessments:
         answers = assessment.answers.all()
-        field_data_dict = {
+        field_datum = {
             'survey': assessment.questiongroup.survey.name,
             'state': assessment.institution.admin0.name,
             'district': assessment.institution.admin1.name,
@@ -59,16 +66,6 @@ def get_assessment_field_data(survey_id):
         }
 
         for answer in answers:
-            field_data_dict[answer.question.question_text] = answer.answer
-
-        return field_data_dict
-
-
-def generate_pdf():
-    template = 'backoffice/export_pdf.html'
-    html = render_to_string(template, {'data': None})
-    config = pdfkit.configuration()
-    options = {'encoding': 'utf-8'}
-    pdf = pdfkit.PDFKit(
-        html, 'string', configuration=config, options=options).to_pdf()
-    return pdf
+            field_datum[answer.question.question_text] = answer.answer
+        field_data.append(field_datum)
+    return field_data

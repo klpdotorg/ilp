@@ -43,6 +43,26 @@
             <option value="">Select School</option>                    
           </select>
 
+        <label>Select Year</label>
+          <select id="sel_school" name="school" class="form-control">
+            <option value="">Select Year</option>                    
+            {% for y in year %}
+              <option id="{{ y }}" value="{{ y }}">
+                    {{ y }}
+              </option>
+            {% endfor %}
+          </select>
+
+        <label>Select Month</label>
+          <select id="sel_school" name="school" class="form-control">
+            <option value="">Select Month</option>                    
+            {% for key, val in month.items %}
+              <option id="{{ key }}" value="{{ key }}">
+                    {{ val }}
+              </option>
+            {% endfor %}
+          </select>
+
         <input type="submit" value="Submit">
     </form>
 {% endblock content %}
