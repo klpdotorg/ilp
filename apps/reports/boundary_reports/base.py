@@ -109,7 +109,6 @@ class BaseReport(ABC):
         html = render_to_string(template, {'data':self.data, 'reportid': report_id, 'trackingid': tracking_id})
         html_file = open(report_id, 'w+')
         html_file.write(html)
-        html_file.close()
         return html_file
 
     def get_pdf(self, report_id, tracking_id,lang=None):
@@ -122,6 +121,7 @@ class BaseReport(ABC):
         print("Calling pdfkit")
         pdf = pdfkit.from_file(html, False, configuration=config, options=options).to_pdf()
         print("Finished pdfkit")
+        html.close()
         #pdf = pdfkit.PDFKit(html,'string',configuration=config, options=options).to_pdf()
         return pdf
 
