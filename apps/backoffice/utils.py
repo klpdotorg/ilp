@@ -30,7 +30,7 @@ def get_assessment_field_names(survey):
 
 def get_assessment_field_data(
         survey, admin1=None, admin2=None, admin3=None,
-        institution=None
+        institution=None, year=None, month=None
 ):
     assessments = AnswerGroup_Institution.objects.filter(
         questiongroup__survey=survey
@@ -43,6 +43,10 @@ def get_assessment_field_data(
         assessments = assessments.filter(institution__admin3=admin3)
     if institution:
         assessments = assessments.filter(institution=institution)
+    if year:
+        assessments = assessments.filter(date_of_visit__year=year)
+    if month:
+        assessments = assessments.filter(date_of_visit__month=month)
 
     field_data = []
     for assessment in assessments:

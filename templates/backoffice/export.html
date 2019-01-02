@@ -4,10 +4,6 @@
     <form action="" method="post">
         {% csrf_token %}
 
-
-        {{ form }}
-        
-
         <label>Select Survey</label>
           <select id="sel_survey" name="survey" class="form-control">
             <option value="">Select Survey</option>                    
@@ -44,7 +40,7 @@
           </select>
 
         <label>Select Year</label>
-          <select id="sel_school" name="school" class="form-control">
+          <select id="sel_year" name="year" class="form-control">
             <option value="">Select Year</option>                    
             {% for y in year %}
               <option id="{{ y }}" value="{{ y }}">
@@ -54,7 +50,7 @@
           </select>
 
         <label>Select Month</label>
-          <select id="sel_school" name="school" class="form-control">
+          <select id="sel_month" name="month" class="form-control">
             <option value="">Select Month</option>                    
             {% for key, val in month.items %}
               <option id="{{ key }}" value="{{ key }}">

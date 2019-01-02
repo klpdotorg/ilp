@@ -23,3 +23,7 @@ class ExportForm(forms.Form):
     school = forms.ModelChoiceField(
         queryset=Institution.objects.all(),
         required=False)
+    year = forms.IntegerField(
+        max_value=2020, min_value=2016, required=False)
+    month = forms.IntegerField(
+        required=False)

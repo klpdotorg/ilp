@@ -37,7 +37,7 @@ class BackOfficeView(View):
             field_data = get_assessment_field_data(
                 data['survey'], data['district'],
                 data['block'], data['cluster'],
-                data['school']
+                data['school'], data['year'], data['month']
             )
 
             response = HttpResponse(content_type='text/csv')
@@ -47,4 +47,6 @@ class BackOfficeView(View):
             writer.writeheader()
             for datum in field_data:
                 writer.writerow(datum)
+        else:
+            import ipdb; ipdb.set_trace()
         return response
