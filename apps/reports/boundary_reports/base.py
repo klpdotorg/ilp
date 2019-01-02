@@ -2,10 +2,10 @@ import argparse
 import hashlib
 import random
 import pdfkit
-import os.path
+import os, os.path
 import datetime
 from django.conf import settings
-
+import io
 from abc import ABC, abstractmethod
 
 from django.urls import reverse
@@ -107,23 +107,23 @@ class BaseReport(ABC):
         #    template = 'reports/{}kannada.html'.format(self._type)
         html = ""
         html = render_to_string(template, {'data':self.data, 'reportid': report_id, 'trackingid': tracking_id})
-        html_file = open(report_id, 'w+')
+        html_file = io.open(report_id+".html", 'w+', encoding='utf-8')
         html_file.write(html)
+        html_file.close()
         return html_file
 
     def get_pdf(self, report_id, tracking_id,lang=None):
         html = ""
-        html = self.get_html(report_id, tracking_id, lang)
+        temp_html_file = self.get_html(report_id, tracking_id, lang)
         config = pdfkit.configuration()
         options = {
             'encoding':'utf-8',
         }
-        print("Calling pdfkit")
-        pdf = pdfkit.from_file(html, False, configuration=config, options=options).to_pdf()
-        print("Finished pdfkit")
-        html.close()
+        pdf_output_name = report_id + "_pdf.pdf"
+        pdfkit.from_file(temp_html_file.name, pdf_output_name, configuration=config, options=options)
+        os.remove(temp_html_file.name)
         #pdf = pdfkit.PDFKit(html,'string',configuration=config, options=options).to_pdf()
-        return pdf
+        return pdf_output_name
 
     def get_sms(self, tracker, name):
         url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
