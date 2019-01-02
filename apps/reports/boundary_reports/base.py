@@ -120,7 +120,7 @@ class BaseReport(ABC):
             'encoding':'utf-8',
         }
         print("Calling pdfkit")
-        pdf = pdfkit.from_file(html, configuration=config, options=options).to_pdf()
+        pdf = pdfkit.from_file(html, False, configuration=config, options=options).to_pdf()
         print("Finished pdfkit")
         #pdf = pdfkit.PDFKit(html,'string',configuration=config, options=options).to_pdf()
         return pdf
