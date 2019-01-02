@@ -107,7 +107,10 @@ class BaseReport(ABC):
         #    template = 'reports/{}kannada.html'.format(self._type)
         html = ""
         html = render_to_string(template, {'data':self.data, 'reportid': report_id, 'trackingid': tracking_id})
-        return html
+        html_file = open(report_id, 'w+')
+        html_file.write(html)
+        html_file.close()
+        return html_file
 
     def get_pdf(self, report_id, tracking_id,lang=None):
         html = ""
@@ -116,7 +119,10 @@ class BaseReport(ABC):
         options = {
             'encoding':'utf-8',
         }
-        pdf = pdfkit.PDFKit(html,'string',configuration=config, options=options).to_pdf()
+        print("Calling pdfkit")
+        pdf = pdfkit.from_file(html, configuration=config, options=options).to_pdf()
+        print("Finished pdfkit")
+        #pdf = pdfkit.PDFKit(html,'string',configuration=config, options=options).to_pdf()
         return pdf
 
     def get_sms(self, tracker, name):
