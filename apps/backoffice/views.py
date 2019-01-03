@@ -48,5 +48,6 @@ class BackOfficeView(View):
             for datum in field_data:
                 writer.writerow(datum)
         else:
-            import ipdb; ipdb.set_trace()
+            return render(request, self.template_name, 
+                          {'form_errors': form.errors})
         return response

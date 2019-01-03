@@ -3,7 +3,7 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-
+        {{ form_errors }}
         <label>Select Survey</label>
           <select id="sel_survey" name="survey" class="form-control">
             <option value="">Select Survey</option>                    
@@ -61,6 +61,7 @@
 
         <input type="submit" value="Submit">
     </form>
+    <button value="Reset" onClick="window.location.reload()">Reset</button>
 {% endblock content %}
 
 {% block extra_js %}
@@ -74,6 +75,7 @@
                     success: function(data){
                         results = data['results'];
                         $('select[name=block]').empty();
+                        $('select[name=block]').append($('<option>', {value:"", text: "Select Block"}));
                         $.each(results, function(index, item){
                             $('select[name=block]').append($('<option>', {value:item['id'], text:item['name']}));
                         });
@@ -90,6 +92,7 @@
                     success: function(data){
                         results = data['results'];
                         $('select[name=cluster]').empty();
+                        $('select[name=cluster]').append($('<option>', {value:"", text: "Select Cluster"}));
                         $.each(results, function(index, item){
                             $('select[name=cluster]').append($('<option>', {value:item['id'], text:item['name']}));
                         });
@@ -106,6 +109,7 @@
                     success: function(data){
                         results = data['results'];
                         $('select[name=school]').empty();
+                        $('select[name=school]').append($('<option>', {value:"", text: "Select School"}));
                         $.each(results, function(index, item){
                             $('select[name=school]').append($('<option>', {value:item['id'], text:item['name']}));
                         });
