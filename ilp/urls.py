@@ -1,3 +1,5 @@
+
+from django.utils.translation import gettext_lazy as _
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic.base import RedirectView
@@ -181,12 +183,12 @@ urlpatterns = [
 
     #URLs for viewing generated reports
     url(r'^reportgen/sendreport/$', SendReport.as_view(), name='send_report'),
-    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/$', view_report, name='view_report_no_track_id'),
-    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/$', view_report, name='view_report'),
-    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/download', download_report, name='download_report_no_track_id'),
-    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/download', download_report, name='download_report'),
-    url(r'^reportanalytics/$', ReportAnalytics.as_view(), name='report_analytics'),
-    url(r'^reportanalytics/download$', download_analytics, name='download_analytics'),
+    # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/$', view_report, name='view_report_no_track_id'),
+    # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/$', view_report, name='view_report'),
+    # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/download', download_report, name='download_report_no_track_id'),
+    # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/download', download_report, name='download_report'),
+    url(r'^reportanalytics/download/', download_analytics, name='download_analytics'),
+    url(r'^reportanalytics/', ReportAnalytics.as_view(), name='report_analytics'),
 
     # report pages
     url(r'^reports/search$', StaticPageView.as_view(
@@ -214,3 +216,10 @@ urlpatterns = [
         ), name='stories'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += i18n_patterns(
+    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/$', view_report, name='view_report_no_track_id'),
+    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/$', view_report, name='view_report'),
+    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/download', download_report, name='download_report_no_track_id'),
+    url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/download', download_report, name='download_report'),
+)
+

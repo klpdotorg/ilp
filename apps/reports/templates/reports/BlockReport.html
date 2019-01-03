@@ -1,27 +1,29 @@
 {% extends "./base.html" %}
+{% load i18n %}
+
 <!-- Report title -->
-{%block report_title%}GKA : {{data.block}} Block Report{%endblock report_title%}
+{%block report_title%}{%blocktrans with block_name=data.block%}GKA : {{block_name}} Block Report{%endblocktrans%}{%endblock report_title%}
 <!-- Report summary -->
 {%block report_summary_section%}
-<strong> Block Name : </strong><span class="cap">{{data.block}}</span>
+<strong> {% trans "Block Name"%} : </strong><span class="cap">{{data.block}}</span>
 <span class="cap" style="float:right">
-	<strong>Academic Year : </strong>{{data.academic_year}}
+	<strong>{% trans "Academic Year" %} : </strong>{{data.academic_year}}
 </span>
 <br>
-<strong> District Name : </strong><span class="cap">{{data.district}}</span>
+<strong> {% trans "District Name"%} : </strong><span class="cap">{{data.district}}</span>
 <span style="float:right" class="cap">
-	<strong>Report Generated on : </strong>{{data.today}}
+	<strong>{%trans "Report Generated on"%} : </strong>{{data.today}}
 </span>
 <br>
-<strong> No.of schools : </strong><span class="cap">{{data.no_schools}}</span>
+<strong> {%trans "No.of schools"%} : </strong><span class="cap">{{data.no_schools}}</span>
 <br>
 {%endblock report_summary_section%}
 <!-- End of report summary-->
 
 <!-- GKA section fill ins-->
-{%block gka_perf_title%}Performance by Cluster{%endblock gka_perf_title%}
-{%block boundary_column_header%}Cluster Name{%endblock boundary_column_header%}
+{%block gka_perf_title%}{%trans "Performance by Cluster"%}{%endblock gka_perf_title%}
+{%block boundary_column_header%}{%trans "Cluster Name"%}{%endblock boundary_column_header%}
 
 <!-- GP contest section fill-ins-->
-{%block gpc_performance_title%}Performance by Cluster{%endblock gpc_performance_title%}
-{%block child_boundary_col_header_name%}Cluster Name{%endblock child_boundary_col_header_name%}
+{%block gpc_performance_title%}{%trans "Performance by Cluster"%}{%endblock gpc_performance_title%}
+{%block child_boundary_col_header_name%}{%trans "Cluster Name"%}{%endblock child_boundary_col_header_name%}
