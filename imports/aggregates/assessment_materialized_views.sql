@@ -1,3 +1,15 @@
+/* View for getting basic information for a survey for an institution:
+ * It has:- Survey id, Survey tag, Source, Institution Id, Year Month (YYMM),
+ * Number of assessments, Number of children assessed, Number of users and 
+ * date of last assessment.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * In case of GP Contests (School assessment):
+ *       the number of answer groups == number of children assessed.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */ 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_agg AS
 SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,institution_id,yearmonth) as id,
@@ -18,7 +30,7 @@ FROM(
         ag.institution_id as institution_id,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
-        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children,
+        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children, -- For GP contest
         count(distinct ag.created_by_id) as num_users,
         max(ag.date_of_visit) as last_assessment
     FROM assessments_survey survey,
@@ -29,7 +41,6 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
@@ -79,7 +90,18 @@ FROM(
         yearmonth)data
 ;
 
-
+/* View for getting basic information for a survey for a boundary:
+ * It has:- Survey id, Survey tag, Source, Boundary Id, Year Month (YYMM),
+ * Number of assessments, Number of schools,  Number of children assessed, 
+ * Number of users and date of last assessment.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * In case of GP Contests (School assessment):
+ *       the number of answer groups == number of children assessed.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_agg AS
 SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,source,boundary_id,yearmonth) as id,
@@ -173,6 +195,18 @@ FROM(
         yearmonth)data
 ;
 
+/* View for getting basic information for a survey for a election boundary:
+ * It has:- Survey id, Survey tag, Source, Election Boundary Id, Year Month (YYMM),
+ * Number of assessments, Number of schools,  Number of children assessed, 
+ * Number of users and date of last assessment.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * In case of GP Contests (School assessment):
+ *       the number of answer groups == number of children assessed.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_electionboundary_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_electionboundary_agg AS
@@ -196,7 +230,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
-        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children,
+        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children, --For GP contest
         count(distinct ag.created_by_id) as num_users,
         max(ag.date_of_visit) as last_assessment
     FROM assessments_survey survey,
@@ -209,7 +243,6 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
         and ag.is_verified=true
@@ -267,7 +300,19 @@ FROM(
         yearmonth)data
 ;
 
-
+/* View for getting the survey infromation per respondent type for a boundary:
+ * Respondent Type is present in answergroup table and stores the type of the 
+ * person who responded to the survey.
+ * Survey id, Survey tag, Boundary id, Source, Respondent Type, Year Month (YYMM),
+ * Number of Assessments, Number of Schools, Number of Children & Last Assessment.
+ * A union of two queries is done:- one for student assessment and other for 
+ * school assessment.
+ * For GP contest assessment (school assessment) the:-
+ * number of children == number of assessments (answergroup entries)
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_respondenttype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_respondenttype_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,respondent_type,yearmonth) as id,
@@ -291,7 +336,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
-        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children,
+        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children, --For GP contest
         max(ag.date_of_visit) as last_assessment
     FROM assessments_survey survey,
         assessments_questiongroup qg,
@@ -304,7 +349,6 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.respondent_type_id = rt.char_id
         and ag.is_verified=true
         and ag.institution_id = s.id
@@ -368,7 +412,19 @@ FROM(
 ;
 
 
-
+/* View for getting the survey infromation per respondent type for an institution:
+ * Respondent Type is present in answergroup table and stores the type of the 
+ * person who responded to the survey.
+ * Survey id, Survey tag, Institution id, Source, Respondent Type, Year Month(YYMM),
+ * Number of Assessments, Number of Schools, Number of Children & Last Assessment.
+ * A union of two queries is done:- one for student assessment and other for 
+ * school assessment.
+ * For GP contest assessment (school assessment) the:-
+ * number of children == number of assessments (answergroup entries)
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_respondenttype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_respondenttype_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,respondent_type,yearmonth) as id,
@@ -392,7 +448,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
         count(distinct ag.institution_id) as num_schools,
-        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children,
+        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children, -- For GP contest
         max(ag.date_of_visit) as last_assessment
     FROM assessments_survey survey,
         assessments_questiongroup qg,
@@ -403,7 +459,6 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.respondent_type_id = rt.char_id
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -460,7 +515,18 @@ FROM(
         yearmonth)data
 ;
 
-
+/* View for getting the survey infromation per user type for a boundary:
+ * A User Type is the type of the user who created the particular survey entry.
+ * Survey id, Survey tag, Boundary id, Source, User Type, Year Month (YYMM),
+ * Number of Assessments, Number of Schools, Number of Children & Last Assessment.
+ * A union of two queries is done:- one for student assessment and other for 
+ * school assessment.
+ * For GP contest assessment (school assessment) the:-
+ * number of children == number of assessments (answergroup entries)
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_usertype_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_usertype_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,boundary_id,survey_tag,source,user_type,yearmonth) as id,
@@ -497,7 +563,6 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.created_by_id = users.id
         and ag.is_verified=true
         and ag.institution_id = s.id
