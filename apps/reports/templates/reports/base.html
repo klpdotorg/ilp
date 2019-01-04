@@ -195,11 +195,11 @@
             {% endfor %}
           </td>
           <td align="center">
-            {%if item.grade == "Class 5 Assessment" or item.grade == "Class 6 Assessment"%}
+            <!---{%if item.grade == "Class 5 Assessment" or item.grade == "Class 6 Assessment"%}
             <span class="font-effect-outline mark b-dot grey">NA</span>
-            {% endif %}
+            {% endif %}-->
             {% for value in item.values%}
-            {% if "Place Value" == value.contest and item.grade == "Class 4 Assessment" %}
+            {% if "Place Value" == value.contest %} <!-- and item.grade == "Class 4 Assessment" %}-->
             <span class="font-effect-outline mark b-dot {% if value.score|to_float < 40 %} red{% endif %} {% if value.score|to_float >= 70 %} green{% endif %}">{{value.score}}%</span>
             {% endif %}
             {% endfor %}
@@ -280,14 +280,19 @@
             {% endfor %}
           </td>
           <td align="center">
-            {%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
+            <!--{%if g.name == "Class 5 Assessment" or g.name == "Class 6 Assessment"%}
             <span class="font-effect-outline mark b-dot grey">NA</span>
+            {% endif %}-->
+            {% questionkey_exists g.values "Place Value" as key_exists %}
+            {% if key_exists == "True" %}
+              {% for value in g.values%}
+                {% if "Place Value" == value.contest %}<!-- and g.name == "Class 4 Assessment"%}-->
+                <span class="font-effect-outline mark b-dot {% if value.count|to_float < 40 %} red{% endif %} {% if value.count|to_float >= 70 %} green{% endif %}">{{value.count}}%</span>
+                {%endif%}
+              {% endfor %}
+            {% else %}
+               <span class="font-effect-outline mark b-dot grey">NA</span>
             {% endif %}
-            {% for value in g.values%}
-            {% if "Place Value" == value.contest and g.name == "Class 4 Assessment"%}
-            <span class="font-effect-outline mark b-dot {% if value.count|to_float < 40 %} red{% endif %} {% if value.count|to_float >= 70 %} green{% endif %}">{{value.count}}%</span>
-            {%endif%}
-            {% endfor %}
           </td>
           <td align="center">
             {% for value in g.values%}
