@@ -59,7 +59,6 @@ class Command(BaseCommand):
             survey_on_id = SurveyOnType.objects.get(char_id=row[6].strip())
             lang_name = row[7].strip()
             survey = Survey.objects.create(
-                         pk = id,
                          name = name,
                          description = description,
                          partner = partner,
