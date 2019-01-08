@@ -84,6 +84,7 @@ def download_report(request, report_id, tracking_id='default'):
     return response
 
 def download_analytics(request, *args, **kwargs):
+    import pdb; pdb.set_trace()
     template = 'reports/report_analytics_summary.html'
     data_from = request.GET.get('from')
     data_to = request.GET.get('to')
@@ -150,9 +151,9 @@ class ReportAnalytics(View):
             state = Boundary.objects.get(id=state_id)
             reports = Reports.objects.filter(id__in=trackings).filter(state=state_id)
             states = reports.values_list('state_id', flat=True)
-            data = {'district_level':getDistrictLevel(reports, 'DistrictReport'),
-                    'block_level':getBlockLevel(reports, 'BlockReport'),
-                    'cluster_level':getClusterLevel(reports, 'ClusterReport'),
+            data = {'district_level':getDistrictLevel(reports),
+                    'block_level':getBlockLevel(reports),
+                    'cluster_level':getClusterLevel(reports),
                     'top_summary':getTopSummary(reports),
                     'by_type':getByReportType(reports),
                     'by_user':getByUser(trackings),
@@ -169,8 +170,8 @@ class ReportAnalytics(View):
         return value
 
 '''reportType can be one of DistrictReport or DistrictReportSummarized'''
-def getDistrictLevel(reports, reportType):
-    districtreport = reports.filter(report_type=reportType).annotate(district_name=KeyTextTransform('district_name', 'parameters'))
+def getDistrictLevel(reports):
+    districtreport = reports.filter(Q(report_type='DistrictReport')|Q(report_type='DistrictReportSummarized')).annotate(district_name=KeyTextTransform('district_name', 'parameters'))
     districts = districtreport.values_list('district_name', flat=True).distinct() # Get district names
     ##for cluster replace district_name with cluster_name and similarly for block and others
     count = []
@@ -184,8 +185,8 @@ def getDistrictLevel(reports, reportType):
     return count
 
 '''reportType can be one of BlockReport or BlockReportSummarized'''
-def getBlockLevel(reports, reportType):
-    blockreport = reports.filter(report_type=reportType).annotate(district_name=KeyTextTransform('district_name', 'parameters'),
+def getBlockLevel(reports):
+    blockreport = reports.filter(Q(report_type='BlockReport')|Q(report_type='BlockReportSummarized')).annotate(district_name=KeyTextTransform('district_name', 'parameters'),
                                                                      block_name=KeyTextTransform('block_name', 'parameters'))
     districts = blockreport.values_list('district_name', flat=True).distinct() # Get district names
     count = []
@@ -200,8 +201,8 @@ def getBlockLevel(reports, reportType):
     return count
 
 '''reportType can be one of ClusterReport or ClusterReportSummarized'''
-def getClusterLevel(reports, reportType):
-    clusterreport = reports.filter(report_type=reportType).annotate(cluster_name=KeyTextTransform('cluster_name', 'parameters'),
+def getClusterLevel(reports):
+    clusterreport = reports.filter(Q(report_type='ClusterReport')|Q(report_type='ClusterReportSummarized')).annotate(cluster_name=KeyTextTransform('cluster_name', 'parameters'),
                                                                          block_name=KeyTextTransform('block_name', 'parameters'))
     blocks = clusterreport.values_list('block_name', flat=True).distinct() 
     count = []
