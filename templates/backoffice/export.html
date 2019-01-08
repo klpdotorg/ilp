@@ -59,9 +59,17 @@
             {% endfor %}
           </select>
 
-        <input type="submit" value="Submit">
+        <div class="row">
+            <hr>
+        </div>
+
+        <input class="btn btn-info" type="submit" value="Download">
+        <button class="btn" value="Reset" onClick="window.location.reload()">Reset</button>
+
+        <div class="row">
+            <hr>
+        </div>
     </form>
-    <button value="Reset" onClick="window.location.reload()">Reset</button>
 {% endblock content %}
 
 {% block extra_js %}
