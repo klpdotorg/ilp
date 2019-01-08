@@ -30,6 +30,7 @@ body {
     }
     h2 {
     text-align: center;
+    padding: 20px;
     font-size: 20px;
     font-weight: 100;
     text-transform: uppercase;
@@ -75,7 +76,8 @@ body {
     .mark {
     font-family: Open Sans;
     font-size: medium;
-    }
+    background-color: transparent;
+  }
     td{
     padding:10px;
     }

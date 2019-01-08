@@ -5,14 +5,31 @@
 <head>
  	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<base href="{%get_reports_base_url%}">
   <link rel="stylesheet" href="{% static 'reports/reports.css' %}" type="text/css" charset="utf-8">
+
 </head>
 {% block body %}
   <body>
-    <a style="padding:20px; position:absolute;" href="{{ request.get_full_path }}?lang=kannada" ></a>
-    <h1><u>Report Analytics Summary {{request.GET.from}} - {{request.GET.to}}</u>
+	  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+			$(function () {
+			$('[data-toggle="popover"]').popover()
+		}),
+		$('.popover-dismiss').popover({
+  trigger: 'focus'
+})
+	</script>
+		<a style="padding:20px; position:absolute;" href="{{ request.get_full_path }}?lang=kannada" ></a>
+    <h1><u>{{data.state_name}} Report Analytics Summary {{request.GET.from}} - {{request.GET.to}}</u>
       {% include "./akshara-img.html" %}
     </h1>
     <div class="wrapper">
@@ -122,39 +139,81 @@
 	  </tr>
 	  
 	  <tr>
-	    <td><span class="mark">HMS</span></td>
+	    <td><span class="mark">HMS</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Headmaster"><i class="fas fa-info-circle text-info"></i></a><span></td>
 	    <td><span class="mark">{{data.by_user.hms.sent}}</span></td>
 	    <td><span class="mark">{{data.by_user.hms.read}}</span></td>
 	    <td><span class="mark">{{data.by_user.hms.visit}}</span></td>
 	    <td><span class="mark">{{data.by_user.hms.download}}</span></td>
 	  </tr>
+		<tr>
+	    <td><span class="mark">GP MEMBERS</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Gram Panchayat Members"><i class="fas fa-info-circle text-info"></i></a></span></td>
+	    <td><span class="mark">{{data.by_user.gp_member.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp_member.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp_member.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp_member.download}}</span></td>
+	  </tr>
 	  <tr>
-	    <td><span class="mark">CRPS</span></td>
+	    <td><span class="mark">CRPS</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Cluster Resource Persons"><i class="fas fa-info-circle text-info"></i></a><span></td>
 	    <td><span class="mark">{{data.by_user.crps.sent}}</span></td>
 	    <td><span class="mark">{{data.by_user.crps.read}}</span></td>
 	    <td><span class="mark">{{data.by_user.crps.visit}}</span></td>
 	    <td><span class="mark">{{data.by_user.crps.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">BRP/BEO</span></td>
-	    <td><span class="mark">{{data.by_user.brp.sent|add:data.by_user.beo.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.read|add:data.by_user.beo.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.visit|add:data.by_user.beo.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.download|add:data.by_user.beo.download}}</span></td>
+	    <td><span class="mark">BEO</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Block Education Officer"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.beo.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.beo.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.beo.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.beo.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td><span class="mark">BRP</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Block Resource Persons"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.brp.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td><span class="mark">BFC</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Block Field Co-ordinator"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.bfc.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.bfc.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.bfc.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.bfc.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td><span class="mark">BRC</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Block Resource Co-ordinator"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.brc.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.brc.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.brc.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.brc.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">AKSHARA STAFF</span></td>
+	    <td><span class="mark">AKSHARA STAFF</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Akshara Staff"><i class="fas fa-info-circle text-info"></i></a><span></td>
 	    <td><span class="mark">{{data.by_user.staff.sent}}</span></td>
 	    <td><span class="mark">{{data.by_user.staff.read}}</span></td>
 	    <td><span class="mark">{{data.by_user.staff.visit}}</span></td>
 	    <td><span class="mark">{{data.by_user.staff.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">DDPI/DIET</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.sent|add:data.by_user.diet.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.read|add:data.by_user.diet.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.visit|add:data.by_user.diet.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.download|add:data.by_user.diet.download}}</span></td>
+	    <td><span class="mark">DDPI</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Deputy Director of Public Instruction"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td><span class="mark">DIET</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="DIET"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.diet.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.diet.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.diet.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.diet.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td><span class="mark">DFM</span><span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="District Field Manager"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.dfm.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.dfm.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.dfm.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.dfm.download}}</span></td>
 	  </tr>
 
 	</table>

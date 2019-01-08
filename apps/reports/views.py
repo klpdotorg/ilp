@@ -141,13 +141,12 @@ class ReportAnalytics(View):
             data_from = request.GET.get('from')
             data_to = request.GET.get('to')
             state = request.GET.get('state')
-            print("State is: ", state)
             messages = []
-            successful=True
+            successful = True
             #reports = Reports.objects.filter(data__today__range=[data_from, data_to])
             trackings = Tracking.objects.filter(created_at__range=[data_from, data_to]).values_list('report_id', flat=True)
             #Add check and exception here
-            state_id=BoundaryStateCode.objects.get(char_id=state).boundary_id
+            state_id = BoundaryStateCode.objects.get(char_id=state).boundary_id
             state = Boundary.objects.get(id=state_id)
             reports = Reports.objects.filter(id__in=trackings).filter(state=state_id)
             states = reports.values_list('state_id', flat=True)
@@ -156,9 +155,9 @@ class ReportAnalytics(View):
                     'cluster_level':getClusterLevel(reports, 'ClusterReport'),
                     'top_summary':getTopSummary(reports),
                     'by_type':getByReportType(reports),
-                    'by_user':getByUser(trackings)
+                    'by_user':getByUser(trackings),
+                    'state_name': state.name
             }
-            print(data)
             return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successful,'data':data})
         else:
             return render(request, 'reports/report_analytics.html', context={'reports':reportlist})
@@ -256,18 +255,35 @@ def getByUser(trackings):
     
     beo =  trackings.filter(role='BEO')
     brp = trackings.filter(role='BRP')
+    bfc  = trackings.filter(role='BFC')
+    brc = trackings.filter(role='BRC')
     ddpi = trackings.filter(role='DDPI')
     diet = trackings.filter(role='DIET')
-    crps = trackings.filter(role='CRPS')
-    hms = trackings.filter(role='HMS')
+    dfm = trackings.filter(role='DFM')
+    crps = trackings.filter(role='CRP')
+    hms = trackings.filter(role='HM')
+    gp_members = trackings.filter(role='GP MEMBERS')
     staff = trackings.filter(role='AKSHARA STAFF')
     
-    return dict(beo=getSentData(beo), brp=getSentData(brp), ddpi=getSentData(ddpi), diet=getSentData(diet),
-                       crps=getSentData(crps), hms=getSentData(hms), staff = getSentData(staff))
+    return dict(beo = getSentData(beo),\
+                brp = getSentData(brp),\
+                bfc = getSentData(bfc),\
+                brc = getSentData(brc),\
+                ddpi = getSentData(ddpi),\
+                diet = getSentData(diet),\
+                dfm = getSentData(dfm),\
+                crps = getSentData(crps),\
+                hms = getSentData(hms),\
+                staff = getSentData(staff),\
+                gp_member = getSentData(gp_members))
 
 def getSentData(trackings):
     sent = trackings.count()
     visit = trackings.aggregate(sum=Sum('visit_count'))['sum']
+    if visit is None:
+        visit = 0
     read = trackings.aggregate(read_unique = Count(Case(When(visit_count__gt=0, then=1))))['read_unique']
     download = trackings.aggregate(sum=Sum('download_count'))['sum']
+    if download is None:
+        download = 0
     return dict(sent=sent, read=read, visit=visit, download=download)
