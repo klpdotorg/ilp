@@ -1,0 +1,129 @@
+{% extends 'backoffice/base.html' %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form_errors }}
+        <label>Select Survey</label>
+          <select id="sel_survey" name="survey" class="form-control">
+            <option value="">Select Survey</option>                    
+            {% for survey in surveys %}
+              <option id="{{ survey.id }}" value="{{ survey.id }}">
+                    {{ survey.name }}
+              </option>
+            {% endfor %}
+           </select>
+
+        <label>Select District</label>
+          <select id="sel_district" name="district" class="form-control">
+            <option value="">Select District</option>                    
+            {% for admin1 in admin1s %}
+              <option id="{{ admin1.id }}" value="{{ admin1.id }}">
+                    {{ admin1.name }}
+              </option>
+            {% endfor %}
+           </select>
+       
+        <label>Select Block</label>
+          <select id="sel_block" name="block" class="form-control">
+            <option value="">Select Block</option>                    
+          </select>
+      
+        <label>Select Cluster</label>
+          <select id="sel_cluster" name="cluster" class="form-control">
+            <option value="">Select Cluster</option>                    
+          </select>
+
+        <label>Select School</label>
+          <select id="sel_school" name="school" class="form-control">
+            <option value="">Select School</option>                    
+          </select>
+
+        <label>Select Year</label>
+          <select id="sel_year" name="year" class="form-control">
+            <option value="">Select Year</option>                    
+            {% for y in year %}
+              <option id="{{ y }}" value="{{ y }}">
+                    {{ y }}
+              </option>
+            {% endfor %}
+          </select>
+
+        <label>Select Month</label>
+          <select id="sel_month" name="month" class="form-control">
+            <option value="">Select Month</option>                    
+            {% for key, val in month.items %}
+              <option id="{{ key }}" value="{{ key }}">
+                    {{ val }}
+              </option>
+            {% endfor %}
+          </select>
+
+        <div class="row">
+            <hr>
+        </div>
+
+        <input class="btn btn-info" type="submit" value="Download">
+        <button class="btn" value="Reset" onClick="window.location.reload()">Reset</button>
+
+        <div class="row">
+            <hr>
+        </div>
+    </form>
+{% endblock content %}
+
+{% block extra_js %}
+    <script>
+        $('select[name=district]').change(function(){
+            district_id = $(this).val();
+            request_url = '/api/v1/boundary/admin1/' + district_id + '/admin2/?survey_tag=gka';
+                $.ajax({
+                    url: request_url,
+                    dataType: "json",
+                    success: function(data){
+                        results = data['results'];
+                        $('select[name=block]').empty();
+                        $('select[name=block]').append($('<option>', {value:"", text: "Select Block"}));
+                        $.each(results, function(index, item){
+                            $('select[name=block]').append($('<option>', {value:item['id'], text:item['name']}));
+                        });
+                    }
+                })
+            }
+        );   
+        $('select[name=block]').change(function(){
+            block_id = $(this).val();
+            request_url = '/api/v1/boundary/admin2/' + block_id + '/admin3/?survey_tag=gka';
+                $.ajax({
+                    url: request_url,
+                    dataType: "json",
+                    success: function(data){
+                        results = data['results'];
+                        $('select[name=cluster]').empty();
+                        $('select[name=cluster]').append($('<option>', {value:"", text: "Select Cluster"}));
+                        $.each(results, function(index, item){
+                            $('select[name=cluster]').append($('<option>', {value:item['id'], text:item['name']}));
+                        });
+                    }
+                })
+            }
+        );
+        $('select[name=cluster]').change(function(){
+            cluster_id = $(this).val();
+            request_url = '/api/v1/surveys/institution/?boundary_id=' + cluster_id;
+                $.ajax({
+                    url: request_url,
+                    dataType: "json",
+                    success: function(data){
+                        results = data['results'];
+                        $('select[name=school]').empty();
+                        $('select[name=school]').append($('<option>', {value:"", text: "Select School"}));
+                        $.each(results, function(index, item){
+                            $('select[name=school]').append($('<option>', {value:item['id'], text:item['name']}));
+                        });
+                    }
+                })
+            }
+        );
+    </script>
+{% endblock extra_js %}

@@ -1,5 +1,7 @@
 Changelog
 ---
+Release xxxx: December 19,2018
+- Fixed permissions issue with students endpoint. Made it more secure
 Release xxxx: Nov. 23, 2018
 
 - Modified 1 million reports code to read gp_code instead of gp_name
