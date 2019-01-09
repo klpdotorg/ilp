@@ -249,8 +249,12 @@ def getClusterLevel(reports):
 def getTopSummary(reports):
     sent = reports.count()
     visit = reports.aggregate(sum=Sum('tracking__visit_count'))['sum']
+    if visit is None:
+        visit = 0
     read = reports.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
     download = reports.aggregate(sum=Sum('tracking__download_count'))['sum']
+    if download is None:
+        download = 0
     return dict(sent=sent, read=read, visit=visit, download=download)
 
 def getByReportType(reports):
