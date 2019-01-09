@@ -84,22 +84,29 @@ def download_report(request, report_id, tracking_id='default'):
     return response
 
 def download_analytics(request, *args, **kwargs):
-    import pdb; pdb.set_trace()
     template = 'reports/report_analytics_summary.html'
     data_from = request.GET.get('from')
     data_to = request.GET.get('to')
+    state_code = request.GET.get('state')
     messages = []
     successfull=True
-    tracking_ids = Tracking.objects.filter(created_at__range=[data_from, data_to]).values_list('report_id', flat=True)
-    tracking = Tracking.objects.filter(created_at__range=[data_from, data_to])
-    reports = Reports.objects.filter(id__in=tracking_ids)
+    # tracking_ids = Tracking.objects.filter(created_at__range=[data_from, data_to]).values_list('report_id', flat=True)
+    # tracking = Tracking.objects.filter(created_at__range=[data_from, data_to])
+    # reports = Reports.objects.filter(id__in=tracking_ids)
     #reports = Reports.objects.filter(data__today__range=[data_from, data_to])
+    trackings = Tracking.objects.filter(created_at__range=[data_from, data_to]).values_list('report_id', flat=True)
+    #Add check and exception here
+    state_id = BoundaryStateCode.objects.get(char_id=state_code).boundary_id
+    state = Boundary.objects.get(id=state_id)
+    reports = Reports.objects.filter(id__in=trackings).filter(state=state_id)
     data = {'district_level':getDistrictLevel(reports),
             'block_level':getBlockLevel(reports),
             'cluster_level':getClusterLevel(reports),
             'top_summary':getTopSummary(reports),
             'by_type':getByReportType(reports),
-            'by_user':getByUser(tracking)
+            'by_user':getByUser(trackings),
+            'state_name': state.name,
+            'state_code': state
     }
     options = {
             'encoding':'utf-8',
@@ -148,7 +155,7 @@ class ReportAnalytics(View):
             trackings = Tracking.objects.filter(created_at__range=[data_from, data_to]).values_list('report_id', flat=True)
             #Add check and exception here
             state_id = BoundaryStateCode.objects.get(char_id=state).boundary_id
-            state = Boundary.objects.get(id=state_id)
+            state_obj = Boundary.objects.get(id=state_id)
             reports = Reports.objects.filter(id__in=trackings).filter(state=state_id)
             states = reports.values_list('state_id', flat=True)
             data = {'district_level':getDistrictLevel(reports),
@@ -157,7 +164,8 @@ class ReportAnalytics(View):
                     'top_summary':getTopSummary(reports),
                     'by_type':getByReportType(reports),
                     'by_user':getByUser(trackings),
-                    'state_name': state.name
+                    'state_name': state_obj.name,
+                    'state_code': state
             }
             return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successful,'data':data})
         else:
@@ -185,35 +193,57 @@ def getDistrictLevel(reports):
     return count
 
 '''reportType can be one of BlockReport or BlockReportSummarized'''
+# def getBlockLevel(reports):
+#     blockreport = reports.filter(Q(report_type='BlockReport')|Q(report_type='BlockReportSummarized')).annotate(district_name=KeyTextTransform('district_name', 'parameters'),
+#                                                                      block_name=KeyTextTransform('block_name', 'parameters'))
+#     districts = blockreport.values_list('district_name', flat=True).distinct() # Get district names
+#     count = []
+#     for district in districts:
+#         c = blockreport.filter(district_name=district)
+#         #block_num =  c.values_list('block_name', flat=True).distinct().count() # Get district names
+#         #block_num = reports.filter(Q(report_type='BlockReport')|Q(report_type='BlockReportSummarized')).count()
+#         sent = c.count()
+#         visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
+#         read = c.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
+#         download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
+#         count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district,block_num=block_num))   
+#     return count
+
 def getBlockLevel(reports):
     blockreport = reports.filter(Q(report_type='BlockReport')|Q(report_type='BlockReportSummarized')).annotate(district_name=KeyTextTransform('district_name', 'parameters'),
                                                                      block_name=KeyTextTransform('block_name', 'parameters'))
-    districts = blockreport.values_list('district_name', flat=True).distinct() # Get district names
+    blocks = blockreport.values_list('block_name', flat=True).distinct() # Get district names
     count = []
-    for district in districts:
-        c = blockreport.filter(district_name=district)
-        block_num =  c.values_list('block_name', flat=True).distinct().count() # Get district names
-        sent = c.count()
-        visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
-        read = c.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
-        download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
-        count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district,block_num=block_num))   
+    for block in blocks:
+        #import pdb; pdb.set_trace()
+        block_reports = blockreport.filter(block_name=block)
+        district_name = block_reports.values_list('district_name', flat=True).distinct()[0]
+        #block_obj = Boundary.objects.filter(boundary_type_id='SB').get(name=block)
+        #block_num =  c.values_list('block_name', flat=True).distinct().count() # Get district names
+        #block_num = reports.filter(Q(report_type='BlockReport')|Q(report_type='BlockReportSummarized')).count()
+        sent = block_reports.count()
+        visit = block_reports.aggregate(sum=Sum('tracking__visit_count'))['sum']
+        read = block_reports.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
+        download = block_reports.aggregate(sum=Sum('tracking__download_count'))['sum']
+        count.append(dict(sent=sent, read=read, visit=visit, download=download,block=block, district=district_name))   
     return count
+
 
 '''reportType can be one of ClusterReport or ClusterReportSummarized'''
 def getClusterLevel(reports):
     clusterreport = reports.filter(Q(report_type='ClusterReport')|Q(report_type='ClusterReportSummarized')).annotate(cluster_name=KeyTextTransform('cluster_name', 'parameters'),
                                                                          block_name=KeyTextTransform('block_name', 'parameters'))
-    blocks = clusterreport.values_list('block_name', flat=True).distinct() 
+    clusters = clusterreport.values_list('cluster_name', flat=True).distinct() 
     count = []
-    for block in blocks:
-        c = clusterreport.filter(block_name=block)
-        cluster_num =  c.values_list('cluster_name', flat=True).distinct().count() 
+    for cluster in clusters:
+        c = clusterreport.filter(cluster_name=cluster)
+        block_name = c.values_list('block_name', flat=True).distinct()[0]
+        #cluster_num =  c.values_list('cluster_name', flat=True).distinct().count() 
         sent = c.count()
         visit = c.aggregate(sum=Sum('tracking__visit_count'))['sum']
         read = c.aggregate(read_unique = Count(Case(When(tracking__visit_count__gt=0, then=1))))['read_unique']
         download = c.aggregate(sum=Sum('tracking__download_count'))['sum']
-        count.append(dict(sent=sent, read=read, visit=visit, download=download,block=block,cluster_num=cluster_num))  
+        count.append(dict(sent=sent, read=read, visit=visit, download=download,block=block_name,cluster=cluster))  
     return count
 
 def getTopSummary(reports):

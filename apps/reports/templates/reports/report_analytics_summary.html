@@ -244,8 +244,9 @@
 	
 	<table style="margin: auto;" id="customers">
 	  <tr>
-	    <th>District Name</th>
-	    <th>No.of Blocks</th>
+	    <th>Block Name</th>
+			<th>District Name</th>
+	   <!-- <th>No.of Blocks</th>-->
 	    <th>No.of Report Sent</th>
 	    <th>No.of Unique Views</th>
 	    <th>No.of views</th>
@@ -254,8 +255,9 @@
 	  
 	  {% for b in data.block_level %}
 	  <tr>
-	    <td>{{b.district}}</td>
-	    <td><span class="mark">{{b.block_num}}</span></td>
+	    <td>{{b.block}}</td>
+			<td>{{b.district}}</td>
+	    <!--<td><span class="mark">{{b.block_num}}</span></td>-->
 	    <td><span class="mark">{{b.sent}}</span></td>
 	    <td><span class="mark">{{b.read}}</span></td>
 	    <td><span class="mark">{{b.visit}}</span></td>
@@ -268,8 +270,8 @@
 	
 	<table style="margin: auto;" id="customers">
 	  <tr>
+	    <th>Cluster Name</th>
 	    <th>Block Name</th>
-	    <th>No.of Clusters</th>
 	    <th>No.of Report Sent</th>
 	    <th>No.of Unique Views</th>
 	    <th>No.of views</th>
@@ -278,8 +280,8 @@
 	  
 	 {% for c in data.cluster_level %}
 	  <tr>
-	    <td>{{c.block}}</td>
-	    <td><span class="mark">{{c.cluster_num}}</span></td>
+	    <td>{{c.cluster}}</td>
+			<td>{{c.block}}</td>
 	    <td><span class="mark">{{c.sent}}</span></td>
 	    <td><span class="mark">{{c.read}}</span></td>
 	    <td><span class="mark">{{c.visit}}</span></td>
@@ -295,7 +297,7 @@
       <div class="red" style="text-align: center;padding: 20px;">
 				FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 9845079590
       </div>
-      <a href="downloadanalytics?from={{request.GET.from}}&to={{request.GET.to}}" class="button button5">Download</a>
+      <a href="downloadanalytics?state={{data.state_code}}&from={{request.GET.from}}&to={{request.GET.to}}" class="button button5">Download</a>
     </div>
 	</body>
 {% endblock %}
