@@ -49,8 +49,16 @@ def get_assessment_field_data(
         assessments = assessments.filter(date_of_visit__month=month)
 
     field_data = []
+    assessments = assessments.select_related(
+        'institution__admin0', 'institution__admin1',
+        'institution__admin2', 'institution__admin3',
+        'institution', 'institution__dise', 'respondent_type',
+        'questiongroup__survey', 'questiongroup')
+
     for assessment in assessments:
         answers = assessment.answers.all()
+        answers = answers.only('question__question_text', 'answer')\
+            .select_related('question')
         field_datum = {
             'survey': assessment.questiongroup.survey.name,
             'state': assessment.institution.admin0.name,
@@ -58,7 +66,7 @@ def get_assessment_field_data(
             'block': assessment.institution.admin2.name,
             'cluster': assessment.institution.admin3.name,
             'school': assessment.institution.name,
-            'institution_id': assessment.institution.id,
+            'institution_id': assessment.institution_id,
             'dise_id':
                 assessment.institution.dise.school_code
                 if assessment.institution.dise is not None else '',

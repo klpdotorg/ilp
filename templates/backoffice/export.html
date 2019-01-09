@@ -116,24 +116,24 @@
         );
 
         $('select[name=district]').change(function(){
-            district_id = $('select[name=state]').val();
-                $.ajax({
-                    url: request_url,
-                    dataType: "json",
-                    success: function(data){
-                        results = data['results'];
-                        $('select[name=block]').empty();
-                        $('select[name=block]').append($('<option>', {value:"", text: "Select Block"}));
-                        $.each(results, function(index, item){
-                            $('select[name=block]').append($('<option>', {value:item['id'], text:item['name']}));
-                        });
-                    }
-                })
-            }
-        );   
+            district_id = $(this).val();
+            request_url = '/api/v1/boundary/admin1/' + district_id+ '/admin2/';
+            $.ajax({
+                url: request_url,
+                dataType: "json",
+                success: function(data){
+                    results = data['results'];
+                    $('select[name=block]').empty();
+                    $('select[name=block]').append($('<option>', {value:"", text: "Select Block"}));
+                    $.each(results, function(index, item){
+                        $('select[name=block]').append($('<option>', {value:item['id'], text:item['name']}));
+                    });
+                }
+            })
+        });   
         $('select[name=block]').change(function(){
             block_id = $(this).val();
-            request_url = '/api/v1/boundary/admin2/' + block_id + '/admin3/?survey_tag=gka';
+            request_url = '/api/v1/boundary/admin2/' + block_id + '/admin3/';
                 $.ajax({
                     url: request_url,
                     dataType: "json",
