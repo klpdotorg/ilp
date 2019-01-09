@@ -4,6 +4,16 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form_errors }}
+        <label>Select State</label>
+          <select id="sel_state" name="state" class="form-control">
+            <option value="">Select State</option>                    
+            {% for state in states %}
+              <option id="{{ state.char_id }}" value="{{ state.char_id }}">
+                    {{ state.boundary.name }}
+              </option>
+            {% endfor %}
+           </select>
+
         <label>Select Survey</label>
           <select id="sel_survey" name="survey" class="form-control">
             <option value="">Select Survey</option>                    
@@ -74,9 +84,39 @@
 
 {% block extra_js %}
     <script>
+        $('select[name=state]').change(function(){
+            state_id = $(this).val();
+            request_url = '/api/v1/surveys/?state=' + state_id;
+                $.ajax({
+                    url: request_url,
+                    dataType: "json",
+                    success: function(data){
+                        results = data['results'];
+                        $('select[name=survey]').empty();
+                        $('select[name=survey]').append($('<option>', {value:"", text: "Select Survey"}));
+                        $.each(results, function(index, item){
+                            $('select[name=survey]').append($('<option>', {value:item['id'], text:item['name']}));
+                        });
+                    }
+                })
+            request_url = '/api/v1/boundary/admin1s/?state=' + state_id;
+                $.ajax({
+                    url: request_url,
+                    dataType: "json",
+                    success: function(data){
+                        results = data['results'];
+                        $('select[name=district]').empty();
+                        $('select[name=district]').append($('<option>', {value:"", text: "Select District"}));
+                        $.each(results, function(index, item){
+                            $('select[name=district]').append($('<option>', {value:item['id'], text:item['name']}));
+                        });
+                    }
+                })
+            }
+        );
+
         $('select[name=district]').change(function(){
-            district_id = $(this).val();
-            request_url = '/api/v1/boundary/admin1/' + district_id + '/admin2/?survey_tag=gka';
+            district_id = $('select[name=state]').val();
                 $.ajax({
                     url: request_url,
                     dataType: "json",
