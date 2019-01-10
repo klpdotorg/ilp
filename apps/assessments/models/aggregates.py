@@ -120,7 +120,6 @@ class SurveyInstitutionUserTypeAgg(models.Model):
     user_type = models.CharField(max_length=100, db_column="user_type")
     source = models.ForeignKey('Source', db_column="source")
     yearmonth = models.IntegerField(db_column="yearmonth")
-    num_schools = models.IntegerField(db_column="num_schools")
     num_assessments = models.IntegerField(db_column="num_assessments")
     num_children = models.IntegerField(db_column="num_children")
     last_assessment = models.DateField(db_column="last_assessment")
