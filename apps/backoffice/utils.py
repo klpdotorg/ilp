@@ -57,8 +57,9 @@ def get_assessment_field_data(
 
     for assessment in assessments:
         answers = assessment.answers.all()
-        answers = answers.only('question__question_text', 'answer')\
-            .select_related('question')
+        answers = answers\
+            .select_related('question', 'answergroup')\
+
         field_datum = {
             'survey': assessment.questiongroup.survey.name,
             'state': assessment.institution.admin0.name,
