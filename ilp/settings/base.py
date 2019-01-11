@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -129,7 +131,10 @@ WSGI_APPLICATION = 'ilp.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 LANGUAGES = (
     ('en', 'English'),
-    ('kn', 'Kannada'),
+    ('kn', _('Kannada')),
+    ('or', _('Odia')),
+    ('te', _('Telugu')),
+    ('gu', _('Gujarati')),
 )
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
@@ -137,7 +142,23 @@ LOCALE_PATHS = (
 LANGUAGE_CODE = 'en'
 USE_I18N = True
 USE_L10N = True
-
+#Support for additional languages
+EXTRA_LANG_INFO = {
+    'or': {
+        'bidi': False, # right-to-left
+        'code': 'or',
+        'name': 'Odia',
+        'name_local': u'ଓଡ଼ିଆ', #unicode codepoints here
+        'name_translated': 'ଓଡ଼ିଆ'
+    },
+    'gu': {
+        'bidi': False, # right-to-left
+        'code': 'gu',
+        'name': 'Gujarati',
+        'name_local': u'ગુજરાતી', #unicode codepoints here
+        'name_translated': 'ગુજરાતી'
+    },
+}
 # Time zone
 TIME_ZONE = 'Asia/Kolkata'
 USE_TZ = True
@@ -310,4 +331,9 @@ LOGGING = {
         },
     }
 }
+
+import django.conf.locale
+from django.conf import global_settings
+LANG_INFO = {**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO}
+django.conf.locale.LANG_INFO = LANG_INFO
 

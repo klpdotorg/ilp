@@ -13,7 +13,9 @@ from django.template.loader import render_to_string
 from .links import send_link, send_recipient
 from .models import Reports, Tracking
 from .reportlist import reportlist
-
+from django.utils.translation import activate, get_language_from_request, get_language_info
+from django.db.models import Q
+from boundary.models import Boundary, BoundaryStateCode
 
 '''This is the view used to view the reports'''
 def view_report(request, report_id, tracking_id='default'):
@@ -31,21 +33,41 @@ def view_report(request, report_id, tracking_id='default'):
     except Tracking.DoesNotExist:
         pass
 
-    if request.GET.get('lang') == 'english':
-        return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data})
-    else:
-        return render(request, 'reports/{}kannada.html'.format(report.report_type), context={'data':data})
+    return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data, 'reportid': report_id,'trackid': tracking_id})
+   
+# '''This is the view used to view the reports'''
+# def view_report(request, report_id, tracking_id='default'):
+#     try:
+#         report = Reports.objects.get(link_id=report_id)
+#         data = report.data
+#     except Reports.DoesNotExist:
+#         return render(request, 'reports/404.html', context={'data': report_id})
+
+#     try:
+#         tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
+#         tracker.visit_count += 1
+#         tracker.visited_at = datetime.datetime.now()
+#         tracker.save()
+#     except Tracking.DoesNotExist:
+#         pass
+
+#     if request.GET.get('lang') == 'english':
+#         activate('en')
+#         return render(request, 'reports/{}.html'.format(report.report_type), context={'data':data, 'reportid': report_id,'trackid': tracking_id})
+#     else:
+#         activate('kn')
+#         return render(request, 'reports/{}kannada.html'.format(report.report_type), context={'data':data,'reportid': report_id,'trackid': tracking_id})
 
 def download_report(request, report_id, tracking_id='default'):
     try:
         report_model = Reports.objects.get(link_id=report_id)
     except Reports.DoesNotExist:
         return render(request, 'reports/404.html', context={'data': report_id})
-
+    locale = get_language_from_request(request,check_path=True)
+    lang_info = get_language_info(locale)
     report = reportlist[report_model.report_type](data=report_model.data)
-    pdf = report.get_pdf(lang=request.GET.get('lang'))
+    pdf_file_name = report.get_pdf(report_id, tracking_id, lang=lang_info['name'].lower())
     filename = report_model.report_type+datetime.datetime.now().strftime("%d%m%y")+'.pdf'
-
     try:
         tracker = Tracking.objects.get(track_id=tracking_id, report_id__link_id=report_id)
         tracker.download_count += 1
@@ -53,27 +75,38 @@ def download_report(request, report_id, tracking_id='default'):
         tracker.save()
     except Tracking.DoesNotExist:
         pass
-
-    response = HttpResponse(pdf, content_type="application/pdf")
+    with open(pdf_file_name, 'rb') as f:
+        pdf_data = f.read()
+    response = HttpResponse(pdf_data, content_type="application/pdf")
     response['Content-Disposition'] = 'inline; filename=' + filename
+    #Remove the temporary PDF file 
+    os.remove(pdf_file_name)
     return response
 
-def download_analytics(request ):
+def download_analytics(request, *args, **kwargs):
     template = 'reports/report_analytics_summary.html'
     data_from = request.GET.get('from')
     data_to = request.GET.get('to')
     messages = []
     successfull=True
-    reports = Reports.objects.filter(data__today__range=[data_from, data_to])
+    tracking_ids = Tracking.objects.filter(created_at__range=[data_from, data_to]).values_list('report_id', flat=True)
+    tracking = Tracking.objects.filter(created_at__range=[data_from, data_to])
+    reports = Reports.objects.filter(id__in=tracking_ids)
+    #reports = Reports.objects.filter(data__today__range=[data_from, data_to])
     data = {'district_level':getDistrictLevel(reports),
             'block_level':getBlockLevel(reports),
             'cluster_level':getClusterLevel(reports),
             'top_summary':getTopSummary(reports),
-            'by_user':getByReportType(reports)
+            'by_type':getByReportType(reports),
+            'by_user':getByUser(tracking)
     }
+    options = {
+            'encoding':'utf-8',
+        }
+    # pdf = pdfkit.PDFKit(html, 'string', configuration=config, options=options).to_pdf()
     html = render_to_string(template, {'data':data})
     config = pdfkit.configuration()
-    pdf = pdfkit.PDFKit(html, 'string', configuration=config).to_pdf()
+    pdf = pdfkit.PDFKit(html, 'string', configuration=config, options=options).to_pdf()
 
     response = HttpResponse(pdf, content_type="application/pdf")
     response['Content-Disposition'] = 'inline; filename=' + 'REPORTANALYTICS.pdf'
@@ -107,19 +140,26 @@ class ReportAnalytics(View):
         if request.GET.get('from') and request.GET.get('to') :
             data_from = request.GET.get('from')
             data_to = request.GET.get('to')
+            state = request.GET.get('state')
+            print("State is: ", state)
             messages = []
-            successfull=True
-            reports = Reports.objects.filter(data__today__range=[data_from, data_to])
-            trackings = Tracking.objects.filter(created_at__range=[data_from, data_to])
-            data = {'district_level':getDistrictLevel(reports),
-                    'block_level':getBlockLevel(reports),
-                    'cluster_level':getClusterLevel(reports),
+            successful=True
+            #reports = Reports.objects.filter(data__today__range=[data_from, data_to])
+            trackings = Tracking.objects.filter(created_at__range=[data_from, data_to]).values_list('report_id', flat=True)
+            #Add check and exception here
+            state_id=BoundaryStateCode.objects.get(char_id=state).boundary_id
+            state = Boundary.objects.get(id=state_id)
+            reports = Reports.objects.filter(id__in=trackings).filter(state=state_id)
+            states = reports.values_list('state_id', flat=True)
+            data = {'district_level':getDistrictLevel(reports, 'DistrictReport'),
+                    'block_level':getBlockLevel(reports, 'BlockReport'),
+                    'cluster_level':getClusterLevel(reports, 'ClusterReport'),
                     'top_summary':getTopSummary(reports),
                     'by_type':getByReportType(reports),
                     'by_user':getByUser(trackings)
             }
-            
-            return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successfull,'data':data})
+            print(data)
+            return render(request, 'reports/report_analytics_summary.html', context={'messages':messages, 'success':successful,'data':data})
         else:
             return render(request, 'reports/report_analytics.html', context={'reports':reportlist})
     
@@ -129,8 +169,9 @@ class ReportAnalytics(View):
         value = person[index]
         return value
 
-def getDistrictLevel(reports):
-    districtreport = reports.filter(report_type='DistrictReport').annotate(district_name=KeyTextTransform('district_name', 'parameters'))
+'''reportType can be one of DistrictReport or DistrictReportSummarized'''
+def getDistrictLevel(reports, reportType):
+    districtreport = reports.filter(report_type=reportType).annotate(district_name=KeyTextTransform('district_name', 'parameters'))
     districts = districtreport.values_list('district_name', flat=True).distinct() # Get district names
     ##for cluster replace district_name with cluster_name and similarly for block and others
     count = []
@@ -143,8 +184,9 @@ def getDistrictLevel(reports):
         count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district))
     return count
 
-def getBlockLevel(reports):
-    blockreport = reports.filter(report_type='BlockReport').annotate(district_name=KeyTextTransform('district_name', 'parameters'),
+'''reportType can be one of BlockReport or BlockReportSummarized'''
+def getBlockLevel(reports, reportType):
+    blockreport = reports.filter(report_type=reportType).annotate(district_name=KeyTextTransform('district_name', 'parameters'),
                                                                      block_name=KeyTextTransform('block_name', 'parameters'))
     districts = blockreport.values_list('district_name', flat=True).distinct() # Get district names
     count = []
@@ -158,8 +200,9 @@ def getBlockLevel(reports):
         count.append(dict(sent=sent, read=read, visit=visit, download=download,district=district,block_num=block_num))   
     return count
 
-def getClusterLevel(reports):
-    clusterreport = reports.filter(report_type='ClusterReport').annotate(cluster_name=KeyTextTransform('cluster_name', 'parameters'),
+'''reportType can be one of ClusterReport or ClusterReportSummarized'''
+def getClusterLevel(reports, reportType):
+    clusterreport = reports.filter(report_type=reportType).annotate(cluster_name=KeyTextTransform('cluster_name', 'parameters'),
                                                                          block_name=KeyTextTransform('block_name', 'parameters'))
     blocks = clusterreport.values_list('block_name', flat=True).distinct() 
     count = []
@@ -182,18 +225,32 @@ def getTopSummary(reports):
 
 def getByReportType(reports):
     district_report = reports.filter(report_type='DistrictReport')
+    district_summarized_report = reports.filter(report_type='DistrictReportSummarized')
     block_report = reports.filter(report_type='BlockReport')
+    block_report_summarized = reports.filter(report_type='BlockReportSummarized')
     clusterreport = reports.filter(report_type='ClusterReport')
+    cluster_report_summarized = reports.filter(report_type='ClusterReportSummarized')
     school_report = reports.filter(report_type='SchoolReport')
     gp_report = reports.filter(report_type='GPMathContestReport')
+    gp_report_summarized = reports.filter(report_type='GPMathContestReportSummarized')
 
     district = getTopSummary(district_report)
+    district_summarized = getTopSummary(district_summarized_report)
     block = getTopSummary(block_report)
+    block_summarized = getTopSummary(block_report_summarized)
     cluster = getTopSummary(clusterreport)
+    cluster_summarized = getTopSummary(cluster_report_summarized)
     school = getTopSummary(school_report)
     gp = getTopSummary(gp_report)
+    gp_summarized = getTopSummary(gp_report_summarized)
 
-    return dict(district=district, block=block, cluster=cluster, school=school, gp=gp)
+    return dict(district=district, district_summarized=district_summarized, block=block,\
+                block_summarized=block_summarized,\
+                cluster=cluster,\
+                cluster_summarized=cluster_summarized,\
+                school=school,\
+                gp=gp,\
+                gp_summarized=gp_summarized)
 
 def getByUser(trackings):
     
