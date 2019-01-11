@@ -56,4 +56,30 @@ STATES = {
         'lang_name': 'Kashmiri',
         'lang_key': 'jk'
     },
+    'gj': {
+        'name': 'Gujarat',
+        'short_form': 'GLP',
+        'long_form': 'Gujarat Learning Partnership',
+        'email': 'info@klp.org.in',
+        'site_url': 'https://gj.ilp.org.in',
+        'home_logo': '/static/images/home_klp_logo@2x.png',
+        'header_logo': '/static/images/KLP_logo@2x.png',
+        'footer_logo': '/static/images/KLP_logo_footer@2x.png',
+        'state_code': 'gj',
+        'lang_name': 'Gujarati',
+        'lang_key': 'gj'
+    },
+    'ap': {
+        'name': 'Andhra Pradesh',
+        'short_form': 'APLP',
+        'long_form': 'Andhra Pradesh Learning Partnership',
+        'email': 'info@klp.org.in',
+        'site_url': 'https://ap.ilp.org.in',
+        'home_logo': '/static/images/home_klp_logo@2x.png',
+        'header_logo': '/static/images/KLP_logo@2x.png',
+        'footer_logo': '/static/images/KLP_logo_footer@2x.png',
+        'state_code': 'ap',
+        'lang_name': 'Telugu',
+        'lang_key': 'ap'
+    },
 }
