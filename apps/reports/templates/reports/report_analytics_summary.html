@@ -5,14 +5,31 @@
 <head>
  	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<base href="{%get_reports_base_url%}">
   <link rel="stylesheet" href="{% static 'reports/reports.css' %}" type="text/css" charset="utf-8">
+
 </head>
 {% block body %}
   <body>
-    <a style="padding:20px; position:absolute;" href="{{ request.get_full_path }}?lang=kannada" ></a>
-    <h1><u>Report Analytics Summary {{request.GET.from}} - {{request.GET.to}}</u>
+	  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+			$(function () {
+			$('[data-toggle="popover"]').popover()
+		}),
+		$('.popover-dismiss').popover({
+  trigger: 'focus'
+})
+	</script>
+		<a style="padding:20px; position:absolute;" href="{{ request.get_full_path }}?lang=kannada" ></a>
+    <h1><u>{{data.state_name}} Report Analytics Summary {{request.GET.from}} - {{request.GET.to}}</u>
       {% include "./akshara-img.html" %}
     </h1>
     <div class="wrapper">
@@ -47,63 +64,63 @@
 	  </tr>
 	  
 	  <tr>
-	    <td><span class="mark">District Report</span></td>
+	    <td>District Report</td>
 	    <td><span class="mark">{{data.by_type.district.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.district.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.district.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.district.download}}</span></td>
 	  </tr>
 		 <tr>
-	    <td><span class="mark">District Summarized Report</span></td>
+	    <td>District Summarized Report</td>
 	    <td><span class="mark">{{data.by_type.district_summarized.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.district_summarized.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.district_summarized.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.district_summarized.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">Block Report</span></td>
+	    <td>Block Report</td>
 	    <td><span class="mark">{{data.by_type.block.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.block.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.block.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.block.download}}</span></td>
 	  </tr>
 		 <tr>
-	    <td><span class="mark">Block Summarized Report</span></td>
+	    <td>Block Summarized Report</td>
 	    <td><span class="mark">{{data.by_type.block_summarized.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.block_summarized.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.block_summarized.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.block_summarized.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">Cluster Report</span></td>
+	    <td>Cluster Report</td>
 	    <td><span class="mark">{{data.by_type.cluster.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.cluster.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.cluster.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.cluster.download}}</span></td>
 	  </tr>
 		<tr>
-	    <td><span class="mark">Cluster Summarized Report</span></td>
+	    <td>Cluster Summarized Report</td>
 	    <td><span class="mark">{{data.by_type.cluster_summarized.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.cluster_summarized.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.cluster_summarized.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.cluster_summarized.download}}</span></td>
 	  </tr>
 		<tr>
-	    <td><span class="mark">Gram Panchayat Report</span></td>
+	    <td>Gram Panchayat Report</td>
 	    <td><span class="mark">{{data.by_type.gp.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.gp.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.gp.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.gp.download}}</span></td>
 	  </tr>
 		<tr>
-	    <td><span class="mark">Gram Panchayat Summarized Report</span></td>
+	    <td>Gram Panchayat Summarized Report</td>
 	    <td><span class="mark">{{data.by_type.gp_summarized.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.gp_summarized.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.gp_summarized.visit}}</span></td>
 	    <td><span class="mark">{{data.by_type.gp_summarized.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">School Report</span></td>
+	    <td>School Report</td>
 	    <td><span class="mark">{{data.by_type.school.sent}}</span></td>
 	    <td><span class="mark">{{data.by_type.school.read}}</span></td>
 	    <td><span class="mark">{{data.by_type.school.visit}}</span></td>
@@ -122,39 +139,81 @@
 	  </tr>
 	  
 	  <tr>
-	    <td><span class="mark">HMS</span></td>
+	    <td>HMS<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Headmaster"><i class="fas fa-info-circle text-info"></i></a><span></td>
 	    <td><span class="mark">{{data.by_user.hms.sent}}</span></td>
 	    <td><span class="mark">{{data.by_user.hms.read}}</span></td>
 	    <td><span class="mark">{{data.by_user.hms.visit}}</span></td>
 	    <td><span class="mark">{{data.by_user.hms.download}}</span></td>
 	  </tr>
+		<tr>
+	    <td>GP MEMBERS<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Gram Panchayat Members"><i class="fas fa-info-circle text-info"></i></a></span></td>
+	    <td><span class="mark">{{data.by_user.gp_member.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp_member.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp_member.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.gp_member.download}}</span></td>
+	  </tr>
 	  <tr>
-	    <td><span class="mark">CRPS</span></td>
+	    <td>CRPS<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Cluster Resource Persons"><i class="fas fa-info-circle text-info"></i></a><span></td>
 	    <td><span class="mark">{{data.by_user.crps.sent}}</span></td>
 	    <td><span class="mark">{{data.by_user.crps.read}}</span></td>
 	    <td><span class="mark">{{data.by_user.crps.visit}}</span></td>
 	    <td><span class="mark">{{data.by_user.crps.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">BRP/BEO</span></td>
-	    <td><span class="mark">{{data.by_user.brp.sent|add:data.by_user.beo.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.read|add:data.by_user.beo.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.visit|add:data.by_user.beo.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.brp.download|add:data.by_user.beo.download}}</span></td>
+	    <td>BEO<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Block Education Officer"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.beo.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.beo.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.beo.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.beo.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td>BRP<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Block Resource Persons"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.brp.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.brp.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td>BFC<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Block Field Co-ordinator"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.bfc.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.bfc.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.bfc.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.bfc.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td>BRC<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Block Resource Co-ordinator"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.brc.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.brc.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.brc.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.brc.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">AKSHARA STAFF</span></td>
+	    <td>AKSHARA STAFF<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Akshara Staff"><i class="fas fa-info-circle text-info"></i></a><span></td>
 	    <td><span class="mark">{{data.by_user.staff.sent}}</span></td>
 	    <td><span class="mark">{{data.by_user.staff.read}}</span></td>
 	    <td><span class="mark">{{data.by_user.staff.visit}}</span></td>
 	    <td><span class="mark">{{data.by_user.staff.download}}</span></td>
 	  </tr>
 	  <tr>
-	    <td><span class="mark">DDPI/DIET</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.sent|add:data.by_user.diet.sent}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.read|add:data.by_user.diet.read}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.visit|add:data.by_user.diet.visit}}</span></td>
-	    <td><span class="mark">{{data.by_user.ddpi.download|add:data.by_user.diet.download}}</span></td>
+	    <td>DDPI<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="Deputy Director of Public Instruction"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.ddpi.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td>DIET<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="DIET"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.diet.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.diet.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.diet.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.diet.download}}</span></td>
+	  </tr>
+		<tr>
+	    <td>DFM<span><a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-content="District Field Manager"><i class="fas fa-info-circle text-info"></i></a><span></td>
+	    <td><span class="mark">{{data.by_user.dfm.sent}}</span></td>
+	    <td><span class="mark">{{data.by_user.dfm.read}}</span></td>
+	    <td><span class="mark">{{data.by_user.dfm.visit}}</span></td>
+	    <td><span class="mark">{{data.by_user.dfm.download}}</span></td>
 	  </tr>
 
 	</table>
@@ -178,6 +237,8 @@
 	    <td><span class="mark">{{district.visit}}</span></td>
 	    <td><span class="mark">{{district.download}}</span></td>
 	  </tr>
+		{% empty %}
+    <tr><td colspan="5">No district reports found</td></tr>
 	  {% endfor %}
 
 	</table>
@@ -185,8 +246,9 @@
 	
 	<table style="margin: auto;" id="customers">
 	  <tr>
-	    <th>District Name</th>
-	    <th>No.of Blocks</th>
+	    <th>Block Name</th>
+			<th>District Name</th>
+	   <!-- <th>No.of Blocks</th>-->
 	    <th>No.of Report Sent</th>
 	    <th>No.of Unique Views</th>
 	    <th>No.of views</th>
@@ -195,13 +257,16 @@
 	  
 	  {% for b in data.block_level %}
 	  <tr>
-	    <td>{{b.district}}</td>
-	    <td><span class="mark">{{b.block_num}}</span></td>
+	    <td>{{b.block}}</td>
+			<td>{{b.district}}</td>
+	    <!--<td><span class="mark">{{b.block_num}}</span></td>-->
 	    <td><span class="mark">{{b.sent}}</span></td>
 	    <td><span class="mark">{{b.read}}</span></td>
 	    <td><span class="mark">{{b.visit}}</span></td>
 	    <td><span class="mark">{{b.download}}</span></td>
 	  </tr>
+		{% empty %}
+    <tr><td colspan="6">No block reports found</td></tr>
 	  {% endfor %}
 
 	</table>
@@ -209,8 +274,8 @@
 	
 	<table style="margin: auto;" id="customers">
 	  <tr>
+	    <th>Cluster Name</th>
 	    <th>Block Name</th>
-	    <th>No.of Clusters</th>
 	    <th>No.of Report Sent</th>
 	    <th>No.of Unique Views</th>
 	    <th>No.of views</th>
@@ -219,13 +284,15 @@
 	  
 	 {% for c in data.cluster_level %}
 	  <tr>
-	    <td>{{c.block}}</td>
-	    <td><span class="mark">{{c.cluster_num}}</span></td>
+	    <td>{{c.cluster}}</td>
+			<td>{{c.block}}</td>
 	    <td><span class="mark">{{c.sent}}</span></td>
 	    <td><span class="mark">{{c.read}}</span></td>
 	    <td><span class="mark">{{c.visit}}</span></td>
 	    <td><span class="mark">{{c.download}}</span></td>
 	  </tr>
+		{% empty %}
+    <tr><td colspan="6">No cluster reports found</td></tr>
 	  {% endfor %}
 
 	</table>
@@ -236,7 +303,7 @@
       <div class="red" style="text-align: center;padding: 20px;">
 				FOR MORE INFORMATION OR FOR ANY QUERIES PLEASE CONTACT : 9845079590
       </div>
-      <a href="{{ request.path }}download?from={{request.GET.from}}&to={{request.GET.to}}" class="button button5">Download</a>
+      <a href="downloadanalytics?state={{data.state_code}}&from={{request.GET.from}}&to={{request.GET.to}}" class="button button5">Download</a>
     </div>
 	</body>
 {% endblock %}
