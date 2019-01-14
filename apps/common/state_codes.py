@@ -67,7 +67,7 @@ STATES = {
         'footer_logo': '/static/images/KLP_logo_footer@2x.png',
         'state_code': 'gj',
         'lang_name': 'Gujarati',
-        'lang_key': 'gj'
+        'lang_key': 'gu'
     },
     'ap': {
         'name': 'Andhra Pradesh',
@@ -80,6 +80,6 @@ STATES = {
         'footer_logo': '/static/images/KLP_logo_footer@2x.png',
         'state_code': 'ap',
         'lang_name': 'Telugu',
-        'lang_key': 'ap'
+        'lang_key': 'te'
     },
 }
