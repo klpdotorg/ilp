@@ -2566,7 +2566,7 @@ GROUP BY survey_id, survey_tag,source,yearmonth,question_key,sg_name,institution
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     eboundary_id,
@@ -2619,7 +2619,7 @@ FROM(
         ans.answer,
         yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     eboundary_id,
@@ -2672,7 +2672,7 @@ FROM(
         ans.answer,
         yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     eboundary_id,
@@ -2742,7 +2742,7 @@ FROM(
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -2795,7 +2795,7 @@ FROM(
         ans.answer,
         yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -2849,7 +2849,7 @@ FROM(
         ans.answer,
         yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -2919,7 +2919,7 @@ FROM(
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_ans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -2970,7 +2970,7 @@ FROM(
         ans.answer,
         yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -3021,7 +3021,7 @@ FROM(
         ans.answer,
         yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,questiongroup_id,question_id,answer_option,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -3090,7 +3090,7 @@ FROM(
  */ 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_agg AS
-SELECT format('A%s_%s_%s_%s', survey_id,eboundary_id,questiongroup_id,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     eboundary_id,
@@ -3134,7 +3134,7 @@ FROM(
         eb.id,
         yearmonth)data
 union
-SELECT format('A%s_%s_%s_%s', survey_id,eboundary_id,questiongroup_id,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     eboundary_id,
@@ -3196,7 +3196,7 @@ FROM(
  */ 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_agg AS
-SELECT format('A%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -3239,7 +3239,7 @@ FROM(
         b.id,
         yearmonth)data
 union
-SELECT format('A%s_%s_%s_%s', survey_id,boundary_id,questiongroup_id,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     boundary_id,
@@ -3302,7 +3302,7 @@ FROM(
  */ 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_agg AS
-SELECT format('A%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -3340,7 +3340,7 @@ FROM(
         ag.institution_id, 
         yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s', survey_id,institution_id,questiongroup_id,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,questiongroup_id,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -3382,6 +3382,23 @@ FROM(
 ;
 
 
+/* View for getting the number of schools and students that arre mapped to a 
+ * survey in a boundary for an academic year.
+ * assessments_surveytaginstitutionmapping is used for getting the institutions
+ * that were mapped to the survey tag for a particular academic year and 
+ * assessments_surveytagclassmapping for studentgroup that was mapped for that
+ * year. 
+ * These two tables are used to get the counts for different academic years.
+ * For 1617 only academic year 1617 is used. 
+ * For 1718 both the 1617 and 1718 is used.
+ * For 1819: 1617, 1718 and 1819 is used.
+ * For 1617 and 1718 academic years we did the GKA only in Karanataka where we
+ * had the children data. Going forward we dont have the children data for the
+ * schools in our database. So we need to get one more union in place which is 
+ * there for academic year 1819, which counts schools that have no children 
+ * associated with it too.
+ * Note:- For new academic year the code of this view will have to be updated.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_tagmapping_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_tagmapping_agg AS
 SELECT distinct format('A%s_%s_%s', instmap.tag_id, b.id, instmap.academic_year_id) as id,
@@ -3600,6 +3617,19 @@ data.boundary_id,
 data.academic_year_id
 ;
 
+
+/* View for getting number of assessments that were answered correctly based
+ * on child's gender, for GP contests for a an election boundary per yearmonth
+ * All the child's answers have to be answered correctly for getting this count.
+ * The score that the child gets should be equal to the max_score that is stored
+ * in the questiongroup table.
+ * Question id 291 is used for storing Gender of the child.
+ * This is only for GP contests.
+ * Note:- For new GP contests the survey ids will need to be added.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_gender_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,gender,yearmonth) as id,
@@ -3636,7 +3666,7 @@ FROM
         and ans.question_id=q.id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
-        and qg.survey_id in (2,18)
+        and qg.survey_id in (2,18) --For GP contest
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
@@ -3645,6 +3675,18 @@ FROM
 GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
 
 
+/* View for getting number of assessments that were answered correctly based
+ * on child's gender, for GP contests for a an boundary per yearmonth
+ * All the child's answers have to be answered correctly for getting this count.
+ * The score that the child gets should be equal to the max_score that is stored
+ * in the questiongroup table.
+ * Question id 291 is used for storing Gender of the child.
+ * This is only for GP contests.
+ * Note:- For new GP contests the survey ids will need to be added.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_gender_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,gender,yearmonth) as id,
@@ -3690,6 +3732,18 @@ FROM
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
 
 
+/* View for getting number of assessments that were answered correctly based
+ * on child's gender, for GP contests for a an institution per yearmonth
+ * All the child's answers have to be answered correctly for getting this count.
+ * The score that the child gets should be equal to the max_score that is stored
+ * in the questiongroup table.
+ * Question id 291 is used for storing Gender of the child.
+ * This is only for GP contests.
+ * Note:- For new GP contests the survey ids will need to be added.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_gender_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,gender,yearmonth) as id,
@@ -3724,13 +3778,22 @@ FROM
         and ans.question_id=q.id
         and q.is_featured=true
         and stmap.survey_id=qg.survey_id
-        and qg.survey_id in (2,18)
+        and qg.survey_id in (2,18) -- GP Contests
         and ag.is_verified=true
     GROUP BY ag.id,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer,qg.name,ag.institution_id,qg.max_score
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)=qg.max_score)correctanswers
 GROUP BY survey_id, survey_tag,source,yearmonth,questiongroup_id,questiongroup_name,gender,institution_id ;
 
 
+/* View for getting number of assessments that were answered correctly for 
+ * student's gender, per classs for a given boundary and yearmonth
+ * The child has to get all answers correct to be counted. The number of 
+ * correct answers should be equal to max_score in the question group.
+ * This view is only for student level assessment.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_class_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_class_gender_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,sg_name,gender,yearmonth) as id,
@@ -3781,6 +3844,15 @@ FROM
 GROUP BY survey_id, survey_tag,source,yearmonth,sg_name,gender,boundary_id;
 
 
+/* View for getting number of assessments that were answered correctly for 
+ * student's gender, per classs for a given institution and yearmonth
+ * The child has to get all answers correct to be counted. The number of 
+ * correct answers should be equal to max_score in the question group.
+ * This view is only for student level assessment.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_class_gender_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_class_gender_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,sg_name,gender,yearmonth) as id,
@@ -3827,6 +3899,11 @@ FROM
 GROUP BY survey_id, survey_tag,source,yearmonth,sg_name,gender,institution_id;
 
 
+/* View for getting the number of types of election boundary that was a part
+ * of a survey for a boundary in a yearmonth.
+ * Union of two queries one for getting student level assessments and one for
+ * school assessments.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_electiontype_count CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_electiontype_count AS
 SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,yearmonth,const_ward_type) as id,
@@ -3855,7 +3932,6 @@ FROM(
         survey.id = qg.survey_id
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
-        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         and (s.mp_id = eb.id or s.mla_id = eb.id or s.ward_id = eb.id or s.gp_id = eb.id) 
@@ -3900,6 +3976,13 @@ FROM(
     GROUP BY survey.id, surveytag.tag_id, b.id, yearmonth, eb.const_ward_type_id)data
 ;
 
+
+/* View for getting the number of assessments per all the question details:
+ * (concept, microconcept_group, microconcept) for a election boundary per 
+ * yearmonth.
+ * Union between 2 queries, one for student assessment and other for institution
+ * assessment.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_qdetails_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,concept, microconcept_group, microconcept, yearmonth) as id,
@@ -4000,6 +4083,11 @@ FROM(
 ;
 
 
+/* View for getting the number of assessments per all the question details:
+ * (concept, microconcept_group, microconcept) for a boundary per yearmonth.
+ * Union between 2 queries, one for student assessment and other for institution
+ * assessment.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_qdetails_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,concept, microconcept_group, microconcept, yearmonth) as id,
@@ -4099,6 +4187,12 @@ FROM(
         yearmonth)data
 ;
 
+
+/* View for getting the number of assessments per all the question details:
+ * (concept, microconcept_group, microconcept) for a institution per yearmonth.
+ * Union between 2 queries, one for student assessment and other for institution
+ * assessment.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_qdetails_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept, microconcept_group, microconcept,yearmonth) as id,
@@ -4190,6 +4284,13 @@ FROM(
         yearmonth)data
 ;
 
+
+/* View for getting the number of assessments per all the question details:
+ * (concept, microconcept_group, microconcept) for question group per
+ * election boundary per yearmonth.
+ * Union between 2 queries, one for student assessment and other for institution
+ * assessment.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_qdetails_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4300,6 +4401,12 @@ FROM(
 ;
 
 
+/* View for getting the number of assessments per all the question details:
+ * (concept, microconcept_group, microconcept) for question group per
+ * boundary per yearmonth.
+ * Union between 2 queries, one for student assessment and other for institution
+ * assessment.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_qdetails_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4409,6 +4516,12 @@ FROM(
         yearmonth)data
 ;
 
+/* View for getting the number of assessments per all the question details:
+ * (concept, microconcept_group, microconcept) for question group per
+ * institution per yearmonth.
+ * Union between 2 queries, one for student assessment and other for institution
+ * assessment.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_qdetails_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4511,6 +4624,23 @@ FROM(
 ;
 
 
+/* View for getting number of assessments that were answered correctly for 
+ * question details (concept, microconceptgroup, microconcept) per survey for an
+ * election boundary.
+ * Number of correct assessments, yearmonth, concept, microconcept group, 
+ * microconcept, survey_id and election boundary. 
+ * For getting the correct answer the table assessments_questiongroupconcept is 
+ * used. This table has the passscore for the question details per question grp.
+ * A child's assessment for a set of question details and question group  is 
+ * considered correct if the value of the child's answer for those parameters
+ * is equal to or greater than the pass score specified in 
+ * assessments_questiongroupconcept table.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_qdetails_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4539,7 +4669,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table that stores pass score
         schools_student stu,
         schools_institution s,
         boundary_electionboundary eb
@@ -4559,7 +4689,7 @@ FROM
         and stu.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
         GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-        having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+        having sum(ans.answer::int)>=qgc.pass_score)correctanswers --correct ans check
 GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4588,7 +4718,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table that stores passscore
         schools_institution s,
         boundary_electionboundary eb
     WHERE
@@ -4607,10 +4737,27 @@ FROM
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
     GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --correct ans check
 GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept;
 
 
+/* View for getting number of assessments that were answered correctly for 
+ * question details (concept, microconceptgroup, microconcept) per survey for a
+ * boundary.
+ * Number of correct assessments, yearmonth, concept, microconcept group, 
+ * microconcept, survey_id and boundary. 
+ * For getting the correct answer the table assessments_questiongroupconcept is 
+ * used. This table has the passscore for the question details per question grp.
+ * A child's assessment for a set of question details and question group  is 
+ * considered correct if the value of the child's answer for those parameters
+ * is equal to or greater than the pass score specified in 
+ * assessments_questiongroupconcept table.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_qdetails_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4639,7 +4786,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table that stores pass score
         schools_student stu,
         schools_institution s,
         boundary_boundary b
@@ -4659,7 +4806,7 @@ FROM
         and stu.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-        having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+        having sum(ans.answer::int)>=qgc.pass_score)correctanswers --check for calculating pass score
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4688,7 +4835,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table for storing pass score
         schools_institution s,
         boundary_boundary b
     WHERE
@@ -4707,9 +4854,27 @@ FROM
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --logic for calculating correct ans
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept;
 
+
+/* View for getting number of assessments that were answered correctly for 
+ * question details (concept, microconceptgroup, microconcept) per survey for an
+ * institution.
+ * Number of correct assessments, yearmonth, concept, microconcept group, 
+ * microconcept, survey_id and institution. 
+ * For getting the correct answer the table assessments_questiongroupconcept is 
+ * used. This table has the passscore for the question details per question grp.
+ * A child's assessment for a set of question details and question group  is 
+ * considered correct if the value of the child's answer for those parameters
+ * is equal to or greater than the pass score specified in 
+ * assessments_questiongroupconcept table.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_qdetails_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4738,7 +4903,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table that stores pass score
         schools_student stu
     WHERE
         ans.answergroup_id=ag.id
@@ -4754,7 +4919,7 @@ FROM
         and ag.is_verified=true
         and ag.student_id = stu.id
         GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,stu.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-        having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+        having sum(ans.answer::int)>=qgc.pass_score)correctanswers --logic for getting correct ans logic
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4783,7 +4948,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc
+        assessments_questiongroupconcept qgc --table for getting pass score
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
@@ -4798,10 +4963,27 @@ FROM
         and qg.type_id='assessment'
         and ag.is_verified=true
     GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,ag.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --logic for getting correct ans
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept;
 
 
+/* View for getting number of assessments that were answered correctly for 
+ * question details (concept, microconceptgroup, microconcept) per questiongroup
+ * per survey for an election boundary.
+ * Number of correct assessments, yearmonth, concept, microconcept group, 
+ * microconcept, question group, survey_id and election boundary. 
+ * For getting the correct answer the table assessments_questiongroupconcept is 
+ * used. This table has the passscore for the question details per question grp.
+ * A child's assessment for a set of question details and question group  is 
+ * considered correct if the value of the child's answer for those parameters
+ * is equal to or greater than the pass score specified in 
+ * assessments_questiongroupconcept table.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_questiongroup_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_questiongroup_qdetails_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4834,7 +5016,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table that stores pass score
         schools_student stu,
         schools_institution s,
         boundary_electionboundary eb
@@ -4854,7 +5036,7 @@ FROM
     and stu.institution_id = s.id
     and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
     GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+    having sum(ans.answer::int)>=qgc.pass_score)correctanswers --correct ans logic
 GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4887,7 +5069,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table that store pass score
         schools_institution s,
         boundary_electionboundary eb
     WHERE
@@ -4906,10 +5088,27 @@ FROM
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
     GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --correct ans logic
 GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
 
 
+/* View for getting number of assessments that were answered correctly for 
+ * question details (concept, microconceptgroup, microconcept) per questiongroup
+ * per survey for a boundary.
+ * Number of correct assessments, yearmonth, concept, microconcept group, 
+ * microconcept, question group, survey_id and boundary. 
+ * For getting the correct answer the table assessments_questiongroupconcept is 
+ * used. This table has the passscore for the question details per question grp.
+ * A child's assessment for a set of question details and question group  is 
+ * considered correct if the value of the child's answer for those parameters
+ * is equal to or greater than the pass score specified in 
+ * assessments_questiongroupconcept table.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_qdetails_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4942,7 +5141,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table that stores pass score
         schools_student stu,
         schools_institution s,
         boundary_boundary b
@@ -4962,7 +5161,7 @@ FROM
     and stu.institution_id = s.id
     and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+    having sum(ans.answer::int)>=qgc.pass_score)correctanswers --logic for calculating correct ans
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -4995,7 +5194,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table that stores pass score
         schools_institution s,
         boundary_boundary b
     WHERE
@@ -5014,9 +5213,27 @@ FROM
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --logic for calculating correct ans
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
 
+
+/* View for getting number of assessments that were answered correctly for 
+ * question details (concept, microconceptgroup, microconcept) per questiongroup
+ * per survey for an institution.
+ * Number of correct assessments, yearmonth, concept, microconcept group, 
+ * microconcept, question group, survey_id and institution. 
+ * For getting the correct answer the table assessments_questiongroupconcept is 
+ * used. This table has the passscore for the question details per question grp.
+ * A child's assessment for a set of question details and question group  is 
+ * considered correct if the value of the child's answer for those parameters
+ * is equal to or greater than the pass score specified in 
+ * assessments_questiongroupconcept table.
+ * There are unions between two queries:- 1 for school asssessment and another
+ * for student assessment.
+ * Please note that if same survey id has multiple survey tags that are used 
+ * across sources then the survey_tag should be specified in the query else 
+ * the count will be doubled.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_qdetails_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -5049,7 +5266,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc,
+        assessments_questiongroupconcept qgc, --table for storing pass score
         schools_student stu
     WHERE
     ans.answergroup_id=ag.id
@@ -5065,7 +5282,7 @@ FROM
     and ag.is_verified=true
     and ag.student_id = stu.id
     GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,stu.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(ans.answer::int)>=qgc.pass_score)correctanswers
+    having sum(ans.answer::int)>=qgc.pass_score)correctanswers --correct ans logic
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
 union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
@@ -5098,7 +5315,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc
+        assessments_questiongroupconcept qgc --table for storing pass score
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
@@ -5113,11 +5330,15 @@ FROM
         and qg.type_id='assessment'
         and ag.is_verified=true
     GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --correct ans logic
 GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
 
 
-
+/* View for getting the number of types of election boundary that was a part
+ * of a survey for an election boundary in a yearmonth.
+ * Union of two queries one for getting student level assessments and one for
+ * school assessments.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_electiontype_count CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_eboundary_electiontype_count AS
 SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,yearmonth,const_ward_type) as id,
@@ -5151,6 +5372,11 @@ FROM(
         )data;
 
 
+/* View for getting the number of types of election boundary that was a part
+ * of a survey for a institution in a yearmonth.
+ * Union of two queries one for getting student level assessments and one for
+ * school assessments.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_electiontype_count CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_electiontype_count AS
 SELECT format('A%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,yearmonth,const_ward_type) as id,
@@ -5218,4 +5444,3 @@ FROM(
         and ag.is_verified=true
     GROUP BY survey.id, surveytag.tag_id, s.id, yearmonth, eb.const_ward_type_id)data
 ;
-
