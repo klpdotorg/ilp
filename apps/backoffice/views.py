@@ -1,4 +1,6 @@
 import csv
+import time
+import threading
 
 from django.shortcuts import render
 from django.views import View
@@ -6,7 +8,8 @@ from django.http import HttpResponse
 
 from backoffice.forms import ExportForm
 from backoffice.utils import (
-    get_assessment_field_data, get_assessment_field_names
+    get_assessment_field_data, get_assessment_field_names,
+    create_csv_and_move
 )
 from boundary.models import BoundaryStateCode
 from assessments.models import Survey
@@ -31,19 +34,15 @@ class BackOfficeView(View):
             field_names = get_assessment_field_names(
                 data['survey']
             )
-            field_data = get_assessment_field_data(
-                data['survey'], data['district'],
-                data['block'], data['cluster'],
-                data['school'], data['year'], data['month']
-            )
-
-            response = HttpResponse(content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename="data.csv"'
-
-            writer = csv.DictWriter(response, fieldnames=field_names)
-            writer.writeheader()
-            for datum in field_data:
-                writer.writerow(datum)
+            try:
+                threading.Thread(target=create_csv_and_move, args=(
+                    data['survey'], data['district'], data['block'],
+                    data['cluster'], data['school'], data['year'],
+                    data['month'], 'data.csv', field_names
+                )).start()
+            except:
+                print("Error: unable to start thread")
+            return render(request, self.template_name)
         else:
             return render(request, self.template_name, 
                           {'form_errors': form.errors})
