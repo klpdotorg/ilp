@@ -4,6 +4,20 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form_errors }}
+
+        {% if file_url %}
+            <div id="file-url">
+                Your file is being generated... 
+                <a id="download-link" href={{file_url}}></a>
+            </div>
+            <br>
+        {% endif %}
+
+        {% if file_error %}
+            {{ file_error }}
+            <br>
+        {% endif %}
+
         <label>Select State</label>
           <select id="sel_state" name="state" class="form-control">
             <option value="">Select State</option>                    
@@ -177,5 +191,30 @@
                 return false
             }
         });
+
     </script>
+    {% if file_url %}
+        <script>
+            
+        request_url = '{{ file_url }}';
+        var interval = setInterval(function(){
+            console.log("Request Sent");
+            $.ajax({
+                url: request_url,
+                dataType: "json",
+                success: function(data){
+                },
+                error: function (xhr, ajaxOptions, thrownError){
+                    if(xhr.status==404) {
+                        console.log("Return 404, wait till file is processed.")
+                    }
+                    if(xhr.status==200) {
+                        document.getElementById('download-link').innerHTML = "Download CSV";
+                        clearInterval(interval);
+                    }
+                }
+            })
+        }, 5000)
+        </script>
+    {% endif %}
 {% endblock extra_js %}

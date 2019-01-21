@@ -1,5 +1,4 @@
-import csv
-import time
+import uuid
 import threading
 
 from django.shortcuts import render
@@ -7,12 +6,12 @@ from django.views import View
 from django.http import HttpResponse
 
 from backoffice.forms import ExportForm
+from django.conf import settings
+
 from backoffice.utils import (
-    get_assessment_field_data, get_assessment_field_names,
-    create_csv_and_move
+    get_assessment_field_names, create_csv_and_move
 )
 from boundary.models import BoundaryStateCode
-from assessments.models import Survey
 
 
 class BackOfficeView(View):
@@ -34,16 +33,23 @@ class BackOfficeView(View):
             field_names = get_assessment_field_names(
                 data['survey']
             )
+            file_id = str(uuid.uuid1())
             try:
                 threading.Thread(target=create_csv_and_move, args=(
                     data['survey'], data['district'], data['block'],
                     data['cluster'], data['school'], data['year'],
-                    data['month'], 'data.csv', field_names
+                    data['month'], file_id + '.csv', field_names
                 )).start()
-            except:
-                print("Error: unable to start thread")
-            return render(request, self.template_name)
-        else:
-            return render(request, self.template_name, 
-                          {'form_errors': form.errors})
-        return response
+            except Exception as e:
+                return render(
+                    request, self.template_name,
+                    {'file_error': (
+                        "There is an error in generating the file:", e)}
+                )
+            file_url = (
+                settings.MEDIA_URL + 'backoffice-data/' + file_id + '.csv'
+            )
+            return render(request, self.template_name, {'file_url': file_url})
+        return render(
+            request, self.template_name, {'form_errors': form.errors}
+        )

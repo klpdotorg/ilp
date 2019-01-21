@@ -97,7 +97,7 @@ def create_csv_and_move(
         survey, district, block, cluster,
         school, year, month
     )
-    with open(('/tmp/' + file_name), 'w') as csvfile:
+    with open(('media/backoffice-data/' + file_name), 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=field_names)
         writer.writeheader()
         writer.writerows(field_data)
