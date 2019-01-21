@@ -1,15 +1,17 @@
-import csv
+import uuid
+import threading
 
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 
 from backoffice.forms import ExportForm
+from django.conf import settings
+
 from backoffice.utils import (
-    get_assessment_field_data, get_assessment_field_names
+    get_assessment_field_names, create_csv_and_move
 )
 from boundary.models import BoundaryStateCode
-from assessments.models import Survey
 
 
 class BackOfficeView(View):
@@ -31,20 +33,23 @@ class BackOfficeView(View):
             field_names = get_assessment_field_names(
                 data['survey']
             )
-            field_data = get_assessment_field_data(
-                data['survey'], data['district'],
-                data['block'], data['cluster'],
-                data['school'], data['year'], data['month']
+            file_id = str(uuid.uuid1())
+            try:
+                threading.Thread(target=create_csv_and_move, args=(
+                    data['survey'], data['district'], data['block'],
+                    data['cluster'], data['school'], data['year'],
+                    data['month'], file_id + '.csv', field_names
+                )).start()
+            except Exception as e:
+                return render(
+                    request, self.template_name,
+                    {'file_error': (
+                        "There is an error in generating the file:", e)}
+                )
+            file_url = (
+                settings.MEDIA_URL + 'backoffice-data/' + file_id + '.csv'
             )
-
-            response = HttpResponse(content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename="data.csv"'
-
-            writer = csv.DictWriter(response, fieldnames=field_names)
-            writer.writeheader()
-            for datum in field_data:
-                writer.writerow(datum)
-        else:
-            return render(request, self.template_name, 
-                          {'form_errors': form.errors})
-        return response
+            return render(request, self.template_name, {'file_url': file_url})
+        return render(
+            request, self.template_name, {'form_errors': form.errors}
+        )
