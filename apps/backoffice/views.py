@@ -1,4 +1,5 @@
 import uuid
+import os
 import threading
 
 from django.shortcuts import render
@@ -33,6 +34,11 @@ class BackOfficeView(View):
                 data['survey']
             )
             file_id = str(uuid.uuid1())
+
+            file_path = settings.MEDIA_ROOT + '/backoffice-data/'
+            if not os.path.exists(file_path):
+                os.makedirs(file_path)
+
             try:
                 threading.Thread(target=create_csv_and_move, args=(
                     data['survey'], data['district'], data['block'],
