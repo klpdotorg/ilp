@@ -1,6 +1,7 @@
-import time
+import os
 import csv
-import _thread
+
+from django.conf import settings
 
 from assessments.models import(
     AnswerGroup_Institution, QuestionGroup
@@ -90,14 +91,19 @@ def get_assessment_field_data(
 
 def create_csv_and_move(
         survey, district, block, cluster, school,
-        year, month, file_name, field_names, file_path=None,
+        year, month, file_name, field_names,
+        file_path=settings.MEDIA_ROOT + '/backoffice-data/',
         create_csv_func=get_assessment_field_data
 ):
     field_data = create_csv_func(
         survey, district, block, cluster,
         school, year, month
     )
-    with open(('media/backoffice-data/' + file_name), 'w') as csvfile:
+
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+
+    with open((file_path + file_name), 'w') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=field_names)
         writer.writeheader()
         writer.writerows(field_data)

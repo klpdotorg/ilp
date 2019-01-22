@@ -3,15 +3,14 @@ import threading
 
 from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponse
-
-from backoffice.forms import ExportForm
 from django.conf import settings
 
+from boundary.models import BoundaryStateCode
+
+from backoffice.forms import ExportForm
 from backoffice.utils import (
     get_assessment_field_names, create_csv_and_move
 )
-from boundary.models import BoundaryStateCode
 
 
 class BackOfficeView(View):
