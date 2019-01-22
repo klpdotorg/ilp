@@ -5,7 +5,6 @@ from rest_framework.filters import BaseFilterBackend
 from .models import (
     AnswerGroup_Institution, Survey
 )
-from assessments.models import Source
 
 
 class AnswersSurveyTypeFilter(django_filters.FilterSet):
