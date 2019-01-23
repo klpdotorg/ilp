@@ -186,7 +186,7 @@
             var year = $('select[name=year]').val();
             var month = $('select[name=month]').val();
 
-            if (!state || !survey || !year) {
+            if (!state || !survey || !year || !month) {
                 alert("Please check - State, Survey, Year, Month is filled.");
                 return false
             }
