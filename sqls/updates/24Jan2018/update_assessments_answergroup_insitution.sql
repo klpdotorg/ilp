@@ -1,0 +1,41 @@
+--update assessments_answergroup_institution for questiongroup_id=45
+update assessments_answergroup_institution set institution_id=35928 where id in (1450652);
+update assessments_answergroup_institution set institution_id=35911 where id in (1450653,1450654,1450655,1450656);
+update assessments_answergroup_institution set institution_id=35908 where id in (1450657,1450658,1450659);
+update assessments_answergroup_institution set institution_id=35910 where id in (1450660,1450661);
+update assessments_answergroup_institution set institution_id=35913 where id in (1450671,1450672,1450673,1450674);
+update assessments_answergroup_institution set institution_id=35912 where id in (1450675,1450676,1450677,1450678,1450679,1450680,1450681,1450682,1450683,1450684,1450685,1450686);
+update assessments_answergroup_institution set institution_id=35906 where id in (1450687,1450688);
+update assessments_answergroup_institution set institution_id=36228 where id in (1450689,1450690);
+update assessments_answergroup_institution set institution_id=36192 where id in (1450691);
+update assessments_answergroup_institution set institution_id=36649 where id in (1450692,1450693,1450694,1450695,1450696);
+update assessments_answergroup_institution set institution_id=36227 where id in (1450697,1450698,1450699,1450700);
+update assessments_answergroup_institution set institution_id=36211 where id in (1450701,1450702,1450703,1450704,1450705,1450706);
+update assessments_answergroup_institution set institution_id=36007 where id in (1450707,1450708,1450709,1450710);
+update assessments_answergroup_institution set institution_id=36208 where id in (1450711,1450712,1450713,1450714,1450715,1450716);
+update assessments_answergroup_institution set institution_id=36905 where id in (1450754,1450755,1450756,1450757,1450789,1450790);
+
+--update assessments_answergroup_institution for questiongroup_id=46
+update assessments_answergroup_institution set institution_id=35928 where id in (1451525,1451526);
+update assessments_answergroup_institution set institution_id=35908 where id in (1451527,1451528,1451529,1451530,1451531,1451532,1451533);
+update assessments_answergroup_institution set institution_id=35913 where id in (1451543);
+update assessments_answergroup_institution set institution_id=35912 where id in (1451544,1451545,1451546,1451547,1451548,1451549,1451550,1451551,1451552,1451553,1451554);
+update assessments_answergroup_institution set institution_id=35906 where id in (1451555,1451556,1451557);
+update assessments_answergroup_institution set institution_id=36228 where id in (1451558,1451559,1451560);
+update assessments_answergroup_institution set institution_id=36192 where id in (1451561,1451562,1451563,1451564,1451565);
+update assessments_answergroup_institution set institution_id=36649 where id in (1451566,1451567,1451568);
+update assessments_answergroup_institution set institution_id=36227 where id in (1451569,1451570,1451571,1451572);
+update assessments_answergroup_institution set institution_id=36211 where id in (1451573,1451574,1451575,1451576);
+update assessments_answergroup_institution set institution_id=36003 where id in (1451577,1451578);
+update assessments_answergroup_institution set institution_id=36007 where id in (1451579,1451580,1451581,1451582);
+update assessments_answergroup_institution set institution_id=36208 where id in (1451583,1451584,1451585,1451586);
+update assessments_answergroup_institution set institution_id=36221 where id in (1451587);
+update assessments_answergroup_institution set institution_id=36905 where id in (1451638,1451639,1451640,1451641,1451642,1451643,1451644,1451645,1451646,1451647);
+
+--update assessments_answergroup_institution for questiongroup_id=47
+update assessments_answergroup_institution set institution_id=35908 where id in (1452435,1452436,1452437,1452438,1452439,1452440,1452441,1452442);
+update assessments_answergroup_institution set institution_id=35912 where id in (1452448,1452449,1452450,1452451,1452452,1452453,1452454,1452455,1452456,1452457,1452458,1452459,1452460,1452461);
+update assessments_answergroup_institution set institution_id=36221 where id in (1452476,1452477,1452478,1452479,1452480,1452481,1452482,1452483,1452484,1452485,1452486,1452487,1452488,1452489,1452490);
+update assessments_answergroup_institution set institution_id=36227 where id in (1452491,1452492,1452493);
+update assessments_answergroup_institution set institution_id=36905 where id in (1452532,1452533,1452534,1452535,1452536,1452537,1452538,1452539,1452540,1452541,1452542,1452543,1452544,1452545,1452546);
+
