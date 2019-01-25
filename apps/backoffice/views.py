@@ -58,3 +58,13 @@ class BackOfficeView(View):
         return render(
             request, self.template_name, {'form_errors': form.errors}
         )
+
+
+class GPContestValidatorView(View):
+    """
+    View that validates GP contest raw data excel file
+    """
+    template_name = 'backoffice/gpcontest_validator.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})

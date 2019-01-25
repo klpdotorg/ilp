@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>KLP Back Office</title>
+    <title>{% block page_title %}{% endblock page_title %} - KLP Back Office</title>
 
     <!-- Bootstrap core CSS-->
     <link href="{% static 'startbootstrap-sb-admin/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -27,7 +27,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="/backoffice/">ILP Backoffice</a>
+      <a class="navbar-brand mr-1" href="#">ILP Backoffice</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -66,15 +66,15 @@
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/backoffice/">
+          <a class="nav-link" href="/backoffice/export">
             <i class="fas fa-fw fa-download"></i>
-            <span>Dashboard</span>
+            <span>Data Export</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/backoffice/">
+          <a class="nav-link" href="/backoffice/import/test">
             <i class="fas fa-fw fa-upload"></i>
-            <span>GPC Data Validate</span>
+            <span>GPC Data Validator</span>
           </a>
         </li>
       </ul>
@@ -88,12 +88,14 @@
             <li class="breadcrumb-item">
               <a href="/backoffice/">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Assessment Data Export</li>
+            {% block breadcrumb %}
+            {% endblock breadcrumb %}
           </ol>
 
           <!-- Page Content -->
           {% block content %}
           {% endblock content %}
+
         </div>
         <!-- /.container-fluid -->
 
