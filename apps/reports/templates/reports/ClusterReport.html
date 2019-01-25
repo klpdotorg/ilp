@@ -1,25 +1,27 @@
 {% extends "./base.html" %}
+{% load i18n %}
+
 <!-- Report title-->
-{%block report_title%}GKA : {{data.cluster}} Cluster Report{%endblock report_title%}
+{%block report_title%}{%blocktrans with cluster_name=data.cluster%}GKA : {{cluster_name}} Cluster Report{%endblocktrans%}{%endblock report_title%}
 <!-- Report summary -->
 {%block report_summary_section%}
-  <strong> Cluster Name : </strong><span class="cap">{{data.cluster}}</span>
+  <strong> {%trans "Cluster Name"%} : </strong><span class="cap">{{data.cluster}}</span>
   <span class="cap" style="float:right">
-    <strong>Academic Year : </strong>{{data.academic_year}}
+    <strong>{%trans "Academic Year"%} : </strong>{{data.academic_year}}
   </span>
   <br>
-  <strong> Block Name : </strong><span class="cap">{{data.block}}</span>
+  <strong> {%trans "Block Name"%} : </strong><span class="cap">{{data.block}}</span>
   <span style="float:right" class="cap">
-    <strong>Report Generated on : </strong>{{data.today}}
+    <strong>{%trans "Report Generated on"%} : </strong>{{data.today}}
   </span>
   <br>
-  <strong> District Name : </strong><span class="cap">{{data.district}}</span>
+  <strong> {%trans "District Name"%} : </strong><span class="cap">{{data.district}}</span>
   <br>
-  <strong> No.of schools : </strong><span class="cap">{{data.no_schools}}</span>
+  <strong> {%trans "No.of schools"%} : </strong><span class="cap">{{data.no_schools}}</span>
   <br>
 {%endblock report_summary_section%}
 <!-- End of report summary -->
 <!-- NO GKA by child boundary section for clusters. SKIP-->
 <!-- GP contest section fill-ins-->
-{%block gpc_performance_title%}Performance by School{%endblock gpc_performance_title%}
-{%block child_boundary_col_header_name%}School Name{%endblock child_boundary_col_header_name%}
+{%block gpc_performance_title%}{%trans "Performance by School"%}{%endblock gpc_performance_title%}
+{%block child_boundary_col_header_name%}{%trans "School Name"%}{%endblock child_boundary_col_header_name%}

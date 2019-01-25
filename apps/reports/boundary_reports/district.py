@@ -51,7 +51,6 @@ class DistrictReport(BaseReport):
         super().__init__(**kwargs)
 
     def parse_args(self, args):
-        import pdb; pdb.set_trace()
         arguments = self.parser.parse_args(args)
         self.district_name = arguments.district_name
         self.report_from = arguments.report_from
@@ -60,10 +59,6 @@ class DistrictReport(BaseReport):
 
    
     def get_data(self):
-        print("Generate GKA: %s", self.generate_gka)
-        print("Generate GP: %s", self.generate_gp)
-        print("Generate HH: %s", self.generate_hh)
-
         dates = [self.report_from, self.report_to] # [2016-06, 2017-03]
         report_generated_on = datetime.datetime.now().date().strftime('%d-%m-%Y')
 

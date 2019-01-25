@@ -42,8 +42,11 @@ from reports.helpers import calc_stud_performance
 class GPMathContestReport(BaseReport):
     parameters = ('gp_code', )
     def __init__(self, gp_code=None, report_from=None, report_to=None, **kwargs):
-        super().__init__(**kwargs)
-        self.gp_code = int(gp_code)
+       
+        if gp_code is not None:
+            self.gp_code = int(gp_code)
+        else:
+            self.gp_code=None
         self.report_from = report_from
         self.report_to = report_to
         self.params = dict(gp_code=self.gp_code, report_from=self.report_from, report_to=self.report_to)
@@ -54,6 +57,7 @@ class GPMathContestReport(BaseReport):
         self._template_path = 'GPMathContestReport.html'
         self._type = 'GPMathContestReport'
         self.sms_template ="2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ"
+        super().__init__(**kwargs)
         
 
     def parse_args(self, args):
@@ -96,7 +100,7 @@ class GPMathContestReport(BaseReport):
             except:
                 print("No household community survey data available for GP ", gp_obj.const_ward_name)
 
-        num_contests_agg = SurveyEBoundaryElectionTypeCount.objects.filter(survey_id=2)\
+        num_contests_agg = SurveyEBoundaryElectionTypeCount.objects.filter(survey_id=self.gpcontest_survey_id)\
                                                .filter(eboundary_id=gp_obj)\
                                                .filter(yearmonth__gte = self.report_from)\
                                                .filter(yearmonth__lte = self.report_to)\
@@ -123,7 +127,7 @@ class GPMathContestReport(BaseReport):
             'boys_zero':male_zero_ans_per_gp,\
             'boys_100':male_correct,\
             'girls_100':female_correct,\
-            'household':survey,
+            'household':survey,\
             'report_type': 'gp'}
         self.data = {**self.output, **self.common_data}
         return self.data
@@ -132,12 +136,12 @@ class GPMathContestReport(BaseReport):
         gp_schools = Institution.objects.filter(gp=gp_obj).count() # Number of schools in GP
 
         # Get the answergroup_institution from gp name and academic year
-        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__gp=gp_obj,survey_id=2)\
+        aggregates = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id__gp=gp_obj,survey_id=self.gpcontest_survey_id)\
                                                             .filter(yearmonth__gte = self.report_from)\
                                                             .filter(yearmonth__lte = self.report_to)
         gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
                 institution_id__gp=gp_obj, 
-                survey_id=2, 
+                survey_id=self.gpcontest_survey_id, 
                 yearmonth__gte=self.report_from,
                 yearmonth__lte=self.report_to)        
         
@@ -151,25 +155,25 @@ class GPMathContestReport(BaseReport):
         if num_boys is not None and num_girls is not None:
             number_of_students = num_boys + num_girls
         male_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
-            eboundary_id=gp_obj, survey_id=2)\
+            eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
             .filter(yearmonth__gte = self.report_from)\
             .filter(yearmonth__lte = self.report_to)\
             .filter(gender='Male')\
             .aggregate(male_correct=Sum('num_assessments'))
         female_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
-            eboundary_id=gp_obj, survey_id=2)\
+            eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
             .filter(yearmonth__gte = self.report_from)\
             .filter(yearmonth__lte = self.report_to)\
             .filter(gender='Female')\
             .aggregate(female_correct=Sum('num_assessments'))
         male_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
-            eboundary_id=gp_obj, survey_id=2)\
+            eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
             .filter(yearmonth__gte = self.report_from)\
             .filter(yearmonth__lte = self.report_to)\
             .filter(gender='Male')\
             .aggregate(male_total=Sum('num_assessments'))
         female_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
-            eboundary_id=gp_obj, survey_id=2)\
+            eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
             .filter(yearmonth__gte = self.report_from)\
             .filter(yearmonth__lte = self.report_to)\
             .filter(gender='Female')\
@@ -239,7 +243,7 @@ class GPMathContestReportSummarized(GPMathContestReport):
                    self.get_basic_GP_data(gp_obj)
         gradewise_gpc = self.get_boundary_gpc_gradewise_agg(gp_obj, self.report_from, self.report_to)
         survey = self.getHouseholdSurvey(gp_obj, dates)
-        self.data =  {
+        self.output =  {
                         'gp_name': gp.title(),\
                         'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
                         'block':block,\
@@ -256,6 +260,8 @@ class GPMathContestReportSummarized(GPMathContestReport):
                         'boys_zero':male_zero_ans_per_gp,\
                         'boys_100':male_correct,\
                         'girls_100':female_correct,\
-                        'household':survey}
+                        'household':survey,\
+                        'report_type': 'gpsummarized'}
+        self.data = {**self.output, **self.common_data}
         return self.data
 
