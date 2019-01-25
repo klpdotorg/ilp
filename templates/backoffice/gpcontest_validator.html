@@ -8,11 +8,24 @@
 
 {% block content %}
     <form action="" method="post">
+            
+        <div class="alert alert-info">Please upload your completed data entry file here for quality check.</div>
 
+        <div class="form-group">
+            <input type="file" class="form-control-file" name="gpc_data">
+        </div>
 
+        <button type="submit" class="btn btn-success">Upload &amp; Validate</button>
 
         <div class="row">
             <hr>
         </div>
+
     </form>
+
+    <small>
+        <strong>Please note:</strong>
+        The file has to be in <a href="#">this</a> format. <br>
+        Send the file to KLP team after passing all quality checks.
+    </small>
 {% endblock content %}
