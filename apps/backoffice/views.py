@@ -68,3 +68,13 @@ class GPContestValidatorView(View):
 
     def get(self, request):
         return render(request, self.template_name, {})
+
+    def post(self, request):
+        return render(
+            request,
+            self.template_name,
+            {
+                'errors': ['Unknown error occured. Please contact KLP team at dev@klp.org.in'],
+                'success': ['All rows passed']
+            }
+        )
