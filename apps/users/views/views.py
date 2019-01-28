@@ -195,11 +195,22 @@ class MobileValidateWithOtpView(generics.GenericAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
-            user.sms_verification_pin = None
+            # user.sms_verification_pin = None
             user.is_active = True
             user.is_mobile_verified = True
             user.save()
-            return Response({'success': 'ok'}, status=status.HTTP_200_OK)
+
+            # Send User object after OTP updated. This was done to make it easy
+            # for Konnect users to login after signup.
+            # Earlier Konnect users have to login after verifying their mobile
+            # number.
+            # With this change, the user is taken straight to the dashboard
+            # after signing up.
+            data = UserSerializer(user).data
+            data['token'] = login_user(self.request, user).key
+            data['success'] = 'ok'
+
+            return Response(data, status=status.HTTP_200_OK)
 
 
 class OtpGenerateView(generics.GenericAPIView):
