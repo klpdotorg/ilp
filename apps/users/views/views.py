@@ -14,7 +14,11 @@ from users.serializers import (
     OtpGenerateSerializer,
     OtpPasswordResetSerializer
 )
-from users.utils import login_user, check_source_and_add_user_to_group
+from users.utils import (
+    login_user,
+    check_source_and_add_user_to_group,
+    activate_user_and_login
+)
 from users.permission import IsAdminOrIsSelf, AllowAny
 import logging
 
@@ -195,21 +199,7 @@ class MobileValidateWithOtpView(generics.GenericAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
-            # user.sms_verification_pin = None
-            user.is_active = True
-            user.is_mobile_verified = True
-            user.save()
-
-            # Send User object after OTP updated. This was done to make it easy
-            # for Konnect users to login after signup.
-            # Earlier Konnect users have to login after verifying their mobile
-            # number.
-            # With this change, the user is taken straight to the dashboard
-            # after signing up.
-            data = UserSerializer(user).data
-            data['token'] = login_user(self.request, user).key
-            data['success'] = 'ok'
-
+            data = activate_user_and_login(request, user)
             return Response(data, status=status.HTTP_200_OK)
 
 
@@ -275,9 +265,5 @@ class OtpPasswordResetView(generics.GenericAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         else:
-            user.sms_verification_pin = None
-            user.set_password(form_data['password'])
-            user.is_active = True
-            user.is_mobile_verified = True
-            user.save()
-            return Response({'success': 'ok'}, status=status.HTTP_200_OK)
+            data = activate_user_and_login(request, user, form_data['password'])
+            return Response(data, status=status.HTTP_200_OK)
