@@ -58,26 +58,26 @@ Class,District,Block,Date,KLP ID,Name of the school,GP ID,Grama Panchayat,GP Pre
 4,Raichur,Manvi,03/01/2019,24063,GOVT.LOWER PRIMARY SCHOOL DPEP MALLADAGUDDA CAMP,6168,Malladagudda,Kurumappa,Veeresha,Male,1,1,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,16
 4,Raichur,Manvi,03/01/2019,24063,GOVT.LOWER PRIMARY SCHOOL DPEP MALLADAGUDDA CAMP,6168,Malladagudda,Kurumappa,Kaveri,Female,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,0,1,13
 4,Raichur,Manvi,03/01/2019,24063,GOVT.LOWER PRIMARY SCHOOL DPEP MALLADAGUDDA CAMP,6168,Malladagudda,Kurumappa,Kariyappa,Male,0,0,1,0,1,0,0,0,0,1,1,1,1,0,0,0,0,1,0,1,8
-4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,744,Anur,Nagarathnamma,Vanitha,Female,1,1,0,1,1,0,1,1,1,0,1,0,1,1,1,1,0,1,0,0,13
-4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,744,Anur,Nagarathnamma,Manasa,Female,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
-4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,744,Anur,Nagarathnamma,Rahul,Male,1,0,0,1,1,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,8
-4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,744,Anur,Nagarathnamma,Kishore a n,Male,1,0,1,1,1,1,1,1,1,0,1,0,1,1,0,1,0,1,0,1,14
-4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,744,Anur,Nagarathnamma,Sudana,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,744,Anur,Nagarathnamma,Meghana,Female,1,0,0,1,1,1,1,1,1,0,1,0,1,0,1,0,0,0,0,0,10
-4,Chikkaballapura,Chintamani,27/12/2018,11058,GOVERNMENT HIGHER PRIMARY SCHOOL DODDA BOMMANAHALLI,744,Anur,Nagarathnamma,Navyashree,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,18
-4,Chikkaballapura,Chintamani,27/12/2018,11058,GOVERNMENT HIGHER PRIMARY SCHOOL DODDA BOMMANAHALLI,744,Anur,Nagarathnamma,Bindu,Female,1,1,0,1,1,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,12
-4,Chikkaballapura,Chintamani,27/12/2018,11070,GHPS PANASACHOWDADENAHALLI,744,Anur,Nagarathnamma,Charan,Male,1,0,0,1,1,0,0,1,1,0,1,0,1,1,0,0,0,0,0,0,8
-4,Chikkaballapura,Chintamani,27/12/2018,11070,GHPS PANASACHOWDADENAHALLI,744,Anur,Nagarathnamma,Vinaykumar a,Male,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,17
-4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,744,Anur,Nagarathnamma,Jayanthi a,Female,1,1,0,1,1,1,0,1,1,0,1,0,1,1,1,0,0,1,0,1,13
-4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,744,Anur,Nagarathnamma,Madhu m,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,1,15
-4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,744,Anur,Nagarathnamma,Bhaskar,Male,1,0,1,1,1,1,0,1,1,1,0,0,1,1,0,0,0,1,1,1,13
-4,Chikkaballapura,Chintamani,27/12/2018,11073,GLPS VISHWANATHAPURA,744,Anur,Nagarathnamma,Amrutha v b,Female,1,0,0,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,15
-4,Chikkaballapura,Chintamani,27/12/2018,11073,GLPS VISHWANATHAPURA,744,Anur,Nagarathnamma,Ashwini v b,Female,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,0,0,15
-4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,744,Anur,Nagarathnamma,Nandhan prasad,Male,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,0,16
-4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,744,Anur,Nagarathnamma,Varsha,Female,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
-4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,744,Anur,Nagarathnamma,Goutami,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,744,Anur,Nagarathnamma,Gagana,Female,0,0,0,1,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,5
-4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,744,Anur,Nagarathnamma,Narayana swamy,Male,0,0,1,1,1,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,7
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Vanitha,Female,1,1,0,1,1,0,1,1,1,0,1,0,1,1,1,1,0,1,0,0,13
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Manasa,Female,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Rahul,Male,1,0,0,1,1,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,8
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Kishore a n,Male,1,0,1,1,1,1,1,1,1,0,1,0,1,1,0,1,0,1,0,1,14
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Sudana,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Meghana,Female,1,0,0,1,1,1,1,1,1,0,1,0,1,0,1,0,0,0,0,0,10
+4,Chikkaballapura,Chintamani,27/12/2018,11058,GOVERNMENT HIGHER PRIMARY SCHOOL DODDA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Navyashree,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,18
+4,Chikkaballapura,Chintamani,27/12/2018,11058,GOVERNMENT HIGHER PRIMARY SCHOOL DODDA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Bindu,Female,1,1,0,1,1,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,12
+4,Chikkaballapura,Chintamani,27/12/2018,11070,GHPS PANASACHOWDADENAHALLI,6283,Anoor,Nagarathnamma,Charan,Male,1,0,0,1,1,0,0,1,1,0,1,0,1,1,0,0,0,0,0,0,8
+4,Chikkaballapura,Chintamani,27/12/2018,11070,GHPS PANASACHOWDADENAHALLI,6283,Anoor,Nagarathnamma,Vinaykumar a,Male,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,17
+4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,6283,Anoor,Nagarathnamma,Jayanthi a,Female,1,1,0,1,1,1,0,1,1,0,1,0,1,1,1,0,0,1,0,1,13
+4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,6283,Anoor,Nagarathnamma,Madhu m,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,1,15
+4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,6283,Anoor,Nagarathnamma,Bhaskar,Male,1,0,1,1,1,1,0,1,1,1,0,0,1,1,0,0,0,1,1,1,13
+4,Chikkaballapura,Chintamani,27/12/2018,11073,GLPS VISHWANATHAPURA,6283,Anoor,Nagarathnamma,Amrutha v b,Female,1,0,0,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,15
+4,Chikkaballapura,Chintamani,27/12/2018,11073,GLPS VISHWANATHAPURA,6283,Anoor,Nagarathnamma,Ashwini v b,Female,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,0,0,15
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Nandhan prasad,Male,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,0,16
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Varsha,Female,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Goutami,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Gagana,Female,0,0,0,1,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,5
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Narayana swamy,Male,0,0,1,1,1,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,7
 4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Abhishek,Male,1,1,0,1,1,1,1,0,1,0,1,1,0,1,0,0,0,1,1,0,12
 4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Manoja kyasaki,Male,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,3
 4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Mahesha kubbala,Male,0,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,0,0,11
