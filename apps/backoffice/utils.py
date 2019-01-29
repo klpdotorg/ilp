@@ -28,8 +28,8 @@ def get_assessment_field_names(survey):
     for question_group in question_groups:
         questions = question_group.questions.all()
         for q in questions:
-            if q.microconcept_id not in field_names:
-                field_names.append(q.microconcept_id)
+            if q.microconcept.description not in field_names:
+                field_names.append(q.microconcept.description)
     return field_names
 
 
@@ -84,7 +84,7 @@ def get_assessment_field_data(
         }
 
         for answer in answers:
-            field_datum[answer.question.microconcept_id] = answer.answer
+            field_datum[answer.question.microconcept.description] = answer.answer
         field_data.append(field_datum)
     return field_data
 
