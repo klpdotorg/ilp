@@ -1,0 +1,23 @@
+Class,District,Block,Date,KLP ID,Name of the school,GP ID,Grama Panchayat,GP President Name,Student Name,Sex ( Male / Female ),Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Total
+5,Balangir,Balangir,06/12/2018,171142,JHARAIBAHALI GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Jyotish bagarti,Male,1,1,1,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1,8
+5,Balangir,Balangir,06/12/2018,171142,JHARAIBAHALI GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Thabira bagarti,Male,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,6
+5,Balangir,Balangir,06/12/2018,171142,JHARAIBAHALI GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Chhayakanti bhue,Female,1,0,1,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,1,1,11
+5,Balangir,Balangir,06/12/2018,171142,JHARAIBAHALI GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Alok mahanand,Male,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,7
+5,Balangir,Balangir,06/12/2018,171142,JHARAIBAHALI GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Nilamani kumbhar,Male,1,0,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,1,1,7
+5,Balangir,Balangir,06/12/2018,171142,JHARAIBAHALI GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Saumyaranjan bag,Male,1,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0,1,1,1,0,9
+5,Balangir,Balangir,06/12/2018,171142,JHARAIBAHALI GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Dharamananda chandan,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Balangir,Balangir,06/12/2018,145144,KUNDAPATHAR NUPS,212402019,Sahajbahal,Pradyumna hota,Sailendri gadtya,Female,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+5,Balangir,Balangir,06/12/2018,145144,KUNDAPATHAR NUPS,212402019,Sahajbahal,Pradyumna hota,Rashmiranjan dharua,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Balangir,Balangir,06/12/2018,145144,KUNDAPATHAR NUPS,212402019,Sahajbahal,Pradyumna hota,Rachana deep,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+5,Balangir,Balangir,06/12/2018,145144,KUNDAPATHAR NUPS,212402019,Sahajbahal,Pradyumna hota,Deepa behera,Male,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,3
+5,Balangir,Balangir,06/12/2018,145144,KUNDAPATHAR NUPS,212402019,Sahajbahal,Pradyumna hota,Lija khamari,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+5,Balangir,Balangir,06/12/2018,145144,KUNDAPATHAR NUPS,212402019,Sahajbahal,Pradyumna hota,Manisha chhanda,Female,1,1,1,1,1,1,0,1,0,0,0,0,1,1,0,0,0,0,1,0,10
+5,Balangir,Balangir,06/12/2018,145144,KUNDAPATHAR NUPS,212402019,Sahajbahal,Pradyumna hota,Tribhuban khamari,Male,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0,1,0,1,1,13
+5,Balangir,Balangir,06/12/2018,179591,SAHAJBAHAL GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Kaushal kumar dang,Male,1,1,1,0,1,0,0,0,1,0,1,1,0,0,1,0,1,1,1,1,12
+5,Balangir,Balangir,06/12/2018,179591,SAHAJBAHAL GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Tanishka seth,Female,1,1,1,1,1,1,0,1,0,0,1,1,1,1,0,0,0,0,1,0,12
+5,Balangir,Balangir,06/12/2018,179591,SAHAJBAHAL GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Subham choube,Male,1,1,0,0,1,1,0,0,0,0,1,1,1,1,1,0,1,1,1,1,13
+5,Balangir,Balangir,06/12/2018,179591,SAHAJBAHAL GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Himadri joshi,Female,1,0,1,0,1,0,0,0,0,0,0,1,1,0,0,1,1,0,1,1,9
+5,Balangir,Balangir,06/12/2018,179591,SAHAJBAHAL GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Sanjay mahalinga,Male,1,0,1,0,0,0,0,1,1,0,0,1,0,0,0,0,1,0,1,1,8
+5,Balangir,Balangir,06/12/2018,179591,SAHAJBAHAL GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Uttam kumar joshi,Male,1,0,0,1,1,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,9
+5,Balangir,Balangir,06/12/2018,179591,SAHAJBAHAL GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Sunita rai,Female,1,0,1,0,1,0,1,0,0,0,0,1,0,1,1,0,0,0,1,0,8
+5,Balangir,Balangir,06/12/2018,179591,SAHAJBAHAL GOVT. PS,212402019,Sahajbahal,Pradyumna hota,Alok sahu,Male,1,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,4
