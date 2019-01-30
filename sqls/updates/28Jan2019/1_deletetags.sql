@@ -1,1 +1,2 @@
 delete from assessments_surveytaginstitutionmapping where tag_id='gka' and academic_year_id in ('1617', '1718');
+delete from assessments_surveytaginstitutionmapping where tag_id='gka' and academic_year_id='1819' and institution_id in (37922,25009,38443,4420,25016,13565,3631,24757,19714,3664,37957,3836,38460,38508,38106,14577,38044,3273,38219,14019,3272,38046,24137,3899,38699,13782,3162,38233,13922,14359,38879,4128,3677);
