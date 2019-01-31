@@ -455,14 +455,22 @@ class SurveyTagAggAPIView(APIView):
             filter(tag=survey_tag, academic_year=year).\
             values_list("sg_name", flat=True).distinct()
 
-        queryset = InstitutionClassYearStuCount.objects.\
-            filter(institution_id=institution_id, academic_year=year,
-                   studentgroup__in=sg_names)
-        if queryset:
-            qs_agg = queryset.aggregate(Sum('num'))
-            response["num_students"] = qs_agg["num__sum"]
-        else:
-            response["num_students"] = 0
+        try:
+            SurveyTagInstitutionMapping.objects.\
+                get(tag=survey_tag, academic_year=year,
+                    institution_id=institution_id)
+            queryset = InstitutionClassYearStuCount.objects.\
+                filter(institution_id=institution_id, academic_year=year,
+                       studentgroup__in=sg_names)
+            if queryset:
+                qs_agg = queryset.aggregate(Sum('num'))
+                response["num_students"] = qs_agg["num__sum"]
+            else:
+                response["num_students"] = 'NA'
+        except SurveyTagInstitutionMapping.DoesNotExist :
+            response["num_schools"] = 'NA'
+            response["num_students"] = 'NA'
+
         return response
 
     def get(self, request):
