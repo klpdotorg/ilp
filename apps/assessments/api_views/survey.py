@@ -459,6 +459,10 @@ class SurveyTagAggAPIView(APIView):
             SurveyTagInstitutionMapping.objects.\
                 get(tag=survey_tag, academic_year=year,
                     institution_id=institution_id)
+        except SurveyTagInstitutionMapping.DoesNotExist :
+            response["num_schools"] = 'NA'
+            response["num_students"] = 'NA'
+        else:
             queryset = InstitutionClassYearStuCount.objects.\
                 filter(institution_id=institution_id, academic_year=year,
                        studentgroup__in=sg_names)
@@ -467,9 +471,7 @@ class SurveyTagAggAPIView(APIView):
                 response["num_students"] = qs_agg["num__sum"]
             else:
                 response["num_students"] = 'NA'
-        except SurveyTagInstitutionMapping.DoesNotExist :
-            response["num_schools"] = 'NA'
-            response["num_students"] = 'NA'
+
 
         return response
 
