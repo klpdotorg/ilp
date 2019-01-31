@@ -1,9 +1,16 @@
 Changelog
 ---
+Release 1.3.0: 2019-02-01
+  - OTP validate and reset password reset endpoints now return the full user object. This helps to improve Konnect signup and login UX.
+  - GKA dashboard
+    - URL change for school filters
+  - Removed GP contest dashboard link
+  - Project 1 million
+    - Analytics portal
+  - Varioud data updates
 
-Release: 5a60cd87bf3d2984afbe36c387cdbab8ae05c0e5 2019-01-15
+Release 1.2.1: 5a60cd87bf3d2984afbe36c387cdbab8ae05c0e5 2019-01-15
 	- Project 1 million updates
-		-
 	- Updated Django version to 1.11.8
 	- Included Gujarat and Andhra Pradesh in states endpoint	
 
