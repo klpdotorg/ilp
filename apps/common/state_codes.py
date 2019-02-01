@@ -15,7 +15,8 @@ STATES = {
         'footer_logo': '',
         'state_code': 'ilp',
         'lang_name': '',
-        'lang_key': ''
+        'lang_key': '',
+        'gka_dashboard_enabled': False
     },
     'ka': {
         'name': 'Karnataka',
@@ -28,7 +29,8 @@ STATES = {
         'footer_logo': '/static/images/KLP_logo_footer@2x.png',
         'state_code': 'ka',
         'lang_name': 'Kannada',
-        'lang_key': 'kn'
+        'lang_key': 'kn',
+        'gka_dashboard_enabled': True
     },
     'od': {
         'name': 'Odisha',
@@ -41,7 +43,8 @@ STATES = {
         'footer_logo': '/static/images/states/od/OLP_logo_footer@2x.png',
         'state_code': 'od',
         'lang_name': 'Odia',
-        'lang_key': 'od'
+        'lang_key': 'od',
+        'gka_dashboard_enabled': True
     },
     'jk': {
         'name': 'Jammu & Kashmir',
@@ -54,7 +57,8 @@ STATES = {
         'footer_logo': '/static/images/states/jk/JKLP_logo_footer@2x.png',
         'state_code': 'jk',
         'lang_name': 'Kashmiri',
-        'lang_key': 'jk'
+        'lang_key': 'jk',
+        'gka_dashboard_enabled': False
     },
     'gj': {
         'name': 'Gujarat',
@@ -67,7 +71,8 @@ STATES = {
         'footer_logo': '/static/images/KLP_logo_footer@2x.png',
         'state_code': 'gj',
         'lang_name': 'Gujarati',
-        'lang_key': 'gu'
+        'lang_key': 'gu',
+        'gka_dashboard_enabled': False
     },
     'ap': {
         'name': 'Andhra Pradesh',
@@ -80,6 +85,7 @@ STATES = {
         'footer_logo': '/static/images/KLP_logo_footer@2x.png',
         'state_code': 'ap',
         'lang_name': 'Telugu',
-        'lang_key': 'te'
+        'lang_key': 'te',
+        'gka_dashboard_enabled': False
     },
 }
