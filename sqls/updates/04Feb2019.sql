@@ -13,3 +13,9 @@ update schools_institution set gp_id=6189 where id in (48030);
 update schools_institution set gp_id=6198 where id in (42658);
 update schools_institution set gp_id=6297 where id in (35305,37368,35302,35436);
 update schools_institution set gp_id=2771 where id in (6675);
+
+--update assessment_question
+update assessments_question set question_text='Is there a teacher shortage in the school?' where id=800;
+update assessments_question set question_text='Do you think your child can read Gujarati?' where id=801;
+update assessments_question set options=null where id=822;
+update assessments_question set lang_options=null where id=822;
