@@ -46,20 +46,6 @@ STATES = {
         'lang_key': 'od',
         'gka_dashboard_enabled': True
     },
-    'jk': {
-        'name': 'Jammu & Kashmir',
-        'short_form': 'JKLP',
-        'long_form': 'J&K Learning Partnership',
-        'email': 'info@jklp.org.in',
-        'site_url': 'https://jk.ilp.org.in',
-        'home_logo': '/static/images/states/jk/home_jklp_logo@2x.png',
-        'header_logo': '/static/images/states/jk/JKLP_logo@2x.png',
-        'footer_logo': '/static/images/states/jk/JKLP_logo_footer@2x.png',
-        'state_code': 'jk',
-        'lang_name': 'Kashmiri',
-        'lang_key': 'jk',
-        'gka_dashboard_enabled': False
-    },
     'gj': {
         'name': 'Gujarat',
         'short_form': 'GLP',
