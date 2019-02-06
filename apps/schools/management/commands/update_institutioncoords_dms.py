@@ -42,18 +42,13 @@ class Command(BaseCommand):
         institutionobj.coord = pnt
         institutionobj.save()
         
-        
-
-
     def getDecimalDegree(self, degrees, minutes, seconds):
         dd = float(degrees) + float(minutes)/60 + float(seconds)/(60*60)
         return dd
 
-
     def getValidFloatValues(self, value):
         return 0 if value=='' else value
 
-                        
     def handle(self, *args, **options):
         state= options['state']
         file_name = options['coords']

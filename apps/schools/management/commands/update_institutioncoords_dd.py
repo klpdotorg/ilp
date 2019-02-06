@@ -16,6 +16,9 @@ from schools.models import Institution, InstitutionCategory, Management, Institu
 
 class Command(BaseCommand):
     active_status = Status.objects.get(char_id='AC')
+    dise_column = 12
+    lat_column = 24
+    long_column = 25
        
     def add_arguments(self, parser):
         parser.add_argument('state')
@@ -31,18 +34,6 @@ class Command(BaseCommand):
             return
         institutionobj.coord = pnt
         institutionobj.save()
-        
-        
-
-
-    def getDecimalDegree(self, degrees, minutes, seconds):
-        dd = float(degrees) + float(minutes)/60 + float(seconds)/(60*60)
-        return dd
-
-
-    def getValidFloatValues(self, value):
-        return 0 if value=='' else value
-
                         
     def handle(self, *args, **options):
         state= options['state']
@@ -65,15 +56,15 @@ class Command(BaseCommand):
                 count += 1
                 continue
             count += 1
-            dise_code = row[0].strip()
+            dise_code = row[self.dise_column].strip()
             try:
                 dise_object = BasicData.objects.get(school_code = dise_code)
             except BasicData.DoesNotExist:
                 print("Dise code does not exist :"+dise_code+".") 
                 continue
    
-            latitudeDD = row[1].strip()
-            longitudeDD = row[2].strip()
+            latitudeDD = row[self.lat_column].strip()
+            longitudeDD = row[self.long_column].strip()
            
             if latitudeDD == '0':
                 print("latitude is 0 for dise_code :"+dise_code)
