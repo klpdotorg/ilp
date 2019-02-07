@@ -23,11 +23,19 @@ class StudentGroupFilter(django_filters.FilterSet):
 class InstitutionSurveyFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
         survey_id = request.query_params.get('survey_id', None)
-        if not survey_id:
-            return queryset
+        survey_tag = request.query_params.get('survey_tag', None)
 
-        institution_ids = SurveyInstitutionAgg.objects\
-            .filter(survey_id=survey_id)\
-            .distinct('institution_id')\
-            .values_list('institution_id', flat=True)
-        return queryset.filter(id__in=institution_ids)
+        if survey_id:
+            institution_ids = SurveyInstitutionAgg.objects\
+                .filter(survey_id=survey_id)\
+                .distinct('institution_id')\
+                .values_list('institution_id', flat=True)
+            return queryset.filter(id__in=institution_ids)
+
+        if survey_tag:
+            institution_ids = SurveyInstitutionAgg.objects\
+                .filter(survey_tag=survey_tag)\
+                .distinct('institution_id')\
+                .values_list('institution_id', flat=True)
+            return queryset.filter(id__in=institution_ids)
+        return queryset
