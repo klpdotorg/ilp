@@ -5,9 +5,11 @@ from django.core.management.base import BaseCommand
 from assessments.models import (
         Survey, QuestionGroup, Question, QuestionGroup_Questions, Partner,
         SurveyOnType, Source, SurveyType, QuestionType, SurveyUserTypeMapping,
-        SurveyTag, SurveyTagMapping)
+        SurveyTag, SurveyTagMapping, Concept, MicroConceptGroup, MicroConcept,
+        LearningIndicator, QuestionLevel)
 from common.models import Status, AcademicYear, InstitutionType, RespondentType
 from boundary.models import Boundary
+from django.db.models import Max
 
 
 class Command(BaseCommand):
@@ -30,7 +32,7 @@ class Command(BaseCommand):
                 print("Please specify a filename with the --"+fileoption+" argument")
                 return False
             f = open(file_name, encoding='utf-8')
-            self.csv_files[fileoption] = csv.reader(f)
+            self.csv_files[fileoption] = csv.reader(f,delimiter='|')
         return True
 
     def check_value(self, value, default=None):
@@ -59,7 +61,7 @@ class Command(BaseCommand):
             state = Boundary.objects.get(id=row[5].strip())
             survey_on_id = SurveyOnType.objects.get(char_id=row[6].strip())
             lang_name = row[7].strip()
-            survey = Survey.objects.create(
+            survey, created = Survey.objects.get_or_create(
                          name=name,
                          description=description,
                          partner=partner,
@@ -67,6 +69,7 @@ class Command(BaseCommand):
                          survey_on=survey_on_id,
                          lang_name=lang_name,
                          admin0=state)
+            print("Survey: "+name+" was created: "+str(created))
             return survey
 
     def create_questiongroup(self, survey):
@@ -97,13 +100,12 @@ class Command(BaseCommand):
             lang_name = row[14].strip()
             comments_required = row[15].strip()
             respondenttype_required = row[16].strip()
-            questiongroup = QuestionGroup.objects.create(
+            questiongroup, created = QuestionGroup.objects.get_or_create(
                                 name=name,
                                 group_text=group_text,
                                 start_date=start_date,
                                 version=version,
                                 double_entry=double_entry,
-                                created_at=timezone.now(),
                                 academic_year=academicyear,
                                 inst_type=institution_type,
                                 source=source,
@@ -115,16 +117,20 @@ class Command(BaseCommand):
                                 image_required=image_required,
                                 comments_required=comments_required,
                                 respondenttype_required=respondenttype_required)
+            print("QuestionGroup: "+name+" was created: "+str(created))
+            if created:
+                print("New QuestionGroup created")
+                questiongroup.created_at=timezone.now()
+                questiongroup.save()
             return questiongroup
 
     def create_questions(self):
         count = 0
         questions = []
         for row in self.csv_files["questions"]:
-            if count == 0:
-                count += 1
-                continue
             count += 1
+            if count == 1:
+                continue
 
             id = row[0].strip()
             if id != '':
@@ -157,12 +163,30 @@ class Command(BaseCommand):
                             pass_score=pass_score,
                             lang_name=lang_name,
                             lang_options=lang_options)
+            if row[12] != '':
+                question.concept = Concept.objects.get(pk=row[12])
+            if row[13] != '':
+                question.microconcept_group = MicroConceptGroup.objects.get(pk=row[13])
+            if row[14] != '':
+                question.microconcept = MicroConcept.objects.get(pk=row[14])
+            if row[15] != '':
+                question.question_level = QuestionLevel.objects.get(pk=row[15])
+            if row[16] != '':
+                question.learning_indicator = LearningIndicator.objects.get(pk=row[16])
+            question.save()
             questions.append(question)
+        print("Number of questions created: %d" % (len(questions)))
         return questions
 
     def map_questiongroup_questions(self, questiongroup, questions):
         qgq_maps = []
-        sequence = 1
+        sequence_value = QuestionGroup_Questions.objects.filter(questiongroup=questiongroup).aggregate(Max('sequence'))
+        if sequence_value['sequence__max'] == None:
+            print("New QuestionGroup")
+            sequence = 1
+        else:
+            sequence = sequence_value['sequence__max']+1
+
         for question in questions:
             qgq_map = QuestionGroup_Questions.objects.create(
                       sequence=sequence,
@@ -171,6 +195,7 @@ class Command(BaseCommand):
             sequence += 1
             qgq_maps.append(qgq_map)
 
+        print("Number of QuestionGroup to Question mapping done:%d" %(len(qgq_maps)))
         return qgq_maps
 
     def map_survey_usertype(self, survey):
@@ -182,10 +207,11 @@ class Command(BaseCommand):
                 continue
             count += 1
             user_type = RespondentType.objects.get(char_id=row[0].strip())
-            su_map = SurveyUserTypeMapping.objects.create(
-                         usertype=user_type,
-                         survey=survey)
+            su_map, created = SurveyUserTypeMapping.objects.get_or_create(
+                                                            usertype=user_type,
+                                                            survey=survey)
             su_maps.append(su_map)
+        print("Number of Survey to User Type mapping done: %d" %(len(su_maps)))
         return su_maps
 
     def map_surveytag(self, survey):
@@ -197,10 +223,10 @@ class Command(BaseCommand):
                 continue
             count += 1
             tag = SurveyTag.objects.get(char_id=row[0].strip())
-            st_map = SurveyTagMapping.objects.create(
-                         tag=tag,
-                         survey=survey)
+            st_map, created = SurveyTagMapping.objects.get_or_create(tag=tag,
+                                                                survey=survey)
             st_maps.append(st_map)
+        print("Number of Survey to SurveyTag mapping done: %d" %(len(st_maps)))
         return st_maps
 
     def handle(self, *args, **options):
@@ -230,11 +256,5 @@ class Command(BaseCommand):
             return
 
         survey_user_map = self.map_survey_usertype(survey)
-        if not survey_user_map:
-            print("Survey UserType Mapping did not happen")
-            return
 
         survey_tag = self.map_surveytag(survey)
-        if not survey_tag:
-            print("Survey Tag Mapping did not happen")
-            return
