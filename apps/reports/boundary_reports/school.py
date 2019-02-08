@@ -82,7 +82,7 @@ class SchoolReport(BaseReport):
                                                             .filter(yearmonth__lte = self.report_to)
         gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
                 institution_id=school_obj, 
-                survey_id=2, 
+                survey_id=self.gpcontest_survey_id, 
                 yearmonth__gte=self.report_from,
                 yearmonth__lte=self.report_to)        
         
