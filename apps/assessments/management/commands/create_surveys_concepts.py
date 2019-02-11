@@ -138,6 +138,7 @@ class Command(BaseCommand):
                 if question:
                     questions.append(question[0])
                     continue
+            print(count)
             question_text = row[1].strip()
             display_text = row[2].strip()
             key = self.check_value(row[3].strip())
