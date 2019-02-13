@@ -1,0 +1,12 @@
+id|question_text|display_text|key |options|is_featured|question type|status|max score|pass score|name in colloquial language|options in language|concept| microconceptgroup|microconcept|level|learning indicator
+|Number of Students|Number of Students|||False|1|AC||||||||||
+|Number Concept(Expansion form of 2 digit number)|Number Concept(Expansion form of 2 digit number)|Number concept||True|1|AC|||||number_sense|place_value|expansion_form_and_short_form_of_numbers|beginner||
+|Number concept(Place values of 2-digit number)|Number concept(Place values of 2-digit number)|Number concept||True|1|AC|||||number_sense|place_value|identify_place_value_for_a_given_number|beginner||
+|Number concept(Comparing of two 2-digit numbers by using symbols)|Number concept(Comparing of two 2-digit numbers by using symbols)|Number concept||True|1|AC|||||number_sense|comparison|greater_than,equal_to_and_lesser_than_with_numbers_only|beginner||
+|Number concept(Series of numbers)|Number concept(Series of numbers)|Number concept||True|1|AC|||||number_sense|sequence|identify_and_represent_number_sequence|beginner||
+|Number concept(Descending order of given 2-digit numbers)|Number concept(Descending order of given 2-digit numbers)|Number concept||True|1|AC|||||number_sense|sequence|arranging_in_ascending_or_descending_order|beginner||
+|Addition(Sum of two 2- digit numbers whose sum below 100)|Addition(Sum of two 2- digit numbers whose sum below 100)|Addition||True|1|AC|||||number_operations|addition|addition_with_carry(abstract)|beginner||
+|Subtraction(Difference of two 2-digit numbers)|Subtraction(Difference of two 2-digit numbers)|Subtraction||True|1|AC|||||number_operations|subtraction|subtraction_with_borrow(abstract)|beginner||
+|Multiplication(Multiplying 2-digit number by 1-digit number)|Multiplication(Multiplying 2-digit number by 1-digit number)|Multiplication||True|1|AC|||||number_operations|multiplication|long_multiplication(abstract)|beginner||
+|Addition and Subtraction(Relation between addition and subtraction)|Addition and Subtraction(Relation between addition and subtraction)|Subtraction||True|1|AC|||||number_operations|subtraction|subtraction_without_borrow(abstract)|beginner||
+|Shapes(Identication of 3-D shapes)|Shapes(Identication of 3-D shapes)|Shapes||True|1|AC|||||shapes|solid_shapes|identify_3d_objects(pictures)|beginner||

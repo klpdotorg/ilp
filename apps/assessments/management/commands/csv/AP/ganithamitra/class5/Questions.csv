@@ -1,0 +1,12 @@
+id|question_text|display_text|key |options|is_featured|question type|status|max score|pass score|name in colloquial language|options in language|concept| microconceptgroup|microconcept|level|learning indicator
+|Number of Students|Number of Students|||False|1|AC||||||||||
+|Number concept(Identifying biggest number among given 4-digit numbers)|Number concept(Identifying biggest number among given 4-digit numbers|Number concept||True|1|AC|||||number_sense|comparison|form_biggest,smallest_number_from_given_set_of_digits|beginner||
+|Number concept(Identifying smallest 4-digit number)|Number concept(Identifying smallest 4-digit number)|Number concept||True|1|AC|||||number_sense|comparison|form_biggest,smallest_number_from_given_set_of_digits|beginner||
+|Addition(Sum of two 4- digit numbers)|Addition(Sum of two 4- digit numbers)|Addition||True|1|AC|||||number_operations|addition|addition_with_carry(abstract)|beginner||
+|Subtraction (Difference of two 4-digit numbers)|Subtraction (Difference of two 4-digit numbers)|Subtraction||True|1|AC|||||number_operations|subtraction|subtraction_with_borrow(abstract)|beginner||
+|Multiplication (Multiplying 3-digit number by 1-digit number)|Multiplication (Multiplying 3-digit number by 1-digit number)|Multiplication||True|1|AC|||||number_operations|multiplication|long_multiplication(abstract)|beginner||
+|Division(Divide 3-digit number by 1-digit number)|Division(Divide 3-digit number by 1-digit number)|Division||True|1|AC|||||number_operations|division|long_division_without_remainder|beginner||
+|Shapes (Identifying the number of sides in given 2-D shape)|Shapes (Identifying the number of sides in given 2-D shape)|Shapes||True|1|AC|||||shapes|flat_shapes|2d_shapes_attributes|beginner||
+|Areas and Perimeters(find the Perimeter of a rectangle)|Areas and Perimeters(find the Perimeter of a rectangle)|Areas and Perimeters||True|1|AC|||||shapes|mensuration|mensuration(area,perimeter,circumference,radius,diameter_etc)|beginner||
+|Measurements(Sum of two lengths)|Measurements(Sum of two lengths)|Measurement||True|1|AC|||||measurements|length|word_problem_measurements_four_arithmetic_operations_on_length|beginner||
+|Time (Identication of time in clock (in hours and minutes))|Time (Identication of time in clock (in hours and minutes))|Time||True|1|AC|||||measurements|time|read_time|beginner||
