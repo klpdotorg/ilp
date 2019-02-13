@@ -40,11 +40,15 @@ import configparser
 import ast
 
 def format_academic_year(yearmonth_format):
+    """Formats the academic year from a programmatic year-month format (Example: 201706) to a more user friendly/readable format
+    """
     # The day attribute is a dummy one just to get a clean date object. Ignore the day param 
     date = datetime.datetime(year=int(yearmonth_format[0:4]), month=int(yearmonth_format[4:6]), day=1)
     return date.strftime("%m/%Y")
 
 class BaseReport(ABC):
+    """Base class for reports. Houses all the functions required for calculating reports data
+    """
     def __init__(self,**args):
         #Below if will be executed if the key called 'data' is in the args
         #This happens when PDF report is generated and the object is created
@@ -69,6 +73,13 @@ class BaseReport(ABC):
         pass
 
     def read_config(self, config_file_path):
+        """ Method reads the configuration file for each state and assigns parameters. Does not return anything
+        Parameters:
+        -----------
+        config_file_path -- the absolute file path to the configuration file. All state configuration files
+        are in the config folder of the reports module
+
+        """
         config = configparser.ConfigParser()
         try:
             config.read(config_file_path)
@@ -99,6 +110,10 @@ class BaseReport(ABC):
             raise ValueError('Invalid report format')
 
     def get_html(self, report_id, tracking_id, lang=None):
+        """
+        Retrieve report from DB, render it into HTML and return path to temporary
+        HTML file
+        """
         if not self.data:
             self.data = self.get_data();
         #if lang == 'english':
@@ -113,6 +128,9 @@ class BaseReport(ABC):
         return html_file
 
     def get_pdf(self, report_id, tracking_id,lang=None):
+        """
+        Retrieve a report from the DB, convert into PDF using pdfkit and return PDF file path name
+        """
         html = ""
         temp_html_file = self.get_html(report_id, tracking_id, lang)
         config = pdfkit.configuration()
@@ -126,12 +144,17 @@ class BaseReport(ABC):
         return pdf_output_name
 
     def get_sms(self, tracker, name):
+        """ 
+        Return SMS format with URL and description
+        SMS format is like: 2017-18 ರ ಜಿಕೆಏ ವರದಿ {} - ಅಕ್ಷರ 
+        """
         url = reverse('view_report',kwargs={'report_id':tracker.report_id.link_id,'tracking_id':tracker.track_id})
         request = None
         full_url = ''.join([settings.REPORTS_SERVER_BASE_URL, url])
         return self.sms_template.format(full_url)
 
     def save(self):
+        """ Saves the report to the DB as well as tracking id """
         #state = Boundary.objects.get(id=self.state_id)
         r= Reports(report_type=self._type,state_id=self.state_id, parameters=self.params, data=self.data)
         r.link_id = hashlib.sha256(str(random.random()).encode('utf-8')).hexdigest()[:5]
@@ -145,8 +168,25 @@ class BaseReport(ABC):
         t.save()
         return t
     
-    '''boundary_type is the type of boundary passed in, one of district/block/cluster '''
     def get_basic_boundary_data(self, boundary, boundary_type, report_from, report_to):
+        """
+        Compute basic, common data for GP contests across all reports
+
+        Parameters:
+        ----------
+        boundary : Boundary
+            the boundary object such as a block or district or cluster or gp
+        boundary_type : str 
+            one of district/block/cluster
+        report_from : int
+            date range from in the format of yyyymm
+        report_to : int
+            date range to in the format of yyyymm
+
+        Returns:
+        -------
+        list - num_schools_in_boundary, num_boys, num_girls, number_of_students, num_contests
+        """
         aggregates = None
         gender_agg = None
         num_schools_in_boundary = 0
@@ -199,8 +239,9 @@ class BaseReport(ABC):
         #num_contests = aggregates.values_list('institution_id__gp__id', flat=True).distinct().count()
         return num_schools_in_boundary, num_boys, num_girls, number_of_students, num_contests
 
-    ''' Returns household survey aggregate values per boundary '''
     def getHouseholdSurvey(self,boundary,date_range):
+        """ Returns household survey aggregate values in a dictionary per boundary """
+
         hh_answers_agg = None
         HHSurvey = []
 
@@ -227,9 +268,21 @@ class BaseReport(ABC):
         else:
              print("No community survey data for '{}' between {} and {}".format(boundary.name, self.report_from, self.report_to))
         return HHSurvey
-
-    ''' boundary_type is one of 'district', 'block'. Needed for formatting the JSON structure '''
+    
     def getBoundaryGKAData(self, boundary, boundary_type, date_range):
+        """
+        Compute boundary level GKA values for teachers trained, group work percent and
+        kit usage percent for a given boundary.
+
+        Parameters:
+        -----------
+        boundary : int
+            boundary id. Can be one of district/block/cluster
+        boundary_type : str
+            one of 'district', 'block'. Needed for formatting the JSON structure
+        date_range : list
+            from and to date ranges of the format yyyymmm
+        """
         GKA = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
             .filter(yearmonth__range=date_range)\
             .filter(survey_id=self.gka_survey_id)
@@ -251,9 +304,11 @@ class BaseReport(ABC):
             print("No boundary GKA data for '{}' between {} and {}.".format(boundary.name, date_range[0], date_range[1]))
             return None
 
-    ''' Calculates the GKA aggregates both at the parent boundary level and aggregates per
-    child boundary '''
     def getGKAData(self,parent_boundary, date_range):
+        """
+        Calculates the GKA aggregates for teachers trained, group work and kit usage both at the
+        parent boundary level and aggregates per child boundary
+        """
         boundary_type_string = None
         #If the boundary is a district, get all the blocks under it and loop
         if parent_boundary.boundary_type.char_id == 'SD':
@@ -289,6 +344,9 @@ class BaseReport(ABC):
         return gka, child_boundaries_gka
 
     def getTeacherTrainedPercent(self, gka_aggregate_obj, date_range):
+        """
+        Return the percentage of teachers trained rounded off to the 2 nearest decimals
+        """
         # Teachers trained percentage
         teachers_trained = gka_aggregate_obj.filter(question_desc__icontains='trained', answer_option='Yes').aggregate(trained = Sum('num_answers'))
         total_teachers = gka_aggregate_obj.filter(question_desc__icontains='trained').aggregate(total = Sum('num_answers'))
@@ -300,6 +358,9 @@ class BaseReport(ABC):
         return "{:.2f}".format(round(percent_teachers_trained,2))
     
     def getKitUsagePercent(self, gka_aggregate_obj, date_range):
+        """
+        Return kit usage percentage rounded off to the 2 nearest decimals
+        """
         #Kit usage percentage
         kits_used = gka_aggregate_obj.filter(question_desc__icontains='Ganitha Kalika Andolana TLM', answer_option='Yes').aggregate(kits_used= Sum('num_answers'))
         kits_total = gka_aggregate_obj.filter(question_desc__icontains='Ganitha Kalika Andolana TLM').aggregate(total_kits = Sum('num_answers'))
@@ -314,6 +375,9 @@ class BaseReport(ABC):
         return "{:.2f}".format(round(percent_kit_usage,2))
     
     def getGroupWorkPercent(self, gka_aggregate_obj, date_range):
+        """
+        Return group work percentage rounded off to the 2 nearest decimals
+        """
          #Group work percentage
         group_work_done = gka_aggregate_obj.filter(question_desc__icontains='group', answer_option='Yes').aggregate(group_work_yes = Sum('num_answers'))
         group_work_total = gka_aggregate_obj.filter(question_desc__icontains='group').aggregate(group_work_total = Sum('num_answers'))
@@ -325,8 +389,19 @@ class BaseReport(ABC):
         group_work_percent = group_work_done['group_work_yes']/group_work_total['group_work_total'] * 100
         return "{:.2f}".format(round(group_work_percent,2))
 
-    ''' boundary can be either a school OR a GP. Student performance is shown only in GP and school reports so far'''
     def calculate_student_performance(self, boundary, report_from, report_to):
+        """
+        Calculates number of male/females who answered all questions correctly and zero questions correctly.
+        Student performance is shown only in GP and school reports so far. 
+        
+        Return male_total, female_total, male_correct, female_correct, male_zero_ans_per_gp, 
+        female_zero_ans_per_gp
+
+        Keyword arguments:
+        boundary -- This can be a school or a GP. Boundary or EBoundary
+        report_from -- beginning date of the format yyyymm
+        report_to -- ending date of the format yyyymm
+        """
         male_correct_ans_per_gp = None
         female_correct_ans_per_gp = None
         male_total_ans_per_gp = None
@@ -399,6 +474,11 @@ class BaseReport(ABC):
         return male_total, female_total, male_correct, female_correct, male_zero_ans_per_gp, female_zero_ans_per_gp
 
     def get_schools_data(self, boundary, dates):
+        """
+        Compute school level aggregates and individual school performance data and return dict 
+        containing the same. Used in GP and cluster reports to show individual and collective school
+        performance
+        """
         correct_answers_agg = None
         total_assessments = None
         if isinstance(boundary, Boundary):
@@ -488,11 +568,14 @@ class BaseReport(ABC):
         #         grade['values'].append(dict(contest='Other Areas', count=round(count/num, 2)))
         return out
      
-    ''' Returns the boundary wise aggregation per grade per contest. This method can take an election boundary
-        (GP) or a boundary object
-        For example: Class 4 aggregates at the boundary level for all concepts (Addition, Subtraction etc..)
-     '''
     def get_boundary_gpc_gradewise_agg(self, boundary, report_from, report_to):
+        """
+        Compute the boundary wise aggregation per grade per GP contest and return a dict. 
+        
+        This method can take an election boundary (GP) or a boundary object and has conditional
+        flows for those.
+        For example: Class 4 aggregates at the boundary level for all concepts (Addition, Subtraction etc..)
+        """
         correct_answers_agg= None
         total_assessments=None 
         distinct_grades = None
@@ -580,13 +663,16 @@ class BaseReport(ABC):
         
         return gpc_gradewise_percent
 
-
-    '''
-        This is a generic method that returns the Gram Panchayat contest aggregations
-        for a given boundary type. The child_bound_type parameter can be one of
-        'block', 'cluster'. Move to base class
-    '''
     def get_childboundary_GPC_agg(self,parent_boundary, child_bound_type, dates):
+        """
+        This is a common method used across district/block reports that returns the Gram Panchayat contest aggregations
+        for a given boundary type. 
+        
+        Keyword arguments:
+        parent_boundary -- the parent boundary object for which child aggregates need to be shown. Eg. District or Block
+        child_bound_type -- can be one of 'block', 'cluster'
+        dates -- date range from and to in the yyyymm format
+        """
         children_under_parent = Boundary.objects.filter(parent=parent_boundary)\
                                 .values_list('id', flat=True)
         
@@ -632,6 +718,9 @@ class BaseReport(ABC):
         return child_gpc_dict
 
     def format_boundary_data(self, blocks):
+        """
+        Format the dict in a way understood by the templates
+        """
         blocks_out = []
         out= []
 
