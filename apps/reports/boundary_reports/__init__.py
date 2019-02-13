@@ -1,7 +1,7 @@
-
-
-
-
+"""
+This module handles all the number calculations for Project 1 million reports. Requires specific inputs 
+to generate reports. Returns values in a JSON to the HTML templates for rendering.
+"""
 from .base import *
 from .block import *
 from .cluster import *
