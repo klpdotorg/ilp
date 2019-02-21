@@ -48,7 +48,7 @@ from dateutil.parser import parse as date_parse
 logger = logging.getLogger(__name__)
 
 
-class SharedAssessmentsView(ListAPIView,ILPStateMixin):
+class SharedAssessmentsView(ListAPIView, ILPStateMixin):
     """
         This view returns recent 6 assessments from our three assesment groups.
         The data is consumed in the ILP home page "Shared Stories" section.
@@ -171,7 +171,9 @@ class ShareYourStoryAPIView(ILPViewSet):
 
 
 class AnswerGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-
+    """
+    CURD AnswerGroup
+    """
     permission_classes = (WorkUnderAssessmentPermission,)
 
     def get_model(self, survey_id):
@@ -231,7 +233,9 @@ class AnswerGroupViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
 
 class AnswerViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-
+    """
+    CURD Answer
+    """
     permission_classes = (WorkUnderAssessmentPermission,)
 
     def get_model(self, survey_id):
