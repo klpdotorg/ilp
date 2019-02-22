@@ -3,7 +3,7 @@ id,question_text,display_text,key ,options,is_featured,question type,status,max 
 ,Is the Teacher trained in ALP ?,Is the Teacher trained in ALP ?,Training,"{Yes,No}",True,1,AC,,,શિક્ષક ને ALP માં તાલીમ આપવામાં આવેલ છે ?,"{હા,ના}"
 ,Is the ALP class happening ?,Is the ALP class happening ?,Alp Class Happening,"{Yes,No}",True,1,AC,,, શું ALP વર્ગ થઈ રહ્યા છે ?,"{હા,ના}"
 ,What is the duration of the ALP classroom ?,What is the duration of the ALP classroom ?,Duration,"{< 30 mins,30-45 mins,45-60 mins}",True,1,AC,,,ALP વર્ગખંડનો સમયગાળો શું છે ?,"{< 30 મિનિટ,30-45 મિનિટ,45-60 મિનિટ}"
-,Total number of students present ?,Total number of students present ?,ivrss-group-work,"{between 70-100%,between 50-70%,< 50%}",True,1,AC,,,હાજર વિદ્યાર્થીઓની કુલ સંખ્યા ?,"{70-100% વચ્ચે,50-70% વચ્ચે,<50%}"
+,Total number of students present ?,Total number of students present ?,ivrss-group-work,"{70-100%,50-70%,< 50%}",True,1,AC,,,હાજર વિદ્યાર્થીઓની કુલ સંખ્યા ?,"{70-100% વચ્ચે,50-70% વચ્ચે,<50%}"
 ,Is the Teacher Manual available ?,Is the Teacher Manual available ?,Teacher Manual,"{Yes,No}",True,1,AC,,,શું શિક્ષક માર્ગદર્શિકા ઉપલબ્ધ છે ?,"{હા,ના}"
 ,Is the student workbook available ?,Is the student workbook available ?,Workbook Available,"{Yes,No}",True,1,AC,,,શું વિદ્યાર્થી પાસે વર્કબુક ઉપલબ્ધ છે ?,"{હા,ના}"
 ,Is the student workbook being used ?,Is the student workbook being used ?,Workbook Usage,"{Yes,No}",True,1,AC,,,શું વિદ્યાર્થીઓ દ્વારા વર્કબુકનો ઉપયોગ કરવામાં આવે છે ?,"{હા,ના}"
