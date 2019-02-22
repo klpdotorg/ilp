@@ -3,7 +3,7 @@ id,question_text,display_text,key ,options,is_featured,question type,status,max 
 ,Is the Teacher trained in ALP ?,Is the Teacher trained in ALP ?,Training,"{Yes,No}",True,1,AC,,,શિક્ષક ને ALP માં તાલીમ આપવામાં આવેલ છે ?,"{હા,ના}"
 ,Is the ALP class happening ?,Is the ALP class happening ?,Alp Class Happening,"{Yes,No}",True,1,AC,,, શું ALP વર્ગ થઈ રહ્યા છે ?,"{હા,ના}"
 ,What is the duration of the ALP classroom ?,What is the duration of the ALP classroom ?,Duration,"{< 30 mins,30-45 mins,45-60 mins}",True,1,AC,,,ALP વર્ગખંડનો સમયગાળો શું છે ?,"{< 30 મિનિટ,30-45 મિનિટ,45-60 મિનિટ}"
-,Total number of students present ?,Total number of students present ?,ivrss-group-work,"{between 70-100%,between 50-70%,< 50%}",True,1,AC,,,હાજર વિદ્યાર્થીઓની કુલ સંખ્યા ?,"{70-100% વચ્ચે,50-70% વચ્ચે,<50%}"
+,Total number of students present ?,Total number of students present ?,ivrss-group-work,"{70-100%,50-70%,< 50%}",True,1,AC,,,હાજર વિદ્યાર્થીઓની કુલ સંખ્યા ?,"{70-100%,50-70%,<50%}"
 ,Is the Teacher Manual available ?,Is the Teacher Manual available ?,Teacher Manual,"{Yes,No}",True,1,AC,,,શું શિક્ષક માર્ગદર્શિકા ઉપલબ્ધ છે ?,"{હા,ના}"
 ,Is the NCERT toolkit available ?,Is the NCERT toolkit available ?,NCERT Toolkit,"{Yes,No}",True,1,AC,,,શું NCERT ની ટૂલકિટ ઉપલબ્ધ છે ?,"{હા,ના}"
 ,Is the square ruled book available ?,Is the square ruled book available ?,Square Rule Book,"{Yes,No}",True,1,AC,,,ચોરસ ખાનાવાળી નોટબુક ઉપલબ્ધ છે ?,"{હા,ના}"
