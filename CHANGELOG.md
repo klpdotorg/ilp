@@ -1,5 +1,6 @@
 Changelog
 ---
+- Fixed bug with school reports generation for Odisha. WRong survey id was hardcoded in code
 Release 1.3.0: db9840a07ee1b7f1bb64163289e1c6f15088fd74 2019-02-01
   - OTP validate and reset password reset endpoints now return the full user object. This helps to improve Konnect signup and login UX.
   - GKA dashboard
