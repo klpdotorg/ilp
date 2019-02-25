@@ -85,7 +85,6 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
     filter_class = SurveyTagFilter
     permission_classes = (HasAssignPermPermission,)
 
-
     def get_serializer_class(self):
         if self.request.method in ['POST', ]:
             return SurveyCreateSerializer
@@ -111,6 +110,9 @@ class SurveysViewSet(ILPViewSet, ILPStateMixin):
 
 
 class SurveyBoundaryAPIView(ListAPIView, ILPStateMixin):
+    """
+    Returns boundaries mapped to a survey tag
+    """
     queryset = SurveyTagMappingAgg.objects.all()
 
     def list(self, request, *args, **kwargs):
@@ -197,6 +199,9 @@ class SurveyAssociateInstitutionAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyInstitutionAPIView(ListAPIView, ILPStateMixin):
+    """
+    Returns Institutions, can be filtered by survey_tag
+    """
     queryset = SurveyTagInstitutionMapping.objects.all()
 
     def list(self, request, *args, **kwargs):
@@ -410,6 +415,10 @@ class SurveyQuestionGroupDetailsAPIView(ListAPIView):
 
 
 class SurveyTagAggAPIView(APIView):
+    """
+    Params - Tag (requried)
+    Returns Boundary/Institution Agg data (total school, students)
+    """
 
     def get_boundary_data(self, boundary_id, survey_tag, year):
         response = {
@@ -471,8 +480,6 @@ class SurveyTagAggAPIView(APIView):
                 response["num_students"] = qs_agg["num__sum"]
             else:
                 response["num_students"] = 'NA'
-
-
         return response
 
     def get(self, request):
@@ -689,6 +696,12 @@ class SurveyUserSummary(APIView):
 
 
 class SurveyBoundaryNeighbourInfoAPIView(ListAPIView):
+    """
+    Returns BoundaryNeighbour Info like,
+    total assesements, user type -> assessment count,
+    election count infos
+    """
+
     filter_backends = [SurveyFilter, ]
     queryset = SurveyBoundaryAgg.objects.all()
 
@@ -828,6 +841,10 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
         return neighbour_ids
 
     def get(self, request, *args, **kwargs):
+        """
+        Returns survey -> questiongroups -> questiongroup_keys.
+        Each questiongroup_keys object will have score and total
+        """
         survey_ids = self.request.GET.getlist('survey_ids', [])
         if not survey_ids:
             raise ParseError("Mandatory parameter survey_ids not passed")
@@ -890,6 +907,10 @@ class SurveyBoundaryNeighbourDetailAPIView(ListAPIView):
 
 
 class SurveyUsersCountAPIView(ListAPIView, ILPStateMixin):
+    """
+    Returns Survey usercount (from Answergroup).
+    Can be filtered by Boundary and Institution
+    """
 
     def get(self, request, *args, **kwargs):
         to_ = request.query_params.get('to', None)
