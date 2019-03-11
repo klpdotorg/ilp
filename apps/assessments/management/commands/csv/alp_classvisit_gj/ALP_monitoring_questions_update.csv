@@ -1,4 +1,4 @@
-questiongroup_id,sequence,id,question_text,display_text,key ,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
+questiongroup_id,sequence,question_text,display_text,key ,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
 54,1,Are you trained on ALP?,Are you trained on ALP?,Training,"{Yes,No}",True,1,AC,,,શું તમે ALP પર પ્રશિક્ષિત છો?,"{હા,ના}"
 54,2,Do you have the instruction set for classroom monitoring?,Do you have the instruction set for classroom monitoring?,Instruction set,"{Yes,No}",True,1,AC,,,શું તમારી પાસે વર્ગમાં દેખરેખ માટે સૂચના સેટ છે?,"{હા,ના}"
 54,3,Is the math teacher conducting the math class?,Did you observe math teacher conducting math class?,ivrss-math-class-happening,"{Yes,No}",True,1,AC,,,શું ગણિત શિક્ષક ગણિત વર્ગનું સંચાલન કરે છે?,"{હા,ના}"
