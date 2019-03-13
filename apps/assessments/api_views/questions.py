@@ -237,6 +237,13 @@ class QuestionGroupViewSet(
 
     @action(methods=['post'], detail=False, url_path='map-institution')
     def map_institution(self, request, *args, **kwargs):
+        """
+        Params - questiongroup_ids, institution_ids, boundary_ids
+        Fetcehs all boundaries/institutions and appends to
+        Question Group
+        The survey should be equal to 'institution'
+        """
+
         survey_id = self.get_parents_query_dict()['survey']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         if not survey_on == 'institution':
@@ -274,6 +281,13 @@ class QuestionGroupViewSet(
        
     @action(methods=['post'], detail=False, url_path='map-studentgroup')
     def map_studentgroup(self, request, *args, **kwargs):
+        """
+        Params - questiongroup_ids, institution_ids, boundary_ids
+        Fetcehs all boundaries/institutions and appends to
+        Question Group
+        The survey should be equal to 'studentgroup' or 'student'
+        """
+
         survey_id = self.get_parents_query_dict()['survey']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         if not survey_on == 'studentgroup' and not survey_on == 'student':
@@ -310,6 +324,10 @@ class QuestionGroupViewSet(
 
     @action(methods=['get'], detail=False, url_path='mappings')
     def mappings(self, request, *args, **kwargs):
+        """
+        Retrive the associated mapping
+        """
+
         survey_id = self.get_parents_query_dict()['survey']
         survey_on = Survey.objects.get(id=survey_id).survey_on.pk
         institution_id = request.query_params.get('institution_id', None)
