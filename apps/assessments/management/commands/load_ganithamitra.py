@@ -14,9 +14,9 @@ now = timezone.now()
 
 class Command(BaseCommand):
 
-    dise_column = 3
-    qgroupname_column = 2
-    qstart_column = 4
+    dise_column = 2
+    qgroupname_column = 1
+    qstart_column = 3
     num_questions = 11
     args = ""
     academicyear = settings.DISE_ACADEMIC_YEAR.replace('-', '')
@@ -31,7 +31,7 @@ class Command(BaseCommand):
         answer_count = 0
 
         with open(csv_file, 'r+', encoding='utf-8') as data_file:
-            data = csv.reader(data_file)
+            data = csv.reader(data_file, delimiter='|')
             rowcount = 0
             for row in data:
                 if rowcount == 0:

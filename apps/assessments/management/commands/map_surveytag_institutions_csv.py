@@ -14,7 +14,7 @@ from schools.models import Institution
 
 class Command(BaseCommand):
    
-    help = """python3 manage.py map_surveytag_institution [surveytag='gka'] [boundary=8000,8001] [academic_year=1819]"""
+    help = """python3 manage.py map_surveytag_institution [surveytag='gka'] [academic_year=1819] [institutionsfile]"""
 
     def add_arguments(self, parser):
         parser.add_argument('surveytag')
