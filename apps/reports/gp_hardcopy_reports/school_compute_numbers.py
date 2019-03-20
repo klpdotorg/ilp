@@ -13,6 +13,7 @@ from django.db import models
 
 
 def get_school_report(gp_id, survey_id, from_date, to_date):
+    schools = Institution.objects.filter(gp_id=gp_id)
     total_answers = SurveyInstitutionQuestionGroupQDetailsAgg.objects.filter(
         survey_id=survey_id,
         yearmonth__gte=from_date,
@@ -27,36 +28,41 @@ def get_school_report(gp_id, survey_id, from_date, to_date):
         )
     distinct_qgroups = total_answers.distinct('questiongroup_id').values_list(
         'questiongroup_id', flat=True)
-    result = {}
-    for each_class in distinct_qgroups:
-        questions = QuestionGroup_Questions.objects.filter(
-            questiongroup_id=each_class).exclude(
-                question__question_text__in=['Gender', 'Class visited']).order_by('sequence')
-        all_answers_for_class = total_answers.filter(
-            questiongroup_id=each_class)
-        correct_answers_for_class = correct_answers.filter(
-            questiongroup_id=each_class)
-        class_questions = []
-        # for answer in correct_answers_for_class:
-        for qgroup_question in questions:
-            import pdb; pdb.set_trace()
-            question_answer_details = {}
-            total = total_answers.get(microconcept_id=qgroup_question.question.microconcept)
-            try:
-                correct = correct_answers.get(
-                    microconcept_id=qgroup_question.question.microconcept)
-            except:
-                correct = 0
-            percent = 0
-            if total is not None:
-                sum = total.num_assessments
-                percent = (correct / sum) * 100
-            question_answer_details["question"] = qgroup_question.question.microconcept
-            question_answer_details["num_correct"] = correct
-            question_answer_details["percent"] = percent
-            class_questions.append(question_answer_details)
-        result[each_class] = class_questions
-    return result
+    school_level = {}
+    for school in schools:
+        result = {}
+        total_answers = total_answers.filter(institution_id=school.id)
+        correct_answers = correct_answers.filter(institution_id=school.id)
+        for each_class in distinct_qgroups:
+            questions = QuestionGroup_Questions.objects.filter(
+                questiongroup_id=each_class).exclude(
+                    question__question_text__in=['Gender', 'Class visited']).order_by('sequence')
+            all_answers_for_class = total_answers.filter(
+                questiongroup_id=each_class)
+            correct_answers_for_class = correct_answers.filter(
+                questiongroup_id=each_class)
+            class_questions = []
+            # for answer in correct_answers_for_class:
+            for qgroup_question in questions:
+                import pdb; pdb.set_trace()
+                question_answer_details = {}
+                total = all_answers_for_class.get(microconcept_id=qgroup_question.question.microconcept)
+                try:
+                    correct = correct_answers_for_class.get(
+                        microconcept_id=qgroup_question.question.microconcept)
+                except:
+                    correct = 0
+                percent = 0
+                if total is not None:
+                    sum = total.num_assessments
+                    percent = (correct / sum) * 100
+                question_answer_details["question"] = qgroup_question.question.microconcept
+                question_answer_details["num_correct"] = correct
+                question_answer_details["percent"] = percent
+                class_questions.append(question_answer_details)
+            result[each_class] = class_questions
+        school_level[school] = result
+    return school_level
             
             
             
