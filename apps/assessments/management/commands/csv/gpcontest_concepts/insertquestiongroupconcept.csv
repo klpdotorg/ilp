@@ -1,5 +1,5 @@
 questiongroup_id|concept_id|microconcept_group_id|microconcept_id|pass_score
-21|measurements|division|word_problem_measurements_money|1
+21|measurements|money|word_problem_measurements_money|1
 21|measurements|length|word_problem_measurements_four_arithmetic_operations_on_length|1
 21|number_operations|addition|addition_with_carry(abstract)|1
 21|number_operations|division|long_division_without_remainder|1
