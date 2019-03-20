@@ -1,4 +1,4 @@
-from reports.gp_hardcopy_reports.compute_numbers import *
+from reports.gp_hardcopy_reports.gp_compute_numbers import *
 
 
 def run():

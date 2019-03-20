@@ -825,7 +825,7 @@ class SurveyInstitutionQuestionGroupQDetailsAgg(models.Model):
     """Survey Institution QuestionGroup Question Details Aggregates (for concept, microconcept, microconceptgroup)"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
-    institution_id = models.ForeignKey('schools.Institution', db_column="boundary_id")
+    institution = models.ForeignKey('schools.Institution')
     source = models.ForeignKey('Source', db_column="source")
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
@@ -935,7 +935,7 @@ class SurveyInstitutionQuestionGroupQDetailsCorrectAnsAgg(models.Model):
     """Survey Institution QuestionGroup Question Details CorrectAns Agg"""
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
-    institution_id = models.ForeignKey('schools.Institution', db_column="boundary_id")
+    institution = models.ForeignKey('schools.Institution')
     source = models.ForeignKey('Source', db_column="source")
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
