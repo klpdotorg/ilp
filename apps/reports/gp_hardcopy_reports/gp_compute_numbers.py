@@ -31,12 +31,12 @@ buckets of 0-35, 36-60,61-75,75-100'''
 def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
     # Get the question ids relevant for the questiongroups
     selected_question_ids = CompetencyQuestionMap.objects.filter(
-        questiongroup__id__in=questiongroup_ids_list).values_list('question',
+        questiongroup__name__in=questiongroup_ids_list).values_list('question',
                                                                   flat=True)
 
     # Filter answers based on questiongroup and gp_id and selected questions
     filtered_qs = AnswerInstitution.objects\
-        .filter(answergroup__questiongroup_id__in=questiongroup_ids_list)\
+        .filter(answergroup__questiongroup_name__in=questiongroup_ids_list)\
         .filter(answergroup__institution__gp_id=gp_id)\
         .filter(question_id__in=selected_question_ids)\
 
@@ -48,7 +48,7 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
                      then=Cast('answer', models.IntegerField())),
                 default=0,
                 output_field=models.IntegerField(),)))\
-        .values('answergroup__questiongroup_id', 'answergroup',
+        .values('answergroup__questiongroup_name', 'answergroup',
                 'correct_score_totals')
 
     # Calculate percentage scores for each child (i.e. each answergroup entry)
@@ -63,10 +63,10 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
         .order_by('answergroup__questiongroup_id')   
     # Construct return data dict
     result = {}
-    for questiongroup_id in questiongroup_ids_list:
-        questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
+    for questiongroup_name in questiongroup_ids_list:
+        questiongroup = QuestionGroup.objects.get(name=questiongroup_name)
         class_scores = percent_scores.filter(
-            answergroup__questiongroup_id=questiongroup_id)
+            answergroup__questiongroup_name=questiongroup_name)
         # Count the number of answer groups basically. One AG=1 child
         no_of_ag = class_scores.count()
         below35 = class_scores.filter(percent_score__lte=35).count()
@@ -76,7 +76,7 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
             percent_score__lte=75).count()
         level4 = class_scores.filter(percent_score__gt=75).filter(
             percent_score__lte=100).count()
-        result[questiongroup.name] = {
+        result[questiongroup_name] = {
             "questiongroup_id": questiongroup_id,
             "num_students": no_of_ag,
             "below35": below35,
