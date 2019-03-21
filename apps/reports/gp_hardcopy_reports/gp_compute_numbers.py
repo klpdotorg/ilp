@@ -36,7 +36,7 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
 
     # Filter answers based on questiongroup and gp_id and selected questions
     filtered_qs = AnswerInstitution.objects\
-        .filter(answergroup__questiongroup_name__in=questiongroup_ids_list)\
+        .filter(answergroup__questiongroup__name__in=questiongroup_ids_list)\
         .filter(answergroup__institution__gp_id=gp_id)\
         .filter(question_id__in=selected_question_ids)\
 
@@ -48,7 +48,7 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
                      then=Cast('answer', models.IntegerField())),
                 default=0,
                 output_field=models.IntegerField(),)))\
-        .values('answergroup__questiongroup_name', 'answergroup',
+        .values('answergroup__questiongroup__name', 'answergroup',
                 'correct_score_totals')
 
     # Calculate percentage scores for each child (i.e. each answergroup entry)
@@ -56,17 +56,17 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
         percent_score=ExpressionWrapper((F('correct_score_totals')/(
            float(20.0)))*float(100.0), output_field=models.FloatField())
     ).values(
-        'answergroup__questiongroup_id',
+        'answergroup__questiongroup__name',
         'answergroup',
         'correct_score_totals',
         'percent_score')\
-        .order_by('answergroup__questiongroup_id')   
+        .order_by('answergroup__questiongroup__name')   
     # Construct return data dict
     result = {}
     for questiongroup_name in questiongroup_ids_list:
         questiongroup = QuestionGroup.objects.get(name=questiongroup_name)
         class_scores = percent_scores.filter(
-            answergroup__questiongroup_name=questiongroup_name)
+            answergroup__questiongroup__name=questiongroup_name)
         # Count the number of answer groups basically. One AG=1 child
         no_of_ag = class_scores.count()
         below35 = class_scores.filter(percent_score__lte=35).count()
