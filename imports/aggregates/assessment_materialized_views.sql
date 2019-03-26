@@ -4629,14 +4629,12 @@ FROM(
  * election boundary.
  * Number of correct assessments, yearmonth, concept, microconcept group, 
  * microconcept, survey_id and election boundary. 
- * For getting the correct answer the table assessments_questiongroupconcept is 
- * used. This table has the passscore for the question details per question grp.
+ * For getting the correct answer the table assessments_competencyquestionmap is 
+ * used. This table has the passscore for the question id per question grp.
  * A child's assessment for a set of question details and question group  is 
  * considered correct if the value of the child's answer for those parameters
  * is equal to or greater than the pass score specified in 
- * assessments_questiongroupconcept table.
- * There are unions between two queries:- 1 for school asssessment and another
- * for student assessment.
+ * assessments_competencyquestionmap table.
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
@@ -4664,61 +4662,13 @@ FROM
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
-    FROM assessments_answergroup_student ag,
-        assessments_answerstudent ans,
-        assessments_surveytagmapping stmap,
-        assessments_questiongroup qg,
-        assessments_question q,
-        assessments_questiongroupconcept qgc, --table that stores pass score
-        schools_student stu,
-        schools_institution s,
-        boundary_electionboundary eb
-    WHERE
-        ans.answergroup_id=ag.id
-        and ag.questiongroup_id=qg.id
-        and qg.id=qgc.questiongroup_id
-        and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
-        and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
-        and ag.is_verified=true
-        and ag.student_id = stu.id
-        and stu.institution_id = s.id
-        and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
-        GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-        having sum(ans.answer::int)>=qgc.pass_score)correctanswers --correct ans check
-GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept
-union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
-    survey_id, 
-    survey_tag,
-    eboundary_id,
-    source,
-    concept,
-    microconcept_group,
-    microconcept,
-    yearmonth,
-    count(ag_id) as num_assessments
-FROM
-    (SELECT distinct
-        qg.survey_id as survey_id, 
-        stmap.tag_id as survey_tag, 
-        eb.id as eboundary_id,
-        q.concept_id as concept,
-        q.microconcept_group_id as microconcept_group,
-        q.microconcept_id as microconcept,
-        qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc, --table that stores passscore
+	assessments_competencyquestionmap qgc,
+        --assessments_questiongroupconcept qgc, --table that stores passscore
         schools_institution s,
         boundary_electionboundary eb
     WHERE
@@ -4727,17 +4677,13 @@ FROM
         and qg.survey_id in (2,18)
         and qg.id=qgc.questiongroup_id
         and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
+	and q.id = qgc.question_id
         and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
-    GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --correct ans check
+    GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,eb.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.max_score)correctanswers --correct ans check
 GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept;
 
 
@@ -4746,14 +4692,12 @@ GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept
  * boundary.
  * Number of correct assessments, yearmonth, concept, microconcept group, 
  * microconcept, survey_id and boundary. 
- * For getting the correct answer the table assessments_questiongroupconcept is 
- * used. This table has the passscore for the question details per question grp.
+ * For getting the correct answer the table assessments_competencyquestionmap is 
+ * used. This table has the score for the question ids per question grp.
  * A child's assessment for a set of question details and question group  is 
  * considered correct if the value of the child's answer for those parameters
  * is equal to or greater than the pass score specified in 
- * assessments_questiongroupconcept table.
- * There are unions between two queries:- 1 for school asssessment and another
- * for student assessment.
+ * assessments_competencyquestionmap table.
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
@@ -4781,61 +4725,13 @@ FROM
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
-    FROM assessments_answergroup_student ag,
-        assessments_answerstudent ans,
-        assessments_surveytagmapping stmap,
-        assessments_questiongroup qg,
-        assessments_question q,
-        assessments_questiongroupconcept qgc, --table that stores pass score
-        schools_student stu,
-        schools_institution s,
-        boundary_boundary b
-    WHERE
-        ans.answergroup_id=ag.id
-        and ag.questiongroup_id=qg.id
-        and qg.id=qgc.questiongroup_id
-        and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
-        and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
-        and ag.is_verified=true
-        and ag.student_id = stu.id
-        and stu.institution_id = s.id
-        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-        GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-        having sum(ans.answer::int)>=qgc.pass_score)correctanswers --check for calculating pass score
-GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept
-union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
-    survey_id, 
-    survey_tag,
-    boundary_id,
-    source,
-    concept,
-    microconcept_group,
-    microconcept,
-    yearmonth,
-    count(ag_id) as num_assessments
-FROM
-    (SELECT distinct
-        qg.survey_id as survey_id, 
-        stmap.tag_id as survey_tag, 
-        b.id as boundary_id,
-        q.concept_id as concept,
-        q.microconcept_group_id as microconcept_group,
-        q.microconcept_id as microconcept,
-        qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc, --table for storing pass score
+	assessments_competencyquestionmap qgc,
+        --assessments_questiongroupconcept qgc, --table for storing pass score
         schools_institution s,
         boundary_boundary b
     WHERE
@@ -4844,17 +4740,13 @@ FROM
         and qg.survey_id in (2,18)
         and qg.id=qgc.questiongroup_id
         and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
+	and q.id = qgc.question_id
         and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --logic for calculating correct ans
+    GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,b.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.max_score)correctanswers --logic for calculating correct ans
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept;
 
 
@@ -4863,65 +4755,18 @@ GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_
  * institution.
  * Number of correct assessments, yearmonth, concept, microconcept group, 
  * microconcept, survey_id and institution. 
- * For getting the correct answer the table assessments_questiongroupconcept is 
- * used. This table has the passscore for the question details per question grp.
+ * For getting the correct answer the table assessments_competencyquestionmap is 
+ * used. This table has the passscore for the question id per question grp.
  * A child's assessment for a set of question details and question group  is 
  * considered correct if the value of the child's answer for those parameters
  * is equal to or greater than the pass score specified in 
- * assessments_questiongroupconcept table.
- * There are unions between two queries:- 1 for school asssessment and another
- * for student assessment.
+ * assessments_competencyquestionmap table.
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_qdetails_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
-    survey_id, 
-    survey_tag,
-    institution_id,
-    source,
-    concept,
-    microconcept_group,
-    microconcept,
-    yearmonth,
-    count(ag_id) as num_assessments
-FROM
-    (SELECT distinct
-        qg.survey_id as survey_id, 
-        stmap.tag_id as survey_tag, 
-        stu.institution_id as institution_id,
-        q.concept_id as concept,
-        q.microconcept_group_id as microconcept_group,
-        q.microconcept_id as microconcept,
-        qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        ag.id as ag_id
-    FROM assessments_answergroup_student ag,
-        assessments_answerstudent ans,
-        assessments_surveytagmapping stmap,
-        assessments_questiongroup qg,
-        assessments_question q,
-        assessments_questiongroupconcept qgc, --table that stores pass score
-        schools_student stu
-    WHERE
-        ans.answergroup_id=ag.id
-        and ag.questiongroup_id=qg.id
-        and qg.id=qgc.questiongroup_id
-        and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
-        and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
-        and ag.is_verified=true
-        and ag.student_id = stu.id
-        GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,stu.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-        having sum(ans.answer::int)>=qgc.pass_score)correctanswers --logic for getting correct ans logic
-GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept
-union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,concept,microconcept_group,microconcept,yearmonth) as id,
     survey_id, 
     survey_tag,
@@ -4948,22 +4793,19 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc --table for getting pass score
+	assessments_competencyquestionmap qgc
+        --assessments_questiongroupconcept qgc --table for getting pass score
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
         and qg.survey_id in (2,18)
         and qg.id=qgc.questiongroup_id
         and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
+	and q.id = qgc.question_id
         and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,ag.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --logic for getting correct ans
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,ag.institution_id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.max_score)correctanswers --logic for getting correct ans
 GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept;
 
 
@@ -4972,14 +4814,12 @@ GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconce
  * per survey for an election boundary.
  * Number of correct assessments, yearmonth, concept, microconcept group, 
  * microconcept, question group, survey_id and election boundary. 
- * For getting the correct answer the table assessments_questiongroupconcept is 
- * used. This table has the passscore for the question details per question grp.
+ * For getting the correct answer the table assessments_competencyquestionmap is 
+ * used. This table has the passscore for the question id per question grp.
  * A child's assessment for a set of question details and question group  is 
  * considered correct if the value of the child's answer for those parameters
  * is equal to or greater than the pass score specified in 
- * assessments_questiongroupconcept table.
- * There are unions between two queries:- 1 for school asssessment and another
- * for student assessment.
+ * assessments_competencyquestionmap table.
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
@@ -5011,65 +4851,13 @@ FROM
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
-    FROM assessments_answergroup_student ag,
-        assessments_answerstudent ans,
-        assessments_surveytagmapping stmap,
-        assessments_questiongroup qg,
-        assessments_question q,
-        assessments_questiongroupconcept qgc, --table that stores pass score
-        schools_student stu,
-        schools_institution s,
-        boundary_electionboundary eb
-    WHERE
-    ans.answergroup_id=ag.id
-    and ag.questiongroup_id=qg.id
-    and qg.id=qgc.questiongroup_id
-    and ans.question_id=q.id
-    and q.concept_id=qgc.concept
-    and q.microconcept_group_id=qgc.microconcept_group
-    and q.microconcept_id=qgc.microconcept
-    and q.is_featured=true
-    and stmap.survey_id=qg.survey_id
-    and qg.type_id='assessment'
-    and ag.is_verified=true
-    and ag.student_id = stu.id
-    and stu.institution_id = s.id
-    and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(ans.answer::int)>=qgc.pass_score)correctanswers --correct ans logic
-GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
-union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,eboundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
-    survey_id, 
-    survey_tag,
-    eboundary_id,
-    source,
-    questiongroup_id,
-    questiongroup_name,
-    concept,
-    microconcept_group,
-    microconcept,
-    yearmonth,
-    count(ag_id) as num_assessments
-FROM
-    (SELECT distinct
-        qg.survey_id as survey_id, 
-        stmap.tag_id as survey_tag, 
-        eb.id as eboundary_id,
-        qg.id as questiongroup_id,
-        qg.name as questiongroup_name,
-        q.concept_id as concept,
-        q.microconcept_group_id as microconcept_group,
-        q.microconcept_id as microconcept,
-        qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc, --table that store pass score
+	assessments_competencyquestionmap qgc,
+        --assessments_questiongroupconcept qgc, --table that store pass score
         schools_institution s,
         boundary_electionboundary eb
     WHERE
@@ -5078,17 +4866,13 @@ FROM
         and qg.survey_id in (2,18)
         and qg.id=qgc.questiongroup_id
         and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
+	and q.id= qgc.question_id
         and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --correct ans logic
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,eb.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.max_score)correctanswers --correct ans logic
 GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
 
 
@@ -5097,14 +4881,12 @@ GROUP BY survey_id, survey_tag,eboundary_id,source,yearmonth,concept,microconcep
  * per survey for a boundary.
  * Number of correct assessments, yearmonth, concept, microconcept group, 
  * microconcept, question group, survey_id and boundary. 
- * For getting the correct answer the table assessments_questiongroupconcept is 
- * used. This table has the passscore for the question details per question grp.
+ * For getting the correct answer the table assessments_competencyquestionmap is 
+ * used. This table has the passscore for the question id per question grp.
  * A child's assessment for a set of question details and question group  is 
  * considered correct if the value of the child's answer for those parameters
  * is equal to or greater than the pass score specified in 
- * assessments_questiongroupconcept table.
- * There are unions between two queries:- 1 for school asssessment and another
- * for student assessment.
+ * assessments_competencyquestionmap table.
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
@@ -5136,65 +4918,13 @@ FROM
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
-    FROM assessments_answergroup_student ag,
-        assessments_answerstudent ans,
-        assessments_surveytagmapping stmap,
-        assessments_questiongroup qg,
-        assessments_question q,
-        assessments_questiongroupconcept qgc, --table that stores pass score
-        schools_student stu,
-        schools_institution s,
-        boundary_boundary b
-    WHERE
-    ans.answergroup_id=ag.id
-    and ag.questiongroup_id=qg.id
-    and qg.id=qgc.questiongroup_id
-    and ans.question_id=q.id
-    and q.concept_id=qgc.concept
-    and q.microconcept_group_id=qgc.microconcept_group
-    and q.microconcept_id=qgc.microconcept
-    and q.is_featured=true
-    and stmap.survey_id=qg.survey_id
-    and qg.type_id='assessment'
-    and ag.is_verified=true
-    and ag.student_id = stu.id
-    and stu.institution_id = s.id
-    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(ans.answer::int)>=qgc.pass_score)correctanswers --logic for calculating correct ans
-GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
-union
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,boundary_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
-    survey_id, 
-    survey_tag,
-    boundary_id,
-    source,
-    questiongroup_id,
-    questiongroup_name,
-    concept,
-    microconcept_group,
-    microconcept,
-    yearmonth,
-    count(ag_id) as num_assessments
-FROM
-    (SELECT distinct
-        qg.survey_id as survey_id, 
-        stmap.tag_id as survey_tag, 
-        b.id as boundary_id,
-        qg.id as questiongroup_id,
-        qg.name as questiongroup_name,
-        q.concept_id as concept,
-        q.microconcept_group_id as microconcept_group,
-        q.microconcept_id as microconcept,
-        qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        ag.id as ag_id
     FROM assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc, --table that stores pass score
+	assessments_competencyquestionmap qgc,
+        --assessments_questiongroupconcept qgc, --table that stores pass score
         schools_institution s,
         boundary_boundary b
     WHERE
@@ -5203,17 +4933,13 @@ FROM
         and qg.survey_id in (2,18)
         and qg.id=qgc.questiongroup_id
         and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
+	and q.id=qgc.question_id
         and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --logic for calculating correct ans
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,b.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.max_score)correctanswers --logic for calculating correct ans
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
 
 
@@ -5222,69 +4948,18 @@ GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,concept,microconcept
  * per survey for an institution.
  * Number of correct assessments, yearmonth, concept, microconcept group, 
  * microconcept, question group, survey_id and institution. 
- * For getting the correct answer the table assessments_questiongroupconcept is 
- * used. This table has the passscore for the question details per question grp.
+ * For getting the correct answer the table assessments_competencyquestionmap is 
+ * used. This table has the passscore for the question_id per question grp.
  * A child's assessment for a set of question details and question group  is 
  * considered correct if the value of the child's answer for those parameters
  * is equal to or greater than the pass score specified in 
- * assessments_questiongroupconcept table.
- * There are unions between two queries:- 1 for school asssessment and another
- * for student assessment.
+ * assessments_competencyquestionmap table.
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_qdetails_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
-    survey_id, 
-    survey_tag,
-    institution_id,
-    source,
-    questiongroup_id,
-    questiongroup_name,
-    concept,
-    microconcept_group,
-    microconcept,
-    yearmonth,
-    count(ag_id) as num_assessments
-FROM
-    (SELECT distinct
-        qg.survey_id as survey_id, 
-        stmap.tag_id as survey_tag, 
-        stu.institution_id as institution_id,
-        qg.id as questiongroup_id,
-        qg.name as questiongroup_name,
-        q.concept_id as concept,
-        q.microconcept_group_id as microconcept_group,
-        q.microconcept_id as microconcept,
-        qg.source_id as source,
-        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        ag.id as ag_id
-    FROM assessments_answergroup_student ag,
-        assessments_answerstudent ans,
-        assessments_surveytagmapping stmap,
-        assessments_questiongroup qg,
-        assessments_question q,
-        assessments_questiongroupconcept qgc, --table for storing pass score
-        schools_student stu
-    WHERE
-    ans.answergroup_id=ag.id
-    and ag.questiongroup_id=qg.id
-    and qg.id=qgc.questiongroup_id
-    and ans.question_id=q.id
-    and q.concept_id=qgc.concept
-    and q.microconcept_group_id=qgc.microconcept_group
-    and q.microconcept_id=qgc.microconcept
-    and q.is_featured=true
-    and stmap.survey_id=qg.survey_id
-    and qg.type_id='assessment'
-    and ag.is_verified=true
-    and ag.student_id = stu.id
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,stu.institution_id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
-    having sum(ans.answer::int)>=qgc.pass_score)correctanswers --correct ans logic
-GROUP BY survey_id,survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name
-union
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
     survey_id, 
     survey_tag,
@@ -5315,22 +4990,19 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-        assessments_questiongroupconcept qgc --table for storing pass score
+	assessments_competencyquestionmap qgc
+        --assessments_questiongroupconcept qgc --table for storing pass score
     WHERE
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
         and qg.survey_id in (2,18)
         and qg.id=qgc.questiongroup_id
         and ans.question_id=q.id
-        and q.concept_id=qgc.concept
-        and q.microconcept_group_id=qgc.microconcept_group
-        and q.microconcept_id=qgc.microconcept
-        and q.is_featured=true
+	and q.id=qgc.question_id
         and stmap.survey_id=qg.survey_id
-        and qg.type_id='assessment'
         and ag.is_verified=true
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,qgc.pass_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
-    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.pass_score)correctanswers --correct ans logic
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.max_score)correctanswers --correct ans logic
 GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
 
 
