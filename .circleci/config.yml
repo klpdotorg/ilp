@@ -8,7 +8,7 @@ jobs:
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
     shell: /bin/bash --login
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.6-stretch
         environment:
           DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
       - image: mdillon/postgis:9.6 # database image for service container available at `localhost:<port>`
@@ -21,12 +21,6 @@ jobs:
     - run:
         working_directory: ~/klpdotorg/ilp
         command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure -f noninteractive tzdata;'
-    - run: |
-        sudo rm /etc/apt/sources.list
-        echo "deb http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
-        echo "deb-src http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
-        echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid
-        echo 'Package: *\nPin: origin "archive.debian.org"\nPin-Priority: 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin
     - run: sudo apt-get update && sudo apt-get install -y libgdal-dev python3-dev postgis postgresql-client python3-virtualenv
     - run: python -m venv venv; source venv/bin/activate && pip --no-cache install -r requirements/test.txt
     - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
@@ -45,7 +39,7 @@ jobs:
   deploy:
     docker:
       # Python image required for AWS client
-      - image: circleci/python:2.7
+      - image: circleci/python:2.7-stretch
     working_directory: ~/ilp
     steps:
       - checkout
