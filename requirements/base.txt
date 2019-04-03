@@ -1,5 +1,5 @@
 # Dependencies common to all environments.
-Django==1.11.11
+Django==1.11.20
 django-guardian==1.4.9
 django-extensions==2.1.6
 django-filter==1.0.4
