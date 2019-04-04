@@ -72,7 +72,7 @@ def get_general_gp_info(gp_id, acadyear):
         return gp_info
 
 
-def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
+def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_date, to_date):
     """ This method takes in a Gram Panchayat ID and a list of questiongroup
         IDs and returns a dictionary containing child performance data
         gradewise in score buckets of 0 - 35, 36 - 60, 61 - 75, 75 - 100 """
@@ -87,7 +87,7 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
   
     # Filter answers based on questiongroup and gp_id and selected questions
     filtered_qs = AnswerInstitution.objects\
-        .filter(answergroup__date_of_visit__range=["2018-06-01", "2019-03-31"])\
+        .filter(answergroup__date_of_visit__range=[from_date, to_date])\
         .filter(answergroup__questiongroup__id__in=questiongroup_ids_list)\
         .filter(answergroup__institution__gp_id=gp_id)\
         .filter(question_id__in=selected_question_ids)\
@@ -131,12 +131,14 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list):
             percent_score__lte=100).count()
         score_buckets[questiongroup_id] = {
             "total": no_of_ag,
-            "a": below35,
-            "b": level2,
-            "c": level3,
-            "d": level4
+            "below35": below35,
+            "35to60": level2,
+            "60to75": level3,
+            "75to100": level4
         }
     return score_buckets
+
+
 
 
 def get_gradewise_competency_correctscores(gp_id, gpcontest_survey_id,
@@ -209,7 +211,7 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
         in the given time frame, survey_id and the Gram Panchayat
         id. Returns a queryset which can be further filtered or manipulated
     """
-    correct_answers_agg = get_gp_competency_correctscores(
+    correct_answers_agg = get_grade_competency_correctscores(
                                 gp_id, qgroup_id,
                                 gpcontest_survey_id, report_from,
                                 report_to)
@@ -231,7 +233,6 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
             if sum_correct_ans is None:
                 sum_correct_ans = 0
             percentage = 0
-            import pdb; pdb.set_trace()
             if sum_total is not None:
                 percentage = (sum_correct_ans / sum_total)*100
             else:
