@@ -50,7 +50,13 @@ def get_gps_for_academic_year(gpcontest_survey_id, from_yearmonth, to_yearmonth)
 
 
 def generate_all_reports(gp_survey_id, from_date, to_date):
-    
+    from_yearmonth, to_yearmonth = convert_to_yearmonth(from_date, to_date)
+    gp_ids = get_gps_for_academic_year(gp_survey_id, from_yearmonth,
+                                       to_yearmonth)
+    for gp in gp_id:
+        generate_gp_summary(gp, gp_survey_id, from_date, to_date)
+
+
 def generate_gp_summary(gp_id, gp_survey_id, from_date, to_date):
     """
         Take a gp contest survey id and date range in the format of
@@ -86,8 +92,10 @@ def generate_gp_summary(gp_id, gp_survey_id, from_date, to_date):
             grade_scores[qgroup.name]["percent_scores"] = percentage
     return grade_scores
 
+
 def get_total_answers_for_qkey(qkey, queryset):
     return queryset.get(question_key=qkey)["total_answers"]
+
 
 def format_answers(total_answers_qs, correct_ans_queryset):
     competency_scores = {}
