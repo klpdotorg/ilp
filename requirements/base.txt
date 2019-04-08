@@ -19,4 +19,5 @@ drf-compound-fields
 Pillow==4.3.0
 -e git+https://github.com/soynatan/django-easy-audit.git@d65e2851a69606412554e55af55e0e2839e33372#egg=django-easy-audit
 django-fixture-magic==0.1.3
+rest-condition>=1.0.3
 jinja2
