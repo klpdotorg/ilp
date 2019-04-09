@@ -24,6 +24,7 @@ class Command(BaseCommand):
     validanswers = {"0", "1"}
     validgenders = {"male", "female"}
     rowcounter = 0
+    gplist = {}
     
     def add_arguments(self, parser):
         parser.add_argument('--filename')
@@ -144,6 +145,12 @@ class Command(BaseCommand):
                 if not self.checkGenderValidity(gender):
                     continue
 
+                if gpid in self.gplist:
+                    if dov != self.gplist[gpid]["date"]:
+                        print("["+str(self.rowcounter)+"] Multiple dates associated with same gpid: "+str(gpid)+"; "+str(self.gplist[gpid]["date"])+","+str(dov))
+                        continue
+                else:
+                    self.gplist[gpid] = {"date":dov}
                 answergroup = AnswerGroup_Institution.objects.create(
                                 group_value = group_value,
                            	date_of_visit = dov,
