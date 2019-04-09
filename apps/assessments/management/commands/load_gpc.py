@@ -110,7 +110,11 @@ class Command(BaseCommand):
                 district = row[1].strip().lower()
                 block = row[2].strip().lower()
                 ddmmyyyy = row[3]
-                parsed = datetime.strptime(ddmmyyyy, '%d/%m/%Y')
+                try:
+                    parsed = datetime.strptime(ddmmyyyy, '%d/%m/%Y')
+                except ValueError:
+                    print("["+str(self.rowcounter)+"] Incorrect data format, should be DD/MM/YYYY")
+                    continue
                 date_string = parsed.strftime('%Y-%m-%d')
                 dov = parser.parse(date_string)
                 localtz = timezone(settings.TIME_ZONE)
