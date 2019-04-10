@@ -13,12 +13,12 @@ from boundary.models import ElectionBoundary
 class Command(BaseCommand):
 
     args = ""
-    help = """python3 manage.py loadgpc [--filename=filename] [--grade=4]
-              [--qgroup=47] """
+    help = """python3 manage.py loadgpc [--filename=filename] [--grade=4] [--qgroup=47]"""
     gender_qid = 291
     grade_qid = 130
     q_seq_start = 3
     q_seq_end = 22
+    ans_col_start = 12
     validanswers = {"0", "1"}
     validgenders = {"male", "female"}
     rowcounter = 0
@@ -39,12 +39,13 @@ class Command(BaseCommand):
 
     def checkGPValidity(self, gpid, gpname):
         try:
-            ElectionBoundary.objects.get(id=gpid, const_ward_name=gpname,
+            ElectionBoundary.objects.get(id=gpid,
+                                         const_ward_name__iexact=gpname,
                                          const_ward_type='GP')
             return True
         except ElectionBoundary.DoesNotExist:
-            print("["+str(self.rowcounter)+"] No valid GP found: "
-                  + str(gpid)+", "+gpname)
+            print("["+str(self.rowcounter)+"] No valid GP found for id :"
+                  + str(gpid)+", and name :"+gpname)
             return False
 
     def checkInstitutionValidity(self, inst_id, schoolname, dise_code, gpid,
@@ -57,9 +58,10 @@ class Command(BaseCommand):
             print("["+str(self.rowcounter)+"] Institution does not exist for id: "
                   + str(inst_id))
             return False
-        if inst[0]["name"] != schoolname:
+        if inst[0]["name"].lower() != schoolname:
             print("["+str(self.rowcounter)+"] Institution id ("+str(inst_id) +
-                  ") and name"+schoolname+" does not match")
+                  ") name ("+inst[0]["name"].lower() +
+                  ") does not match row  name ("+schoolname+")")
             return False
         if str(inst[0]["dise__school_code"]) != str(dise_code):
             print("["+str(self.rowcounter)+"] Institution id ("+str(inst_id) +
@@ -120,8 +122,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         csv_file = options.get('filename', None)
+        if csv_file == None:
+            print("Pass the csv file --filename")
+            return
         grade = options.get('grade', None)
+        if grade == None:
+            print("Pass grade argument --grade")
+            return
         qgroup = options.get('qgroup', None)
+        if qgroup == None:
+            print("Pass qgroup argument --qgroup")
+            return
 
         with open(csv_file, 'r+') as data_file:
             data = csv.reader(data_file)
@@ -142,7 +153,7 @@ class Command(BaseCommand):
                     parsed = datetime.strptime(ddmmyyyy, '%d/%m/%Y')
                 except ValueError:
                     print("["+str(self.rowcounter) +
-                          "] Incorrect data format, should be DD/MM/YYYY")
+                          "] Incorrect date format, should be DD/MM/YYYY")
                     continue
                 date_string = parsed.strftime('%Y-%m-%d')
                 dov = parser.parse(date_string)
@@ -150,9 +161,9 @@ class Command(BaseCommand):
                 dov = localtz.localize(dov)
                 inst_id = row[4].strip()
                 dise_code = row[5].strip()
-                schoolname = row[6].strip()
+                schoolname = row[6].strip().lower()
                 gpid = row[7].strip()
-                gpname = row[8].strip()
+                gpname = row[8].strip().lower()
                 child_name = row[10].strip()
                 gender = row[11].strip().lower()
                 enteredat = localtz.localize(datetime.now())
@@ -209,7 +220,7 @@ class Command(BaseCommand):
                                 question_id=self.gender_qid)
                 anscount += 1
 
-                ans_col_cnt = 12  # the answers to questions begin here
+                ans_col_cnt = self.ans_col_start # the answers to questions begin here
 
                 for seq in range(self.q_seq_start, self.q_seq_end+1):
                     if not self.checkAnswerValidity(row[ans_col_cnt]):
