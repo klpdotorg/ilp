@@ -95,7 +95,16 @@ class Command(BaseCommand):
             return False
         return True
 
+    def checkChildNameValidity(self, childname):
+        if childname == '':
+            print("["+str(self.rowcounter)+"] No childname entered (ignoring row)")
+            return False
+        return True
+
     def checkGenderValidity(self, gender):
+        if gender == '':
+            print("["+str(self.rowcounter)+"] No gender entered (ignoring row)")
+            return False
         if gender not in self.validgenders:
             print("["+str(self.rowcounter)+"] Invalid gender :"+gender +
                   ", it should have been: "+str(self.validgenders))
@@ -144,7 +153,7 @@ class Command(BaseCommand):
                 schoolname = row[6].strip()
                 gpid = row[7].strip()
                 gpname = row[8].strip()
-                group_value = row[10].strip()
+                child_name = row[10].strip()
                 gender = row[11].strip().lower()
                 enteredat = localtz.localize(datetime.now())
 
@@ -163,6 +172,9 @@ class Command(BaseCommand):
                                                      district, block):
                     continue
 
+                if not self.checkChildNameValidity(child_name):
+                    continue
+
                 if not self.checkGenderValidity(gender):
                     continue
 
@@ -176,7 +188,7 @@ class Command(BaseCommand):
                 else:
                     self.gplist[gpid] = {"date": dov}
                 answergroup = AnswerGroup_Institution.objects.create(
-                                group_value=group_value,
+                                group_value=child_name,
                                 date_of_visit=dov,
                                 questiongroup_id=qgroup,
                                 institution_id=inst_id,
