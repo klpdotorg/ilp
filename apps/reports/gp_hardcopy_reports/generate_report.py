@@ -50,11 +50,15 @@ def get_gps_for_academic_year(gpcontest_survey_id, from_yearmonth, to_yearmonth)
 
 
 def generate_all_reports(gp_survey_id, from_date, to_date):
+    """ Generates reports for ALL GPs in a given time frame for which
+    we have data in our DB """
     from_yearmonth, to_yearmonth = convert_to_yearmonth(from_date, to_date)
     gp_ids = get_gps_for_academic_year(gp_survey_id, from_yearmonth,
                                        to_yearmonth)
     for gp in gp_id:
         generate_gp_summary(gp, gp_survey_id, from_date, to_date)
+        #Call school report code
+        #Pass resulting dicts into templates
 
 
 def generate_gp_summary(gp_id, gp_survey_id, from_date, to_date):

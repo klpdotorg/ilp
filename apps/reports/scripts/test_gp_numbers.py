@@ -3,7 +3,7 @@ from reports.gp_hardcopy_reports.gp_compute_numbers import *
 
 def run():
     print("GRADEWISE SCORE BUCKETS SUMMARY")
-    scores = get_gradewise_score_buckets(1035, [45,46,47])
+    scores = get_gradewise_score_buckets(1035, [45,46,47],201806, 201903)
     print(scores)
     print("=================================================")
 
