@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=2cm,portrait]{geometry}
+\usepackage{makecell}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage[table,gray]{xcolor}
+\usepackage{setspace}
+\usepackage{xltxtra}
+
+\newcommand{\kn}[1]{
+{\fontspec{Kedage}
+#1
+}}
+
+%% Headers and footers
+\lhead{\hfill{\Large{\textbf{Ganitha Kalika Andholana {{info.year}} }} \rule{4.5cm}{0cm}} \\[5ex] \large{\textbf{District: {{schoolinfo.district}} }} \\[1.5ex] \large{\textbf{Block: {{ schoolinfo.block}} }}}
+\rhead{\large{\textbf{GP: {{schoolinfo.gpname}} }}  \\[1.5ex] \large{\textbf{School name: {{schoolinfo.schoolname}} }}}
+
+%%\chead{ \large Ganitha Kalika Andholana \break \break} 
+%%\lhead{ \hfill\break  District: {{ schoolinfo.district }} \\ Block: {{ schoolinfo.block }}}
+
+%%\rhead{ \hfill\break GP Name: {{ schoolinfo.gpname }} \\School Name: {{ schoolinfo.schoolname }}}
+
+\setlength{\headheight}{3.0cm}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\begin{document}
+
+\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ, ಶಿಕ್ಷಣ ಇಲಾಖೆ, ಸಮುದಾಯ ಮತ್ತು ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಭಾಗಿತ್ವದಲ್ಲಿ ದಿನಾಂಕ ರಂದು ನಡೆದ ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದಲ್ಲಿ 4,5 ಮತ್ತು 6 ನೇ ತರಗತಿಯ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ಶಾಲಾವಾರು ಕಿರು ವರದಿ ಈ ಕೆಳಕಂಡಂತಿದೆ.}\\
+
+\begin{longtable}{|l|p{5.5cm}|p{4.5cm}|p{4.5cm}|}
+\hline
+\multicolumn{4}{|c|}{Class {{ assessmentinfo.class }} } \\ \hline
+\multicolumn{4}{|c|}{Number of students: {{assessmentinfo.stucount}} } \\ \hline
+SL No & Questions & \makecell{Total number of students\\ who answered correctly} & Results in percentage \\ \endhead \hline
+{% for question in assessmentinfo.questions %}
+{{loop.index}} & {{ question.text}} & {{ question.numcorrect}} & {{question.percount}}   \\ \hline
+{% endfor %}
+\end{longtable}
+
+
+\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಶಾಲಾ ಮುಖ್ಯಗುರುಗಳು}, SDMC, \kn{ಪೋಷಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.}\\[2.5ex]
+
+\kn{ಸಹಿ} \hfill \kn{ಸಹಿ} \rule{3.8cm}{0cm}\\ [3ex] 
+                                               		
+\kn{ಜಿಲ್ಲಾ ಕ್ಷೇತ್ರ ವ್ಯವಸ್ಥಾಪಕರು, ಅಕ್ಷರ ಫೌಂಡೇಶನ್} \hfill \kn{ಅಧ್ಯಕ್ಷರು, ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ}\rule{1cm}{0cm}\\ [3ex]
+\hfill \scriptsize{*Klp id: {{ schoolinfo.klpid }}}; \scriptsize{GP id: {{schoolinfo.gpid}}  }
+
+\end{document}

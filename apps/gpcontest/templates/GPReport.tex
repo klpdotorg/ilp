@@ -1,0 +1,93 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,top=2.5cm,left=1cm,right=1cm,bottom=2cm,portrait]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{lastpage}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontenc}
+\usepackage{xltxtra}
+
+
+\newcommand{\kn}[1]{
+{\fontspec{Kedage}
+#1
+}}
+
+%% Headers and footers
+
+\rhead{}
+\lhead{}
+
+
+\setlength{\parindent}{0pt}
+
+\setlength{\headheight}{2.7cm}
+\renewcommand{\headrulewidth}{0pt}
+
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        \textbf{MATH LEARNING LEVELS}
+        \vspace{0.5cm}
+        A SCHOOL LEVEL REPORT
+        \vspace{1.5cm}
+	    \textbf{ {{info.yeaar}} }
+    \end{center}
+\end{titlepage}
+
+\begin{document}
+
+
+\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ, ಶಿಕ್ಷಣ ಇಲಾಖೆ, ಸಮುದಾಯ ಮತ್ತು ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಭಾಗಿತ್ವದಲ್ಲಿ ದಿನಾಂಕ} [% gp_info.date %] \kn{ರಂದು ನಡೆದ ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದಲ್ಲಿ 4, 5 ಮತ್ತು 6ನೇ ತರಗತಿಯ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ಕಿರು ವರದಿ ಈ ಕೆಳಕಂಡಂತಿದೆ.}\\[2ex]
+\kn{ಈ ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ವ್ಯಾಪ್ತಿಯಲ್ಲಿ} [% gp_info.school_count %] \kn{ಸರ್ಕಾರಿ ಶಾಲೆಗಳಿಂದ 4, 5 ಮತ್ತು 6ನೇ ತರಗತಿಯ} [% gp_info.total %] \kn{ಮಕ್ಕಳು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ್ದರು.}\\[2ex]
+
+\textbf{\kn{ತರಗತಿವಾರು ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ್ದ ಮಕ್ಕಳ ಒಟ್ಟಾರೆ ಫಲಿತಾಂಶಗಳು ಈ ಕೆಳಗಿನಂತೆ ಇವೆ.}}
+
+\begin{longtable}{|p{2cm}|c|c|c|c|c|} \hline
+
+\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಭಾಗವಹಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \textbf{\makecell[b]{35\% \kn{ಕ್ಕಿಂತ ಕಡಿಮೆ}\\ \kn{ಅಂಕ ಪಡೆದವರ ಸಂಖ್ಯೆ}}} & \textbf{\makecell[b]{36-60\% \\ \kn{ಅಂಕ ಪಡೆದವರ ಸಂಖ್ಯೆ}}} & \textbf{\makecell[b]{61-75\% \\ \kn{ಅಂಕ ಪಡೆದವರ ಸಂಖ್ಯೆ}}} & \textbf{\makecell[b]{76-100\% \\ \kn{ಅಂಕ ಪಡೆದವರ ಸಂಖ್ಯೆ}}} \\ \hline
+\rule{0cm}{0.75cm} 4\kn{ನೇ ತರಗತಿ} & [% class_4.tb1.total %] & [% class_4.tb1.a %] & [% class_4.tb1.b %] & [% class_4.tb1.c %] & [% class_4.tb1.d %] \\ \hline
+\rule{0cm}{0.75cm} 5\kn{ನೇ ತರಗತಿ} & [% class_5.tb1.total %] & [% class_5.tb1.a %] & [% class_5.tb1.b %] & [% class_5.tb1.c %] & [% class_5.tb1.d %] \\ \hline
+\rule{0cm}{0.75cm} 6\kn{ನೇ ತರಗತಿ} & [% class_6.tb1.total %] & [% class_6.tb1.a %] & [% class_6.tb1.b %] & [% class_6.tb1.c %] & [% class_6.tb1.d %] \\ \hline
+
+\end{longtable}
+
+%%\textbf{\kn{ಗಣಿತ ಮೂಲಭೂತ ಸಾಮರ್ಥ್ಯದ ಮಕ್ಕಳ ಫಲಿತಾಂಶ}}
+
+%%\begin{longtable}{|p{2cm}|p{2.7cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|} \hline
+\begin{longtable}{@{\extracolsep{\fill}}|p{2cm}|c|c|c|c|c|@{}} \hline
+
+\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳು}} \rule{1.6cm}{0cm} & \textbf{\makecell[b]{\kn{ಕೂಡುವ ಲೆಕ್ಕವನ್ನು}\\ \kn{ಸರಿಯಾಗಿ ಮಾಡಿದವರ}\\ \kn{ಮಕ್ಕಳ ಸಂಖ್ಯೆ}}} & \textbf{\makecell[b]{\kn{ಕಳೆಯುವ ಲೆಕ್ಕವನ್ನು}\\ \kn{ಸರಿಯಾಗಿ ಮಾಡಿದವರ}\\ \kn{ಮಕ್ಕಳ ಸಂಖ್ಯೆ}}} & \textbf{\makecell[b]{\kn{ಗುಣಿಸುವ ಲೆಕ್ಕವನ್ನು}\\ \kn{ಸರಿಯಾಗಿ ಮಾಡಿದವರ}\\ \kn{ಮಕ್ಕಳ ಸಂಖ್ಯೆ}}} & \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರ ಲೆಕ್ಕವನ್ನು}\\ \kn{ಸರಿಯಾಗಿ ಮಾಡಿದವರ}\\ \kn{ಮಕ್ಕಳ ಸಂಖ್ಯೆ}}} \\ \hline
+%%\endhead 
+
+\rule{0cm}{0.75cm} 4\kn{ನೇ ತರಗತಿ} & [% class_4.tb2.total %] & [% class_4.tb2.a %] & [% class_4.tb2.b %] & [% class_4.tb2.c %] & [% class_4.tb2.d %] \\ \hline
+\rule{0cm}{0.75cm} 5\kn{ನೇ ತರಗತಿ} & [% class_5.tb2.total %] & [% class_5.tb2.a %] & [% class_5.tb2.b %] & [% class_5.tb2.c %] & [% class_5.tb2.d %] \\ \hline
+\rule{0cm}{0.75cm} 6\kn{ನೇ ತರಗತಿ} & [% class_6.tb2.total %] & [% class_6.tb2.a %] & [% class_6.tb2.b %] & [% class_6.tb2.c %] & [% class_6.tb2.d %] \\ \hline
+
+\end{longtable}
+
+\kn{ಈ ವರದಿಯಿಂದ ತಿಳಿಯುವುದೇನೆಂದರೆ,} \kn{5 ವರ್ಷ ಶಾಲಾ ದಿನಗಳನ್ನು ಮುಗಿಸಿದ} [% class_6.tb3.total %] \kn{ಮಕ್ಕಳಲ್ಲಿ,}\\[2ex]
+[% class_6.tb3.a %]\% \kn{ಮಕ್ಕಳಿಗೆ ಕೂಡುವ ಲೆಕ್ಕ ಬರುತ್ತದೆ.} \\ [2ex]
+[% class_6.tb3.b %]\% \kn{ಮಕ್ಕಳಿಗೆ ಕಳೆಯುವ ಲೆಕ್ಕ ಬರುತ್ತದೆ.} \\ [2ex]
+[% class_6.tb3.c %]\% \kn{ಮಕ್ಕಳಿಗೆ ಗುಣಿಸುವ ಲೆಕ್ಕ ಬರುತ್ತದೆ.} \\ [2ex]
+[% class_6.tb3.d %]\% \kn{ಮಕ್ಕಳಿಗೆ ಭಾಗಾಕಾರ ಲೆಕ್ಕ ಬರುತ್ತದೆ.} \\ [2ex]
+
+\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಜೊತೆಗೆ ಇತರೆ ಭಾಗೀದಾರರಾದ ನಾಗರೀಕ ಸೌಕರ್ಯ ಸಮಿತಿ}(Civic Amenities Committee), SDMC, \kn{ಪೋಷಕರು, ಶೈಕ್ಷಣಿಕ ಸ್ವಯಂಸೇವಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.}\\[3ex]
+
+\center{\kn{ವಂದನೆಗಳೊಂದಿಗೆ}}\\[3ex]
+
+%%\kn{ಅಶೋಕ್ ಕಾಮತ್} \hfill \kn{ಕೆ. ವೈಜಯಂತಿ} \rule{3.68cm}{0cm}\\                                                                    
+%%\kn{ಅಧ್ಯಕ್ಷರು, ಅಕ್ಷರ ಫೌಂಡೇಶನ್} \hfill \kn{ಮುಖ್ಯಸ್ಥರು, ಸಂಪನ್ಮೂಲ ಮತ್ತು ಸಂಶೋಧನೆ}\rule{0.1cm}{0cm}\\
+%%\kn{ಬೆಂಗಳೂರು.} \hfill \kn{ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಬೆಂಗಳೂರು.}\rule{1.4cm}{0cm}
+\kn{ಜೆ. ವಿ. ಶಂಕರನಾರಾಯಣ} \hfill \kn{ನಾಗರಾಜ್ ಪ್ರಭು} \rule{3.5cm}{0cm}\\                                                                    
+\kn{ಮುಖ್ಯಸ್ಥರು, ಕಾರ್ಯಾಚರಣೆ ಮತ್ತು ಸಮುದಾಯ ಅಭಿವೃದ್ದಿ} \hfill \kn{ಮುಖ್ಯಸ್ಥರು, ಗಣಿತ ಸಂಪನ್ಮೂಲ ಮತ್ತು}GKA\rule{0.17cm}{0cm}\\
+\kn{ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಬೆಂಗಳೂರು.} \hfill \kn{ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಬೆಂಗಳೂರು.}\rule{1.5cm}{0cm}
+\end{document}
