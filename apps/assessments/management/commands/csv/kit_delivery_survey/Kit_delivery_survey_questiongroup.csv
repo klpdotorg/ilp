@@ -1,2 +1,2 @@
 id,name,group_text,start_date,end_date,version,double_entry,academic_year,institutuion type,source,status,type,description,image required,kannada name,comments required,respondenttype_required
-,Kit delivery survey,kit_delivery,01-06-2019,,1,False,1920,primary,4,AC,monitor,,True,ಗಣಿತ ಕಿಟ್ ಸರಬರಾಜು ಸರ್ವೇ,True,False
+,Kit delivery survey,,01-06-2019,,1,False,1920,primary,4,AC,monitor,,True,ಗಣಿತ ಕಿಟ್ ಸರಬರಾಜು ಸರ್ವೇ,True,False
