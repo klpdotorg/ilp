@@ -15,9 +15,8 @@ from django.db.models.functions import Cast
 from django.db import models
 from .utils import *
 
-def get_school_report(gp_id, survey_id, from_date, to_date):
-    """ From and to date is of the format YYYY-MM-DD"""
-    from_yearmonth, to_yearmonth = convert_to_yearmonth(from_date, to_date)
+def get_school_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
+    """ From and to date is of the format YYYYMMDD"""
 
     total_answers = SurveyInstitutionQuestionGroupQDetailsAgg.objects.filter(
         survey_id=survey_id,
@@ -40,8 +39,17 @@ def get_school_report(gp_id, survey_id, from_date, to_date):
                 ).filter(questiongroup_id__in=distinct_qgroups).filter(
                     date_of_visit__range=[from_date, to_date]).distinct('institution_id').values_list(
                     'institution_id', flat=True)
-    school_level = {}
+    # Grab common district/block/cluster information once from one school and re-use
+    boundary_detail = Institution.objects.get(id=schools[0])
+    common_info = {
+        "district": boundary_detail.admin1_id.name,
+        "block": boundary_detail.admin2_id.name,
+        "cluster": boundary_detail.admin3_id.name,
+        "gp": boundary_detail.gp_id.const_ward_name,      
+    }
     for school in schools:
+        school_info = Institution.objects.get(id=school)
+        common_info["school_name"]: school.name
         result = {}
         total_answers = total_answers.filter(institution_id=school)
         correct_answers = correct_answers.filter(institution_id=school)
@@ -63,20 +71,16 @@ def get_school_report(gp_id, survey_id, from_date, to_date):
                         microconcept_id=qgroup_question.question.microconcept)
                 except:
                     total = 0
-                    print("TOTAL ANSWERS EXCEPTION")
                 else:
                     total = total.num_assessments
-                    print("TOTAL is: ", total)
 
                 try:
                     correct = correct_answers_for_class.get(
                         microconcept_id=qgroup_question.question.microconcept)
                 except:
                     correct = 0
-                    print("CORRECT ANSWERS EXCEPTION")
                 else:
                     correct = correct.num_assessments
-                    print("CORRECT is: ", correct)
                 percent = 0
                 if total is not None and total > 0:
                     sum = total
@@ -89,7 +93,7 @@ def get_school_report(gp_id, survey_id, from_date, to_date):
                 question_answer_details["percent"] = percent
                 class_questions.append(question_answer_details)
             result[each_class] = class_questions
-        school_level[school] = result
+        common_info[school] = result
     return school_level
             
             

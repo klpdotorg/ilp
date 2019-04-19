@@ -12,7 +12,7 @@ from boundary.models import (
     ElectionBoundary,
     BasicElectionBoundaryAgg
 )
-from reports.models import GPStudentScoreGroups
+from gpcontest.models import GPStudentScoreGroups
 from django.db.models import (
     When,
     Case, Value, Sum, F, ExpressionWrapper, Count)
@@ -139,7 +139,7 @@ def get_general_gp_info(gp_id, acadyear):
 #         }
 #     return score_buckets
 
-def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_date, to_date):
+def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_yearmonth, to_yearmonth):
     """ This method takes in a Gram Panchayat ID and a list of questiongroup
         IDs and returns a dictionary containing child performance data
         gradewise in score buckets of 0 - 35, 36 - 60, 61 - 75, 75 - 100 """
