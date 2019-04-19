@@ -68,7 +68,8 @@ def get_general_gp_info(gp_id, acadyear):
             "block": block_name,
             "district": district_name,
             "cluster": cluster_name,
-            "school_count": num_schools
+            "num_schools": num_schools,
+            "num_students": num_students,
         }
         return gp_info
 
@@ -153,14 +154,24 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_yearmonth, t
     gp_scores = GPStudentScoreGroups.objects.filter(gp_id=gp_id)
     for questiongroup_id in questiongroup_ids_list:
         questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
-        grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
-        score_buckets[questiongroup.name] = {
-            "total": grade_scores.num_students,
-            "below35": grade_scores.cat_a,
-            "35to60": grade_scores.cat_b,
-            "60to75": grade_scores.cat_c,
-            "75to100": grade_scores.cat_d
-        }
+        try:
+            grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
+        except:
+            grade_scores = None
+            print("No questiongroup %s for GP %s:" % (questiongroup_id, gp_id))
+        if grade_scores is not None:
+            score_buckets[questiongroup.name] = {
+                "total": grade_scores.num_students,
+                "below35": grade_scores.cat_a,
+                "35to60": grade_scores.cat_b,
+                "60to75": grade_scores.cat_c,
+                "75to100": grade_scores.cat_d
+            }
+        else:
+            score_buckets[questiongroup.name] = {
+                "total": 0,
+            }
+
     return score_buckets
 
 
