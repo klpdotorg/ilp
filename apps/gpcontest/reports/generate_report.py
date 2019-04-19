@@ -33,9 +33,9 @@ def generate_all_reports(gp_survey_id, from_yearmonth, to_yearmonth):
     gp_ids = get_gps_for_academic_year(gp_survey_id, from_yearmonth,
                                        to_yearmonth)
     schools = Institution.objects.filter(gp_id=gp_ids[0])
-    district_name = Boundary.objects.get(id=schools[0].admin1_id).name
-    block_name = Boundary.objects.get(id=schools[0].admin2_id).name
-    cluster_name = Boundary.objects.get(id=schools[0].admin3_id).name
+    district_name = Boundary.objects.get(id=schools.first().admin1_id).name
+    block_name = Boundary.objects.get(id=schools.first().admin2_id).name
+    cluster_name = Boundary.objects.get(id=schools.first().admin3_id).name
     all_gps = {
         "count": len(gp_ids),
         "district": district_name,
@@ -68,14 +68,14 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     class4 = None
     class5 = None
     class6 = None
-    grade_scores = {
+    all_scores_for_gp = {
         "gp_name": general_gp_info["name"],
         "num_schools": general_gp_info["num_schools"],
         "num_students": general_gp_info["num_students"]
     }
     for questiongroup in questiongroup_ids:
         qgroup = QuestionGroup.objects.get(id=questiongroup)
-        grade_scores[qgroup.name] = {}
+        all_scores_for_gp[qgroup.name] = {}
         total_answers = get_total_assessments_for_grade(gp_id, questiongroup,
                                                         gp_survey_id,
                                                         from_yearmonth,
@@ -85,15 +85,15 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
                 )
         result = format_answers(total_answers, answers)
         result["total"] = all_score_buckets[qgroup.name]["total"]
-        grade_scores[qgroup.name]["competency_scores"] = result
-        grade_scores[qgroup.name]["overall_scores"] = all_score_buckets[qgroup.name]
+        all_scores_for_gp[qgroup.name]["competency_scores"] = result
+        all_scores_for_gp[qgroup.name]["overall_scores"] = all_score_buckets[qgroup.name]
         if "class 6" in qgroup.name.lower():
             percentage = get_grade_competency_percentages(
                                             gp_id, questiongroup,
                                             gp_survey_id,
                                             from_yearmonth, to_yearmonth)
-            grade_scores[qgroup.name]["percent_scores"] = percentage
-    return grade_scores
+            all_scores_for_gp[qgroup.name]["percent_scores"] = percentage
+    return all_scores_for_gp
 
 
 def get_total_answers_for_qkey(qkey, queryset):
