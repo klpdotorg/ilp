@@ -12,6 +12,7 @@ from boundary.models import (
     ElectionBoundary,
     BasicElectionBoundaryAgg
 )
+from reports.models import GPStudentScoreGroups
 from django.db.models import (
     When,
     Case, Value, Sum, F, ExpressionWrapper, Count)
@@ -72,73 +73,95 @@ def get_general_gp_info(gp_id, acadyear):
         return gp_info
 
 
+# def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_date, to_date):
+#     """ This method takes in a Gram Panchayat ID and a list of questiongroup
+#         IDs and returns a dictionary containing child performance data
+#         gradewise in score buckets of 0 - 35, 36 - 60, 61 - 75, 75 - 100 """
+        
+#     # Get the question ids relevant for the questiongroups and exclude
+#     # two questions - Gender and CreatedBy. IDs are hardcoded below
+#     selected_question_ids = AnswerInstitution.objects.filter(
+#             answergroup__questiongroup__id__in=questiongroup_ids_list
+#         ).exclude(question_id__in=[130, 291]).distinct(
+#             'question_id').values_list(
+#             'question_id', flat=True)
+  
+#     # Filter answers based on questiongroup and gp_id and selected questions
+#     filtered_qs = AnswerInstitution.objects\
+#         .filter(answergroup__date_of_visit__range=[from_date, to_date])\
+#         .filter(answergroup__questiongroup__id__in=questiongroup_ids_list)\
+#         .filter(answergroup__institution__gp_id=gp_id)\
+#         .filter(question_id__in=selected_question_ids)\
+    
+#     # Calculate total scores of each child in a particular grade
+#     score_aggregations = filtered_qs.values('answergroup').annotate(
+#         correct_score_totals=Sum(
+#             Case(
+#                 When(answer__regex=r'^\d+(\.\d+)?$',
+#                      then=Cast('answer', models.IntegerField())),
+#                 default=0,
+#                 output_field=models.IntegerField(),)))\
+#         .values('answergroup__questiongroup__name', 'answergroup',
+#                 'correct_score_totals')
+
+#     # Calculate percentage scores for each child (i.e. each answergroup
+#     # entry)
+#     percent_scores = score_aggregations.annotate(
+#         percent_score=ExpressionWrapper((F('correct_score_totals')/(
+#             float(20.0)))*float(100.0), output_field=models.FloatField())
+#     ).values(
+#         'answergroup__questiongroup__name',
+#         'answergroup',
+#         'correct_score_totals',
+#         'percent_score')\
+#         .order_by('answergroup__questiongroup__name') 
+#     # Construct return data dict
+#     score_buckets = {}
+#     for questiongroup_id in questiongroup_ids_list:
+#         questiongroup = QuestionGroup.objects.filter(name=questiongroup_id)
+#         class_scores = percent_scores.filter(
+#                 answergroup__questiongroup__id=questiongroup_id)
+#         # Count the number of answer groups basically. One AG=1 child
+#         no_of_ag = class_scores.count()
+#         below35 = class_scores.filter(percent_score__lte=35).count()
+#         level2 = class_scores.filter(percent_score__gt=36).filter(
+#             percent_score__lte=60).count()
+#         level3 = class_scores.filter(percent_score__gt=60).filter(
+#             percent_score__lte=75).count()
+#         level4 = class_scores.filter(percent_score__gt=75).filter(
+#             percent_score__lte=100).count()
+#         score_buckets[questiongroup_id] = {
+#             "total": no_of_ag,
+#             "below35": below35,
+#             "35to60": level2,
+#             "60to75": level3,
+#             "75to100": level4
+#         }
+#     return score_buckets
+
 def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_date, to_date):
     """ This method takes in a Gram Panchayat ID and a list of questiongroup
         IDs and returns a dictionary containing child performance data
         gradewise in score buckets of 0 - 35, 36 - 60, 61 - 75, 75 - 100 """
         
-    # Get the question ids relevant for the questiongroups and exclude
-    # two questions - Gender and CreatedBy. IDs are hardcoded below
-    selected_question_ids = AnswerInstitution.objects.filter(
-            answergroup__questiongroup__id__in=questiongroup_ids_list
-        ).exclude(question_id__in=[130, 291]).distinct(
-            'question_id').values_list(
-            'question_id', flat=True)
-  
-    # Filter answers based on questiongroup and gp_id and selected questions
-    filtered_qs = AnswerInstitution.objects\
-        .filter(answergroup__date_of_visit__range=[from_date, to_date])\
-        .filter(answergroup__questiongroup__id__in=questiongroup_ids_list)\
-        .filter(answergroup__institution__gp_id=gp_id)\
-        .filter(question_id__in=selected_question_ids)\
+    # All the logic to compute the numbers has been moved to a materialized view
+    # called mvw_survey_eboundary_answers_agg. Check the script under db_scripts
+    # for details on how the computation is done
     
-    # Calculate total scores of each child in a particular grade
-    score_aggregations = filtered_qs.values('answergroup').annotate(
-        correct_score_totals=Sum(
-            Case(
-                When(answer__regex=r'^\d+(\.\d+)?$',
-                     then=Cast('answer', models.IntegerField())),
-                default=0,
-                output_field=models.IntegerField(),)))\
-        .values('answergroup__questiongroup__name', 'answergroup',
-                'correct_score_totals')
-
-    # Calculate percentage scores for each child (i.e. each answergroup
-    # entry)
-    percent_scores = score_aggregations.annotate(
-        percent_score=ExpressionWrapper((F('correct_score_totals')/(
-            float(20.0)))*float(100.0), output_field=models.FloatField())
-    ).values(
-        'answergroup__questiongroup__name',
-        'answergroup',
-        'correct_score_totals',
-        'percent_score')\
-        .order_by('answergroup__questiongroup__name') 
     # Construct return data dict
     score_buckets = {}
+    gp_scores = GPStudentScoreGroups.objects.filter(gp_id=gp_id)
     for questiongroup_id in questiongroup_ids_list:
-        questiongroup = QuestionGroup.objects.filter(name=questiongroup_id)
-        class_scores = percent_scores.filter(
-                answergroup__questiongroup__id=questiongroup_id)
-        # Count the number of answer groups basically. One AG=1 child
-        no_of_ag = class_scores.count()
-        below35 = class_scores.filter(percent_score__lte=35).count()
-        level2 = class_scores.filter(percent_score__gt=36).filter(
-            percent_score__lte=60).count()
-        level3 = class_scores.filter(percent_score__gt=60).filter(
-            percent_score__lte=75).count()
-        level4 = class_scores.filter(percent_score__gt=75).filter(
-            percent_score__lte=100).count()
-        score_buckets[questiongroup_id] = {
-            "total": no_of_ag,
-            "below35": below35,
-            "35to60": level2,
-            "60to75": level3,
-            "75to100": level4
+        questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
+        grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
+        score_buckets[questiongroup.name] = {
+            "total": grade_scores.num_students,
+            "below35": grade_scores.cat_a,
+            "35to60": grade_scores.cat_b,
+            "60to75": grade_scores.cat_c,
+            "75to100": grade_scores.cat_d
         }
     return score_buckets
-
-
 
 
 def get_gradewise_competency_correctscores(gp_id, gpcontest_survey_id,
