@@ -18,7 +18,7 @@ from django.db.models import (
     Case, Value, Sum, F, ExpressionWrapper, Count)
 from django.db.models.functions import Cast
 from django.db import models
-
+import datetime
 '''select assessments_answerinstitution.answergroup_id, sum(case when 
 answer~'^\d+(\.\d+)?$' then case when answer::decimal>0 then answer::decimal 
 end else 0 end) AS total_score, (sum(case when answer~'^\d+(\.\d+)?$' then case
@@ -31,54 +31,25 @@ assessments_competencyquestionmap where questiongroup_id=45) GROUP BY
 assessments_answerinstitution.answergroup_id;'''
 
 
-def get_general_gp_info(gp_id, acadyear):
-    """Returns general GP info for an academic year"""
+def get_participating_school_count(gp_id, survey_id, from_yearmonth, to_yearmonth):
+    """Returns the number of schools that participated in a GP contest"""
     # Validate the GP ID first
     try:
         gp = ElectionBoundary.objects.get(id=gp_id)
     except:
         raise ValueError("GP %s does not exist " % gp_id)
-    
-    schools_in_gp = Institution.objects.filter(gp_id=gp_id)
-    gp_info = {}
-    if schools_in_gp is not None and schools_in_gp.count() > 0:
-        cluster_id = schools_in_gp.first().admin3_id
-        block_id = schools_in_gp.first().admin2_id
-        district_id = schools_in_gp.first().admin1_id
-        try:
-            gp_name = gp.const_ward_name
-            eboundary = BasicElectionBoundaryAgg.objects.filter(
-                electionboundary_id=gp_id).get(
-                    year=acadyear
-                )
-        except:
-            raise ValueError(
-                "GP info for academic year %s and GP id %s does not exist " % (acadyear,gp_id))
-        else:
-            cluster_name = Boundary.objects.get(id=cluster_id).name
-            block_name = Boundary.objects.get(id=block_id).name
-            district_name = Boundary.objects.get(id=district_id).name
-            if eboundary is not None:
-                num_students = eboundary.num_students
-                num_schools = eboundary.num_schools
-            else:
-                num_students = 0
-                num_schools = 0
-            gp_info = {
-                "name": gp_name,
-                "block": block_name,
-                "district": district_name,
-                "cluster": cluster_name,
-                "num_schools": num_schools,
-                "num_students": num_students,
-            }
-    else:
-        gp_info = {
-            "name": gp.const_ward_name,
-            "num_schools": 0,
-            "num_students": 0 
-        }
-    return gp_info
+    format_str = '%Y%m'  # The input format
+    from_datetime_obj = datetime.datetime.strptime(str(from_yearmonth), format_str)
+    to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
+
+    num_schools = AnswerGroup_Institution.objects.filter(
+        questiongroup_id__survey_id=survey_id).filter(
+        date_of_visit__year__gte=from_datetime_obj.year).filter(
+            date_of_visit__year__lte=to_datetime_obj.year).filter(
+            date_of_visit__month__gte=from_datetime_obj.month).filter(
+            date_of_visit__month__lte=to_datetime_obj.month
+        ).filter(institution_id__gp_id=gp_id).distinct('institution_id').count()
+    return num_schools
 
 
 # def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_date, to_date):

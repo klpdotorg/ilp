@@ -20,4 +20,7 @@ def convert_to_academicyear(from_yearmonth_str, to_yearmonth_str):
     from_year_only = from_datetime_obj.strftime('%y')
     to_datetime_obj = datetime.datetime.strptime(to_yearmonth_str, format_str)
     to_year_only = to_datetime_obj.strftime('%y')
-    return from_year_only + to_year_only
+    if int(to_year_only) == int(from_year_only):
+        to_year_only = int(from_year_only) + 1
+    result = str(from_year_only) + str(to_year_only)
+    return result

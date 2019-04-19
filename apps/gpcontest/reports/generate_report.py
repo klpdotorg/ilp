@@ -32,23 +32,29 @@ def generate_all_reports(gp_survey_id, from_yearmonth, to_yearmonth):
     #from_yearmonth, to_yearmonth = convert_to_yearmonth(from_yearmonth, to_yearmonth)
     gp_ids = get_gps_for_academic_year(gp_survey_id, from_yearmonth,
                                        to_yearmonth)
-    schools = Institution.objects.filter(gp_id=gp_ids[0])
+    result = generate_for_gps_list(gp_ids, gp_survey_id, from_yearmonth,
+                                   to_yearmonth)
+    return result
+   
+
+def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmonth):
+    """ Generates reports for an array of GP ids """
+    schools = Institution.objects.filter(gp_id=list_of_gps[0])
     district_name = Boundary.objects.get(id=schools.first().admin1_id).name
     block_name = Boundary.objects.get(id=schools.first().admin2_id).name
     cluster_name = Boundary.objects.get(id=schools.first().admin3_id).name
     all_gps = {
-        "count": len(gp_ids),
+        "count": len(list_of_gps),
         "district": district_name,
         "block": block_name,
         "cluster": cluster_name,
     }
-    for gp in gp_ids:
+    for gp in list_of_gps:
         gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
         all_gps[gp] = gp_dict
         #Call school report code
         #Pass resulting dicts into templates
     return all_gps
-
 
 def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     """
@@ -56,9 +62,15 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         YYYY-MM-DD and generate a report
     """
     #Get basic GP info such as district/block/cluster/num students/schools etc..
-    acadyear = convert_to_academicyear(from_yearmonth, to_yearmonth)
-    general_gp_info = get_general_gp_info(gp_id, acadyear)
-
+    num_schools = get_participating_school_count(gp_id, gp_survey_id, from_yearmonth, to_yearmonth)
+    try:
+        gp = ElectionBoundary.objects.get(id=gp_id)
+    except:
+        print("Invalid GP %s. Does not exist in DB" % gp_id)
+        raise ValueError("Invalid GP %s. Does not exist in DB" % gp_id)
+    else:
+        gp_name = gp.const_ward_name
+    
     #Get questiongroups applicable for this survey ID for the given year range
     questiongroup_ids = get_questiongroups_survey(gp_survey_id, from_yearmonth, to_yearmonth)
     
@@ -69,9 +81,8 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     class5 = None
     class6 = None
     all_scores_for_gp = {
-        "gp_name": general_gp_info["name"],
-        "num_schools": general_gp_info["num_schools"],
-        "num_students": general_gp_info["num_students"]
+        "gp_name": gp_name,
+        "num_schools": num_schools,
     }
     for questiongroup in questiongroup_ids:
         qgroup = QuestionGroup.objects.get(id=questiongroup)
