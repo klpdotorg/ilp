@@ -1,4 +1,4 @@
-from reports.gp_hardcopy_reports.school_compute_numbers import *
+from gpcontest.reports.school_compute_numbers import *
 
 
 def run():

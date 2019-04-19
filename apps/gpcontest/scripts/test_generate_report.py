@@ -1,4 +1,4 @@
-from reports.gp_hardcopy_reports.generate_report import *
+from gpcontest.reports.generate_report import *
 
 
 def run():
