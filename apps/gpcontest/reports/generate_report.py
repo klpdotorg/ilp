@@ -12,7 +12,7 @@ def get_questiongroups_survey(survey_id, from_yearmonth, to_yearmonth):
     """ This returns a list of questiongroup ids for a particular
     academic year and survey.Year has to be of format 1819 or 1718 """
     return QuestionGroup.objects.filter(survey_id=survey_id).filter(
-        academic_year_id=academic_year
+        academic_year_id=str(academic_year)
     ).distinct('id').values_list('id', flat=True)
 
 
@@ -39,15 +39,8 @@ def generate_all_reports(gp_survey_id, from_yearmonth, to_yearmonth):
 
 def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmonth):
     """ Generates reports for an array of GP ids """
-    schools = Institution.objects.filter(gp_id=list_of_gps[0])
-    district_name = Boundary.objects.get(id=schools.first().admin1_id).name
-    block_name = Boundary.objects.get(id=schools.first().admin2_id).name
-    cluster_name = Boundary.objects.get(id=schools.first().admin3_id).name
     all_gps = {
         "count": len(list_of_gps),
-        "district": district_name,
-        "block": block_name,
-        "cluster": cluster_name,
     }
     for gp in list_of_gps:
         gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
@@ -61,8 +54,13 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         Take a gp contest survey id and date range in the format of
         YYYY-MM-DD and generate a report
     """
-    #Get basic GP info such as district/block/cluster/num students/schools etc..
-    num_schools = get_participating_school_count(gp_id, gp_survey_id, from_yearmonth, to_yearmonth)
+    # Get basic GP info such as district/block/cluster/num students/schools
+    #  etc..
+    num_schools = get_participating_school_count(
+                                                gp_id,
+                                                gp_survey_id,
+                                                from_yearmonth,
+                                                to_yearmonth)
     try:
         gp = ElectionBoundary.objects.get(id=gp_id)
     except:
@@ -71,9 +69,26 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     else:
         gp_name = gp.const_ward_name
     
-    #Get questiongroups applicable for this survey ID for the given year range
-    questiongroup_ids = get_questiongroups_survey(gp_survey_id, from_yearmonth, to_yearmonth)
+    # TODO: Move this out to the top level function. Need not be calculated
+    # per GP
+    # Get questiongroups applicable for this survey ID for the given year range
+    questiongroup_ids = get_questiongroups_survey(
+                                                    gp_survey_id,
+                                                    from_yearmonth,
+                                                    to_yearmonth)
     
+    # Get general GP info. Needs to be calculated per GP because block/cluster
+    # info might be different per GP
+    schools = Institution.objects.filter(gp_id=gp_id)
+    if schools.count() > 0:
+        district_name = Boundary.objects.get(id=schools.first().admin1_id).name
+        block_name = Boundary.objects.get(id=schools.first().admin2_id).name
+        cluster_name = Boundary.objects.get(id=schools.first().admin3_id).name
+    else:
+        print("Can't find schools for the GP  ID %s. District/Block/Cluster will be empty" % gp_id)
+        district_name = ""
+        block_name = ""
+        cluster_name = ""
     #Compute score categories for students
     all_score_buckets = get_gradewise_score_buckets(
         gp_id, questiongroup_ids, from_yearmonth, to_yearmonth)
@@ -83,6 +98,9 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     all_scores_for_gp = {
         "gp_name": gp_name,
         "num_schools": num_schools,
+        "district": district_name,
+        "block": block_name,
+        "cluster": cluster_name,
     }
     for questiongroup in questiongroup_ids:
         qgroup = QuestionGroup.objects.get(id=questiongroup)

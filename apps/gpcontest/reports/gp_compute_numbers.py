@@ -136,6 +136,7 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_yearmonth, t
             grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
         except:
             grade_scores = None
+            
             print("No questiongroup %s for GP %s:" % (questiongroup_id, gp_id))
         if grade_scores is not None:
             score_buckets[questiongroup.name] = {
