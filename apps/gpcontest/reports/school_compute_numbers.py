@@ -60,8 +60,12 @@ def get_school_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
     print("Participating Schools count is: ", schools.count())
     for school in schools:
         school_info = Institution.objects.get(id=school)
+       
         result = {}
+        result["school_id"] = school_info.id
         result["school_name"] = school_info.name
+        if school_info.dise is not None:
+            result["dise_code"] = school_info.dise.school_code
         result["district_name"] = school_info.admin1.name
         result["block_name"] = school_info.admin2.name
         result["cluster_name"] = school_info.admin3.name
