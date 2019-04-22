@@ -118,6 +118,8 @@ def get_school_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
                     sum = 0
                 question_answer_details["question"] =\
                     qgroup_question.question.microconcept.char_id
+                question_answer_details["lang_name"] = \
+                    qgroup_question.question.lang_name
                 question_answer_details["num_correct"] = correct
                 question_answer_details["percent"] = percent
                 class_questions.append(question_answer_details)
