@@ -117,7 +117,8 @@ def get_school_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
                 question_answer_details["num_correct"] = correct
                 question_answer_details["percent"] = percent
                 class_questions.append(question_answer_details)
-            result[each_class] = class_questions
+            qgroup = QuestionGroup.objects.get(id=each_class)
+            result[qgroup.name] = class_questions
         schools_info[school] = result
     return schools_info
             
