@@ -136,7 +136,7 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_yearmonth, t
             grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
         except:
             grade_scores = None
-            
+
             print("No questiongroup %s for GP %s:" % (questiongroup_id, gp_id))
         if grade_scores is not None:
             score_buckets[questiongroup.name] = {
@@ -247,7 +247,7 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
                 sum_correct_ans = 0
             percentage = 0
             if sum_total is not None:
-                percentage = (sum_correct_ans / sum_total)*100
+                percentage = round((sum_correct_ans / sum_total)*100, 2)
             else:
                 percentage = 0
             concept_scores[current_question_key] = percentage

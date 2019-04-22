@@ -95,6 +95,7 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     class4 = None
     class5 = None
     class6 = None
+    gp_num_students = 0  # Variable to hold total # of students in GP contest
     all_scores_for_gp = {
         "gp_name": gp_name,
         "num_schools": num_schools,
@@ -114,6 +115,9 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
                 )
         result = format_answers(total_answers, answers)
         result["total"] = all_score_buckets[qgroup.name]["total"]
+        # Add participating students in each grade to get total students in
+        # GP contest
+        gp_num_students = gp_num_students + int(result["total"])
         all_scores_for_gp[qgroup.name]["competency_scores"] = result
         all_scores_for_gp[qgroup.name]["overall_scores"] = all_score_buckets[qgroup.name]
         if "class 6" in qgroup.name.lower():
@@ -122,6 +126,7 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
                                             gp_survey_id,
                                             from_yearmonth, to_yearmonth)
             all_scores_for_gp[qgroup.name]["percent_scores"] = percentage
+        all_scores_for_gp["num_students"] = gp_num_students
     return all_scores_for_gp
 
 
