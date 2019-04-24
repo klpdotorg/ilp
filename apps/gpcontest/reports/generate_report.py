@@ -41,7 +41,9 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
 def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     """
         Take a gp contest survey id and date range in the format of
-        YYYY-MM-DD and generate a report
+        YYYYMM and return a dictionary with GP summary data.
+        Dict format is:
+        
     """
     # Get basic GP info such as district/block/cluster/num students/schools
     #  etc..
@@ -109,12 +111,15 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         gp_num_students = gp_num_students + int(result["total"])
         all_scores_for_gp[qgroup.name]["competency_scores"] = result
         all_scores_for_gp[qgroup.name]["overall_scores"] = all_score_buckets[qgroup.name]
+        # Need competency percentage scores only for Grade 6 per GP report
+        # summary page format. So calculate below only for that
         if "class 6" in qgroup.name.lower():
             percentage = get_grade_competency_percentages(
                                             gp_id, questiongroup,
                                             gp_survey_id,
                                             from_yearmonth, to_yearmonth)
             all_scores_for_gp[qgroup.name]["percent_scores"] = percentage
+        # Insert total number of students into the dict
         all_scores_for_gp["num_students"] = gp_num_students
     return all_scores_for_gp
 
