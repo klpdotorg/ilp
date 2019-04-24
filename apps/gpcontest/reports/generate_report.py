@@ -5,17 +5,6 @@ from assessments.models import (
 from .utils import *
 
 
-def get_questiongroups_survey(survey_id, from_yearmonth, to_yearmonth):
-    # First convert the date to an academic year format required
-    # by the QuestionGroup table
-    academic_year = convert_to_academicyear(from_yearmonth, to_yearmonth)
-    """ This returns a list of questiongroup ids for a particular
-    academic year and survey.Year has to be of format 1819 or 1718 """
-    return QuestionGroup.objects.filter(survey_id=survey_id).filter(
-        academic_year_id=str(academic_year)
-    ).distinct('id').values_list('id', flat=True)
-
-
 def get_gps_for_academic_year(gpcontest_survey_id, from_yearmonth, to_yearmonth):
     """ Returns a list of distinct gp_ids for the academic year 
     where gp contest happened """
