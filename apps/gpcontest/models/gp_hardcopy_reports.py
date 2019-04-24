@@ -22,4 +22,23 @@ class GPStudentScoreGroups(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_survey_eboundary_answers_agg'
+
+
+class GPSchoolParticipationCounts(models.Model):
+    gp_id = models.ForeignKey('boundary.ElectionBoundary', db_column="gp_id")
+    num_schools = models.IntegerField(db_column="num_schools")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_eboundary_schoolcount_agg'
+
+
+class GPInstitutionClassParticipationCounts(models.Model):
+    institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
+    questiongroup_id = models.ForeignKey('assessments.QuestionGroup', db_column="questiongroup_id")
+    num_students = models.IntegerField(db_column="num_students")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_survey_institution_stucount_agg'
     

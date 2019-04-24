@@ -12,7 +12,10 @@ from boundary.models import (
     ElectionBoundary,
     BasicElectionBoundaryAgg
 )
-from gpcontest.models import GPStudentScoreGroups
+from gpcontest.models import (
+    GPStudentScoreGroups,
+    GPSchoolParticipationCounts
+)
 from django.db.models import (
     When,
     Case, Value, Sum, F, ExpressionWrapper, Count)
@@ -38,17 +41,22 @@ def get_participating_school_count(gp_id, survey_id, from_yearmonth, to_yearmont
         gp = ElectionBoundary.objects.get(id=gp_id)
     except:
         raise ValueError("GP %s does not exist " % gp_id)
-    format_str = '%Y%m'  # The input format
-    from_datetime_obj = datetime.datetime.strptime(str(from_yearmonth), format_str)
-    to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
+    gp = GPSchoolParticipationCounts.objects.get(gp_id=gp_id)
+    num_schools = None
+    if gp is not None:
+        num_schools = gp.num_schools
+    return num_schools
+    # format_str = '%Y%m'  # The input format
+    # from_datetime_obj = datetime.datetime.strptime(str(from_yearmonth), format_str)
+    # to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
 
-    num_schools = AnswerGroup_Institution.objects.filter(
-        questiongroup_id__survey_id=survey_id).filter(
-        date_of_visit__year__gte=from_datetime_obj.year).filter(
-            date_of_visit__year__lte=to_datetime_obj.year).filter(
-            date_of_visit__month__gte=from_datetime_obj.month).filter(
-            date_of_visit__month__lte=to_datetime_obj.month
-        ).filter(institution_id__gp_id=gp_id).distinct('institution_id').count()
+    # num_schools = AnswerGroup_Institution.objects.filter(
+    #     questiongroup_id__survey_id=survey_id).filter(
+    #     date_of_visit__year__gte=from_datetime_obj.year).filter(
+    #         date_of_visit__year__lte=to_datetime_obj.year).filter(
+    #         date_of_visit__month__gte=from_datetime_obj.month).filter(
+    #         date_of_visit__month__lte=to_datetime_obj.month
+    #     ).filter(institution_id__gp_id=gp_id).distinct('institution_id').count()
     return num_schools
 
 

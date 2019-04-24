@@ -10,6 +10,9 @@ from assessments.models import (
 from schools.models import (
     Institution
 )
+from gpcontest.models import (
+    GPInstitutionClassParticipationCounts
+)
 from django.db.models import (
     When,
     Case, Value, Sum, F, ExpressionWrapper, Count)
@@ -111,17 +114,12 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     result["block_name"] = school_info.admin2.name
     result["cluster_name"] = school_info.admin3.name
     result["gp_name"] = school_info.gp.const_ward_name
-    num_students = AnswerGroup_Institution.objects.filter(
-        institution__id=school_id).filter(
-        questiongroup__survey_id=survey_id
-    ).filter(
-        date_of_visit__year__gte=from_datetime_obj.year).filter(
-        date_of_visit__year__lte=to_datetime_obj.year).filter(
-        date_of_visit__month__gte=from_datetime_obj.month).filter(
-        date_of_visit__month__lte=to_datetime_obj.month).filter(
-            questiongroup_id__in=questiongroup_ids).count()
-    result["num_students"] = num_students
+    
     for each_class in questiongroup_ids:
+        class_participation = GPInstitutionClassParticipationCounts.objects.filter(
+            institution__id=school_id).get(questiongroup_id=each_class)
+        if class_participation is not None:
+            num_students = class_participation.num_students
         # Find the lowest 3 competencies below 60% for each class of this
         # school
         deficiencies = compute_deficient_competencies(
