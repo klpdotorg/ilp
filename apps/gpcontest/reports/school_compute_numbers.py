@@ -116,63 +116,67 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     result["gp_name"] = school_info.gp.const_ward_name
     
     for each_class in questiongroup_ids:
-        class_participation = GPInstitutionClassParticipationCounts.objects.filter(
-            institution__id=school_id).get(questiongroup_id=each_class)
-        if class_participation is not None:
-            num_students = class_participation.num_students
-        # Find the lowest 3 competencies below 60% for each class of this
-        # school
-        deficiencies = compute_deficient_competencies(
-                        school_id, each_class, survey_id,
-                        from_yearmonth, to_yearmonth)
-        questions = QuestionGroup_Questions.objects.filter(
-            questiongroup_id=each_class).exclude(
-                question__question_text__in=['Gender', 'Class visited']
-        ).order_by('sequence')
-        all_answers_for_class = total_answers.filter(
-            questiongroup_id=each_class)
-        correct_answers_for_class = correct_answers.filter(
-            questiongroup_id=each_class)
-        class_details = {}
-        class_questions = []
-        # for answer in correct_answers_for_class:
-        for qgroup_question in questions:
-            question_answer_details = {}
-            try:
-                total = all_answers_for_class.get(
-                    microconcept_id=qgroup_question.question.microconcept)
-            except:
-                total = 0
-            else:
-                total = total.num_assessments
+        try:
+            class_participation = GPInstitutionClassParticipationCounts.objects.filter(
+                institution_id=school_id).get(questiongroup_id=each_class)
+        except GPInstitutionClassParticipationCounts.DoesNotExist:
+            print("This GP does not have class %s" % each_class)
+        else:
+            if class_participation is not None:
+                num_students = class_participation.num_students
+            # Find the lowest 3 competencies below 60% for each class of this
+            # school
+            deficiencies = compute_deficient_competencies(
+                            school_id, each_class, survey_id,
+                            from_yearmonth, to_yearmonth)
+            questions = QuestionGroup_Questions.objects.filter(
+                questiongroup_id=each_class).exclude(
+                    question__question_text__in=['Gender', 'Class visited']
+            ).order_by('sequence')
+            all_answers_for_class = total_answers.filter(
+                questiongroup_id=each_class)
+            correct_answers_for_class = correct_answers.filter(
+                questiongroup_id=each_class)
+            class_details = {}
+            class_questions = []
+            # for answer in correct_answers_for_class:
+            for qgroup_question in questions:
+                question_answer_details = {}
+                try:
+                    total = all_answers_for_class.get(
+                        microconcept_id=qgroup_question.question.microconcept)
+                except:
+                    total = 0
+                else:
+                    total = total.num_assessments
 
-            try:
-                correct = correct_answers_for_class.get(
-                    microconcept_id=qgroup_question.question.microconcept)
-            except:
-                correct = 0
-            else:
-                correct = correct.num_assessments
-            percent = 0
-            if total is not None and total > 0:
-                sum = total
-                percent = round((correct / sum) * 100, 2)
-            else:
-                sum = 0
-            question_answer_details["question"] =\
-                qgroup_question.question.microconcept.char_id
-            question_answer_details["lang_name"] = \
-                qgroup_question.question.lang_name
-            question_answer_details["num_correct"] = correct
-            question_answer_details["percent"] = percent
-            class_questions.append(question_answer_details)
-        class_details["question_answers"] = class_questions
-        qgroup = QuestionGroup.objects.get(id=each_class)
-        # Check if a class exists because sometimes it might not for
-        # a particular school
-        if deficiencies is not None:
-            class_details["deficiencies"] = deficiencies
-        result[qgroup.name] = class_details
+                try:
+                    correct = correct_answers_for_class.get(
+                        microconcept_id=qgroup_question.question.microconcept)
+                except:
+                    correct = 0
+                else:
+                    correct = correct.num_assessments
+                percent = 0
+                if total is not None and total > 0:
+                    sum = total
+                    percent = round((correct / sum) * 100, 2)
+                else:
+                    sum = 0
+                question_answer_details["question"] =\
+                    qgroup_question.question.microconcept.char_id
+                question_answer_details["lang_name"] = \
+                    qgroup_question.question.lang_name
+                question_answer_details["num_correct"] = correct
+                question_answer_details["percent"] = percent
+                class_questions.append(question_answer_details)
+            class_details["question_answers"] = class_questions
+            qgroup = QuestionGroup.objects.get(id=each_class)
+            # Check if a class exists because sometimes it might not for
+            # a particular school
+            if deficiencies is not None:
+                class_details["deficiencies"] = deficiencies
+            result[qgroup.name] = class_details
     return result
 
 def get_gp_schools_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
