@@ -71,11 +71,23 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         # deficient. Ignore percentages above 60
         if percent < 60.00:
             competency_map[each_row['question_key']] = percent
-    
     three_smallest = nsmallest(3, competency_map, key=competency_map.get)
     return three_smallest
-   
 
+
+def get_date_of_contest(school_id, gp_survey_id, from_yearmonth, to_yearmonth):
+    from_date, to_date = convert_yearmonth_to_fulldate(from_yearmonth, to_yearmonth)
+    dates_of_contest = AnswerGroup_Institution.objects.filter(
+        institution_id=school_id).filter(
+        questiongroup__survey_id=gp_survey_id).filter(
+            date_of_visit__range=[from_date, to_date]
+        ).distinct('date_of_visit').values_list('date_of_visit', flat=True)
+    # Format the datetime objects into a readable string and return
+    formatted_dates = []
+    for date in dates_of_contest:
+        formatted_dates.append(date.strftime('%d/%m/%Y'))
+    print("Dates of contest for School %s are %s" % (school_id, formatted_dates))
+    return formatted_dates
 
 def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     format_str = '%Y%m'  # The input format
@@ -83,6 +95,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
         str(from_yearmonth), format_str)
     to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
 
+    date_of_contest = get_date_of_contest(school_id, survey_id, from_yearmonth, to_yearmonth)
     total_answers = SurveyInstitutionQuestionGroupQDetailsAgg.objects.filter(
         survey_id=survey_id).filter(
             yearmonth__gte=from_yearmonth).filter(
@@ -114,6 +127,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     result["block_name"] = school_info.admin2.name
     result["cluster_name"] = school_info.admin3.name
     result["gp_name"] = school_info.gp.const_ward_name
+    result["date"] = date_of_contest
     
     for each_class in questiongroup_ids:
         try:

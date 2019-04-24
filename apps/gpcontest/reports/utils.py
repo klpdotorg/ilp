@@ -1,4 +1,5 @@
 import datetime
+import calendar
 from assessments.models import QuestionGroup
 
 def convert_to_yearmonth(from_date_str, to_date_str):
@@ -10,6 +11,16 @@ def convert_to_yearmonth(from_date_str, to_date_str):
     to_yearmonth = to_datetime_obj.strftime('%Y%m')
     return from_yearmonth, to_yearmonth
 
+
+def convert_yearmonth_to_fulldate(from_yearmonth, to_yearmonth):
+    format_str = '%Y%m'  # The input format
+    from_datetime_obj = datetime.datetime.strptime(str(from_yearmonth), format_str)
+    from_datetime_obj = from_datetime_obj.replace(day=1)
+    to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
+    last_day = calendar.monthrange(to_datetime_obj.year, to_datetime_obj.month)[1]
+    to_datetime_obj = to_datetime_obj.replace(day=last_day)
+    print(from_datetime_obj, to_datetime_obj)
+    return from_datetime_obj, to_datetime_obj
 
 def convert_to_academicyear(from_yearmonth_str, to_yearmonth_str):
     """ Input date format is 201806. Combine the from year and to years

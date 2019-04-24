@@ -38,6 +38,20 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
         #Pass resulting dicts into templates
     return all_gps
 
+
+def get_date_of_contest(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
+    from_date, to_date = convert_yearmonth_to_fulldate(from_yearmonth, to_yearmonth)
+    dates_of_contest = AnswerGroup_Institution.objects.filter(institution__gp_id=gp_id).filter(
+        questiongroup__survey_id=gp_survey_id).filter(
+            date_of_visit__range=[from_date, to_date]
+        ).distinct('date_of_visit').values_list('date_of_visit', flat=True)
+    formatted_dates = []
+    for date in dates_of_contest:
+        formatted_dates.append(date.strftime('%d/%m/%Y'))
+    print("Dates of contest for GP %s are %s" % (gp_id, formatted_dates))
+    return formatted_dates
+
+
 def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     """
         Take a gp contest survey id and date range in the format of
@@ -87,12 +101,14 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     class5 = None
     class6 = None
     gp_num_students = 0  # Variable to hold total # of students in GP contest
+    contest_dates = get_date_of_contest(gp_id, gp_survey_id, from_yearmonth, to_yearmonth)
     all_scores_for_gp = {
         "gp_name": gp_name,
         "num_schools": num_schools,
         "district": district_name,
         "block": block_name,
         "cluster": cluster_name,
+        "date": contest_dates,
     }
     for questiongroup in questiongroup_ids:
         qgroup = QuestionGroup.objects.get(id=questiongroup)
