@@ -2,7 +2,7 @@ import jinja2
 import os
 import shutil
 from django.core.management.base import BaseCommand
-from datetime import datetime
+from datetime import datetime, date
 from assessments.models import Survey
 from boundary.models import ElectionBoundary
 from gpcontest.reports import generate_report,school_compute_numbers
@@ -11,7 +11,7 @@ from gpcontest.reports import generate_report,school_compute_numbers
 class Command(BaseCommand):
     help = 'Creates GP and School Reports, pass --gpid commaseparated gpids surveyid startyearmonth endyearmonth--onlygp (True/False)'
     assessmentnames = {"4": "Class 4 Assessment", "5": "Class 5 Assessment", "6": "Class 6 Assessment"}
-    now = datetime.now()
+    now = date.today()
     #basefiledir = os.path.dirname('apps/gpcontest')#os.path.realpath(__file__))+"/../../"
     basefiledir = os.getcwd()+"/apps/gpcontest/"
     templatedir = "templates/"
@@ -98,10 +98,8 @@ class Command(BaseCommand):
             for gp in self.gpids:
                 print(gp)
                 data[gp] = generate_report.generate_gp_summary(gp, self.surveyid, self.startyearmonth, self.endyearmonth)
-        print(data)
         for gp in data:
             outputdir = self.createGPPdfs(gp, data[gp], gptemplate)
-            print(self.onlygp)
             if not self.onlygp:
                 self.createSchoolReports(gp, schooltemplate, outputdir)
 
@@ -109,12 +107,13 @@ class Command(BaseCommand):
     def createGPPdfs(self, gpid, gpdata, template):
         if type(gpdata) is int or  type(gpdata) is str:
             return
-        date = datetime.today().strftime('%Y-%m-%d')
-        gpinfo= {"gpname":gpdata["gp_name"], "block":gpdata["block"], "district":gpdata["district"],"cluster":gpdata["cluster"],"date":date,"school_count":gpdata["num_schools"], "totalstudents": gpdata["num_students"]}
+        gpdata["contestdate"] = self.now
+        gpinfo= {"gpname":gpdata["gp_name"].capitalize(), "block":gpdata["block"].capitalize(), "district":gpdata["district"].capitalize(),"cluster":gpdata["cluster"].capitalize(),"contestdate":gpdata["contestdate"],"school_count":gpdata["num_schools"], "totalstudents": gpdata["num_students"]}
         class4 = gpdata[self.assessmentnames["4"]]
         class5 = gpdata[self.assessmentnames["5"]]
         class6 = gpdata[self.assessmentnames["6"]]
-        info = {"imagesdir": self.imagesdir}
+        info = {"imagesdir": self.imagesdir, "year": self.academicyear}
+        print(info)
         renderer_template = template.render(gpinfo=gpinfo, class4=class4, class5=class5, class6=class6,
                                                 info = info)
 
@@ -135,27 +134,28 @@ class Command(BaseCommand):
        
            
     def createSchoolReports(self, gpid, template, outputdir):
-        #change to passed date
         schoolsdata = school_compute_numbers.get_school_report(gpid, self.surveyid, self.startyearmonth, self.endyearmonth)
 
-        #info = {"year": year}
         info = {"imagesdir": self.imagesdir}
         for schoolid in schoolsdata:
             schooldata = schoolsdata[schoolid]
-            schoolinfo = {"district": schooldata["district_name"],
-                      "block": schooldata["block_name"],
-                      "gpname": schooldata["gp_name"],
-                      "schoolname": schooldata["school_name"],
+            schooldata["contestdate"] = self.now
+            schoolinfo = {"district": schooldata["district_name"].capitalize(),
+                      "block": schooldata["block_name"].capitalize(),
+                      "gpname": schooldata["gp_name"].capitalize(),
+                      "schoolname": schooldata["school_name"].capitalize(),
                       "klpid": schooldata["school_id"],
                       "gpid": gpid,
-                      "disecode": schooldata["dise_code"]}
+                      "disecode": schooldata["dise_code"],
+                      "contestdate": schooldata["contestdate"]}
             assessmentinfo = {
                     "class4questions" : schooldata[self.assessmentnames["4"]],
                     "class5questions" : schooldata[self.assessmentnames["5"]],
                     "class6questions" : schooldata[self.assessmentnames["6"]]}
+            improvement = schooldata["deficiencies"]
 
             renderer_template = template.render(info=info,
-                    schoolinfo=schoolinfo, assessmentinfo=assessmentinfo)
+                    schoolinfo=schoolinfo, assessmentinfo=assessmentinfo, improvement=improvement)
  
             school_out_file = self.school_out_file+"_"+str(schoolinfo["klpid"])
             school_outputdir = outputdir+"/schools"
@@ -172,6 +172,17 @@ class Command(BaseCommand):
             shutil.copy2(self.build_d+"/"+school_out_file+".pdf",
                          school_outputdir)
 
+    def getAcademicYear(self, startyearmonth, endyearmonth):
+        startyear = int(startyearmonth[0:4])
+        startmonth = int(startyearmonth[4:6])
+        print(startmonth)
+        print(startyear)
+        if startmonth <= 5:
+            acadyear = str(startyear-1)+"-"+str(startyear)
+        else:
+            acadyear = str(startyear)+"-"+str(startyear+1)
+        print(acadyear)
+        return acadyear
 
     def handle(self, *args, **options):
         gpids = options.get("gpid", None)
@@ -180,6 +191,7 @@ class Command(BaseCommand):
         self.surveyid = options.get("surveyid", None)
         self.startyearmonth = options.get("startyearmonth", None)
         self.endyearmonth = options.get("endyearmonth", None)
+        self.academicyear =  self.getAcademicYear(self.startyearmonth, self.endyearmonth)
         self.onlygp = options.get("onlygp", False)
 
         if not self.validateInputs():
