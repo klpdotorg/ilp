@@ -78,23 +78,46 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
 DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_qdetails_percentages_agg;
 -- Recreate materialized view
 CREATE MATERIALIZED VIEW mvw_gpcontest_institution_qdetails_percentages_agg AS
-SELECT
-    format('A%s_%s_%s', t1.institution_id,t1.questiongroup_id,t1.microconcept) as id,
-    t1.institution_id as institution_id,
-    t1.questiongroup_id as questiongroup_id,
-    t1.microconcept as microconcept_id,
-    t1.num_assessments as total_answers,
-    CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::decimal END as correct_answers,
-    CASE WHEN t2.num_assessments is NULL THEN 0 ELSE ROUND(100*(t2.num_assessments*1.0/t1.num_assessments*1.0),2) END as percent_score
+WITH table1 as (
+    SELECT
+        format('A%s_%s_%s_%s', t1.institution_id,t1.questiongroup_id,t1.question_id,t1.microconcept) as id,
+        t1.institution_id as institution_id,
+        t1.question_id as question_id,
+        t1.questiongroup_id as questiongroup_id,
+        t1.microconcept as microconcept_id,
+        t1.num_assessments as total_answers,
+        CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::decimal END as correct_answers,
+        CASE WHEN t2.num_assessments is NULL THEN 0 ELSE ROUND(100*(t2.num_assessments*1.0/t1.num_assessments*1.0),2) END as percent_score
+    FROM
+        mvw_survey_institution_questiongroup_qdetails_agg t1
+    LEFT JOIN
+        mvw_survey_institution_questiongroup_qdetails_correctans_agg t2
+    ON t1.id=t2.id
+    WHERE
+        t1.survey_id=2 and
+        t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
+        t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int
+)
+SELECT 
+    table1.id as id,
+    table1.institution_id as institution_id,
+    table1.questiongroup_id as questiongroup_id,
+    table1.microconcept_id as microconcept_id,
+    table1.total_answers as total_answers,
+    table1.correct_answers as correct_answers,
+    table1.percent_score as percent_score,
+    q.id as question_id,
+    q.lang_name as question_lang_name,
+    qg_qns.sequence as question_sequence
 FROM
-    mvw_survey_institution_questiongroup_qdetails_agg t1
-LEFT JOIN
-    mvw_survey_institution_questiongroup_qdetails_correctans_agg t2
-ON t1.id=t2.id
+    table1, 
+    assessments_questiongroup_questions qg_qns,
+    assessments_question q
 WHERE
-    t1.survey_id=2 and
-    t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
-    t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int;
+    qg_qns.question_id=table1.question_id and
+    table1.question_id=q.id and
+    table1.questiongroup_id= qg_qns.questiongroup_id;
+
 -- END
 -- mvw_gpcontest_institution_stucount_agg - Stores student count per class
 -- Clear the tables first

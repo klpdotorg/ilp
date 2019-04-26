@@ -143,23 +143,18 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
             deficiencies = compute_deficient_competencies(
                             school_id, each_class, survey_id,
                             from_yearmonth, to_yearmonth)
-            questions = QuestionGroup_Questions.objects.filter(
-                questiongroup_id=each_class).exclude(
-                    question__question_text__in=['Gender', 'Class visited']
-            ).order_by('sequence')
-            class_answers = queryset.filter(questiongroup_id=each_class)
+            class_answers = queryset.filter(
+                questiongroup_id=each_class).order_by('question_sequence')
             class_details = {}
             class_questions = []
             if class_answers is not None:
                 # for answer in correct_answers_for_class:
-                for qgroup_question in questions:
-                    answer = class_answers.get(
-                        microconcept=qgroup_question.question.microconcept.char_id)
+                for answer in class_answers:
                     question_answer_details = {}
                     question_answer_details["question"] =\
                         answer.microconcept
                     question_answer_details["lang_name"] = \
-                        qgroup_question.question.lang_name
+                        answer.question_local_lang_text
                     question_answer_details["num_correct"] = answer.correct_answers
                     question_answer_details["percent"] = answer.percent_score
                     class_questions.append(question_answer_details)

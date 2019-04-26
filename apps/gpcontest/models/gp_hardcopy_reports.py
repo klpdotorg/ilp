@@ -81,6 +81,9 @@ class GPInstitutionClassQDetailsAgg(models.Model):
     total_answers = models.IntegerField(db_column="total_answers")
     correct_answers = models.IntegerField(db_column="correct_answers")
     percent_score = models.FloatField(db_column="percent_score")
+    question_id = models.ForeignKey('assessments.Question', db_column="question_id")
+    question_sequence = models.IntegerField(db_column="question_sequence")
+    question_local_lang_text = models.CharField(db_column="question_lang_name",max_length=200)
 
     class Meta:
         managed = False

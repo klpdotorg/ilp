@@ -4524,7 +4524,7 @@ FROM(
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_qdetails_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_qdetails_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_id,concept,microconcept_group,microconcept,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -4532,6 +4532,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id
     questiongroup_id,
     questiongroup_name,
     yearmonth,
+    question_id,
     concept,
     microconcept_group,
     microconcept,
@@ -4545,6 +4546,7 @@ FROM(
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.id as question_id,
         q.concept_id as concept,
         q.microconcept_group_id as microconcept_group,
         q.microconcept_id as microconcept,
@@ -4569,10 +4571,11 @@ FROM(
         ag.institution_id,
         qg.source_id,
         qg.name,qg.id,
+        q.id,
         q.concept_id,q.microconcept_group_id,q.microconcept_id,
         yearmonth)data
 union 
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_id,concept,microconcept_group,microconcept,yearmonth) as id,
     survey_id,
     survey_tag,
     institution_id,
@@ -4580,6 +4583,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id
     questiongroup_id,
     questiongroup_name,
     yearmonth,
+    question_id,
     concept,
     microconcept_group,
     microconcept,
@@ -4593,6 +4597,7 @@ FROM(
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        q.id as question_id,
         q.concept_id as concept,
         q.microconcept_group_id as microconcept_group,
         q.microconcept_id as microconcept,
@@ -4618,7 +4623,7 @@ FROM(
         surveytag.tag_id,
         stu.institution_id,
         qg.source_id,
-        qg.name,qg.id,
+        qg.name,qg.id,q.id,
         q.concept_id,q.microconcept_group_id,q.microconcept_id,
         yearmonth)data
 ;
@@ -4656,6 +4661,7 @@ FROM
         qg.survey_id as survey_id, 
         stmap.tag_id as survey_tag, 
         eb.id as eboundary_id,
+        q.id as question_id,
         q.concept_id as concept,
         q.microconcept_group_id as microconcept_group,
         q.microconcept_id as microconcept,
@@ -4667,7 +4673,7 @@ FROM
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
         assessments_question q,
-	assessments_competencyquestionmap qgc,
+	    assessments_competencyquestionmap qgc,
         --assessments_questiongroupconcept qgc, --table that stores passscore
         schools_institution s,
         boundary_electionboundary eb
@@ -4960,13 +4966,14 @@ GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,concept,microconcept
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_qdetails_correctans_agg AS
-SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,concept,microconcept_group,microconcept,yearmonth) as id,
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_id,concept,microconcept_group,microconcept,yearmonth) as id,
     survey_id, 
     survey_tag,
     institution_id,
     source,
     questiongroup_id,
     questiongroup_name,
+    question_id,
     concept,
     microconcept_group,
     microconcept,
@@ -4979,6 +4986,7 @@ FROM
         ag.institution_id as institution_id,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
+        q.id as question_id,
         q.concept_id as concept,
         q.microconcept_group_id as microconcept_group,
         q.microconcept_id as microconcept,
@@ -4998,12 +5006,12 @@ FROM
         and qg.survey_id in (2,18)
         and qg.id=qgc.questiongroup_id
         and ans.question_id=q.id
-	and q.id=qgc.question_id
+	    and q.id=qgc.question_id
         and stmap.survey_id=qg.survey_id
         and ag.is_verified=true
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,ag.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,q.id,ag.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.max_score)correctanswers --correct ans logic
-GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,questiongroup_id,questiongroup_name;
+GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,question_id,questiongroup_id,questiongroup_name;
 
 
 /* View for getting the number of types of election boundary that was a part
