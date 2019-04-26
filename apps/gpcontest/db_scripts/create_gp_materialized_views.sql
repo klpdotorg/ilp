@@ -1,7 +1,5 @@
 -- Input: 
 -- from_date, to_date -- Format is YYYY-MM-DD
--- from_yearmonth, to_yearmonth -- Format is YYYYMM
-
 --  mvw_gpcontest_eboundary_answers_agg -- Stores student scoring
 -- categories at the class level per GP
 -- Clear the tables first
@@ -95,7 +93,8 @@ LEFT JOIN
 ON t1.id=t2.id
 WHERE
     t1.survey_id=2 and
-    t1.yearmonth>=:from_yearmonth and t1.yearmonth<=:to_yearmonth;
+    t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
+    t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int;
 -- END
 -- mvw_gpcontest_institution_stucount_agg - Stores student count per class
 -- Clear the tables first

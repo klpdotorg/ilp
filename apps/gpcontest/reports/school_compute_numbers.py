@@ -11,7 +11,8 @@ from schools.models import (
     Institution
 )
 from gpcontest.models import (
-    GPInstitutionClassParticipationCounts
+    GPInstitutionClassParticipationCounts,
+    GPInstitutionClassQDetailsAgg
 )
 from django.db.models import (
     When,
@@ -103,19 +104,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
 
     date_of_contest = get_date_of_contest(school_id, survey_id, from_yearmonth, to_yearmonth)
-    total_answers = SurveyInstitutionQuestionGroupQDetailsAgg.objects.filter(
-        survey_id=survey_id).filter(
-            yearmonth__gte=from_yearmonth).filter(
-        yearmonth__lte=to_yearmonth).filter(
-            institution_id=school_id
-    )
-    correct_answers = \
-        SurveyInstitutionQuestionGroupQDetailsCorrectAnsAgg.objects.filter(
-            survey_id=survey_id).filter(
-            yearmonth__gte=from_yearmonth).filter(
-            yearmonth__lte=to_yearmonth).filter(
-                institution_id=school_id
-        )
+  
     # Get questiongroups applicable for this survey ID for the given year range
     questiongroup_ids = get_questiongroups_survey(
         survey_id,
@@ -123,8 +112,9 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
         to_yearmonth)
     result = {}
 
-  
     school_info = Institution.objects.get(id=school_id)
+    queryset = GPInstitutionClassQDetailsAgg.objects.filter(
+        institution_id=school_info.id)
 
     result["school_id"] = school_info.id
     result["school_name"] = school_info.name
@@ -157,50 +147,29 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
                 questiongroup_id=each_class).exclude(
                     question__question_text__in=['Gender', 'Class visited']
             ).order_by('sequence')
-            all_answers_for_class = total_answers.filter(
-                questiongroup_id=each_class)
-            correct_answers_for_class = correct_answers.filter(
-                questiongroup_id=each_class)
+            class_answers = queryset.filter(questiongroup_id=each_class)
             class_details = {}
             class_questions = []
-            # for answer in correct_answers_for_class:
-            for qgroup_question in questions:
-                question_answer_details = {}
-                try:
-                    total = all_answers_for_class.get(
-                        microconcept_id=qgroup_question.question.microconcept)
-                except:
-                    total = 0
-                else:
-                    total = total.num_assessments
-
-                try:
-                    correct = correct_answers_for_class.get(
-                        microconcept_id=qgroup_question.question.microconcept)
-                except:
-                    correct = 0
-                else:
-                    correct = correct.num_assessments
-                percent = 0
-                if total is not None and total > 0:
-                    sum = total
-                    percent = round((correct / sum) * 100, 2)
-                else:
-                    sum = 0
-                question_answer_details["question"] =\
-                    qgroup_question.question.microconcept.char_id
-                question_answer_details["lang_name"] = \
-                    qgroup_question.question.lang_name
-                question_answer_details["num_correct"] = correct
-                question_answer_details["percent"] = percent
-                class_questions.append(question_answer_details)
-            class_details["question_answers"] = class_questions
-            qgroup = QuestionGroup.objects.get(id=each_class)
-            # Check if a class exists because sometimes it might not for
-            # a particular school
-            if deficiencies is not None:
-                class_details["deficiencies"] = deficiencies
-            result[qgroup.name] = class_details
+            if class_answers is not None:
+                # for answer in correct_answers_for_class:
+                for qgroup_question in questions:
+                    answer = class_answers.get(
+                        microconcept=qgroup_question.question.microconcept.char_id)
+                    question_answer_details = {}
+                    question_answer_details["question"] =\
+                        answer.microconcept
+                    question_answer_details["lang_name"] = \
+                        qgroup_question.question.lang_name
+                    question_answer_details["num_correct"] = answer.correct_answers
+                    question_answer_details["percent"] = answer.percent_score
+                    class_questions.append(question_answer_details)
+                class_details["question_answers"] = class_questions
+                qgroup = QuestionGroup.objects.get(id=each_class)
+                # Check if a class exists because sometimes it might not for
+                # a particular school
+                if deficiencies is not None:
+                    class_details["deficiencies"] = deficiencies
+                result[qgroup.name] = class_details
     end2 = time.time()
     print("Time to generate school percentages and construct dict = %s" % (end2-start2))
     return result
