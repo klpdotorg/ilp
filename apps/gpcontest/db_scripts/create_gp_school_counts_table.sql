@@ -1,7 +1,7 @@
 -- Clear the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_schoolcount_agg CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_eboundary_schoolcount_agg CASCADE;
 -- Re-populate the tables
-CREATE MATERIALIZED VIEW mvw_survey_eboundary_schoolcount_agg AS
+CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
    SELECT 
         format('A%s_%s', 2,eboundary.id) as id,
         eboundary.id as gp_id,

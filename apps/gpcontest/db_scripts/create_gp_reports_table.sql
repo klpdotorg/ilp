@@ -1,7 +1,9 @@
+-- Input to this table is a from_date and a to_date of the format 
+-- YYYY-MM-DD
 -- Clear the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_eboundary_answers_agg CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_eboundary_answers_agg CASCADE;
 -- Re-populate the tables
-CREATE MATERIALIZED VIEW mvw_survey_eboundary_answers_agg AS
+CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
     WITH subquery1 AS
         (
             SELECT
@@ -40,7 +42,7 @@ CREATE MATERIALIZED VIEW mvw_survey_eboundary_answers_agg AS
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>60.00 AND ROUND(total_percent,2)<76.00) as cat_c,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>75.00 AND ROUND(total_percent,2)<101.00) as cat_d
     FROM subquery1
-    GROUP BY id,gp_id, questiongroup_id
+    GROUP BY id,gp_id, questiongroup_id;
 
         
 

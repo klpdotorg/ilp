@@ -1,7 +1,9 @@
+-- Input to this script is a from_date and a to_date of the format 
+-- YYYY-MM-DD
 -- Clear the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_stucount_agg CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_stucount_agg CASCADE;
 -- Re-populate the tables
-CREATE MATERIALIZED VIEW mvw_survey_institution_stucount_agg AS
+CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
    SELECT 
         format('A%s_%s_%s', 2,ag.institution_id,qg.id) as id,
         ag.institution_id as institution_id, 
