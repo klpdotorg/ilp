@@ -35,7 +35,6 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
             .....
         }
     """
-    start = time.time()
     dates = [from_yearmonth, to_yearmonth]
     correct_answers_agg =\
         SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
@@ -74,13 +73,10 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         if percent < 60.00:
             competency_map[each_row['question_key']] = percent
     three_smallest = nsmallest(3, competency_map, key=competency_map.get)
-    end = time.time()
-    print("Time to compute deficiencies = %s" % (end-start))
     return three_smallest
 
 
 def get_date_of_contest(school_id, gp_survey_id, from_yearmonth, to_yearmonth):
-    start = time.time()
     from_date, to_date = convert_yearmonth_to_fulldate(from_yearmonth, to_yearmonth)
     dates_of_contest = AnswerGroup_Institution.objects.filter(
         institution_id=school_id).filter(
@@ -91,13 +87,9 @@ def get_date_of_contest(school_id, gp_survey_id, from_yearmonth, to_yearmonth):
     formatted_dates = []
     for date in dates_of_contest:
         formatted_dates.append(date.strftime('%d/%m/%Y'))
-    print("Dates of contest for School %s are %s" % (school_id, formatted_dates))
-    end = time.time()
-    print("Time to compute date of contest is = %s" % (end-start))
     return formatted_dates
 
 def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
-    start1 = time.time()
     format_str = '%Y%m'  # The input format
     from_datetime_obj = datetime.datetime.strptime(
         str(from_yearmonth), format_str)
@@ -126,10 +118,6 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     result["gp_id"] = school_info.gp.id
     result["gp_name"] = school_info.gp.const_ward_name
     result["date"] = date_of_contest
-    
-    end1 = time.time()
-    print("Time to construct aggregates and set up dict=%s" % (end1 - start1))
-    start2 = time.time()
     for each_class in questiongroup_ids:
         try:
             class_participation = GPInstitutionClassParticipationCounts.objects.filter(
@@ -166,8 +154,6 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
                 if deficiencies is not None:
                     class_details["deficiencies"] = deficiencies
                 result[qgroup.name] = class_details
-    end2 = time.time()
-    print("Time to generate school percentages and construct dict = %s" % (end2-start2))
     return result
 
 def get_gp_schools_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
@@ -237,8 +223,9 @@ def get_gp_schools_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
         start2 = time.time()
         school_report = get_school_report(school, survey_id, from_yearmonth, to_yearmonth)
         end2 = time.time()
-        print("Time for a single school report = %s" % (end2-start2))
+        print("Time for school %s report = %s" % (school, end2-start2))
         schools_info[school] = school_report
     end = time.time()
-    print("Total time = %s" %(end-start))
+    print("Total time to compute report for GP ID %s with %s schools = %s"
+          % (gp_id, schools.count(), end-start))
     return schools_info
