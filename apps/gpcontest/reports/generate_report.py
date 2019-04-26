@@ -104,6 +104,7 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     contest_dates = get_date_of_contest(gp_id, gp_survey_id, from_yearmonth, to_yearmonth)
     all_scores_for_gp = {
         "gp_name": gp_name,
+        "gp_id": gp_id,
         "num_schools": num_schools,
         "district": district_name,
         "block": block_name,

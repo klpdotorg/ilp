@@ -123,6 +123,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     result["district_name"] = school_info.admin1.name
     result["block_name"] = school_info.admin2.name
     result["cluster_name"] = school_info.admin3.name
+    result["gp_id"] = school_info.gp.id
     result["gp_name"] = school_info.gp.const_ward_name
     result["date"] = date_of_contest
     
