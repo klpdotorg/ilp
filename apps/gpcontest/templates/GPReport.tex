@@ -14,12 +14,17 @@
 \usepackage{fontenc}
 \usepackage{xltxtra}
 \usepackage{tikz}
+\usepackage{array}
+
+
 
 
 \newcommand{\kn}[1]{
 {\fontspec{Kedage}
 #1
 }}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
 \fancypagestyle{plain}{
 \fancyhf{} % clear all header and footer fields
@@ -140,13 +145,13 @@ at (current page.south east)
 {
 \setlength{\parindent}{0in}
 \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ} : {{gpinfo.gpname}} \hfill \kn{ಜಿಲ್ಲೆ} : {{gpinfo.district}} \\
-\kn{ತಾಲೂಕ} : {{gpinfo.block}} \hfill \kn{ಒಟ್ಟು ಶಾಲೆಗಳ ಸಂಖ್ಯೆ} : {{gpinfo.school_count}}\\
+\kn{ತಾಲೂಕ} : {{gpinfo.block}} \hfill \kn{ಒಟ್ಟು ಶಾಲೆಗಳ ಸಂಖ್ಯೆ} : {{gpinfo.school_count}}\\~\\
 \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ , ಶಿಕ್ಷಣ ಇಲಾಖೆ, ಸಮುದಾಯ ಮತ್ತು ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಭಾಗಿತ್ವದಲ್ಲಿ ದಿನಾಂಕ} {{gpinfo.contestdate}} \kn{ರಂದು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದಲ್ಲಿ ನಡೆದ ೪, ೫ ಮತ್ತು ೬ ನೇ ತರಗತಿಯ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ಕಿರು ವರದಿ ಈ ಕೆಳಕಂಡಂತಿದೆ.
 ಈ ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ವ್ಯಾಪ್ತಿಯಲ್ಲಿ ಸರ್ಕಾರೀ ಶಾಲೆಗಳಿಂದ ೪, ೫ ಮತ್ತು ೬ ನೇ ತರಗತಿಯ ಮಕ್ಕಳು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ್ದರು.}
 \\~\\
 \kn{ತರಗತಿವಾರು ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ್ದ ಮಕ್ಕಳ ಒಟ್ಟಾರೆ ಫಲಿತಾಂಶಗಳು ಈ ಕೆಳಗಿನಂತೆ ಇವೆ.}\\
 
-\begin{longtable}{|p{3cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} \hline
+\begin{longtable}{|P{3cm}|P{2cm}|P{2cm}|P{2cm}|P{2cm}|P{2cm}|} \hline
 
 \textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{4}{|c|}{\kn{ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ (ಶೇಕಡವಾರು)}}\\ \cline{3-6}
 & &  >35\% & 36\%-60\%  & 61\%-75\% & 76\%-100\% \\ \hline \endhead
@@ -156,7 +161,7 @@ at (current page.south east)
 
 \end{longtable}
 
-\begin{longtable}{|l|p{2cm}|l|l|l|l|l|l|} \hline
+\begin{longtable}{|c|P{2cm}|c|c|c|c|c|c|} \hline
 \textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{6}{|c|}{\textbf{\kn{ಮೂಲ ಕ್ರಿಯೆಗಳನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \cline{3-8}
 &&\kn{ಸಂಖ್ಯಾ ಪರಿಚಯ}&\kn{ಸ್ಥಾನ ಬೆಲೆ}&\kn{ಸಂಕಲನ}&\kn{ವ್ಯವಕಲನ}&\kn{ಗುಣಾಕಾರ}&\kn{ಭಾಗಾಕಾರ} \\ \hline \endhead
 4\kn{ನೇ ತರಗತಿ} & {{class4.competency_scores.total}} & {{class4.competency_scores["Number Recognition"]}}  & {{class4.competency_scores["Place Value"]}} & {{class4.competency_scores["Addition"]}} & {{class4.competency_scores["Subraction"]}} & {{class4.competency_scores["Multiplication"]}} & {{class4.competency_scores["Division"]}} \\ \hline
@@ -168,7 +173,7 @@ at (current page.south east)
 \kn{ಫಲಿತಾಂಶ : ಒಟ್ಟಾರೆಯಾಗಿ ೫ ವರ್ಷ ಶಾಲೆಯಲ್ಲಿ ಕಲಿತ ಮಗು ಈ ಕೆಳಗಿನ ಮೂಲಕ್ರಿಯೆಯನ್ನು ಮಾಡಬಹುದು ಎಂದು ನಾವು ಪರಿಗಣಿಸಬಹುದು} (\kn{ಶೇಕಡವಾರು}) \\
  
 
-\begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|} \hline
+\begin{longtable}{|P{2.5cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|} \hline
 \textbf{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ಸ್ಥಾನ ಬೆಲೆಯನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} \\ \hline \endhead
 {{class6.percent_scores["Number Recognition"]}}&  {{class6.percent_scores["Place Value"]}} & {{class6.percent_scores["Addition"]}} & {{class6.percent_scores["Subtraction"]}} & {{class6.percent_scores["Multiplication"]}} &  {{class6.percent_scores["Division"]}} \\ \hline
 \end{longtable}
