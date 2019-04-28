@@ -153,7 +153,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
                             from_yearmonth, to_yearmonth)
             class_answers = queryset.filter(
                 questiongroup_id=each_class).order_by('question_sequence')
-            class_details = {}
+            class_details = {"num_students": num_students}
             class_questions = []
             if class_answers is not None:
                 # for answer in correct_answers_for_class:
