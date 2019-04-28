@@ -21,3 +21,4 @@ Pillow==4.3.0
 django-fixture-magic==0.1.3
 rest-condition>=1.0.3
 jinja2
+pypdf2

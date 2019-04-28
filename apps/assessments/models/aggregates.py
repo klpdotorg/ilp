@@ -137,6 +137,7 @@ class SurveyBoundaryQuestionKeyAgg(models.Model):
     source = models.ForeignKey('Source', db_column="source")
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -152,6 +153,7 @@ class SurveyInstitutionQuestionKeyAgg(models.Model):
     source = models.ForeignKey('Source', db_column="source")
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -201,6 +203,7 @@ class SurveyEBoundaryQuestionGroupQuestionKeyAgg(models.Model):
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -218,6 +221,7 @@ class SurveyBoundaryQuestionGroupQuestionKeyAgg(models.Model):
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -235,6 +239,7 @@ class SurveyInstitutionQuestionGroupQuestionKeyAgg(models.Model):
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
     class Meta:
@@ -367,6 +372,7 @@ class SurveyEBoundaryQuestionKeyCorrectAnsAgg(models.Model):
     eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
     source = models.ForeignKey('Source', db_column="source")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
@@ -382,6 +388,7 @@ class SurveyBoundaryQuestionKeyCorrectAnsAgg(models.Model):
     boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
     source = models.ForeignKey('Source', db_column="source")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
@@ -397,6 +404,7 @@ class SurveyInstitutionQuestionKeyCorrectAnsAgg(models.Model):
     institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
     source = models.ForeignKey('Source', db_column="source")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
@@ -446,6 +454,7 @@ class SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
@@ -463,6 +472,7 @@ class SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_assessments = models.IntegerField(db_column="num_assessments")
 
@@ -480,6 +490,7 @@ class SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100, db_column="lang_question_key")
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_assessments = models.IntegerField(db_column="num_assessments")
 

@@ -28,60 +28,80 @@
 
 \fancypagestyle{plain}{
 \fancyhf{} % clear all header and footer fields
+\lfoot{
 \begin{tikzpicture}[remember picture,overlay]
 \node[anchor=south west,yshift=0pt,xshift=0pt]%
 at (current page.south west)
 {\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
+\end{tikzpicture}}
 
+\rfoot{
+\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=south east,yshift=0pt,xshift=0pt]%
 at (current page.south east)
 {\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
+\end{tikzpicture}}
 
-\node[anchor=south west,yshift=5pt,xshift=100pt]%
+\cfoot{
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=south west,yshift=0pt,xshift=4.5cm]%
 at (current page.south west)
 {\kn{ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}}};
-
-\node[anchor=south east,yshift=5pt,xshift=-60pt]%
-at (current page.south east)
+\node[anchor=south,yshift=0pt,xshift=6cm]%
+at (current page.south)
 {\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
-
-\end{tikzpicture}
-
+\end{tikzpicture}}
 }
 
 %% Headers and footers
 \fancypagestyle{title}{
 \fancyhf{} % clear all header and footer fields
+
+\chead{
 \begin{tikzpicture}[remember picture,overlay]
-
-\node[anchor=north, yshift=70pt, xshift=8.0cm]
+\node[anchor=north, yshift=1.65cm, xshift=0pt]
 {\includegraphics[width=3.5cm]{"{{info.imagesdir}}title_header_center.png"}};
+\end{tikzpicture}}
 
+\lhead{
+\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=north west,yshift=0pt,xshift=0pt]%
 at (current page.north west)
 {\includegraphics[width=5cm]{"{{info.imagesdir}}title_header_left.png"}};
+\end{tikzpicture}}
 
+\rhead{
+\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=north east,yshift=0pt,xshift=0pt]%
 at (current page.north east)
 {\includegraphics[width=3cm]{"{{info.imagesdir}}title_header_right.png"}};
+\end{tikzpicture}}
 
+\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=north west, yshift=-5cm, xshift=5cm]
 {\includegraphics[width=7cm]{"{{info.imagesdir}}title_text.png"}};
+\end{tikzpicture}
 
+\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=south west, yshift=200pt,xshift=8.5cm]%
 	at (current page.south west)
 {\includegraphics[width=4cm]{"{{info.imagesdir}}logo.jpg"}};
+\end{tikzpicture}
 
+\lfoot{
+\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=south west,yshift=0pt,xshift=0pt]%
 at (current page.south west)
 {\includegraphics[height=4cm]{"{{info.imagesdir}}title_footer_left.png"}};
+\end{tikzpicture}}
 
+\rfoot{
+\begin{tikzpicture}[remember picture,overlay]
 \node[anchor=south east,yshift=0pt,xshift=0pt]%
 at (current page.south east)
 {\includegraphics[height=3cm]{"{{info.imagesdir}}title_footer_right.png"}};
+\end{tikzpicture}}
 
-
-\end{tikzpicture}
 
 %%\setlength{\headheight}{220pt}
 %%\setlength{\footskip}{120pt}
