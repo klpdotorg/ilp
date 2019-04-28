@@ -89,13 +89,30 @@ def get_date_of_contest(school_id, gp_survey_id, from_yearmonth, to_yearmonth):
         formatted_dates.append(date.strftime('%d/%m/%Y'))
     return formatted_dates
 
+
+def get_school_report_dict(school_id, survey_id, from_yearmonth, to_yearmonth):
+    """ This is the same as get_school_report except it returns a dict
+    with a SINGLE school report keyed by school id"""
+    result = {}
+    school_report = get_school_report(
+                                    school_id, survey_id,
+                                    from_yearmonth, to_yearmonth)
+    result[school_id] = school_report
+    return result
+
+
 def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
+    """
+    Internal function that returns a single school report as a dict
+    TODO: Make this private
+    """
     format_str = '%Y%m'  # The input format
     from_datetime_obj = datetime.datetime.strptime(
         str(from_yearmonth), format_str)
     to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
 
-    date_of_contest = get_date_of_contest(school_id, survey_id, from_yearmonth, to_yearmonth)
+    date_of_contest = get_date_of_contest(
+        school_id, survey_id, from_yearmonth, to_yearmonth)
   
     # Get questiongroups applicable for this survey ID for the given year range
     questiongroup_ids = get_questiongroups_survey(
@@ -120,8 +137,10 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     result["date"] = date_of_contest
     for each_class in questiongroup_ids:
         try:
-            class_participation = GPInstitutionClassParticipationCounts.objects.filter(
-                institution_id=school_id).get(questiongroup_id=each_class)
+            class_participation =\
+                GPInstitutionClassParticipationCounts.objects.filter(
+                    institution_id=school_id).get(
+                        questiongroup_id=each_class)
         except GPInstitutionClassParticipationCounts.DoesNotExist:
             print("This GP does not have class %s" % each_class)
         else:
@@ -155,6 +174,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
                     class_details["deficiencies"] = deficiencies
                 result[qgroup.name] = class_details
     return result
+
 
 def get_gp_schools_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
     """ From and to date is of the format YYYYMM. Return dictionary with all
