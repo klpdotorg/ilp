@@ -41,12 +41,13 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
             survey_id=survey_id).filter(
                 questiongroup_id=questiongroup_id).filter(
                 institution_id=school_id, yearmonth__range=dates).values(
-                'question_key', 'questiongroup_name',
+                'question_key', 'lang_question_key', 'questiongroup_name',
                 'num_assessments').annotate(total=Sum('num_assessments'))
     total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects\
         .filter(survey_id=survey_id, questiongroup_id=questiongroup_id,
                 institution_id=school_id, yearmonth__range=dates)\
-        .values('question_key', 'questiongroup_name', 'num_assessments')\
+        .values('question_key', 'lang_question_key', 'questiongroup_name',
+                'num_assessments')\
         .annotate(Sum('num_assessments'))
     competency_map = {}
     for each_row in total_assessments:
@@ -71,7 +72,7 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         # We are only interested in competencies below 60% to call them
         # deficient. Ignore percentages above 60
         if percent < 60.00:
-            competency_map[each_row['question_key']] = percent
+            competency_map[each_row['lang_question_key']] = percent
     three_smallest = nsmallest(3, competency_map, key=competency_map.get)
     return three_smallest
 
@@ -163,8 +164,10 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
                         answer.microconcept.char_id
                     question_answer_details["lang_name"] = \
                         answer.question_local_lang_text
-                    question_answer_details["num_correct"] = answer.correct_answers
-                    question_answer_details["percent"] = answer.percent_score
+                    question_answer_details["num_correct"] = \
+                        float(answer.correct_answers)
+                    question_answer_details["percent"] = \
+                        float(answer.percent_score)
                     class_questions.append(question_answer_details)
                 class_details["question_answers"] = class_questions
                 qgroup = QuestionGroup.objects.get(id=each_class)
