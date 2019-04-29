@@ -5,26 +5,23 @@ from assessments.models import (
 from .utils import *
 
 
-def get_gps_for_academic_year(gpcontest_survey_id, from_yearmonth, to_yearmonth):
+def get_gps_for_academic_year(gpcontest_survey_id):
     """ Returns a list of distinct gp_ids for the academic year 
     where gp contest happened """
     return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
         survey_id=gpcontest_survey_id
-    ).filter(
-        yearmonth__gte=from_yearmonth, yearmonth__lte=to_yearmonth
-        ).distinct().values_list('eboundary_id', flat=True)
+    ).distinct().values_list('eboundary_id', flat=True)
 
 
 def generate_all_reports(gp_survey_id, from_yearmonth, to_yearmonth):
     """ Generates reports for ALL GPs in a given time frame for which
     we have data in our DB """
-    #from_yearmonth, to_yearmonth = convert_to_yearmonth(from_yearmonth, to_yearmonth)
-    gp_ids = get_gps_for_academic_year(gp_survey_id, from_yearmonth,
-                                       to_yearmonth)
+    # rom_yearmonth, to_yearmonth = convert_to_yearmonth(from_yearmonth, to_yearmonth)
+    gp_ids = get_gps_for_academic_year(gp_survey_id)
     result = generate_for_gps_list(gp_ids, gp_survey_id, from_yearmonth,
                                    to_yearmonth)
     return result
-   
+
 
 def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmonth):
     """ Generates reports for an array of GP ids """
@@ -32,10 +29,12 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
         "count": len(list_of_gps),
     }
     for gp in list_of_gps:
-        gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
-        all_gps[gp] = gp_dict
-        #Call school report code
-        #Pass resulting dicts into templates
+        try:
+            gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
+            all_gps[gp] = gp_dict
+        except:
+            print("Unable to generate report for GP ID %s. Please check other prints preceding this for something that went wrong" % gp)
+            pass
     return all_gps
 
 
