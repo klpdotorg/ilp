@@ -27,12 +27,7 @@ class Command(BaseCommand):
     gp_template_file = basefiledir+templatedir+gp_template_name
     school_template_file = basefiledir+templatedir+school_template_name
 
-    school_4_template_file = basefiledir+templatedir+"GPSchoolReport_4.tex"
-    school_5_template_file = basefiledir+templatedir+"GPSchoolReport_5.tex"
-    school_6_template_file = basefiledir+templatedir+"GPSchoolReport_6.tex"
-
-    templates = {"school": None, "gp": None,
-                 "school4": None, "school5": None, "school6": None}
+    templates = {"school": None, "gp": None}
 
     build_d = basefiledir+"/build/"
     gp = {}
@@ -67,9 +62,6 @@ class Command(BaseCommand):
         )
         self.templates["gp"] = latex_jinja_env.get_template(self.gp_template_file)
         self.templates["school"] = latex_jinja_env.get_template(self.school_template_file)
-        self.templates["school4"] = latex_jinja_env.get_template(self.school_4_template_file)
-        self.templates["school5"] = latex_jinja_env.get_template(self.school_5_template_file)
-        self.templates["school6"] = latex_jinja_env.get_template(self.school_6_template_file)
 
     def checkYearMonth(self, yearmonth):
         try:
@@ -182,8 +174,9 @@ class Command(BaseCommand):
             os.makedirs(builddir)
         pdfscreated = []
         if assessmentinfo["class4"] != {}:
-            renderer_template = self.templates["school4"].render(info=info,
-            schoolinfo=schoolinfo, assessmentinfo=assessmentinfo)
+            info["classname"] = "4"
+            renderer_template = self.templates["school"].render(info=info,
+            schoolinfo=schoolinfo, assessmentinfo=assessmentinfo["class4"])
             school_4_out_file = self.school_out_file+"_"+str(schoolinfo["klpid"])+"_4"
             with open(school_4_out_file+".tex", "w", encoding='utf-8') as f:
                     f.write(renderer_template)
@@ -192,8 +185,9 @@ class Command(BaseCommand):
             pdfscreated.append(os.path.realpath(builddir+"/"+school_4_out_file+".pdf"))
 
         if assessmentinfo["class5"] != {}:
-            renderer_template = self.templates["school5"].render(info=info,
-            schoolinfo=schoolinfo, assessmentinfo=assessmentinfo)
+            info["classname"] = "5"
+            renderer_template = self.templates["school"].render(info=info,
+            schoolinfo=schoolinfo, assessmentinfo=assessmentinfo["class5"])
             school_5_out_file = self.school_out_file+"_"+str(schoolinfo["klpid"])+"_5"
             with open(school_5_out_file+".tex", "w", encoding='utf-8') as f:
                     f.write(renderer_template)
@@ -202,8 +196,9 @@ class Command(BaseCommand):
             pdfscreated.append(os.path.realpath(builddir+"/"+school_5_out_file+".pdf"))
 
         if assessmentinfo["class6"] != {}:
-            renderer_template = self.templates["school6"].render(info=info,
-            schoolinfo=schoolinfo, assessmentinfo=assessmentinfo)
+            info["classname"] = "6"
+            renderer_template = self.templates["school"].render(info=info,
+            schoolinfo=schoolinfo, assessmentinfo=assessmentinfo["class6"])
             school_6_out_file = self.school_out_file+"_"+str(schoolinfo["klpid"])+"_6"
             with open(school_6_out_file+".tex", "w", encoding='utf-8') as f:
                     f.write(renderer_template)
