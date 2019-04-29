@@ -176,7 +176,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
                     question_answer_details["lang_name"] = \
                         answer.question_local_lang_text
                     question_answer_details["num_correct"] = \
-                        float(answer.correct_answers)
+                        int(answer.correct_answers)
                     question_answer_details["percent"] = \
                         float(answer.percent_score)
                     class_questions.append(question_answer_details)
