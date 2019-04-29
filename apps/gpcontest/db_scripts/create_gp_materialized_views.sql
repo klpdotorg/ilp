@@ -86,7 +86,7 @@ WITH table1 as (
         t1.questiongroup_id as questiongroup_id,
         t1.microconcept as microconcept_id,
         t1.num_assessments as total_answers,
-        CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::decimal END as correct_answers,
+        CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::int END as correct_answers,
         CASE WHEN t2.num_assessments is NULL THEN 0 ELSE ROUND(100*(t2.num_assessments*1.0/t1.num_assessments*1.0),2) END as percent_score
     FROM
         mvw_survey_institution_questiongroup_qdetails_agg t1
