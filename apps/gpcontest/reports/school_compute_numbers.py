@@ -30,7 +30,11 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         array of 3 question keys (competencies) less than 60%
         that the class is most deficient in. The return dict is of the format:
         {
-            "Class 4 Assessment": ['Addition', 'Subtraction', 'Multiplication'],
+            "Class 4 Assessment": [
+                {"competency": 'Addition', "local_name": "xxx in Kannada"}
+                {"competency":'Subtraction', "local_name": "xxx in Kannada"}, 
+                {"competency": 'Multiplication', "local_name": "xxx in Kannada}
+            ],
             Questiongroup2_Name: [xx,yy,xx],
             .....
         }
@@ -72,9 +76,16 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         # We are only interested in competencies below 60% to call them
         # deficient. Ignore percentages above 60
         if percent < 60.00:
-            competency_map[each_row['lang_question_key']] = percent
+            competency_map[each_row['question_key']] = percent
     three_smallest = nsmallest(3, competency_map, key=competency_map.get)
-    return three_smallest
+    deficiencies = []
+    # Fetch the local lang name from the mvw
+    for key in three_smallest:
+        qs = total_assessments.filter(question_key=key)
+        # Just fetch the local lang name from any row of the filtered qs
+        local_lang_name = qs.first().lang_question_key
+        deficiencies.append({"competency": key, "local_name": local_lang_name})
+    return deficiencies
 
 
 def get_date_of_contest(school_id, gp_survey_id, from_yearmonth, to_yearmonth):
