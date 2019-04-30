@@ -110,9 +110,8 @@ class GPInstitutionDeficientCompetencyPercentagesAgg(models.Model):
 
 
 class GPContestSchoolDetails(models.Model):
-    institution_id = models.ForeignKey(
-                                    'schools.Institution',
-                                    db_column="institution_id")
+    id = models.ForeignKey('schools.Institution',
+                            db_column="institution_id")
     institution_name = models.CharField(max_length=200,
                                         db_column="institution_name")
     school_code = models.ForeignKey(

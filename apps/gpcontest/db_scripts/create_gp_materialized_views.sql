@@ -175,7 +175,7 @@ WHERE ROUND((correct_answers*1.0/total_answers*1.0)*100,2)<60.00;
 DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_school_details;
 CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
     SELECT 
-        distinct schools.id as institution_id,
+        distinct schools.id as id,
         REPLACE(schools.name,'_',' ') as institution_name,
         dise.school_code as dise_code,
         boundary1.name as district_name,
