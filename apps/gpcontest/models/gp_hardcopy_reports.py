@@ -113,18 +113,22 @@ class GPContestSchoolDetails(models.Model):
     institution_id = models.ForeignKey(
                                     'schools.Institution',
                                     db_column="institution_id")
-    institution_name = models.CharField(max_length="200",
+    institution_name = models.CharField(max_length=200,
                                         db_column="institution_name")
     school_code = models.ForeignKey(
         'dise.BasicData', db_column="dise_code"
     )
-    district_name = models.CharField(max_length="150",
+    district_name = models.CharField(max_length=150,
                                      db_column="district_name")
     block_name = models.CharField(
-                                    max_length="150",
+                                    max_length=150,
                                     db_column="block_name")
     cluster_name = models.CharField(
-                                    max_length="150",
+                                    max_length=150,
                                     db_column="cluster_name")
     gp_id = models.ForeignKey('boundary.ElectionBoundary', db_column="gp_id")
-    gp_name = models.CharField(max_length="150", db_column="gp_name")
+    gp_name = models.CharField(max_length=150, db_column="gp_name")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_gpcontest_school_details'
