@@ -136,8 +136,8 @@ class Command(BaseCommand):
         print(os.path.dirname(outputdir))
         shutil.copy2(self.build_d+"/"+output_file+".pdf", 
                          outputdir)
+        self.deleteTempFiles([output_file+".tex",self.build_d+"/"+output_file+".pdf"])
         return outputdir
-
 
     def createOnlySchoolReports(self):
         school_outputdir = self.outputdir+"/schools/"
@@ -183,6 +183,7 @@ class Command(BaseCommand):
             os.system("xelatex -output-directory {} {}".format(
                   os.path.realpath(builddir), os.path.realpath(school_4_out_file)))
             pdfscreated.append(os.path.realpath(builddir+"/"+school_4_out_file+".pdf"))
+            self.deleteTempFiles([school_4_out_file+".tex"])
 
         if assessmentinfo["class5"] != {}:
             info["classname"] = "5"
@@ -194,6 +195,7 @@ class Command(BaseCommand):
             os.system("xelatex -output-directory {} {}".format(
                   os.path.realpath(builddir), os.path.realpath(school_5_out_file)))
             pdfscreated.append(os.path.realpath(builddir+"/"+school_5_out_file+".pdf"))
+            self.deleteTempFiles([school_5_out_file+".tex"])
 
         if assessmentinfo["class6"] != {}:
             info["classname"] = "6"
@@ -205,12 +207,13 @@ class Command(BaseCommand):
             os.system("xelatex -output-directory {} {}".format(
                   os.path.realpath(builddir), os.path.realpath(school_6_out_file)))
             pdfscreated.append(os.path.realpath(builddir+"/"+school_6_out_file+".pdf"))
+            self.deleteTempFiles([school_6_out_file+".tex"])
 
         school_file = self.school_out_file+"_"+str(schoolinfo["klpid"])+".pdf"
         self.combinePdfs(pdfscreated, school_file, outputdir)
-        self.deleteTempPdfs(pdfscreated)
+        self.deleteTempFiles(pdfscreated)
 
-    def deleteTempPdfs(self, tempPdfs):
+    def deleteTempFiles(self, tempPdfs):
         for pdf in tempPdfs:
             os.remove(pdf)
 
