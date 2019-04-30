@@ -88,4 +88,22 @@ class GPInstitutionClassQDetailsAgg(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_gpcontest_institution_qdetails_percentages_agg'
+
+
+class GPInstitutionDeficientCompetencyPercentagesAgg(models.Model):
+    institution_id = models.ForeignKey(
+                                    'schools.Institution',
+                                    db_column="institution_id")
+    questiongroup_id = models.ForeignKey(
+                            'assessments.QuestionGroup',
+                            db_column="questiongroup_id")
+    question_key = models.CharField(max_length=100, db_column="question_key")
+    lang_question_key = models.CharField(max_length=100,
+                                         db_column="lang_question_key")
+    total_answers = models.IntegerField(db_column="total_answers")
+    correct_answers = models.IntegerField(db_column="correct_answers")
+    percent_score = models.FloatField(db_column="percent_score")
     
+    class Meta:
+        managed = False
+        db_table = 'mvw_gpcontest_concept_percentages_agg'

@@ -12,7 +12,8 @@ from schools.models import (
 )
 from gpcontest.models import (
     GPInstitutionClassParticipationCounts,
-    GPInstitutionClassQDetailsAgg
+    GPInstitutionClassQDetailsAgg,
+    GPInstitutionDeficientCompetencyPercentagesAgg
 )
 from django.db.models import (
     When,
@@ -39,49 +40,20 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
             .....
         }
     """
-    dates = [from_yearmonth, to_yearmonth]
-    correct_answers_agg =\
-        SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
-            survey_id=survey_id).filter(
-                questiongroup_id=questiongroup_id).filter(
-                institution_id=school_id, yearmonth__range=dates).values(
-                'question_key', 'lang_question_key', 'questiongroup_name',
-                'num_assessments').annotate(total=Sum('num_assessments'))
-    total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects\
-        .filter(survey_id=survey_id, questiongroup_id=questiongroup_id,
-                institution_id=school_id, yearmonth__range=dates)\
-        .values('question_key', 'lang_question_key', 'questiongroup_name',
-                'num_assessments')\
-        .annotate(Sum('num_assessments'))
+    queryset = GPInstitutionDeficientCompetencyPercentagesAgg.objects.filter(
+        institution_id=school_id).filter(
+            questiongroup_id=questiongroup_id
+        )
     competency_map = {}
-    for each_row in total_assessments:
-        sum_total = each_row['num_assessments__sum']
-        percent = 0
-        total = 0
-        total_correct_answers = 0
-        try:
-            sum_correct_ans = correct_answers_agg.filter(
-                question_key=each_row['question_key'])
-            if sum_total is not None:
-                total = sum_total
-            if sum_correct_ans is None or sum_correct_ans['total'] is None:
-                total_correct_answers = 0
-            else:
-                total_correct_answers = sum_correct_ans['total']
-        except Exception as e:
-            pass
-
-        if total is not None and total > 0:
-            percent = round(total_correct_answers / total * 100, 2)
-        # We are only interested in competencies below 60% to call them
-        # deficient. Ignore percentages above 60
-        if percent < 60.00:
-            competency_map[each_row['question_key']] = percent
+    # Stick the competencies and their percentages in a dict so as to compute
+    # the three lowest percentage scores
+    for each_row in queryset:
+        competency_map[each_row['question_key']] = each_row['percent_score']
     three_smallest = nsmallest(3, competency_map, key=competency_map.get)
     deficiencies = []
     # Fetch the local lang name from the mvw
     for key in three_smallest:
-        qs = total_assessments.filter(question_key=key)
+        qs = queryset.filter(question_key=key)
         # Just fetch the local lang name from any row of the filtered qs
         local_lang_name = qs[:1].get()["lang_question_key"]
         deficiencies.append({"competency": key, "local_name": local_lang_name})

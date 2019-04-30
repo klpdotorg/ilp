@@ -138,6 +138,37 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
         ag.date_of_visit BETWEEN :from_date AND :to_date 
     GROUP BY ag.institution_id, qg.id;
 
+---- CREATE THE DEFICIENCY COMPUTATION TABLES-----------
+-- Drop the tables first
+DROP MATERIALIZED VIEW IF EXISTS mvw_test_gpcontest_concept_percentages_agg;
+CREATE MATERIALIZED VIEW mvw_test_gpcontest_concept_percentages_agg AS
+--- Create a subquery with total answers and correct answers -- 
+WITH subquery1 AS (
+    SELECT
+        format('A%s_%s_%s', t1.institution_id,t1.questiongroup_id,t1.question_key) as id,
+        t1.institution_id as institution_id,
+        t1.questiongroup_id as questiongroup_id,
+        t1.question_key as question_key,
+        t1.lang_question_key as lang_question_key,
+        SUM(t1.num_assessments) as total_answers,
+        SUM(CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::int END) as correct_answers
+    FROM
+        mvw_survey_institution_questiongroup_questionkey_agg t1
+    LEFT JOIN
+        mvw_survey_institution_questiongroup_questionkey_correctans_agg t2
+    ON t1.id=t2.id
+    WHERE
+        t1.survey_id=2 and
+        t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
+        t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int
+    GROUP BY t1.institution_id, t1.questiongroup_id, t1.question_key, t1.lang_question_key
+)
+-- Now compute percent scores from the above subquery and select only
+-- those percentages below 60%
+SELECT 
+    *, ROUND((correct_answers*1.0/total_answers*1.0)*100,2) AS percent_score 
+FROM subquery1
+WHERE ROUND((correct_answers*1.0/total_answers*1.0)*100,2)<60.00;
 
 
         
