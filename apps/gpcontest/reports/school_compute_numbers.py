@@ -24,6 +24,7 @@ from .utils import *
 from heapq import nsmallest
 import time
 
+
 def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
                                    from_yearmonth, to_yearmonth):
     """
@@ -48,15 +49,18 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
     # Stick the competencies and their percentages in a dict so as to compute
     # the three lowest percentage scores
     for each_row in queryset:
-        competency_map[each_row['question_key']] = each_row['percent_score']
+        competency_map[each_row.question_key] = each_row.percent_score
     three_smallest = nsmallest(3, competency_map, key=competency_map.get)
     deficiencies = []
     # Fetch the local lang name from the mvw
     for key in three_smallest:
         qs = queryset.filter(question_key=key)
         # Just fetch the local lang name from any row of the filtered qs
-        local_lang_name = qs[:1].get()["lang_question_key"]
-        deficiencies.append({"competency": key, "local_name": local_lang_name})
+        local_lang_name = qs[:1].get().lang_question_key
+        deficiencies.append(
+            {"competency": key,
+             "local_name": local_lang_name}
+            )
     return deficiencies
 
 
@@ -224,7 +228,6 @@ def get_gp_schools_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
     #                 'institution_id').values_list(
     #                 'institution_id', flat=True)
     schools_info = {}
-    print("Participating Schools count is: ", schools.count())
     for school in schools:
         start2 = time.time()
         school_report = get_school_report(school, survey_id, from_yearmonth, to_yearmonth)
