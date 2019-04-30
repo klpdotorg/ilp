@@ -110,14 +110,13 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
         to_yearmonth)
     result = {}
 
-    school_info = GPContestSchoolDetails.objects.get(id=school_id)
+    school_info = GPContestSchoolDetails.objects.get(institution_id=school_id)
     queryset = GPInstitutionClassQDetailsAgg.objects.filter(
-        institution_id=school_info.id)
+        institution_id=school_info.institution_id)
 
-    result["school_id"] = school_info.id
+    result["school_id"] = school_info.institution_id
     result["school_name"] = school_info.institution_name
-    if school_info.dise is not None:
-        result["dise_code"] = school_info.dise_code
+    result["dise_code"] = school_info.school_code
     result["district_name"] = school_info.district_name
     result["block_name"] = school_info.block_name
     result["cluster_name"] = school_info.cluster_name
