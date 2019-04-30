@@ -1,11 +1,12 @@
 \documentclass[12pt]{article}
-\usepackage[a4paper,top=2cm,left=2cm,right=2cm,bottom=0cm,portrait]{geometry}
+\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=0cm,portrait]{geometry}
 \usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{makecell}
 \usepackage{lastpage}
 \usepackage{multirow}
-\usepackage{xcolor}
+%%\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \usepackage{colortbl}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -15,6 +16,7 @@
 \usepackage{xltxtra}
 \usepackage{tikz}
 \usepackage{array}
+
 
 
 
@@ -44,7 +46,7 @@ at (current page.south east)
 
 \cfoot{
 \begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south west,yshift=0pt,xshift=4.5cm]%
+\node[anchor=south west,yshift=7pt,xshift=4.5cm]%
 at (current page.south west)
 {\kn{ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}}};
 \node[anchor=south,yshift=0pt,xshift=6cm]%
@@ -192,11 +194,16 @@ at (current page.south east)
  
 \kn{ಫಲಿತಾಂಶ : ಒಟ್ಟಾರೆಯಾಗಿ ೫ ವರ್ಷ ಶಾಲೆಯಲ್ಲಿ ಕಲಿತ ಮಗು ಈ ಕೆಳಗಿನ ಮೂಲಕ್ರಿಯೆಯನ್ನು ಮಾಡಬಹುದು ಎಂದು ನಾವು ಪರಿಗಣಿಸಬಹುದು} (\kn{ಶೇಕಡವಾರು}) \\
  
-
-\begin{longtable}{|P{2.5cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|P{2.5cm}|} \hline
-\textbf{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ಸ್ಥಾನ ಬೆಲೆಯನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} & \textbf{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}} \\ \hline \endhead
+\begin{center}
+%%\begin{longtable}{|P{3.3cm}|P{2.9cm}|P{2.9cm}|P{2.9cm}|P{2.9cm}|P{2.9cm}|} \hline
+\fontsize{8.75}{11}
+{
+\begin{longtable}{|c|c|c|c|c|c|} \hline
+\cellcolor{yellow}{\textbf{\makecell[b]{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯವನ್ನು} \\ \kn{ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{\kn{ಸ್ಥಾನ ಬೆಲೆಯನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} & \cellcolor{yellow}{\textbf{\makecell[b]{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \hline \endhead
 {{class6.percent_scores["Number Recognition"]}}&  {{class6.percent_scores["Place Value"]}} & {{class6.percent_scores["Addition"]}} & {{class6.percent_scores["Subtraction"]}} & {{class6.percent_scores["Multiplication"]}} &  {{class6.percent_scores["Division"]}} \\ \hline
 \end{longtable}
+}
+\end{center}
 
 \kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಜೊತೆಗೆ ಇತರೆ ಭಾಗೀದಾರರಾದ ನಾಗರಿಕ ಸೌಕರ್ಯ ಸಮಿತಿ} (CIVIL Amenities Committee), SDMC, \kn{ಪೋಷಕರು,ಶೈಕ್ಷಣಿಕ ಸ್ವಯಂಸೇವಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.} \break
 
