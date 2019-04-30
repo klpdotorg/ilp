@@ -170,6 +170,39 @@ SELECT
 FROM subquery1
 WHERE ROUND((correct_answers*1.0/total_answers*1.0)*100,2)<60.00;
 
+---MAT VIEW THAT AGGREGATES ALL SCHOOL RELATED INFO IN ONE PLACE TO MINIMIZE
+-- QUERIES --
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_school_details;
+CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
+    SELECT 
+        distinct schools.id as institution_id,
+        REPLACE(schools.name,'_',' ') as institution_name,
+        dise.school_code as dise_code,
+        boundary1.name as district_name,
+        boundary2.name as block_name,
+        boundary3.name as cluster_name,
+        eboundary.id as gp_id,
+        eboundary.const_ward_name as gp_name
+    FROM
+        assessments_questiongroup as questiongroup,
+        assessments_answergroup_institution as answergroup,
+        boundary_electionboundary as eboundary,
+        boundary_boundary as boundary1,
+        boundary_boundary as boundary2,
+        boundary_boundary as boundary3,
+        schools_institution as schools,
+        dise_basicdata as dise
+    WHERE
+        questiongroup.survey_id = 2 AND
+        questiongroup.id = answergroup.questiongroup_id AND
+        answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
+        answergroup.institution_id = schools.id AND
+        dise.id=schools.id AND
+        schools.gp_id = eboundary.id AND
+        schools.admin1_id = boundary1.id AND
+        schools.admin2_id = boundary2.id AND
+        schools.admin3_id = boundary3.id;
+
 
         
 

@@ -47,7 +47,6 @@ def get_date_of_contest(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     formatted_dates = []
     for date in dates_of_contest:
         formatted_dates.append(date.strftime('%d/%m/%Y'))
-    print("Dates of contest for GP %s are %s" % (gp_id, formatted_dates))
     return formatted_dates
 
 
