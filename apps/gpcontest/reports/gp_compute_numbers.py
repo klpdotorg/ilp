@@ -236,16 +236,11 @@ def get_schoolcount_classes_count(
     queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
         survey_id=survey_id).filter(
             institution_id__gp_id=gp_id).filter(yearmonth__gte=from_yearmonth).filter(
-                yearmonth__lte=to_yearmonth).filter(
-                    questiongroup_name__in=qgroup_names).values(
-                        'institution_id', 'questiongroup_name').annotate(
-                            schools_count=Count('institution_id')
-                        )
+                yearmonth__lte=to_yearmonth)
     result = {}
     for qgroup_name in qgroup_names:
-        num_schools = queryset.get(questiongroup_name=qgroup_name)
+        num_schools = queryset.filter(questiongroup_name=qgroup_name).distinct('institution_id').count()
         result[qgroup_name] = num_schools
-    print(result)
     return result
 
 

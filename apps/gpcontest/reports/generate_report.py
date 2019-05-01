@@ -100,7 +100,6 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     class6 = None
     gp_num_students = 0  # Variable to hold total # of students in GP contest
     contest_dates = get_date_of_contest(gp_id, gp_survey_id, from_yearmonth, to_yearmonth)
-    qgroup_names = ["Class 4 Assessment", "Class 5 Assessment", "Class 6 Assessment"]
     schoolcount_by_assessment = get_schoolcount_classes_count(gp_survey_id, gp_id,
                                   from_yearmonth, to_yearmonth)
     all_scores_for_gp = {
