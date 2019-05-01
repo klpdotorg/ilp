@@ -226,6 +226,21 @@ def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
         pass
     return total_assessments
 
+def get_schoolcount_classes_gplist(
+        survey_id, gp_list, from_yearmonth, to_yearmonth):
+    """ Return number of schools with class 4 assessments, 5 assessments, 6
+    assessments """
+    qgroup_names = get_questiongroup_names_survey(
+                        survey_id, from_yearmonth, to_yearmonth)
+    queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
+        survey_id=survey_id).filter(
+            institution_id__gp_id__in=gp_list).filter(yearmonth__gte=from_yearmonth).filter(
+                yearmonth__lte=to_yearmonth)
+    result = {}
+    for qgroup_name in qgroup_names:
+        num_schools = queryset.filter(questiongroup_name=qgroup_name).distinct('institution_id').count()
+        result[qgroup_name] = num_schools
+    return result
 
 def get_schoolcount_classes_count(
         survey_id, gp_id, from_yearmonth, to_yearmonth):
