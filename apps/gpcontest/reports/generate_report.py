@@ -100,6 +100,9 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     class6 = None
     gp_num_students = 0  # Variable to hold total # of students in GP contest
     contest_dates = get_date_of_contest(gp_id, gp_survey_id, from_yearmonth, to_yearmonth)
+    qgroup_names = ["Class 4 Assessment", "Class 5 Assessment", "Class 6 Assessment"]
+    schoolcount_by_assessment = get_schoolcount_classes_count(gp_survey_id, gp_id,
+                                  from_yearmonth, to_yearmonth)
     all_scores_for_gp = {
         "gp_name": gp_name,
         "gp_id": gp_id,
@@ -108,6 +111,9 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         "block": block_name,
         "cluster": cluster_name,
         "date": contest_dates,
+        "class4_num_schools": schoolcount_by_assessment["Class 4 Assessment"],
+        "class5_num_schools": schoolcount_by_assessment["Class 5 Assessment"],
+        "class5_num_schools": schoolcount_by_assessment["Class 6 Assessment"]
     }
     for questiongroup in questiongroup_ids:
         qgroup = QuestionGroup.objects.get(id=questiongroup)

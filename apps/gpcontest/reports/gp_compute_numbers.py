@@ -4,7 +4,8 @@ from assessments.models import (
     CompetencyQuestionMap,
     QuestionGroup,
     SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyEBoundaryQuestionGroupQuestionKeyAgg
+    SurveyEBoundaryQuestionGroupQuestionKeyAgg,
+    SurveyInstitutionQuestionGroupQuestionKeyAgg
 )
 from schools.models import Institution
 from boundary.models import (
@@ -12,6 +13,7 @@ from boundary.models import (
     ElectionBoundary,
     BasicElectionBoundaryAgg
 )
+from gpcontest.reports.utils import *
 from gpcontest.models import (
     GPStudentScoreGroups,
     GPSchoolParticipationCounts
@@ -225,8 +227,30 @@ def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
     return total_assessments
 
 
+def get_schoolcount_classes_count(
+        survey_id, gp_id, from_yearmonth, to_yearmonth):
+    """ Return number of schools with class 4 assessments, 5 assessments, 6
+    assessments """
+    qgroup_names = get_questiongroup_names_survey(
+                        survey_id, from_yearmonth, to_yearmonth)
+    queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
+        survey_id=survey_id).filter(
+            institution_id__gp_id=gp_id).filter(yearmonth__gte=from_yearmonth).filter(
+                yearmonth__lte=to_yearmonth).filter(
+                    questiongroup_name__in=qgroup_names).values(
+                        'institution_id', 'questiongroup_name').annotate(
+                            schools_count=Count('institution_id')
+                        )
+    result = {}
+    for qgroup_name in qgroup_names:
+        num_schools = queryset.get(questiongroup_name=qgroup_name)
+        result[qgroup_name] = num_schools
+    print(result)
+    return result
+
+
 def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
-                                  report_from, report_to):
+                                     report_from, report_to):
     """
         Computes the percentage of students who are fluent in a competency
         in the given time frame, survey_id and the Gram Panchayat

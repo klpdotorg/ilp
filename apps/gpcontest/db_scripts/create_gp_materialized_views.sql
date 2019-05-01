@@ -128,6 +128,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
         format('A%s_%s_%s', 2,ag.institution_id,qg.id) as id,
         ag.institution_id as institution_id, 
         qg.id as questiongroup_id, 
+        qg.name as questiongroup_name,
         count(distinct ag.id) as num_students 
     FROM 
         assessments_answergroup_institution ag,

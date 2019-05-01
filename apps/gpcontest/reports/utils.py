@@ -38,11 +38,10 @@ def convert_to_academicyear(from_yearmonth_str, to_yearmonth_str):
 
 
 def get_questiongroups_survey(survey_id, from_yearmonth, to_yearmonth):
-    # First convert the date to an academic year format required
-    # by the QuestionGroup table
-    academic_year = convert_to_academicyear(from_yearmonth, to_yearmonth)
-    """ This returns a list of questiongroup ids for a particular
-    academic year and survey.Year has to be of format 1819 or 1718 """
-    return QuestionGroup.objects.filter(survey_id=survey_id).filter(
-        academic_year_id=str(academic_year)
-    ).distinct('id').values_list('id', flat=True)
+    return QuestionGroup.objects.filter(survey_id=survey_id).distinct(
+        'id').values_list('id', flat=True)
+
+
+def get_questiongroup_names_survey(survey_id, from_yearmonth, to_yearmonth):
+    return QuestionGroup.objects.filter(survey_id=survey_id).distinct(
+        'name').values_list('name', flat=True)

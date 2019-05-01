@@ -58,6 +58,8 @@ class GPInstitutionClassParticipationCounts(models.Model):
     questiongroup_id = models.ForeignKey(
         'assessments.QuestionGroup',
         db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=150,
+                                          db_column="questiongroup_name")
     num_students = models.IntegerField(db_column="num_students")
 
     class Meta:
