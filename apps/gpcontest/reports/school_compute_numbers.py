@@ -114,13 +114,13 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     queryset = GPInstitutionClassQDetailsAgg.objects.filter(
         institution_id=school_info.institution_id)
 
-    result["school_id"] = school_info.institution_id
+    result["school_id"] = school_info.institution_id.id
     result["school_name"] = school_info.institution_name
     result["dise_code"] = school_info.school_code
     result["district_name"] = school_info.district_name
     result["block_name"] = school_info.block_name
     result["cluster_name"] = school_info.cluster_name
-    result["gp_id"] = school_info.gp_id
+    result["gp_id"] = school_info.gp_id.id
     result["gp_name"] = school_info.gp_name
     result["date"] = date_of_contest
     for each_class in questiongroup_ids:
