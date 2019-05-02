@@ -118,7 +118,7 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         "date": contest_dates,
         "class4_num_schools": schoolcount_by_assessment["Class 4 Assessment"],
         "class5_num_schools": schoolcount_by_assessment["Class 5 Assessment"],
-        "class5_num_schools": schoolcount_by_assessment["Class 6 Assessment"]
+        "class6_num_schools": schoolcount_by_assessment["Class 6 Assessment"]
     }
     for questiongroup in questiongroup_ids:
         qgroup = QuestionGroup.objects.get(id=questiongroup)
