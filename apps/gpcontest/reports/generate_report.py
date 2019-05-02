@@ -33,7 +33,7 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
                                     from_yearmonth, to_yearmonth)
     all_gps["class4_num_schools"] = schoolcount_by_assessment["Class 4 Assessment"]
     all_gps["class5_num_schools"] = schoolcount_by_assessment["Class 5 Assessment"]
-    all_gps["class5_num_schools"] = schoolcount_by_assessment["Class 6 Assessment"]
+    all_gps["class6_num_schools"] = schoolcount_by_assessment["Class 6 Assessment"]
     for gp in list_of_gps:
         try:
             gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
