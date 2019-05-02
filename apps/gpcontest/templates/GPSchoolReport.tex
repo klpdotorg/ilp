@@ -60,13 +60,13 @@ at (current page.south)
 \setlength{\parindent}{0in}
 
 \kn{ಜಿಲ್ಲೆ} : {{schoolinfo.district}} \hfill  GP Id : {{schoolinfo.gpid}} \\
-\kn{ತಾಲೂಕು} : {{schoolinfo.block}} \hfill DISE Id : {{schoolinfo.disecode}} \\
+\kn{ತಾಲೂಕು} : {{schoolinfo.block}} \hfill DISE Code : {{schoolinfo.disecode}} \\
 \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ} : {{schoolinfo.gpname}} \hfill \kn{ಶಾಲಾ ಹೆಸರು} : {{schoolinfo.schoolname}}\\
 
 \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ , ಶಿಕ್ಷಣ ಇಲಾಖೆ, ಸಮುದಾಯ ಮತ್ತು ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಭಾಗಿತ್ವದಲ್ಲಿ ದಿನಾಂಕ} {{schoolinfo.contestdate}} \kn{ರಂದು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದಲ್ಲಿ ನಡೆದ ನಿಮ್ಮ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ತರಗತಿ ವಾರು ಕಿರು ವರದಿ ಈ ಕೆಳಕಂಡಂತಿದೆ}
 \renewcommand\arraystretch{1.45}
 \begin{longtable}{|P{1cm}|p{9cm}|P{3cm}|P{3cm}|} \hline
-\multicolumn{4}{|c|}{ {{info.classname}} \kn{ನೇ ತರಗತಿ}} \\ \hline
+\multicolumn{4}{|c|}{ {\large \bf {{info.classname}} } \kn{ನೇ ತರಗತಿ}} \\ \hline
 \multicolumn{4}{|c|}{\kn{ಮಕ್ಕಳ ಒಟ್ಟು ಸಂಖ್ಯೆ} : {{assessmentinfo.num_students}}} \\ \hline
 \textbf{\kn{ಕ್ರಮ ಸಂಖ್ಯೆ}} & \textbf{\kn{ಪ್ರಶ್ನೆಗಳು}} & \textbf{\kn{ಸರಿಯಾಗಿ ಉತ್ತರಿಸಿದ ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \textbf{\kn{ಶೇಕಡಾವಾರು ಫಲಿತಾಂಶ}} \\ \hline \endhead
 {% for question in assessmentinfo.question_answers %}
