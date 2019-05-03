@@ -8,7 +8,6 @@ from assessments.models import Survey
 from boundary.models import ElectionBoundary
 from gpcontest.reports import generate_report, school_compute_numbers
 
-
 class Command(BaseCommand):
     # used for printing utf8 chars to stdout
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
@@ -25,14 +24,18 @@ class Command(BaseCommand):
     outputdir = basefiledir+"pdfs/"+str(now)
     gpoutputdir = "gpreports"
     schooloutputdir = "schoolreports"
-    gp_out_file = "GPReport"
-    school_out_file = "SchoolReport"
-    gp_template_name = "GPReport.tex"
-    school_template_name = "GPSchoolReport.tex"
-    gp_template_file = basefiledir+templatedir+gp_template_name
-    school_template_file = basefiledir+templatedir+school_template_name
+    gp_out_file_prefix = "GPReport"
+    school_out_file_prefix = "SchoolReport"
+    # gp_template_name = "GPReport.tex"
+    # school_template_name = "GPSchoolReport.tex"
+    # gp_template_file = basefiledir+templatedir+gp_template_name
+    # school_template_file = basefiledir+templatedir+school_template_name
 
-    templates = {"school": None, "gp": None}
+    templates = {"school": {"template": "GPSchoolReport.tex", "latex":None},
+                 "gp": {"template": "GPReport.tex", "latex": None},
+                 "gpsummary": {"template": "GPReportGPSummary.tex", "latex": None},
+                 "schoolsummary": {"template": "GPReportSchoolSummary.tex", "latex": None}
+                }
 
     build_d = basefiledir+"/build/"
     gp = {}
@@ -65,10 +68,9 @@ class Command(BaseCommand):
             autoescape=False,
             loader=jinja2.FileSystemLoader(os.path.abspath('/'))
         )
-        self.templates["gp"] = latex_jinja_env.get_template(
-                self.gp_template_file)
-        self.templates["school"] = latex_jinja_env.get_template(
-                self.school_template_file)
+        for filetype in self.templates:
+            self.templates[filetype]["latex"] = latex_jinja_env.get_template(
+                self.basefiledir+self.templatedir+self.templates[filetype]["template"])
 
     def checkYearMonth(self, yearmonth):
         try:
@@ -80,6 +82,7 @@ class Command(BaseCommand):
     def validateInputs(self):
         if self.gpids is not None:
             for gp in self.gpids:
+                print(gp)
                 try:
                     self.gp[gp] = ElectionBoundary.objects.get(
                             id=gp, const_ward_type='GP')
@@ -115,15 +118,44 @@ class Command(BaseCommand):
                 data[gp] = generate_report.generate_gp_summary(
                         gp, self.surveyid, self.startyearmonth,
                         self.endyearmonth)
+
+        gpinfo = []
         for gp in data:
-            outputdir = self.createGPPdfs(gp, data[gp], self.templates["gp"])
+            outputdir = self.createGPPdfs(gp, data[gp], self.templates["gp"]["latex"])
+            gpinfo.append({"gpid": gp, "gpname": data[gp]["gp_name"].capitalize(),
+                           "total_schools": data[gp]["num_schools"],
+                           "class4_schools": data[gp]["class4_num_schools"],
+                           "class5_schools": data[gp]["class5_num_schools"],
+                           "class6_schools": data[gp]["class6_num_schools"]})
+                          
             if not self.onlygp:
                 self.createSchoolReports(gp, outputdir)
+        print(gpinfo)
+        self.createGPSummarySheet(gpinfo)
+
+    def createGPSummarySheet(self, gpinfo):
+        info = {"date": self.now}
+        renderer_template = self.templates["gpsummary"]["latex"].render(gps=gpinfo, info=info)
+
+        # saves tex_code to outpout file
+        outputfile = "GPContestGPSummary"
+        with open(outputfile+".tex", "w", encoding='utf-8') as f:
+            f.write(renderer_template)
+
+        os.system("xelatex -output-directory {} {}".format(
+                      os.path.realpath(self.build_d),
+                      os.path.realpath(outputfile)))
+        shutil.copy2(self.build_d+"/"+outputfile+".pdf", self.outputdir)
+        self.deleteTempFiles([outputfile+".tex",
+                             self.build_d+"/"+outputfile+".pdf"])
+        
+ 
 
     def createGPPdfs(self, gpid, gpdata, template):
         if type(gpdata) is int or type(gpdata) is str:
             return
         gpdata["contestdate"] = ''.join(gpdata["date"])
+        print(gpdata)
         gpinfo = {"gpname": gpdata["gp_name"].capitalize(),
                   "block": gpdata["block"].capitalize(),
                   "district": gpdata["district"].capitalize(),
@@ -139,7 +171,7 @@ class Command(BaseCommand):
                                             class5=class5, class6=class6,
                                             info=info)
 
-        output_file = self.gp_out_file+"_"+str(gpid)
+        output_file = self.gp_out_file_prefix+"_"+str(gpid)
         outputdir = self.outputdir+"/"+str(gpid)
         if not os.path.exists(outputdir):
             os.makedirs(outputdir)
@@ -169,7 +201,7 @@ class Command(BaseCommand):
     def createSchoolPdfs(self, schooldata, builddir, outputdir):
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
         contestdate = ''.join(schooldata["date"])
-        # print(schooldata, file=self.utf8stdout)
+        print(schooldata, file=self.utf8stdout)
         schoolinfo = {"district": schooldata["district_name"].capitalize(),
                       "block": schooldata["block_name"].capitalize(),
                       "gpname": schooldata["gp_name"].capitalize(),
@@ -193,10 +225,10 @@ class Command(BaseCommand):
         pdfscreated = []
         if assessmentinfo["class4"] != {}:
             info["classname"] = "4"
-            renderer_template = self.templates["school"].render(
+            renderer_template = self.templates["school"]["latex"].render(
                     info=info, schoolinfo=schoolinfo,
                     assessmentinfo=assessmentinfo["class4"])
-            school_4_out_file = self.school_out_file+"_" +\
+            school_4_out_file = self.school_out_file_prefix+"_" +\
                                 str(schoolinfo["klpid"])+"_4"
             with open(school_4_out_file+".tex", "w", encoding='utf-8') as f:
                     f.write(renderer_template)
@@ -209,10 +241,10 @@ class Command(BaseCommand):
 
         if assessmentinfo["class5"] != {}:
             info["classname"] = "5"
-            renderer_template = self.templates["school"].render(
+            renderer_template = self.templates["school"]["latex"].render(
                     info=info, schoolinfo=schoolinfo,
                     assessmentinfo=assessmentinfo["class5"])
-            school_5_out_file = self.school_out_file+"_" +\
+            school_5_out_file = self.school_out_file_prefix+"_" +\
                                 str(schoolinfo["klpid"])+"_5"
             with open(school_5_out_file+".tex", "w", encoding='utf-8') as f:
                     f.write(renderer_template)
@@ -225,10 +257,10 @@ class Command(BaseCommand):
 
         if assessmentinfo["class6"] != {}:
             info["classname"] = "6"
-            renderer_template = self.templates["school"].render(
+            renderer_template = self.templates["school"]["latex"].render(
                     info=info, schoolinfo=schoolinfo,
                     assessmentinfo=assessmentinfo["class6"])
-            school_6_out_file = self.school_out_file+"_" +\
+            school_6_out_file = self.school_out_file_prefix+"_" +\
                                 str(schoolinfo["klpid"])+"_6"
             with open(school_6_out_file+".tex", "w", encoding='utf-8') as f:
                     f.write(renderer_template)
@@ -239,7 +271,7 @@ class Command(BaseCommand):
                                school_6_out_file+".pdf"))
             self.deleteTempFiles([school_6_out_file+".tex"])
 
-        school_file = self.school_out_file+"_"+str(schoolinfo["klpid"])+".pdf"
+        school_file = self.school_out_file_prefix+"_"+str(schoolinfo["klpid"])+".pdf"
         self.combinePdfs(pdfscreated, school_file, outputdir)
         self.deleteTempFiles(pdfscreated)
 
