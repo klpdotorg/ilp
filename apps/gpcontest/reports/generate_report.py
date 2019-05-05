@@ -14,8 +14,8 @@ def get_gps_for_academic_year(
     return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
         survey_id=gpcontest_survey_id
     ).filter(yearmonth__gte=from_yearmonth).filter(
-        yearmonth__lte=to_yearmonth).distinct('eboundary_id').order_by(
-            'eboundary_id').values_list(
+        yearmonth__lte=to_yearmonth).order_by(
+            'eboundary_id').distinct().values_list(
             'eboundary_id', flat=True)
 
 
