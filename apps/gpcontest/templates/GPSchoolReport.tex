@@ -1,5 +1,5 @@
 \documentclass[10pt]{article}
-\usepackage[a4paper,top=1.5cm,left=2cm,right=2cm,bottom=0cm,portrait]{geometry}
+\usepackage[a4paper,top=1cm,left=2cm,right=2cm,bottom=0cm,portrait]{geometry}
 \usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{makecell}
@@ -75,8 +75,11 @@ at (current page.south)
 
 \end{longtable}
 
-\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಶಾಲಾ ಮುಖ್ಯಗುರುಗಳು ,} SDMC \kn{, ಪೋಷಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.}\\
+\begin{flushleft}
+\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಶಾಲಾ ಮುಖ್ಯಗುರುಗಳು ,} SDMC \kn{, ಪೋಷಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.}\\[3ex]
+\end{flushleft}
 \centering{\kn{ಸಲಹೆ}}\\
+
 
 {% for num in assessmentinfo.deficiencies %}
 \ifnum {{loop.index}} = 1
@@ -89,8 +92,9 @@ at (current page.south)
      \fi
 \fi
 {% endfor %}
-\kn{ಸಹಿ} \hfill \kn{ಸಹಿ} \\[3ex]
-\kn{ಜಿಲ್ಲಾ ಕ್ಷೇತ್ರ ವ್ಯವಸ್ಥಾಪಕರು, ಅಕ್ಷರ ಫೌಂಡೇಶನ್} \hfill \kn{ಅಧ್ಯಕ್ಷರು , ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ}
+
+\kn{ಸಹಿ} \hfill \kn{ಸಹಿ} \rule{3.8cm}{0cm} \\[3ex]
+\kn{ಜಿಲ್ಲಾ ಕ್ಷೇತ್ರ ವ್ಯವಸ್ಥಾಪಕರು, ಅಕ್ಷರ ಫೌಂಡೇಶನ್} \hfill \kn{ಅಧ್ಯಕ್ಷರು , ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ} \rule{0.5cm}{0cm}
 }
 
 \end{document}
