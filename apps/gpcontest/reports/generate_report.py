@@ -5,19 +5,27 @@ from assessments.models import (
 from .utils import *
 
 
-def get_gps_for_academic_year(gpcontest_survey_id):
+def get_gps_for_academic_year(
+        gpcontest_survey_id,
+        from_yearmonth,
+        to_yearmonth):
     """ Returns a list of distinct gp_ids for the academic year 
     where gp contest happened """
     return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
         survey_id=gpcontest_survey_id
-    ).distinct().values_list('eboundary_id', flat=True)
+    ).filter(yearmonth__gte=from_yearmonth).filter(
+        yearmonth__lte=to_yearmonth).distinct('eboundary_id').order_by(
+            'eboundary_id').values_list(
+            'eboundary_id', flat=True)
 
 
 def generate_all_reports(gp_survey_id, from_yearmonth, to_yearmonth):
     """ Generates reports for ALL GPs in a given time frame for which
     we have data in our DB """
-    # rom_yearmonth, to_yearmonth = convert_to_yearmonth(from_yearmonth, to_yearmonth)
     gp_ids = get_gps_for_academic_year(gp_survey_id)
+    print("Count of gp_ids for which PDFs are to be generated: %s" % gp_ids.length())
+    print("GPs for which report should be generated if data available is:")
+    print(gp_ids)
     result = generate_for_gps_list(gp_ids, gp_survey_id, from_yearmonth,
                                    to_yearmonth)
     return result
