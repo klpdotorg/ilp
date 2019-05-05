@@ -22,7 +22,7 @@ def get_gps_for_academic_year(
 def generate_all_reports(gp_survey_id, from_yearmonth, to_yearmonth):
     """ Generates reports for ALL GPs in a given time frame for which
     we have data in our DB """
-    gp_ids = get_gps_for_academic_year(gp_survey_id)
+    gp_ids = get_gps_for_academic_year(gp_survey_id, from_yearmonth, to_yearmonth)
     print("Count of gp_ids for which PDFs are to be generated: %s" % gp_ids.length())
     print("GPs for which report should be generated if data available is:")
     print(gp_ids)
