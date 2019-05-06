@@ -45,7 +45,7 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
     for gp in list_of_gps:
         try:
             gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
-            all_gps[gp] = gp_dict
+            all_gps["gp_info"][gp] = gp_dict
         except:
             print("Unable to generate report for GP ID %s. Please check other prints preceding this for something that went wrong" % gp)
             pass
