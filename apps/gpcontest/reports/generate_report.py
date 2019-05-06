@@ -165,8 +165,11 @@ def get_total_answers_for_qkey(qkey, queryset):
 def format_answers(total_answers_qs, correct_ans_queryset):
     competency_scores = {}
     for each_row in correct_ans_queryset:
+        correctans = each_row["correct_answers"]
+        if correctans is None:
+            correctans = 0
         competency_scores[each_row["question_key"]] =\
-            each_row["correct_answers"]
+            correctans
     return competency_scores
 
    
