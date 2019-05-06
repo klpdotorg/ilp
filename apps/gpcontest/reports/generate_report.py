@@ -47,7 +47,7 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
             gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
             all_gps["gp_info"][gp] = gp_dict
         except Exception as e:
-            print("%s (%s)" % (e.message, type(e)))
+            print("%s (%s)" % (e, type(e)))
             # print("Unable to generate report for GP ID %s. Please check other prints preceding this for something that went wrong" % gp)
             pass
     return all_gps
