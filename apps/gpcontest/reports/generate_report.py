@@ -163,13 +163,20 @@ def get_total_answers_for_qkey(qkey, queryset):
 
 
 def format_answers(total_answers_qs, correct_ans_queryset):
+    competencies = ["Addition", "Subtraction", "Number Recognition",
+                    "Place Value", "Multiplication", "Division"]
     competency_scores = {}
-    for each_row in correct_ans_queryset:
-        correctans = each_row["correct_answers"]
-        if correctans is None:
-            correctans = 0
-        competency_scores[each_row["question_key"]] =\
-            correctans
+    for competency in competencies:
+        each_row = correct_ans_queryset.get(question_key=competency)
+        if each_row is not None:
+            correctans = each_row["correct_answers"]
+            if correctans is None:
+                correctans = 0
+            competency_scores[competency] =\
+                correctans
+        # No one got this answer right
+        else:
+            competency_scores[competency] = 0
     return competency_scores
 
    
