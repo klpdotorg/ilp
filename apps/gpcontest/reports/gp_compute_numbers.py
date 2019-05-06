@@ -203,7 +203,7 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
         survey_id and the Gram Panchayat id. Returns a queryset which can be
         further filtered or manipulated
     """
-    correct_answers_agg = []
+    correct_answers_agg = None
     try:
         correct_answers_agg = \
             SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
@@ -220,6 +220,7 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
 
 def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
                                   report_from, report_to):
+    total_assessments = None
     try:
         total_assessments = SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects\
                 .filter(survey_id=gpcontest_survey_id,

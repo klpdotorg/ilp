@@ -129,32 +129,38 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         "class6_num_schools": schoolcount_by_assessment["Class 6 Assessment"]
     }
     for questiongroup in questiongroup_ids:
-        qgroup = QuestionGroup.objects.get(id=questiongroup)
-        all_scores_for_gp[qgroup.name] = {}
-        total_answers = get_total_assessments_for_grade(gp_id, questiongroup,
-                                                        gp_survey_id,
-                                                        from_yearmonth,
-                                                        to_yearmonth)
-        answers = get_grade_competency_correctscores(
-                gp_id, questiongroup, gp_survey_id, from_yearmonth, to_yearmonth
-                )
-        result = format_answers(total_answers, answers)
-        result["total"] = all_score_buckets[qgroup.name]["total"]
-        # Add participating students in each grade to get total students in
-        # GP contest
-        gp_num_students = gp_num_students + int(result["total"])
-        all_scores_for_gp[qgroup.name]["competency_scores"] = result
-        all_scores_for_gp[qgroup.name]["overall_scores"] = all_score_buckets[qgroup.name]
-        # Need competency percentage scores only for Grade 6 per GP report
-        # summary page format. So calculate below only for that
-        if "class 6" in qgroup.name.lower():
-            percentage = get_grade_competency_percentages(
-                                            gp_id, questiongroup,
-                                            gp_survey_id,
-                                            from_yearmonth, to_yearmonth)
-            all_scores_for_gp[qgroup.name]["percent_scores"] = percentage
-        # Insert total number of students into the dict
-        all_scores_for_gp["num_students"] = gp_num_students
+        qgroup = QuestionGroup.objects.get(id=questiongroup) 
+        # Check if
+        if qgroup.name not in all_scores_for_gp:
+            all_scores_for_gp[qgroup.name] = {}
+            # This is where things are getting messed up
+            total_answers = get_total_assessments_for_grade(gp_id, questiongroup,
+                                                            gp_survey_id,
+                                                            from_yearmonth,
+                                                            to_yearmonth)
+            answers = get_grade_competency_correctscores(
+                    gp_id, questiongroup, gp_survey_id, from_yearmonth, to_yearmonth
+                    )
+            # We've got answers and assessments for this particular GP for this
+            # questiongroup ID
+            if total_answers is not None and answers is not None:
+                result = format_answers(total_answers, answers)
+                result["total"] = all_score_buckets[qgroup.name]["total"]
+                # Add participating students in each grade to get total students in
+                # GP contest
+                gp_num_students = gp_num_students + int(result["total"])
+                all_scores_for_gp[qgroup.name]["competency_scores"] = result
+                all_scores_for_gp[qgroup.name]["overall_scores"] = all_score_buckets[qgroup.name]
+                # Need competency percentage scores only for Grade 6 per GP report
+                # summary page format. So calculate below only for that
+                if "class 6" in qgroup.name.lower():
+                    percentage = get_grade_competency_percentages(
+                                                    gp_id, questiongroup,
+                                                    gp_survey_id,
+                                                    from_yearmonth, to_yearmonth)
+                    all_scores_for_gp[qgroup.name]["percent_scores"] = percentage
+                # Insert total number of students into the dict
+                all_scores_for_gp["num_students"] = gp_num_students
     return all_scores_for_gp
 
 
