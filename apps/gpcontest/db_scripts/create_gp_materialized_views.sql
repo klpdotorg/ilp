@@ -110,7 +110,6 @@ FROM
         and ag.questiongroup_id=qg.id
         and ag.date_of_visit BETWEEN :from_date AND :to_date
         and qg.survey_id=2
-        and qg.id=qgc.questiongroup_id
         and q.id NOT IN (130,291)
         and ans.question_id=q.id
         and stmap.survey_id=qg.survey_id
