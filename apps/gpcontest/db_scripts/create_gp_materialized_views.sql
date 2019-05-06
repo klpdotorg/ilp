@@ -70,6 +70,55 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
     GROUP BY eboundary.id;
 -- END mvw_gpcontest_eboundary_schoolcount_agg
 
+-- MVW to calculate aggregates for all answers 
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg CASCADE;
+CREATE MATERIALIZED VIEW mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg AS
+SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_id,concept,microconcept_group,microconcept,yearmonth) as id,
+    survey_id, 
+    survey_tag,
+    institution_id,
+    source,
+    questiongroup_id,
+    questiongroup_name,
+    question_id,
+    concept,
+    microconcept_group,
+    microconcept,
+    yearmonth,
+    count(ag_id) as num_assessments
+FROM
+    (SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        ag.institution_id as institution_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        q.id as question_id,
+        q.concept_id as concept,
+        q.microconcept_group_id as microconcept_group,
+        q.microconcept_id as microconcept,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    FROM assessments_answergroup_institution ag,
+        assessments_answerinstitution ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and ag.date_of_visit BETWEEN :from_date AND :to_date
+        and qg.survey_id=2
+        and qg.id=qgc.questiongroup_id
+        and q.id NOT IN (130,291)
+        and ans.question_id=q.id
+        and stmap.survey_id=qg.survey_id
+        and ag.is_verified=true
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,q.id,ag.id,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
+    having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>0)correctans
+GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,question_id,questiongroup_id,questiongroup_name;
+
 -- NOTE: Below mvw requires two other materialized views to be pre-populated
 -- Assumption is they would already be populated and ready with the data before
 -- this is run
@@ -91,7 +140,7 @@ WITH table1 as (
     FROM
         mvw_survey_institution_questiongroup_qdetails_agg t1
     LEFT JOIN
-        mvw_survey_institution_questiongroup_qdetails_correctans_agg t2
+        mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg t2
     ON t1.id=t2.id
     WHERE
         t1.survey_id=2 and
@@ -178,7 +227,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
     SELECT 
         distinct schools.id as institution_id,
 	    format('A%s_%s', schools.id, schools.dise_id) as id,
-        REPLACE(schools.name,'_',' ') as institution_name,
+        REGEXP_REPLACE(schools.name,'[^a-zA-Z0-9]+',' ') as institution_name,
         dise.school_code as dise_code,
         boundary1.name as district_name,
         boundary2.name as block_name,
