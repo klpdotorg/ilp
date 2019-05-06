@@ -163,10 +163,27 @@ def get_total_answers_for_qkey(qkey, queryset):
 
 
 def format_answers(total_answers_qs, correct_ans_queryset):
+    # Note that below set of competencies is hardcoded. If the template
+    # changes we would need to change this. Doing this in lieu of a mat view
+    # that will contain rows of competencies taht didn't have a correct ans
+    # score.
+    competencies = ["Addition", "Subtraction", "Number Recognition",
+                    "Place Value", "Multiplication", "Division"]
     competency_scores = {}
-    for each_row in correct_ans_queryset:
-        competency_scores[each_row["question_key"]] =\
-            each_row["correct_answers"]
+    for competency in competencies:
+        try:
+            each_row = correct_ans_queryset.get(question_key=competency)
+        except:
+            each_row = None
+        if each_row is not None:
+            correctans = each_row["correct_answers"]
+            if correctans is None:
+                correctans = 0
+            competency_scores[competency] =\
+                correctans
+        # No one got this answer right, send 0 back
+        else:
+            competency_scores[competency] = 0
     return competency_scores
 
    
