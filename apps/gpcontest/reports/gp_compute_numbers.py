@@ -43,14 +43,14 @@ def get_participating_school_count(gp_id, survey_id, from_yearmonth, to_yearmont
         gp = ElectionBoundary.objects.get(id=gp_id)
     except:
         raise ValueError("GP %s does not exist " % gp_id)
-    
-    num_schools = None
+    num_schools = 0
+    gp_school_counts = None
     try:
-        gp = GPSchoolParticipationCounts.objects.get(gp_id=gp_id)
+        gp_school_counts = GPSchoolParticipationCounts.objects.get(gp_id=gp_id)
     except:
         num_schools = 0
-    if gp is not None:
-        num_schools = gp.num_schools
+    if gp_school_counts is not None:
+        num_schools = gp_school_counts.num_schools
     return num_schools
     # format_str = '%Y%m'  # The input format
     # from_datetime_obj = datetime.datetime.strptime(str(from_yearmonth), format_str)
@@ -63,8 +63,6 @@ def get_participating_school_count(gp_id, survey_id, from_yearmonth, to_yearmont
     #         date_of_visit__month__gte=from_datetime_obj.month).filter(
     #         date_of_visit__month__lte=to_datetime_obj.month
     #     ).filter(institution_id__gp_id=gp_id).distinct('institution_id').count()
-    return num_schools
-
 
 # def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_date, to_date):
 #     """ This method takes in a Gram Panchayat ID and a list of questiongroup
@@ -150,12 +148,13 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_yearmonth, t
     else:
         for questiongroup_id in questiongroup_ids_list:
             questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
+            if questiongroup.name not in score_buckets:
+                score_buckets[questiongroup.name] = {}
             try:
                 grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
             except:
                 grade_scores = None
-
-                print("No questiongroup %s for GP %s:" % (questiongroup_id, gp_id))
+            #print("No questiongroup %s for GP %s:" % (questiongroup_id, gp_id))
             if grade_scores is not None:
                 score_buckets[questiongroup.name] = {
                     "total": grade_scores.num_students,
@@ -203,7 +202,7 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
         survey_id and the Gram Panchayat id. Returns a queryset which can be
         further filtered or manipulated
     """
-    correct_answers_agg = []
+    correct_answers_agg = None
     try:
         correct_answers_agg = \
             SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
@@ -220,6 +219,7 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
 
 def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
                                   report_from, report_to):
+    total_assessments = None
     try:
         total_assessments = SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects\
                 .filter(survey_id=gpcontest_survey_id,

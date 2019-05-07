@@ -198,6 +198,7 @@ class SurveyEBoundaryQuestionGroupQuestionKeyAgg(models.Model):
     survey_id = models.ForeignKey('Survey', db_column="survey_id")
     survey_tag = models.ForeignKey('SurveyTag', db_column="survey_tag")
     eboundary_id = models.ForeignKey('boundary.ElectionBoundary', db_column="eboundary_id")
+    const_ward_type = models.ForeignKey('boundary.BoundaryType', db_column="const_ward_type_id")
     source = models.ForeignKey('Source', db_column="source")
     questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=100, db_column="questiongroup_name")
