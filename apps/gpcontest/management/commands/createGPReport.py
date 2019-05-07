@@ -116,8 +116,9 @@ class Command(BaseCommand):
                                                         self.startyearmonth,
                                                         self.endyearmonth)
         else:
+            data["gp_info"] = {}
             for gp in self.gpids:
-                data[gp] = generate_report.generate_gp_summary(
+                data["gp_info"][gp] = generate_report.generate_gp_summary(
                         gp, self.surveyid, self.startyearmonth,
                         self.endyearmonth)
 
