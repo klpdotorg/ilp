@@ -226,7 +226,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
     SELECT 
         distinct schools.id as institution_id,
 	    format('A%s_%s', schools.id, schools.dise_id) as id,
-        REGEXP_REPLACE(schools.name,'[^a-zA-Z0-9]+',' ') as institution_name,
+        REGEXP_REPLACE(schools.name,'[^a-zA-Z0-9]+',' ','g') as institution_name,
         dise.school_code as dise_code,
         boundary1.name as district_name,
         boundary2.name as block_name,

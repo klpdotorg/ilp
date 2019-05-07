@@ -122,10 +122,12 @@ class Command(BaseCommand):
                         self.endyearmonth)
 
         gpinfo = []
-        for gp in data:
-            outputdir = self.createGPPdfs(gp, data[gp], self.templates["gp"]["latex"])
+        print(data, file=self.utf8stdout)
+        for gp in data["gp_info"]:
+            outputdir = self.createGPPdfs(gp, data["gp_info"][gp], self.templates["gp"]["latex"])
                           
             if not self.onlygp:
+                print(gp)
                 self.createSchoolReports(gp, outputdir)
         self.createGPSummarySheet()
 
@@ -147,6 +149,7 @@ class Command(BaseCommand):
         
  
     def createGPPdfs(self, gpid, gpdata, template):
+        print(gpdata, file=self.utf8stdout)
         if type(gpdata) is int or type(gpdata) is str:
             return
         gpdata["contestdate"] = ''.join(gpdata["date"])
