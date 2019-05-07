@@ -43,13 +43,13 @@ def get_participating_school_count(gp_id, survey_id, from_yearmonth, to_yearmont
         gp = ElectionBoundary.objects.get(id=gp_id)
     except:
         raise ValueError("GP %s does not exist " % gp_id)
-    
-    num_schools = None
+    num_schools = 0
+    gp_school_counts = None
     try:
         gp_school_counts = GPSchoolParticipationCounts.objects.get(gp_id=gp_id)
     except:
         num_schools = 0
-    if gp is not None:
+    if gp_school_counts is not None:
         num_schools = gp_school_counts.num_schools
     return num_schools
     # format_str = '%Y%m'  # The input format
@@ -63,8 +63,6 @@ def get_participating_school_count(gp_id, survey_id, from_yearmonth, to_yearmont
     #         date_of_visit__month__gte=from_datetime_obj.month).filter(
     #         date_of_visit__month__lte=to_datetime_obj.month
     #     ).filter(institution_id__gp_id=gp_id).distinct('institution_id').count()
-    return num_schools
-
 
 # def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_date, to_date):
 #     """ This method takes in a Gram Panchayat ID and a list of questiongroup

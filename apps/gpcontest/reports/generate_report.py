@@ -13,7 +13,7 @@ def get_gps_for_academic_year(
     where gp contest happened """
     return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
         survey_id=gpcontest_survey_id
-    ).filter(yearmonth__gte=from_yearmonth).filter(
+    ).filter(yearmonth__gte=from_yearmonth).filter(const_ward_type='GP').filter(
         yearmonth__lte=to_yearmonth).order_by(
             'eboundary_id').distinct().values_list(
             'eboundary_id', flat=True)
@@ -28,6 +28,7 @@ def generate_all_reports(gp_survey_id, from_yearmonth, to_yearmonth):
     print(gp_ids)
     result = generate_for_gps_list(gp_ids, gp_survey_id, from_yearmonth,
                                    to_yearmonth)
+    print(result)
     return result
 
 
@@ -42,6 +43,7 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
     all_gps["class4_num_schools"] = schoolcount_by_assessment["Class 4 Assessment"]
     all_gps["class5_num_schools"] = schoolcount_by_assessment["Class 5 Assessment"]
     all_gps["class6_num_schools"] = schoolcount_by_assessment["Class 6 Assessment"]
+    all_gps["gp_info"] = {}
     for gp in list_of_gps:
         try:
             gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
@@ -62,6 +64,7 @@ def get_date_of_contest(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     formatted_dates = []
     for date in dates_of_contest:
         formatted_dates.append(date.strftime('%d/%m/%Y'))
+    print(formatted_dates)
     return formatted_dates
 
 
@@ -124,11 +127,15 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         "district": district_name,
         "block": block_name,
         "cluster": cluster_name,
-        "date": contest_dates,
-        "class4_num_schools": schoolcount_by_assessment["Class 4 Assessment"],
-        "class5_num_schools": schoolcount_by_assessment["Class 5 Assessment"],
-        "class6_num_schools": schoolcount_by_assessment["Class 6 Assessment"]
+        "date": contest_dates
     }
+    if "Class 4 Assessment" in schoolcount_by_assessment:
+        all_scores_for_gp["class4_num_schools"] = schoolcount_by_assessment["Class 4 Assessment"]
+    if "Class 5 Assessment" in schoolcount_by_assessment:
+        all_scores_for_gp["class5_num_schools"] = schoolcount_by_assessment["Class 5 Assessment"]
+    if "Class 6 Assessment" in schoolcount_by_assessment:
+        all_scores_for_gp["class6_num_schools"] = schoolcount_by_assessment["Class 6 Assessment"]
+
     for questiongroup in questiongroup_ids:
         qgroup = QuestionGroup.objects.get(id=questiongroup) 
         # Check if
@@ -192,5 +199,3 @@ def format_answers(total_answers_qs, correct_ans_queryset):
         else:
             competency_scores[competency] = 0
     return competency_scores
-
-   
