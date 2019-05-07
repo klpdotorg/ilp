@@ -113,6 +113,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
         school_info = GPContestSchoolDetails.objects.get(institution_id=school_id)
     except:
         print("unable to fetch school info for school ID %s" % school_id)
+        print("Skipping generation of reports for school ID %s" % school_id)
     else:
         queryset = GPInstitutionClassQDetailsAgg.objects.filter(
             institution_id=school_info.institution_id)
