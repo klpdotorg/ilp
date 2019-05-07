@@ -122,8 +122,10 @@ class Command(BaseCommand):
                         self.endyearmonth)
 
         gpinfo = []
+        print("All GPs data is")
         print(data, file=self.utf8stdout)
         for gp in data["gp_info"]:
+            print(gp)
             outputdir = self.createGPPdfs(gp, data["gp_info"][gp], self.templates["gp"]["latex"])
                           
             if not self.onlygp:
@@ -149,10 +151,11 @@ class Command(BaseCommand):
         
  
     def createGPPdfs(self, gpid, gpdata, template):
+        print("IN CREATE PDFS"
         print(gpdata, file=self.utf8stdout)
         if type(gpdata) is int or type(gpdata) is str:
             return
-        gpdata["contestdate"] = ''.join(gpdata["date"])
+        gpdata["contestdate"] = ', '.join(gpdata["date"])
         gpinfo = {"gpname": gpdata["gp_name"].capitalize(),
                   "block": gpdata["block"].capitalize(),
                   "district": gpdata["district"].capitalize(),
@@ -205,7 +208,7 @@ class Command(BaseCommand):
 
     def createSchoolPdfs(self, schooldata, builddir, outputdir):
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
-        contestdate = ''.join(schooldata["date"])
+        contestdate = ', '.join(schooldata["date"])
         #print(schooldata, file=self.utf8stdout)
         schoolinfo = {"district": schooldata["district_name"].capitalize(),
                       "block": schooldata["block_name"].capitalize(),
