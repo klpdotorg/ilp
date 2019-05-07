@@ -151,7 +151,7 @@ class Command(BaseCommand):
         
  
     def createGPPdfs(self, gpid, gpdata, template):
-        print("IN CREATE PDFS"
+        print("IN CREATE PDFS")
         print(gpdata, file=self.utf8stdout)
         if type(gpdata) is int or type(gpdata) is str:
             return
