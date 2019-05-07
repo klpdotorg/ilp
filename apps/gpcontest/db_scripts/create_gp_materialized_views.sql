@@ -189,8 +189,8 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
 
 ---- CREATE THE DEFICIENCY COMPUTATION TABLES-----------
 -- Drop the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_test_gpcontest_concept_percentages_agg;
-CREATE MATERIALIZED VIEW mvw_test_gpcontest_concept_percentages_agg AS
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_concept_percentages_agg;
+CREATE MATERIALIZED VIEW mvw_gpcontest_concept_percentages_agg AS
 --- Create a subquery with total answers and correct answers -- 
 WITH subquery1 AS (
     SELECT
@@ -247,7 +247,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
         questiongroup.id = answergroup.questiongroup_id AND
         answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
         answergroup.institution_id = schools.id AND
-        dise.id=schools.id AND
+        dise.id=schools.dise_id AND
         schools.gp_id = eboundary.id AND
         schools.admin1_id = boundary1.id AND
         schools.admin2_id = boundary2.id AND

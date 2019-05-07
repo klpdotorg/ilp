@@ -109,60 +109,63 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
         from_yearmonth,
         to_yearmonth)
     result = {}
+    try:
+        school_info = GPContestSchoolDetails.objects.get(institution_id=school_id)
+    except:
+        print("unable to fetch school info for school ID %s" % school_id)
+    else:
+        queryset = GPInstitutionClassQDetailsAgg.objects.filter(
+            institution_id=school_info.institution_id)
 
-    school_info = GPContestSchoolDetails.objects.get(institution_id=school_id)
-    queryset = GPInstitutionClassQDetailsAgg.objects.filter(
-        institution_id=school_info.institution_id)
-
-    result["school_id"] = school_info.institution_id.id
-    result["school_name"] = school_info.institution_name
-    result["dise_code"] = school_info.school_code
-    result["district_name"] = school_info.district_name
-    result["block_name"] = school_info.block_name
-    result["cluster_name"] = school_info.cluster_name
-    result["gp_id"] = school_info.gp_id.id
-    result["gp_name"] = school_info.gp_name
-    result["date"] = date_of_contest
-    for each_class in questiongroup_ids:
-        try:
-            class_participation =\
-                GPInstitutionClassParticipationCounts.objects.filter(
-                    institution_id=school_id).get(
-                        questiongroup_id=each_class)
-        except GPInstitutionClassParticipationCounts.DoesNotExist:
-            print("This GP does not have class %s" % each_class)
-        else:
-            if class_participation is not None:
-                num_students = class_participation.num_students
-            # Find the lowest 3 competencies below 60% for each class of this
-            # school
-            deficiencies = compute_deficient_competencies(
-                            school_id, each_class, survey_id,
-                            from_yearmonth, to_yearmonth)
-            class_answers = queryset.filter(
-                questiongroup_id=each_class).order_by('question_sequence')
-            class_details = {"num_students": num_students}
-            class_questions = []
-            if class_answers is not None:
-                # for answer in correct_answers_for_class:
-                for answer in class_answers:
-                    question_answer_details = {}
-                    question_answer_details["question"] =\
-                        answer.microconcept.char_id
-                    question_answer_details["lang_name"] = \
-                        answer.question_local_lang_text
-                    question_answer_details["num_correct"] = \
-                        int(answer.correct_answers)
-                    question_answer_details["percent"] = \
-                        float(answer.percent_score)
-                    class_questions.append(question_answer_details)
-                class_details["question_answers"] = class_questions
-                qgroup = QuestionGroup.objects.get(id=each_class)
-                # Check if a class exists because sometimes it might not for
-                # a particular school
-                if deficiencies is not None:
-                    class_details["deficiencies"] = deficiencies
-                result[qgroup.name] = class_details
+        result["school_id"] = school_info.institution_id.id
+        result["school_name"] = school_info.institution_name
+        result["dise_code"] = school_info.school_code
+        result["district_name"] = school_info.district_name
+        result["block_name"] = school_info.block_name
+        result["cluster_name"] = school_info.cluster_name
+        result["gp_id"] = school_info.gp_id.id
+        result["gp_name"] = school_info.gp_name
+        result["date"] = date_of_contest
+        for each_class in questiongroup_ids:
+            try:
+                class_participation =\
+                    GPInstitutionClassParticipationCounts.objects.filter(
+                        institution_id=school_id).get(
+                            questiongroup_id=each_class)
+            except GPInstitutionClassParticipationCounts.DoesNotExist:
+                print("This GP does not have class %s" % each_class)
+            else:
+                if class_participation is not None:
+                    num_students = class_participation.num_students
+                # Find the lowest 3 competencies below 60% for each class of this
+                # school
+                deficiencies = compute_deficient_competencies(
+                                school_id, each_class, survey_id,
+                                from_yearmonth, to_yearmonth)
+                class_answers = queryset.filter(
+                    questiongroup_id=each_class).order_by('question_sequence')
+                class_details = {"num_students": num_students}
+                class_questions = []
+                if class_answers is not None:
+                    # for answer in correct_answers_for_class:
+                    for answer in class_answers:
+                        question_answer_details = {}
+                        question_answer_details["question"] =\
+                            answer.microconcept.char_id
+                        question_answer_details["lang_name"] = \
+                            answer.question_local_lang_text
+                        question_answer_details["num_correct"] = \
+                            int(answer.correct_answers)
+                        question_answer_details["percent"] = \
+                            float(answer.percent_score)
+                        class_questions.append(question_answer_details)
+                    class_details["question_answers"] = class_questions
+                    qgroup = QuestionGroup.objects.get(id=each_class)
+                    # Check if a class exists because sometimes it might not for
+                    # a particular school
+                    if deficiencies is not None:
+                        class_details["deficiencies"] = deficiencies
+                    result[qgroup.name] = class_details
     return result
 
 
