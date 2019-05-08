@@ -1,0 +1,13 @@
+-- Clear the tables first
+DELETE FROM mvw_gpcontest_eboundary_answers_agg;
+DELETE FROM mvw_gpcontest_eboundary_schoolcount_agg;
+DELETE FROM mvw_gpcontest_institution_qdetails_percentages_agg;
+DELETE FROM mvw_gpcontest_institution_stucount_agg;
+
+-- Re-populate the tables
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_eboundary_answers_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_eboundary_schoolcount_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_institution_qdetails_percentages_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_institution_stucount_agg;
+
+

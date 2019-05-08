@@ -1,0 +1,33 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2cm,left=0.5cm,right=0.5cm,bottom=2cm,landscape]{geometry}
+\usepackage{makecell}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage[table,gray]{xcolor}
+\usepackage{setspace}
+\pagestyle{fancy}
+
+
+
+%% Headers and footers
+\chead{ \large GP Contest - GP Report Summary }
+\lhead{ \hfill\break  Date: {{ info.date }}}
+\rhead{ \hfill\break  Num GPs: {{ info.num_gps}}}
+
+\setlength{\headheight}{3.0cm}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\newcommand{\instruct}[1]{\textbf{#1}}
+\newcommand{\question}[1]{\textbf{#1}}
+
+
+\begin{document}
+\begin{longtable}{|l|p{3.5cm}|l|l|l|l|p{2.0cm}|p{3.0cm}|p{3.0cm}|}
+\hline
+	GP ID & GP Name & School Count& \makecell{Num Schools\\ with class 4}& \makecell{Num Schools\\ with class 5}& \makecell{Num Schools\\ with class 6}& \makecell{Generated\\Date} & Sent to Name & Sent at Date\\ \endhead \hline
+	\hline \multicolumn{9}{r}{\textit{Continued on next page}} \\ \endfoot
+{% for gp in gps%}
+	{{gp.gpid}} & {{gp.gpname}} & {{gp.total_schools}} & {{gp.class4_schools}} & {{gp.class5_schools}} & {{gp.class6_schools}} & {{info.date}} &  & \\ \hline
+{% endfor %}
+\end{longtable}
+\end{document}
