@@ -211,11 +211,12 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
             .filter(questiongroup_id=qgroup_id)\
             .filter(yearmonth__gte=report_from)\
             .filter(yearmonth__lte=report_to)\
-            .values('question_key')\
+            .values('question_key', 'yearmonth')\
             .annotate(correct_answers=Sum('num_assessments'))
+        contest_dates = correct_answers_agg.distinct('yearmonth').values_list('yearmonth', flat=True)
     except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
-    return correct_answers_agg
+    return correct_answers_agg, contest_dates
 
 def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
                                   report_from, report_to):
@@ -227,8 +228,9 @@ def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
                 .filter(questiongroup_id=qgroup_id)\
                 .filter(yearmonth__gte=report_from)\
                 .filter(yearmonth__lte=report_to)\
-                .values('question_key')\
+                .values('question_key', 'yearmonth')\
                 .annotate(total_answers=Sum('num_assessments'))
+        contest_dates = total_assessments.distinct('yearmonth').values_list('yearmonth', flat=True)
     except SurveyEBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
         pass
     return total_assessments
@@ -242,11 +244,14 @@ def get_schoolcount_classes_gplist(
     queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
         survey_id=survey_id).filter(
             institution_id__gp_id__in=gp_list).filter(yearmonth__gte=from_yearmonth).filter(
-                yearmonth__lte=to_yearmonth)
+                yearmonth__lte=to_yearmonth).values('questiongroup_id','yearmonth')
     result = {}
     for qgroup_name in qgroup_names:
-        num_schools = queryset.filter(questiongroup_name=qgroup_name).distinct('institution_id').count()
-        result[qgroup_name] = num_schools
+        ids = QuestionGroup.objects.filter(name=qgroup_name)
+        result[qgroup_name] = {}
+        for id in ids:
+            num_schools = queryset.filter(questiongroup_name=qgroup_name).distinct('institution_id').count()
+            result[qgroup_name][id] = num_schools
     return result
 
 def get_schoolcount_classes_count(
@@ -273,31 +278,34 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
         in the given time frame, survey_id and the Gram Panchayat
         id. Returns a queryset which can be further filtered or manipulated
     """
-    correct_answers_agg = get_grade_competency_correctscores(
+    correct_answers_agg, contest_dates = get_grade_competency_correctscores(
                                 gp_id, qgroup_id,
                                 gpcontest_survey_id, report_from,
                                 report_to)
     
-    total_assessments = get_total_assessments_for_grade(gp_id, qgroup_id,
+    total_assessments, contest_dates = get_total_assessments_for_grade(gp_id, qgroup_id,
                                                         gpcontest_survey_id,
                                                         report_from,
                                                         report_to)
-    concept_scores = {}
+    results_by_date = {}
     if total_assessments is not None and correct_answers_agg is not None:
-        for each_row in total_assessments:
-            current_question_key = each_row['question_key']
-            sum_total = each_row['total_answers']
-            try:
-                sum_correct_ans = correct_answers_agg.get(
-                    question_key=current_question_key)['correct_answers']
-            except:
-                sum_correct_ans = None
-            if sum_correct_ans is None:
-                sum_correct_ans = 0
-            percentage = 0
-            if sum_total is not None:
-                percentage = round((sum_correct_ans / sum_total)*100, 2)
-            else:
+        for contest_date in contest_dates:
+            concept_scores = {}
+            for each_row in total_assessments:
+                current_question_key = each_row['question_key']
+                sum_total = each_row['total_answers']
+                try:
+                    sum_correct_ans = correct_answers_agg.get(
+                        question_key=current_question_key)['correct_answers']
+                except:
+                    sum_correct_ans = None
+                if sum_correct_ans is None:
+                    sum_correct_ans = 0
                 percentage = 0
-            concept_scores[current_question_key] = percentage
-    return concept_scores
+                if sum_total is not None:
+                    percentage = round((sum_correct_ans / sum_total)*100, 2)
+                else:
+                    percentage = 0
+                concept_scores[current_question_key] = percentage
+            results_by_date[contest_date] = concept_scores
+    return results_by_date

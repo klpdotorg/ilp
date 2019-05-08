@@ -16,6 +16,7 @@ class GPStudentScoreGroups(models.Model):
     categories at a grade level in schools.
     """
     gp_id = models.ForeignKey('boundary.ElectionBoundary', db_column="gp_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
     questiongroup_id = models.ForeignKey(
         'assessments.QuestionGroup',
         db_column="questiongroup_id")
@@ -41,6 +42,7 @@ class GPSchoolParticipationCounts(models.Model):
     """
     gp_id = models.ForeignKey('boundary.ElectionBoundary', db_column="gp_id")
     num_schools = models.IntegerField(db_column="num_schools")
+    yearmonth = models.IntegerField(db_column="yearmonth")
 
     class Meta:
         managed = False
@@ -60,6 +62,7 @@ class GPInstitutionClassParticipationCounts(models.Model):
         db_column="questiongroup_id")
     questiongroup_name = models.CharField(max_length=150,
                                           db_column="questiongroup_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
     num_students = models.IntegerField(db_column="num_students")
 
     class Meta:
@@ -80,6 +83,7 @@ class GPInstitutionClassQDetailsAgg(models.Model):
     microconcept = models.ForeignKey(
         'assessments.MicroConcept',
         db_column="microconcept_id")
+    yearmonth = models.IntegerField(db_column="yearmonth")
     total_answers = models.IntegerField(db_column="total_answers")
     correct_answers = models.IntegerField(db_column="correct_answers")
     percent_score = models.FloatField(db_column="percent_score")
@@ -102,6 +106,7 @@ class GPInstitutionDeficientCompetencyPercentagesAgg(models.Model):
     question_key = models.CharField(max_length=100, db_column="question_key")
     lang_question_key = models.CharField(max_length=100,
                                          db_column="lang_question_key")
+    yearmonth = models.IntegerField(db_column="yearmonth")
     total_answers = models.IntegerField(db_column="total_answers")
     correct_answers = models.IntegerField(db_column="correct_answers")
     percent_score = models.FloatField(db_column="percent_score")
@@ -131,4 +136,3 @@ class GPContestSchoolDetails(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_gpcontest_school_details'
-
