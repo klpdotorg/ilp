@@ -135,7 +135,7 @@ class Command(BaseCommand):
         self.createGPSummarySheet()
 
     def createGPSummarySheet(self):
-        info = {"date": self.now}
+        info = {"date": self.now, "num_gps": len(self.gpsummary)}
         renderer_template = self.templates["gpsummary"]["latex"].render(gps=self.gpsummary, info=info)
 
         # saves tex_code to outpout file
@@ -286,8 +286,11 @@ class Command(BaseCommand):
         schoolsdata = school_compute_numbers.get_gp_schools_report(
                 gpid, self.surveyid, self.startyearmonth, self.endyearmonth)
 
+        print(schoolsdata, file=self.utf8stdout)
         for schoolid in schoolsdata:
+            print(schoolid)
             schooldata = schoolsdata[schoolid]
+            print(schooldata, file=self.utf8stdout)
             school_builddir = self.build_d+str(self.now)+"/"+str(gpid)+"/" +\
                     str(schooldata["school_id"])
             self.createSchoolPdfs(schooldata, school_builddir, outputdir)
@@ -295,7 +298,7 @@ class Command(BaseCommand):
 
     def createSchoolsSummary(self, outputdir):
         # print(self.schoolsummary)
-        info = {"date": self.now}
+        info = {"date": self.now, "num_schools": len(self.schoolsummary)}
         renderer_template = self.templates["schoolsummary"]["latex"].render(schools=self.schoolsummary, info=info)
 
         # saves tex_code to outpout file
@@ -309,6 +312,7 @@ class Command(BaseCommand):
         shutil.copy2(self.build_d+"/"+outputfile+".pdf", outputdir)
         self.deleteTempFiles([outputfile+".tex",
                              self.build_d+"/"+outputfile+".pdf"])
+        self.schoolsummary = []
         
 
 
