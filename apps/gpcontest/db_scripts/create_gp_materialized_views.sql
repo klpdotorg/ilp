@@ -13,6 +13,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
                 eboundary.id as gp_id,
                 answers.answergroup_id as answergroup_id,
                 questiongroup.id as questiongroup_id,
+                to_char(answergroup.date_of_visit,'YYYYMM')::int as yearmonth,
                 SUM(
                     CASE WHEN answers.answer~'^\d+(\.\d+)?$' THEN CASE WHEN answers.answer::decimal>0 then answers.answer::decimal ELSE 0
                 END ELSE 0 END) AS total_score, 
@@ -35,16 +36,17 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
             GROUP BY
                 questiongroup.id,
                 answers.answergroup_id,
-                eboundary.id
+                eboundary.id,
+                answergroup.date_of_visit
         )
-    SELECT id, gp_id, questiongroup_id, 
+    SELECT id, gp_id, questiongroup_id, yearmonth,
                     COUNT(*) as num_students,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)<36.00) AS cat_a,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>36.00 AND ROUND(total_percent,2)<61.00) as cat_b,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>60.00 AND ROUND(total_percent,2)<76.00) as cat_c,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>75.00 AND ROUND(total_percent,2)<101.00) as cat_d
     FROM subquery1
-    GROUP BY id,gp_id, questiongroup_id;
+    GROUP BY id,gp_id, questiongroup_id, yearmonth;
 -- END mvw_gpcontest_eboundary_answers_agg
 
 -- mvw_gpcontest_eboundary_schoolcount_agg --> Stores scool counts/GP
@@ -55,7 +57,8 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
    SELECT 
         format('A%s_%s', 2,eboundary.id) as id,
         eboundary.id as gp_id,
-        Count(distinct ag.institution_id) as num_schools 
+        Count(distinct ag.institution_id) as num_schools,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth
     FROM 
         boundary_electionboundary as eboundary,
         assessments_answergroup_institution as ag,
@@ -67,7 +70,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
         schools.gp_id=eboundary.id
-    GROUP BY eboundary.id;
+    GROUP BY eboundary.id, ag.date_of_visit;
 -- END mvw_gpcontest_eboundary_schoolcount_agg
 
 -- MVW to calculate aggregates for all answers 
@@ -114,7 +117,7 @@ FROM
         and ans.question_id=q.id
         and stmap.survey_id=qg.survey_id
         and ag.is_verified=true
-    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,q.id,ag.id,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name,ag.institution_id
+    GROUP BY q.concept_id,q.microconcept_group_id,q.microconcept_id,q.id,ag.id,qg.survey_id,stmap.tag_id,ag.date_of_visit,source,qg.id,qg.name,ag.institution_id
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>0)correctans
 GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconcept_group,microconcept,question_id,questiongroup_id,questiongroup_name;
 
@@ -134,6 +137,7 @@ WITH table1 as (
         t1.questiongroup_id as questiongroup_id,
         t1.microconcept as microconcept_id,
         t1.num_assessments as total_answers,
+        t1.yearmonth as yearmonth,
         CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::int END as correct_answers,
         CASE WHEN t2.num_assessments is NULL THEN 0 ELSE ROUND(100*(t2.num_assessments*1.0/t1.num_assessments*1.0),2) END as percent_score
     FROM
@@ -154,6 +158,7 @@ SELECT
     table1.total_answers as total_answers,
     table1.correct_answers as correct_answers,
     table1.percent_score as percent_score,
+    table1.yearmonth,
     q.id as question_id,
     q.lang_name as question_lang_name,
     qg_qns.sequence as question_sequence
@@ -177,6 +182,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
         ag.institution_id as institution_id, 
         qg.id as questiongroup_id, 
         qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_students 
     FROM 
         assessments_answergroup_institution ag,
@@ -185,7 +191,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
         qg.survey_id=2 AND 
         ag.questiongroup_id=qg.id AND 
         ag.date_of_visit BETWEEN :from_date AND :to_date 
-    GROUP BY ag.institution_id, qg.id;
+    GROUP BY ag.institution_id, qg.id, yearmonth;
 
 ---- CREATE THE DEFICIENCY COMPUTATION TABLES-----------
 -- Drop the tables first
@@ -199,6 +205,7 @@ WITH subquery1 AS (
         t1.questiongroup_id as questiongroup_id,
         t1.question_key as question_key,
         t1.lang_question_key as lang_question_key,
+        t1.yearmonth as yearmonth,
         SUM(t1.num_assessments) as total_answers,
         SUM(CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::int END) as correct_answers
     FROM
@@ -210,7 +217,7 @@ WITH subquery1 AS (
         t1.survey_id=2 and
         t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
         t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int
-    GROUP BY t1.institution_id, t1.questiongroup_id, t1.question_key, t1.lang_question_key
+    GROUP BY t1.institution_id, t1.questiongroup_id, t1.question_key, t1.lang_question_key, t1.yearmonth
 )
 -- Now compute percent scores from the above subquery and select only
 -- those percentages below 60%
@@ -266,7 +273,3 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
         dise_basicdata dise
     ON
         table1.dise_id = dise.id
-
-   
-
-

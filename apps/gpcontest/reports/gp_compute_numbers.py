@@ -36,22 +36,28 @@ assessments_competencyquestionmap where questiongroup_id=45) GROUP BY
 assessments_answerinstitution.answergroup_id;'''
 
 
-def get_participating_school_count(gp_id, survey_id, from_yearmonth, to_yearmonth):
-    """Returns the number of schools that participated in a GP contest"""
+def get_participating_school_count(gp_id, survey_id, contest_dates):
+    """Returns the number of schools that participated in a GP contest
+    contest_dates: is an array of dates in the YYYYMM format when GP contests
+    happened."""
     # Validate the GP ID first
     try:
         gp = ElectionBoundary.objects.get(id=gp_id)
     except:
         raise ValueError("GP %s does not exist " % gp_id)
-    num_schools = 0
-    gp_school_counts = None
-    try:
-        gp_school_counts = GPSchoolParticipationCounts.objects.get(gp_id=gp_id)
-    except:
+    count_by_dates = {}
+    for date in contest_dates:
         num_schools = 0
-    if gp_school_counts is not None:
-        num_schools = gp_school_counts.num_schools
-    return num_schools
+        gp_school_counts = None
+        try:
+            gp_school_counts = GPSchoolParticipationCounts.objects.filter(
+                                            gp_id=gp_id).get(yearmonth=date)
+        except:
+            num_schools = 0
+        if gp_school_counts is not None:
+            num_schools = gp_school_counts.num_schools
+        count_by_dates[date] = num_schools
+    return count_by_dates
     # format_str = '%Y%m'  # The input format
     # from_datetime_obj = datetime.datetime.strptime(str(from_yearmonth), format_str)
     # to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
@@ -130,7 +136,7 @@ def get_participating_school_count(gp_id, survey_id, from_yearmonth, to_yearmont
 #         }
 #     return score_buckets
 
-def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_yearmonth, to_yearmonth):
+def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, contest_yearmonth_dates):
     """ This method takes in a Gram Panchayat ID and a list of questiongroup
         IDs and returns a dictionary containing child performance data
         gradewise in score buckets of 0 - 35, 36 - 60, 61 - 75, 75 - 100 """
@@ -140,35 +146,40 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, from_yearmonth, t
     # for details on how the computation is done
     
     # Construct return data dict
-    score_buckets = {}
-    try:
-        gp_scores = GPStudentScoreGroups.objects.filter(gp_id=gp_id)
-    except:
-        pass
-    else:
-        for questiongroup_id in questiongroup_ids_list:
-            questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
-            if questiongroup.name not in score_buckets:
-                score_buckets[questiongroup.name] = {}
-            try:
-                grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
-            except:
-                grade_scores = None
-            #print("No questiongroup %s for GP %s:" % (questiongroup_id, gp_id))
-            if grade_scores is not None:
-                score_buckets[questiongroup.name] = {
-                    "total": grade_scores.num_students,
-                    "below35": grade_scores.cat_a,
-                    "35to60": grade_scores.cat_b,
-                    "60to75": grade_scores.cat_c,
-                    "75to100": grade_scores.cat_d
-                }
-            else:
-                score_buckets[questiongroup.name] = {
-                    "total": 0,
-                }
-    return score_buckets
-
+    scores_by_contest_date = {}
+    for date in contest_yearmonth_dates:
+        # Get the relevant rows when this particular contest happened
+        score_buckets = {}
+        try:
+            gp_scores = GPStudentScoreGroups.objects.filter(
+                        gp_id=gp_id).filter(
+                            yearmonth=date)
+        except:
+            pass
+        else:
+            for questiongroup_id in questiongroup_ids_list:
+                questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
+                if questiongroup.name not in score_buckets:
+                    score_buckets[questiongroup.name] = {}
+                try:
+                    grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
+                except:
+                    grade_scores = None
+                #print("No questiongroup %s for GP %s:" % (questiongroup_id, gp_id))
+                if grade_scores is not None:
+                    score_buckets[questiongroup.name] = {
+                        "total": grade_scores.num_students,
+                        "below35": grade_scores.cat_a,
+                        "35to60": grade_scores.cat_b,
+                        "60to75": grade_scores.cat_c,
+                        "75to100": grade_scores.cat_d
+                    }
+                else:
+                    score_buckets[questiongroup.name] = {
+                        "total": 0,
+                    }
+            scores_by_contest_date[date] = score_buckets
+    return scores_by_contest_date
 
 def get_gradewise_competency_correctscores(gp_id, gpcontest_survey_id,
                                            report_from, report_to):
@@ -211,7 +222,7 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
             .filter(questiongroup_id=qgroup_id)\
             .filter(yearmonth__gte=report_from)\
             .filter(yearmonth__lte=report_to)\
-            .values('question_key')\
+            .values('question_key', 'yearmonth')\
             .annotate(correct_answers=Sum('num_assessments'))
     except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
@@ -227,7 +238,7 @@ def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
                 .filter(questiongroup_id=qgroup_id)\
                 .filter(yearmonth__gte=report_from)\
                 .filter(yearmonth__lte=report_to)\
-                .values('question_key')\
+                .values('question_key', 'yearmonth')\
                 .annotate(total_answers=Sum('num_assessments'))
     except SurveyEBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
         pass
@@ -242,15 +253,18 @@ def get_schoolcount_classes_gplist(
     queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
         survey_id=survey_id).filter(
             institution_id__gp_id__in=gp_list).filter(yearmonth__gte=from_yearmonth).filter(
-                yearmonth__lte=to_yearmonth)
+                yearmonth__lte=to_yearmonth).values('questiongroup_id','yearmonth')
     result = {}
     for qgroup_name in qgroup_names:
-        num_schools = queryset.filter(questiongroup_name=qgroup_name).distinct('institution_id').count()
-        result[qgroup_name] = num_schools
+        ids = QuestionGroup.objects.filter(name=qgroup_name)
+        result[qgroup_name] = {}
+        for id in ids:
+            num_schools = queryset.filter(questiongroup_name=qgroup_name).distinct('institution_id').count()
+            result[qgroup_name][id] = num_schools
     return result
 
 def get_schoolcount_classes_count(
-        survey_id, gp_id, from_yearmonth, to_yearmonth):
+        survey_id, gp_id, from_yearmonth, to_yearmonth, contest_dates_yearmonth):
     """ Return number of schools with class 4 assessments, 5 assessments, 6
     assessments """
     qgroup_names = get_questiongroup_names_survey(
@@ -260,14 +274,19 @@ def get_schoolcount_classes_count(
             institution_id__gp_id=gp_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth)
     result = {}
-    for qgroup_name in qgroup_names:
-        num_schools = queryset.filter(questiongroup_name=qgroup_name).distinct('institution_id').count()
-        result[qgroup_name] = num_schools
+    for date in contest_dates_yearmonth:
+        qgroups_count_by_date = {}
+        for qgroup_name in qgroup_names: 
+            num_schools = queryset.filter(
+                                    questiongroup_name=qgroup_name).values(
+                                        'yearmonth', 'institution_id').distinct().count()
+            qgroups_count_by_date[qgroup_name] = num_schools
+        result[date] = qgroups_count_by_date
     return result
 
 
 def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
-                                     report_from, report_to):
+                                     report_from, report_to, contest_dates):
     """
         Computes the percentage of students who are fluent in a competency
         in the given time frame, survey_id and the Gram Panchayat
@@ -282,22 +301,25 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
                                                         gpcontest_survey_id,
                                                         report_from,
                                                         report_to)
-    concept_scores = {}
+    results_by_date = {}
     if total_assessments is not None and correct_answers_agg is not None:
-        for each_row in total_assessments:
-            current_question_key = each_row['question_key']
-            sum_total = each_row['total_answers']
-            try:
-                sum_correct_ans = correct_answers_agg.get(
-                    question_key=current_question_key)['correct_answers']
-            except:
-                sum_correct_ans = None
-            if sum_correct_ans is None:
-                sum_correct_ans = 0
-            percentage = 0
-            if sum_total is not None:
-                percentage = round((sum_correct_ans / sum_total)*100, 2)
-            else:
+        for contest_date in contest_dates:
+            concept_scores = {}
+            for each_row in total_assessments:
+                current_question_key = each_row['question_key']
+                sum_total = each_row['total_answers']
+                try:
+                    sum_correct_ans = correct_answers_agg.get(
+                        question_key=current_question_key)['correct_answers']
+                except:
+                    sum_correct_ans = None
+                if sum_correct_ans is None:
+                    sum_correct_ans = 0
                 percentage = 0
-            concept_scores[current_question_key] = percentage
-    return concept_scores
+                if sum_total is not None:
+                    percentage = round((sum_correct_ans / sum_total)*100, 2)
+                else:
+                    percentage = 0
+                concept_scores[current_question_key] = percentage
+            results_by_date[contest_date] = concept_scores
+    return results_by_date
