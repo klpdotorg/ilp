@@ -12,6 +12,7 @@
 %% Headers and footers
 \chead{ \large GP Contest - School Report Summary }
 \lhead{ \hfill\break  Date: {{ info.date }}}
+\rhead{ \hfill\break  NumSchools: {{ info.num_schools}}}
 
 \setlength{\headheight}{3.0cm}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -24,6 +25,7 @@
 \begin{longtable}{|l|p{3cm}|p{4.5cm}|p{3.5cm}|l|l|l|l|p{1.5cm}|p{1.5cm}|}
 \hline
 	GP ID & GP Name & School Name & DISE Code & \makecell{Num Class 4\\ Assessments}& \makecell{Num Class 5\\ Assessments}& \makecell{Num Class 6\\ Assessments}& \makecell{Generated\\Date} & Sent to Name & Sent at Date\\ \endhead \hline
+	\hline \multicolumn{10}{r}{\textit{Continued on next page}} \\ \endfoot
 {% for school in schools %}
 	{{school.gpid}} & {{school.gpname}} & {{ school.schoolname }} & {{ school.dise_code }} & {{school.assessmentcounts.4}} & {{school.assessmentcounts.5}} & {{school.assessmentcounts.6}} & {{school.generated}} &  & \\ \hline
 {% endfor %}
