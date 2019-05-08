@@ -126,35 +126,34 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
                                 gp_survey_id, gp_id, from_yearmonth,
                                 to_yearmonth,
                                 yearmonth_dates)
-    
-    total_answers = get_total_assessments_for_grade(gp_id, questiongroup,
-                                                                gp_survey_id,
-                                                                from_yearmonth,
-                                                                to_yearmonth)
-    answers = get_grade_competency_correctscores(
-                        gp_id, questiongroup, gp_survey_id, from_yearmonth, to_yearmonth
-                        )
     data_by_contest_date = {}
-    for date in yearmonth_dates:
+    for index, date in enumerate(yearmonth_dates):
         all_scores_for_gp = {
             "gp_name": gp_name,
             "gp_id": gp_id,
             "district": district_name,
             "block": block_name,
             "cluster": cluster_name,
-            "date": contest_dates
+            "date": contest_dates[index]
         }
-        num_schools = num_schools_by_contest_date.get(yearmonth=date)
+        num_schools = num_schools_by_contest_date[date]
         all_scores_for_gp["num_schools"] = num_schools
-        if "Class 4 Assessment" in schoolcount_by_assessment:
-            all_scores_for_gp["class4_num_schools"] = schoolcount_by_assessment[date]["Class 4 Assessment"]
-        if "Class 5 Assessment" in schoolcount_by_assessment:
-            all_scores_for_gp["class5_num_schools"] = schoolcount_by_assessment[date]["Class 5 Assessment"]
-        if "Class 6 Assessment" in schoolcount_by_assessment:
-            all_scores_for_gp["class6_num_schools"] = schoolcount_by_assessment[date]["Class 6 Assessment"]
+        if "Class 4 Assessment" in schoolcount_by_assessment_date[date]:
+            all_scores_for_gp["class4_num_schools"] = schoolcount_by_assessment_date[date]["Class 4 Assessment"]
+        if "Class 5 Assessment" in schoolcount_by_assessment_date[date]:
+            all_scores_for_gp["class5_num_schools"] = schoolcount_by_assessment_date[date]["Class 5 Assessment"]
+        if "Class 6 Assessment" in schoolcount_by_assessment_date[date]:
+            all_scores_for_gp["class6_num_schools"] = schoolcount_by_assessment_date[date]["Class 6 Assessment"]
 
         for questiongroup in questiongroup_ids:
             qgroup = QuestionGroup.objects.get(id=questiongroup) 
+            total_answers = get_total_assessments_for_grade(gp_id, questiongroup,
+                                                                gp_survey_id,
+                                                                from_yearmonth,
+                                                                to_yearmonth)
+            answers = get_grade_competency_correctscores(
+                        gp_id, questiongroup, gp_survey_id, from_yearmonth, to_yearmonth
+                        )
             # Check if
             if qgroup.name not in all_scores_for_gp:
                 all_scores_for_gp[qgroup.name] = {}
@@ -179,12 +178,13 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
                                                         gp_id, questiongroup,
                                                         gp_survey_id,
                                                         from_yearmonth,
-                                                        to_yearmonth)
+                                                        to_yearmonth, yearmonth_dates)
                         all_scores_for_gp[qgroup.name]["percent_scores"] = \
                             percentage[date]
                     # Insert total number of students into the dict
                     all_scores_for_gp["num_students"] = gp_num_students
-        data_by_contest_date[date] = all_scores_for_gp
+        full_date = contest_dates[index]
+        data_by_contest_date[full_date] = all_scores_for_gp
     return data_by_contest_date
 
 
