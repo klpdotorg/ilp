@@ -224,34 +224,49 @@ WHERE ROUND((correct_answers*1.0/total_answers*1.0)*100,2)<60.00;
 DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_school_details;
 CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
     SELECT 
-        distinct schools.id as institution_id,
-	    format('A%s_%s', schools.id, schools.dise_id) as id,
-        REGEXP_REPLACE(schools.name,'[^a-zA-Z0-9]+',' ') as institution_name,
-        dise.school_code as dise_code,
-        boundary1.name as district_name,
-        boundary2.name as block_name,
-        boundary3.name as cluster_name,
-        eboundary.id as gp_id,
-        eboundary.const_ward_name as gp_name
+        table1.institution_id as institution_id,
+        table1.id as id,
+        table1.institution_name as institution_name,
+        table2.dise_id as dise_id,
+        table1.district_name as district_name,
+        table1.block_name as block_name,
+        table1.cluster_name as cluster_name,
+        table1.gp_id as gp_id,
+        table1.gp_name as gp_name
     FROM
-        assessments_questiongroup as questiongroup,
-        assessments_answergroup_institution as answergroup,
-        boundary_electionboundary as eboundary,
-        boundary_boundary as boundary1,
-        boundary_boundary as boundary2,
-        boundary_boundary as boundary3,
-        schools_institution as schools,
-        dise_basicdata as dise
-    WHERE
-        questiongroup.survey_id = 2 AND
-        questiongroup.id = answergroup.questiongroup_id AND
-        answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
-        answergroup.institution_id = schools.id AND
-        dise.id=schools.dise_id AND
-        schools.gp_id = eboundary.id AND
-        schools.admin1_id = boundary1.id AND
-        schools.admin2_id = boundary2.id AND
-        schools.admin3_id = boundary3.id;
+        (SELECT 
+            distinct schools.id as institution_id,
+            format('A%s_%s', schools.id, schools.dise_id) as id,
+            REGEXP_REPLACE(schools.name,'[^a-zA-Z0-9]+',' ') as institution_name,
+            schools.dise_id as dise_id,
+            boundary1.name as district_name,
+            boundary2.name as block_name,
+            boundary3.name as cluster_name,
+            eboundary.id as gp_id,
+            eboundary.const_ward_name as gp_name
+        FROM
+            assessments_questiongroup as questiongroup,
+            assessments_answergroup_institution as answergroup,
+            boundary_electionboundary as eboundary,
+            boundary_boundary as boundary1,
+            boundary_boundary as boundary2,
+            boundary_boundary as boundary3,
+            schools_institution as schools
+        WHERE
+            questiongroup.survey_id = 2 AND
+            questiongroup.id = answergroup.questiongroup_id AND
+            answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
+            answergroup.institution_id = schools.id AND
+            schools.gp_id = eboundary.id AND
+            schools.admin1_id = boundary1.id AND
+            schools.admin2_id = boundary2.id AND
+            schools.admin3_id = boundary3.id
+        )table1
+    LEFT JOIN
+        dise_basicdata dise
+    ON
+        table1.dise_id = dise.id
+
 
 
         

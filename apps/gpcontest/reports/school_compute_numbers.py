@@ -90,7 +90,7 @@ def get_school_report_dict(school_id, survey_id, from_yearmonth, to_yearmonth):
     return result
 
 
-def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
+def get_school_report(school_id, qgroup_ids=None, survey_id, from_yearmonth, to_yearmonth):
     """
     Internal function that returns a single school report as a dict
     TODO: Make this private
@@ -103,11 +103,14 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     date_of_contest = get_date_of_contest(
         school_id, survey_id, from_yearmonth, to_yearmonth)
   
-    # Get questiongroups applicable for this survey ID for the given year range
-    questiongroup_ids = get_questiongroups_survey(
-        survey_id,
-        from_yearmonth,
-        to_yearmonth)
+    if qgroup_ids is None:
+        # Get questiongroups applicable for this survey ID for the given year range
+        questiongroup_ids = get_questiongroups_survey(
+            survey_id,
+            from_yearmonth,
+            to_yearmonth)
+    else:
+        questiongroup_ids = qgroup_ids
     result = {}
     try:
         school_info = GPContestSchoolDetails.objects.get(institution_id=school_id)
@@ -220,21 +223,16 @@ def get_gp_schools_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
         questiongroup_id__in=questiongroup_ids).distinct(
             'institution_id').values_list(
             'institution_id', flat=True)
-    # schools = AnswerGroup_Institution.objects.filter(
-    #             institution__gp_id=gp_id).filter(
-    #                 questiongroup__survey_id=survey_id
-    #             ).filter(
-    #         date_of_visit__year__gte=from_datetime_obj.year).filter(
-    #         date_of_visit__year__lte=to_datetime_obj.year).filter(
-    #         date_of_visit__month__gte=from_datetime_obj.month).filter(
-    #         date_of_visit__month__lte=to_datetime_obj.month).filter(
-    #             questiongroup_id__in=distinct_qgroups).distinct(
-    #                 'institution_id').values_list(
-    #                 'institution_id', flat=True)
+    questiongroup_ids = get_questiongroups_survey(
+            survey_id,
+            from_yearmonth,
+            to_yearmonth)
     schools_info = {}
     for school in schools:
         start2 = time.time()
-        school_report = get_school_report(school, survey_id, from_yearmonth, to_yearmonth)
+        school_report = get_school_report(
+                school, questiongroup_ids,
+                survey_id, from_yearmonth, to_yearmonth)
         end2 = time.time()
         print("Time for school %s report = %s" % (school, end2-start2))
         schools_info[school] = school_report

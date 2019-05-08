@@ -37,10 +37,24 @@ def convert_to_academicyear(from_yearmonth_str, to_yearmonth_str):
 
 
 def get_questiongroups_survey(survey_id, from_yearmonth, to_yearmonth):
-    return QuestionGroup.objects.filter(survey_id=survey_id).distinct(
-        'id').values_list('id', flat=True)
+        # Return only questiongroup IDS for which we have assessments
+        # available. Will cut down on processing costs later on
+        return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+                        survey_id=survey_id).filter(
+                                yearmonth__gte=from_yearmonth).filter(
+                                const_ward_type='GP').filter(
+                                yearmonth__lte=to_yearmonth).order_by(
+                                'questiongroup_id').distinct().values_list(
+                                'questiongroup_id', flat=True)
 
 
 def get_questiongroup_names_survey(survey_id, from_yearmonth, to_yearmonth):
-    return QuestionGroup.objects.filter(survey_id=survey_id).distinct(
-        'name').values_list('name', flat=True)
+        return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+                                survey_id=survey_id).filter(
+                                        yearmonth__gte=from_yearmonth).filter(
+                                        const_ward_type='GP').filter(
+                                        yearmonth__lte=to_yearmonth).order_by(
+                                        'questiongroup_name').distinct()\
+                                        .values_list(
+                                        'questiongroup_name', flat=True)
+

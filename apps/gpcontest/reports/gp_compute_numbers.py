@@ -267,6 +267,7 @@ def get_schoolcount_classes_count(
 
 
 def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
+                                     total_assessments,
                                      report_from, report_to):
     """
         Computes the percentage of students who are fluent in a competency
@@ -278,10 +279,10 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
                                 gpcontest_survey_id, report_from,
                                 report_to)
     
-    total_assessments = get_total_assessments_for_grade(gp_id, qgroup_id,
-                                                        gpcontest_survey_id,
-                                                        report_from,
-                                                        report_to)
+    # total_assessments = get_total_assessments_for_grade(gp_id, qgroup_id,
+    #                                                     gpcontest_survey_id,
+    #                                                     report_from,
+    #                                                     report_to)
     concept_scores = {}
     if total_assessments is not None and correct_answers_agg is not None:
         for each_row in total_assessments:

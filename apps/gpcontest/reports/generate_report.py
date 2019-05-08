@@ -44,9 +44,15 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
     all_gps["class5_num_schools"] = schoolcount_by_assessment["Class 5 Assessment"]
     all_gps["class6_num_schools"] = schoolcount_by_assessment["Class 6 Assessment"]
     all_gps["gp_info"] = {}
+    questiongroup_ids = get_questiongroups_survey(
+                                                    gp_survey_id,
+                                                    from_yearmonth,
+                                                    to_yearmonth)
     for gp in list_of_gps:
         try:
-            gp_dict = generate_gp_summary(gp, gp_survey_id, from_yearmonth, to_yearmonth)
+            gp_dict = generate_gp_summary(gp, questiongroup_ids,
+                                          gp_survey_id,
+                                          from_yearmonth, to_yearmonth)
             all_gps["gp_info"][gp] = gp_dict
         except Exception as e:
             print("%s (%s)" % (e, type(e)))
@@ -68,12 +74,16 @@ def get_date_of_contest(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     return formatted_dates
 
 
-def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
+def generate_gp_summary(
+        gp_id,
+        qgroup_ids=None,
+        gp_survey_id,
+        from_yearmonth,
+        to_yearmonth):
     """
         Take a gp contest survey id and date range in the format of
         YYYYMM and return a dictionary with GP summary data.
         Dict format is:
-        
     """
     # Get basic GP info such as district/block/cluster/num students/schools
     #  etc..
@@ -89,15 +99,15 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         raise ValueError("Invalid GP %s. Does not exist in DB" % gp_id)
     else:
         gp_name = gp.const_ward_name
-    
-    # TODO: Move this out to the top level function. Need not be calculated
-    # per GP
-    # Get questiongroups applicable for this survey ID for the given year range
-    questiongroup_ids = get_questiongroups_survey(
-                                                    gp_survey_id,
-                                                    from_yearmonth,
-                                                    to_yearmonth)
-    
+    if qgroup_ids is None:
+        # Get questiongroups applicable for this survey ID
+        # for the given year range
+        questiongroup_ids = get_questiongroups_survey(
+                                                        gp_survey_id,
+                                                        from_yearmonth,
+                                                        to_yearmonth)
+    else:
+        questiongroup_ids = qgroup_ids
     # Get general GP info. Needs to be calculated per GP because block/cluster
     # info might be different per GP
     schools = Institution.objects.filter(gp_id=gp_id)
@@ -165,7 +175,9 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
                     percentage = get_grade_competency_percentages(
                                                     gp_id, questiongroup,
                                                     gp_survey_id,
-                                                    from_yearmonth, to_yearmonth)
+                                                    total_answers,
+                                                    from_yearmonth,
+                                                    to_yearmonth)
                     all_scores_for_gp[qgroup.name]["percent_scores"] = percentage
                 # Insert total number of students into the dict
                 all_scores_for_gp["num_students"] = gp_num_students
