@@ -127,11 +127,18 @@ class Command(BaseCommand):
         print(data, file=self.utf8stdout)
         for gp in data["gp_info"]:
             print(gp)
-            outputdir = self.createGPPdfs(gp, data["gp_info"][gp], self.templates["gp"]["latex"])
+            num_contests = len(data["gp_info"][gp])
+            suffix = ""
+            count = 0
+            for date in data["gp_info"][gp]:
+                count += 1
+                if num_contests >1:
+                    suffix = "_"+str(count)
+                outputdir = self.createGPPdfs(gp, data["gp_info"][gp][date], self.templates["gp"]["latex"], suffix)
                           
-            if not self.onlygp:
-                print(gp)
-                self.createSchoolReports(gp, outputdir)
+                if not self.onlygp:
+                    print(gp)
+                    self.createSchoolReports(gp, outputdir)
         self.createGPSummarySheet()
 
     def createGPSummarySheet(self):
@@ -151,12 +158,11 @@ class Command(BaseCommand):
                              self.build_d+"/"+outputfile+".pdf"])
         
  
-    def createGPPdfs(self, gpid, gpdata, template):
-        print("IN CREATE PDFS")
+    def createGPPdfs(self, gpid, gpdata, template, suffix):
         print(gpdata, file=self.utf8stdout)
         if type(gpdata) is int or type(gpdata) is str:
             return
-        gpdata["contestdate"] = ', '.join(gpdata["date"])
+        gpdata["contestdate"] = gpdata["date"]
         gpinfo = {"gpname": gpdata["gp_name"].capitalize(),
                   "block": gpdata["block"].capitalize(),
                   "district": gpdata["district"].capitalize(),
@@ -172,7 +178,7 @@ class Command(BaseCommand):
                                             assessmentinfo = assessmentinfo,
                                             info=info)
 
-        output_file = self.gp_out_file_prefix+"_"+str(gpid)
+        output_file = self.gp_out_file_prefix+"_"+str(gpid)+suffix
         outputdir = self.outputdir+"/"+str(gpid)
         if not os.path.exists(outputdir):
             os.makedirs(outputdir)
