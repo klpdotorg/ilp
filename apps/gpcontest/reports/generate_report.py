@@ -166,7 +166,9 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
                                                     gp_survey_id,
                                                     from_yearmonth,
                                                     to_yearmonth, yearmonth_dates)
-                    all_scores_for_gp[qgroup.name]["percent_scores"] = \
+                    all_scores_for_gp["percent_scores"] = \
+                        {"Class 6 Assessment": {}}
+                    all_scores_for_gp["percent_scores"][qgroup.name] = \
                         percentage[date]
                 # Insert total number of students into the dict
                 all_scores_for_gp["num_students"] = gp_num_students
