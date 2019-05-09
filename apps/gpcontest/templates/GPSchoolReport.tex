@@ -65,19 +65,26 @@ at (current page.south west)
 \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ} : {{schoolinfo.gpname}} \hfill \kn{ಶಾಲಾ ಹೆಸರು} : {{schoolinfo.schoolname}}\\
 
 \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ , ಶಿಕ್ಷಣ ಇಲಾಖೆ, ಸಮುದಾಯ ಮತ್ತು ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಭಾಗಿತ್ವದಲ್ಲಿ ದಿನಾಂಕ} {{schoolinfo.contestdate}} \kn{ರಂದು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದಲ್ಲಿ ನಡೆದ ನಿಮ್ಮ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ತರಗತಿ ವಾರು ಕಿರು ವರದಿ ಈ ಕೆಳಕಂಡಂತಿದೆ}
+
+\begingroup
+\fontsize{11}{12}
+{
+\setlength\LTleft{-.7cm}
+\setlength\LTright{-.7cm}
 \renewcommand\arraystretch{1.45}
-\begin{longtable}{|P{1cm}|p{9cm}|P{3cm}|P{3cm}|} \hline
+\begin{longtable}{|P{1cm}|p{10cm}|P{3cm}|P{3cm}|} \hline
 \multicolumn{4}{|c|}{ {\large \bf {{info.classname}} } \kn{ನೇ ತರಗತಿ}} \\ \hline
 \multicolumn{4}{|c|}{\kn{ಮಕ್ಕಳ ಒಟ್ಟು ಸಂಖ್ಯೆ} : {{assessmentinfo.num_students}}} \\ \hline
 \textbf{\kn{ಕ್ರಮ ಸಂಖ್ಯೆ}} & \textbf{\kn{ಪ್ರಶ್ನೆಗಳು}} & \textbf{\kn{ಸರಿಯಾಗಿ ಉತ್ತರಿಸಿದ ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \textbf{\kn{ಶೇಕಡಾವಾರು ಫಲಿತಾಂಶ}} \\ \hline \endhead
 {% for question in assessmentinfo.question_answers %}
 {{loop.index}} & \kn{ {{ question.lang_name }} }& {{ question.num_correct }} & {{question.percent}} \\ \hline
 {% endfor %}
-
 \end{longtable}
+}
+\endgroup
 
 \begin{flushleft}
-\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಶಾಲಾ ಮುಖ್ಯಗುರುಗಳು ,} SDMC \kn{, ಪೋಷಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ. ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590\kn{ಗೆ ಕರೆ ಮಾಡಿ}\\[3ex]
+\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಶಾಲಾ ಮುಖ್ಯಗುರುಗಳು ,} SDMC \kn{, ಪೋಷಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ. ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590\kn{ಗೆ ಕರೆ ಮಾಡಿ}\\[2ex]
 \end{flushleft}
 \centering{\kn{ಸಲಹೆ}}\\
 

@@ -176,9 +176,14 @@ class Command(BaseCommand):
                 assessmentinfo[assessment] = gpdata[self.assessmentnames[assessment]["name"]]
                 assessmentinfo[assessment]["class"] = self.assessmentnames[assessment]["class"]
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
+        if "percent_scores" not in gpdata:
+            percent_scores = None
+        else:
+            percent_scores = gpdata["percent_scores"]
         renderer_template = template.render(gpinfo=gpinfo,
-                                            assessmentinfo = assessmentinfo,
-                                            info=info)
+                                            assessmentinfo=assessmentinfo,
+                                            info=info,
+                                            percent_scores=percent_scores)
 
         output_file = self.gp_out_file_prefix+"_"+str(gpid)+suffix
         outputdir = self.outputdir+"/"+str(gpid)
