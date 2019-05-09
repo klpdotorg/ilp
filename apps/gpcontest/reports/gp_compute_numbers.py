@@ -139,7 +139,8 @@ def get_participating_school_count(gp_id, survey_id, contest_dates):
 def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, contest_yearmonth_dates):
     """ This method takes in a Gram Panchayat ID and a list of questiongroup
         IDs and returns a dictionary containing child performance data
-        gradewise in score buckets of 0 - 35, 36 - 60, 61 - 75, 75 - 100 """
+        gradewise in score buckets of 0 - 35, 36 - 60, 61 - 75, 75 - 100
+        The dict is keyed by qgroup id """
         
     # All the logic to compute the numbers has been moved to a materialized view
     # called mvw_survey_eboundary_answers_agg. Check the script under db_scripts
@@ -159,15 +160,15 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, contest_yearmonth
         else:
             for questiongroup_id in questiongroup_ids_list:
                 questiongroup = QuestionGroup.objects.get(id=questiongroup_id)
-                if questiongroup.name not in score_buckets:
-                    score_buckets[questiongroup.name] = {}
+                # if questiongroup.name not in score_buckets:
+                score_buckets[questiongroup_id] = {}
                 try:
                     grade_scores = gp_scores.get(questiongroup_id=questiongroup_id)
                 except:
                     grade_scores = None
                 #print("No questiongroup %s for GP %s:" % (questiongroup_id, gp_id))
                 if grade_scores is not None:
-                    score_buckets[questiongroup.name] = {
+                    score_buckets[questiongroup_id] = {
                         "total": grade_scores.num_students,
                         "below35": grade_scores.cat_a,
                         "35to60": grade_scores.cat_b,
@@ -175,7 +176,7 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, contest_yearmonth
                         "75to100": grade_scores.cat_d
                     }
                 else:
-                    score_buckets[questiongroup.name] = {
+                    score_buckets[questiongroup_id] = {
                         "total": 0,
                     }
             scores_by_contest_date[date] = score_buckets
