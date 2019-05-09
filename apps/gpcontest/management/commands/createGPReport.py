@@ -172,7 +172,9 @@ class Command(BaseCommand):
                   "totalstudents": gpdata["num_students"]}
         assessmentinfo = {}
         for assessment in self.assessmentnames:
-            assessmentinfo[assessment] = gpdata[self.assessmentnames[assessment]["name"]]
+            if self.assessmentnames[assessment]["name"] in gpdata:
+                assessmentinfo[assessment] = gpdata[self.assessmentnames[assessment]["name"]]
+                assessmentinfo[assessment]["class"] = self.assessmentnames[assessment]["class"]
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
         renderer_template = template.render(gpinfo=gpinfo,
                                             assessmentinfo = assessmentinfo,
