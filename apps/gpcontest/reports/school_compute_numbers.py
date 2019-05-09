@@ -114,7 +114,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
             school_data["cluster_name"] = school_info.cluster_name
             school_data["gp_id"] = school_info.gp_id.id
             school_data["gp_name"] = school_info.gp_name
-            school_data["date"] = date_of_contest
+            school_data["date"] = date
             for each_class in questiongroup_ids:
                 try:
                     class_participation =\
