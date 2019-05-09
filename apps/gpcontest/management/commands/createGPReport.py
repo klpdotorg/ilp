@@ -195,6 +195,7 @@ class Command(BaseCommand):
 
         self.gpsummary.append({"gpid": gpid,
                                "gpname": gpdata["gp_name"].capitalize(),
+                               "contestdate": gpdata["contestdate"],
                                "total_schools": gpdata["num_schools"],
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
@@ -208,14 +209,21 @@ class Command(BaseCommand):
                                        school, self.surveyid,
                                        self.startyearmonth, self.endyearmonth)
             school_builddir = self.build_d+str(self.now) + \
-                              "/schools/"+str(schooldata["school_id"])
-            self.createSchoolPdfs(schooldata, school_builddir,
-                                  school_outputdir)
+                              "/schools/"+str(school)
+            suffix = ""
+            count = 0
+            num_contests = len(schooldata)
+            for date in schooldata:
+                count += 1
+                if num_contests >1:
+                    suffix = "_"+str(count)
+                self.createSchoolPdfs(schooldata[date], school_builddir,
+                                      school_outputdir, suffix)
         self.createSchoolsSummary(school_outputdir)
 
-    def createSchoolPdfs(self, schooldata, builddir, outputdir):
+    def createSchoolPdfs(self, schooldata, builddir, outputdir, suffix):
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
-        contestdate = ', '.join(schooldata["date"])
+        contestdate = schooldata["date"]
         #print(schooldata, file=self.utf8stdout)
         schoolinfo = {"district": schooldata["district_name"].capitalize(),
                       "block": schooldata["block_name"].capitalize(),
@@ -235,6 +243,7 @@ class Command(BaseCommand):
                    "gpname": schooldata["gp_name"],
                    "schoolname": schooldata["school_name"],
                    "dise_code": schooldata["dise_code"],
+                   "contestdate": schooldata["date"],
                    "generated": self.now,
                    "assessmentcounts": {}}
         for assessment in self.assessmentnames:
@@ -259,7 +268,7 @@ class Command(BaseCommand):
                 self.deleteTempFiles([school_out_file+".tex"])
 
 
-        school_file = self.school_out_file_prefix+"_"+str(schoolinfo["klpid"])+".pdf"
+        school_file = self.school_out_file_prefix+"_"+str(schoolinfo["klpid"])+suffix+".pdf"
         self.combinePdfs(pdfscreated, school_file, outputdir)
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
@@ -294,12 +303,19 @@ class Command(BaseCommand):
 
         print(schoolsdata, file=self.utf8stdout)
         for schoolid in schoolsdata:
+            suffix = ""
+            count = 0
             print(schoolid)
-            schooldata = schoolsdata[schoolid]
-            print(schooldata, file=self.utf8stdout)
-            school_builddir = self.build_d+str(self.now)+"/"+str(gpid)+"/" +\
-                    str(schooldata["school_id"])
-            self.createSchoolPdfs(schooldata, school_builddir, outputdir)
+            num_contests = len(schoolsdata[schoolid])
+            for date in schoolsdata[schoolid]:
+                count += 1
+                if num_contests >1:
+                    suffix = "_"+str(count)
+                schooldata = schoolsdata[schoolid][date]
+                print(schooldata, file=self.utf8stdout)
+                school_builddir = self.build_d+str(self.now)+"/"+str(gpid)+"/" +\
+                        str(schooldata["school_id"])
+                self.createSchoolPdfs(schooldata, school_builddir, outputdir, suffix)
         self.createSchoolsSummary(outputdir)
 
     def createSchoolsSummary(self, outputdir):
