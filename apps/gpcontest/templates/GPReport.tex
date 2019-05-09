@@ -182,9 +182,9 @@ at (current page.south east)
 \begin{longtable}{|P{3cm}|P{4cm}|P{2cm}|P{2cm}|P{2cm}|P{2cm}|} \hline
 \textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{4}{|c|}{\textbf{\kn{ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ (ಶೇಕಡವಾರು)}}}\\ \cline{3-6}
 \rule{0cm}{0.3cm}& &  \textbf{>35\%} & \textbf{36\%-60\%}  & \textbf{61\%-75\%} & \textbf{76\%-100\%} \\ \hline \endhead
-\rule{0cm}{0.3cm} 4\kn{ನೇ ತರಗತಿ} & {{assessmentinfo.class4.overall_scores.total}} & {{assessmentinfo.class4.overall_scores.below35}} & {{assessmentinfo.class4.overall_scores["35to60"]}} & {{assessmentinfo.class4.overall_scores["60to75"]}} & {{assessmentinfo.class4.overall_scores["75to100"]}} \\ \hline
-\rule{0cm}{0.3cm} 5\kn{ನೇ ತರಗತಿ} & {{assessmentinfo.class5.overall_scores.total}} & {{assessmentinfo.class5.overall_scores.below35}} & {{assessmentinfo.class5.overall_scores["35to60"]}} & {{assessmentinfo.class5.overall_scores["60to75"]}} & {{assessmentinfo.class5.overall_scores["75to100"]}}   \\ \hline
-\rule{0cm}{0.3cm} 6\kn{ನೇ ತರಗತಿ} & {{assessmentinfo.class6.overall_scores.total}} & {{assessmentinfo.class6.overall_scores.below35}} & {{assessmentinfo.class6.overall_scores["35to60"]}} & {{assessmentinfo.class6.overall_scores["60to75"]}} & {{assessmentinfo.class6.overall_scores["75to100"]}}  \\ \hline
+{% for assessment in assessmentinfo %}
+\rule{0cm}{0.3cm} {{ assessmentinfo[assessment]["class"] }}\kn{ನೇ ತರಗತಿ} & {{ assessmentinfo[assessment]["overall_scores"]["total"]}} & {{assessmentinfo[assessment]["overall_scores"]["below35"]}} & {{assessmentinfo[assessment]["overall_scores"]["35to60"]}} & {{assessmentinfo[assessment]["overall_scores"]["60to75"]}} & {{assessmentinfo[assessment]["overall_scores"]["75to100"]}} \\ \hline
+{% endfor %}
 \end{longtable}
 
 \begingroup
@@ -195,16 +195,15 @@ at (current page.south east)
 \begin{longtable}{|P{2.5cm}|P{3.25cm}|c|c|c|c|c|c|} \hline
 \textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{6}{|c|}{\textbf{\kn{ಮೂಲ ಕ್ರಿಯೆಗಳನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \cline{3-8}
 \rule{0cm}{0.3cm} &&\textbf{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯ}}&\textbf{\kn{ಸ್ಥಾನ ಬೆಲೆ}}&\textbf{\kn{ಸಂಕಲನ}}&\textbf{\kn{ವ್ಯವಕಲನ}}&\textbf{\kn{ಗುಣಾಕಾರ}}&\textbf{\kn{ಭಾಗಾಕಾರ}} \\ \hline \endhead
-\rule{0cm}{0.3cm} 4\kn{ನೇ ತರಗತಿ} & {{assessmentinfo.class4.competency_scores.total}} & {{assessmentinfo.class4.competency_scores["Number Recognition"]}}  & {{assessmentinfo.class4.competency_scores["Place Value"]}} & {{assessmentinfo.class4.competency_scores["Addition"]}} & {{assessmentinfo.class4.competency_scores["Subtraction"]}} & {{assessmentinfo.class4.competency_scores["Multiplication"]}} & {{assessmentinfo.class4.competency_scores["Division"]}} \\ \hline
-\rule{0cm}{0.3cm} 5\kn{ನೇ ತರಗತಿ} & {{assessmentinfo.class5.competency_scores.total}} & {{assessmentinfo.class5.competency_scores["Number Recognition"]}}  & {{assessmentinfo.class5.competency_scores["Place Value"]}} & {{assessmentinfo.class5.competency_scores["Addition"]}} & {{assessmentinfo.class5.competency_scores["Subtraction"]}} & {{assessmentinfo.class5.competency_scores["Multiplication"]}} & {{assessmentinfo.class5.competency_scores["Division"]}} \\ \hline
-\rule{0cm}{0.3cm} 6\kn{ನೇ ತರಗತಿ} & {{assessmentinfo.class6.competency_scores.total}} & {{assessmentinfo.class6.competency_scores["Number Recognition"]}}  & {{assessmentinfo.class6.competency_scores["Place Value"]}} & {{assessmentinfo.class6.competency_scores["Addition"]}} & {{assessmentinfo.class6.competency_scores["Subtraction"]}} & {{assessmentinfo.class6.competency_scores["Multiplication"]}} & {{assessmentinfo.class6.competency_scores["Division"]}}  \\ \hline
+{% for assessment in assessmentinfo %}
+\rule{0cm}{0.3cm} assessmentinfo[assessment]["class"]\kn{ನೇ ತರಗತಿ} & {{assessmentinfo[assessment]["competency_scores"]["total"]}} & {{assessmentinfo[assessment]["competency_scores"]["Number Recognition"]}}  & {{assessmentinfo[assessment]["competency_scores"]["Place Value"]}} & {{assessmentinfo[assessment]["competency_scores"]["Addition"]}} & {{assessmentinfo[assessment]["competency_scores"]["Subtraction"]}} & {{assessmentinfo[assessment]["competency_scores"]["Multiplication"]}} & {{assessmentinfo[assessment]["competency_scores"]["Division"]}} \\ \hline
+{% endfor %}
 \end{longtable}
 }
 \endgroup
  
 \centering{\kn{ಫಲಿತಾಂಶ : ಒಟ್ಟಾರೆಯಾಗಿ 5 ವರ್ಷ ಶಾಲೆಯಲ್ಲಿ ಕಲಿತ ಮಗು (6\kn{ನೇ ತರಗತಿ}) ಈ ಕೆಳಗಿನ ಮೂಲಕ್ರಿಯೆಯನ್ನು ಮಾಡಬಹುದು ಎಂದು ನಾವು ಪರಿಗಣಿಸಬಹುದು} (\kn{ಶೇಕಡವಾರು}).} \\[2ex]
  
-%%\begin{longtable}{|P{3.3cm}|P{2.9cm}|P{2.9cm}|P{2.9cm}|P{2.9cm}|P{2.9cm}|} \hline
 \begingroup
 \fontsize{8.75}{12}
 {
@@ -216,6 +215,7 @@ at (current page.south east)
 \end{longtable}
 }
 \endgroup
+
 
 \begin{flushleft}
 \kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಜೊತೆಗೆ ಇತರೆ ಭಾಗೀದಾರರಾದ ನಾಗರಿಕ ಸೌಕರ್ಯ ಸಮಿತಿ} (CIVIL Amenities Committee), SDMC, \kn{ಪೋಷಕರು,ಶೈಕ್ಷಣಿಕ ಸ್ವಯಂಸೇವಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.} \\[5ex]
