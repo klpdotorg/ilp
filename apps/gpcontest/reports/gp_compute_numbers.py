@@ -222,7 +222,7 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
             .filter(questiongroup_id=qgroup_id)\
             .filter(yearmonth__gte=report_from)\
             .filter(yearmonth__lte=report_to)\
-            .values('question_key', 'yearmonth')\
+            .values('question_key')\
             .annotate(correct_answers=Sum('num_assessments'))
     except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass

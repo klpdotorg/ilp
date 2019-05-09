@@ -1,6 +1,8 @@
 import datetime
 import calendar
-from assessments.models import QuestionGroup
+from assessments.models import (
+        QuestionGroup, 
+        SurveyEBoundaryQuestionGroupQuestionKeyAgg)
 
 def convert_to_yearmonth(from_date_str, to_date_str):
     """ Input date format is 2018-06-01 """
@@ -36,9 +38,19 @@ def convert_to_academicyear(from_yearmonth_str, to_yearmonth_str):
     return result
 
 
-def get_questiongroups_survey(survey_id, from_yearmonth, to_yearmonth):
-    return QuestionGroup.objects.filter(survey_id=survey_id).distinct(
-        'id').values_list('id', flat=True)
+def get_all_qgroups_survey(survey_id, from_yearmonth, to_yearmonth):
+        return QuestionGroup.objects.filter(
+                survey_id=survey_id).values_list(
+                        'id', flat=True)
+
+
+def get_questiongroups_survey_for_contestdate(survey_id, gp_id, contest_date_yearmonth):
+        return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects\
+            .filter(survey_id=survey_id,
+                    eboundary_id=gp_id, survey_tag='gka')\
+            .filter(yearmonth=contest_date_yearmonth)\
+            .distinct('questiongroup_id').values_list(
+                    'questiongroup_id', flat=True)
 
 
 def get_questiongroup_names_survey(survey_id, from_yearmonth, to_yearmonth):
