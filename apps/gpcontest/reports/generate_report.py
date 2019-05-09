@@ -162,7 +162,6 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
             all_scores_for_gp[qgroup.name] = {}
             total_for_date = total_answers.filter(yearmonth=date)
             answers_for_contest = answers.filter(yearmonth=date)      
-            import pdb; pdb.set_trace()     
             # We've got answers and assessments for this particular GP for this
             # questiongroup ID
             if total_for_date is not None and answers_for_contest is not None:
