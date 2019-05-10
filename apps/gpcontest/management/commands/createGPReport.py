@@ -8,6 +8,7 @@ from assessments.models import Survey
 from boundary.models import ElectionBoundary
 from gpcontest.reports import generate_report, school_compute_numbers
 
+
 class Command(BaseCommand):
     # used for printing utf8 chars to stdout
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
@@ -34,11 +35,12 @@ class Command(BaseCommand):
     # gp_template_file = basefiledir+templatedir+gp_template_name
     # school_template_file = basefiledir+templatedir+school_template_name
 
-    templates = {"school": {"template": "GPSchoolReport.tex", "latex":None},
+    templates = {"school": {"template": "GPSchoolReport.tex", "latex": None},
                  "gp": {"template": "GPReport.tex", "latex": None},
-                 "gpsummary": {"template": "GPReportGPSummary.tex", "latex": None},
-                 "schoolsummary": {"template": "GPReportSchoolSummary.tex", "latex": None}
-                }
+                 "gpsummary": {"template": "GPReportGPSummary.tex",
+                               "latex": None},
+                 "schoolsummary": {"template": "GPReportSchoolSummary.tex",
+                                   "latex": None}}
 
     build_d = basefiledir+"/build/"
     gp = {}
@@ -122,7 +124,6 @@ class Command(BaseCommand):
                         gp, self.surveyid, self.startyearmonth,
                         self.endyearmonth)
 
-        gpinfo = []
         print("All GPs data is")
         print(data, file=self.utf8stdout)
         for gp in data["gp_info"]:
@@ -130,12 +131,14 @@ class Command(BaseCommand):
             num_contests = len(data["gp_info"][gp])
             suffix = ""
             count = 0
-            for date in data["gp_info"][gp]:
+            for contestdate in data["gp_info"][gp]:
                 count += 1
-                if num_contests >1:
+                if num_contests > 1:
                     suffix = "_"+str(count)
-                outputdir = self.createGPPdfs(gp, data["gp_info"][gp][date], self.templates["gp"]["latex"], suffix)
-                          
+                outputdir = self.createGPPdfs(gp,
+                                         data["gp_info"][gp][contestdate],
+                                         self.templates["gp"]["latex"], suffix)
+
                 if not self.onlygp:
                     print(gp)
                     self.createSchoolReports(gp, outputdir)
@@ -143,7 +146,8 @@ class Command(BaseCommand):
 
     def createGPSummarySheet(self):
         info = {"date": self.now, "num_gps": len(self.gpsummary)}
-        renderer_template = self.templates["gpsummary"]["latex"].render(gps=self.gpsummary, info=info)
+        renderer_template = self.templates["gpsummary"]["latex"].render(
+                                                gps=self.gpsummary, info=info)
 
         # saves tex_code to outpout file
         outputfile = "GPContestGPSummary"
@@ -156,8 +160,7 @@ class Command(BaseCommand):
         shutil.copy2(self.build_d+"/"+outputfile+".pdf", self.outputdir)
         self.deleteTempFiles([outputfile+".tex",
                              self.build_d+"/"+outputfile+".pdf"])
-        
- 
+
     def createGPPdfs(self, gpid, gpdata, template, suffix):
         print(gpdata, file=self.utf8stdout)
         if type(gpdata) is int or type(gpdata) is str:
@@ -220,18 +223,18 @@ class Command(BaseCommand):
             suffix = ""
             count = 0
             num_contests = len(schooldata)
-            for date in schooldata:
+            for contestdate in schooldata:
                 count += 1
-                if num_contests >1:
+                if num_contests > 1:
                     suffix = "_"+str(count)
-                self.createSchoolPdfs(schooldata[date], school_builddir,
+                self.createSchoolPdfs(schooldata[contestdate], school_builddir,
                                       school_outputdir, suffix)
         self.createSchoolsSummary(school_outputdir)
 
     def createSchoolPdfs(self, schooldata, builddir, outputdir, suffix):
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
         contestdate = schooldata["date"]
-        #print(schooldata, file=self.utf8stdout)
+        # print(schooldata, file=self.utf8stdout)
         schoolinfo = {"district": schooldata["district_name"].capitalize(),
                       "block": schooldata["block_name"].capitalize(),
                       "gpname": schooldata["gp_name"].capitalize(),
@@ -259,7 +262,7 @@ class Command(BaseCommand):
                 info["classname"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo = schooldata[self.assessmentnames[assessment]["name"]]
                 summary["assessmentcounts"][self.assessmentnames[assessment]["class"]] = schooldata[self.assessmentnames[assessment]["name"]]["num_students"]
-                #print(assessmentinfo, file=self.utf8stdout)
+                # print(assessmentinfo, file=self.utf8stdout)
                 renderer_template = self.templates["school"]["latex"].render(
                     info=info, schoolinfo=schoolinfo,
                     assessmentinfo=assessmentinfo)
@@ -274,12 +277,10 @@ class Command(BaseCommand):
                                school_out_file+".pdf"))
                 self.deleteTempFiles([school_out_file+".tex"])
 
-
         school_file = self.school_out_file_prefix+"_"+str(schoolinfo["klpid"])+suffix+".pdf"
         self.combinePdfs(pdfscreated, school_file, outputdir)
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
-
 
     def deleteTempFiles(self, tempPdfs):
         for pdf in tempPdfs:
@@ -314,11 +315,11 @@ class Command(BaseCommand):
             count = 0
             print(schoolid)
             num_contests = len(schoolsdata[schoolid])
-            for date in schoolsdata[schoolid]:
+            for contestdate in schoolsdata[schoolid]:
                 count += 1
-                if num_contests >1:
+                if num_contests > 1:
                     suffix = "_"+str(count)
-                schooldata = schoolsdata[schoolid][date]
+                schooldata = schoolsdata[schoolid][contestdate]
                 print(schooldata, file=self.utf8stdout)
                 school_builddir = self.build_d+str(self.now)+"/"+str(gpid)+"/" +\
                         str(schooldata["school_id"])
@@ -342,8 +343,6 @@ class Command(BaseCommand):
         self.deleteTempFiles([outputfile+".tex",
                              self.build_d+"/"+outputfile+".pdf"])
         self.schoolsummary = []
-        
-
 
     def getAcademicYear(self, startyearmonth, endyearmonth):
         startyear = int(startyearmonth[0:4])
