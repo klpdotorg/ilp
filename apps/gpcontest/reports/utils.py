@@ -4,7 +4,9 @@ from assessments.models import (
     QuestionGroup,
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
     AnswerGroup_Institution)
-
+from django.utils import timezone
+from django.conf import settings
+import pytz
 
 def convert_to_yearmonth(from_date_str, to_date_str):
     """ Input date format is 2018-06-01 """
@@ -22,6 +24,8 @@ def convert_yearmonth_to_fulldate(from_yearmonth, to_yearmonth):
         str(from_yearmonth), format_str)
     from_datetime_obj = from_datetime_obj.replace(day=1)
     to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
+    from_datetime_obj = pytz.timezone(timezone.get_default_timezone_name()).localize(from_datetime_obj)
+    to_datetime_obj = pytz.timezone(timezone.get_default_timezone_name()).localize(to_datetime_obj)
     last_day = calendar.monthrange(
         to_datetime_obj.year, to_datetime_obj.month)[1]
     to_datetime_obj = to_datetime_obj.replace(day=last_day)
@@ -69,7 +73,6 @@ def get_date_of_contest(gp_survey_id, from_yearmonth, to_yearmonth, school_id=No
     on which is passed in """
     from_date, to_date = convert_yearmonth_to_fulldate(
         from_yearmonth, to_yearmonth)
-
     if gp_id is not None:
         dates_of_contest = AnswerGroup_Institution.objects.filter(institution__gp_id=gp_id).filter(
             questiongroup__survey_id=gp_survey_id).filter(
@@ -80,9 +83,13 @@ def get_date_of_contest(gp_survey_id, from_yearmonth, to_yearmonth, school_id=No
             questiongroup__survey_id=gp_survey_id).filter(
             date_of_visit__range=[from_date, to_date]
         ).distinct('date_of_visit').values_list('date_of_visit', flat=True)
+    localized_dates_of_contests = []
+    if dates_of_contest is not None:
+       for date in dates_of_contest:
+           localized_dates_of_contests.append(timezone.localtime(date))
     formatted_full_dates = []
     yearmonth_dates = []
-    for date in dates_of_contest:
+    for date in localized_dates_of_contests:
         formatted_full_dates.append(date.strftime('%d/%m/%Y'))
         yearmonth_dates.append(date.strftime('%Y%m'))
 
