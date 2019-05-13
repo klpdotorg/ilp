@@ -24,27 +24,25 @@
 \fancypagestyle{plain}{
 \fancyhf{} % clear all header and footer fields
 \lfoot{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south west,yshift=0pt,xshift=0pt]%
-at (current page.south west)
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=-1cm,xshift=-2cm]
 {\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
 \end{tikzpicture}}
 
 \rfoot{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south east,yshift=0pt,xshift=0pt]%
-at (current page.south east)
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=-1cm,xshift=2cm]
 {\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
 \end{tikzpicture}}
 
 \cfoot{
 \fontsize{9}{12}
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south west,yshift=13pt,xshift=4.5cm]%
-at (current page.south west)
-{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}}};
-\node[anchor=south west,yshift=0pt,xshift=4.5cm]%
-at (current page.south west)
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-6cm]
+{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}} };
+\node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
+{\kn{ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590 \kn{ಗೆ ಕರೆ ಮಾಡಿ} };
+\node[anchor=south,yshift=-0.5cm,xshift=6cm]
 {\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
 \end{tikzpicture}}
 }
