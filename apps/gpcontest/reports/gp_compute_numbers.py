@@ -305,7 +305,14 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
     results_by_date = {}
     if total_assessments is not None and correct_answers_agg is not None:
         for contest_date in contest_dates:
-            concept_scores = {}
+            concept_scores = {
+                "Number Recognition": 0,
+                "Place Value": 'NA',
+                "Addition": 0,
+                "Subtraction": 0,
+                "Multiplication": 0,
+                "Division": 0
+            }
             for each_row in total_assessments:
                 current_question_key = each_row['question_key']
                 sum_total = each_row['total_answers']
