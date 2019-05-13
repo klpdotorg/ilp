@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage[a4paper,top=2cm,left=0.5cm,right=0.5cm,bottom=2cm,landscape]{geometry}
+\usepackage[a4paper,top=2cm,left=0.5cm,right=0.5cm,bottom=3cm,landscape]{geometry}
 \usepackage{makecell}
 \usepackage{longtable}
 \usepackage{fancyhdr}
@@ -22,13 +22,13 @@
 
 
 \begin{document}
-\begin{longtable}{|l|p{3cm}|p{4cm}|p{2.5cm}|p{1.5cm}|l|l|l|l|p{1.5cm}|p{1.5cm}|}
+\begin{longtable}{|l|p{3cm}|p{4cm}|p{2.5cm}|p{2.5cm}|l|l|l|l|p{1.5cm}|}
 \hline
-	GP ID & GP Name & School Name & DISE Code & Contest Date & \makecell{Num Class 4\\ Assessments}& \makecell{Num Class 5\\ Assessments}& \makecell{Num Class 6\\ Assessments}& \makecell{Generated\\Date} & Sent to Name & Sent at Date\\ \hline \endhead 
-	\hline \multicolumn{11}{r}{\textit{Continued on next page}} \\ \endfoot
+	GP ID & GP Name & School Name & DISE Code & Contest Date & \makecell{Num Class 4\\ Assessments}& \makecell{Num Class 5\\ Assessments}& \makecell{Num Class 6\\ Assessments}& \makecell{Generated\\Date} & Sent at Date\\ \hline \endhead 
+	\hline \multicolumn{10}{r}{\textit{Continued on next page}} \\ \endfoot
 	\hline \endlastfoot
 {% for school in schools %}
-	{{school.gpid}} & {{school.gpname}} & {{ school.schoolname }} & {{ school.dise_code }} &  {{school.contestdate}} & {{school.assessmentcounts.4}} & {{school.assessmentcounts.5}} & {{school.assessmentcounts.6}} & {{school.generated}} &  & \\ \hline
+	{{school.gpid}} & {{school.gpname}} & {{ school.schoolname }} & {{ school.dise_code }} &  {{school.contestdate}} & {{school.assessmentcounts.4}} & {{school.assessmentcounts.5}} & {{school.assessmentcounts.6}} & {{school.generated}} & \\ \hline
 {% endfor %}
 \end{longtable}
 \end{document}

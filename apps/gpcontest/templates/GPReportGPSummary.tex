@@ -21,13 +21,13 @@
 \newcommand{\question}[1]{\textbf{#1}}
 
 \begin{document}
-\begin{longtable}{|l|p{3.5cm}|p{2cm}|l|l|l|l|p{2.0cm}|p{3.0cm}|p{3.0cm}|}
+\begin{longtable}{|l|p{5.5cm}|p{2cm}|l|l|l|l|p{2.0cm}|p{3.0cm}|}
 \hline
-	GP ID & GP Name & Contest Date & School Count& \makecell{Num Schools\\ with class 4}& \makecell{Num Schools\\ with class 5}& \makecell{Num Schools\\ with class 6}& \makecell{Generated\\Date} & Sent to Name & Sent at Date\\ \hline \endhead
-	\hline \multicolumn{10}{r}{\textit{Continued on next page}} \\ \endfoot
+	GP ID & GP Name & Contest Date & School Count& \makecell{Num Schools\\ with class 4}& \makecell{Num Schools\\ with class 5}& \makecell{Num Schools\\ with class 6}& \makecell{Generated\\Date} & Sent at Date\\ \hline \endhead
+	\hline \multicolumn{9}{r}{\textit{Continued on next page}} \\ \endfoot
 	\hline \endlastfoot
 {% for gp in gps%}
-	{{gp.gpid}} & {{gp.gpname}} & {{gp.contestdate}} & {{gp.total_schools}} & {{gp.class4_schools}} & {{gp.class5_schools}} & {{gp.class6_schools}} & {{info.date}} &  & \\ \hline
+	{{gp.gpid}} & {{gp.gpname}} & {{gp.contestdate}} & {{gp.total_schools}} & {{gp.class4_schools}} & {{gp.class5_schools}} & {{gp.class6_schools}} & {{info.date}} &  \\ \hline
 {% endfor %}
 \end{longtable}
 \end{document}

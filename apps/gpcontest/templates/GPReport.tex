@@ -1,26 +1,19 @@
 \documentclass[12pt]{article}
-\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=0cm,portrait]{geometry}
+\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=2cm,portrait]{geometry}
 \usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{makecell}
-\usepackage{lastpage}
 \usepackage{multirow}
-%%\usepackage{xcolor}
 \usepackage[table]{xcolor}
 \usepackage{colortbl}
 \usepackage{fancyhdr}
-\pagestyle{fancy}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{fontenc}
 \usepackage{xltxtra}
 \usepackage{tikz}
 \usepackage{array}
-
-
-
-
-
+\usepackage[absolute,overlay]{textpos}
 
 \newcommand{\kn}[1]{
 {\fontspec{Kedage}
@@ -32,30 +25,25 @@
 \fancypagestyle{plain}{
 \fancyhf{} % clear all header and footer fields
 \lfoot{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south west,yshift=0pt,xshift=0pt]%
-at (current page.south west)
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=-1cm,xshift=-1cm]
 {\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
 \end{tikzpicture}}
 
 \rfoot{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south east,yshift=0pt,xshift=0pt]%
-at (current page.south east)
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=-1cm,xshift=1cm]
 {\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
 \end{tikzpicture}}
 
 \cfoot{
 \fontsize{9}{12}
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south west,yshift=13pt,xshift=4.5cm]%
-at (current page.south west)
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-6cm]
 {\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}} };
-\node[anchor=south west,yshift=0pt,xshift=4.5cm]%
-at (current page.south west)
+\node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
 {\kn{ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590 \kn{ಗೆ ಕರೆ ಮಾಡಿ} };
-\node[anchor=south,yshift=0pt,xshift=6cm]%
-at (current page.south)
+\node[anchor=south,yshift=-0.5cm,xshift=6cm]
 {\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
 \end{tikzpicture}}
 }
@@ -63,52 +51,45 @@ at (current page.south)
 %% Headers and footers
 \fancypagestyle{title}{
 \fancyhf{} % clear all header and footer fields
-
 \chead{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=north, yshift=1.65cm, xshift=0pt]
+\begin{tikzpicture}[overlay]
+\node[anchor=north, yshift=1.5cm, xshift=0cm]
 {\includegraphics[width=3.5cm]{"{{info.imagesdir}}title_header_center.png"}};
 \end{tikzpicture}}
 
 \lhead{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=north west,yshift=0pt,xshift=0pt]%
-at (current page.north west)
+\begin{tikzpicture}[overlay]
+\node[anchor=north west,yshift=1.5cm,xshift=-1cm]
 {\includegraphics[width=5cm]{"{{info.imagesdir}}title_header_left.png"}};
 \end{tikzpicture}}
 
 \rhead{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=north east,yshift=0pt,xshift=0pt]%
-at (current page.north east)
+\begin{tikzpicture}[overlay]
+\node[anchor=north east,yshift=1.5cm,xshift=1cm]
 {\includegraphics[width=3cm]{"{{info.imagesdir}}title_header_right.png"}};
 \end{tikzpicture}}
 
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=north west, yshift=-5cm, xshift=5cm]
+\begin{tikzpicture}[overlay]
+\node[anchor=north west, yshift=-6.5cm, xshift=5cm]
 {\includegraphics[width=7cm]{"{{info.imagesdir}}title_text.png"}};
 \end{tikzpicture}
 
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south west, yshift=200pt,xshift=8.5cm]%
-	at (current page.south west)
+\begin{tikzpicture}[overlay]
+\node[anchor=south west, yshift=200pt,xshift=8.5cm]
 {\includegraphics[width=4cm]{"{{info.imagesdir}}logo.jpg"}};
 \end{tikzpicture}
 
 \lfoot{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south west,yshift=0pt,xshift=0pt]%
-at (current page.south west)
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-1cm]
 {\includegraphics[height=4cm]{"{{info.imagesdir}}title_footer_left.png"}};
 \end{tikzpicture}}
 
 \rfoot{
-\begin{tikzpicture}[remember picture,overlay]
-\node[anchor=south east,yshift=0pt,xshift=0pt]%
-at (current page.south east)
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=0cm,xshift=1cm]
 {\includegraphics[height=3cm]{"{{info.imagesdir}}title_footer_right.png"}};
 \end{tikzpicture}}
-
 
 \setlength{\headheight}{15pt}
 %%\setlength{\footskip}{120pt}
@@ -185,9 +166,9 @@ at (current page.south east)
 
 \begin{longtable}{|P{3cm}|P{4cm}|P{2cm}|P{2cm}|P{2cm}|P{2cm}|} \hline
 \textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{4}{|c|}{\textbf{\kn{ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ (ಶೇಕಡವಾರು)}}}\\ \cline{3-6}
-\rule{0cm}{0.3cm}& &  \textbf{>35\%} & \textbf{36\%-60\%}  & \textbf{61\%-75\%} & \textbf{76\%-100\%} \\ \hline \endhead
+\rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{36\%-60\%}  & \textbf{61\%-75\%} & \textbf{76\%-100\%} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
-\rule{0cm}{0.3cm} {{ assessmentinfo[assessment]["class"] }}\kn{ನೇ ತರಗತಿ} & {{ assessmentinfo[assessment]["overall_scores"]["total"]}} & {{assessmentinfo[assessment]["overall_scores"]["below35"]}} & {{assessmentinfo[assessment]["overall_scores"]["35to60"]}} & {{assessmentinfo[assessment]["overall_scores"]["60to75"]}} & {{assessmentinfo[assessment]["overall_scores"]["75to100"]}} \\ \hline
+\rule{0cm}{0.3cm} {{ assessment["class"] }}\kn{ನೇ ತರಗತಿ} & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to60"]}} & {{assessment["overall_scores"]["60to75"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
 {% endfor %}
 \end{longtable}
 
@@ -200,7 +181,7 @@ at (current page.south east)
 \textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{6}{|c|}{\textbf{\kn{ಮೂಲ ಕ್ರಿಯೆಗಳನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \cline{3-8}
 \rule{0cm}{0.3cm} &&\textbf{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯ}}&\textbf{\kn{ಸ್ಥಾನ ಬೆಲೆ}}&\textbf{\kn{ಸಂಕಲನ}}&\textbf{\kn{ವ್ಯವಕಲನ}}&\textbf{\kn{ಗುಣಾಕಾರ}}&\textbf{\kn{ಭಾಗಾಕಾರ}} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
-\rule{0cm}{0.3cm} {{assessmentinfo[assessment]["class"]}}\kn{ನೇ ತರಗತಿ} & {{assessmentinfo[assessment]["competency_scores"]["total"]}} & {{assessmentinfo[assessment]["competency_scores"]["Number Recognition"]}}  & {{assessmentinfo[assessment]["competency_scores"]["Place Value"]}} & {{assessmentinfo[assessment]["competency_scores"]["Addition"]}} & {{assessmentinfo[assessment]["competency_scores"]["Subtraction"]}} & {{assessmentinfo[assessment]["competency_scores"]["Multiplication"]}} & {{assessmentinfo[assessment]["competency_scores"]["Division"]}} \\ \hline
+\rule{0cm}{0.3cm} {{assessment["class"]}}\kn{ನೇ ತರಗತಿ} & {{assessment["competency_scores"]["total"]}} & {{assessment["competency_scores"]["Number Recognition"]}}  & {{assessment["competency_scores"]["Place Value"]}} & {{assessment["competency_scores"]["Addition"]}} & {{assessment["competency_scores"]["Subtraction"]}} & {{assessment["competency_scores"]["Multiplication"]}} & {{assessment["competency_scores"]["Division"]}} \\ \hline
 {% endfor %}
 \end{longtable}
 }

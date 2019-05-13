@@ -124,10 +124,10 @@ class Command(BaseCommand):
                         gp, self.surveyid, self.startyearmonth,
                         self.endyearmonth)
 
-        print("All GPs data is")
-        print(data, file=self.utf8stdout)
+        # print("All GPs data is")
+        # print(data, file=self.utf8stdout)
         for gp in data["gp_info"]:
-            print(gp)
+            # print(gp)
             num_contests = len(data["gp_info"][gp])
             suffix = ""
             count = 0
@@ -140,7 +140,7 @@ class Command(BaseCommand):
                                          self.templates["gp"]["latex"], suffix)
 
                 if not self.onlygp:
-                    print(gp)
+                    # print(gp)
                     self.createSchoolReports(gp, outputdir)
         self.createGPSummarySheet()
 
@@ -162,7 +162,7 @@ class Command(BaseCommand):
                              self.build_d+"/"+outputfile+".pdf"])
 
     def createGPPdfs(self, gpid, gpdata, template, suffix):
-        print(gpdata, file=self.utf8stdout)
+        # print(gpdata, file=self.utf8stdout)
         if type(gpdata) is int or type(gpdata) is str:
             return
         gpdata["contestdate"] = gpdata["date"]
@@ -173,11 +173,12 @@ class Command(BaseCommand):
                   "contestdate": gpdata["contestdate"],
                   "school_count": gpdata["num_schools"],
                   "totalstudents": gpdata["num_students"]}
-        assessmentinfo = {}
+        assessmentinfo = []
         for assessment in self.assessmentnames:
             if self.assessmentnames[assessment]["name"] in gpdata:
-                assessmentinfo[assessment] = gpdata[self.assessmentnames[assessment]["name"]]
-                assessmentinfo[assessment]["class"] = self.assessmentnames[assessment]["class"]
+                gpdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
+                assessmentinfo.append(gpdata[self.assessmentnames[assessment]["name"]])
+        # print(assessmentinfo)
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
         if "percent_scores" not in gpdata:
             percent_scores = None
@@ -309,18 +310,18 @@ class Command(BaseCommand):
         schoolsdata = school_compute_numbers.get_gp_schools_report(
                 gpid, self.surveyid, self.startyearmonth, self.endyearmonth)
 
-        print(schoolsdata, file=self.utf8stdout)
+        # print(schoolsdata, file=self.utf8stdout)
         for schoolid in schoolsdata:
             suffix = ""
             count = 0
-            print(schoolid)
+            # print(schoolid)
             num_contests = len(schoolsdata[schoolid])
             for contestdate in schoolsdata[schoolid]:
                 count += 1
                 if num_contests > 1:
                     suffix = "_"+str(count)
                 schooldata = schoolsdata[schoolid][contestdate]
-                print(schooldata, file=self.utf8stdout)
+                # print(schooldata, file=self.utf8stdout)
                 school_builddir = self.build_d+str(self.now)+"/"+str(gpid)+"/" +\
                         str(schooldata["school_id"])
                 self.createSchoolPdfs(schooldata, school_builddir, outputdir, suffix)
