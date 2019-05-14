@@ -313,11 +313,13 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
                 "Multiplication": 0,
                 "Division": 0
             }
-            for each_row in total_assessments:
+            correct_ans_for_date = correct_answers_agg.filter(yearmonth=contest_date)
+            total_ans_for_date = total_assessments.filter(yearmonth=contest_date)
+            for each_row in total_ans_for_date:
                 current_question_key = each_row['question_key']
                 sum_total = each_row['total_answers']
                 try:
-                    sum_correct_ans = correct_answers_agg.get(
+                    sum_correct_ans = correct_ans_for_date.get(
                         question_key=current_question_key)['correct_answers']
                 except:
                     sum_correct_ans = None
