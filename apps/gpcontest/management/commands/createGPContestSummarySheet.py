@@ -9,7 +9,7 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    basefiledir= os.path.dirname(os.path.realpath(__file__))+"/forms/gpcontest"
+    basefiledir = os.getcwd()+"/apps/gpcontest/"
     templatedir = "/templates/"
     outputdir = "/pdfs/"
     out_file = "gpsummarysheet"
