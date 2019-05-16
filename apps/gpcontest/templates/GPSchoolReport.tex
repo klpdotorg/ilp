@@ -1,0 +1,104 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,top=1cm,left=2cm,right=2cm,bottom=2cm,portrait]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontenc}
+\usepackage{xltxtra}
+\usepackage{tikz}
+\usepackage{array}
+
+\newcommand{\kn}[1]{
+{\fontspec{Kedage}
+#1
+}}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\fancypagestyle{plain}{
+\fancyhf{} % clear all header and footer fields
+\lfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=-1cm,xshift=-2cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
+\end{tikzpicture}}
+
+\rfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=-1cm,xshift=2cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
+\end{tikzpicture}}
+
+\cfoot{
+\fontsize{9}{12}
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-6cm]
+{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}} };
+\node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
+{\kn{ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590 \kn{ಗೆ ಕರೆ ಮಾಡಿ} };
+\node[anchor=south,yshift=-0.5cm,xshift=6cm]
+{\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
+\end{tikzpicture}}
+}
+
+\renewcommand{\headrulewidth}{0pt} % to remove line on header
+\renewcommand{\footrulewidth}{0pt} % to remove line on footer
+
+\begin{document}
+
+\thispagestyle{plain}
+{
+\setlength{\parindent}{0in}
+
+\kn{ಜಿಲ್ಲೆ} : {{schoolinfo.district}} \hfill  GP Id : {{schoolinfo.gpid}} \\
+\kn{ತಾಲೂಕು} : {{schoolinfo.block}} \hfill DISE Code : {{schoolinfo.disecode}} \\
+\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ} : {{schoolinfo.gpname}} \hfill \kn{ಶಾಲಾ ಹೆಸರು} : {{schoolinfo.schoolname}}\\
+
+\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ , ಶಿಕ್ಷಣ ಇಲಾಖೆ, ಸಮುದಾಯ ಮತ್ತು ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಭಾಗಿತ್ವದಲ್ಲಿ ದಿನಾಂಕ} {{schoolinfo.contestdate}} \kn{ರಂದು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದಲ್ಲಿ ನಡೆದ ನಿಮ್ಮ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ತರಗತಿ ವಾರು ಕಿರು ವರದಿ ಈ ಕೆಳಕಂಡಂತಿದೆ}
+
+\begingroup
+\fontsize{9}{12}
+{
+\setlength\LTleft{-.7cm}
+\setlength\LTright{-.7cm}
+\renewcommand\arraystretch{1.45}
+\begin{longtable}{|P{1cm}|p{10cm}|P{3cm}|P{3cm}|} \hline
+\multicolumn{4}{|c|}{ {\large \bf {{info.classname}} } \kn{ನೇ ತರಗತಿ}} \\ \hline
+\multicolumn{4}{|c|}{\kn{ಮಕ್ಕಳ ಒಟ್ಟು ಸಂಖ್ಯೆ} : {{assessmentinfo.num_students}}} \\ \hline
+\textbf{\kn{ಕ್ರಮ ಸಂಖ್ಯೆ}} & \textbf{\kn{ಪ್ರಶ್ನೆಗಳು}} & \textbf{\kn{ಸರಿಯಾಗಿ ಉತ್ತರಿಸಿದ ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \textbf{\kn{ಶೇಕಡಾವಾರು ಫಲಿತಾಂಶ}} \\ \hline \endhead
+{% for question in assessmentinfo.question_answers %}
+{{loop.index}} & \kn{ {{ question.lang_name }} }& {{ question.num_correct }} & {{question.percent}} \\ \hline
+{% endfor %}
+\end{longtable}
+}
+\endgroup
+
+\begin{flushleft}
+\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಶಾಲಾ ಮುಖ್ಯಗುರುಗಳು ,} SDMC \kn{, ಪೋಷಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ. ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590\kn{ಗೆ ಕರೆ ಮಾಡಿ}\\[2ex]
+\end{flushleft}
+\centering{\kn{ಸಲಹೆ}}\\
+
+
+{% for num in assessmentinfo.deficiencies %}
+\ifnum {{loop.index}} = 1
+    \fcolorbox{black}{yellow}{\parbox{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
+ \else 
+     \ifnum {{loop.index}} = 2
+     \hfill \fcolorbox{black}{lightgray}{\parbox{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
+     \else
+     \begin{center}\fbox{\parbox{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}\end{center}
+     \fi
+\fi
+{% endfor %}
+
+\kn{ಸಹಿ} \hfill \kn{ಸಹಿ} \rule{3.8cm}{0cm} \\[3ex]
+\kn{ಜಿಲ್ಲಾ ಕ್ಷೇತ್ರ ವ್ಯವಸ್ಥಾಪಕರು, ಅಕ್ಷರ ಫೌಂಡೇಶನ್} \hfill \kn{ಅಧ್ಯಕ್ಷರು , ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ} \rule{0.5cm}{0cm}
+}
+
+\end{document}

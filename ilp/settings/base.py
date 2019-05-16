@@ -60,7 +60,8 @@ INSTALLED_APPS = (
     'assessments',
     'ivrs',
     'permissions',
-    'reports'
+    'reports',
+    'gpcontest'
 )
 
 # DRF Settings

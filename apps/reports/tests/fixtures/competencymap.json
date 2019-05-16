@@ -1,0 +1,662 @@
+[
+{
+    "model": "boundary.boundarytype",
+    "pk": "C",
+    "fields": {
+        "name": "Country"
+    }
+},
+{
+    "model": "boundary.boundarytype",
+    "pk": "ST",
+    "fields": {
+        "name": "State"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 1,
+    "fields": {
+        "parent": null,
+        "name": "India",
+        "lang_name": null,
+        "boundary_type": "C",
+        "type": null,
+        "dise_slug": "India",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.partnertype",
+    "pk": "primary",
+    "fields": {
+        "description": "Partner with Data"
+    }
+},
+{
+    "model": "assessments.displaytype",
+    "pk": "CheckBox",
+    "fields": {
+        "description": "CheckBox"
+    }
+},
+{
+    "model": "assessments.responsetype",
+    "pk": "choice",
+    "fields": {
+        "description": "Choice"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "IA",
+    "fields": {
+        "name": "Inactive"
+    }
+},
+{
+    "model": "boundary.boundary",
+    "pk": 2,
+    "fields": {
+        "parent": 1,
+        "name": "Karnataka",
+        "lang_name": null,
+        "boundary_type": "ST",
+        "type": null,
+        "dise_slug": "Karnataka",
+        "geom": null,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.surveyontype",
+    "pk": "institution",
+    "fields": {
+        "description": "Institution"
+    }
+},
+{
+    "model": "assessments.partner",
+    "pk": "akshara",
+    "fields": {
+        "name": "Akshara Foundation",
+        "website": "www.aksharafoundation.org",
+        "logo_file": "partners_logo_akshara.png",
+        "partner_type": "primary"
+    }
+},
+{
+    "model": "assessments.questiontype",
+    "pk": 2,
+    "fields": {
+        "type": "choice",
+        "display": "CheckBox"
+    }
+},
+{
+    "model": "common.status",
+    "pk": "AC",
+    "fields": {
+        "name": "Active"
+    }
+},
+{
+    "model": "assessments.source",
+    "pk": 1,
+    "fields": {
+        "name": "csv"
+    }
+},
+{
+    "model": "common.academicyear",
+    "pk": "1819",
+    "fields": {
+        "year": "2018-2019",
+        "active": "IA"
+    }
+},
+{
+    "model": "common.institutiontype",
+    "pk": "primary",
+    "fields": {
+        "name": "Primary School"
+    }
+},
+{
+    "model": "assessments.surveytype",
+    "pk": "assessment",
+    "fields": {
+        "description": "Assessment"
+    }
+},
+{
+    "model": "assessments.survey",
+    "pk": 2,
+    "fields": {
+        "name": "GP Contest",
+        "lang_name": "\u0c97\u0ccd\u0cb0\u0cbe\u0cae \u0caa\u0c82\u0c9a\u0cbe\u0caf\u0ca4\u0cbf  \u0cb8\u0ccd\u0caa\u0cb0\u0ccd\u0ca7\u0cc6",
+        "created_at": "2017-06-06T00:00:00Z",
+        "updated_at": null,
+        "partner": "akshara",
+        "description": null,
+        "survey_on": "institution",
+        "admin0": 2,
+        "status": "AC"
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 272,
+    "fields": {
+        "question_text": "Number concept 2",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Number Recognition",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.questiongroup",
+    "pk": 47,
+    "fields": {
+        "name": "Class 6 Assessment",
+        "lang_name": "",
+        "survey": 2,
+        "type": "assessment",
+        "inst_type": "primary",
+        "description": "",
+        "group_text": "class",
+        "start_date": "2018-06-01",
+        "end_date": null,
+        "academic_year": "1819",
+        "version": 2,
+        "source": 1,
+        "double_entry": false,
+        "created_by": null,
+        "created_at": "2018-08-09T07:59:30.964Z",
+        "updated_at": "2018-08-09T07:59:30.964Z",
+        "status": "AC",
+        "image_required": false,
+        "comments_required": false,
+        "respondenttype_required": false,
+        "default_respondent_type": null,
+        "max_score": 20
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 282,
+    "fields": {
+        "question_text": "Division 1",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Division",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.questiongroup",
+    "pk": 46,
+    "fields": {
+        "name": "Class 5 Assessment",
+        "lang_name": "",
+        "survey": 2,
+        "type": "assessment",
+        "inst_type": "primary",
+        "description": "",
+        "group_text": "class",
+        "start_date": "2018-06-01",
+        "end_date": null,
+        "academic_year": "1819",
+        "version": 2,
+        "source": 1,
+        "double_entry": false,
+        "created_by": null,
+        "created_at": "2018-08-09T07:59:23.706Z",
+        "updated_at": "2018-08-09T07:59:23.706Z",
+        "status": "AC",
+        "image_required": false,
+        "comments_required": false,
+        "respondenttype_required": false,
+        "default_respondent_type": null,
+        "max_score": 20
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 283,
+    "fields": {
+        "question_text": "Division 2",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Division",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 279,
+    "fields": {
+        "question_text": "Subtraction 2",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Subtraction",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 277,
+    "fields": {
+        "question_text": "Addition 2",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Addition",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 280,
+    "fields": {
+        "question_text": "Multiplication 1",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Multiplication",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 278,
+    "fields": {
+        "question_text": "Subtraction 1",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Subtraction",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 276,
+    "fields": {
+        "question_text": "Addition 1",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Addition",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 273,
+    "fields": {
+        "question_text": "Number concept 3",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Place Value",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.question",
+    "pk": 271,
+    "fields": {
+        "question_text": "Number concept 1",
+        "display_text": "",
+        "lang_name": null,
+        "key": "Number Recognition",
+        "question_type": 2,
+        "options": "{Yes,No}",
+        "lang_options": null,
+        "is_featured": true,
+        "status": "AC",
+        "max_score": null,
+        "pass_score": "Yes",
+        "concept": null,
+        "microconcept_group": null,
+        "microconcept": null,
+        "question_level": null,
+        "question_info_type": null,
+        "learning_indicator": null
+    }
+},
+{
+    "model": "assessments.questiongroup",
+    "pk": 45,
+    "fields": {
+        "name": "Class 4 Assessment",
+        "lang_name": "",
+        "survey": 2,
+        "type": "assessment",
+        "inst_type": "primary",
+        "description": "",
+        "group_text": "class",
+        "start_date": "2018-06-01",
+        "end_date": null,
+        "academic_year": "1819",
+        "version": 2,
+        "source": 1,
+        "double_entry": false,
+        "created_by": null,
+        "created_at": "2018-08-09T07:59:13.980Z",
+        "updated_at": "2018-08-09T07:59:13.980Z",
+        "status": "AC",
+        "image_required": false,
+        "comments_required": false,
+        "respondenttype_required": false,
+        "default_respondent_type": null,
+        "max_score": 20
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 46,
+    "fields": {
+        "key": "Place Value",
+        "questiongroup": 47,
+        "question": 272,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 45,
+    "fields": {
+        "key": "Division",
+        "questiongroup": 47,
+        "question": 282,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 44,
+    "fields": {
+        "key": "Multiplication",
+        "questiongroup": 47,
+        "question": 280,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 43,
+    "fields": {
+        "key": "Subtraction",
+        "questiongroup": 47,
+        "question": 278,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 42,
+    "fields": {
+        "key": "Addition",
+        "questiongroup": 47,
+        "question": 276,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 41,
+    "fields": {
+        "key": "Number Recognition",
+        "questiongroup": 47,
+        "question": 271,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 40,
+    "fields": {
+        "key": "Place Value",
+        "questiongroup": 46,
+        "question": 273,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 39,
+    "fields": {
+        "key": "Division",
+        "questiongroup": 46,
+        "question": 282,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 38,
+    "fields": {
+        "key": "Multiplication",
+        "questiongroup": 46,
+        "question": 280,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 37,
+    "fields": {
+        "key": "Subtraction",
+        "questiongroup": 46,
+        "question": 278,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 36,
+    "fields": {
+        "key": "Addition",
+        "questiongroup": 46,
+        "question": 276,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 35,
+    "fields": {
+        "key": "Number Recognition",
+        "questiongroup": 46,
+        "question": 271,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 34,
+    "fields": {
+        "key": "Division",
+        "questiongroup": 45,
+        "question": 283,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 33,
+    "fields": {
+        "key": "Subtraction",
+        "questiongroup": 45,
+        "question": 279,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 32,
+    "fields": {
+        "key": "Addition",
+        "questiongroup": 45,
+        "question": 277,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 31,
+    "fields": {
+        "key": "Multiplication",
+        "questiongroup": 45,
+        "question": 280,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 30,
+    "fields": {
+        "key": "Subtraction",
+        "questiongroup": 45,
+        "question": 278,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 29,
+    "fields": {
+        "key": "Addition",
+        "questiongroup": 45,
+        "question": 276,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 28,
+    "fields": {
+        "key": "Place Value",
+        "questiongroup": 45,
+        "question": 273,
+        "max_score": 1
+    }
+},
+{
+    "model": "assessments.competencyquestionmap",
+    "pk": 27,
+    "fields": {
+        "key": "Number Recognition",
+        "questiongroup": 45,
+        "question": 271,
+        "max_score": 1
+    }
+}
+]
