@@ -23,6 +23,7 @@ def set_db_connection_params(dbname, username):
 
 # In[2]:
 def check_gp_numbers(gpid):
+    import pdb; pdb.set_trace()
     connection = pg.connect(connection_string)
     # ## Get the raw score buckets data
 
