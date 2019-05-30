@@ -1,11 +1,187 @@
 --Number of pdfs
-select distinct institution_id, count(distinct to_char(date_of_visit,'DD/MM/YYYY')) from assessments_answergroup_institution where questiongroup_id in (select id from assessments_questiongroup where survey_id=2) and to_char(date_of_visit,'YYYYMM')::int>= :startyearmonth and to_char(date_of_visit,'YYYYMM')::int<= :endyearmonth and institution_id in (:institution_id) group by institution_id;
+SELECT DISTINCT
+    institution_id,
+    count(DISTINCT to_char(date_of_visit, 'DD/MM/YYYY'))
+FROM
+    assessments_answergroup_institution
+WHERE
+    questiongroup_id IN (
+        SELECT
+            id
+        FROM
+            assessments_questiongroup
+        WHERE
+            survey_id = 2)
+        AND to_char(date_of_visit, 'YYYYMM')::int >= :startyearmonth
+        AND to_char(date_of_visit, 'YYYYMM')::int <= :endyearmonth
+        AND institution_id IN (:institution_id)
+    GROUP BY
+        institution_id;
+
 --Upper information
-select distinct inst.id, gp.id,  gp.const_ward_name, district.name, block.name, cluster.name, dise.school_code, inst.name from schools_institution inst, boundary_boundary district, boundary_boundary block, boundary_boundary cluster, boundary_electionboundary gp, dise_basicdata dise where inst.admin1_id=district.id and inst.admin2_id=block.id and inst.admin3_id=cluster.id and inst.dise_id=dise.id and inst.gp_id=gp.id and inst.id in (:institution_id);
+
+SELECT DISTINCT
+    inst.id,
+    gp.id,
+    gp.const_ward_name,
+    district.name,
+    block.name,
+    cluster.name,
+    dise.school_code,
+    inst.name
+FROM
+    schools_institution inst,
+    boundary_boundary district,
+    boundary_boundary block,
+    boundary_boundary CLUSTER,
+    boundary_electionboundary gp,
+    dise_basicdata dise
+WHERE
+    inst.admin1_id = district.id
+    AND inst.admin2_id = block.id
+    AND inst.admin3_id = cluster.id
+    AND inst.dise_id = dise.id
+    AND inst.gp_id = gp.id
+    AND inst.id IN (:institution_id);
+
 --Student count and date of visit per questiongroup
-select distinct ag.institution_id, to_char(ag.date_of_visit,'DD/MM/YYYY'), qg.id, qg.name, count(distinct ag.id) from assessments_answergroup_institution ag, assessments_questiongroup qg  where ag.questiongroup_id=qg.id and qg.survey_id=2  and to_char(ag.date_of_visit,'YYYYMM')::int>= :startyearmonth and to_char(ag.date_of_visit,'YYYYMM')::int<= :endyearmonth and ag.institution_id in (:institution_id) group by ag.institution_id, ag.date_of_visit, qg.id, qg.name; 
+
+SELECT DISTINCT
+    ag.institution_id,
+    to_char(ag.date_of_visit, 'DD/MM/YYYY'),
+    qg.id,
+    qg.name,
+    count(DISTINCT ag.id)
+FROM
+    assessments_answergroup_institution ag,
+    assessments_questiongroup qg
+WHERE
+    ag.questiongroup_id = qg.id
+    AND qg.survey_id = 2
+    AND to_char(ag.date_of_visit, 'YYYYMM')::int >= :startyearmonth
+    AND to_char(ag.date_of_visit, 'YYYYMM')::int <= :endyearmonth
+    AND ag.institution_id IN (:institution_id)
+GROUP BY
+    ag.institution_id,
+    ag.date_of_visit,
+    qg.id,
+    qg.name;
+
 --Table chec
-select temp.instid, temp.dateofvisit, temp.qgid, temp.qgname, temp.sequence, temp.numcorrect, (temp.numcorrect*100)/count(distinct ag.id) as numstudents from assessments_answergroup_institution ag, (select distinct ag.institution_id as instid, to_char(ag.date_of_visit,'DD/MM/YYYY') as dateofvisit, qg.id as qgid, qg.name as qgname, qgq.sequence as sequence, count(ag.id) as numcorrect from assessments_answergroup_institution ag, assessments_questiongroup qg, assessments_questiongroup_questions qgq, assessments_answerinstitution ans where ag.questiongroup_id=qg.id and qg.survey_id=2  and to_char(ag.date_of_visit,'YYYYMM')::int>= :startyearmonth and to_char(ag.date_of_visit,'YYYYMM')::int<= :endyearmonth and ag.institution_id in (:institution_id) and ans.answergroup_id=ag.id and ans.question_id=qgq.question_id and ag.questiongroup_id= qgq.questiongroup_id  group by ag.institution_id, ag.date_of_visit,qg.id, qg.name, qgq.sequence, ans.answer having ans.answer='1')temp where temp.qgid=ag.questiongroup_id and temp.dateofvisit=to_char(ag.date_of_visit,'DD/MM/YYYY') and ag.institution_id=temp.instid group by temp.instid, temp.dateofvisit, temp.qgid, temp.qgname, temp.sequence, temp.numcorrect; 
+
+SELECT
+    temp.instid,
+    temp.dateofvisit,
+    temp.qgid,
+    temp.qgname,
+    temp.sequence,
+    temp.numcorrect,
+    (temp.numcorrect * 100) / count(DISTINCT ag.id) AS numstudents
+FROM
+    assessments_answergroup_institution ag,
+    ( SELECT DISTINCT
+            ag.institution_id AS instid,
+            to_char(ag.date_of_visit, 'DD/MM/YYYY') AS dateofvisit,
+            qg.id AS qgid,
+            qg.name AS qgname,
+            qgq.sequence AS SEQUENCE,
+            count(ag.id) AS numcorrect
+        FROM
+            assessments_answergroup_institution ag,
+            assessments_questiongroup qg,
+            assessments_questiongroup_questions qgq,
+            assessments_answerinstitution ans
+        WHERE
+            ag.questiongroup_id = qg.id
+            AND qg.survey_id = 2
+            AND to_char(ag.date_of_visit, 'YYYYMM')::int >= :startyearmonth
+            AND to_char(ag.date_of_visit, 'YYYYMM')::int <= :endyearmonth
+            AND ag.institution_id IN (:institution_id)
+            AND ans.answergroup_id = ag.id
+            AND ans.question_id = qgq.question_id
+            AND ag.questiongroup_id = qgq.questiongroup_id
+        GROUP BY
+            ag.institution_id,
+            ag.date_of_visit,
+            qg.id,
+            qg.name,
+            qgq.sequence,
+            ans.answer
+        HAVING
+            ans.answer = '1') temp
+WHERE
+    temp.qgid = ag.questiongroup_id
+    AND temp.dateofvisit = to_char(ag.date_of_visit, 'DD/MM/YYYY')
+    AND ag.institution_id = temp.instid
+GROUP BY
+    temp.instid,
+    temp.dateofvisit,
+    temp.qgid,
+    temp.qgname,
+    temp.sequence,
+    temp.numcorrect;
 
 --Least 3 competency <60
-select instid, dateofvisit, qgid, qgname, string_agg(percentage::text, ',') from (select temp.instid as instid, temp.dateofvisit as dateofvisit, temp.qgid as qgid, temp.qgname as qgname, (temp.numcorrect*100)/count(distinct ag.id) as percentage from assessments_answergroup_institution ag, (select distinct ag.institution_id as instid, to_char(ag.date_of_visit,'DD/MM/YYYY') as dateofvisit, qg.id as qgid, qg.name as qgname, qgq.sequence as sequence, count(ag.id) as numcorrect from assessments_answergroup_institution ag, assessments_questiongroup qg, assessments_questiongroup_questions qgq, assessments_answerinstitution ans where ag.questiongroup_id=qg.id and qg.survey_id=2  and to_char(ag.date_of_visit,'YYYYMM')::int>= :startyearmonth and to_char(ag.date_of_visit,'YYYYMM')::int<= :endyearmonth and ag.institution_id in (:institution_id) and ans.answergroup_id=ag.id and ans.question_id=qgq.question_id and ag.questiongroup_id= qgq.questiongroup_id  group by ag.institution_id, ag.date_of_visit,qg.id, qg.name, qgq.sequence, ans.answer having ans.answer='1')temp where temp.qgid=ag.questiongroup_id and temp.dateofvisit=to_char(ag.date_of_visit,'DD/MM/YYYY') and ag.institution_id=temp.instid group by temp.instid, temp.dateofvisit, temp.qgid, temp.qgname,temp.numcorrect  having (temp.numcorrect*100)/count(distinct ag.id) <60)data group by instid, dateofvisit, qgid, qgname; 
+
+SELECT
+    instid,
+    dateofvisit,
+    qgid,
+    qgname,
+    string_agg(percentage::text, ',')
+FROM (
+    SELECT
+        temp.instid AS instid,
+        temp.dateofvisit AS dateofvisit,
+        temp.qgid AS qgid,
+        temp.qgname AS qgname,
+        (temp.numcorrect * 100) / count(DISTINCT ag.id) AS percentage
+    FROM
+        assessments_answergroup_institution ag,
+        ( SELECT DISTINCT
+                ag.institution_id AS instid,
+                to_char(ag.date_of_visit, 'DD/MM/YYYY') AS dateofvisit,
+                qg.id AS qgid,
+                qg.name AS qgname,
+                qgq.sequence AS SEQUENCE,
+                count(ag.id) AS numcorrect
+            FROM
+                assessments_answergroup_institution ag,
+                assessments_questiongroup qg,
+                assessments_questiongroup_questions qgq,
+                assessments_answerinstitution ans
+            WHERE
+                ag.questiongroup_id = qg.id
+                AND qg.survey_id = 2
+                AND to_char(ag.date_of_visit, 'YYYYMM')::int >= :startyearmonth
+                AND to_char(ag.date_of_visit, 'YYYYMM')::int <= :endyearmonth
+                AND ag.institution_id IN (:institution_id)
+                AND ans.answergroup_id = ag.id
+                AND ans.question_id = qgq.question_id
+                AND ag.questiongroup_id = qgq.questiongroup_id
+            GROUP BY
+                ag.institution_id,
+                ag.date_of_visit,
+                qg.id,
+                qg.name,
+                qgq.sequence,
+                ans.answer
+            HAVING
+                ans.answer = '1') temp
+        WHERE
+            temp.qgid = ag.questiongroup_id
+            AND temp.dateofvisit = to_char(ag.date_of_visit, 'DD/MM/YYYY')
+            AND ag.institution_id = temp.instid
+        GROUP BY
+            temp.instid,
+            temp.dateofvisit,
+            temp.qgid,
+            temp.qgname,
+            temp.numcorrect
+        HAVING (temp.numcorrect * 100) / count(DISTINCT ag.id) < 60) data
+GROUP BY
+    instid,
+    dateofvisit,
+    qgid,
+    qgname;
+

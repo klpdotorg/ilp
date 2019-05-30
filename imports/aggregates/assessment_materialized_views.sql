@@ -4732,7 +4732,7 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.gp_id = eb.id or s.ward_id = eb.id or s.mla_id = eb.id or s.mp_id = eb.id) 
-    GROUP BY q.concept_id,q.microconcept_id,q.microconcept_group_id,ag.id,eb.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
+    GROUP BY q.concept_id,q.id,q.microconcept_id,q.microconcept_group_id,ag.id,eb.id,qgc.max_score,qg.survey_id,stmap.tag_id,yearmonth,source
     having sum(case ans.answer when 'Yes'then 1 when 'No' then 0 when '1' then 1 when '0' then 0 end)>=qgc.max_score)correctanswers --correct ans check
 GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,concept,microconcept_group,microconcept;
 
