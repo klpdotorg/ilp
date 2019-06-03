@@ -16,14 +16,16 @@ user_name = None
 connection_string = None
 
 def set_db_connection_params(dbname, username):
+    global db_name 
     db_name = dbname
+    global user_name 
     user_name = username
+    global connection_string 
     connection_string = "dbname=" + db_name + " user=" + user_name
 
 
 # In[2]:
 def check_gp_numbers(gpid):
-    import pdb; pdb.set_trace()
     connection = pg.connect(connection_string)
     # ## Get the raw score buckets data
 
@@ -83,11 +85,10 @@ def check_gp_numbers(gpid):
         GROUP BY
             ag.questiongroup_id,
             ag.id, 
-            ag.date_of_visit) data,
+            yearmonth) data,
         ( SELECT DISTINCT
                 ag.questiongroup_id qgid,
                 to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-                ag.date_of_visit,
                 count(DISTINCT ag.id) AS numstu
             FROM
                 assessments_answergroup_institution ag
@@ -108,7 +109,7 @@ def check_gp_numbers(gpid):
                         WHERE
                             gp_id = {gp_id})
             GROUP BY
-                ag.questiongroup_id, ag.date_of_visit) data1
+                ag.questiongroup_id, yearmonth) data1
     WHERE
         data.qgid = data1.qgid AND data.yearmonth = data1.yearmonth
     GROUP BY
@@ -204,7 +205,7 @@ def check_gp_numbers(gpid):
                 ag.questiongroup_id,
                 qmap.max_score,
                 ag.id,
-                ag.date_of_visit
+                yearmonth
             HAVING
                 sum(ans.answer::int) >= sum(qmap.max_score)) data,
         ( SELECT DISTINCT
@@ -230,7 +231,7 @@ def check_gp_numbers(gpid):
                         WHERE
                             gp_id = {gp_id})
                     GROUP BY
-                        ag.questiongroup_id, ag.date_of_visit) data1
+                        ag.questiongroup_id, yearmonth) data1
     WHERE
         data.qgid = data1.qgid AND data.yearmonth = data1.yearmonth
     GROUP BY
@@ -239,7 +240,7 @@ def check_gp_numbers(gpid):
         data.yearmonth,
         data1.numstu
     ORDER BY
-        data.qgid;
+        data.qgid, data.yearmonth;
     """
     competency_percs_raw_sql = competency_percs.format(gp_id=gpid, from_date="'2018-06-01'", to_date="'2019-03-31'")
 
@@ -256,15 +257,18 @@ def check_gp_numbers(gpid):
     yearmonth,
     questiongroup_id,
     question_key
+    ORDER BY
+    questiongroup_id,
+    yearmonth
     """
     sql_percs_computed = sql_percs_computed.format(gp_id=gpid, from_date="'2018-06-01'", to_date="'2019-03-31'")
     percs_computed = pd.read_sql_query(sql_percs_computed,con=connection)
-    print(percs_computed)
     percs_computed['correctans'] = percs_computed['correctans'].round().astype(int)
     if(np.array_equal(percs_computed['correctans'], percs_raw['correct_ans'])):
         pass
     else:
         str = "GP id {gp} competency breakdown numbers do not match or there are anomalies. Check". format(gp=gpid)
+        print(str)
         print("RAW Data query yields")
         print("=====================")
         print(percs_raw)
@@ -276,5 +280,3 @@ def check_gp_numbers(gpid):
         print("Competency percentages exceed hundred! ANOMALY. Check gp id {gp}".format(gp=gpid))
         print(percs_raw['percentage'])
 
-if __name__== "__main__":
-  check_gp_numbers(3749, ilp, klp)
