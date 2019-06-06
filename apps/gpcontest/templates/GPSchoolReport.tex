@@ -87,12 +87,24 @@
 
 {% for num in assessmentinfo.deficiencies %}
 \ifnum {{loop.index}} = 1
-    \fcolorbox{black}{yellow}{\parbox{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
+    \begin{tabular}[t]{ll}
+    \raisebox{-1.2cm}{\includegraphics[height=1.5cm]{"{{info.imagesdir}}{{num.competency}}_qrcode.png"}}  &
+     \fcolorbox{black}{yellow}{\parbox[t][1.5cm]{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
+    \end{tabular}
  \else 
      \ifnum {{loop.index}} = 2
-     \hfill \fcolorbox{black}{lightgray}{\parbox{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
+     \hfill 
+     \begin{tabular}[t]{ll}
+     \raisebox{-1.2cm}{\includegraphics[height=1.5cm]{"{{info.imagesdir}}{{num.competency}}_qrcode.png"}} &
+      \fcolorbox{black}{lightgray}{\parbox[t][1.5cm]{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
+     \end{tabular}
      \else
-     \begin{center}\fbox{\parbox{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}\end{center}
+     \begin{center} 
+     \begin{tabular}[t]{ll}
+     \raisebox{-1.2cm}{\includegraphics[height=1.5cm]{"{{info.imagesdir}}{{num.competency}}_qrcode.png"}} &
+     \fbox{\parbox[t][1.5cm]{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
+     \end{tabular}
+     \end{center}
      \fi
 \fi
 {% endfor %}
