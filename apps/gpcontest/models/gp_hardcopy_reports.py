@@ -6,9 +6,48 @@ in Python code. Materialized views should be run first before running the
 report generation code.
 '''
 from django.db import models
-from boundary.models import ElectionBoundary
+from boundary.models import (
+    ElectionBoundary, Boundary, BoundaryType)
 from assessments.models import QuestionGroup
 
+class BoundaryStudentScoreGroups(models.Model):
+    """
+    Materialized view that captures number of students who scored in various
+    categories at a grade level in schools in a certain year in a certain
+    boundary
+    """
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    boundary_name = models.CharField(max_length=150, db_column="boundary_name")
+    boundary_type_id = models.ForeignKey('boundary.BoundaryType', db_column="boundary_type_id")
+    questiongroup_id = models.ForeignKey(
+        'assessments.QuestionGroup',
+        db_column="questiongroup_id")
+    num_students = models.IntegerField(db_column="num_students")
+    # <35%
+    cat_a = models.IntegerField(db_column="cat_a")
+    # BETWEEN 35 AND 60 %
+    cat_b = models.IntegerField(db_column="cat_b")
+    # BETWEEN 61 AND 75 %
+    cat_c = models.IntegerField(db_column="cat_c")
+    # BETWEEN 76 AND 100%
+    cat_d = models.IntegerField(db_column="cat_d")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_gpcontest_boundary_answers_agg'
+
+class BoundaryCountsAgg(models.Model):
+    boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
+    boundary_name = models.CharField(max_length=150, db_column="boundary_name")
+    boundary_type_id = models.ForeignKey('boundary.BoundaryType', db_column="boundary_type_id")
+    num_students = models.IntegerField(db_column="num_students")
+    num_schools = models.IntegerField(db_column="num_schools")
+    num_gps = models.IntegerField(db_column="num_gps")
+    num_blocks = models.IntegerField(db_column="num_blocks")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_gpcontest_boundary_counts_agg'
 
 class GPStudentScoreGroups(models.Model):
     """
