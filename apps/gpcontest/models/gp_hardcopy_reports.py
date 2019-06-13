@@ -19,9 +19,7 @@ class BoundaryStudentScoreGroups(models.Model):
     boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
     boundary_name = models.CharField(max_length=150, db_column="boundary_name")
     boundary_type_id = models.ForeignKey('boundary.BoundaryType', db_column="boundary_type_id")
-    questiongroup_id = models.ForeignKey(
-        'assessments.QuestionGroup',
-        db_column="questiongroup_id")
+    questiongroup_name = models.CharField(max_length=150, db_column="questiongroup_name")
     num_students = models.IntegerField(db_column="num_students")
     # <35%
     cat_a = models.IntegerField(db_column="cat_a")
