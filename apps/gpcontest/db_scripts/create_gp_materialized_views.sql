@@ -307,18 +307,18 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
                 (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id) AND
                 answers.question_id NOT IN (130,291)
             GROUP BY
-                questiongroup.id,
+                questiongroup.name,
                 answers.answergroup_id,
                 boundary.id
         )
-    SELECT id, boundary_id, questiongroup_id, boundary_type_id, boundary_name,
+    SELECT id, boundary_id, boundary_type_id, questiongroup.name, boundary_name,
                     COUNT(*) as num_students,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)<36.00) AS cat_a,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>36.00 AND ROUND(total_percent,2)<61.00) as cat_b,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>60.00 AND ROUND(total_percent,2)<76.00) as cat_c,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>75.00 AND ROUND(total_percent,2)<101.00) as cat_d
     FROM subquery1
-    GROUP BY id,boundary_id, questiongroup_id, boundary_type_id, boundary_name;
+    GROUP BY id,boundary_id, boundary_type_id, questiongroup.name,boundary_name;
 -- END mvw_gpcontest_boundary_answers_agg
 -- mvw_gpcontest_boundary_counts_agg --> Stores block/GP/schools/num_students count
 -- Clear the tables first
