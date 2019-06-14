@@ -9,11 +9,12 @@ from assessments.models import (
 from boundary.models import (
     Boundary
 )
-from django.db.models import ( Sum )
+from django.db.models import Sum
 from collections import OrderedDict
 
+
 def generate_all_district_reports(
-        gp_survey_id,from_yearmonth, 
+        gp_survey_id, from_yearmonth, 
         to_yearmonth, include_childboundary_reports=False):
     """
     For a given survey ID, generate reports for all districts that participated
@@ -22,20 +23,39 @@ def generate_all_district_reports(
     """
     district_ids = get_districts_for_survey(gp_survey_id, from_yearmonth,
                                             to_yearmonth)
-    reports = generate_boundary_reports(gp_survey_id, district_ids, from_yearmonth,
+    reports = generate_boundary_reports(
+                            gp_survey_id, district_ids, from_yearmonth,
                             to_yearmonth, include_childboundary_reports)
     return reports
 
+
 def generate_all_block_reports(
-        gp_survey_id,from_yearmonth, 
+        gp_survey_id, from_yearmonth, 
         to_yearmonth):
-    
-    block_ids = get_blocks_for_survey(gp_survey_id, from_yearmonth,
-                                            to_yearmonth)
-    reports = generate_boundary_reports(gp_survey_id, block_ids, from_yearmonth,
+    """ Generate ONLY block reports for a given time frame and survey ID """
+    block_ids = get_blocks_for_survey(
+                                    gp_survey_id, from_yearmonth,
+                                    to_yearmonth)
+    reports = generate_boundary_reports(
+                            gp_survey_id, block_ids, from_yearmonth,
                             to_yearmonth)
     return reports
 
+
+def generate_block_reports_for_district(
+        gp_survey_id, list_district_ids, from_yearmonth, 
+        to_yearmonth):
+    """ Generate ONLY block reports for a given district """
+    block_ids = []
+    for d in list_district_ids:
+        blocks = get_blocks_for_district(
+                            d, gp_survey_id, from_yearmonth,
+                            to_yearmonth)
+        block_ids.extend(blocks)
+    reports = generate_boundary_reports(
+                        gp_survey_id, block_ids, from_yearmonth,
+                        to_yearmonth)
+    return reports
 
 def generate_boundary_reports(
     gp_survey_id, list_boundary_ids, from_yearmonth, 
