@@ -6,16 +6,61 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg
 )
+from boundary.models import (
+    Boundary
+)
 from django.db.models import ( Sum )
 from collections import OrderedDict
 
+def generate_all_district_reports(
+        gp_survey_id,from_yearmonth, 
+        to_yearmonth, include_childboundary_reports=False):
+    """
+    For a given survey ID, generate reports for all districts that participated
+    in a time frame and include block reports if include_childboundary_reports
+    is True. 
+    """
+    district_ids = get_districts_for_survey(gp_survey_id, from_yearmonth,
+                                            to_yearmonth)
+    reports = generate_boundary_reports(gp_survey_id, district_ids, from_yearmonth,
+                            to_yearmonth, include_childboundary_reports)
+    return reports
 
-def generate_multiple_bound_reports(
-    gp_survey_id, list_boundary_ids, from_yearmonth, to_yearmonth):
+def generate_all_block_reports(
+        gp_survey_id,from_yearmonth, 
+        to_yearmonth):
+    
+    block_ids = get_blocks_for_survey(gp_survey_id, from_yearmonth,
+                                            to_yearmonth)
+    reports = generate_boundary_reports(gp_survey_id, block_ids, from_yearmonth,
+                            to_yearmonth)
+    return reports
+
+
+def generate_boundary_reports(
+    gp_survey_id, list_boundary_ids, from_yearmonth, 
+        to_yearmonth, include_childboundary_reports=False):
+    """ Generate district and associated block reports if 
+    include_childboundary_reports = True and return all in a giant dict.
+    Else just generate district reports in dict and return """
     final_report = {}
     for boundary in list_boundary_ids:
-        boundary_dict = generate_boundary_report(gp_survey_id, 
-                                 boundary, from_yearmonth, to_yearmonth)
+        try:
+            boundary_obj= Boundary.objects.get(id=boundary)
+        except:
+            print("No boundary ID %s exists in the DB" % boundary)
+            return None
+        else:
+            boundary_type_id = boundary_obj.boundary_type_id
+            boundary_dict = generate_boundary_report(gp_survey_id, 
+                                    boundary, from_yearmonth, to_yearmonth)
+            # IF its a district and the flag is True, generate block reports
+            if include_childboundary_reports and boundary_type_id == 'SD':
+                boundary_dict["blocks"] = {}
+                block_ids = get_blocks_for_district(boundary, gp_survey_id, from_yearmonth, to_yearmonth)
+                for block in block_ids:
+                    block_dict = generate_boundary_report(gp_survey_id, block, from_yearmonth, to_yearmonth)
+                    boundary_dict["blocks"][block] = block_dict
         final_report[boundary] = boundary_dict
     return final_report
 
@@ -186,5 +231,37 @@ def format_competency_answers(correct_ans_queryset):
         else:
             competency_scores[competency] = 0
     return competency_scores
+
+def get_districts_for_survey(survey_id, from_yearmonth, to_yearmonth):
+    """ Returns all districts which have data for a given time range and
+    survey id """
+    return SurveyBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+        yearmonth__gte=from_yearmonth).filter(
+            yearmonth__lte=to_yearmonth).filter(
+                survey_id=survey_id).filter(
+                        boundary_id__boundary_type_id__char_id='SD').distinct(
+                            'boundary_id').values_list(
+                                'boundary_id', flat=True)
+
+def get_blocks_for_survey(survey_id, from_yearmonth, to_yearmonth):
+    """ Returns all districts which have data for a given time range and
+    survey id """
+    return SurveyBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+        yearmonth__gte=from_yearmonth).filter(
+            yearmonth__lte=to_yearmonth).filter(
+                survey_id=survey_id).filter(
+                        boundary_id__boundary_type_id__char_id='SB').distinct(
+                            'boundary_id').values_list(
+                                'boundary_id', flat=True)
+
+def get_blocks_for_district(district_id, survey_id, from_yearmonth, to_yearmonth):
+    return SurveyBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+        yearmonth__gte=from_yearmonth).filter(
+            yearmonth__lte=to_yearmonth).filter(
+                survey_id=survey_id).filter(
+                    boundary_id__parent=district_id).distinct('boundary_id').values_list(
+                        'boundary_id', flat=True
+                    )
+    
 
         

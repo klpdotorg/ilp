@@ -1,15 +1,11 @@
 from gpcontest.reports.generate_boundary_reports import *
-
+import datetime
 
 def run():
-    print("BOUNDARY REPORTS")
-    gradewise = generate_boundary_report(
-                            2, 416,
-                            201806, 201903)
-    print(gradewise)
     print("=================================================")
     print("MULTIPLE BOUNDARY REPORTS")
-    all = generate_multiple_bound_reports(
-                            2, [416, 420, 539],
-                            201806, 201903)
+    print(datetime.datetime.now().time())
+    all = generate_all_district_reports(
+                            2, 201806, 201903, True)
+    print(datetime.datetime.now().time())
     print(all)
