@@ -1,10 +1,10 @@
 # Dependencies common to all environments.
-Django==1.11.11
+Django==1.11.21
 django-guardian==1.4.9
 django_extensions==2.1.6
 django-filter==1.0.4
 djangorestframework-bulk==0.2.1
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 djangorestframework-csv==2.1.0
 djangorestframework-gis==0.13
 -e git+https://github.com/chibisov/drf-extensions.git@00712396be979aaa5a86246bee39284b5e5e8d71#egg=drf-extensions 
