@@ -116,20 +116,23 @@ def generate_boundary_report(
         overall_scores["35to60"] = each_row.cat_b
         overall_scores["60to75"] = each_row.cat_c
         overall_scores["75to100"] = each_row.cat_d
-        boundary_report[each_row.questiongroup_name]["overall_scores"] = overall_scores
+        boundary_report[each_row.questiongroup_name]["overall_scores"] = \
+            overall_scores
 
         # Find the competency scores
         competencies = competency_scores.filter(
                             questiongroup_name=each_row.questiongroup_name)
         concept_scores = format_competency_answers(competencies)
+        concept_scores["total"] = each_row.num_students
         boundary_report[each_row.questiongroup_name]["competency_scores"] = \
             concept_scores
-
         if each_row.questiongroup_name == "Class 6 Assessment":
+            boundary_reports["percent_scores"] = {"Class 6 Assessment": {}}
             percs = get_grade_competency_percentages(
                 competency_scores, boundary_id, each_row.questiongroup_name,
                 gp_survey_id, from_yearmonth, to_yearmonth)
-            boundary_report[each_row.questiongroup_name]["percentage_scores"] = percs
+            boundary_reports["percent_scores"][each_row.questiongroup_name] = \
+                percs
     return boundary_report
 
 
