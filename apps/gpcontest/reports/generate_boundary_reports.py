@@ -131,7 +131,7 @@ def generate_boundary_report(
             percs = get_grade_competency_percentages(
                 competency_scores, boundary_id, each_row.questiongroup_name,
                 gp_survey_id, from_yearmonth, to_yearmonth)
-            boundary_reports["percent_scores"][each_row.questiongroup_name] = \
+            boundary_report["percent_scores"][each_row.questiongroup_name] = \
                 percs
     return boundary_report
 
