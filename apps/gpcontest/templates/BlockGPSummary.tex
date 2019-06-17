@@ -12,7 +12,7 @@
 %% Headers and footers
 \chead{ \large GP Contest - Block GP Report Summary }
 \lhead{ \hfill\break  Date: {{ info.date }}}
-\rhead{ \hfill\break  Num Districts: {{ info.num_blocks}}}
+\rhead{ \hfill\break  Num Blocks: {{ info.num_blocks}}}
 
 \setlength{\headheight}{3.0cm}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -21,13 +21,13 @@
 \newcommand{\question}[1]{\textbf{#1}}
 
 \begin{document}
-\begin{longtable}{|l|p{5.5cm}|l|l|l|l|p{2.0cm}|p{3.0cm}|}
+\begin{longtable}{|l|p{5.5cm}|l|l|p{2.0cm}|p{3.0cm}|}
 \hline
-	Block ID & Block Name & School Count& \makecell{Num Schools\\ with class 4}& \makecell{Num Schools\\ with class 5}& \makecell{Num Schools\\ with class 6}& \makecell{Generated\\Date} & Sent at Date\\ \hline \endhead
-	\hline \multicolumn{8}{r}{\textit{Continued on next page}} \\ \endfoot
+	Block ID & Block Name & School Count& \makecell{Num Students}& \makecell{Generated\\Date} & Sent at Date\\ \hline \endhead
+	\hline \multicolumn{6}{r}{\textit{Continued on next page}} \\ \endfoot
 	\hline \endlastfoot
 {% for id in blocks%}
-	{{id.blockid}} & {{id.blockname}} & {{id.num_schools}} & {{id.class4_schools}} & {{id.class5_schools}} & {{id.class6_schools}} & {{info.date}} &  \\ \hline
+	{{id.blockid}} & {{id.blockname}} & {{id.num_schools}} & {{id.num_students}} & {{info.date}} &  \\ \hline
 {% endfor %}
 \end{longtable}
 \end{document}

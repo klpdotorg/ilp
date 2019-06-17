@@ -21,13 +21,13 @@
 \newcommand{\question}[1]{\textbf{#1}}
 
 \begin{document}
-\begin{longtable}{|l|p{5.5cm}|p{2cm}|l|l|l|l|p{2.0cm}|p{3.0cm}|}
+\begin{longtable}{|l|p{5.5cm}|p{2cm}|l|l|p{2.0cm}|p{3.0cm}|}
 \hline
-	District ID & District Name & Block Count & School Count& \makecell{Num Schools\\ with class 4}& \makecell{Num Schools\\ with class 5}& \makecell{Num Schools\\ with class 6}& \makecell{Generated\\Date} & Sent at Date\\ \hline \endhead
-	\hline \multicolumn{9}{r}{\textit{Continued on next page}} \\ \endfoot
+	District ID & District Name & Block Count & School Count& Num Students& \makecell{Generated\\Date} & Sent at Date\\ \hline \endhead
+	\hline \multicolumn{7}{r}{\textit{Continued on next page}} \\ \endfoot
 	\hline \endlastfoot
 {% for id in districts%}
-	{{id.districtid}} & {{id.districtname}} & {{id.num_blocks}} & {{id.num_schools}} & {{id.class4_schools}} & {{id.class5_schools}} & {{id.class6_schools}} & {{info.date}} &  \\ \hline
+	{{id.districtid}} & {{id.districtname}} & {{id.num_blocks}} & {{id.num_schools}} & {{id.num_students}} & {{info.date}} &  \\ \hline
 {% endfor %}
 \end{longtable}
 \end{document}
