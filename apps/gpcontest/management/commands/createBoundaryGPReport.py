@@ -217,7 +217,7 @@ class Command(BaseCommand):
         #print(blockdata, file=self.utf8stdout)
         template = self.templates["block"]["latex"]
         blockinfo = {"name": blockdata["boundary_name"].capitalize(),
-                  #"districtname": blockdata["parent_name"].capitalize(),
+                  "districtname": blockdata["parent_boundary_name"].capitalize(),
                   "num_gps": blockdata["num_gps"],
                   "school_count": blockdata["num_schools"],
                   "totalstudents": blockdata["num_students"]}
