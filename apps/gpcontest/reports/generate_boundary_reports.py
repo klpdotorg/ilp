@@ -91,49 +91,54 @@ def generate_boundary_report(
         Returns a report dict for one boundary
     """
     # Identify the type of boundary - SD(district) or SB (block)
-    boundary_report = {}
-    boundary_stu_score_groups =\
-        BoundaryStudentScoreGroups.objects.filter(boundary_id=boundary_id)
-    boundary_counts = BoundaryCountsAgg.objects.get(boundary_id=boundary_id)
-   
-    boundary_report["num_blocks"] = boundary_counts.num_blocks
-    boundary_report["num_gps"] = boundary_counts.num_gps
-    boundary_report["num_schools"] = boundary_counts.num_schools
-    boundary_report["num_students"] = boundary_counts.num_students
-    boundary_report["boundary_name"] = boundary_counts.boundary_name
-    boundary_report["boundary_id"] = boundary_counts.boundary_id.id
-    boundary_report["boundary_type"] = boundary_counts.boundary_type_id.char_id
+    try:
+        b = Boundary.objects.get(id=boundary_id)
+    except:
+        print("boundary id %s does not exist in DB " % boundary_id)
+        return
+    else:
+        boundary_report = {}
+        boundary_stu_score_groups =\
+            BoundaryStudentScoreGroups.objects.filter(boundary_id=boundary_id)
+        boundary_counts = BoundaryCountsAgg.objects.get(boundary_id=boundary_id)
+        boundary_report["parent_boundary_name"] = b.parent.name
+        boundary_report["num_blocks"] = boundary_counts.num_blocks
+        boundary_report["num_gps"] = boundary_counts.num_gps
+        boundary_report["num_schools"] = boundary_counts.num_schools
+        boundary_report["num_students"] = boundary_counts.num_students
+        boundary_report["boundary_name"] = boundary_counts.boundary_name
+        boundary_report["boundary_id"] = boundary_counts.boundary_id.id
+        boundary_report["boundary_type"] = boundary_counts.boundary_type_id.char_id
+        competency_scores = get_competency_scores_for_all_qgroups(
+            gp_survey_id, boundary_id, from_yearmonth, to_yearmonth
+        )
+        # Each row is basically a questiongroup or class
+        for each_row in boundary_stu_score_groups:
+            boundary_report[each_row.questiongroup_name] = {}
+            overall_scores = {}
+            overall_scores["total"] = each_row.num_students
+            overall_scores["below35"] = each_row.cat_a
+            overall_scores["35to60"] = each_row.cat_b
+            overall_scores["60to75"] = each_row.cat_c
+            overall_scores["75to100"] = each_row.cat_d
+            boundary_report[each_row.questiongroup_name]["overall_scores"] = \
+                overall_scores
 
-    competency_scores = get_competency_scores_for_all_qgroups(
-        gp_survey_id, boundary_id, from_yearmonth, to_yearmonth
-    )
-    # Each row is basically a questiongroup or class
-    for each_row in boundary_stu_score_groups:
-        boundary_report[each_row.questiongroup_name] = {}
-        overall_scores = {}
-        overall_scores["total"] = each_row.num_students
-        overall_scores["below35"] = each_row.cat_a
-        overall_scores["35to60"] = each_row.cat_b
-        overall_scores["60to75"] = each_row.cat_c
-        overall_scores["75to100"] = each_row.cat_d
-        boundary_report[each_row.questiongroup_name]["overall_scores"] = \
-            overall_scores
-
-        # Find the competency scores
-        competencies = competency_scores.filter(
-                            questiongroup_name=each_row.questiongroup_name)
-        concept_scores = format_competency_answers(competencies)
-        concept_scores["total"] = each_row.num_students
-        boundary_report[each_row.questiongroup_name]["competency_scores"] = \
-            concept_scores
-        if each_row.questiongroup_name == "Class 6 Assessment":
-            boundary_report["percent_scores"] = {"Class 6 Assessment": {}}
-            percs = get_grade_competency_percentages(
-                competency_scores, boundary_id, each_row.questiongroup_name,
-                gp_survey_id, from_yearmonth, to_yearmonth)
-            boundary_report["percent_scores"][each_row.questiongroup_name] = \
-                percs
-    return boundary_report
+            # Find the competency scores
+            competencies = competency_scores.filter(
+                                questiongroup_name=each_row.questiongroup_name)
+            concept_scores = format_competency_answers(competencies)
+            concept_scores["total"] = each_row.num_students
+            boundary_report[each_row.questiongroup_name]["competency_scores"] = \
+                concept_scores
+            if each_row.questiongroup_name == "Class 6 Assessment":
+                boundary_report["percent_scores"] = {"Class 6 Assessment": {}}
+                percs = get_grade_competency_percentages(
+                    competency_scores, boundary_id, each_row.questiongroup_name,
+                    gp_survey_id, from_yearmonth, to_yearmonth)
+                boundary_report["percent_scores"][each_row.questiongroup_name] = \
+                    percs
+        return boundary_report
 
 
 def get_grade_competency_percentages(
