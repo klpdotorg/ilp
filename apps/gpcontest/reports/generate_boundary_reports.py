@@ -127,7 +127,7 @@ def generate_boundary_report(
         boundary_report[each_row.questiongroup_name]["competency_scores"] = \
             concept_scores
         if each_row.questiongroup_name == "Class 6 Assessment":
-            boundary_reports["percent_scores"] = {"Class 6 Assessment": {}}
+            boundary_report["percent_scores"] = {"Class 6 Assessment": {}}
             percs = get_grade_competency_percentages(
                 competency_scores, boundary_id, each_row.questiongroup_name,
                 gp_survey_id, from_yearmonth, to_yearmonth)
