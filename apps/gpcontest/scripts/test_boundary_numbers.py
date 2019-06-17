@@ -9,6 +9,7 @@ def run():
     print("Begin time %s" % datetime.datetime.now().time())
     all = generate_all_district_reports(
                             2, 201806, 201903, True)
+    print(all)
     print("End time %s" %datetime.datetime.now().time())
     print("Done")
     print("=================================================")
