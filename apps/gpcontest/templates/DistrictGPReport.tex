@@ -166,7 +166,7 @@
 \textbf{\kn{ತರಗತಿವಾರು ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ್ದ ಮಕ್ಕಳ ಒಟ್ಟಾರೆ ಫಲಿತಾಂಶಗಳು ಈ ಕೆಳಗಿನಂತೆ ಇವೆ.}}
 
 \begin{longtable}{|P{3cm}|P{4cm}|P{2cm}|P{2cm}|P{2cm}|P{2cm}|} \hline
-\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{4}{|c|}{\textbf{\kn{ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ (ಶೇಕಡವಾರು)}}}\\ \cline{3-6}
+\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಭಾಗವಹಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{4}{|c|}{\textbf{\kn{ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ (ಶೇಕಡವಾರು)}}}\\ \cline{3-6}
 \rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{36\%-60\%}  & \textbf{61\%-75\%} & \textbf{76\%-100\%} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
 \rule{0cm}{0.3cm} {{ assessment["class"] }}\kn{ನೇ ತರಗತಿ} & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to60"]}} & {{assessment["overall_scores"]["60to75"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
@@ -179,7 +179,7 @@
 \setlength\LTleft{-0.1cm}
 \setlength\LTright{-0.1cm}
 \begin{longtable}{|P{2.5cm}|P{3.25cm}|c|c|c|c|c|c|} \hline
-\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{6}{|c|}{\textbf{\kn{ಮೂಲ ಕ್ರಿಯೆಗಳನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \cline{3-8}
+\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಭಾಗವಹಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{6}{|c|}{\textbf{\kn{ಮೂಲ ಕ್ರಿಯೆಗಳನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \cline{3-8}
 \rule{0cm}{0.3cm} &&\textbf{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯ}}&\textbf{\kn{ಸ್ಥಾನ ಬೆಲೆ}}&\textbf{\kn{ಸಂಕಲನ}}&\textbf{\kn{ವ್ಯವಕಲನ}}&\textbf{\kn{ಗುಣಾಕಾರ}}&\textbf{\kn{ಭಾಗಾಕಾರ}} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
 \rule{0cm}{0.3cm} {{assessment["class"]}}\kn{ನೇ ತರಗತಿ} & {{assessment["competency_scores"]["total"]}} & {{assessment["competency_scores"]["Number Recognition"]}}  & {{assessment["competency_scores"]["Place Value"]}} & {{assessment["competency_scores"]["Addition"]}} & {{assessment["competency_scores"]["Subtraction"]}} & {{assessment["competency_scores"]["Multiplication"]}} & {{assessment["competency_scores"]["Division"]}} \\ \hline
