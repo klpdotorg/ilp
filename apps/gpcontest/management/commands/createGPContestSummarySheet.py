@@ -2,6 +2,7 @@ import sys
 import jinja2
 import os
 from jinja2 import Template
+from datetime import datetime, date
 import shutil
 import sys
 from schools.models import Institution
@@ -11,14 +12,16 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
     basefiledir = os.getcwd()+"/apps/gpcontest/"
     templatedir = "/templates/"
-    outputdir = "/pdfs/"
-    out_file = "gpsummarysheet"
+    out_file = "GPSummarysheet"
     template_name = "GPContestSummarySheet.tex"
     template_file = basefiledir+templatedir+template_name
     build_d = basefiledir+"/build"
+    gpids = None
+    now = date.today()
+    outputdir = "/pdfs/"+str(now)+"/preContestSummary/"
 
     def add_arguments(self, parser):
-        parser.add_argument('gpid')
+        parser.add_argument('gpids')
 
 
     def initiatelatex(self):
@@ -57,15 +60,19 @@ class Command(BaseCommand):
         return schoolinfo
 
     def handle(self, *args, **options):
-        gpid = options.get("gpid")
-        self.out_file = self.out_file+"_"+str(gpid)
-        template = self.initiatelatex()
-        boundaryinfo = self.getBoundaryInfo(gpid)
-        schoolinfo = self.getSchoolInfo(gpid)
-        renderer_template = template.render(boundaryinfo=boundaryinfo, schools=schoolinfo)
+        gpids = options.get("gpids")
+        self.gpids = [int(x) for x in gpids.split(',')]
 
-        with open(self.out_file+".tex", "w", encoding='utf-8') as f:  # saves tex_code to outpout file
-            f.write(renderer_template)
 
-        os.system("xelatex -output-directory {} {}".format(os.path.realpath(self.build_d), os.path.realpath(self.out_file)))
-        shutil.copy2(self.build_d+"/"+self.out_file+".pdf", os.path.dirname(self.basefiledir+self.outputdir))
+        for gpid in self.gpids:
+            out_file = self.out_file+"_"+str(gpid)
+            template = self.initiatelatex()
+            boundaryinfo = self.getBoundaryInfo(gpid)
+            schoolinfo = self.getSchoolInfo(gpid)
+            renderer_template = template.render(boundaryinfo=boundaryinfo, schools=schoolinfo)
+
+            with open(out_file+".tex", "w", encoding='utf-8') as f:  # saves tex_code to outpout file
+                f.write(renderer_template)
+
+            os.system("xelatex -output-directory {} {}".format(os.path.realpath(self.build_d), os.path.realpath(out_file)))
+            shutil.copy2(self.build_d+"/"+out_file+".pdf", os.path.dirname(self.basefiledir+self.outputdir))
