@@ -273,3 +273,83 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
         dise_basicdata dise
     ON
         table1.dise_id = dise.id
+
+---- BOUNDARY LEVEL AGGREGATIONS ---------------------
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_answers_agg CASCADE;
+-- Re-populate the tables
+CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
+    WITH subquery1 AS
+        (
+            SELECT
+                format('A%s_%s_%s', 2,boundary.id,questiongroup.id) as id,
+                boundary.id as boundary_id,
+                boundary.name as boundary_name,
+                boundary.boundary_type_id as boundary_type_id,
+                answers.answergroup_id as answergroup_id,
+                questiongroup.id as questiongroup_id,
+                SUM(
+                    CASE WHEN answers.answer~'^\d+(\.\d+)?$' THEN CASE WHEN answers.answer::decimal>0 then answers.answer::decimal ELSE 0
+                END ELSE 0 END) AS total_score, 
+                (SUM(CASE WHEN answers.answer~'^\d+(\.\d+)?$' THEN CASE
+                    WHEN answers.answer::decimal>0 THEN answers.answer::decimal ELSE 0 END ELSE 0 END)/20)*100 AS total_percent
+            FROM
+                assessments_questiongroup as questiongroup,
+                assessments_answerinstitution as answers,
+                assessments_answergroup_institution as answergroup,
+                boundary_boundary as boundary,
+                schools_institution as schools
+            WHERE
+                questiongroup.survey_id = 2 AND
+                questiongroup.id = answergroup.questiongroup_id AND
+                answers.answergroup_id = answergroup.id AND
+                answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
+                answergroup.institution_id = schools.id AND
+                (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id) AND
+                answers.question_id NOT IN (130,291)
+            GROUP BY
+                questiongroup.name,
+                answers.answergroup_id,
+                boundary.id
+        )
+    SELECT id, boundary_id, boundary_type_id, questiongroup.name, boundary_name,
+                    COUNT(*) as num_students,
+                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)<36.00) AS cat_a,
+                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>36.00 AND ROUND(total_percent,2)<61.00) as cat_b,
+                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>60.00 AND ROUND(total_percent,2)<76.00) as cat_c,
+                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>75.00 AND ROUND(total_percent,2)<101.00) as cat_d
+    FROM subquery1
+    GROUP BY id,boundary_id, boundary_type_id, questiongroup.name,boundary_name;
+-- END mvw_gpcontest_boundary_answers_agg
+-- mvw_gpcontest_boundary_counts_agg --> Stores block/GP/schools/num_students count
+-- Clear the tables first
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_counts_agg CASCADE;
+-- Re-populate the tables
+CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_counts_agg AS
+WITH schools_count AS (
+   SELECT 
+        format('A%s_%s', 2,boundary.id) as id,
+        boundary.id as boundary_id,
+        boundary.name as boundary_name,
+        boundary.boundary_type_id as boundary_type_id,
+        Count(distinct ag.institution_id) as num_schools,
+        Count(distinct ag.id) as num_students,
+	Count(distinct schools.gp_id) as num_gps,
+	(CASE WHEN boundary.boundary_type_id = 'SD' THEN Count(distinct schools.admin2_id) ELSE 0 END) as num_blocks
+    FROM 
+        boundary_boundary as boundary,
+        assessments_answergroup_institution as ag,
+        assessments_questiongroup as qg,
+        schools_institution as schools
+    WHERE 
+        qg.survey_id=2 AND 
+        qg.id=ag.questiongroup_id AND 
+        ag.date_of_visit BETWEEN :from_date AND :to_date AND
+        ag.institution_id=schools.id AND
+        (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id)
+    GROUP BY boundary.id
+)
+SELECT 
+   id, boundary_id, boundary_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
+FROM schools_count;
+
+-- END mvw_gpcontest_eboundary_schoolcount_agg

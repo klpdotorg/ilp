@@ -56,10 +56,11 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
     # Fetch the local lang name from the mvw
     for key in three_smallest:
         qs = queryset.filter(question_key=key)
+        formatted_qkey = key.replace(" ", "_")
         # Just fetch the local lang name from any row of the filtered qs
         local_lang_name = qs[:1].get().lang_question_key
         deficiencies.append(
-            {"competency": key,
+            {"competency": formatted_qkey,
              "local_name": local_lang_name}
             )
     return deficiencies
