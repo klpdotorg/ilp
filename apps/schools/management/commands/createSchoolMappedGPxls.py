@@ -19,14 +19,16 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--districtids', nargs='?')
+        parser.add_argument('--stateid', nargs='?')
 
 
-    def getSchoolInfo(self, districtids):
+    def getSchoolInfo(self, districtids, stateid):
         schools = {}
         if districtids is None:
-            state_id = BoundaryStateCode.objects.get(
-                char_id=settings.ILP_STATE_ID).boundary_id
-            schools = Institution.objects.filter(admin0_id=state_id, gp_id__isnull=False).values("id", "name", "admin1_id__name", "admin2_id__name", "admin3_id__name", "gp_id", "gp_id__const_ward_name", "dise_id__school_code")
+            if stateid is None:
+                print("Either --stateid or --districtids have to be passed")
+                return False
+            schools = Institution.objects.filter(admin0_id=stateid, gp_id__isnull=False).values("id", "name", "admin1_id__name", "admin2_id__name", "admin3_id__name", "gp_id", "gp_id__const_ward_name", "dise_id__school_code")
         else:
             districtids = [int(x) for x in districtids.split(',')]
             schools = Institution.objects.filter(admin1_id__in=districtids, gp_id__isnull=False).values("id", "name", "admin1_id__name", "admin2_id__name", "admin3_id__name", "gp_id", "gp_id__const_ward_name", "dise_id__school_code")
@@ -51,6 +53,7 @@ class Command(BaseCommand):
                         self.schoolinfo[district][block][cluster] = {schoolid:{"name": name, "disecode": disecode, "gpid": gpid, "gpname": gpname}}
                     if schoolid not in self.schoolinfo[district][block][cluster]:
                         self.schoolinfo[district][block][cluster][schoolid] = {"name": name, "disecode": disecode, "gpid": gpid, "gpname": gpname}
+        return True
 
 
     def createSummarySheets(self):
@@ -82,5 +85,7 @@ class Command(BaseCommand):
         if not os.path.exists(self.outputdir):  # create the pdf directory if not existing
             os.makedirs(self.outputdir)
         districtids = options.get("districtids", None)
-        self.getSchoolInfo(districtids)
-        self.createSummarySheets()
+        stateid = options.get("stateid", None)
+        done = self.getSchoolInfo(districtids, stateid)
+        if done:
+            self.createSummarySheets()

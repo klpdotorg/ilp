@@ -100,8 +100,8 @@ class Command(BaseCommand):
         blockids = options.get("blockids")
 
         if gpids is None and blockids is None and districtids is None:
-            print("Enter one of the parameters, gpids, districtids or blockids")
-            retrurn
+            print("Enter one of the parameters: --gpids, --districtids or --blockids")
+            return
 
         if districtids is not None:
             self.districtids = [int(x) for x in districtids.split(',')]
