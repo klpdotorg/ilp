@@ -5,7 +5,8 @@ from django.core.management.base import BaseCommand
 from datetime import datetime, date
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from assessments.models import Survey
-from boundary.models import ElectionBoundary
+from boundary.models import ElectionBoundary, Boundary
+from schools.models import Institution
 from gpcontest.reports import generate_report, school_compute_numbers
 
 
@@ -19,16 +20,15 @@ class Command(BaseCommand):
                        "class5": {"name": "Class 5 Assessment", "class": 5},
                        "class6": {"name": "Class 6 Assessment", "class": 6}}
     now = date.today()
-    basefiledir = os.getcwd()+"/apps/gpcontest/"
-    relpath_schools = "apps/gpcontest/pdfs/"+str(now)+"/schools/"
-    templatedir = "templates/"
-    outputdir = basefiledir+"pdfs/"+str(now)
+    basefiledir = os.getcwd()
+    templatedir = "/apps/gpcontest/templates/"
+    outputdir = basefiledir+"/generated_files/gpreports/"+str(now)+"/GPReports"
     gpoutputdir = "gpreports"
     schooloutputdir = "schoolreports"
     gp_out_file_prefix = "GPReport"
     school_out_file_prefix = "SchoolReport"
 
-    gpsummary = []
+    gpsummary = {} 
     schoolsummary = []
     # gp_template_name = "GPReport.tex"
     # school_template_name = "GPSchoolReport.tex"
@@ -49,7 +49,8 @@ class Command(BaseCommand):
     surveyid = None
     onlygp = False
     schoolids = None
-    imagesdir = basefiledir+"images/"
+    districtids = None
+    imagesdir = basefiledir+"/apps/gpcontest/images/"
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
@@ -58,6 +59,7 @@ class Command(BaseCommand):
         parser.add_argument('--gpid', nargs='?')
         parser.add_argument('--onlygp', nargs='?')
         parser.add_argument('--sid', nargs='?')
+        parser.add_argument('--districtid', nargs='?')
 
     def initiatelatex(self):
         # create the build directory if not existing
@@ -93,6 +95,16 @@ class Command(BaseCommand):
                 except ElectionBoundary.DoesNotExist:
                     print("Invalid gpid: "+str(gp)+" passed")
                     return False
+
+        if self.districtids is not None:
+            for districtid in self.districtids:
+                try:
+                   Boundary.objects.get(
+                            id=districtid, boundary_type_id='SD')
+                except Boundary.DoesNotExist:
+                    print("Invalid districtid: "+str(districtid)+" passed")
+                    return False
+
         try:
             self.survey = Survey.objects.get(id=self.surveyid)
         except Survey.DoesNotExist:
@@ -145,20 +157,23 @@ class Command(BaseCommand):
         self.createGPSummarySheet()
 
     def createGPSummarySheet(self):
-        info = {"date": self.now, "num_gps": len(self.gpsummary)}
-        renderer_template = self.templates["gpsummary"]["latex"].render(
-                                                gps=self.gpsummary, info=info)
+        for district in self.gpsummary:
+            for block in self.gpsummary[district]:
+                info = {"date": self.now, "num_gps": len(self.gpsummary[district][block])}
+                renderer_template = self.templates["gpsummary"]["latex"].render(
+                                                gps=self.gpsummary[district][block], info=info)
 
-        # saves tex_code to outpout file
-        outputfile = "GPContestGPSummary"
-        with open(outputfile+".tex", "w", encoding='utf-8') as f:
-            f.write(renderer_template)
+                # saves tex_code to outpout file
+                outputfile = "GPContestGPSummary"
+                with open(outputfile+".tex", "w", encoding='utf-8') as f:
+                    f.write(renderer_template)
 
-        os.system("xelatex -output-directory {} {}".format(
+                os.system("xelatex -output-directory {} {}".format(
                       os.path.realpath(self.build_d),
                       os.path.realpath(outputfile)))
-        shutil.copy2(self.build_d+"/"+outputfile+".pdf", self.outputdir)
-        self.deleteTempFiles([outputfile+".tex",
+                outputdir = self.outputdir+"/"+district+"/"+block
+                shutil.copy2(self.build_d+"/"+outputfile+".pdf", outputdir)
+                self.deleteTempFiles([outputfile+".tex",
                              self.build_d+"/"+outputfile+".pdf"])
 
     def createGPPdfs(self, gpid, gpdata, template, suffix):
@@ -190,7 +205,7 @@ class Command(BaseCommand):
                                             percent_scores=percent_scores)
 
         output_file = self.gp_out_file_prefix+"_"+str(gpid)+suffix
-        outputdir = self.outputdir+"/"+str(gpid)
+        outputdir = self.outputdir+"/"+gpdata["district"]+"/"+gpdata["block"]+"/"+str(gpid)
         if not os.path.exists(outputdir):
             os.makedirs(outputdir)
 
@@ -204,14 +219,64 @@ class Command(BaseCommand):
         self.deleteTempFiles([output_file+".tex",
                              self.build_d+"/"+output_file+".pdf"])
 
-        self.gpsummary.append({"gpid": gpid,
+        if gpdata["district"] not in self.gpsummary:
+            self.gpsummary[gpdata["district"]] = {gpdata["block"]: [{"gpid": gpid,
+                               "gpname": gpdata["gp_name"].capitalize(),
+                               "contestdate": gpdata["contestdate"],
+                               "total_schools": gpdata["num_schools"],
+                               "class4_schools": gpdata["class4_num_schools"],
+                               "class5_schools": gpdata["class5_num_schools"],
+                               "class6_schools": gpdata["class6_num_schools"]}]}
+        else:
+            if gpdata["block"] in self.gpsummary[gpdata["district"]]:
+                self.gpsummary[gpdata["district"]][gpdata["block"]].append({"gpid": gpid,
                                "gpname": gpdata["gp_name"].capitalize(),
                                "contestdate": gpdata["contestdate"],
                                "total_schools": gpdata["num_schools"],
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]})
+            else:
+                self.gpsummary[gpdata["district"]][gpdata["block"]] = [{"gpid": gpid,
+                               "gpname": gpdata["gp_name"].capitalize(),
+                               "contestdate": gpdata["contestdate"],
+                               "total_schools": gpdata["num_schools"],
+                               "class4_schools": gpdata["class4_num_schools"],
+                               "class5_schools": gpdata["class5_num_schools"],
+                               "class6_schools": gpdata["class6_num_schools"]}]
+  
         return outputdir
+
+    def createGPReportsPerBoundary(self):
+        data = {}
+        for district in self.districtids:
+            gps = Institution.objects.filter(admin1_id=district, gp_id__isnull=False).distinct("gp_id").values("gp_id")
+            print(gps)
+            for gp in gps:
+                gpid = gp["gp_id"]
+                print("GPID :"+str(gpid))
+                print("START YEAR MONTH :"+self.startyearmonth)
+                print("END YEAR MONTH :"+self.endyearmonth)
+                data[gpid] = generate_report.generate_gp_summary(
+                        gpid, self.surveyid, self.startyearmonth, 
+                        self.endyearmonth)
+
+                num_contests = len(data[gpid])
+                suffix = ""
+                count = 0
+                for contestdate in data[gpid]:
+                    count += 1
+                    if num_contests > 1:
+                        suffix = "_"+str(count)
+                    outputdir = self.createGPPdfs(gpid,
+                                         data[gpid][contestdate],
+                                         self.templates["gp"]["latex"], suffix)
+
+                    if not self.onlygp:
+                        # print(gp)
+                        self.createSchoolReports(gpid, outputdir)
+            self.createGPSummarySheet()
+
 
     def createOnlySchoolReports(self):
         school_outputdir = self.outputdir+"/schools/"
@@ -368,6 +433,10 @@ class Command(BaseCommand):
         if schoolids is not None:
             self.schoolids = [int(x) for x in schoolids.split(',')]
 
+        districtids = options.get("districtid", None)
+        if districtids is not None:
+            self.districtids = [int(x) for x in districtids.split(',')]
+
         if not self.validateInputs():
             return
         self.initiatelatex()
@@ -377,5 +446,10 @@ class Command(BaseCommand):
 
         if self.schoolids is not None:
             self.createOnlySchoolReports()
-        else:
+        elif self.gpids is not None:
             self.createGPReports()
+        elif self.districtids is not None:
+            self.createGPReportsPerBoundary()
+
+        if os.path.exists(self.build_d):
+            shutil.rmtree(self.build_d)

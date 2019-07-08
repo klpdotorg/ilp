@@ -11,15 +11,16 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    basefiledir = os.getcwd()+"/apps/gpcontest/"
-    templatedir = "/templates/"
+    now = date.today()
+    basefiledir = os.getcwd()
+    pdfsdir = "/generated_files/gpreports/"+str(now)+"/"
+    templatedir = "/apps/gpcontest/templates/"
     out_file = "GPSummarysheet"
     template_name = "GPContestSummarySheet.tex"
     template_file = basefiledir+templatedir+template_name
     build_d = basefiledir+"/build"
     gpids = None
-    now = date.today()
-    outputdir = "/pdfs/"+str(now)+"/preContestSummary/"
+    outputdir = "preContestSummary"
     schoolinfo = {}
 
     def add_arguments(self, parser):
@@ -77,7 +78,7 @@ class Command(BaseCommand):
                     boundaryinfo = {"district": district.title(), "block": block.title(), "gpid":gpid, "gpname":gp.title()}
                     schoolinfo = self.schoolinfo[district][block][gp]["schools"]
 
-                    outputdir = self.basefiledir+self.outputdir+"/"+district+"/"+block+"/"
+                    outputdir = self.basefiledir+self.pdfsdir+self.outputdir+"/"+district+"/"+block+"/"
                     if not os.path.exists(outputdir):  # create the pdf directory if not existing
                         os.makedirs(outputdir)
                     renderer_template = template.render(boundaryinfo=boundaryinfo, schools=schoolinfo)
@@ -117,3 +118,7 @@ class Command(BaseCommand):
 
         self.createSummaryReports()
 
+        os.system('tar -cvf '+self.basefiledir+self.pdfsdir+'/'+self.outputdir+'.tar '+self.basefiledir+self.pdfsdir+self.outputdir+'/')
+
+        if os.path.exists(self.build_d):
+            shutil.rmtree(self.build_d)
