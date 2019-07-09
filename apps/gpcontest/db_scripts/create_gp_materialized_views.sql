@@ -272,7 +272,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
     LEFT JOIN
         dise_basicdata dise
     ON
-        table1.dise_id = dise.id
+        table1.dise_id = dise.id;
 
 ---- BOUNDARY LEVEL AGGREGATIONS ---------------------
 DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_answers_agg CASCADE;
