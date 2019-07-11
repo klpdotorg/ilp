@@ -11,11 +11,11 @@ from django.conf import settings
 
 
 class Command(BaseCommand):
-    basefiledir = os.getcwd()+"/apps/schools/"
+    basefiledir = os.getcwd()
     now = date.today()
-    outputdir = basefiledir+"/generatedFiles/"+str(now)+"/"
+    outputdir = basefiledir+"/generated_files/csvs/SchoolInfo/"
     schoolinfo = {}
-    filename = "SchoolInfo_withGP.xls"
+    filename = "SchoolInfo_withGP_"+str(now)+".xls"
 
     def add_arguments(self, parser):
         parser.add_argument('--districtids', nargs='?')
