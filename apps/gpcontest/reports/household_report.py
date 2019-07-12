@@ -34,4 +34,46 @@ def getHouseholdSurvey(survey_id,boundary,date_range):
              print("No community survey data for '{}' between {} and {}".format(boundary.name, self.report_from, self.report_to))
         return HHSurvey
 
-def getAllHouseHoldSurveyReports()
+
+def getBoundaryHouseholdSurveyReports(
+                                    household_survey_id,
+                                    from_yearmonth, to_yearmonth):
+    boundary_ids = get_boundaries_for_timeframe(
+        household_survey_id, from_yearmonth, to_yearmonth)
+    results = {}
+    for boundary in boundary_ids:
+        hh_data = getHouseholdSurvey(household_survey_id, boundary, [from_yearmonth, to_yearmonth])
+        results[boundary] = hh_data
+    return results
+
+
+def getEBoundaryHouseholdSurveyReports(from_yearmonth, to_yearmonth):
+
+
+def get_boundaries_for_timeframe(household_survey_id, from_yearmonth, to_yearmonth):
+    """ Returns all boundaries which have household data for a given time 
+    range and survey id """
+    return SurveyBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+        yearmonth__gte=from_yearmonth).filter(
+            yearmonth__lte=to_yearmonth).filter(
+                survey_id=household_survey_id).filter(
+                    questiongroup_id__in=[18,20]).distinct(
+                            'boundary_id').values_list(
+                                'boundary_id', flat=True)
+
+
+def get_gps_for_timeframe(
+        household_survey_id,
+        from_yearmonth,
+        to_yearmonth):
+    """ Returns a list of distinct gp_ids for the academic year 
+    where household survey happened """
+    return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+        survey_id=household_survey_id
+    ).filter(
+        questiongroup_id__in=[18, 20]).filter(
+            yearmonth__gte=from_yearmonth).filter(
+                const_ward_type='GP').filter(
+                    yearmonth__lte=to_yearmonth).order_by(
+                    'eboundary_id').distinct().values_list(
+                    'eboundary_id', flat=True)
