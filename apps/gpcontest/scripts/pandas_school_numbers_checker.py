@@ -148,4 +148,4 @@ def check_school_numbers(school_id, from_yearmonth, to_yearmonth):
     qn_ans_percs_sql_raw = qn_ans_percs.format(institution_id=school_id)
     raw_qn_ans_percs = pd.read_sql_query(qn_ans_percs_sql_raw, con=connection)
     class4_scores = pd.DataFrame.from_dict(
-                           school_report)
+                           school_report['Class 4 Assessment']['question_answers'])
