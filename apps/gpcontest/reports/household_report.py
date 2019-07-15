@@ -47,9 +47,6 @@ def getBoundaryHouseholdSurveyReports(
     return results
 
 
-def getEBoundaryHouseholdSurveyReports(from_yearmonth, to_yearmonth):
-
-
 def get_boundaries_for_timeframe(household_survey_id, from_yearmonth, to_yearmonth):
     """ Returns all boundaries which have household data for a given time 
     range and survey id """
