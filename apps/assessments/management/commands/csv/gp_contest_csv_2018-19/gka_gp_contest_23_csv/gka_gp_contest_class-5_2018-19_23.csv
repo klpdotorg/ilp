@@ -1,0 +1,924 @@
+Class,District,Block,Date,KLP ID,Name of the school,GP ID,Grama Panchayat,GP President Name,Student Name,Sex ( Male / Female ),Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Total
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Fakiresh,Male,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,7
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Kusuma,Female,1,0,1,0,0,0,0,1,0,1,0,0,1,0,1,0,0,1,1,0,8
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Ganesh,Male,0,0,1,1,1,1,1,0,0,1,0,1,1,1,0,0,1,0,1,1,12
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Ravi,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Vishwanath,Male,1,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,7
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Vidya,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,5
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Kavitha,Female,1,1,1,1,1,0,0,0,0,1,0,1,1,1,1,0,1,0,1,1,13
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Mamatha,Female,1,1,1,0,0,1,0,1,1,1,0,0,1,0,1,0,0,1,0,0,10
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Suma,Female,1,1,1,0,1,0,0,1,0,1,0,0,1,1,1,0,1,0,1,1,12
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Pavithra,Female,0,0,0,1,1,0,1,0,0,1,1,1,1,1,1,1,1,0,1,1,13
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Husen Gowda,Male,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,5
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Manikanta,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,4
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Mubarak,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Sudeep,Male,1,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,6
+5,Dharwad,Kundagol,05/12/2018,37296,GHPS TEERTHA,4155,Malali,Manappa Dyamanna Badiger,Ramesh,Male,1,0,0,0,0,0,0,1,0,1,0,1,1,1,0,0,1,0,1,1,9
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Pavithra,Female,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,16
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Chandrashekar,Male,1,0,1,0,0,1,0,0,0,1,1,1,0,1,1,0,0,0,0,0,8
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Nirmala,Female,1,0,1,1,0,0,1,1,1,1,1,1,1,1,1,0,0,1,1,0,14
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Abhishek,Male,0,0,1,0,0,0,1,1,0,0,1,0,0,0,1,0,0,1,0,0,6
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Harish,Male,1,1,1,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,7
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Shaila,Female,0,0,1,0,0,0,1,1,0,0,0,1,1,0,1,0,1,1,0,1,9
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Rudrappa,Male,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Surakita,Female,0,0,1,0,1,0,0,1,1,0,0,0,1,0,1,0,0,1,1,0,8
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Nagaraj,Male,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Basamma,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Dhaneshwari,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Anupama,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Manoj,Male,1,1,1,1,0,0,1,0,0,1,1,0,1,1,1,0,0,1,1,0,12
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Gadagesh,Male,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Kundagol,05/12/2018,37632,GHPS MALALI,4155,Malali,Manappa Dyamanna Badiger,Basavaraj,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Gururaj,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,19
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Rajeshwari,Female,1,0,1,1,1,1,1,1,1,0,1,0,1,1,0,1,1,0,1,1,15
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Mamatha,Female,1,1,1,0,1,0,0,1,1,0,1,1,1,1,1,1,1,0,0,1,14
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Fathima,Female,1,1,1,0,0,1,1,1,0,1,0,1,0,0,1,1,0,0,1,1,12
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Mamatha Begum,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Santosh,Male,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,1,0,4
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Kavitha,Female,0,0,1,0,0,1,0,0,0,0,1,0,1,0,1,0,0,1,0,0,6
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Vijay,Male,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,7
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Poornima,Female,0,0,0,1,0,1,1,0,0,0,1,1,1,1,1,0,0,1,0,1,10
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Mabusab,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,5
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Lalitha,Female,0,0,1,1,0,0,0,0,0,1,1,1,1,0,0,0,1,0,1,1,9
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Gayathri,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Chaithra,Female,0,0,1,1,0,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,6
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Nanda,Male,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Chennabasappa,Male,1,1,1,1,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,7
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Sanjana,Female,0,0,1,1,0,0,0,1,0,1,1,0,0,0,0,0,0,1,0,0,6
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Soheel,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Yallamma,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,5
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Priyanka,Female,0,0,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,1,7
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Praveen,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,2
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Yallappa,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Kundagol,05/12/2018,37635,GHPS KUNKUR,4155,Malali,Manappa Dyamanna Badiger,Swathi,Female,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Anusha K,Female,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0,1,1,0,16
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Kallesh,Male,1,1,1,1,1,1,1,0,0,1,0,1,1,0,0,1,1,0,1,0,13
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Kiran,Male,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,16
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Swetha,Female,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Chaithra,Female,1,0,1,1,1,0,0,0,0,1,0,1,0,0,1,1,0,0,0,0,8
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Shreya,Female,1,0,1,1,1,0,0,0,0,1,0,1,0,0,1,0,0,0,1,0,8
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Kavitha,Female,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,6
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Akshatha,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Nethra,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Kalavathi,Female,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Yallappa,Male,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Ramesh,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Viresh,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Nagaraj,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Hanumantha,Male,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Gangadhar,Male,1,0,1,1,1,1,0,0,0,1,0,1,1,0,0,1,1,1,1,1,13
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Bhoomika,Female,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Mahantesh,Male,1,0,1,1,1,1,0,0,1,1,0,1,0,0,0,1,0,0,1,0,10
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Vinayak,Male,1,0,1,1,0,1,1,0,0,1,0,1,1,0,0,1,0,0,0,0,9
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Abhishek,Male,1,0,1,1,1,1,0,0,1,1,0,1,0,0,1,1,0,1,1,0,12
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Muthu,Male,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Pramod,Male,1,0,1,1,1,0,0,0,0,1,0,1,1,0,0,0,0,1,1,0,9
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Kalakappa,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Rekha,Female,1,0,1,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,5
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Viresh,Male,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Pavithra,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Yashoda,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Vijayalakshmi,Female,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Basavaraj,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Yamanur,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Kallesh,Male,1,0,1,0,0,0,0,0,1,1,0,0,1,0,0,0,0,1,1,0,7
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Kavitha,Female,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,4
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Savitha,Female,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,4
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Karthik,Male,1,0,1,0,0,1,0,0,0,1,0,1,1,0,1,1,0,0,1,0,9
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Basavaraj,Male,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Neelamma,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Maramma,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Rihana,Female,1,1,1,0,1,0,0,0,0,1,1,1,1,0,0,1,0,1,1,0,11
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Kavya,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Nagaraj,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Viresh,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Venkatesh,Male,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,21/12/2018,20465,GOVT HIGHER PRIMARY SCHOOL KALLUR,3288,Kallur,Erappa Balappa G,Sanju,Male,1,1,1,0,1,1,0,0,0,1,0,1,0,1,0,1,1,1,1,1,13
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Vikas S M,Male,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,17
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Amulya,Female,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Manikanta,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Sukanya,Female,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Manasa,Female,0,0,1,0,1,0,1,1,0,0,1,0,1,0,1,0,0,0,1,0,8
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Vidyashree,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Ajay,Male,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,5
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Spandana,Female,1,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,4
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Penaiah,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Rashmi,Female,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,6
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Sinchana,Female,1,0,1,0,1,0,0,0,0,1,0,0,1,1,1,0,0,1,0,0,8
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Anitha,Female,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Chandana,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Pooja,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Arathi,Female,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,0,1,1,1,1,16
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Nayana,Female,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,17
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Appu,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13396,GOVERNMENT HIGHER PRIMARY SCHOOL B G KERE,873,B.g.kere,S Ajjaiah,Nikitha,Female,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Boraswamy,Male,1,1,1,1,1,0,0,1,0,1,0,1,1,1,0,0,1,1,1,1,14
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Uma,Female,1,0,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,0,1,0,13
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Maheshwaramma,Female,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Anusuya,Female,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Boramma,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Pradeep,Male,1,0,1,0,0,0,1,0,1,0,0,1,1,0,0,0,1,0,0,1,8
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Bhuvaneshwari,Female,1,1,1,1,0,1,0,1,0,1,0,1,1,0,0,1,0,0,0,0,10
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Prasanna,Male,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,5
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Nagaveni,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Papesh,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Manjunath,Male,1,0,1,1,0,0,0,0,1,0,1,1,1,0,0,0,0,1,0,0,8
+5,Chitradurga,Molakalmur,20/12/2018,13391,GOVERNMENT HIGHER PRIMARY SCHOOL SURAMMANAHALLI,873,B.g.kere,S Ajjaiah,Karthik,Male,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Jairam,Male,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,18
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Shivakumar,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Prashanth,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Rudramuni,Male,1,0,1,1,1,1,0,0,0,1,0,1,1,0,1,0,0,1,1,0,11
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Jayanth,Male,1,1,1,0,0,0,0,0,0,1,1,1,0,0,1,0,1,0,1,1,10
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Dilip,Male,1,0,1,0,1,0,1,0,0,1,0,0,1,0,0,1,1,1,1,1,11
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Nandini,Female,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Mahalakshmi,Female,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Vinod,Male,1,1,1,1,0,0,0,0,1,1,0,1,0,1,1,1,1,0,1,1,13
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Monika,Female,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,7
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Kaveri,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Vani,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Varshitha,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Swetha,Female,0,0,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,5
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Kusuma,Female,0,0,1,0,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,15
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Mamatha,Female,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,4
+5,Chitradurga,Molakalmur,20/12/2018,13388,GOVERNMENT HIGHER PRIMARY SCHOOL MUTTHIGARAHALLI,873,B.g.kere,S Ajjaiah,Bhavya,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Keerthi Kumar,Male,1,1,1,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,15
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Sanjana,Female,1,0,1,1,1,0,1,0,0,1,0,0,1,0,0,0,1,0,1,0,9
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Basavaraj P,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Basavaraj H,Male,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Anand M,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Sinchana,Female,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Maladevi,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Sangeetha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Pooja B,Female,1,0,1,0,1,1,0,0,0,1,0,1,1,0,0,1,1,0,0,0,9
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Harish,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Kailash,Male,1,1,1,0,1,0,0,0,0,1,0,1,0,0,1,0,1,0,1,0,9
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Dakshayini,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Sunitha,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13394,GOVERNMENT HIGHER PRIMARY SCHOOL BASAVESWARANAGARA,873,B.g.kere,S Ajjaiah,Sneha,Female,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,5
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Sowmya,Female,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,17
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Pallavi,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Veeranjaneya,Male,1,0,1,1,1,1,0,0,1,1,1,0,1,0,0,0,1,1,0,1,12
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Trilochana,Female,1,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,7
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,R Ramya,Female,1,1,1,1,0,1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,9
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Vidya,Female,1,1,1,0,0,0,0,0,1,1,0,1,1,1,0,0,1,1,0,1,11
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Sudeep,Male,0,0,1,1,0,0,0,1,0,1,0,1,1,0,1,0,0,0,1,1,9
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Surayya,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Santosh,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Bhagyalakshmi,Female,1,1,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,6
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Ambika,Female,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Manoj,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Kushal,Male,1,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,5
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Mamatha,Female,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,7
+5,Chitradurga,Molakalmur,20/12/2018,13392,GOVERNMENT HIGHER PRIMARY SCHOOL MOGALAHALLI,873,B.g.kere,S Ajjaiah,Pallavi H,Female,1,1,1,0,1,0,1,0,1,1,0,0,1,0,0,0,1,1,1,0,11
+5,Chitradurga,Molakalmur,20/12/2018,13395,GOVERNMENT LOWER PRIMARY SCHOOL RAVALAKUNTE,873,B.g.kere,S Ajjaiah,N R Yeriswamy,Male,1,1,1,0,1,1,1,1,0,1,0,0,1,1,0,1,1,1,1,1,15
+5,Chitradurga,Molakalmur,20/12/2018,13395,GOVERNMENT LOWER PRIMARY SCHOOL RAVALAKUNTE,873,B.g.kere,S Ajjaiah,Shravani,Female,0,0,1,1,1,1,0,0,1,1,0,1,1,1,1,1,1,0,0,0,12
+5,Chitradurga,Molakalmur,20/12/2018,13395,GOVERNMENT LOWER PRIMARY SCHOOL RAVALAKUNTE,873,B.g.kere,S Ajjaiah,Harsha,Male,1,0,1,0,1,0,0,1,0,1,0,1,1,0,1,0,0,0,1,1,10
+5,Chitradurga,Molakalmur,20/12/2018,13395,GOVERNMENT LOWER PRIMARY SCHOOL RAVALAKUNTE,873,B.g.kere,S Ajjaiah,Nandini,Female,1,1,1,0,1,0,0,0,0,1,0,1,1,1,0,1,1,1,1,1,13
+5,Chitradurga,Molakalmur,20/12/2018,13389,GOVERNMENT LOWER PRIMARY SCHOOL MYASARAHATTI,873,B.g.kere,S Ajjaiah,Dhanraj,Male,1,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,6
+5,Chitradurga,Molakalmur,20/12/2018,13389,GOVERNMENT LOWER PRIMARY SCHOOL MYASARAHATTI,873,B.g.kere,S Ajjaiah,Annapurna,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13389,GOVERNMENT LOWER PRIMARY SCHOOL MYASARAHATTI,873,B.g.kere,S Ajjaiah,Manjunath,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13389,GOVERNMENT LOWER PRIMARY SCHOOL MYASARAHATTI,873,B.g.kere,S Ajjaiah,Rajesh,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13389,GOVERNMENT LOWER PRIMARY SCHOOL MYASARAHATTI,873,B.g.kere,S Ajjaiah,Rajaram,Male,1,0,1,0,0,1,0,0,1,1,0,1,1,0,1,0,0,0,0,0,8
+5,Chitradurga,Molakalmur,20/12/2018,13389,GOVERNMENT LOWER PRIMARY SCHOOL MYASARAHATTI,873,B.g.kere,S Ajjaiah,Ankitha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Molakalmur,20/12/2018,13397,GOVERNMENT LOWER PRIMARY SCHOOL OBAIHANAHATTI,873,B.g.kere,S Ajjaiah,Madesh,Male,1,1,1,1,1,1,0,0,0,1,0,1,1,1,0,1,1,1,1,0,14
+5,Chitradurga,Molakalmur,20/12/2018,13397,GOVERNMENT LOWER PRIMARY SCHOOL OBAIHANAHATTI,873,B.g.kere,S Ajjaiah,Sujana,Female,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Chitradurga,Molakalmur,20/12/2018,45195,GOVERNMENT URDU HIGHER PRIMARY SCHOOL B.G.KERE,873,B.g.kere,S Ajjaiah,Mahammad Naman,Male,1,0,0,1,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,11
+5,Chitradurga,Molakalmur,20/12/2018,45195,GOVERNMENT URDU HIGHER PRIMARY SCHOOL B.G.KERE,873,B.g.kere,S Ajjaiah,Umera Anjum,Male,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,1,7
+5,Chitradurga,Molakalmur,20/12/2018,45195,GOVERNMENT URDU HIGHER PRIMARY SCHOOL B.G.KERE,873,B.g.kere,S Ajjaiah,Shahaj,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,19/12/2018,35954,G LPS APPASANDRA,1872,Dodda Nallala,Poornima M A,Monika,Female,1,1,1,0,1,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,8
+5,Bengaluru rural,Hosakote,19/12/2018,35954,G LPS APPASANDRA,1872,Dodda Nallala,Poornima M A,Pramod,Male,1,1,1,0,1,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,7
+5,Bengaluru rural,Hosakote,19/12/2018,35954,G LPS APPASANDRA,1872,Dodda Nallala,Poornima M A,Sirisha,Female,1,1,0,1,1,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,8
+5,Bengaluru rural,Hosakote,19/12/2018,35954,G LPS APPASANDRA,1872,Dodda Nallala,Poornima M A,Yashaswini,Female,1,0,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,5
+5,Bengaluru rural,Hosakote,19/12/2018,35954,G LPS APPASANDRA,1872,Dodda Nallala,Poornima M A,Bharath,Male,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,19/12/2018,35954,G LPS APPASANDRA,1872,Dodda Nallala,Poornima M A,Kiran,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,19/12/2018,36237,G HPS DODDENAHALLI,1872,Dodda Nallala,Poornima M A,Sagar,Male,1,1,1,0,1,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,7
+5,Bengaluru rural,Hosakote,19/12/2018,36237,G HPS DODDENAHALLI,1872,Dodda Nallala,Poornima M A,Varshini,Female,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,15
+5,Bengaluru rural,Hosakote,19/12/2018,36237,G HPS DODDENAHALLI,1872,Dodda Nallala,Poornima M A,Anusha,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,3
+5,Bengaluru rural,Hosakote,19/12/2018,36237,G HPS DODDENAHALLI,1872,Dodda Nallala,Poornima M A,Chandrakala,Female,1,0,1,1,1,1,1,0,0,1,0,0,1,1,1,0,0,0,0,1,11
+5,Bengaluru rural,Hosakote,19/12/2018,36237,G HPS DODDENAHALLI,1872,Dodda Nallala,Poornima M A,Monika M,Female,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,19
+5,Bengaluru rural,Hosakote,19/12/2018,36237,G HPS DODDENAHALLI,1872,Dodda Nallala,Poornima M A,Jayashree,Female,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,1,1,1,1,17
+5,Bengaluru rural,Hosakote,19/12/2018,36222,G HPS VALAGEREPURA,1872,Dodda Nallala,Poornima M A,Harish Gowda,Male,1,1,1,1,1,1,1,0,0,1,0,1,1,0,1,1,1,0,1,1,15
+5,Bengaluru rural,Hosakote,19/12/2018,36222,G HPS VALAGEREPURA,1872,Dodda Nallala,Poornima M A,Shailaja,Female,1,1,1,1,1,0,1,1,0,1,0,1,1,0,1,0,1,1,1,0,14
+5,Bengaluru rural,Hosakote,19/12/2018,36235,G HPS DODDANALLALA,1872,Dodda Nallala,Poornima M A,Jayashree,Female,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,0,0,0,0,0,12
+5,Bengaluru rural,Hosakote,19/12/2018,36235,G HPS DODDANALLALA,1872,Dodda Nallala,Poornima M A,Amrutha,Female,1,0,1,1,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,6
+5,Bengaluru rural,Hosakote,19/12/2018,36235,G HPS DODDANALLALA,1872,Dodda Nallala,Poornima M A,Nandan Kumar,Male,1,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,1,1,1,0,8
+5,Bengaluru rural,Hosakote,19/12/2018,36235,G HPS DODDANALLALA,1872,Dodda Nallala,Poornima M A,Chandan,Male,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,19/12/2018,36235,G HPS DODDANALLALA,1872,Dodda Nallala,Poornima M A,Amulya,Female,1,0,1,1,0,1,0,0,0,0,0,0,1,1,0,0,1,0,0,1,8
+5,Bengaluru rural,Hosakote,19/12/2018,35949,G LPS GUGUTTAHALLI,1872,Dodda Nallala,Poornima M A,Hemanth Kumar,Male,1,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,7
+5,Bengaluru rural,Hosakote,19/12/2018,35949,G LPS GUGUTTAHALLI,1872,Dodda Nallala,Poornima M A,Manasa,Female,0,0,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,5
+5,Bengaluru rural,Hosakote,19/12/2018,35949,G LPS GUGUTTAHALLI,1872,Dodda Nallala,Poornima M A,Rakshitha,Female,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1,0,1,1,1,0,14
+5,Bengaluru rural,Hosakote,19/12/2018,35944,G HPS CHIKKANALLALA,1872,Dodda Nallala,Poornima M A,Bharath,Male,1,1,0,1,1,1,1,1,1,1,0,1,1,0,1,1,1,0,1,1,16
+5,Bengaluru rural,Hosakote,19/12/2018,35944,G HPS CHIKKANALLALA,1872,Dodda Nallala,Poornima M A,Venki,Male,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,1,0,7
+5,Bengaluru rural,Hosakote,19/12/2018,35944,G HPS CHIKKANALLALA,1872,Dodda Nallala,Poornima M A,Asha,Female,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,19/12/2018,35944,G HPS CHIKKANALLALA,1872,Dodda Nallala,Poornima M A,Preethi,Female,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,0,16
+5,Bengaluru rural,Hosakote,19/12/2018,35944,G HPS CHIKKANALLALA,1872,Dodda Nallala,Poornima M A,Sneha,Female,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,0,1,0,0,0,13
+5,Bengaluru rural,Hosakote,19/12/2018,35944,G HPS CHIKKANALLALA,1872,Dodda Nallala,Poornima M A,Pragathi,Female,1,1,1,1,1,0,0,1,0,1,0,0,1,1,1,0,1,1,0,0,12
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Nayan Kumar,Male,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,0,1,1,17
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Gowthami,Female,1,0,1,1,1,0,1,1,0,1,1,1,0,1,0,0,1,1,1,0,13
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Prajwal,Male,1,0,1,0,1,1,1,1,0,1,0,0,0,0,1,1,0,1,1,1,12
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Koushik,Male,1,0,1,1,1,1,1,0,0,1,0,0,1,0,0,0,1,0,1,1,11
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Vinutha,Female,1,0,1,1,0,0,1,1,1,1,0,0,1,0,1,0,1,0,1,0,11
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Siddu,Male,1,0,1,1,0,0,0,1,0,1,1,1,0,0,1,0,1,1,1,1,12
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Venu,Male,1,0,1,0,1,1,0,0,0,1,0,1,1,1,0,0,1,0,0,0,9
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Annapurna,Female,1,0,1,1,1,0,0,1,0,1,1,0,0,0,1,0,1,0,0,0,9
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Nanditha,Female,1,0,1,1,1,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,8
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Aditya,Male,1,1,1,1,1,1,0,1,0,1,0,0,0,0,1,1,1,1,1,0,13
+5,Bengaluru rural,Hosakote,19/12/2018,35950,G HPS UMMALU,1872,Dodda Nallala,Poornima M A,Anil,Male,1,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,6
+5,Bengaluru rural,Hosakote,19/12/2018,35945,G LPS DABBAGUNTAHALLI,1872,Dodda Nallala,Poornima M A,Lakshmi,Female,1,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,5
+5,Bengaluru rural,Hosakote,19/12/2018,35945,G LPS DABBAGUNTAHALLI,1872,Dodda Nallala,Poornima M A,Anju,Female,1,1,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,6
+5,Bengaluru rural,Hosakote,19/12/2018,35945,G LPS DABBAGUNTAHALLI,1872,Dodda Nallala,Poornima M A,Nagesh,Male,1,1,1,1,0,1,1,0,1,1,0,1,1,1,0,1,0,1,1,1,15
+5,Bengaluru rural,Hosakote,19/12/2018,35945,G LPS DABBAGUNTAHALLI,1872,Dodda Nallala,Poornima M A,Sukanya,Female,1,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,5
+5,Bengaluru rural,Hosakote,19/12/2018,35953,G LPS YELACHAMANAHALLI,1872,Dodda Nallala,Poornima M A,Kishor,Male,1,1,1,0,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,16
+5,Bengaluru rural,Hosakote,19/12/2018,35942,G LPS POOJARAMANAHALLI,1872,Dodda Nallala,Poornima M A,Kanchana,Female,1,1,1,1,1,1,0,0,1,0,0,1,0,0,0,0,0,1,1,0,10
+5,Bengaluru rural,Hosakote,19/12/2018,35942,G LPS POOJARAMANAHALLI,1872,Dodda Nallala,Poornima M A,Dinesh,Male,0,1,0,1,0,0,0,0,0,1,0,1,1,1,1,0,0,0,0,0,7
+5,Bengaluru rural,Hosakote,19/12/2018,35942,G LPS POOJARAMANAHALLI,1872,Dodda Nallala,Poornima M A,Navya,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,19/12/2018,35942,G LPS POOJARAMANAHALLI,1872,Dodda Nallala,Poornima M A,Meena,Female,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,24/12/2018,36203,G HPS DASARAHALLI,1868,Dodda Hulluru,Chikkappaiah,Ankitha,Female,1,0,1,1,1,0,0,0,0,1,0,1,1,1,1,0,1,0,1,0,11
+5,Bengaluru rural,Hosakote,24/12/2018,36203,G HPS DASARAHALLI,1868,Dodda Hulluru,Chikkappaiah,Darshan,Male,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,24/12/2018,36203,G HPS DASARAHALLI,1868,Dodda Hulluru,Chikkappaiah,Monika,Female,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,24/12/2018,36203,G HPS DASARAHALLI,1868,Dodda Hulluru,Chikkappaiah,Keerthi,Male,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,24/12/2018,36203,G HPS DASARAHALLI,1868,Dodda Hulluru,Chikkappaiah,Bhavya,Female,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,24/12/2018,36203,G HPS DASARAHALLI,1868,Dodda Hulluru,Chikkappaiah,Ramya,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,24/12/2018,36203,G HPS DASARAHALLI,1868,Dodda Hulluru,Chikkappaiah,Swetha,Female,1,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,24/12/2018,36203,G HPS DASARAHALLI,1868,Dodda Hulluru,Chikkappaiah,Gangavathi,Female,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,0,0,0,0,7
+5,Bengaluru rural,Hosakote,24/12/2018,36201,G HPS SOMPURA,1868,Dodda Hulluru,Chikkappaiah,Vaishnavi,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,24/12/2018,36201,G HPS SOMPURA,1868,Dodda Hulluru,Chikkappaiah,Chethan,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,24/12/2018,36201,G HPS SOMPURA,1868,Dodda Hulluru,Chikkappaiah,Bhavyashree,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Ganesh,Male,1,1,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,17
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Mamatha,Female,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,16
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Kavya,Female,1,1,1,1,1,1,0,1,0,1,0,1,1,0,1,1,1,1,1,0,15
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Gowrikumari,Female,1,1,1,0,0,0,0,1,0,0,0,1,0,0,1,1,0,0,0,0,7
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Nagesh,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Bindushree,Female,1,0,1,0,1,0,0,1,1,1,0,0,0,0,1,0,1,1,1,1,11
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Arpitha,Female,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,6
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Pallavi,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Durga,Female,0,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Adarsh,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Bhanushree,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Praveen,Male,1,1,1,0,0,0,0,1,0,0,0,1,1,0,0,1,1,0,0,0,8
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Sadik,Male,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Praveen M,Male,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Bindushree,Female,1,1,1,1,0,1,0,1,1,1,1,1,1,0,0,0,1,0,0,1,13
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Sakshi,Female,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,6
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Kishan,Male,1,1,1,1,1,1,0,1,0,0,0,0,1,1,1,0,0,1,0,1,12
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Aditya,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Karthik,Male,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,4
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Ashamma,Female,1,1,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,6
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Vaishnavi,Female,1,0,1,0,0,0,0,0,1,1,0,0,0,0,1,0,0,1,0,0,6
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Kishan M,Male,1,0,1,1,0,0,0,1,0,1,0,1,1,0,1,0,1,0,1,0,10
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Naveen Kumar,Male,1,0,1,0,0,0,1,1,0,1,0,1,1,0,1,1,1,1,1,0,12
+5,Bengaluru rural,Hosakote,24/12/2018,36219,G HPS DODDA HULLURU,1868,Dodda Hulluru,Chikkappaiah,Varun,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G LP S THARABAHALLI,4796,Nelavagilu,Lakshmi H C,Gaganashree T R,Female,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,17
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G LP S THARABAHALLI,4796,Nelavagilu,Lakshmi H C,Gunashree M N,Female,1,1,1,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,0,1,16
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS CHIKKONDAHALLI,4796,Nelavagilu,Lakshmi H C,Chiranth Kumar,Male,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,18
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS CHIKKONDAHALLI,4796,Nelavagilu,Lakshmi H C,Preetham C,Male,1,1,1,1,1,0,0,1,1,1,0,1,1,1,1,1,1,0,0,1,15
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS CHIKKONDAHALLI,4796,Nelavagilu,Lakshmi H C,Shrusthi,Female,1,1,1,0,1,1,1,1,0,1,0,0,1,0,1,0,1,1,0,0,12
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS CHIKKONDAHALLI,4796,Nelavagilu,Lakshmi H C,Soniya,Female,1,1,1,1,1,0,0,1,0,1,0,0,0,1,1,0,1,1,1,1,13
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS CHIKKONDAHALLI,4796,Nelavagilu,Lakshmi H C,Chandana,Female,1,1,1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,0,1,12
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS CHIKKONDAHALLI,4796,Nelavagilu,Lakshmi H C,Muskan,Male,1,0,1,0,0,0,0,1,0,1,0,1,0,1,0,0,1,0,0,1,8
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS CHIKKONDAHALLI,4796,Nelavagilu,Lakshmi H C,Suhana ,Female,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Bhavani Y M,Female,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,7
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Harshini,Female,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Shrushti B A,Female,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,0,1,1,1,0,15
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Likhith,Male,0,1,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Nisarga S,Female,1,0,1,1,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,6
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Nithin A,Male,0,0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,0,7
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Bhoomika V,Female,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,0,1,0,0,0,5
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Ajay,Male,0,1,1,1,0,0,0,1,1,0,0,1,1,0,1,0,0,0,0,0,8
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S KAARAHALLI,4796,Nelavagilu,Lakshmi H C,Shravani,Female,1,0,1,1,1,1,0,0,0,1,0,1,0,0,0,0,1,1,0,0,9
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S SIDDANAHALLI,4796,Nelavagilu,Lakshmi H C,Jayashree S M,Female,1,0,1,1,1,1,0,1,0,1,0,1,1,0,1,0,0,0,0,1,11
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Amulya,Female,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,17
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Paavana K C,Female,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,16
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Mounika,Female,1,0,1,0,1,0,0,0,0,1,1,1,0,0,0,0,0,1,0,1,8
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Jeevitha,Female,1,1,1,1,1,1,0,0,0,1,1,0,1,0,1,0,0,1,0,0,11
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Nanditha,Female,0,1,1,0,1,0,0,1,0,1,1,1,1,1,1,0,1,1,1,1,14
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Amulya S,Female,0,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,5
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Keerthana,Female,0,0,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,1,0,0,5
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Manasa D,Female,0,0,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,6
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Siddartha,Male,0,0,1,0,0,1,0,1,0,0,1,0,1,0,1,0,1,1,0,0,8
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Pavan,Male,0,0,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,1,5
+5,Bengaluru rural,Hosakote,21/12/2018,35915,G H P S NELAVAGILU,4796,Nelavagilu,Lakshmi H C,Madhushree,Female,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1,1,1,1,0,16
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS LAKSHMIPURA,4796,Nelavagilu,Lakshmi H C,Aishwarya V,Female,1,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,1,1,16
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS LAKSHMIPURA,4796,Nelavagilu,Lakshmi H C,Manikanta,Male,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,0,0,1,15
+5,Bengaluru rural,Hosakote,21/12/2018,35915,GHPS LAKSHMIPURA,4796,Nelavagilu,Lakshmi H C,Bhuvana,Female,1,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,05/12/2018,36192,J L R S PETTANAHALLI,1865,Dodda Gattiganabbe,Muniraju,Raksha K,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+5,Bengaluru rural,Hosakote,05/12/2018,36192,J L R S PETTANAHALLI,1865,Dodda Gattiganabbe,Muniraju,Sowmya Shree J,Female,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,1,1,0,15
+5,Bengaluru rural,Hosakote,05/12/2018,36192,J L R S PETTANAHALLI,1865,Dodda Gattiganabbe,Muniraju,Madan N,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,3
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GHPS CHIKKAGATTIGANANABBE,1865,Dodda Gattiganabbe,Muniraju,Indushree,Female,1,1,1,1,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,1,17
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GHPS CHIKKAGATTIGANANABBE,1865,Dodda Gattiganabbe,Muniraju,Jaibabanu,Female,1,1,1,1,1,0,1,1,0,1,1,1,1,0,0,0,1,1,0,0,13
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GHPS CHIKKAGATTIGANANABBE,1865,Dodda Gattiganabbe,Muniraju,Kavanashree,Female,1,1,1,0,1,1,1,1,0,1,0,1,1,0,0,0,0,1,1,0,12
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GHPS CHIKKAGATTIGANANABBE,1865,Dodda Gattiganabbe,Muniraju,Sudeepa G M,Male,1,0,0,0,0,1,1,1,0,0,0,1,1,0,0,1,1,1,0,0,9
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GHPS CHIKKAGATTIGANANABBE,1865,Dodda Gattiganabbe,Muniraju,Venugopal,Male,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GLPS CHEEMANDAHALLI,1865,Dodda Gattiganabbe,Muniraju,Sahana,Female,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,17
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GLPS CHEEMANDAHALLI,1865,Dodda Gattiganabbe,Muniraju,Ranjitha,Female,1,1,1,1,1,0,0,1,1,1,0,0,1,1,0,1,1,1,1,0,14
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GLPS CHEEMANDAHALLI,1865,Dodda Gattiganabbe,Muniraju,Manya Shree,Female,1,1,1,1,1,1,0,1,0,1,0,1,1,0,1,1,1,0,0,0,13
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G H P S KANNURAHALLI,1865,Dodda Gattiganabbe,Muniraju,Ramya N B,Female,1,1,1,0,1,0,0,0,0,1,0,1,0,1,1,0,1,1,0,1,11
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G H P S KANNURAHALLI,1865,Dodda Gattiganabbe,Muniraju,Chandu P,Male,1,1,1,0,0,0,0,1,1,1,0,1,1,0,1,0,1,0,0,1,11
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G H P S KANNURAHALLI,1865,Dodda Gattiganabbe,Muniraju,Supritha R,Female,1,1,1,0,0,0,0,1,0,1,0,1,0,0,1,0,0,1,1,0,9
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G H P S KANNURAHALLI,1865,Dodda Gattiganabbe,Muniraju,Hemashree,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S BHAKTARAHALLI,1865,Dodda Gattiganabbe,Muniraju,Suman,Male,1,1,1,0,1,0,0,1,0,1,0,1,1,1,1,0,1,1,1,0,13
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S BHAKTARAHALLI,1865,Dodda Gattiganabbe,Muniraju,Varalakshmi,Female,1,1,1,0,0,0,1,0,0,1,0,1,0,0,0,0,1,1,0,1,9
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S BHAKTARAHALLI,1865,Dodda Gattiganabbe,Muniraju,Sharath Chandra,Male,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,4
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S BHAKTARAHALLI,1865,Dodda Gattiganabbe,Muniraju,Vaishna,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G H P S JINNAGARA,1865,Dodda Gattiganabbe,Muniraju,Amitha ,Female,1,0,1,1,0,0,0,1,0,1,0,0,1,0,0,0,1,1,1,1,10
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G H P S JINNAGARA,1865,Dodda Gattiganabbe,Muniraju,Deekshitha,Female,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S GUTTAHALLI,1865,Dodda Gattiganabbe,Muniraju,Keerthi,Female,1,1,1,1,1,0,0,0,0,1,1,0,1,0,1,0,1,1,1,1,13
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S GUTTAHALLI,1865,Dodda Gattiganabbe,Muniraju,Bhavani,Female,1,1,1,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,9
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S GUTTAHALLI,1865,Dodda Gattiganabbe,Muniraju,Punitha ,Female,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,5
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S GUTTAHALLI,1865,Dodda Gattiganabbe,Muniraju,Dilip,Male,1,1,0,0,0,0,0,1,0,1,0,1,1,0,0,0,0,1,0,0,7
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S POOJENA AGRAHARA,1865,Dodda Gattiganabbe,Muniraju,Manikanta,Male,1,1,0,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,0,14
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S POOJENA AGRAHARA,1865,Dodda Gattiganabbe,Muniraju,Pushpavathi,Female,1,0,1,0,1,0,0,0,0,1,0,0,1,1,0,0,1,0,0,1,8
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S POOJENA AGRAHARA,1865,Dodda Gattiganabbe,Muniraju,Varalakshmi,Female,1,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,5
+5,Bengaluru rural,Hosakote,05/12/2018,36192,G L P S POOJENA AGRAHARA,1865,Dodda Gattiganabbe,Muniraju,Manohar,Male,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,05/12/2018,36192,GHPS DODDAGATTINABBE,1865,Dodda Gattiganabbe,Muniraju,Nandish,Male,1,0,1,1,1,0,0,0,1,1,0,0,1,0,1,0,0,0,1,1,10
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Siddu,Male,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1,0,16
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Gunavanth,Male,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,16
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Harshitha H,Female,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,5
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Gowtham Gambir,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Shalini,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Bikiram,Male,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,2
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Kavyashree L,Female,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Tulasi D R,Female,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Yashwanth M N,Male,1,0,1,1,1,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,8
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Siddeshwar,Male,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Suguna,Female,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Sahana,Female,1,1,1,0,1,1,1,0,0,1,0,1,0,0,0,0,0,0,0,1,9
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Anil,Male,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,0,1,1,1,1,10
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Mahima K,Female,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,0,1,0,16
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Harsha,Male,1,1,1,1,1,1,0,0,1,1,0,1,1,1,0,0,1,1,0,1,14
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Metaj Sab,Male,1,1,1,1,1,1,1,0,0,1,0,1,1,0,1,0,0,0,1,0,12
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Gowtham B P,Male,1,1,1,1,0,1,0,0,0,1,0,1,1,0,0,0,0,1,1,1,11
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Navya,Female,1,0,1,1,1,1,0,0,0,1,0,1,1,1,0,0,0,1,1,1,12
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Bhimaiah,Male,1,0,1,1,1,0,0,1,0,1,0,1,0,1,1,1,1,1,0,0,12
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Swetha,Female,1,1,1,1,1,1,0,1,0,1,0,1,1,1,0,0,0,1,1,0,13
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Mahalakshmi,Female,1,1,1,0,1,1,1,0,0,1,0,1,1,1,0,1,0,1,1,0,13
+5,Bengaluru rural,Hosakote,12/12/2018,35977,G HPS BHODHANA HOSAHALLI,4590,Muthsandra,Govinda Raju,Deepika D,Female,1,1,1,0,1,1,0,0,0,1,0,1,1,1,0,1,1,0,1,0,12
+5,Bengaluru rural,Hosakote,12/12/2018,35984,G LPS BELLI KERE,4590,Muthsandra,Govinda Raju,Sharanabasava,Male,0,0,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,5
+5,Bengaluru rural,Hosakote,12/12/2018,35984,G LPS BELLI KERE,4590,Muthsandra,Govinda Raju,Spoorthi T,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Hosakote,12/12/2018,35981,G LPS AJJAGONDANAHALLI,4590,Muthsandra,Govinda Raju,Rajkumar,Male,0,1,1,0,1,1,0,1,1,1,0,0,1,0,1,1,1,1,1,1,14
+5,Bengaluru rural,Hosakote,12/12/2018,35981,G LPS AJJAGONDANAHALLI,4590,Muthsandra,Govinda Raju,Hemanth V,Male,1,1,1,0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,0,0,8
+5,Bengaluru rural,Hosakote,12/12/2018,35981,G LPS AJJAGONDANAHALLI,4590,Muthsandra,Govinda Raju,Bhagya,Female,1,1,1,1,1,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,8
+5,Bengaluru rural,Hosakote,12/12/2018,35982,G LPS KOTTURU,4590,Muthsandra,Govinda Raju,Surendra Babu,Male,1,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,1,15
+5,Bengaluru rural,Hosakote,12/12/2018,35982,G LPS KOTTURU,4590,Muthsandra,Govinda Raju,Pavan Kumar,Male,1,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,0,15
+5,Bengaluru rural,Hosakote,12/12/2018,35982,G LPS KOTTURU,4590,Muthsandra,Govinda Raju,Aruna,Female,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,1,0,0,4
+5,Bengaluru rural,Hosakote,12/12/2018,35982,G LPS KOTTURU,4590,Muthsandra,Govinda Raju,Venugopal V,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Hosakote,12/12/2018,35979,G LPS NAGANAYAKANA KOTE,4590,Muthsandra,Govinda Raju,Mamatha M,Female,1,1,1,1,0,0,0,1,1,1,0,1,1,1,0,1,1,0,0,1,13
+5,Bengaluru rural,Hosakote,12/12/2018,35979,G LPS NAGANAYAKANA KOTE,4590,Muthsandra,Govinda Raju,Bharath B,Male,1,0,1,1,0,1,0,0,0,1,0,1,1,0,1,1,0,1,0,1,11
+5,Bengaluru rural,Hosakote,12/12/2018,35980,G LPS HAROHALLI,4590,Muthsandra,Govinda Raju,Darshan,Male,1,1,0,1,1,0,1,0,0,1,0,1,1,0,1,0,0,0,1,1,11
+5,Bengaluru rural,Hosakote,12/12/2018,35980,G LPS HAROHALLI,4590,Muthsandra,Govinda Raju,H G Rachana,Female,1,1,1,0,1,0,0,1,0,1,1,1,1,0,1,0,0,1,0,0,11
+5,Bengaluru rural,Hosakote,12/12/2018,35980,G LPS HAROHALLI,4590,Muthsandra,Govinda Raju,Gowramma,Female,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,5
+5,Bengaluru rural,Hosakote,12/12/2018,35980,G LPS HAROHALLI,4590,Muthsandra,Govinda Raju,Indushree J,Female,1,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,7
+5,Bengaluru rural,Hosakote,12/12/2018,35980,G LPS HAROHALLI,4590,Muthsandra,Govinda Raju,Shobha,Female,1,0,1,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,8
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Darshan,Male,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,0,1,1,1,0,16
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Ganesh B,Male,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1,1,1,0,15
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Shivaraj D,Male,1,1,1,1,1,0,0,1,0,1,0,1,0,0,1,0,1,1,1,0,12
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Monisha S,Female,1,1,0,1,0,0,0,1,0,1,0,1,1,1,0,0,1,1,0,1,11
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Manjula,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Bhimashankar J,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Rashmi,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Soni,Female,1,0,1,0,1,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,6
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Aishwarya,Female,1,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,6
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Ashwini R,Female,0,0,1,0,1,0,0,1,1,1,0,1,0,0,1,0,0,0,0,1,8
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Nandini V,Female,1,1,1,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,1,8
+5,Bengaluru rural,Hosakote,12/12/2018,35983,G HPS MUTHASANDRA,4590,Muthsandra,Govinda Raju,Charan,Male,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,4
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Pramod P Gondabalu,Male,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,4
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Vikas S Kattimani,Male,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,1,1,16
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Mahantesh P Halli,Male,1,1,1,1,0,0,1,0,1,1,0,1,1,0,1,0,1,1,1,1,14
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Vinayaka M Binnala,Male,1,1,1,0,0,0,0,0,0,1,0,0,1,0,1,1,1,1,1,1,11
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Raghavendra Mallanaikara,Male,1,1,1,0,1,0,0,0,0,1,0,1,0,0,1,1,1,1,1,1,12
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Sagar Gundabal,Male,1,1,1,0,1,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1,13
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Kumar Honakeri,Male,1,0,0,0,1,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,5
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Siddappa Sajjanar,Male,1,0,1,0,1,0,0,0,0,1,1,0,1,0,0,0,0,1,0,0,7
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Sagar H Malaji,Male,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,1,0,0,5
+5,Dharwad,Navalgund,06/12/2018,37658,GHPS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Mallappa Tapur,Male,1,1,1,0,1,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,15
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Lakshmidevi Mayammanavar,Female,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,17
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Sumithra S Mannapur,Female,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,16
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Veena Katti,Female,1,1,1,0,1,0,0,0,1,1,0,1,1,0,1,1,1,1,1,1,14
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Sushmitha Balolli,Female,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,0,8
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Parvathi Mayammanavar,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,2
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Lakshmish Dyavannavar,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Shankramma S Yatnatte,Female,1,1,1,1,0,0,0,0,0,1,1,0,1,1,1,0,1,1,0,1,12
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Annapurna B Patil,Female,1,1,1,1,0,0,0,0,0,1,1,0,0,1,1,0,1,1,0,1,11
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Pavithra Poojar,Female,1,1,1,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,1,0,9
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Aishwarya,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Mallavva Hiremani,Female,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,3
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Chaithra Poojar,Female,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Bhimavva N Poojar,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,3
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Hiriyakka S Katti,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,5
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Bharathi,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Gayathri Yatnakatte,Female,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Ashwini S Panni,Female,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Lakshmi A Jolad,Female,0,0,1,1,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,5
+5,Gadag,Mundaragi,06/12/2018,36903,GHPGS HALLIKERI,2359,Hallikeri,Suresh Gundavala,Prema Katti,Female,1,1,1,1,1,0,0,0,1,1,0,1,1,1,0,1,1,1,1,0,14
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Vinayaka,Male,1,1,0,0,1,1,1,0,1,0,1,1,1,0,0,0,1,1,1,1,13
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Rakesh Kurubar,Male,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,17
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Manjunathaswamy,Male,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,17
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Somesh S Jogina,Male,1,1,1,0,0,0,1,0,0,0,1,1,1,0,1,0,1,1,1,0,11
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Kiran Kumar Channalli,Male,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,1,0,16
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Harsha Badivada,Male,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,1,1,1,0,14
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Mahantesh Karamudi,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,19
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Aruna,Female,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,18
+5,Gadag,Mundaragi,06/12/2018,36901,GHPS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Kiran Kumar Channalli,Male,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,1,1,1,9
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Sudeep Kammar,Male,1,1,1,1,1,1,1,0,0,1,0,0,1,1,0,1,0,1,1,1,14
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Saraswathi Asuti,Female,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,1,16
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Abhishek,Male,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,0,1,1,1,16
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Venkatesh,Male,0,0,1,1,1,1,1,0,1,1,0,1,0,1,1,0,1,1,1,1,14
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Apoorva Navali,Female,1,1,1,1,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,15
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Lakshmi Hytapur,Female,1,1,1,0,1,1,1,0,0,1,1,1,1,0,1,1,1,1,0,1,15
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Rajeshwari Magalada,Female,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,17
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Shashikala Baradur,Female,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,19
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Prema Malekoppa,Female,1,1,1,1,1,1,1,0,0,1,0,1,0,1,1,1,0,1,0,0,13
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Bhagya Aggada,Female,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,17
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Sahana Mantageri,Female,1,1,1,1,1,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,17
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Radhika,Female,0,0,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,16
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Gangavva Bavimani,Female,1,0,1,1,1,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,8
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Chandrika,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,3
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Sneha,Female,0,1,1,1,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,8
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Rathna Hosamani,Female,1,1,1,1,1,0,1,0,0,0,0,1,0,1,1,0,0,0,0,0,9
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Chandrika Bavimani,Female,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,18
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Ashok,Male,1,1,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,1,11
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Anand,Male,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,18
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Arun Kumar,Male,1,1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,16
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Raja,Male,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,17
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Sachin,Male,1,1,0,0,0,0,0,1,0,0,0,1,0,1,1,1,0,1,0,1,9
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Arun Kumar,Male,1,1,1,0,0,0,1,0,0,1,0,0,1,1,1,1,0,1,1,1,12
+5,Gadag,Mundaragi,06/12/2018,36902,GHPS VENKATAPUR,2359,Hallikeri,Suresh Gundavala,Kiran Kumar,Male,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,18
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Manjula Benkal,Female,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,1,0,16
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Sanjana,Female,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,19
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Sindhu,Female,1,1,1,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,12
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Vijayalakshmi,Female,1,1,1,1,1,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0,9
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Basamma Kampli,Female,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,19
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Soundarya,Female,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,18
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Ranjitha,Female,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,17
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Nethra Channalli,Female,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,18
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Sunitha,Female,1,1,0,1,1,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,7
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Tejaswini Mudlapur,Female,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,19
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Yasodha,Female,1,1,1,1,0,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,16
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Sushma,Female,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,17
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Udachamma,Female,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,8
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Geetha,Female,1,1,1,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,15
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Manjula Benkal,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Jayalakshmi,Female,1,1,1,1,1,0,1,0,0,1,1,1,1,0,1,0,1,0,1,1,14
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Basavaraj,Male,1,1,1,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,16
+5,Gadag,Mundaragi,06/12/2018,36906,GLPKGS HALLIGUDI,2359,Hallikeri,Suresh Gundavala,Mariyappa,Male,1,1,1,0,1,0,0,0,0,0,1,1,1,0,0,0,1,0,0,0,8
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Chandana Marigowqdra,Female,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,19
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Savitha Sangannavar,Female,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,4
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Priyanka Birannavar,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Husensab D Nadaf,Male,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,4
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Mallikarjuna,Male,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Madan R Harijan,Male,1,0,1,1,1,0,1,0,0,1,0,0,0,0,0,0,0,1,1,1,9
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Abhishek Hanakanahalli,Male,0,0,1,1,1,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,7
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Chidanandaiah,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Mahesh Bogur,Male,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,1,0,6
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Radha S Nalavadi,Female,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Muthu Sangannavar,Male,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Saniya Samshi,Female,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Rajeshwari Badigera,Female,1,0,0,0,1,1,0,1,0,0,1,0,1,1,0,0,0,0,0,1,8
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Mahaboobi,Male,1,0,1,1,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,7
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Aruna C Sangannavar,Female,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Radhika M Kanavi,Female,0,0,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Basavaraj C Sangannavar,Male,1,0,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,8
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Shivaraj Atada,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+5,Dharwad,Hubli,20/12/2018,47503,GHPS AGADI,532,Agadi,Ninganagowda Halemani,Parveen Samshi,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Akshatha Mathapati,Female,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,4
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Khasimsab Nadaf,Male,1,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,7
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Basamma Kanavi,Female,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Prashanth Hoogar,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Meghana M Byahatti,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Shivani,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Aishwarya Mathapati,Female,1,0,1,0,1,1,0,0,0,1,0,0,1,0,0,0,0,1,0,1,8
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Sridevi Chopade,Female,1,0,1,0,1,1,1,1,0,0,0,1,0,0,1,0,1,0,1,1,11
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Rajamma,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Aishwarya Barjanavar,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Fakirappa Byahatti,Male,0,0,1,1,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,5
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Shabina Nadaf,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Santosh Ranoji,Male,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,1,5
+5,Dharwad,Hubli,20/12/2018,47504,GLPS AGADI,532,Agadi,Ninganagowda Halemani,Vinod Kunkur,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Sudeep Kumar Omkari,Male,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1,0,1,1,1,1,15
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Yallamma Hadapada,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Malashree Tadasava,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Sridhargowda B,Male,1,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,4
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Manikanta Nayak,Male,1,0,1,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1,0,7
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Yallappagowda Patil,Male,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Abhishek Solaragoppa,Male,1,1,1,1,1,0,0,0,0,1,0,0,1,1,0,0,0,1,1,0,10
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Basavaraj Solaragoppa,Male,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Ranjitha B Kumbar,Female,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,5
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Muthavva Hadapada,Female,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Prajwal Kuradikeri,Male,1,1,1,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,6
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Renuka Madara,Female,1,1,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,6
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Bhuvaneshwari Kamanahalli,Female,1,0,1,0,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,0,7
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Kiran Solaragoppa,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Ganesh B Kashibai,Male,0,0,1,1,0,0,0,1,0,1,1,1,0,1,1,1,1,1,1,1,13
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Soundarya Belligatte,Female,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Swathi Madara,Female,0,0,1,1,1,1,1,0,0,1,0,1,1,1,1,0,0,0,0,0,10
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Jyothi Solaragoppa,Female,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Nithyananda Hiremat,Male,0,0,1,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,5
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Papakareddy Kunnur,Male,1,1,1,1,0,0,0,0,0,1,0,1,1,1,0,0,0,0,1,1,10
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Mehak M Sannakki,Male,0,0,1,0,1,1,0,1,0,1,1,0,0,1,1,0,1,1,1,0,11
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Sanganagowda Patil,Male,1,0,1,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,7
+5,Dharwad,Hubli,20/12/2018,35169,GHPS TIRUMALAKOPPA,532,Agadi,Ninganagowda Halemani,Manjugowda Mududi,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Nagaraj Doddakatti,Male,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,18
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Pruthviraj Chintappanavar,Male,1,0,1,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,16
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Parvathi Doddakatti,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,0,16
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Prakash R Nooli,Male,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,0,1,1,16
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Anushree C Doddakatti,Female,1,0,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,5
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Rafiq B Samshi,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Madhumathi M Hudeda,Female,1,0,1,1,1,0,1,0,0,1,0,0,1,1,0,1,1,1,1,0,12
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Arathi H Badigera,Female,0,0,1,0,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,7
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Vinay,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Punith Patil,Male,0,0,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,0,1,0,12
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Geetha A Doddakatti,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,20/12/2018,35157,GHPS PALIKOPPA,532,Agadi,Ninganagowda Halemani,Veeresh Hirenigappanavar,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Hosakote,11/12/2018,35886,G HPS KAMBALIPURA,3320,Kambalipura,Jayamma,Jyothi V,Female,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,18
+5,Bengaluru rural,Hosakote,11/12/2018,35886,G HPS KAMBALIPURA,3320,Kambalipura,Jayamma,Sahana K M,Female,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,1,16
+5,Bengaluru rural,Hosakote,11/12/2018,35886,G HPS KAMBALIPURA,3320,Kambalipura,Jayamma,Charan K M,Male,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,16
+5,Bengaluru rural,Hosakote,11/12/2018,35886,G HPS KAMBALIPURA,3320,Kambalipura,Jayamma,Yashwini K P,Female,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,0,1,1,0,15
+5,Bengaluru rural,Hosakote,11/12/2018,35886,G HPS KAMBALIPURA,3320,Kambalipura,Jayamma,Chethan,Male,1,0,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,1,0,14
+5,Bengaluru rural,Hosakote,11/12/2018,35886,G HPS KAMBALIPURA,3320,Kambalipura,Jayamma,Lekha,Female,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,0,0,1,1,14
+5,Bengaluru rural,Hosakote,11/12/2018,35886,G HPS KAMBALIPURA,3320,Kambalipura,Jayamma,Harshitha,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+5,Bengaluru rural,Hosakote,11/12/2018,35888,G HPS E. MUTHASANDRA,3320,Kambalipura,Jayamma,Runskar,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+5,Bengaluru rural,Hosakote,11/12/2018,35888,G HPS E. MUTHASANDRA,3320,Kambalipura,Jayamma,Nithyashree,Female,1,1,1,0,0,1,1,0,0,1,0,1,1,1,0,0,0,1,1,1,12
+5,Bengaluru rural,Hosakote,11/12/2018,35888,G HPS E. MUTHASANDRA,3320,Kambalipura,Jayamma,Varshini,Female,1,0,1,0,0,0,0,1,0,1,0,0,1,1,1,1,1,1,1,0,11
+5,Bengaluru rural,Hosakote,11/12/2018,35888,G HPS E. MUTHASANDRA,3320,Kambalipura,Jayamma,Disha M,Female,1,1,1,1,0,0,0,1,0,1,1,1,0,1,1,0,0,0,0,0,10
+5,Bengaluru rural,Hosakote,11/12/2018,35888,G HPS E. MUTHASANDRA,3320,Kambalipura,Jayamma,Sanjay,Male,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,3
+5,Bengaluru rural,Hosakote,11/12/2018,35888,G HPS E. MUTHASANDRA,3320,Kambalipura,Jayamma,Vimal R,Male,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,4
+5,Bengaluru rural,Hosakote,11/12/2018,35888,G HPS E. MUTHASANDRA,3320,Kambalipura,Jayamma,Harika G K,Female,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,5
+5,Bengaluru rural,Hosakote,11/12/2018,35888,G HPS E. MUTHASANDRA,3320,Kambalipura,Jayamma,Manasa,Female,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,11/12/2018,35891,G HPS BEGURU,3320,Kambalipura,Jayamma,Girish,Male,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,1,1,0,1,14
+5,Bengaluru rural,Hosakote,11/12/2018,35891,G HPS BEGURU,3320,Kambalipura,Jayamma,Deepa,Female,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,1,0,1,0,1,10
+5,Bengaluru rural,Hosakote,11/12/2018,35891,G HPS BEGURU,3320,Kambalipura,Jayamma,Prem Kumar,Male,1,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,8
+5,Bengaluru rural,Hosakote,11/12/2018,35891,G HPS BEGURU,3320,Kambalipura,Jayamma,Sashankgowda H,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,11/12/2018,35891,G HPS BEGURU,3320,Kambalipura,Jayamma,Harshitha,Female,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,11/12/2018,35891,G HPS BEGURU,3320,Kambalipura,Jayamma,Vishal,Male,1,1,1,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,7
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Amulya S M,Female,1,1,1,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,7
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Varungowda,Male,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,5
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Aishwarya,Female,0,0,1,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,5
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Bhavani S N,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,3
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Akshaygowda,Male,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Chethan,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Bhavya,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Vasanthgowda,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Hosakote,11/12/2018,35885,G HPS M.SATHYAVARA,3320,Kambalipura,Jayamma,Madangowda S P,Male,1,0,1,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,1,0,7
+5,Bengaluru rural,Hosakote,11/12/2018,36188,G LPS MOTHAKADAHALLI,3320,Kambalipura,Jayamma,Nikhil N,Male,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,18
+5,Bengaluru rural,Hosakote,11/12/2018,36188,G LPS MOTHAKADAHALLI,3320,Kambalipura,Jayamma,Monish M,Male,1,1,1,1,1,0,0,0,0,1,1,0,1,1,1,1,0,0,0,0,11
+5,Bengaluru rural,Hosakote,11/12/2018,35893,G LPS BAGALURU,3320,Kambalipura,Jayamma,Sinchana S,Female,1,1,1,0,1,1,1,0,0,1,1,1,0,0,1,1,1,1,0,1,14
+5,Bengaluru rural,Hosakote,11/12/2018,35893,G LPS BAGALURU,3320,Kambalipura,Jayamma,Subhashree,Female,1,1,1,1,1,0,0,1,0,1,1,0,1,0,1,1,0,0,0,0,11
+5,Bengaluru rural,Hosakote,11/12/2018,35893,G LPS BAGALURU,3320,Kambalipura,Jayamma,Punith C,Male,1,1,1,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,8
+5,Bengaluru rural,Hosakote,11/12/2018,35894,G LPS BHEEMAKANAHALLI,3320,Kambalipura,Jayamma,Arjun B N,Male,1,1,1,1,1,1,1,1,0,1,0,0,1,1,1,0,1,1,1,0,15
+5,Bengaluru rural,Hosakote,11/12/2018,35894,G LPS BHEEMAKANAHALLI,3320,Kambalipura,Jayamma,Mahammed Shaif,Male,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,0,0,15
+5,Bengaluru rural,Hosakote,11/12/2018,35894,G LPS BHEEMAKANAHALLI,3320,Kambalipura,Jayamma,Ashwath B M,Male,1,0,1,0,1,1,1,1,0,1,0,1,1,1,0,0,1,1,1,0,13
+5,Bengaluru rural,Hosakote,11/12/2018,35894,G LPS BHEEMAKANAHALLI,3320,Kambalipura,Jayamma,Akshay B S,Male,1,0,1,0,1,1,0,0,0,1,1,1,1,0,0,1,0,0,1,0,10
+5,Bengaluru rural,Hosakote,11/12/2018,35894,G LPS BHEEMAKANAHALLI,3320,Kambalipura,Jayamma,Nayana B S,Female,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,1,1,1,0,0,7
+5,Bengaluru rural,Hosakote,11/12/2018,35894,G LPS BHEEMAKANAHALLI,3320,Kambalipura,Jayamma,Chandan,Male,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,5
+5,Bengaluru rural,Hosakote,11/12/2018,35894,G LPS BHEEMAKANAHALLI,3320,Kambalipura,Jayamma,Bhavani B M,Female,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,5
+5,Bengaluru rural,Hosakote,11/12/2018,35889,G LPS CHIKKA KOLIGA,3320,Kambalipura,Jayamma,Bindu,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,19
+5,Bengaluru rural,Hosakote,11/12/2018,35889,G LPS CHIKKA KOLIGA,3320,Kambalipura,Jayamma,Madhushree,Female,1,1,1,1,0,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,16
+5,Bengaluru rural,Hosakote,11/12/2018,35889,G LPS CHIKKA KOLIGA,3320,Kambalipura,Jayamma,Bhirappa Poojari,Male,1,1,0,0,0,1,1,1,0,1,1,1,1,0,0,0,1,1,1,1,13
+5,Bengaluru rural,Hosakote,11/12/2018,35889,G LPS CHIKKA KOLIGA,3320,Kambalipura,Jayamma,Shaila Su Kengara,Female,1,0,1,1,1,1,0,0,1,1,0,0,0,0,0,1,0,0,0,0,8
+5,Bengaluru rural,Hosakote,11/12/2018,35889,G LPS CHIKKA KOLIGA,3320,Kambalipura,Jayamma,Muthappa Ma Kanbali,Male,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,6
+5,Bengaluru rural,Hosakote,11/12/2018,35889,G LPS CHIKKA KOLIGA,3320,Kambalipura,Jayamma,Muthappa,Male,0,0,1,0,0,0,0,0,0,1,0,1,0,0,1,0,0,1,0,0,5
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Gokul Reddy,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Kiran D M,Male,1,1,1,1,0,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,16
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Lakshmi S,Female,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,0,15
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Rachana,Female,1,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,0,15
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Kavanashree,Female,1,0,0,0,1,1,1,1,0,1,0,1,1,1,1,0,1,1,0,0,12
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Sheshathri,Male,0,1,1,1,0,0,0,1,0,1,1,1,1,0,1,0,0,1,0,1,11
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Reshma Begum,Female,1,1,1,0,0,0,1,1,0,1,1,0,0,0,1,0,0,1,0,1,10
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Panchami,Female,0,0,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,6
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Rahul D V,Male,1,1,1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,9
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Sandeep,Male,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Shanbana Begum,Female,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Nalinesh,Male,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,10/12/2018,35994,G HPS DEVANAGUNDI,1778,Devanagundi,M Swarna,Shashishakara S,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Aishwarya,Female,1,1,0,1,1,0,1,1,1,1,1,1,0,0,1,0,1,1,1,1,15
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Gaganashree,Female,1,1,1,0,1,1,0,1,1,1,1,1,1,1,0,1,1,0,1,0,15
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Hemarani N,Female,1,1,1,0,1,1,0,1,0,1,1,0,1,1,0,1,1,1,0,1,14
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Karthik,Male,1,1,1,1,0,1,0,0,0,1,1,1,0,0,1,1,1,1,1,0,13
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Darshan,Male,1,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0,1,0,1,1,12
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Gurumurthy,Male,1,1,1,1,1,1,0,0,0,1,0,0,1,1,0,1,1,0,1,0,12
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Kishan,Male,1,1,1,1,0,1,1,0,0,1,1,1,1,0,0,1,0,1,0,0,12
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Anjana,Female,1,1,1,0,0,0,1,1,0,1,0,1,0,0,0,0,1,1,1,0,10
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Pruthvi,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Roja,Female,1,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,6
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Murali,Male,1,1,0,0,0,1,1,0,0,0,0,0,1,1,0,1,0,0,1,0,8
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Pavan,Male,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,1,1,0,1,9
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Sangeetha,Female,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Kaveri,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Mounika S,Female,1,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,6
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Ramya H M,Female,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Manya,Female,1,1,0,1,0,0,0,0,0,1,0,1,1,1,1,0,0,0,1,0,9
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Chandan S,Male,1,1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,1,1,1,0,8
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Anush,Male,1,0,1,0,0,0,0,0,0,1,0,0,1,1,1,0,1,1,1,0,9
+5,Bengaluru rural,Hosakote,10/12/2018,35986,G HPS DODDA DUNNASANDRA,1778,Devanagundi,M Swarna,Shivakumar,Male,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,10/12/2018,35991,G HPS D. HOSAHALLI,1778,Devanagundi,M Swarna,Chaithra,Female,1,1,1,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,1,0,8
+5,Bengaluru rural,Hosakote,10/12/2018,35991,G HPS D. HOSAHALLI,1778,Devanagundi,M Swarna,Thrisha,Female,1,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,1,6
+5,Bengaluru rural,Hosakote,10/12/2018,35991,G HPS D. HOSAHALLI,1778,Devanagundi,M Swarna,Meghana,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,10/12/2018,35991,G HPS D. HOSAHALLI,1778,Devanagundi,M Swarna,Suraj,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Chandan K R,Male,1,1,1,1,1,1,0,0,0,1,0,1,0,0,0,0,1,1,1,0,11
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Akash J S,Male,1,0,1,0,1,0,0,0,0,1,1,1,0,0,1,1,0,1,1,1,11
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Indushree,Female,1,1,1,1,1,0,0,0,1,1,0,1,1,0,0,0,0,0,1,0,10
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Aruna L,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Arjun K B,Male,1,0,1,0,0,1,0,0,0,0,1,1,1,0,1,0,0,1,1,0,9
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Bhavani,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Naresh,Male,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Sameer,Female,1,0,1,1,0,0,0,0,1,0,0,0,0,1,1,0,0,0,1,1,8
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Varsha C,Male,1,1,1,0,1,0,1,0,0,1,0,1,0,0,0,0,0,0,1,0,8
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Gnyana Kumar,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Gagan C,Male,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,6
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Bhanupriya,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Rohan S,Male,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,5
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Preethi B,Female,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,4
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Praveenkumar,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Bharath D N,Male,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,4
+5,Bengaluru rural,Hosakote,10/12/2018,35987,G LPS DEVALAPURA,1778,Devanagundi,M Swarna,Kavya P,Female,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Hosakote,10/12/2018,36000,G LPS HANDENAHALLI,1778,Devanagundi,M Swarna,Thanushree K,Female,1,1,1,1,1,0,0,0,1,1,0,1,1,1,0,1,1,1,1,0,14
+5,Bengaluru rural,Hosakote,10/12/2018,36000,G LPS HANDENAHALLI,1778,Devanagundi,M Swarna,Akshay Kumar,Male,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1,1,1,0,16
+5,Bengaluru rural,Hosakote,10/12/2018,36000,G LPS HANDENAHALLI,1778,Devanagundi,M Swarna,Nijamuddin,Male,1,1,1,0,1,0,1,0,0,0,0,0,1,1,0,0,0,1,1,1,10
+5,Bengaluru rural,Hosakote,10/12/2018,36000,G LPS HANDENAHALLI,1778,Devanagundi,M Swarna,Diganth H D,Male,1,1,0,1,0,0,1,0,0,1,0,1,0,0,1,0,1,1,1,0,10
+5,Bengaluru rural,Hosakote,10/12/2018,36000,G LPS HANDENAHALLI,1778,Devanagundi,M Swarna,Sinchana H J,Female,1,0,1,1,1,0,0,1,0,1,0,1,1,0,1,0,0,0,0,0,9
+5,Bengaluru rural,Hosakote,10/12/2018,36000,G LPS HANDENAHALLI,1778,Devanagundi,M Swarna,Santosh R,Male,1,1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,1,0,6
+5,Bengaluru rural,Hosakote,10/12/2018,36000,G LPS HANDENAHALLI,1778,Devanagundi,M Swarna,Shilpa H P,Female,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,4
+5,Bengaluru rural,Hosakote,10/12/2018,36000,G LPS HANDENAHALLI,1778,Devanagundi,M Swarna,Tharuna,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Hosakote,10/12/2018,35990,G LPS D.MEDAHALLI,1778,Devanagundi,M Swarna,Mahesh M S,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+5,Bengaluru rural,Hosakote,10/12/2018,35990,G LPS D.MEDAHALLI,1778,Devanagundi,M Swarna,Kiran Kumar,Male,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,0,0,1,0,14
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Chaithra S,Female,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,19
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Ajay,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Prathap Gowda,Male,1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,1,0,7
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Geetha K L,Female,1,1,1,0,0,0,1,0,1,1,0,1,0,0,1,0,0,1,1,1,11
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Santoshikumari,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Amalesh,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Banu Sagar,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Ravikumar Kharavara,Male,1,1,1,0,0,0,0,0,1,1,1,0,0,1,0,0,0,1,1,0,9
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Chandrakala C N,Female,1,1,1,0,0,0,1,0,0,1,0,1,1,1,0,0,1,0,1,1,11
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Khushi N,Female,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,1,1,1,10
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Gurukumar,Male,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,3
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Lins Raj,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Nagaraj,Male,1,0,1,1,0,1,1,0,0,1,1,1,1,0,1,0,0,0,0,1,11
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Deepak,Male,1,0,1,1,0,0,0,0,0,1,0,1,1,0,1,0,0,1,1,0,9
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Binith Roy,Male,1,0,1,1,0,0,0,0,0,1,1,0,1,0,0,0,1,0,1,0,8
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Meghana,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Mounesh M,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,6
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Likhitha,Female,1,1,1,1,1,1,0,1,0,1,1,1,1,0,1,0,1,1,1,1,16
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Shahid,Male,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Sanni Kumar,Male,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,4
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Kajwal Kumari,Female,1,0,1,1,0,1,0,1,0,1,0,0,1,0,0,0,0,0,0,1,8
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Chiranjeevi,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Yashwantha Chari P A,Male,0,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,1,1,1,1,8
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Sagar,Male,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Srikere,Male,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Yusuf Ansari,Male,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1,0,0,1,1,1,15
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Swapna,Female,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,17
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Mamatha M,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Yogeshwari,Female,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Subramanya,Male,1,1,1,0,0,0,0,1,0,1,1,1,1,0,0,0,0,1,0,1,10
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Poorvika,Female,0,0,1,0,1,0,0,1,0,1,0,0,1,0,0,1,1,1,1,1,10
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Prashanth M,Male,1,0,1,1,0,0,0,1,0,1,0,0,0,0,1,0,0,1,0,1,8
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Arun H,Male,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,4
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Jyothi,Female,1,1,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Pratiksha N,Female,1,0,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Tanusha B M,Male,1,1,1,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,1,0,7
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Amrutha R,Female,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,1,1,1,7
+5,Bengaluru rural,Doddaballapura,22/12/2018,42725,G HPS BHASHETTIHALLI,1091,Bashettihalli,Narayanamma,Bharath,Male,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Doddaballapura,22/12/2018,42717,G LPS MOPARAHALLI,1091,Bashettihalli,Narayanamma,Deekshitha R,Female,1,1,1,0,0,1,0,0,0,1,0,1,0,0,0,1,1,1,1,1,11
+5,Bengaluru rural,Doddaballapura,22/12/2018,42717,G LPS MOPARAHALLI,1091,Bashettihalli,Narayanamma,Chandan M S,Male,1,0,0,1,1,1,1,1,0,0,1,0,1,0,0,1,0,0,1,1,11
+5,Bengaluru rural,Doddaballapura,22/12/2018,42728,G LPS OBADENAHALLI,1091,Bashettihalli,Narayanamma,Nalina M,Female,1,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42728,G LPS OBADENAHALLI,1091,Bashettihalli,Narayanamma,Vannur Basha,Male,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42728,G LPS OBADENAHALLI,1091,Bashettihalli,Narayanamma,Shri Latha,Female,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42728,G LPS OBADENAHALLI,1091,Bashettihalli,Narayanamma,Archita,Female,1,1,1,1,0,0,1,0,0,1,0,0,1,0,1,1,0,1,1,1,12
+5,Bengaluru rural,Doddaballapura,22/12/2018,42728,G LPS OBADENAHALLI,1091,Bashettihalli,Narayanamma,Rakshitha,Female,0,0,1,1,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,6
+5,Bengaluru rural,Doddaballapura,22/12/2018,42718,G LPS RAGHUNATHAPURA,1091,Bashettihalli,Narayanamma,Chethan Kumar,Male,0,0,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,1,1,6
+5,Bengaluru rural,Doddaballapura,22/12/2018,42718,G LPS RAGHUNATHAPURA,1091,Bashettihalli,Narayanamma,Yashwanth S R,Male,1,1,1,1,1,0,0,1,0,1,0,1,1,0,0,0,1,1,1,0,12
+5,Bengaluru rural,Doddaballapura,22/12/2018,42718,G LPS RAGHUNATHAPURA,1091,Bashettihalli,Narayanamma,Mithun Kumar R,Male,1,1,1,1,1,0,1,0,0,0,0,1,1,1,1,0,0,1,1,0,12
+5,Bengaluru rural,Doddaballapura,22/12/2018,42718,G LPS RAGHUNATHAPURA,1091,Bashettihalli,Narayanamma,Pooja R G,Female,1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,14
+5,Bengaluru rural,Doddaballapura,22/12/2018,42718,G LPS RAGHUNATHAPURA,1091,Bashettihalli,Narayanamma,Mohan Gouda B,Male,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42721,G LPS BISUVANAHALLI,1091,Bashettihalli,Narayanamma,Rajini,Female,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,2
+5,Bengaluru rural,Doddaballapura,22/12/2018,42721,G LPS BISUVANAHALLI,1091,Bashettihalli,Narayanamma,Madhushree M,Female,1,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,1,6
+5,Bengaluru rural,Doddaballapura,22/12/2018,42721,G LPS BISUVANAHALLI,1091,Bashettihalli,Narayanamma,Bindu M,Female,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,4
+5,Bengaluru rural,Doddaballapura,22/12/2018,42721,G LPS BISUVANAHALLI,1091,Bashettihalli,Narayanamma,Srilakshmi,Female,1,1,1,0,0,0,1,1,0,1,1,0,1,0,1,0,0,1,1,1,12
+5,Bengaluru rural,Doddaballapura,22/12/2018,42721,G LPS BISUVANAHALLI,1091,Bashettihalli,Narayanamma,Brunda B S,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,3
+5,Bengaluru rural,Doddaballapura,22/12/2018,42723,G HPS ELLUPURA,1091,Bashettihalli,Narayanamma,Hema V,Female,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,19
+5,Bengaluru rural,Doddaballapura,22/12/2018,42723,G HPS ELLUPURA,1091,Bashettihalli,Narayanamma,Ajith M H,Male,1,1,1,1,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0,1,10
+5,Bengaluru rural,Doddaballapura,22/12/2018,42723,G HPS ELLUPURA,1091,Bashettihalli,Narayanamma,Bhanu G,Female,1,1,1,1,1,0,0,1,0,1,1,1,1,0,0,0,1,1,1,1,14
+5,Bengaluru rural,Doddaballapura,22/12/2018,42723,G HPS ELLUPURA,1091,Bashettihalli,Narayanamma,Madhuyadav,Male,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,17
+5,Bengaluru rural,Doddaballapura,22/12/2018,42726,G HPS VARADANAHALLI,1091,Bashettihalli,Narayanamma,Adarsh B,Male,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,18
+5,Bengaluru rural,Doddaballapura,22/12/2018,42726,G HPS VARADANAHALLI,1091,Bashettihalli,Narayanamma,Bhoomika A,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Doddaballapura,22/12/2018,42726,G HPS VARADANAHALLI,1091,Bashettihalli,Narayanamma,Jeevan,Male,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,19
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Balaraj,Male,1,1,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,1,8
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Chethana S,Female,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Srushti,Female,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Akash V,Male,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,5
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Kusuma L,Female,1,1,1,0,0,0,0,1,0,1,1,1,1,0,1,0,1,1,1,1,13
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Nayana,Female,1,1,1,1,1,0,0,1,0,1,1,0,0,1,1,0,1,1,1,1,14
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Gayathri J,Female,0,1,1,1,0,0,1,1,0,1,1,0,0,1,0,1,1,1,1,1,13
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Sujatha,Female,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Gowtham R,Male,1,1,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,1,8
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Chethana,Female,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Ashok,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Doddaballapura,22/12/2018,42727,G HPS AREHALLIGUDDADAHALLI,1091,Bashettihalli,Narayanamma,Harsha M,Male,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,5
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Ranjitha,Female,1,0,1,1,0,0,1,0,1,0,0,0,1,0,1,0,1,1,1,1,11
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Vijaya,Female,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,6
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Mounesh,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,3
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Yallappa,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Suneela,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Sujatha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Renuka,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Ronavva,Female,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,3
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Honnakeri,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Chaithra,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Pavithra,Female,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,1,1,0,1,6
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Veeresha,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Rajesh,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Shankramma Prahoogara,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Prajwal,Male,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,4
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Yallappa,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Basavaraj,Male,0,0,1,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,6
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Sangeetha,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Dharmanna,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Prashanth,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Sangeetha,Female,0,0,1,1,0,1,0,0,1,0,0,1,1,0,0,0,0,1,1,0,8
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Bhoomika,Female,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Nagaraj,Male,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1,4
+5,Koppal,Yelburga,19/12/2018,20439,GOVT HIGHER PRIMARY SCHOOL SHIRAGUMPI,6278,Sankanur,Murtuja,Vijayalakshmi,Female,1,1,1,0,0,1,0,0,0,0,0,1,1,1,0,0,0,1,0,0,8
+5,Koppal,Yelburga,19/12/2018,20437,GOVT HIGHER PRIMARY SCHOOL SANKANUR,6278,Sankanur,Murtuja,Preethi,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,17
+5,Koppal,Yelburga,19/12/2018,20437,GOVT HIGHER PRIMARY SCHOOL SANKANUR,6278,Sankanur,Murtuja,Apsana,Female,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,19/12/2018,20437,GOVT HIGHER PRIMARY SCHOOL SANKANUR,6278,Sankanur,Murtuja,Najma Begum,Female,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+5,Koppal,Yelburga,19/12/2018,20437,GOVT HIGHER PRIMARY SCHOOL SANKANUR,6278,Sankanur,Murtuja,Bhagyashree,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,19/12/2018,20437,GOVT HIGHER PRIMARY SCHOOL SANKANUR,6278,Sankanur,Murtuja,Vishva C,Male,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Koppal,Yelburga,19/12/2018,20437,GOVT HIGHER PRIMARY SCHOOL SANKANUR,6278,Sankanur,Murtuja,Meenja,Female,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Vitala,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Prajwal V,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Ganesh Tuppada,Male,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,16
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Sangeetha,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Mumtaj Bee,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Shamida Begum,Female,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Kalakappa,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Mahammad Shahid,Male,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,6
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Eramma,Female,1,0,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,7
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Basavaraj,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Shivaraja,Male,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Vijayalakshmi,Female,1,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,5
+5,Koppal,Yelburga,19/12/2018,20433,GOVT LOWER PRIMARY SCHOOL KATRAHAL,6278,Sankanur,Murtuja,Bhimavva,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Rajkumar S,Male,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,1,1,1,17
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Naresh,Male,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,1,1,16
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Sanjana,Female,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,1,1,1,0,13
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Mahek N,Male,1,1,1,1,1,0,1,0,1,1,0,0,1,1,1,0,0,1,1,0,13
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Mahek S,Male,1,1,1,1,1,0,0,1,0,1,0,0,1,1,1,0,1,1,0,1,13
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Mrityunjaya,Male,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,4
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Karthik,Male,1,0,1,1,1,1,0,1,0,1,0,1,1,1,0,0,0,0,1,1,12
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Tasina,Male,1,1,1,1,1,0,0,0,1,1,0,0,1,1,1,0,0,1,1,0,12
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Indra,Female,1,1,1,1,0,1,0,0,0,1,1,1,0,0,1,0,1,0,1,1,12
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Anil Kumar,Male,1,0,1,1,1,0,1,0,1,0,0,0,1,0,0,1,0,1,1,1,11
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Jyothi,Female,1,0,1,1,1,1,0,0,0,1,1,1,0,0,0,0,0,1,1,1,11
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Priyanka,Female,1,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,0,11
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Jagadish,Male,1,0,1,1,0,0,0,0,1,0,0,0,0,1,1,0,0,1,1,1,9
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Suhana,Female,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,7
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Mahek A,Male,1,0,1,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,1,0,7
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Divyashree,Female,0,1,1,0,0,0,0,1,0,1,0,0,1,0,1,0,0,1,0,0,7
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Yogesh,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,6
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Bhuvaneshwari,Female,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,5
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Srushti,Female,0,1,1,1,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,7
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Umyu Kulu Kulusumu,Female,0,0,1,1,1,0,0,0,0,1,0,0,1,0,1,0,0,0,1,0,7
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Sylendra,Male,1,1,1,1,1,0,0,1,1,1,0,1,1,0,1,1,1,1,1,1,16
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Vamshi,Male,1,1,1,0,0,1,1,1,0,1,0,1,0,0,0,0,1,0,1,1,11
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Roshan Baig,Male,1,0,1,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,5
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Kiran R,Male,1,0,1,0,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,11
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Yashas B,Male,1,1,0,1,1,0,1,0,0,0,1,1,1,0,1,0,1,0,1,1,12
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Shbha Sutan,Male,1,1,1,1,1,1,0,1,0,1,0,0,0,0,1,0,1,1,0,1,12
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Tamana Bano,Female,1,1,1,0,0,0,0,0,0,1,0,1,1,0,1,0,1,1,1,1,11
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Zaid Pasha,Male,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,4
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Pavan Kumar,Male,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,5
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Shravan Kumar,Male,1,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,5
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Shalina,Female,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,4
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Pallavi,Female,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,4
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Salma,Female,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,3
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Sadiya Hesar,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Lekhana,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,3
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Rizwan Khan,Male,1,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,4
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Manjegowda,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Sadiya Khan,Female,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Lakshmi,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Kariyamma,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Sudeep K,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Amin,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Myzamil,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Dhanush,Male,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Praveen,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Umme Hapsa,Female,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Bengaluru rural,Nelamangala,21/12/2018,43077,G HPS BASAVANAHALLI,1084,Basavanahalli,Manjula,Chethan,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,4
+5,Bengaluru rural,Nelamangala,21/12/2018,43078,G LPS LOHITH NAGARA,1084,Basavanahalli,Manjula,Saheel,Male,1,1,1,0,1,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,9
+5,Bengaluru rural,Nelamangala,21/12/2018,43078,G LPS LOHITH NAGARA,1084,Basavanahalli,Manjula,H Rani,Female,1,1,0,0,0,1,0,0,1,0,0,1,1,1,1,0,0,0,1,0,9
+5,Bengaluru rural,Nelamangala,21/12/2018,43078,G LPS LOHITH NAGARA,1084,Basavanahalli,Manjula,Mahammed Afnan,Male,1,1,1,0,1,1,0,0,1,1,0,1,1,1,0,0,0,0,1,0,11
+5,Bengaluru rural,Nelamangala,21/12/2018,43078,G LPS LOHITH NAGARA,1084,Basavanahalli,Manjula,Suhel,Male,1,1,1,0,1,1,0,1,0,1,0,1,1,1,0,1,0,0,1,0,12
+5,Bengaluru rural,Nelamangala,21/12/2018,43078,G LPS LOHITH NAGARA,1084,Basavanahalli,Manjula,Dhanush,Male,1,1,1,0,1,1,0,1,0,1,0,1,1,1,0,1,0,0,1,0,12
+5,Bengaluru rural,Nelamangala,21/12/2018,43078,G LPS LOHITH NAGARA,1084,Basavanahalli,Manjula,Yashas M,Male,1,1,1,0,0,1,0,0,0,0,0,1,1,1,1,0,0,0,1,0,9
+5,Bengaluru rural,Nelamangala,21/12/2018,43078,G LPS LOHITH NAGARA,1084,Basavanahalli,Manjula,Krishna,Male,0,1,1,0,0,1,0,0,0,0,0,1,1,1,1,0,0,0,1,0,8
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Bharathi B,Female,0,0,1,1,0,0,0,1,0,1,0,1,1,1,0,0,0,0,0,0,7
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,M Bhanupriya,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Barkat,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Divya K,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Deekshitha ,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Geetha,Female,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Govindraj,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Kanaka,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,K Lakshmi,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Lokeshwari,Female,1,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,5
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,P R Lingaraju,Male,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,6
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Manjula H,Female,1,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,5
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Nethravathi E,Female,0,0,1,1,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,5
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Nethravathi R N,Female,1,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,1,6
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Nagalakshmi A S,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Nithin,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Preethi,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Rakshitha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Shivani P,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Sinchana V,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Srinivasa O,Male,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Samyag Darshan,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Tarunya K M,Male,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Usha B,Female,1,0,1,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,5
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Usha D,Female,1,1,1,1,1,1,0,0,0,0,0,1,0,1,0,0,0,1,1,1,11
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Hanumantha K,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,T Dhanusha,Male,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Ganganayak,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Chitradurga,Hiriyur,22/12/2018,12599,GOVERNAMENT HIGHER PRIMARY SCHOOL ALUR,2778,Hosa Yelanadu,Meenakshi,Nayana,Female,0,1,0,1,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,6
+5,Chitradurga,Hiriyur,22/12/2018,12602,GOVERNAMENT HIGHER PRIMARY SCHOOL HOSAYELANADU,2778,Hosa Yelanadu,Meenakshi,Singaraju K,Male,1,1,1,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,1,8
+5,Chitradurga,Hiriyur,22/12/2018,12602,GOVERNAMENT HIGHER PRIMARY SCHOOL HOSAYELANADU,2778,Hosa Yelanadu,Meenakshi,Suhana,Female,1,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,5
+5,Chitradurga,Hiriyur,22/12/2018,12602,GOVERNAMENT HIGHER PRIMARY SCHOOL HOSAYELANADU,2778,Hosa Yelanadu,Meenakshi,Sona U,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,4
+5,Chitradurga,Hiriyur,22/12/2018,12602,GOVERNAMENT HIGHER PRIMARY SCHOOL HOSAYELANADU,2778,Hosa Yelanadu,Meenakshi,Hasina Begum B R,Female,1,0,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,1,1,1,16
+5,Chitradurga,Hiriyur,22/12/2018,12602,GOVERNAMENT HIGHER PRIMARY SCHOOL HOSAYELANADU,2778,Hosa Yelanadu,Meenakshi,Aditya,Female,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,4
+5,Chitradurga,Hiriyur,22/12/2018,12602,GOVERNAMENT HIGHER PRIMARY SCHOOL HOSAYELANADU,2778,Hosa Yelanadu,Meenakshi,Nithyasree Jhina,Female,1,1,1,1,1,0,0,1,0,1,1,0,1,0,0,1,1,1,0,1,13
+5,Chitradurga,Hiriyur,22/12/2018,12602,GOVERNAMENT HIGHER PRIMARY SCHOOL HOSAYELANADU,2778,Hosa Yelanadu,Meenakshi,Sunita,Female,0,1,1,1,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,6
+5,Chitradurga,Hiriyur,22/12/2018,12603,GOVERNAMENT HIGHER PRIMARY SCHOOL HALEYALANADU,2778,Hosa Yelanadu,Meenakshi,Bhavana R,Female,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+5,Chitradurga,Hiriyur,22/12/2018,12603,GOVERNAMENT HIGHER PRIMARY SCHOOL HALEYALANADU,2778,Hosa Yelanadu,Meenakshi,Yamuna T,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Chitradurga,Hiriyur,22/12/2018,12603,GOVERNAMENT HIGHER PRIMARY SCHOOL HALEYALANADU,2778,Hosa Yelanadu,Meenakshi,Bhoomika R,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2
+5,Chitradurga,Hiriyur,22/12/2018,12603,GOVERNAMENT HIGHER PRIMARY SCHOOL HALEYALANADU,2778,Hosa Yelanadu,Meenakshi,Rakshitha R,Female,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,5
+5,Chitradurga,Hiriyur,22/12/2018,12603,GOVERNAMENT HIGHER PRIMARY SCHOOL HALEYALANADU,2778,Hosa Yelanadu,Meenakshi,Mahalakshmi M,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2
+5,Chitradurga,Hiriyur,22/12/2018,12603,GOVERNAMENT HIGHER PRIMARY SCHOOL HALEYALANADU,2778,Hosa Yelanadu,Meenakshi,Lakshmikanth R,Female,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,3
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Baby,Female,1,1,1,1,1,1,1,0,0,1,0,1,1,1,0,1,0,0,0,1,13
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Nagaveni M,Female,0,0,1,1,0,1,0,0,1,1,0,1,1,1,0,1,1,0,1,1,12
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Priyanka,Female,1,1,1,1,1,0,1,0,0,1,1,1,1,1,0,0,1,0,0,1,13
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Rakshitha S ,Female,1,1,1,0,1,1,0,0,1,1,0,1,1,1,0,1,1,0,1,1,14
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Shilpa,Female,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,1,4
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Vandana M,Female,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,6
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Kodandarama,Male,0,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,4
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Nandan H,Male,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,K R Obalesh,Male,1,0,1,1,0,0,1,0,0,1,0,1,1,1,0,1,0,1,0,1,11
+5,Chitradurga,Hiriyur,22/12/2018,12601,GOVERNAMENT HIGHER PRIMARY SCHOOL KASAVANAHALLI,2778,Hosa Yelanadu,Meenakshi,Lathip,Male,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,2
+5,Chitradurga,Hiriyur,22/12/2018,12600,GOVERNAMENT LOWER PRIMARY SCHOOL M.G.GUDLU,2778,Hosa Yelanadu,Meenakshi,Bharath Nayak,Male,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,4
+5,Chitradurga,Hiriyur,22/12/2018,12600,GOVERNAMENT LOWER PRIMARY SCHOOL M.G.GUDLU,2778,Hosa Yelanadu,Meenakshi,Kreethi Nayak S,Male,1,0,1,1,1,1,0,0,0,1,0,1,1,0,0,1,1,0,0,1,11
+5,Chitradurga,Hiriyur,22/12/2018,12600,GOVERNAMENT LOWER PRIMARY SCHOOL M.G.GUDLU,2778,Hosa Yelanadu,Meenakshi,Manikanta,Male,0,0,1,1,1,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1,8
+5,Chitradurga,Hiriyur,22/12/2018,12600,GOVERNAMENT LOWER PRIMARY SCHOOL M.G.GUDLU,2778,Hosa Yelanadu,Meenakshi,Renuka,Female,0,1,1,1,1,1,1,1,1,1,0,1,0,0,1,1,0,1,1,1,15
+5,Chitradurga,Hiriyur,22/12/2018,12600,GOVERNAMENT LOWER PRIMARY SCHOOL M.G.GUDLU,2778,Hosa Yelanadu,Meenakshi,Sikhandar,Male,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Ganesh Nasanara,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Deepa,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Ganesh Ganigera,Male,1,1,1,1,1,1,1,0,0,1,1,0,1,1,1,1,0,1,0,1,15
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Buddesab,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Salimasab,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Saheel R Shedasanadi,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Somashankar,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Subhasha Narasannvara,Male,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,3
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Dilip Malagemani,Male,0,0,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,1,7
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Roopa Betadora,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Shisapaka N Mishrakoti,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Chethan Ganigera,Male,1,1,1,1,1,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,8
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Nashrena  Shethsanadi,Female,1,0,1,1,1,0,1,0,0,0,0,0,1,1,0,0,1,1,0,0,9
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Adilshana,Male,0,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,4
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Nanda Harijana,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Manjula Harijana,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Geetha G Beangeri,Female,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,3
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Niveditha M Duddmani,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Fakiresh C Nayara,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Eranna Yamanura,Male,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,4
+5,Dharwad,Hubli,21/12/2018,35234,GHPS CHANNAPUR,1544,Chennapur,Ramanna Nadur,Mainarigowda Patel,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Vijay Kumar Kubhara,Male,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,4
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Aishwarya Melinamani,Female,1,1,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,5
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Naveen Hosamani,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Lakshmi Ugaragoli,Female,0,0,1,1,0,1,0,1,1,1,0,1,0,1,1,1,1,0,0,1,12
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Savitra Ugaragoli,Female,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Ningappa Ugaragoli,Male,0,0,1,1,0,0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,6
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Basavaraj,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Kavya Duddamani,Female,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,18
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Asif,Male,1,0,0,0,1,0,1,0,1,1,0,1,1,0,1,0,0,0,0,1,9
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Taruna Hosamani,Male,0,0,1,0,1,1,0,1,0,0,1,1,1,1,0,0,0,0,1,0,9
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Parvathi Guddina,Female,1,0,1,0,0,0,1,0,0,1,0,0,1,1,0,0,0,1,1,1,9
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Prajwalashree Ugaragoli,Female,0,0,1,0,1,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,5
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Sanju Shi Kumbara,Male,1,0,1,0,1,0,0,0,0,1,0,1,1,0,0,0,1,1,1,1,10
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Annappa,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Gurunatha,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Mallanagowda Shi Patel,Male,0,0,1,1,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,0,6
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Nagaveni Hubbli,Female,1,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,16
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Prathiba O Jambigi,Female,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Priyanka Hosamani,Female,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,1,0,1,0,12
+5,Dharwad,Hubli,21/12/2018,35156,GHPS RAMAPUR,1544,Chennapur,Ramanna Nadur,Siddappa Hadapada,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Jayalakshmi Somanakuppa,Female,1,0,1,0,1,1,0,0,0,1,0,1,1,0,0,0,1,0,0,1,9
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Deepa Bandivaddara,Female,1,0,1,1,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,7
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Husensab,Male,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Kamlesh Jatteppanavara,Male,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Malatesh Kumbara,Male,0,0,1,1,0,1,0,0,0,1,0,0,1,0,0,0,0,1,0,0,6
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Sameera Gangivati,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Srishti Badami,Female,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,1,1,0,15
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Mahadevappa,Male,1,1,1,0,1,1,1,1,1,1,0,0,1,0,0,0,0,1,0,1,12
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Mainari Babara,Male,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1,1,17
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Deepa More,Female,1,0,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,1,0,0,11
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Shilpa Bandivaddara,Female,1,1,1,0,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,15
+5,Dharwad,Hubli,21/12/2018,35224,GLPS CHAVARAGUDDA,1544,Chennapur,Ramanna Nadur,Rani N Virapura,Female,1,0,1,1,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,7

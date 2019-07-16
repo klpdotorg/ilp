@@ -82,7 +82,7 @@ class SchoolReport(BaseReport):
                                                             .filter(yearmonth__lte = self.report_to)
         gender_agg = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
                 institution_id=school_obj, 
-                survey_id=2, 
+                survey_id=self.gpcontest_survey_id, 
                 yearmonth__gte=self.report_from,
                 yearmonth__lte=self.report_to)        
         
@@ -92,6 +92,10 @@ class SchoolReport(BaseReport):
         district = aggregates.values_list('institution_id__admin1__name', flat=True).distinct()[0]
         num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
         num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
+        if num_boys is None:
+            num_boys = 0
+        if num_girls is None:
+            num_girls = 0
         number_of_students = num_boys + num_girls
 
         schools = self.get_schools_data(school_obj, dates)
@@ -111,7 +115,15 @@ class SchoolReport(BaseReport):
             neighbours = self.format_boundary_data(neighbouring_schools_data)
         else:
             neighbours = []
-
+        if female_correct is None:
+            female_correct=0
+        if male_correct is None:
+            male_correct=0
+        if female_zero_ans_per_gp is None:
+            female_zero_ans_per_gp =0
+        if male_zero_ans_per_gp is None:
+            male_zero_ans_per_gp=0
+        
         self.output =  {'gp_name': gp,\
          'academic_year':'{} - {}'.format(format_academic_year(self.report_from), format_academic_year(self.report_to)),\
             'cluster':cluster,\

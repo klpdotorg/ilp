@@ -1,0 +1,1044 @@
+Class,District,Block,Date,KLP ID,Name of the school,GP ID,Grama Panchayat,GP President Name,Student Name,Sex ( Male / Female ),Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Total
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Radhika,Female,0,0,0,1,0,0,1,0,0,0,0,0,1,1,1,0,0,1,0,0,6
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Ganamatadayya,Male,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,1,0,1,1,0,13
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Apsara begum,Female,1,1,1,1,1,0,1,0,0,0,0,1,1,0,0,0,0,1,0,0,9
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Nagaraja,Male,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,4
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Annapurna,Female,0,0,0,1,1,0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,6
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Meenakshi,Female,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Roshana bee,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Savithri,Female,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,13
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Rohith,Male,1,1,1,1,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,7
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Masthan sabi,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Rekha,Female,1,1,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,5
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Aruna,Male,1,1,0,1,0,1,1,0,0,1,1,0,1,0,1,1,0,0,0,0,10
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Vinoda,Male,1,1,1,1,1,1,1,1,0,0,1,0,0,0,1,1,1,1,1,0,14
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Shruthi,Female,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,4
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Mallika,Female,1,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Veena,Female,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,0,0,1,0,0,12
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Meghana,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Raichur,Manvi,03/01/2019,24062,GOVT.HIGHER PRIMARY SCHOOL MALLADAGUDDA_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Basavalinga,Male,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,1,1,1,1,1,16
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Yallamma,Female,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,0,1,0,0,1,14
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Venkatesha,Male,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,16
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Umadevi,Female,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,18
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Shridevi,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,18
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Shridevi,Female,1,1,0,0,1,1,0,0,0,0,1,1,1,1,0,0,1,0,0,1,10
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Shivukumara,Male,1,1,1,1,1,1,1,0,1,1,0,1,1,1,0,1,0,1,0,1,15
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Shivaganga,Female,1,1,1,1,1,0,1,0,0,1,1,1,1,0,1,0,1,1,0,1,14
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Sharanu,Male,1,1,0,1,0,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,11
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Shanthamma,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,18
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Seema,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,18
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Naziya,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,1,17
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Mahalakshmi,Female,1,1,1,1,1,1,1,0,0,1,0,1,1,1,0,0,1,1,0,1,14
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Lakshmi,Female,1,1,1,1,1,1,1,0,0,1,0,1,1,1,0,0,1,1,0,1,14
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Lakshmi,Female,1,1,1,1,1,0,1,0,0,1,0,0,1,1,0,0,1,1,0,1,12
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Irfan begum,Female,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,17
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Huligemma,Female,0,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,14
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Bhagya,Female,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,17
+4,Raichur,Manvi,03/01/2019,24202,GOVT.HIGHER PRIMARY SCHOOL MARAKAMDINNI_Upgraded_RMSA,6168,Malladagudda,Kurumappa,Akasha,Male,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,1,1,0,1,14
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Priyanka,Female,1,1,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,0,0,1,15
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Gayithri,Female,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,0,1,15
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Shanthamma,Female,1,1,1,1,0,1,1,1,1,0,0,0,1,1,1,1,0,1,1,1,15
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Mahalakshmi,Female,1,1,1,1,1,1,1,1,1,0,0,0,1,1,0,1,0,1,0,1,14
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Megha,Female,1,1,1,1,1,1,1,1,1,0,0,0,1,0,1,0,0,1,0,1,13
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Devaraja,Male,1,1,1,1,1,0,0,0,1,1,0,0,1,0,0,1,1,0,0,1,11
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Manjamma,Female,1,1,1,1,1,0,1,0,1,1,1,1,1,0,0,1,1,1,0,1,15
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Ravi,Male,1,0,1,1,1,0,0,0,1,1,0,0,1,0,0,1,1,0,0,0,9
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Mahalakshmi,Female,1,0,1,1,1,0,1,0,1,1,0,0,1,0,0,1,0,0,0,1,10
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Rekha,Female,0,1,1,1,1,0,1,0,1,1,0,0,1,1,0,0,1,0,0,1,11
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Channabasava,Male,1,1,1,1,1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,1,9
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Ayabu,Male,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+4,Raichur,Manvi,03/01/2019,24048,GOVT.LOWER PRIMARY SCHOOL DONAMARADI(M),6168,Malladagudda,Kurumappa,Mounesha,Male,0,0,0,0,0,0,1,0,1,1,1,0,1,0,0,1,0,1,0,0,7
+4,Raichur,Manvi,03/01/2019,24193,GOVT.LOWER PRIMARY SCHOOL GODIGODDE CAMP,6168,Malladagudda,Kurumappa,Ayyanagouda,Male,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,0,0,0,13
+4,Raichur,Manvi,03/01/2019,24193,GOVT.LOWER PRIMARY SCHOOL GODIGODDE CAMP,6168,Malladagudda,Kurumappa,Ashwini,Female,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,0,0,14
+4,Raichur,Manvi,03/01/2019,24193,GOVT.LOWER PRIMARY SCHOOL GODIGODDE CAMP,6168,Malladagudda,Kurumappa,Devaraja,Male,1,0,0,1,1,1,1,0,1,0,0,1,1,0,1,0,1,1,1,0,12
+4,Raichur,Manvi,03/01/2019,24193,GOVT.LOWER PRIMARY SCHOOL GODIGODDE CAMP,6168,Malladagudda,Kurumappa,Thirupathi,Male,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,14
+4,Raichur,Manvi,03/01/2019,24193,GOVT.LOWER PRIMARY SCHOOL GODIGODDE CAMP,6168,Malladagudda,Kurumappa,Amaresha,Male,1,0,1,1,1,1,1,0,0,1,0,1,1,1,1,0,1,1,0,0,13
+4,Raichur,Manvi,03/01/2019,24063,GOVT.LOWER PRIMARY SCHOOL DPEP MALLADAGUDDA CAMP,6168,Malladagudda,Kurumappa,Sabamma,Female,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0,14
+4,Raichur,Manvi,03/01/2019,24063,GOVT.LOWER PRIMARY SCHOOL DPEP MALLADAGUDDA CAMP,6168,Malladagudda,Kurumappa,Rakshita,Female,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,0,1,15
+4,Raichur,Manvi,03/01/2019,24063,GOVT.LOWER PRIMARY SCHOOL DPEP MALLADAGUDDA CAMP,6168,Malladagudda,Kurumappa,Veeresha,Male,1,1,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,16
+4,Raichur,Manvi,03/01/2019,24063,GOVT.LOWER PRIMARY SCHOOL DPEP MALLADAGUDDA CAMP,6168,Malladagudda,Kurumappa,Kaveri,Female,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,0,1,13
+4,Raichur,Manvi,03/01/2019,24063,GOVT.LOWER PRIMARY SCHOOL DPEP MALLADAGUDDA CAMP,6168,Malladagudda,Kurumappa,Kariyappa,Male,0,0,1,0,1,0,0,0,0,1,1,1,1,0,0,0,0,1,0,1,8
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Vanitha,Female,1,1,0,1,1,0,1,1,1,0,1,0,1,1,1,1,0,1,0,0,13
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Manasa,Female,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Rahul,Male,1,0,0,1,1,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,8
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Kishore a n,Male,1,0,1,1,1,1,1,1,1,0,1,0,1,1,0,1,0,1,0,1,14
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Sudana,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chikkaballapura,Chintamani,27/12/2018,11054,GOVERNMENT HIGHER PRIMARY SCHOOL ANOOR,6283,Anoor,Nagarathnamma,Meghana,Female,1,0,0,1,1,1,1,1,1,0,1,0,1,0,1,0,0,0,0,0,10
+4,Chikkaballapura,Chintamani,27/12/2018,11058,GOVERNMENT HIGHER PRIMARY SCHOOL DODDA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Navyashree,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,18
+4,Chikkaballapura,Chintamani,27/12/2018,11058,GOVERNMENT HIGHER PRIMARY SCHOOL DODDA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Bindu,Female,1,1,0,1,1,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,12
+4,Chikkaballapura,Chintamani,27/12/2018,11070,GHPS PANASACHOWDADENAHALLI,6283,Anoor,Nagarathnamma,Charan,Male,1,0,0,1,1,0,0,1,1,0,1,0,1,1,0,0,0,0,0,0,8
+4,Chikkaballapura,Chintamani,27/12/2018,11070,GHPS PANASACHOWDADENAHALLI,6283,Anoor,Nagarathnamma,Vinaykumar a,Male,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,17
+4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,6283,Anoor,Nagarathnamma,Jayanthi a,Female,1,1,0,1,1,1,0,1,1,0,1,0,1,1,1,0,0,1,0,1,13
+4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,6283,Anoor,Nagarathnamma,Madhu m,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,1,15
+4,Chikkaballapura,Chintamani,27/12/2018,11069,GOVERNMENT LOWER PRIMARY SCHOOL MOODACHINTALAHALLI,6283,Anoor,Nagarathnamma,Bhaskar,Male,1,0,1,1,1,1,0,1,1,1,0,0,1,1,0,0,0,1,1,1,13
+4,Chikkaballapura,Chintamani,27/12/2018,11073,GLPS VISHWANATHAPURA,6283,Anoor,Nagarathnamma,Amrutha v b,Female,1,0,0,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,15
+4,Chikkaballapura,Chintamani,27/12/2018,11073,GLPS VISHWANATHAPURA,6283,Anoor,Nagarathnamma,Ashwini v b,Female,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,0,0,15
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Nandhan prasad,Male,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,0,16
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Varsha,Female,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Goutami,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Gagana,Female,0,0,0,1,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,5
+4,Chikkaballapura,Chintamani,27/12/2018,11057,GOVERNMENT LOWER PRIMARY SCHOOL CHIKKA BOMMANAHALLI,6283,Anoor,Nagarathnamma,Narayana swamy,Male,0,0,1,1,1,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,7
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Abhishek,Male,1,1,0,1,1,1,1,0,1,0,1,1,0,1,0,0,0,1,1,0,12
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Manoja kyasaki,Male,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,3
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Mahesha kubbala,Male,0,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,0,0,11
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Yallappa julfi,Male,1,0,0,1,1,1,0,1,1,1,0,0,1,0,0,0,0,1,0,1,10
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Mantesha paravapura,Male,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,5
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Aruna unjaura,Male,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,0,1,1,0,15
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Vidya nagappa talavara,Female,1,0,1,1,0,0,1,0,1,1,0,1,0,0,0,0,0,1,0,0,8
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Ammatayya hiremat,Female,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,3
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Kalmesha kubbala,Male,1,0,0,1,1,0,0,1,1,1,1,1,1,0,0,1,0,1,0,0,11
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Iraiah shankraiah hiremat,Male,1,0,1,0,1,0,1,0,1,1,1,0,1,0,0,0,0,1,0,0,9
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Mallikarjuna desai,Male,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,4
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Malatesha r anchatageri,Male,1,0,1,1,0,1,0,0,1,0,1,1,0,1,1,1,1,1,1,1,14
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Vidya kubbala,Female,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,15
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Kushala javura,Male,1,1,0,1,0,0,1,1,1,1,1,1,1,1,0,0,1,1,0,0,13
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Basavaraja bandi,Male,1,1,0,1,1,0,1,0,1,0,1,1,1,1,1,1,0,1,0,0,13
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Mahesha jaura,Male,1,1,0,1,1,0,1,0,1,1,1,1,1,0,0,0,1,1,1,0,13
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Gurupadaiah hiremat,Male,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,1,14
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Prile talavara,Male,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,15
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Siddartha m jaura,Male,1,0,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,15
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Harsha n,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Avirira tashivale,Male,1,1,0,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,0,0,14
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Apoorva somapur,Female,1,1,0,1,1,0,1,1,1,0,1,1,1,0,0,1,0,1,0,0,12
+4,Dharwad,Kalghatagi,28/12/2018,37446,GHPS MADKIHONNIHALLI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Rudraiah hiremat,Male,1,0,0,1,1,0,1,1,0,1,1,1,1,1,0,0,1,1,0,1,13
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Rohir kuradikeri,Male,0,0,1,1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,0,10
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Trupti nimbannavara,Female,1,1,0,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,0,0,15
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Yallamma s,Female,1,1,0,1,0,0,1,1,1,0,1,1,1,0,1,0,1,1,0,1,13
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Bharati megeri,Female,1,1,0,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,16
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Jyoti megeri,Female,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,18
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Kirthi hosamat,Female,1,1,0,1,1,1,0,1,1,0,1,0,0,0,0,1,0,1,1,1,12
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Saraswathi ayyatti,Female,1,1,0,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,15
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Jayashri betageri,Female,1,0,1,1,1,1,0,1,1,0,1,0,1,0,0,0,0,0,0,1,10
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Sangita vari,Female,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,17
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Lakshmi ayatti,Female,1,0,0,1,1,1,0,1,1,0,1,0,1,0,0,0,0,0,0,1,9
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Ashwini megeri,Female,1,1,1,1,1,1,1,0,1,0,0,0,1,0,0,1,1,1,0,1,13
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Shivananda benne,Male,1,1,1,0,1,0,1,0,1,1,0,1,1,1,0,1,0,1,0,1,13
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Sangamesha mudannavara,Male,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,0,1,1,0,14
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Shankara madannavara,Male,0,0,1,0,1,0,1,0,1,0,0,1,1,1,0,0,0,1,1,0,9
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Ravi megeri,Male,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0,1,0,0,15
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Siddarudha uggikeri,Male,0,0,0,1,0,0,0,0,1,1,0,0,1,0,0,0,0,1,0,0,5
+4,Dharwad,Kalghatagi,28/12/2018,37445,GHPS SANGADEVARAKOPPA,4062,Madakihonnalli,Shri kalmesha somappa gadada,Mailari jevoji,Male,0,0,0,1,1,0,1,0,1,1,0,0,1,0,0,0,0,1,1,1,9
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Aishwarya prakasha betageri,Female,1,1,0,1,1,0,1,1,1,1,1,0,0,0,1,1,1,1,1,0,14
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Priya channappa huddara,Female,1,0,1,1,1,0,1,0,1,0,1,1,1,0,0,1,1,1,0,1,13
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Priya channabasappa meti,Female,1,1,0,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,1,0,14
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Khaidakumara valikara,Male,0,0,0,1,0,0,1,1,1,0,0,1,1,0,0,0,1,1,0,0,8
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Soubhagya machapura,Female,1,1,0,1,1,0,0,0,1,0,1,1,1,0,0,1,0,1,0,1,11
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Abhinaya suthagatti,Female,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,0,15
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Nagavva,Female,1,0,0,1,1,1,1,0,1,1,1,0,0,0,0,0,0,1,0,0,9
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Udaya ramasala,Male,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Suneela hubballi,Male,0,0,1,1,1,0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,9
+4,Dharwad,Kalghatagi,28/12/2018,37444,GLPS HINDASAGERI,4062,Madakihonnalli,Shri kalmesha somappa gadada,Shivashankara meti,Male,1,0,0,1,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,6
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Vijayalakshmi patil,Female,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,17
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Vikasa h lakshmeshwara,Male,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,17
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Kirthi udannavara,Female,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,14
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Shrishar,Male,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,0,1,13
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Anusha,Female,1,0,0,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,1,1,13
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Sangita k yanigara,Female,1,0,1,1,1,0,1,0,0,0,1,0,1,1,1,0,0,1,0,1,11
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Ningaraju belavigi,Male,1,1,0,1,1,0,1,1,1,1,1,0,1,0,0,0,1,1,0,0,12
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Rahul r naduvalakeri,Male,1,1,1,1,1,0,0,1,1,0,1,1,0,0,0,0,1,1,0,0,11
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Sadhika,Female,1,0,0,1,0,0,1,0,0,0,1,0,1,0,0,0,0,1,0,0,6
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Pushpavathi,Female,0,0,0,1,1,0,1,1,0,0,1,0,1,0,0,0,0,0,0,0,6
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Nadima,Female,0,0,0,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,6
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Vikasa,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Vinayaka e yanagara,Male,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Akkamma madivalara,Female,1,0,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,1,1,0,7
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Shivakumar,Male,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Saraswathi s kademani,Female,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Parjwala,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Altafa i nadaf,Male,1,0,0,1,1,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,7
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Ningappa,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Prajwal s udannavara,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Naveena,Male,0,1,0,1,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,6
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Subasa b boli,Male,1,0,0,1,1,0,0,1,1,1,1,1,0,1,0,0,0,0,0,0,9
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Asif goud,Male,0,0,0,1,1,0,1,0,0,0,0,0,1,1,0,1,0,1,1,0,8
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Rajabhakshi,Male,1,0,0,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,7
+4,Gadag,Shirhatti,28/12/2018,47953,GHPS KONCHIGERI,3735,Konchigeri,Iranna hudeda,Savithri balikayi,Female,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Priya uppara,Female,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,18
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Pallavi,Female,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,0,1,14
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Basavaraja,Male,0,1,0,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,0,1,14
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Hanumappa,Male,1,0,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,0,1,14
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Prajwal madanashettara,Male,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,1,0,1,0,1,14
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Mohan,Male,1,1,1,1,1,0,1,1,1,0,1,0,0,1,0,1,0,1,0,1,13
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Sunita,Female,0,1,0,1,1,0,1,0,1,0,1,1,1,1,0,1,1,1,0,1,13
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Mallamma,Female,1,0,0,1,1,0,1,0,1,0,1,0,1,1,0,1,1,1,1,0,12
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Pavithra,Female,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,4
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Deepa,Female,1,1,0,1,1,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,8
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Tippavva,Female,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Channappa,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Kirankumar,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Mahesha gouda,Male,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Muthuraja,Male,0,0,0,1,0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,1,10
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Ningavva,Female,0,0,0,1,1,1,0,0,0,0,1,1,1,1,0,1,0,1,1,1,11
+4,Gadag,Shirhatti,28/12/2018,47952,GHPS KOKKURGUNDI,3735,Konchigeri,Iranna hudeda,Shashikala,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,4
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Abhishek,Male,1,1,0,1,0,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,13
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Abhishek,Male,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,5
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Ramesha owdhava,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Riyana,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Kirthi kadave,Female,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Priyanka owdhava,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Jyoti mangalakara,Female,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,4
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Vinoda gadeda,Male,1,0,0,1,0,0,0,0,1,0,0,1,1,0,0,0,0,1,0,0,6
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Pradeepa,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,4
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Nagaraja n more,Male,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,28/12/2018,47954,GHPS BIJJUR,3735,Konchigeri,Iranna hudeda,Ravichandra,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,4
+4,Gadag,Shirhatti,28/12/2018,47950,LPS CHIKKASAVANUR,3735,Konchigeri,Iranna hudeda,Gouramma saluke,Female,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,1,0,10
+4,Gadag,Shirhatti,28/12/2018,47950,LPS CHIKKASAVANUR,3735,Konchigeri,Iranna hudeda,Deepa harijana,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,28/12/2018,47950,LPS CHIKKASAVANUR,3735,Konchigeri,Iranna hudeda,Bhoomika n gudadavara,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,28/12/2018,47950,LPS CHIKKASAVANUR,3735,Konchigeri,Iranna hudeda,Vijayalakshmi pyati,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,28/12/2018,47950,LPS CHIKKASAVANUR,3735,Konchigeri,Iranna hudeda,Agappa t talavara,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Srishti,Female,1,0,0,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,0,0,10
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Ganesh,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Vishala,Female,1,0,0,1,1,0,1,0,0,1,1,1,1,1,0,0,1,1,0,0,11
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Bhagyashree,Female,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Lakshmikanta,Male,1,0,0,1,1,0,0,1,1,1,1,1,1,0,0,0,1,1,0,0,11
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Eshwari,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Krishna,Male,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Pradeep,Male,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Vijayalakshmi,Female,1,0,0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1,0,0,12
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Sanjukumar,Female,1,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,6
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Malingaraya,Male,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,4
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Manikamma,Female,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,4
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Ramesh,Male,0,0,0,1,1,0,1,1,1,1,1,0,0,1,1,0,0,1,0,0,10
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Ambarish,Male,1,0,1,1,1,0,1,0,1,0,1,1,1,0,0,0,0,0,0,0,9
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Meghana,Female,1,0,0,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,7
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Usha,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Bhagyashree,Female,1,0,0,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,5
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Prasanta,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Babu,Male,1,0,0,1,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,6
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Shantappa,Male,0,1,0,1,1,0,1,0,1,1,1,0,1,0,0,0,0,1,1,0,10
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Abhishek,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Rajkumar,Male,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Kumar,Male,1,1,0,1,0,0,1,1,1,1,0,1,1,1,1,0,0,1,0,0,12
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Chandrka,Female,0,0,0,1,0,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,5
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Shreeshaila,Female,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,0,0,15
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Jayashree,Female,1,1,1,0,1,0,1,1,1,1,1,1,1,1,0,0,0,1,0,1,14
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Suvarna,Female,0,0,1,1,1,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,7
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Malebe,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Malingaraya,Male,1,1,0,1,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,7
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Savartha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Apoorva,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,14
+4,Kalaburgi,Aland,28/12/2018,13588,GOVT HPS DUTTARGAON,1969,Duttargaon,Shobhavati,Vidhyashree,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Aditya,Female,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0,0,1,1,11
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Vijayalakshmi,Female,1,1,1,1,1,0,1,0,1,0,0,0,1,1,1,0,0,0,0,0,10
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Kiran,Male,0,0,1,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,5
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Devindra,Male,0,0,0,1,1,0,1,1,1,0,1,0,1,1,0,0,0,0,0,0,8
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Harish,Male,1,0,0,1,1,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0,7
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Anjli,Female,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,0,0,1,0,0,8
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Anand,Male,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Bhoomi,Female,0,0,0,0,1,0,1,1,1,1,1,0,1,0,0,0,0,1,1,1,10
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Bhagyashree,Female,1,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,5
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Sangeeta,Female,1,0,0,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,11
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Abhishek,Male,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,19
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Ankita,Female,1,0,1,1,1,0,1,1,1,1,1,0,1,1,0,0,0,0,1,0,12
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Kasturbhai,Female,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,13
+4,Kalaburgi,Aland,28/12/2018,13589,GOVT LPS  DUTTARGAON  NEW EXTN,1969,Duttargaon,Shobhavati,Abhishek,Male,1,1,1,1,0,1,1,1,1,0,1,1,1,1,0,0,0,1,0,0,13
+4,Kalaburgi,Aland,28/12/2018,13597,GOVT HPS LAD CHINCHOLI,1969,Duttargaon,Shobhavati,Gayatri,Female,1,0,0,1,1,0,1,1,1,0,1,1,1,1,0,0,1,0,0,0,11
+4,Kalaburgi,Aland,28/12/2018,13597,GOVT HPS LAD CHINCHOLI,1969,Duttargaon,Shobhavati,Prajna,Male,0,0,0,1,0,0,1,1,1,0,1,0,1,0,0,0,0,1,0,0,7
+4,Kalaburgi,Aland,28/12/2018,13597,GOVT HPS LAD CHINCHOLI,1969,Duttargaon,Shobhavati,Lakshmikanta,Male,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Hosadurga,14/12/2018,13347,GOVERNMENT HIGHER PRIMARY SCHOOL HEBBALLI,2534,Hebballi,Anasuyamma,H b gagana,Male,1,0,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,1,1,1,15
+4,Chitradurga,Hosadurga,14/12/2018,13347,GOVERNMENT HIGHER PRIMARY SCHOOL HEBBALLI,2534,Hebballi,Anasuyamma,H r kirthana,Male,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,13
+4,Chitradurga,Hosadurga,14/12/2018,13347,GOVERNMENT HIGHER PRIMARY SCHOOL HEBBALLI,2534,Hebballi,Anasuyamma,Hemanth,Male,1,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,16
+4,Chitradurga,Hosadurga,14/12/2018,13347,GOVERNMENT HIGHER PRIMARY SCHOOL HEBBALLI,2534,Hebballi,Anasuyamma,Gurukiran,Male,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,16
+4,Chitradurga,Hosadurga,14/12/2018,13347,GOVERNMENT HIGHER PRIMARY SCHOOL HEBBALLI,2534,Hebballi,Anasuyamma,Ranga swamy,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,19
+4,Chitradurga,Hosadurga,14/12/2018,13347,GOVERNMENT HIGHER PRIMARY SCHOOL HEBBALLI,2534,Hebballi,Anasuyamma,Hamsa hb,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,19
+4,Chitradurga,Hosadurga,14/12/2018,13343,GOVERNMENT HIGHER PRIMARY SCHOOL NAGARAKATTE,2534,Hebballi,Anasuyamma,Guruswamy,Male,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,14/12/2018,13343,GOVERNMENT HIGHER PRIMARY SCHOOL NAGARAKATTE,2534,Hebballi,Anasuyamma,N tarunya,Female,1,1,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,1,7
+4,Chitradurga,Hosadurga,14/12/2018,13343,GOVERNMENT HIGHER PRIMARY SCHOOL NAGARAKATTE,2534,Hebballi,Anasuyamma,R swamy,Male,1,0,1,1,1,0,1,0,1,0,1,1,1,1,0,0,0,1,1,1,13
+4,Chitradurga,Hosadurga,14/12/2018,13343,GOVERNMENT HIGHER PRIMARY SCHOOL NAGARAKATTE,2534,Hebballi,Anasuyamma,Kavana n,Female,1,1,1,1,0,0,1,0,1,0,1,1,1,0,0,0,0,1,0,1,11
+4,Chitradurga,Hosadurga,14/12/2018,13343,GOVERNMENT HIGHER PRIMARY SCHOOL NAGARAKATTE,2534,Hebballi,Anasuyamma,Jayamala,Female,1,0,0,1,1,0,1,1,1,1,1,0,1,1,0,0,0,0,0,0,10
+4,Chitradurga,Hosadurga,14/12/2018,13343,GOVERNMENT HIGHER PRIMARY SCHOOL NAGARAKATTE,2534,Hebballi,Anasuyamma,K radha,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,1,0,1,16
+4,Chitradurga,Hosadurga,14/12/2018,13343,GOVERNMENT HIGHER PRIMARY SCHOOL NAGARAKATTE,2534,Hebballi,Anasuyamma,Sakshi b,Female,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,17
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Pavan,Male,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Sinchana,Female,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,1,0,0,9
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Madhumita,Female,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1,1,0,13
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Anita,Female,1,1,1,1,1,0,0,1,1,0,1,0,1,1,0,0,0,1,1,1,13
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,M gajaraj,Male,1,1,1,1,1,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,10
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Shashikala,Female,1,0,1,1,1,0,1,1,1,1,1,0,1,0,0,0,0,1,1,1,13
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Siddesh,Male,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,0,1,1,1,15
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,P sangeetha,Female,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,17
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Punita,Male,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,16
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,A divya,Female,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,1,1,1,16
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,N sudha,Female,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1,1,1,16
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,T aishwarya,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,18
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Maroti,Male,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,17
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,K r nitan,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,19
+4,Chitradurga,Hosadurga,14/12/2018,13340,GOVERNMENT HIGHER PRIMARY SCHOOL KONDAPURA,2534,Hebballi,Anasuyamma,Nagaveni,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,19
+4,Chitradurga,Hosadurga,14/12/2018,13349,GOVERNMENT HIGHER PRIMARY SCHOOL HERURU,2534,Hebballi,Anasuyamma,Partha,Male,1,1,0,1,1,1,1,1,1,0,1,0,1,0,0,0,0,0,0,1,11
+4,Chitradurga,Hosadurga,14/12/2018,13351,GOVERNMENT LOWER PRIMARY SCHOOL JODITHUMBINAKERE,2534,Hebballi,Anasuyamma,R kiran,Male,1,0,0,1,1,1,1,1,1,0,1,0,1,1,0,0,0,0,0,0,10
+4,Chitradurga,Hosadurga,14/12/2018,13341,GOVERNMENT LOWER PRIMARY SCHOOL KRISHNAPURA,2534,Hebballi,Anasuyamma,Lata,Female,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,14/12/2018,13341,GOVERNMENT LOWER PRIMARY SCHOOL KRISHNAPURA,2534,Hebballi,Anasuyamma,Chinmayi,Female,1,0,0,1,1,1,1,1,1,0,1,1,1,1,0,1,0,1,0,1,14
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43344,GLPS SRINIVASAPURA COLONY,5022,Punajnoor,Shrimati shanti,Mahendra,Male,0,0,0,1,1,0,1,1,0,1,0,0,1,1,0,0,0,1,0,0,8
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43343,GHPS PUNAJUR,5022,Punajnoor,Shrimati shanti,Lavanya,Female,1,0,0,1,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,8
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43343,GHPS PUNAJUR,5022,Punajnoor,Shrimati shanti,Manikanta,Male,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43343,GHPS PUNAJUR,5022,Punajnoor,Shrimati shanti,Pavitra p,Female,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,4
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43343,GHPS PUNAJUR,5022,Punajnoor,Shrimati shanti,Siddaraja,Male,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6475,GLPS BIJJALAPALYA,5022,Punajnoor,Shrimati shanti,Sanjay ramaswamy,Male,1,1,1,1,0,0,0,1,1,1,1,0,1,0,0,0,1,0,1,1,12
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6475,GLPS BIJJALAPALYA,5022,Punajnoor,Shrimati shanti,Tarun,Male,1,0,0,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1,0,1,11
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6475,GLPS BIJJALAPALYA,5022,Punajnoor,Shrimati shanti,Ranjitabai,Female,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,4
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43346,GLPS MUDAHALLI COLONY,5022,Punajnoor,Shrimati shanti,Sanjay kumar,Male,1,1,0,1,1,0,1,1,1,1,1,0,1,1,0,0,0,0,1,1,13
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43346,GLPS MUDAHALLI COLONY,5022,Punajnoor,Shrimati shanti,Chethan k,Male,1,1,0,1,1,0,0,1,1,0,1,1,1,1,0,0,0,0,0,1,11
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43346,GLPS MUDAHALLI COLONY,5022,Punajnoor,Shrimati shanti,Prarthana,Male,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,1,1,0,1,15
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43345,GLPS MUKANA PALYA,5022,Punajnoor,Shrimati shanti,Devikabai,Female,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43345,GLPS MUKANA PALYA,5022,Punajnoor,Shrimati shanti,Radhabai,Female,0,1,0,1,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,5
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43345,GLPS MUKANA PALYA,5022,Punajnoor,Shrimati shanti,Manjunatha s,Male,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,0,0,0,0,13
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43347,GLPS VEERAYANAPURA,5022,Punajnoor,Shrimati shanti,Nitin,Male,0,0,0,1,1,0,1,1,1,0,1,1,1,0,0,0,0,1,0,0,9
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43347,GLPS VEERAYANAPURA,5022,Punajnoor,Shrimati shanti,Pritam m,Male,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43347,GLPS VEERAYANAPURA,5022,Punajnoor,Shrimati shanti,Rariyanayaka,Male,1,1,0,1,1,0,0,1,1,0,1,0,1,1,1,0,1,1,0,1,13
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43347,GLPS VEERAYANAPURA,5022,Punajnoor,Shrimati shanti,Pritam l,Male,1,1,0,1,0,0,0,1,1,0,1,0,1,0,0,0,0,1,1,1,10
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43347,GLPS VEERAYANAPURA,5022,Punajnoor,Shrimati shanti,Prithvian nayaka,Male,0,1,0,1,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,1,7
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43347,GLPS VEERAYANAPURA,5022,Punajnoor,Shrimati shanti,Suchitra,Female,1,0,0,1,1,0,0,1,1,0,1,1,0,1,0,0,0,1,0,1,10
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43347,GLPS VEERAYANAPURA,5022,Punajnoor,Shrimati shanti,Gokul nayaka,Male,1,1,1,1,0,0,1,1,1,0,1,1,1,0,1,1,1,1,1,1,16
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,43347,GLPS VEERAYANAPURA,5022,Punajnoor,Shrimati shanti,Shishikalabai,Female,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,18
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6471,GHPS KOLI PALYA,5022,Punajnoor,Shrimati shanti,Kartik,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6471,GHPS KOLI PALYA,5022,Punajnoor,Shrimati shanti,Jeevitha,Female,1,1,0,1,0,1,0,0,0,0,0,1,1,0,0,0,1,0,0,1,8
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6471,GHPS KOLI PALYA,5022,Punajnoor,Shrimati shanti,Sneha,Female,1,1,0,1,1,0,0,1,1,0,1,0,1,0,0,0,1,1,1,0,11
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6471,GHPS KOLI PALYA,5022,Punajnoor,Shrimati shanti,Gurushankar,Male,0,0,1,1,1,0,0,1,1,1,1,0,1,0,0,0,0,0,1,1,10
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6471,GHPS KOLI PALYA,5022,Punajnoor,Shrimati shanti,Monikabai,Female,1,1,0,1,0,1,0,1,0,1,1,1,1,1,0,0,0,1,1,1,13
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6471,GHPS KOLI PALYA,5022,Punajnoor,Shrimati shanti,Shivukumar,Male,0,0,0,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,6
+4,Chamarajanagara,Chamaraja nagar,03/01/2019,6471,GHPS KOLI PALYA,5022,Punajnoor,Shrimati shanti,Afsan,Male,1,1,1,1,1,0,0,1,1,0,1,1,1,1,0,0,0,0,0,0,11
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Priyanka,Female,1,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,1,16
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,B kavya,Female,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,14
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,T nagavani,Female,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,14
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Gowramma,Female,1,1,1,1,1,0,1,1,1,1,0,0,1,1,0,0,1,1,0,0,13
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Yashaswini ,Female,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,0,0,1,0,0,12
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,T b ramya,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Rarati h,Female,1,0,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,5
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Dinesh b t,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Nagaraj,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,G s adarsh,Male,0,0,0,1,1,0,1,0,1,1,1,0,1,0,0,0,0,0,0,0,7
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,M b vidhyashree,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,R l amrutha,Female,1,0,0,1,0,0,0,0,1,0,1,0,1,1,0,0,1,0,0,0,7
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,M b divya,Female,1,1,0,1,1,1,0,0,1,0,1,0,1,1,1,0,0,1,0,1,12
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,K m ajay,Male,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Ajay m,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,S o yashodha,Female,1,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,5
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Nithya,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,A ajay kumar,Male,1,0,0,1,1,0,1,1,1,0,1,0,1,0,0,1,0,1,0,0,10
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,S fatima begum,Female,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,6
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,R ningaraja,Male,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,L chidambaramani,Male,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,R abhishek,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Nagavani e m,Female,1,0,1,1,0,0,1,1,1,0,1,1,1,1,1,1,0,0,1,0,13
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,M r rudrash,Male,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,S gowthmi,Male,1,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Apoorva,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,V ajay,Male,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,M g lakshmi,Female,1,0,0,1,1,0,0,1,1,0,0,0,1,1,1,0,0,0,0,0,8
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,Madati a,Female,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Chitradurga,17/12/2018,11911,GHPS CHIKKGONDANAHALLI,1577,Chikkagondanahalli,Gowramma,R m manjunatha,Male,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Valaraju,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Ganesh m,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Manoj n,Male,1,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,5
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,N m anu,Female,1,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,6
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Rakshita s,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,4
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Manasa s,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Maresh h,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Pavan,Male,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Tanuja n,Female,1,0,0,1,1,1,1,1,1,1,1,0,1,1,0,0,1,0,0,0,12
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Adarsh,Male,1,0,0,1,1,0,1,0,1,0,1,0,1,1,1,0,0,0,0,1,10
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,E swetha,Female,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,N deelip,Male,0,0,1,1,1,0,1,1,1,1,1,0,1,1,0,0,0,0,0,0,10
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,N sachin,Male,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Akshita,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Pushpalata o,Female,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,17
+4,Chitradurga,Chitradurga,17/12/2018,11912,GHPS NEW COLONY C.G.HALLI,1577,Chikkagondanahalli,Gowramma,Suresh t,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,0,16
+4,Chitradurga,Chitradurga,17/12/2018,11914,GLPS C G HATTI,1577,Chikkagondanahalli,Gowramma,S pavan kumar,Male,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0,1,1,0,0,6
+4,Chitradurga,Chitradurga,17/12/2018,11914,GLPS C G HATTI,1577,Chikkagondanahalli,Gowramma,Arunakumar c,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Chitradurga,17/12/2018,11914,GLPS C G HATTI,1577,Chikkagondanahalli,Gowramma,K t chinchan,Female,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Chitradurga,17/12/2018,11914,GLPS C G HATTI,1577,Chikkagondanahalli,Gowramma,Manoja,Male,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,0,0,0,1,6
+4,Chitradurga,Chitradurga,17/12/2018,11916,GLPS YELVARTHI GOLLERHATTI,1577,Chikkagondanahalli,Gowramma,S manjunatha,Male,0,0,0,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,4
+4,Chitradurga,Chitradurga,17/12/2018,11916,GLPS YELVARTHI GOLLERHATTI,1577,Chikkagondanahalli,Gowramma,Pooja r,Female,1,1,0,1,0,1,1,1,1,0,1,0,1,0,0,0,0,1,0,1,11
+4,Chitradurga,Chitradurga,17/12/2018,11916,GLPS YELVARTHI GOLLERHATTI,1577,Chikkagondanahalli,Gowramma,Anilkumar,Male,1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,0,0,0,1,1,14
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Mahendra,Male,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,18
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Anil p,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,19
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Pritham ,Male,1,0,0,1,0,0,0,1,1,0,1,0,1,0,1,0,0,1,0,0,8
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Pooja sri,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Shavath,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Arun,Male,1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,1,15
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Dhanush s,Male,1,0,1,1,0,0,0,0,1,1,1,0,1,1,0,0,0,1,1,1,11
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Chandrakanth r,Male,1,0,0,1,1,1,0,1,1,0,1,1,1,1,1,0,0,0,0,1,12
+4,Chamarajanagara,Gundlupet,04/01/2019,6781,GLPS BENDRA VADI,5030,Puthanapura,Komala,Sundaresh,Male,1,0,0,1,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,1,10
+4,Chamarajanagara,Gundlupet,04/01/2019,6782,GLPS VADDANA HOSA HALLI,5030,Puthanapura,Komala,Mahadevamma,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chamarajanagara,Gundlupet,04/01/2019,6782,GLPS VADDANA HOSA HALLI,5030,Puthanapura,Komala,Nandakumar,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chamarajanagara,Gundlupet,04/01/2019,6782,GLPS VADDANA HOSA HALLI,5030,Puthanapura,Komala,S kiran,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chamarajanagara,Gundlupet,04/01/2019,6782,GLPS VADDANA HOSA HALLI,5030,Puthanapura,Komala,Chethan,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,6782,GLPS VADDANA HOSA HALLI,5030,Puthanapura,Komala,B mahadevamma,Female,0,0,0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,6
+4,Chamarajanagara,Gundlupet,04/01/2019,6782,GLPS VADDANA HOSA HALLI,5030,Puthanapura,Komala,Chethan r,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chamarajanagara,Gundlupet,04/01/2019,6782,GLPS VADDANA HOSA HALLI,5030,Puthanapura,Komala,A k c anil,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,6782,GLPS VADDANA HOSA HALLI,5030,Puthanapura,Komala,Prajwal p,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Sanika s,Female,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,0,1,1,1,17
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,P pavithra,Female,1,0,0,1,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1,8
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Anjali,Female,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,6
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Prakruthi p,Female,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Pooja p m,Female,1,1,0,0,1,0,0,0,1,0,1,1,0,1,0,0,0,0,0,1,8
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Devi d,Female,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,3
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Nagendra,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Yogesh,Male,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,4
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Sinchana h,Female,0,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,4
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,Rakesh n s,Male,1,1,1,1,1,0,0,1,1,1,1,1,0,1,0,0,0,1,0,1,13
+4,Chamarajanagara,Gundlupet,04/01/2019,30150,GHPS PUTTANA PURA,5030,Puthanapura,Komala,H rutheek,Male,1,0,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0,0,12
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Suma,Female,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Sanjana,Female,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Chikkathaya c,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Poornima p,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,K aishwarya,Female,1,0,0,1,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,6
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Anjali,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Pradeepa,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Susheela,Female,1,0,0,1,0,0,1,1,1,1,1,0,0,1,0,0,0,0,0,0,8
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Naveena,Male,1,0,0,1,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,6
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Shivaprasad,Male,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,M mahadevaswamy,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,M mallesh,Male,1,0,0,1,1,1,0,1,1,0,1,0,1,0,0,0,0,0,0,0,8
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Mahesh,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Deepu,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,Deenu s d,Female,0,1,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,4
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,S sanjay,Male,0,0,1,1,1,1,1,0,1,1,1,0,1,1,0,1,0,1,0,0,12
+4,Chamarajanagara,Gundlupet,04/01/2019,43371,GHPS KODAHALLI,5030,Puthanapura,Komala,K s anjali,Female,1,0,0,1,1,0,1,1,1,0,1,0,1,0,0,0,0,1,1,0,10
+4,Chamarajanagara,Gundlupet,04/01/2019,6780,GLPS BASAVA PURA,5030,Puthanapura,Komala,Jyothi j,Female,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chamarajanagara,Gundlupet,04/01/2019,6780,GLPS BASAVA PURA,5030,Puthanapura,Komala,Vinaya,Male,1,0,0,1,0,0,0,0,1,0,1,0,1,1,0,0,1,1,0,0,8
+4,Chamarajanagara,Gundlupet,04/01/2019,6780,GLPS BASAVA PURA,5030,Puthanapura,Komala,Mahadeswamy,Male,1,0,0,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,7
+4,Chamarajanagara,Gundlupet,04/01/2019,6780,GLPS BASAVA PURA,5030,Puthanapura,Komala,Sanjay,Male,1,0,0,0,1,0,0,0,1,0,1,0,1,1,0,0,0,0,0,0,6
+4,Chamarajanagara,Gundlupet,04/01/2019,6780,GLPS BASAVA PURA,5030,Puthanapura,Komala,Akash,Male,0,0,0,1,1,0,0,0,1,1,1,0,1,1,0,0,0,0,0,0,7
+4,Chamarajanagara,Gundlupet,04/01/2019,6780,GLPS BASAVA PURA,5030,Puthanapura,Komala,Bharathi,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,6780,GLPS BASAVA PURA,5030,Puthanapura,Komala,Pushpa,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chamarajanagara,Gundlupet,04/01/2019,6785,GLPS HANGALA PURA,5030,Puthanapura,Komala,H m devaraju,Male,0,0,0,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,1,1,6
+4,Chamarajanagara,Gundlupet,04/01/2019,6785,GLPS HANGALA PURA,5030,Puthanapura,Komala,H d siddartha,Male,0,0,0,1,1,0,1,0,1,0,1,1,1,0,0,0,0,0,0,0,7
+4,Chamarajanagara,Gundlupet,04/01/2019,6785,GLPS HANGALA PURA,5030,Puthanapura,Komala,Madhu,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chamarajanagara,Gundlupet,04/01/2019,6785,GLPS HANGALA PURA,5030,Puthanapura,Komala,Bindu,Female,0,0,0,1,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,1,5
+4,Chamarajanagara,Gundlupet,04/01/2019,6785,GLPS HANGALA PURA,5030,Puthanapura,Komala,H d mahadevaswamy,Male,1,0,0,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,7
+4,Chamarajanagara,Gundlupet,04/01/2019,6785,GLPS HANGALA PURA,5030,Puthanapura,Komala,Yogeshwari,Female,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,1,15
+4,Chamarajanagara,Gundlupet,04/01/2019,6785,GLPS HANGALA PURA,5030,Puthanapura,Komala,Hb nandita,Female,1,1,0,1,0,0,1,0,1,1,1,0,1,1,1,0,1,1,0,1,13
+4,Chitradurga,Hosadurga,18/12/2018,13162,GLPS HALETHIMMAPPANA HATTI,2006,G.n.kere,Anusuyamma,Shruthi b,Female,1,0,1,0,1,0,0,0,1,0,1,1,1,0,0,0,0,1,0,0,8
+4,Chitradurga,Hosadurga,18/12/2018,13162,GLPS HALETHIMMAPPANA HATTI,2006,G.n.kere,Anusuyamma,Basavaraju t,Male,1,0,0,1,0,0,0,1,1,0,1,1,1,1,0,0,0,1,1,0,10
+4,Chitradurga,Hosadurga,18/12/2018,13162,GLPS HALETHIMMAPPANA HATTI,2006,G.n.kere,Anusuyamma,Pavana pv,Male,1,0,1,1,0,0,1,0,1,1,0,1,1,1,0,0,0,1,1,0,11
+4,Chitradurga,Hosadurga,18/12/2018,13162,GLPS HALETHIMMAPPANA HATTI,2006,G.n.kere,Anusuyamma,Jagadeesha g,Male,1,1,0,1,1,1,1,1,1,0,1,0,1,1,0,0,0,1,0,1,13
+4,Chitradurga,Hosadurga,18/12/2018,13162,GLPS HALETHIMMAPPANA HATTI,2006,G.n.kere,Anusuyamma,Pallavi,Female,1,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,0,1,1,1,16
+4,Chitradurga,Hosadurga,18/12/2018,13215,GLPS INDEDEVARAHATTI,2006,G.n.kere,Anusuyamma,Raghu k,Male,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,16
+4,Chitradurga,Hosadurga,18/12/2018,13215,GLPS INDEDEVARAHATTI,2006,G.n.kere,Anusuyamma,Pashali,Female,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,18/12/2018,13215,GLPS INDEDEVARAHATTI,2006,G.n.kere,Anusuyamma,Vinay s,Male,1,1,0,1,1,0,1,0,0,1,1,1,1,0,0,0,0,0,0,0,9
+4,Chitradurga,Hosadurga,18/12/2018,13215,GLPS INDEDEVARAHATTI,2006,G.n.kere,Anusuyamma,Maddalla siddik,Male,1,0,0,1,1,0,0,0,1,1,1,1,1,1,0,0,1,0,0,0,10
+4,Chitradurga,Hosadurga,18/12/2018,13215,GLPS INDEDEVARAHATTI,2006,G.n.kere,Anusuyamma,Kariyappa,Male,0,0,0,1,1,0,1,0,0,1,1,1,1,1,0,1,1,1,0,0,11
+4,Chitradurga,Hosadurga,18/12/2018,13215,GLPS INDEDEVARAHATTI,2006,G.n.kere,Anusuyamma,P priyanka,Female,1,1,0,1,1,1,1,1,1,0,1,0,1,0,0,0,0,1,0,0,11
+4,Chitradurga,Hosadurga,18/12/2018,13229,GLPS SIDDAPURA,2006,G.n.kere,Anusuyamma,Shakunthala c,Female,1,1,0,1,1,0,1,1,1,0,1,1,1,1,0,1,1,1,0,1,15
+4,Chitradurga,Hosadurga,18/12/2018,13229,GLPS SIDDAPURA,2006,G.n.kere,Anusuyamma,Kishan r,Male,0,0,0,1,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,1,6
+4,Chitradurga,Hosadurga,18/12/2018,13229,GLPS SIDDAPURA,2006,G.n.kere,Anusuyamma,Ummekhulls p,Female,1,0,0,1,1,1,1,1,1,1,1,0,1,0,1,0,0,1,0,1,13
+4,Chitradurga,Hosadurga,18/12/2018,13229,GLPS SIDDAPURA,2006,G.n.kere,Anusuyamma,Bavana m,Female,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,0,1,0,1,15
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Sunil,Male,0,0,0,1,1,1,1,0,0,0,0,1,1,0,1,0,0,0,0,0,7
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,K latha,Female,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Jayantha,Male,1,1,1,1,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,9
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Niranjanavarthi,Male,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Kariyappa,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Jayashree,Female,0,0,0,1,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,0,6
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Raghu n s,Male,1,0,0,1,0,0,1,1,1,1,0,1,1,0,0,0,0,1,0,0,9
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Yashoda,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Manoj,Male,0,1,0,1,0,0,0,1,1,1,1,0,1,0,0,0,1,0,0,0,8
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Nutan,Male,1,0,0,1,1,0,0,1,1,1,1,0,1,0,0,0,0,0,0,1,9
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Sudarshan v,Male,0,0,0,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,7
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,T jayanth,Male,0,0,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,4
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Rashmitha,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,M sadana,Female,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,4
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Sanika t k,Female,1,0,1,1,1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,8
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Usha t,Female,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Kariyappa k,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,M ramesha,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Dhanushree,Female,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,0,15
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Pranathi m,Female,1,1,0,1,1,0,1,1,1,0,1,0,1,1,0,0,0,0,0,0,10
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,R ravi,Male,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,0,0,0,1,12
+4,Chitradurga,Hosadurga,18/12/2018,13177,GOVERNMENT HIGHER PRIMARY SCHOOL G.N.KERE,2006,G.n.kere,Anusuyamma,Mohan,Male,1,1,1,0,1,0,1,1,1,1,1,0,1,0,0,1,1,1,1,0,14
+4,Chitradurga,Hosadurga,18/12/2018,13171,GOVERNMENT HIGHER PRIMARY SCHOOL KASAPPANAHALLI,2006,G.n.kere,Anusuyamma,B siddesh,Male,1,0,0,1,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,0,12
+4,Chitradurga,Hosadurga,18/12/2018,13171,GOVERNMENT HIGHER PRIMARY SCHOOL KASAPPANAHALLI,2006,G.n.kere,Anusuyamma,Pavithra o,Female,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,0,0,1,0,0,13
+4,Chitradurga,Hosadurga,18/12/2018,13176,GOVERNMENT HIGHER PRIMARY SCHOOL NAGATHIHALLI,2006,G.n.kere,Anusuyamma,Spandana n,Female,0,0,0,1,1,0,1,1,1,1,1,0,1,0,0,0,0,0,0,0,8
+4,Chitradurga,Hosadurga,18/12/2018,13176,GOVERNMENT HIGHER PRIMARY SCHOOL NAGATHIHALLI,2006,G.n.kere,Anusuyamma,Rakesh n m,Male,0,0,0,1,1,0,1,1,1,0,1,1,1,1,1,0,0,0,0,0,10
+4,Chitradurga,Hosadurga,18/12/2018,13176,GOVERNMENT HIGHER PRIMARY SCHOOL NAGATHIHALLI,2006,G.n.kere,Anusuyamma,Sagar,Male,1,1,0,1,1,0,1,0,1,0,1,0,1,1,0,0,0,0,0,1,10
+4,Chitradurga,Hosadurga,18/12/2018,13176,GOVERNMENT HIGHER PRIMARY SCHOOL NAGATHIHALLI,2006,G.n.kere,Anusuyamma,Kodiriyappa,Male,0,0,0,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,11
+4,Chitradurga,Hosadurga,18/12/2018,45170,GOVERNMENT LOWER PRIMARY SCHOOL GIRIYAPURA,2006,G.n.kere,Anusuyamma,Govinda,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Hosadurga,18/12/2018,45170,GOVERNMENT LOWER PRIMARY SCHOOL GIRIYAPURA,2006,G.n.kere,Anusuyamma,Bhutesh,Male,1,1,0,1,0,0,1,1,1,1,1,1,1,0,0,0,1,1,0,0,12
+4,Chitradurga,Hosadurga,18/12/2018,45170,GOVERNMENT LOWER PRIMARY SCHOOL GIRIYAPURA,2006,G.n.kere,Anusuyamma,Kariyappa m,Male,1,1,1,1,1,0,0,1,1,1,1,0,1,0,1,0,1,0,0,0,12
+4,Chitradurga,Hosadurga,18/12/2018,45168,GOVERNMENT LOWER PRIMARY SCHOOL HUNASEKATTE DASAIHNAHATTI,2006,G.n.kere,Anusuyamma,Ragini r,Female,0,0,0,1,1,1,0,0,1,0,1,0,1,1,0,0,0,0,0,1,8
+4,Chitradurga,Hosadurga,18/12/2018,45168,GOVERNMENT LOWER PRIMARY SCHOOL HUNASEKATTE DASAIHNAHATTI,2006,G.n.kere,Anusuyamma,Spoorthi,Female,1,1,1,1,1,0,1,1,0,0,1,1,1,1,0,1,0,1,1,1,15
+4,Chitradurga,Hosadurga,18/12/2018,13161,GOVERNMENT LOWER PRIMARY SCHOOL ITTIGEHALLI,2006,G.n.kere,Anusuyamma,Sinchana,Female,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,18/12/2018,13161,GOVERNMENT LOWER PRIMARY SCHOOL ITTIGEHALLI,2006,G.n.kere,Anusuyamma,Raghu,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,4
+4,Chitradurga,Hosadurga,18/12/2018,13178,GOVERNMENT LOWER PRIMARY SCHOOL LAKSHMIDEVARA HALLI,2006,G.n.kere,Anusuyamma,Bhavya,Male,1,1,0,1,1,0,0,1,1,0,1,0,1,0,0,0,0,1,0,0,9
+4,Chitradurga,Hosadurga,18/12/2018,13178,GOVERNMENT LOWER PRIMARY SCHOOL LAKSHMIDEVARA HALLI,2006,G.n.kere,Anusuyamma,Karthik,Male,1,0,0,1,1,0,0,1,0,0,1,0,1,1,0,0,1,1,0,0,9
+4,Chitradurga,Hosadurga,18/12/2018,13178,GOVERNMENT LOWER PRIMARY SCHOOL LAKSHMIDEVARA HALLI,2006,G.n.kere,Anusuyamma,Arpitha,Female,0,0,0,1,1,0,0,1,1,1,0,0,1,0,0,1,0,1,0,0,8
+4,Chitradurga,Hosadurga,18/12/2018,13178,GOVERNMENT LOWER PRIMARY SCHOOL LAKSHMIDEVARA HALLI,2006,G.n.kere,Anusuyamma,Puttalakshmamma,Female,0,1,0,1,0,0,0,1,1,0,1,0,1,1,0,0,1,0,0,0,8
+4,Chitradurga,Hosadurga,18/12/2018,13178,GOVERNMENT LOWER PRIMARY SCHOOL LAKSHMIDEVARA HALLI,2006,G.n.kere,Anusuyamma,Gurukoushik,Male,1,1,0,1,1,0,0,0,1,1,1,0,1,1,1,0,0,1,0,0,11
+4,Chitradurga,Hosadurga,18/12/2018,13228,GOVERNMENT LOWER PRIMARY SCHOOL THARIKERE,2006,G.n.kere,Anusuyamma,Ranganath,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,18/12/2018,13228,GOVERNMENT LOWER PRIMARY SCHOOL THARIKERE,2006,G.n.kere,Anusuyamma,Mallikarjuna,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Gadag rural,29/12/2018,47653,GHPS KADADI,3152,Kadadi,Mallamma,Somashekara jakkanavara,Male,1,1,0,1,0,0,1,1,1,0,0,0,1,0,0,1,0,1,0,0,9
+4,Gadag,Gadag rural,29/12/2018,47653,GHPS KADADI,3152,Kadadi,Mallamma,Pramod iholli,Male,0,1,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Praveena lachaunavara,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Nikitha,Female,1,1,1,1,0,0,0,0,1,0,1,1,1,0,0,0,0,0,1,1,10
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Hanumaprabhu kesarimata,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Manoj shedudavana,Male,0,0,0,1,0,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,5
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Aditya devappa muthyavara,Male,1,0,1,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,1,9
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Nethravathi,Female,1,1,0,1,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,8
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Karthika hosamata,Male,1,0,0,1,0,0,0,0,1,0,1,0,1,0,0,0,0,0,1,1,7
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Kavya,Female,0,0,0,1,1,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,7
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Rajabakshi maanuvatta,Female,1,0,0,1,1,0,1,0,1,1,1,0,1,1,0,1,0,1,1,1,13
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Bhimambika koothalosha,Female,1,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,0,1,1,10
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Prathibha sha lachumanavara,Female,1,0,1,1,1,0,1,0,1,0,1,1,0,0,0,1,1,1,1,1,13
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Sachinana mukkanavara,Male,0,0,1,1,1,1,1,0,1,1,0,0,1,0,1,0,0,1,0,1,11
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Kavya chikkenathoppa,Female,1,0,1,1,1,1,1,1,1,0,1,0,1,0,0,0,0,0,0,1,11
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Aliya begum pateli,Female,1,1,1,1,1,0,1,1,1,0,0,0,1,1,0,0,0,0,1,1,12
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Meghana shi sarafa,Female,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,0,0,1,1,1,15
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Karthik,Male,1,1,1,1,1,0,1,1,1,0,1,1,1,0,0,0,0,1,0,1,13
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Ranjitha shalavadi,Female,1,1,1,1,1,1,1,1,1,0,1,0,1,0,0,1,0,1,0,1,14
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Sakku aduragola,Female,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,0,1,0,1,14
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Basayya,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Aishwarya shigaravaana,Female,0,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,1,6
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Yallappa hosamani,Male,1,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,7
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Nilama cholappanavara,Female,1,0,0,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,5
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Parvathi,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Srinivasa,Male,1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,6
+4,Gadag,Gadag rural,29/12/2018,47654,GLPS JANATA COLONY KADADI,3152,Kadadi,Mallamma,Prajwal yalatamana,Male,1,1,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,17
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Honnesha bagawathi,Male,1,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,4
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Channaveeresha,Male,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Arjuna basarakosha,Male,1,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Lakshmi,Female,1,1,0,1,0,0,0,1,1,0,1,0,0,1,0,0,0,0,0,0,7
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Jyothi,Female,1,1,0,0,0,1,0,1,1,1,1,0,1,0,1,0,0,1,0,0,10
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Priya hanavatapa,Female,0,0,0,1,1,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0,8
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Basavagouda ,Male,1,0,0,1,1,0,1,1,1,0,1,0,1,1,0,0,0,0,0,0,9
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Savithri ha basarakoda,Female,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,10
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Pooja,Female,1,1,0,1,1,0,1,1,1,0,0,0,0,1,0,0,0,1,0,0,9
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Manoj kumar,Male,1,1,0,1,1,0,1,1,1,0,1,1,1,1,0,1,0,1,0,0,13
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Megharaja iti,Male,1,1,0,1,1,0,1,1,1,0,0,1,1,1,0,0,0,1,1,0,12
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Kavitha gavari,Female,1,1,1,1,1,0,1,1,1,0,1,1,1,1,0,1,1,1,0,0,15
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Manoj,Male,1,0,1,1,1,0,1,1,1,0,1,1,1,1,0,1,1,1,0,1,15
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Mallamma shivayyappanavar,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,15
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Renuka sali,Female,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,0,14
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Banupriya cham sali,Female,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,1,0,0,14
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Eeramma shi korkara,Female,0,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,6
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Kusuma,Female,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,4
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Holabasappa,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Manikanta,Male,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Renuka ha kariganavara,Female,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,4
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Susmita manikyavara,Female,1,0,0,1,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,5
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Shivaraja,Male,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,4
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Abhishek,Male,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,4
+4,Gadag,Gadag rural,29/12/2018,47655,GHPS GAVARWAD,3152,Kadadi,Mallamma,Santosh agali,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,18
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Muskan,Male,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,0,0,0,1,13
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Arunkumar,Male,1,0,0,0,1,0,1,1,1,1,1,1,1,1,0,0,1,0,0,1,12
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Fakiresh,Male,1,0,1,1,0,0,1,0,1,1,1,1,1,0,0,0,1,1,0,0,11
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Riyaz,Male,0,1,0,1,1,1,1,1,1,0,1,0,1,0,0,0,0,1,0,1,11
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Manjunath,Male,1,0,1,1,1,0,1,0,1,1,1,1,0,0,0,0,1,1,0,0,11
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Sinchana,Female,1,1,1,1,0,0,1,1,1,0,1,0,0,0,1,0,0,1,0,1,11
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Sruthi,Female,1,0,0,1,1,0,1,0,1,1,1,0,1,0,1,0,0,1,0,1,11
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Poornima,Female,1,1,1,1,1,0,0,0,0,1,1,1,0,1,0,0,0,1,0,1,11
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Umesh,Male,1,0,1,1,1,0,1,0,1,1,1,0,1,0,0,0,0,1,1,0,11
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Aishwarya,Female,1,0,0,1,1,0,1,0,1,1,1,0,1,0,0,0,0,1,0,1,10
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Annapurna,Female,1,0,1,1,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1,8
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Rakshitha,Female,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Pavithra,Female,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,2
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Pavan,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Sahana,Female,1,1,1,1,1,0,1,1,0,0,1,0,0,0,0,0,0,1,0,1,10
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Thanu,Female,1,0,0,1,0,0,1,1,1,0,1,1,1,0,0,1,0,0,0,1,10
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Mahesh,Male,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Roopa,Female,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Darshan,Male,1,0,0,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,6
+4,Gadag,Shirhatti,07/12/2018,47961,GHPS RANATUR,5090,Ranatur,Shankrappa,Darshan,Male,1,1,0,1,1,0,0,1,1,0,1,1,1,0,0,0,0,1,0,0,10
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Renuka,Female,1,0,0,1,0,0,1,0,1,0,1,1,1,0,0,0,1,1,0,0,9
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Rekha,Female,1,0,0,1,0,0,1,0,1,0,1,1,0,0,0,0,0,1,0,1,8
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Akkamma,Female,1,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,6
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Pavithra,Female,0,0,0,1,1,0,0,0,0,0,1,0,1,1,0,0,0,1,0,0,6
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Rakshitha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Annapurna,Female,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Sheela,Female,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Nikitha,Female,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,3
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Mohan,Male,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Manjunath,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Akash,Male,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Suresh,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Sahid,Male,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,07/12/2018,47962,GHPS DEVIHAL,5090,Ranatur,Shankrappa,Devika,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Manjunath,Male,1,0,0,0,1,0,1,1,1,0,1,1,1,1,1,1,1,0,0,0,12
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Kumar,Male,0,0,0,1,1,0,1,0,0,0,1,0,1,1,0,1,0,0,0,1,8
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Sahil,Male,0,0,0,1,1,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,6
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Bindu,Female,1,0,0,0,0,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,5
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Mubarak,Male,0,0,0,1,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,5
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Puttu,Male,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,5
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Venkatesh,Male,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,5
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Lakshmi,Female,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Parvathi,Female,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Tajuddin,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Nagamma,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Akshatha,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Nagamma,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Sujatha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Suresh,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Sukumar,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Maruthi,Male,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Gadag,Shirhatti,07/12/2018,47963,GLPS SHRIMANTHGAD,5090,Ranatur,Shankrappa,Parashuram,Male,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,2
+4,Chitradurga,Hosadurga,12/12/2018,45151,GHPS BOYS BELAGURU,1156,Belaguru,Shashikala,Roshan,Male,0,0,1,1,0,0,1,1,1,1,1,0,1,1,0,0,0,0,0,0,9
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Bhoomika,Female,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,16
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Chaya,Female,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,15
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Lavanya,Female,1,1,0,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,0,14
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Ankitha,Female,1,0,0,1,1,1,1,1,1,1,1,0,1,0,1,1,0,1,0,1,14
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Janhavi,Female,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,12
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Bhavya b r,Female,1,0,0,1,1,1,1,1,1,1,1,0,1,0,0,1,0,1,0,1,13
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Usha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Priyanka,Female,0,0,0,1,0,1,0,0,0,0,1,1,0,1,0,0,0,0,0,0,5
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Arunabai,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Rakshitha,Female,0,0,0,1,0,0,0,1,1,0,1,1,1,1,0,0,0,1,0,0,8
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Bhoomika,Female,1,1,0,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,7
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Bhoomika b m,Female,1,1,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,6
+4,Chitradurga,Hosadurga,12/12/2018,13370,GHPS GIRLS BELAGURU,1156,Belaguru,Shashikala,Kavya r,Female,0,0,1,1,1,0,0,0,0,1,1,0,1,1,1,0,0,0,0,0,8
+4,Chitradurga,Hosadurga,12/12/2018,45152,GHPS S L HATTI,1156,Belaguru,Shashikala,Rohith,Male,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,0,0,1,1,1,15
+4,Chitradurga,Hosadurga,12/12/2018,45152,GHPS S L HATTI,1156,Belaguru,Shashikala,Bindubai,Female,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,0,0,1,0,1,13
+4,Chitradurga,Hosadurga,12/12/2018,45152,GHPS S L HATTI,1156,Belaguru,Shashikala,Sowndarya,Female,1,0,0,1,1,0,1,0,1,1,1,1,1,1,0,0,0,1,0,1,12
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Sakshi,Female,1,0,0,1,1,0,1,1,1,0,1,1,1,1,0,0,0,1,0,0,11
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Lakshmi,Female,1,1,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,0,1,16
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Prajwal,Male,1,0,1,1,1,0,1,1,1,1,1,1,0,1,1,0,1,1,1,1,16
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Kavya r,Female,1,0,0,1,1,1,1,1,1,0,1,0,1,0,0,0,0,0,0,1,10
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Manjunath,Male,1,1,1,1,1,0,1,1,1,0,1,0,0,1,0,0,0,0,0,1,11
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Lakshmi,Female,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,5
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Bhagyalakshmi,Female,0,0,0,1,1,0,0,1,1,0,0,0,1,1,0,0,1,0,0,0,7
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Nanda,Male,1,0,0,0,1,0,1,1,1,0,0,0,1,0,0,0,0,1,0,1,8
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Arun,Male,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Sudha,Female,1,0,0,1,1,0,0,1,1,1,1,0,1,1,0,0,0,1,0,1,11
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Savitha,Female,1,0,0,1,1,0,1,1,1,1,1,0,0,1,0,0,0,0,0,1,10
+4,Chitradurga,Hosadurga,12/12/2018,30040,GOVERNMENT HIGHER PRIMARY SCHOOL SINGENAHALLI BHOVIHATTI,1156,Belaguru,Shashikala,Kavyashree,Female,1,0,0,1,1,0,1,1,1,1,1,0,1,1,0,0,0,0,0,1,11
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Ranga swamy,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Shalini,Female,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,0,0,1,0,1,13
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Pallavi,Female,1,0,0,1,1,0,1,1,1,1,1,0,1,0,0,0,0,0,1,1,11
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Rakesh,Male,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,1,12
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Keerthi,Female,1,0,1,1,1,0,0,1,1,0,1,0,0,1,1,0,0,0,0,1,10
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Kruthika,Female,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,0,1,12
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Rachana,Female,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,0,1,1,1,0,15
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Rathan a m,Male,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,15
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Prathap,Male,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,19
+4,Chitradurga,Hosadurga,12/12/2018,45153,GOVERNMENT LOWER PRIMARY SCHOOL HARENAHALLI,1156,Belaguru,Shashikala,Balaji,Male,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,17
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Narendra,Male,1,1,0,1,1,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,7
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Akshay,Male,1,1,0,1,1,0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,9
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Gowtham,Male,1,0,1,1,1,1,1,0,1,0,1,1,1,0,0,0,0,0,0,0,10
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Nikitha,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Gaganashree,Female,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,3
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Navanith,Male,1,0,0,1,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,5
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Indushree,Female,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,10
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Sindushree,Female,0,0,0,0,1,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,7
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Sandhya,Female,1,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,9
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Amulya,Female,1,0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,1,0,1,9
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Bhavya,Female,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,5
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Hemalatha,Female,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,4
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Shalini,Female,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,18
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Surya,Male,1,0,1,1,1,0,1,1,1,1,1,0,1,1,0,0,0,1,0,0,12
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Veerabhadra,Male,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,0,0,14
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Madhulatha,Female,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,18
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Ramcharan,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Likitha,Female,1,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,4
+4,Chikkaballapura,Gowribidanur,28/12/2018,11139,GOVT HIGHER PRIMARY SCHOOLCHIKKA KURUGODU,1585,Chikkakurugodu,C b narasimhamurthy,Nikil,Male,0,0,0,1,0,0,1,1,1,0,1,0,1,1,0,0,0,0,1,0,8
+4,Chikkaballapura,Gowribidanur,28/12/2018,11157,GOVT HIGHER PRIMARY SCHOOL RAMACHANDARAPURA,1585,Chikkakurugodu,C b narasimhamurthy,Govardhan,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chikkaballapura,Gowribidanur,28/12/2018,11157,GOVT HIGHER PRIMARY SCHOOL RAMACHANDARAPURA,1585,Chikkakurugodu,C b narasimhamurthy,Kavya,Female,1,0,0,1,1,0,1,1,0,0,1,0,1,0,1,0,0,0,0,0,8
+4,Chikkaballapura,Gowribidanur,28/12/2018,11157,GOVT HIGHER PRIMARY SCHOOL RAMACHANDARAPURA,1585,Chikkakurugodu,C b narasimhamurthy,Madhu,Male,0,0,0,1,1,1,1,1,0,1,1,0,1,1,1,0,0,0,0,0,10
+4,Chikkaballapura,Gowribidanur,28/12/2018,11157,GOVT HIGHER PRIMARY SCHOOL RAMACHANDARAPURA,1585,Chikkakurugodu,C b narasimhamurthy,Meghana,Female,1,0,0,1,1,1,1,1,1,1,1,0,1,0,1,0,0,0,0,1,12
+4,Chikkaballapura,Gowribidanur,28/12/2018,11157,GOVT HIGHER PRIMARY SCHOOL RAMACHANDARAPURA,1585,Chikkakurugodu,C b narasimhamurthy,Kiran,Male,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Gowribidanur,28/12/2018,11157,GOVT HIGHER PRIMARY SCHOOL RAMACHANDARAPURA,1585,Chikkakurugodu,C b narasimhamurthy,Santosh,Male,0,0,0,1,1,1,1,1,0,1,1,0,1,1,0,0,0,0,0,0,9
+4,Chikkaballapura,Gowribidanur,28/12/2018,11140,GOVT LOWER PRIMARY SCHOOL DEVARAHOSAHALLI,1585,Chikkakurugodu,C b narasimhamurthy,Chethan,Male,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,5
+4,Chikkaballapura,Gowribidanur,28/12/2018,11140,GOVT LOWER PRIMARY SCHOOL DEVARAHOSAHALLI,1585,Chikkakurugodu,C b narasimhamurthy,Gagana,Female,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chikkaballapura,Gowribidanur,28/12/2018,11140,GOVT LOWER PRIMARY SCHOOL DEVARAHOSAHALLI,1585,Chikkakurugodu,C b narasimhamurthy,Kusuma,Female,0,0,0,1,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,5
+4,Chikkaballapura,Gowribidanur,28/12/2018,11140,GOVT LOWER PRIMARY SCHOOL DEVARAHOSAHALLI,1585,Chikkakurugodu,C b narasimhamurthy,Tejaswini,Female,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,4
+4,Chikkaballapura,Gowribidanur,28/12/2018,11140,GOVT LOWER PRIMARY SCHOOL DEVARAHOSAHALLI,1585,Chikkakurugodu,C b narasimhamurthy,Janhavi,Female,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,5
+4,Chikkaballapura,Gowribidanur,27/12/2018,11482,GMHPS VIDURASHWATHA,1906,Doddakurugodu,N d prakashreddi,Ramya,Female,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,0,0,16
+4,Chikkaballapura,Gowribidanur,27/12/2018,11482,GMHPS VIDURASHWATHA,1906,Doddakurugodu,N d prakashreddi,Nandish,Male,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,1,1,0,0,15
+4,Chikkaballapura,Gowribidanur,27/12/2018,11482,GMHPS VIDURASHWATHA,1906,Doddakurugodu,N d prakashreddi,Sudarshan,Male,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,3
+4,Chikkaballapura,Gowribidanur,27/12/2018,11482,GMHPS VIDURASHWATHA,1906,Doddakurugodu,N d prakashreddi,Sirisha,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Gowribidanur,27/12/2018,11482,GMHPS VIDURASHWATHA,1906,Doddakurugodu,N d prakashreddi,Girish,Male,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,10
+4,Chikkaballapura,Gowribidanur,27/12/2018,11482,GMHPS VIDURASHWATHA,1906,Doddakurugodu,N d prakashreddi,Srivardhan,Male,0,0,1,1,1,0,0,0,0,0,1,1,1,1,0,0,1,0,1,1,10
+4,Chikkaballapura,Gowribidanur,27/12/2018,11482,GMHPS VIDURASHWATHA,1906,Doddakurugodu,N d prakashreddi,Gowthami,Female,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Naveen,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Hafriya,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,18
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Saheb,Male,0,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Ramcharan,Male,1,1,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,1,0,1,8
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Sahana,Female,1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Farmidataj,Female,0,0,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,1,0,8
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Khasimbi,Female,1,0,0,0,1,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,6
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Hussainabi,Female,1,1,0,1,1,0,0,1,1,1,1,1,0,1,0,0,0,0,0,0,10
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Afreed khan,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Prabhas,Male,1,0,1,1,1,1,0,1,0,1,1,0,1,0,0,0,1,1,0,1,12
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Priya,Female,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Sallabhanu,Female,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Chandrika,Female,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,3
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Afreen,Male,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,3
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Ashok,Male,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Muskan,Male,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,3
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Hussainabi,Female,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,6
+4,Chikkaballapura,Gowribidanur,27/12/2018,11490,GHPS KUDUMALAKUNTE,1906,Doddakurugodu,N d prakashreddi,Rekha,Female,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,1,1,1,6
+4,Chikkaballapura,Gowribidanur,27/12/2018,11480,GOVT LOWER PRIMARY SCHOOL DODDAKURUGODU,1906,Doddakurugodu,N d prakashreddi,Ranjan,Male,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1,17
+4,Chikkaballapura,Gowribidanur,27/12/2018,11480,GOVT LOWER PRIMARY SCHOOL DODDAKURUGODU,1906,Doddakurugodu,N d prakashreddi,Naresh,Male,1,0,0,1,1,0,1,0,0,0,1,1,1,0,0,0,1,1,1,1,11
+4,Chikkaballapura,Gowribidanur,27/12/2018,11480,GOVT LOWER PRIMARY SCHOOL DODDAKURUGODU,1906,Doddakurugodu,N d prakashreddi,Nanditha,Female,1,0,1,1,1,0,1,1,1,0,1,1,1,1,0,0,1,0,0,1,13
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Sriram,Male,0,0,0,1,1,0,1,1,0,0,1,1,1,1,0,0,0,1,0,1,10
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Ramesh,Male,1,1,0,1,1,0,0,1,1,1,0,1,0,0,0,0,0,1,1,0,10
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Rakshitha,Female,1,0,1,1,1,0,0,1,1,1,1,0,1,1,0,0,0,1,0,1,12
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Archana,Female,1,0,1,1,1,1,1,1,1,0,1,0,1,1,0,0,0,0,0,1,12
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Priyanka,Female,1,0,0,1,0,1,1,1,1,0,1,1,1,0,0,0,0,1,0,1,11
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Srinivas,Male,1,0,1,1,1,0,0,1,1,0,1,1,1,0,0,0,0,0,0,1,10
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Sudarshan,Male,1,0,0,1,0,0,0,0,1,0,1,0,1,1,1,0,0,0,0,0,7
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Navya,Female,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,1,0,14
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Rakshitha,Female,1,1,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,0,14
+4,Chikkaballapura,Gowribidanur,27/12/2018,11485,GLPS HUDUTHI,1906,Doddakurugodu,N d prakashreddi,Adarsh,Male,1,1,1,1,1,0,0,1,1,0,1,1,1,1,0,0,1,1,1,0,14
+4,Chikkaballapura,Gowribidanur,26/12/2018,11143,GHPS HALAGANAHALLI,2316,Halaganahalli,C v varalaxmi,Yashaswini,Female,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1,0,1,14
+4,Chikkaballapura,Gowribidanur,26/12/2018,11143,GHPS HALAGANAHALLI,2316,Halaganahalli,C v varalaxmi,Gangotri,Female,1,0,1,1,1,0,0,0,1,0,1,1,1,0,0,0,0,1,0,1,10
+4,Chikkaballapura,Gowribidanur,26/12/2018,11143,GHPS HALAGANAHALLI,2316,Halaganahalli,C v varalaxmi,Purashotham,Male,0,1,1,0,1,0,0,1,0,0,1,1,1,0,0,0,0,0,0,0,7
+4,Chikkaballapura,Gowribidanur,26/12/2018,11143,GHPS HALAGANAHALLI,2316,Halaganahalli,C v varalaxmi,Keerthana,Female,1,1,0,1,1,0,0,1,0,0,1,0,1,0,0,0,0,1,0,1,9
+4,Chikkaballapura,Gowribidanur,26/12/2018,11143,GHPS HALAGANAHALLI,2316,Halaganahalli,C v varalaxmi,Pallavi,Female,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,0,0,0,0,1,8
+4,Chikkaballapura,Gowribidanur,26/12/2018,11143,GHPS HALAGANAHALLI,2316,Halaganahalli,C v varalaxmi,Tanuja,Female,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,1,1,15
+4,Chikkaballapura,Gowribidanur,26/12/2018,11143,GHPS HALAGANAHALLI,2316,Halaganahalli,C v varalaxmi,Yaseen,Male,1,1,1,1,1,0,1,1,1,0,0,1,1,0,0,1,0,1,0,1,13
+4,Chikkaballapura,Gowribidanur,26/12/2018,11138,GOVT HIGHER PRIMARY SCHOOL CHANDANADUR,2316,Halaganahalli,C v varalaxmi,Ashok,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,14
+4,Chikkaballapura,Gowribidanur,26/12/2018,11138,GOVT HIGHER PRIMARY SCHOOL CHANDANADUR,2316,Halaganahalli,C v varalaxmi,Roopa,Female,0,0,0,1,1,1,0,0,1,0,0,0,1,0,1,0,0,0,0,1,7
+4,Chikkaballapura,Gowribidanur,26/12/2018,11138,GOVT HIGHER PRIMARY SCHOOL CHANDANADUR,2316,Halaganahalli,C v varalaxmi,Harshitha,Female,1,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,9
+4,Chikkaballapura,Gowribidanur,26/12/2018,11138,GOVT HIGHER PRIMARY SCHOOL CHANDANADUR,2316,Halaganahalli,C v varalaxmi,Kavyashree,Female,1,0,1,1,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,7
+4,Chikkaballapura,Gowribidanur,26/12/2018,11138,GOVT HIGHER PRIMARY SCHOOL CHANDANADUR,2316,Halaganahalli,C v varalaxmi,Nityashree,Female,0,0,1,1,1,1,0,0,1,0,1,0,1,1,1,0,0,0,1,1,11
+4,Chikkaballapura,Gowribidanur,26/12/2018,11138,GOVT HIGHER PRIMARY SCHOOL CHANDANADUR,2316,Halaganahalli,C v varalaxmi,Rohith,Male,1,0,1,1,1,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,7
+4,Chikkaballapura,Gowribidanur,26/12/2018,11138,GOVT HIGHER PRIMARY SCHOOL CHANDANADUR,2316,Halaganahalli,C v varalaxmi,Swetha,Female,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,18
+4,Chikkaballapura,Gowribidanur,26/12/2018,11138,GOVT HIGHER PRIMARY SCHOOL CHANDANADUR,2316,Halaganahalli,C v varalaxmi,Kavyashree,Female,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,17
+4,Chikkaballapura,Gowribidanur,26/12/2018,11153,GLPS KADIRENAHALLI,2316,Halaganahalli,C v varalaxmi,Tasinataj,Female,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,1,12
+4,Chikkaballapura,Gowribidanur,26/12/2018,11153,GLPS KADIRENAHALLI,2316,Halaganahalli,C v varalaxmi,Ragini,Female,0,0,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1,13
+4,Chikkaballapura,Gowribidanur,26/12/2018,11153,GLPS KADIRENAHALLI,2316,Halaganahalli,C v varalaxmi,Nagalakshmi,Female,0,0,1,1,1,1,0,0,1,1,1,0,1,1,1,0,0,0,0,0,10
+4,Chikkaballapura,Gowribidanur,26/12/2018,11144,GLPS GANDI NAGARA,2316,Halaganahalli,C v varalaxmi,Mahesh,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chikkaballapura,Gowribidanur,26/12/2018,11144,GLPS GANDI NAGARA,2316,Halaganahalli,C v varalaxmi,Navya,Female,1,1,1,1,0,0,1,1,1,0,1,0,1,0,0,0,1,1,0,1,12
+4,Chikkaballapura,Gowribidanur,26/12/2018,11144,GLPS GANDI NAGARA,2316,Halaganahalli,C v varalaxmi,Manohar,Male,1,0,0,1,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,7
+4,Chikkaballapura,Gowribidanur,26/12/2018,11144,GLPS GANDI NAGARA,2316,Halaganahalli,C v varalaxmi,Mohan,Male,1,1,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,5
+4,Chikkaballapura,Gowribidanur,26/12/2018,11144,GLPS GANDI NAGARA,2316,Halaganahalli,C v varalaxmi,Girish,Male,1,0,0,1,1,1,0,1,1,1,1,0,1,1,0,0,0,0,0,0,10
+4,Chikkaballapura,Gowribidanur,26/12/2018,11141,GLPS H COLONY,2316,Halaganahalli,C v varalaxmi,Akshay,Male,1,0,0,1,1,0,1,1,1,0,1,0,1,1,0,0,1,1,0,0,11
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Sridevi,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,17
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Vasanth kumar,Male,1,0,1,1,0,0,0,1,1,1,1,1,1,0,0,1,0,1,1,1,13
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Anjaneya,Male,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,13
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Suvarna,Female,1,1,1,1,1,0,1,1,1,0,1,0,1,0,1,1,0,0,0,0,12
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Devamma,Female,1,0,1,1,1,1,1,1,1,0,1,1,1,0,1,1,0,0,0,1,14
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Annapurna,Female,1,0,0,1,1,1,1,1,1,0,1,1,0,0,1,1,0,0,0,1,12
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Karthik,Male,0,0,1,1,0,1,1,1,1,0,0,0,1,0,0,0,0,1,0,1,9
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Akash,Male,0,0,1,0,0,0,1,0,0,1,1,0,1,0,0,0,0,0,0,0,5
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Anil kumar,Male,1,0,0,1,1,0,1,1,1,0,1,0,1,0,0,1,0,1,0,1,11
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Vidhyavathi,Female,1,0,1,1,0,1,1,1,1,0,1,0,1,0,0,1,0,1,0,0,11
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Lakshmi,Female,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Shivakanth,Male,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,0,0,0,0,12
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Mallikarjuna,Male,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,0,1,0,7
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Ambika,Female,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,5
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Bharath,Male,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Devaraj,Male,1,0,0,1,1,1,1,1,1,0,1,0,1,1,0,1,0,0,0,1,12
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Manikyamma,Female,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Mahantesh,Male,0,0,0,1,1,0,1,1,1,0,0,0,1,0,0,1,0,0,0,0,7
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Mangaraya,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Venkatesh,Male,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,1,0,0,1,0,5
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Mallikarjuna,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Akshatha,Female,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0,4
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Basamma,Female,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,3
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Akshatha,Female,1,0,0,1,1,1,1,1,0,0,1,0,1,0,0,1,0,0,0,0,9
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Dhanalakshmi,Female,1,1,0,1,0,1,1,1,1,0,1,0,1,0,0,1,1,0,0,0,11
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Akash,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Shivaraj,Male,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,4
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Akshatha,Female,0,0,0,1,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Sridevi,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Pavithra,Female,1,0,0,1,1,0,1,1,1,1,1,0,0,0,0,0,0,1,0,1,10
+4,Raichur,Manvi,02/01/2019,24064,GOVT.HIGHER PRIMARY SCHOOL NAKKUNDA,4684,Nakkunda,Annapurna,Ambika,Female,0,0,0,1,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,1,7
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Mahantesh,Male,1,1,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,8
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Channabasava,Male,1,1,1,1,0,0,0,1,1,0,1,0,1,0,0,0,1,1,1,0,11
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Annapurna s,Female,1,1,1,1,1,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,12
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Mamatha,Female,1,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,12
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Hanumesh,Male,1,1,1,0,0,1,1,0,1,1,1,0,0,0,0,0,0,1,1,1,11
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Husen banu,Female,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,1,13
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Mahadevi,Female,0,1,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,1,8
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Mariyamma,Female,1,1,1,1,1,0,1,0,1,0,1,0,0,0,0,0,0,1,1,1,11
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Fakiramma,Female,0,0,1,1,0,1,0,1,1,1,0,0,1,0,1,0,1,1,0,0,10
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Channabasamma,Female,1,1,1,1,0,1,1,0,1,1,1,0,0,0,0,0,0,1,1,1,12
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Sridevi,Female,1,0,0,0,0,1,1,0,1,1,1,1,1,0,0,0,0,1,1,0,10
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Shivarajamma,Female,1,0,1,1,1,1,1,0,0,0,1,0,1,0,1,0,0,0,0,0,9
+4,Raichur,Manvi,02/01/2019,29872,GOVT HIGHER PRIMARY KAREGUDDA,4684,Nakkunda,Annapurna,Devamma,Female,1,1,1,0,0,0,1,0,1,1,0,0,0,0,1,1,1,1,0,0,10
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Sridevi,Female,1,0,1,1,0,0,1,0,1,0,1,0,1,0,0,0,1,1,1,1,11
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Shanthamma,Female,1,0,1,1,1,1,1,0,1,0,1,0,1,0,0,0,0,0,0,0,9
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Pavithra,Female,1,0,1,1,1,0,0,0,1,0,1,0,1,0,1,0,1,1,0,0,10
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Nagamma,Female,1,0,1,1,0,0,0,0,1,1,1,0,1,1,0,0,0,1,0,1,10
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Kamalamma,Female,1,0,0,1,1,0,0,0,1,1,1,0,1,0,0,0,0,1,0,1,9
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Mariyamma,Female,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,0,0,0,1,7
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Shanthamma,Female,1,0,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,8
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Mariyamma,Female,1,0,0,1,1,0,0,0,0,1,1,0,1,0,1,0,0,1,0,0,8
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Parashuram,Male,1,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,1,7
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Ajay kumar,Male,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,17
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Basavaraj,Male,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1,0,1,0,0,13
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Bhimanna,Male,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,17
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Byalappa,Male,1,0,1,1,1,0,0,1,1,0,1,1,0,1,0,0,1,1,0,0,11
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Devaraj,Male,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,4
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Gyanappa,Male,1,0,1,1,1,0,1,0,1,1,1,0,0,0,0,0,1,1,0,1,11
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Hanumantha,Male,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,16
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Hullesh,Male,1,0,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,1,0,1,15
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Jeevan kumar,Male,1,0,1,1,1,1,1,0,1,0,1,0,1,0,0,1,1,1,0,0,12
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Kariyanna,Male,1,0,0,0,0,0,0,0,1,1,1,0,1,0,1,0,0,1,0,0,7
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Pradeep,Male,1,0,0,1,0,0,1,0,1,1,1,0,0,0,0,0,1,1,0,1,9
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Sharanabasava,Male,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,0,1,1,0,1,13
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Somagowda,Male,1,0,0,0,1,0,1,0,1,1,1,0,1,0,0,0,1,1,0,0,9
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Kariyappa,Male,1,0,1,0,1,0,1,0,0,0,0,0,1,1,0,0,0,1,0,0,7
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Ramanna,Male,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,1,0,0,0,0,8
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Lakumi,Female,1,0,1,1,1,0,1,0,1,0,1,0,1,0,0,1,1,1,0,0,11
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Huligemma,Female,1,0,1,1,1,0,0,0,1,0,0,0,1,1,0,1,1,1,1,1,12
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Hirelingamma,Female,1,0,1,1,1,0,1,0,0,0,0,0,1,0,0,0,1,1,1,1,10
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Bhagyalakshmi,Female,0,0,0,1,1,0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,6
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Ambika,Female,1,0,1,1,0,0,1,0,1,1,1,0,1,0,1,0,0,1,0,1,11
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Yamanoora,Male,1,0,1,1,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,0,8
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Dyamanna,Male,1,0,1,1,1,0,1,0,1,1,0,0,1,1,0,0,0,0,0,1,10
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Ambika,Female,1,0,1,1,1,0,1,0,1,0,0,0,0,0,0,0,1,1,1,1,10
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Sharanamma,Female,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,17
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Shanthala,Female,1,0,1,1,0,0,1,0,1,0,0,0,1,0,0,0,0,1,1,1,9
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Maribasamma,Female,1,0,1,1,1,0,0,0,1,0,1,0,1,1,1,1,1,1,1,1,14
+4,Raichur,Sindhanur,29/12/2018,24606,GOVT.HIGHER PRIMARY SCHOOL CHIKKABERAGI,3239,Kalamangi,Vijayalakshmi,Naditha,Female,1,0,1,1,0,0,1,1,1,0,1,1,1,0,1,1,0,1,0,0,12
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Ashok,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Rakshitha,Female,1,0,0,1,1,0,0,1,1,0,1,0,1,0,1,0,0,0,0,0,8
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Nethra,Female,1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Sangeetha,Female,1,1,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,7
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Ankitha,Female,1,1,1,1,1,0,1,0,1,0,1,1,1,1,0,0,1,1,1,0,14
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Nagaraj,Male,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,1,1,14
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Basavaraj,Male,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,1,0,1,15
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Ningaraj,Male,1,1,0,1,1,0,0,0,1,1,1,0,1,0,1,0,0,1,0,1,11
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Geetha,Female,1,1,0,1,1,0,0,0,1,0,1,0,1,0,0,0,0,1,1,0,9
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Shilpa,Female,1,0,1,1,1,0,1,0,1,0,1,1,1,0,0,0,0,0,0,0,9
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,T ningaraj,Male,1,1,1,1,1,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,9
+4,Raichur,Sindhanur,29/12/2018,24610,GOVT.HIGHER PRIMARY SCHOOL HIREBERAGI,3239,Kalamangi,Vijayalakshmi,Anitha,Female,1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,0,0,0,0,10
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Sushmitha,Female,1,1,0,1,1,1,1,0,0,1,1,0,1,1,1,0,1,1,1,1,15
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Ambregowda,Male,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,1,0,16
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Anitha,Female,1,1,0,1,1,0,1,1,0,0,1,1,1,1,1,0,1,1,1,1,15
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Hanumantha,Male,0,0,1,1,1,1,1,0,1,1,1,1,0,0,1,0,1,1,1,0,13
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Sahana,Female,1,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,1,1,0,15
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Shanthamma,Female,1,1,1,0,1,0,1,0,1,1,1,1,1,1,0,1,1,1,1,0,15
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Nagarathna,Female,1,1,0,0,1,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,11
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Durgamma,Female,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,16
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Savitha r,Female,1,1,1,1,1,1,1,1,0,1,1,0,0,1,1,1,1,1,0,1,16
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Bindhu,Female,0,1,1,1,1,1,1,0,1,0,1,0,1,0,0,1,1,1,1,0,13
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Sridevi,Female,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,17
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Yamunamma,Female,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,1,0,16
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Veerupakshi,Female,1,1,0,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,0,0,13
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Pallavi,Female,1,1,1,1,1,1,0,0,1,1,1,0,0,0,1,1,1,1,1,1,15
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Narasanna,Male,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,16
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Shreeba,Female,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0,1,1,0,16
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Mahesh,Male,1,1,0,1,1,0,1,1,1,1,1,1,1,0,0,1,0,0,1,0,13
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Lakshman,Male,1,0,0,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1,15
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Ramanna,Male,1,0,0,1,1,0,1,0,1,1,1,0,0,0,1,0,0,1,1,1,11
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Umesh,Male,1,0,0,1,1,0,1,1,1,1,0,1,1,0,1,1,0,1,0,0,12
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Shwetha,Female,1,1,0,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,16
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Basavaraj,Male,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,17
+4,Raichur,Sindhanur,29/12/2018,24613,GMHPS KALAMANGI,3239,Kalamangi,Vijayalakshmi,Muthamma,Female,1,1,1,1,1,0,0,1,0,1,1,0,1,1,1,1,1,1,1,1,16
+4,Chitradurga,Hosadurga,19/12/2018,13368,GOVERNMENT HIGHER PRIMARY SCHOOL SANEHALLI,5195,Sanehalli,Parameshwarappa,Swamy,Male,1,0,0,1,0,0,1,0,1,0,0,0,1,1,1,1,0,1,0,0,9
+4,Chitradurga,Hosadurga,19/12/2018,13368,GOVERNMENT HIGHER PRIMARY SCHOOL SANEHALLI,5195,Sanehalli,Parameshwarappa,Ranjitha c,Female,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,15
+4,Chitradurga,Hosadurga,19/12/2018,13364,GOVERNMENT LOWER PRIMARY SCHOOL PILAPURA,5195,Sanehalli,Parameshwarappa,Dinesh p r,Male,1,1,0,1,1,0,1,1,1,0,1,0,1,1,0,1,0,1,1,1,14
+4,Chitradurga,Hosadurga,19/12/2018,13364,GOVERNMENT LOWER PRIMARY SCHOOL PILAPURA,5195,Sanehalli,Parameshwarappa,P r sunil,Male,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,14
+4,Chitradurga,Hosadurga,19/12/2018,13364,GOVERNMENT LOWER PRIMARY SCHOOL PILAPURA,5195,Sanehalli,Parameshwarappa,P r bhavya,Female,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,1,0,0,0,0,13
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,Dinesh,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,N k bhavya,Female,1,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,5
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,N v meena,Female,1,0,0,0,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,5
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,Jeevitha,Female,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,Megha,Female,1,0,0,1,0,0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,7
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,Mohan,Male,1,1,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,1,8
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,Rahul r,Male,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,Lakshmidevi,Female,0,0,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,4
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,Parvathi n r,Female,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,14
+4,Chitradurga,Hosadurga,19/12/2018,13362,GOVERNMENT HIGHER PRIMARY SCHOOL NEERAGUNDA,5195,Sanehalli,Parameshwarappa,Bhavana n k,Female,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,0,1,0,1,15
+4,Chitradurga,Hosadurga,19/12/2018,13366,GOVERNMENT HIGHER PRIMARY SCHOOL MARABAGHATTA,5195,Sanehalli,Parameshwarappa,Prithviraj p,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Hosadurga,19/12/2018,13366,GOVERNMENT HIGHER PRIMARY SCHOOL MARABAGHATTA,5195,Sanehalli,Parameshwarappa,Swamy,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,19/12/2018,13366,GOVERNMENT HIGHER PRIMARY SCHOOL MARABAGHATTA,5195,Sanehalli,Parameshwarappa,Pavan kumar p,Male,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,2
+4,Chitradurga,Hosadurga,19/12/2018,13365,GOVERNMENT HIGHER PRIMARY SCHOOL SHETTIHALLI,5195,Sanehalli,Parameshwarappa,Sridhar s g,Male,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+4,Chitradurga,Hosadurga,19/12/2018,13365,GOVERNMENT HIGHER PRIMARY SCHOOL SHETTIHALLI,5195,Sanehalli,Parameshwarappa,S manju,Male,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,0,0,0,0,14
+4,Chitradurga,Hosadurga,19/12/2018,13365,GOVERNMENT HIGHER PRIMARY SCHOOL SHETTIHALLI,5195,Sanehalli,Parameshwarappa,Sathish,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,19
+4,Chitradurga,Hosadurga,19/12/2018,13354,GOVERNMENT LOWER PRIMARY SCHOOL ADRIKATTE,5195,Sanehalli,Parameshwarappa,Nagarjun a m,Male,1,1,0,1,1,0,0,1,1,1,0,0,1,1,0,0,0,0,0,0,9
+4,Chitradurga,Hosadurga,19/12/2018,13354,GOVERNMENT LOWER PRIMARY SCHOOL ADRIKATTE,5195,Sanehalli,Parameshwarappa,A r sridhar,Male,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,16
+4,Chitradurga,Hosadurga,19/12/2018,13356,GLPS KUMBARAGATTE GADI,5195,Sanehalli,Parameshwarappa,Thimmesh,Male,1,0,0,1,1,0,1,0,1,0,1,0,1,0,0,0,0,1,0,1,9
+4,Chitradurga,Hosadurga,19/12/2018,13356,GLPS KUMBARAGATTE GADI,5195,Sanehalli,Parameshwarappa,T thabarak,Male,0,1,0,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,5
+4,Chitradurga,Hosadurga,19/12/2018,13356,GLPS KUMBARAGATTE GADI,5195,Sanehalli,Parameshwarappa,Thabasan,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,19/12/2018,13356,GLPS KUMBARAGATTE GADI,5195,Sanehalli,Parameshwarappa,Samreen,Female,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,19/12/2018,13356,GLPS KUMBARAGATTE GADI,5195,Sanehalli,Parameshwarappa,Afrid,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Hosadurga,19/12/2018,13356,GLPS KUMBARAGATTE GADI,5195,Sanehalli,Parameshwarappa,Ayisha siddiqha,Female,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,0,1,0,0,14
+4,Chitradurga,Hosadurga,19/12/2018,13356,GLPS KUMBARAGATTE GADI,5195,Sanehalli,Parameshwarappa,Sadath s,Male,1,0,1,1,1,0,1,1,1,1,1,0,1,1,0,1,0,1,0,1,14
+4,Chitradurga,Hosadurga,19/12/2018,13356,GLPS KUMBARAGATTE GADI,5195,Sanehalli,Parameshwarappa,Mohan,Male,1,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,0,1,15
+4,Chitradurga,Hosadurga,19/12/2018,13363,GOVERNMENT LOWER PRIMARY SCHOOL N GOLLARAHATTI,5195,Sanehalli,Parameshwarappa,M abhi,Male,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,4
+4,Chitradurga,Hosadurga,19/12/2018,13363,GOVERNMENT LOWER PRIMARY SCHOOL N GOLLARAHATTI,5195,Sanehalli,Parameshwarappa,Punith,Male,1,0,1,1,0,0,1,0,1,0,1,0,1,0,0,0,0,1,0,1,9
+4,Chitradurga,Hosadurga,19/12/2018,13363,GOVERNMENT LOWER PRIMARY SCHOOL N GOLLARAHATTI,5195,Sanehalli,Parameshwarappa,N l amulya,Female,0,0,1,0,0,0,1,1,1,0,1,0,1,0,0,1,0,1,0,0,8
+4,Chitradurga,Hosadurga,19/12/2018,13363,GOVERNMENT LOWER PRIMARY SCHOOL N GOLLARAHATTI,5195,Sanehalli,Parameshwarappa,N s sinchana,Female,1,0,1,1,0,0,1,1,1,0,1,1,1,1,0,0,0,1,0,1,12
+4,Chitradurga,Hosadurga,19/12/2018,13358,GOVERNMENT LOWER PRIMARY SCHOOL DASENAHALLI,5195,Sanehalli,Parameshwarappa,Divya,Female,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,0,0,15
+4,Chitradurga,Hosadurga,19/12/2018,13358,GOVERNMENT LOWER PRIMARY SCHOOL DASENAHALLI,5195,Sanehalli,Parameshwarappa,Dhanush,Male,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,15
+4,Chitradurga,Hosadurga,19/12/2018,13359,GOVERNMENT LOWER PRIMARY SCHOOL KABBINAKERE,5195,Sanehalli,Parameshwarappa,Simran,Female,1,0,1,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,5
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Vismaya k,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Swamy,Male,0,0,0,1,0,0,0,0,0,1,0,1,1,1,0,0,1,0,1,0,7
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Rishika,Female,1,0,1,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,6
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Aruna a,Female,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Divyashree d,Female,1,1,1,1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,8
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Pramod v,Male,1,1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,1,1,0,7
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Yashaswini,Female,1,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,5
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Jeevan r,Male,1,0,0,1,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,1,10
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Bharath m c,Male,1,0,1,1,1,1,0,1,1,1,1,0,1,1,0,0,1,0,1,1,14
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Poornima m,Female,1,1,0,1,0,1,1,0,1,0,1,1,1,0,0,0,1,0,1,1,12
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Chethana n ,Female,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,14
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Gowthami r,Female,1,0,1,1,1,1,0,1,1,1,1,0,1,0,0,0,0,0,0,1,11
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Bhuvan j,Male,1,1,0,1,1,0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,11
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Abhinaya m,Female,1,0,1,1,1,0,0,1,1,0,0,0,1,1,0,0,0,0,1,1,10
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,Dhanushree,Female,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,17
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,L bhoomika,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,19
+4,Chitradurga,Hosadurga,13/12/2018,45187,GOVERNMENT HIGHER PRIMARY SCHOOL MALLAPPANAHALLI,4187,Mallapanahalli,Chandrakala,S n vijaya,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,20
+4,Chitradurga,Hosadurga,13/12/2018,13236,GOVERNMENT HIGHER PRIMARY SCHOOL BURUDEKATTE,4187,Mallapanahalli,Chandrakala,Anitha,Female,1,0,1,1,0,1,1,0,0,0,1,1,0,1,0,0,0,0,0,0,8
+4,Chitradurga,Hosadurga,13/12/2018,13236,GOVERNMENT HIGHER PRIMARY SCHOOL BURUDEKATTE,4187,Mallapanahalli,Chandrakala,Mohan,Male,0,0,0,1,1,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,6
+4,Chitradurga,Hosadurga,13/12/2018,13236,GOVERNMENT HIGHER PRIMARY SCHOOL BURUDEKATTE,4187,Mallapanahalli,Chandrakala,Priyanka,Female,1,1,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,1,0,0,10
+4,Chitradurga,Hosadurga,13/12/2018,13236,GOVERNMENT HIGHER PRIMARY SCHOOL BURUDEKATTE,4187,Mallapanahalli,Chandrakala,Abhishek,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Hosadurga,13/12/2018,13236,GOVERNMENT HIGHER PRIMARY SCHOOL BURUDEKATTE,4187,Mallapanahalli,Chandrakala,Ranjan b j,Male,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,0,1,0,1,15
+4,Chitradurga,Hosadurga,13/12/2018,13236,GOVERNMENT HIGHER PRIMARY SCHOOL BURUDEKATTE,4187,Mallapanahalli,Chandrakala,Ranjitha,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,1,17
+4,Chitradurga,Hosadurga,13/12/2018,13243,GOVERNMENT HIGHER PRIMARY SCHOOL CHIKKAYAGATTI,4187,Mallapanahalli,Chandrakala,Arun kumar l,Male,1,1,0,0,1,1,1,1,1,1,1,0,1,1,0,1,0,1,0,1,14
+4,Chitradurga,Hosadurga,13/12/2018,13243,GOVERNMENT HIGHER PRIMARY SCHOOL CHIKKAYAGATTI,4187,Mallapanahalli,Chandrakala,Praveen,Male,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1,0,1,13
+4,Chitradurga,Hosadurga,13/12/2018,13243,GOVERNMENT HIGHER PRIMARY SCHOOL CHIKKAYAGATTI,4187,Mallapanahalli,Chandrakala,Keerthana u,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,0,1,15
+4,Chitradurga,Hosadurga,13/12/2018,45186,GOVERNMENT LOWER PRIMARY SCHOOL JAMMAPURA,4187,Mallapanahalli,Chandrakala,O sahana,Female,1,0,1,0,1,1,1,0,1,1,1,1,0,0,0,0,0,1,1,1,12
+4,Chitradurga,Hosadurga,13/12/2018,45186,GOVERNMENT LOWER PRIMARY SCHOOL JAMMAPURA,4187,Mallapanahalli,Chandrakala,P dhanu,Female,1,0,1,1,1,1,1,1,1,0,1,0,1,1,0,0,0,0,0,1,12
+4,Chitradurga,Hosadurga,13/12/2018,45186,GOVERNMENT LOWER PRIMARY SCHOOL JAMMAPURA,4187,Mallapanahalli,Chandrakala,B punitha,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,18
+4,Chitradurga,Hosadurga,13/12/2018,13237,GLPS RANGAINURU,4187,Mallapanahalli,Chandrakala,Ranga swamy,Male,0,0,0,1,1,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,5
+4,Chitradurga,Hosadurga,13/12/2018,13237,GLPS RANGAINURU,4187,Mallapanahalli,Chandrakala,Darshan n,Male,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,4
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,Ranga swamy,Male,1,1,0,1,0,0,0,0,1,0,1,0,1,0,0,0,0,1,1,0,8
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,Priyanka,Female,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,Lavanya m,Female,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,0,0,1,0,0,13
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,Anu n,Female,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,2
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,Milana p,Female,1,0,0,1,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,6
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,N sindhu,Female,1,0,0,1,1,0,0,1,1,0,0,0,1,0,0,0,0,1,1,0,8
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,R rangaswamy,Male,0,0,0,1,0,0,1,0,1,0,0,0,1,0,0,1,0,1,1,0,7
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,K purushotham,Male,1,0,0,1,1,0,1,1,1,1,1,0,1,1,0,1,0,0,0,0,11
+4,Chitradurga,Chitradurga,05/12/2018,11994,GHPS JANUKONDA,2105,Godabanahal,Nijalingappa,Pavan,Male,1,1,1,1,1,0,0,0,1,0,1,1,1,0,0,0,1,1,0,1,12
+4,Chitradurga,Chitradurga,05/12/2018,11998,GHPS GANJIGATTE,2105,Godabanahal,Nijalingappa,Kalavathi,Female,1,1,1,0,1,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,8
+4,Chitradurga,Chitradurga,05/12/2018,11998,GHPS GANJIGATTE,2105,Godabanahal,Nijalingappa,Bharath,Male,1,0,1,1,0,0,0,0,1,1,0,0,0,1,0,0,0,1,0,0,7
+4,Chitradurga,Chitradurga,05/12/2018,11998,GHPS GANJIGATTE,2105,Godabanahal,Nijalingappa,Basavaraj,Male,1,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,0,12
+4,Chitradurga,Chitradurga,05/12/2018,11998,GHPS GANJIGATTE,2105,Godabanahal,Nijalingappa,Teju p,Female,1,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,0,1,15
+4,Chitradurga,Chitradurga,05/12/2018,11998,GHPS GANJIGATTE,2105,Godabanahal,Nijalingappa,Thilak,Male,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,05/12/2018,11998,GHPS GANJIGATTE,2105,Godabanahal,Nijalingappa,Ashwini g p,Female,1,0,0,1,0,0,0,1,1,0,1,0,1,0,0,0,0,1,0,0,7
+4,Chitradurga,Chitradurga,05/12/2018,11998,GHPS GANJIGATTE,2105,Godabanahal,Nijalingappa,Spoorthi r,Female,1,1,1,1,1,0,1,0,0,0,1,0,1,0,0,0,0,1,0,0,9
+4,Chitradurga,Chitradurga,05/12/2018,11996,GHPS SOLLAPURA,2105,Godabanahal,Nijalingappa,Girish,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,05/12/2018,11996,GHPS SOLLAPURA,2105,Godabanahal,Nijalingappa,D devaraj,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Chitradurga,Chitradurga,05/12/2018,11996,GHPS SOLLAPURA,2105,Godabanahal,Nijalingappa,S ramya,Female,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,4
+4,Chitradurga,Chitradurga,05/12/2018,11996,GHPS SOLLAPURA,2105,Godabanahal,Nijalingappa,O akash,Male,1,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,5
+4,Chitradurga,Chitradurga,05/12/2018,11996,GHPS SOLLAPURA,2105,Godabanahal,Nijalingappa,Srujan,Male,1,1,0,1,1,0,0,0,1,1,1,0,1,0,0,0,0,1,0,0,9
+4,Chitradurga,Chitradurga,05/12/2018,11996,GHPS SOLLAPURA,2105,Godabanahal,Nijalingappa,T raghavendra,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,05/12/2018,11997,GHPS new NAYAKARA SOLLAPURA,2105,Godabanahal,Nijalingappa,Anjali m,Female,1,0,1,1,1,0,1,1,1,0,1,0,1,1,0,0,1,1,1,1,14
+4,Chitradurga,Chitradurga,05/12/2018,11997,GHPS new NAYAKARA SOLLAPURA,2105,Godabanahal,Nijalingappa,Roopa s,Female,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,18
+4,Chitradurga,Chitradurga,05/12/2018,12039,GHPS TAGARANAHATTI,2105,Godabanahal,Nijalingappa,E pooja,Female,1,1,0,1,1,0,0,0,0,0,1,1,1,1,0,0,1,1,0,1,11
+4,Chitradurga,Chitradurga,05/12/2018,12039,GHPS TAGARANAHATTI,2105,Godabanahal,Nijalingappa,Sandeep c,Male,1,1,1,1,1,0,0,1,1,0,1,1,1,1,0,0,1,1,0,1,14
+4,Chitradurga,Chitradurga,05/12/2018,12039,GHPS TAGARANAHATTI,2105,Godabanahal,Nijalingappa,Kiran r,Male,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,0,1,15
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Nagaraj uchinchari,Male,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,17
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Avitha badigera,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,16
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Fakirappa,Male,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,1,1,1,0,1,16
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Pradeep f aladi,Male,1,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0,0,13
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Riyan a nadaf,Male,0,1,0,1,1,0,0,1,1,1,1,0,1,1,0,0,1,1,0,1,12
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Maltesh m shirur,Male,1,0,1,0,1,0,1,0,1,0,1,1,1,1,0,0,0,1,0,1,11
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Sneha s hosapet,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Ningappa soodi,Male,0,0,0,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1,0,0,11
+4,Dharwad,Kundagol,27/12/2018,37565,GHPS KONKANAKURAHATTI,5128,Rottigiwad,Sunita gobbaragumpi,Lakshmi devakkigowdra,Female,0,1,0,1,0,0,0,1,1,1,1,0,1,0,0,0,0,1,1,1,10
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Chethana hiremat,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,19
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Ranjitha basappa kalasada,Female,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,18
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Sakina mulla,Female,1,1,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,0,1,1,15
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Chidananda lakkappanavar,Male,0,0,0,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,6
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Manohar,Male,1,0,0,1,0,0,1,0,1,0,1,0,1,1,0,1,1,1,0,0,10
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Basamma kuri,Female,1,1,1,1,0,0,1,1,1,0,0,0,0,0,0,1,0,1,0,1,10
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Mahammed mujamulla,Male,0,0,0,1,1,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,5
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Halesh,Male,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,0,0,1,0,0,13
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Dyamanagowda,Male,1,0,0,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,0,0,11
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Meghana c hiremat,Female,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,5
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Sanjana s navi,Female,1,1,1,1,0,0,1,0,1,0,1,0,1,0,0,1,0,1,1,0,11
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Manoj rangappanavar,Male,0,0,1,1,0,0,1,0,1,0,1,1,1,0,1,1,1,0,1,0,11
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Chandusab,Male,1,0,0,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,6
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Madhu marathangi,Female,0,0,0,1,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,5
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Arpitha m badigera,Female,1,1,1,1,1,1,0,1,1,1,1,0,1,0,0,0,0,1,0,0,12
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Vishwas pateda,Male,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,15
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Shahina mulla,Female,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,0,1,14
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Sahana d hokkalada,Female,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0,11
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Madhavi g guttada,Female,1,1,1,1,0,1,1,0,1,1,1,0,0,0,1,0,0,1,0,0,11
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Prajwal,Male,1,0,0,1,1,1,1,1,1,0,1,0,1,0,0,0,0,0,0,0,9
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Sanjeev b hadapada,Male,0,0,0,1,1,0,1,0,1,1,1,0,1,0,1,1,1,0,0,0,10
+4,Dharwad,Kundagol,27/12/2018,37566,GHPS ROTTIGAWAD,5128,Rottigiwad,Sunita gobbaragumpi,Abhishek,Male,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Pavithra madalli,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,19
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Basamma adin,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,18
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Akshatha balehossur,Female,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,0,1,17
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Chaya,Female,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,16
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Eranna m karannavar,Male,1,1,0,0,0,0,1,1,1,1,0,0,1,0,0,1,0,1,0,0,9
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Rudrappa,Male,0,0,0,1,1,1,1,0,1,0,0,0,1,0,0,0,1,1,1,0,9
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Lakshmi,Female,0,0,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,5
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Manjunath,Male,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Akshatha mushappanavar,Female,1,1,1,1,1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,8
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Bhoomika gambir,Female,0,0,0,1,0,0,0,0,1,0,1,1,1,0,0,0,0,1,0,1,7
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Kariyappa m koni,Male,1,0,1,0,1,0,0,1,1,0,0,1,1,1,0,0,0,1,1,0,10
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Ganesh d nimbalkar,Male,1,0,0,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,0,1,14
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Chandrushekar kuri,Male,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,14
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Manjula a madara,Female,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,1,0,1,1,1,14
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Basavaraj itagi,Male,1,1,0,1,0,0,1,1,1,0,1,0,1,0,0,0,1,1,1,1,12
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Aditya b gowdanaika,Male,1,1,1,1,1,1,1,1,1,0,0,0,1,0,0,0,0,1,0,0,11
+4,Dharwad,Kundagol,27/12/2018,37571,GHPS KODLIWAD,5128,Rottigiwad,Sunita gobbaragumpi,Lakshmi takkanavar,Female,1,1,1,1,1,0,0,1,1,0,1,1,1,0,0,0,0,0,0,0,10
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Karthik badigera,Male,1,1,1,1,1,1,1,0,1,0,1,1,0,1,0,1,1,1,1,1,16
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Harshitha j angadi,Female,1,1,0,1,0,1,1,1,1,0,1,0,1,1,0,1,0,1,1,1,14
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Veeresh p sajjanar,Male,1,1,1,1,1,0,1,1,1,0,1,1,1,1,0,1,1,0,0,0,14
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Megha gunjala,Female,1,0,1,1,1,0,1,0,1,0,0,0,1,1,0,1,0,1,0,0,10
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Basavaraj,Male,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,2
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Shivamma hadapada,Female,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,5
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Shakuntala goravikatagi,Female,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Umesh hoogara,Male,0,0,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,11
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Pooja annigeri,Female,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Renuka m dyavanur,Female,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Mantesh,Male,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Vijay g shirur,Male,1,1,1,1,1,0,1,0,1,1,1,0,1,0,0,0,0,1,0,1,12
+4,Dharwad,Kundagol,21/12/2018,37569,GLPS BAGWAD,2631,Hiregunjal,Gowramma sajjanar,Lohith b malliguda,Male,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,18
+4,Dharwad,Kundagol,21/12/2018,37569,GLPS BAGWAD,2631,Hiregunjal,Gowramma sajjanar,Prajwal asuti,Male,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,16
+4,Dharwad,Kundagol,21/12/2018,37569,GLPS BAGWAD,2631,Hiregunjal,Gowramma sajjanar,Prajwal kokkinavar,Male,1,1,1,1,0,0,1,0,1,0,1,1,1,0,0,0,0,0,0,1,10
+4,Dharwad,Kundagol,21/12/2018,37569,GLPS BAGWAD,2631,Hiregunjal,Gowramma sajjanar,Savitha koliwada,Female,0,0,0,1,1,0,0,1,0,0,1,0,1,0,1,1,0,0,0,0,7
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Mallesh p koliwada,Male,1,1,1,1,0,1,1,0,1,1,1,1,1,1,0,1,0,1,0,1,15
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Chethan doddur,Male,1,1,0,1,1,0,1,1,1,0,1,1,1,1,0,1,1,1,0,1,15
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Mahesh yalavigi,Male,0,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,1,1,0,14
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Prabha goneppanavar,Female,1,1,0,1,1,0,1,1,1,0,1,0,1,1,0,1,1,1,0,0,13
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Vinayak b bekkappanavar,Male,1,0,0,0,0,0,1,0,1,1,1,1,0,0,0,1,0,0,0,1,8
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Saritha yalavatti,Female,1,0,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,8
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Prakash meti,Male,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,8
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Fakiresh e jamegi,Male,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,1,0,1,15
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Uday kumar kodliwad,Male,0,0,0,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,5
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Kavya kamadolli,Female,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,5
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Vijayalakshmi kamadolli,Female,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,0,1,0,0,14
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Sridhar annigeri,Male,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,0,1,16
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Sowmya halemani,Female,1,0,1,1,0,0,1,0,1,0,1,1,1,0,0,0,0,1,1,0,10
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Vijayalakshmi shiraje,Female,1,1,0,1,1,0,0,1,1,1,1,1,0,0,0,1,0,0,0,0,10
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Sowjanya bisro,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Prakash e kodli,Male,0,0,0,1,1,0,0,0,0,0,1,1,1,0,0,0,0,1,1,0,7
+4,Dharwad,Kundagol,21/12/2018,37567,GHPS HIREGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Mahesh h sanklipur,Male,1,1,0,1,1,0,1,1,1,0,1,1,0,1,0,1,1,1,0,1,14
+4,Dharwad,Kundagol,21/12/2018,37568,GHPS CHIKKAGUNJAL,2631,Hiregunjal,Gowramma sajjanar,Vaishnavi b doddamani,Female,1,1,1,1,0,0,1,1,1,0,1,0,1,0,0,1,0,0,0,0,10
+4,Chitradurga,Chitradurga,07/12/2018,11989,GHPS SONDEKOLA,5472,Sondekola,Devamma,Amulya s,Female,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,0,0,15
+4,Chitradurga,Chitradurga,07/12/2018,11989,GHPS SONDEKOLA,5472,Sondekola,Devamma,Anusha b,Female,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,07/12/2018,11989,GHPS SONDEKOLA,5472,Sondekola,Devamma,Shwetha r,Female,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+4,Chitradurga,Chitradurga,07/12/2018,11989,GHPS SONDEKOLA,5472,Sondekola,Devamma,Bharath,Male,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,5
+4,Chitradurga,Chitradurga,07/12/2018,11989,GHPS SONDEKOLA,5472,Sondekola,Devamma,Vidhya g m,Female,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,0,0,11
+4,Chitradurga,Chitradurga,07/12/2018,11989,GHPS SONDEKOLA,5472,Sondekola,Devamma,Veeresh p v,Male,1,1,1,1,1,0,1,0,1,0,1,1,1,1,0,0,1,1,1,0,14
+4,Chitradurga,Chitradurga,07/12/2018,11989,GHPS SONDEKOLA,5472,Sondekola,Devamma,Bhoomika s,Female,1,0,0,1,1,0,1,0,1,0,1,1,1,0,0,0,0,0,0,0,8
+4,Chitradurga,Chitradurga,07/12/2018,11989,GHPS SONDEKOLA,5472,Sondekola,Devamma,Janhavi t,Female,0,0,1,1,1,0,1,1,1,1,0,0,1,0,0,0,0,0,0,0,8
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Kollamma,Female,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,15
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Manjula y,Female,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,15
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Bhavani,Female,0,0,0,1,1,0,0,1,1,0,1,1,1,1,0,1,0,1,0,1,11
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Swaroop,Male,0,0,1,1,1,0,0,1,1,1,1,0,1,1,1,0,0,1,0,0,11
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Yallamma,Female,1,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,5
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Devaraj,Male,1,0,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,6
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Anitha,Female,0,0,0,1,1,1,0,0,1,0,0,1,1,1,0,1,0,0,0,0,8
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Pooja,Female,1,0,0,1,1,1,0,1,0,0,1,0,1,1,1,0,1,1,0,0,11
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Shivu,Male,0,0,1,1,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,6
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Harish,Male,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Usha,Female,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,5
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Anusha,Female,1,1,0,1,1,0,0,1,1,1,1,0,1,1,0,0,1,1,0,0,12
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Kavana,Female,0,1,0,1,0,0,1,0,1,0,1,1,1,1,1,0,1,1,0,1,12
+4,Chitradurga,Chitradurga,07/12/2018,11991,GHPS NANDIPURA,5472,Sondekola,Devamma,Aditya,Male,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,5
+4,Chitradurga,Chitradurga,07/12/2018,11990,GLPS HALAGAPPANAHATTY,5472,Sondekola,Devamma,Punith m hatti,Male,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,0,1,16
+4,Chitradurga,Chitradurga,07/12/2018,11990,GLPS HALAGAPPANAHATTY,5472,Sondekola,Devamma,Chaithra c,Female,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,1,16
+4,Chitradurga,Chitradurga,07/12/2018,11990,GLPS HALAGAPPANAHATTY,5472,Sondekola,Devamma,Punith kumar h k,Male,1,0,0,1,1,0,0,1,1,0,1,1,1,1,0,0,0,1,0,1,11
+4,Chitradurga,Chitradurga,07/12/2018,11990,GLPS HALAGAPPANAHATTY,5472,Sondekola,Devamma,Naveen kumar s k,Male,1,0,0,1,0,1,1,1,1,1,1,0,1,1,0,0,0,1,0,1,12
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Vedavathi r,Female,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,0,0,15
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Srushti,Female,1,1,1,1,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,8
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Thanushree b,Female,1,0,0,0,1,0,0,1,1,1,1,0,1,1,1,0,0,0,0,0,9
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Nirmala m,Female,0,0,0,1,1,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,6
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Radhika l,Female,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Eshwar,Male,1,1,0,1,1,0,0,0,0,1,1,1,1,0,0,0,1,1,0,0,10
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Krishna h,Male,1,0,0,0,1,0,1,0,0,0,1,0,1,1,1,0,0,0,0,0,7
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Rakshitha s,Female,1,1,0,1,1,0,1,1,1,0,1,1,1,1,0,0,0,0,0,1,12
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Sinchana,Female,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,07/12/2018,11993,GHPS UPPANAYAKANAHALLI,5472,Sondekola,Devamma,Sanjana g,Female,1,0,0,1,1,1,0,1,1,1,1,1,1,1,0,0,1,0,1,0,13
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Asha t,Female,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,5
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Yogesh v,Male,0,0,0,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,4
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Ankitha k,Female,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Pooja m,Female,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Murali g,Male,0,0,0,1,1,0,0,0,0,1,1,0,1,1,0,0,0,1,1,0,8
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Jagadish p,Male,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Vasundara r,Female,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Anjali r,Female,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,3
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Ganesh r,Male,0,1,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,0,1,1,12
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Lakshmidevi h,Female,0,0,0,1,1,0,0,0,0,1,0,1,1,1,1,1,0,0,0,0,8
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Manasa,Female,1,1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,6
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Swamy t,Male,1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,4
+4,Chitradurga,Chitradurga,07/12/2018,11992,GHPS OBANNANAHALLI,5472,Sondekola,Devamma,Nikhil,Male,1,1,1,1,1,0,1,1,1,0,0,1,1,1,0,0,1,1,0,1,14

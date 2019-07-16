@@ -105,7 +105,7 @@
             clearSelect($select_school);
             setBoundaryAttributes('boundary_id=' + selected.val);
 
-            var blockXHR = klp.api.do('boundary/admin1/' + selected.val + '/admin2/?survey_id=2&state=ka&per_page=0');
+            var blockXHR = klp.api.do('boundary/admin1/' + selected.val + '/admin2/?survey_id=2&per_page=0');
             blockXHR.done(function (data) {
                 data.features = data.results;
                 populateSelect($select_block, data);
@@ -119,7 +119,7 @@
             setBoundaryAttributes('boundary_id=' + selected.val);
 
             // Populate the cluster select box
-            var clusterXHR = klp.api.do('boundary/admin2/' + selected.val + '/admin3/?survey_id=2&state=ka&per_page=0');
+            var clusterXHR = klp.api.do('boundary/admin2/' + selected.val + '/admin3/?survey_id=2&per_page=0');
             clusterXHR.done(function (data) {
                 data.features = data.results;
                 populateSelect($select_cluster, data);

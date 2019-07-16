@@ -1,4 +1,7 @@
---Materialized view for institution aggregates across year
+/* View for storing institution related data for an academic year,
+ * Number of students per category, religion, gender and mother tongue
+ * for a particular school in a given year.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_institution_aggregations CASCADE;
 CREATE MATERIALIZED VIEW mvw_institution_aggregations AS
 SELECT format('A%sS%s', stusg.academic_year_id, s.id) AS id,
@@ -28,7 +31,7 @@ GROUP BY academic_year_id,
     category;
 
 
----Materialized view for getting gender count per school per year
+/* View for getting gender count per school per year*/
 DROP MATERIALIZED VIEW IF EXISTS mvw_institution_stu_gender_count CASCADE;
 CREATE MATERIALIZED VIEW mvw_institution_stu_gender_count AS
 SELECT
@@ -41,6 +44,7 @@ FROM mvw_institution_aggregations AS agg
 GROUP BY academic_year_id, institution_id;
 
 
+/* View for getting number of students per class per school in a particular year*/
 DROP MATERIALIZED VIEW IF EXISTS mvw_institution_class_year_stucount CASCADE;
 CREATE MATERIALIZED VIEW mvw_institution_class_year_stucount AS
 SELECT format('A%sS%sC%s', stusg.academic_year_id, sg.institution_id,btrim(sg.name)) AS id,
@@ -56,6 +60,7 @@ WHERE stu.id = stusg.student_id AND stusg.student_group_id = sg.id AND stu.statu
 GROUP BY sg.institution_id, btrim(sg.name::text), stusg.academic_year_id;
 
 
+/* View for getting boundary hierarchy */
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_hierarchy CASCADE;
 CREATE materialized VIEW mvw_boundary_hierarchy AS
 SELECT format('A%s_%s_%s', b3.id, b2.id, b1.id) AS id,
@@ -78,6 +83,10 @@ WHERE b3.parent_id = b2.id
     AND b0.parent_id = 1;
 
 
+/* View for getting basic boundary information for a given year:
+ * Number of schools, students, girls and boys for a given
+ * boundary in a particular academic year.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_basic_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_basic_agg AS
 SELECT distinct format('A%s_%s', stusg.academic_year_id, b.id) AS id,
@@ -99,6 +108,10 @@ WHERE stu.institution_id = s.id AND
 GROUP BY stusg.academic_year_id, b.id;
 
 
+/* View for getting basic election boundary information for a given year:
+ * Number of schools, students, girls and boys for a given
+ * election boundary in a particular academic year.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_electionboundary_basic_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_electionboundary_basic_agg AS
 SELECT distinct format('A%s_%s', stusg.academic_year_id, eb.id) AS id,
@@ -120,6 +133,10 @@ WHERE stu.institution_id = s.id AND
 GROUP BY stusg.academic_year_id, eb.id;
 
 
+/* View for getting the information based on institution gender in a boundary per year:
+ * Number of schools, students, girls and boys for an institution gender in
+ * the boundary for that year.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_gender_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_gender_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,b.id, instgender.name) AS id,
@@ -142,6 +159,11 @@ WHERE stu.institution_id = s.id AND s.gender_id =  instgender.char_id AND
 GROUP BY stusg.academic_year_id, b.id, instgender.name;
 
 
+/* View for getting information per school category for a boundary in a year:
+ * Number of schools,students,boys and girls for a particular institution category.
+ * Institution category has a type that could be primary or pre and 
+ * category name that could be Model, Lower, Upper, Secondary, Anganwadi etc
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_category_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_category_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,b.id, category.name) AS id,
@@ -166,6 +188,11 @@ WHERE stu.institution_id = s.id AND s.category_id =  category.id
 GROUP BY stusg.academic_year_id, b.id, category.name, category.institution_type_id;
 
 
+/* View for getting information per school category for a election boundary in a year:
+ * Number of schools,students,boys and girls for a particular institution category.
+ * Institution category has a type that could be primary or pre and 
+ * category name that could be Model, Lower, Upper, Secondary, Anganwadi etc
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_electionboundary_school_category_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_electionboundary_school_category_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id, eb.id, category.name) AS id,
@@ -190,6 +217,10 @@ WHERE stu.institution_id = s.id AND s.category_id =  category.id
 GROUP BY stusg.academic_year_id, eb.id, category.name, category.institution_type_id;
 
 
+/* View for getting information for boundary per year based on school management type:
+ * Number of schools, students, boys and girls for a particular school management type.
+ * School management could be Local Body, Central Govt etc.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_mgmt_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_mgmt_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,b.id, management.name) AS id,
@@ -214,6 +245,9 @@ WHERE stu.institution_id = s.id
 GROUP BY stusg.academic_year_id, b.id, management.name;
 
 
+/* View for getting information for a boundary and year based on students mother tongue:
+ * Number of schools, students, boy and girls that have that particular mother tongue.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_student_mt_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_student_mt_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,b.id, mt.name) AS id,
@@ -238,6 +272,9 @@ WHERE stu.institution_id = s.id
 GROUP BY stusg.academic_year_id, b.id, mt.name;
 
 
+/* View for getting information for boundary and year based on medium of instruction:
+ * Number of schools, student, boys and girls for a given medium of instruction.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_boundary_school_moi_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_boundary_school_moi_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,b.id, moi.name) AS id,
@@ -264,6 +301,10 @@ WHERE stu.institution_id = s.id
 GROUP BY stusg.academic_year_id, b.id, moi.name;
 
 
+/* View for getting information for a election boundary and year based on 
+ * students mother tongue:
+ * Number of schools, students, boy and girls that have that particular mother tongue.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_electionboundary_student_mt_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_electionboundary_student_mt_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,eb.id, mt.name) AS id,
@@ -288,6 +329,10 @@ WHERE stu.institution_id = s.id
 GROUP BY stusg.academic_year_id, eb.id, mt.name;
 
 
+/* View for getting information for election boundary and year based on medium 
+ * of instruction:
+ * Number of schools, student, boys and girls for a given medium of instruction.
+ */
 DROP MATERIALIZED VIEW IF EXISTS mvw_electionboundary_school_moi_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_electionboundary_school_moi_agg AS
 SELECT distinct format('A%s_%s_%s', stusg.academic_year_id,eb.id, moi.name) AS id,

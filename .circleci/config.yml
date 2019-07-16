@@ -8,7 +8,7 @@ jobs:
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
     shell: /bin/bash --login
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.6-stretch
         environment:
           DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
       - image: mdillon/postgis:9.6 # database image for service container available at `localhost:<port>`
@@ -39,7 +39,7 @@ jobs:
   deploy:
     docker:
       # Python image required for AWS client
-      - image: circleci/python:2.7
+      - image: circleci/python:2.7-stretch
     working_directory: ~/ilp
     steps:
       - checkout
@@ -66,13 +66,13 @@ workflows:
           filters:
             branches:
               only: 
-                - nextrelease
+                - development
                 - master
       - deploy:
           filters:
             branches:
               only: 
-                - nextrelease
+                - development
                 - master
           requires:
             - build

@@ -1,29 +1,26 @@
 import csv
-import sys
-from io import StringIO
-
 from django.utils import timezone
 from datetime import datetime
-from django.core.management.base import BaseCommand, CommandError
-from assessments.models import Survey, QuestionGroup, Question, QuestionGroup_Questions, Partner, SurveyOnType, Source, SurveyType, QuestionType, SurveyUserTypeMapping, SurveyTag, SurveyTagMapping
-from common.models import Status, AcademicYear, InstitutionType, RespondentType
-from boundary.models import Boundary
+from django.core.management.base import BaseCommand
+from assessments.models import (Survey, QuestionGroup, Question,
+                    QuestionGroup_Questions, Source, SurveyType, QuestionType)
+from common.models import Status, AcademicYear, InstitutionType
 
 
 class Command(BaseCommand):
-   
-    fileoptions = {"questiongroup","questions"}
+
+    fileoptions = {"questiongroup", "questions"}
     csv_files = {}
 
     def add_arguments(self, parser):
         parser.add_argument('questiongroup')
-        parser.add_argument('questions',nargs='?')
+        parser.add_argument('questions', nargs='?')
 
     def get_csv_files(self, options):
         for fileoption in self.fileoptions:
             file_name = options.get(fileoption, None)
             if not file_name:
-                print ("Please specify a filename with the --"+fileoption+" argument")
+                print("Please specify a filename with the --"+fileoption+" argument")
                 return False
             f = open(file_name, encoding='utf-8')
             self.csv_files[fileoption] = csv.reader(f)
@@ -33,12 +30,11 @@ class Command(BaseCommand):
         if value.strip() == '':
             if default:
                 return default
-            return None 
-        return value   
-
+            return None
+        return value
 
     def create_questiongroup(self):
-        count=0
+        count = 0
         questiongroups = []
         for row in self.csv_files["questiongroup"]:
             if count == 0:
@@ -51,7 +47,7 @@ class Command(BaseCommand):
             if id != '':
                 questiongroup = QuestionGroup.objects.filter(pk=id)
                 if questiongroup:
-                    return questiongroup 
+                    return questiongroup
             name = row[2].strip()
             group_text = row[3].strip()
             start_date = datetime.strptime(row[4].strip(), "%d-%m-%Y").date()
@@ -68,29 +64,28 @@ class Command(BaseCommand):
             comments_required = row[16].strip()
             respondenttype_required = row[17].strip()
             questiongroup = QuestionGroup.objects.create(
-                                name = name,
-                                group_text = group_text,
-                                start_date = start_date,
-                                version = version,
-                                double_entry = double_entry,
-                                created_at = timezone.now(),
-                                academic_year = academicyear,
-                                inst_type = institution_type,
-                                source = source,
-                                status = status,
-                                survey = survey_id,
-                                type = type_id,
-                                description = description,
-                                lang_name = lang_name,
-                                image_required = image_required,
-                                comments_required = comments_required,
-                                respondenttype_required = respondenttype_required)
+                                name=name,
+                                group_text=group_text,
+                                start_date=start_date,
+                                version=version,
+                                double_entry=double_entry,
+                                created_at=timezone.now(),
+                                academic_year=academicyear,
+                                inst_type=institution_type,
+                                source=source,
+                                status=status,
+                                survey=survey_id,
+                                type=type_id,
+                                description=description,
+                                lang_name=lang_name,
+                                image_required=image_required,
+                                comments_required=comments_required,
+                                respondenttype_required=respondenttype_required)
             questiongroups.append(questiongroup)
         return questiongroups
 
-
     def create_questions(self):
-        count=0
+        count = 0
         questions = []
         for row in self.csv_files["questions"]:
             if count == 0:
@@ -108,44 +103,43 @@ class Command(BaseCommand):
                 key = self.check_value(row[3].strip())
                 options = self.check_value(row[4].strip())
                 is_featured = self.check_value(row[5].strip(), True)
-                question_type = QuestionType.objects.get(id = self.check_value(row[6].strip(),4))
+                question_type = QuestionType.objects.get(id=self.check_value(
+                                                         row[6].strip(), 4))
                 status = Status.objects.get(char_id=row[7].strip())
-                max_score = self.check_value(row[8].strip(),0)
-                pass_score = self.check_value(row[9].strip(),0)
+                max_score = self.check_value(row[8].strip(), 0)
+                pass_score = self.check_value(row[9].strip(), 0)
                 lang_name = self.check_value(row[10].strip())
                 lang_options = self.check_value(row[11].strip())
                 question = Question.objects.create(
-                            question_text = question_text,
-                            display_text = display_text,
-                            key = key,
-                            options = options,
-                            is_featured = is_featured,
-                            question_type = question_type,
-                            status = status,
-                            max_score = max_score,
-                            pass_score = pass_score,
-                            lang_name = lang_name,
-                            lang_options = lang_options)
+                            question_text=question_text,
+                            display_text=display_text,
+                            key=key,
+                            options=options,
+                            is_featured=is_featured,
+                            question_type=question_type,
+                            status=status,
+                            max_score=max_score,
+                            pass_score=pass_score,
+                            lang_name=lang_name,
+                            lang_options=lang_options)
                 questions.append(question)
         return questions
-
 
     def map_questiongroup_questions(self, questiongroups, questions):
         for questiongroup in questiongroups:
             sequence = 1
             for question in questions:
-                qgq_map,created = QuestionGroup_Questions.objects.get_or_create(
-                          sequence = sequence,
-                          question = question,
-                          questiongroup = questiongroup)
+                qgq_map, created = QuestionGroup_Questions.objects.get_or_create(
+                          sequence=sequence,
+                          question=question,
+                          questiongroup=questiongroup)
                 sequence += 1
-
 
     def handle(self, *args, **options):
         if not self.get_csv_files(options):
-           return
-        
-        #create questiongroup
+            return
+
+        # create questiongroup
         questiongroups = self.create_questiongroup()
         if not questiongroups:
             print("QuestionGroup did not get created")
@@ -156,5 +150,4 @@ class Command(BaseCommand):
             if not questions:
                 print("Questions did not get created")
                 return
-  
             self.map_questiongroup_questions(questiongroups, questions)

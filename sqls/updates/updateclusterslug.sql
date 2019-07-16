@@ -1,0 +1,1 @@
+update boundary_boundary set dise_slug=subquery.district_name||'-'||dise_slug from (select district.name district_name, block.id blockid from boundary_boundary district, boundary_boundary block where block.boundary_type_id='SB' and block.parent_id=district.id) as subquery where boundary_boundary.boundary_type_id='SC' and boundary_boundary.parent_id=subquery.blockid;

@@ -89,6 +89,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('state')
         parser.add_argument('academic_year')
+        parser.add_argument('--dise_codes')
 
 
     def insertInstitution(self,schoolData):
@@ -144,7 +145,7 @@ class Command(BaseCommand):
 
         status = self.active_status
 
-        institution, created = Institution.objects.get_or_create(
+        institution,created = Institution.objects.get_or_create(
                          name = school_name,
                          year_established = schoolData.year_estd,
                          rural_urban = self.rural_urban[schoolData.rural_urban],
@@ -157,11 +158,11 @@ class Command(BaseCommand):
                          gender = school_gender,
                          institution_type = institution_type,
                          management = management,
-                         status = status)
-        print("Institution: "+str(school_name.encode('utf-8'))+", created:"+str(created))
+                         status = status,
+                         dise = schoolData
+                         )
+        print("Institution: "+str(school_name.encode('utf-8'))+", created: "+str(created))
          
-        Institution.objects.filter(pk=institution.id).update(dise = schoolData)
-
         if schoolData.medium_of_instruction in self.moi:
             try:
                 language = Language.objects.get(char_id = self.moi[schoolData.medium_of_instruction])
@@ -177,14 +178,22 @@ class Command(BaseCommand):
                     institution = institution)
                     
 
-                        
     def handle(self, *args, **options):
-        state= options['state'].lower()
-        academic_year= options['academic_year']
-        
-        dise_schools = BasicData.objects.filter(
+        state = options['state'].lower()
+        academic_year = options['academic_year']
+        if options['dise_codes']:
+            dise_codes = options['dise_codes'].split(',')
+
+            dise_schools = BasicData.objects.filter(
+                            school_code__in = dise_codes,
                             state_name=state,
                             academic_year=academic_year)
+        else:
+            dise_schools = BasicData.objects.filter(
+                            state_name=state,
+                            academic_year=academic_year)
+
+        print(dise_schools.count())
         for school in dise_schools:
-           self.insertInstitution(school)
-                               
+            print(school.school_code)
+            self.insertInstitution(school)

@@ -268,6 +268,7 @@ class GuardianUserObjectPermission(models.Model):
 
 class CompetencyQuestionMap(models.Model):
     key = models.CharField(max_length=50, null=True, blank=True)
+    lang_key = models.CharField(max_length=50, null=True, blank=True)
     questiongroup = models.ForeignKey('QuestionGroup')
     question = models.ForeignKey('Question')
     max_score = models.IntegerField()

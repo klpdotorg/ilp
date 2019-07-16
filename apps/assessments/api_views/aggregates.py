@@ -275,6 +275,9 @@ class SurveyInfoRespondentAPIView(
 
 
 class SurveyInfoSchoolAPIView(ListAPIView, ILPStateMixin):
+    """
+    Returns Survey details of Institutions
+    """
     serializer_class = SurveySerializer
 
     def get_queryset(self):
@@ -294,6 +297,9 @@ class SurveyInfoSchoolAPIView(ListAPIView, ILPStateMixin):
 
 
 class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
+    """
+    Returns Survey details of Boundary
+    """
     serializer_class = SurveySerializer
 
     def get_queryset(self):
@@ -388,6 +394,10 @@ class SurveyDetailKeyAPIView(AggMixin, ListAPIView, ILPStateMixin):
             boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
+        """
+        Returns question key, sum of assessments and
+        sum of answer assessments
+        """
         qs = self.filter_queryset(self.get_queryset())
         response = {}
         scores_res = {}
@@ -769,6 +779,9 @@ class SurveyDetailEBoundaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
     institution_queryset = SurveyInstitutionElectionTypeCount.objects.all()
 
     def list(self, request, *args, **kwargs):
+        """
+        Returns ward_type and sum of electionboundary count
+        """
         boundary_id = self.request.GET.get('boundary_id', None)
         eboundary_id = self.request.query_params.get('electionboundary_id', None)
 

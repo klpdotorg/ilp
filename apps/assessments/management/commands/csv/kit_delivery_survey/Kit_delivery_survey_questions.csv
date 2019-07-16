@@ -1,6 +1,2 @@
 id,question_text,display_text,key,options,is_featured,question type,status,max score,pass score,name in colloquial language,options in language
-667,School dise code,Enter the school dise code,School code,"{}",True,2,AC,,,ಶಾಲೆಯ DISE ಕೋಡ್,
-668,Kit delivered to the school ?,Is the kit delivered to the school ?,Math kit,"{Yes,No}",True,1,AC,,,ಶಾಲೆಗೆ ಗಣಿತ ಕಿಟ್ ಸರಬರಾಜು ಮಾಡಲಾಗಿದೆಯೇ?,"{ಹೌದು,ಇಲ್ಲ}"
-669,Number of students in class 4 ?,Number of students in class 4 ?,Academic,"{}",True,2,AC,,,4ನೇ ತರಗತಿಯಲ್ಲಿರುವ ಒಟ್ಟೂ ಮಕ್ಕಳ ಸಂಖ್ಯೆ,
-670,Number of students in class 5 ?,Number of students in class 5 ?,Academic,"{}",True,2,AC,,,5ನೇ ತರಗತಿಯಲ್ಲಿರುವ ಒಟ್ಟೂ ಮಕ್ಕಳ ಸಂಖ್ಯೆ ,
-671,Kit Opened during your visit ?,Was the kit Opened during your visit ?,Academic,"{Yes,No}",True,1,AC,,,ಗಣಿತ ಕಿಟ್  ಓಪನ್ ಮಾಡಲಾಗಿತ್ತೆ ಅಥವಾ ಉಪಯೋಗಿಸಲಾಗುತ್ತಿತೇ ?,"{ಹೌದು,ಇಲ್ಲ}"
+,Kit delivered to the school ?,Is the kit delivered to the school ?,Math_kit,"{Yes,No}",True,1,AC,,,ಶಾಲೆಗೆ ಗಣಿತ ಕಿಟ್ ಸರಬರಾಜು ಮಾಡಲಾಗಿದೆಯೇ?,"{ಹೌದು,ಇಲ್ಲ}"

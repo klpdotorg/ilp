@@ -188,8 +188,8 @@ urlpatterns = [
     # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/$', view_report, name='view_report'),
     # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/download', download_report, name='download_report_no_track_id'),
     # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/download', download_report, name='download_report'),
-    url(r'^reportanalytics/download/', download_analytics, name='download_analytics'),
     url(r'^reportanalytics/', ReportAnalytics.as_view(), name='report_analytics'),
+    url(r'^downloadanalytics/', download_analytics, name='download_analytics'),
 
     # report pages
     url(r'^reports/search$', StaticPageView.as_view(

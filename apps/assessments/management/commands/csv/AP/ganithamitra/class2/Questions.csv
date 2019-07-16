@@ -1,0 +1,12 @@
+id|question_text|display_text|key |options|is_featured|question type|status|max score|pass score|name in colloquial language|options in language|concept| microconceptgroup|microconcept|level|learning indicator
+|Number of Students|Number of Students|||False|1|AC||||||||||
+|Premathematical concept(Height/ Length)|Premathematical concept(Height/ Length)|Premathematical concept||True|1|AC|||||measurements|length|seriates_using_length|beginner||
+|Number concept(Identification of number less than 10)|Number concept(Identification of number less than 10)|Number concept||True|1|AC|||||number_sense|numbers|oral_number_name_association|beginner||
+|Number concept(Identification of after number)|Number concept(Identification of after number)|Number concept||True|1|AC|||||number_sense|sequence|before_and_after|beginner||
+|Number concept(Identification of biggest number among given numbers less than 20)|Number concept(Identification of biggest number among given numbers less than 20)|Number concept||True|1|AC|||||number_sense|comparison|form_biggest,smallest_number_from_given_set_of_digits|beginner||
+|Number concept(Number representation (below 20))|Number concept(Number representation (below 20))|Number concept||True|1|AC|||||number_sense|place_value|identify_place_value_for_a_given_number_using_math_TLMs|beginner||
+|Number concept(Identification of place values (below 20))|Number concept(Identification of place values (below 20))|Number concept||True|1|AC|||||number_sense|numbers|identify_place_value_for_a_given_number|beginner||
+|Addition of 2 numbers whose sum less than 20 (without carrying)|Addition of 2 numbers whose sum less than 20 (without carrying)|Addition||True|1|AC|||||number_operations|addition|addition_without_carry(abstract)|beginner||
+|Subtraction (Difference) of 2 numbers below 20 (without borrowing)|Subtraction (Difference) of 2 numbers below 20 (without borrowing)|Subtraction||True|1|AC|||||number_operations|subtraction|subtraction_without_borrow(abstract)|beginner||
+|Identification of coins|Identification of coins|Measurement||True|1|AC|||||measurements|money|identify_currency_notes_and_coins|beginner||
+|Measurements(Weight)|Measurements(Weight)|Measurement||True|1|AC|||||measurements|weight|compares_weight_heavy,light|beginner||

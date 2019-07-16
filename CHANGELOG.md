@@ -1,14 +1,29 @@
 Changelog
 ---
+- Fixed bug with school reports generation for Odisha. WRong survey id was hardcoded in code
+Release 1.3.0: db9840a07ee1b7f1bb64163289e1c6f15088fd74 2019-02-01
+  - OTP validate and reset password reset endpoints now return the full user object. This helps to improve Konnect signup and login UX.
+  - GKA dashboard
+    - URL change for school filters
+  - Removed GP contest dashboard link
+  - Project 1 million
+    - Analytics portal
+  - Data updates
+    - Institution tag mapping
+
+Release 1.2.1: 5a60cd87bf3d2984afbe36c387cdbab8ae05c0e5 2019-01-15
+	- Project 1 million updates
+	- Updated Django version to 1.11.8
+	- Included Gujarat and Andhra Pradesh in states endpoint	
+
 Release xxxx: December 19,2018
-- Fixed permissions issue with students endpoint. Made it more secure
+	- Fixed permissions issue with students endpoint. Made it more secure
+
 Release xxxx: Nov. 23, 2018
+	- Modified 1 million reports code to read gp_code instead of gp_name
+	- Fixed bug related to multiple qgroups mapped to a gp or school
+	- Reports will now be generated even if community survey data is not present for a boundary.
 
-- Modified 1 million reports code to read gp_code instead of gp_name
-- Fixed bug related to multiple qgroups mapped to a gp or school
-- Reports will now be generated even if community survey data is not present for a boundary.
-
----------
 Release 1.2.0: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
   - Karnataka GKA dashboard
     - Removed "Assessment" section
@@ -17,7 +32,7 @@ Release 1.2.0: fc90e8c459b9d9ba621b08f318ed4c34284e1cea 2018-11-18
     - Resent OTP feature
     - Improved crash analytics
     - Ability to sync large amounts of assessment data
-    - Dropped support for Androind version <= 4
+    - Dropped support for Android version <= 4
   - Odisha GKA dashboard
     - Enabled GP contest section
     - Added new Survey, QuestionGroups etc.
