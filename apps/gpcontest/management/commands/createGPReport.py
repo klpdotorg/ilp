@@ -51,6 +51,7 @@ class Command(BaseCommand):
     schoolids = None
     districtids = None
     imagesdir = basefiledir+"/apps/gpcontest/images/"
+    mergereport = True
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
@@ -60,6 +61,7 @@ class Command(BaseCommand):
         parser.add_argument('--onlygp', nargs='?')
         parser.add_argument('--sid', nargs='?')
         parser.add_argument('--districtid', nargs='?')
+        parser.add_argument('--mergereport', nargs='?', default=True)
 
     def initiatelatex(self):
         # create the build directory if not existing
@@ -147,13 +149,19 @@ class Command(BaseCommand):
                 count += 1
                 if num_contests > 1:
                     suffix = "_"+str(count)
-                outputdir = self.createGPPdfs(gp,
+                outputdir, gppdf = self.createGPPdfs(gp,
                                          data["gp_info"][gp][contestdate],
                                          self.templates["gp"]["latex"], suffix)
 
                 if not self.onlygp:
                     # print(gp)
-                    self.createSchoolReports(gp, outputdir)
+                    schoolpdfs = self.createSchoolReports(gp, outputdir, contestdate, suffix)
+
+                if self.mergereport:
+                    combinedFile = "GPContestInformation_"+str(gp)+suffix+".pdf"
+                    self.mergeReports(outputdir+"/", gppdf, schoolpdfs, combinedFile)
+
+            self.createSchoolsSummary(outputdir)
         self.createGPSummarySheet()
 
     def createGPSummarySheet(self):
@@ -245,36 +253,44 @@ class Command(BaseCommand):
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]}]
   
-        return outputdir
+        return outputdir, output_file+".pdf"
 
     def createGPReportsPerBoundary(self):
         data = {}
         for district in self.districtids:
             gps = Institution.objects.filter(admin1_id=district, gp_id__isnull=False).distinct("gp_id").values("gp_id")
-            print(gps)
             for gp in gps:
                 gpid = gp["gp_id"]
-                print("GPID :"+str(gpid))
-                print("START YEAR MONTH :"+self.startyearmonth)
-                print("END YEAR MONTH :"+self.endyearmonth)
-                data[gpid] = generate_report.generate_gp_summary(
+                retdata = generate_report.generate_gp_summary(
                         gpid, self.surveyid, self.startyearmonth, 
                         self.endyearmonth)
 
+                if retdata != {}:
+                    data[gpid] = retdata
+                else:
+                    continue
                 num_contests = len(data[gpid])
                 suffix = ""
                 count = 0
+                outputdir = ""
                 for contestdate in data[gpid]:
                     count += 1
                     if num_contests > 1:
                         suffix = "_"+str(count)
-                    outputdir = self.createGPPdfs(gpid,
+                    outputdir, gppdf = self.createGPPdfs(gpid,
                                          data[gpid][contestdate],
                                          self.templates["gp"]["latex"], suffix)
+                    print(outputdir)
 
                     if not self.onlygp:
-                        # print(gp)
-                        self.createSchoolReports(gpid, outputdir)
+                        schoolpdfs = self.createSchoolReports(gpid, outputdir, contestdate, suffix)
+
+                    if self.mergereport:
+                        combinedFile = "GPContestInformation_"+str(gpid)+".pdf"
+                        self.mergeReports(outputdir+"/", gppdf, schoolpdfs, combinedFile)
+
+                print(outputdir)
+                self.createSchoolsSummary(outputdir)
             self.createGPSummarySheet()
 
 
@@ -347,10 +363,18 @@ class Command(BaseCommand):
         self.combinePdfs(pdfscreated, school_file, outputdir)
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
+        return school_file
 
-    def deleteTempFiles(self, tempPdfs):
-        for pdf in tempPdfs:
-            os.remove(pdf)
+    def deleteTempFiles(self, tempFiles):
+        for f in tempFiles:
+            os.remove(f)
+
+    def mergeReports(self, outputdir, gpfile, schoolfiles, outputfile):
+        inputfiles = [outputdir+gpfile]
+        for schoolfile in schoolfiles:
+            inputfiles.append(outputdir+schoolfile)
+        self.combinePdfs(inputfiles, outputfile, outputdir) 
+        self.deleteTempFiles(inputfiles)
 
     def combinePdfs(self, inputfiles, outputfile, outputdir):
         input_streams = []
@@ -371,26 +395,23 @@ class Command(BaseCommand):
             for f in input_streams:
                 f.close()
 
-    def createSchoolReports(self, gpid, outputdir):
+    def createSchoolReports(self, gpid, outputdir, gpcontestdate, suffix):
         schoolsdata = school_compute_numbers.get_gp_schools_report(
                 gpid, self.surveyid, self.startyearmonth, self.endyearmonth)
 
         # print(schoolsdata, file=self.utf8stdout)
+        schoolpdfs = []
         for schoolid in schoolsdata:
-            suffix = ""
-            count = 0
             # print(schoolid)
             num_contests = len(schoolsdata[schoolid])
-            for contestdate in schoolsdata[schoolid]:
-                count += 1
-                if num_contests > 1:
-                    suffix = "_"+str(count)
-                schooldata = schoolsdata[schoolid][contestdate]
+            if gpcontestdate in schoolsdata[schoolid]:
+                schooldata = schoolsdata[schoolid][gpcontestdate]
                 # print(schooldata, file=self.utf8stdout)
                 school_builddir = self.build_d+str(self.now)+"/"+str(gpid)+"/" +\
                         str(schooldata["school_id"])
-                self.createSchoolPdfs(schooldata, school_builddir, outputdir, suffix)
-        self.createSchoolsSummary(outputdir)
+                schoolpdf = self.createSchoolPdfs(schooldata, school_builddir, outputdir, suffix)
+                schoolpdfs.append(schoolpdf)
+        return schoolpdfs
 
     def createSchoolsSummary(self, outputdir):
         # print(self.schoolsummary)
@@ -430,6 +451,8 @@ class Command(BaseCommand):
                                                  self.endyearmonth)
         self.onlygp = options.get("onlygp", False)
         schoolids = options.get("sid", None)
+        self.mergereport = options.get("mergereport")
+
         if schoolids is not None:
             self.schoolids = [int(x) for x in schoolids.split(',')]
 
@@ -450,6 +473,8 @@ class Command(BaseCommand):
             self.createGPReports()
         elif self.districtids is not None:
             self.createGPReportsPerBoundary()
+        else:
+            print("Specify atleast --gpid or --districtid or --sid")
 
         if os.path.exists(self.build_d):
             shutil.rmtree(self.build_d)
