@@ -42,8 +42,9 @@ class BackOfficeView(View):
             try:
                 threading.Thread(target=create_csv_and_move, args=(
                     data['survey'], data['district'], data['block'],
-                    data['cluster'], data['school'], data['year'],
-                    data['month'], file_id + '.csv', field_names
+                    data['cluster'], data['school'], data['from_year'],
+                    data['from_month'], data['to_month'], data['to_year'],
+                    file_id + '.csv', field_names
                 )).start()
             except Exception as e:
                 return render(

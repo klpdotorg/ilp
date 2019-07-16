@@ -69,8 +69,8 @@
             <option value="">Select School</option>                    
           </select>
 
-        <label>Select Year</label>
-          <select id="sel_year" name="year" class="form-control">
+        <label>Select FROM Year</label>
+          <select id="from_sel_year" name="from_year" class="form-control">
             <option value="">Select Year</option>                    
             {% for y in year %}
               <option id="{{ y }}" value="{{ y }}">
@@ -79,8 +79,27 @@
             {% endfor %}
           </select>
 
-        <label>Select Month</label>
-          <select id="sel_month" name="month" class="form-control">
+        <label>Select FROM Month</label>
+          <select id="from_sel_month" name="from_month" class="form-control">
+            <option value="">Select Month</option>                    
+            {% for key, val in month.items %}
+              <option id="{{ key }}" value="{{ key }}">
+                    {{ val }}
+              </option>
+            {% endfor %}
+          </select>
+        <label>Select TO Year</label>
+          <select id="to_sel_year" name="to_year" class="form-control">
+            <option value="">Select Year</option>                    
+            {% for y in year %}
+              <option id="{{ y }}" value="{{ y }}">
+                    {{ y }}
+              </option>
+            {% endfor %}
+          </select>
+
+        <label>Select TO Month</label>
+          <select id="to_sel_month" name="to_month" class="form-control">
             <option value="">Select Month</option>                    
             {% for key, val in month.items %}
               <option id="{{ key }}" value="{{ key }}">
@@ -189,10 +208,11 @@
         $('form').submit(function () {
             var state = $('select[name=state]').val();
             var survey = $('select[name=survey]').val();
-            var year = $('select[name=year]').val();
-            var month = $('select[name=month]').val();
-
-            if (!state || !survey || !year || !month) {
+            var from_year = $('select[name=from_year]').val();
+            var from_month = $('select[name=from_month]').val();
+            var to_year = $('select[name=to_year]').val();
+            var to_month = $('select[name=to_month]').val();
+            if (!state || !survey || !from_year || !from_month) {
                 alert("Please check - State, Survey, Year, Month is filled.");
                 return false
             }

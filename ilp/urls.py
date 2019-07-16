@@ -25,8 +25,6 @@ api_docs_view = get_swagger_view(title='ILP API')
 
 
 urlpatterns = [
-    url(r'^back-office/', admin.site.urls),
-
     # Home page
     url(r'^$', StaticPageView.as_view(
         template_name='home.html',
