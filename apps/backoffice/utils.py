@@ -57,7 +57,6 @@ def get_assessment_field_data(
         assessments = assessments.filter(date_of_visit__year__lte=to_year)
     if to_month:
         assessments = assessments.filter(date_of_visit__month__lte=to_month)
-    import pdb; pdb.set_trace()
     field_data = []
     assessments = assessments.select_related(
         'institution__admin0', 'institution__admin1',
