@@ -21,7 +21,7 @@ def getHouseholdSurvey(survey_id,boundary,date_range):
         #Household Survey
             hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
                 .filter(yearmonth__range=date_range,questiongroup_id__in=self.hh_questiongroup_ids)\
-                .filter(question_id__in=self.hh_question_ids)
+                .filter(question_id__in=self.hh_question_ids).order_by('question_id__questiongroup_questions__sequence')
         if hh_answers_agg is not None and hh_answers_agg.exists():
             total_hh_answers = hh_answers_agg.values('question_desc', 'question_id').annotate(Sum('num_answers'))
             total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_desc', 'question_id').annotate(Sum('num_answers'))
