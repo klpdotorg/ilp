@@ -1,4 +1,4 @@
-update schools_institution set gp_id=null where id in (8033, 18226,18020, 18078, 18060);
+update schools_institution set gp_id=null where id in (18033, 18226,18020, 18078, 18060);
 update schools_institution set gp_id= 1452 where id in (17988,17965,17966,17967,17972,17973,17974,17975,17976,17977,17979,17980,17981,17982);
 update schools_institution set gp_id= 1805 where id in (17920,17921,17923,17924,17925,17926,17909,17910,17911,17912,17913,17914,17915,17916,17917,17918,17919);
 update schools_institution set gp_id= 1947 where id in (52237,17849,17847,52246,52247,52248,52249,52251);
