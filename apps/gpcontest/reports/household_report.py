@@ -1,7 +1,9 @@
 from assessments.models import (
     SurveyEBoundaryQuestionGroupAnsAgg,
     SurveyBoundaryQuestionGroupAnsAgg,
-    Question
+    Question,
+    QuestionGroup_Questions,
+    SurveyBoundaryQuestionGroupQuestionKeyAgg
     )
 
 def getHouseholdSurvey(survey_id,boundary,date_range):
