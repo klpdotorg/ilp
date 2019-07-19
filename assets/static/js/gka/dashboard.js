@@ -58,7 +58,7 @@ var topSummaryData = {};
         premodalQueryParams = klp.router.getHash().queryParams;
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
-        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
+        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019', '2020']});
         $('#startDate').yearMonthSelect("setDate", moment("20180601", "YYYYMMDD"));
         $('#endDate').yearMonthSelect("setDate", moment("20190331", "YYYYMMDD"));
         var startDate = $('#startDate').yearMonthSelect("getFirstDay");

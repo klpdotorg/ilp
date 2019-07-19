@@ -2,6 +2,8 @@ import sys
 import jinja2
 import os
 from jinja2 import Template
+from datetime import datetime, date
+from django.db.models import Q
 import shutil
 import sys
 from schools.models import Institution
@@ -11,21 +13,24 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
     basefiledir = os.getcwd()+"/apps/gpcontest/"
     templatedir = "/templates/"
-    outputdir = "/pdfs/"
-    out_file = "gpsummarysheet"
+    out_file = "GPSummarysheet"
     template_name = "GPContestSummarySheet.tex"
     template_file = basefiledir+templatedir+template_name
     build_d = basefiledir+"/build"
+    gpids = None
+    now = date.today()
+    outputdir = "/pdfs/"+str(now)+"/preContestSummary/"
+    schoolinfo = {}
 
     def add_arguments(self, parser):
-        parser.add_argument('gpid')
+        parser.add_argument('--gpids', nargs='?')
+        parser.add_argument('--districtids', nargs='?')
+        parser.add_argument('--blockids', nargs='?')
 
 
     def initiatelatex(self):
         if not os.path.exists(self.build_d):  # create the build directory if not existing
             os.makedirs(self.build_d)
-        if not os.path.exists(self.basefiledir+self.outputdir):  # create the pdf directory if not existing
-            os.makedirs(self.basefiledir+self.outputdir)
         latex_jinja_env = jinja2.Environment(
             variable_start_string = '{{',
             variable_end_string = '}}',
@@ -39,33 +44,74 @@ class Command(BaseCommand):
         template = latex_jinja_env.get_template(self.template_file)
         return template
 
-    def getBoundaryInfo(self, gpid):
-        boundaryqs = Institution.objects.filter(gp_id=gpid).values('admin1_id__name','admin2_id__name','gp_id__const_ward_name').distinct()
-        if boundaryqs.count() > 1:
-            print("More than one set of values returned for gpid: "+str(gpid)+" : "+str(boundaryqs))
-            exit
-        print(boundaryqs)
-        for boundary in boundaryqs:
-            boundaryinfo= {"district": boundary["admin1_id__name"].title(), "block": boundary["admin2_id__name"].title(), "gpid":str(gpid), "gpname":boundary["gp_id__const_ward_name"].title()}
-        return boundaryinfo
 
-    def getSchoolInfo(self, gpid):
-        schoolinfo = []
-        schoolsqs = Institution.objects.filter(gp_id=gpid).values('name','dise_id__school_code').distinct()
-        for school in schoolsqs:
-            schoolinfo.append({"schoolname": school['name'], "disecode": school['dise_id__school_code']})
-        return schoolinfo
+    def getSchoolInfo(self, boundaries=None, gpids=None ):
+        if boundaries is not None:
+            schools = Institution.objects.filter(Q(admin1_id__in = boundaries) | Q(admin2_id__in = boundaries), gp_id__isnull= False).values('admin1_id__name', 'admin2_id__name', 'gp_id__const_ward_name', 'name', 'dise_id__school_code', 'id', 'gp_id').distinct()
+        if gpids is not None:
+            schools = Institution.objects.filter(gp_id__in=gpids).values('admin1_id__name', 'admin2_id__name', 'admin3_id__name', 'gp_id__const_ward_name', 'name', 'dise_id__school_code', 'id', 'gp_id').distinct()
+
+        for school in schools:
+            school["name"] = school["name"].replace("&","\&")
+            if school["admin1_id__name"] not in self.schoolinfo:
+                self.schoolinfo[school["admin1_id__name"]] = {school["admin2_id__name"]:{school["gp_id__const_ward_name"]: {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code']}]}}}
+            elif school["admin2_id__name"] not in self.schoolinfo[school["admin1_id__name"]]:
+                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]] = {school["gp_id__const_ward_name"]: {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code']}]}}
+            elif school["gp_id__const_ward_name"] not in self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]] :
+                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]][school["gp_id__const_ward_name"]] = {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code']}]}
+            else:
+                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]][school["gp_id__const_ward_name"]]["schools"].append({"schoolname": school['name'], "disecode": school['dise_id__school_code']})
+
+
+
+    def createSummaryReports(self):
+        template = self.initiatelatex()
+        for district in self.schoolinfo:
+            for block in self.schoolinfo[district]:
+                for gp in self.schoolinfo[district][block]:
+                    gpid = str(self.schoolinfo[district][block][gp]["id"])
+                    out_file = self.out_file+"_"+gpid
+                    print(district+" "+block+" "+gpid+" "+gp)
+                    boundaryinfo = {"district": district.title(), "block": block.title(), "gpid":gpid, "gpname":gp.title()}
+                    schoolinfo = self.schoolinfo[district][block][gp]["schools"]
+
+                    outputdir = self.basefiledir+self.outputdir+"/"+district+"/"+block+"/"
+                    if not os.path.exists(outputdir):  # create the pdf directory if not existing
+                        os.makedirs(outputdir)
+                    renderer_template = template.render(boundaryinfo=boundaryinfo, schools=schoolinfo)
+
+                    with open(out_file+".tex", "w", encoding='utf-8') as f:  # saves tex_code to outpout file
+                        f.write(renderer_template)
+
+                    os.system("xelatex -output-directory {} {}".format(os.path.realpath(self.build_d), os.path.realpath(out_file)))
+                    shutil.copy2(self.build_d+"/"+out_file+".pdf", os.path.dirname(outputdir))
+                    self.deleteTempFiles([out_file+".tex",
+                             self.build_d+"/"+out_file+".pdf"])
+
+    def deleteTempFiles(self, tempPdfs):
+        for pdf in tempPdfs:
+            os.remove(pdf)
 
     def handle(self, *args, **options):
-        gpid = options.get("gpid")
-        self.out_file = self.out_file+"_"+str(gpid)
-        template = self.initiatelatex()
-        boundaryinfo = self.getBoundaryInfo(gpid)
-        schoolinfo = self.getSchoolInfo(gpid)
-        renderer_template = template.render(boundaryinfo=boundaryinfo, schools=schoolinfo)
+        gpids = options.get("gpids")
+        districtids = options.get("districtids")
+        blockids = options.get("blockids")
 
-        with open(self.out_file+".tex", "w", encoding='utf-8') as f:  # saves tex_code to outpout file
-            f.write(renderer_template)
+        if gpids is None and blockids is None and districtids is None:
+            print("Enter one of the parameters, gpids, districtids or blockids")
+            retrurn
 
-        os.system("xelatex -output-directory {} {}".format(os.path.realpath(self.build_d), os.path.realpath(self.out_file)))
-        shutil.copy2(self.build_d+"/"+self.out_file+".pdf", os.path.dirname(self.basefiledir+self.outputdir))
+        if districtids is not None:
+            self.districtids = [int(x) for x in districtids.split(',')]
+            self.getSchoolInfo(self.districtids, None)
+
+        if gpids is not None:
+            self.gpids = [int(x) for x in gpids.split(',')]
+            self.getSchoolInfo(None, self.gpids)
+
+        if blockids is not None:
+            self.blockids = [int(x) for x in blockids.split(',')]
+            self.getSchoolInfo(self.blockids, None)
+
+        self.createSummaryReports()
+

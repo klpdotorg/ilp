@@ -1,0 +1,227 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=2cm,portrait]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontenc}
+\usepackage{xltxtra}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage[absolute,overlay]{textpos}
+
+\newcommand{\kn}[1]{
+{\fontspec{Kedage}
+#1
+}}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\fancypagestyle{plain}{
+\fancyhf{} % clear all header and footer fields
+\lfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=-1cm,xshift=-1cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
+\end{tikzpicture}}
+
+\rfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=-1cm,xshift=1cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
+\end{tikzpicture}}
+
+\cfoot{
+\fontsize{9}{12}
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-6cm]
+{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}} };
+\node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
+{\kn{ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590 \kn{ಗೆ ಕರೆ ಮಾಡಿ} };
+\node[anchor=south,yshift=-0.5cm,xshift=6cm]
+{\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
+\end{tikzpicture}}
+}
+
+%% Headers and footers
+\fancypagestyle{title}{
+\fancyhf{} % clear all header and footer fields
+\chead{
+\begin{tikzpicture}[overlay]
+\node[anchor=north, yshift=1.5cm, xshift=0cm]
+{\includegraphics[width=3.5cm]{"{{info.imagesdir}}title_header_center.png"}};
+\end{tikzpicture}}
+
+\lhead{
+\begin{tikzpicture}[overlay]
+\node[anchor=north west,yshift=1.5cm,xshift=-1cm]
+{\includegraphics[width=5cm]{"{{info.imagesdir}}title_header_left.png"}};
+\end{tikzpicture}}
+
+\rhead{
+\begin{tikzpicture}[overlay]
+\node[anchor=north east,yshift=1.5cm,xshift=1cm]
+{\includegraphics[width=3cm]{"{{info.imagesdir}}title_header_right.png"}};
+\end{tikzpicture}}
+
+\begin{tikzpicture}[overlay]
+\node[anchor=north west, yshift=-6.5cm, xshift=5cm]
+{\includegraphics[width=7cm]{"{{info.imagesdir}}title_text.png"}};
+\end{tikzpicture}
+
+\begin{tikzpicture}[overlay]
+\node[anchor=south west, yshift=200pt,xshift=8.5cm]
+{\includegraphics[width=4cm]{"{{info.imagesdir}}logo.jpg"}};
+\end{tikzpicture}
+
+\lfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-1cm]
+{\includegraphics[height=4cm]{"{{info.imagesdir}}title_footer_left.png"}};
+\end{tikzpicture}}
+
+\rfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=0cm,xshift=1cm]
+{\includegraphics[height=3cm]{"{{info.imagesdir}}title_footer_right.png"}};
+\end{tikzpicture}}
+
+\setlength{\headheight}{15pt}
+%%\setlength{\footskip}{120pt}
+}
+
+
+\renewcommand{\headrulewidth}{0pt} % to remove line on header
+\renewcommand{\footrulewidth}{0pt} % to remove line on footer
+
+
+
+
+\begin{document}
+
+\begin{titlepage}
+    \thispagestyle{title}
+    \begin{center}
+    \vspace*{8.5cm}
+     \textbf{\huge \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ}} \\~\\
+        \textbf{\huge\kn{ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ}} \\~\\
+	    \Large{{info.year}}
+    \end{center}
+\end{titlepage}
+\pagebreak
+
+\thispagestyle{plain}
+{
+\setlength{\parindent}{0in}
+\kn{ಇವರಿಗೆ,}\\ [3ex]
+\kn{ಮಾನ್ಯ ಅಧ್ಯಕ್ಷರು,}\\ [1ex]
+{{blockinfo.name}}\kn{ತಾಲೂಕು}\\ [1ex]
+{{blockinfo.districtname}}\kn{ಜಿಲ್ಲೆ.
+\\~\\ [3ex]
+ಮಾನ್ಯರೆ,
+\\~\\
+\textbf{ವಿಷಯ:} ಕರ್ನಾಟಕ ಸರ್ಕಾರ, ಸಾರ್ವಜನಿಕ ಶಿಕ್ಷಣ ಇಲಾಖೆ ಹಾಗೂ ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಭಾಗಿತ್ವದಲ್ಲಿ ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ಅಡಿಯಲ್ಲಿ} 2018-19\kn{ನೇ ಸಾಲಿನಲ್ಲಿ ನಡೆದ} {{blockinfo.name}} \kn{ತಾಲೂಕಿನ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಸರ್ಕಾರಿ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ ಕುರಿತು.
+\\~\\ [3ex]
+ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನವು ಸರ್ಕಾರದ ಕಾರ್ಯಕ್ರಮವಾಗಿದ್ದು, ಗ್ರಾಮ ಪಂಚಾಯತಿ, ಸಾರ್ವಜನಿಕ ಶಿಕ್ಷಣ ಇಲಾಖೆ, ಸಮುದಾಯ ಹಾಗೂ ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಯೋಗದೊಂದಿಗೆ} 2018-19\kn{ನೆ ಸಾಲಿನಲ್ಲಿ} {{blockinfo.name}} \kn{ತಾಲೂಕಿನಲ್ಲಿ {{blockinfo.num_gps}} ಗ್ರಾಮ ಪಂಚಾಯತಿಯ, {{blockinfo.num_schools}} ಸರ್ಕಾರಿ ಶಾಲೆಗಳಿಂದ 4, 5 ಮತ್ತು 6ನೇ ತರಗತಿಯ ಒಟ್ಟು {{blockinfo.totalstudents}} ಮಕ್ಕಳಿಗೆ ಗಣಿತ ಸ್ಪರ್ಧೆಯನ್ನು ಮಾಡಲಾಗಿದೆ.}
+\\~\\[2ex]
+\kn{ಈ ತಾಲೂಕಿನ ಎಲ್ಲ ಗ್ರಾಮ ಪಂಚಾಯತಿಯ ಅಧ್ಯಕ್ಷರು/ಸದಸ್ಯರು, ಪೋಷಕರು, ಎಸ್.ಡಿ.ಎಮ್.ಸಿ ಅಧ್ಯಕ್ಷರು/ಸದಸ್ಯರು, ಸ್ವಯಂ ಸೇವಕರು, ಗ್ರಾಮದ ಮುಖಂಡರು, ಶಿಕ್ಷಣ ಪ್ರೇಮಿಗಳು, ಮುಖ್ಯಗುರುಗಳು/ ಶಿಕ್ಷಕರು ಮತ್ತು ಸ್ಥಳೀಯ ಸಂಘ ಸಂಸ್ಥೆಯ ಸದಸ್ಯರುಗಳು, ಸರ್ಕಾರಿ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಗೆ ಸಂಪನ್ಮೂಲ, ಸಹಕಾರ ಮತ್ತು ಸಹಭಾಗಿತ್ವದೊಂದಿಗೆ ಭಾಗವಹಿಸಿ ಯಶಸ್ವಿಗೊಳಿಸಿದ್ದಾರೆ.
+\\~\\[2ex]
+ತಾಲೂಕಿನ ಗ್ರಾಮ ಪಂಚಾಯತಿಯ ಅಧ್ಯಕ್ಷರ ನಾಯಕತ್ವದಲ್ಲಿ, ಸರ್ಕಾರಿ ಶಾಲಾ ಮಕ್ಕಳ ಗುಣಾತ್ಮಕ ಶಿಕ್ಷಣಕ್ಕಾಗಿ ಗಣಿತ ಸ್ಪರ್ಧೆಗಳನ್ನು ನಿರಂತರವಾಗಿ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ನಡೆಯುವಂತೆ ಆಗಬೇಕೆಂದು ಕೋರುತ್ತೇವೆ.
+\\~\\
+ಈ ಪತ್ರದೊಂದಿಗೆ ತಮ್ಮ ತಾಲೂಕಿನ ಎಲ್ಲ ಪಂಚಾಯತಿಗಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ಕ್ರೂಢೀಕೃತ ವರದಿಯನ್ನು ಮುಂದಿನ ಯೋಜನೆ ಮತ್ತು ಸೂಕ್ತ ಕ್ರಮಕ್ಕಾಗಿ ಲಗತ್ತಿಸಲಾಗಿದೆ.
+\\~\\~\\~\\~\\
+ವಂದನೆಗಳೊಂದಿಗೆ
+\\~\\~\\~\\
+ಅಶೋಕ್ ಕಾಮತ್,
+\\~\\
+ಅಧ್ಯಕ್ಷರು ,ಅಕ್ಷರ ಫೌಂಡೇಶನ್\\[1ex]
+ಬೆಂಗಳೂರು\\
+}
+}
+
+\pagebreak
+
+
+
+\thispagestyle{plain}
+{
+\setlength{\parindent}{0in}
+\begin{center}\large{\kn{ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ}} \small{ {{info.year}} } \\ \end{center}
+{% if percent_scores is none %}
+~\\~\\
+{% endif %}
+\kn{ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ಜಿಲ್ಲಾ ವರದಿ} \\
+\kn{ತಾಲೂಕಿನ ಹೆಸರು} : {{blockinfo.name}}  \\ 
+\kn{ಜಿಲ್ಲೆಯ ಹೆಸರು} : {{blockinfo.districtname}}\\
+\kn{ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ ಗ್ರಾಮ ಪಂಚಾಯ್ತಿಗಳ ಸಂಖ್ಯೆ} : {{blockinfo.num_gps}} \\
+
+{{blockinfo.name}} \kn{ತಾಲೂಕಿನಲ್ಲಿ ಗ್ರಾಮ ಪಂಚಾಯತಿ, ಸಾರ್ವಜನಿಕ ಶಿಕ್ಷಣ ಇಲಾಖೆ, ಸಮುದಾಯ ಮತ್ತು ಅಕ್ಷರ ಫೌಂಡೇಶನ್ ಸಹಭಾಗಿತ್ವದಲ್ಲಿ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದಲ್ಲಿ ನಡೆದ 4,5 ಮತ್ತು 6 ನೇ ತರಗತಿಯ ಶಾಲಾ ಮಕ್ಕಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ಕಿರು ವರದಿ ಈ ಕೆಳಕಂಡಂತಿದೆ}\\[2ex]
+\kn{ಈ ತಾಲೂಕಿನ ವ್ಯಾಪ್ತಿಯಲ್ಲಿ} {{blockinfo.gp_count}} \kn{ಗ್ರಾಮ ಪಂಚಾಯತಿಗಳಲ್ಲಿ  ಗಣಿತ ಸ್ಪರ್ಧೆ ನಡೆದಿದ್ದು,} {{blockinfo.school_count}} \kn{ಸರ್ಕಾರಿ ಶಾಲೆಗಳಿಂದ 4,5 ಮತ್ತು 6 ನೇ ತರಗತಿಯ} {{blockinfo.totalstudents}} \kn{ಮಕ್ಕಳು ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ್ದರು.}\\[2ex]
+
+\textbf{\kn{ತರಗತಿವಾರು ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ್ದ ಮಕ್ಕಳ ಒಟ್ಟಾರೆ ಫಲಿತಾಂಶಗಳು ಈ ಕೆಳಗಿನಂತೆ ಇವೆ.}}
+
+\begin{longtable}{|P{3cm}|P{4cm}|P{2cm}|P{2cm}|P{2cm}|P{3cm}|} \hline
+\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಭಾಗವಹಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{4}{|c|}{\textbf{\kn{ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ (ಶೇಕಡವಾರು)}}}\\ \cline{3-6}
+\rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{36\%-60\%}  & \textbf{61\%-75\%} & \textbf{76\%-100\%} \\ \hline \endhead
+{% for assessment in assessmentinfo %}
+\rule{0cm}{0.3cm} {{ assessment["class"] }}\kn{ನೇ ತರಗತಿ} & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to60"]}} & {{assessment["overall_scores"]["60to75"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
+{% endfor %}
+\end{longtable}
+
+\begingroup
+\fontsize{11}{12}
+{
+\setlength\LTleft{-0.1cm}
+\setlength\LTright{-0.1cm}
+\begin{longtable}{|P{2.5cm}|P{3.25cm}|c|c|c|c|c|c|} \hline
+\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಭಾಗವಹಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{6}{|c|}{\textbf{\kn{ಮೂಲ ಕ್ರಿಯೆಗಳನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \cline{3-8}
+\rule{0cm}{0.3cm} &&\textbf{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯ}}&\textbf{\kn{ಸ್ಥಾನ ಬೆಲೆ}}&\textbf{\kn{ಸಂಕಲನ}}&\textbf{\kn{ವ್ಯವಕಲನ}}&\textbf{\kn{ಗುಣಾಕಾರ}}&\textbf{\kn{ಭಾಗಾಕಾರ}} \\ \hline \endhead
+{% for assessment in assessmentinfo %}
+\rule{0cm}{0.3cm} {{assessment["class"]}}\kn{ನೇ ತರಗತಿ} & {{assessment["competency_scores"]["total"]}} & {{assessment["competency_scores"]["Number Recognition"]}}  & {{assessment["competency_scores"]["Place Value"]}} & {{assessment["competency_scores"]["Addition"]}} & {{assessment["competency_scores"]["Subtraction"]}} & {{assessment["competency_scores"]["Multiplication"]}} & {{assessment["competency_scores"]["Division"]}} \\ \hline
+{% endfor %}
+\end{longtable}
+}
+\endgroup
+ 
+{% if percent_scores is not none %}
+{
+\centering{\kn{ಫಲಿತಾಂಶ : ಒಟ್ಟಾರೆಯಾಗಿ 5 ವರ್ಷ(6 ನೇ ತರಗತಿ) ಶಾಲೆಯಲ್ಲಿ ಕಲಿತ ಮಗು ಈ ಕೆಳಗಿನ ಮೂಲಕ್ರಿಯೆಯನ್ನು ಮಾಡಬಹುದು ಎಂದು ನಾವು ಪರಿಗಣಿಸಬಹುದು} (\kn{ಶೇಕಡವಾರು}).} \\[2ex]
+ 
+\begingroup
+\fontsize{8.75}{12}
+{
+\setlength\LTleft{-0.3cm}
+\setlength\LTright{-0.3cm}
+\begin{longtable}{|c|c|c|c|c|c|} \hline
+\cellcolor{yellow}{\textbf{\makecell[b]{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯವನ್ನು} \\ \kn{ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{\kn{ಸ್ಥಾನ ಬೆಲೆಯನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} & \cellcolor{yellow}{\textbf{\makecell[b]{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \hline \endhead
+{% for assessment in percent_scores %}
+\rule{0cm}{0.3cm} {{percent_scores[assessment]["Number Recognition"]}}&  {{percent_scores[assessment]["Place Value"]}} & {{percent_scores[assessment]["Addition"]}} & {{percent_scores[assessment]["Subtraction"]}} & {{percent_scores[assessment]["Multiplication"]}} &  {{percent_scores[assessment]["Division"]}}  \\ \hline
+{% endfor %}
+\end{longtable}
+}
+\endgroup
+}
+{% endif %}
+
+\begin{flushleft}
+\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಸಾರ್ವಜನಿಕ ಶಿಕ್ಷಣ ಇಲಾಖೆ ,ಗ್ರಾಮ ಪಂಚಾಯತಿ ಜೊತೆಗೆ ಇತರೆ ಭಾಗೀದಾರರಾದ ನಾಗರೀಕ ಸೌಕರ್ಯ ಸಮಿತಿ}(Civic Amenities Committee), SDMC, \kn{ಪೋಷಕರು, ಶೈಕ್ಷಣಿಕ ಸ್ವಯಂಸೇವಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.} \\[5ex]
+\end{flushleft}
+
+
+\centering{\kn{ವಂದನೆಗಳೊಂದಿಗೆ}} \\[3ex]
+{% if percent_scores is none %}
+~\\~\\~\\
+{% endif %}
+
+\kn{ಜೆ.ವಿ. ಶಂಕರನಾರಾಯಣ} \hfill \kn{ನಾಗರಾಜ್ ಪ್ರಭು} \rule{4.1cm}{0cm} \\
+
+\kn{ಮುಖ್ಯಸ್ಥರು, ಕಾರ್ಯಾಚರಣೆ ಮತ್ತು ಸಮುದಾಯ ಅಭಿವೃದ್ಧಿ} \hfill \kn{ಮುಖ್ಯಸ್ಥರು, ಗಣಿತ ಸಂಪನ್ಮೂಲ ಮತ್ತು} GKA
+
+\kn{ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಬೆಂಗಳೂರು.} \hfill \kn{ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಬೆಂಗಳೂರು.} \rule{1.4cm}{0cm}
+}
+\end{document}

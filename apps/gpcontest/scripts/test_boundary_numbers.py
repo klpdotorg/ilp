@@ -16,6 +16,7 @@ def run():
     print("Begin time %s" % datetime.datetime.now().time())
     all = generate_all_block_reports(
                             2, 201806, 201903)
+    #print(all)
     print("End time %s" %datetime.datetime.now().time())
     print("Done")
     print("=================================================")
@@ -23,6 +24,7 @@ def run():
     print("Begin time %s" % datetime.datetime.now().time())
     all = generate_block_reports_for_district(
                             2, [420, 416], 201806, 201903)
+    #print(all)
     print("End time %s" %datetime.datetime.now().time())
     print("Done")
     print("=================================================")
