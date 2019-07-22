@@ -12,6 +12,18 @@ from backoffice.forms import ExportForm
 from backoffice.utils import (
     get_assessment_field_names, create_csv_and_move
 )
+from users.views import UserLoginView
+
+
+class BackOfficeLoginView(UserLoginView):
+    template_name = 'backoffice/login.html'
+    
+    def post(self, request):
+        response = super.post(self, request)
+        if response.is_staff:
+            return response
+        else:
+            return Response("User forbidden access to this area", status=status.HTTP_403_FORBIDDEN)
 
 
 class BackOfficeView(View):

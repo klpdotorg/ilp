@@ -3,11 +3,13 @@ from django.views.generic import TemplateView
 
 from backoffice.views import (
     BackOfficeView,
-    GPContestValidatorView
+    GPContestValidatorView,
+    BackOfficeLoginView
 )
 
 
 urlpatterns = [
+    url(r'login/$', BackOfficeLoginView, name='login'),
     url(r'export/$', BackOfficeView.as_view(), name='backoffice'),
     url(
         r'import/test/$',

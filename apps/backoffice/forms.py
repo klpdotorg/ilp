@@ -23,8 +23,8 @@ class ExportForm(forms.Form):
     school = forms.ModelChoiceField(
         queryset=Institution.objects.all(),
         required=False)
-    from_date = forms.DateField(input_formats=['%Y-%m-%d'], required=False)
-    to_date = forms.DateField(input_formats=['%Y-%m-%d'], required=False)
+    from_date = forms.DateField(input_formats=['%Y-%m-%d'])
+    to_date = forms.DateField(input_formats=['%Y-%m-%d'])
     # from_year = forms.IntegerField(
     #     max_value=2020, min_value=2016, required=False)
     # from_month = forms.IntegerField(
