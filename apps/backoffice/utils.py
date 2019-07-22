@@ -49,15 +49,20 @@ def get_assessment_field_data(
         assessments = assessments.filter(institution__admin3=admin3)
     if institution:
         assessments = assessments.filter(institution=institution)
-    #import pdb; pdb.set_trace()
-    if from_year:
-        assessments = assessments.filter(date_of_visit__year__gte=from_year)
-    if from_month:
-        assessments = assessments.filter(date_of_visit__month__gte=from_month)
-    if to_year:
-        assessments = assessments.filter(date_of_visit__year__lte=to_year)
-    if to_month:
-        assessments = assessments.filter(date_of_visit__month__lte=to_month)
+    from_date=None
+    to_date=None
+    if from_year and from_month:
+        from_date = datetime.datetime(from_year, from_month, 1)
+        print("From date is: ", from_date)
+    # if from_year and:
+    #     assessments = assessments.filter(date_of_visit__year__gte=from_year)
+    # if from_month:
+    #     assessments = assessments.filter(date_of_visit__month__gte=from_month)
+    # if to_year:
+    #     assessments = assessments.filter(date_of_visit__year__lte=to_year)
+    # if to_month:
+    #     assessments = assessments.filter(date_of_visit__month__lte=to_month)
+    # print("Assessments count is: ", assessments.count())
     field_data = []
     assessments = assessments.select_related(
         'institution__admin0', 'institution__admin1',
@@ -114,3 +119,17 @@ def create_csv_and_move(
         writer = csv.DictWriter(csvfile, fieldnames=field_names)
         writer.writeheader()
         writer.writerows(field_data)
+
+def convert_yearmonth_to_fulldate(from_yearmonth, to_yearmonth):
+    format_str = '%Y%m'  # The input format
+    from_datetime_obj = datetime.datetime.strptime(
+        str(from_yearmonth), format_str)
+    from_datetime_obj = from_datetime_obj.replace(day=1)
+    to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
+    from_datetime_obj = pytz.timezone(timezone.get_default_timezone_name()).localize(from_datetime_obj)
+    to_datetime_obj = pytz.timezone(timezone.get_default_timezone_name()).localize(to_datetime_obj)
+    last_day = calendar.monthrange(
+        to_datetime_obj.year, to_datetime_obj.month)[1]
+    to_datetime_obj = to_datetime_obj.replace(day=last_day)
+    return from_datetime_obj, to_datetime_obj
+
