@@ -140,14 +140,6 @@
 
 {% block extra_js %}
     <script>
-      $(function () {
-                      $('#datetimepicker1').datepicker({
-                        format: "mm-yyyy",
-                        startView:"months",
-                        minView: "months"
-                      });
-                  });
-  
         $('select[name=state]').change(function(){
             state_id = $(this).val();
             request_url = '/api/v1/surveys/?state=' + state_id;
