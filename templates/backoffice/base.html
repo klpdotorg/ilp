@@ -108,27 +108,7 @@
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
       feather.replace()
-      $('#datepicker1').datetimepicker(
-        {
-          viewMode : 'months',
-          format : 'MM/YYYY',
-          allowInputToggle: true,
-          icons: {
-              time: 'fa fa-time',
-              date: 'fa fa-calendar',
-              up: 'fa fa-chevron-up',
-              down: 'fa fa-chevron-down',
-              previous: 'fa fa-chevron-left',
-              next: 'fa fa-chevron-right',
-              today: 'fa fa-screenshot',
-              clear: 'fa fa-trash',
-              close: 'fa fa-remove'
-          }
-        }
-      );
-    $("#datepicker1").on("dp.show", function(e) {
-        $(e.target).data("DateTimePicker").viewMode("months"); 
-    });
+
     </script>
     {% block extra_js %}
     {% endblock extra_js %}

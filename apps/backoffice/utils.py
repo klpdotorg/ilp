@@ -35,8 +35,7 @@ def get_assessment_field_names(survey):
 
 def get_assessment_field_data(
         survey, admin1=None, admin2=None, admin3=None,
-        institution=None, from_year=None, from_month=None,
-        to_year=None, to_month=None
+        institution=None, from_date=None, to_date=None
 ):
     assessments = AnswerGroup_Institution.objects.filter(
         questiongroup__survey=survey
@@ -50,7 +49,8 @@ def get_assessment_field_data(
     if institution:
         assessments = assessments.filter(institution=institution)
     #import pdb; pdb.set_trace()
-    assessments = assessments.filter(date_of_visit__range=['2018-06-01', '2019-03-31'])
+    if from_date and to_date:
+        assessments = assessments.filter(date_of_visit__range=[from_date, to_date])
     # if from_year:
     #     assessments = assessments.filter(date_of_visit__year__gte=from_year)
     # if from_month:
@@ -97,15 +97,33 @@ def get_assessment_field_data(
     return field_data
 
 
+# def create_csv_and_move(
+#         survey, district, block, cluster, school,
+#         from_year, from_month, to_year, to_month, file_name, field_names,
+#         file_path=settings.MEDIA_ROOT + '/backoffice-data/',
+#         create_csv_func=get_assessment_field_data
+# ):
+#     field_data = create_csv_func(
+#         survey, district, block, cluster,
+#         school, from_year, from_month, to_year, to_month
+#     )
+
+#     if not os.path.exists(file_path):
+#         os.makedirs(file_path)
+
+#     with open((file_path + file_name), 'w') as csvfile:
+#         writer = csv.DictWriter(csvfile, fieldnames=field_names)
+#         writer.writeheader()
+#         writer.writerows(field_data)
 def create_csv_and_move(
         survey, district, block, cluster, school,
-        from_year, from_month, to_year, to_month, file_name, field_names,
+        from_date, to_date, file_name, field_names,
         file_path=settings.MEDIA_ROOT + '/backoffice-data/',
         create_csv_func=get_assessment_field_data
 ):
     field_data = create_csv_func(
         survey, district, block, cluster,
-        school, from_year, from_month, to_year, to_month
+        school, from_date, to_date
     )
 
     if not os.path.exists(file_path):

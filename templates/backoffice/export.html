@@ -16,6 +16,9 @@
         {% if file_url %}
             <div id="file-url">
                 Your file is being generated... 
+                <div class="spinner-border" id="spinner" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
                 <a id="download-link" href={{file_url}}></a>
             </div>
             <br>
@@ -71,21 +74,27 @@
             <option value="">Select School</option>                    
           </select>
 
-       {% comment %} <div class="container">
-          <div class="row">
-              <label> Select year/month</label>
-              <div class='col-sm-6'>
-                  <div class="form-group input-group">
-                        <input type='text' class="form-control" id='datepicker1' data-format="MM/yyyy" />
-                        <span class="input-group-addon"><i data-feather="calendar"></i></span>
-                  </div>
+        <div class="form-row">
+              <label for="from_date"> Select FROM date</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i data-feather="calendar"></i></div>
+                </div>
+                <input type='date' class="form-control" id='from_date' min="2016-06-01" data-format="MM/yyyy" />
               </div>
-              <script type="text/javascript">
-                
-              </script>
-        </div>  {% endcomment %}
+              
+        </div> 
+        <div class="form-group">
+              <label> Select TO date</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i data-feather="calendar"></i></div>
+                </div>
+                <input type='date' class="form-control" id='to_date' data-format="MM/yyyy" />
+              </div>
+        </div> 
 
-        <label>Select FROM Year</label>
+        {% comment %} <label>Select FROM Year</label>
           <select id="from_sel_year" name="from_year" class="form-control">
             <option value="">Select Year</option>                    
             {% for y in year %}
@@ -122,7 +131,7 @@
                     {{ val }}
               </option>
             {% endfor %}
-          </select>
+          </select> {% endcomment %}
 
         <div class="row">
             <hr>
@@ -225,13 +234,21 @@
         $('form').submit(function () {
             var state = $('select[name=state]').val();
             var survey = $('select[name=survey]').val();
-            var from_year = $('select[name=from_year]').val();
-            var from_month = $('select[name=from_month]').val();
-            var to_year = $('select[name=to_year]').val();
-            var to_month = $('select[name=to_month]').val();
-            if (!state || !survey || !from_year || !from_month) {
+            //var from_year = $('select[name=from_year]').val();
+            //var from_month = $('select[name=from_month]').val();
+            //var to_year = $('select[name=to_year]').val();
+            //var to_month = $('select[name=to_month]').val();
+            var fromdate = $('select[id=from_date]').val()
+            console.log(fromdate)
+            var todate = $('select[id=to_date]').val()
+            console.log(todate)
+            if (!state || !survey || !from_date || !to_date) {
                 alert("Please check - State, Survey, Year, Month is filled.");
                 return false
+            }
+            if(new Date(from_date) >= new Date(to_date)) {
+              alert("From date cannot be greater than to date")
+              return false
             }
         });
 
@@ -252,6 +269,7 @@
                         console.log("Return 404, wait till file is processed.")
                     }
                     if(xhr.status==200) {
+                        $('#spinner').hide()
                         document.getElementById('download-link').innerHTML = "Download CSV";
                         clearInterval(interval);
                     }
