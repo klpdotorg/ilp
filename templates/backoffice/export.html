@@ -1,12 +1,14 @@
 {% extends 'backoffice/base.html' %}
 
-{% block page_title %}Assessment Data Export{% endblock page_title %}
 
 {% block breadcrumb %}
 <li class="breadcrumb-item active">Assessment Data Export</li>
 {% endblock breadcrumb %}
-
+{%block page_title%}
+<h1 class="h2">Assesment Data Export</h1>
+{%endblock%}
 {% block content %}
+<div class="w-50 p-3">
     <form action="" method="post">
         {% csrf_token %}
         {{ form_errors }}
@@ -69,6 +71,20 @@
             <option value="">Select School</option>                    
           </select>
 
+       {% comment %} <div class="container">
+          <div class="row">
+              <label> Select year/month</label>
+              <div class='col-sm-6'>
+                  <div class="form-group input-group">
+                        <input type='text' class="form-control" id='datepicker1' data-format="MM/yyyy" />
+                        <span class="input-group-addon"><i data-feather="calendar"></i></span>
+                  </div>
+              </div>
+              <script type="text/javascript">
+                
+              </script>
+        </div>  {% endcomment %}
+
         <label>Select FROM Year</label>
           <select id="from_sel_year" name="from_year" class="form-control">
             <option value="">Select Year</option>                    
@@ -119,10 +135,19 @@
             <hr>
         </div>
     </form>
+</div>
 {% endblock content %}
 
 {% block extra_js %}
     <script>
+      $(function () {
+                      $('#datetimepicker1').datepicker({
+                        format: "mm-yyyy",
+                        startView:"months",
+                        minView: "months"
+                      });
+                  });
+  
         $('select[name=state]').change(function(){
             state_id = $(this).val();
             request_url = '/api/v1/surveys/?state=' + state_id;
@@ -211,7 +236,6 @@
             var from_year = $('select[name=from_year]').val();
             var from_month = $('select[name=from_month]').val();
             var to_year = $('select[name=to_year]').val();
-            alert(to_year)
             var to_month = $('select[name=to_month]').val();
             if (!state || !survey || !from_year || !from_month) {
                 alert("Please check - State, Survey, Year, Month is filled.");
