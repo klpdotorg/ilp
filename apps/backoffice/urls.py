@@ -9,7 +9,7 @@ from backoffice.views import (
 
 
 urlpatterns = [
-    url(r'login/$', BackOfficeLoginView, name='login'),
+    url(r'login/$', BackOfficeLoginView.as_view(), name='login'),
     url(r'export/$', BackOfficeView.as_view(), name='backoffice'),
     url(
         r'import/test/$',

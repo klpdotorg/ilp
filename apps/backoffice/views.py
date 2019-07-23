@@ -13,23 +13,65 @@ from backoffice.utils import (
     get_assessment_field_names, create_csv_and_move
 )
 from users.views import UserLoginView
+from users.serializers import UserLoginSerializer, UserSerializer
+from users.utils import (
+    login_user,
+    check_source_and_add_user_to_group,
+    activate_user_and_login
+)
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.response import Response
+from rest_framework import generics, permissions, status
+from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+def is_staff(user):
+    print("inside check")
+    return user.is_staff
 
 
 class BackOfficeLoginView(UserLoginView):
     template_name = 'backoffice/login.html'
+
+    def get(self, request, *args, **kwargs):
+        print("login view invoked")
+        next = request.GET.get('next', '')
+        return render(request, self.template_name, {"next": next})
     
     def post(self, request):
-        response = super.post(self, request)
-        if response.is_staff:
-            return response
+        serializer = UserLoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = UserSerializer(serializer.user).data
+        user = authenticate(request, username=request.data["username"], password=request.data["password"])
+        if user is not None:
+            login(self.request, user)
+            # See if the user belongs to PreUserGroup and add him
+            # check_source_and_add_user_to_group(request, serializer.user)
+            if user.is_staff:
+                print("user is a staff")
+                import pdb; pdb.set_trace()
+                print(request.GET.get('next', '/backoffice/'))
+                return HttpResponseRedirect(request.GET.get('next', '/backoffice/'))
+            else:
+                return Response("User forbidden access to this area", status=status.HTTP_403_FORBIDDEN)
         else:
-            return Response("User forbidden access to this area", status=status.HTTP_403_FORBIDDEN)
+                return Response("Invalid Login", status=status.HTTP_401_UNAUTHORIZED)
 
 
-class BackOfficeView(View):
+class BackOfficeView(LoginRequiredMixin, View):
     template_name = 'backoffice/export.html'
-
+    login_url = '/backoffice/login/'
+    
     def get(self, request):
+        if request.user.is_authenticated:
+            print("User is authenticated")
+        if request.user.is_staff:
+            print("user is a staff user")
         states = BoundaryStateCode.objects.all()
         year = list(range(2016, 2020))
         month = {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr',
