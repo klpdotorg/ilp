@@ -4,12 +4,14 @@ from django.views.generic import TemplateView
 from backoffice.views import (
     BackOfficeView,
     GPContestValidatorView,
-    BackOfficeLoginView
+    BackOfficeLoginView,
+    BackOfficeLogoutView
 )
 
 
 urlpatterns = [
     url(r'login/$', BackOfficeLoginView.as_view(), name='login'),
+    url(r'logout/$', BackOfficeLogoutView.as_view(), name='logout'),
     url(r'export/$', BackOfficeView.as_view(), name='backoffice'),
     url(
         r'import/test/$',

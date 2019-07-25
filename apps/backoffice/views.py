@@ -23,10 +23,10 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 from rest_framework import generics, permissions, status
 from django.shortcuts import redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -61,6 +61,14 @@ class BackOfficeLoginView(UserLoginView):
                 return Response("User forbidden access to this area", status=status.HTTP_403_FORBIDDEN)
         else:
                 return Response("Invalid Login", status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+class BackOfficeLogoutView(LoginRequiredMixin, View):
+    def get(self,request):
+        logout(request)
+        print("user logged out")
+        return HttpResponse("Logged out", status=status.HTTP_200_OK)
 
 
 class BackOfficeView(LoginRequiredMixin, View):
