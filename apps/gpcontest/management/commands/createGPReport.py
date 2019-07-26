@@ -50,6 +50,7 @@ class Command(BaseCommand):
     onlygp = False
     schoolids = None
     districtids = None
+    colour = "bw"
     imagesdir = basefiledir+"/apps/gpcontest/images/"
     mergereport = True
 
@@ -62,6 +63,7 @@ class Command(BaseCommand):
         parser.add_argument('--sid', nargs='?')
         parser.add_argument('--districtid', nargs='?')
         parser.add_argument('--mergereport', nargs='?', default=True)
+        parser.add_argument('--reportcolour', nargs='?', default='bw')
 
     def initiatelatex(self):
         # create the build directory if not existing
@@ -139,9 +141,9 @@ class Command(BaseCommand):
                         self.endyearmonth)
 
         # print("All GPs data is")
-        # print(data, file=self.utf8stdout)
+        print(data, file=self.utf8stdout)
         for gp in data["gp_info"]:
-            # print(gp)
+            print(gp)
             num_contests = len(data["gp_info"][gp])
             suffix = ""
             count = 0
@@ -452,6 +454,9 @@ class Command(BaseCommand):
         self.onlygp = options.get("onlygp", False)
         schoolids = options.get("sid", None)
         self.mergereport = options.get("mergereport")
+
+        reportcolour = options.get("reportcolour")
+        self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
 
         if schoolids is not None:
             self.schoolids = [int(x) for x in schoolids.split(',')]

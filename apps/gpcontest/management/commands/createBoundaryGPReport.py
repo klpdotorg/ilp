@@ -45,6 +45,7 @@ class Command(BaseCommand):
     onlydistrict = False
     block = {}
     blockids = None
+    colour = "bw"
     imagesdir = basefiledir+"/apps/gpcontest/images/"
 
     def add_arguments(self, parser):
@@ -54,6 +55,7 @@ class Command(BaseCommand):
         parser.add_argument('--districtid', nargs='?')
         parser.add_argument('--onlydistrict', nargs='?')
         parser.add_argument('--blockid', nargs='?')
+        parser.add_argument('--reportcolour', nargs='?', default='bw')
 
     def initiatelatex(self):
         # create the build directory if not existing
@@ -318,6 +320,10 @@ class Command(BaseCommand):
                                                  self.endyearmonth)
         self.onlydistrict = options.get("onlydistrict", False)
         blockids = options.get("blockid", None)
+        reportcolour = options.get("reportcolour")
+        self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
+
+
         if blockids is not None:
             self.blockids = [int(x) for x in blockids.split(',')]
 
