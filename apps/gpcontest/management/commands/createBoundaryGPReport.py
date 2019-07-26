@@ -19,9 +19,9 @@ class Command(BaseCommand):
                        "class5": {"name": "Class 5 Assessment", "class": 5},
                        "class6": {"name": "Class 6 Assessment", "class": 6}}
     now = date.today()
-    basefiledir = os.getcwd()+"/apps/gpcontest/"
-    templatedir = "templates/"
-    outputdir = basefiledir+"pdfs/"+str(now)
+    basefiledir = os.getcwd()
+    templatedir = "/apps/gpcontest/templates/"
+    outputdir = basefiledir+"/generated_files/gpreports/"+str(now)+"/BoundaryReports/"
     districtoutputdir = "districtreports"
     blockoutputdir = "blockreports"
     district_out_file_prefix = "DistrictGPReport"
@@ -45,7 +45,8 @@ class Command(BaseCommand):
     onlydistrict = False
     block = {}
     blockids = None
-    imagesdir = basefiledir+"images/"
+    colour = "bw"
+    imagesdir = basefiledir+"/apps/gpcontest/images/"
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
@@ -54,6 +55,7 @@ class Command(BaseCommand):
         parser.add_argument('--districtid', nargs='?')
         parser.add_argument('--onlydistrict', nargs='?')
         parser.add_argument('--blockid', nargs='?')
+        parser.add_argument('--reportcolour', nargs='?', default='bw')
 
     def initiatelatex(self):
         # create the build directory if not existing
@@ -275,9 +277,9 @@ class Command(BaseCommand):
 
 
 
-    def deleteTempFiles(self, tempPdfs):
-        for pdf in tempPdfs:
-            os.remove(pdf)
+    def deleteTempFiles(self, tempfiles):
+        for filename in tempfiles:
+            os.remove(filename)
 
 
     def createBlockSummarySheet(self, outputdir):
@@ -318,6 +320,10 @@ class Command(BaseCommand):
                                                  self.endyearmonth)
         self.onlydistrict = options.get("onlydistrict", False)
         blockids = options.get("blockid", None)
+        reportcolour = options.get("reportcolour")
+        self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
+
+
         if blockids is not None:
             self.blockids = [int(x) for x in blockids.split(',')]
 
@@ -332,3 +338,6 @@ class Command(BaseCommand):
             self.createBlockReports()
         else:
             self.createDistrictReports()
+
+        if os.path.exists(self.build_d):
+            shutil.rmtree(self.build_d)

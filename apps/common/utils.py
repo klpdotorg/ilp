@@ -20,7 +20,7 @@ except Exception as e:
     EXOTEL_TOKEN = 'token'
     EXOTEL_SENDER_ID = 'senderid'
 finally:
-    EXOTEL_URL = 'https://%s:%s@api.exotel.com/v1/Accounts/%s/Sms/send' % (
+    EXOTEL_URL = 'https://%s:%s@api.exotel.com/v1/Accounts/%s/Sms/send?Priority=high' % (
         EXOTEL_SID, EXOTEL_TOKEN, EXOTEL_SID, )
 
 

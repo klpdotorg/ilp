@@ -11,15 +11,16 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    basefiledir = os.getcwd()+"/apps/gpcontest/"
-    templatedir = "/templates/"
+    now = date.today()
+    basefiledir = os.getcwd()
+    pdfsdir = "/generated_files/gpreports/"+str(now)+"/"
+    templatedir = "/apps/gpcontest/templates/"
     out_file = "GPSummarysheet"
     template_name = "GPContestSummarySheet.tex"
     template_file = basefiledir+templatedir+template_name
     build_d = basefiledir+"/build"
     gpids = None
-    now = date.today()
-    outputdir = "/pdfs/"+str(now)+"/preContestSummary/"
+    outputdir = "preContestSummary"
     schoolinfo = {}
 
     def add_arguments(self, parser):
@@ -53,6 +54,8 @@ class Command(BaseCommand):
 
         for school in schools:
             school["name"] = school["name"].replace("&","\&")
+            school["name"] = school["name"].replace("_"," ")
+            #print("SCHOOL NAME IS: "+school["name"])
             if school["admin1_id__name"] not in self.schoolinfo:
                 self.schoolinfo[school["admin1_id__name"]] = {school["admin2_id__name"]:{school["gp_id__const_ward_name"]: {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code']}]}}}
             elif school["admin2_id__name"] not in self.schoolinfo[school["admin1_id__name"]]:
@@ -71,11 +74,11 @@ class Command(BaseCommand):
                 for gp in self.schoolinfo[district][block]:
                     gpid = str(self.schoolinfo[district][block][gp]["id"])
                     out_file = self.out_file+"_"+gpid
-                    print(district+" "+block+" "+gpid+" "+gp)
+                    #print(district+" "+block+" "+gpid+" "+gp)
                     boundaryinfo = {"district": district.title(), "block": block.title(), "gpid":gpid, "gpname":gp.title()}
                     schoolinfo = self.schoolinfo[district][block][gp]["schools"]
 
-                    outputdir = self.basefiledir+self.outputdir+"/"+district+"/"+block+"/"
+                    outputdir = self.basefiledir+self.pdfsdir+self.outputdir+"/"+district+"/"+block+"/"
                     if not os.path.exists(outputdir):  # create the pdf directory if not existing
                         os.makedirs(outputdir)
                     renderer_template = template.render(boundaryinfo=boundaryinfo, schools=schoolinfo)
@@ -88,9 +91,9 @@ class Command(BaseCommand):
                     self.deleteTempFiles([out_file+".tex",
                              self.build_d+"/"+out_file+".pdf"])
 
-    def deleteTempFiles(self, tempPdfs):
-        for pdf in tempPdfs:
-            os.remove(pdf)
+    def deleteTempFiles(self, tempFiles):
+        for f in tempFiles:
+            os.remove(f)
 
     def handle(self, *args, **options):
         gpids = options.get("gpids")
@@ -98,8 +101,8 @@ class Command(BaseCommand):
         blockids = options.get("blockids")
 
         if gpids is None and blockids is None and districtids is None:
-            print("Enter one of the parameters, gpids, districtids or blockids")
-            retrurn
+            print("Enter one of the parameters: --gpids, --districtids or --blockids")
+            return
 
         if districtids is not None:
             self.districtids = [int(x) for x in districtids.split(',')]
@@ -115,3 +118,7 @@ class Command(BaseCommand):
 
         self.createSummaryReports()
 
+        os.system('tar -cvf '+self.basefiledir+self.pdfsdir+'/'+self.outputdir+'.tar '+self.basefiledir+self.pdfsdir+self.outputdir+'/')
+
+        if os.path.exists(self.build_d):
+            shutil.rmtree(self.build_d)

@@ -17,6 +17,7 @@ class Command(BaseCommand):
     fileoptions = {"survey", "questiongroup", "questions", "surveyusertype",
                    "surveytag"}
     csv_files = {}
+    utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
 
     def add_arguments(self, parser):
         parser.add_argument('survey')
@@ -51,7 +52,7 @@ class Command(BaseCommand):
             count += 1
             id = row[0].strip()
             if id != '':
-                survey = Survey.objects.filter(pk=id)
+                survey = Survey.objects.get(pk=id)
                 if survey:
                     return survey
             name = row[1].strip()
@@ -139,6 +140,7 @@ class Command(BaseCommand):
                     questions.append(question[0])
                     continue
             print(count)
+            #print(row, file=self.utf8stdout)
             question_text = row[1].strip()
             display_text = row[2].strip()
             key = self.check_value(row[3].strip())
