@@ -1,20 +1,78 @@
 import psycopg2
 import csv
 
-conn = psycopg2.connect("host=localhost dbname=ilp_latest user=klp")
+dbname="ilp_latest"
+user="klp"
+host="localhost"
+passwd="\\u4<AKdnC~y268GF6v"
+connectionstring = "dbname="+dbname+" user="+user+" password="+passwd+" host="+host
+conn = psycopg2.connect(host=host, database=dbname, user=user, password=passwd)
 cur = conn.cursor()
 with open('notinilp.csv') as schools:
     readCSV = csv.reader(schools, delimiter=',')
+    count = 0;
     for row in readCSV:
+        if count==0:
+            count=1
+            continue
         district_name = row[1]
         block_name = row[3]
+        print("Block name: ", block_name)
         cluster_name = row[4]
         school_code = row[5]
         school_name = row[6]
-        school_mgmt = row[7]
+        school_mgmt = 1
         school_medium = row[12]
-        district_query = "select id from boundary_boundary where name={}".format(row[1])
+        #Decide school category based on school name
+        if school_name.lower().find("lower primary") != -1 or school_name.lower().find("lps") != -1:
+            school_mgmt = 13
+        elif school_name.lower().find("higher primary") != -1 or school_name.lower().find("hps") != -1:
+            school_mgmt = 14
+        elif school_name.lower().find("model") != -1:
+            school_mgmt = 9
+        else:
+            school_mgmt = 13
+        # Fetch the district ID
+        district_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(district_name.lower(), 'SD')
         cur.execute(district_query)
-        row = cur.fetchone()
-        district_id = row[1][1]
-        print("District id is:", district_id)
+        current = cur.fetchone()
+        district_id = int(current[0])
+        print("District Name: %s; District id: %s" % (district_name, district_id))
+        # Fetch the block ID
+        block_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(block_name.lower(), 'SB')
+        print(block_query)
+        result = cur.execute(block_query)
+        print(result)
+        current = cur.fetchone()
+        block_id = int(current[0])
+        print("Block Name: %s ; Block ID is: %s" % (block_name, block_id))
+        # Fetch the cluster ID
+        cluster_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(cluster_name.lower(), 'SC')
+        cur.execute(cluster_query)
+        current = cur.fetchone()
+        cluster_id = int(current[0])
+        print("Cluster Name: %s; ID is: %s" % (cluster_name,cluster_id))
+        # Fetch the GP ID
+        gp_query = "select gp_id from schools_institution where admin1_id={0} and admin2_id={1} and admin3_id={2}".format(district_id,block_id,cluster_id)
+        cur.execute(gp_query)
+        #Assume all GPs in same cluster have same GP id
+        current = cur.fetchall()
+        gp_id = None
+        # Some schools don't have GP ID set..just iterate through and find one that's set
+        for row in current:
+            if row[0] is not None:
+                gp_id=int(row[0])
+                break
+        print("GP ID is: ", gp_id)
+        dise_query="select id from dise_basicdata where school_code={}".format(school_code)
+        cur.execute(dise_query)
+        current = cur.fetchone()
+        dise_id=int(current[0])
+        # Insert into the schools table
+        insert_query = "insert into schools_institution(\
+            name,admin0_id,admin1_id, admin2_id, admin3_id,institution_type_id, category_id, gender_id, management_id, dise_id, status_id, gp_id)\
+            values(\'{0}\', 2, {1}, {2}, {3}, 'primary', {4}, 'co-ed', 1,{5}, 'AC', {6})".format(school_name,district_id,block_id,cluster_id,school_mgmt,dise_id,gp_id)
+        print(insert_query)
+        cur.execute(insert_query)
+        print("DONE===>" + insert_query)
+        conn.commit()
