@@ -197,4 +197,15 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_institution_electiontype_count
 CREATE UNIQUE INDEX ON mvw_survey_eboundary_electiontype_count(id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_survey_eboundary_electiontype_count;
 
+/* GP contest reports materialized views */
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_eboundary_answers_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_eboundary_schoolcount_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_institution_qdetails_percentages_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_institution_stucount_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_concept_percentages_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_school_details;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_boundary_answers_agg;
+REFRESH MATERIALIZED VIEW CONCURRENTLY mvw_gpcontest_boundary_counts_agg;
+
 
