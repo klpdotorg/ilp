@@ -1,4 +1,6 @@
 import csv
+import xlrd
+import os
 from datetime import datetime
 from django.conf import settings
 from pytz import timezone
@@ -16,13 +18,18 @@ class Command(BaseCommand):
     help = """python3 manage.py loadgpc [--filename=filename] [--grade=4] [--qgroup=47]"""
     gender_qid = 291
     grade_qid = 130
+    cols = {"grade":1, "district":2, "block":3, "ddmmyyyy":4,"instid":5,
+            "disecode":6, "gpid":7, "gpname":8, "questionseries": 9,
+            "childname": 10, "gender":11}
     q_seq_start = 3
     q_seq_end = 22
     ans_col_start = 12
     validanswers = {"0", "1"}
-    validgenders = {"male", "female"}
+    validgenders = {"male", "female", "unknown"}
     rowcounter = 0
     gplist = {}
+    datainserted = {}
+    districtgpmap = {}
 
     def add_arguments(self, parser):
         parser.add_argument('--filename')
@@ -48,39 +55,13 @@ class Command(BaseCommand):
                   + str(gpid)+", and name :"+gpname)
             return False
 
-    def checkInstitutionValidity(self, inst_id, schoolname, dise_code, gpid,
+    def checkInstitutionValidity(self, inst_id, dise_code, gpid,
                                  district, block):
         try:
-            inst = Institution.objects.filter(id=inst_id).values(
-                    "name", "dise__school_code", "gp", "admin1__name",
-                    "admin2__name")
+            inst = Institution.objects.get(id=inst_id, dise_id__school_code=dise_code,gp_id=gpid, admin1_id__name=district, admin2_id__name=block)
         except Institution.DoesNotExist:
-            print("["+str(self.rowcounter)+"] Institution does not exist for id: "
-                  + str(inst_id))
-            return False
-        if inst[0]["name"].lower() != schoolname:
-            print("["+str(self.rowcounter)+"] Institution id ("+str(inst_id) +
-                  ") name ("+inst[0]["name"].lower() +
-                  ") does not match row  name ("+schoolname+")")
-            return False
-        if str(inst[0]["dise__school_code"]) != str(dise_code):
-            print("["+str(self.rowcounter)+"] Institution id ("+str(inst_id) +
-                  ") disecode :"+str(inst[0]["dise__school_code"]) +
-                  " does not match disecode in the row :"+str(dise_code))
-            return False
-        if str(inst[0]["gp"]) != str(gpid):
-            print("["+str(self.rowcounter)+"] Institution id ("+str(inst_id) +
-                  ") and gpid ("+str(gpid)+") does not match")
-            return False
-        if str(inst[0]["admin1__name"]) != str(district):
-            print("["+str(self.rowcounter)+"] Institution id ("+str(inst_id) +
-                  ") district :"+str(inst[0]["admin1__name"]) +
-                  " does not match district in the row :"+str(district))
-            return False
-        if str(inst[0]["admin2__name"]) != str(block):
-            print("["+str(self.rowcounter)+"] Institution id ("+str(inst_id) +
-                  ") block :"+str(inst[0]["admin2__name"]) +
-                  " does not match block in the row :"+str(block))
+            print("["+str(self.rowcounter)+"] Institution does not exist for id :"
+                    + str(inst_id)+", disecode :"+str(dise_code)+", gpid :"+str(gpid)+", district :"+district+", block :"+block)
             return False
         return True
 
@@ -121,7 +102,7 @@ class Command(BaseCommand):
         return True
 
     def handle(self, *args, **options):
-        csv_file = options.get('filename', None)
+        csv_file= options.get('filename', None)
         if csv_file == None:
             print("Pass the csv file --filename")
             return
@@ -134,6 +115,23 @@ class Command(BaseCommand):
             print("Pass qgroup argument --qgroup")
             return
 
+        #csv_file = self.convertxlstocsv(inputfile)
+
+        self.parseFile(csv_file, grade, qgroup)
+
+    def convertxlstocsv(self, inputfile):
+        with xlrd.open_workbook(inputfile) as wb:
+            sh = wb.sheet_by_index(0) 
+            csv_file = os.path.dirname(inputfile)+"/"+os.path.splitext(os.path.split(inputfile)[1])[0]+".csv"
+            with open(csv_file, 'w') as f:
+                c = csv.writer(f)
+                for r in range(sh.nrows):
+                    row = sh.row_values(r)
+                    c.writerow(row)
+                f.close()
+        return csv_file
+
+    def parseFile(self, csv_file, grade, qgroup):
         with open(csv_file, 'r+') as data_file:
             data = csv.reader(data_file)
             header = 1
@@ -144,28 +142,29 @@ class Command(BaseCommand):
                     header = 0
                     continue
 
+                #print(row)
                 self.rowcounter += 1
-                csv_grade = row[0].strip()
-                district = row[1].strip().lower()
-                block = row[2].strip().lower()
-                ddmmyyyy = row[3]
+                csv_grade = str(int(float(row[self.cols["grade"]].strip())))
+                district = row[self.cols["district"]].strip().lower()
+                block = row[self.cols["block"]].strip().lower()
+                ddmmyyyy = row[self.cols["ddmmyyyy"]]
                 try:
                     parsed = datetime.strptime(ddmmyyyy, '%d/%m/%Y')
                 except ValueError:
                     print("["+str(self.rowcounter) +
-                          "] Incorrect date format, should be DD/MM/YYYY")
+                            "] Incorrect date format: "+str(ddmmyyyy)+", should be DD/MM/YYYY")
                     continue
                 date_string = parsed.strftime('%Y-%m-%d')
                 dov = parser.parse(date_string)
                 localtz = timezone(settings.TIME_ZONE)
                 dov = localtz.localize(dov)
-                inst_id = row[4].strip()
-                dise_code = row[5].strip()
-                schoolname = row[6].strip().lower()
-                gpid = row[7].strip()
-                gpname = row[8].strip().lower()
-                child_name = row[10].strip()
-                gender = row[11].strip().lower()
+                schoolid = int(float(row[self.cols["instid"]].strip()))
+                dise_code = int(float(row[self.cols["disecode"]].strip()))
+                gpid = int(float(row[self.cols["gpid"]].strip()))
+                gpname = row[self.cols["gpname"]].strip().lower()
+                questionseries = row[self.cols["questionseries"]].strip()
+                child_name = row[self.cols["childname"]].strip()
+                gender = row[self.cols["gender"]].strip().lower()
                 enteredat = localtz.localize(datetime.now())
 
                 # check values
@@ -178,7 +177,7 @@ class Command(BaseCommand):
                 if not self.checkGPValidity(gpid, gpname):
                     continue
 
-                if not self.checkInstitutionValidity(inst_id, schoolname,
+                if not self.checkInstitutionValidity(schoolid,
                                                      dise_code, gpid,
                                                      district, block):
                     continue
@@ -198,12 +197,23 @@ class Command(BaseCommand):
                         continue
                 else:
                     self.gplist[gpid] = {"date": dov}
+
+
+                if gpid in self.districtgpmap:
+                    if district not in self.districtgpmap[gpid]:
+                        print("["+str(self.rowcounter)+"] Invalid District GP mapping for district: "+str(district)+"! Another district "+str(self.districtgpmap[gpid])+" is already associated with this GPID "+str(gpid))
+                        continue
+                else:
+                    self.districtgpmap[gpid]=district
+                    
+
                 answergroup = AnswerGroup_Institution.objects.create(
                                 group_value=child_name,
                                 date_of_visit=dov,
                                 questiongroup_id=qgroup,
-                                institution_id=inst_id,
+                                institution_id=schoolid,
                                 entered_at=enteredat,
+                                comments=questionseries,
                                 status_id='AC',
                                 is_verified=True)
                 ansgroupcount += 1
@@ -235,6 +245,43 @@ class Command(BaseCommand):
                     anscount += 1
                     ans_col_cnt += 1
 
-        print("Number of AnswerGroups created :"+str(ansgroupcount) +
+                if district in self.datainserted:
+                    if gpid in self.datainserted[district]["gps"]:
+                        if schoolid in self.datainserted[district]["gps"][gpid]["schools"]:
+                            if grade in self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"]:
+                                self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"][grade]+=1
+                            else:
+                                self.atainserted[district]["gps"][gpid]["schools"][schoolid]["grades"][grade]=1
+                        else:
+                            self.datainserted[district]["gps"][gpid]["schools"][schoolid] = {"disecode":dise_code,"grades":{grade:1}}
+                    else:
+                        self.datainserted[district]["gps"][gpid]= {"gpname":gpname,"schools": {schoolid: {"disecode":dise_code,"grades":{grade:1}}}}
+                else:
+                    self.datainserted[district]={"gps":{gpid: {"gpname":gpname,"schools": {schoolid: {"disecode":dise_code,"grades":{grade:1}}}}}}
+
+
+        print("District, GPID, GPNAME, SCHOOLID, DISE_CODE, GRADE COUNTS")
+        gpinfo = {}
+        for district in self.datainserted:
+            for gpid in self.datainserted[district]["gps"]:
+                gpname = self.datainserted[district]["gps"][gpid]["gpname"]
+                gpinfo[gpid]={"name":gpname,"grades":{}}
+                for schoolid in self.datainserted[district]["gps"][gpid]["schools"]:
+                    print(str(district)+", "+str(gpid)+", "+str(self.datainserted[district]["gps"][gpid]["gpname"])+", "+str(schoolid)+", "+str(self.datainserted[district]["gps"][gpid]["schools"][schoolid]["disecode"])+", "+str(self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"]))
+                    for grade in self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"]:
+                        if grade in gpinfo[gpid]["grades"]:
+                            gpinfo[gpid]["grades"][grade] += self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"][grade]
+                        else:
+                            gpinfo[gpid]["grades"][grade] = self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"][grade]
+
+
+        print("\n\nGPID, GPNAME, GRADE, ENTRY")
+        for gpid in gpinfo:
+            row_str = str(gpid)+","+gpinfo[gpid]["name"]+","
+            for grade in gpinfo[gpid]["grades"]:
+                row_str = row_str+str(grade)+","+str(gpinfo[gpid]["grades"][grade])
+            print(row_str)
+
+        print("\n\nNumber of AnswerGroups created :"+str(ansgroupcount) +
               ", Number of answers created :"+str(anscount))
         print("Number of Rows :"+str(self.rowcounter))
