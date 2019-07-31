@@ -1,7 +1,7 @@
 ILP [![CircleCI](https://circleci.com/gh/klpdotorg/ilp.svg?style=svg)](https://circleci.com/gh/klpdotorg/ilp)
 ====
 
-### Download Code
+### Download Code - from github
 
     git clone git@github.com:klpdotorg/ilp.git
 
