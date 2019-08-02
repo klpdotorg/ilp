@@ -101,6 +101,7 @@ class Command(BaseCommand):
             lang_name = row[14].strip()
             comments_required = row[15].strip()
             respondenttype_required = row[16].strip()
+            max_score = row[17].strip()
             questiongroup, created = QuestionGroup.objects.get_or_create(
                                 name=name,
                                 group_text=group_text,
@@ -117,7 +118,8 @@ class Command(BaseCommand):
                                 lang_name=lang_name,
                                 image_required=image_required,
                                 comments_required=comments_required,
-                                respondenttype_required=respondenttype_required)
+                                respondenttype_required=respondenttype_required
+                                max_score=max_score)
             print("QuestionGroup: "+name+" was created: "+str(created))
             if created:
                 print("New QuestionGroup created")
