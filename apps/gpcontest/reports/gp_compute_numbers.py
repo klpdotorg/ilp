@@ -307,10 +307,10 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
     results_by_date = {}
     if total_assessments is not None and correct_answers_agg is not None:
         for contest_date in contest_dates:
-            competency_order = CompetencyOrder.objects.filter(questiongroup=qgroup_id).order_by('sequence').values('key')
+            competency_order = CompetencyOrder.objects.filter(questiongroup=qgroup_id).order_by('sequence').values_list('key', flat=True)
             concept_scores = {}
             for competency in competency_order:
-                concept_scores[key]: 0
+                concept_scores[competency]: 0
             # concept_scores = {
             #     "Number Recognition": 0,
             #     "Place Value": 'NA',
