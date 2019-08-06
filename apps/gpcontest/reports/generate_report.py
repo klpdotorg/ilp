@@ -186,9 +186,12 @@ def format_answers(questiongroup_id, correct_ans_queryset):
     # changes we would need to change this. Doing this in lieu of a mat view
     # that will contain rows of competencies taht didn't have a correct ans
     # score.
-    # competencies = ["Addition", "Subtraction", "Number Recognition",
-    #                 "Place Value", "Multiplication", "Division"]
-    competencies = CompetencyOrder.objects.filter(questiongroup=questiongroup_id).order_by('sequence').values_list('key', flat=True)
+
+    # Competencies will have to remain hard coded for now because of LaTex
+    # template limitations in processing absent competencies
+    competencies = ["Addition", "Subtraction", "Number Recognition",
+                    "Place Value", "Multiplication", "Division"]
+    # competencies = CompetencyOrder.objects.filter(questiongroup=questiongroup_id).order_by('sequence').values_list('key', flat=True)
     competency_scores = {}
     for competency in competencies:
         try:

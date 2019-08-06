@@ -307,18 +307,20 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
     results_by_date = {}
     if total_assessments is not None and correct_answers_agg is not None:
         for contest_date in contest_dates:
-            competency_order = CompetencyOrder.objects.filter(questiongroup=qgroup_id).order_by('sequence').values_list('key', flat=True)
-            concept_scores = {}
-            for competency in competency_order:
-                concept_scores[competency]=0
-            # concept_scores = {
-            #     "Number Recognition": 0,
-            #     "Place Value": 'NA',
-            #     "Addition": 0,
-            #     "Subtraction": 0,
-            #     "Multiplication": 0,
-            #     "Division": 0
-            # }
+            # competency_order = CompetencyOrder.objects.filter(questiongroup=qgroup_id).order_by('sequence').values_list('key', flat=True)
+            # concept_scores = {}
+            # for competency in competency_order:
+            #     concept_scores[competency]=0
+            # Competencies remain hard coded for now because of LaTex
+            # limitations in processing absent competencies in the reports
+            concept_scores = {
+                "Number Recognition": 0,
+                "Place Value": 'NA',
+                "Addition": 0,
+                "Subtraction": 0,
+                "Multiplication": 0,
+                "Division": 0
+            }
             correct_ans_for_date = correct_answers_agg.filter(yearmonth=contest_date)
             total_ans_for_date = total_assessments.filter(yearmonth=contest_date)
             for each_row in total_ans_for_date:
