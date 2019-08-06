@@ -310,7 +310,7 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
             competency_order = CompetencyOrder.objects.filter(questiongroup=qgroup_id).order_by('sequence').values_list('key', flat=True)
             concept_scores = {}
             for competency in competency_order:
-                concept_scores[competency]: 0
+                concept_scores[competency]=0
             # concept_scores = {
             #     "Number Recognition": 0,
             #     "Place Value": 'NA',
