@@ -326,7 +326,7 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
                 "Multiplication": 0,
                 "Division": 0
             }
-            if item in diff_list:  # These are the competencies NA
+            for item in diff_list:  # These are the competencies NA
                 concept_scores[item] = 'NA'
             correct_ans_for_date = correct_answers_agg.filter(yearmonth=contest_date)
             total_ans_for_date = total_assessments.filter(yearmonth=contest_date)
