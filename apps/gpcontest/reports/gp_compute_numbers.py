@@ -307,12 +307,17 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
     results_by_date = {}
     if total_assessments is not None and correct_answers_agg is not None:
         for contest_date in contest_dates:
-            # competency_order = CompetencyOrder.objects.filter(questiongroup=qgroup_id).order_by('sequence').values_list('key', flat=True)
-            # concept_scores = {}
-            # for competency in competency_order:
-            #     concept_scores[competency]=0
-            # Competencies remain hard coded for now because of LaTex
-            # limitations in processing absent competencies in the reports
+            
+            competency_order = CompetencyOrder.objects.filter(questiongroup=qgroup_id).order_by('sequence').values_list('key', flat=True)
+            list_of_competencies = ["Number Recognition", "Place Value",
+                "Addition", "Subtraction", "Multiplication", "Division"]
+            # Find which competencies are not there in the DB and make them NA
+            # to make it easier for LaTex templates to process because LaTex
+            # has hardcoding of competencies and code needs to return NA for
+            # those which are not there in DB
+            diff_list = list(set(list_of_competencies) - set(competency_order))
+            
+            # These are all the competencies LaTex expects
             concept_scores = {
                 "Number Recognition": 0,
                 "Place Value": 'NA',
@@ -321,6 +326,8 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
                 "Multiplication": 0,
                 "Division": 0
             }
+            if item in diff_list:  # These are the competencies NA
+                concept_scores[item] = 'NA'
             correct_ans_for_date = correct_answers_agg.filter(yearmonth=contest_date)
             total_ans_for_date = total_assessments.filter(yearmonth=contest_date)
             for each_row in total_ans_for_date:
