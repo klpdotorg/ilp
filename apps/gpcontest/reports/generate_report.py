@@ -186,22 +186,27 @@ def format_answers(questiongroup_id, correct_ans_queryset):
     # changes we would need to change this. Doing this in lieu of a mat view
     # that will contain rows of competencies taht didn't have a correct ans
     # score.
-    # competencies = ["Addition", "Subtraction", "Number Recognition",
-    #                 "Place Value", "Multiplication", "Division"]
-    competencies = CompetencyOrder.objects.filter(questiongroup=questiongroup_id).order_by('sequence').values_list('key', flat=True)
+
+    competencies = ["Addition", "Subtraction", "Number Recognition",
+                    "Place Value", "Multiplication", "Division"]            
+    competencies_in_db = CompetencyOrder.objects.filter(questiongroup=questiongroup_id).order_by('sequence').values_list('key', flat=True)
     competency_scores = {}
     for competency in competencies:
-        try:
-            each_row = correct_ans_queryset.get(question_key=competency)
-        except:
-            each_row = None
-        if each_row is not None:
-            correctans = each_row["correct_answers"]
-            if correctans is None:
-                correctans = 0
-            competency_scores[competency] =\
-                correctans
-        # No one got this answer right, send 0 back
+        # This competency is NA for this class. Hence assign NA to it
+        if competency not in competencies_in_db:
+            competency_scores[competency] = 'NA'
         else:
-            competency_scores[competency] = 0
+            try:
+                each_row = correct_ans_queryset.get(question_key=competency)
+            except:
+                each_row = None
+            if each_row is not None:
+                correctans = each_row["correct_answers"]
+                if correctans is None:
+                    correctans = 0
+                competency_scores[competency] =\
+                    correctans
+            # No one got this answer right, send 0 back
+            else:
+                competency_scores[competency] = 0
     return competency_scores
