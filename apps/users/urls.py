@@ -8,7 +8,8 @@ from .views import (
     OtpGenerateView,
     OtpPasswordResetView,
     UsersViewSet,
-    TadaUserLoginView
+    TadaUserLoginView,
+    CheckUserRegisteredView
 )
 
 from rest_framework import routers
@@ -42,7 +43,11 @@ urlpatterns = [
         OtpPasswordResetView.as_view(),
         name="api_otp_password_reset"
     ),
-
+    url(
+        r'^users/checkregistered/$',
+        CheckUserRegisteredView.as_view(),
+        name="api_check_registered"
+    ),
     url('^users/profile', UserProfileView.as_view(), name='api_user_profile'),
 
     # TADA urls
