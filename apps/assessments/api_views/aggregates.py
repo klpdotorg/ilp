@@ -652,6 +652,10 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
         for group_name in group_names:
             gender_res = {}
             for gender in genders:
+                # Gender is sometimes in cap case or small case or mixed
+                # Causes problems in JS. Making it consistent by including
+                # check here regardless of what's in DB
+                display_gender=gender.lower()
                 group_param = {'sg_name': group_name}
                 if group_field == 'questiongroup_name':
                     group_param = {'questiongroup_name': group_name}
@@ -661,7 +665,7 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
                 gender_ans_agg = ans_qs.filter(gender=gender, **group_param)\
                     .aggregate(Sum('num_assessments'))
 
-                gender_res[gender] = {
+                gender_res[display_gender] = {
                     "total_count": gender_agg['num_assessments__sum'] or 0,
                     "perfect_score_count": gender_ans_agg[
                         'num_assessments__sum'] or 0

@@ -3,7 +3,8 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth.models import Group
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from common.views import StaticPageView
 from users.models import User
 from users.serializers import (
@@ -45,10 +46,15 @@ class UserRegisterView(generics.CreateAPIView):
             raise e
         else:
             logger.debug("Generating SMS pin")
-            # Generate SMS pin and send OTP
-            instance.generate_sms_pin()
-            logger.debug("Sending OTP")
-            instance.send_otp()
+            # Jul 2019 - Removing this feature per consultation with team. Konnect
+            # users should just sign-up without OTP
+            #  Generate SMS pin and send OTP
+            #instance.generate_sms_pin()
+            #logger.debug("Sending OTP")
+            #instance.send_otp()
+
+            # Activate this user right away without waiting for OTP
+            instance.is_active = True
 
             # Add user to groups
             logger.debug("Adding user to appropriate groups")
@@ -85,6 +91,34 @@ class UserLoginView(generics.GenericAPIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
+class CheckUserRegisteredView(APIView):
+    """
+    View checks if user exists in ILP DB and returns
+    200 OK if true or 404 if false. Used by ILP Konnect
+    to verify if user is registered or not 
+    """
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def get(self, request, format=None):
+        mobile_no = request.query_params.get('mobile_no', None)
+        if mobile_no is not None:
+            try:
+                user = User.objects.get(mobile_no=mobile_no)
+            except User.DoesNotExist:
+                return Response(
+                    {'isRegistered': 'False',
+                        'detail': 'Mobile number not found'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            else:
+                return Response(
+                    {'isRegistered': 'True',
+                        'detail': 'User exists in DB'},
+                    status=status.HTTP_200_OK
+                )
+ 
 class UserProfileView(generics.RetrieveUpdateAPIView):
     """
         Return profile fields for user matching id provided
