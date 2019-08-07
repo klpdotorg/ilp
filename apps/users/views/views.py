@@ -110,7 +110,7 @@ class CheckUserRegisteredView(APIView):
                 return Response(
                     {'isRegistered': 'False',
                         'detail': 'Mobile number not found'},
-                    status=status.HTTP_404_NOT_FOUND
+                    status=status.HTTP_200_OK
                 )
             else:
                 return Response(

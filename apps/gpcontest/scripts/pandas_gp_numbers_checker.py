@@ -119,7 +119,7 @@ def check_gp_numbers(gpid):
     ORDER BY
         data.qgid, data.yearmonth;
     """
-    raw_gp_score_buckets = raw_gp_score_buckets.format(gp_id=gpid, from_date="'2018-06-01'", to_date="'2019-03-31'")
+    raw_gp_score_buckets = raw_gp_score_buckets.format(gp_id=gpid, from_date="'2019-06-01'", to_date="'2019-03-31'")
 
 
     # In[4]:
