@@ -119,7 +119,7 @@ def check_gp_numbers(gpid):
     ORDER BY
         data.qgid, data.yearmonth;
     """
-    raw_gp_score_buckets = raw_gp_score_buckets.format(gp_id=gpid, from_date="'2019-06-01'", to_date="'2019-03-31'")
+    raw_gp_score_buckets = raw_gp_score_buckets.format(gp_id=gpid, from_date="'2019-06-01'", to_date="'2020-03-31'")
 
 
     # In[4]:
@@ -242,7 +242,7 @@ def check_gp_numbers(gpid):
     ORDER BY
         data.qgid, data.yearmonth;
     """
-    competency_percs_raw_sql = competency_percs.format(gp_id=gpid, from_date="'2018-06-01'", to_date="'2019-03-31'")
+    competency_percs_raw_sql = competency_percs.format(gp_id=gpid, from_date="'2019-06-01'", to_date="'2020-03-31'")
 
 
     # In[14]:
@@ -261,7 +261,7 @@ def check_gp_numbers(gpid):
     questiongroup_id,
     yearmonth
     """
-    sql_percs_computed = sql_percs_computed.format(gp_id=gpid, from_date="'2018-06-01'", to_date="'2019-03-31'")
+    sql_percs_computed = sql_percs_computed.format(gp_id=gpid, from_date="'2019-06-01'", to_date="'2020-03-31'")
     percs_computed = pd.read_sql_query(sql_percs_computed,con=connection)
     percs_computed['correctans'] = percs_computed['correctans'].round().astype(int)
     if(np.array_equal(percs_computed['correctans'], percs_raw['correct_ans'])):
