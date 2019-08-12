@@ -480,5 +480,7 @@ class Command(BaseCommand):
         else:
             self.createGPReports()
 
+        os.system('tar -cvf '+self.outputdir+'.tar '+self.outputdir+'/')
+
         if os.path.exists(self.build_d):
             shutil.rmtree(self.build_d)

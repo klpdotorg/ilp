@@ -1,0 +1,2 @@
+update assessments_question set lang_name='ಸ್ಥಾನ ಬೆಲೆ, ದತ್ತ ಸಂಖ್ಯೆಯ ಸ್ಥಾನಬೆಲೆ ಗುರುತಿಸುವುದು' where id=927;
+update assessments_question set lang_name='ದಶಮಾಂಶ,ಭಿನ್ನರಾಶಿ ಹಾಗು ದಶಮಾಂಶದ ಸಂಬಂಧಗಳು' where id=955;
