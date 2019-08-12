@@ -16,6 +16,7 @@ class Command(BaseCommand):
     help = 'Creates GP and School Reports, pass --gpid [commaseparated gpids]\
             surveyid startyearmonth endyearmonth--onlygp (True/False) \
             --sid [comma separated schoolids]'
+    assessmentorder = ["class4", "class5", "class6"]
     assessmentnames = {"class4": {"name": "Class 4 Assessment", "class": 4},
                        "class5": {"name": "Class 5 Assessment", "class": 5},
                        "class6": {"name": "Class 6 Assessment", "class": 6}}
@@ -199,7 +200,7 @@ class Command(BaseCommand):
                   "school_count": gpdata["num_schools"],
                   "totalstudents": gpdata["num_students"]}
         assessmentinfo = []
-        for assessment in self.assessmentnames:
+        for assessment in self.assessmentorder:
             if self.assessmentnames[assessment]["name"] in gpdata:
                 gpdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(gpdata[self.assessmentnames[assessment]["name"]])
@@ -340,7 +341,7 @@ class Command(BaseCommand):
                    "contestdate": schooldata["date"],
                    "generated": self.now,
                    "assessmentcounts": {}}
-        for assessment in self.assessmentnames:
+        for assessment in self.assessmentorder:
             summary["assessmentcounts"][self.assessmentnames[assessment]["class"]] = 0
             if self.assessmentnames[assessment]["name"] in schooldata:
                 info["classname"] = self.assessmentnames[assessment]["class"]
@@ -474,12 +475,12 @@ class Command(BaseCommand):
 
         if self.schoolids is not None:
             self.createOnlySchoolReports()
-        elif self.gpids is not None:
-            self.createGPReports()
         elif self.districtids is not None:
             self.createGPReportsPerBoundary()
         else:
-            print("Specify atleast --gpid or --districtid or --sid")
+            self.createGPReports()
+
+        os.system('tar -cvf '+self.outputdir+'.tar '+self.outputdir+'/')
 
         if os.path.exists(self.build_d):
             shutil.rmtree(self.build_d)
