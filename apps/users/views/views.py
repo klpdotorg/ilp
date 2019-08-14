@@ -88,9 +88,10 @@ class PasswordlessLoginView(generics.GenericAPIView):
                 user.generate_login_token()
                 user.save()
                 token = user.passwordless_login_token
-
+                data = UserSerializer(user).data
+                data['token'] = token
                 return Response(
-                    {'token': token}, status=status.HTTP_200_OK
+                    data, status=status.HTTP_200_OK
                 )
             except User.DoesNotExist:
                 return Response(
