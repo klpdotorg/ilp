@@ -4,7 +4,7 @@ from users.models import User
 
 class PasswordlessAuthentication(BaseAuthentication):
     def authenticate(self, request):
-        uid = int(request.GET.get('token'))
+        uid = request.GET.get('token')
         if uid is None:
             return None
         try:
