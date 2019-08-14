@@ -9,7 +9,8 @@ from .views import (
     OtpPasswordResetView,
     UsersViewSet,
     TadaUserLoginView,
-    CheckUserRegisteredView
+    CheckUserRegisteredView,
+    PasswordlessLoginView
 )
 
 from rest_framework import routers
@@ -27,6 +28,11 @@ urlpatterns = [
         r'^users/login/$',
         UserLoginView.as_view(),
         name='user-login'
+    ),
+    url(
+        r'^users/passwordlessauth/$',
+        PasswordlessLoginView.as_view(),
+        name='passwordless-user-login'
     ),
     url(
         r'^users/otp-update/$',

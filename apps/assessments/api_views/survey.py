@@ -2,6 +2,7 @@ import json
 import datetime
 import random
 from base64 import b64decode
+from django.contrib.auth import login as auth_login
 
 from django.conf import settings
 from django.db.models import Sum, Q
@@ -30,6 +31,7 @@ from boundary.models import (
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
     BoundaryType, ElectionBoundary
 )
+from users.authentication import PasswordlessAuthBackend
 from boundary.serializers import BoundarySerializer, ElectionBoundarySerializer
 
 from schools.models import (
@@ -514,11 +516,17 @@ class AssessmentSyncView(APIView):
     """
         Syncs a set of assessments from Konnect app
     """
-    authentication_classes = (authentication.TokenAuthentication,
-                              authentication.SessionAuthentication,)
+    # authentication_classes = (authentication.TokenAuthentication,
+    #                           authentication.SessionAuthentication,)
+    authentication_classes = (PasswordlessAuthBackend,)
     permission_classes = (AppPostPermissions,)
 
     def post(self, request, format=None):
+        # uid = request.GET.get('uid')
+        # print("uid")
+        # user = authenticate(uid=uid)
+        import pdb; pdb.set_trace()
+        #auth_login(request, user)
         response = {
             'success': dict(),
             'failed': [],
@@ -625,6 +633,7 @@ class AssessmentSyncView(APIView):
                     print("Error saving stories and answers:", e)
                     response['failed'].append(story.get('_id'))
         return Response(response)
+        
 
 
 class AssessmentsImagesView(APIView):
