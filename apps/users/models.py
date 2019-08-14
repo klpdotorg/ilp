@@ -97,8 +97,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # This is specifically for Konnect to login without auth
     def generate_login_token(self):
-        self.passwordless_login_token = uuid.uuid4().hex
-        return self.passwordless_login_token
+        self.secure_login_token = uuid.uuid4().hex
+        return self.secure_login_token
 
     def generate_email_token(self):
         self.email_verification_code = uuid.uuid4().hex

@@ -87,7 +87,7 @@ class PasswordlessLoginView(generics.GenericAPIView):
                 user = User.objects.get(mobile_no=mobile_no)
                 user.generate_login_token()
                 user.save()
-                token = user.passwordless_login_token
+                token = user.secure_login_token
                 data = UserSerializer(user).data
                 data['token'] = token
                 return Response(
