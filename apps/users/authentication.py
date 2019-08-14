@@ -8,7 +8,7 @@ class PasswordlessAuthentication(BaseAuthentication):
         if uid is None:
             return None
         try:
-            user = User.objects.get(passwordless_login_token=uid)
+            user = User.objects.get(secure_login_token=uid)
             return (user, None)
         except User.DoesNotExist:
             # Run the default password hasher once to reduce the timing
@@ -19,6 +19,6 @@ class PasswordlessAuthentication(BaseAuthentication):
     
     def get_user(self, user_id):
        try:
-          return User.objects.get(passwordless_login_token=user_id)
+          return User.objects.get(secure_login_token=user_id)
        except User.DoesNotExist:
           return None
