@@ -2,6 +2,7 @@ import json
 import datetime
 import random
 from base64 import b64decode
+from django.contrib.auth import login as auth_login
 
 from django.conf import settings
 from django.db.models import Sum, Q
@@ -514,117 +515,125 @@ class AssessmentSyncView(APIView):
     """
         Syncs a set of assessments from Konnect app
     """
-    authentication_classes = (authentication.TokenAuthentication,
-                              authentication.SessionAuthentication,)
+    # authentication_classes = (authentication.TokenAuthentication,
+    #                           authentication.SessionAuthentication,)
+    authentication_classes = (authentication.PasswordlessAuthenticationBackend,
+                              )
     permission_classes = (AppPostPermissions,)
 
     def post(self, request, format=None):
-        response = {
-            'success': dict(),
-            'failed': [],
-            'error': None
-        }
-        try:
-            stories = json.loads(request.body.decode('utf-8'))
-        except ValueError as e:
-            response['error'] = 'Invalid JSON data'
+        uid = request.GET.get('uid')
+        user = authenticate(uid=uid)
+        if user is not None:
+            auth_login(request, user)
+            response = {
+                'success': dict(),
+                'failed': [],
+                'error': None
+            }
+            try:
+                stories = json.loads(request.body.decode('utf-8'))
+            except ValueError as e:
+                response['error'] = 'Invalid JSON data'
 
-        if response['error'] is None:
-            for story in stories.get('stories', []):
-                timestamp = int(story.get('created_at')) / 1000
-                sysid = None
-
-                try:
-                    sysid = int(story.get('sysid'))
-                except ValueError:
+            if response['error'] is None:
+                for story in stories.get('stories', []):
+                    timestamp = int(story.get('created_at')) / 1000
                     sysid = None
 
-                try:
-
-                    # See if the question group has a default respondent type
-                    # If yes, use it instead of the one sent by Konnect
                     try:
-                        question_group = QuestionGroup.objects.get(
-                            pk=story.get('group_id')
-                        )
-                    except QuestionGroup.DoesNotExist:
-                        raise Exception("Invalid question group")
-                    else:
-                        if question_group.default_respondent_type:
-                            respondent_type = question_group \
-                                .default_respondent_type
+                        sysid = int(story.get('sysid'))
+                    except ValueError:
+                        sysid = None
+
+                    try:
+
+                        # See if the question group has a default respondent type
+                        # If yes, use it instead of the one sent by Konnect
+                        try:
+                            question_group = QuestionGroup.objects.get(
+                                pk=story.get('group_id')
+                            )
+                        except QuestionGroup.DoesNotExist:
+                            raise Exception("Invalid question group")
                         else:
-                            try:
-                                respondent_type = RespondentType.objects.get(
-                                    char_id__iexact=story.get(
-                                        'respondent_type'
+                            if question_group.default_respondent_type:
+                                respondent_type = question_group \
+                                    .default_respondent_type
+                            else:
+                                try:
+                                    respondent_type = RespondentType.objects.get(
+                                        char_id__iexact=story.get(
+                                            'respondent_type'
+                                        )
                                     )
-                                )
-                            except RespondentType.DoesNotExist:
-                                raise Exception("Invalid respondent type")
+                                except RespondentType.DoesNotExist:
+                                    raise Exception("Invalid respondent type")
 
-                    print(respondent_type.char_id)
+                        print(respondent_type.char_id)
 
-                    new_story, created = AnswerGroup_Institution.objects \
-                        .get_or_create(
-                            created_by=request.user,
-                            institution_id=story.get('school_id'),
-                            questiongroup_id=story.get('group_id'),
-                            respondent_type=respondent_type,
-                            date_of_visit=datetime.datetime.fromtimestamp(
-                                timestamp
-                            ),
-                            comments=story.get('comments'),
-                            group_value=story.get('group_value'),
-                            status=Status.objects.get(char_id='AC'),
-                        )
-
-                    if created:
-                        new_story.sysid = sysid
-                        new_story.is_verified = True
-                        new_story.mobile = request.user.mobile_no
-                        new_story.save()
-
-                        # Save location info
-                        if story.get('lat', None) is not None and \
-                                story.get('lng', None) is not None:
-                            new_story.location = Point(
-                                story.get('lat'), story.get('lng'))
-                            new_story.save()
-
-                    # Save the answers
-                    for answer in story.get('answers', []):
-                        new_answer, created = AnswerInstitution.objects \
+                        new_story, created = AnswerGroup_Institution.objects \
                             .get_or_create(
-                                answer=answer.get('text'),
-                                answergroup=new_story,
-                                question=Question.objects.get(
-                                    pk=answer.get('question_id')
-                                )
+                                created_by=request.user,
+                                institution_id=story.get('school_id'),
+                                questiongroup_id=story.get('group_id'),
+                                respondent_type=respondent_type,
+                                date_of_visit=datetime.datetime.fromtimestamp(
+                                    timestamp
+                                ),
+                                comments=story.get('comments'),
+                                group_value=story.get('group_value'),
+                                status=Status.objects.get(char_id='AC'),
                             )
 
-                    # Save the image
-                    image = story.get('image', None)
-                    if image:
-                        image_type, data = image.split(',')
-                        image_data = b64decode(data)
-                        file_name = '{}_{}_{}.png'.format(
-                            new_story.created_by.id,
-                            new_story.institution.id,
-                            random.randint(0, 9999)
-                        )
+                        if created:
+                            new_story.sysid = sysid
+                            new_story.is_verified = True
+                            new_story.mobile = request.user.mobile_no
+                            new_story.save()
 
-                        InstitutionImages.objects.create(
-                            answergroup=new_story,
-                            filename=file_name,
-                            image=ContentFile(image_data, file_name)
-                        )
+                            # Save location info
+                            if story.get('lat', None) is not None and \
+                                    story.get('lng', None) is not None:
+                                new_story.location = Point(
+                                    story.get('lat'), story.get('lng'))
+                                new_story.save()
 
-                    response['success'][story.get('_id')] = new_story.id
-                except Exception as e:
-                    print("Error saving stories and answers:", e)
-                    response['failed'].append(story.get('_id'))
-        return Response(response)
+                        # Save the answers
+                        for answer in story.get('answers', []):
+                            new_answer, created = AnswerInstitution.objects \
+                                .get_or_create(
+                                    answer=answer.get('text'),
+                                    answergroup=new_story,
+                                    question=Question.objects.get(
+                                        pk=answer.get('question_id')
+                                    )
+                                )
+
+                        # Save the image
+                        image = story.get('image', None)
+                        if image:
+                            image_type, data = image.split(',')
+                            image_data = b64decode(data)
+                            file_name = '{}_{}_{}.png'.format(
+                                new_story.created_by.id,
+                                new_story.institution.id,
+                                random.randint(0, 9999)
+                            )
+
+                            InstitutionImages.objects.create(
+                                answergroup=new_story,
+                                filename=file_name,
+                                image=ContentFile(image_data, file_name)
+                            )
+
+                        response['success'][story.get('_id')] = new_story.id
+                    except Exception as e:
+                        print("Error saving stories and answers:", e)
+                        response['failed'].append(story.get('_id'))
+            return Response(response)
+        else:
+            print("USER AUTH FAILED")
 
 
 class AssessmentsImagesView(APIView):

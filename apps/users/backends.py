@@ -24,3 +24,21 @@ class EmailMobileUsernameBackend(object):
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
+
+
+class PasswordlessAuthenticationBackend(object):
+    def authenticate(self, uid):
+        print('uid', uid)
+        if not User.objects.filter(sms_pin=uid).exists():
+            print('no token found')
+            return None
+        try:
+            user = User.objects.get(sms_pin=uid)
+            print('got user')
+            return user
+        except User.DoesNotExist:
+            print('new user', file=sys.stderr)
+
+
+    def get_user(self, uid):
+        return User.objects.get(sms_pin=uid)

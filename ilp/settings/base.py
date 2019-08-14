@@ -168,6 +168,7 @@ USE_TZ = True
 AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = [
     'users.backends.EmailMobileUsernameBackend',
+    'users.backends.PasswordlessAuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]

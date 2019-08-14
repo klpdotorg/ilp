@@ -70,6 +70,33 @@ class UserRegisterView(generics.CreateAPIView):
             logger.debug("User creation is done successfully")
 
 
+class PasswordlessLoginView(generics.GenericAPIView):
+    """
+    View enables passwordless login for Konnect users by generating
+    a random pin associated with a mobile_no. This pin has to be sent back
+    with all future POSTs.
+    """
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        mobile_no = request.query_params.get('mobile_no', None)
+        if mobile_no is not None:
+            try:
+                user = User.objects.get(mobile_no=mobile_no)
+                user.generate_sms_pin()
+                pin = user.get_sms_pin()
+                return Response(
+                    {'login_pin': pin}, status=status.HTTP_200_OK
+                )
+            except User.DoesNotExist:
+                return Response(
+                    {
+                        'detail': 'Mobile number not found'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
 class UserLoginView(generics.GenericAPIView):
     """
     This end point logins a user by creating a token object

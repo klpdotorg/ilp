@@ -60,6 +60,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_email_verified = models.BooleanField(default=False)
     is_mobile_verified = models.BooleanField(default=False)
     dob = models.DateField(null=True, blank=True)
+    #TOKEN -- new field introduced for Konnect passwordless auth
+    auth_token = models.CharField(max_length=2048, blank=True, null=True)
     source = models.CharField(max_length=50, null=True, blank=True)
     changed = models.DateTimeField(null=True, editable=False, auto_now=True)
     created = models.DateTimeField(
@@ -85,6 +87,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def generate_sms_pin(self):
         pin = ''.join([str(random.choice(range(1, 9))) for i in range(5)])
         self.sms_verification_pin = int(pin)
+
+    def get_sms_pin(self):
+        return self.sms_verification_pin
 
     def send_otp(self):
         msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
