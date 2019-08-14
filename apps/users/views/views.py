@@ -85,10 +85,12 @@ class PasswordlessLoginView(generics.GenericAPIView):
         if mobile_no is not None:
             try:
                 user = User.objects.get(mobile_no=mobile_no)
-                user.generate_sms_pin()
-                pin = user.get_sms_pin()
+                user.generate_login_token()
+                user.save()
+                token = user.passwordless_login_token
+
                 return Response(
-                    {'login_pin': pin}, status=status.HTTP_200_OK
+                    {'token': token}, status=status.HTTP_200_OK
                 )
             except User.DoesNotExist:
                 return Response(

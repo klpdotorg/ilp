@@ -54,14 +54,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    passwordless_login_token = models.CharField(
+        max_length=128, null=True, blank=True)
     email_verification_code = models.CharField(
         max_length=128, null=True, blank=True)
     sms_verification_pin = models.IntegerField(null=True, blank=True)
     is_email_verified = models.BooleanField(default=False)
     is_mobile_verified = models.BooleanField(default=False)
     dob = models.DateField(null=True, blank=True)
-    #TOKEN -- new field introduced for Konnect passwordless auth
-    auth_token = models.CharField(max_length=2048, blank=True, null=True)
     source = models.CharField(max_length=50, null=True, blank=True)
     changed = models.DateTimeField(null=True, editable=False, auto_now=True)
     created = models.DateTimeField(
@@ -94,6 +94,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def send_otp(self):
         msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
         send_sms(self.mobile_no, msg)
+
+    # This is specifically for Konnect to login without auth
+    def generate_login_token(self):
+        self.passwordless_login_token = uuid.uuid5().hex
+        return self.passwordless_login_token
 
     def generate_email_token(self):
         self.email_verification_code = uuid.uuid4().hex

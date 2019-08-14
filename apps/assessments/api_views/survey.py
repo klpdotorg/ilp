@@ -25,6 +25,7 @@ from permissions.permissions import (
     AppPostPermissions,
     HasAssignPermPermission
 )
+from users.authentication import PasswordlessAuthentication
 
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
@@ -517,8 +518,8 @@ class AssessmentSyncView(APIView):
     """
     # authentication_classes = (authentication.TokenAuthentication,
     #                           authentication.SessionAuthentication,)
-    authentication_classes = (authentication.PasswordlessAuthenticationBackend,
-                              )
+    authentication_classes = (PasswordlessAuthentication,)
+
     permission_classes = (AppPostPermissions,)
 
     def post(self, request, format=None):
