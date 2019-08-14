@@ -125,7 +125,7 @@ def check_gp_numbers(gpid):
     # In[4]:
 
 
-    score_buckets = pd.read_sql_query(raw_gp_score_buckets,con=connection)
+    score_buckets = pd.read_sql_query(raw_gp_score_buckets, con=connection)        
     score_buckets = score_buckets.replace(np.nan, 0, regex=True)
     score_buckets=score_buckets.round().astype(int)
     score_buckets.sort_values("questiongroup_id", axis = 0, ascending = True, 
