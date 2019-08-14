@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    passwordless_login_token = models.CharField(
+    secure_login_token = models.CharField(
         max_length=128, null=True, blank=True)
     email_verification_code = models.CharField(
         max_length=128, null=True, blank=True)
