@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.contrib.auth.models import Group
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, authentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -15,6 +15,7 @@ from users.serializers import (
     OtpGenerateSerializer,
     OtpPasswordResetSerializer
 )
+from users.authentication import PasswordlessAuthentication
 from users.utils import (
     login_user,
     check_source_and_add_user_to_group,
@@ -69,6 +70,36 @@ class UserRegisterView(generics.CreateAPIView):
 
             logger.debug("User creation is done successfully")
 
+
+class PasswordlessLoginView(generics.GenericAPIView):
+    """
+    View enables passwordless login for Konnect users by generating
+    a random pin associated with a mobile_no. This pin has to be sent back
+    with all future POSTs.
+    """
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        mobile_no = request.query_params.get('mobile_no', None)
+        if mobile_no is not None:
+            try:
+                user = User.objects.get(mobile_no=mobile_no)
+                user.generate_login_token()
+                user.save()
+                token = user.secure_login_token
+                data = UserSerializer(user).data
+                data['token'] = token
+                return Response(
+                    data, status=status.HTTP_200_OK
+                )
+            except User.DoesNotExist:
+                return Response(
+                    {
+                        'detail': 'Mobile number not found'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
 
 class UserLoginView(generics.GenericAPIView):
     """
@@ -126,7 +157,9 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     allowed_methods = ['GET', 'PATCH']
     serializer_class = UserSerializer
     permission_classes = (IsAdminOrIsSelf,)
-
+    authentication_classes = (authentication.TokenAuthentication,
+                              PasswordlessAuthentication)
+                              
     def get_object(self):
         return User.objects.get(id=self.request.user.id)
 
@@ -190,6 +223,8 @@ class ProfileEditPageView(DetailView):
 
     model = User
     template_name = 'profile_edit.html'
+    authentication_classes = (PasswordlessAuthentication,
+    authentication.TokenAuthentication)
 
     def get_context_data(self, **kwargs):
         context = super(ProfileEditPageView, self).get_context_data(**kwargs)

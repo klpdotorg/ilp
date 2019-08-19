@@ -2,6 +2,7 @@ import json
 import datetime
 import random
 from base64 import b64decode
+from django.contrib.auth import login as auth_login
 
 from django.conf import settings
 from django.db.models import Sum, Q
@@ -24,6 +25,7 @@ from permissions.permissions import (
     AppPostPermissions,
     HasAssignPermPermission
 )
+from users.authentication import PasswordlessAuthentication
 
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
@@ -514,8 +516,9 @@ class AssessmentSyncView(APIView):
     """
         Syncs a set of assessments from Konnect app
     """
-    authentication_classes = (authentication.TokenAuthentication,
-                              authentication.SessionAuthentication,)
+    # authentication_classes = (authentication.TokenAuthentication,
+    #                           authentication.SessionAuthentication,)
+    authentication_classes = (PasswordlessAuthentication,)
     permission_classes = (AppPostPermissions,)
 
     def post(self, request, format=None):
@@ -660,8 +663,13 @@ class RespondentTypeList(ListAPIView):
     serializer_class = RespondentTypeSerializer
 
 
+"""
+    View called from Konnect to show how many surveys are sync-ed and how
+    many are pending/remaining etc..
+"""
 class SurveyUserSummary(APIView):
-    authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes = (authentication.TokenAuthentication,
+                              PasswordlessAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
