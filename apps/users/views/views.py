@@ -15,6 +15,7 @@ from users.serializers import (
     OtpGenerateSerializer,
     OtpPasswordResetSerializer
 )
+from users.authentication import PasswordlessAuthentication
 from users.utils import (
     login_user,
     check_source_and_add_user_to_group,
@@ -220,6 +221,8 @@ class ProfileEditPageView(DetailView):
 
     model = User
     template_name = 'profile_edit.html'
+    authentication_classes = (PasswordlessAuthentication,
+    authentication.TokenAuthentication)
 
     def get_context_data(self, **kwargs):
         context = super(ProfileEditPageView, self).get_context_data(**kwargs)
