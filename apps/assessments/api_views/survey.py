@@ -663,8 +663,13 @@ class RespondentTypeList(ListAPIView):
     serializer_class = RespondentTypeSerializer
 
 
+"""
+    View called from Konnect to show how many surveys are sync-ed and how
+    many are pending/remaining etc..
+"""
 class SurveyUserSummary(APIView):
-    authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes = (authentication.TokenAuthentication,
+                              PasswordlessAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):

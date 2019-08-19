@@ -157,7 +157,9 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     allowed_methods = ['GET', 'PATCH']
     serializer_class = UserSerializer
     permission_classes = (IsAdminOrIsSelf,)
-
+    authentication_classes = (authentication.TokenAuthentication,
+                              PasswordlessAuthentication)
+                              
     def get_object(self):
         return User.objects.get(id=self.request.user.id)
 
