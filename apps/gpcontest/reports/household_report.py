@@ -3,7 +3,7 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
     SurveyBoundaryQuestionGroupAnsAgg,
-    SurveyInstitutionQuestionGroupAnsAgg
+    SurveyInstitutionQuestionGroupAnsAgg,
     Question,
     QuestionGroup_Questions
     )
@@ -26,23 +26,26 @@ def getHouseholdSurveyForSchool(survey_id,school_id,date_range):
         answers = []
         if school is not None:
             try:
-                hh_answers_agg = SurveyInstitutionQuestionGroupAnsAgg.objects.filter(institution_id=boundary)\
+                hh_answers_agg = SurveyInstitutionQuestionGroupAnsAgg.objects.filter(institution_id=school_id)\
                     .filter(yearmonth__range=date_range,questiongroup_id__in=[18,20])
             except SurveyInstitutionQuestionGroupAnsAgg.DoesNotExist:
-                print("No community survey data for '{}' between {} and {}".format(school, date_range))
+                print("No community survey data for '{}' between {} and {}".format(school_id, date_range))
            
             if hh_answers_agg is not None and hh_answers_agg.exists():
                 HHSurvey['school_name'] = school.name
                 HHSurvey['district_name'] = school.admin1.name
                 HHSurvey['block_name'] = school.admin2.name
                 HHSurvey['cluster_name'] = school.admin3.name
-                HHSurvey['gp_name'] = school.gp.const_ward_name
-                HHSurvey['gp_id'] = school.gp.id
+                if school.gp is not None:
+                    HHSurvey['gp_name'] = school.gp.const_ward_name
+                    HHSurvey['gp_id'] = school.gp.id
+                else:
+                    HHSurvey['gp_name'] = "Unknown"
+                    HHSurvey['gp_id'] = "Unknown"
                 total_hh_answers = hh_answers_agg.values('question_id').annotate(Sum('num_answers'))
                 total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_id').annotate(Sum('num_answers'))
                 ordered_list = QuestionGroup_Questions.objects.filter(questiongroup_id__in=[18, 20]).order_by('sequence', 'question_id').distinct('sequence', 'question_id').values_list('question_id', flat=True)
                 ordered_list = list(ordered_list)
-                print(ordered_list)
                 sorted_questions = sorted(total_hh_answers, key=lambda q: ordered_list.index(q['question_id']))
                 #print(sorted_questions.values_list('question_id', flat=True))
                 for each_answer in sorted_questions:
@@ -95,7 +98,6 @@ def getHouseholdSurveyForBoundary(survey_id,boundary_id,date_range):
                 total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_id').annotate(Sum('num_answers'))
                 ordered_list = QuestionGroup_Questions.objects.filter(questiongroup_id__in=[18, 20]).order_by('sequence', 'question_id').distinct('sequence', 'question_id').values_list('question_id', flat=True)
                 ordered_list = list(ordered_list)
-                print(ordered_list)
                 sorted_questions = sorted(total_hh_answers, key=lambda q: ordered_list.index(q['question_id']))
                 #print(sorted_questions.values_list('question_id', flat=True))
                 for each_answer in sorted_questions:
@@ -118,9 +120,9 @@ for a given academic year
 """
 
 
-def getAllSchoolHHReports(
-                            household_survey_id,
-                            from_yearmonth, to_yearmonth):
+def get_all_hh_reports(
+                        household_survey_id,
+                        from_yearmonth, to_yearmonth):
     school_ids = get_schools_for_timeframes(
         household_survey_id, from_yearmonth, to_yearmonth)
     results = {}
@@ -130,7 +132,7 @@ def getAllSchoolHHReports(
     return results
 
 
-def getSchoolHHReportsForDistricts(
+def get_hh_reports_for_districts(
                                     household_survey_id,
                                     boundary_ids, from_yearmonth,
                                     to_yearmonth):
@@ -141,10 +143,30 @@ def getSchoolHHReportsForDistricts(
         household_survey_id, boundary_ids, from_yearmonth, to_yearmonth)
     results = {}
     for school in school_ids:
-        hh_data = ggetHouseholdSurveyForSchool(household_survey_id, school, [from_yearmonth, to_yearmonth])
+        hh_data = getHouseholdSurveyForSchool(household_survey_id, school, [from_yearmonth, to_yearmonth])
         results[school] = hh_data
     return results
 
+def get_hh_reports_for_gps(
+                            household_survey_id,
+                            gp_ids, from_yearmonth,
+                            to_yearmonth):
+    school_ids = get_schools_for_gps(household_survey_id, gp_ids, from_yearmonth, to_yearmonth)
+    results = {}
+    for school in school_ids:
+        hh_data = getHouseholdSurveyForSchool(household_survey_id, school, [from_yearmonth, to_yearmonth])
+        results[school] = hh_data
+    return results
+
+    
+def get_hh_reports_for_school_ids(
+                                    household_survey_id, school_ids,
+                                    from_yearmonth, to_yearmonth):
+    results = {}
+    for school in school_ids:
+        hh_data = getHouseholdSurveyForSchool(household_survey_id, school, [from_yearmonth, to_yearmonth])
+        results[school] = hh_data
+    return results
 
 def generate_HHReport_for_boundaries(
                             household_survey_id, boundary_ids,
@@ -179,16 +201,16 @@ def get_schools_for_timeframe(household_survey_id, from_yearmonth, to_yearmonth)
                             'institution_id').values_list(
                                 'institution_id', flat=True)
 
-def get_schools_for_districts(household_survey_id, boundary_list, from_yearmonth, to_yearmonth):
-    """ Returns all schools which have household data for a given time 
-    range and survey id """
+def get_schools_for_gps(household_survey_id, gp_list, from_yearmonth, to_yearmonth):
     return SurveyInstitutionQuestionGroupAnsAgg.objects.filter(
         yearmonth__gte=from_yearmonth).filter(
             yearmonth__lte=to_yearmonth).filter(
                 survey_id=household_survey_id).filter(
-                    questiongroup_id__in=[18,20]).distinct(
+                    questiongroup_id__in=[18, 20]).filter(
+                        institution_id__gp__in=gp_list).distinct(
                             'institution_id').values_list(
                                 'institution_id', flat=True)
+
 def get_boundaries_for_timeframe(household_survey_id, from_yearmonth, to_yearmonth):
     """ Returns all boundaries which have household data for a given time 
     range and survey id """
