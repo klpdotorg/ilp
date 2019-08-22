@@ -8,7 +8,9 @@ from .views import (
     OtpGenerateView,
     OtpPasswordResetView,
     UsersViewSet,
-    TadaUserLoginView
+    TadaUserLoginView,
+    CheckUserRegisteredView,
+    PasswordlessLoginView
 )
 
 from rest_framework import routers
@@ -28,6 +30,11 @@ urlpatterns = [
         name='user-login'
     ),
     url(
+        r'^users/tokenauth/$',
+        PasswordlessLoginView.as_view(),
+        name='passwordless-user-login'
+    ),
+    url(
         r'^users/otp-update/$',
         MobileValidateWithOtpView.as_view(),
         name="api_otp_update"
@@ -42,7 +49,11 @@ urlpatterns = [
         OtpPasswordResetView.as_view(),
         name="api_otp_password_reset"
     ),
-
+    url(
+        r'^users/checkregistered/$',
+        CheckUserRegisteredView.as_view(),
+        name="api_check_registered"
+    ),
     url('^users/profile', UserProfileView.as_view(), name='api_user_profile'),
 
     # TADA urls

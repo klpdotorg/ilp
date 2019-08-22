@@ -1,9 +1,10 @@
 from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.contrib.auth.models import Group
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, authentication
 from rest_framework.response import Response
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from common.views import StaticPageView
 from users.models import User
 from users.serializers import (
@@ -14,6 +15,7 @@ from users.serializers import (
     OtpGenerateSerializer,
     OtpPasswordResetSerializer
 )
+from users.authentication import PasswordlessAuthentication
 from users.utils import (
     login_user,
     check_source_and_add_user_to_group,
@@ -45,10 +47,15 @@ class UserRegisterView(generics.CreateAPIView):
             raise e
         else:
             logger.debug("Generating SMS pin")
-            # Generate SMS pin and send OTP
-            instance.generate_sms_pin()
-            logger.debug("Sending OTP")
-            instance.send_otp()
+            # Jul 2019 - Removing this feature per consultation with team. Konnect
+            # users should just sign-up without OTP
+            #  Generate SMS pin and send OTP
+            #instance.generate_sms_pin()
+            #logger.debug("Sending OTP")
+            #instance.send_otp()
+
+            # Activate this user right away without waiting for OTP
+            instance.is_active = True
 
             # Add user to groups
             logger.debug("Adding user to appropriate groups")
@@ -63,6 +70,36 @@ class UserRegisterView(generics.CreateAPIView):
 
             logger.debug("User creation is done successfully")
 
+
+class PasswordlessLoginView(generics.GenericAPIView):
+    """
+    View enables passwordless login for Konnect users by generating
+    a random pin associated with a mobile_no. This pin has to be sent back
+    with all future POSTs.
+    """
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def post(self, request):
+        mobile_no = request.query_params.get('mobile_no', None)
+        if mobile_no is not None:
+            try:
+                user = User.objects.get(mobile_no=mobile_no)
+                user.generate_login_token()
+                user.save()
+                token = user.secure_login_token
+                data = UserSerializer(user).data
+                data['token'] = token
+                return Response(
+                    data, status=status.HTTP_200_OK
+                )
+            except User.DoesNotExist:
+                return Response(
+                    {
+                        'detail': 'Mobile number not found'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
 
 class UserLoginView(generics.GenericAPIView):
     """
@@ -85,6 +122,34 @@ class UserLoginView(generics.GenericAPIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
+class CheckUserRegisteredView(APIView):
+    """
+    View checks if user exists in ILP DB and returns
+    200 OK if true or 404 if false. Used by ILP Konnect
+    to verify if user is registered or not 
+    """
+    permission_classes = (
+        permissions.AllowAny,
+    )
+
+    def get(self, request, format=None):
+        mobile_no = request.query_params.get('mobile_no', None)
+        if mobile_no is not None:
+            try:
+                user = User.objects.get(mobile_no=mobile_no)
+            except User.DoesNotExist:
+                return Response(
+                    {'isRegistered': 'False',
+                        'detail': 'Mobile number not found'},
+                    status=status.HTTP_200_OK
+                )
+            else:
+                return Response(
+                    {'isRegistered': 'True',
+                        'detail': 'User exists in DB'},
+                    status=status.HTTP_200_OK
+                )
+ 
 class UserProfileView(generics.RetrieveUpdateAPIView):
     """
         Return profile fields for user matching id provided
@@ -92,7 +157,9 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     allowed_methods = ['GET', 'PATCH']
     serializer_class = UserSerializer
     permission_classes = (IsAdminOrIsSelf,)
-
+    authentication_classes = (authentication.TokenAuthentication,
+                              PasswordlessAuthentication)
+                              
     def get_object(self):
         return User.objects.get(id=self.request.user.id)
 
@@ -156,6 +223,8 @@ class ProfileEditPageView(DetailView):
 
     model = User
     template_name = 'profile_edit.html'
+    authentication_classes = (PasswordlessAuthentication,
+    authentication.TokenAuthentication)
 
     def get_context_data(self, **kwargs):
         context = super(ProfileEditPageView, self).get_context_data(**kwargs)
