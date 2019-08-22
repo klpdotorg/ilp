@@ -42,8 +42,18 @@ def getHouseholdSurveyForSchool(survey_id,school_id,date_range):
                 else:
                     HHSurvey['gp_name'] = "Unknown"
                     HHSurvey['gp_id'] = "Unknown"
+                if school.village is not None:
+                    HHSurvey['village_name'] = school.village
+                else:
+                    HHSurvey['village_name'] = "Unknown"
+                if school.dise is not None and school.dise.school_code is not None:
+                    HHSurvey['dise_code'] = school.dise.school_code
+                else:
+                    HHSurvey['dise_code'] = 'Unknown'
                 total_hh_answers = hh_answers_agg.values('question_id').annotate(Sum('num_answers'))
                 total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_id').annotate(Sum('num_answers'))
+                total_no_answers = hh_answers_agg.filter(answer_option='No').values('question_id').annotate(Sum('num_answers'))
+                total_unknown_answers = hh_answers_agg.filter(answer_option='Don\'t Know').values('question_id').annotate(Sum('num_answers'))
                 ordered_list = QuestionGroup_Questions.objects.filter(questiongroup_id__in=[18, 20]).order_by('sequence', 'question_id').distinct('sequence', 'question_id').values_list('question_id', flat=True)
                 ordered_list = list(ordered_list)
                 sorted_questions = sorted(total_hh_answers, key=lambda q: ordered_list.index(q['question_id']))
@@ -54,8 +64,24 @@ def getHouseholdSurveyForSchool(survey_id,school_id,date_range):
                         total_yes_count = question_desc['num_answers__sum']
                     except:
                         total_yes_count = 0
+                    try:
+                        questions_no = total_no_answers.get(question_id=each_answer['question_id'])
+                        total_no_count = questions_no['num_answers__sum']
+                    except:
+                        total_no_count = 0
+                    try:
+                        questions_unknown = total_unknown_answers.get(question_id=each_answer['question_id'])
+                        total_unknown_count = questions_unknown['num_answers__sum']
+                    except:
+                        total_unknown_count = 0
                     question_text = Question.objects.get(id=each_answer['question_id']).question_text
-                    answers.append({'question_id': each_answer['question_id'], 'text':question_text,'percentage': "{:.2f}".format(round((total_yes_count/each_answer['num_answers__sum'])*100, 2))})
+                    answers.append({
+                        'question_id': each_answer['question_id'],
+                        'text': question_text,
+                        'percentage_yes': "{:.2f}".format(round((total_yes_count / each_answer['num_answers__sum']) * 100, 2)),
+                        'percentage_no': "{:.2f}".format(round((total_no_count / each_answer['num_answers__sum']) * 100, 2)),
+                        'percentage_unknown': "{:.2f}".format(round((total_unknown_count / each_answer['num_answers__sum']) * 100, 2))
+                        })
                 HHSurvey["answers"] = answers
             else:
                 print("No community survey data for '{}' between {} and {}".format(boundary.name, date_range))
@@ -96,6 +122,8 @@ def getHouseholdSurveyForBoundary(survey_id,boundary_id,date_range):
                 HHSurvey['boundary_type'] = boundary_type
                 total_hh_answers = hh_answers_agg.values('question_id').annotate(Sum('num_answers'))
                 total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_id').annotate(Sum('num_answers'))
+                total_no_answers = hh_answers_agg.filter(answer_option='No').values('question_id').annotate(Sum('num_answers'))
+                total_unknown_answers = hh_answers_agg.filter(answer_option='Don\'t Know').values('question_id').annotate(Sum('num_answers'))
                 ordered_list = QuestionGroup_Questions.objects.filter(questiongroup_id__in=[18, 20]).order_by('sequence', 'question_id').distinct('sequence', 'question_id').values_list('question_id', flat=True)
                 ordered_list = list(ordered_list)
                 sorted_questions = sorted(total_hh_answers, key=lambda q: ordered_list.index(q['question_id']))
