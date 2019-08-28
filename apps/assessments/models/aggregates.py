@@ -629,6 +629,7 @@ class SurveyInstitutionQuestionGroupAnsAgg(models.Model):
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_id = models.ForeignKey('Question', db_column="question_id")
     question_desc = models.CharField(max_length=200, db_column="question_desc")
+    lang_questiontext = models.CharField(max_length=200, db_column="lang_questiontext")
     answer_option = models.CharField(max_length=100, db_column="answer_option")
     num_answers = models.IntegerField(db_column="num_answers")
 
