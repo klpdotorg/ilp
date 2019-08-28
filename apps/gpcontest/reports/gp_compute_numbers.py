@@ -348,3 +348,28 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
                 concept_scores[current_question_key] = percentage
             results_by_date[contest_date] = concept_scores
     return results_by_date
+
+
+def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yearmonth):
+    """ For household reports, that need addition/subtraction percentages
+        per school """
+    total_ans = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
+        survey_id=survey_id).filter(
+            institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
+                yearmonth__lte=to_yearmonth).filter(
+                    question_key=key).annotate(total_answers=Sum('num_assessments'))
+    
+    total = total_ans['total_answers']
+    correct_ans = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
+        survey_id=survey_id).filter(
+            institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
+                yearmonth__lte=to_yearmonth).filter(
+                    question_key=key).annotate(total_answers=Sum('num_assessments'))
+    correct = correct_ans['total_answers']
+    if total is None:
+        total = 0
+    if correct is None:
+        correct = 0
+    perc = round((correct / total) * 100, 2)
+    return perc
+

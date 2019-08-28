@@ -4,16 +4,50 @@ from assessments.models import (
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
     SurveyBoundaryQuestionGroupAnsAgg,
     SurveyInstitutionQuestionGroupAnsAgg,
+    SurveyInstitutionHHRespondentTypeAnsAgg,
     Question,
     QuestionGroup_Questions
     )
+from gpcontest.gp_compute_numbers import (
+    getCompetencyPercPerSchool
+)
 from schools.models import Institution
 from boundary.models import (
     Boundary, ElectionBoundary
 )
 from django.db.models import Sum
 
-def getHouseholdSurveyForSchool(survey_id,school_id,date_range):
+
+def getParentalPerception(survey_id, school_id, date_range):
+    question_ids = [149, 150, 138]
+    perception_qs = SurveyInstitutionHHRespondentTypeAnsAgg.objects.filter(
+        survey_id=survey_id).filter(
+            institution_id=school_id).filter(
+            yearmonth__range=date_range).filter(
+                question_id__in=question_ids).order_by('question_id').values(
+                    'question_id', 'question_desc', 'count_yes')
+    result = {}
+    for perception in perception_qs:
+        if perception.question_id == 149:
+            result["Addition"] = perception.count_yes
+        elif perception.question_id == 150:
+            result["Subtraction"] = perception.count_yes
+        elif perception.question_id == 138:
+            result["Separate Toilets"] = perception.count_yes
+    return result
+
+
+def getGPContestPercentages(gp_survey_id, school_id, date_range):
+    addition_perc = getCompetencyPercPerSchool(
+        gp_survey_id, school_id, 'Addition', date_range[0], date_range[1])
+    subtraction_perc = getCompetencyPercPerSchool(
+        gp_survey_id, school_id, 'Subtraction', date_range[0], date_range[1])
+    return {
+        "Addition": addition_perc,
+        "Subtraction": subtraction_perc
+    }
+
+def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
         """ Returns household survey aggregate values in a dictionary per boundary """
         school = None
         try:
@@ -36,6 +70,7 @@ def getHouseholdSurveyForSchool(survey_id,school_id,date_range):
                 HHSurvey['district_name'] = school.admin1.name
                 HHSurvey['block_name'] = school.admin2.name
                 HHSurvey['cluster_name'] = school.admin3.name
+
                 if school.gp is not None:
                     HHSurvey['gp_name'] = school.gp.const_ward_name
                     HHSurvey['gp_id'] = school.gp.id
@@ -50,6 +85,8 @@ def getHouseholdSurveyForSchool(survey_id,school_id,date_range):
                     HHSurvey['dise_code'] = school.dise.school_code
                 else:
                     HHSurvey['dise_code'] = 'Unknown'
+                HHSurvey['parents_perception'] = getParentalPerception(survey_id, school_id, date_range)
+                HHSurvey['gpcontest_data'] = getGPContestPercentages(gp_survey_id, school_id, date_range)
                 total_hh_answers = hh_answers_agg.values('question_id').annotate(Sum('num_answers'))
                 total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_id').annotate(Sum('num_answers'))
                 total_no_answers = hh_answers_agg.filter(answer_option='No').values('question_id').annotate(Sum('num_answers'))
