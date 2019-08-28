@@ -30,7 +30,7 @@ urlpatterns = [
         name='user-login'
     ),
     url(
-        r'^users/passwordlessauth/$',
+        r'^users/tokenauth/$',
         PasswordlessLoginView.as_view(),
         name='passwordless-user-login'
     ),

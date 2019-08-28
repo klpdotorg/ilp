@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.contrib.auth.models import Group
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, authentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -15,6 +15,7 @@ from users.serializers import (
     OtpGenerateSerializer,
     OtpPasswordResetSerializer
 )
+from users.authentication import PasswordlessAuthentication
 from users.utils import (
     login_user,
     check_source_and_add_user_to_group,
@@ -87,10 +88,11 @@ class PasswordlessLoginView(generics.GenericAPIView):
                 user = User.objects.get(mobile_no=mobile_no)
                 user.generate_login_token()
                 user.save()
-                token = user.passwordless_login_token
-
+                token = user.secure_login_token
+                data = UserSerializer(user).data
+                data['token'] = token
                 return Response(
-                    {'token': token}, status=status.HTTP_200_OK
+                    data, status=status.HTTP_200_OK
                 )
             except User.DoesNotExist:
                 return Response(
@@ -155,7 +157,9 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     allowed_methods = ['GET', 'PATCH']
     serializer_class = UserSerializer
     permission_classes = (IsAdminOrIsSelf,)
-
+    authentication_classes = (authentication.TokenAuthentication,
+                              PasswordlessAuthentication)
+                              
     def get_object(self):
         return User.objects.get(id=self.request.user.id)
 
@@ -219,6 +223,8 @@ class ProfileEditPageView(DetailView):
 
     model = User
     template_name = 'profile_edit.html'
+    authentication_classes = (PasswordlessAuthentication,
+    authentication.TokenAuthentication)
 
     def get_context_data(self, **kwargs):
         context = super(ProfileEditPageView, self).get_context_data(**kwargs)

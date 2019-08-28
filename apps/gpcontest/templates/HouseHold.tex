@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2cm,left=2cm,right=2cm,bottom=0cm,portrait]{geometry}
+\usepackage{longtable}
+
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{lastpage}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontenc}
+\usepackage{xltxtra}
+
+
+
+\newcommand{\kn}[1]{
+{\fontspec{Kedage}
+#1
+}}
+
+\usepackage{arydshln}
+\usepackage{tikz}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\fancypagestyle{basic}{
+\fancyhf{} % clear all header and footer fields
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=south west,yshift=0pt,xshift=0pt]%
+at (current page.south west)
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
+
+\node[anchor=south east,yshift=0pt,xshift=0pt]%
+at (current page.south east)
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
+
+\node[anchor=south west,yshift=5pt,xshift=100pt]%
+at (current page.south west)
+{\kn{ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}}};
+
+\node[anchor=south east,yshift=5pt,xshift=-60pt]%
+at (current page.south east)
+{\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
+
+\end{tikzpicture}
+
+}
+\renewcommand{\headrulewidth}{0pt} % to remove line on header
+\renewcommand{\footrulewidth}{0pt} % to remove line on footer
+
+\begin{document}
+
+\thispagestyle{plain}
+{
+\setlength{\parindent}{0in}
+
+\kn{ಜಿಲ್ಲೆ} : {{schoolinfo.district}} \hfill  \kn{ತಾಲೂಕ} : {{schoolinfo.block}} \\
+\kn{ಹಳ್ಳಿ} : {{schoolinfo.village}} \hfill \kn{ತಿಂಗಳು} : {{schoolinfo.month}} \\
+School Name : {{schoolinfo.schoolname}} \hfill DISE CODE : {{schoolinfo.disecode}}\\~\\~\\
+
+\kn{ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಂಗ್ರಹಣಾ ವರದಿ}\\
+\kn{ಒಟ್ಟು ಪ್ರತಿಕ್ರಿಯೆದಾರದು} : {{schoolinfo.numassessments}}\\~\\~\\
+
+\begin{longtable}{p{10cm}:c:c:c:}\cdashline{2-4}
+& \kn{ಹೌದು} & \kn{ಇಲ್ಲ} & \kn {ಗೊತ್ತಿಲ್ಲ} \\ \hdashline
+{% for question in survey.assessmentinfo %}
+{{ question.text }} & {{ question.percentage_yes }} & {{question.percentage_no}} & {{question.percentage_dontknow}} \\ \hdashline
+{% endfor %}
+\end{longtable}
+
+~\\~\\
+
+\begin{tabular}{cc:c}
+&\includegraphics[height=1cm]{"{{info.imagesdir}}household_parent.png"}\kn{ಪೋಷಕರ  ಗ್ರಹಿಕೆ} & \includegraphics[height=1cm]{"{{info.imagesdir}}household_clipboard.png"} \kn{ವಾಸ್ತವಿಕತೆ (ಗ್ರಾ, ಪಂ ಗಣಿತ ಸ್ಪರ್ಧೆ)}\\ \cdashline{2-3}
+\includegraphics[height=1cm]{"{{info.imagesdir}}household_addition.png"} & 4 &  5\\ 
+\includegraphics[height=1cm]{"{{info.imagesdir}}household_subtraction.png"} & 6 & 7\\ \hdashline
+&\includegraphics[height=1cm]{"{{info.imagesdir}}household_girlstoilet.png"} 4  &\\
+\end{tabular}
+
+~\\~\\
+
+
+}
+\end{document}
