@@ -131,9 +131,11 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                     except:
                         total_unknown_count = 0
                     question_text = Question.objects.get(id=each_answer['question_id']).question_text
+                    lang_question_text = Question.objects.get(id=each_answer['question_id']).lang_name
                     answers.append({
                         'question_id': each_answer['question_id'],
                         'text': question_text,
+                        'lang_text': lang_question_text,
                         'percentage_yes': "{:.2f}".format(round((total_yes_count / each_answer['num_answers__sum']) * 100, 2)),
                         'percentage_no': "{:.2f}".format(round((total_no_count / each_answer['num_answers__sum']) * 100, 2)),
                         'percentage_unknown': "{:.2f}".format(round((total_unknown_count / each_answer['num_answers__sum']) * 100, 2))
