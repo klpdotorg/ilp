@@ -176,12 +176,12 @@ class GPContestSchoolDetails(models.Model):
 
 class SurveyInstitutionHHRespondentTypeAnsAgg(models.Model):
     """Agg specifically created for household survey reports"""
-    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_id = models.ForeignKey('assessments.Survey', db_column="survey_id")
     institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
-    questiongroup_id = models.ForeignKey('QuestionGroup', db_column="questiongroup_id")
+    questiongroup_id = models.ForeignKey('assessments.QuestionGroup', db_column="questiongroup_id")
     respondent_type = models.ForeignKey('common.RespondentType', db_column="respondent_type")
     yearmonth = models.IntegerField(db_column="yearmonth")
-    question_id = models.ForeignKey('Question', db_column="question_id")
+    question_id = models.ForeignKey('assessments.Question', db_column="question_id")
     question_desc = models.CharField(max_length=200, db_column="question_desc")
     num_yes = models.IntegerField(db_column="count_yes")
     num_no = models.IntegerField(db_column="count_no")
