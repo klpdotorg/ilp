@@ -1,0 +1,1 @@
+update assessments_answergroup_institution set date_of_visit= (select distinct date_of_visit from assessments_answergroup_institution where questiongroup_id=62 and institution_id in (select id from schools_institution where gp_id=6303)) where questiongroup_id=63 and institution_id in (select id from schools_institution where gp_id=6303);

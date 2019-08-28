@@ -1,6 +1,8 @@
 import jinja2
 import os
 import shutil
+import xlwt
+import csv
 from django.core.management.base import BaseCommand
 from datetime import datetime, date
 from PyPDF2 import PdfFileReader, PdfFileWriter
@@ -28,6 +30,7 @@ class Command(BaseCommand):
     schooloutputdir = "schoolreports"
     gp_out_file_prefix = "GPReport"
     school_out_file_prefix = "SchoolReport"
+    reportsummary = {}
 
     gpsummary = {} 
     schoolsummary = []
@@ -143,7 +146,7 @@ class Command(BaseCommand):
                         self.endyearmonth)
 
         # print("All GPs data is")
-        #print(data, file=self.utf8stdout)
+        # print(data, file=self.utf8stdout)
         for gp in data["gp_info"]:
             num_contests = len(data["gp_info"][gp])
             suffix = ""
@@ -166,6 +169,32 @@ class Command(BaseCommand):
 
             self.createSchoolsSummary(outputdir)
         self.createGPSummarySheet()
+
+    def createReportSummary(self):
+        filename = "GPContestSummarySheet_"+str(self.now)+".xls"
+        filename = self.outputdir+filename
+        book = xlwt.Workbook()
+        sheet = book.add_sheet("SummaryInfo")
+        csvtempfile = open('tempfilename.csv', 'w')
+        writer = csv.writer(csvtempfile)
+        writer.writerow(["District", "Block","GP Id", "GP Name","Contest Date","SchoolName", "DISE Code", "Num Class 4 Assessments", "Num Class5 Assessments", "Num Class 6 Assessments", "Generated Date", "Status"])
+        for district in self.reportsummary:
+            for block in self.reportsummary[district]:
+                for gpid in self.reportsummary[district][block]:
+                    for contestdate in self.reportsummary[district][block][gpid]:
+
+                        data = self.reportsummary[district][block][gpid][contestdate]["schoolsummary"]
+                        for schooldata in data:
+                            writer.writerow([district, block, str(gpid) ,self.reportsummary[district][block][gpid][contestdate]["gpname"], contestdate, schooldata["schoolname"], str(schooldata["dise_code"]), str(schooldata["assessmentcounts"][4]), str(schooldata["assessmentcounts"][5]), str(schooldata["assessmentcounts"][6]), str(self.now)])
+        csvtempfile.close()
+        with open('tempfilename.csv', 'rt', encoding='utf8') as f:
+            reader = csv.reader(f)
+            for r, row in enumerate(reader):
+                for c, col in enumerate(row):
+                    sheet.write(r, c, col)
+        book.save(filename)
+        self.deleteTempFiles(['tempfilename.csv'])
+
 
     def createGPSummarySheet(self):
         for district in self.gpsummary:
@@ -238,6 +267,7 @@ class Command(BaseCommand):
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]}]}
+            self.reportsummary[gpdata["district"]] = {gpdata["block"]:{gpid:{gpdata["contestdate"]:{"gpname":gpdata["gp_name"].capitalize(), "schoolsummary": []}}}}
         else:
             if gpdata["block"] in self.gpsummary[gpdata["district"]]:
                 self.gpsummary[gpdata["district"]][gpdata["block"]].append({"gpid": gpid,
@@ -247,6 +277,10 @@ class Command(BaseCommand):
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]})
+                if gpid not in self.reportsummary[gpdata["district"]][gpdata["block"]]:
+                    self.reportsummary[gpdata["district"]][gpdata["block"]][gpid] = {gpdata["contestdate"]:{"gpname":gpdata["gp_name"].capitalize(), "schoolsummary": []}}
+                else:
+                    self.reportsummary[gpdata["district"]][gpdata["block"]][gpid][gpdata["contestdate"]]={"gpname":gpdata["gp_name"].capitalize(), "schoolsummary": []}
             else:
                 self.gpsummary[gpdata["district"]][gpdata["block"]] = [{"gpid": gpid,
                                "gpname": gpdata["gp_name"].capitalize(),
@@ -255,6 +289,8 @@ class Command(BaseCommand):
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]}]
+                self.reportsummary[gpdata["district"]][gpdata["block"]]={gpid: {gpdata["contestdate"]:{"gpname":gpdata["gp_name"].capitalize(),"schoolsummary":[]}}}
+                
   
         return outputdir, output_file+".pdf"
 
@@ -363,6 +399,7 @@ class Command(BaseCommand):
         self.combinePdfs(pdfscreated, school_file, outputdir)
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
+        self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
         return school_file
 
     def deleteTempFiles(self, tempFiles):
@@ -478,6 +515,8 @@ class Command(BaseCommand):
             self.createGPReportsPerBoundary()
         else:
             self.createGPReports()
+
+        self.createReportSummary()
 
         os.system('tar -cvf '+self.outputdir+'.tar '+self.outputdir+'/')
 
