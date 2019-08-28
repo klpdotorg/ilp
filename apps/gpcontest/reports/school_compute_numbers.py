@@ -5,7 +5,7 @@ from assessments.models import (
     SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg,
     QuestionGroup,
     QuestionGroup_Questions,
-    AnswerGroup_Institution
+    AnswerGroup_Institution, CompetencyOrder
 )
 from schools.models import (
     Institution
@@ -46,6 +46,7 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         institution_id=school_id).filter(
             questiongroup_id=questiongroup_id
         ).filter(yearmonth=contest_yearmonth)
+    competency_order = CompetencyOrder.objects.filter(questiongroup_id=questiongroup_id)
     competency_map = {}
     # Stick the competencies and their percentages in a dict so as to compute
     # the three lowest percentage scores
@@ -53,6 +54,12 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         competency_map[each_row.question_key] = each_row.percent_score
     three_smallest = nsmallest(3, competency_map, key=competency_map.get)
     deficiencies = []
+    # Sort the competencies based on order so we always show basic->advanced
+    sorted_keys={}
+    for key in three_smallest:
+        sequence = competency_order.get(key=key).sequence
+        sorted_keys[key] = sequence
+    three_smallest = sorted(sorted_keys.keys(), key=sorted_keys.get)
     # Fetch the local lang name from the mvw
     for key in three_smallest:
         qs = queryset.filter(question_key=key)
