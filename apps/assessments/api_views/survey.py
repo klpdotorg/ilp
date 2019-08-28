@@ -32,7 +32,6 @@ from boundary.models import (
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
     BoundaryType, ElectionBoundary
 )
-from users.authentication import PasswordlessAuthBackend
 from boundary.serializers import BoundarySerializer, ElectionBoundarySerializer
 
 from schools.models import (
@@ -629,10 +628,6 @@ class AssessmentSyncView(APIView):
                     print("Error saving stories and answers:", e)
                     response['failed'].append(story.get('_id'))
         return Response(response)
-<<<<<<< HEAD
-        
-=======
->>>>>>> 157d43adc2ceaa4c2e00800970d8f54e39479123
 
 
 class AssessmentsImagesView(APIView):

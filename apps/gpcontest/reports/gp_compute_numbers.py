@@ -6,7 +6,8 @@ from assessments.models import (
     SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
     SurveyInstitutionQuestionGroupQuestionKeyAgg,
-    CompetencyOrder
+    CompetencyOrder,
+    SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg
 )
 from schools.models import Institution
 from boundary.models import (
@@ -358,18 +359,19 @@ def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yea
             institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
                     question_key=key).annotate(total_answers=Sum('num_assessments'))
-    
-    total = total_ans['total_answers']
+    total = 0
+    if total and total_ans["total_answers"] is not None:
+        total = total_ans['total_answers']
     correct_ans = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
         survey_id=survey_id).filter(
             institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
                     question_key=key).annotate(total_answers=Sum('num_assessments'))
-    correct = correct_ans['total_answers']
-    if total is None:
-        total = 0
-    if correct is None:
-        correct = 0
-    perc = round((correct / total) * 100, 2)
+    correct = 0
+    if correct and correct_ans['total_answers'] is not None:
+        correct = correct_ans['total_answers']
+    if total > 0:
+        perc = round((correct / total) * 100, 2)
+    else:
+        perc = 0
     return perc
-

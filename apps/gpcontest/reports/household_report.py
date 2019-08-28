@@ -3,12 +3,16 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
     SurveyBoundaryQuestionGroupAnsAgg,
+    SurveyInstitutionQuestionGroupAgg,
+    SurveyInstitutionRespondentTypeAgg,
     SurveyInstitutionQuestionGroupAnsAgg,
-    SurveyInstitutionHHRespondentTypeAnsAgg,
     Question,
     QuestionGroup_Questions
     )
-from gpcontest.gp_compute_numbers import (
+from gpcontest.models import (
+    SurveyInstitutionHHRespondentTypeAnsAgg,
+)
+from gpcontest.reports.gp_compute_numbers import (
     getCompetencyPercPerSchool
 )
 from schools.models import Institution
@@ -25,15 +29,16 @@ def getParentalPerception(survey_id, school_id, date_range):
             institution_id=school_id).filter(
             yearmonth__range=date_range).filter(
                 question_id__in=question_ids).order_by('question_id').values(
-                    'question_id', 'question_desc', 'count_yes')
+                    'question_id', 'question_desc', 'num_yes', 'num_no', 'num_unknown')
     result = {}
     for perception in perception_qs:
-        if perception.question_id == 149:
-            result["Addition"] = perception.count_yes
-        elif perception.question_id == 150:
-            result["Subtraction"] = perception.count_yes
-        elif perception.question_id == 138:
-            result["Separate Toilets"] = perception.count_yes
+        total = perception["num_yes"] + perception["num_no"] + perception["num_unknown"]
+        if perception["question_id"] == 149:
+            result["Addition"] = round(perception["num_yes"]*100/total)
+        elif perception["question_id"] == 150:
+            result["Subtraction"] = round(perception["num_yes"]*100/total)
+        elif perception["question_id"] == 138:
+            result["Separate Toilets"] = round(perception["num_yes"]*100/total)
     return result
 
 
@@ -64,7 +69,21 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                     .filter(yearmonth__range=date_range,questiongroup_id__in=[18,20])
             except SurveyInstitutionQuestionGroupAnsAgg.DoesNotExist:
                 print("No community survey data for '{}' between {} and {}".format(school_id, date_range))
-           
+            total_assess = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id=school_id) \
+                .filter(
+                    yearmonth__range=date_range, questiongroup_id__in=[18, 20]
+                    ).filter(survey_tag='konnect').values(
+                        'survey_id', 'institution_id'
+                    ).annotate(total=Sum('num_assessments'))
+            HHSurvey['total_assessments'] = total_assess[0]['total']
+            total_parental_assess = SurveyInstitutionRespondentTypeAgg.objects. \
+                filter(institution_id=school_id) \
+                .filter(
+                    yearmonth__range=date_range, survey_id=7
+                    ).filter(survey_tag='konnect').values(
+                        'survey_id', 'institution_id'
+                    ).annotate(total=Sum('num_assessments'))
+            HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
             if hh_answers_agg is not None and hh_answers_agg.exists():
                 HHSurvey['school_name'] = school.name
                 HHSurvey['district_name'] = school.admin1.name
@@ -186,19 +205,19 @@ for a given academic year
 
 
 def get_all_hh_reports(
-                        household_survey_id,
+                        household_survey_id,gpc_survey_id,
                         from_yearmonth, to_yearmonth):
     school_ids = get_schools_for_timeframes(
         household_survey_id, from_yearmonth, to_yearmonth)
     results = {}
     for school in school_ids:
-        hh_data = ggetHouseholdSurveyForSchool(household_survey_id, school, [from_yearmonth, to_yearmonth])
+        hh_data = ggetHouseholdSurveyForSchool(household_survey_id, gpc_survey_id,school, [from_yearmonth, to_yearmonth])
         results[school] = hh_data
     return results
 
 
 def get_hh_reports_for_districts(
-                                    household_survey_id,
+                                    household_survey_id, gpc_survey_id,
                                     boundary_ids, from_yearmonth,
                                     to_yearmonth):
     """
@@ -208,28 +227,28 @@ def get_hh_reports_for_districts(
         household_survey_id, boundary_ids, from_yearmonth, to_yearmonth)
     results = {}
     for school in school_ids:
-        hh_data = getHouseholdSurveyForSchool(household_survey_id, school, [from_yearmonth, to_yearmonth])
+        hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id, school, [from_yearmonth, to_yearmonth])
         results[school] = hh_data
     return results
 
 def get_hh_reports_for_gps(
-                            household_survey_id,
+                            household_survey_id, gpc_survey_id,
                             gp_ids, from_yearmonth,
                             to_yearmonth):
     school_ids = get_schools_for_gps(household_survey_id, gp_ids, from_yearmonth, to_yearmonth)
     results = {}
     for school in school_ids:
-        hh_data = getHouseholdSurveyForSchool(household_survey_id, school, [from_yearmonth, to_yearmonth])
+        hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id, school, [from_yearmonth, to_yearmonth])
         results[school] = hh_data
     return results
 
     
 def get_hh_reports_for_school_ids(
-                                    household_survey_id, school_ids,
+                                    household_survey_id, gpc_survey_id,school_ids,
                                     from_yearmonth, to_yearmonth):
     results = {}
     for school in school_ids:
-        hh_data = getHouseholdSurveyForSchool(household_survey_id, school, [from_yearmonth, to_yearmonth])
+        hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id,school, [from_yearmonth, to_yearmonth])
         results[school] = hh_data
     return results
 
