@@ -112,9 +112,10 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                     HHSurvey['dise_code'] = 'Unknown'
                 HHSurvey['parents_perception'] = getParentalPerception(survey_id, school_id, date_range)
                 HHSurvey['gpcontest_data'] = getGPContestPercentages(gp_survey_id, school_id, date_range)
-                hh_answers_agg.values('question_id').annotate(perc_yes=Round(Sum('count_yes') * 100 / Sum('total')))
-                hh_answers_agg.values('question_id').annotate(perc_no=Round(Sum('count_no') * 100 / Sum('total')))
-                hh_answers_agg.values('question_id').annotate(perc_unknown=Round(Sum('count_unknown') * 100 / Sum('total')))
+                total = hh_answers_agg.values('question_id').annotate(total=F('count_yes')+F('count_no')+F('count_unknown'))
+                hh_answers_agg.values('question_id').annotate(perc_yes=Round(Sum('count_yes') * 100 / total['total']))
+                hh_answers_agg.values('question_id').annotate(perc_no=Round(Sum('count_no') * 100 / total['total']))
+                hh_answers_agg.values('question_id').annotate(perc_unknown=Round(Sum('count_unknown') * 100 / total['total']))
                 # total_yes_answers = hh_answers_agg.values('question_id').annotate(Sum('count_yes'))
                 sorted_questions = hh_answers_agg.order_by('order')
                 # total_no_answers = hh_answers_agg.values('question_id').annotate(Sum('count_no'))
