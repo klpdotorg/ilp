@@ -191,3 +191,27 @@ class SurveyInstitutionHHRespondentTypeAnsAgg(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_hh_survey_institution_respondent_ans_agg'
+
+class HHSurveyInstitutionQuestionAnsAgg(models.Model):
+    """Agg specifically created for household survey reports"""
+    survey_id = models.ForeignKey('assessments.Survey', db_column="survey_id")
+    institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
+    institution_name = models.CharField(max_length=200, db_column="institution_name")
+    gp_id = models.ForeignKey('boundary.ElectionBoundary', db_column="gp_id")
+    gp_name = models.CharField(max_length=200, db_column="gp_name")
+    district_name = models.CharField(max_length=200, db_column="district_name")
+    block_name = models.CharField(max_length=200, db_column="block_name")
+    cluster_name = models.CharField(max_length=200, db_column="cluster_name")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    order = yearmonth = models.IntegerField(db_column="order")
+    question_id = models.ForeignKey('assessments.Question', db_column="question_id")
+    question_desc = models.CharField(max_length=200, db_column="question_desc")
+    lang_questiondesc = models.CharField(max_length=200, db_column="lang_questiondesc")
+    count_yes = models.IntegerField(db_column="count_yes")
+    count_no = models.IntegerField(db_column="count_no")
+    count_unknown = models.IntegerField(db_column="count_unknown")
+
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_hh_institution_question_ans_agg'
