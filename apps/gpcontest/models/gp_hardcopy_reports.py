@@ -186,7 +186,7 @@ class SurveyInstitutionHHRespondentTypeAnsAgg(models.Model):
     num_yes = models.IntegerField(db_column="count_yes")
     num_no = models.IntegerField(db_column="count_no")
     num_unknown = models.IntegerField(db_column="count_unknown")
-
+    total = models.IntegerField(db_column="total")
 
     class Meta:
         managed = False
