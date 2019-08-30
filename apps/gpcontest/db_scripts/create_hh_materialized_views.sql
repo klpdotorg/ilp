@@ -34,7 +34,7 @@ DROP MATERIALIZED VIEW IF EXISTS mvw_hh_institution_question_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_hh_institution_question_ans_agg AS
 WITH subquery1 AS
 (
-SELECT format('A%s_%s_%s', survey_id,institution_id) as id,
+SELECT format('A%s_%s', survey_id,institution_id) as id,
 	questiongroup.survey_id as survey_id,
 	ag.institution_id as institution_id,
 	schools.name as institution_name,
