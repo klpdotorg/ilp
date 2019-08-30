@@ -36,6 +36,7 @@ class Command(BaseCommand):
     gpids = None
     survey = None
     surveyid = None
+    gpsurveyid = None
     schoolids = None
     districtids = None
     colour = "bw"
@@ -43,6 +44,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
+        parser.add_argument('gpsurveyid')
         parser.add_argument('startyearmonth')
         parser.add_argument('endyearmonth')
         parser.add_argument('--sid', nargs='?')
@@ -99,6 +101,13 @@ class Command(BaseCommand):
             print("Invalid surveyid: "+str(self.surveyid)+" passed")
             return False
 
+        try:
+            self.survey = Survey.objects.get(id=self.gpsurveyid)
+        except Survey.DoesNotExist:
+            print("Invalid GP surveyid: "+str(self.gpsurveyid)+" passed")
+            return False
+
+
         if not self.checkYearMonth(self.startyearmonth):
             print("Start year month format is invalid it should be YYYYMM, " +
                   self.startyearmonth)
@@ -114,15 +123,17 @@ class Command(BaseCommand):
     
     def createSchoolHouseHoldReports(self):
         schooldata = household_report.get_hh_reports_for_school_ids(self.surveyid,
+                                                   self.gpsurveyid,
                                                    self.schoolids,
                                                    self.startyearmonth, 
                                                    self.endyearmonth)
 
-        print(schooldata)
+        #print(schooldata)
         self.createSchoolPdfs(schooldata)
 
     def createHouseHoldReportBoundary(self):
         schooldata = household_report.get_hh_reports_for_districts(self.surveyid,
+                                                   self.gpsurveyid,
                                                    self.districtids,
                                                    self.startyearmonth, 
                                                    self.endyearmonth)
@@ -147,7 +158,10 @@ class Command(BaseCommand):
                           "disecode": schooldata["dise_code"],
                           "gpid": schooldata["gp_id"],
                           "gpname": schooldata["gp_name"].capitalize(),
+                          "numparentassessments": schooldata["total_parental_assessments"],
+                          "numassessments": schooldata["total_assessments"],
                           "month": self.getYearMonth(self.startyearmonth)+"-"+self.getYearMonth(self.endyearmonth)}
+            compare = {"parent":schooldata["parents_perception"], "gpcontest": "gpcontest_data"}
             assessmentinfo = schooldata["answers"]
             outputdir = self.outputdir+"/"+schooldata["district_name"]+"/"+schooldata["block_name"]+"/"+schooldata["gp_name"]+"/"
             if not os.path.exists(outputdir):
@@ -161,7 +175,7 @@ class Command(BaseCommand):
             survey["assessmentinfo"] = assessmentinfo
             print("Before rendering")
             renderer_template = self.templates["school"]["latex"].render(
-                    info=info, schoolinfo=schoolinfo, survey=survey)
+                    info=info, schoolinfo=schoolinfo,compare=compare, survey=survey)
             print("After rendering")
             school_out_file = self.school_out_file_prefix+"_" +\
                                     str(schoolinfo["klpid"])
@@ -223,6 +237,7 @@ class Command(BaseCommand):
         if gpids is not None:
             self.gpids = [int(x) for x in gpids.split(',')]
         self.surveyid = options.get("surveyid", None)
+        self.gpsurveyid = options.get("gpsurveyid", None)
         self.startyearmonth = options.get("startyearmonth", None)
         self.endyearmonth = options.get("endyearmonth", None)
         self.academicyear = self.getAcademicYear(self.startyearmonth,
