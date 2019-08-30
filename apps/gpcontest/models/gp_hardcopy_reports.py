@@ -203,13 +203,14 @@ class HHSurveyInstitutionQuestionAnsAgg(models.Model):
     block_name = models.CharField(max_length=200, db_column="block_name")
     cluster_name = models.CharField(max_length=200, db_column="cluster_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
-    order = yearmonth = models.IntegerField(db_column="order")
+    order = yearmonth = models.IntegerField(db_column="seq")
     question_id = models.ForeignKey('assessments.Question', db_column="question_id")
     question_desc = models.CharField(max_length=200, db_column="question_desc")
     lang_questiondesc = models.CharField(max_length=200, db_column="lang_questiondesc")
-    count_yes = models.IntegerField(db_column="count_yes")
-    count_no = models.IntegerField(db_column="count_no")
-    count_unknown = models.IntegerField(db_column="count_unknown")
+    total = models.IntegerField(db_column="total")
+    perc_yes = models.IntegerField(db_column="perc_yes")
+    perc_no = models.IntegerField(db_column="perc_no")
+    perc_unknown = models.IntegerField(db_column="perc_unknown")
 
 
     class Meta:

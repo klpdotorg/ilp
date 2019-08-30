@@ -32,7 +32,9 @@ FROM(
 -- 
 DROP MATERIALIZED VIEW IF EXISTS mvw_hh_institution_question_ans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_hh_institution_question_ans_agg AS
-SELECT format('A%s_%s_%s', survey_id,institution_id, to_char(ag.date_of_visit,'YYYYMM')::int) as id,
+WITH subquery1 AS
+(
+SELECT format('A%s_%s_%s', survey_id,institution_id) as id,
 	questiongroup.survey_id as survey_id,
 	ag.institution_id as institution_id,
 	schools.name as institution_name,
@@ -41,14 +43,14 @@ SELECT format('A%s_%s_%s', survey_id,institution_id, to_char(ag.date_of_visit,'Y
 	b1.name as district_name,
 	b2.name as block_name,
 	b3.name as cluster_name,
-	to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
 	q.id as question_id,
 	CASE q.display_text WHEN '' THEN q.question_text ELSE q.display_text END as question_desc,
 	q.lang_name as lang_questiondesc,
-	qngroup_questions.sequence AS order,
+	qngroup_questions.sequence AS seq,
 	COUNT(CASE ans.answer WHEN 'Yes' THEN ag.id END) AS count_yes,
 	COUNT(CASE ans.answer WHEN 'No' THEN ag.id END) AS count_no,
-	COUNT(CASE WHEN ans.answer NOT IN ('Yes','No') THEN ag.id END) AS count_unknown
+	COUNT(CASE WHEN ans.answer NOT IN ('Yes','No') THEN ag.id END) AS count_unknown,
+	COUNT(ans.answer) AS total
 FROM assessments_answergroup_institution ag, 
 	assessments_answerinstitution ans, 
 	assessments_questiongroup as questiongroup, 
@@ -60,7 +62,8 @@ FROM assessments_answergroup_institution ag,
 	boundary_boundary as b2,
 	boundary_boundary as b3
 WHERE
-	ag.questiongroup_id=questiongroup.id
+	ag.date_of_visit BETWEEN :from_date and :to_date
+	and ag.questiongroup_id=questiongroup.id
 	and ans.answergroup_id=ag.id
 	and ans.question_id=q.id
 	and questiongroup.survey_id=7
@@ -81,8 +84,28 @@ GROUP BY
 	b3.name,
 	eb.const_ward_name,
 	qngroup_questions.sequence,
-	to_char(ag.date_of_visit,'YYYYMM')::int,q.id;
-
-
+	q.id
+)
+SELECT 
+	id,
+	survey_id, 
+	institution_id,
+	institution_name,
+	gp_id,
+	gp_name,
+	district_name,
+	block_name,
+	cluster_name,
+	question_id,
+	question_desc,
+	lang_questiondesc,
+	seq,
+	total,
+	count_yes*100/total AS perc_yes,
+	count_no*100/total AS perc_no,
+	count_unknown*100/total AS perc_unknown
+FROM
+subquery1
+GROUP BY id,survey_id, institution_id, institution_name, gp_id, gp_name, district_name, block_name, cluster_name, question_id, question_desc,lang_questiondesc,seq,total,count_yes, count_no, count_unknown;
 
 
