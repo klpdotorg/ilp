@@ -359,7 +359,7 @@ def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yea
             institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
                     question_key=key).annotate(total_answers=Sum('num_assessments'))
-    total = 0
+    total = None
     if total and total_ans["total_answers"] is not None:
         total = total_ans['total_answers']
     correct_ans = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
@@ -370,7 +370,10 @@ def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yea
     correct = 0
     if correct and correct_ans['total_answers'] is not None:
         correct = correct_ans['total_answers']
-    if total > 0:
+    if total is None:
+        # Data unavailable for this GP for this competency
+        perc='NA'
+    elif total > 0:
         perc = round((correct / total) * 100, 2)
     else:
         perc = 0
