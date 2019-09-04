@@ -11,6 +11,7 @@ from assessments.models import (
     )
 from gpcontest.models import (
     SurveyInstitutionHHRespondentTypeAnsAgg,
+    HHSurveyInstitutionQuestionAnsAgg
 )
 from gpcontest.reports.gp_compute_numbers import (
     getCompetencyPercPerSchool
@@ -19,7 +20,7 @@ from schools.models import Institution
 from boundary.models import (
     Boundary, ElectionBoundary
 )
-from django.db.models import Sum
+from django.db.models import Sum, F, Count
 
 
 def getParentalPerception(survey_id, school_id, date_range):
@@ -28,7 +29,7 @@ def getParentalPerception(survey_id, school_id, date_range):
         survey_id=survey_id).filter(
             institution_id=school_id).filter(
             yearmonth__range=date_range).filter(
-                question_id__in=question_ids).order_by('question_id').values(
+                question_id__in=question_ids).filter(respondent_type='Parents').order_by('question_id').values(
                     'question_id', 'question_desc', 'num_yes', 'num_no', 'num_unknown')
     result = {}
     for perception in perception_qs:
@@ -65,10 +66,11 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
         answers = []
         if school is not None:
             try:
-                hh_answers_agg = SurveyInstitutionQuestionGroupAnsAgg.objects.filter(institution_id=school_id)\
-                    .filter(yearmonth__range=date_range,questiongroup_id__in=[18,20])
-            except SurveyInstitutionQuestionGroupAnsAgg.DoesNotExist:
+                hh_answers_agg = HHSurveyInstitutionQuestionAnsAgg.objects.filter(institution_id=school_id)
+            except HHSurveyInstitutionQuestionAnsAgg.DoesNotExist:
                 print("No community survey data for '{}' between {} and {}".format(school_id, date_range))
+                raise ValueError("No community survey data for '{}' between {} and {}".format(school_id, date_range))
+            # Find the total number of assessments
             total_assess = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id=school_id) \
                 .filter(
                     yearmonth__range=date_range, questiongroup_id__in=[18, 20]
@@ -76,6 +78,7 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                         'survey_id', 'institution_id'
                     ).annotate(total=Sum('num_assessments'))
             HHSurvey['total_assessments'] = total_assess[0]['total']
+            # Find the total number of parental assessments
             total_parental_assess = SurveyInstitutionRespondentTypeAgg.objects. \
                 filter(institution_id=school_id) \
                 .filter(
@@ -84,6 +87,8 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                         'survey_id', 'institution_id'
                     ).annotate(total=Sum('num_assessments'))
             HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
+
+            #Run through the questions
             if hh_answers_agg is not None and hh_answers_agg.exists():
                 HHSurvey['school_name'] = school.name
                 HHSurvey['district_name'] = school.admin1.name
@@ -92,7 +97,7 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
 
                 if school.gp is not None:
                     HHSurvey['gp_name'] = school.gp.const_ward_name
-                    HHSurvey['gp_id'] = school.gp.id
+                    HHSurvey['gp_id'] = school.gp.id 
                 else:
                     HHSurvey['gp_name'] = "Unknown"
                     HHSurvey['gp_id'] = "Unknown"
@@ -106,98 +111,74 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                     HHSurvey['dise_code'] = 'Unknown'
                 HHSurvey['parents_perception'] = getParentalPerception(survey_id, school_id, date_range)
                 HHSurvey['gpcontest_data'] = getGPContestPercentages(gp_survey_id, school_id, date_range)
-                total_hh_answers = hh_answers_agg.values('question_id').annotate(Sum('num_answers'))
-                total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_id').annotate(Sum('num_answers'))
-                total_no_answers = hh_answers_agg.filter(answer_option='No').values('question_id').annotate(Sum('num_answers'))
-                total_unknown_answers = hh_answers_agg.filter(answer_option='Don\'t Know').values('question_id').annotate(Sum('num_answers'))
-                ordered_list = QuestionGroup_Questions.objects.filter(questiongroup_id__in=[18, 20]).order_by('sequence', 'question_id').distinct('sequence', 'question_id').values_list('question_id', flat=True)
-                ordered_list = list(ordered_list)
-                sorted_questions = sorted(total_hh_answers, key=lambda q: ordered_list.index(q['question_id']))
-                #print(sorted_questions.values_list('question_id', flat=True))
+                sorted_questions = hh_answers_agg.order_by('order')
                 for each_answer in sorted_questions:
-                    try:
-                        question_desc = total_yes_answers.get(question_id=each_answer['question_id'])
-                        total_yes_count = question_desc['num_answers__sum']
-                    except:
-                        total_yes_count = 0
-                    try:
-                        questions_no = total_no_answers.get(question_id=each_answer['question_id'])
-                        total_no_count = questions_no['num_answers__sum']
-                    except:
-                        total_no_count = 0
-                    try:
-                        questions_unknown = total_unknown_answers.get(question_id=each_answer['question_id'])
-                        total_unknown_count = questions_unknown['num_answers__sum']
-                    except:
-                        total_unknown_count = 0
-                    question_text = Question.objects.get(id=each_answer['question_id']).question_text
-                    lang_question_text = Question.objects.get(id=each_answer['question_id']).lang_name
                     answers.append({
-                        'question_id': each_answer['question_id'],
-                        'text': question_text,
-                        'lang_text': lang_question_text,
-                        'percentage_yes': "{:.2f}".format(round((total_yes_count / each_answer['num_answers__sum']) * 100, 2)),
-                        'percentage_no': "{:.2f}".format(round((total_no_count / each_answer['num_answers__sum']) * 100, 2)),
-                        'percentage_unknown': "{:.2f}".format(round((total_unknown_count / each_answer['num_answers__sum']) * 100, 2))
-                        })
+                        'question_id': each_answer.question_id.id,
+                        'text': each_answer.question_desc,
+                        'lang_text': each_answer.lang_questiondesc,
+                        'percentage_yes': each_answer.perc_yes,
+                        'percentage_no': each_answer.perc_no,
+                        'percentage_unknown': each_answer.perc_unknown
+                       })
                 HHSurvey["answers"] = answers
             else:
-                print("No community survey data for '{}' between {} and {}".format(boundary.name, date_range))
+                print("No community survey data for '{}' between {} and {}".format(school.name, date_range))
         return HHSurvey
 
 
-def getHouseholdSurveyForBoundary(survey_id,boundary_id,date_range):
-        """ Returns household survey aggregate values in a dictionary per boundary """
-        boundary = None
-        # Boundary has to be a Boundary or ElectionBoundary
-        try:
-            boundary = Boundary.objects.get(id=boundary_id)
-        except:
-            boundary = ElectionBoundary.objects.get(id=boundary_id)
-        hh_answers_agg = None
-        HHSurvey = {}
-        answers = []
-        boundary_type = None
-        if boundary is not None:
-            boundary_type = ""
-            boundary_name = ""
-            if isinstance(boundary, ElectionBoundary):
-                boundary_type = boundary.const_ward_type_id
-                boundary_name = boundary.const_ward_name
-                try:
-                    hh_answers_agg = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(eboundary_id=boundary)\
-                        .filter(yearmonth__range=date_range,questiongroup_id__in=[18,20])
-                except SurveyEBoundaryQuestionGroupAnsAgg.DoesNotExist:
-                    print("No community survey data for '{}' between {} and {}".format(boundary.const_ward_name, date_range))
-            else:
-                #Household Survey
-                boundary_type = boundary.boundary_type_id
-                boundary_name = boundary.name
-                hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
-                    .filter(yearmonth__range=date_range,questiongroup_id__in=[18,20])
-            if hh_answers_agg is not None and hh_answers_agg.exists():
-                HHSurvey['boundary_name'] = boundary_name
-                HHSurvey['boundary_type'] = boundary_type
-                total_hh_answers = hh_answers_agg.values('question_id').annotate(Sum('num_answers'))
-                total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_id').annotate(Sum('num_answers'))
-                total_no_answers = hh_answers_agg.filter(answer_option='No').values('question_id').annotate(Sum('num_answers'))
-                total_unknown_answers = hh_answers_agg.filter(answer_option='Don\'t Know').values('question_id').annotate(Sum('num_answers'))
-                ordered_list = QuestionGroup_Questions.objects.filter(questiongroup_id__in=[18, 20]).order_by('sequence', 'question_id').distinct('sequence', 'question_id').values_list('question_id', flat=True)
-                ordered_list = list(ordered_list)
-                sorted_questions = sorted(total_hh_answers, key=lambda q: ordered_list.index(q['question_id']))
-                #print(sorted_questions.values_list('question_id', flat=True))
-                for each_answer in sorted_questions:
-                    try:
-                        question_desc = total_yes_answers.get(question_id=each_answer['question_id'])
-                        total_yes_count = question_desc['num_answers__sum']
-                    except:
-                        total_yes_count = 0
-                    question_text = Question.objects.get(id=each_answer['question_id']).question_text
-                    answers.append({'question_id': each_answer['question_id'], 'text':question_text,'percentage': "{:.2f}".format(round((total_yes_count/each_answer['num_answers__sum'])*100, 2))})
-                HHSurvey["answers"] = answers
-            else:
-                print("No community survey data for '{}' between {} and {}".format(boundary.name, date_range))
-        return HHSurvey
+# def getHouseholdSurveyForBoundary(survey_id,boundary_id,date_range):
+#         """ Returns household survey aggregate values in a dictionary per boundary """
+#         boundary = None
+#         # Boundary has to be a Boundary or ElectionBoundary
+#         try:
+#             boundary = Boundary.objects.get(id=boundary_id)
+#         except:
+#             boundary = ElectionBoundary.objects.get(id=boundary_id)
+#         hh_answers_agg = None
+#         HHSurvey = {}
+#         answers = []
+#         boundary_type = None
+#         if boundary is not None:
+#             boundary_type = ""
+#             boundary_name = ""
+#             if isinstance(boundary, ElectionBoundary):
+#                 boundary_type = boundary.const_ward_type_id
+#                 boundary_name = boundary.const_ward_name
+#                 try:
+#                     hh_answers_agg = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(eboundary_id=boundary)\
+#                         .filter(yearmonth__range=date_range,questiongroup_id__in=[18,20])
+#                 except SurveyEBoundaryQuestionGroupAnsAgg.DoesNotExist:
+#                     print("No community survey data for '{}' between {} and {}".format(boundary.const_ward_name, date_range))
+#             else:
+#                 #Household Survey
+#                 boundary_type = boundary.boundary_type_id
+#                 boundary_name = boundary.name
+#                 hh_answers_agg = SurveyBoundaryQuestionGroupAnsAgg.objects.filter(boundary_id=boundary)\
+#                     .filter(yearmonth__range=date_range,questiongroup_id__in=[18,20])
+#             if hh_answers_agg is not None and hh_answers_agg.exists():
+#                 HHSurvey['boundary_name'] = boundary_name
+#                 HHSurvey['boundary_type'] = boundary_type
+#                 total_hh_answers = hh_answers_agg.values('question_id').annotate(Sum('num_answers'))
+#                 total_yes_answers = hh_answers_agg.filter(answer_option='Yes').values('question_id').annotate(Sum('num_answers'))
+#                 total_no_answers = hh_answers_agg.filter(answer_option='No').values('question_id').annotate(Sum('num_answers'))
+#                 total_unknown_answers = hh_answers_agg.filter(answer_option='Don\'t Know').values('question_id').annotate(Sum('num_answers'))
+#                 ordered_list = QuestionGroup_Questions.objects.filter(questiongroup_id__in=[18, 20]).order_by('sequence', 'question_id').distinct('sequence', 'question_id').values_list('question_id', flat=True)
+#                 ordered_list = list(ordered_list)
+#                 sorted_questions = sorted(total_hh_answers, key=lambda q: ordered_list.index(q['question_id']))
+#                 #print(sorted_questions.values_list('question_id', flat=True))
+#                 for each_answer in sorted_questions:
+#                     try:
+#                         question_desc = total_yes_answers.get(question_id=each_answer['question_id'])
+#                         total_yes_count = question_desc['num_answers__sum']
+#                     except:
+#                         total_yes_count = 0
+#                     question_text = Question.objects.get(id=each_answer['question_id']).question_text
+#                     answers.append({'question_id': each_answer['question_id'], 'text':question_text,'percentage': "{:.2f}".format(round((total_yes_count/each_answer['num_answers__sum'])*100, 2))})
+#                 HHSurvey["answers"] = answers
+#             else:
+#                 print("No community survey data for '{}' between {} and {}".format(boundary.name, date_range))
+#         return HHSurvey
 
 
 """
