@@ -54,7 +54,6 @@ class BackOfficeLoginView(UserLoginView):
             # check_source_and_add_user_to_group(request, serializer.user)
             if user.is_staff:
                 print("user is a staff")
-                import pdb; pdb.set_trace()
                 print(request.GET.get('next', '/backoffice/'))
                 return HttpResponseRedirect(request.GET.get('next', '/backoffice/'))
             else:
