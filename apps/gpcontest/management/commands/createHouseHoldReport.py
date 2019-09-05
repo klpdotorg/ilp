@@ -8,9 +8,10 @@ from assessments.models import Survey
 from boundary.models import ElectionBoundary, Boundary
 from schools.models import Institution
 from gpcontest.reports import household_report
+from . import baseReport
 
 
-class Command(BaseCommand):
+class Command(BaseCommand, baseReport.BaseReport):
     # used for printing utf8 chars to stdout
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
     help = 'Creates HouseHold Reports, pass (if no districtid or sid is passed\
@@ -21,108 +22,69 @@ class Command(BaseCommand):
     basefiledir = os.getcwd()
     templatedir = "/apps/gpcontest/templates/"
     outputdir = basefiledir+"/generated_files/householdreports/"+str(now)+"/HouseHoldReports/"
-    schooloutputdir = "schoolreports"
     school_out_file_prefix = "HouseHoldSchoolReport"
-
-    schoolsummary = []
-    # gp_template_name = "GPReport.tex"
-    # school_template_name = "GPSchoolReport.tex"
-    # gp_template_file = basefiledir+templatedir+gp_template_name
-    # school_template_file = basefiledir+templatedir+school_template_name
-
     templates = {"school": {"template": "HouseHold.tex", "latex": None}}
-
     build_d = basefiledir+"/build/"
     gpids = None
     survey = None
     surveyid = None
+    gpsurveyid = None
     schoolids = None
     districtids = None
     colour = "bw"
     imagesdir = basefiledir+"/apps/gpcontest/images/"
+    validqids = {138,144,145,269,147,148,149,150}
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
+        parser.add_argument('gpsurveyid')
         parser.add_argument('startyearmonth')
         parser.add_argument('endyearmonth')
         parser.add_argument('--sid', nargs='?')
         parser.add_argument('--districtid', nargs='?')
         parser.add_argument('--reportcolour', nargs='?', default='bw')
 
-    def initiatelatex(self):
-        # create the build directory if not existing
-        if not os.path.exists(self.build_d):
-            os.makedirs(self.build_d)
-        latex_jinja_env = jinja2.Environment(
-            variable_start_string='{{',
-            variable_end_string='}}',
-            comment_start_string='\#{',
-            comment_end_string='}',
-            line_comment_prefix='%%',
-            trim_blocks=True,
-            autoescape=False,
-            loader=jinja2.FileSystemLoader(os.path.abspath('/'))
-        )
-        for filetype in self.templates:
-            self.templates[filetype]["latex"] = latex_jinja_env.get_template(
-                self.basefiledir+self.templatedir+self.templates[filetype]["template"])
-
-    def checkYearMonth(self, yearmonth):
-        try:
-            datetime.strptime(yearmonth, '%Y%m')
-        except ValueError:
-            return False
-        return True
-
     def validateInputs(self):
+        print(2.1)
+        print(self.gpids)
         if self.gpids is not None:
-            for gp in self.gpids:
-                try:
-                    self.gp[gp] = ElectionBoundary.objects.get(
-                            id=gp, const_ward_type='GP')
-                except ElectionBoundary.DoesNotExist:
-                    print("Invalid gpid: "+str(gp)+" passed")
-                    return False
-
+            if not self.validateGPIds(self.gpids):
+                return False
+        print(2.2)
         if self.districtids is not None:
-            for districtid in self.districtids:
-                try:
-                   Boundary.objects.get(
-                            id=districtid, boundary_type_id='SD')
-                except Boundary.DoesNotExist:
-                    print("Invalid districtid: "+str(districtid)+" passed")
-                    return False
-
-        try:
-            self.survey = Survey.objects.get(id=self.surveyid)
-        except Survey.DoesNotExist:
-            print("Invalid surveyid: "+str(self.surveyid)+" passed")
+            if not self.validateBoundaryIds(self.districtids, 'SD'):
+                return False
+        print(2.3)
+        print(self.surveyid)
+        if not self.validateSurveyId(self.surveyid):
             return False
-
+        print(2.4)
+        print(self.gpsurveyid)
+        if not self.validateSurveyId(self.gpsurveyid):
+            return False
+        print(2.5)
         if not self.checkYearMonth(self.startyearmonth):
-            print("Start year month format is invalid it should be YYYYMM, " +
-                  self.startyearmonth)
             return False
-
+        print(2.6)
         if not self.checkYearMonth(self.endyearmonth):
-            print("End year month format is invalid it should be YYYYMM, " +
-                  self.endyearmonth)
             return False
-
+        print(2.7)
         return True
 
     
     def createSchoolHouseHoldReports(self):
         schooldata = household_report.get_hh_reports_for_school_ids(self.surveyid,
+                                                   self.gpsurveyid,
                                                    self.schoolids,
                                                    self.startyearmonth, 
                                                    self.endyearmonth)
 
-        print(schooldata)
+        #print(schooldata)
         self.createSchoolPdfs(schooldata)
 
     def createHouseHoldReportBoundary(self):
         schooldata = household_report.get_hh_reports_for_districts(self.surveyid,
+                                                   self.gpsurveyid,
                                                    self.districtids,
                                                    self.startyearmonth, 
                                                    self.endyearmonth)
@@ -147,8 +109,14 @@ class Command(BaseCommand):
                           "disecode": schooldata["dise_code"],
                           "gpid": schooldata["gp_id"],
                           "gpname": schooldata["gp_name"].capitalize(),
+                          "numparentassessments": schooldata["total_parental_assessments"],
+                          "numassessments": schooldata["total_assessments"],
                           "month": self.getYearMonth(self.startyearmonth)+"-"+self.getYearMonth(self.endyearmonth)}
-            assessmentinfo = schooldata["answers"]
+            compare = {"parent":schooldata["parents_perception"], "gpcontest": schooldata["gpcontest_data"]}
+            assessmentinfo = []
+            for question in schooldata["answers"]:
+                if question["question_id"] in self.validqids:
+                    assessmentinfo.append(question)
             outputdir = self.outputdir+"/"+schooldata["district_name"]+"/"+schooldata["block_name"]+"/"+schooldata["gp_name"]+"/"
             if not os.path.exists(outputdir):
                 os.makedirs(outputdir)
@@ -161,7 +129,7 @@ class Command(BaseCommand):
             survey["assessmentinfo"] = assessmentinfo
             print("Before rendering")
             renderer_template = self.templates["school"]["latex"].render(
-                    info=info, schoolinfo=schoolinfo, survey=survey)
+                    info=info, schoolinfo=schoolinfo,compare=compare, survey=survey)
             print("After rendering")
             school_out_file = self.school_out_file_prefix+"_" +\
                                     str(schoolinfo["klpid"])
@@ -179,55 +147,18 @@ class Command(BaseCommand):
         self.deleteTempFiles(pdfscreated)
         return 
 
-    def deleteTempFiles(self, tempFiles):
-        for f in tempFiles:
-            os.remove(f)
-
-    def mergeReports(self, outputdir, gpfile, schoolfiles, outputfile):
-        inputfiles = [outputdir+gpfile]
-        for schoolfile in schoolfiles:
-            inputfiles.append(outputdir+schoolfile)
-        self.combinePdfs(inputfiles, outputfile, outputdir) 
-        self.deleteTempFiles(inputfiles)
-
-    def combinePdfs(self, inputfiles, outputfile, outputdir):
-        input_streams = []
-        try:
-            # First open all the files, then produce the output file, and
-            # finally close the input files. This is necessary because
-            # the data isn't read from the input files until the write
-            # operation.
-            output_stream = open(outputdir+"/"+outputfile, 'wb')
-            for input_file in inputfiles:
-                input_streams.append(open(input_file, 'rb'))
-                writer = PdfFileWriter()
-                for reader in map(PdfFileReader, input_streams):
-                    for n in range(reader.getNumPages()):
-                        writer.addPage(reader.getPage(n))
-                writer.write(output_stream)
-        finally:
-            for f in input_streams:
-                f.close()
-
-    def getAcademicYear(self, startyearmonth, endyearmonth):
-        startyear = int(startyearmonth[0:4])
-        startmonth = int(startyearmonth[4:6])
-        if startmonth <= 5:
-            acadyear = str(startyear-1)+"-"+str(startyear)
-        else:
-            acadyear = str(startyear)+"-"+str(startyear+1)
-        return acadyear
-
     def handle(self, *args, **options):
         gpids = options.get("gpid", None)
         if gpids is not None:
             self.gpids = [int(x) for x in gpids.split(',')]
         self.surveyid = options.get("surveyid", None)
+        self.gpsurveyid = options.get("gpsurveyid", None)
         self.startyearmonth = options.get("startyearmonth", None)
         self.endyearmonth = options.get("endyearmonth", None)
         self.academicyear = self.getAcademicYear(self.startyearmonth,
                                                  self.endyearmonth)
         schoolids = options.get("sid", None)
+        print(1)
 
         reportcolour = options.get("reportcolour")
         self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
@@ -239,14 +170,18 @@ class Command(BaseCommand):
         if districtids is not None:
             self.districtids = [int(x) for x in districtids.split(',')]
 
+        print(2)
         if not self.validateInputs():
             return
+        print(3)
         self.initiatelatex()
+        print(4)
 
         if not os.path.exists(self.outputdir):
             os.makedirs(self.outputdir)
 
         if self.schoolids is not None:
+            print("Creating School House Hold")
             self.createSchoolHouseHoldReports()
         elif self.districtids is not None:
             self.createHouseHoldReportBoundary()
