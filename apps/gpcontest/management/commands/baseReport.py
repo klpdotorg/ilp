@@ -8,7 +8,7 @@ from assessments.models import Survey
 from boundary.models import ElectionBoundary, Boundary
 
 
-class BaseReport():
+class CommonUtils():
  
     def initiatelatex(self):
         # create the build directory if not existing
@@ -30,15 +30,14 @@ class BaseReport():
 
        
     def validateGPIds(self, gpids):
-        gp = []
         for gpid in gpids:
+            print(gpid)
             try:
-                gp[gpid] = ElectionBoundary.objects.get(
-                            id=gpid, const_ward_type='GP')
+                ElectionBoundary.objects.get(id=gpid, const_ward_type='GP')
             except ElectionBoundary.DoesNotExist:
                 print("Invalid gpid: "+str(gpid)+" passed")
                 return False
-        return gp
+        return True
 
     def validateBoundaryIds(self, boundaryids, boundaryType):
         for bid in boundaryids:

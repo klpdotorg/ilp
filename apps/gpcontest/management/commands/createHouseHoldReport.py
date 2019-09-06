@@ -11,7 +11,7 @@ from gpcontest.reports import household_report
 from . import baseReport
 
 
-class Command(BaseCommand, baseReport.BaseReport):
+class Command(BaseCommand, baseReport.CommonUtils):
     # used for printing utf8 chars to stdout
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
     help = 'Creates HouseHold Reports, pass (if no districtid or sid is passed\
@@ -45,30 +45,20 @@ class Command(BaseCommand, baseReport.BaseReport):
         parser.add_argument('--reportcolour', nargs='?', default='bw')
 
     def validateInputs(self):
-        print(2.1)
-        print(self.gpids)
         if self.gpids is not None:
             if not self.validateGPIds(self.gpids):
                 return False
-        print(2.2)
         if self.districtids is not None:
             if not self.validateBoundaryIds(self.districtids, 'SD'):
                 return False
-        print(2.3)
-        print(self.surveyid)
         if not self.validateSurveyId(self.surveyid):
             return False
-        print(2.4)
-        print(self.gpsurveyid)
         if not self.validateSurveyId(self.gpsurveyid):
             return False
-        print(2.5)
         if not self.checkYearMonth(self.startyearmonth):
             return False
-        print(2.6)
         if not self.checkYearMonth(self.endyearmonth):
             return False
-        print(2.7)
         return True
 
     

@@ -10,9 +10,10 @@ from assessments.models import Survey
 from boundary.models import ElectionBoundary, Boundary
 from schools.models import Institution
 from gpcontest.reports import generate_report, school_compute_numbers
+from . import baseReport 
 
 
-class Command(BaseCommand):
+class Command(BaseCommand, baseReport.CommonUtils):
     # used for printing utf8 chars to stdout
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
     help = 'Creates GP and School Reports, pass --gpid [commaseparated gpids]\
@@ -70,66 +71,20 @@ class Command(BaseCommand):
         parser.add_argument('--mergereport', nargs='?', default=True)
         parser.add_argument('--reportcolour', nargs='?', default='bw')
 
-    def initiatelatex(self):
-        # create the build directory if not existing
-        if not os.path.exists(self.build_d):
-            os.makedirs(self.build_d)
-        latex_jinja_env = jinja2.Environment(
-            variable_start_string='{{',
-            variable_end_string='}}',
-            comment_start_string='\#{',
-            comment_end_string='}',
-            line_comment_prefix='%%',
-            trim_blocks=True,
-            autoescape=False,
-            loader=jinja2.FileSystemLoader(os.path.abspath('/'))
-        )
-        for filetype in self.templates:
-            self.templates[filetype]["latex"] = latex_jinja_env.get_template(
-                self.basefiledir+self.templatedir+self.templates[filetype]["template"])
-
-    def checkYearMonth(self, yearmonth):
-        try:
-            datetime.strptime(yearmonth, '%Y%m')
-        except ValueError:
-            return False
-        return True
 
     def validateInputs(self):
         if self.gpids is not None:
-            for gp in self.gpids:
-                try:
-                    self.gp[gp] = ElectionBoundary.objects.get(
-                            id=gp, const_ward_type='GP')
-                except ElectionBoundary.DoesNotExist:
-                    print("Invalid gpid: "+str(gp)+" passed")
-                    return False
-
+            if not self.validateGPIds(self.gpids):
+                return False
         if self.districtids is not None:
-            for districtid in self.districtids:
-                try:
-                   Boundary.objects.get(
-                            id=districtid, boundary_type_id='SD')
-                except Boundary.DoesNotExist:
-                    print("Invalid districtid: "+str(districtid)+" passed")
-                    return False
-
-        try:
-            self.survey = Survey.objects.get(id=self.surveyid)
-        except Survey.DoesNotExist:
-            print("Invalid surveyid: "+str(self.surveyid)+" passed")
+            if not self.validateBoundaryIds(self.districtids, 'SD'):
+                return False
+        if not self.validateSurveyId(self.surveyid):
             return False
-
         if not self.checkYearMonth(self.startyearmonth):
-            print("Start year month format is invalid it should be YYYYMM, " +
-                  self.startyearmonth)
             return False
-
         if not self.checkYearMonth(self.endyearmonth):
-            print("End year month format is invalid it should be YYYYMM, " +
-                  self.endyearmonth)
             return False
-
         return True
 
     def createGPReports(self):
@@ -402,35 +357,6 @@ class Command(BaseCommand):
         self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
         return school_file
 
-    def deleteTempFiles(self, tempFiles):
-        for f in tempFiles:
-            os.remove(f)
-
-    def mergeReports(self, outputdir, gpfile, schoolfiles, outputfile):
-        inputfiles = [outputdir+gpfile]
-        for schoolfile in schoolfiles:
-            inputfiles.append(outputdir+schoolfile)
-        self.combinePdfs(inputfiles, outputfile, outputdir) 
-        self.deleteTempFiles(inputfiles)
-
-    def combinePdfs(self, inputfiles, outputfile, outputdir):
-        input_streams = []
-        try:
-            # First open all the files, then produce the output file, and
-            # finally close the input files. This is necessary because
-            # the data isn't read from the input files until the write
-            # operation.
-            output_stream = open(outputdir+"/"+outputfile, 'wb')
-            for input_file in inputfiles:
-                input_streams.append(open(input_file, 'rb'))
-                writer = PdfFileWriter()
-                for reader in map(PdfFileReader, input_streams):
-                    for n in range(reader.getNumPages()):
-                        writer.addPage(reader.getPage(n))
-                writer.write(output_stream)
-        finally:
-            for f in input_streams:
-                f.close()
 
     def createSchoolReports(self, gpid, outputdir, gpcontestdate, suffix):
         schoolsdata = school_compute_numbers.get_gp_schools_report(
@@ -449,6 +375,7 @@ class Command(BaseCommand):
                 schoolpdf = self.createSchoolPdfs(schooldata, school_builddir, outputdir, suffix)
                 schoolpdfs.append(schoolpdf)
         return schoolpdfs
+
 
     def createSchoolsSummary(self, outputdir):
         # print(self.schoolsummary)
@@ -470,14 +397,6 @@ class Command(BaseCommand):
                              self.build_d+"/"+outputfile+".pdf"])
         self.schoolsummary = []
 
-    def getAcademicYear(self, startyearmonth, endyearmonth):
-        startyear = int(startyearmonth[0:4])
-        startmonth = int(startyearmonth[4:6])
-        if startmonth <= 5:
-            acadyear = str(startyear-1)+"-"+str(startyear)
-        else:
-            acadyear = str(startyear)+"-"+str(startyear+1)
-        return acadyear
 
     def handle(self, *args, **options):
         gpids = options.get("gpid", None)
