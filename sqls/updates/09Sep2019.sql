@@ -1,0 +1,2 @@
+update assessments_answergroup_institution set date_of_visit='2019-07-24'::timestamp::date where institution_id in (select id from schools_institution where gp_id=2462) and questiongroup_id in (62,63,64); 
+update assessments_answergroup_institution set date_of_visit='2019-07-19'::timestamp::date where institution_id in (select id from schools_institution where gp_id=636) and questiongroup_id in (62,63,64); 
