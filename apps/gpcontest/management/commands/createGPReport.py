@@ -126,6 +126,31 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.createGPSummarySheet()
 
     def createReportSummary(self):
+        self.createSchoolDetailedReportSummary()
+        self.createGPSummary()
+
+    def createGPSummary(self):
+        filename = "GPContestGPSummarySheet_"+str(self.now)+".xls"
+        filename = self.outputdir+filename
+        book = xlwt.Workbook()
+        sheet = book.add_sheet("SummaryInfo")
+        csvtempfile = open('tempfilename.csv', 'w')
+        writer = csv.writer(csvtempfile)
+        writer.writerow(["District", "Block","GP Id", "GP Name","Contest Date","Total Schools", "Num Schools with Class 4 Assessments", "Num Schools with Class5 Assessments", "Num Schools with Class 6 Assessments", "Generated Date", "Status"])
+        for district in self.gpsummary:
+            for block in self.gpsummary[district]:
+                for gpinfo in self.gpsummary[district][block]:
+                    writer.writerow([district,block,gpinfo["gpid"],gpinfo["gpname"],gpinfo["contestdate"], gpinfo["total_schools"], gpinfo["class4_schools"], gpinfo["class5_schools"], gpinfo["class6_schools"], str(self.now)])
+        csvtempfile.close()
+        with open('tempfilename.csv', 'rt', encoding='utf8') as f:
+            reader = csv.reader(f)
+            for r, row in enumerate(reader):
+                for c, col in enumerate(row):
+                    sheet.write(r, c, col)
+        book.save(filename)
+        self.deleteTempFiles(['tempfilename.csv'])
+
+    def createSchoolDetailedReportSummary(self):
         filename = "GPContestSummarySheet_"+str(self.now)+".xls"
         filename = self.outputdir+filename
         book = xlwt.Workbook()
@@ -172,7 +197,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                              self.build_d+"/"+outputfile+".pdf"])
 
     def createGPPdfs(self, gpid, gpdata, template, suffix):
-        # print(gpdata, file=self.utf8stdout)
+        print(gpdata, file=self.utf8stdout)
         if type(gpdata) is int or type(gpdata) is str:
             return
         gpdata["contestdate"] = gpdata["date"]
@@ -255,10 +280,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
             gps = Institution.objects.filter(admin1_id=district, gp_id__isnull=False).distinct("gp_id").values("gp_id")
             for gp in gps:
                 gpid = gp["gp_id"]
+                print("Getting data for:-  gp :"+str(gpid)+", surveyid :"+str(self.surveyid)+", startyearmonth :"+str(self.startyearmonth)+" , endyearmonth :"+str(self.endyearmonth))
                 retdata = generate_report.generate_gp_summary(
                         gpid, self.surveyid, self.startyearmonth, 
                         self.endyearmonth)
 
+                print(retdata)
                 if retdata != {}:
                     data[gpid] = retdata
                 else:
@@ -267,6 +294,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 suffix = ""
                 count = 0
                 outputdir = ""
+                print(data[gpid])
                 for contestdate in data[gpid]:
                     count += 1
                     if num_contests > 1:
