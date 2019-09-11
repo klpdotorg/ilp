@@ -50,7 +50,7 @@ SELECT format('A%s_%s', survey_id,institution_id) as id,
 	COUNT(CASE ans.answer WHEN 'Yes' THEN ag.id END) AS count_yes,
 	COUNT(CASE ans.answer WHEN 'No' THEN ag.id END) AS count_no,
 	COUNT(CASE WHEN ans.answer NOT IN ('Yes','No') THEN ag.id END) AS count_unknown,
-	COUNT(ans.answer) AS total
+	COUNT(ag.id) AS total
 FROM assessments_answergroup_institution ag, 
 	assessments_answerinstitution ans, 
 	assessments_questiongroup as questiongroup, 
