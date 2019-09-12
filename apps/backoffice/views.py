@@ -101,18 +101,18 @@ class BackOfficeView(LoginRequiredMixin, View):
                 os.makedirs(file_path)
 
             try:
-                # threading.Thread(target=create_csv_and_move, args=(
-                #     data['survey'], data['district'], data['block'],
-                #     data['cluster'], data['school'], data['from_year'],
-                #     data['from_month'], data['to_year'], data['to_month'],
-                #     file_id + '.csv', field_names
-                # )).start()
                 threading.Thread(target=create_csv_and_move, args=(
                     data['survey'], data['district'], data['block'],
-                    data['cluster'], data['school'], data['from_date'],
-                    data['to_date'],
+                    data['cluster'], data['school'], data['from_year'],
+                    data['from_month'], data['to_year'], data['to_month'],
                     file_id + '.csv', field_names
                 )).start()
+                # threading.Thread(target=create_csv_and_move, args=(
+                #     data['survey'], data['district'], data['block'],
+                #     data['cluster'], data['school'], data['from_date'],
+                #     data['to_date'],
+                #     file_id + '.csv', field_names
+                # )).start()
             except Exception as e:
                 return render(
                     request, self.template_name,

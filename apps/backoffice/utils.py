@@ -35,7 +35,8 @@ def get_assessment_field_names(survey):
 
 def get_assessment_field_data(
         survey, admin1=None, admin2=None, admin3=None,
-        institution=None, from_date=None, to_date=None
+        institution=None, from_year=None, from_month=None, to_year=None,
+        to_month=None
 ):
     assessments = AnswerGroup_Institution.objects.filter(
         questiongroup__survey=survey
@@ -48,17 +49,16 @@ def get_assessment_field_data(
         assessments = assessments.filter(institution__admin3=admin3)
     if institution:
         assessments = assessments.filter(institution=institution)
-    #import pdb; pdb.set_trace()
-    if from_date and to_date:
-        assessments = assessments.filter(date_of_visit__range=[from_date, to_date])
-    # if from_year:
-    #     assessments = assessments.filter(date_of_visit__year__gte=from_year)
-    # if from_month:
-    #     assessments = assessments.filter(date_of_visit__month__gte=from_month)
-    # if to_year:
-    #     assessments = assessments.filter(date_of_visit__year__lte=to_year)
-    # if to_month:
-    #     assessments = assessments.filter(date_of_visit__month__lte=to_month)
+    # if from_date and to_date:
+    #     assessments = assessments.filter(date_of_visit__range=[from_date, to_date])
+    if from_year:
+        assessments = assessments.filter(date_of_visit__year__gte=from_year)
+    if from_month:
+        assessments = assessments.filter(date_of_visit__month__gte=from_month)
+    if to_year:
+        assessments = assessments.filter(date_of_visit__year__lte=to_year)
+    if to_month:
+        assessments = assessments.filter(date_of_visit__month__lte=to_month)
     field_data = []
     assessments = assessments.select_related(
         'institution__admin0', 'institution__admin1',
@@ -117,13 +117,13 @@ def get_assessment_field_data(
 #         writer.writerows(field_data)
 def create_csv_and_move(
         survey, district, block, cluster, school,
-        from_date, to_date, file_name, field_names,
+        from_year, from_month, to_year, to_month, file_name, field_names,
         file_path=settings.MEDIA_ROOT + '/backoffice-data/',
         create_csv_func=get_assessment_field_data
 ):
     field_data = create_csv_func(
         survey, district, block, cluster,
-        school, from_date, to_date
+        school, from_year, from_month, to_year, to_month
     )
 
     if not os.path.exists(file_path):
