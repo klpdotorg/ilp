@@ -87,7 +87,6 @@ class commonAssessmentDataUtils():
                 for c, col in enumerate(row):
                     sheet.write(r, c, col)
         book.save(xlsfile)
-        self.deleteTempFiles([csvfile])
 
     def deleteTempFiles(self, tempFiles):
         for f in tempFiles:
