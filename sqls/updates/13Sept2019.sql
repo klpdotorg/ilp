@@ -1,1 +1,0 @@
-update schools_institution set admin2_id = (select id from boundary_boundary where name='hadagali' and boundary_type_id='SB'), admin3_id = (select id from boundary_boundary where name='hadagali gramina' and boundary_type_id='SC'), gp_id = (select id from boundary_electionboundary where const_ward_name='Kombali' and const_ward_type_id='GP') where id=3342;
