@@ -59,7 +59,7 @@ class commonAssessmentDataUtils():
         now = date.today()
         filename = surveyinfo.name.replace(' ','')+"_"+str(now)
         csvfile = filename+".csv"
-        xlsfile = filename+".xlsx"
+        xlsfile = filename+".xls"
         book = xlwt.Workbook()
         sheet = book.add_sheet("AssessmentData")
         with open(csvfile, mode='w') as datafile:
