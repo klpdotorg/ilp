@@ -7,9 +7,10 @@ from PyPDF2 import PdfFileReader, PdfFileWriter
 from assessments.models import Survey
 from boundary.models import Boundary
 from gpcontest.reports import generate_report, school_compute_numbers, generate_boundary_reports
+from . import baseReport 
 
 
-class Command(BaseCommand):
+class Command(BaseCommand, baseReport.CommonUtils):
     # used for printing utf8 chars to stdout
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
     help = 'Creates Distrct and Block Reports, pass surveyid startyearmonth endyearmonth\
@@ -57,65 +58,21 @@ class Command(BaseCommand):
         parser.add_argument('--blockid', nargs='?')
         parser.add_argument('--reportcolour', nargs='?', default='bw')
 
-    def initiatelatex(self):
-        # create the build directory if not existing
-        if not os.path.exists(self.build_d):
-            os.makedirs(self.build_d)
-        latex_jinja_env = jinja2.Environment(
-            variable_start_string='{{',
-            variable_end_string='}}',
-            comment_start_string='\#{',
-            comment_end_string='}',
-            line_comment_prefix='%%',
-            trim_blocks=True,
-            autoescape=False,
-            loader=jinja2.FileSystemLoader(os.path.abspath('/'))
-        )
-        for filetype in self.templates:
-            self.templates[filetype]["latex"] = latex_jinja_env.get_template(
-                self.basefiledir+self.templatedir+self.templates[filetype]["template"])
-
-    def checkYearMonth(self, yearmonth):
-        try:
-            datetime.strptime(yearmonth, '%Y%m')
-        except ValueError:
-            return False
-        return True
-
     def validateInputs(self):
         if self.districtids is not None:
-            for district in self.districtids:
-                try:
-                    self.district[district] = Boundary.objects.get(
-                            id=district, boundary_type='SD')
-                except Boundary.DoesNotExist:
-                    print("Invalid district id: "+str(district)+" passed")
-                    return False
+            if not self.validateBoundaryIds(self.districtids, 'SD'):
+                return False
        
         if self.blockids is not None:
-            for block in self.blockids:
-                try:
-                    block = Boundary.objects.get(
-                            id=block, boundary_type='SB')
-                except Boundary.DoesNotExist:
-                    print("Invalid block id: "+str(block)+" passed")
-                    return False
-        try:
-            self.survey = Survey.objects.get(id=self.surveyid)
-        except Survey.DoesNotExist:
-            print("Invalid surveyid: "+str(self.surveyid)+" passed")
+            if not self.validateBoundaryIds(self.blockids, 'SB'):
+                return False
+        if not self.validateSurveyId(self.surveyid):
             return False
 
         if not self.checkYearMonth(self.startyearmonth):
-            print("Start year month format is invalid it should be YYYYMM, " +
-                  self.startyearmonth)
             return False
-
         if not self.checkYearMonth(self.endyearmonth):
-            print("End year month format is invalid it should be YYYYMM, " +
-                  self.endyearmonth)
             return False
-
         return True
 
     def createDistrictReports(self):
@@ -135,7 +92,6 @@ class Command(BaseCommand):
                         self.endyearmonth, childReports)
 
         for district in data["district_info"]:
-            #print(data["district_info"][district])
             outputdir = self.createDistrictPdfs(district,
                                                 data["district_info"][district], self.onlydistrict
                                                 )
@@ -164,7 +120,6 @@ class Command(BaseCommand):
                              self.build_d+"/"+outputfile+".pdf"])
 
     def createDistrictPdfs(self, districtid, districtdata, onlyDistrict):
-        #print(districtdata, file=self.utf8stdout)
         template = self.templates["district"]["latex"]
         if type(districtdata) is int or type(districtdata) is str:
             return
@@ -178,7 +133,6 @@ class Command(BaseCommand):
             if self.assessmentnames[assessment]["name"] in districtdata:
                 districtdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(districtdata[self.assessmentnames[assessment]["name"]])
-        # print(assessmentinfo)
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
         if "percent_scores" not in districtdata:
             percent_scores = None
@@ -228,7 +182,6 @@ class Command(BaseCommand):
             if self.assessmentnames[assessment]["name"] in blockdata:
                 blockdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(blockdata[self.assessmentnames[assessment]["name"]])
-        # print(assessmentinfo)
         info = {"imagesdir": self.imagesdir, "year": self.academicyear}
         if "percent_scores" not in blockdata:
             percent_scores = None
@@ -276,12 +229,6 @@ class Command(BaseCommand):
         self.createBlockSummarySheet(block_outputdir)
 
 
-
-    def deleteTempFiles(self, tempfiles):
-        for filename in tempfiles:
-            os.remove(filename)
-
-
     def createBlockSummarySheet(self, outputdir):
         info = {"date": self.now, "num_blocks": len(self.blocksummary)}
         renderer_template = self.templates["blocksummary"]["latex"].render(
@@ -299,15 +246,6 @@ class Command(BaseCommand):
         self.deleteTempFiles([outputfile+".tex",
                              self.build_d+"/"+outputfile+".pdf"])
 
-
-    def getAcademicYear(self, startyearmonth, endyearmonth):
-        startyear = int(startyearmonth[0:4])
-        startmonth = int(startyearmonth[4:6])
-        if startmonth <= 5:
-            acadyear = str(startyear-1)+"-"+str(startyear)
-        else:
-            acadyear = str(startyear)+"-"+str(startyear+1)
-        return acadyear
 
     def handle(self, *args, **options):
         districtids = options.get("districtid", None)
