@@ -518,7 +518,8 @@ class AssessmentSyncView(APIView):
     """
     # authentication_classes = (authentication.TokenAuthentication,
     #                           authentication.SessionAuthentication,)
-    authentication_classes = (PasswordlessAuthentication,)
+    authentication_classes = (PasswordlessAuthentication,
+                              authentication.TokenAuthentication,)
     permission_classes = (AppPostPermissions,)
 
     def post(self, request, format=None):

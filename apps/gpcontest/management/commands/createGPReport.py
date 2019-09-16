@@ -465,7 +465,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
         self.createReportSummary()
 
-        os.system('tar -cvf '+self.outputdir+'.tar '+self.outputdir+'/')
+        os.system('tar -cvf '+self.outputdir+'_'+str(self.now)+'.tar '+self.outputdir+'/')
 
         if os.path.exists(self.build_d):
             shutil.rmtree(self.build_d)
