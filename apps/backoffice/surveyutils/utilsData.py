@@ -55,9 +55,7 @@ class commonAssessmentDataUtils():
         return survey
 
 
-    def createXLS(self, surveyinfo, questioninfo, numquestions, assessmentdata):
-        now = date.today()
-        filename = surveyinfo.name.replace(' ','')+"_"+str(now)
+    def createXLS(self, surveyinfo, questioninfo, numquestions, assessmentdata, filename):
         csvfile = filename+".csv"
         xlsfile = filename+".xls"
         book = xlwt.Workbook()

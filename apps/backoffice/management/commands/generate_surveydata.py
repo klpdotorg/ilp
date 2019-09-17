@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from easyaudit.models import CRUDEvent
 from users.models import User
-from backoffice.utils import utilsData
+from backoffice.surveyutils import utilsData
 
 
 class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
@@ -38,4 +38,6 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
         if questioninfo == None:
             return
         assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo)
-        self.createXLS(self.surveyinfo, questioninfo, numquestions, assessmentdata)
+        now = date.today()
+        filename = self.surveyinfo.name.replace(' ','')+"_"+str(now)
+        self.createXLS(self.surveyinfo, questioninfo, numquestions, assessmentdata, filename)

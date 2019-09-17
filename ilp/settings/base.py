@@ -57,7 +57,6 @@ INSTALLED_APPS = (
     'boundary',
     'schools',
     'dise',
-    'backoffice',
     'assessments',
     'ivrs',
     'permissions',
