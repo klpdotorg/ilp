@@ -80,7 +80,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i data-feather="calendar"></i></div>
                 </div>
-                <input type='date' class="form-control" id='from_date' min="2016-06-01" data-format="MM/yyyy" />
+                <input type='date' class="form-control" name='from_date' min="2016-06-01" data-format="MM/yyyy" />
               </div>
               
         </div> 
@@ -90,7 +90,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i data-feather="calendar"></i></div>
                 </div>
-                <input type='date' class="form-control" id='to_date' data-format="MM/yyyy" />
+                <input type='date' class="form-control" name='to_date' data-format="MM/yyyy" />
               </div>
         </div> 
 
@@ -238,9 +238,9 @@
             //var from_month = $('select[name=from_month]').val();
             //var to_year = $('select[name=to_year]').val();
             //var to_month = $('select[name=to_month]').val();
-            var fromdate = $('select[id=from_date]').val()
+            var fromdate = $('select[name=from_date]').val()
             console.log(fromdate)
-            var todate = $('select[id=to_date]').val()
+            var todate = $('select[name=to_date]').val()
             console.log(todate)
             if (!state || !survey || !from_date || !to_date) {
                 alert("Please check - State, Survey, Year, Month is filled.");
