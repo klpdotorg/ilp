@@ -172,7 +172,7 @@ class Command(BaseCommand):
 
     def createReportSummary(self):
         filename = "GPContestSummarySheet_"+str(self.now)+".xls"
-        filename = self.outputdir+filename
+        filename = self.outputdir+"/"+filename
         book = xlwt.Workbook()
         sheet = book.add_sheet("SummaryInfo")
         csvtempfile = open('tempfilename.csv', 'w')
