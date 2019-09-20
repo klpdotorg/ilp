@@ -58,6 +58,8 @@ class Command(BaseCommand):
     imagesdir = basefiledir+"/apps/gpcontest/images/"
     imagesqrdir = basefiledir+"/apps/gpcontest/images/"
     mergereport = True
+    translatedmonth = {1:'ಜನವರಿ',2:'ಫೆಬ್ರವರಿ',3:'ಮಾರ್ಚ್',4:'ಎಪ್ರಿಲ್',5:'ಮೇ',6:'ಜೂನ್',7:'ಜುಲೈ',8:'ಆಗಸ್ಟ್',9:'ಸೆಪ್ಟಂಬರ್',10:'ಅಕ್ಟೋಬರ್',11:'ನವೆಂಬರ್',12:'ಡಿಸೆಂಬರ್'}
+
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
@@ -216,6 +218,13 @@ class Command(BaseCommand):
                 self.deleteTempFiles([outputfile+".tex",
                              self.build_d+"/"+outputfile+".pdf"])
 
+    def getYearMonth(self, inputdate):
+        print(inputdate)
+        year = int(inputdate[0:4])
+        month = self.translatedmonth[int(inputdate[5:7])]
+        return year, month
+        
+
     def createGPPdfs(self, gpid, gpdata, template, suffix):
         # print(gpdata, file=self.utf8stdout)
         if type(gpdata) is int or type(gpdata) is str:
@@ -234,7 +243,8 @@ class Command(BaseCommand):
                 gpdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(gpdata[self.assessmentnames[assessment]["name"]])
         # print(assessmentinfo)
-        info = {"imagesdir": self.imagesdir, "year": self.academicyear}
+        year, month = self.getYearMonth(str(self.now))
+        info = {"imagesdir": self.imagesdir, "acadyear": self.academicyear, "year":year, "month": month}
         if "percent_scores" not in gpdata:
             percent_scores = None
         else:
