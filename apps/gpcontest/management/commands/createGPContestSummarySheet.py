@@ -48,7 +48,7 @@ class Command(BaseCommand):
 
     def getSchoolInfo(self, boundaries=None, gpids=None ):
         if boundaries is not None:
-            schools = Institution.objects.filter(Q(admin1_id__in = boundaries) | Q(admin2_id__in = boundaries), gp_id__isnull= False).values('admin1_id__name', 'admin2_id__name', 'gp_id__const_ward_name', 'name', 'dise_id__school_code', 'id', 'gp_id').distinct()
+            schools = Institution.objects.filter(Q(admin1_id__in = boundaries) | Q(admin2_id__in = boundaries), gp_id__isnull= False).values('admin1_id__name', 'admin2_id__name','admin3_id__name', 'gp_id__const_ward_name', 'name', 'dise_id__school_code', 'id', 'gp_id').distinct()
         if gpids is not None:
             schools = Institution.objects.filter(gp_id__in=gpids).values('admin1_id__name', 'admin2_id__name', 'admin3_id__name', 'gp_id__const_ward_name', 'name', 'dise_id__school_code', 'id', 'gp_id').distinct()
 
@@ -57,13 +57,13 @@ class Command(BaseCommand):
             school["name"] = school["name"].replace("_"," ")
             #print("SCHOOL NAME IS: "+school["name"])
             if school["admin1_id__name"] not in self.schoolinfo:
-                self.schoolinfo[school["admin1_id__name"]] = {school["admin2_id__name"]:{school["gp_id__const_ward_name"]: {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code']}]}}}
+                self.schoolinfo[school["admin1_id__name"]] = {school["admin2_id__name"]:{school["gp_id__const_ward_name"]: {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code'], "cluster": school["admin3_id__name"]}]}}}
             elif school["admin2_id__name"] not in self.schoolinfo[school["admin1_id__name"]]:
-                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]] = {school["gp_id__const_ward_name"]: {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code']}]}}
+                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]] = {school["gp_id__const_ward_name"]: {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code'], "cluster": school["admin3_id__name"]}]}}
             elif school["gp_id__const_ward_name"] not in self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]] :
-                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]][school["gp_id__const_ward_name"]] = {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code']}]}
+                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]][school["gp_id__const_ward_name"]] = {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code'], "cluster": school["admin3_id__name"]}]}
             else:
-                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]][school["gp_id__const_ward_name"]]["schools"].append({"schoolname": school['name'], "disecode": school['dise_id__school_code']})
+                self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]][school["gp_id__const_ward_name"]]["schools"].append({"schoolname": school['name'], "disecode": school['dise_id__school_code'], "cluster": school["admin3_id__name"]})
 
 
 
