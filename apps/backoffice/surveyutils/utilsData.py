@@ -47,6 +47,7 @@ class commonAssessmentDataUtils():
         if surveyid == None:
             print("Mandatory parameter surveyid not passed")
             return None
+        import pdb; pdb.set_trace()
         try:
             survey = Survey.objects.get(id=surveyid)
         except Survey.DoesNotExist:

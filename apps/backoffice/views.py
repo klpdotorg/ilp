@@ -28,6 +28,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .surveyutils.utilsData import commonAssessmentDataUtils as datautils
+import concurrent.futures
 
 
 def is_staff(user):
@@ -70,7 +72,7 @@ class BackOfficeLogoutView(LoginRequiredMixin, View):
         return HttpResponse("Logged out", status=status.HTTP_200_OK)
 
 
-class BackOfficeView(LoginRequiredMixin, View):
+class BackOfficeView(LoginRequiredMixin, datautils, View):
     template_name = 'backoffice/export.html'
     login_url = '/backoffice/login/'
     
@@ -101,11 +103,17 @@ class BackOfficeView(LoginRequiredMixin, View):
                 os.makedirs(file_path)
 
             try:
-                threading.Thread(target=create_csv_and_move, args=(
-                    data['survey'], data['district'], data['block'],
-                    data['cluster'], data['school'], data['from_year'],
-                    data['from_month'], data['to_year'], data['to_month'],
-                    file_id + '.csv', field_names
+                # threading.Thread(target=create_csv_and_move, args=(
+                #     data['survey'], data['district'], data['block'],
+                #     data['cluster'], data['school'], data['from_year'],
+                #     data['from_month'], data['to_year'], data['to_month'],
+                #     file_id + '.csv', field_names
+                # )).start()
+                # with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+                #     future = executor.submit(self.createSurveyXLS, data['survey'], file_path + file_id)
+                threading.Thread(target=self.createSurveyXLS, args=(
+                    data['survey'],
+                    file_path+file_id
                 )).start()
                 # threading.Thread(target=create_csv_and_move, args=(
                 #     data['survey'], data['district'], data['block'],
@@ -120,12 +128,23 @@ class BackOfficeView(LoginRequiredMixin, View):
                         "There is an error in generating the file:", e)}
                 )
             file_url = (
-                settings.MEDIA_URL + 'backoffice-data/' + file_id + '.csv'
+                settings.MEDIA_URL + 'backoffice-data/' + file_id + '.xls'
             )
             return render(request, self.template_name, {'file_url': file_url})
         return render(
             request, self.template_name, {'form_errors': form.errors}
         )
+
+    def createSurveyXLS(self, survey_id, filepath):
+        surveyinfo = self.validateSurvey(survey_id.id)
+        questioninfo, numquestions = self.getQuestionData(survey_id.id)
+        if questioninfo == None:
+            return
+        assessmentdata = self.getAssessmentData(surveyinfo, questioninfo)
+        # now = date.today()
+        #filename = surveyinfo.name.replace(' ','')+"_"+str(now)
+        self.createXLS(surveyinfo, questioninfo, numquestions, assessmentdata, filepath)
+
 
 
 class GPContestValidatorView(View):

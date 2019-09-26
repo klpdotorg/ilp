@@ -234,17 +234,6 @@
         $('form').submit(function () {
             var state = $('select[name=state]').val();
             var survey = $('select[name=survey]').val();
-<<<<<<< HEAD
-            //var from_year = $('select[name=from_year]').val();
-            //var from_month = $('select[name=from_month]').val();
-            //var to_year = $('select[name=to_year]').val();
-            //var to_month = $('select[name=to_month]').val();
-            var fromdate = $('select[name=from_date]').val()
-            console.log(fromdate)
-            var todate = $('select[name=to_date]').val()
-            console.log(todate)
-            if (!state || !survey || !from_date || !to_date) {
-=======
             var from_year = $('select[name=from_year]').val();
             var from_month = $('select[name=from_month]').val();
             var to_year = $('select[name=to_year]').val();
@@ -254,7 +243,6 @@
             //var todate = $('select[id=to_date]').val()
             //console.log(todate)
             if (!state || !survey) {
->>>>>>> c3b7d3b1f43af9f10f0b5f729fb8590cc361ca34
                 alert("Please check - State, Survey, Year, Month is filled.");
                 return false
             }
