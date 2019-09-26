@@ -14,6 +14,7 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
+        parser.add_argument('filename', nargs='?')
         parser.add_argument('--startyearmonth', nargs='?')
         parser.add_argument('--endyearmonth', nargs='?')
         parser.add_argument('--districtid', nargs='?')
@@ -39,5 +40,9 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
             return
         assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo)
         now = date.today()
-        filename = self.surveyinfo.name.replace(' ','')+"_"+str(now)
+        if options.get('filename'):
+            filename = options.get('filename')
+        else:
+            filename = self.surveyinfo.name.replace(' ','')+"_"+str(now)
         self.createXLS(self.surveyinfo, questioninfo, numquestions, assessmentdata, filename)
+        return filename
