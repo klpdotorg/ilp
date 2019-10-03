@@ -167,7 +167,7 @@
 
 \begin{longtable}{|P{3cm}|P{4cm}|P{2cm}|P{2cm}|P{2cm}|P{2cm}|} \hline
 \textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{4}{|c|}{\textbf{\kn{ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ (ಶೇಕಡವಾರು)}}}\\ \cline{3-6}
-\rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{36\%-60\%}  & \textbf{61\%-75\%} & \textbf{76\%-100\%} \\ \hline \endhead
+\rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{35\%-60\%}  & \textbf{61\%-75\%} & \textbf{76\%-100\%} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
 \rule{0cm}{0.3cm} {{ assessment["class"] }}\kn{ನೇ ತರಗತಿ} & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to60"]}} & {{assessment["overall_scores"]["60to75"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
 {% endfor %}
