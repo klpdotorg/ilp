@@ -6,7 +6,8 @@ from assessments.models import (
     SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
     SurveyInstitutionQuestionGroupQuestionKeyAgg,
-    CompetencyOrder
+    CompetencyOrder,
+    SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg
 )
 from schools.models import Institution
 from boundary.models import (
@@ -348,3 +349,35 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
                 concept_scores[current_question_key] = percentage
             results_by_date[contest_date] = concept_scores
     return results_by_date
+
+
+def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yearmonth):
+    """ For household reports, that need addition/subtraction percentages
+        per school """
+    total_ans = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
+        survey_id=survey_id).filter(
+            institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
+                yearmonth__lte=to_yearmonth).filter(
+                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('num_assessments'))
+    total = None
+    if total_ans is not None:
+        total_ans=total_ans[0]
+    if total_ans["total_answers"] is not None:
+        total = total_ans['total_answers']
+    correct_ans = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
+        survey_id=survey_id).filter(
+            institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
+                yearmonth__lte=to_yearmonth).filter(
+                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('num_assessments'))
+    correct = 0
+    correct_ans=correct_ans[0]
+    if correct_ans['total_answers'] is not None:
+        correct = correct_ans['total_answers']
+    if total is None:
+        # Data unavailable for this GP for this competency
+        perc='NA'
+    elif total > 0:
+        perc = round((correct / total) * 100, 2)
+    else:
+        perc = 0
+    return perc

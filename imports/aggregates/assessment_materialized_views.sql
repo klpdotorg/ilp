@@ -2972,6 +2972,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,quest
     yearmonth,
     question_id,
     question_desc,
+    lang_questiontext,
     answer_option,
     num_answers
 FROM(
@@ -2984,6 +2985,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
+	q.lang_name as lang_questiontext,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3010,6 +3012,7 @@ FROM(
         qg.id,
         q.display_text,
         q.question_text,
+	q.lang_name,
         ans.question_id,
         ans.answer,
         yearmonth)data
@@ -3023,6 +3026,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,quest
     yearmonth,
     question_id,
     question_desc,
+    lang_questiontext,
     answer_option,
     num_answers
 FROM(
@@ -3035,6 +3039,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
+	q.lang_name as lang_questiontext,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3061,6 +3066,7 @@ FROM(
         qg.id,
         q.display_text,
         q.question_text,
+	q.lang_name,
         ans.question_id,
         ans.answer,
         yearmonth)data
@@ -3074,6 +3080,7 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,quest
     yearmonth,
     question_id,
     question_desc,
+    lang_questiontext,
     answer_option,
     num_answers
 FROM(
@@ -3086,6 +3093,7 @@ FROM(
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ans.question_id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
+	q.lang_name as lang_questiontext,
         ans.answer as answer_option,
         count(ans) as num_answers
     FROM assessments_survey survey,
@@ -3114,6 +3122,7 @@ FROM(
         qg.id,
         q.display_text,
         q.question_text,
+	q.lang_name,
         ans.question_id,
         ans.answer,
         yearmonth)data

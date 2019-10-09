@@ -8,7 +8,7 @@ report generation code.
 from django.db import models
 from boundary.models import (
     ElectionBoundary, Boundary, BoundaryType)
-from assessments.models import QuestionGroup
+from assessments.models import Question, QuestionGroup, Survey
 
 class BoundaryStudentScoreGroups(models.Model):
     """
@@ -173,3 +173,45 @@ class GPContestSchoolDetails(models.Model):
     class Meta:
         managed = False
         db_table = 'mvw_gpcontest_school_details'
+
+class SurveyInstitutionHHRespondentTypeAnsAgg(models.Model):
+    """Agg specifically created for household survey reports"""
+    survey_id = models.ForeignKey('assessments.Survey', db_column="survey_id")
+    institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
+    questiongroup_id = models.ForeignKey('assessments.QuestionGroup', db_column="questiongroup_id")
+    respondent_type = models.ForeignKey('common.RespondentType', db_column="respondent_type")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+    question_id = models.ForeignKey('assessments.Question', db_column="question_id")
+    question_desc = models.CharField(max_length=200, db_column="question_desc")
+    num_yes = models.IntegerField(db_column="count_yes")
+    num_no = models.IntegerField(db_column="count_no")
+    num_unknown = models.IntegerField(db_column="count_unknown")
+    total = models.IntegerField(db_column="total")
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_hh_survey_institution_respondent_ans_agg'
+
+class HHSurveyInstitutionQuestionAnsAgg(models.Model):
+    """Agg specifically created for household survey reports"""
+    survey_id = models.ForeignKey('assessments.Survey', db_column="survey_id")
+    institution_id = models.ForeignKey('schools.Institution', db_column="institution_id")
+    institution_name = models.CharField(max_length=200, db_column="institution_name")
+    gp_id = models.ForeignKey('boundary.ElectionBoundary', db_column="gp_id")
+    gp_name = models.CharField(max_length=200, db_column="gp_name")
+    district_name = models.CharField(max_length=200, db_column="district_name")
+    block_name = models.CharField(max_length=200, db_column="block_name")
+    cluster_name = models.CharField(max_length=200, db_column="cluster_name")
+    order =  models.IntegerField(db_column="seq")
+    question_id = models.ForeignKey('assessments.Question', db_column="question_id")
+    question_desc = models.CharField(max_length=200, db_column="question_desc")
+    lang_questiondesc = models.CharField(max_length=200, db_column="lang_questiondesc")
+    total = models.IntegerField(db_column="total")
+    perc_yes = models.IntegerField(db_column="perc_yes")
+    perc_no = models.IntegerField(db_column="perc_no")
+    perc_unknown = models.IntegerField(db_column="perc_unknown")
+
+
+    class Meta:
+        managed = False
+        db_table = 'mvw_hh_institution_question_ans_agg'

@@ -219,3 +219,5 @@ class TadaUserLoginView(generics.GenericAPIView):
         data = TadaUserSerializer(serializer.user).data
         data['token'] = login_user(self.request, serializer.user).key
         return Response(data, status=status.HTTP_200_OK)
+
+    

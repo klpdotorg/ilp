@@ -91,6 +91,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_sms_pin(self):
         return self.sms_verification_pin
 
+    # This is specifically for Konnect to login without auth
+    def generate_login_token(self):
+        self.passwordless_login_token = uuid.uuid5().hex
+        return self.passwordless_login_token
+
     def send_otp(self):
         msg = 'Your one time password for ILP is %s. Please enter this on our web page or mobile app to verify your mobile number.' % self.sms_verification_pin
         send_sms(self.mobile_no, msg)

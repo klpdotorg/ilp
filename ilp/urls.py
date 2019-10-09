@@ -25,8 +25,6 @@ api_docs_view = get_swagger_view(title='ILP API')
 
 
 urlpatterns = [
-    url(r'^back-office/', admin.site.urls),
-
     # Home page
     url(r'^$', StaticPageView.as_view(
         template_name='home.html',
@@ -181,7 +179,10 @@ urlpatterns = [
     url(r'^api/v1/', include('ilp.api_urls')),
     url(r'^api/docs/', api_docs_view, name='api_docs'),
 
-    #URLs for viewing generated reports
+    # Backoffice URLs.
+    url(r'^backoffice/', include('backoffice.urls')),
+
+    # URLs for viewing generated reports
     url(r'^reportgen/sendreport/$', SendReport.as_view(), name='send_report'),
     # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/$', view_report, name='view_report_no_track_id'),
     # url(r'^reportgen/(?P<report_id>([a-z]|[0-9])+)/(?P<tracking_id>([a-z]|[0-9])*)/$', view_report, name='view_report'),

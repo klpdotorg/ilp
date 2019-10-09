@@ -8,9 +8,10 @@ import shutil
 import sys
 from schools.models import Institution
 from django.core.management.base import BaseCommand
+from . import baseReport 
 
 
-class Command(BaseCommand):
+class Command(BaseCommand, baseReport.CommonUtils):
     now = date.today()
     basefiledir = os.getcwd()
     pdfsdir = "/generated_files/gpreports/"+str(now)+"/"
@@ -27,23 +28,6 @@ class Command(BaseCommand):
         parser.add_argument('--gpids', nargs='?')
         parser.add_argument('--districtids', nargs='?')
         parser.add_argument('--blockids', nargs='?')
-
-
-    def initiatelatex(self):
-        if not os.path.exists(self.build_d):  # create the build directory if not existing
-            os.makedirs(self.build_d)
-        latex_jinja_env = jinja2.Environment(
-            variable_start_string = '{{',
-            variable_end_string = '}}',
-            comment_start_string = '\#{',
-            comment_end_string = '}',
-            line_comment_prefix = '%%',
-            trim_blocks = True,
-            autoescape = False,
-            loader = jinja2.FileSystemLoader(os.path.abspath('/'))
-        )
-        template = latex_jinja_env.get_template(self.template_file)
-        return template
 
 
     def getSchoolInfo(self, boundaries=None, gpids=None ):
@@ -64,7 +48,6 @@ class Command(BaseCommand):
                 self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]][school["gp_id__const_ward_name"]] = {"id": school["gp_id"], "schools": [{"schoolname": school['name'], "disecode": school['dise_id__school_code'], "cluster": school["admin3_id__name"]}]}
             else:
                 self.schoolinfo[school["admin1_id__name"]][school["admin2_id__name"]][school["gp_id__const_ward_name"]]["schools"].append({"schoolname": school['name'], "disecode": school['dise_id__school_code'], "cluster": school["admin3_id__name"]})
-
 
 
     def createSummaryReports(self):
@@ -91,9 +74,6 @@ class Command(BaseCommand):
                     self.deleteTempFiles([out_file+".tex",
                              self.build_d+"/"+out_file+".pdf"])
 
-    def deleteTempFiles(self, tempFiles):
-        for f in tempFiles:
-            os.remove(f)
 
     def handle(self, *args, **options):
         gpids = options.get("gpids")
