@@ -1,18 +1,18 @@
 import psycopg2
 import csv
+import sys
 
-if len(sys.argv) != 3:
-    print("Please give database name, full path of CSV file and current DISE academic year id as arguments. USAGE: " +
+if len(sys.argv) < 5:
+    print("Please give database name, user, password, host and current DISE academic year id as arguments. USAGE: " +
           "python insert_phase3_schools.py ilp /home/xxxxxxx/schools.csv 1617")
     sys.exit()
-
 dbname = sys.argv[1]
 user = sys.argv[2]
-host = sys.argv[3]
-passwd = sys.argv[4]
-# passwd="\\u4<AKdnC~y268GF6v"
+host = sys.argv[4]
+passwd2 = sys.argv[3]
+passwd="\\u4<AKdnC~y268GF6v"
 connectionstring = "dbname="+dbname+" user="+user+" password="+passwd+" host="+host
-conn = psycopg2.connect(host=host, database=dbname, user=user, password=passwd)
+conn = psycopg2.connect(host=host, database=dbname, user=user, password=passwd2)
 cur = conn.cursor()
 with open('notinilp.csv') as schools:
     readCSV = csv.reader(schools, delimiter=',')
@@ -21,14 +21,14 @@ with open('notinilp.csv') as schools:
         if count==0:
             count=1
             continue
-        district_name = row[1].strip()
-        block_name = row[3].strip()
+        district_name = row[1]
+        block_name = row[3]
         print("Block name: ", block_name)
-        cluster_name = row[4].strip()
+        cluster_name = row[4]
         school_code = row[5]
-        school_name = row[6].strip()
+        school_name = row[6]
         school_mgmt = 1
-        school_medium = row[12].strip()
+        school_medium = row[12]
         #Decide school category based on school name
         if school_name.lower().find("lower primary") != -1 or school_name.lower().find("lps") != -1:
             school_mgmt = 13
@@ -39,25 +39,32 @@ with open('notinilp.csv') as schools:
         else:
             school_mgmt = 13
         # Fetch the district ID
-        district_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(district_name.lower(), 'SD')
-        cur.execute(district_query)
+        district_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(district_name.strip().lower(), 'SD')
+        print("Fetching district %s" % district_name)
+        result = cur.execute(district_query)
         current = cur.fetchone()
+        if current is None:
+            print(district_query)
+            print(result)
+        if district_name == 'BAGALKOT' and block_name == 'BAGALKOT':
+            import pdb; pdb.set_trace()
+        print("CUrrent is: ", current)
         district_id = int(current[0])
         print("District Name: %s; District id: %s" % (district_name, district_id))
         # Fetch the block ID
-        block_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(block_name.lower(), 'SB')
-        print(block_query)
+        block_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(block_name.strip().lower(), 'SB')
+        #print(block_query)
         result = cur.execute(block_query)
-        print(result)
+        #print(result)
         current = cur.fetchone()
         block_id = int(current[0])
         print("Block Name: %s ; Block ID is: %s" % (block_name, block_id))
         # Fetch the cluster ID
-        cluster_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(cluster_name.lower(), 'SC')
+        cluster_query = "select id from boundary_boundary where name=\'{0}\' and boundary_type_id=\'{1}\'".format(cluster_name.strip().lower(), 'SC')
         cur.execute(cluster_query)
         current = cur.fetchone()
         cluster_id = int(current[0])
-        print("Cluster Name: %s; ID is: %s" % (cluster_name,cluster_id))
+        # print("Cluster Name: %s; ID is: %s" % (cluster_name,cluster_id))
         # Fetch the GP ID
         gp_query = "select gp_id from schools_institution where admin1_id={0} and admin2_id={1} and admin3_id={2}".format(district_id,block_id,cluster_id)
         cur.execute(gp_query)
@@ -70,19 +77,27 @@ with open('notinilp.csv') as schools:
                 gp_id=int(row2[0])
                 break
         print("GP ID is: ", gp_id)
-        dise_query="select id from dise_basicdata where school_code={}".format(school_code)
+        dise_query="select id from dise_basicdata where school_code={} and academic_year_id=\'{}\'".format(school_code, '1617')
         cur.execute(dise_query)
         current = cur.fetchone()
         dise_id=int(current[0])
         # Insert into the schools table
         try:
-            insert_query = "insert into schools_institution(\
-                name,admin0_id,admin1_id, admin2_id, admin3_id,institution_type_id, category_id, gender_id, management_id, dise_id, status_id, gp_id)\
-                values(\'{0}\', 2, {1}, {2}, {3}, 'primary', {4}, 'co-ed', 1,{5}, 'AC', {6})".format(school_name,district_id,block_id,cluster_id,school_mgmt,dise_id,gp_id)
-            print(insert_query)
-            cur.execute(insert_query)
+            if gp_id is None:
+                insert_query = "insert into schools_institution(\
+                    name,admin0_id,admin1_id, admin2_id, admin3_id,institution_type_id, category_id, gender_id, management_id, dise_id, status_id)\
+                    values(\'{0}\', 2, {1}, {2}, {3}, 'primary', {4}, 'co-ed', 1,{5}, 'AC')".format(school_name,district_id,block_id,cluster_id,school_mgmt,dise_id)
+                # print(insert_query)
+                cur.execute(insert_query)
+            else:
+                insert_query = "insert into schools_institution(\
+                    name,admin0_id,admin1_id, admin2_id, admin3_id,institution_type_id, category_id, gender_id, management_id, dise_id, status_id, gp_id)\
+                    values(\'{0}\', 2, {1}, {2}, {3}, 'primary', {4}, 'co-ed', 1,{5}, 'AC', {6})".format(school_name,district_id,block_id,cluster_id,school_mgmt,dise_id,gp_id)
+                # print(insert_query)
+                cur.execute(insert_query)
         except Exception as e:
             print("Error inserting %s school" % school_code)
+            print(e)
         else:
             print("DONE===>" + insert_query)
         conn.commit()
