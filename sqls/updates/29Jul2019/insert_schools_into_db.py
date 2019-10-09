@@ -1,10 +1,16 @@
 import psycopg2
 import csv
 
-dbname="ilp_latest"
-user="klp"
-host="localhost"
-passwd="\\u4<AKdnC~y268GF6v"
+if len(sys.argv) != 3:
+    print("Please give database name, full path of CSV file and current DISE academic year id as arguments. USAGE: " +
+          "python insert_phase3_schools.py ilp /home/xxxxxxx/schools.csv 1617")
+    sys.exit()
+
+dbname = sys.argv[1]
+user = sys.argv[2]
+host = sys.argv[3]
+passwd = sys.argv[4]
+# passwd="\\u4<AKdnC~y268GF6v"
 connectionstring = "dbname="+dbname+" user="+user+" password="+passwd+" host="+host
 conn = psycopg2.connect(host=host, database=dbname, user=user, password=passwd)
 cur = conn.cursor()
@@ -15,14 +21,14 @@ with open('notinilp.csv') as schools:
         if count==0:
             count=1
             continue
-        district_name = row[1]
-        block_name = row[3]
+        district_name = row[1].strip()
+        block_name = row[3].strip()
         print("Block name: ", block_name)
-        cluster_name = row[4]
+        cluster_name = row[4].strip()
         school_code = row[5]
-        school_name = row[6]
+        school_name = row[6].strip()
         school_mgmt = 1
-        school_medium = row[12]
+        school_medium = row[12].strip()
         #Decide school category based on school name
         if school_name.lower().find("lower primary") != -1 or school_name.lower().find("lps") != -1:
             school_mgmt = 13
@@ -59,9 +65,9 @@ with open('notinilp.csv') as schools:
         current = cur.fetchall()
         gp_id = None
         # Some schools don't have GP ID set..just iterate through and find one that's set
-        for row in current:
-            if row[0] is not None:
-                gp_id=int(row[0])
+        for row2 in current:
+            if row2[0] is not None:
+                gp_id=int(row2[0])
                 break
         print("GP ID is: ", gp_id)
         dise_query="select id from dise_basicdata where school_code={}".format(school_code)
@@ -69,10 +75,14 @@ with open('notinilp.csv') as schools:
         current = cur.fetchone()
         dise_id=int(current[0])
         # Insert into the schools table
-        insert_query = "insert into schools_institution(\
-            name,admin0_id,admin1_id, admin2_id, admin3_id,institution_type_id, category_id, gender_id, management_id, dise_id, status_id, gp_id)\
-            values(\'{0}\', 2, {1}, {2}, {3}, 'primary', {4}, 'co-ed', 1,{5}, 'AC', {6})".format(school_name,district_id,block_id,cluster_id,school_mgmt,dise_id,gp_id)
-        print(insert_query)
-        cur.execute(insert_query)
-        print("DONE===>" + insert_query)
+        try:
+            insert_query = "insert into schools_institution(\
+                name,admin0_id,admin1_id, admin2_id, admin3_id,institution_type_id, category_id, gender_id, management_id, dise_id, status_id, gp_id)\
+                values(\'{0}\', 2, {1}, {2}, {3}, 'primary', {4}, 'co-ed', 1,{5}, 'AC', {6})".format(school_name,district_id,block_id,cluster_id,school_mgmt,dise_id,gp_id)
+            print(insert_query)
+            cur.execute(insert_query)
+        except Exception as e:
+            print("Error inserting %s school" % school_code)
+        else:
+            print("DONE===>" + insert_query)
         conn.commit()
