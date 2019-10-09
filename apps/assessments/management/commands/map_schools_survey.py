@@ -54,7 +54,7 @@ class Command(BaseCommand):
             data = file_row[0].strip("'")
             data = int(data.strip())
             try:
-                school = Institution.objects.filter(dise__academic_year=dise_acad_year).get(dise__school_code=data)
+                school = Institution.objects.filter(dise__academic_year=str(dise_acad_year)).get(dise__school_code=data)
             except Institution.DoesNotExist:
                 print("School with DISE code %s does not exist" %data)
             else:
