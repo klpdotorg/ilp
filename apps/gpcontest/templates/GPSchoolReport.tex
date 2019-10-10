@@ -82,7 +82,7 @@
 \endgroup
 
 \begin{flushleft}
-\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಶಾಲಾ ಮುಖ್ಯಗುರುಗಳು ,} SDMC \kn{, ಪೋಷಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ. ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590\kn{ಗೆ ಕರೆ ಮಾಡಿ}\\[2ex]
+\kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಶಾಲಾ ಮುಖ್ಯಗುರುಗಳು ,} SDMC \kn{, ಪೋಷಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.} \\[2ex]
 \end{flushleft}
 \centering{\kn{ಸಲಹೆ}}\\
 
@@ -90,20 +90,20 @@
 {% for num in assessmentinfo.deficiencies %}
 \ifnum {{loop.index}} = 1
     \begin{tabular}[t]{ll}
-    \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}}  &
+    \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesdir}}{{num.competency}}_qrcode.png"}}  &
      \fcolorbox{black}{gray}{\parbox[t][1.5cm]{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
     \end{tabular}
  \else 
      \ifnum {{loop.index}} = 2
      \hfill 
      \begin{tabular}[t]{ll}
-     \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}} &
+     \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesdir}}{{num.competency}}_qrcode.png"}} &
       \fcolorbox{black}{lightgray}{\parbox[t][1.5cm]{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
      \end{tabular}
      \else
      \begin{center} 
      \begin{tabular}[t]{ll}
-     \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}} &
+     \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesdir}}{{num.competency}}_qrcode.png"}} &
      \fbox{\parbox[t][1.5cm]{4cm}{\kn{ {{num.local_name}} }\kn{ಪರಿಕಲ್ಪನೆಯ ಫಲಿತಾಂಶ ಮಕ್ಕಳಲ್ಲಿ  ಇನ್ನು ಉತ್ತಮ ಪಡಿಸಲು ಈ} QR \kn{ಕೋಡ್ ಅನ್ನು ಸ್ಕಾನ್ ಮಾಡಿ}}}
      \end{tabular}
      \end{center}
