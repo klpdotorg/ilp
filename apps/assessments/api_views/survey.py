@@ -26,7 +26,7 @@ from permissions.permissions import (
     HasAssignPermPermission
 )
 from users.authentication import PasswordlessAuthentication
-
+from common.models import Status
 from boundary.models import (
     BasicBoundaryAgg, BoundaryStateCode, Boundary,
     BoundarySchoolCategoryAgg, BoundaryNeighbours,
@@ -434,7 +434,7 @@ class SurveyTagAggAPIView(APIView):
         ).filter(
             Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
             Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
-        ).count()
+        ).filter(institution__status=Status.ACTIVE).count()
         response["total_schools"] = inst_count
 
         queryset = SurveyTagMappingAgg.objects.\
@@ -447,6 +447,8 @@ class SurveyTagAggAPIView(APIView):
                 Q(institution__admin1_id=boundary_id) |
                 Q(institution__admin2_id=boundary_id) |
                 Q(institution__admin3_id=boundary_id)
+            ).filter(
+                institution__status=Status.ACTIVE
             ).count()
         response["num_schools"] = num_schools
 
