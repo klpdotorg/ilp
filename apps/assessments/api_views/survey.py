@@ -434,7 +434,7 @@ class SurveyTagAggAPIView(APIView):
         ).filter(
             Q(admin0_id=boundary_id) | Q(admin1_id=boundary_id) |
             Q(admin2_id=boundary_id) | Q(admin3_id=boundary_id)
-        ).filter(institution__status='AC').count()
+        ).filter(status='AC').count()
         response["total_schools"] = inst_count
 
         queryset = SurveyTagMappingAgg.objects.\
