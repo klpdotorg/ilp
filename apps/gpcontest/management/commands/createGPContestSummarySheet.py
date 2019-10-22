@@ -17,12 +17,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
     pdfsdir = "/generated_files/gpreports/"+str(now)+"/"
     templatedir = "/apps/gpcontest/templates/"
     out_file = "GPSummarysheet"
-    template_name = "GPContestSummarySheet.tex"
-    template_file = basefiledir+templatedir+template_name
     build_d = basefiledir+"/build"
     gpids = None
     outputdir = "preContestSummary"
     schoolinfo = {}
+    templates = {"summary": {"template": "GPContestSummarySheet.tex", "latex": None}}
+    
 
     def add_arguments(self, parser):
         parser.add_argument('--gpids', nargs='?')
@@ -51,7 +51,6 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
 
     def createSummaryReports(self):
-        template = self.initiatelatex()
         for district in self.schoolinfo:
             for block in self.schoolinfo[district]:
                 for gp in self.schoolinfo[district][block]:
@@ -64,7 +63,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                     outputdir = self.basefiledir+self.pdfsdir+self.outputdir+"/"+district+"/"+block+"/"
                     if not os.path.exists(outputdir):  # create the pdf directory if not existing
                         os.makedirs(outputdir)
-                    renderer_template = template.render(boundaryinfo=boundaryinfo, schools=schoolinfo)
+                    renderer_template = self.templates["summary"]["latex"].render(boundaryinfo=boundaryinfo, schools=schoolinfo)
 
                     with open(out_file+".tex", "w", encoding='utf-8') as f:  # saves tex_code to outpout file
                         f.write(renderer_template)
@@ -96,6 +95,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
             self.blockids = [int(x) for x in blockids.split(',')]
             self.getSchoolInfo(self.blockids, None)
 
+        self.initiatelatex()
         self.createSummaryReports()
 
         os.system('tar -cvf '+self.basefiledir+self.pdfsdir+'/'+self.outputdir+'.tar '+self.basefiledir+self.pdfsdir+self.outputdir+'/')
