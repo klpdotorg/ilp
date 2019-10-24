@@ -125,8 +125,8 @@ var topSummaryData = {};
     function loadData(params, reloadOpenSection) {
         // As of August 1st, 2017, data from June 2017 is shown as default
         if(!params.from && !params.to) {
-            params.from = '2018-06-01';
-            params.to = '2019-03-31';
+            params.from = '2019-06-01';
+            params.to = '2020-03-31';
         }
 
         klp.GKA.routerParams = params;
