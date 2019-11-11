@@ -15,8 +15,8 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
         parser.add_argument('filename', nargs='?')
-        parser.add_argument('--startyearmonth', nargs='?')
-        parser.add_argument('--endyearmonth', nargs='?')
+        parser.add_argument('--from', nargs='?')
+        parser.add_argument('--to', nargs='?')
         parser.add_argument('--districtid', nargs='?')
         parser.add_argument('--blockid', nargs='?')
         parser.add_argument('--clusterid', nargs='?')
@@ -38,12 +38,12 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
         questioninfo, numquestions = self.getQuestionData(options.get('surveyid'))
         if questioninfo == None:
             return
-        from_date = options.get('from', None)
-        to_date = options.get('to', None)
+        from_yearmonth = options.get('from', None)
+        to_yearmonth = options.get('to', None)
         #If no to_date is specified, then assume today is the last
-        if to_date is None:
+        if from_yearmonth is not None and to_yearmonth is None:
             to_date = date.today()
-        assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo, from_date, to_date)
+        assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo, from_yearmonth, to_yearmonth)
         now = date.today()
         if options.get('filename'):
             filename = options.get('filename')
