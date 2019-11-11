@@ -56,7 +56,7 @@ class commonAssessmentDataUtils():
         return survey
 
 
-    def createXLS(self, surveyinfo, questioninfo, numquestions, assessmentdata, filename):
+    def createXLS(self, surveyinfo, questioninfo, numquestions, assessmentdata, filename, skipxls):
         csvfile = filename+".csv"
         xlsfile = filename+".xlsx"
         book = xlwt.Workbook()
@@ -80,21 +80,22 @@ class commonAssessmentDataUtils():
                                         row = row+[answer["questiontext"],answer["answer"]]
                                     filewriter.writerow(row)
             datafile.close()
-
-        # For very big files, convert CSV to XLS. Changed from xlwt package
-        # to pandas because xlwt was failing to write rows > 65536
-        import pandas as pd
-        data = pd.read_csv(csvfile, low_memory=False)
-        writer = pd.ExcelWriter(xlsfile, engine='xlsxwriter')
-        data.to_excel(writer, 'AssessmentData')
-        writer.save()
-        # Old code using xlwt package to write xls file
-        # with open(csvfile, 'rt', encoding='utf8') as f:
-        #     reader = csv.reader(f)
-        #     for r, row in enumerate(reader):
-        #         for c, col in enumerate(row):
-        #             sheet.write(r, c, col)
-        # book.save(xlsfile)
+        # if skipxls is True, then no need to create the XLS file. Stop with CSV
+        if skipxls is False:
+            # For very big files, convert CSV to XLS. Changed from xlwt package
+            # to pandas because xlwt was failing to write rows > 65536
+            import pandas as pd
+            data = pd.read_csv(csvfile, low_memory=False)
+            writer = pd.ExcelWriter(xlsfile, engine='xlsxwriter')
+            data.to_excel(writer, 'AssessmentData')
+            writer.save()
+            # Old code using xlwt package to write xls file
+            # with open(csvfile, 'rt', encoding='utf8') as f:
+            #     reader = csv.reader(f)
+            #     for r, row in enumerate(reader):
+            #         for c, col in enumerate(row):
+            #             sheet.write(r, c, col)
+            # book.save(xlsfile)
 
     def deleteTempFiles(self, tempFiles):
         for f in tempFiles:
