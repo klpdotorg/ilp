@@ -42,7 +42,10 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
         to_yearmonth = options.get('to', None)
         #If no to_date is specified, then assume today is the last
         if from_yearmonth is not None and to_yearmonth is None:
-            to_date = date.today()
+            today = date.today()
+            year = str(today.year)
+            month = str(today.month)
+            to_yearmonth = year + month
         assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo, from_yearmonth, to_yearmonth)
         now = date.today()
         if options.get('filename'):

@@ -125,6 +125,7 @@ class commonAssessmentDataUtils():
     def getAssessmentData(self, surveyinfo, questioninfo, from_yearmonth, to_yearmonth):
         assessmentdata = {}
         if from_yearmonth and to_yearmonth is not None:
+            from_date, to_date = self.convertToDate(from_yearmonth, to_yearmonth)
             districts = SurveyBoundaryAgg.objects.filter(
                 survey_id=surveyinfo.id, boundary_id__boundary_type_id='SD').filter(
                     yearmonth__range=[from_yearmonth, to_yearmonth]
@@ -137,8 +138,7 @@ class commonAssessmentDataUtils():
             print(district)
             answergroups = AnswerGroup_Institution.objects.filter(institution__admin1__id=district, questiongroup__survey_id=surveyinfo.id)
             # If from and to dates are given filter based on that
-            from_date, to_date = self.convertToDate(from_yearmonth, to_yearmonth)
-            print(from_date, to_date)
+           
             if from_date is not None:
                 answergroups = answergroups.filter(date_of_visit__gte=from_date)
             if to_date is not None:
