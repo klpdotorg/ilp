@@ -38,7 +38,12 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
         questioninfo, numquestions = self.getQuestionData(options.get('surveyid'))
         if questioninfo == None:
             return
-        assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo)
+        from_date = options.get('from', None)
+        to_date = options.get('to', None)
+        #If no to_date is specified, then assume today is the last
+        if to_date is None:
+            to_date = date.today()
+        assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo, from_date, to_date)
         now = date.today()
         if options.get('filename'):
             filename = options.get('filename')

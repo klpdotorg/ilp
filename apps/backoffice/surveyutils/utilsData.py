@@ -100,13 +100,20 @@ class commonAssessmentDataUtils():
         return academicyear
 
 
-    def getAssessmentData(self, surveyinfo, questioninfo):
+    def getAssessmentData(self, surveyinfo, questioninfo, from_date, to_date):
         assessmentdata={}
         districts = SurveyBoundaryAgg.objects.filter(survey_id=surveyinfo.id, boundary_id__boundary_type_id='SD').values_list('boundary_id',flat=True).distinct()
 
         for district in districts:
             print(district)
-            answergroups = AnswerGroup_Institution.objects.filter(institution__admin1__id=district, questiongroup__survey_id=surveyinfo.id).values_list('institution__admin0__name','institution__admin1__name', 'institution__admin2__name', 'institution__admin3__name', 'institution__gp__const_ward_name', 'institution__gp__id','institution__name', 'institution__dise__school_code', 'questiongroup__id','date_of_visit','group_value', 'respondent_type', 'created_by__user_type','id','institution__id','created_by__mobile_no').distinct()
+            answergroups = AnswerGroup_Institution.objects.filter(institution__admin1__id=district, questiongroup__survey_id=surveyinfo.id)
+            # If from and to dates are given filter based on that
+            if from_date is not None:
+                answergroups = answergroups.filter(date_of_visit__gte=from_date)
+            if to_date is not None:
+                answergroups = answergroups.filter(date_of_visit__lte=to_date)
+
+            answergroups = answergroups.values_list('institution__admin0__name','institution__admin1__name', 'institution__admin2__name', 'institution__admin3__name', 'institution__gp__const_ward_name', 'institution__gp__id','institution__name', 'institution__dise__school_code', 'questiongroup__id','date_of_visit','group_value', 'respondent_type', 'created_by__user_type','id','institution__id','created_by__mobile_no').distinct()
             print("Got data")
             for answergroup in answergroups:
                 state= answergroup[0]
