@@ -2,6 +2,7 @@ from datetime import date
 import xlwt
 import csv
 import os
+import calendar
 from assessments.models import Survey, QuestionGroup, QuestionGroup_Questions, Question, AnswerGroup_Institution, AnswerInstitution, SurveyBoundaryAgg
 
 class commonAssessmentDataUtils():
@@ -55,9 +56,9 @@ class commonAssessmentDataUtils():
         return survey
 
 
-    def createXLS(self, surveyinfo, questioninfo, numquestions, assessmentdata, filename):
+    def createXLS(self, surveyinfo, questioninfo, numquestions, assessmentdata, filename, skipxls):
         csvfile = filename+".csv"
-        xlsfile = filename+".xls"
+        xlsfile = filename+".xlsx"
         book = xlwt.Workbook()
         sheet = book.add_sheet("AssessmentData")
         with open(csvfile, mode='w') as datafile:
@@ -79,12 +80,22 @@ class commonAssessmentDataUtils():
                                         row = row+[answer["questiontext"],answer["answer"]]
                                     filewriter.writerow(row)
             datafile.close()
-        with open(csvfile, 'rt', encoding='utf8') as f:
-            reader = csv.reader(f)
-            for r, row in enumerate(reader):
-                for c, col in enumerate(row):
-                    sheet.write(r, c, col)
-        book.save(xlsfile)
+        # if skipxls is True, then no need to create the XLS file. Stop with CSV
+        if skipxls is False:
+            # For very big files, convert CSV to XLS. Changed from xlwt package
+            # to pandas because xlwt was failing to write rows > 65536
+            import pandas as pd
+            data = pd.read_csv(csvfile, low_memory=False)
+            writer = pd.ExcelWriter(xlsfile, engine='xlsxwriter')
+            data.to_excel(writer, 'AssessmentData')
+            writer.save()
+            # Old code using xlwt package to write xls file
+            # with open(csvfile, 'rt', encoding='utf8') as f:
+            #     reader = csv.reader(f)
+            #     for r, row in enumerate(reader):
+            #         for c, col in enumerate(row):
+            #             sheet.write(r, c, col)
+            # book.save(xlsfile)
 
     def deleteTempFiles(self, tempFiles):
         for f in tempFiles:
@@ -99,14 +110,42 @@ class commonAssessmentDataUtils():
             academicyear = str(int(year)-1)+"-"+year
         return academicyear
 
+    def convertToDate(self, from_yearmonth_string, to_yearmonth_string):
+        from_date = None
+        to_date = None
+        if from_yearmonth_string is not None:
+            year = int(from_yearmonth_string[0:4])
+            month = int(from_yearmonth_string[4:])
+            from_date = date(year=year, month=month, day=1)
+        if to_yearmonth_string is not None:
+            to_year = int(to_yearmonth_string[0:4])
+            to_month = int(to_yearmonth_string[4:])
+            to_date = date(year=to_year, month=to_month, day=calendar.monthrange(to_year, to_month)[1])
+        return from_date, to_date
 
-    def getAssessmentData(self, surveyinfo, questioninfo):
-        assessmentdata={}
-        districts = SurveyBoundaryAgg.objects.filter(survey_id=surveyinfo.id, boundary_id__boundary_type_id='SD').values_list('boundary_id',flat=True).distinct()
-
+    def getAssessmentData(self, surveyinfo, questioninfo, from_yearmonth, to_yearmonth):
+        assessmentdata = {}
+        if from_yearmonth and to_yearmonth is not None:
+            from_date, to_date = self.convertToDate(from_yearmonth, to_yearmonth)
+            districts = SurveyBoundaryAgg.objects.filter(
+                survey_id=surveyinfo.id, boundary_id__boundary_type_id='SD').filter(
+                    yearmonth__range=[from_yearmonth, to_yearmonth]
+                ).values_list('boundary_id', flat=True).distinct()
+        else:
+            districts = SurveyBoundaryAgg.objects.filter(
+                survey_id=surveyinfo.id, boundary_id__boundary_type_id='SD').values_list('boundary_id', flat=True).distinct()
+        print(districts)
         for district in districts:
             print(district)
-            answergroups = AnswerGroup_Institution.objects.filter(institution__admin1__id=district, questiongroup__survey_id=surveyinfo.id).values_list('institution__admin0__name','institution__admin1__name', 'institution__admin2__name', 'institution__admin3__name', 'institution__gp__const_ward_name', 'institution__gp__id','institution__name', 'institution__dise__school_code', 'questiongroup__id','date_of_visit','group_value', 'respondent_type', 'created_by__user_type','id','institution__id','created_by__mobile_no').distinct()
+            answergroups = AnswerGroup_Institution.objects.filter(institution__admin1__id=district, questiongroup__survey_id=surveyinfo.id)
+            # If from and to dates are given filter based on that
+           
+            if from_date is not None:
+                answergroups = answergroups.filter(date_of_visit__gte=from_date)
+            if to_date is not None:
+                answergroups = answergroups.filter(date_of_visit__lte=to_date)
+
+            answergroups = answergroups.values_list('institution__admin0__name','institution__admin1__name', 'institution__admin2__name', 'institution__admin3__name', 'institution__gp__const_ward_name', 'institution__gp__id','institution__name', 'institution__dise__school_code', 'questiongroup__id','date_of_visit','group_value', 'respondent_type', 'created_by__user_type','id','institution__id','created_by__mobile_no').distinct()
             print("Got data")
             for answergroup in answergroups:
                 state= answergroup[0]
