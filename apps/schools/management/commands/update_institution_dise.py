@@ -59,7 +59,7 @@ class Command(BaseCommand):
         try:
            createddise = BasicData.objects.get(school_code=school.dise.school_code,academic_year_id=academicyear)
            school.dise = createddise
-           school.save
+           school.save()
            self.createdandupdated.append(school.id)
         except BasicData.DoesNotExist:
             print("Could not create dise entry for schoolcode :"+str(school.dise.school_code)+" and academicyear :"+str(academicyear))
