@@ -34,7 +34,6 @@ class Command(BaseCommand):
             return None
 
     def updateDiseIds(self, state, academicyear):
-        print(academicyear)
         schools = Institution.objects.select_related('dise').filter(admin0__name__iexact=state,status='AC',dise__isnull=False)
         count = 0
         for school in schools:
@@ -44,10 +43,8 @@ class Command(BaseCommand):
                 continue
             newdise = self.getDise(school.dise.school_code, academicyear)
             if newdise == None:
-                print("Creating new entry")
                 self.createDiseEntry(state,academicyear,school)
             else:
-                print("Updating entry")
                 self.schools_updated.append(school.id)
                 school.dise = newdise
                 school.save()
