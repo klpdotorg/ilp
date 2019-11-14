@@ -174,8 +174,8 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, contest_yearmonth
                     score_buckets[questiongroup_id] = {
                         "total": grade_scores.num_students,
                         "below35": grade_scores.cat_a,
-                        "35to60": grade_scores.cat_b,
-                        "60to75": grade_scores.cat_c,
+                        "35to59": grade_scores.cat_b,
+                        "60to74": grade_scores.cat_c,
                         "75to100": grade_scores.cat_d
                     }
                 else:

@@ -35,7 +35,8 @@ class Command(BaseCommand):
 
     def create_institutions(self):
         count = 0
-        institutions = []
+        createdinstitutions = []
+        alreadyexisted = []
         for row in self.csv_files["institutions"]:
             if count == 0:
                 count += 1
@@ -58,6 +59,9 @@ class Command(BaseCommand):
                 continue
             name = row[6]
             dise = self.getDise(row[7])
+            if dise == None:
+                print("No dise found")
+                continue
             try:
                 category = InstitutionCategory.objects.get(name__iexact=row[8].lower())
                 gender = InstitutionGender.objects.get(char_id__iexact =row[9].lower())
@@ -70,7 +74,7 @@ class Command(BaseCommand):
                 continue
             try:
 
-                institution = Institution.objects.create(
+                institution, created = Institution.objects.get_or_create(
                     name=name,
                     admin0=state,
                     admin1=district,
@@ -84,11 +88,14 @@ class Command(BaseCommand):
                     institution_type=institutiontype,
                     status=status
                     )
-                self.createInstitutionLanguage(institution,language)
-                institutions.append(institution)
+                if created:
+                    self.createInstitutionLanguage(institution,language)
+                    createdinstitutions.append(institution)
+                else:
+                    alreadyexisted.append(institution)
             except Exception as e:
                 print(e)
-        return institutions 
+        return createdinstitutions , alreadyexisted
 
     def createInstitutionLanguage(self, institution, language):
         try:
@@ -121,9 +128,9 @@ class Command(BaseCommand):
         except BasicData.DoesNotExist:
             print("No DISE data found for code :"+str(disecode)+" and academic year 1617")
             try:
-                dise = BasicData.objects.get(school_code=disecode,academic_year_id='1516')
-                print("Dise data available for 1516")
-                newdise = self.createDiseEntry(dise, disecode, '1617')
+                dise = BasicData.objects.filter(school_code=disecode).order_by('-academic_year_id')[:1]
+                print("Dise data available for other years")
+                newdise = self.createDiseEntry(dise[0], disecode, '1617')
                 return newdise
             except BasicData.DoesNotExist:
                 print("No DISE data found for code :"+str(disecode)+" and academic year 1516")
@@ -150,6 +157,16 @@ class Command(BaseCommand):
             return
 
         # create schools
-        institutions = self.create_institutions()
-        print(institutions)
-        print(str(len(institutions))+" number of institutions created")
+        createdinstitutions, alreadyexisted = self.create_institutions()
+        print(str(len(createdinstitutions))+" number of institutions created")
+        if len(createdinstitutions) > 0:
+            print("Newly Created:")
+            print("id, name, diseid")
+            for inst in createdinstitutions:
+                print(str(inst.id)+","+inst.name+","+str(inst.dise_id))
+        print(str(len(alreadyexisted))+" number of institutions already existed")
+        if len(alreadyexisted) > 0:
+            print("Already Existing:")
+            print("id, name, diseid")
+            for inst in alreadyexisted:
+                print(str(inst.id)+","+inst.name+","+str(inst.dise_id))

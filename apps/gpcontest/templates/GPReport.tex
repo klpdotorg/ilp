@@ -40,7 +40,7 @@
 \fontsize{9}{12}
 \begin{tikzpicture}[overlay]
 \node[anchor=south west,yshift=0cm,xshift=-6cm]
-{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}} };
+{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.acadyear}} };
 \node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
 {\kn{ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590 \kn{ಗೆ ಕರೆ ಮಾಡಿ} };
 \node[anchor=south,yshift=-0.5cm,xshift=6cm]
@@ -111,7 +111,7 @@
     \vspace*{10.5cm}
      \textbf{\huge \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ}} \\~\\
         \textbf{\huge\kn{ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ}} \\~\\
-	    \Large{{info.year}}
+	    \Large{{info.acadyear}}
     \end{center}
 \end{titlepage}
 \pagebreak
@@ -119,7 +119,8 @@
 \thispagestyle{plain}
 {
 \setlength{\parindent}{0in}
-\kn{ಇವರಿಗೆ,}\\ [2ex]
+~\\~\\~\\
+\kn{ಇವರಿಗೆ,} \hfill  \kn{ {{info.month}} } {{info.year}} \\ [2ex]
 \kn{ಮಾನ್ಯ ಅಧ್ಯಕ್ಷರು,}\\ [1ex]
 {{gpinfo.gpname}} \kn{ ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ,}\\ [1ex]
 {{gpinfo.block}} \kn{ ತಾಲೂಕು,}\\ [1ex]
@@ -165,11 +166,11 @@
 \kn{ತರಗತಿವಾರು ಗಣಿತ ಸ್ಪರ್ಧೆಯಲ್ಲಿ ಭಾಗವಹಿಸಿದ್ದ ಮಕ್ಕಳ ಒಟ್ಟಾರೆ ಫಲಿತಾಂಶಗಳು ಈ ಕೆಳಗಿನಂತೆ ಇವೆ.}\\
 
 
-\begin{longtable}{|P{3cm}|P{4cm}|P{2cm}|P{2cm}|P{2cm}|P{2cm}|} \hline
+\begin{longtable}{|P{3cm}|P{4cm}|P{2.2cm}|P{2.2cm}|P{2.2cm}|P{2.2cm}|} \hline
 \textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{4}{|c|}{\textbf{\kn{ಅಂಕ ಗಳಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ (ಶೇಕಡವಾರು)}}}\\ \cline{3-6}
-\rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{36\%-60\%}  & \textbf{61\%-75\%} & \textbf{76\%-100\%} \\ \hline \endhead
+\rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{35\%-59\%}  & \textbf{60\%-74\%} & \textbf{75\%-100\%} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
-\rule{0cm}{0.3cm} {{ assessment["class"] }}\kn{ನೇ ತರಗತಿ} & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to60"]}} & {{assessment["overall_scores"]["60to75"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
+\rule{0cm}{0.3cm} {{ assessment["class"] }}\kn{ನೇ ತರಗತಿ} & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to59"]}} & {{assessment["overall_scores"]["60to74"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
 {% endfor %}
 \end{longtable}
 
@@ -191,7 +192,7 @@
 {% if percent_scores is not none %}
 {
 ~\\
-\centering{\kn{ಫಲಿತಾಂಶ : ಒಟ್ಟಾರೆಯಾಗಿ 5 ವರ್ಷ ಶಾಲೆಯಲ್ಲಿ ಕಲಿತ ಮಗು (6 ನೇ ತರಗತಿ) ಈ ಕೆಳಗಿನ ಮೂಲಕ್ರಿಯೆಯನ್ನು ಮಾಡಬಹುದು ಎಂದು ನಾವು ಪರಿಗಣಿಸಬಹುದು} (\kn{ಶೇಕಡವಾರು}).} \\[2ex]
+\centering{\kn{5 ವರ್ಷ ಶಾಲಾ ದಿನಗಳನ್ನು ಮುಗಿಸಿದ (6ನೇ ತರಗತಿ) ಮಕ್ಕಳ ಒಟ್ಟಾರೆ ಫಲಿತಾಂಶ ಶೇಕಡವಾರು ಈ ಕೆಳಗಿನಂತಿದೆ.}} \\[2ex]
  
 \begingroup
 \fontsize{8.75}{12}
@@ -210,14 +211,15 @@
 {% endif %}
 
 \begin{flushleft}
-~\\
+\kn{(ಸೂಚನೆ : ಈ ವರದಿಯ ಕೋಷ್ಟಕಗಳಲ್ಲಿ ದಶಕ ಸಹಿತ ಸಂಕಲನ, ದಶಕ ಸಹಿತ ವ್ಯವಕಲನ ಹಾಗು ಶೇಷ ಸಹಿತ ಭಾಗಾಕಾರವನ್ನು ವಿಶ್ಲೇಷಣೆಗೆ ಪರಿಗಣಿಸಲಾಗಿದೆ)}
+~\\~\\
 \kn{ಈ ಮೇಲ್ಕಂಡ ಫಲಿತಾಂಶಗಳು ಇನ್ನೂ ಉತ್ತಮ ಪಡಿಸಲು ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಜೊತೆಗೆ ಇತರೆ ಭಾಗೀದಾರರಾದ ನಾಗರಿಕ ಸೌಕರ್ಯ ಸಮಿತಿ} (CIVIL Amenities Committee), SDMC, \kn{ಪೋಷಕರು,ಶೈಕ್ಷಣಿಕ ಸ್ವಯಂಸೇವಕರು ಮತ್ತು ಶಾಲಾ ಶಿಕ್ಷಕರ ಜೊತೆಗೂಡಿ ಯೋಜನೆಯನ್ನು ರೂಪಿಸುತ್ತೀರಾ ಎಂದು ಭಾವಿಸುತ್ತೇವೆ.} \\[5ex]
 \end{flushleft}
 
 
-\centering{\kn{ವಂದನೆಗಳೊಂದಿಗೆ}} \\[15ex]
+\centering{\kn{ವಂದನೆಗಳೊಂದಿಗೆ}} \\[10ex]
 {% if percent_scores is none %}
-~\\~\\~\\
+~\\~\\
 {% endif %}
 
 \begin{flushleft}

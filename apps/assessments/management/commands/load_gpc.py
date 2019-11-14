@@ -30,11 +30,13 @@ class Command(BaseCommand):
     gplist = {}
     datainserted = {}
     districtgpmap = {}
+    onlycheck = False
 
     def add_arguments(self, parser):
         parser.add_argument('--filename')
         parser.add_argument('--grade')
         parser.add_argument('--qgroup')
+        parser.add_argument('--onlycheck')
 
     def checkQuestionGroupValidity(self, qgroup):
         try:
@@ -100,24 +102,6 @@ class Command(BaseCommand):
                   ", it should have been in range: "+str(self.validanswers))
             return False
         return True
-
-    def handle(self, *args, **options):
-        csv_file= options.get('filename', None)
-        if csv_file == None:
-            print("Pass the csv file --filename")
-            return
-        grade = options.get('grade', None)
-        if grade == None:
-            print("Pass grade argument --grade")
-            return
-        qgroup = options.get('qgroup', None)
-        if qgroup == None:
-            print("Pass qgroup argument --qgroup")
-            return
-
-        #csv_file = self.convertxlstocsv(inputfile)
-
-        self.parseFile(csv_file, grade, qgroup)
 
     def convertxlstocsv(self, inputfile):
         with xlrd.open_workbook(inputfile) as wb:
@@ -207,6 +191,10 @@ class Command(BaseCommand):
                     self.districtgpmap[gpid]=district
                     
 
+                if self.onlycheck:
+                    print("Check Done")
+                    return
+
                 answergroup = AnswerGroup_Institution.objects.create(
                                 group_value=child_name,
                                 date_of_visit=dov,
@@ -285,3 +273,24 @@ class Command(BaseCommand):
         print("\n\nNumber of AnswerGroups created :"+str(ansgroupcount) +
               ", Number of answers created :"+str(anscount))
         print("Number of Rows :"+str(self.rowcounter))
+
+
+    def handle(self, *args, **options):
+        csv_file= options.get('filename', None)
+        if csv_file == None:
+            print("Pass the csv file --filename")
+            return
+        grade = options.get('grade', None)
+        if grade == None:
+            print("Pass grade argument --grade")
+            return
+        qgroup = options.get('qgroup', None)
+        if qgroup == None:
+            print("Pass qgroup argument --qgroup")
+            return
+         
+        self.onlycheck = options.get('onlycheck', False)
+
+        #csv_file = self.convertxlstocsv(inputfile)
+
+        self.parseFile(csv_file, grade, qgroup)

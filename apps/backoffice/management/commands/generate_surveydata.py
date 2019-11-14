@@ -15,8 +15,9 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
         parser.add_argument('filename', nargs='?')
-        parser.add_argument('--startyearmonth', nargs='?')
-        parser.add_argument('--endyearmonth', nargs='?')
+        parser.add_argument('--skipxls', action='store_true', help='Skip creating an excel version')
+        parser.add_argument('--from', nargs='?')
+        parser.add_argument('--to', nargs='?')
         parser.add_argument('--districtid', nargs='?')
         parser.add_argument('--blockid', nargs='?')
         parser.add_argument('--clusterid', nargs='?')
@@ -44,11 +45,20 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
         questioninfo, numquestions = self.getQuestionData(options.get('surveyid'))
         if questioninfo == None:
             return
-        assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo)
+        from_yearmonth = options.get('from', None)
+        to_yearmonth = options.get('to', None)
+        skip_xls_creation = options.get('skipxls', False)
+        #If no to_date is specified, then assume today is the last
+        if from_yearmonth is not None and to_yearmonth is None:
+            today = date.today()
+            year = str(today.year)
+            month = str(today.month)
+            to_yearmonth = year + month
+        assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo, from_yearmonth, to_yearmonth)
         now = date.today()
         if options.get('filename'):
             filename = options.get('filename')
         else:
             filename = self.surveyinfo.name.replace(' ','')+"_"+str(now)
-        self.createXLS(self.surveyinfo, questioninfo, numquestions, assessmentdata, filename)
+        self.createXLS(self.surveyinfo, questioninfo, numquestions, assessmentdata, filename, skip_xls_creation)
         return filename
