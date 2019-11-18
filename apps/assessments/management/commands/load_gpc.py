@@ -126,7 +126,6 @@ class Command(BaseCommand):
                     header = 0
                     continue
 
-                #print(row)
                 self.rowcounter += 1
                 csv_grade = str(int(float(row[self.cols["grade"]].strip())))
                 district = row[self.cols["district"]].strip().lower()
@@ -192,8 +191,7 @@ class Command(BaseCommand):
                     
 
                 if self.onlycheck:
-                    print("Check Done")
-                    return
+                    continue
 
                 answergroup = AnswerGroup_Institution.objects.create(
                                 group_value=child_name,
@@ -247,6 +245,10 @@ class Command(BaseCommand):
                 else:
                     self.datainserted[district]={"gps":{gpid: {"gpname":gpname,"schools": {schoolid: {"disecode":dise_code,"grades":{grade:1}}}}}}
 
+        if self.onlycheck:
+            print("Check Done")
+            return
+           
 
         print("District, GPID, GPNAME, SCHOOLID, DISE_CODE, GRADE COUNTS")
         gpinfo = {}

@@ -41,10 +41,7 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
     def handle(self, *args, **options):
         if not self.validateParams(options):
             return
-
-        questioninfo, numquestions = self.getQuestionData(options.get('surveyid'))
-        if questioninfo == None:
-            return
+        survey_id = options.get('surveyid')
         from_yearmonth = options.get('from', None)
         to_yearmonth = options.get('to', None)
         skip_xls_creation = options.get('skipxls', False)
@@ -54,11 +51,11 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
             year = str(today.year)
             month = str(today.month)
             to_yearmonth = year + month
-        assessmentdata = self.getAssessmentData(self.surveyinfo, questioninfo, from_yearmonth, to_yearmonth)
+       
         now = date.today()
         if options.get('filename'):
             filename = options.get('filename')
         else:
-            filename = self.surveyinfo.name.replace(' ','')+"_"+str(now)
-        self.createXLS(self.surveyinfo, questioninfo, numquestions, assessmentdata, filename, skip_xls_creation)
+            filename = self.surveyinfo.name.replace(' ', '') # + "_" + str(now)
+        self.dumpData(self.surveyinfo, from_yearmonth, to_yearmonth, filename, skip_xls_creation)
         return filename
