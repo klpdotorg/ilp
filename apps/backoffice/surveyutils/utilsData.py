@@ -80,6 +80,7 @@ class commonAssessmentDataUtils():
             #     to_short_year = int(to_short_year) + 1
             # academic_year_id = from_short_year + str(to_short_year)
             # list_questiongroups = QuestionGroup.objects.filter(survey_id=surveyid).filter(academic_year_id=academic_year_id).distinct('id').values_list('id', flat=True)
+        print("Questiongroups used for this range: ", list_questiongroups)
         return list_questiongroups
 
     def validateSurvey(self, surveyid):
