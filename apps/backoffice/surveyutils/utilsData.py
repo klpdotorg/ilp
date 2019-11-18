@@ -114,9 +114,9 @@ class commonAssessmentDataUtils():
                     #row = row+['QuestionText_'+str(i),'Answer_'+str(i)]
                 questions_list = questioninfo[questiongroup_id]["questions"]
                 for question in questions_list:
-                    display_text = question["display_text"]
-                    if display_text is None or " ":
-                        display_text = question["question_text"]
+                    qn_text = question["display_text"]
+                    if qn_text is None or " ":
+                        qn_text = question["question_text"]
                     else:
                         qn_text = question["display_text"]
                     row = row + [qn_text]
