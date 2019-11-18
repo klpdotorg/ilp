@@ -101,7 +101,7 @@ class commonAssessmentDataUtils():
             + "_" + str(from_yearmonth) + "_" + str(to_yearmonth) + "_" + str(now)
         return filename 
 
-    def createXLS(self, surveyinfo, questioninfo, numquestions, questiongroup_id, assessmentdata, filename, skipxls):
+    def createXLS(self, surveyinfo, questioninfo, numquestions, questiongroup_id, assessmentdata, filename, skipxls, dest_folder):
         try:
             csvfile = filename+".csv"
             xlsfile = filename+".xlsx"
@@ -114,7 +114,11 @@ class commonAssessmentDataUtils():
                     #row = row+['QuestionText_'+str(i),'Answer_'+str(i)]
                 questions_list = questioninfo[questiongroup_id]["questions"]
                 for question in questions_list:
-                    qn_text = question["display_text"]
+                    display_text = question["display_text"]
+                    if display_text is None or " ":
+                        display_text = question["question_text"]
+                    else:
+                        qn_text = question["display_text"]
                     row = row + [qn_text]
                 filewriter.writerow(row)
                 for state in assessmentdata:
@@ -145,19 +149,11 @@ class commonAssessmentDataUtils():
                 data.to_excel(writer, 'AssessmentData')
                 writer.save()
             # Move the CSV & XLS files to the proper location
-            foldername = surveyinfo.name.replace(" ", "")
-            parent_dir = "generated_files"
-            parent_dir = os.path.join(parent_dir, "survey_data")
-            folderpath = os.path.join(parent_dir,foldername)
-            # Move the files
-            if not os.path.exists(parent_dir):
-                os.mkdir(parent_dir)
-            if not os.path.exists(folderpath):
-                os.mkdir(folderpath)
-            shutil.move(csvfile, folderpath + "/" + csvfile)
+            
+            shutil.move(csvfile, dest_folder + "/" + csvfile)
 
             if not skipxls: # Move the XLS file if it was created
-                shutil.move(xlsfile, folderpath + "/" + xlsfile)    
+                shutil.move(xlsfile, dest_folder + "/" + xlsfile)    
 
         # For very big files, convert CSV to XLS. Changed from xlwt package
         # to pandas because xlwt was failing to write rows > 65536
@@ -202,6 +198,7 @@ class commonAssessmentDataUtils():
 
     def dumpData(self, surveyinfo, from_yearmonth, to_yearmonth, filename, skipxls):
         questiongroups_list = self.getQuestionGroups(surveyinfo.id, from_yearmonth, to_yearmonth)
+        dest_folder = self.createOutputFolder(surveyinfo, from_yearmonth, to_yearmonth)
         if from_yearmonth and to_yearmonth is not None:
             districts = SurveyBoundaryAgg.objects.filter(
                 survey_id=surveyinfo.id, boundary_id__boundary_type_id='SD').filter(
@@ -217,10 +214,38 @@ class commonAssessmentDataUtils():
             # We are getting assessment data per questiongroup and creating XLS files per questiongroup
             assessment_data, numquestions, questioninfo = self.getAssessmentData(surveyinfo, districts, questiongroup, from_yearmonth, to_yearmonth)
             # Create the CSV/XLS file name so it is descriptive/neat
-            output_file_name = self.create_file_name(filename,from_yearmonth, to_yearmonth,questiongroup, q_group_name)
+            output_file_name = self.create_file_name(filename, from_yearmonth, to_yearmonth, questiongroup, q_group_name)
+            
             # Create the CSV/XLS files
-            self.createXLS(surveyinfo, questioninfo, numquestions, questiongroup, assessment_data, output_file_name, skipxls)
+            self.createXLS(surveyinfo, questioninfo, numquestions, questiongroup, assessment_data, output_file_name, skipxls, dest_folder)
 
+
+    def createOutputFolder(self,surveyinfo, from_yearmonth, to_yearmonth):
+        # Create the folder structure where the data will sit
+        foldername = surveyinfo.name.replace(" ", "")
+        parent_dir = "generated_files"
+        if not os.path.exists(parent_dir):
+            os.mkdir(parent_dir)
+        parent_dir = os.path.join(parent_dir, "survey_data")
+        if not os.path.exists(parent_dir):
+            os.mkdir(parent_dir)
+        folderpath = os.path.join(parent_dir,foldername)
+        if not os.path.exists(folderpath):
+            os.mkdir(folderpath)
+
+        dest_folder = folderpath
+        # Create the destination folder
+        if from_yearmonth not None:
+            from_short_year = from_yearmonth[:-2]
+            to_short_year = int(to_yearmonth[:-2])
+            if int(to_short_year) == int(from_short_year):
+                to_short_year = int(to_short_year) + 1
+            academic_year_id = from_short_year + "-" + str(to_short_year)
+            year_folder = os.path.join(folderpath, academic_year_id)
+            if not os.path.exists(year_folder):
+                os.mkdir(year_folder)
+            dest_folder = year_folder
+        return dest_folder
 
     def getAssessmentData(self, surveyinfo, districts, questiongroup, from_yearmonth, to_yearmonth):
         from_date, to_date = self.convertToDate(from_yearmonth, to_yearmonth)
