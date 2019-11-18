@@ -141,14 +141,19 @@ class Command(BaseCommand):
                 dov = parser.parse(date_string)
                 localtz = timezone(settings.TIME_ZONE)
                 dov = localtz.localize(dov)
-                schoolid = int(float(row[self.cols["instid"]].strip()))
-                dise_code = int(float(row[self.cols["disecode"]].strip()))
-                gpid = int(float(row[self.cols["gpid"]].strip()))
-                gpname = row[self.cols["gpname"]].strip().lower()
-                questionseries = row[self.cols["questionseries"]].strip()
-                child_name = row[self.cols["childname"]].strip()
-                gender = row[self.cols["gender"]].strip().lower()
-                enteredat = localtz.localize(datetime.now())
+                
+                try:
+                    schoolid = int(float(row[self.cols["instid"]].strip()))
+                    dise_code = int(float(row[self.cols["disecode"]].strip()))
+                    gpid = int(float(row[self.cols["gpid"]].strip()))
+                    gpname = row[self.cols["gpname"]].strip().lower()
+                    questionseries = row[self.cols["questionseries"]].strip()
+                    child_name = row[self.cols["childname"]].strip()
+                    gender = row[self.cols["gender"]].strip().lower()
+                    enteredat = localtz.localize(datetime.now())
+                except ValueError as e:
+                    print("["+str(self.rowcounter)+"] "+str(e)+" : "+str(row))
+                    continue
 
                 # check values
                 if not self.checkQuestionGroupValidity(qgroup):
