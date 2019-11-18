@@ -235,7 +235,7 @@ class commonAssessmentDataUtils():
 
         dest_folder = folderpath
         # Create the destination folder
-        if from_yearmonth not None:
+        if from_yearmonth is not None:
             from_short_year = from_yearmonth[:-2]
             to_short_year = int(to_yearmonth[:-2])
             if int(to_short_year) == int(from_short_year):
