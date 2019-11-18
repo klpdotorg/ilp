@@ -147,6 +147,7 @@ class commonAssessmentDataUtils():
             # Move the CSV & XLS files to the proper location
             foldername = surveyinfo.name.replace(" ", "")
             parent_dir = "generated_files"
+            parent_dir = os.path.join(parent_dir, "survey_data")
             folderpath = os.path.join(parent_dir,foldername)
             # Move the files
             if not os.path.exists(parent_dir):
