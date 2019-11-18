@@ -64,14 +64,22 @@ class commonAssessmentDataUtils():
     def getQuestionGroups(self, surveyid, from_yearmonth, to_yearmonth):
         list_questiongroups = []
         if from_yearmonth is None and to_yearmonth is None:
-            list_questiongroups = QuestionGroup.objects.filter(survey_id=surveyid).distinct('id').values_list('id', flat=True)
+            list_questiongroups = AnswerGroup_Institution.objects.filter(
+                questiongroup__survey=surveyid).distinct(
+                    'questiongroup').values_list('questiongroup', flat=True)
         else:
-            from_short_year = from_yearmonth[2:-2]
-            to_short_year = int(to_yearmonth[2:-2])
-            if int(to_short_year) == int(from_short_year):
-                to_short_year = int(to_short_year) + 1
-            academic_year_id = from_short_year + str(to_short_year)
-            list_questiongroups = QuestionGroup.objects.filter(survey_id=surveyid).filter(academic_year_id=academic_year_id).distinct('id').values_list('id', flat=True)
+            from_date, to_date = self.convertToDate(from_yearmonth, to_yearmonth)
+            list_questiongroups = AnswerGroup_Institution.objects.filter(
+                questiongroup__survey=surveyid).filter( \
+                date_of_visit__range=[from_date, to_date]) \
+                    .distinct('questiongroup').values_list('questiongroup', flat=True)
+
+            # from_short_year = from_yearmonth[2:-2]
+            # to_short_year = int(to_yearmonth[2:-2])
+            # if int(to_short_year) == int(from_short_year):
+            #     to_short_year = int(to_short_year) + 1
+            # academic_year_id = from_short_year + str(to_short_year)
+            # list_questiongroups = QuestionGroup.objects.filter(survey_id=surveyid).filter(academic_year_id=academic_year_id).distinct('id').values_list('id', flat=True)
         return list_questiongroups
 
     def validateSurvey(self, surveyid):
