@@ -114,9 +114,9 @@ class commonAssessmentDataUtils():
                     #row = row+['QuestionText_'+str(i),'Answer_'+str(i)]
                 questions_list = questioninfo[questiongroup_id]["questions"]
                 for question in questions_list:
-                    display_text = question["display_text"]
-                    if display_text is None or " ":
-                        display_text = question["question_text"]
+                    qn_text = question["display_text"]
+                    if qn_text is None or " ":
+                        qn_text = question["question_text"]
                     else:
                         qn_text = question["display_text"]
                     row = row + [qn_text]
@@ -235,7 +235,7 @@ class commonAssessmentDataUtils():
 
         dest_folder = folderpath
         # Create the destination folder
-        if from_yearmonth not None:
+        if from_yearmonth is not None:
             from_short_year = from_yearmonth[:-2]
             to_short_year = int(to_yearmonth[:-2])
             if int(to_short_year) == int(from_short_year):
