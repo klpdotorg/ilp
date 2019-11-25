@@ -36,6 +36,6 @@ class Command(BaseCommand):
                 cursor.execute(sql)
             else:
                 print("For %s, the NEAREST match is: %s " % (row['name'],result))
-        conn.commit()
+        connection.commit()
         result_df = pandas.read_sql_query('select id,name, lang_name from boundary_boundary where parent_id=2 and boundary_type_id=\'SD\'',con=connection)
         print(result_df)
