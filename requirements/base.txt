@@ -26,3 +26,4 @@ xlwt
 xlrd
 pandas
 xlsxwriter
+fuzzywuzzy
