@@ -27,3 +27,4 @@ xlrd
 pandas
 xlsxwriter
 fuzzywuzzy
+python-Levenshtein

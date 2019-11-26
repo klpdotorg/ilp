@@ -17,11 +17,9 @@ from fuzzywuzzy import process
 class Command(BaseCommand):
     def handle(self, *args, **options):
         blocks = pandas.read_csv('apps/boundary/management/commands/csvs/KA_boundaries/KA_unique_blocks_all_translations.csv')
-        print(blocks)
         cursor = connection.cursor()
         df = pandas.read_sql_query('select b1.id,b1.name from boundary_boundary b1, boundary_boundary b2 where b1.parent_id=b2.id AND b2.parent_id=2 and b1.boundary_type_id=\'SB\'',con=connection)
         df['lang_name'] = ""
-        print(df)
         db_block_names = df["name"]
         df["english_match"]=""
         df["kannada_text"]=""
