@@ -241,7 +241,8 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
         table1.block_lang_name as block_lang_name,
         table1.cluster_name as cluster_name,
         table1.gp_id as gp_id,
-        table1.gp_name as gp_name
+        table1.gp_name as gp_name,
+        table1.gp_lang_name as gp_lang_name
     FROM
         (SELECT 
             distinct schools.id as institution_id,
@@ -254,7 +255,8 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
             boundary2.lang_name as block_lang_name,
             boundary3.name as cluster_name,
             eboundary.id as gp_id,
-            eboundary.const_ward_name as gp_name
+            eboundary.const_ward_name as gp_name,
+            eboundary.const_ward_lang_name as gp_lang_name
         FROM
             assessments_questiongroup as questiongroup,
             assessments_answergroup_institution as answergroup,
