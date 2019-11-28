@@ -174,6 +174,7 @@ class GPContestSchoolDetails(models.Model):
                                     db_column="cluster_name")
     gp_id = models.ForeignKey('boundary.ElectionBoundary', db_column="gp_id")
     gp_name = models.CharField(max_length=150, db_column="gp_name")
+    gp_lang_name = models.CharField(max_length=150, db_column="gp_lang_name")
     class Meta:
         managed = False
         db_table = 'mvw_gpcontest_school_details'

@@ -77,6 +77,9 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         raise ValueError("Invalid GP %s. Does not exist in DB" % gp_id)
     else:
         gp_name = gp.const_ward_name
+        gp_display_name = gp.const_ward_name
+        if gp.const_ward_lang_name is not None and not " ":
+            gp_display_name = gp.const_ward_lang_name + " (" + gp.const_ward_name + ")"
     
     # Get general GP info. Needs to be calculated per GP because block/cluster
     # info might be different per GP
@@ -88,12 +91,12 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         district_display_name = district_name
         # If the local lang name is available, set the display name to be that
         if district_lang_name is not None and not "":
-            district_display_name = district_lang_name
+            district_display_name = district_lang_name + " (" + district_name + ")"
         block_name = Boundary.objects.get(id=schools.first().admin2_id).name
         block_display_name = block_name
         block_lang_name = Boundary.objects.get(id=schools.first().admin2_id).lang_name
         if block_lang_name is not None and not "":
-            block_display_name = block_lang_name
+            block_display_name = block_lang_name + " (" + block_name + ")"
         cluster_name = Boundary.objects.get(id=schools.first().admin3_id).name
     else:
         print("Can't find schools for the GP  ID %s. District/Block/Cluster will be empty" % gp_id)
@@ -126,7 +129,7 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         print(applicable_qgroup_ids)
         print("Date for which report is generated is: ", date)
         all_scores_for_gp = {
-            "gp_name": gp_name,
+            "gp_name": gp_display_name,
             "gp_id": gp_id,
             "district": district_name,
             "district_display_name": district_display_name,
