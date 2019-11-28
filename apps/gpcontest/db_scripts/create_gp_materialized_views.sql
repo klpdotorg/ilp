@@ -236,7 +236,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
         table1.institution_name as institution_name,
         dise.school_code as dise_code,
         table1.district_name as district_name,
-        tabl1.district_lang_name as district_lang_name,
+        table1.district_lang_name as district_lang_name,
         table1.block_name as block_name,
         table1.block_lang_name as block_lang_name,
         table1.cluster_name as cluster_name,
