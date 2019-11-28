@@ -161,15 +161,19 @@ class GPContestSchoolDetails(models.Model):
     school_code = models.IntegerField(db_column="dise_code")
     district_name = models.CharField(max_length=150,
                                      db_column="district_name")
+    district_lang_name = models.CharField(max_length=150,
+                                     db_column="district_lang_name")                            
     block_name = models.CharField(
                                     max_length=150,
                                     db_column="block_name")
+    block_lang_name = models.CharField(
+                                    max_length=150,
+                                    db_column="block_lang_name")
     cluster_name = models.CharField(
                                     max_length=150,
                                     db_column="cluster_name")
     gp_id = models.ForeignKey('boundary.ElectionBoundary', db_column="gp_id")
     gp_name = models.CharField(max_length=150, db_column="gp_name")
-
     class Meta:
         managed = False
         db_table = 'mvw_gpcontest_school_details'
