@@ -12,6 +12,7 @@ class ElectionBoundary(models.Model):
     dise_slug = models.CharField(max_length=300, blank=True)
     elec_comm_code = models.IntegerField(null=True)
     const_ward_name = models.CharField(max_length=300, null=True)
+    const_ward_lang_name = models.CharField(max_length=300, null=True)
     const_ward_type = models.ForeignKey('BoundaryType')
     current_elected_rep = models.CharField(max_length=300, null=True)
     current_elected_party = models.ForeignKey('ElectionParty', null=True)
