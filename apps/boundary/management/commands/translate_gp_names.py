@@ -19,13 +19,13 @@ class Command(BaseCommand):
         translated_gps = pandas.read_csv('apps/boundary/management/commands/csvs/KA_boundaries/KA_gp_names_translations.csv')
         cursor = connection.cursor()
         gps_from_db = pandas.read_sql_query('select distinct eb.id as gp_id, eb.const_ward_name as gp_name, b1.id as district_id, b1.name as district_name, b2.id as block_id, b2.name as block_name from boundary_boundary b1, boundary_boundary b2, schools_institution schools, boundary_electionboundary eb where schools.gp_id=eb.id and eb.const_ward_type_id=\'GP\' and eb.state_id=2 and schools.admin1_id=b1.id and schools.admin2_id=b2.id',con=connection)
-        gps_from_db['const_ward_lang_name'] = ""
         gps_from_db["english_match"]=""
-        gps_from_db["kannada_text"]=""
+        gps_from_db["kannada_text"] = ""
+        print(gps_from_db.columns)
         for index, db_gp_row in gps_from_db.iterrows():
-            result = process.extractOne(db_gp_row['const_ward_name'],translated_gps['gp_name'])
+            result = process.extractOne(db_gp_row['gp_name'],translated_gps['gp_name'])
             if result[1] == 100:
-                sql = "UPDATE boundary_electionboundary SET const_ward_lang_name=\'{0}\' WHERE id={1}".format(translated_gps['gp_lang_name'][result[2]], db_gp_row['id'])
+                sql = "UPDATE boundary_electionboundary SET const_ward_lang_name=\'{0}\' WHERE id={1}".format(translated_gps['gp_lang_name'][result[2]], db_gp_row['gp_id'])
                 cursor.execute(sql)
             else:
                 print("No exact match found for the following. Please check:")
