@@ -29,5 +29,5 @@ class Command(BaseCommand):
                 cursor.execute(sql)
             else:
                 print("No exact match found for the following. Please check:")
-                print("For %s, the NEAREST match is: %s " % (db_gp_row['const_ward_name'],result))
+                print("For %s, the NEAREST match is: %s " % (db_gp_row['gp_name'],result))
         connection.commit()
