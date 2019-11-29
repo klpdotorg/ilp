@@ -16,7 +16,7 @@ from fuzzywuzzy import process
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        translated_gps = pandas.read_csv('apps/boundary/management/commands/csvs/KA_boundaries/KA_gp_kannada_names_translated_v2.csv')
+        translated_gps = pandas.read_csv('apps/boundary/management/commands/csvs/KA_boundaries/KA_gp_names_translations.csv')
         cursor = connection.cursor()
         gps_from_db = pandas.read_sql_query('select distinct eb.id as gp_id, eb.const_ward_name as gp_name, b1.id as district_id, b1.name as district_name, b2.id as block_id, b2.name as block_name from boundary_boundary b1, boundary_boundary b2, schools_institution schools, boundary_electionboundary eb where schools.gp_id=eb.id and eb.const_ward_type_id=\'GP\' and eb.state_id=2 and schools.admin1_id=b1.id and schools.admin2_id=b2.id',con=connection)
         gps_from_db["english_match"]=""
@@ -29,7 +29,5 @@ class Command(BaseCommand):
                 cursor.execute(sql)
             else:
                 print("No exact match found for the following. Please check:")
-                print("For %s, the NEAREST match is: %s " % (db_gp_row['gp_name'],result))
-                db_gp_row["english_match"]=translated_gps['gp_name'][result[2]]
-                db_gp_row["kannada_match_text"]=translated_gps['gp_lang_name'][result[2]]
+                print("For %s, the NEAREST match is: %s " % (db_gp_row['const_ward_name'],result))
         connection.commit()
