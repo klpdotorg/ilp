@@ -346,9 +346,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
         info = {"imagesdir": self.imagesdir, "imagesqrdir":self.imagesqrdir, "year": self.academicyear}
         contestdate = schooldata["date"]
         # print(schooldata, file=self.utf8stdout)
-        schoolinfo = {"district": schooldata["district_name"].capitalize(),
-                      "block": schooldata["block_name"].capitalize(),
-                      "gpname": schooldata["gp_name"].capitalize(),
+        schoolinfo = {"district": schooldata["district_display_name"].capitalize(),
+                      "block": schooldata["block_display_name"].capitalize(),
+                      "gpname": schooldata["gp_display_name"].capitalize(),
                       "schoolname": schooldata["school_name"].capitalize(),
                       "klpid": schooldata["school_id"],
                       "gpid": schooldata["gp_id"],
