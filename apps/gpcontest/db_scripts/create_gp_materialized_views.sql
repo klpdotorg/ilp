@@ -236,10 +236,13 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
         table1.institution_name as institution_name,
         dise.school_code as dise_code,
         table1.district_name as district_name,
+        table1.district_lang_name as district_lang_name,
         table1.block_name as block_name,
+        table1.block_lang_name as block_lang_name,
         table1.cluster_name as cluster_name,
         table1.gp_id as gp_id,
-        table1.gp_name as gp_name
+        table1.gp_name as gp_name,
+        table1.gp_lang_name as gp_lang_name
     FROM
         (SELECT 
             distinct schools.id as institution_id,
@@ -247,10 +250,13 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
             REGEXP_REPLACE(schools.name,'[^a-zA-Z0-9]+',' ', 'g') as institution_name,
             schools.dise_id as dise_id,
             boundary1.name as district_name,
+            boundary1.lang_name as district_lang_name,
             boundary2.name as block_name,
+            boundary2.lang_name as block_lang_name,
             boundary3.name as cluster_name,
             eboundary.id as gp_id,
-            eboundary.const_ward_name as gp_name
+            eboundary.const_ward_name as gp_name,
+            eboundary.const_ward_lang_name as gp_lang_name
         FROM
             assessments_questiongroup as questiongroup,
             assessments_answergroup_institution as answergroup,

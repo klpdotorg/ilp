@@ -29,6 +29,12 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
         if self.surveyinfo == None:
             print("Pass valid surveyid")
             return False
+        # Add validations for district/block/cluster etc..
+        self.district = options.get('districtid', None)
+        self.block = options.get('blockid', None)
+        self.cluster = options.get('clusterid', None)
+        self.startyearmonth = options.get('startyearmonth', None)
+        self.endyearmonth = options.get('endyearmonth', None)
         return True
         
 
