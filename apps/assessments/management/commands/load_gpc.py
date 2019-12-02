@@ -1,6 +1,7 @@
 import csv
 import xlrd
 import os
+import re
 from datetime import datetime
 from django.conf import settings
 from pytz import timezone
@@ -49,7 +50,7 @@ class Command(BaseCommand):
     def checkGPValidity(self, gpid, gpname):
         try:
             ElectionBoundary.objects.get(id=gpid,
-                                         const_ward_name__iexact=gpname,
+                                         const_ward_name__istartswith=gpname,
                                          const_ward_type='GP')
             return True
         except ElectionBoundary.DoesNotExist:
@@ -147,6 +148,7 @@ class Command(BaseCommand):
                     dise_code = int(float(row[self.cols["disecode"]].strip()))
                     gpid = int(float(row[self.cols["gpid"]].strip()))
                     gpname = row[self.cols["gpname"]].strip().lower()
+                    gpname = re.sub("[\(].*?[\)]", "", gpname)
                     questionseries = row[self.cols["questionseries"]].strip()
                     child_name = row[self.cols["childname"]].strip()
                     gender = row[self.cols["gender"]].strip().lower()

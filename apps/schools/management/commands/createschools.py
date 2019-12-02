@@ -42,16 +42,16 @@ class Command(BaseCommand):
                 count += 1
                 continue
             count += 1
-            state = self.getBoundary(row[0].strip().lower(), 'ST')
+            state = self.getBoundary(row[0].strip().lower(), 'ST', 1)
             if state == None:
                 continue
-            district = self.getBoundary(row[1].strip().lower(), 'SD')
+            district = self.getBoundary(row[1].strip().lower(), 'SD', state.id)
             if district == None:
                 continue
-            block = self.getBoundary(row[2].strip().lower(), 'SB')
+            block = self.getBoundary(row[2].strip().lower(), 'SB', district.id)
             if block == None:
                 continue
-            cluster = self.getBoundary(row[3].strip().lower(), 'SC')
+            cluster = self.getBoundary(row[3].strip().lower(), 'SC', block.id)
             if cluster == None:
                 continue
             gp = self.getGP(row[4].strip().lower(),row[5])
@@ -106,9 +106,9 @@ class Command(BaseCommand):
             print(e)
         
 
-    def getBoundary(self, name, btype):
+    def getBoundary(self, name, btype, parentid):
         try:
-            boundary = Boundary.objects.get(name__iexact=name,boundary_type=btype)
+            boundary = Boundary.objects.get(name__iexact=name,boundary_type=btype, parent_id=parentid)
         except Boundary.DoesNotExist:
             print("No boundary with name: "+name+" and type: "+btype+" found")
             return None
