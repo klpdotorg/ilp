@@ -221,11 +221,10 @@ class Command(BaseCommand, baseReport.CommonUtils):
         districtname = gpdata["district_display_name"]
         blockname = gpdata["block_display_name"]
         gpname = gpdata["gp_display_name"]
-        clustername = gpdata["cluster_name"]
         gpinfo = {"gpname": gpname.capitalize(),
                   "block": blockname.capitalize(),
                   "district": districtname.capitalize(),
-                  "cluster": clustername.capitalize(),
+                  "cluster": "",
                   "contestdate": gpdata["contestdate"],
                   "school_count": gpdata["num_schools"],
                   "totalstudents": gpdata["num_students"]}
@@ -269,7 +268,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]}]}
-            self.reportsummary[gpdata[districtname]] = {gpdata[blockname]:{gpid:{gpdata["contestdate"]:{"gpname":gpname.capitalize(), "schoolsummary": []}}}}
+            self.reportsummary[districtname] = {blockname:{gpid:{gpdata["contestdate"]:{"gpname":gpname.capitalize(), "schoolsummary": []}}}}
         else:
             if blockname in self.gpsummary[districtname]:
                 self.gpsummary[districtname][blockname].append({"gpid": gpid,
@@ -416,6 +415,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.combinePdfs(pdfscreated, school_file, outputdir)
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
+        print(self.reportsummary)
         self.reportsummary[districtname][blockname][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
         return school_file
 
