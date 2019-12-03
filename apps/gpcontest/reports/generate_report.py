@@ -78,7 +78,7 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     else:
         gp_name = gp.const_ward_name
         gp_display_name = gp.const_ward_name
-        if gp.const_ward_lang_name:
+        if gp.const_ward_lang_name and gp.const_ward_lang_name is not "nan":
             gp_display_name = gp.const_ward_lang_name + " (" + gp.const_ward_name.capitalize() + ")"
     
     # Get general GP info. Needs to be calculated per GP because block/cluster
