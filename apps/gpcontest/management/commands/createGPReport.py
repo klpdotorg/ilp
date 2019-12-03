@@ -446,7 +446,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
         print(self.reportsummary)
-        self.reportsummary[schoolinfo["district"]][schoolinfo["block"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
+        self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
         return school_file
 
 
