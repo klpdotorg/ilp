@@ -118,18 +118,25 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
             school_data["school_name"] = school_info.institution_name
             school_data["dise_code"] = school_info.school_code
             school_data["district_name"] = school_info.district_name
-            if school_info.district_lang_name is not None and not "":
-                school_data["district_display_name"] = school_info.district_lang_name
+            if school_info.district_lang_name:
+                school_data["district_display_name"] = \
+                    school_info.district_lang_name + " (" + school_info.district_name + ")"
             else:
                 school_data["district_display_name"] = school_info.district_name
             school_data["block_name"] = school_info.block_name
-            if school_info.block_lang_name is not None and not "":
-                school_data["block_display_name"] = school_info.block_lang_name
+            if school_info.block_lang_name:
+                school_data["block_display_name"] = school_info.block_lang_name + " (" + school_info.block_name + ")"
             else:
                 school_data["block_display_name"] = school_info.block_name
             school_data["cluster_name"] = school_info.cluster_name
             school_data["gp_id"] = school_info.gp_id.id
             school_data["gp_name"] = school_info.gp_name
+            gp_display_name = school_info.gp_name.capitalize()
+            if school_info.gp_lang_name:
+                gp_display_name = school_info.gp_lang_name + " (" + school_info.gp_name + ")"
+                school_data["gp_display_name"] = gp_display_name
+            else:
+                school_data["gp_display_name"] = school_info.gp_name
             school_data["date"] = date_of_contest[index]
             for each_class in questiongroup_ids:
                 try:
