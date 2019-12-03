@@ -77,8 +77,8 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         raise ValueError("Invalid GP %s. Does not exist in DB" % gp_id)
     else:
         gp_name = gp.const_ward_name
-        gp_display_name = gp.const_ward_name
-        if gp.const_ward_lang_name:
+        gp_display_name = gp.const_ward_name.capitalize()
+        if gp.const_ward_lang_name and gp.const_ward_lang_name is not " ":
             gp_display_name = gp.const_ward_lang_name + " (" + gp.const_ward_name.capitalize() + ")"
     
     # Get general GP info. Needs to be calculated per GP because block/cluster
@@ -88,12 +88,12 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         district_name = Boundary.objects.get(id=schools.first().admin1_id).name
         district_lang_name = Boundary.objects.get(id=schools.first().admin1_id).lang_name
         # Set the display name to be the name of the district
-        district_display_name = district_name
+        district_display_name = district_name.capitalize()
         # If the local lang name is available, set the display name to be that
         if district_lang_name:
             district_display_name = district_lang_name + " (" + district_name.capitalize() + ")"
         block_name = Boundary.objects.get(id=schools.first().admin2_id).name
-        block_display_name = block_name
+        block_display_name = block_name.capitalize()
         block_lang_name = Boundary.objects.get(id=schools.first().admin2_id).lang_name
         if block_lang_name:
             block_display_name = block_lang_name + " (" + block_name.capitalize() + ")"

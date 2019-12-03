@@ -1,0 +1,1 @@
+Gp kannada names were updated via a fuzzy matching algorithm. Some names were left out because of extra spaces or punctuation. Writing this update script to fix those GP names as well as their translations
