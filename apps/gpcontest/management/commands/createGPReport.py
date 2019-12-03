@@ -220,11 +220,25 @@ class Command(BaseCommand, baseReport.CommonUtils):
         if type(gpdata) is int or type(gpdata) is str:
             return
         gpdata["contestdate"] = gpdata["date"]
-        gpinfo = {"gpname": gpdata["gp_name"].capitalize(),
+        if gpdata["gp_lang_name"] == "":
+            gpname = gpdata["gp_name"].capitalize()
+        else:
+            gpname = "("+gpdata["gp_name"].capitalize()+")"
+
+        if gpdata["district_lang_name"] == "":
+           districtname = gpdata["district"].capitalize()
+        else:
+            districtname = "("+gpdata["district"].capitalize()+")"
+
+        if gpdata["block_lang_name"] == "":
+            blockname = gpdata["block"].capitalize()
+        else:
+            blockname = "("+gpdata["block"].capitalize()+")"
+        gpinfo = {"gpname": gpname,
                   "gp_langname": gpdata["gp_lang_name"],
-                  "block": gpdata["block"].capitalize(),
+                  "block": blockname,
                   "block_langname": gpdata["block_lang_name"],
-                  "district": gpdata["district"].capitalize(),
+                  "district": districtname,
                   "district_langname": gpdata["district_lang_name"].capitalize(),
                   "cluster": "",
                   "contestdate": gpdata["contestdate"],
@@ -368,11 +382,25 @@ class Command(BaseCommand, baseReport.CommonUtils):
         info = {"imagesdir": self.imagesdir, "imagesqrdir":self.imagesqrdir, "year": self.academicyear}
         contestdate = schooldata["date"]
         # print(schooldata, file=self.utf8stdout)
-        schoolinfo = {"district": schooldata["district_name"].capitalize(),
+        if schooldata["gp_lang_name"] == "":
+            gpname = schooldata["gp_name"].capitalize()
+        else:
+            gpname = "("+schooldata["gp_name"].capitalize()+")"
+
+        if schooldata["district_lang_name"] == "":
+           districtname = schooldata["district_name"].capitalize()
+        else:
+            districtname = "("+schooldata["district_name"].capitalize()+")"
+
+        if schooldata["block_lang_name"] == "":
+            blockname = schooldata["block_name"].capitalize()
+        else:
+            blockname = "("+schooldata["block_name"].capitalize()+")"
+        schoolinfo = {"district": districtname,
                       "district_langname": schooldata["district_lang_name"],
-                      "block": schooldata["block_name"].capitalize(),
+                      "block": blockname,
                       "block_langname": schooldata["block_lang_name"],
-                      "gpname": schooldata["gp_name"].capitalize(),
+                      "gpname": gpname,
                       "gp_langname": schooldata["gp_lang_name"],
                       "schoolname": schooldata["school_name"].capitalize(),
                       "klpid": schooldata["school_id"],
