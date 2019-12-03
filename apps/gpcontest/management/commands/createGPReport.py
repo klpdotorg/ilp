@@ -91,6 +91,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
     def createGPReports(self):
         data = {}
+        datafound = False
         if self.gpids is None:
             data = generate_report.generate_all_reports(self.surveyid,
                                                         self.startyearmonth,
@@ -105,10 +106,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
         # print("All GPs data is")
         # print(data, file=self.utf8stdout)
         for gp in data["gp_info"]:
+            datafound = False
             num_contests = len(data["gp_info"][gp])
             suffix = ""
             count = 0
             for contestdate in data["gp_info"][gp]:
+                datafound = True
                 count += 1
                 if num_contests > 1:
                     suffix = "_"+str(count)
@@ -124,8 +127,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
                     combinedFile = "GPContestInformation_"+str(gp)+suffix+".pdf"
                     self.mergeReports(outputdir+"/", gppdf, schoolpdfs, combinedFile)
 
-            self.createSchoolsSummary(outputdir)
-        self.createGPSummarySheet()
+            if datafound:
+                self.createSchoolsSummary(outputdir)
+        if datafound:
+            self.createGPSummarySheet()
+        else:
+            print("NO DATA FOUND")
+        return datafound
 
     def createReportSummary(self):
         self.createSchoolDetailedReportSummary()
@@ -286,16 +294,17 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
     def createGPReportsPerBoundary(self):
         data = {}
+        datafound = False
         for district in self.districtids:
             gps = Institution.objects.filter(admin1_id=district, gp_id__isnull=False).distinct("gp_id").values("gp_id")
             for gp in gps:
+                datafound = False
                 gpid = gp["gp_id"]
                 print("Getting data for:-  gp :"+str(gpid)+", surveyid :"+str(self.surveyid)+", startyearmonth :"+str(self.startyearmonth)+" , endyearmonth :"+str(self.endyearmonth))
                 retdata = generate_report.generate_gp_summary(
                         gpid, self.surveyid, self.startyearmonth, 
                         self.endyearmonth)
 
-                print(retdata)
                 if retdata != {}:
                     data[gpid] = retdata
                 else:
@@ -306,6 +315,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 outputdir = ""
                 print(data[gpid])
                 for contestdate in data[gpid]:
+                    datafound = True
                     count += 1
                     if num_contests > 1:
                         suffix = "_"+str(count)
@@ -319,12 +329,16 @@ class Command(BaseCommand, baseReport.CommonUtils):
                         combinedFile = "GPContestInformation_"+str(gpid)+".pdf"
                         self.mergeReports(outputdir+"/", gppdf, schoolpdfs, combinedFile)
 
-                self.createSchoolsSummary(outputdir)
-            self.createGPSummarySheet()
+                if datafound:
+                    self.createSchoolsSummary(outputdir)
+            if datafound:
+                self.createGPSummarySheet()
+            return datafound
 
 
     def createOnlySchoolReports(self):
         school_outputdir = self.outputdir+"/schools/"
+        datafound = False
         for school in self.schoolids:
             schooldata = school_compute_numbers.get_school_report(
                                        school, self.surveyid,
@@ -335,12 +349,15 @@ class Command(BaseCommand, baseReport.CommonUtils):
             count = 0
             num_contests = len(schooldata)
             for contestdate in schooldata:
+                dataFound = True
                 count += 1
                 if num_contests > 1:
                     suffix = "_"+str(count)
                 self.createSchoolPdfs(schooldata[contestdate], school_builddir,
                                       school_outputdir, suffix)
-        self.createSchoolsSummary(school_outputdir)
+        if datafound:
+            self.createSchoolsSummary(school_outputdir)
+        return datafound
 
     def createSchoolPdfs(self, schooldata, builddir, outputdir, suffix):
         info = {"imagesdir": self.imagesdir, "imagesqrdir":self.imagesqrdir, "year": self.academicyear}
@@ -467,15 +484,15 @@ class Command(BaseCommand, baseReport.CommonUtils):
             os.makedirs(self.outputdir)
 
         if self.schoolids is not None:
-            self.createOnlySchoolReports()
+            created = self.createOnlySchoolReports()
         elif self.districtids is not None:
-            self.createGPReportsPerBoundary()
+            created = self.createGPReportsPerBoundary()
         else:
-            self.createGPReports()
+            created = self.createGPReports()
 
-        self.createReportSummary()
-
-        os.system('tar -cvf '+self.outputdir+'_'+str(self.now)+'.tar '+self.outputdir+'/')
+        if created:
+            self.createReportSummary()
+            os.system('tar -cvf '+self.outputdir+'_'+str(self.now)+'.tar '+self.outputdir+'/')
 
         if os.path.exists(self.build_d):
             shutil.rmtree(self.build_d)
