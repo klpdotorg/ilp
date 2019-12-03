@@ -225,7 +225,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                   "block": gpdata["block"].capitalize(),
                   "block_langname": gpdata["block_lang_name"],
                   "district": gpdata["district"].capitalize(),
-                  "district_lang_name": gpdata["district_lang_name"].capitalize(),
+                  "district_langname": gpdata["district_lang_name"].capitalize(),
                   "cluster": "",
                   "contestdate": gpdata["contestdate"],
                   "school_count": gpdata["num_schools"],
@@ -368,9 +368,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
         info = {"imagesdir": self.imagesdir, "imagesqrdir":self.imagesqrdir, "year": self.academicyear}
         contestdate = schooldata["date"]
         # print(schooldata, file=self.utf8stdout)
-        schoolinfo = {"district": schooldata["district"].capitalize(),
-                      "district_langname": schooldata["district_lang_name"]
-                      "block": schooldata["block"].capitalize(),
+        schoolinfo = {"district": schooldata["district_name"].capitalize(),
+                      "district_langname": schooldata["district_lang_name"],
+                      "block": schooldata["block_name"].capitalize(),
                       "block_langname": schooldata["block_lang_name"],
                       "gpname": schooldata["gp_name"].capitalize(),
                       "gp_langname": schooldata["gp_lang_name"],
@@ -418,7 +418,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
         print(self.reportsummary)
-        self.reportsummary[gpdata["district"]][gpdata["block"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
+        self.reportsummary[schoolinfo["district"]][schoolinfo["block"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
         return school_file
 
 
