@@ -218,10 +218,14 @@ class Command(BaseCommand, baseReport.CommonUtils):
         if type(gpdata) is int or type(gpdata) is str:
             return
         gpdata["contestdate"] = gpdata["date"]
-        gpinfo = {"gpname": gpdata["gp_name"].capitalize(),
-                  "block": gpdata["block"].capitalize(),
-                  "district": gpdata["district"].capitalize(),
-                  "cluster": gpdata["cluster"].capitalize(),
+        districtname = gpdata["district_display_name"]
+        blockname = gpdata["block_display_name"]
+        gpname = gpdata["gp_display_name"]
+        clustername = gpdata["cluster_name"]
+        gpinfo = {"gpname": gpname.capitalize(),
+                  "block": blockname.capitalize(),
+                  "district": districtname.capitalize(),
+                  "cluster": clustername.capitalize(),
                   "contestdate": gpdata["contestdate"],
                   "school_count": gpdata["num_schools"],
                   "totalstudents": gpdata["num_students"]}
@@ -257,37 +261,37 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.deleteTempFiles([output_file+".tex",
                              self.build_d+"/"+output_file+".pdf"])
 
-        if gpdata["district"] not in self.gpsummary:
-            self.gpsummary[gpdata["district"]] = {gpdata["block"]: [{"gpid": gpid,
-                               "gpname": gpdata["gp_name"].capitalize(),
+        if districtname not in self.gpsummary:
+            self.gpsummary[districtname] = {blockname: [{"gpid": gpid,
+                               "gpname": gpname.capitalize(),
                                "contestdate": gpdata["contestdate"],
                                "total_schools": gpdata["num_schools"],
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]}]}
-            self.reportsummary[gpdata["district"]] = {gpdata["block"]:{gpid:{gpdata["contestdate"]:{"gpname":gpdata["gp_name"].capitalize(), "schoolsummary": []}}}}
+            self.reportsummary[gpdata[districtname]] = {gpdata[blockname]:{gpid:{gpdata["contestdate"]:{"gpname":gpname.capitalize(), "schoolsummary": []}}}}
         else:
-            if gpdata["block"] in self.gpsummary[gpdata["district"]]:
-                self.gpsummary[gpdata["district"]][gpdata["block"]].append({"gpid": gpid,
-                               "gpname": gpdata["gp_name"].capitalize(),
+            if blockname in self.gpsummary[districtname]:
+                self.gpsummary[districtname][blockname].append({"gpid": gpid,
+                               "gpname": gpname.capitalize(),
                                "contestdate": gpdata["contestdate"],
                                "total_schools": gpdata["num_schools"],
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]})
-                if gpid not in self.reportsummary[gpdata["district"]][gpdata["block"]]:
-                    self.reportsummary[gpdata["district"]][gpdata["block"]][gpid] = {gpdata["contestdate"]:{"gpname":gpdata["gp_name"].capitalize(), "schoolsummary": []}}
+                if gpid not in self.reportsummary[districtname][blockname]:
+                    self.reportsummary[districtname][blockname][gpid] = {gpdata["contestdate"]:{"gpname":gpname.capitalize(), "schoolsummary": []}}
                 else:
-                    self.reportsummary[gpdata["district"]][gpdata["block"]][gpid][gpdata["contestdate"]]={"gpname":gpdata["gp_name"].capitalize(), "schoolsummary": []}
+                    self.reportsummary[districtname][blockname][gpid][gpdata["contestdate"]]={"gpname":gpname.capitalize(), "schoolsummary": []}
             else:
-                self.gpsummary[gpdata["district"]][gpdata["block"]] = [{"gpid": gpid,
-                               "gpname": gpdata["gp_name"].capitalize(),
+                self.gpsummary[districtname][blockname] = [{"gpid": gpid,
+                               "gpname": gpname.capitalize(),
                                "contestdate": gpdata["contestdate"],
                                "total_schools": gpdata["num_schools"],
                                "class4_schools": gpdata["class4_num_schools"],
                                "class5_schools": gpdata["class5_num_schools"],
                                "class6_schools": gpdata["class6_num_schools"]}]
-                self.reportsummary[gpdata["district"]][gpdata["block"]]={gpid: {gpdata["contestdate"]:{"gpname":gpdata["gp_name"].capitalize(),"schoolsummary":[]}}}
+                self.reportsummary[districtname][blockname]={gpid: {gpdata["contestdate"]:{"gpname":gpname.capitalize(),"schoolsummary":[]}}}
                 
   
         return outputdir, output_file+".pdf"
@@ -363,9 +367,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
         info = {"imagesdir": self.imagesdir, "imagesqrdir":self.imagesqrdir, "year": self.academicyear}
         contestdate = schooldata["date"]
         # print(schooldata, file=self.utf8stdout)
-        schoolinfo = {"district": schooldata["district_display_name"].capitalize(),
-                      "block": schooldata["block_display_name"].capitalize(),
-                      "gpname": schooldata["gp_display_name"].capitalize(),
+        districtname = schooldata["district_display_name"]
+        blockname = schooldata["block_display_name"]
+        gpname = schooldata["gp_display_name"]
+        schoolinfo = {"district": districtname.capitalize(),
+                      "block": blockname.capitalize(),
+                      "gpname": gpname.capitalize(),
                       "schoolname": schooldata["school_name"].capitalize(),
                       "klpid": schooldata["school_id"],
                       "gpid": schooldata["gp_id"],
@@ -378,7 +385,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
         pdfscreated = []
         summary = {"gpid": schooldata["gp_id"],
-                   "gpname": schooldata["gp_name"],
+                   "gpname": gpname,
                    "schoolname": schooldata["school_name"],
                    "dise_code": schooldata["dise_code"],
                    "contestdate": schooldata["date"],
@@ -409,7 +416,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.combinePdfs(pdfscreated, school_file, outputdir)
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
-        self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
+        self.reportsummary[districtname][blockname][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
         return school_file
 
 
