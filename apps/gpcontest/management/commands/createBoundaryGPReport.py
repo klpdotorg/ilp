@@ -48,6 +48,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     blockids = None
     colour = "bw"
     imagesdir = basefiledir+"/apps/gpcontest/images/"
+    translatedmonth = {1:'ಜನವರಿ',2:'ಫೆಬ್ರವರಿ',3:'ಮಾರ್ಚ್',4:'ಎಪ್ರಿಲ್',5:'ಮೇ',6:'ಜೂನ್',7:'ಜುಲೈ',8:'ಆಗಸ್ಟ್',9:'ಸೆಪ್ಟಂಬರ್',10:'ಅಕ್ಟೋಬರ್',11:'ನವೆಂಬರ್',12:'ಡಿಸೆಂಬರ್'}
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
@@ -170,7 +171,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
 
     def createBlockPdfs(self, blockid, blockdata, outputdir, build_dir):
-        #print(blockdata, file=self.utf8stdout)
+        print(blockdata)
         template = self.templates["block"]["latex"]
         blockinfo = {"name": blockdata["boundary_name"].capitalize(),
                   "districtname": blockdata["parent_boundary_name"].capitalize(),
@@ -182,7 +183,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
             if self.assessmentnames[assessment]["name"] in blockdata:
                 blockdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(blockdata[self.assessmentnames[assessment]["name"]])
-        info = {"imagesdir": self.imagesdir, "year": self.academicyear}
+        year, month = self.getYearMonth(str(self.now))
+        info = {"imagesdir": self.imagesdir, "acadyear": self.academicyear, "year":year, "month": month}
         if "percent_scores" not in blockdata:
             percent_scores = None
         else:
@@ -214,6 +216,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                "num_students": blockdata["num_students"]})
         return outputdir
 
+
+    def getYearMonth(self, inputdate):
+        print(inputdate)
+        year = int(inputdate[0:4])
+        month = self.translatedmonth[int(inputdate[5:7])]
+        return year, month
+        
 
     def createBlockReports(self):
         block_outputdir = self.outputdir+"/blocks/"
