@@ -174,18 +174,18 @@ class Command(BaseCommand, baseReport.CommonUtils):
         print(blockdata)
         template = self.templates["block"]["latex"]
 
-        if blockdata["parent_lang_name"] == "":
+        if blockdata["parent_langname"] == "":
            districtname = blockdata["parent_boundary_name"].capitalize()
         else:
             districtname = "("+blockdata["parent_boundary_name"].capitalize()+")"
 
-        if blockdata["boundary_name"] == "":
+        if blockdata["boundary_langname"] == "":
             blockname = blockdata["boundary_name"].capitalize()
         else:
             blockname = "("+blockdata["boundary_name"].capitalize()+")"
  
         blockinfo = {"blockname": blockname,
-                  "block_lang_name": blockdata["boundary_langname"],
+                  "block_langname": blockdata["boundary_langname"],
                   "districtname": districtname,
                   "district_langname": blockdata["parent_langname"],
                   "num_gps": blockdata["num_gps"],
