@@ -97,6 +97,7 @@ def generate_boundary_report(
         print("boundary id %s does not exist in DB " % boundary_id)
         return
     else:
+        boundary_type = b.boundary_type_id
         boundary_report = {}
         boundary_stu_score_groups =\
             BoundaryStudentScoreGroups.objects.filter(boundary_id=boundary_id)
