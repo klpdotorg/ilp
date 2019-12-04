@@ -173,8 +173,21 @@ class Command(BaseCommand, baseReport.CommonUtils):
     def createBlockPdfs(self, blockid, blockdata, outputdir, build_dir):
         print(blockdata)
         template = self.templates["block"]["latex"]
-        blockinfo = {"name": blockdata["boundary_name"].capitalize(),
-                  "districtname": blockdata["parent_boundary_name"].capitalize(),
+
+        if blockdata["parent_lang_name"] == "":
+           districtname = blockdata["parent_boundary_name"].capitalize()
+        else:
+            districtname = "("+blockdata["parent_boundary_name"].capitalize()+")"
+
+        if blockdata["boundary_name"] == "":
+            blockname = blockdata["boundary_name"].capitalize()
+        else:
+            blockname = "("+blockdata["boundary_name"].capitalize()+")"
+ 
+        blockinfo = {"blockname": blockname,
+                  "block_lang_name": blockdata["boundary_langname"],
+                  "districtname": districtname,
+                  "district_langname": blockdata["parent_langname"],
                   "num_gps": blockdata["num_gps"],
                   "school_count": blockdata["num_schools"],
                   "totalstudents": blockdata["num_students"]}
