@@ -185,7 +185,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
             blockname = "("+blockdata["boundary_name"].capitalize()+")"
  
         blockinfo = {"blockname": blockname,
-                  "block_lang_name": blockdata["boundary_langname"],
+                  "block_langname": blockdata["boundary_langname"],
                   "districtname": districtname,
                   "district_langname": blockdata["parent_langname"],
                   "num_gps": blockdata["num_gps"],
