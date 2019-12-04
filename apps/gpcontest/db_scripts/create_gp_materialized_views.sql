@@ -358,7 +358,7 @@ WITH schools_count AS (
     GROUP BY boundary.id
 )
 SELECT 
-   id, boundary_id, boundary_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
+   id, boundary_id, boundary_name, boundary_lang_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
 FROM schools_count;
 
 -- END mvw_gpcontest_eboundary_schoolcount_agg
