@@ -40,7 +40,7 @@
 \fontsize{9}{12}
 \begin{tikzpicture}[overlay]
 \node[anchor=south west,yshift=0cm,xshift=-6cm]
-{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}} };
+{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.acadyear}} };
 \node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
 {\kn{ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590 \kn{ಗೆ ಕರೆ ಮಾಡಿ} };
 \node[anchor=south,yshift=-0.5cm,xshift=6cm]
@@ -75,7 +75,7 @@
 \end{tikzpicture}
 
 \begin{tikzpicture}[overlay]
-\node[anchor=south west, yshift=200pt,xshift=8.5cm]
+\node[anchor=south west, yshift=-16.5cm,xshift=6cm]
 {\includegraphics[width=4cm]{"{{info.imagesdir}}logo.jpg"}};
 \end{tikzpicture}
 
@@ -107,10 +107,10 @@
 \begin{titlepage}
     \thispagestyle{title}
     \begin{center}
-    \vspace*{8.5cm}
+    \vspace*{10.5cm}
      \textbf{\huge \kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ}} \\~\\
         \textbf{\huge\kn{ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ}} \\~\\
-	    \Large{{info.year}}
+	    \Large{{info.acadyear}}
     \end{center}
 \end{titlepage}
 \pagebreak
@@ -118,7 +118,7 @@
 \thispagestyle{plain}
 {
 \setlength{\parindent}{0in}
-\kn{ಇವರಿಗೆ,}\\ [3ex]
+\kn{ಇವರಿಗೆ,} \hfill  \kn{ {{info.month}} } {{info.year}} \\ [2ex]
 \kn{ಮಾನ್ಯ ಅಧ್ಯಕ್ಷರು,}\\ [1ex]
 {{blockinfo.name}}\kn{ತಾಲೂಕು}\\ [1ex]
 {{blockinfo.districtname}}\kn{ಜಿಲ್ಲೆ.
@@ -151,7 +151,7 @@
 \thispagestyle{plain}
 {
 \setlength{\parindent}{0in}
-\begin{center}\large{\kn{ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ}} \small{ {{info.year}} } \\ \end{center}
+\begin{center}\large{\kn{ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನ}} \small{ {{info.acadyear}} } \\ \end{center}
 {% if percent_scores is none %}
 ~\\~\\
 {% endif %}
