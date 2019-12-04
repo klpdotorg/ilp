@@ -338,6 +338,7 @@ WITH schools_count AS (
         format('A%s_%s', 2,boundary.id) as id,
         boundary.id as boundary_id,
         boundary.name as boundary_name,
+        boundary.lang_name as boundary_lang_name,
         boundary.boundary_type_id as boundary_type_id,
         Count(distinct ag.institution_id) as num_schools,
         Count(distinct ag.id) as num_students,
