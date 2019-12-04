@@ -37,6 +37,7 @@ class BoundaryStudentScoreGroups(models.Model):
 class BoundaryCountsAgg(models.Model):
     boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
     boundary_name = models.CharField(max_length=150, db_column="boundary_name")
+    boundary_lang_name = models.CharField(max_length=150, db_column="boundary_lang_name")
     boundary_type_id = models.ForeignKey('boundary.BoundaryType', db_column="boundary_type_id")
     num_students = models.IntegerField(db_column="num_students")
     num_schools = models.IntegerField(db_column="num_schools")

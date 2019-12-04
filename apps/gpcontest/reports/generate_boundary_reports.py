@@ -103,11 +103,13 @@ def generate_boundary_report(
             BoundaryStudentScoreGroups.objects.filter(boundary_id=boundary_id)
         boundary_counts = BoundaryCountsAgg.objects.get(boundary_id=boundary_id)
         boundary_report["parent_boundary_name"] = b.parent.name
+        boundary_report["parent_langname"] = b.parent.lang_name
         boundary_report["num_blocks"] = boundary_counts.num_blocks
         boundary_report["num_gps"] = boundary_counts.num_gps
         boundary_report["num_schools"] = boundary_counts.num_schools
         boundary_report["num_students"] = boundary_counts.num_students
         boundary_report["boundary_name"] = boundary_counts.boundary_name
+        boundary_report["boundary_langname"] = boundary_counts.boundary_lang_name
         boundary_report["boundary_id"] = boundary_counts.boundary_id.id
         boundary_report["boundary_type"] = boundary_counts.boundary_type_id.char_id
         competency_scores = get_competency_scores_for_all_qgroups(
@@ -157,7 +159,7 @@ def get_grade_competency_percentages(
                                                         report_to)
     results_by_date = {}
     concept_scores = {
-            "Number Recognition": 0,
+            "Number Recognition": 'NA',
             "Place Value": 'NA',
             "Addition": 0,
             "Subtraction": 0,
@@ -238,7 +240,7 @@ def format_competency_answers(correct_ans_queryset):
     competencies = ["Addition", "Subtraction", "Number Recognition",
                     "Place Value", "Multiplication", "Division"]
     competency_scores = {
-                "Number Recognition": 0,
+                "Number Recognition": 'NA',
                 "Place Value": 'NA',
                 "Addition": 0,
                 "Subtraction": 0,
