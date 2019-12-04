@@ -4,7 +4,7 @@ from gpcontest.models import (
 )
 from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyBoundaryQuestionGroupQuestionKeyAgg
+    SurveyBoundaryQuestionGroupQuestionKeyAgg, CompetencyOrder
 )
 from boundary.models import (
     Boundary
