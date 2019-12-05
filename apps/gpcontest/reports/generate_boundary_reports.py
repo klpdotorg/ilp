@@ -4,7 +4,7 @@ from gpcontest.models import (
 )
 from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyBoundaryQuestionGroupQuestionKeyAgg
+    SurveyBoundaryQuestionGroupQuestionKeyAgg, CompetencyOrder
 )
 from boundary.models import (
     Boundary
@@ -130,7 +130,7 @@ def generate_boundary_report(
             # Find the competency scores
             competencies = competency_scores.filter(
                                 questiongroup_name=each_row.questiongroup_name)
-            concept_scores = format_competency_answers(competencies)
+            concept_scores = format_answers(each_row.questiongroup_id, competencies)
             concept_scores["total"] = each_row.num_students
             boundary_report[each_row.questiongroup_name]["competency_scores"] = \
                 concept_scores
@@ -232,35 +232,34 @@ def get_total_assessments_for_grade(boundary_id, qgroup_name, gpcontest_survey_i
     return total_assessments
 
 
-def format_competency_answers(correct_ans_queryset):
+def format_answers(questiongroup_id, correct_ans_queryset):
     # Note that below set of competencies is hardcoded. If the template
     # changes we would need to change this. Doing this in lieu of a mat view
     # that will contain rows of competencies taht didn't have a correct ans
     # score.
+
     competencies = ["Addition", "Subtraction", "Number Recognition",
-                    "Place Value", "Multiplication", "Division"]
-    competency_scores = {
-                "Number Recognition": 'NA',
-                "Place Value": 'NA',
-                "Addition": 0,
-                "Subtraction": 0,
-                "Multiplication": 0,
-                "Division": 0
-    }
+                    "Place Value", "Multiplication", "Division"]            
+    competencies_in_db = CompetencyOrder.objects.filter(questiongroup=questiongroup_id).order_by('sequence').values_list('key', flat=True)
+    competency_scores = {}
     for competency in competencies:
-        try:
-            each_row = correct_ans_queryset.get(question_key=competency)
-        except:
-            each_row = None
-        if each_row is not None:
-            correctans = each_row["correct_answers"]
-            if correctans is None:
-                correctans = 0
-            competency_scores[competency] =\
-                correctans
-        # No one got this answer right, send 0 back
+        # This competency is NA for this class. Hence assign NA to it
+        if competency not in competencies_in_db:
+            competency_scores[competency] = 'NA'
         else:
-            competency_scores[competency] = 0
+            try:
+                each_row = correct_ans_queryset.get(question_key=competency)
+            except:
+                each_row = None
+            if each_row is not None:
+                correctans = each_row["correct_answers"]
+                if correctans is None:
+                    correctans = 0
+                competency_scores[competency] =\
+                    correctans
+            # No one got this answer right, send 0 back
+            else:
+                competency_scores[competency] = 0
     return competency_scores
 
 def get_districts_for_survey(survey_id, from_yearmonth, to_yearmonth):
