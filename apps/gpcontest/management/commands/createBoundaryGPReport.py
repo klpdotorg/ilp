@@ -16,6 +16,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     help = 'Creates Distrct and Block Reports, pass surveyid startyearmonth endyearmonth\
             --districtid [commaseparated districtids] --onlydistrict (True/False) \
             --blocksblockid [comma separated blockids]'
+    assessmentorder = ["class4", "class5", "class6"]
     assessmentnames = {"class4": {"name": "Class 4 Assessment", "class": 4},
                        "class5": {"name": "Class 5 Assessment", "class": 5},
                        "class6": {"name": "Class 6 Assessment", "class": 6}}
@@ -192,7 +193,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                   "school_count": blockdata["num_schools"],
                   "totalstudents": blockdata["num_students"]}
         assessmentinfo = []
-        for assessment in self.assessmentnames:
+        for assessment in self.assessmentorder:
             if self.assessmentnames[assessment]["name"] in blockdata:
                 blockdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(blockdata[self.assessmentnames[assessment]["name"]])
