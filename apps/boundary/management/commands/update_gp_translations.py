@@ -16,10 +16,10 @@ from fuzzywuzzy import process
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument('file')
+        parser.add_argument('--file', nargs='?')
 
     def handle(self, *args, **options):
-        file_name = options.get('file', None).title()
+        file_name = options.get("file", None)
         if not file_name:
             print("Please pass in a file path for the CSV file with translations")
             return False
