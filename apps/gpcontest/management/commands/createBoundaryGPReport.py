@@ -131,7 +131,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         else:
             districtname = "("+districtdata["boundary_name"].capitalize()+")"
  
-        districtinfo = {"name": districtdata["boundary_name"].capitalize(),
+        districtinfo = {"name": districtname,
                   "langname": districtdata["boundary_langname"],
                   "num_blocks": districtdata["num_blocks"],
                   "num_gps": districtdata["num_gps"],
