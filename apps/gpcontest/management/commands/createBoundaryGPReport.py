@@ -125,21 +125,45 @@ class Command(BaseCommand, baseReport.CommonUtils):
         template = self.templates["district"]["latex"]
         if type(districtdata) is int or type(districtdata) is str:
             return
+
+        if districtdata["boundary_langname"] == "":
+            districtname = districtdata["boundary_name"].capitalize()
+        else:
+            districtname = "("+districtdata["boundary_name"].capitalize()+")"
+ 
         districtinfo = {"name": districtdata["boundary_name"].capitalize(),
+                  "langname": districtdata["boundary_langname"],
                   "num_blocks": districtdata["num_blocks"],
                   "num_gps": districtdata["num_gps"],
                   "num_schools": districtdata["num_schools"],
                   "totalstudents": districtdata["num_students"]}
+
         assessmentinfo = []
         for assessment in self.assessmentnames:
             if self.assessmentnames[assessment]["name"] in districtdata:
                 districtdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(districtdata[self.assessmentnames[assessment]["name"]])
-        info = {"imagesdir": self.imagesdir, "year": self.academicyear}
+        year, month = self.getYearMonth(str(self.now))
+        info = {"imagesdir": self.imagesdir, "acadyear": self.academicyear, "year":year, "month": month}
+        percent_scores = {}
         if "percent_scores" not in districtdata:
             percent_scores = None
         else:
-            percent_scores = districtdata["percent_scores"]
+            for assessment in districtdata["percent_scores"]:
+                numcompetency = 0
+                for competency in districtdata["percent_scores"][assessment]:
+                    if districtdata["percent_scores"][assessment][competency] == 'NA':
+                        continue
+                    numcompetency += 1
+                    if percent_scores == {}:
+                        percent_scores["assessments"] = {}
+                    if assessment in percent_scores["assessments"]:
+                        percent_scores["assessments"][assessment][competency] = districtdata["percent_scores"][assessment][competency]
+                    else:
+                        percent_scores["assessments"][assessment] = {competency: districtdata["percent_scores"][assessment][competency]}
+            percent_scores["num_competencies"] = numcompetency
+
+
         renderer_template = template.render(districtinfo=districtinfo,
                                             assessmentinfo=assessmentinfo,
                                             info=info,
@@ -199,10 +223,25 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 assessmentinfo.append(blockdata[self.assessmentnames[assessment]["name"]])
         year, month = self.getYearMonth(str(self.now))
         info = {"imagesdir": self.imagesdir, "acadyear": self.academicyear, "year":year, "month": month}
+        percent_scores = {}
         if "percent_scores" not in blockdata:
             percent_scores = None
         else:
-            percent_scores = blockdata["percent_scores"]
+            for assessment in blockdata["percent_scores"]:
+                numcompetency = 0
+                for competency in blockdata["percent_scores"][assessment]:
+                    if blockdata["percent_scores"][assessment][competency] == 'NA':
+                        continue
+                    numcompetency += 1
+                    if percent_scores == {}:
+                        percent_scores["assessments"] = {}
+                    if assessment in percent_scores["assessments"]:
+                        percent_scores["assessments"][assessment][competency] = blockdata["percent_scores"][assessment][competency]
+                    else:
+                        percent_scores["assessments"][assessment] = {competency: blockdata["percent_scores"][assessment][competency]}
+            percent_scores["num_competencies"] = numcompetency
+
+
         renderer_template = template.render(blockinfo=blockinfo,
                                             assessmentinfo=assessmentinfo,
                                             info=info,
