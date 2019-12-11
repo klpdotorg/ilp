@@ -239,7 +239,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                   "block": blockname,
                   "block_langname": gpdata["block_lang_name"],
                   "district": districtname,
-                  "district_langname": gpdata["district_lang_name"].capitalize(),
+                  "district_langname": gpdata["district_lang_name"],
                   "cluster": "",
                   "contestdate": gpdata["contestdate"],
                   "school_count": gpdata["num_schools"],
@@ -252,10 +252,26 @@ class Command(BaseCommand, baseReport.CommonUtils):
         # print(assessmentinfo)
         year, month = self.getYearMonth(str(self.now))
         info = {"imagesdir": self.imagesdir, "acadyear": self.academicyear, "year":year, "month": month}
+        percent_scores = {}
         if "percent_scores" not in gpdata:
             percent_scores = None
         else:
-            percent_scores = gpdata["percent_scores"]
+            for assessment in gpdata["percent_scores"]:
+                numcompetency = 0
+                for competency in gpdata["percent_scores"][assessment]:
+                    if gpdata["percent_scores"][assessment][competency] == 'NA':
+                        continue
+                    numcompetency += 1
+                    if percent_scores == {}:
+                        percent_scores["assessments"] = {}
+                    if assessment in percent_scores["assessments"]:
+                        percent_scores["assessments"][assessment][competency] = gpdata["percent_scores"][assessment][competency]
+                    else:
+                        percent_scores["assessments"][assessment] = {competency: gpdata["percent_scores"][assessment][competency]}
+            percent_scores["num_competencies"] = numcompetency
+
+            #percent_scores = gpdata["percent_scores"]
+        print(percent_scores)
         renderer_template = template.render(gpinfo=gpinfo,
                                             assessmentinfo=assessmentinfo,
                                             info=info,
