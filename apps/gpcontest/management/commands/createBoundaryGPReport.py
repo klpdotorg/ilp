@@ -20,6 +20,18 @@ class Command(BaseCommand, baseReport.CommonUtils):
     assessmentnames = {"class4": {"name": "Class 4 Assessment", "class": 4},
                        "class5": {"name": "Class 5 Assessment", "class": 5},
                        "class6": {"name": "Class 6 Assessment", "class": 6}}
+    sendto = {"block": {
+        "executiveofficer":{"langname":"ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು", "name":"The executive officer"},
+        "blockeducationofficer":{"langname":"ಕ್ಷೇತ್ರ ಶಿಕ್ಷಣಾಧಿಕಾರಿಗಳು", "name": "Block Eduction Officer"},
+        "mla":{"langname":" ಮಾನ್ಯ ಶಾಸಕರು","name":"Member of the Legislative Assembly"},
+        "president":{"langname":"ತಾಲೂಕು ಪಂಚಾಯತಿ ಅಧ್ಯಕ್ಷರು","name":"The  President"},
+        "brc":{"langname":"ಕ್ಷೇತ್ರ ಸಮನ್ವಯಾಧಿಕಾರಿಗಳು","name":"Block Resource Centers"} },
+        "district": {
+            "deputycommissioner":{"langname":"ಜಿಲ್ಲಾದಿಕಾರಿಗಳು","name":"The Deputy Commissioner"},
+            "ceo":{"langname":"ಮುಖ್ಯ  ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು","name":"The chief executive officer"},
+            "president":{"langname":"ಜಿಲ್ಲಾ ಪಂಚಾಯತ್  ಅಧ್ಯಕ್ಷರು", "name":"The President"},
+            "ddpi_dev":{"langname":"ಉಪ ನಿರ್ದೇಶಕರು (ಅಭಿವೃಧ್ಧಿ)", "name":"DDPI (Development)"},
+            "ddpi_admin":{"langname":"ಜಿಲ್ಲಾ ಉಪ ನಿರ್ದೇಶಕರು (ಆಡಳಿತ)","name":"DDPI (Administrator)"}}}
     now = date.today()
     basefiledir = os.getcwd()
     templatedir = "/apps/gpcontest/templates/"
@@ -164,27 +176,29 @@ class Command(BaseCommand, baseReport.CommonUtils):
             percent_scores["num_competencies"] = numcompetency
 
 
-        renderer_template = template.render(districtinfo=districtinfo,
-                                            assessmentinfo=assessmentinfo,
-                                            info=info,
-                                            percent_scores=percent_scores)
-
-        output_file = self.district_out_file_prefix+"_"+str(districtid)
         if onlyDistrict:
             outputdir = self.outputdir+"/districts"
         else:
-            outputdir = self.outputdir+"/"+str(districtid)
+            outputdir = self.outputdir+"/districts/"+str(districtid)
         if not os.path.exists(outputdir):
             os.makedirs(outputdir)
 
-        with open(output_file+".tex", "w", encoding='utf-8') as f:
-            f.write(renderer_template)
+        for sendto in self.sendto["district"]:
+            renderer_template = template.render(districtinfo=districtinfo,
+                                                assessmentinfo=assessmentinfo,
+                                                info=info,
+                                                percent_scores=percent_scores,
+                                                sendto=self.sendto["district"][sendto])
 
-        os.system("xelatex -output-directory {} {}".format(
+            output_file = self.district_out_file_prefix+"_"+str(districtid)+"_"+sendto
+            with open(output_file+".tex", "w", encoding='utf-8') as f:
+                f.write(renderer_template)
+
+            os.system("xelatex -output-directory {} {}".format(
                       os.path.realpath(self.build_d),
                       os.path.realpath(output_file)))
-        shutil.copy2(self.build_d+"/"+output_file+".pdf", outputdir)
-        self.deleteTempFiles([output_file+".tex",
+            shutil.copy2(self.build_d+"/"+output_file+".pdf", outputdir)
+            self.deleteTempFiles([output_file+".tex",
                              self.build_d+"/"+output_file+".pdf"])
 
         self.districtsummary.append({"districtid": districtid,
@@ -241,26 +255,30 @@ class Command(BaseCommand, baseReport.CommonUtils):
                         percent_scores["assessments"][assessment] = {competency: blockdata["percent_scores"][assessment][competency]}
             percent_scores["num_competencies"] = numcompetency
 
-
-        renderer_template = template.render(blockinfo=blockinfo,
-                                            assessmentinfo=assessmentinfo,
-                                            info=info,
-                                            percent_scores=percent_scores)
-
-        output_file = self.block_out_file_prefix+"_"+str(blockid)
         if not os.path.exists(outputdir):
             os.makedirs(outputdir)
         if not os.path.exists(build_dir):
             os.makedirs(build_dir)
 
-        with open(output_file+".tex", "w", encoding='utf-8') as f:
-            f.write(renderer_template)
+        for sendto in self.sendto["block"]:
 
-        os.system("xelatex -output-directory {} {}".format(
+            renderer_template = template.render(blockinfo=blockinfo,
+                                            assessmentinfo=assessmentinfo,
+                                            info=info,
+                                            percent_scores=percent_scores,
+                                            sendto=self.sendto["block"][sendto])
+
+
+            output_file = self.block_out_file_prefix+"_"+str(blockid)+"_"+sendto
+
+            with open(output_file+".tex", "w", encoding='utf-8') as f:
+                f.write(renderer_template)
+
+            os.system("xelatex -output-directory {} {}".format(
                       os.path.realpath(build_dir),
                       os.path.realpath(output_file)))
-        shutil.copy2(build_dir+"/"+output_file+".pdf", outputdir)
-        self.deleteTempFiles([output_file+".tex",
+            shutil.copy2(build_dir+"/"+output_file+".pdf", outputdir)
+            self.deleteTempFiles([output_file+".tex",
                              build_dir+"/"+output_file+".pdf"])
 
         self.blocksummary.append({"blockid": blockid,
