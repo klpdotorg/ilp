@@ -1,0 +1,1 @@
+insert into assessments_surveytaginstitutionmapping (institution_id, tag_id, academic_year_id) select institution_id, 'gka','1920' from assessments_surveytaginstitutionmapping where institution_id in (select id from schools_institution where admin0_id=3);
