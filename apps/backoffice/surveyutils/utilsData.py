@@ -28,7 +28,7 @@ class commonAssessmentDataUtils():
         numquestions = 0
         questiondata = {}
         try:
-            question_qs = QuestionGroup_Questions.objects.filter(questiongroup=questiongroup_id).values('questiongroup_id', 'questiongroup__name', 'question__id', 'question__question_text', 'question__display_text','questiongroup__source__name', 'sequence').order_by('sequence')
+            question_qs = QuestionGroup_Questions.objects.filter(questiongroup=questiongroup_id).values('questiongroup_id', 'questiongroup__name', 'question__id', 'question__microconcept__char_id','question__question_text', 'question__display_text','questiongroup__source__name', 'sequence').order_by('sequence')
         except QuestionGroup_Questions.DoesNotExist:
             print("Did not find relevant question data for surveyid: "+str(surveyid))
             return None
@@ -37,10 +37,10 @@ class commonAssessmentDataUtils():
             if numquestions < qs['sequence']:
                 numquestions = numquestions+1
             if qs['questiongroup_id'] in questiondata:
-                questiondata[qs['questiongroup_id']]['questions'].append({'question_text':qs['question__question_text'], 'qid': qs['question__id'], 'display_text': qs['question__display_text'], 'sequence': qs['sequence']})
+                questiondata[qs['questiongroup_id']]['questions'].append({'question_text':qs['question__question_text'], 'qid': qs['question__id'], 'display_text': qs['question__microconcept__char_id'], 'sequence': qs['sequence']})
             else:
                 questiondata[qs['questiongroup_id']] = {'name':qs['questiongroup__name'],'source':qs['questiongroup__source__name'], 'questions':[]}
-                questiondata[qs['questiongroup_id']]['questions'].append({'question_text':qs['question__question_text'], 'qid': qs['question__id'], 'display_text': qs['question__display_text'], 'sequence': qs['sequence']})
+                questiondata[qs['questiongroup_id']]['questions'].append({'question_text':qs['question__question_text'], 'qid': qs['question__id'], 'display_text': qs['question__microconcept__char_id'], 'sequence': qs['sequence']})
         return questiondata, numquestions
     #  def getQuestionData(self, surveyid):
     #     numquestions = 0
