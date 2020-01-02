@@ -1,0 +1,1 @@
+UPDATE boundary_boundary set lang_name='ವಿಜಯಪುರ' WHERE id=415;
