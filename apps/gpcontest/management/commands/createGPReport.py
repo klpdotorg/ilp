@@ -72,6 +72,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         parser.add_argument('--districtid', nargs='?')
         parser.add_argument('--mergereport', nargs='?', default=True)
         parser.add_argument('--reportcolour', nargs='?', default='bw')
+        parser.add_argument('--lang', nargs='?', default='kannada')
 
 
     def validateInputs(self):
@@ -521,6 +522,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
         reportcolour = options.get("reportcolour")
         self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
+
+        lanuage = options.get("lang")
+        self.templatedir = self.templatedir+"/"+language
 
         if schoolids is not None:
             self.schoolids = [int(x) for x in schoolids.split(',')]
