@@ -1,0 +1,116 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,top=1cm,left=2cm,right=2cm,bottom=2cm,portrait]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontenc}
+\usepackage{xltxtra}
+\usepackage{tikz}
+\usepackage{array}
+
+
+\newcommand\includegraphicsifexists[2][height=1.5cm]{\IfFileExists{#2}{\includegraphics[#1]{#2}}{}}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\fancypagestyle{plain}{
+\fancyhf{} % clear all header and footer fields
+\lfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=-1cm,xshift=-2cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
+\end{tikzpicture}}
+
+\rfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=-1cm,xshift=2cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
+\end{tikzpicture}}
+
+\cfoot{
+\fontsize{9}{12}
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-6cm]
+{For more information on the GP level Math contest report, {{info.year}} };
+\node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
+{Please call - 9845079590 };
+\node[anchor=south,yshift=-0.5cm,xshift=6cm]
+{\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
+\end{tikzpicture}}
+}
+
+\renewcommand{\headrulewidth}{0pt} % to remove line on header
+\renewcommand{\footrulewidth}{0pt} % to remove line on footer
+
+\begin{document}
+
+\thispagestyle{plain}
+{
+\setlength{\parindent}{0in}
+
+District : {{schoolinfo.district}} \hfill  GP Id : {{schoolinfo.gpid}} \\
+Taluk : {{schoolinfo.block}} \hfill DISE Code : {{schoolinfo.disecode}} \\
+GP Name : {{schoolinfo.gpname}}\hfill School Name : {{schoolinfo.schoolname}}\\
+
+The results of the GP level math contest held on {{schoolinfo.contestdate}} under the leadership of GP president in partnership with the education department, community and Akshara Foundation for your school is as follows:
+
+\begingroup
+\fontsize{9}{12}
+{
+\setlength\LTleft{-.7cm}
+\setlength\LTright{-.7cm}
+\renewcommand\arraystretch{1.45}
+\begin{longtable}{|P{1cm}|p{10cm}|P{3cm}|P{3cm}|} \hline
+\multicolumn{4}{|c|}{ {\large \bf {{info.classname}}  Grade} \\ \hline
+\multicolumn{4}{|c|}{Total Children : {{assessmentinfo.num_students}}} \\ \hline
+\textbf{Sr. No.} & \textbf{Question} & \textbf{Total Right Answers} & \textbf{Result(Percentage)} \\ \hline \endhead
+{% for question in assessmentinfo.question_answers %}
+{{loop.index}} & {{ question.name }}& {{ question.num_correct }} & {{question.percent}} \\ \hline
+{% endfor %}
+\end{longtable}
+}
+\endgroup
+
+\begin{flushleft}
+To improve the above results, we request the school HM, SDMC, parents and the math teachers to sit together and plan suitable actions for quality math learning. For more information please contact us on 9845079590 \\[2ex]
+\end{flushleft}
+
+{% for num in assessmentinfo.deficiencies %}
+\ifnum {{loop.index}} = 1
+    \begin{tabular}[t]{ll}
+    \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}}  &
+	    \fcolorbox{black}{gray}{\parbox[t][1.5cm]{4.5cm}{\centering{To improve on {{num.name}} concept, scan this QR code}}}
+    \end{tabular}
+ \else 
+     \ifnum {{loop.index}} = 2
+     \hfill 
+     \begin{tabular}[t]{ll}
+     \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}} &
+	     \fcolorbox{black}{lightgray}{\parbox[t][1.5cm]{4.5cm}{\centering{To improve on {{num.name}} concept, scan this QR code}}}
+     \end{tabular}
+     \else
+     \begin{center} 
+     \begin{tabular}[t]{ll}
+     \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}} &
+	     \fbox{\parbox[t][1.5cm]{4.5cm}{\centering{To improve on {{num.name}} concept, scan this QR code}}}
+     \end{tabular}
+     \end{center}
+     \fi
+\fi
+{% endfor %}
+	\ifnum {{assessmentinfo.deficiencies|length}} < 3
+    ~\\~\\~\\~\\~\\
+\else
+    ~\\
+\fi
+Sign \hfill Sign \rule{3.8cm}{0cm} \\
+District Manager, Akshara Foundation \hfill GP President \rule{0.5cm}{0cm}
+}
+
+\end{document}
