@@ -115,10 +115,8 @@ class commonAssessmentDataUtils():
                 questions_list = questioninfo[questiongroup_id]["questions"]
                 for question in questions_list:
                     qn_text = question["display_text"]
-                    if qn_text is None or " ":
+                    if not qn_text:
                         qn_text = question["question_text"]
-                    else:
-                        qn_text = question["display_text"]
                     row = row + [qn_text]
                 filewriter.writerow(row)
                 for state in assessmentdata:
