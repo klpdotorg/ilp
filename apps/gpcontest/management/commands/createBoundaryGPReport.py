@@ -342,8 +342,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
         reportcolour = options.get("reportcolour")
         self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
 
-        lanuage = options.get("lang")
-        self.templatedir = self.templatedir+"/"+language
+        language = options.get("lang")
+        self.templatedir = self.templatedir+"/"+language+"/"
 
         if blockids is not None:
             self.blockids = [int(x) for x in blockids.split(',')]

@@ -523,8 +523,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
         reportcolour = options.get("reportcolour")
         self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
 
-        lanuage = options.get("lang")
-        self.templatedir = self.templatedir+"/"+language
+        language = options.get("lang")
+        self.templatedir = self.templatedir+"/"+language+"/"
 
         if schoolids is not None:
             self.schoolids = [int(x) for x in schoolids.split(',')]
