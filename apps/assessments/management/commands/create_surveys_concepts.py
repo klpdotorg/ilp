@@ -118,7 +118,7 @@ class Command(BaseCommand):
                                 lang_name=lang_name,
                                 image_required=image_required,
                                 comments_required=comments_required,
-                                respondenttype_required=respondenttype_required
+                                respondenttype_required=respondenttype_required,
                                 max_score=max_score)
             print("QuestionGroup: "+name+" was created: "+str(created))
             if created:
