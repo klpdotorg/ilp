@@ -470,8 +470,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
             self.reportsummary[schooldata["district_name"]] = {schooldata["block_name"]:{schoolinfo["gpid"]:{schoolinfo["contestdate"]:{"gpname":schooldata["gp_name"].capitalize(), "schoolsummary": []}}}}
         if schooldata["block_name"] not in self.reportsummary[schooldata["district_name"]]:
             self.reportsummary[schooldata["district_name"]][schooldata["block_name"]]={schoolinfo["gpid"]:{schoolinfo["contestdate"]:{"gpname":schooldata["gp_name"].capitalize(), "schoolsummary": []}}}
-         if schoolinfo["contestdate"] not in self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]]:
-             self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]={"gpname":schooldata["gp_name"].capitalize(), "schoolsummary": []}
+        if schoolinfo["contestdate"] not in self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]]:
+            self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]={"gpname":schooldata["gp_name"].capitalize(), "schoolsummary": []}
         self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
         return school_file
 
