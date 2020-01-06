@@ -529,12 +529,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
         schoolids = options.get("sid", None)
         self.mergereport = options.get("mergereport")
 
-        reportcolour = options.get("reportcolour")
-        self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
-
         self.language = options.get("lang")
         self.templatedir = self.templatedir+"/"+self.language+"/"
         self.imagesdir = self.imagesdir+"/"+self.language+"/"
+
+        reportcolour = options.get("reportcolour")
+        self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
 
         if schoolids is not None:
             self.schoolids = [int(x) for x in schoolids.split(',')]
