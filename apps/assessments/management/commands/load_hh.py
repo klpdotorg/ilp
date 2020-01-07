@@ -15,7 +15,7 @@ class Command(BaseCommand):
     args = ""
     help = """python3 manage.py load_community_survey --filename=filename"""
     questiongroup_id = 20
-    ans_col_start = 11
+    ans_col_start = 13
     validanswers = {"0", "1", "99", "88"}  # 99 -->dont know, 88 --> unknown
     validgenders = {"male", "female"}
     rowcounter = 0
@@ -107,7 +107,7 @@ class Command(BaseCommand):
             print("Pass the csv file --filename")
             return
 
-        with open(csv_file, 'r+') as data_file:
+        with open(csv_file, 'r+', encoding='utf-8') as data_file:
             data = csv.reader(data_file)
             header = 1
             anscount = 0
@@ -119,16 +119,16 @@ class Command(BaseCommand):
 
                 self.rowcounter += 1
 
-                district = row[0].strip().lower()
-                block = row[1].strip().lower()
-                cluster = row[2].strip().lower()
-                inst_id = row[3].strip()
-                school_name = row[4].strip().lower()
-                dise_code = row[5].strip()
-                village = row[6].strip().lower()
-                gpname = row[7].strip().lower()
-                gpid = row[8].strip()
-                date = row[9].strip()
+                district = row[2].strip().lower()
+                block = row[3].strip().lower()
+                cluster = row[4].strip().lower()
+                inst_id = row[5].strip()
+                school_name = row[6].strip().lower()
+                dise_code = row[7].strip()
+                village = row[8].strip().lower()
+                gpname = row[9].strip().lower()
+                gpid = row[10].strip()
+                date = row[11].strip()
                 if date == '':
                     date = '01/'+self.defaultmonthyear
                 try:
@@ -142,7 +142,7 @@ class Command(BaseCommand):
                 dov = parser.parse(date_string)
                 localtz = timezone(settings.TIME_ZONE)
                 dov = localtz.localize(dov)
-                group_value = row[10].strip()
+                group_value = row[12].strip()
                 enteredat = localtz.localize(datetime.now())
 
                 #  check values

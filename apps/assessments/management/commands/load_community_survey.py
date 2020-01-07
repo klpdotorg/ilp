@@ -22,7 +22,7 @@ class Command(BaseCommand):
         file_name = options.get('filename', None)
         csv_file = settings.PROJECT_ROOT + '/../'+ file_name
          
-        with open(csv_file, 'r+') as data_file:
+        with open(csv_file, 'r+', encoding='utf-8') as data_file:
             data = csv.reader(data_file)
             header = 1
             for row in data:

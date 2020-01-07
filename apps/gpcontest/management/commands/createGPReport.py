@@ -59,7 +59,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
     imagesdir = basefiledir+"/apps/gpcontest/images/"
     imagesqrdir = basefiledir+"/apps/gpcontest/images/"
     mergereport = True
-    translatedmonth = {1:'ಜನವರಿ',2:'ಫೆಬ್ರವರಿ',3:'ಮಾರ್ಚ್',4:'ಎಪ್ರಿಲ್',5:'ಮೇ',6:'ಜೂನ್',7:'ಜುಲೈ',8:'ಆಗಸ್ಟ್',9:'ಸೆಪ್ಟಂಬರ್',10:'ಅಕ್ಟೋಬರ್',11:'ನವೆಂಬರ್',12:'ಡಿಸೆಂಬರ್'}
+    translatedmonth = {'kannada':{1:'ಜನವರಿ',2:'ಫೆಬ್ರವರಿ',3:'ಮಾರ್ಚ್',4:'ಎಪ್ರಿಲ್',5:'ಮೇ',6:'ಜೂನ್',7:'ಜುಲೈ',8:'ಆಗಸ್ಟ್',9:'ಸೆಪ್ಟಂಬರ್',10:'ಅಕ್ಟೋಬರ್',11:'ನವೆಂಬರ್',12:'ಡಿಸೆಂಬರ್'},
+            'english':{1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',
+                10:'October',11:'November',12:'December'}}
 
 
     def add_arguments(self, parser):
@@ -123,10 +125,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 if not self.onlygp:
                     # print(gp)
                     schoolpdfs = self.createSchoolReports(gp, outputdir, contestdate, suffix)
-
-                if self.mergereport:
-                    combinedFile = "GPContestInformation_"+str(gp)+suffix+".pdf"
-                    self.mergeReports(outputdir+"/", gppdf, schoolpdfs, combinedFile)
+                    if self.mergereport:
+                        combinedFile = "GPContestInformation_"+str(gp)+suffix+".pdf"
+                        self.mergeReports(outputdir+"/", gppdf, schoolpdfs, combinedFile)
 
             if datafound:
                 self.createSchoolsSummary(outputdir)
@@ -209,10 +210,10 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 self.deleteTempFiles([outputfile+".tex",
                              self.build_d+"/"+outputfile+".pdf"])
 
-    def getYearMonth(self, inputdate):
+    def getYearMonth(self, inputdate ):
         print(inputdate)
         year = int(inputdate[0:4])
-        month = self.translatedmonth[int(inputdate[5:7])]
+        month = self.translatedmonth[self.language][int(inputdate[5:7])]
         return year, month
         
 
@@ -373,12 +374,14 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
 
     def createOnlySchoolReports(self):
+        print("1")
         school_outputdir = self.outputdir+"/schools/"
         datafound = False
         for school in self.schoolids:
             schooldata = school_compute_numbers.get_school_report(
                                        school, self.surveyid,
                                        self.startyearmonth, self.endyearmonth)
+            print(schooldata)
             school_builddir = self.build_d+str(self.now) + \
                               "/schools/"+str(school)
             suffix = ""
@@ -463,6 +466,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
         print(self.reportsummary)
+        if schooldata["district_name"] not in self.reportsummary:
+            self.reportsummary[schooldata["district_name"]] = {schooldata["block_name"]:{schoolinfo["gpid"]:{schoolinfo["contestdate"]:{"gpname":schooldata["gp_name"].capitalize(), "schoolsummary": []}}}}
+        if schooldata["block_name"] not in self.reportsummary[schooldata["district_name"]]:
+            self.reportsummary[schooldata["district_name"]][schooldata["block_name"]]={schoolinfo["gpid"]:{schoolinfo["contestdate"]:{"gpname":schooldata["gp_name"].capitalize(), "schoolsummary": []}}}
+        if schoolinfo["contestdate"] not in self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]]:
+            self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]={"gpname":schooldata["gp_name"].capitalize(), "schoolsummary": []}
         self.reportsummary[schooldata["district_name"]][schooldata["block_name"]][schoolinfo["gpid"]][schoolinfo["contestdate"]]["schoolsummary"].append(summary)
         return school_file
 
@@ -520,11 +529,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
         schoolids = options.get("sid", None)
         self.mergereport = options.get("mergereport")
 
+        self.language = options.get("lang")
+        self.templatedir = self.templatedir+"/"+self.language+"/"
+        self.imagesdir = self.imagesdir+"/"+self.language+"/"
+
         reportcolour = options.get("reportcolour")
         self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
-
-        language = options.get("lang")
-        self.templatedir = self.templatedir+"/"+language+"/"
 
         if schoolids is not None:
             self.schoolids = [int(x) for x in schoolids.split(',')]

@@ -1,0 +1,23 @@
+id|question text|display text|key|options|is featured|type|status|max_score|pass_score|lang_name|options in lang|concept|microconcept group|microconcept|Level|Learning Indicator
+130||||||||||||||||
+291||||||||||||||||
+|Number Sense- Oral number name association|Number Sense- Oral number name association|Number Sense|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_sense|numbers|oral_number_name_association|beginner|knowledge
+|Number Patterns - Odd Number and Even Numbers|Number Patterns - Odd Number and Even Numbers|Number Sense|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_sense|number_patterns|odd_number_and_even_numbers|beginner|knowledge
+|Number Place Value - Identify place value for a given number|Number Place Value - Identify place value for a given number|Number Sense|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_sense|place_value|identify_place_value_for_a_given_number|beginner|understanding
+|Number Sequence - Before and After|Number Sequence - Before and After|Number Sense|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_sense|sequence|before_and_after|beginner|knowledge
+|Number Sequence-Arranging in Ascending or Descending order|Number Sequence-Arranging in Ascending or Descending order|Number Sense|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_sense|sequence|arranging_in_ascending_or_descending_order|beginner|knowledge
+|Number Operations - Addition without Carry (Abstract)|Number Operations - Addition without Carry (Abstract)|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|addition|addition_without_carry(abstract)|beginner|understanding
+|Number Operations - Addition with Carry (Abstract)|Number Operations - Addition with Carry (Abstract)|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|addition|addition_with_carry(abstract)|beginner|understanding
+|Number Operations - Subtraction without Borrow (Abstratct)|Number Operations - Subtraction without Borrow (Abstratct)|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|subtraction|subtraction_without_borrow(abstract)|beginner|understanding
+|Number Operations - Subtraction with Borrow (Abstratct)|Number Operations - Subtraction with Borrow (Abstratct)|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|subtraction|subtraction_with_borrow(abstract)|beginner|understanding
+|Number Operations - Long Multiplication (Abstract)|Number Operations - Long Multiplication (Abstract)|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|multiplication|long_multiplication(abstract)|beginner|understanding
+|Number Operations - Multiply and Divide by 10s, 100s and 1000s|Number Operations - Multiply and Divide by 10s, 100s and 1000s|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|multiplication|multiply_and_divide_by_10s,100s_and_1000s|beginner|understanding
+|Number Operations - Long Division without Remainder|Number Operations - Long Division without Remainder|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|division|long_division_without_remainder|beginner|understanding
+|Number Operations - Long Division with Remainder|Number Operations - Long Division with Remainder|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|division|long_division_with_remainder|beginner|understanding
+|Number Fractions - Fractions using pictures|Number Fractions - Fractions using pictures|Number Sense|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|fractions|fractions_using_pictures|beginner|understanding
+|Shapes- 2-D shapes attributes|Shapes- 2-D shapes attributes|Shapes|"{1,0}"|True|2|AC|1|1||"{1,0}"|shapes|flat_shapes|2d_shapes_attributes|beginner|understanding
+|Shapes- 2-D shapes attributes|Shapes- 2-D shapes attributes|Shapes|"{1,0}"|True|2|AC|1|1||"{1,0}"|shapes|flat_shapes|2d_shapes_attributes|beginner|understanding
+|Shapes - sequence -Observes and extends patterns in sequence of shapes.|Shapes - sequence -Observes and extends patterns in sequence of shapes.|Shapes|"{1,0}"|True|2|AC|1|1||"{1,0}"|shapes|patterns_in_shapes|observes_and_extends_patterns_in_sequence_of_shapes|beginner|application_or_analytical_skills
+|Measurements - Time - Read Time|Measurements - Time - Read Time|Measurements|"{1,0}"|True|2|AC|1|1||"{1,0}"|measurements|time|read_time|beginner|application_or_analytical_skills
+|Number Operations - Addition - word problem|Number Operations - Addition - word problem|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|addition|addition_word_problem|intermediate|application_or_analytical_skills
+|Number Operations - Subtraction - word problem|Number Operations - Subtraction - word problem|Number Operations|"{1,0}"|True|2|AC|1|1||"{1,0}"|number_operations|subtraction|subtraction_word_problem|intermediate|application_or_analytical_skills
