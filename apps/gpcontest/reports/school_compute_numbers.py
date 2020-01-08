@@ -152,6 +152,8 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
                             question_answer_details = {}
                             question_answer_details["question"] =\
                                 answer.microconcept.char_id
+                            question_answer_details["mc_desc"] = \
+                                answer.microconcept.description
                             question_answer_details["lang_name"] = \
                                 answer.question_local_lang_text
                             question_answer_details["num_correct"] = \
