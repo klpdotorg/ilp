@@ -222,17 +222,17 @@ class Command(BaseCommand, baseReport.CommonUtils):
         if type(gpdata) is int or type(gpdata) is str:
             return
         gpdata["contestdate"] = gpdata["date"]
-        if gpdata["gp_lang_name"] == "":
+        if gpdata["gp_lang_name"] == "" or gpdata["gp_lang_name"] == None:
             gpname = gpdata["gp_name"].capitalize()
         else:
             gpname = "("+gpdata["gp_name"].capitalize()+")"
 
-        if gpdata["district_lang_name"] == "":
+        if gpdata["district_lang_name"] == "" or gpdata["district_lang_name"] == None:
            districtname = gpdata["district"].capitalize()
         else:
             districtname = "("+gpdata["district"].capitalize()+")"
 
-        if gpdata["block_lang_name"] == "":
+        if gpdata["block_lang_name"] == "" or gpdata["block_lang_name"] == None:
             blockname = gpdata["block"].capitalize()
         else:
             blockname = "("+gpdata["block"].capitalize()+")"
@@ -402,17 +402,17 @@ class Command(BaseCommand, baseReport.CommonUtils):
         info = {"imagesdir": self.imagesdir, "imagesqrdir":self.imagesqrdir, "year": self.academicyear}
         contestdate = schooldata["date"]
         # print(schooldata, file=self.utf8stdout)
-        if schooldata["gp_lang_name"] == "":
+        if schooldata["gp_lang_name"] == "" or schooldata["gp_lang_name"] == None:
             gpname = schooldata["gp_name"].capitalize()
         else:
             gpname = "("+schooldata["gp_name"].capitalize()+")"
 
-        if schooldata["district_lang_name"] == "":
+        if schooldata["district_lang_name"] == "" or schooldata["district_lang_name"] == None:
            districtname = schooldata["district_name"].capitalize()
         else:
             districtname = "("+schooldata["district_name"].capitalize()+")"
 
-        if schooldata["block_lang_name"] == "":
+        if schooldata["block_lang_name"] == "" or schooldata["block_lang_name"] == None:
             blockname = schooldata["block_name"].capitalize()
         else:
             blockname = "("+schooldata["block_name"].capitalize()+")"
