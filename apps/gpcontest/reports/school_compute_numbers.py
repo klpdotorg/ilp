@@ -68,7 +68,8 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         local_lang_name = qs[:1].get().lang_question_key
         deficiencies.append(
             {"competency": formatted_qkey,
-             "local_name": local_lang_name}
+             "name": key,
+             "lang_name": local_lang_name}
             )
     return deficiencies
 
@@ -152,7 +153,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
                             question_answer_details = {}
                             question_answer_details["question"] =\
                                 answer.microconcept.char_id
-                            question_answer_details["mc_desc"] = \
+                            question_answer_details["name"] = \
                                 answer.microconcept.description
                             question_answer_details["lang_name"] = \
                                 answer.question_local_lang_text
