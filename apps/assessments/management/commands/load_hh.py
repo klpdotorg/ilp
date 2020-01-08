@@ -13,16 +13,18 @@ from boundary.models import ElectionBoundary
 class Command(BaseCommand):
 
     args = ""
-    help = """python3 manage.py load_community_survey --filename=filename"""
+    help = """python3 manage.py load_hh --filename=filename --onlycheck True/False"""
     questiongroup_id = 20
     ans_col_start = 13
     validanswers = {"0", "1", "99", "88"}  # 99 -->dont know, 88 --> unknown
     validgenders = {"male", "female"}
     rowcounter = 0
     defaultmonthyear = datetime.today().strftime("%m/%Y")
+    onlycheck = False
 
     def add_arguments(self, parser):
         parser.add_argument('--filename')
+        parser.add_argument('--onlycheck',)
 
     def checkInstitutionValidity(self, inst_id, schoolname, dise_code):
         try:
@@ -107,6 +109,8 @@ class Command(BaseCommand):
             print("Pass the csv file --filename")
             return
 
+        self.onlycheck = options.get('onlycheck', False)
+
         with open(csv_file, 'r+', encoding='utf-8') as data_file:
             data = csv.reader(data_file)
             header = 1
@@ -164,6 +168,9 @@ class Command(BaseCommand):
                     print("invalid village")
                     continue
 
+                if self.onlycheck:
+                    continue 
+
                 answergroup = AnswerGroup_Institution.objects.create(
                                 group_value=group_value,
                                 date_of_visit=dov,
@@ -189,6 +196,10 @@ class Command(BaseCommand):
                                 question_id=question_id)
                     anscount += 1
                     ans_col_cnt += 1
+
+        if self.onlycheck:
+            print("Check Done")
+            return
 
         print("Number of AnswerGroups created :"+str(ansgroupcount) +
               ", Number of answers created :"+str(anscount))
