@@ -1604,9 +1604,14 @@ var topSummaryData = {};
     function getTotal(answers) {
         if (!answers) { return 0; }
         var yes = answers['Yes'] ? answers['Yes'] : 0;
+        //Account for yes or no answers
+        yes = yes + answers['1'] ? answers['1'] : 0;
         var no = answers['No'] ? answers['No'] : 0;
+        no = answers['0'] ? answers['0'] : 0;
         var dontKnow = answers['Don\'t Know'] ? answers['Don\'t Know'] : 0;
+        dontKnow = answers['99'] ? answers['99'] : 0;
         var unknown = answers['Unknown'] ? answers['Unknown'] : 0;
+        unknown = unknown + answers['88'] ? answers['88'] : 0;
         return yes + no + dontKnow + unknown;
     }
 
