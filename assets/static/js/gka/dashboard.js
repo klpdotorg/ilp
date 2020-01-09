@@ -1598,22 +1598,15 @@ var topSummaryData = {};
         if (!answers) { return 0; }
         option = option ? option : 'Yes';
         var score = answers[option] ? answers[option] : 0;
-        //Add in 1 also
-        score = score + answers['1'] ? answers['1'] : 0;
         return score;
     }
 
     function getTotal(answers) {
         if (!answers) { return 0; }
         var yes = answers['Yes'] ? answers['Yes'] : 0;
-        //Account for yes or no answers
-        yes = yes + answers['1'] ? answers['1'] : 0;
         var no = answers['No'] ? answers['No'] : 0;
-        no = answers['0'] ? answers['0'] : 0;
         var dontKnow = answers['Don\'t Know'] ? answers['Don\'t Know'] : 0;
-        dontKnow = answers['99'] ? answers['99'] : 0;
         var unknown = answers['Unknown'] ? answers['Unknown'] : 0;
-        unknown = unknown + answers['88'] ? answers['88'] : 0;
         return yes + no + dontKnow + unknown;
     }
 
@@ -1635,18 +1628,19 @@ var topSummaryData = {};
     }
 
     function getQuestionsArray(questions) {
-        return _.map(questions, function(question, seq) {
+        return _.map(questions, function (question, seq) {
             var score = getScore(question.answers, 'Yes');
             var total = getTotal(question.answers);
             var percent = getPercent(score, total);
             var questionObj = question.question;
-            return {
+            result={
                 'question': questionObj? questionObj.display_text: '',
                 'key': questionObj? questionObj.key: '',
                 'score': score,
                 'total': total,
                 'percent': percent
             };
+            return result
         });
     }
 
@@ -1683,18 +1677,36 @@ var topSummaryData = {};
                     return d.question.key === k;
                 });
 
-                if(data) {
+                if (data) {
+                    var yes = 0;
+                    combinedData.answers.Yes = yes
                     if(!isNaN(data.answers.Yes)) {
                         combinedData.answers.Yes += data.answers.Yes;
+                    } 
+                    if (!isNaN(data.answers["1"])) {
+                        combinedData.answers.Yes = combinedData.answers.Yes + data.answers["1"];
                     }
+                    var no = 0;
+                    combinedData.answers.No = no
                     if(!isNaN(data.answers.No)) {
                         combinedData.answers.No += data.answers.No;
                     }
+                    if (!isNaN(data.answers["0"])) {
+                        combinedData.answers.No = combinedData.answers.No + data.answers["0"];
+                    }
+                    combinedData.answers['Don\'t Know'] = 0
                     if(!isNaN(data.answers['Don\'t Know'])) {
                         combinedData.answers['Don\'t Know'] += data.answers['Don\'t Know'];
                     }
+                    if (!isNaN(data.answers["99"])) {
+                        combinedData.answers['Don\'t Know'] = combinedData.answers['Don\'t Know'] + data.answers["99"];
+                    }
+                    combinedData.answers.Unknown = 0
                     if(!isNaN(data.answers.Unknown)) {
                         combinedData.answers.Unknown += data.answers.Unknown;
+                    }
+                    if(!isNaN(data.answers["88"])) {
+                        combinedData.answers.Unknown = data.answers.Unknown + data.answers["88"];
                     }
 
                     if(data.question) {
@@ -1702,7 +1714,6 @@ var topSummaryData = {};
                     }
                 }
             });
-
             return combinedData;
         });
 
