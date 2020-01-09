@@ -55,7 +55,7 @@
 \setlength{\parindent}{0in}
 
 District : {{schoolinfo.district}} \hfill  GP Id : {{schoolinfo.gpid}} \\
-Taluk : {{schoolinfo.block}} \hfill DISE Code : {{schoolinfo.disecode}} \\
+Block : {{schoolinfo.block}} \hfill DISE Code : {{schoolinfo.disecode}} \\
 GP Name : {{schoolinfo.gpname}} \hfill School Name : {{schoolinfo.schoolname}} \\
 
 The results of the GP level math contest held on {{schoolinfo.contestdate}} under the leadership of GP president in partnership with the education department, community and Akshara Foundation for your school is as follows:
@@ -71,7 +71,7 @@ The results of the GP level math contest held on {{schoolinfo.contestdate}} unde
 \multicolumn{4}{|c|}{Total Children : {{assessmentinfo.num_students}}} \\ \hline
 \textbf{Sr. No.} & \textbf{Question} & \textbf{Total Right Answers} & \textbf{Result(Percentage)} \\ \hline \endhead
 {% for question in assessmentinfo.question_answers %}
-{{loop.index}} & {{ question.mc_desc}}& {{ question.num_correct }} & {{question.percent}} \\ \hline
+{{loop.index}} & {{ question.name}}& {{ question.num_correct }} & {{question.percent}} \\ \hline
 {% endfor %}
 \end{longtable}
 }
@@ -105,11 +105,11 @@ To improve the above results, we request the school HM, SDMC, parents and the ma
 \fi
 {% endfor %}
 	\ifnum {{assessmentinfo.deficiencies|length}} < 3
-    ~\\~\\~\\~\\~\\
+    ~\\~\\~\\~\\~\\~\\
 \else
-    ~\\
+    ~\\~\\~\\
 \fi
-Sign \hfill Sign \rule{3.8cm}{0cm} \\
+Sign \hfill Sign \rule{2.0cm}{0cm} \\
 District Manager, Akshara Foundation \hfill GP President \rule{0.5cm}{0cm}
 }
 
