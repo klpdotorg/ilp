@@ -1596,8 +1596,10 @@ var topSummaryData = {};
 
     function getScore(answers, option) {
         if (!answers) { return 0; }
-        option = option ? option: 'Yes';
-        var score = answers[option] ? answers[option]: 0;
+        option = option ? option : 'Yes';
+        var score = answers[option] ? answers[option] : 0;
+        //Add in 1 also
+        score = score + answers['1'] ? answers['1'] : 0;
         return score;
     }
 
