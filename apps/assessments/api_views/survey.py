@@ -600,9 +600,24 @@ class AssessmentSyncView(APIView):
 
                     # Save the answers
                     for answer in story.get('answers', []):
+                        answer = answer.get('text')
+                        # Only for GKA Class visit surveys, ensure answers
+                        # get entered as 0/1 instead of Yes/No. This is to
+                        # ensure easy data analysis and uniformity in DB.
+                        # This is a bit hacky and will have to be expanded
+                        # to other GKA question groups as necessary.
+                        if story.get('group_id') in [40,42]:
+                            if answer.lower() == 'yes':
+                                answer = 1
+                            elif answer.lower() == 'no':
+                                answer = 0
+                            elif answer.lower() == 'unknown':
+                                answer = 88
+                            else:
+                                answer = 99
                         new_answer, created = AnswerInstitution.objects \
                             .get_or_create(
-                                answer=answer.get('text'),
+                                answer=answer,
                                 answergroup=new_story,
                                 question=Question.objects.get(
                                     pk=answer.get('question_id')
