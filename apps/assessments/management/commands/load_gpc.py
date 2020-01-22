@@ -39,6 +39,29 @@ class Command(BaseCommand):
         parser.add_argument('--qgroup')
         parser.add_argument('--onlycheck')
 
+    def checkDistrictGPMapValidity(self, gpid, district):
+        if gpid in self.districtgpmap:
+            if district not in self.districtgpmap[gpid]:
+                print("["+str(self.rowcounter)+"] Invalid District GP mapping for district: "+str(district)+"! Another district "+str(self.districtgpmap[gpid])+" is already associated with this GPID "+str(gpid))
+                return False
+        else:
+            self.districtgpmap[gpid]=district
+        return True
+
+
+    def checkDoVValidity(self, gpid, dov):
+        if gpid in self.gplist:
+            if dov != self.gplist[gpid]["date"]:
+                print("["+str(self.rowcounter) +
+                      "] Multiple dates associated with same gpid: " +
+                      str(gpid)+"; "+str(self.gplist[gpid]["date"]) +
+                      ","+str(dov))
+                return False
+        else:
+            self.gplist[gpid] = {"date": dov}
+        return True
+
+
     def checkQuestionGroupValidity(self, qgroup):
         try:
             QuestionGroup.objects.get(id=qgroup)
@@ -158,43 +181,32 @@ class Command(BaseCommand):
                     continue
 
                 # check values
-                if not self.checkQuestionGroupValidity(qgroup):
+                if not self.checkQuestionGroupValidity(qgroup) and not self.onlycheck:
                     continue
 
-                if not self.checkGradeValidity(grade, csv_grade, qgroup):
+                if not self.checkGradeValidity(grade, csv_grade, qgroup) and not self.onlycheck:
                     continue
 
-                if not self.checkGPValidity(gpid, gpname):
+                if not self.checkGPValidity(gpid, gpname) and not self.onlycheck:
                     continue
 
                 if not self.checkInstitutionValidity(schoolid,
                                                      dise_code, gpid,
-                                                     district, block):
+                                                     district, block) and not self.onlycheck:
                     continue
 
-                if not self.checkChildNameValidity(child_name):
+                if not self.checkChildNameValidity(child_name) and not self.onlycheck:
                     continue
 
-                if not self.checkGenderValidity(gender):
+                if not self.checkGenderValidity(gender) and not self.onlycheck:
                     continue
 
-                if gpid in self.gplist:
-                    if dov != self.gplist[gpid]["date"]:
-                        print("["+str(self.rowcounter) +
-                              "] Multiple dates associated with same gpid: " +
-                              str(gpid)+"; "+str(self.gplist[gpid]["date"]) +
-                              ","+str(dov))
-                        continue
-                else:
-                    self.gplist[gpid] = {"date": dov}
+                if not self.checkDoVValidity(gpid, dov) and not self.onlycheck:
+                    continue
 
 
-                if gpid in self.districtgpmap:
-                    if district not in self.districtgpmap[gpid]:
-                        print("["+str(self.rowcounter)+"] Invalid District GP mapping for district: "+str(district)+"! Another district "+str(self.districtgpmap[gpid])+" is already associated with this GPID "+str(gpid))
-                        continue
-                else:
-                    self.districtgpmap[gpid]=district
+                if not self.checkDistrictGPMapValidity(gpid, district) and not self.onlycheck:
+                    continue
                     
 
                 if self.onlycheck:
