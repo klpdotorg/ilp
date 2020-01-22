@@ -598,32 +598,34 @@ class AssessmentSyncView(APIView):
                                 story.get('lat'), story.get('lng'))
                             new_story.save()
 
-                    # Save the answers
+                   # Save the answers
                     for answer in story.get('answers', []):
-                        answer = answer.get('text')
-                        # Only for GKA Class visit surveys, ensure answers
+                        answer_text = answer.get('text')
+                        # 22-01-2020 Subha:Only for GKA Class visit surveys,
+                        # ensure answers
                         # get entered as 0/1 instead of Yes/No. This is to
                         # ensure easy data analysis and uniformity in DB.
                         # This is a bit hacky and will have to be expanded
-                        # to other GKA question groups as necessary.
+                        # to other GKA question groups as necessary. This will
+                        # Only catch Konnect question groups. For others,
+                        # we will have to work out a solution as necessary
                         if story.get('group_id') in [40,42]:
-                            if answer.lower() == 'yes':
-                                answer = 1
-                            elif answer.lower() == 'no':
-                                answer = 0
-                            elif answer.lower() == 'unknown':
-                                answer = 88
+                            if answer_text.lower() == 'yes':
+                                answer_text = 1
+                            elif answer_text.lower() == 'no':
+                                answer_text = 0
+                            elif answer_text.lower() == 'unknown':
+                                answer_text = 88
                             else:
-                                answer = 99
+                                answer_text = 99
                         new_answer, created = AnswerInstitution.objects \
                             .get_or_create(
-                                answer=answer,
+                                answer=answer_text,
                                 answergroup=new_story,
                                 question=Question.objects.get(
                                     pk=answer.get('question_id')
                                 )
                             )
-
                     # Save the image
                     image = story.get('image', None)
                     if image:
