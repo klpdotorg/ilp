@@ -228,9 +228,11 @@ class BaseReport(ABC):
         if gender_agg is None or not gender_agg.exists():
             raise ValueError("No gender data for '{}' between {} and {}".format(boundary.name, report_from, report_to))
         
-        num_boys = gender_agg.filter(gender='Male').aggregate(Sum('num_assessments'))['num_assessments__sum']
-        num_girls = gender_agg.filter(gender='Female').aggregate(Sum('num_assessments'))['num_assessments__sum']
-        number_of_students = num_boys + num_girls
+        num_boys = gender_agg.filter(gender__iexact='male').aggregate(Sum('num_assessments'))['num_assessments__sum']
+        num_girls = gender_agg.filter(gender__iexact='female').aggregate(Sum('num_assessments'))['num_assessments__sum']
+        number_of_students = 0
+        if num_boys and num_girls:
+            number_of_students = num_boys + num_girls
         num_contests = SurveyBoundaryElectionTypeCount.objects.filter(survey_id=self.gpcontest_survey_id)\
                                                .filter(boundary_id=boundary)\
                                                .filter(yearmonth__gte = report_from)\
