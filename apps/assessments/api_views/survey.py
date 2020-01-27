@@ -609,7 +609,7 @@ class AssessmentSyncView(APIView):
                         # to other GKA question groups as necessary. This will
                         # Only catch Konnect question groups. For others,
                         # we will have to work out a solution as necessary
-                        if story.get('group_id') in [40,42,18]:
+                        if story.get('group_id') in [40,42,18,41]:
                             if answer_text.lower() == 'yes':
                                 answer_text = 1
                             elif answer_text.lower() == 'no':
