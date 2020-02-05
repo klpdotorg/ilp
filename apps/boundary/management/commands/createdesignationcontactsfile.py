@@ -76,7 +76,6 @@ class Command(BaseCommand):
 
             if district["id"] not in self.output:
                 self.output[district["id"]] = district_info
-        print(self.output)
         return True
 
 
