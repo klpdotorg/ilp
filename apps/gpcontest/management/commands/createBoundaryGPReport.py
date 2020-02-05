@@ -62,6 +62,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     colour = "bw"
     imagesdir = basefiledir+"/apps/gpcontest/images/"
     translatedmonth = {1:'ಜನವರಿ',2:'ಫೆಬ್ರವರಿ',3:'ಮಾರ್ಚ್',4:'ಎಪ್ರಿಲ್',5:'ಮೇ',6:'ಜೂನ್',7:'ಜುಲೈ',8:'ಆಗಸ್ಟ್',9:'ಸೆಪ್ಟಂಬರ್',10:'ಅಕ್ಟೋಬರ್',11:'ನವೆಂಬರ್',12:'ಡಿಸೆಂಬರ್'}
+    language = 'kannada'
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
@@ -339,11 +340,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                                  self.endyearmonth)
         self.onlydistrict = options.get("onlydistrict", False)
         blockids = options.get("blockid", None)
+
+        self.language = options.get("lang")
+        self.templatedir = self.templatedir+"/"+self.language+"/"
+        self.imagesdir = self.imagesdir+"/"+self.language+"/"
+
         reportcolour = options.get("reportcolour")
         self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
-
-        language = options.get("lang")
-        self.templatedir = self.templatedir+"/"+language+"/"
 
         if blockids is not None:
             self.blockids = [int(x) for x in blockids.split(',')]
