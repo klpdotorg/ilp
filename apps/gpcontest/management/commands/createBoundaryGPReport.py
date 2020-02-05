@@ -339,11 +339,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                                  self.endyearmonth)
         self.onlydistrict = options.get("onlydistrict", False)
         blockids = options.get("blockid", None)
-        reportcolour = options.get("reportcolour")
-        self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
 
         language = options.get("lang")
         self.templatedir = self.templatedir+"/"+language+"/"
+        self.imagesdir = self.imagesdir+"/"+self.language+"/"
+
+        reportcolour = options.get("reportcolour")
+        self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
 
         if blockids is not None:
             self.blockids = [int(x) for x in blockids.split(',')]
