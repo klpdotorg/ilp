@@ -76,13 +76,11 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 else:
                     letterdata[typeid] = {designation: name}
         for boundaryid in letterdata:
-            print("BOUNDARY ID IS------"+str(boundaryid))
-            outputdir = self.outputdir+"/"+self.lettertype
             template = self.templates[self.lettertype]["latex"]
             pdfscreated = []
             numpdf = 1
             for designation in letterdata[boundaryid]:
-                 outputfile = self.createPdfs(boundaryid, designation, letterdata[boundaryid][designation], outputdir, template, numpdf)
+                 outputdir, outputfile = self.createPdfs(boundaryid, designation, letterdata[boundaryid][designation], self.lettertype, template, numpdf)
                  numpdf += 1
                  pdfscreated.append(outputfile)
             filename = "GPAppreciationLetter_"+str(self.lettertype)+"_"+str(boundaryid)+".pdf"
@@ -96,7 +94,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         return year, month
 
 
-    def createPdfs(self, typeid, designation, name, outputdir, template, numpdf):
+    def createPdfs(self, typeid, designation, name, lettertype, template, numpdf):
 
         returneddata = boundary_details.get_details(self.surveyid, typeid, self.lettertype, self.startyearmonth, self.endyearmonth)
         print(returneddata, file=self.utf8stdout)
@@ -109,6 +107,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
         renderer_template = template.render(info=info)
 
         output_file = "AppreciationLetter_"+str(typeid)+"_"+str(numpdf)
+
+        districtid = returneddata["district"]["boundary_id"]
+        outputdir = self.outputdir+"/"+str(districtid)
+        if lettertype != 'SD':
+            outputdir = outputdir+"/"+lettertype
+ 
         if not os.path.exists(outputdir):
             os.makedirs(outputdir)
 
@@ -123,7 +127,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.deleteTempFiles([output_file+".tex",
                              self.build_d+"/"+output_file+".pdf"])
 
-        return outputdir+"/"+output_file+".pdf"
+        return outputdir, outputdir+"/"+output_file+".pdf"
 
 
     def handle(self, *args, **options):
