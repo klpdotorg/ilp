@@ -85,36 +85,36 @@ class Command(BaseCommand):
         for key, value in self.output.items():
             outputdir = self.base_outputdir + str(key)
             # First write the district file name 
-            # dt_filename_xls = outputdir + "/" + "District_Designations_" + str(self.now) + ".xlsx"
+            dt_filename_xls = outputdir + "/" + "District_Designations_" + str(self.now) + ".xls"
             dt_filename_csv = outputdir + "/" + "District_Designations_" + str(self.now) + ".csv"
 
             if not os.path.exists(outputdir):  # create the pdf directory if not existing
                 os.makedirs(outputdir)
-            # book = xlwt.Workbook()
-            # sheet = book.add_sheet("District")
+            book = xlwt.Workbook()
+            sheet = book.add_sheet("District")
             dt_csv_file = open(dt_filename_csv, 'w', encoding='utf8')
             writer = csv.writer(dt_csv_file)
             writer.writerow(["id", "name","designation_english", "designation_kannada", "officer_name"])   
             for key2, value2 in self.district_designations.items():
                 writer.writerow([key, value["name"], key2, value2, " "])
             dt_csv_file.close()
-            # with open(dt_filename_csv, 'rt', encoding='utf8') as f:
-            #     reader = csv.reader(f)
-            #     for r, row in enumerate(reader):
-            #         for c, col in enumerate(row):
-            #             sheet.write(r, c, col)
-            # book.save(dt_filename_xls)
-            #self.deleteTempFiles(['dtfilename.csv'])
+            with open(dt_filename_csv, 'rt', encoding='utf8') as f:
+                 reader = csv.reader(f)
+                 for r, row in enumerate(reader):
+                     for c, col in enumerate(row):
+                         sheet.write(r, c, col)
+            book.save(dt_filename_xls)
+            self.deleteTempFiles([dt_filename_csv])
         
         # Now write the blocks file
        
         for district_id, value in self.output.items():
-            blocks_filename_xls = self.base_outputdir + str(district_id) + "/" + "Block_Designations_" + str(self.now) + ".xlsx"
+            blocks_filename_xls = self.base_outputdir + str(district_id) + "/" + "Block_Designations_" + str(self.now) + ".xls"
             blocks_filename_csv = self.base_outputdir + str(district_id) + "/" + "Block_Designations_" + str(self.now) + ".csv"
 
-            #print("Creating block file %s" % blocks_filename)
-            # block_book = xlwt.Workbook()
-            # block_sheet = book.add_sheet("Block")
+            # print("Creating block file %s" % blocks_filename_csv)
+            block_book = xlwt.Workbook()
+            block_sheet = block_book.add_sheet("Block")
             block_csv_file = open(blocks_filename_csv, 'w', encoding='utf8')
             writer = csv.writer(block_csv_file)
             writer.writerow(["district_id", "district_name", "block_id", "block_name","designation_kannada", "officer_name"])
@@ -122,22 +122,22 @@ class Command(BaseCommand):
                 for designation in self.block_designations:
                     writer.writerow([block_info["district_id"], block_info["district_name"], block_id, block_info["name"], designation, " "])
             block_csv_file.close()
-            # #print("Finsihed writng block file %s for district %s " % (block_csv_file, district_id))
-            # with open(blocks_filename_csv, 'rt', encoding='utf8') as f:
-            #     reader = csv.reader(f)
-            #     for r, row in enumerate(reader):
-            #         for c, col in enumerate(row):
-            #             block_sheet.write(r, c, col)
-            # block_book.save(blocks_filename_xls)
-            #self.deleteTempFiles(['blockcsvfile.csv'])
+            # print("Finsihed writng block file %s for district %s " % (block_csv_file, district_id))
+            with open(blocks_filename_csv, 'rt', encoding='utf8') as f:
+                 reader = csv.reader(f)
+                 for r, row in enumerate(reader):
+                     for c, col in enumerate(row):
+                         block_sheet.write(r, c, col)
+            block_book.save(blocks_filename_xls)
+            self.deleteTempFiles([blocks_filename_csv])
 
         # Now write the Gps file
         for district_id, value in self.output.items():
-            gps_filename_xls = self.base_outputdir + str(district_id) + "/" + "GP_Designations_" + str(self.now) + ".xlsx"
+            gps_filename_xls = self.base_outputdir + str(district_id) + "/" + "GP_Designations_" + str(self.now) + ".xls"
             gps_filename_csv = self.base_outputdir + str(district_id) + "/" + "GP_Designations_" + str(self.now) + ".csv"
 
-            # gp_book = xlwt.Workbook()
-            # gp_sheet = book.add_sheet("GP")
+            gp_book = xlwt.Workbook()
+            gp_sheet = gp_book.add_sheet("GP")
             gp_csv_file = open(gps_filename_csv, 'w', encoding='utf8')
             writer = csv.writer(gp_csv_file)
             writer.writerow(["block_id", "block_name", "gp_id", "gp_name", "designation_english", "designation_kannada", "officer_name"])
@@ -146,14 +146,14 @@ class Command(BaseCommand):
                 for designation_english, designation_kannada in self.gp_designations.items():
                     writer.writerow([gp_values["block_id"], gp_values["block_name"], gp_id, gp_values["name"], designation_english, designation_kannada, " "])
             gp_csv_file.close()
-            # print("Finished writing Gps for district %s " % district_id)
-            # with open(gps_filename_csv, 'rt', encoding='utf8') as f:
-            #     reader = csv.reader(f)
-            #     for r, row in enumerate(reader):
-            #         for c, col in enumerate(row):
-            #             gp_sheet.write(r, c, col)
-            # gp_book.save(gps_filename_xls)
-            #self.deleteTempFiles(['gpcsvfile.csv'])
+            print("Finished writing Gps for district %s " % district_id)
+            with open(gps_filename_csv, 'rt', encoding='utf8') as f:
+                 reader = csv.reader(f)
+                 for r, row in enumerate(reader):
+                     for c, col in enumerate(row):
+                         gp_sheet.write(r, c, col)
+            gp_book.save(gps_filename_xls)
+            self.deleteTempFiles([gps_filename_csv])
 
 
        
