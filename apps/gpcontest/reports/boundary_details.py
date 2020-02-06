@@ -87,15 +87,19 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         gp_name = eb.const_ward_name
         gp_lang_name = eb.const_ward_lang_name
         gp_id = eb.id
-        # Ideally you should just get ONE school here in the get
-        num_schools = GPSchoolParticipationCounts.objects\
-            .filter(yearmonth__gte=from_yearmonth) \
-                .filter(yearmonth__lte=to_yearmonth) \
-                     .get(gp_id=eb.id).num_schools
-        num_children = GPStudentScoreGroups.objects \
-             .filter(yearmonth__gte=from_yearmonth) \
-                .filter(yearmonth__lte=to_yearmonth) \
-                     .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
+        try:
+            # Ideally you should just get ONE school here in the get
+            num_schools = GPSchoolParticipationCounts.objects\
+                .filter(yearmonth__gte=from_yearmonth) \
+                    .filter(yearmonth__lte=to_yearmonth) \
+                        .get(gp_id=eb.id).num_schools
+            num_children = GPStudentScoreGroups.objects \
+                .filter(yearmonth__gte=from_yearmonth) \
+                    .filter(yearmonth__lte=to_yearmonth) \
+                        .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
+        except:
+            num_schools = None
+            num_children = None
         gp_info = {}
         gp_info["name"] = gp_name
         gp_info["lang_name"] = gp_lang_name
