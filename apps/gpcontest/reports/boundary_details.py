@@ -43,19 +43,24 @@ def get_details(gp_survey_id, boundary_id, boundary_type_id,
         boundary_report["block"] = block_report
     else:
         # It is a GP
-        gp_report = get_gp_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
-        # Now get the block and district info to which this GP belongs
-        qs = Institution.objects.filter(gp_id=boundary_id)
-        school = qs[0]
-        district_id = school.admin1_id
-        block_id = school.admin2_id
-        district_report = get_boundary_info(district_id, gp_survey_id, from_yearmonth, to_yearmonth)
-        block_report = get_boundary_info(block_id, gp_survey_id, from_yearmonth, to_yearmonth)
-        boundary_report["state"] = state_report
-        boundary_report["gp"] = gp_report
-        boundary_report["district"] = district_report
-        boundary_report["block"] = block_report
-    return boundary_report
+        try:
+            gp_report = get_gp_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
+        except:
+            print("No GP contest held for this boundary %s " % boundary_id)
+            return None
+        else:
+            # Now get the block and district info to which this GP belongs
+            qs = Institution.objects.filter(gp_id=boundary_id)
+            school = qs[0]
+            district_id = school.admin1_id
+            block_id = school.admin2_id
+            district_report = get_boundary_info(district_id, gp_survey_id, from_yearmonth, to_yearmonth)
+            block_report = get_boundary_info(block_id, gp_survey_id, from_yearmonth, to_yearmonth)
+            boundary_report["state"] = state_report
+            boundary_report["gp"] = gp_report
+            boundary_report["district"] = district_report
+            boundary_report["block"] = block_report
+            return boundary_report
 
 def get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth):
     state_level_counts = {}
@@ -91,19 +96,15 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         gp_name = eb.const_ward_name
         gp_lang_name = eb.const_ward_lang_name
         gp_id = eb.id
-        try:
-            # Ideally you should just get ONE school here in the get
-            num_schools = GPSchoolParticipationCounts.objects\
-                .filter(yearmonth__gte=from_yearmonth) \
-                    .filter(yearmonth__lte=to_yearmonth) \
-                        .get(gp_id=eb.id).num_schools
-            num_children = GPStudentScoreGroups.objects \
-                .filter(yearmonth__gte=from_yearmonth) \
-                    .filter(yearmonth__lte=to_yearmonth) \
-                        .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
-        except:
-            num_schools = None
-            num_children = None
+        # Ideally you should just get ONE school here in the get
+        num_schools = GPSchoolParticipationCounts.objects\
+            .filter(yearmonth__gte=from_yearmonth) \
+                .filter(yearmonth__lte=to_yearmonth) \
+                    .get(gp_id=eb.id).num_schools
+        num_children = GPStudentScoreGroups.objects \
+            .filter(yearmonth__gte=from_yearmonth) \
+                .filter(yearmonth__lte=to_yearmonth) \
+                    .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
         gp_info = {}
         gp_info["name"] = gp_name
         gp_info["lang_name"] = gp_lang_name
