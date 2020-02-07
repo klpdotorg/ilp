@@ -18,6 +18,10 @@ from boundary.models import (
 from django.db.models import Sum
 from collections import OrderedDict
 
+'''
+This method gets called even with boundary ids that don't have any gp contest
+at all. So method has to account for those cases.
+'''
 def get_details(gp_survey_id, boundary_id, boundary_type_id,
                     from_yearmonth, to_yearmonth):
     """
@@ -104,7 +108,10 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         gp_info["name"] = gp_name
         gp_info["lang_name"] = gp_lang_name
         gp_info["num_schools"] = num_schools
-        gp_info["num_students"] = num_children["total_children"]
+        if num_children is not None:
+            gp_info["num_students"] = num_children["total_children"]
+        else:
+            gp_info = None
         return gp_info
 
 
@@ -116,10 +123,12 @@ def get_boundary_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth):
         return
     else:
         boundary_type = b.boundary_type_id
-        boundary_stu_score_groups =\
-            BoundaryStudentScoreGroups.objects.filter(boundary_id=boundary_id)
+        boundary_counts = None
         # Boundary level counts
-        boundary_counts = get_boundary_counts(boundary_id)
+        try:
+            boundary_counts = get_boundary_counts(boundary_id)
+        except:
+            print("boundary id %s does not have any results for the given params " % boundary_id)
         return boundary_counts
 
 def get_boundary_counts(boundary_id):
