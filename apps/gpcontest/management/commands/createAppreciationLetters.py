@@ -16,7 +16,7 @@ from . import baseReport
 class Command(BaseCommand, baseReport.CommonUtils):
     # used for printing utf8 chars to stdout
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
-    help = 'Creates GP Contest Appreciation Letters surveyid lettertype startyearmonth endyearmonth filename --lang --colour'
+    help = 'Creates GP Contest Appreciation Letters surveyid lettertype startyearmonth endyearmonth filename --lang --colour cols[comma separated cols giving cols for id, designation and name'
     now = date.today()
     surveyid = None
     lettertype = None
