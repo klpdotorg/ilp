@@ -16,7 +16,7 @@ from . import baseReport
 class Command(BaseCommand, baseReport.CommonUtils):
     # used for printing utf8 chars to stdout
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
-    help = 'Creates GP Contest Appreciation Letters surveyid lettertype startyearmonth endyearmonth filename --lang --colour'
+    help = 'Creates GP Contest Appreciation Letters surveyid lettertype startyearmonth endyearmonth filename --lang --colour cols[comma separated cols giving cols for id, designation and name'
     now = date.today()
     surveyid = None
     lettertype = None
@@ -24,6 +24,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
     templatedir = "/apps/gpcontest/templates/"
     outputdir = basefiledir+"/generated_files/appreciationletters/"+str(now)+"/"
     letterprefix = "AppreciationLetter"
+    numids = 0
+    numpdfs = 0
 
     templates = {
                  "SB": {"template": "BlockAppreciationLetter.tex", "latex": None},
@@ -32,6 +34,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
     build_d = basefiledir+"/build/"
     colour = "colour"
+    cols = []
     imagesdir = basefiledir+"/apps/gpcontest/images/"
     translatedmonth = {'kannada':{1:'ಜನವರಿ',2:'ಫೆಬ್ರವರಿ',3:'ಮಾರ್ಚ್',4:'ಎಪ್ರಿಲ್',5:'ಮೇ',6:'ಜೂನ್',7:'ಜುಲೈ',8:'ಆಗಸ್ಟ್',9:'ಸೆಪ್ಟಂಬರ್',10:'ಅಕ್ಟೋಬರ್',11:'ನವೆಂಬರ್',12:'ಡಿಸೆಂಬರ್'},
             'english':{1:'January',2:'February',3:'March',4:'April',5:'May',6:'June',7:'July',8:'August',9:'September',
@@ -46,6 +49,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         parser.add_argument('--colour', nargs='?', default='colour')
         parser.add_argument('--lang', nargs='?', default='kannada')
         parser.add_argument('--filename')
+        parser.add_argument('--cols')
 
 
     def validateInputs(self):
@@ -68,27 +72,39 @@ class Command(BaseCommand, baseReport.CommonUtils):
                     header = 0
                     continue
                 rowcounter += 1
-                typeid = int(float(row[0].strip()))
-                designation = row[1].strip()
-                name = row[2].strip()
+                typeid = int(float(row[self.cols[0]].strip()))
+                designation = row[self.cols[1]].strip()
+                name = row[self.cols[2]].strip()
                 if typeid in letterdata:
-                    letterdata[typeid][designation] = name
+                    if designation in letterdata[typeid]:
+                        letterdata[typeid][designation] += ";"+name
+                    else:
+                        letterdata[typeid][designation] = name
                 else:
+                    self.numids += 1
                     letterdata[typeid] = {designation: name}
         for boundaryid in letterdata:
+            print(boundaryid, flush=True)
             template = self.templates[self.lettertype]["latex"]
             pdfscreated = []
             numpdf = 1
             for designation in letterdata[boundaryid]:
-                 outputdir, outputfile = self.createPdfs(boundaryid, designation, letterdata[boundaryid][designation], self.lettertype, template, numpdf)
-                 numpdf += 1
-                 pdfscreated.append(outputfile)
+                names = letterdata[boundaryid][designation].split(";")
+                for name in names:
+                    outputdir, outputfile = self.createPdfs(boundaryid, designation, name, self.lettertype, template, numpdf)
+                    if outputdir is None:
+                        continue
+                    numpdf += 1
+                    pdfscreated.append(outputfile)
+            if numpdf == 1:
+                print("No pdfs to be created", flush=True)
+                continue 
             filename = "GPAppreciationLetter_"+str(self.lettertype)+"_"+str(boundaryid)+".pdf"
             self.combinePdfs(pdfscreated, filename, outputdir)
+            self.numpdfs += 1
             self.deleteTempFiles(pdfscreated)
 
     def getYearMonth(self, inputdate ):
-        print(inputdate)
         year = int(inputdate[0:4])
         month = self.translatedmonth[self.language][int(inputdate[5:7])]
         return year, month
@@ -97,7 +113,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
     def createPdfs(self, typeid, designation, name, lettertype, template, numpdf):
 
         returneddata = boundary_details.get_details(self.surveyid, typeid, self.lettertype, self.startyearmonth, self.endyearmonth)
-        print(returneddata, file=self.utf8stdout)
+        print(returneddata, file=self.utf8stdout, flush=True)
+        if returneddata is None:
+            return None, None
         year, month = self.getYearMonth(str(self.now))
         info = returneddata
         info["acadyear"] = self.academicyear
@@ -116,7 +134,6 @@ class Command(BaseCommand, baseReport.CommonUtils):
         if not os.path.exists(outputdir):
             os.makedirs(outputdir)
 
-        print(output_file)
         with open(output_file+".tex", "w", encoding='utf-8') as f:
             f.write(renderer_template)
 
@@ -140,9 +157,11 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.academicyear = self.getAcademicYear(self.startyearmonth,
                                                  self.endyearmonth)
 
+        self.cols = [int(n) for n in options.get("cols",None).split(",")]
+
         csv_file= options.get('filename', None)
         if csv_file == None:
-            print("Pass the csv file --filename")
+            print("Pass the csv file --filename", flush=True)
             return
 
         self.language = options.get("lang")
@@ -158,7 +177,10 @@ class Command(BaseCommand, baseReport.CommonUtils):
         if not os.path.exists(self.outputdir):
             os.makedirs(self.outputdir)
 
+
         created = self.createLetters(csv_file)
+        print("Number of unique ids: "+str(self.numids), flush=True)
+        print("Number of pdfs created: "+str(self.numpdfs), flush=True)
 
         if created:
             os.system('tar -cvf '+self.outputdir+'_'+str(self.now)+'.tar '+self.outputdir+'/')
