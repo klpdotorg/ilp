@@ -31,16 +31,28 @@ def get_details(gp_survey_id, boundary_id, boundary_type_id,
     boundary_report={}
     # Identify the type of boundary - election boundary or boundary
     if boundary_type_id == 'SD':
-        district_report = get_boundary_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
-        boundary_report["district"] = district_report
-        boundary_report["state"] = state_report
+        try:
+            district_report = get_boundary_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
+        except:
+            print("No GP contests in this district %s " % boundary_id)
+            return None
+        else:
+            boundary_report["district"] = district_report
+            boundary_report["state"] = state_report
+            return boundary_report
     elif boundary_type_id == 'SB':
         id = Boundary.objects.get(id=boundary_id)
-        district_report = get_boundary_info(id.parent_id, gp_survey_id, from_yearmonth, to_yearmonth)
-        block_report = get_boundary_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
-        boundary_report["state"] = state_report
-        boundary_report["district"] = district_report
-        boundary_report["block"] = block_report
+        try:
+            district_report = get_boundary_info(id.parent_id, gp_survey_id, from_yearmonth, to_yearmonth)
+            block_report = get_boundary_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
+        except:
+            print("No GP contests in this block %s and its associated district %s " % (boundary_id, id.parent_id))
+            return None
+        else:
+            boundary_report["state"] = state_report
+            boundary_report["district"] = district_report
+            boundary_report["block"] = block_report
+            return boundary_report
     else:
         # It is a GP
         try:
