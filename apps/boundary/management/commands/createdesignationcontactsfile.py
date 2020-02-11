@@ -25,7 +25,7 @@ class Command(BaseCommand):
         "CEO": "ಮುಖ್ಯ ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು",
         "DC": "ಜಿಲ್ಲಾಧಿಕಾರಿಗಳ ಹೆಸರು"
     }
-    block_designations = ["ಕ್ಷೇತ್ರ ಶಿಕ್ಷಣಾಧಿಕಾರಿಗಳು","ಕ್ಷೇತ್ರ ಸಮನ್ವಯಾಧಿಕಾರಿಗಳ ಹೆಸರು","ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ನೋಡಲ್ ಅಧಿಕಾರಿಗಳು","ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು"]
+    block_designations = ["BEO": "ಕ್ಷೇತ್ರ ಶಿಕ್ಷಣಾಧಿಕಾರಿಗಳು", "BRC": "ಕ್ಷೇತ್ರ ಸಮನ್ವಯಾಧಿಕಾರಿಗಳ ಹೆಸರು", "GKA Nodal Officer": "ಗಣಿತ ಕಲಿಕಾ ಆಂದೋಲನದ ನೋಡಲ್ ಅಧಿಕಾರಿಗಳು","EO": "ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು"]
     gp_designations = {
         "Gram Panchyath President": "ಗ್ರಾಮ ಪಂಚಾಯತಿ ಅಧ್ಯಕ್ಷರು",
         "Panchayat development officer": "ಗ್ರಾಮ ಪಂಚಾಯತಿ  ಅಭಿವೃದ್ಧಿ ಅಧಿಕಾರಿಗಳು",
@@ -117,10 +117,10 @@ class Command(BaseCommand):
             block_sheet = block_book.add_sheet("Block")
             block_csv_file = open(blocks_filename_csv, 'w', encoding='utf8')
             writer = csv.writer(block_csv_file)
-            writer.writerow(["district_id", "district_name", "block_id", "block_name","designation_kannada", "officer_name"])
+            writer.writerow(["district_id", "district_name", "block_id", "block_name","designation_english", "designation_kannada", "officer_name"])
             for block_id, block_info in value["blocks"].items():
-                for designation in self.block_designations:
-                    writer.writerow([block_info["district_id"], block_info["district_name"], block_id, block_info["name"], designation, " "])
+                for designation_english, designation_kannada in self.block_designations.items():
+                    writer.writerow([block_info["district_id"], block_info["district_name"], block_id, block_info["name"], designation_english, designation_kannada, " "])
             block_csv_file.close()
             # print("Finsihed writng block file %s for district %s " % (block_csv_file, district_id))
             with open(blocks_filename_csv, 'rt', encoding='utf8') as f:
