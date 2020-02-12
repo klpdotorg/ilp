@@ -164,6 +164,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.deleteTempFiles([output_file+".tex",
                              self.build_d+"/"+output_file+".pdf"])
 
+        if self.lettertype == 'SD':
+            return self.outputdir+"/"+output_file+".pdf", None
         return self.outputdir+"/"+output_file+".pdf", returneddata["block"]["boundary_id"]
 
 
