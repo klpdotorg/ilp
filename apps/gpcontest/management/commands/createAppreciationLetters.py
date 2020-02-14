@@ -26,6 +26,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
     letterprefix = "AppreciationLetter"
     numids = 0
     numpdfs = 0
+    gpcombinedpdfs = 0
+    dirset = False
 
     templates = {
                  "SB": {"template": "BlockAppreciationLetter.tex", "latex": None},
@@ -63,6 +65,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
     def createLetters(self, filename):
         letterdata = {}
+        gpletters = {}
         with open(filename, "r", encoding='utf-8') as data_file:
             data = csv.reader(data_file)
             header = 1
@@ -88,11 +91,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
             template = self.templates[self.lettertype]["latex"]
             pdfscreated = []
             numpdf = 1
+            blockid = 0
             for designation in letterdata[boundaryid]:
                 names = letterdata[boundaryid][designation].split(";")
                 for name in names:
-                    outputdir, outputfile = self.createPdfs(boundaryid, designation, name, self.lettertype, template, numpdf)
-                    if outputdir is None:
+                    outputfile, blockid = self.createPdfs(boundaryid, designation, name, self.lettertype, template, numpdf)
+                    if outputfile is None:
                         continue
                     numpdf += 1
                     pdfscreated.append(outputfile)
@@ -100,9 +104,23 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 print("No pdfs to be created", flush=True)
                 continue 
             filename = "GPAppreciationLetter_"+str(self.lettertype)+"_"+str(boundaryid)+".pdf"
-            self.combinePdfs(pdfscreated, filename, outputdir)
-            self.numpdfs += 1
+            self.combinePdfs(pdfscreated, filename, self.outputdir)
             self.deleteTempFiles(pdfscreated)
+            if self.lettertype == 'GP':
+                if blockid in gpletters:
+                    gpletters[blockid].append(self.outputdir+"/"+filename)
+                else:
+                    gpletters[blockid] = []
+                    gpletters[blockid].append(self.outputdir+"/"+filename)
+            self.numpdfs += 1
+        print(self.outputdir)
+        print(gpletters)
+        if self.lettertype == 'GP':
+            for blockid in gpletters:
+                filename = "GPAppreciationLetter_"+str(self.lettertype)+"_ForBlock"+str(blockid)+".pdf"
+                self.combinePdfs(gpletters[blockid],filename,self.outputdir)
+                self.deleteTempFiles(gpletters[blockid])
+                self.gpcombinedpdfs += 1 
 
     def getYearMonth(self, inputdate ):
         year = int(inputdate[0:4])
@@ -127,12 +145,14 @@ class Command(BaseCommand, baseReport.CommonUtils):
         output_file = "AppreciationLetter_"+str(typeid)+"_"+str(numpdf)
 
         districtid = returneddata["district"]["boundary_id"]
-        outputdir = self.outputdir+"/"+str(districtid)
-        if lettertype != 'SD':
-            outputdir = outputdir+"/"+lettertype
+        if not self.dirset:
+            self.outputdir = self.outputdir+"/"+str(districtid)
+            if lettertype != 'SD':
+                self.outputdir = self.outputdir+"/"+lettertype
  
-        if not os.path.exists(outputdir):
-            os.makedirs(outputdir)
+            if not os.path.exists(self.outputdir):
+                os.makedirs(self.outputdir)
+            self.dirset = True
 
         with open(output_file+".tex", "w", encoding='utf-8') as f:
             f.write(renderer_template)
@@ -140,11 +160,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
         os.system("xelatex -output-directory {} {}".format(
                       os.path.realpath(self.build_d),
                       os.path.realpath(output_file)))
-        shutil.copy2(self.build_d+"/"+output_file+".pdf", outputdir)
+        shutil.copy2(self.build_d+"/"+output_file+".pdf", self.outputdir)
         self.deleteTempFiles([output_file+".tex",
                              self.build_d+"/"+output_file+".pdf"])
 
-        return outputdir, outputdir+"/"+output_file+".pdf"
+        if self.lettertype == 'SD':
+            return self.outputdir+"/"+output_file+".pdf", None
+        return self.outputdir+"/"+output_file+".pdf", returneddata["block"]["boundary_id"]
 
 
     def handle(self, *args, **options):
@@ -181,6 +203,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
         created = self.createLetters(csv_file)
         print("Number of unique ids: "+str(self.numids), flush=True)
         print("Number of pdfs created: "+str(self.numpdfs), flush=True)
+        if self.lettertype == 'GP':
+            print("Number of GP combined pdfs created: "+str(self.gpcombinedpdfs), flush=True)
 
         if created:
             os.system('tar -cvf '+self.outputdir+'_'+str(self.now)+'.tar '+self.outputdir+'/')
