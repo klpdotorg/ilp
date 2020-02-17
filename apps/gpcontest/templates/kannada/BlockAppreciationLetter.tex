@@ -20,6 +20,8 @@
 #1
 }}
 
+\newcommand\includegraphicsifexists[2][height=1.5cm]{\IfFileExists{#2}{\includegraphics[#1]{#2}}{}}
+
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
 \fancypagestyle{plain}{
@@ -92,7 +94,8 @@
 \\~\\~\\~\\
 \end{flushleft}
 
-\centering{\kn{ಆತ್ಮೀಯ ವಂದನೆಗಳೊಂದಿಗೆ}\\~\\~\\~\\~\\~\\~\\
+\centering{\kn{ಆತ್ಮೀಯ ವಂದನೆಗಳೊಂದಿಗೆ}\\~\\~\\~\\~\\
+{\includegraphics[height=1cm]{"{{info.imagesdir}}a_signature.png"}} \hfill {\includegraphics[height=1cm]{"{{info.imagesdir}}s_signature.png"}}\rule{4cm}{0cm}\\
 \kn{ಅಶೋಕ್ ಕಾಮತ್}\hfill \kn{ಜೆ.ವಿ. ಶಂಕರನಾರಾಯಣ}\rule{4.8cm}{0cm}\\
 \kn{ಅಧ್ಯಕ್ಷರು, ಅಕ್ಷರ ಫೌಂಡೇಶನ್}\hfill \kn{ಮುಖ್ಯಸ್ಥರು, ಕಾರ್ಯಾಚರಣೆ ಮತ್ತು ಸಮುದಾಯ ಅಭಿವೃದ್ಧಿ}\\
 \kn{ಬೆಂಗಳೂರು}\hfill \kn{ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಬೆಂಗಳೂರು}\rule{3.6cm}{0cm}
