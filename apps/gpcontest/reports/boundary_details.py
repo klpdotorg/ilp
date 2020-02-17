@@ -80,13 +80,13 @@ def get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth):
     # Since survey id is unique per state, no need to filter explicitly
     # for state
     # State level counts computation
-    survey = Survey.objects.filter(id=gp_survey_id)
-    state_counts = BoundaryCountsAgg.objects.get(boundary_id=survey.admin_0)
-    total_children = state_counts["num_students"]
+    survey = Survey.objects.get(id=gp_survey_id)
+    state_counts = BoundaryCountsAgg.objects.get(boundary_id=survey.admin0)
+    total_children = state_counts.num_students
     state_level_counts["num_students"] = total_children
-    total_schools = state_counts["num_schools"]
+    total_schools = state_counts.num_schools
     state_level_counts["num_schools"] = total_schools
-    state_level_counts["num_gps"] = state_counts["num_gps"]
+    state_level_counts["num_gps"] = state_counts.num_gps
     print(state_level_counts)
     return state_level_counts
 
