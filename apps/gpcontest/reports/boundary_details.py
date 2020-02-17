@@ -6,6 +6,7 @@ from gpcontest.models import (
 )
 from schools.models import Institution
 from assessments.models import (
+    Survey,
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
     SurveyBoundaryQuestionGroupQuestionKeyAgg, CompetencyOrder,
     SurveyBoundaryQuestionGroupAgg,
@@ -79,22 +80,13 @@ def get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth):
     # Since survey id is unique per state, no need to filter explicitly
     # for state
     # State level counts computation
-    all_boundaries_per_state = SurveyBoundaryQuestionGroupAgg.objects.filter(survey_id=gp_survey_id) \
-        .filter(yearmonth__gte=from_yearmonth) \
-            .filter(yearmonth__lte=to_yearmonth)
-    all_schools_per_state = SurveyInstitutionQuestionGroupAgg.objects.filter(survey_id=gp_survey_id) \
-        .filter(yearmonth__gte=from_yearmonth) \
-            .filter(yearmonth__lte=to_yearmonth)
-    total_children = all_boundaries_per_state.aggregate(num_children=Sum("num_children"))
-    state_level_counts["num_students"] = total_children["num_children"]
-    total_schools = all_schools_per_state.distinct('institution_id') \
-        .count()
+    survey = Survey.objects.filter(id=gp_survey_id)
+    state_counts = BoundaryCountsAgg.objects.get(boundary_id=survey.admin_0)
+    total_children = state_counts["num_students"]
+    state_level_counts["num_students"] = total_children
+    total_schools = state_counts["num_schools"]
     state_level_counts["num_schools"] = total_schools
-    all_gps_per_state = SurveyEBoundaryQuestionGroupAnsAgg.objects.filter(survey_id=gp_survey_id) \
-        .filter(yearmonth__gte=from_yearmonth) \
-            .filter(yearmonth__lte=to_yearmonth)
-    total_gps = all_gps_per_state.distinct('eboundary_id').count()
-    state_level_counts["num_gps"] = total_gps
+    state_level_counts["num_gps"] = state_counts["num_gps"]
     print(state_level_counts)
     return state_level_counts
 
