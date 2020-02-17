@@ -56,7 +56,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         parser.add_argument('--lang', nargs='?', default='kannada')
         parser.add_argument('--filename')
         parser.add_argument('--cols')
-        parser.add_argument('--usehardcode', nargs='?', default='False')
+        parser.add_argument('--usehardcode', nargs='?', default=False)
 
 
     def validateInputs(self):
@@ -206,7 +206,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
         colour = options.get("colour")
         self.imagesdir = self.imagesdir+"/"+colour+"/"
 
-        self.usehardcode = options.get("usehardcode", False)
+        usehardcode = options.get("usehardcode", False)
+        if usehardcode == 'True':
+            self.usehardcode = True
 
         self.initiatelatex()
 
