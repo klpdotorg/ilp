@@ -28,6 +28,10 @@ class Command(BaseCommand, baseReport.CommonUtils):
     numpdfs = 0
     gpcombinedpdfs = 0
     dirset = False
+    usehardcode = False
+    hardcoded = {"num_students":210522,
+            "num_schools":7652 ,
+            "num_gps":1466}
 
     templates = {
                  "SB": {"template": "BlockAppreciationLetter.tex", "latex": None},
@@ -52,6 +56,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         parser.add_argument('--lang', nargs='?', default='kannada')
         parser.add_argument('--filename')
         parser.add_argument('--cols')
+        parser.add_argument('--usehardcode', nargs='?', default='False')
 
 
     def validateInputs(self):
@@ -140,6 +145,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
         info["designation"] = designation
         info["designation_name"] = name
         info["imagesdir"] = self.imagesdir
+
+        if self.usehardcode:
+            info["state"]["num_schools"] = self.hardcoded["num_schools"]
+            info["state"]["num_gps"] = self.hardcoded["num_gps"]
+            info["state"]["num_students"] = self.hardcoded["num_students"]
+
+
         renderer_template = template.render(info=info)
 
         output_file = "AppreciationLetter_"+str(typeid)+"_"+str(numpdf)
@@ -193,6 +205,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
         colour = options.get("colour")
         self.imagesdir = self.imagesdir+"/"+colour+"/"
+
+        self.usehardcode = options.get("usehardcode", False)
 
         self.initiatelatex()
 
