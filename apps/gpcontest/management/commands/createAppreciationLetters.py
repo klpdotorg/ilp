@@ -89,13 +89,17 @@ class Command(BaseCommand, baseReport.CommonUtils):
         for boundaryid in letterdata:
             print(boundaryid, flush=True)
             template = self.templates[self.lettertype]["latex"]
+            returneddata = boundary_details.get_details(self.surveyid, boundaryid, self.lettertype, self.startyearmonth, self.endyearmonth)
+            print(returneddata, file=self.utf8stdout, flush=True)
+            if returneddata is None:
+                continue
             pdfscreated = []
             numpdf = 1
             blockid = 0
             for designation in letterdata[boundaryid]:
                 names = letterdata[boundaryid][designation].split(";")
                 for name in names:
-                    outputfile, blockid = self.createPdfs(boundaryid, designation, name, self.lettertype, template, numpdf)
+                    outputfile, blockid = self.createPdfs(boundaryid, designation, name, self.lettertype, template, numpdf, returneddata)
                     if outputfile is None:
                         continue
                     numpdf += 1
@@ -128,12 +132,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
         return year, month
 
 
-    def createPdfs(self, typeid, designation, name, lettertype, template, numpdf):
+    def createPdfs(self, typeid, designation, name, lettertype, template, numpdf, returneddata):
 
-        returneddata = boundary_details.get_details(self.surveyid, typeid, self.lettertype, self.startyearmonth, self.endyearmonth)
-        print(returneddata, file=self.utf8stdout, flush=True)
-        if returneddata is None:
-            return None, None
         year, month = self.getYearMonth(str(self.now))
         info = returneddata
         info["acadyear"] = self.academicyear
