@@ -32,6 +32,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     hardcoded = {"num_students":210522,
             "num_schools":7652 ,
             "num_gps":1466}
+    extraword = 'ಸುಮಾರು '
 
     templates = {
                  "SB": {"template": "BlockAppreciationLetter.tex", "latex": None},
@@ -145,11 +146,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
         info["designation"] = designation
         info["designation_name"] = name
         info["imagesdir"] = self.imagesdir
+        info["extradata"] = ""
 
         if self.usehardcode:
             info["state"]["num_schools"] = self.hardcoded["num_schools"]
             info["state"]["num_gps"] = self.hardcoded["num_gps"]
             info["state"]["num_students"] = self.hardcoded["num_students"]
+            info["extradata"] = self.extraword
 
 
         renderer_template = template.render(info=info)
