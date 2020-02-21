@@ -1,0 +1,1 @@
+UPDATE boundary_electionboundary SET const_ward_lang_name='ಬೆಳಗಲಿ' where id=950;
