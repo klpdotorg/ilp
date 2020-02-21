@@ -346,9 +346,10 @@ WITH schools_count AS (
         boundary.name as boundary_name,
         boundary.lang_name as boundary_lang_name,
         boundary.boundary_type_id as boundary_type_id,
+        qg.academic_year_id as year,
         Count(distinct ag.institution_id) as num_schools,
         Count(distinct ag.id) as num_students,
-	Count(distinct schools.gp_id) as num_gps,
+	    Count(distinct schools.gp_id) as num_gps,
 	(CASE WHEN boundary.boundary_type_id = 'SD' THEN Count(distinct schools.admin2_id) ELSE 0 END) as num_blocks
     FROM 
         boundary_boundary as boundary,
@@ -361,10 +362,10 @@ WITH schools_count AS (
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
         (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id)
-    GROUP BY qg.survey_id,boundary.id
+    GROUP BY qg.survey_id,boundary.id, qg.academic_year_id
 )
 SELECT 
-   id, boundary_id, boundary_name, boundary_lang_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
+   id, year, boundary_id, boundary_name, boundary_lang_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
 FROM schools_count;
 
 -- END mvw_gpcontest_eboundary_schoolcount_agg
