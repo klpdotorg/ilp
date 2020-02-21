@@ -1,0 +1,1 @@
+update assessments_answergroup_institution set date_of_visit='2019-12-27'::timestamp::date where questiongroup_id in (select id from assessments_questiongroup where survey_id=2) and institution_id in (select id from schools_institution where gp_id=4441)  and to_char(date_of_visit,'YYYYMM') = '201908';
