@@ -2691,7 +2691,7 @@ FROM(
         assessments_answergroup_institution as ag,
         assessments_surveytagmapping as surveytag,
         assessments_question q,
-        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer='Yes', -- only answers that have math class mapping set to Yes.
+        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer in ('Yes','1'), -- only answers that have math class mapping set to Yes.
         schools_institution s,
         boundary_electionboundary eb
     WHERE 
@@ -2867,7 +2867,7 @@ FROM(
         assessments_answergroup_institution as ag,
         assessments_surveytagmapping as surveytag,
         assessments_question q,
-        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer='Yes', --Only assessments where Math Class was happening. 
+        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer in ('Yes','1'), --Only assessments where Math Class was happening. 
         schools_institution s,
         boundary_boundary b
     WHERE 
@@ -3047,7 +3047,7 @@ FROM(
         assessments_answergroup_institution as ag,
         assessments_surveytagmapping as surveytag,
         assessments_question q,
-        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer='Yes', --Assessments that have math class happening is Yes
+        assessments_answerinstitution ans inner join assessments_answerinstitution ans1 on ans.answergroup_id=ans1.answergroup_id and ans1.question_id in (select id from assessments_question where key='ivrss-math-class-happening') and ans1.answer in ('Yes','1'), --Assessments that have math class happening is Yes
         schools_institution s
     WHERE 
         survey.id = qg.survey_id
