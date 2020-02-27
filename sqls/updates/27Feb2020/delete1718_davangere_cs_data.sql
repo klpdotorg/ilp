@@ -1,0 +1,3 @@
+-- Deleting Davangere Community Survey data from 17-18 because no such survey happened there. This is a data entry mistake per Nagraj/Shankar.
+delete from assessments_answerinstitution where answergroup_id in (select id from assessments_answergroup_institution where to_char(date_of_visit,'YYYYMM')::int >=201706 and to_char(date_of_visit,'YYYYMM')::int <=201805 and questiongroup_id in (18,20) and institution_id IN (select id from schools_institution where admin1_id=426));
+delete from assessments_answergroup_institution where to_char(date_of_visit,'YYYYMM')::int >=201706 and to_char(date_of_visit,'YYYYMM')::int <=201805 and questiongroup_id in (18,20) and institution_id IN (select id from schools_institution where admin1_id=426);
