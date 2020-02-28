@@ -32,7 +32,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     schoolids = None
     districtids = None
     colour = "bw"
-    imagesdir = basefiledir+"/apps/gpcontest/images/"
+    imagesdir = basefiledir+"/apps/gpcontest/images/english/"
     validqids = {138,144,145,269,147,148,149,150}
 
     def add_arguments(self, parser):

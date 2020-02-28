@@ -86,8 +86,10 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                     ).filter(survey_tag='konnect').values(
                         'survey_id', 'institution_id'
                     ).annotate(total=Sum('num_assessments'))
-            HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
-
+            if total_parental_assess:
+                HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
+            else:
+                HHSurvey['total_parental_assessments'] = 0
             #Run through the questions
             if hh_answers_agg is not None and hh_answers_agg.exists():
                 HHSurvey['school_name'] = school.name
