@@ -11,6 +11,7 @@ from boundary.models import (
 )
 from django.db.models import Sum
 from collections import OrderedDict
+from .utils import convert_to_academicyear
 
 
 def generate_all_district_reports(
@@ -99,9 +100,11 @@ def generate_boundary_report(
     else:
         boundary_type = b.boundary_type_id
         boundary_report = {}
+        # Need the year to pass to the boundary counts agg table
+        acadyear = convert_to_academicyear(from_yearmonth, to_yearmonth)
         boundary_stu_score_groups =\
             BoundaryStudentScoreGroups.objects.filter(boundary_id=boundary_id)
-        boundary_counts = BoundaryCountsAgg.objects.get(boundary_id=boundary_id)
+        boundary_counts = BoundaryCountsAgg.objects.filter(academic_year=str(acadyear)).get(boundary_id=boundary_id)
         boundary_report["parent_boundary_name"] = b.parent.name
         boundary_report["parent_langname"] = b.parent.lang_name
         boundary_report["num_blocks"] = boundary_counts.num_blocks

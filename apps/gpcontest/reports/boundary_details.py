@@ -18,7 +18,7 @@ from boundary.models import (
 )
 from django.db.models import Sum
 from collections import OrderedDict
-from gpcontest.utils import convert_to_academicyear
+from .utils import convert_to_academicyear
 
 '''
 This method gets called even with boundary ids that don't have any gp contest
@@ -141,7 +141,7 @@ def get_boundary_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth):
 
 def get_boundary_counts(boundary_id, academic_year):
     #academic_year is of the format 1819, 1920 etc..
-    boundary_counts = BoundaryCountsAgg.objects.filter(academic_year=academic_year).get(boundary_id=boundary_id)
+    boundary_counts = BoundaryCountsAgg.objects.filter(academic_year=str(academic_year)).get(boundary_id=boundary_id)
     b = Boundary.objects.get(id=boundary_id)
     boundary_details={}
     boundary_details["parent_boundary_name"] = b.parent.name
