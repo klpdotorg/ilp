@@ -31,7 +31,11 @@ def getParentalPerception(survey_id, school_id, date_range):
             yearmonth__range=date_range).filter(
                 question_id__in=question_ids).filter(respondent_type='Parents').order_by('question_id').values(
                     'question_id', 'question_desc', 'num_yes', 'num_no', 'num_unknown')
-    result = {}
+    result = {
+        "Addition": 'NA',
+        "Subtraction": 'NA',
+        "Separate Toilets" : 'NA'
+    }
     for perception in perception_qs:
         total = perception["num_yes"] + perception["num_no"] + perception["num_unknown"]
         if perception["question_id"] == 149:
