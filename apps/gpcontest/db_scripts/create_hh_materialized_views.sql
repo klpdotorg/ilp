@@ -101,9 +101,9 @@ SELECT
 	lang_questiondesc,
 	seq,
 	total,
-	ROUND((count_yes*100)/total,2) AS perc_yes,
-	ROUND((count_no*100)/total,2) AS perc_no,
-	ROUND((count_unknown*100)/total,2) AS perc_unknown
+	round((count_yes::decimal*100)/total,2) AS perc_yes,
+	round((count_no::decimal*100)/total,2) AS perc_no,
+	round((count_unknown::decimal*100)/total,2) AS perc_unknown
 FROM
 subquery1
 GROUP BY id,survey_id, institution_id, institution_name, gp_id, gp_name, district_name, block_name, cluster_name, question_id, question_desc,lang_questiondesc,seq,total,count_yes, count_no, count_unknown;
