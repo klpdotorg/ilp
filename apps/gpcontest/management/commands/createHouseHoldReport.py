@@ -69,7 +69,6 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                                    self.startyearmonth, 
                                                    self.endyearmonth)
 
-        #print(schooldata)
         self.createSchoolPdfs(schooldata)
 
     def createHouseHoldReportBoundary(self):
