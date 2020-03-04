@@ -90,8 +90,19 @@ class Command(BaseCommand, baseReport.CommonUtils):
             schooldata = schoolsdata[schoolid]
             print("School Data is:")
             print(schooldata, file=self.utf8stdout)
-            schoolinfo = {"district": schooldata["district_name"].capitalize(),
-                          "block": schooldata["block_name"].capitalize(),
+
+            if schooldata["district_langname"] == "":
+                districtname = schooldata["district_name"].capitalize()
+            else:
+                districtname = "("+schooldata["district_name"].capitalize()+")"
+            if schooldata["block_langname"] == "":
+                blockname = schooldata["block_name"].capitalize()
+            else:
+                blockname = "("+schooldata["block_name"].capitalize()+")"
+            schoolinfo = {"district": districtname,
+                          "district_langname": schooldata["district_langname"],
+                          "block": blockname,
+                          "block_langname": schooldata["block_langname"],
                           "schoolname": schooldata["school_name"].capitalize(),
                           "village": schooldata["village_name"].capitalize(),
                           "klpid": schoolid,

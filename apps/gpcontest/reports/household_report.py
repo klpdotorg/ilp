@@ -98,11 +98,15 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
             if hh_answers_agg is not None and hh_answers_agg.exists():
                 HHSurvey['school_name'] = school.name
                 HHSurvey['district_name'] = school.admin1.name
+                HHSurvey['district_langname'] = school.admin1.lang_name
                 HHSurvey['block_name'] = school.admin2.name
+                HHSurvey['block_langname'] = school.admin2.lang_name
                 HHSurvey['cluster_name'] = school.admin3.name
+                HHSurvey['cluster_langname'] = school.admin3.lang_name
 
                 if school.gp is not None:
                     HHSurvey['gp_name'] = school.gp.const_ward_name
+                    HHSurvey['gp_langname'] = school.gp.const_ward_lang_name
                     HHSurvey['gp_id'] = school.gp.id 
                 else:
                     HHSurvey['gp_name'] = "Unknown"
