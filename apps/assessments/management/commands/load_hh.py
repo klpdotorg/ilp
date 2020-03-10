@@ -178,6 +178,7 @@ class Command(BaseCommand):
                                 institution_id=inst_id,
                                 status_id='AC',
                                 is_verified=True,
+                                respondent_type_id = 'PR',
                                 entered_at=enteredat)
                 ansgroupcount += 1
 

@@ -22,6 +22,8 @@
 
 \usepackage{arydshln}
 
+\arrayrulecolor{gray}
+
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
 \fancypagestyle{plain}{
@@ -86,31 +88,31 @@
 \thispagestyle{plain}
 {
 \setlength{\parindent}{0in}
-
-\kn{ಜಿಲ್ಲೆ} : {{schoolinfo.district}} \hfill  \kn{ತಾಲೂಕ} : {{schoolinfo.block}} \\
+\centering{\large{\kn{ಫೋಷಕರ ಅಭಿಪ್ರಾಯಗಳ ಸಂಗ್ರಹಣಾ ವರದಿ}}}\\~\\~\\
+\kn{ಜಿಲ್ಲೆ} : \kn{ {{schoolinfo.district_langname}} }{{schoolinfo.district}} \hfill  \kn{ತಾಲೂಕ} : \kn{ {{schoolinfo.block_langname}} }{{schoolinfo.block}} \\
 \kn{ಹಳ್ಳಿ} : {{schoolinfo.village}} \hfill \kn{ತಿಂಗಳು} : {{schoolinfo.month}} \\
-\kn{ಶಾಲೆಯ ಹೆಸರು} : {{schoolinfo.schoolname}} \hfill \kn{ಡೈಸ್ ಕೋಡ್} : {{schoolinfo.disecode}}\\~\\~\\
-
-\kn{ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಂಗ್ರಹಣಾ ವರದಿ}\\
-\kn{ಒಟ್ಟು ಪ್ರತಿಕ್ರಿಯೆದಾರದು} : {{schoolinfo.numparentassessments}}\\~\\~\\
-
-\begin{longtable}{p{10cm}:c:c:c:}\cdashline{2-4}
-& \kn{ಹೌದು} & \kn{ಇಲ್ಲ} & \kn {ಗೊತ್ತಿಲ್ಲ} \\ \hdashline
+\kn{ಶಾಲೆಯ ಹೆಸರು} : {{schoolinfo.schoolname}} \hfill \kn{ಡೈಸ್ ಕೋಡ್} : {{schoolinfo.disecode}}\\~\\
+\begin{flushleft}
+\kn{ಫೋಷಕರ ಅಭಿಪ್ರಾಯಗಳ ಒಟ್ಟು ಸಂಖ್ಯೆ} : {{schoolinfo.numassessments}}\\~\\~\\
+\end{flushleft}
+\centering{
+\begin{longtable}{|c|P{10cm}|c|c|c|} \hline
+\kn{ಕ್ರ.ಸಂ.} & \kn{ಕೇಳಲಾದ ಪ್ರಶ್ನೆಗಳು} & \kn{ಹೌದು} & \kn{ಇಲ್ಲ} & \kn {ಗೊತ್ತಿಲ್ಲ} \\[2ex] \cline{3-5}
+&&\multicolumn{3}{|c|}{\kn{ಶೇಕಡವಾರು}}\\ \hline 
 {% for question in survey.assessmentinfo %}
-\kn{ {{ question.lang_text }} } & {{ question.percentage_yes }} & {{question.percentage_no}} & {{question.percentage_unknow}} \\ \hdashline
+{{loop.index}} & \kn{ {{ question.lang_text }} } & {{ question.percentage_yes }} & {{question.percentage_no}} & {{question.percentage_unknown}} \\[4ex] \hline
 {% endfor %}
 \end{longtable}
 
 ~\\~\\
 
-\begin{tabular}{cc:c}
-&\includegraphics[height=1cm]{"{{info.imagesdir}}household_parent.png"}\kn{ಪೋಷಕರ  ಗ್ರಹಿಕೆ} & \includegraphics[height=1cm]{"{{info.imagesdir}}household_clipboard.png"} \kn{ವಾಸ್ತವಿಕತೆ (ಗ್ರಾ, ಪಂ ಗಣಿತ ಸ್ಪರ್ಧೆ)}\\ \cdashline{2-3}
-\includegraphics[height=1cm]{"{{info.imagesdir}}household_addition.png"} & {{compare.parent.Addition}} &  {{compare.gpcontest.Addition}}\\ 
-\includegraphics[height=1cm]{"{{info.imagesdir}}household_subtraction.png"} & {{compare.parent.Subtraction}} & {{compare.gpcontest.Subtraction}}\\ \hdashline
+\begin{tabular}{cc|c}
+&\includegraphics[height=1cm]{"{{info.imagesdir}}household_parent.png"}\kn{ಪೋಷಕರ ಗ್ರಹಿಕೆ} & \includegraphics[height=1cm]{"{{info.imagesdir}}household_clipboard.png"} \kn{ವಾಸ್ತವಿಕತೆ (ಗ್ರಾ, ಪಂ ಗಣಿತ ಸ್ಪರ್ಧೆ)}\\ \cline{2-3}
+\includegraphics[height=1cm]{"{{info.imagesdir}}household_addition.png"} \kn{(ಸಂಕಲನ)}& {{compare.parent.Addition}} &  {{compare.gpcontest.Addition}}\\ 
+\includegraphics[height=1cm]{"{{info.imagesdir}}household_subtraction.png"} \kn{(ವ್ಯವಕಲನ)} & {{compare.parent.Subtraction}} & {{compare.gpcontest.Subtraction}}\\ \cline{2-3}
 \end{tabular}
-
+}
 ~\\~\\
-
 
 }
 \end{document}
