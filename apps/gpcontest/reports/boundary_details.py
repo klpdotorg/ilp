@@ -19,7 +19,7 @@ from boundary.models import (
 from django.db.models import Sum
 from collections import OrderedDict
 from .utils import convert_to_academicyear
-
+import locale
 '''
 This method gets called even with boundary ids that don't have any gp contest
 at all. So method has to account for those cases.
@@ -29,6 +29,11 @@ def get_details(gp_survey_id, boundary_id, boundary_type_id,
     """
         Returns a report dict for one boundary
     """
+    # This is to add the commas in the right places in the numbers
+    # SEtting it to OR because that's installed in almost all our systems
+    # If locale is not installed, please install first
+    # TODO: Should be added to our terraform, ansible config scripts
+    locale.setlocale(locale.LC_NUMERIC,"en_IN")
     state_report = get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth)
     boundary_report={}
     # Identify the type of boundary - election boundary or boundary
@@ -83,12 +88,12 @@ def get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth):
     # State level counts computation
     survey = Survey.objects.get(id=gp_survey_id)
     state_counts = BoundaryCountsAgg.objects.get(boundary_id=survey.admin0)
-    total_children = "{:,}".format(state_counts.num_students)
+    total_children = locale.format("%d", state_counts.num_students,grouping=True)
     state_level_counts["num_students"] = total_children
-    total_schools = "{:,}".format(state_counts.num_schools)
+    total_schools = locale.format("%d", state_counts.num_schools, grouping=True)
+    #total_schools = "{:,}".format(state_counts.num_schools)
     state_level_counts["num_schools"] = total_schools
-    state_level_counts["num_gps"] = "{:,}".format(state_counts.num_gps)
-    print(state_level_counts)
+    state_level_counts["num_gps"] = locale.format("%d",state_counts.num_gps,grouping=True)
     return state_level_counts
 
 
@@ -113,9 +118,9 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         gp_info = {}
         gp_info["name"] = gp_name
         gp_info["lang_name"] = gp_lang_name
-        gp_info["num_schools"] = "{:,}".format(num_schools)
+        gp_info["num_schools"] = locale.format("%d",num_schools,grouping=True)
         if num_children is not None:
-            gp_info["num_students"] = "{:,}".format(num_children["total_children"])
+            gp_info["num_students"] = locale.format("%d",num_children["total_children"],grouping=True)
         else:
             gp_info = None
         return gp_info
@@ -146,10 +151,10 @@ def get_boundary_counts(boundary_id, academic_year):
     boundary_details={}
     boundary_details["parent_boundary_name"] = b.parent.name
     boundary_details["parent_langname"] = b.parent.lang_name
-    boundary_details["num_blocks"] = "{:,}".format(boundary_counts.num_blocks)
-    boundary_details["num_gps"] = "{:,}".format(boundary_counts.num_gps)
-    boundary_details["num_schools"] = "{:,}".format(boundary_counts.num_schools)
-    boundary_details["num_students"] = "{:,}".format(boundary_counts.num_students)
+    boundary_details["num_blocks"] = locale.format("%d",boundary_counts.num_blocks,grouping=True)
+    boundary_details["num_gps"] = locale.format("%d",boundary_counts.num_gps,grouping=True)
+    boundary_details["num_schools"] = locale.format("%d",boundary_counts.num_schools,grouping=True)
+    boundary_details["num_students"] = locale.format("%d",boundary_counts.num_students,grouping=True)
     boundary_details["boundary_name"] = boundary_counts.boundary_name
     boundary_details["boundary_langname"] = boundary_counts.boundary_lang_name
     boundary_details["boundary_id"] = boundary_counts.boundary_id.id

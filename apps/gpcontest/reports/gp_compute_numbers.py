@@ -27,6 +27,13 @@ from django.db.models.functions import Cast
 from django.db import models
 import datetime
 
+# This is to add the commas in the right places in the numbers
+# SEtting it to OR because that's installed in almost all our systems
+# If locale is not installed, please install first
+# TODO: Should be added to our terraform, ansible config scripts
+
+locale.setlocale(locale.LC_NUMERIC,"en_IN")
+
 '''select assessments_answerinstitution.answergroup_id, sum(case when 
 answer~'^\d+(\.\d+)?$' then case when answer::decimal>0 then answer::decimal 
 end else 0 end) AS total_score, (sum(case when answer~'^\d+(\.\d+)?$' then case

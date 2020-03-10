@@ -4,7 +4,12 @@ from assessments.models import (
     QuestionGroup,
     CompetencyOrder)
 from .utils import *
+# This is to add the commas in the right places in the numbers
+# SEtting it to OR because that's installed in almost all our systems
+# If locale is not installed, please install first
+# TODO: Should be added to our terraform, ansible config scripts
 
+locale.setlocale(locale.LC_NUMERIC, "en_IN")
 
 def get_gps_for_academic_year(
         gpcontest_survey_id,
@@ -129,14 +134,14 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
             "cluster": cluster_name,
             "date": contest_dates[index]
         }
-        num_schools = num_schools_by_contest_date[date]
+        num_schools = locale.format("%d",num_schools_by_contest_date[date],grouping=True)
         all_scores_for_gp["num_schools"] = num_schools
         if "Class 4 Assessment" in schoolcount_by_assessment_date[date]:
-            all_scores_for_gp["class4_num_schools"] = schoolcount_by_assessment_date[date]["Class 4 Assessment"]
+            all_scores_for_gp["class4_num_schools"] = locale.format("%d",schoolcount_by_assessment_date[date]["Class 4 Assessment"],grouping=True)
         if "Class 5 Assessment" in schoolcount_by_assessment_date[date]:
-            all_scores_for_gp["class5_num_schools"] = schoolcount_by_assessment_date[date]["Class 5 Assessment"]
+            all_scores_for_gp["class5_num_schools"] = locale.format("%d",schoolcount_by_assessment_date[date]["Class 5 Assessment"],grouping=True)
         if "Class 6 Assessment" in schoolcount_by_assessment_date[date]:
-            all_scores_for_gp["class6_num_schools"] = schoolcount_by_assessment_date[date]["Class 6 Assessment"]
+            all_scores_for_gp["class6_num_schools"] = locale.format("%d",schoolcount_by_assessment_date[date]["Class 6 Assessment"], grouping=True)
 
         for questiongroup in applicable_qgroup_ids:
             print("iterating through questiongroup ", questiongroup)
