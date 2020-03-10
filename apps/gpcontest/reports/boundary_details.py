@@ -83,11 +83,11 @@ def get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth):
     # State level counts computation
     survey = Survey.objects.get(id=gp_survey_id)
     state_counts = BoundaryCountsAgg.objects.get(boundary_id=survey.admin0)
-    total_children = state_counts.num_students
+    total_children = "{:,}".format(state_counts.num_students)
     state_level_counts["num_students"] = total_children
-    total_schools = state_counts.num_schools
+    total_schools = "{:,}".format(state_counts.num_schools)
     state_level_counts["num_schools"] = total_schools
-    state_level_counts["num_gps"] = state_counts.num_gps
+    state_level_counts["num_gps"] = "{:,}".format(state_counts.num_gps)
     print(state_level_counts)
     return state_level_counts
 
@@ -113,9 +113,9 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         gp_info = {}
         gp_info["name"] = gp_name
         gp_info["lang_name"] = gp_lang_name
-        gp_info["num_schools"] = num_schools
+        gp_info["num_schools"] = "{:,}".format(num_schools)
         if num_children is not None:
-            gp_info["num_students"] = num_children["total_children"]
+            gp_info["num_students"] = "{:,}".format(num_children["total_children"])
         else:
             gp_info = None
         return gp_info
@@ -146,10 +146,10 @@ def get_boundary_counts(boundary_id, academic_year):
     boundary_details={}
     boundary_details["parent_boundary_name"] = b.parent.name
     boundary_details["parent_langname"] = b.parent.lang_name
-    boundary_details["num_blocks"] = boundary_counts.num_blocks
-    boundary_details["num_gps"] = boundary_counts.num_gps
-    boundary_details["num_schools"] = boundary_counts.num_schools
-    boundary_details["num_students"] = boundary_counts.num_students
+    boundary_details["num_blocks"] = "{:,}".format(boundary_counts.num_blocks)
+    boundary_details["num_gps"] = "{:,}".format(boundary_counts.num_gps)
+    boundary_details["num_schools"] = "{:,}".format(boundary_counts.num_schools)
+    boundary_details["num_students"] = "{:,}".format(boundary_counts.num_students)
     boundary_details["boundary_name"] = boundary_counts.boundary_name
     boundary_details["boundary_langname"] = boundary_counts.boundary_lang_name
     boundary_details["boundary_id"] = boundary_counts.boundary_id.id
