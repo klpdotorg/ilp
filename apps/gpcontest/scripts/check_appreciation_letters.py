@@ -11,20 +11,20 @@ def run():
     blocks = BoundaryCountsAgg.objects.filter(boundary_id__parent_id__in=districts).filter(boundary_id__boundary_type_id='SB').values_list('boundary_id', flat=True)
     print(blocks)
     gps = GPSchoolParticipationCounts.objects.values_list('gp_id', flat=True)
-    df_columns = ["district_name", "boundary_type", "num_blocks", "num_gps", "num_schools", "num_children"]
+    df_columns = ["id", "boundary_name", "boundary_type", "num_blocks", "num_gps", "num_schools", "num_children"]
     df = pd.DataFrame(columns=df_columns)
     write_once = False
     for district in districts:
         print("District %s" % district)
         district_dict = get_details(2, int(district),'SD', 201906, 202005)
         if not write_once:
-            row = [district_dict["state"]["state_name"], "State", \
+            row = ["NA", district_dict["state"]["state_name"], "State", \
                     "NA", "NA",
                         district_dict["state"]["num_schools"], \
                             district_dict["state"]["num_students"]]
             df.loc[df.index.max() + 1] = row
             write_once = True
-        row = [district, "SD", district_dict["district"]["num_blocks"], \
+        row = [district, district_dict["district"]["boundary_name"],"SD", district_dict["district"]["num_blocks"], \
             district_dict["district"]["num_gps"], district_dict["district"]["num_schools"], \
                 district_dict["district"]["num_students"]]
         df.loc[len(df.index) + 1] = row
