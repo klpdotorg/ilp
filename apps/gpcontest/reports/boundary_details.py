@@ -125,7 +125,8 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
             print("Error finding GP %s in GPStudentScoreGroups table" % gp_id)
         gp_info = {}
         try:
-            gp_details = GPContestSchoolDetails.objects.get(gp_id=int(gp_id))
+            # Just grab the first entry and get all details from it.
+            gp_details = GPContestSchoolDetails.objects.filter(gp_id=int(gp_id))[0]
         except:
             print("Unable to get gp details " % gp_id)
         else:
