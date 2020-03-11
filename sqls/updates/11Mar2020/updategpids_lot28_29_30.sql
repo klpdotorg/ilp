@@ -1,0 +1,10 @@
+update schools_institution set gp_id=4967 where id=25805;
+update schools_institution set gp_id=1238 where id=51923;
+update schools_institution set gp_id=6173 where id=13569;
+update schools_institution set gp_id=995 where id=13918;
+update schools_institution set gp_id=6306 where id=13643;
+update schools_institution set gp_id=3311 where id=14430;
+update schools_institution set gp_id=3708 where id=14698;
+update schools_institution set gp_id=1111 where id in (14349,14350);
+update schools_institution set gp_id=4197 where id=14770;
+update schools_institution set gp_id=5504 where id=38734;
