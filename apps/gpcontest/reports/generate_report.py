@@ -4,6 +4,7 @@ from assessments.models import (
     QuestionGroup,
     CompetencyOrder)
 from .utils import *
+import locale
 # This is to add the commas in the right places in the numbers
 # SEtting it to OR because that's installed in almost all our systems
 # If locale is not installed, please install first

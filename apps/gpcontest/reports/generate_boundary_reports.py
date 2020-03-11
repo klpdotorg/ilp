@@ -13,6 +13,12 @@ from django.db.models import Sum
 from collections import OrderedDict
 from .utils import convert_to_academicyear
 import locale
+# This is to add the commas in the right places in the numbers
+# SEtting it to OR because that's installed in almost all our systems
+# If locale is not installed, please install first
+# TODO: Should be added to our terraform, ansible config scripts
+
+locale.setlocale(locale.LC_NUMERIC, "en_IN")
 
 def generate_all_district_reports(
         gp_survey_id, from_yearmonth, 
@@ -111,10 +117,10 @@ def generate_boundary_report(
         else:
             boundary_report["parent_boundary_name"] = b.parent.name
             boundary_report["parent_langname"] = b.parent.lang_name
-            boundary_report["num_blocks"] = boundary_counts.num_blocks
-            boundary_report["num_gps"] = boundary_counts.num_gps
-            boundary_report["num_schools"] = boundary_counts.num_schools
-            boundary_report["num_students"] = boundary_counts.num_students
+            boundary_report["num_blocks"] = locale.format("%d",boundary_counts.num_blocks,grouping=True)
+            boundary_report["num_gps"] = locale.format("%d",boundary_counts.num_gps,grouping=True)
+            boundary_report["num_schools"] = locale.format("%d",boundary_counts.num_schools,grouping=True)
+            boundary_report["num_students"] = locale.format("%d",boundary_counts.num_students,grouping=True)
             boundary_report["boundary_name"] = boundary_counts.boundary_name
             boundary_report["boundary_langname"] = boundary_counts.boundary_lang_name
             boundary_report["boundary_id"] = boundary_counts.boundary_id.id
