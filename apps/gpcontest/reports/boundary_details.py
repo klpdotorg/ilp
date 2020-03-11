@@ -109,17 +109,23 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         gp_lang_name = eb.const_ward_lang_name
         gp_id = eb.id
         # Ideally you should just get ONE school here in the get
-        num_schools = GPSchoolParticipationCounts.objects\
-            .filter(yearmonth__gte=from_yearmonth) \
-                .filter(yearmonth__lte=to_yearmonth) \
-                    .get(gp_id=eb.id).num_schools
-        num_children = GPStudentScoreGroups.objects \
-            .filter(yearmonth__gte=from_yearmonth) \
-                .filter(yearmonth__lte=to_yearmonth) \
-                    .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
+        try:
+            num_schools = GPSchoolParticipationCounts.objects\
+                .filter(yearmonth__gte=from_yearmonth) \
+                    .filter(yearmonth__lte=to_yearmonth) \
+                        .filter(gp_id=eb.id).aggregate(total_schools=Sum("num_schools"))
+        except:
+            print("Error finding GP %s in GPSchoolParticipationCounts table" % gp_id)
+        try:
+            num_children = GPStudentScoreGroups.objects \
+                .filter(yearmonth__gte=from_yearmonth) \
+                    .filter(yearmonth__lte=to_yearmonth) \
+                        .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
+        except:
+            print("Error finding GP %s in GPStudentScoreGroups table" % gp_id)
         gp_info = {}
         try:
-            gp_details = GPContestSchoolDetails.objects.get(id=int(gp_id))
+            gp_details = GPContestSchoolDetails.objects.get(gp_id=int(gp_id))
         except:
             print("Unable to get gp details " % gp_id)
         else:
@@ -128,7 +134,7 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
        
         gp_info["name"] = gp_name
         gp_info["lang_name"] = gp_lang_name
-        gp_info["num_schools"] = locale.format("%d",num_schools,grouping=True)
+        gp_info["num_schools"] = locale.format("%d",num_schools["total_schools"],grouping=True)
         if num_children is not None:
             gp_info["num_students"] = locale.format("%d",num_children["total_children"],grouping=True)
         else:
