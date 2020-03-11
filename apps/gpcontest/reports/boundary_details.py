@@ -88,6 +88,7 @@ def get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth):
     # State level counts computation
     survey = Survey.objects.get(id=gp_survey_id)
     state_counts = BoundaryCountsAgg.objects.get(boundary_id=survey.admin0)
+    state_level_counts["state_name"] = survey.admin0.name
     total_children = locale.format("%d", state_counts.num_students,grouping=True)
     state_level_counts["num_students"] = total_children
     total_schools = locale.format("%d", state_counts.num_schools, grouping=True)
@@ -115,9 +116,12 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
             .filter(yearmonth__gte=from_yearmonth) \
                 .filter(yearmonth__lte=to_yearmonth) \
                     .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
+        gp_details = GPContestSchoolDetails.objects.get(id=int(gp_id))
         gp_info = {}
         gp_info["name"] = gp_name
         gp_info["lang_name"] = gp_lang_name
+        gp_info["district_name"] = gp_details.district_name
+        gp_info["block_name"] = gp_details.block_name
         gp_info["num_schools"] = locale.format("%d",num_schools,grouping=True)
         if num_children is not None:
             gp_info["num_students"] = locale.format("%d",num_children["total_children"],grouping=True)
