@@ -1,15 +1,15 @@
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('DDPIA','DDPI Admin','ka','AC');
-insert into common_respondenttype(char_id, name, state_code_id, active_id) values('DDPID','DDPI Development','ka','AC');
-insert into common_respondenttype(char_id, name, state_code_id, active_id) values('PDO','PDO','ka','AC');
+insert into common_respondenttype(char_id, name, state_code_id, active_id) values('DDPID','DDPI Devoplment / DIET Principal','ka','AC');
+insert into common_respondenttype(char_id, name, state_code_id, active_id) values('PDO','Panchayat Development Officer','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('GPL','GP Leader','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('ZPP','Zilla Panchayat President','ka','AC');
-insert into common_respondenttype(char_id, name, state_code_id, active_id) values('CEO','CEO','ka','AC');
+insert into common_respondenttype(char_id, name, state_code_id, active_id) values('CEO','Chief exicutive officer','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('TPP','Taluk Panchayat President','ka','AC');
-insert into common_respondenttype(char_id, name, active_id) values('EV','Volunteer','AC');
+insert into common_respondenttype(char_id, name, active_id) values('EV','Eduction Volunteer','AC');
 
 
-update common_respondenttype set active_id='AC' where char_id='ECO';
-update common_respondenttype set active_id='AC',state_code_id='ka' where char_id='EO';
+update common_respondenttype set active_id='AC', name='Education co-ordinator' where char_id='ECO';
+update common_respondenttype set active_id='AC',state_code_id='ka',name='Education officer' where char_id='EO';
 
 
 update common_respondenttype set active_id='IA' where char_id='DDPI';
