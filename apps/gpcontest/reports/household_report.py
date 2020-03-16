@@ -133,7 +133,7 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                        })
                 HHSurvey["answers"] = answers
             else:
-                print("No community survey data for '{}' between {} and {}".format(school.name, date_range))
+                print("No community survey data for '{}' between {} and {}".format(school_id, date_range[0],date_range[1]))
         return HHSurvey
 
 
@@ -221,7 +221,8 @@ def get_hh_reports_for_districts(
     results = {}
     for school in school_ids:
         hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id, school, [from_yearmonth, to_yearmonth])
-        results[school] = hh_data
+        if hh_data:
+            results[school] = hh_data
     return results
 
 def get_hh_reports_for_gps(
