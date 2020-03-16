@@ -1,6 +1,5 @@
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('DDPIA','DDPI Admin','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('DDPID','DDPI Development','ka','AC');
-insert into common_respondenttype(char_id, name, state_code_id, active_id) values('GPP','GP President','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('PDO','PDO','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('GPL','GP Leader','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('ZPP','Zilla Panchayat President','ka','AC');
@@ -25,5 +24,6 @@ update assessments_surveyusertypemapping set usertype_id='EV' where usertype_id=
 update users_user set user_type_id='EV' where user_type_id='VR';
 delete from common_respondenttype where char_id='VR';
 
+insert into assessments_surveyusertypemapping(survey_id,usertype_id) values(11,'DDPID'), (11,'PDO'), (11,'GPL'), (11,'ZPP'), (11,'CEO'), (11,'TPP');
 
-insert into assessments_surveyusertypemapping(survey_id,usertype_id) values(11,'DDPID'), (11,'GPP'), (11,'PDO'), (11,'GPL'), (11,'ZPP'), (11,'CEO'), (11,'TPP');
+delete from assessments_surveyusertypemapping where survey_id=11 and usertype_id='BRC';
