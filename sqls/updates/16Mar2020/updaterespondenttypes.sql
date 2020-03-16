@@ -22,7 +22,8 @@ update assessments_answergroup_institution set respondent_type_id='EV' where res
 update assessments_answergroup_student set respondent_type_id='EV' where respondent_type_id='VR';
 update assessments_surveyusertypemapping set usertype_id='EV' where usertype_id='VR';
 update users_user set user_type_id='EV' where user_type_id='VR';
-delete from common_respondenttype where char_id='VR';
+
+update common_respondenttype set active_id='IA' where char_id='VR';
 
 insert into assessments_surveyusertypemapping(survey_id,usertype_id) values(11,'DDPID'), (11,'PDO'), (11,'GPL'), (11,'ZPP'), (11,'CEO'), (11,'TPP');
 
