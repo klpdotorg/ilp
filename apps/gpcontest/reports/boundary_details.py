@@ -2,7 +2,8 @@ from gpcontest.models import (
     BoundaryStudentScoreGroups,
     BoundaryCountsAgg,
     GPStudentScoreGroups,
-    GPSchoolParticipationCounts
+    GPSchoolParticipationCounts,
+    GPContestSchoolDetails
 )
 from schools.models import Institution
 from assessments.models import (
@@ -33,7 +34,7 @@ def get_details(gp_survey_id, boundary_id, boundary_type_id,
     # SEtting it to OR because that's installed in almost all our systems
     # If locale is not installed, please install first
     # TODO: Should be added to our terraform, ansible config scripts
-    locale.setlocale(locale.LC_NUMERIC,"en_IN")
+    locale.setlocale(locale.LC_NUMERIC, "en_IN")
     state_report = get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth)
     boundary_report={}
     # Identify the type of boundary - election boundary or boundary
@@ -88,6 +89,7 @@ def get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth):
     # State level counts computation
     survey = Survey.objects.get(id=gp_survey_id)
     state_counts = BoundaryCountsAgg.objects.get(boundary_id=survey.admin0)
+    state_level_counts["state_name"] = survey.admin0.name
     total_children = locale.format("%d", state_counts.num_students,grouping=True)
     state_level_counts["num_students"] = total_children
     total_schools = locale.format("%d", state_counts.num_schools, grouping=True)
@@ -107,18 +109,33 @@ def get_gp_info(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         gp_lang_name = eb.const_ward_lang_name
         gp_id = eb.id
         # Ideally you should just get ONE school here in the get
-        num_schools = GPSchoolParticipationCounts.objects\
-            .filter(yearmonth__gte=from_yearmonth) \
-                .filter(yearmonth__lte=to_yearmonth) \
-                    .get(gp_id=eb.id).num_schools
-        num_children = GPStudentScoreGroups.objects \
-            .filter(yearmonth__gte=from_yearmonth) \
-                .filter(yearmonth__lte=to_yearmonth) \
-                    .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
+        try:
+            num_schools = GPSchoolParticipationCounts.objects\
+                .filter(yearmonth__gte=from_yearmonth) \
+                    .filter(yearmonth__lte=to_yearmonth) \
+                        .filter(gp_id=eb.id).aggregate(total_schools=Sum("num_schools"))
+        except:
+            print("Error finding GP %s in GPSchoolParticipationCounts table" % gp_id)
+        try:
+            num_children = GPStudentScoreGroups.objects \
+                .filter(yearmonth__gte=from_yearmonth) \
+                    .filter(yearmonth__lte=to_yearmonth) \
+                        .filter(gp_id=gp_id).aggregate(total_children=Sum("num_students"))
+        except:
+            print("Error finding GP %s in GPStudentScoreGroups table" % gp_id)
         gp_info = {}
+        try:
+            # Just grab the first entry and get all details from it.
+            gp_details = GPContestSchoolDetails.objects.filter(gp_id=int(gp_id))[0]
+        except:
+            print("Unable to get gp details " % gp_id)
+        else:
+            gp_info["block_name"] = gp_details.block_name
+            gp_info["district_name"] = gp_details.district_name
+       
         gp_info["name"] = gp_name
         gp_info["lang_name"] = gp_lang_name
-        gp_info["num_schools"] = locale.format("%d",num_schools,grouping=True)
+        gp_info["num_schools"] = locale.format("%d",num_schools["total_schools"],grouping=True)
         if num_children is not None:
             gp_info["num_students"] = locale.format("%d",num_children["total_children"],grouping=True)
         else:
