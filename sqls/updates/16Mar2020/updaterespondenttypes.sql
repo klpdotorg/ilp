@@ -5,7 +5,7 @@ insert into common_respondenttype(char_id, name, state_code_id, active_id) value
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('ZPP','Zilla Panchayat President','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('CEO','Chief exicutive officer','ka','AC');
 insert into common_respondenttype(char_id, name, state_code_id, active_id) values('TPP','Taluk Panchayat President','ka','AC');
-insert into common_respondenttype(char_id, name, active_id) values('EV','Eduction Volunteer','AC');
+insert into common_respondenttype(char_id, name, active_id) values('EV','Education Volunteer','AC');
 
 
 update common_respondenttype set active_id='AC', name='Education co-ordinator' where char_id='ECO';
