@@ -106,7 +106,8 @@ FROM
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
-    FROM assessments_answergroup_institution ag,
+    FROM 
+        assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
@@ -211,8 +212,9 @@ WITH subquery1 AS (
         t1.question_key as question_key,
         t1.lang_question_key as lang_question_key,
         t1.yearmonth as yearmonth,
-        SUM(t1.num_assessments) as total_answers,
-        SUM(CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::int END) as correct_answers
+        SUM(t1.num_assessments) as total_assessments,
+        SUM(t2.numtotal) as total_answers,
+        SUM(CASE WHEN t2.numcorrect IS NULL THEN 0 ELSE t2.numcorrect::int END) as correct_answers
     FROM
         mvw_survey_institution_questiongroup_questionkey_agg t1
     LEFT JOIN
