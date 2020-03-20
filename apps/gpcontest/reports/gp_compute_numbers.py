@@ -156,7 +156,6 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, contest_yearmonth
     # All the logic to compute the numbers has been moved to a materialized view
     # called mvw_survey_eboundary_answers_agg. Check the script under db_scripts
     # for details on how the computation is done
-    
     # Construct return data dict
     scores_by_contest_date = {}
     for date in contest_yearmonth_dates:
@@ -211,7 +210,7 @@ def get_gradewise_competency_correctscores(gp_id, gpcontest_survey_id,
             .filter(yearmonth__lte=report_to)\
             .values('question_key', 'questiongroup_name',
                     'questiongroup_id')\
-            .annotate(correct_answers=Sum('num_assessments'))
+            .annotate(correct_answers=Sum('numcorrect'))
     except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
@@ -235,7 +234,7 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
             .filter(yearmonth__gte=report_from)\
             .filter(yearmonth__lte=report_to)\
             .values('question_key')\
-            .annotate(correct_answers=Sum('num_assessments'))
+            .annotate(correct_answers=Sum('numcorrect'))
     except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
@@ -244,15 +243,15 @@ def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
                                   report_from, report_to):
     total_assessments = None
     try:
-        total_assessments = SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects\
+        total_assessments = SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
                 .filter(survey_id=gpcontest_survey_id,
                         eboundary_id=gp_id, survey_tag='gka')\
                 .filter(questiongroup_id=qgroup_id)\
                 .filter(yearmonth__gte=report_from)\
                 .filter(yearmonth__lte=report_to)\
                 .values('question_key', 'yearmonth')\
-                .annotate(total_answers=Sum('num_assessments'))
-    except SurveyEBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
+                .annotate(total_answers=Sum('numtotal'))
+    except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return total_assessments
 
