@@ -348,7 +348,7 @@ WITH schools_count AS (
         boundary.name as boundary_name,
         boundary.lang_name as boundary_lang_name,
         boundary.boundary_type_id as boundary_type_id,
-        qg.academic_year_id as year,
+        to_char(:from_date::date,'YY') || to_char(:to_date::date,'YY') as year,
         Count(distinct ag.institution_id) as num_schools,
         Count(distinct ag.id) as num_students,
 	    Count(distinct schools.gp_id) as num_gps,
