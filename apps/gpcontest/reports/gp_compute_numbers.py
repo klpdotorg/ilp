@@ -361,11 +361,11 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
 def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yearmonth):
     """ For household reports, that need addition/subtraction percentages
         per school """
-    total_ans = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
+    total_ans = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
         survey_id=survey_id).filter(
             institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
-                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('num_assessments'))
+                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('numtotal'))
     total = None
     if total_ans:
         total_ans=total_ans[0]
@@ -375,7 +375,7 @@ def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yea
         survey_id=survey_id).filter(
             institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
-                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('num_assessments'))
+                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('numcorrect'))
     correct = 0
     if correct_ans:
         correct_answer=correct_ans[0]
