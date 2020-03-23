@@ -31,7 +31,11 @@ def getParentalPerception(survey_id, school_id, date_range):
             yearmonth__range=date_range).filter(
                 question_id__in=question_ids).filter(respondent_type='Parents').order_by('question_id').values(
                     'question_id', 'question_desc', 'num_yes', 'num_no', 'num_unknown')
-    result = {}
+    result = {
+        "Addition": 'NA',
+        "Subtraction": 'NA',
+        "Separate Toilets" : 'NA'
+    }
     for perception in perception_qs:
         total = perception["num_yes"] + perception["num_no"] + perception["num_unknown"]
         if perception["question_id"] == 149:
@@ -86,17 +90,23 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                     ).filter(survey_tag='konnect').values(
                         'survey_id', 'institution_id'
                     ).annotate(total=Sum('num_assessments'))
-            HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
-
+            if total_parental_assess:
+                HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
+            else:
+                HHSurvey['total_parental_assessments'] = 0
             #Run through the questions
             if hh_answers_agg is not None and hh_answers_agg.exists():
                 HHSurvey['school_name'] = school.name
                 HHSurvey['district_name'] = school.admin1.name
+                HHSurvey['district_langname'] = school.admin1.lang_name
                 HHSurvey['block_name'] = school.admin2.name
+                HHSurvey['block_langname'] = school.admin2.lang_name
                 HHSurvey['cluster_name'] = school.admin3.name
+                HHSurvey['cluster_langname'] = school.admin3.lang_name
 
                 if school.gp is not None:
                     HHSurvey['gp_name'] = school.gp.const_ward_name
+                    HHSurvey['gp_langname'] = school.gp.const_ward_lang_name
                     HHSurvey['gp_id'] = school.gp.id 
                 else:
                     HHSurvey['gp_name'] = "Unknown"
@@ -123,7 +133,7 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                        })
                 HHSurvey["answers"] = answers
             else:
-                print("No community survey data for '{}' between {} and {}".format(school.name, date_range))
+                print("No community survey data for '{}' between {} and {}".format(school_id, date_range[0],date_range[1]))
         return HHSurvey
 
 
@@ -211,7 +221,8 @@ def get_hh_reports_for_districts(
     results = {}
     for school in school_ids:
         hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id, school, [from_yearmonth, to_yearmonth])
-        results[school] = hh_data
+        if hh_data:
+            results[school] = hh_data
     return results
 
 def get_hh_reports_for_gps(

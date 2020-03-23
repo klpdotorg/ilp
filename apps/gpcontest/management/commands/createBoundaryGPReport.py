@@ -153,7 +153,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                   "totalstudents": districtdata["num_students"]}
 
         assessmentinfo = []
-        for assessment in self.assessmentnames:
+        for assessment in self.assessmentorder:
             if self.assessmentnames[assessment]["name"] in districtdata:
                 districtdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(districtdata[self.assessmentnames[assessment]["name"]])
@@ -212,7 +212,6 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
 
     def createBlockPdfs(self, blockid, blockdata, outputdir, build_dir):
-        print(blockdata)
         template = self.templates["block"]["latex"]
 
         if blockdata["parent_langname"] == "":

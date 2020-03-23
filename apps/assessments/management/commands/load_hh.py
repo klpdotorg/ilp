@@ -15,7 +15,7 @@ class Command(BaseCommand):
     args = ""
     help = """python3 manage.py load_hh --filename=filename --onlycheck True/False"""
     questiongroup_id = 20
-    ans_col_start = 13
+    ans_col_start = 12
     validanswers = {"0", "1", "99", "88"}  # 99 -->dont know, 88 --> unknown
     validgenders = {"male", "female"}
     rowcounter = 0
@@ -97,8 +97,8 @@ class Command(BaseCommand):
         inst_village = Institution.objects.filter(id=instid).values(
                                     "village")[0]["village"].lower()
         if village != inst_village:
-            print("["+str(self.rowcounter)+"] Institution village (" +
-                  inst_village+") does not match row village (" +
+            print("["+str(self.rowcounter)+"] For Institution id: "+str(instid)+
+                  ": DB village (" +inst_village+"), does not match row/xls village (" +
                   village+")")
             return True
         return True
@@ -123,16 +123,16 @@ class Command(BaseCommand):
 
                 self.rowcounter += 1
 
-                district = row[2].strip().lower()
-                block = row[3].strip().lower()
-                cluster = row[4].strip().lower()
-                inst_id = row[5].strip()
-                school_name = row[6].strip().lower()
-                dise_code = row[7].strip()
-                village = row[8].strip().lower()
-                gpname = row[9].strip().lower()
-                gpid = row[10].strip()
-                date = row[11].strip()
+                district = row[1].strip().lower()
+                block = row[2].strip().lower()
+                cluster = row[3].strip().lower()
+                inst_id = row[4].strip()
+                school_name = row[5].strip().lower()
+                dise_code = row[6].strip()
+                village = row[7].strip().lower()
+                gpname = row[8].strip().lower()
+                gpid = row[9].strip()
+                date = row[10].strip()
                 if date == '':
                     date = '01/'+self.defaultmonthyear
                 try:
@@ -146,7 +146,7 @@ class Command(BaseCommand):
                 dov = parser.parse(date_string)
                 localtz = timezone(settings.TIME_ZONE)
                 dov = localtz.localize(dov)
-                group_value = row[12].strip()
+                group_value = row[11].strip()
                 enteredat = localtz.localize(datetime.now())
 
                 #  check values
@@ -178,6 +178,7 @@ class Command(BaseCommand):
                                 institution_id=inst_id,
                                 status_id='AC',
                                 is_verified=True,
+                                respondent_type_id = 'PR',
                                 entered_at=enteredat)
                 ansgroupcount += 1
 

@@ -22,12 +22,14 @@ class Command(BaseCommand, baseReport.CommonUtils):
     outputdir = "preContestSummary"
     schoolinfo = {}
     templates = {"summary": {"template": "GPContestSummarySheet.tex", "latex": None}}
+    lang = 'kannada'
     
 
     def add_arguments(self, parser):
         parser.add_argument('--gpids', nargs='?')
         parser.add_argument('--districtids', nargs='?')
         parser.add_argument('--blockids', nargs='?')
+        parser.add_argument('--lang', nargs='?')
 
 
     def getSchoolInfo(self, boundaries=None, gpids=None ):
@@ -78,6 +80,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
         gpids = options.get("gpids")
         districtids = options.get("districtids")
         blockids = options.get("blockids")
+        lang = options.get("lang")
+
+        if lang is not None:
+            self.lang = lang
+
+        self.templatedir = self.templatedir+"/"+self.lang+"/"
 
         if gpids is None and blockids is None and districtids is None:
             print("Enter one of the parameters: --gpids, --districtids or --blockids")

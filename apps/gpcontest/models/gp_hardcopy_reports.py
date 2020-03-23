@@ -39,6 +39,7 @@ class BoundaryCountsAgg(models.Model):
     boundary_id = models.ForeignKey('boundary.Boundary', db_column="boundary_id")
     boundary_name = models.CharField(max_length=150, db_column="boundary_name")
     boundary_lang_name = models.CharField(max_length=150, db_column="boundary_lang_name")
+    academic_year=models.CharField(db_column="year", max_length=4)
     boundary_type_id = models.ForeignKey('boundary.BoundaryType', db_column="boundary_type_id")
     num_students = models.IntegerField(db_column="num_students")
     num_schools = models.IntegerField(db_column="num_schools")
@@ -146,6 +147,7 @@ class GPInstitutionDeficientCompetencyPercentagesAgg(models.Model):
     lang_question_key = models.CharField(max_length=100,
                                          db_column="lang_question_key")
     yearmonth = models.IntegerField(db_column="yearmonth")
+    total_assessments = models.IntegerField(db_column="total_assessments")
     total_answers = models.IntegerField(db_column="total_answers")
     correct_answers = models.IntegerField(db_column="correct_answers")
     percent_score = models.FloatField(db_column="percent_score")

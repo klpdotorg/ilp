@@ -106,7 +106,8 @@ FROM
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
-    FROM assessments_answergroup_institution ag,
+    FROM 
+        assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
@@ -211,8 +212,9 @@ WITH subquery1 AS (
         t1.question_key as question_key,
         t1.lang_question_key as lang_question_key,
         t1.yearmonth as yearmonth,
-        SUM(t1.num_assessments) as total_answers,
-        SUM(CASE WHEN t2.num_assessments IS NULL THEN 0 ELSE t2.num_assessments::int END) as correct_answers
+        SUM(t1.num_assessments) as total_assessments,
+        SUM(t2.numtotal) as total_answers,
+        SUM(CASE WHEN t2.numcorrect IS NULL THEN 0 ELSE t2.numcorrect::int END) as correct_answers
     FROM
         mvw_survey_institution_questiongroup_questionkey_agg t1
     LEFT JOIN
@@ -327,10 +329,10 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
         )
     SELECT id, survey_id,boundary_id, boundary_type_id, questiongroup_id, questiongroup_name, boundary_name,
                     COUNT(*) as num_students,
-                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)<36.00) AS cat_a,
-                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>36.00 AND ROUND(total_percent,2)<61.00) as cat_b,
-                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>60.00 AND ROUND(total_percent,2)<76.00) as cat_c,
-                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>75.00 AND ROUND(total_percent,2)<101.00) as cat_d
+                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)<35.00) AS cat_a,
+                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>=35.00 AND ROUND(total_percent,2)<=59.00) as cat_b,
+                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>=60.00 AND ROUND(total_percent,2)<=74.00) as cat_c,
+                    COUNT(1) FILTER (WHERE ROUND(total_percent,2)>=75.00 AND ROUND(total_percent,2)<=100.00) as cat_d
     FROM subquery1
     GROUP BY id,survey_id, boundary_id, boundary_type_id, questiongroup_id, questiongroup_name,boundary_name;
 -- END mvw_gpcontest_boundary_answers_agg
@@ -346,9 +348,10 @@ WITH schools_count AS (
         boundary.name as boundary_name,
         boundary.lang_name as boundary_lang_name,
         boundary.boundary_type_id as boundary_type_id,
+        to_char(:from_date::date,'YY') || to_char(:to_date::date,'YY') as year,
         Count(distinct ag.institution_id) as num_schools,
         Count(distinct ag.id) as num_students,
-	Count(distinct schools.gp_id) as num_gps,
+	    Count(distinct schools.gp_id) as num_gps,
 	(CASE WHEN boundary.boundary_type_id = 'SD' THEN Count(distinct schools.admin2_id) ELSE 0 END) as num_blocks
     FROM 
         boundary_boundary as boundary,
@@ -361,10 +364,10 @@ WITH schools_count AS (
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
         (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id)
-    GROUP BY qg.survey_id,boundary.id
+    GROUP BY qg.survey_id,boundary.id, qg.academic_year_id
 )
 SELECT 
-   id, boundary_id, boundary_name, boundary_lang_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
+   id, year, boundary_id, boundary_name, boundary_lang_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
 FROM schools_count;
 
 -- END mvw_gpcontest_eboundary_schoolcount_agg

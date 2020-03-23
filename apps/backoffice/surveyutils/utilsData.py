@@ -5,6 +5,7 @@ import os
 import calendar
 from assessments.models import Survey, QuestionGroup, QuestionGroup_Questions, Question, AnswerGroup_Institution, AnswerInstitution, SurveyBoundaryAgg
 import shutil
+import sys, traceback
 
 class commonAssessmentDataUtils():
 
@@ -136,7 +137,7 @@ class commonAssessmentDataUtils():
                 datafile.close()
         except Exception as e:
             datafile.close()
-            import pdb; pdb.set_trace()
+            traceback.print_exc(file=sys.stdout)
             print("Exception while creating CSV")
         else:
             # Create XLS files if required

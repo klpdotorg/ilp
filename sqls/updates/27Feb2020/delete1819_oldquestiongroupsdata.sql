@@ -1,0 +1,2 @@
+delete from assessments_answerinstitution where answergroup_id in (select id from assessments_answergroup_institution where to_char(date_of_visit,'YYYYMM')::int >=201806 and to_char(date_of_visit,'YYYYMM')::int <=201905 and questiongroup_id in (21,22,23));
+delete from assessments_answergroup_institution where to_char(date_of_visit,'YYYYMM')::int >=201806 and to_char(date_of_visit,'YYYYMM')::int <=201905 and questiongroup_id in (21,22,23);

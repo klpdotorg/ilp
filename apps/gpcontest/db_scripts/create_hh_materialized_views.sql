@@ -17,9 +17,9 @@ FROM(
 	respondent.name as respondent_type,
 	q.id as question_id,
         case q.display_text when '' then q.question_text else q.display_text end as question_desc,
-	count(case ans.answer when 'Yes' then ag.id end) as count_yes,
-	count(case ans.answer when 'No' then ag.id end) as count_no,
-       	count( case when ans.answer not in ('Yes','No') then ag.id end) as count_unknown
+	count(case ans.answer::int WHEN 1 then ag.id end) as count_yes,
+	count(case ans.answer::int WHEN 0 then ag.id end) as count_no,
+       	count( case when ans.answer::int not in (1,0) then ag.id end) as count_unknown
 	from
 	assessments_answergroup_institution ag, assessments_answerinstitution ans, assessments_questiongroup as questiongroup, common_respondenttype as respondent, assessments_question as q 
 	where
@@ -47,9 +47,9 @@ SELECT format('A%s_%s', survey_id,institution_id) as id,
 	CASE q.display_text WHEN '' THEN q.question_text ELSE q.display_text END as question_desc,
 	q.lang_name as lang_questiondesc,
 	qngroup_questions.sequence AS seq,
-	COUNT(CASE ans.answer WHEN 'Yes' THEN ag.id END) AS count_yes,
-	COUNT(CASE ans.answer WHEN 'No' THEN ag.id END) AS count_no,
-	COUNT(CASE WHEN ans.answer NOT IN ('Yes','No') THEN ag.id END) AS count_unknown,
+	COUNT(CASE ans.answer::int WHEN 1 THEN ag.id END) AS count_yes,
+	COUNT(CASE ans.answer::int WHEN 0 THEN ag.id END) AS count_no,
+	COUNT(CASE WHEN ans.answer::int NOT IN (1,0) THEN ag.id END) AS count_unknown,
 	COUNT(ag.id) AS total
 FROM assessments_answergroup_institution ag, 
 	assessments_answerinstitution ans, 
@@ -101,11 +101,9 @@ SELECT
 	lang_questiondesc,
 	seq,
 	total,
-	count_yes*100/total AS perc_yes,
-	count_no*100/total AS perc_no,
-	count_unknown*100/total AS perc_unknown
+	round((count_yes::decimal*100)/total,2) AS perc_yes,
+	round((count_no::decimal*100)/total,2) AS perc_no,
+	round((count_unknown::decimal*100)/total,2) AS perc_unknown
 FROM
 subquery1
 GROUP BY id,survey_id, institution_id, institution_name, gp_id, gp_name, district_name, block_name, cluster_name, question_id, question_desc,lang_questiondesc,seq,total,count_yes, count_no, count_unknown;
-
-

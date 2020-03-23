@@ -26,6 +26,14 @@ from django.db.models import (
 from django.db.models.functions import Cast
 from django.db import models
 import datetime
+import locale
+
+# This is to add the commas in the right places in the numbers
+# SEtting it to OR because that's installed in almost all our systems
+# If locale is not installed, please install first
+# TODO: Should be added to our terraform, ansible config scripts
+
+locale.setlocale(locale.LC_NUMERIC,"en_IN")
 
 '''select assessments_answerinstitution.answergroup_id, sum(case when 
 answer~'^\d+(\.\d+)?$' then case when answer::decimal>0 then answer::decimal 
@@ -148,7 +156,6 @@ def get_gradewise_score_buckets(gp_id, questiongroup_ids_list, contest_yearmonth
     # All the logic to compute the numbers has been moved to a materialized view
     # called mvw_survey_eboundary_answers_agg. Check the script under db_scripts
     # for details on how the computation is done
-    
     # Construct return data dict
     scores_by_contest_date = {}
     for date in contest_yearmonth_dates:
@@ -203,7 +210,7 @@ def get_gradewise_competency_correctscores(gp_id, gpcontest_survey_id,
             .filter(yearmonth__lte=report_to)\
             .values('question_key', 'questiongroup_name',
                     'questiongroup_id')\
-            .annotate(correct_answers=Sum('num_assessments'))
+            .annotate(correct_answers=Sum('numcorrect'))
     except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
@@ -227,7 +234,7 @@ def get_grade_competency_correctscores(gp_id, qgroup_id, gpcontest_survey_id,
             .filter(yearmonth__gte=report_from)\
             .filter(yearmonth__lte=report_to)\
             .values('question_key')\
-            .annotate(correct_answers=Sum('num_assessments'))
+            .annotate(correct_answers=Sum('numcorrect'))
     except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
@@ -236,15 +243,15 @@ def get_total_assessments_for_grade(gp_id, qgroup_id, gpcontest_survey_id,
                                   report_from, report_to):
     total_assessments = None
     try:
-        total_assessments = SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects\
+        total_assessments = SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
                 .filter(survey_id=gpcontest_survey_id,
                         eboundary_id=gp_id, survey_tag='gka')\
                 .filter(questiongroup_id=qgroup_id)\
                 .filter(yearmonth__gte=report_from)\
                 .filter(yearmonth__lte=report_to)\
                 .values('question_key', 'yearmonth')\
-                .annotate(total_answers=Sum('num_assessments'))
-    except SurveyEBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
+                .annotate(total_answers=Sum('numtotal'))
+    except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return total_assessments
 
@@ -354,25 +361,26 @@ def get_grade_competency_percentages(gp_id, qgroup_id, gpcontest_survey_id,
 def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yearmonth):
     """ For household reports, that need addition/subtraction percentages
         per school """
-    total_ans = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(
+    total_ans = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
         survey_id=survey_id).filter(
             institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
-                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('num_assessments'))
+                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('numtotal'))
     total = None
-    if total_ans is not None:
+    if total_ans:
         total_ans=total_ans[0]
-    if total_ans["total_answers"] is not None:
+    if total_ans and total_ans["total_answers"] is not None:
         total = total_ans['total_answers']
     correct_ans = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
         survey_id=survey_id).filter(
             institution_id=school_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
-                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('num_assessments'))
+                    question_key=key).values('survey_id', 'institution_id', 'question_key').annotate(total_answers=Sum('numcorrect'))
     correct = 0
-    correct_ans=correct_ans[0]
-    if correct_ans['total_answers'] is not None:
-        correct = correct_ans['total_answers']
+    if correct_ans:
+        correct_answer=correct_ans[0]
+    if correct_ans and correct_answer['total_answers'] is not None:
+        correct = correct_answer['total_answers']
     if total is None:
         # Data unavailable for this GP for this competency
         perc='NA'

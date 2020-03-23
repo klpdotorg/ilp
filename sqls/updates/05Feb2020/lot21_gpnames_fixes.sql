@@ -9,3 +9,6 @@ UPDATE boundary_electionboundary SET const_ward_lang_name='ಉತಕನೂರ್
 UPDATE boundary_electionboundary SET const_ward_lang_name='ಹಿರೇಕೊಟ್ನೆಕಲ್' WHERE id=2655;
 UPDATE boundary_electionboundary SET const_ward_lang_name='ಕೋಡ್ಲಾ' WHERE id=3665;
 
+
+
+
