@@ -147,6 +147,7 @@ class GPInstitutionDeficientCompetencyPercentagesAgg(models.Model):
     lang_question_key = models.CharField(max_length=100,
                                          db_column="lang_question_key")
     yearmonth = models.IntegerField(db_column="yearmonth")
+    total_assessments = models.IntegerField(db_column="total_assessments")
     total_answers = models.IntegerField(db_column="total_answers")
     correct_answers = models.IntegerField(db_column="correct_answers")
     percent_score = models.FloatField(db_column="percent_score")

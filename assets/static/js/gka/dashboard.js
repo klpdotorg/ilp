@@ -191,17 +191,12 @@ var topSummaryData = {};
                     sms: 'NA',
                     sms_govt: 'NA',
                     sms_govt_percent: 'NA',
-                    assmt: 'NA',
                     contests: 'NA',
                     surveys: 'NA'
                 };
 
                 try {
                     data.sms = c.surveys['11']['total_assessments'];
-                } catch (e) {}
-
-                try {
-                    data.assmt = c.surveys['3']['total_assessments'];
                 } catch (e) {}
 
                 try {
@@ -1159,10 +1154,10 @@ var topSummaryData = {};
 
             for(var c in classData) {
                 var total = classData[c].total,
-                    score = classData[c].score,
+                    average = classData[c].average,
                     item = {
                         meta: c,
-                        value: getPercent(score, total),
+                        value: average,
                         order: classData[c].order
                     };
                 result.series[0].data.push(item);

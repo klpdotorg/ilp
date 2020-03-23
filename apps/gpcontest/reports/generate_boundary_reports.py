@@ -217,7 +217,7 @@ def get_competency_scores_for_all_qgroups(
             .filter(yearmonth__gte=from_yearmonth)\
             .filter(yearmonth__lte=to_yearmonth)\
             .values('question_key', 'questiongroup_name')\
-            .annotate(correct_answers=Sum('num_assessments'))
+            .annotate(correct_answers=Sum('numcorrect'))
     except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
@@ -232,14 +232,14 @@ def get_total_assessments_for_grade(boundary_id, qgroup_name, gpcontest_survey_i
     """
     total_assessments = None
     try:
-        total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
+        total_assessments = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
                 .filter(survey_id=gpcontest_survey_id,
                         boundary_id=boundary_id, survey_tag='gka')\
                 .filter(questiongroup_name=qgroup_name)\
                 .filter(yearmonth__gte=report_from)\
                 .filter(yearmonth__lte=report_to)\
                 .values('question_key')\
-                .annotate(total_answers=Sum('num_assessments'))
+                .annotate(total_answers=Sum('numtotal'))
     except SurveyBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
         pass
     return total_assessments
