@@ -353,7 +353,7 @@ var topSummaryData = {};
         }
 
         // renderBarChart('#compareAssmtGraph', ekstepCompetencies, "Percentage of Children");
-        renderBarChart('#compareGpcGraph', gpContestCompetencies, "Percentage of Children");
+        renderBarChart('#compareGpcGraph', gpContestCompetencies, "Average Percentage of Children");
     }
 
     function loadSmsData(params) {
