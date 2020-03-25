@@ -348,7 +348,7 @@ var topSummaryData = {};
         }
 
         // renderBarChart('#compareAssmtGraph', ekstepCompetencies, "Percentage of Children");
-        renderBarChart('#compareGpcGraph', gpContestCompetencies, "Average Percentage of Children");
+        renderBarChart('#compareGpcGraph', gpContestCompetencies, "Average % of Children");
     }
 
     function loadSmsData(params) {
@@ -958,7 +958,7 @@ var topSummaryData = {};
         renderBarChart(
             '#assmtCompetancy-' + className,
             competencies,
-            "Average Percentage of Children"
+            "Average % of Children"
         );
     }
 
@@ -1206,20 +1206,20 @@ var topSummaryData = {};
 	console.log(class4competancies, class5competancies, class6competancies)
 
         if(class4competancies.labels && class4competancies.series) {
-            renderBarChart('#gpcGraph_class4', class4competancies, "Average Percentage of Children");
+            renderBarChart('#gpcGraph_class4', class4competancies, "Average % of Children");
         } else {
             $('#gpcGraph_class4').hide();
         }
 
         if(class5competancies.labels && class5competancies.series) {
-            renderBarChart('#gpcGraph_class5', class5competancies, "Average Percentage of Children");
+            renderBarChart('#gpcGraph_class5', class5competancies, "Average % of Children");
         } else {
             $('#gpcGraph_class4').hide();
         }
 
 
         if(class6competancies.labels && class5competancies.series) {
-            renderBarChart('#gpcGraph_class6', class6competancies, "Average Percentage of Children");
+            renderBarChart('#gpcGraph_class6', class6competancies, "Average % of Children");
         } else {
             $('#gpcGraph_class6').hide();
         }        
