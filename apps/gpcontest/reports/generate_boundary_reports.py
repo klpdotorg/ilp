@@ -111,16 +111,30 @@ def generate_boundary_report(
         boundary_stu_score_groups =\
             BoundaryStudentScoreGroups.objects.filter(boundary_id=boundary_id)
         try:
-            boundary_counts = BoundaryCountsAgg.objects.filter(academic_year=str(acadyear)).get(boundary_id=boundary_id)
+            boundary_counts = BoundaryCountsAgg.objects.filter( \
+                yearmonth__gte=from_yearmonth, yearmonth__lte=to_yearmonth).filter(
+                    boundary_id=boundary_id)
+            boundary_numblocks = boundary_counts.annotate(blocks=Sum('num_blocks'))
+            boundary_numschools = boundary_counts.annotate(blocks=Sum('num_schools'))
+            boundary_numstudents = boundary_counts.annotate(blocks=Sum('num_students'))
+            boundary_numgps = boundary_counts.annotate(blocks=Sum('num_gps'))
         except:
             print("No boundary counts for boundary id %s in DB" % b.id)
         else:
             boundary_report["parent_boundary_name"] = b.parent.name
             boundary_report["parent_langname"] = b.parent.lang_name
-            boundary_report["num_blocks"] = locale.format("%d",boundary_counts.num_blocks,grouping=True)
-            boundary_report["num_gps"] = locale.format("%d",boundary_counts.num_gps,grouping=True)
-            boundary_report["num_schools"] = locale.format("%d",boundary_counts.num_schools,grouping=True)
-            boundary_report["num_students"] = locale.format("%d",boundary_counts.num_students,grouping=True)
+            boundary_report["num_blocks"] = "NA"
+            boundary_report["num_gps"] = "NA"
+            boundary_report["num_schools"] = "NA"
+            boundary_report["num_students"] = "NA"
+            if boundary_numblocks and boundary_numblocks["num_blocks"]:
+                boundary_report["num_blocks"] = locale.format("%d", boundary_numblocks["num_blocks"], grouping=True)
+            if boundary_numgps and boundary_numgps["num_gps"]:
+                boundary_report["num_gps"] = locale.format("%d", boundary_numgps["num_gps"], grouping=True)
+            if boundary_numschools and boundary_numschools["num_schools"]:
+                boundary_report["num_schools"] = locale.format("%d", boundary_numschools["num_schools"], grouping=True)
+            if boundary_numstudents and boundary_numstudents["num_students"]:
+                boundary_report["num_students"] = locale.format("%d",boundary_numstudents["num_students"],grouping=True)
             boundary_report["boundary_name"] = boundary_counts.boundary_name
             boundary_report["boundary_langname"] = boundary_counts.boundary_lang_name
             boundary_report["boundary_id"] = boundary_counts.boundary_id.id

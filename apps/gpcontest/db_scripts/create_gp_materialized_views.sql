@@ -3,7 +3,6 @@
 --  mvw_gpcontest_eboundary_answers_agg -- Stores student scoring
 -- categories at the class level per GP
 -- Clear the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_eboundary_answers_agg CASCADE;
 -- Re-populate the tables
 CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
     WITH subquery1 AS
@@ -53,7 +52,6 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
 
 -- mvw_gpcontest_eboundary_schoolcount_agg --> Stores scool counts/GP
 -- Clear the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_eboundary_schoolcount_agg CASCADE;
 -- Re-populate the tables
 CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
    SELECT 
@@ -77,7 +75,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
 -- END mvw_gpcontest_eboundary_schoolcount_agg
 
 -- MVW to calculate aggregates for all answers 
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg CASCADE;
+-- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_id,concept,microconcept_group,microconcept,yearmonth) as id,
     survey_id, 
@@ -130,7 +128,7 @@ GROUP BY survey_id, survey_tag,institution_id,source,yearmonth,concept,microconc
 -- this is run
 
 -- Drop the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_qdetails_percentages_agg;
+--DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_qdetails_percentages_agg;
 -- Recreate materialized view
 CREATE MATERIALIZED VIEW mvw_gpcontest_institution_qdetails_percentages_agg AS
 WITH table1 as (
@@ -179,8 +177,8 @@ WHERE
 
 -- END
 -- mvw_gpcontest_institution_stucount_agg - Stores student count per class
--- Clear the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_stucount_agg CASCADE;
+-- Aggregated by YEARMONTH
+-- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_stucount_agg CASCADE;
 -- Re-populate the tables
 CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
    SELECT 
@@ -201,7 +199,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
 
 ---- CREATE THE DEFICIENCY COMPUTATION TABLES-----------
 -- Drop the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_concept_percentages_agg;
+-- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_concept_percentages_agg;
 CREATE MATERIALIZED VIEW mvw_gpcontest_concept_percentages_agg AS
 --- Create a subquery with total answers and correct answers -- 
 WITH subquery1 AS (
@@ -229,13 +227,13 @@ WITH subquery1 AS (
 -- Now compute percent scores from the above subquery and select only
 -- those percentages below 60%
 SELECT 
-    *, ROUND((correct_answers*1.0/total_answers*1.0)*100,2) AS percent_score 
+    *, to_char(:from_date::date,'YY') || to_char(:to_date::date,'YY') as year, ROUND((correct_answers*1.0/total_answers*1.0)*100,2) AS percent_score 
 FROM subquery1
 WHERE ROUND((correct_answers*1.0/total_answers*1.0)*100,2)<60.00;
 
 ---MAT VIEW THAT AGGREGATES ALL SCHOOL RELATED INFO IN ONE PLACE TO MINIMIZE
 -- QUERIES --
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_school_details;
+-- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_school_details;
 CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
     SELECT 
         table1.institution_id as institution_id,
@@ -288,7 +286,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
         table1.dise_id = dise.id;
 
 ---- BOUNDARY LEVEL AGGREGATIONS ---------------------
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_answers_agg CASCADE;
+-- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_answers_agg CASCADE;
 -- Re-populate the tables
 CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
     WITH subquery1 AS
@@ -327,18 +325,18 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
                 answers.answergroup_id,
                 boundary.id
         )
-    SELECT id, survey_id,boundary_id, boundary_type_id, questiongroup_id, questiongroup_name, boundary_name,
+    SELECT id, survey_id,boundary_id, boundary_type_id, to_char(:from_date::date,'YY') || to_char(:to_date::date,'YY') as year, questiongroup_id, questiongroup_name, boundary_name,
                     COUNT(*) as num_students,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)<35.00) AS cat_a,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>=35.00 AND ROUND(total_percent,2)<=59.00) as cat_b,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>=60.00 AND ROUND(total_percent,2)<=74.00) as cat_c,
                     COUNT(1) FILTER (WHERE ROUND(total_percent,2)>=75.00 AND ROUND(total_percent,2)<=100.00) as cat_d
     FROM subquery1
-    GROUP BY id,survey_id, boundary_id, boundary_type_id, questiongroup_id, questiongroup_name,boundary_name;
+    GROUP BY id,survey_id, boundary_id, boundary_type_id, questiongroup_id, questiongroup_name,boundary_name,year;
 -- END mvw_gpcontest_boundary_answers_agg
 -- mvw_gpcontest_boundary_counts_agg --> Stores block/GP/schools/num_students count
 -- Clear the tables first
-DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_counts_agg CASCADE;
+-- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_counts_agg CASCADE;
 -- Re-populate the tables
 CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_counts_agg AS
 WITH schools_count AS (
@@ -364,7 +362,7 @@ WITH schools_count AS (
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
         (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id)
-    GROUP BY qg.survey_id,boundary.id, qg.academic_year_id
+    GROUP BY qg.survey_id,boundary.id, yearmonth
 )
 SELECT 
    id, year, boundary_id, boundary_name, boundary_lang_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
