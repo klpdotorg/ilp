@@ -571,7 +571,7 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                 if qgroup_res[qgroup_name].get(q_key, None):
                     qgroup_res[qgroup_name][q_key]["total"] += total
                     qgroup_res[qgroup_name][q_key]["numcorrect"] +=  score_qs['numcorrect']
-                    qgroup_res[qgroup_name][q_key]["numotal"] +=  score_qs['numtotal']
+                    qgroup_res[qgroup_name][q_key]["numtotal"] +=  score_qs['numtotal']
                 else:
                     qgroup_res[qgroup_name][q_key] = {
                         "total": total,
