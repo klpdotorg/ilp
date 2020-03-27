@@ -22,6 +22,8 @@ class BoundaryStudentScoreGroups(models.Model):
     questiongroup_name = models.CharField(max_length=150, db_column="questiongroup_name")
     questiongroup_id = models.CharField(max_length=150, db_column="questiongroup_id")
     num_students = models.IntegerField(db_column="num_students")
+    yearmonth = models.IntegerField(db_column="yearmonth")
+
     # <35%
     cat_a = models.IntegerField(db_column="cat_a")
     # BETWEEN 35 AND 60 %

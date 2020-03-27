@@ -6,9 +6,18 @@ def run():
     # Read the Excel file
     # field_numbers = pd.read_excel('filepath', sheet_name="Sheet1")
     # districts = [415, 417, 418, 419, 420, 421, 424, 425, 430, 433, 437, 439, 441]
-    districts = BoundaryCountsAgg.objects.filter(boundary_id__parent_id=2).filter(boundary_id__boundary_type_id='SD').values_list('boundary_id', flat=True)
+    districts = BoundaryCountsAgg.objects.filter(
+        boundary_id__parent_id=2).filter(
+            yearmonth__gte=201906).filter(yearmonth__lte=202005).filter(
+                boundary_id__boundary_type_id='SD').values_list(
+                    'boundary_id', flat=True)
     print(districts)
-    blocks = BoundaryCountsAgg.objects.filter(boundary_id__parent_id__in=districts).filter(boundary_id__boundary_type_id='SB').values_list('boundary_id', flat=True)
+    blocks = BoundaryCountsAgg.objects.filter(
+            yearmonth__gte=201906).filter(
+                yearmonth__lte=202005).filter(
+                    boundary_id__parent_id__in=districts).filter(
+                        boundary_id__boundary_type_id='SB').values_list(
+                            'boundary_id', flat=True)
     print(blocks)
     gps = GPSchoolParticipationCounts.objects.values_list('gp_id', flat=True)
     df_columns = ["id", "boundary_name", "boundary_type", "num_blocks", "num_gps", "num_schools", "num_children"]
