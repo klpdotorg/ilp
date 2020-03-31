@@ -72,14 +72,17 @@ var topSummaryData = {};
                 end_date = $('#endDate').yearMonthSelect("getLastDay"),
                 url = '/gka/#searchmodal';
 
-                if (start_date && end_date) {
-                    if (start_date < end_date) {
+            if (start_date && end_date) {
+                var starttime = new Date(start_date).getTime()
+                var endtime = new Date(end_date).getTime()
+                    if (starttime > endtime) {
                         alert("Start date cannot be less than end date")
+                        return
                     }
                     else {
                         url += '?from=' + start_date + '&to=' + end_date;
                     }
-                } else
+                } else{
                     // url += 'default_date=true';
                 }
 
