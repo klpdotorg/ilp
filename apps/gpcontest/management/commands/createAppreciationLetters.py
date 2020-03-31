@@ -137,12 +137,18 @@ class Command(BaseCommand, baseReport.CommonUtils):
         month = self.translatedmonth[self.language][int(inputdate[5:7])]
         return year, month
 
+    def getYear(self, academicyear):
+        startyear = int(academicyear[0:4])
+        endyear = int(academicyear[5:9])
+        return startyear, endyear
+
 
     def createPdfs(self, typeid, designation, name, lettertype, template, numpdf, returneddata):
 
         year, month = self.getYearMonth(str(self.now))
         info = returneddata
         info["acadyear"] = self.academicyear
+        info["startyear"], info["endyear"] = self.getYear(self.academicyear)
         info["designation"] = designation
         info["designation_name"] = name
         info["imagesdir"] = self.imagesdir

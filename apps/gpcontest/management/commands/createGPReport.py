@@ -224,16 +224,19 @@ class Command(BaseCommand, baseReport.CommonUtils):
         gpdata["contestdate"] = gpdata["date"]
         if gpdata["gp_lang_name"] == "" or gpdata["gp_lang_name"] == None:
             gpname = gpdata["gp_name"].capitalize()
+            gpdata["gp_lang_name"]=""
         else:
             gpname = "("+gpdata["gp_name"].capitalize()+")"
 
         if gpdata["district_lang_name"] == "" or gpdata["district_lang_name"] == None:
            districtname = gpdata["district"].capitalize()
+           gpdata["district_lang_name"]=""
         else:
             districtname = "("+gpdata["district"].capitalize()+")"
 
         if gpdata["block_lang_name"] == "" or gpdata["block_lang_name"] == None:
             blockname = gpdata["block"].capitalize()
+            gpdata["block_lang_name"]=""
         else:
             blockname = "("+gpdata["block"].capitalize()+")"
         gpinfo = {"gpname": gpname,
