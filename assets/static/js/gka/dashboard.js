@@ -58,7 +58,7 @@ var topSummaryData = {};
         premodalQueryParams = klp.router.getHash().queryParams;
 
         $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019', '2020']});
-        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019', '2020']});
+        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019', '2020','2021']});
         $('#startDate').yearMonthSelect("setDate", moment("20190601", "YYYYMMDD"));
         $('#endDate').yearMonthSelect("setDate", moment("20200331", "YYYYMMDD"));
         var startDate = $('#startDate').yearMonthSelect("getFirstDay");
@@ -72,9 +72,14 @@ var topSummaryData = {};
                 end_date = $('#endDate').yearMonthSelect("getLastDay"),
                 url = '/gka/#searchmodal';
 
-                if(start_date && end_date) {
-                    url += '?from=' + start_date + '&to=' + end_date;
-                } else {
+                if (start_date && end_date) {
+                    if (start_date < end_date) {
+                        alert("Start date cannot be less than end date")
+                    }
+                    else {
+                        url += '?from=' + start_date + '&to=' + end_date;
+                    }
+                } else
                     // url += 'default_date=true';
                 }
 
