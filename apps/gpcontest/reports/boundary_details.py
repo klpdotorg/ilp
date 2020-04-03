@@ -157,13 +157,17 @@ def get_boundary_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth):
         # Boundary level counts
         try:
             boundary_counts = get_boundary_counts(boundary_id, acadyear)
-        except:
+        except Exception as e:
+            print(e)
             print("boundary id %s does not have any results for the given params " % boundary_id)
         return boundary_counts
 
 def get_boundary_counts(boundary_id, academic_year):
     #academic_year is of the format 1819, 1920 etc..
-    boundary_counts = BoundaryCountsAgg.objects.filter(academic_year=str(academic_year)).get(boundary_id=boundary_id)
+    try:
+        boundary_counts = BoundaryCountsAgg.objects.filter(academic_year=str(academic_year)).get(boundary_id=boundary_id)
+    except Exception as e:
+        print(e)
     b = Boundary.objects.get(id=boundary_id)
     boundary_details={}
     boundary_details["parent_boundary_name"] = b.parent.name
