@@ -360,7 +360,7 @@ WITH schools_count AS (
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
         (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id)
-    GROUP BY qg.survey_id,boundary.id, yearmonth
+    GROUP BY qg.survey_id,boundary.id, year
 )
 SELECT 
    id, year, boundary_id, boundary_name, boundary_lang_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
