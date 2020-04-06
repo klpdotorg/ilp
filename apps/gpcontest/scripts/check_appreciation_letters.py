@@ -24,21 +24,23 @@ def run():
                             district_dict["state"]["num_students"]]
             df.loc[df.index.max() + 1] = row
             write_once = True
-        row = [district, district_dict["district"]["boundary_name"],"SD", district_dict["district"]["num_blocks"], \
-            district_dict["district"]["num_gps"], district_dict["district"]["num_schools"], \
-                district_dict["district"]["num_students"]]
-        df.loc[len(df.index) + 1] = row
+        if district_dict and district_dict["district"]:
+            row = [district, district_dict["district"]["boundary_name"],"SD", district_dict["district"]["num_blocks"], \
+                district_dict["district"]["num_gps"], district_dict["district"]["num_schools"], \
+                    district_dict["district"]["num_students"]]
+            df.loc[len(df.index) + 1] = row
         print(len(df.index))
     df.to_csv("appreciationletters_district_counts.csv")
 
     df_columns = ["block_id","block_name", "district_name", "num_gps", "num_schools", "num_children"]
     blocks_df = pd.DataFrame(columns=df_columns)
     for block in blocks:
-        block_dict = get_details(2,int(block), 'SB', 201906, 202005)
-        row = [block, block_dict["block"]["boundary_name"], block_dict["block"]["parent_boundary_name"], block_dict["block"]["num_gps"], block_dict["block"]["num_schools"], \
-            block_dict["block"]["num_students"]]
-        blocks_df.loc[len(blocks_df.index) + 1] = row
-        print(len(blocks_df.index))
+        block_dict = get_details(2, int(block), 'SB', 201906, 202005)
+        if block_dict and block_dict["block"]:
+            row = [block, block_dict["block"]["boundary_name"], block_dict["block"]["parent_boundary_name"], block_dict["block"]["num_gps"], block_dict["block"]["num_schools"], \
+                block_dict["block"]["num_students"]]
+            blocks_df.loc[len(blocks_df.index) + 1] = row
+            print(len(blocks_df.index))
     blocks_df.to_csv("appreciationletters_block_counts.csv")
 
     #Write GP numbers
