@@ -402,10 +402,13 @@ def getGPCompetencyPercForHousehold(survey_id, gp_id, key, from_yearmonth, to_ye
             eboundary_id=gp_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
                     question_key=key).values('survey_id', 'eboundary_id', 'question_key').annotate(total_answers=Sum('numtotal'), correct=Sum('numcorrect'))
+    import pdb; pdb.set_trace()
     correct = 0
-    if correct_ans and correct_ans['total_answers'] is not None:
-        total = correct_ans['total_answers']
-        correct = correct_ans["correct"]
+    if correct_ans:
+        correct_answer=correct_ans[0]
+    if correct_answer and correct_answer['total_answers'] is not None:
+        total = correct_answer['total_answers']
+        correct = correct_answer["correct"]
     if total is None:
         # Data unavailable for this GP for this competency
         perc='NA'
