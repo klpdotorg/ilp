@@ -115,7 +115,7 @@ def getGPInfoForSchool(survey_id, gp_survey_id, gp_id, date_range):
                 print("No community survey data for '{}' between {} and {}".format(gp_id, date_range))
                 raise ValueError("No community survey data for '{}' between {} and {}".format(gp_id, date_range))
             # Find the total number of assessments
-            total_assess = SurveyEboundaryQuestionGroupAgg.objects.filter(eboundary_id=gp.id) \
+            total_assess = SurveyEBoundaryQuestionGroupAgg.objects.filter(eboundary_id=gp.id) \
                 .filter(
                     yearmonth__range=date_range, questiongroup_id__in=[18, 20]
                     ).filter(survey_tag='konnect').values(
