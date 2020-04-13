@@ -1,0 +1,9 @@
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_eboundary_answers_agg CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_eboundary_schoolcount_agg CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_qdetails_percentages_agg;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_stucount_agg CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_concept_percentages_agg;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_school_details;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_answers_agg CASCADE;
+DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_boundary_counts_agg CASCADE;

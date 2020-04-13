@@ -4,7 +4,8 @@ from gpcontest.models import (
 )
 from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg,
-    SurveyBoundaryQuestionGroupQuestionKeyAgg, CompetencyOrder
+    SurveyBoundaryQuestionGroupQuestionKeyAgg, CompetencyOrder,
+    AnswerGroup_Institution
 )
 from boundary.models import (
     Boundary
@@ -109,15 +110,22 @@ def generate_boundary_report(
         # Need the year to pass to the boundary counts agg table
         acadyear = convert_to_academicyear(from_yearmonth, to_yearmonth)
         boundary_stu_score_groups =\
-            BoundaryStudentScoreGroups.objects.filter(boundary_id=boundary_id)
+            BoundaryStudentScoreGroups.objects.filter(
+                boundary_id=boundary_id).filter(
+                    yearmonth__gte=from_yearmonth
+                ).filter(
+                    yearmonth__lte=to_yearmonth
+                ).values('boundary_id', 'boundary_name','questiongroup_name','questiongroup_id').annotate(total_cat_a=Sum("cat_a"),
+                total_cat_b=Sum("cat_b"), total_cat_c=Sum("cat_c"), total_cat_d=Sum("cat_d"),
+                total_num_students=Sum("num_students"))
         try:
             boundary_counts = BoundaryCountsAgg.objects.filter( \
                 yearmonth__gte=from_yearmonth, yearmonth__lte=to_yearmonth).filter(
-                    boundary_id=boundary_id)
-            boundary_numblocks = boundary_counts.annotate(blocks=Sum('num_blocks'))
-            boundary_numschools = boundary_counts.annotate(blocks=Sum('num_schools'))
-            boundary_numstudents = boundary_counts.annotate(blocks=Sum('num_students'))
-            boundary_numgps = boundary_counts.annotate(blocks=Sum('num_gps'))
+                    boundary_id=boundary_id).values('boundary_id','boundary_name','boundary_lang_name','boundary_type_id')
+            #boundary_numblocks = boundary_counts.annotate(blocks=Sum('num_blocks'))[0]
+            boundary_numschools = boundary_counts.annotate(schools=Sum('num_schools'))[0]
+            boundary_numstudents = boundary_counts.annotate(students=Sum('num_students'))[0]
+            boundary_numgps = boundary_counts.annotate(gps=Sum('num_gps'))[0]
         except:
             print("No boundary counts for boundary id %s in DB" % b.id)
         else:
@@ -127,46 +135,47 @@ def generate_boundary_report(
             boundary_report["num_gps"] = "NA"
             boundary_report["num_schools"] = "NA"
             boundary_report["num_students"] = "NA"
-            if boundary_numblocks and boundary_numblocks["num_blocks"]:
-                boundary_report["num_blocks"] = locale.format("%d", boundary_numblocks["num_blocks"], grouping=True)
-            if boundary_numgps and boundary_numgps["num_gps"]:
-                boundary_report["num_gps"] = locale.format("%d", boundary_numgps["num_gps"], grouping=True)
-            if boundary_numschools and boundary_numschools["num_schools"]:
-                boundary_report["num_schools"] = locale.format("%d", boundary_numschools["num_schools"], grouping=True)
-            if boundary_numstudents and boundary_numstudents["num_students"]:
-                boundary_report["num_students"] = locale.format("%d",boundary_numstudents["num_students"],grouping=True)
-            boundary_report["boundary_name"] = boundary_counts.boundary_name
-            boundary_report["boundary_langname"] = boundary_counts.boundary_lang_name
-            boundary_report["boundary_id"] = boundary_counts.boundary_id.id
-            boundary_report["boundary_type"] = boundary_counts.boundary_type_id.char_id
+            if boundary_type == 'SD':
+                block_ids = get_blocks_for_district(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
+                boundary_report["num_blocks"] = locale.format("%d", block_ids.count(), grouping=True)
+            if boundary_numgps:
+                boundary_report["num_gps"] = locale.format("%d", boundary_numgps["gps"], grouping=True)
+            if boundary_numschools:
+                boundary_report["num_schools"] = locale.format("%d", boundary_numschools["schools"], grouping=True)
+            if boundary_numstudents:
+                boundary_report["num_students"] = locale.format("%d",boundary_numstudents["students"],grouping=True)
+            boundary_report["boundary_name"] = boundary_counts[0]["boundary_name"]
+            boundary_report["boundary_langname"] = boundary_counts[0]["boundary_lang_name"]
+            boundary_report["boundary_id"] = boundary_counts[0]["boundary_id"]
+            boundary_report["boundary_type"] = boundary_counts[0]["boundary_type_id"]
             competency_scores = get_competency_scores_for_all_qgroups(
                 gp_survey_id, boundary_id, from_yearmonth, to_yearmonth
             )
             # Each row is basically a questiongroup or class
             for each_row in boundary_stu_score_groups:
-                boundary_report[each_row.questiongroup_name] = {}
+                boundary_report[each_row["questiongroup_name"]] = {}
                 overall_scores = {}
-                overall_scores["total"] = each_row.num_students
-                overall_scores["below35"] = each_row.cat_a
-                overall_scores["35to60"] = each_row.cat_b
-                overall_scores["60to75"] = each_row.cat_c
-                overall_scores["75to100"] = each_row.cat_d
-                boundary_report[each_row.questiongroup_name]["overall_scores"] = \
+                overall_scores["total"] = each_row["total_num_students"]
+                overall_scores["below35"] = each_row["total_cat_a"]
+                overall_scores["35to60"] = each_row["total_cat_b"]
+                overall_scores["60to75"] = each_row["total_cat_c"]
+                overall_scores["75to100"] = each_row["total_cat_d"]
+                boundary_report[each_row["questiongroup_name"]]["overall_scores"] = \
                     overall_scores
 
                 # Find the competency scores
                 competencies = competency_scores.filter(
-                                    questiongroup_name=each_row.questiongroup_name)
-                concept_scores = format_answers(each_row.questiongroup_id, competencies)
-                concept_scores["total"] = each_row.num_students
-                boundary_report[each_row.questiongroup_name]["competency_scores"] = \
+                                    questiongroup_name=each_row["questiongroup_name"])
+                concept_scores = format_answers(each_row["questiongroup_id"], competencies)
+                concept_scores["total"] = each_row["total_num_students"]
+                boundary_report[each_row["questiongroup_name"]]["competency_scores"] = \
                     concept_scores
-                if each_row.questiongroup_name == "Class 6 Assessment":
+                if each_row["questiongroup_name"] == "Class 6 Assessment":
                     boundary_report["percent_scores"] = {"Class 6 Assessment": {}}
                     percs = get_grade_competency_percentages(
-                        competency_scores, boundary_id, each_row.questiongroup_name,
+                        competency_scores, boundary_id, each_row["questiongroup_name"],
                         gp_survey_id, from_yearmonth, to_yearmonth)
-                    boundary_report["percent_scores"][each_row.questiongroup_name] = \
+                    boundary_report["percent_scores"][each_row["questiongroup_name"]] = \
                         percs
             return boundary_report
 
@@ -231,7 +240,7 @@ def get_competency_scores_for_all_qgroups(
             .filter(yearmonth__gte=from_yearmonth)\
             .filter(yearmonth__lte=to_yearmonth)\
             .values('question_key', 'questiongroup_name')\
-            .annotate(correct_answers=Sum('num_assessments'))
+            .annotate(correct_answers=Sum('numcorrect'))
     except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
@@ -246,14 +255,14 @@ def get_total_assessments_for_grade(boundary_id, qgroup_name, gpcontest_survey_i
     """
     total_assessments = None
     try:
-        total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
+        total_assessments = SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects\
                 .filter(survey_id=gpcontest_survey_id,
                         boundary_id=boundary_id, survey_tag='gka')\
                 .filter(questiongroup_name=qgroup_name)\
                 .filter(yearmonth__gte=report_from)\
                 .filter(yearmonth__lte=report_to)\
                 .values('question_key')\
-                .annotate(total_answers=Sum('num_assessments'))
+                .annotate(total_answers=Sum('numtotal'))
     except SurveyBoundaryQuestionGroupQuestionKeyAgg.DoesNotExist:
         pass
     return total_assessments
@@ -319,6 +328,3 @@ def get_blocks_for_district(district_id, survey_id, from_yearmonth, to_yearmonth
                     boundary_id__parent=district_id).distinct('boundary_id').values_list(
                         'boundary_id', flat=True
                     )
-    
-
-        

@@ -68,7 +68,7 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         YYYYMM and return a dictionary with GP summary data.
         Dict format is:    
     """
-    contest_dates, yearmonth_dates = get_date_of_contest(gp_survey_id, from_yearmonth, to_yearmonth,gp_id=gp_id)
+    contest_dates, yearmonth_dates = get_date_of_contest(gp_survey_id, from_yearmonth, to_yearmonth, gp_id=gp_id)
     # Get basic GP info such as district/block/cluster/num students/schools
     #  etc..
     # Get participating schools count categorized by date of contest
