@@ -390,3 +390,28 @@ def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yea
     else:
         perc = 0
     return perc
+
+'''
+Used by household reports
+'''
+def getGPCompetencyPercForHousehold(survey_id, gp_id, key, from_yearmonth, to_yearmonth):
+    """ For household reports, that need addition/subtraction percentages
+        per school """
+    
+    correct_ans = SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(
+        survey_id=survey_id).filter(
+            eboundary_id=gp_id).filter(yearmonth__gte=from_yearmonth).filter(
+                yearmonth__lte=to_yearmonth).filter(
+                    question_key=key).values('survey_id', 'eboundary_id', 'question_key').annotate(total_answers=Sum('numtotal'), correct=Sum('numcorrect'))
+    correct = 0
+    if correct_ans and correct_ans['total_answers'] is not None:
+        total = correct_ans['total_answers']
+        correct = correct_ans["correct"]
+    if total is None:
+        # Data unavailable for this GP for this competency
+        perc='NA'
+    elif total > 0:
+        perc = round((correct / total) * 100, 2)
+    else:
+        perc = 0
+    return perc
