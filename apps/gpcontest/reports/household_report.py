@@ -46,8 +46,37 @@ def getParentalPerception(survey_id, school_id, date_range):
             result["Separate Toilets"] = round(perception["num_yes"]*100/total)
     return result
 
+def getGPParentalPerception(survey_id, gp_id, date_range):
+    question_ids = [149, 150, 138]
+    perception_qs = SurveyInstitutionHHRespondentTypeAnsAgg.objects.filter(
+        survey_id=survey_id).filter(
+            institution_id__gp_id=gp_id).filter(
+            yearmonth__range=date_range).filter(
+                question_id__in=question_ids).filter(respondent_type='Parents').order_by(
+                    'question_id').values(
+                        'question_id').annotate(
+                            total_yes=Sum('num_yes'), \
+                                total_no=Sum('num_no'), \
+                                    total_unknown=Sum('num_unknown'))
+    result = {
+        "Addition": 'NA',
+        "Subtraction": 'NA',
+        "Separate Toilets" : 'NA'
+    }
+    for perception in perception_qs:
+        total = perception["total_yes"] + perception["total_no"] + perception["total_unknown"]
+        if perception["question_id"] == 149:
+            result["Addition"] = round(perception["total_yes"]*100/total)
+        elif perception["question_id"] == 150:
+            result["Subtraction"] = round(perception["total_yes"]*100/total)
+        elif perception["question_id"] == 138:
+            result["Separate Toilets"] = round(perception["total_yes"]*100/total)
+    return result
 
-def getGPContestPercentages(gp_survey_id, school_id, date_range):
+'''
+Returns competency percentages for Addition/Subtraction at school level
+'''
+def getSchoolGPContestPercentages(gp_survey_id, school_id, date_range):
     addition_perc = getCompetencyPercPerSchool(
         gp_survey_id, school_id, 'Addition', date_range[0], date_range[1])
     subtraction_perc = getCompetencyPercPerSchool(
@@ -56,6 +85,62 @@ def getGPContestPercentages(gp_survey_id, school_id, date_range):
         "Addition": addition_perc,
         "Subtraction": subtraction_perc
     }
+
+'''
+Returns competency percentages for Addition/Subtraction at GP level
+'''
+def getGPContestPercentages(gp_survey_id, gp_id, date_range):
+    addition_perc = getCompetencyPercPerSchool(
+        gp_survey_id, gp_id, 'Addition', date_range[0], date_range[1])
+    subtraction_perc = getCompetencyPercPerSchool(
+        gp_survey_id, gp_id, 'Subtraction', date_range[0], date_range[1])
+    return {
+        "Addition": addition_perc,
+        "Subtraction": subtraction_perc
+    }
+
+def getGPInfoForSchool(survey_id, gp_survey_id, gp_id, date_range):
+    try:
+        gp = ElectionBoundary.objects.get(id=gp_id)
+    except:
+        print("No such GP ID %s" % gp_id)
+    else:
+        hh_answers_agg = None
+        HHSurvey = {}
+        answers = []
+        if gp is not None:
+            try:
+                hh_answers_agg = HHSurveyInstitutionQuestionAnsAgg.objects.filter(institution_id__gp_id=gp.id)
+            except HHSurveyInstitutionQuestionAnsAgg.DoesNotExist:
+                print("No community survey data for '{}' between {} and {}".format(gp_id, date_range))
+                raise ValueError("No community survey data for '{}' between {} and {}".format(gp_id, date_range))
+            # Find the total number of assessments
+            total_assess = SurveyEboundaryQuestionGroupAgg.objects.filter(eboundary_id=gp.id) \
+                .filter(
+                    yearmonth__range=date_range, questiongroup_id__in=[18, 20]
+                    ).filter(survey_tag='konnect').values(
+                        'survey_id', 'eboundary_id'
+                    ).annotate(total=Sum('num_assessments'))
+            HHSurvey['total_assessments'] = total_assess[0]['total']
+            # Find the total number of parental assessments
+            total_parental_assess = SurveyInstitutionRespondentTypeAgg.objects. \
+                filter(institution_id__gp_id__in=gp.id) \
+                .filter(
+                    yearmonth__range=date_range, survey_id=7
+                    ).filter(survey_tag='konnect').values(
+                        'survey_id','institution_id__gp_id'
+                    ).annotate(total=Sum('num_assessments'))
+            if total_parental_assess:
+                HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
+            else:
+                HHSurvey['total_parental_assessments'] = 0
+            HHSurvey['gp_name'] = gp.const_ward_name
+            HHSurvey['gp_langname'] = gp.const_ward_lang_name
+            HHSurvey['gp_id'] = gp.id
+            HHSurvey['parents_perception'] = getGPParentalPerception(survey_id, gp_id, date_range)
+            HHSurvey['gpcontest_data'] = getGPContestPercentages(gp_survey_id, gp_id, date_range)
+            return HHSurvey
+
 
 def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
         """ Returns household survey aggregate values in a dictionary per boundary """
@@ -120,7 +205,8 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                 else:
                     HHSurvey['dise_code'] = 'Unknown'
                 HHSurvey['parents_perception'] = getParentalPerception(survey_id, school_id, date_range)
-                HHSurvey['gpcontest_data'] = getGPContestPercentages(gp_survey_id, school_id, date_range)
+                HHSurvey['gpcontest_data'] = getSchoolGPContestPercentages(gp_survey_id, school_id, date_range)
+                HHSurvey['gp_info'] = getGPInfoForSchool(survey_id, gp_survey_id, school.gp.id,date_range)
                 sorted_questions = hh_answers_agg.order_by('order')
                 for each_answer in sorted_questions:
                     answers.append({
