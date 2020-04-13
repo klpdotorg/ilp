@@ -28,3 +28,6 @@ pandas
 xlsxwriter
 fuzzywuzzy
 python-Levenshtein
+mpld3
+matplotlib
+seaborn

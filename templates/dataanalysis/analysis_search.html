@@ -1,0 +1,126 @@
+{% extends 'backoffice/base.html' %}
+{% load static %}
+{% load compress %}
+{% load state_variables %}
+{% load basic_default_settings %}
+{% load i18n %}
+
+{% block page_title %}Data Analysis{% endblock %}
+
+{% block css_extra %}
+      <link type="text/css" rel="stylesheet" href="/static/css/style.css" media="all">
+      <link type="text/css" rel="stylesheet" href="/static/css/font-awesome.css" media="all">
+{% endblock %}
+
+{% block extra_js%}
+  <script>
+        window.klp = {};
+        window.klp.STATE_CODE = '{%get_state_value "state_code"%}';
+        console.log("State code in base.html is: ", window.klp.STATE_CODE)
+        window.klp.DEFAULT_ACADEMIC_YEAR = '{%get_default_academic_year%}'
+        window.klp.FORMATTED_DEFAULT_AC_YEAR = '{%get_formatted_default_academic_year%}'
+  </script>
+  <script type="text/javascript" src="{% static 'js/settings.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/lib/select2-3.5.1/select2.min.js' %}" defer></script>
+  <script type="text/javascript" src="{% static 'js/lib/underscore-min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/lib/underscore.string.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/lib/klprouter.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/common/utils.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/common/api.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/common/auth.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/common/accordion.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/common/boundary_filters.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/common/login_modal.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/dataanalysis.js' %}"></script>
+
+    <!--script>
+        klp.boundary_filters.init();
+    </script-->
+{% endblock %}
+
+
+{% block content %}
+<section class="container" id="search">
+    <div class="base-spacing-mid"></div>
+    <h2 class="heading-border grey-steel">{% trans 'GP Analysis'%}</h2>
+    <div class="base-spacing-mid"></div>
+
+    <div class="center-text">
+        <form name="typeofgraph" class="form-base">
+	    <label class="label-inline bold">{% trans 'Select Graph Type' %}</label><br/>
+            <div id='graphtype' class="form-field-wrap">
+                <input type="radio" name="graphtype" value="corelation">Corelation<br>
+		<input type="radio" name="graphtype" value="averagecomparison">Average Comparison<br>
+		<input type="radio" name="graphtype" value="cohortscomparison">Cohorts Comparison<br>
+	    </div>
+	</form>
+    </div>
+    <div class="center-text">
+        <form name="analysisForm" class="form-base">
+            <div class="form-field-wrap">
+                <div class="chart-parent dateform">
+                    <div class="chart-half-item align-center" id="start">
+                        <div class="form-field-wrap" id="startyear">
+                            <label class="label-inline bold">{% trans 'Start Academic Year'%}</label><br/>
+                            <select id="startyear" name="startyear" class="form-control">
+                                <option value="">Select Academic Year</option>                    
+                                {% for y in academic_year %}
+                                    <option id="{{ y }}" value="{{ y }}">
+                                         {{ y }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-half-item align-center" id="end">
+                        <div class="form-field-wrap" id="endyear">
+                            <label class="label-inline bold">{% trans 'End Academic Year'%}</label><br/>
+                            <select id="endyear" name="endyear" class="form-control">
+                                <option value="">Select Academic Year</option>                    
+                                {% for y in academic_year %}
+                                    <option id="{{ y }}" value="{{ y }}">
+                                        {{ y }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="sect-parent">
+        <div class="sect-parent">
+            <div class="educational box sect-parent">
+                <div class="sect-quarter">
+                    <input type="text" placeholder="{% trans 'District'%}" class="js-example-basic-single input-text full-width" id="selectdistrict">
+                </div>
+                <div class="sect-quarter">
+                    <input type="text" placeholder="{% trans 'Block'%}" class="js-example-basic-single input-text full-width" id="selectblock">
+                </div>
+                <div class="sect-quarter">
+                    <input type="text" placeholder="{% trans 'Cluster'%}" class="js-example-basic-single input-text full-width" id="selectcluster">
+                </div>
+                <div class="sect-quarter">
+                    <input type="text" placeholder="{% trans 'School'%}" class="js-example-basic-single input-text full-width" id="selectschool">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="base-spacing-mid"></div>
+    <div class="sect-parent">
+        <div class="sect-half">
+            <a id="search_button" href="#searchButton"><div class="square full-width" aria-label="{% trans 'Generate Analysis'%}" >{% trans 'Generate Analysis'%}<span class="white fa fa-search"></span></div></a>
+        </div>
+        <div class="sect-half">
+            <a href="#resetButton"><div class="button-orange square full-width" aria-label="{% trans 'Reset'%}" >{% trans 'Reset'%} <span class="white fa fa-refresh"></span></div></a>
+        </div>
+    </div>
+    <hr/>
+</section>
+<section class="clearfix">
+    <div class="container" id="AnalysisContainer">
+</section>
+<{% endblock content %}
+
