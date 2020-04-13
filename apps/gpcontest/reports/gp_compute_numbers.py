@@ -402,7 +402,6 @@ def getGPCompetencyPercForHousehold(survey_id, gp_id, key, from_yearmonth, to_ye
             eboundary_id=gp_id).filter(yearmonth__gte=from_yearmonth).filter(
                 yearmonth__lte=to_yearmonth).filter(
                     question_key=key).values('survey_id', 'eboundary_id', 'question_key').annotate(total_answers=Sum('numtotal'), correct=Sum('numcorrect'))
-    import pdb; pdb.set_trace()
     correct = 0
     if correct_ans:
         correct_answer=correct_ans[0]
