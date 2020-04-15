@@ -3,7 +3,7 @@ from assessments.models import (
     SurveyBoundaryQuestionGroupQuestionKeyAgg,
     SurveyEBoundaryQuestionGroupQuestionKeyAgg,
     SurveyBoundaryQuestionGroupAnsAgg,
-    SurveyEboundaryQuestionGroupAgg,
+    SurveyEBoundaryQuestionGroupAgg,
     SurveyInstitutionQuestionGroupAgg,
     SurveyInstitutionRespondentTypeAgg,
     SurveyInstitutionQuestionGroupAnsAgg,
