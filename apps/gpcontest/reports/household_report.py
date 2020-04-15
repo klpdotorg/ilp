@@ -82,9 +82,13 @@ def getSchoolGPContestPercentages(gp_survey_id, school_id, date_range):
         gp_survey_id, school_id, 'Addition', date_range[0], date_range[1])
     subtraction_perc = getCompetencyPercPerSchool(
         gp_survey_id, school_id, 'Subtraction', date_range[0], date_range[1])
+    if isinstance(addition_perc, int):
+        addition_perc = round(addition_perc)
+    if isinstance(subtraction_perc, int):
+        subtraction_perc = round(subtraction_perc)
     return {
-        "Addition": round(addition_perc),
-        "Subtraction": round(subtraction_perc)
+        "Addition": addition_perc,
+        "Subtraction": subtraction_perc
     }
 
 '''
@@ -95,9 +99,13 @@ def getGPContestPercentages(gp_survey_id, gp_id, date_range):
         gp_survey_id, gp_id, 'Addition', date_range[0], date_range[1])
     subtraction_perc = getGPCompetencyPercForHousehold(
         gp_survey_id, gp_id, 'Subtraction', date_range[0], date_range[1])
+    if isinstance(addition_perc, int):
+        addition_perc = round(addition_perc)
+    if isinstance(subtraction_perc, int):
+        subtraction_perc = round(subtraction_perc)
     return {
-        "Addition": round(addition_perc),
-        "Subtraction": round(subtraction_perc)
+        "Addition": addition_perc,
+        "Subtraction": subtraction_perc
     }
 
 def getGPInfoForSchool(survey_id, gp_survey_id, gp_id, date_range):
