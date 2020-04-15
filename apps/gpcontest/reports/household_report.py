@@ -168,74 +168,76 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
             except HHSurveyInstitutionQuestionAnsAgg.DoesNotExist:
                 print("No community survey data for '{}' between {} and {}".format(school_id, date_range))
                 raise ValueError("No community survey data for '{}' between {} and {}".format(school_id, date_range))
-            # Find the total number of assessments
-            total_assess = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id=school_id) \
-                .filter(
-                    yearmonth__range=date_range, questiongroup_id__in=[18, 20]
-                    ).filter(survey_tag='konnect').values(
-                        'survey_id', 'institution_id'
-                    ).annotate(total=Sum('num_assessments'))
-            if total_assess:
-                HHSurvey['total_assessments'] = total_assess[0]['total']
             else:
-                HHSurvey['total_assessments'] = 0
-            # Find the total number of parental assessments
-            total_parental_assess = SurveyInstitutionRespondentTypeAgg.objects. \
-                filter(institution_id=school_id) \
-                .filter(
-                    yearmonth__range=date_range, survey_id=7
-                    ).filter(survey_tag='konnect').values(
-                        'survey_id', 'institution_id'
-                    ).annotate(total=Sum('num_assessments'))
-            if total_parental_assess:
-                HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
-            else:
-                HHSurvey['total_parental_assessments'] = 0
-            
-            HHSurvey['gp_info'] = getGPInfoForSchool(survey_id, gp_survey_id, school.gp.id,date_range)
+                if len(hh_answers_agg) >0:
+                    # Find the total number of assessments
+                    total_assess = SurveyInstitutionQuestionGroupAgg.objects.filter(institution_id=school_id) \
+                        .filter(
+                            yearmonth__range=date_range, questiongroup_id__in=[18, 20]
+                            ).filter(survey_tag='konnect').values(
+                                'survey_id', 'institution_id'
+                            ).annotate(total=Sum('num_assessments'))
+                    if total_assess:
+                        HHSurvey['total_assessments'] = total_assess[0]['total']
+                    else:
+                        HHSurvey['total_assessments'] = 0
+                    # Find the total number of parental assessments
+                    total_parental_assess = SurveyInstitutionRespondentTypeAgg.objects. \
+                        filter(institution_id=school_id) \
+                        .filter(
+                            yearmonth__range=date_range, survey_id=7
+                            ).filter(survey_tag='konnect').values(
+                                'survey_id', 'institution_id'
+                            ).annotate(total=Sum('num_assessments'))
+                    if total_parental_assess:
+                        HHSurvey['total_parental_assessments'] = total_parental_assess[0]['total']
+                    else:
+                        HHSurvey['total_parental_assessments'] = 0
+                    
+                    HHSurvey['gp_info'] = getGPInfoForSchool(survey_id, gp_survey_id, school.gp.id,date_range)
 
-            #Run through the questions
-            if hh_answers_agg is not None and hh_answers_agg.exists():
-                HHSurvey['school_name'] = school.name
-                HHSurvey['district_name'] = school.admin1.name
-                HHSurvey['district_langname'] = school.admin1.lang_name
-                HHSurvey['district_id'] = school.admin1.id
-                HHSurvey['block_id'] = school.admin2.id
-                HHSurvey['block_name'] = school.admin2.name
-                HHSurvey['block_langname'] = school.admin2.lang_name
-                HHSurvey['cluster_name'] = school.admin3.name
-                HHSurvey['cluster_langname'] = school.admin3.lang_name
+                    #Run through the questions
+                    if hh_answers_agg is not None and hh_answers_agg.exists():
+                        HHSurvey['school_name'] = school.name
+                        HHSurvey['district_name'] = school.admin1.name
+                        HHSurvey['district_langname'] = school.admin1.lang_name
+                        HHSurvey['district_id'] = school.admin1.id
+                        HHSurvey['block_id'] = school.admin2.id
+                        HHSurvey['block_name'] = school.admin2.name
+                        HHSurvey['block_langname'] = school.admin2.lang_name
+                        HHSurvey['cluster_name'] = school.admin3.name
+                        HHSurvey['cluster_langname'] = school.admin3.lang_name
 
-                if school.gp is not None:
-                    HHSurvey['gp_name'] = school.gp.const_ward_name
-                    HHSurvey['gp_langname'] = school.gp.const_ward_lang_name
-                    HHSurvey['gp_id'] = school.gp.id 
-                else:
-                    HHSurvey['gp_name'] = "Unknown"
-                    HHSurvey['gp_id'] = "Unknown"
-                if school.village is not None:
-                    HHSurvey['village_name'] = school.village
-                else:
-                    HHSurvey['village_name'] = "Unknown"
-                if school.dise is not None and school.dise.school_code is not None:
-                    HHSurvey['dise_code'] = school.dise.school_code
-                else:
-                    HHSurvey['dise_code'] = 'Unknown'
-                HHSurvey['parents_perception'] = getParentalPerception(survey_id, school_id, date_range)
-                HHSurvey['gpcontest_data'] = getSchoolGPContestPercentages(gp_survey_id, school_id, date_range)
-                sorted_questions = hh_answers_agg.order_by('order')
-                for each_answer in sorted_questions:
-                    answers.append({
-                        'question_id': each_answer.question_id.id,
-                        'text': each_answer.question_desc,
-                        'lang_text': each_answer.lang_questiondesc,
-                        'percentage_yes': round(each_answer.perc_yes),
-                        'percentage_no': round(each_answer.perc_no),
-                        'percentage_unknown': round(each_answer.perc_unknown)
-                       })
-                HHSurvey["answers"] = answers
-            else:
-                print("No community survey data for '{}' between {} and {}".format(school_id, date_range[0],date_range[1]))
+                        if school.gp is not None:
+                            HHSurvey['gp_name'] = school.gp.const_ward_name
+                            HHSurvey['gp_langname'] = school.gp.const_ward_lang_name
+                            HHSurvey['gp_id'] = school.gp.id 
+                        else:
+                            HHSurvey['gp_name'] = "Unknown"
+                            HHSurvey['gp_id'] = "Unknown"
+                        if school.village is not None:
+                            HHSurvey['village_name'] = school.village
+                        else:
+                            HHSurvey['village_name'] = "Unknown"
+                        if school.dise is not None and school.dise.school_code is not None:
+                            HHSurvey['dise_code'] = school.dise.school_code
+                        else:
+                            HHSurvey['dise_code'] = 'Unknown'
+                        HHSurvey['parents_perception'] = getParentalPerception(survey_id, school_id, date_range)
+                        HHSurvey['gpcontest_data'] = getSchoolGPContestPercentages(gp_survey_id, school_id, date_range)
+                        sorted_questions = hh_answers_agg.order_by('order')
+                        for each_answer in sorted_questions:
+                            answers.append({
+                                'question_id': each_answer.question_id.id,
+                                'text': each_answer.question_desc,
+                                'lang_text': each_answer.lang_questiondesc,
+                                'percentage_yes': round(each_answer.perc_yes),
+                                'percentage_no': round(each_answer.perc_no),
+                                'percentage_unknown': round(each_answer.perc_unknown)
+                            })
+                        HHSurvey["answers"] = answers
+                    else:
+                        print("No community survey data for '{}' between {} and {}".format(school_id, date_range[0],date_range[1]))
         return HHSurvey
 
 
@@ -306,7 +308,8 @@ def get_all_hh_reports(
         household_survey_id, from_yearmonth, to_yearmonth)
     results = {}
     for school in school_ids:
-        hh_data = ggetHouseholdSurveyForSchool(household_survey_id, gpc_survey_id,school, [from_yearmonth, to_yearmonth])
+
+        hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id,school, [from_yearmonth, to_yearmonth])
         results[school] = hh_data
     return results
 
@@ -344,8 +347,12 @@ def get_hh_reports_for_school_ids(
                                     from_yearmonth, to_yearmonth):
     results = {}
     for school in school_ids:
-        hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id,school, [from_yearmonth, to_yearmonth])
-        results[school] = hh_data
+        try:
+            hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id, school, [from_yearmonth, to_yearmonth])
+        except ValueError as e:
+            pass
+        else:
+            results[school] = hh_data
     return results
 
 def generate_HHReport_for_boundaries(
