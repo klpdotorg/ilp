@@ -123,6 +123,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
         info = {"imagesdir": self.imagesdir, "year": self.academicyear, "date": self.now.strftime("%d/%m/%Y")}
         for schoolid in schoolsdata:
             schooldata = schoolsdata[schoolid]
+            if schooldata == {}:
+                continue
             print("School Data is:")
             print(schooldata, file=self.utf8stdout)
 
@@ -204,8 +206,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                    school_out_file+".pdf"))
             self.data[districtid]["blocks"][blockid]["gps"][gpid]["schoolpdfs"].append(school_out_file+".pdf")
             self.deleteTempFiles([school_out_file+".tex"])
-
-        self.deleteTempFiles(temppdfscreated)
+            self.deleteTempFiles(temppdfscreated)
         return 
 
 
