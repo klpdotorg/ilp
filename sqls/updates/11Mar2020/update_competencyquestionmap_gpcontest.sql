@@ -1,0 +1,11 @@
+insert into assessments_competencyquestionmap(key,question_id,questiongroup_id,max_score,lang_key) values('Division',283,21,1,'ಭಾಗಾಕಾರ');
+insert into assessments_competencyquestionmap(key,question_id,questiongroup_id,max_score,lang_key) values('Division',283,22,1,'ಭಾಗಾಕಾರ');
+insert into assessments_competencyquestionmap(key,question_id,questiongroup_id,max_score,lang_key) values('Division',283,23,1,'ಭಾಗಾಕಾರ');
+delete from assessments_competencyquestionmap where question_id=717 and questiongroup_id=45;
+delete from assessments_competencyquestionmap where question_id=718 and questiongroup_id=45;
+delete from assessments_competencyquestionmap where question_id=930 and questiongroup_id=62;
+delete from assessments_competencyquestionmap where question_id=932 and questiongroup_id=62;
+delete from assessments_competencyquestionmap where question_id=946 and questiongroup_id=63;
+delete from assessments_competencyquestionmap where question_id=948 and questiongroup_id=63;
+delete from assessments_competencyquestionmap where question_id=967 and questiongroup_id=64;
+delete from assessments_competencyquestionmap where question_id=969 and questiongroup_id=64;

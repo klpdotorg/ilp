@@ -88,14 +88,21 @@ def get_state_counts(gp_survey_id, from_yearmonth, to_yearmonth):
     # for state
     # State level counts computation
     survey = Survey.objects.get(id=gp_survey_id)
-    state_counts = BoundaryCountsAgg.objects.get(boundary_id=survey.admin0)
+    state_counts = BoundaryCountsAgg.objects.filter(
+        yearmonth__gte=from_yearmonth).filter(
+            yearmonth__lte=to_yearmonth).filter(
+                boundary_id=survey.admin0).values(
+                'boundary_id', 'boundary_name', 'boundary_lang_name', \
+                    'boundary_type_id').annotate(num_students=Sum("num_students"), \
+                                    num_schools=Sum("num_schools"), \
+                                    num_gps=Sum("num_gps"))
     state_level_counts["state_name"] = survey.admin0.name
-    total_children = locale.format("%d", state_counts.num_students,grouping=True)
+    total_children = locale.format("%d", state_counts["num_students"],grouping=True)
     state_level_counts["num_students"] = total_children
-    total_schools = locale.format("%d", state_counts.num_schools, grouping=True)
+    total_schools = locale.format("%d", state_counts["num_schools"], grouping=True)
     #total_schools = "{:,}".format(state_counts.num_schools)
     state_level_counts["num_schools"] = total_schools
-    state_level_counts["num_gps"] = locale.format("%d",state_counts.num_gps,grouping=True)
+    state_level_counts["num_gps"] = locale.format("%d",state_counts["num_gps"],grouping=True)
     return state_level_counts
 
 
@@ -156,28 +163,37 @@ def get_boundary_info(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth):
         acadyear = convert_to_academicyear(from_yearmonth, to_yearmonth)
         # Boundary level counts
         try:
-            boundary_counts = get_boundary_counts(boundary_id, acadyear)
-        except Exception as e:
-            print(e)
+            boundary_counts = get_boundary_counts(boundary_id, from_yearmonth, to_yearmonth)
+        except:
             print("boundary id %s does not have any results for the given params " % boundary_id)
         return boundary_counts
 
-def get_boundary_counts(boundary_id, academic_year):
+def get_boundary_counts(boundary_id, from_yearmonth, to_yearmonth):
     #academic_year is of the format 1819, 1920 etc..
-    try:
-        boundary_counts = BoundaryCountsAgg.objects.filter(academic_year=str(academic_year)).get(boundary_id=boundary_id)
-    except Exception as e:
-        print(e)
+    boundary_counts = BoundaryCountsAgg.objects.filter( \
+                yearmonth__gte=from_yearmonth, yearmonth__lte=to_yearmonth).filter(
+                    boundary_id=boundary_id).values('boundary_id', 'boundary_name', 'boundary_lang_name', 'boundary_type_id')
+    boundary_counts.annotate(total_schools=Sum("num_schools"), total_students=Sum("num_students"), total_gps=Sum("num_gps"))[0]
     b = Boundary.objects.get(id=boundary_id)
     boundary_details={}
     boundary_details["parent_boundary_name"] = b.parent.name
     boundary_details["parent_langname"] = b.parent.lang_name
-    boundary_details["num_blocks"] = locale.format("%d",boundary_counts.num_blocks,grouping=True)
-    boundary_details["num_gps"] = locale.format("%d",boundary_counts.num_gps,grouping=True)
-    boundary_details["num_schools"] = locale.format("%d",boundary_counts.num_schools,grouping=True)
-    boundary_details["num_students"] = locale.format("%d",boundary_counts.num_students,grouping=True)
-    boundary_details["boundary_name"] = boundary_counts.boundary_name
-    boundary_details["boundary_langname"] = boundary_counts.boundary_lang_name
-    boundary_details["boundary_id"] = boundary_counts.boundary_id.id
-    boundary_details["boundary_type"] = boundary_counts.boundary_type_id.char_id
+    # to do : fix num blocks
+    boundary_details["num_blocks"] = "NA"
+    if b.boundary_type_id == 'SD':
+        num_blocks = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+            yearmonth__gte=from_yearmonth).filter(
+                yearmonth__lte=to_yearmonth).filter(
+                    survey_id=survey_id).filter(
+                        boundary_id__parent=district_id).distinct('boundary_id').values_list(
+                            'boundary_id', flat=True
+                        ).count()
+        boundary_details["num_blocks"] = locale.format("%d",num_blocks,grouping=True)
+    boundary_details["num_gps"] = locale.format("%d",boundary_counts["total_gps"],grouping=True)
+    boundary_details["num_schools"] = locale.format("%d",boundary_counts["total_schools"],grouping=True)
+    boundary_details["num_students"] = locale.format("%d",boundary_counts["total_students"],grouping=True)
+    boundary_details["boundary_name"] = boundary_counts["boundary_name"]
+    boundary_details["boundary_langname"] = boundary_counts["boundary_lang_name"]
+    boundary_details["boundary_id"] = boundary_counts["boundary_id"]
+    boundary_details["boundary_type"] = b.boundary_type_id.char_id
     return boundary_details
