@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=2cm,portrait]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontenc}
+\usepackage{xltxtra}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage[absolute,overlay]{textpos}
+
+\newcommand{\kn}[1]{
+{\fontspec{Kedage}
+#1
+}}
+
+\usepackage{arydshln}
+
+\arrayrulecolor{gray}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\fancypagestyle{plain}{
+\fancyhf{} % clear all header and footer fields
+\lfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=-1cm,xshift=-1cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
+\end{tikzpicture}}
+
+\rfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=-1cm,xshift=1cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
+\end{tikzpicture}}
+
+\cfoot{
+\fontsize{9}{12}
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-6cm]
+{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}} };
+\node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
+{\kn{ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590 \kn{ಗೆ ಕರೆ ಮಾಡಿ} };
+\node[anchor=south,yshift=-0.5cm,xshift=6cm]
+{\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
+\end{tikzpicture}}
+}
+
+
+\renewcommand{\headrulewidth}{0pt} % to remove line on header
+\renewcommand{\footrulewidth}{0pt} % to remove line on footer
+
+\begin{document}
+
+\thispagestyle{plain}
+{
+\setlength{\parindent}{0in}
+\centering{\large{\kn{ಫೋಷಕರ ಅಭಿಪ್ರಾಯಗಳ ಸಂಗ್ರಹಣಾ ವರದಿ}}}\\~\\~\\
+\kn{ಜಿಲ್ಲೆ} : \kn{ {{schoolinfo.district_langname}} }{{schoolinfo.district}} \hfill  \kn{ತಾಲೂಕ} : \kn{ {{schoolinfo.block_langname}} }{{schoolinfo.block}} \\
+\kn{ಹಳ್ಳಿ} : {{schoolinfo.village}} \hfill \kn{ತಿಂಗಳು} : {{schoolinfo.month}} \\
+\kn{ಶಾಲೆಯ ಹೆಸರು} : {{schoolinfo.schoolname}} \hfill \kn{ಡೈಸ್ ಕೋಡ್} : {{schoolinfo.disecode}}\\~\\
+\begin{flushleft}
+\kn{ಫೋಷಕರ ಅಭಿಪ್ರಾಯಗಳ ಒಟ್ಟು ಸಂಖ್ಯೆ} : {{schoolinfo.numassessments}}\\~\\~\\
+\end{flushleft}
+\centering{
+\begin{longtable}{|c|P{10cm}|c|c|c|} \hline
+\kn{ಕ್ರ.ಸಂ.} & \kn{ಕೇಳಲಾದ ಪ್ರಶ್ನೆಗಳು} & \kn{ಹೌದು} & \kn{ಇಲ್ಲ} & \kn {ಗೊತ್ತಿಲ್ಲ} \\[2ex] \cline{3-5}
+&&\multicolumn{3}{|c|}{\kn{ಶೇಕಡವಾರು}}\\ \hline 
+{% for question in survey.assessmentinfo %}
+{{loop.index}} & \kn{ {{ question.lang_text }} } & {{ question.percentage_yes }}\% & {{question.percentage_no}}\% & {{question.percentage_unknown}}\% \\[4ex] \hline
+{% endfor %}
+\end{longtable}
+
+~\\~\\
+
+\begin{tabular}{cc|c}
+&\includegraphics[height=1cm]{"{{info.imagesdir}}household_parent.png"}\kn{ಪೋಷಕರ ಗ್ರಹಿಕೆ} & \includegraphics[height=1cm]{"{{info.imagesdir}}household_clipboard.png"} \kn{ವಾಸ್ತವಿಕತೆ (ಗ್ರಾ, ಪಂ ಗಣಿತ ಸ್ಪರ್ಧೆ)}\\ \cline{2-3}
+\includegraphics[height=1cm]{"{{info.imagesdir}}household_addition.png"} \kn{(ಸಂಕಲನ)}& {{compare.parent.Addition}} \% &  {{compare.gpcontest.Addition}}\% \\ 
+\includegraphics[height=1cm]{"{{info.imagesdir}}household_subtraction.png"} \kn{(ವ್ಯವಕಲನ)} & {{compare.parent.Subtraction}} \% & {{compare.gpcontest.Subtraction}}\% \\ \cline{2-3}
+\end{tabular}
+}
+~\\~\\
+
+}
+\end{document}
