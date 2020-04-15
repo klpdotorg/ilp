@@ -76,7 +76,7 @@ var topSummaryData = {};
                     var starttime = new Date(start_date).getTime()
                     var endtime = new Date(end_date).getTime()
                         if (starttime > endtime) {
-                            alert("Start date cannot be less than end date")
+                            alert("The end date cannot be before the start date! Please correct and try again.")
                             return
                         }
                         else {

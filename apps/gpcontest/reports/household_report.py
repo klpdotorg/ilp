@@ -82,8 +82,8 @@ def getSchoolGPContestPercentages(gp_survey_id, school_id, date_range):
     subtraction_perc = getCompetencyPercPerSchool(
         gp_survey_id, school_id, 'Subtraction', date_range[0], date_range[1])
     return {
-        "Addition": addition_perc,
-        "Subtraction": subtraction_perc
+        "Addition": round(addition_perc),
+        "Subtraction": round(subtraction_perc)
     }
 
 '''
@@ -95,8 +95,8 @@ def getGPContestPercentages(gp_survey_id, gp_id, date_range):
     subtraction_perc = getCompetencyPercPerSchool(
         gp_survey_id, gp_id, 'Subtraction', date_range[0], date_range[1])
     return {
-        "Addition": addition_perc,
-        "Subtraction": subtraction_perc
+        "Addition": round(addition_perc),
+        "Subtraction": round(subtraction_perc)
     }
 
 def getGPInfoForSchool(survey_id, gp_survey_id, gp_id, date_range):
@@ -213,9 +213,9 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                         'question_id': each_answer.question_id.id,
                         'text': each_answer.question_desc,
                         'lang_text': each_answer.lang_questiondesc,
-                        'percentage_yes': each_answer.perc_yes,
-                        'percentage_no': each_answer.perc_no,
-                        'percentage_unknown': each_answer.perc_unknown
+                        'percentage_yes': round(each_answer.perc_yes),
+                        'percentage_no': round(each_answer.perc_no),
+                        'percentage_unknown': round(each_answer.perc_unknown)
                        })
                 HHSurvey["answers"] = answers
             else:
@@ -290,7 +290,7 @@ def get_all_hh_reports(
         household_survey_id, from_yearmonth, to_yearmonth)
     results = {}
     for school in school_ids:
-        hh_data = ggetHouseholdSurveyForSchool(household_survey_id, gpc_survey_id,school, [from_yearmonth, to_yearmonth])
+        hh_data = getHouseholdSurveyForSchool(household_survey_id, gpc_survey_id,school, [from_yearmonth, to_yearmonth])
         results[school] = hh_data
     return results
 

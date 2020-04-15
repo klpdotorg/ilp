@@ -385,7 +385,7 @@ def getCompetencyPercPerSchool(survey_id, school_id, key, from_yearmonth, to_yea
         # Data unavailable for this GP for this competency
         perc='NA'
     elif total > 0:
-        perc = round((correct / total) * 100, 2)
+        perc = round((correct / total) * 100)
     else:
         perc = 0
     return perc
@@ -410,7 +410,7 @@ def getGPCompetencyPercForHousehold(survey_id, gp_id, key, from_yearmonth, to_ye
         # Data unavailable for this GP for this competency
         perc='NA'
     elif total > 0:
-        perc = round((correct / total) * 100, 2)
+        perc = round((correct / total) * 100)
     else:
         perc = 0
     return perc
