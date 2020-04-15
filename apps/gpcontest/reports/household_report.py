@@ -175,7 +175,10 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                     ).filter(survey_tag='konnect').values(
                         'survey_id', 'institution_id'
                     ).annotate(total=Sum('num_assessments'))
-            HHSurvey['total_assessments'] = total_assess[0]['total']
+            if total_assess:
+                HHSurvey['total_assessments'] = total_assess[0]['total']
+            else:
+                HHSurvey['total_assessments'] = 0
             # Find the total number of parental assessments
             total_parental_assess = SurveyInstitutionRespondentTypeAgg.objects. \
                 filter(institution_id=school_id) \
@@ -196,6 +199,8 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                 HHSurvey['school_name'] = school.name
                 HHSurvey['district_name'] = school.admin1.name
                 HHSurvey['district_langname'] = school.admin1.lang_name
+                HHSurvey['district_id'] = school.admin1.id
+                HHSurvey['block_id'] = school.admin2.id
                 HHSurvey['block_name'] = school.admin2.name
                 HHSurvey['block_langname'] = school.admin2.lang_name
                 HHSurvey['cluster_name'] = school.admin3.name
