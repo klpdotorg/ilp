@@ -83,8 +83,8 @@ def getSchoolGPContestPercentages(gp_survey_id, school_id, date_range):
     subtraction_perc = getCompetencyPercPerSchool(
         gp_survey_id, school_id, 'Subtraction', date_range[0], date_range[1])
     return {
-        "Addition": addition_perc,
-        "Subtraction": subtraction_perc
+        "Addition": round(addition_perc),
+        "Subtraction": round(subtraction_perc)
     }
 
 '''
@@ -96,8 +96,8 @@ def getGPContestPercentages(gp_survey_id, gp_id, date_range):
     subtraction_perc = getGPCompetencyPercForHousehold(
         gp_survey_id, gp_id, 'Subtraction', date_range[0], date_range[1])
     return {
-        "Addition": addition_perc,
-        "Subtraction": subtraction_perc
+        "Addition": round(addition_perc),
+        "Subtraction": round(subtraction_perc)
     }
 
 def getGPInfoForSchool(survey_id, gp_survey_id, gp_id, date_range):
@@ -216,9 +216,9 @@ def getHouseholdSurveyForSchool(survey_id, gp_survey_id, school_id, date_range):
                         'question_id': each_answer.question_id.id,
                         'text': each_answer.question_desc,
                         'lang_text': each_answer.lang_questiondesc,
-                        'percentage_yes': float(each_answer.perc_yes),
-                        'percentage_no': float(each_answer.perc_no),
-                        'percentage_unknown': float(each_answer.perc_unknown)
+                        'percentage_yes': round(each_answer.perc_yes),
+                        'percentage_no': round(each_answer.perc_no),
+                        'percentage_unknown': round(each_answer.perc_unknown)
                        })
                 HHSurvey["answers"] = answers
             else:
