@@ -13,6 +13,8 @@
             $('.one-row-chart').height(200);
         }
 
+	$('#divyear').hide()
+
         // All GKA related data are stored in GKA
         klp.GKA = {};
         klp.GKA.routerParams = {};
@@ -25,11 +27,6 @@
             var isSectionVisible = $el.is(':visible'),
                 elId = $el.attr('id'),
                 functionMap = {
-                    sms: loadSmsData,
-                    // assessment: loadAssmtData, We don't need assessment section as of 30th Oct 2018
-                    gpcontest: loadGPContestData,
-                    surveys: loadSurveys,
-                    comparison: loadComparison,
                     dummy: loadDummy
                 };
 
@@ -60,34 +57,41 @@
 
 	    if(radioValue == 'corelation')
 	    {
-		$('#endyear').hide()
-		$('#start').addClass("chart-full-item").removeClass("chart-half-item")
+		$('#divyear').show()
+		//$('#start').addClass("chart-full-item").removeClass("chart-half-item")
+		//document.getElementById("startlabel").innerHTML = "Select Year";
+	    }
+	    if(radioValue == 'summarycounts')
+	    {
+		$('#divyear').hide()
 	    }
 
         });
 
 
         $('#search_button').click(function(e){
+
             var district_id = $("#selectdistrict").val(),
                 block_id = $("#selectblock").val(),
                 cluster_id = $("#selectcluster").val(),
                 institution_id = $("#selectschool").val(),
-                start_year = $('#startyear').val(),
-                end_year = $('#endyear').val(),
+                year = $('#year').val(),
                 graphtype = $("input[name='graphtype']:checked").val(),
-                url = '/backoffice/analysis/';
-		url += graphtype+"/";
+                url = 'backoffice/analysis/';
 
                 //if(start_year && end_year) {
                   //  url += '?startyear=' + start_year + '&endyear=' + end_year;
                 //} else {
                     // url += 'default_date=true';
                 //}
-		if(start_year)
+		if(graphtype)
 		{
-			url += '?year='+start_year
+			url += '?graph_type='+graphtype
 		}
-
+		if(year)
+		{
+			url += '&year='+year
+		}
                 if(institution_id) {
                     url += '&institution_id=' + institution_id;
                 } else {
@@ -100,11 +104,70 @@
                     }
                 }
 
-                e.originalEvent.currentTarget.href = url;
-
+            var $search = klp.api.do(url);
+            $search.done(function(data) {
+                if(data.status == '')
+		{
+		    loadCharts(data)
+                }
+		else
+		{
+                    showError(data.status)
+		}
+            })
         });
-        
         loadData(premodalQueryParams);
+    }
+
+    function loadCharts(retdata)
+    {
+        var counter = 1;
+        document.getElementById("chartLabel").innerHTML = retdata["charttype"];
+	$('#chartLabel').addClass("heading-primary")
+	var tabs = retdata["tabs"];
+	var order = retdata["order"];
+	var graphs = retdata["names"];
+	var chartArea = document.getElementById("chartArea");
+	var buttoncount = 1;
+	for(var tab in tabs)
+        {
+            var tabbutton = document.createElement("button");            
+	    tabbutton.setAttribute('id','button'+buttoncount);
+	    tabbutton.setAttribute('type',"button");
+	    tabbutton.setAttribute('class',"btn btn-info full-width");
+	    tabbutton.setAttribute('data-toggle',"collapse");
+	    tabbutton.innerHTML = tab;
+	    var tabdiv = document.createElement("div");
+	    tabdiv.setAttribute('id','tabdiv'+buttoncount);
+	    tabdiv.setAttribute('class','collapse');
+	    var targetdiv = '#tabdiv'+buttoncount
+	    tabbutton.setAttribute('data-target',targetdiv);
+	    chartArea.appendChild(tabbutton);
+	    chartArea.appendChild(tabdiv);
+	    buttoncount +=1 ;
+            for(var order in tabs[tab])
+	    {
+                var chartdiv = document.createElement("div");
+	        chartdiv.setAttribute('id','figimg'+"_"+buttoncount+"_"+counter);
+	        chartdiv.setAttribute('class','box');
+		tabdiv.appendChild(chartdiv);
+                var labeldiv = document.createElement("div");
+	        labeldiv.setAttribute('id','figlabel'+"_"+buttoncount+"_"+counter);
+	        chartdiv.appendChild(labeldiv);
+	        labeldiv.innerHTML = tabs[tab][order];
+	        var img = retdata["data"][order];
+	        $('#figlabel'+counter).addClass("heading-secondary")
+                var imgdiv = document.createElement("img");
+	        imgdiv.setAttribute('src',"data:image/png;base64,"+img)
+	        chartdiv.appendChild(imgdiv);
+	        counter +=1 ;
+
+	    }
+        }
+    }
+
+    function showError(error)
+    {
     }
 
     function hashChanged(params) {
@@ -116,16 +179,25 @@
             //This is a reload of localhost:8001/gka
             //No Query Params
             if(window.location.hash == '#resetButton') {
-                window.location.href = '/dataanalysis/search';
+                window.location.href = '/backoffice';
+            }
+            //This is to prevent server calls when just the modal actions are called
+            //This condition is triggered for eg: for localhost:8001/gka#datemodal?from=12/03/2016&to12/06/2016
+            //and not for just localhost:8001/gka#datemodal
+            else if(window.location.hash != '#datemodal' && window.location.hash !='#close' && window.location.hash != '#analysis')
+            {
+                loadData(queryParams, true);
+            }
+            //This is the do nothing case switch for localhost:8001/gka#datemodal
+            else {//do nothing;
             }
         }
         $('#ReportContainer').show();
+
     }
 
     function loadData(params, reloadOpenSection) {
-
         klp.GKA.routerParams = params;
-
     }
 
     $.fn.startLoading = function() {

@@ -8,7 +8,7 @@ from backoffice.views import (
     BackOfficeLogoutView
 )
 
-from backoffice.api_views import ( CorelationAnalysis, CompetencyAnalysis, DataAnalysisSearch )
+from backoffice.api_views import ( DataAnalysis, DataAnalysisSearch )
 
 
 urlpatterns = [
@@ -20,8 +20,7 @@ urlpatterns = [
         GPContestValidatorView.as_view(),
         name='gpcontest_validator'
     ),
-    url(r'analysis/search/$', DataAnalysisSearch.as_view(), name='search'),
-    url(r'analysis/corelation/*', CorelationAnalysis.as_view(), name='analyse'),
-    url(r'analysis/competency/*', CompetencyAnalysis.as_view(), name='analyse'),
+    url(r'analysis/$', DataAnalysisSearch.as_view(), name='search'),
+    url(r'/api/v1/backoffice/analysis/*', DataAnalysis.as_view(), name='analyse'),
     url('', TemplateView.as_view(template_name='backoffice/index.html'), name='index'),
 ]
