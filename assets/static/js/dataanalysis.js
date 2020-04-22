@@ -70,6 +70,8 @@
 
 
         $('#search_button').click(function(e){
+            $('#chartArea').empty();
+            $('#chartLabel').empty();
 
             var district_id = $("#selectdistrict").val(),
                 block_id = $("#selectblock").val(),
@@ -119,55 +121,76 @@
         loadData(premodalQueryParams);
     }
 
+    function createtab(tab, tabcount)
+    {
+        var tabbutton = document.createElement("button");            
+	tabbutton.setAttribute('id','button'+tabcount);
+	tabbutton.setAttribute('type',"button");
+	tabbutton.setAttribute('class',"btn btn-info full-width");
+	tabbutton.setAttribute('data-toggle',"collapse");
+	tabbutton.innerHTML = tab;
+	var tabdiv = document.createElement("div");
+	tabdiv.setAttribute('id','tabdiv'+tabcount);
+	tabdiv.setAttribute('class','collapse');
+	var targetdiv = '#tabdiv'+tabcount
+	tabbutton.setAttribute('data-target',targetdiv);
+	return [tabbutton, tabdiv];
+
+    }
+
+    function createGraphs(tabtitle, chart, index, tabcount, graphcount, imagedata)
+    {
+ 	var chartdiv = document.createElement("div");
+	chartdiv.setAttribute('id','figimg'+"_"+tabcount+"_"+graphcount);
+	chartdiv.setAttribute('class','box');
+        var labeldiv = document.createElement("div");
+	var labelid = 'figlabel'+"_"+tabcount+"_"+graphcount;
+	labeldiv.setAttribute('id',labelid);
+	chartdiv.appendChild(labeldiv);
+	labeldiv.innerHTML = tabtitle;
+	var img = imagedata["data"][index];
+	$('#'+labelid).addClass("heading-secondary")
+        var imgdiv = document.createElement("img");
+	imgdiv.setAttribute('src',"data:image/png;base64,"+img)
+	chartdiv.appendChild(imgdiv);
+	return chartdiv;
+    }
+
     function loadCharts(retdata)
     {
-        var counter = 1;
         document.getElementById("chartLabel").innerHTML = retdata["charttype"];
 	$('#chartLabel').addClass("heading-primary")
 	var tabs = retdata["tabs"];
 	var order = retdata["order"];
 	var graphs = retdata["names"];
 	var chartArea = document.getElementById("chartArea");
-	var buttoncount = 1;
+	var tabcount = 1;
 	for(var tab in tabs)
         {
-            var tabbutton = document.createElement("button");            
-	    tabbutton.setAttribute('id','button'+buttoncount);
-	    tabbutton.setAttribute('type',"button");
-	    tabbutton.setAttribute('class',"btn btn-info full-width");
-	    tabbutton.setAttribute('data-toggle',"collapse");
-	    tabbutton.innerHTML = tab;
-	    var tabdiv = document.createElement("div");
-	    tabdiv.setAttribute('id','tabdiv'+buttoncount);
-	    tabdiv.setAttribute('class','collapse');
-	    var targetdiv = '#tabdiv'+buttoncount
-	    tabbutton.setAttribute('data-target',targetdiv);
-	    chartArea.appendChild(tabbutton);
+	    const [tabbutton, tabdiv] = createtab(tab, tabcount);
+    	    chartArea.appendChild(tabbutton);
 	    chartArea.appendChild(tabdiv);
-	    buttoncount +=1 ;
+	    chartArea.appendChild(document.createElement("br"));
+	    chartArea.appendChild(document.createElement("br"));
             for(var order in tabs[tab])
 	    {
-                var chartdiv = document.createElement("div");
-	        chartdiv.setAttribute('id','figimg'+"_"+buttoncount+"_"+counter);
-	        chartdiv.setAttribute('class','box');
-		tabdiv.appendChild(chartdiv);
-                var labeldiv = document.createElement("div");
-	        labeldiv.setAttribute('id','figlabel'+"_"+buttoncount+"_"+counter);
-	        chartdiv.appendChild(labeldiv);
-	        labeldiv.innerHTML = tabs[tab][order];
-	        var img = retdata["data"][order];
-	        $('#figlabel'+counter).addClass("heading-secondary")
-                var imgdiv = document.createElement("img");
-	        imgdiv.setAttribute('src',"data:image/png;base64,"+img)
-	        chartdiv.appendChild(imgdiv);
-	        counter +=1 ;
+                var graphcount = 1;
+                var tabtitle = tabs[tab][order];
+		var chart = tab+tabtitle;
+		var index = retdata["order"][chart];
+		var chartdiv = createGraphs(tabtitle, chart, index, tabcount, graphcount, retdata);
+	        tabdiv.appendChild(chartdiv);
+	        graphcount +=1 ;
+		chartdiv.appendChild(document.createElement("br"));
 
 	    }
+	    tabcount+=1 ;
         }
     }
 
     function showError(error)
     {
+        $('#chartLabel').innerHTML = error;
     }
 
     function hashChanged(params) {
