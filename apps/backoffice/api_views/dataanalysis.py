@@ -68,11 +68,11 @@ class DataAnalysis(ListAPIView):
                       },
                   "questionperformance": {"type": "Question Performance",
                       "path": "questionperformance",
-                      "tabs": {"names": [{"substr": "QuestionPerf", "title": "Question Peformance"}]}
+                      "tabs": {"names": [{"title":"Class 4", "substr": "Class4QuestionPerf"}, {"substr": "Class5QuestionPerf", "title": "Class 5"}, {"substr": "Class6QuestionPerf", "title": "Class 6"}] }
                       },
                   "outliers": {"type": "Outliers",
                       "path": "OutlierBoxPlots",
-                      "tabs": {"names": [{"title":"Outliers", "substr": "Outliers"}]}
+                      "tabs": {"names": [{"title":"Class 4", "substr": "Class4Outliers"}, {"substr": "Class5Outliers", "title": "Class 5"}, {"substr": "Class6Outliers", "title": "Class 6"}] }
                       }
                   }
           

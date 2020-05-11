@@ -70,6 +70,15 @@
 	    {
 		$('#divblock').hide()
 	    }
+	    if(radioValue == 'outliers'|| radioValue=='questionperformance')
+	    {
+		$('#divyear').show()
+		$('#divblock').hide()
+		$('#divdistrict').hide()
+		//$('#start').addClass("chart-full-item").removeClass("chart-half-item")
+		//document.getElementById("startlabel").innerHTML = "Select Year";
+	    }
+	
 
         });
 
