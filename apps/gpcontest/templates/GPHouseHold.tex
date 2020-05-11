@@ -1,0 +1,94 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=2cm,portrait]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontenc}
+\usepackage{xltxtra}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage[absolute,overlay]{textpos}
+
+\newcommand{\kn}[1]{
+{\fontspec{Kedage}
+#1
+}}
+
+\usepackage{arydshln}
+
+\arrayrulecolor{gray}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\fancypagestyle{plain}{
+\fancyhf{} % clear all header and footer fields
+\lfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=-1cm,xshift=-1cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_left.png"}};
+\end{tikzpicture}}
+
+\rfoot{
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=-1cm,xshift=1cm]
+{\includegraphics[height=2cm]{"{{info.imagesdir}}footer_right.png"}};
+\end{tikzpicture}}
+
+\cfoot{
+\fontsize{9}{12}
+\begin{tikzpicture}[overlay]
+\node[anchor=south west,yshift=0cm,xshift=-6cm]
+{\kn{ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ವರದಿ} {{info.year}} };
+\node[anchor=south west,yshift=-0.5cm,xshift=-6cm]
+{\kn{ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ} - 9845079590 \kn{ಗೆ ಕರೆ ಮಾಡಿ} };
+\node[anchor=south,yshift=-0.5cm,xshift=6cm]
+{\includegraphics[height=1cm]{"{{info.imagesdir}}footer_logo.png"}};
+\end{tikzpicture}}
+}
+
+
+\renewcommand{\headrulewidth}{0pt} % to remove line on header
+\renewcommand{\footrulewidth}{0pt} % to remove line on footer
+
+\begin{document}
+
+\thispagestyle{plain}
+{
+\setlength{\parindent}{0in}
+\begin{flushleft}
+\kn{ಇವರಿಗೆ},\hfill  {{info.date}} \\ [2ex]
+\kn{ಮಾನ್ಯ ಅಧ್ಯಕ್ಷರು,}\\
+\kn{ {{gpinfo.gp_langname}} } {{gpinfo.gpname}} \kn{ ಗ್ರಾಮ ಪಂಚಾಯ್ತಿ,}\\ [1ex]
+\kn{ {{gpinfo.block_langname}} } {{gpinfo.blockname}} \kn{ ತಾಲೂಕು,}\\ [1ex]
+\kn{ {{gpinfo.district_langname}} } {{gpinfo.districtname}} \kn{ ಜಿಲ್ಲೆ.}
+\end{flushleft}
+\centering{\kn{ವಿಷಯ: ತಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತಿ ವ್ಯಾಪ್ತಿಯ ಎಲ್ಲಾ ಸರಕಾರಿ ಪ್ರಾಥಮಿಕ ಶಾಲಾ ಮಕ್ಕಳ ಪೋಷಕರ ಅಭಿಪ್ರಾಯ}\\\kn{ಸಮೀಕ್ಷೆಯ ವರದಿ}} {{info.year}}\\
+\begin{flushleft}
+\kn{ಅಧರಹಳ್ಳಿ ಗ್ರಾಮ ಪಂಚಾಯತಿಯ ಸರಕಾರಿ ಶಾಲೆಗಳಲ್ಲಿ 3 ರಿಂದ 7ನೇ ತರಗತಿಯಲ್ಲಿ ಓದುತ್ತಿರುವ ಮಕ್ಕಳ ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಮೀಕ್ಷೇಯಲ್ಲಿ ಗ್ರಾಮದ ಸ್ವಯಂಸೇವಕರ ಸಹಕಾರದಿಂದ {{gpinfo.numassessments}} ಪೋಷಕರು ಸಮೀಕ್ಷೆಗೆ ಉತ್ತರಿಸಿರುತ್ತಾರೆ.}\\~\\
+\kn{ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಮೀಕ್ಷೆಯಲ್ಲಿ ಮಕ್ಕಳ ಗುಣಾತ್ಮಕ ಕಲಿಕೆ, ಶಾಲಾ ಮೂಲಭೂತ ಸೌಕರ್ಯಗಳು, ಪೋಷಕರು, ಎಸ್.ಡಿ.ಎಮ್.ಸಿ ಮತ್ತು ಶಿಕ್ಷಕರಿಗೆ ಸಂಬಂಧಿಸಿದ 8 ವಿಷಯಗಳ ಬಗ್ಗೆ ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಶೈಕ್ಷಣಿಕ ಸ್ವಯಂಸೇವಕರಿಂದ ಸಂಗ್ರಹಿಸಲಾಯಿತು. ಗಣಿತ ವಿಷಯಕ್ಕೆ ಸಂಬಂಧಿಸಿದ ಸಂಕ್ಷಿಪ್ತ ಮಾಹಿತಿ ಈ ಕೆಳಕಂಡಂತಿದೆ.}\\~\\~\\
+\end{flushleft}
+\centering{
+\begin{tabular}{cc|c}
+&\kn{ಪೋಷಕರ ಗ್ರಹಿಕೆ} & \kn{ವಾಸ್ತವಿಕತೆ (ಗ್ರಾ, ಪಂ ಗಣಿತ ಸ್ಪರ್ಧೆ)}\\ \cline{2-3}
+\kn{ಸಂಕಲನ}& {{gpinfo.compare.parent.addition}} \% &  {{gpinfo.compare.gpcontest.addition}} \% \\ 
+\kn{ವ್ಯವಕಲನ} & {{gpinfo.compare.parent.subtraction}} \% & {{gpinfo.compare.gpcontest.subtraction}}\% \\ \cline{2-3}
+\end{tabular}
+}\\~\\~\\
+\begin{flushleft}
+\kn{ಶಾಲಾವಾರು ಪೋಷಕರ ಅಭಿಪ್ರಾಯ ಸಮೀಕ್ಷೆಯ ವರದಿಯನ್ನು ಈ ಪತ್ರದೊಂದಿಗೆ ಲಗತ್ತಿಸಲಾಗಿದೆ. ಎಸ್.ಡಿ.ಎಮ್.ಸಿ  ಅಧ್ಯಕ್ಷರು ಅಥವಾ ಗ್ರಾಮ ಪಂಚಾಯತಿ ಸದಸ್ಯರ ಜೊತೆಗೆ ವರದಿಯನ್ನು ಹಂಚಿಕೊಳ್ಳಬೇಕೆಂದು ಮತ್ತು ಶಾಲಾ ಮಟ್ಟದಲ್ಲಿ ಚರ್ಚಿಸಿ ಸೂಕ್ತ ಯೋಜನೆಯನ್ನು ರೂಪಿಸಲು ತಿಳಿಸಬೇಕೆಂದು ಕೋರುತ್ತೇವೆ.}\\~\\
+\kn{ಈ ಸಮೀಕ್ಷೆಯ ವರದಿಯನ್ನು ಗ್ರಾಮ ಪಂಚಾಯತಿ ಮಟ್ಟದ ಗಣಿತ ಸ್ಪರ್ದೆಯ ವರದಿಯ ಜೊತೆ ಹೋಲಿಕೆ ಮಾಡಿ ನೋಡಲು ಕೋರುತ್ತೇವೆ.}\\~\\
+\kn{ಮಕ್ಕಳ ಗುಣಾತ್ಮಕ ಕಲಿಕೆಗೆ ಸಮುದಾಯದ ಭಾಗವಹಿಸುವಿಕಯಲ್ಲಿ, ಎಲ್ಲಾ ಭಾಗೀದಾರರು ಸಮ ಪಾಲುದಾರರು}\\~\\~\\
+\kn{ವಂದನೆಗಳೊಂದಿಗೆ}\\
+\kn{ತಮ್ಮ ವಿಶ್ವಾಸಿ}\\~\\~\\
+\kn{ಜೆ.ವಿ. ಶಂಕರನಾರಾಯಣ}\\
+\kn{ಮುಖ್ಯಸ್ಥರು, ಕಾರ್ಯಚರಣೆ ಮತ್ತು ಸಮುದಾಯ ಅಭಿವೃಧ್ಧಿ}\\
+\kn{ಅಕ್ಷರ ಫೌಂಡೇಶನ್, ಬೆಂಗಳೂರು}
+\end{flushleft}
+}
+\end{document}

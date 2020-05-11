@@ -23,7 +23,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
     templatedir = "/apps/gpcontest/templates/"
     outputdir = basefiledir+"/generated_files/householdreports/"+str(now)+"/HouseHoldReports/"
     school_out_file_prefix = "HouseHoldSchoolReport"
-    templates = {"school": {"template": "HouseHold.tex", "latex": None}}
+    gp_out_file_prefix = "GPHouseHoldReport"
+    templates = {"school": {"template": "SchoolHouseHold.tex", "latex": None},
+                 "gp": {"template": "GPHouseHold.tex", "latex": None}}
     build_d = basefiledir+"/build/"
     gpids = None
     survey = None
@@ -34,6 +36,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
     colour = "bw"
     imagesdir = basefiledir+"/apps/gpcontest/images/english/"
     validqids = {138,144,145,269,147,148,149,150}
+    months = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov"]
+    data = {}
 
     def add_arguments(self, parser):
         parser.add_argument('surveyid')
@@ -71,6 +75,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
         self.createSchoolPdfs(schooldata)
 
+
     def createHouseHoldReportBoundary(self):
         schooldata = household_report.get_hh_reports_for_districts(self.surveyid,
                                                    self.gpsurveyid,
@@ -80,16 +85,66 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
         self.createSchoolPdfs(schooldata)
 
+
     def getYearMonth(self, yearmonth):
-        return yearmonth[4:6]+"/"+yearmonth[0:4]
+        return self.months[int(yearmonth[4:6])-1]+"/"+yearmonth[0:4]
+
+
+    def createGPLetter(self, schooldata, schoolinfo, info, outputdir):
+        gpinfo = {}
+        gpinfo["gp_langname"] = schoolinfo["gp_langname"]
+        gpinfo["gpname"] = schoolinfo["gpname"]
+        gpinfo["gpid"] = schooldata["gp_id"]
+        gpinfo["district_langname"] = schoolinfo["district_langname"]
+        gpinfo["districtname"] = schoolinfo["district"]
+        gpinfo["block_langname"] = schoolinfo["block_langname"]
+        gpinfo["blockname"] = schoolinfo["block"]
+        gpinfo["numassessments"] = schooldata['gp_info']['total_assessments']
+        gpinfo["compare"] = {"parent": {"addition": schooldata['gp_info']['parents_perception']['Addition'],
+                                        "subtraction": schooldata['gp_info']['parents_perception']['Subtraction']},
+                             "gpcontest":{"addition": schooldata['gp_info']['gpcontest_data']['Addition'],
+                                          "subtraction": schooldata['gp_info']['gpcontest_data']['Subtraction']}}
+ 
+        renderer_template = self.templates["gp"]["latex"].render(
+                    info=info, gpinfo=gpinfo)
+        gp_out_file = self.gp_out_file_prefix+"_" +str(gpinfo["gpid"])
+        with open(gp_out_file+".tex", "w", encoding='utf-8') as f:
+            f.write(renderer_template)
+        os.system("xelatex -output-directory {} {}".format(
+            os.path.realpath(self.build_d),
+            os.path.realpath(gp_out_file)))
+        shutil.copy2(self.build_d+"/"+gp_out_file+".pdf", outputdir)
+        self.deleteTempFiles([gp_out_file+".tex"])
+        self.deleteTempFiles([self.build_d+"/" + gp_out_file+".pdf"])
+        return gp_out_file+".pdf"
 
 
     def createSchoolPdfs(self, schoolsdata):
-        info = {"imagesdir": self.imagesdir, "year": self.academicyear}
+        info = {"imagesdir": self.imagesdir, "year": self.academicyear, "date": self.now.strftime("%d/%m/%Y")}
         for schoolid in schoolsdata:
             schooldata = schoolsdata[schoolid]
+            if schooldata == {}:
+                continue
             print("School Data is:")
             print(schooldata, file=self.utf8stdout)
+
+            gpid = schooldata["gp_id"]
+            districtid = schooldata["district_id"]
+            blockid = schooldata["block_id"]
+            if districtid not in self.data:
+                self.data[districtid] = {"blocks":{}, "name":schooldata["district_name"]}
+                self.data[districtid]["blocks"][blockid] = {"name":schooldata["block_name"], "gps":{}}
+                self.data[districtid]["blocks"][blockid]["gps"][gpid] = {"name":schooldata["gp_name"],"pdf":"","schoolpdfs":[]}
+                creategpletter = True
+            elif blockid not in self.data[districtid]["blocks"]:
+                self.data[districtid]["blocks"][blockid] = {"name":schooldata["block_name"], "gps":{}}
+                self.data[districtid]["blocks"][blockid]["gps"][gpid] = {"name":schooldata["gp_name"],"pdf":"","schoolpdfs":[]}
+                creategpletter = True
+            elif gpid not in self.data[districtid]["blocks"][blockid]["gps"]:
+                self.data[districtid]["blocks"][blockid]["gps"][gpid] = {"name":schooldata["gp_name"],"pdf":"","schoolpdfs":[]}
+                creategpletter = True
+
+            print(self.data[districtid]["blocks"][blockid]["gps"][gpid]["schoolpdfs"])
 
             if schooldata["district_langname"] == "":
                 districtname = schooldata["district_name"].capitalize()
@@ -99,6 +154,10 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 blockname = schooldata["block_name"].capitalize()
             else:
                 blockname = "("+schooldata["block_name"].capitalize()+")"
+            if schooldata["gp_langname"] == "":
+                gpname = schooldata["gp_name"].capitalize()
+            else:
+                gpname = "("+schooldata["gp_name"].capitalize()+")"
             schoolinfo = {"district": districtname,
                           "district_langname": schooldata["district_langname"],
                           "block": blockname,
@@ -108,7 +167,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
                           "klpid": schoolid,
                           "disecode": schooldata["dise_code"],
                           "gpid": schooldata["gp_id"],
-                          "gpname": schooldata["gp_name"].capitalize(),
+                          "gpname": gpname,
+                          "gp_langname": schooldata["gp_langname"],
                           "numparentassessments": schooldata["total_parental_assessments"],
                           "numassessments": schooldata["total_assessments"],
                           "month": self.getYearMonth(self.startyearmonth)+"-"+self.getYearMonth(self.endyearmonth)}
@@ -117,35 +177,49 @@ class Command(BaseCommand, baseReport.CommonUtils):
             for question in schooldata["answers"]:
                 if question["question_id"] in self.validqids:
                     assessmentinfo.append(question)
-            outputdir = self.outputdir+"/"+schooldata["district_name"]+"/"+schooldata["block_name"]+"/"+schooldata["gp_name"]+"/"
+
+            outputdir = self.outputdir+"/"+schooldata["district_name"]+"/"+schooldata["block_name"]+"/"#+schooldata["gp_name"]+"/"
             if not os.path.exists(outputdir):
                 os.makedirs(outputdir)
             if not os.path.exists(self.build_d):
                 os.makedirs(self.build_d)
 
+            if creategpletter:
+                gppdf = self.createGPLetter(schooldata, schoolinfo, info, outputdir)
+                self.data[districtid]["blocks"][blockid]["gps"][gpid]["pdf"] = gppdf 
+                self.data[districtid]["blocks"][blockid]["gps"][gpid]["outputpath"] = outputdir 
 
-            pdfscreated = []
+            temppdfscreated = []
             survey = {}
             survey["assessmentinfo"] = assessmentinfo
-            print("Before rendering")
             renderer_template = self.templates["school"]["latex"].render(
                     info=info, schoolinfo=schoolinfo,compare=compare, survey=survey)
-            print("After rendering")
             school_out_file = self.school_out_file_prefix+"_" +\
                                     str(schoolinfo["klpid"])
-            print(school_out_file)
             with open(school_out_file+".tex", "w", encoding='utf-8') as f:
                 f.write(renderer_template)
             os.system("xelatex -output-directory {} {}".format(
                 os.path.realpath(self.build_d),
                 os.path.realpath(school_out_file)))
             shutil.copy2(self.build_d+"/"+school_out_file+".pdf", outputdir)
-            pdfscreated.append(os.path.realpath(self.build_d+"/" +
+            temppdfscreated.append(os.path.realpath(self.build_d+"/" +
                                    school_out_file+".pdf"))
+            self.data[districtid]["blocks"][blockid]["gps"][gpid]["schoolpdfs"].append(school_out_file+".pdf")
             self.deleteTempFiles([school_out_file+".tex"])
-
-        self.deleteTempFiles(pdfscreated)
+            self.deleteTempFiles(temppdfscreated)
         return 
+
+
+    def mergeFiles(self):
+        for districtid in self.data:
+            for blockid in self.data[districtid]["blocks"]:
+                for gpid in self.data[districtid]["blocks"][blockid]["gps"]:
+                    gppdf = self.data[districtid]["blocks"][blockid]["gps"][gpid]["pdf"]
+                    schoolpdfs = self.data[districtid]["blocks"][blockid]["gps"][gpid]["schoolpdfs"]
+                    combinedFile =  "HouseHoldReport_"+str(gpid)+".pdf"
+                    outputdir = self.data[districtid]["blocks"][blockid]["gps"][gpid]["outputpath"]
+                    self.mergeReports(outputdir+"/", gppdf, schoolpdfs, combinedFile)
+
 
     def handle(self, *args, **options):
         gpids = options.get("gpid", None)
@@ -158,7 +232,6 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.academicyear = self.getAcademicYear(self.startyearmonth,
                                                  self.endyearmonth)
         schoolids = options.get("sid", None)
-        print(1)
 
         reportcolour = options.get("reportcolour")
         self.imagesdir = self.imagesdir+"/"+reportcolour+"/"
@@ -170,18 +243,14 @@ class Command(BaseCommand, baseReport.CommonUtils):
         if districtids is not None:
             self.districtids = [int(x) for x in districtids.split(',')]
 
-        print(2)
         if not self.validateInputs():
             return
-        print(3)
         self.initiatelatex()
-        print(4)
 
         if not os.path.exists(self.outputdir):
             os.makedirs(self.outputdir)
 
         if self.schoolids is not None:
-            print("Creating School House Hold")
             self.createSchoolHouseHoldReports()
         elif self.districtids is not None:
             self.createHouseHoldReportBoundary()
@@ -192,6 +261,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
             for district in districtids:
                 self.districtids.append(district["id"])
             self.createHouseHoldReportBoundary()
+
+        self.mergeFiles()
 
         os.system('tar -cvf '+self.outputdir+'.tar '+self.outputdir+'/')
 
