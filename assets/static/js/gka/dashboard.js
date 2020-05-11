@@ -72,19 +72,19 @@ var topSummaryData = {};
                 end_date = $('#endDate').yearMonthSelect("getLastDay"),
                 url = '/gka/#searchmodal';
 
-            if (start_date && end_date) {
-                var starttime = new Date(start_date).getTime()
-                var endtime = new Date(end_date).getTime()
-                    if (starttime > endtime) {
-                        alert("Start date cannot be less than end date")
-                        return
+                if (start_date && end_date) {
+                    var starttime = new Date(start_date).getTime()
+                    var endtime = new Date(end_date).getTime()
+                        if (starttime > endtime) {
+                            alert("The end date cannot be before the start date! Please correct and try again.")
+                            return
+                        }
+                        else {
+                            url += '?from=' + start_date + '&to=' + end_date;
+                        }
+                    } else{
+                        // url += 'default_date=true';
                     }
-                    else {
-                        url += '?from=' + start_date + '&to=' + end_date;
-                    }
-                } else{
-                    // url += 'default_date=true';
-                }
 
                 if(institution_id) {
                     url += '&institution_id=' + institution_id;
