@@ -55,15 +55,20 @@
         $graphtype.on("click", function() {
 	    var radioValue = $("input[name='graphtype']:checked").val();
 
-	    if(radioValue == 'corelation')
+	    if(radioValue == 'corelation'|| radioValue=='actualgpvsassessed' || radioValue == 'mappedschoolvsassessed')
 	    {
 		$('#divyear').show()
+		$('#divblock').hide()
 		//$('#start').addClass("chart-full-item").removeClass("chart-half-item")
 		//document.getElementById("startlabel").innerHTML = "Select Year";
 	    }
 	    if(radioValue == 'summarycounts')
 	    {
 		$('#divyear').hide()
+	    }
+	    if(radioValue =='actualgpvsassessed' || radioValue == 'mappedschoolvsassessed')
+	    {
+		$('#divblock').hide()
 	    }
 
         });
@@ -121,24 +126,48 @@
         loadData(premodalQueryParams);
     }
 
-    function createtab(tab, tabcount)
+    function createtab(parentdiv, tab, tabcount, tabtitle, level)
     {
+	parentdiv.appendChild(document.createElement("br"));
         var tabbutton = document.createElement("button");            
 	tabbutton.setAttribute('id','button'+tabcount);
 	tabbutton.setAttribute('type',"button");
-	tabbutton.setAttribute('class',"btn btn-info full-width");
+	if(level == 0)
+	{
+	   tabbutton.setAttribute('class',"btn btn-info");
+	   tabbutton.setAttribute('style',"background-color:DeepSkyBlue; width:100%; margin:0 auto; align-items: center; justify-content: center;text-align:center;");
+	}
+	else if(level == 1)
+	{
+	   tabbutton.setAttribute('class',"btn btn-info");
+	   tabbutton.setAttribute('style',"background-color:DarkTurquoise; width:70%; margin:0 auto;text-align:center;align-items: center; justify-content: center;");
+	}
+	else if(level == 2)
+	{
+	   tabbutton.setAttribute('class',"btn btn-info");
+	   tabbutton.setAttribute('style',"background-color:Plum; width:40%; margin:0 auto;text-align:center;align-items: center; justify-content: center;");
+	}
+        else if(level == 3)
+	{
+	   tabbutton.setAttribute('class',"btn btn-info");
+	   tabbutton.setAttribute('style',"background-color:LightGreen; width:25%; margin:0 auto;text-align:center;align-items: center; justify-content: center;");
+	}
 	tabbutton.setAttribute('data-toggle',"collapse");
-	tabbutton.innerHTML = tab;
+	tabbutton.innerHTML = tabtitle;
 	var tabdiv = document.createElement("div");
 	tabdiv.setAttribute('id','tabdiv'+tabcount);
 	tabdiv.setAttribute('class','collapse');
+	tabdiv.setAttribute('style','text-align:center;align-items: center; justify-content: center;');
 	var targetdiv = '#tabdiv'+tabcount
 	tabbutton.setAttribute('data-target',targetdiv);
+    	parentdiv.appendChild(tabbutton);
+	parentdiv.appendChild(tabdiv);
+	parentdiv.appendChild(document.createElement("br"));
 	return [tabbutton, tabdiv];
 
     }
 
-    function createGraphs(tabtitle, chart, index, tabcount, graphcount, imagedata)
+    function createGraphs(tabtitle, tabcount, graphcount, image)
     {
  	var chartdiv = document.createElement("div");
 	chartdiv.setAttribute('id','figimg'+"_"+tabcount+"_"+graphcount);
@@ -148,7 +177,7 @@
 	labeldiv.setAttribute('id',labelid);
 	chartdiv.appendChild(labeldiv);
 	labeldiv.innerHTML = tabtitle;
-	var img = imagedata["data"][index];
+	var img = image;
 	$('#'+labelid).addClass("heading-secondary")
         var imgdiv = document.createElement("img");
 	imgdiv.setAttribute('src',"data:image/png;base64,"+img)
@@ -165,28 +194,145 @@
 	var graphs = retdata["names"];
 	var chartArea = document.getElementById("chartArea");
 	var tabcount = 1;
-	for(var tab in tabs)
+	var maintabs = tabs["names"];
+	var subtabs = {};
+	var commonsubtabpresent = false;
+	var commonsubtabs = {}
+	var images = retdata["data"];
+	var names = retdata["names"];
+	var yearid = retdata["year"].toString();
+	var boundaryid = retdata["boundaryid"].toString();
+	if( "commonsubtabs" in tabs )
+	{
+	    commonsubtabpresent = true;
+	    commonsubtabs = tabs["commonsubtabs"];
+	}
+	var subtabcount = 1;
+	var graphcount = 1;
+	for(var tab in maintabs)
         {
-	    const [tabbutton, tabdiv] = createtab(tab, tabcount);
-    	    chartArea.appendChild(tabbutton);
-	    chartArea.appendChild(tabdiv);
-	    chartArea.appendChild(document.createElement("br"));
-	    chartArea.appendChild(document.createElement("br"));
-            for(var order in tabs[tab])
+	    var tabname = maintabs[tab]["substr"];
+	    var tabtitle = maintabs[tab]["title"];
+	    if( ! isEmpty(retdata["boundary"]) )
+            {
+                tabtitle += " "+retdata["boundary"]["name"].toUpperCase();
+	    }
+	    if( yearid != "")
 	    {
-                var graphcount = 1;
-                var tabtitle = tabs[tab][order];
-		var chart = tab+tabtitle;
-		var index = retdata["order"][chart];
-		var chartdiv = createGraphs(tabtitle, chart, index, tabcount, graphcount, retdata);
+                tabtitle += " (For year:"+yearid+")";
+	    }
+	    const [tabbutton, tabdiv] = createtab(chartArea, tabname, tabcount, tabtitle, 0);
+
+	    if("subtabs" in maintabs[tab])
+	    {
+		createsubtab(tabdiv, tabbutton, tabcount, maintabs[tab]["subtabs"], commonsubtabpresent, commonsubtabs, subtabcount,"","", images, names, yearid, boundaryid, 1);
+		subtabcount += 1;
+	    }
+	    else if(commonsubtabpresent)
+	    {
+		createsubtab(tabdiv, tabbutton, tabcount, {}, commonsubtabpresent, commonsubtabs, subtabcount, tabtitle , tabname, images, names, yearid, boundaryid, 1);
+		subtabcount += 1;
+	    }
+	    else
+	    {
+		var imagename = tabname;
+		if(boundaryid != "")
+		{
+			imagename = imagename+"_"+boundaryid;
+		}
+		if(yearid != "" )
+		{
+			imagename = imagename+"_"+yearid;
+		}
+		var index = names[imagename]
+		var image = images[index]
+	        var chartdiv = createGraphs(tabtitle, tabcount, graphcount, image);
 	        tabdiv.appendChild(chartdiv);
 	        graphcount +=1 ;
-		chartdiv.appendChild(document.createElement("br"));
-
 	    }
 	    tabcount+=1 ;
-        }
+	}
     }
+
+    function isEmpty(obj) {
+	      return Object.keys(obj).length === 0;
+    }
+
+
+    function createsubtab(parentdiv, parentbutton, parentcount, subtabs, commonsubtrabpresent, commonsubtabs, subtabcount, currenttitle, currentname, images, names, yearid, boundaryid, level)
+    {
+	var subtabpresent = false
+	if( isEmpty(subtabs) )
+	{
+            var subtabnames = commonsubtabs["names"];
+            if ("subtabs" in commonsubtabs)
+	    {
+	        subtabpresent = true;
+		var sub_subtabs = commonsubtabs["subtabs"];
+	    }
+	}
+	else
+	{
+            var subtabnames = subtabs["names"];
+            if ("subtabs" in subtabs)
+	    {
+	        subtabpresent = true;
+		var sub_subtabs = subtabs["subtabs"];
+	    }
+	    else if( ! isEmpty(commonsubtabs) )
+	    {
+	        subtabpresent = true;
+		var sub_subtabs = commonsubtabs;
+	    }
+	}
+        for(var index in subtabnames)
+	{
+	    var graphcount = 0;
+            var subtabname = subtabnames[index]["substr"];
+	    var subtabtitle = subtabnames[index]["title"];
+	    //if(currenttitle == "")
+	    //{
+	        subtabtitle = subtabtitle;
+	    //}
+	    //else
+	    //{
+	        //subtabtitle = currenttitle +" - "+ subtabtitle;
+	    //}
+	    subtabname = currentname + subtabname;
+	    const [subtabbutton, subtabdiv] = createtab(parentdiv, subtabname, parentcount.toString()+"_"+subtabcount.toString(), subtabtitle, level);
+	    subtabcount += 1;
+	    if( subtabpresent == true)
+	    {
+                createsubtab(subtabdiv, subtabbutton, subtabcount, sub_subtabs, false, {}, subtabcount, subtabtitle, subtabname, images, names, yearid, boundaryid, level+1)
+	    }
+	    else
+	    {
+                var graphcount = 1;
+                var tabtitle = currenttitle;
+	        var tabname = currentname;
+		var imagename = subtabname;
+		if(boundaryid != "")
+		{
+			imagename = imagename+"_"+boundaryid;
+		}
+		if(yearid != "" )
+		{
+			imagename = imagename+"_"+yearid;
+		}
+		var index = names[imagename]
+		var image = images[index]
+	        var chartdiv = createGraphs(tabtitle, subtabcount, graphcount, image);
+	        subtabdiv.appendChild(chartdiv);
+	        graphcount +=1 ;
+	        subtabdiv.appendChild(document.createElement("br"));
+		subtabtitle = currenttitle;
+		subtabname = currentname;
+	    }
+	}
+
+    }
+
+            
 
     function showError(error)
     {

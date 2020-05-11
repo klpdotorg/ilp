@@ -51,6 +51,8 @@
             <div id='graphtype' class="form-field-wrap">
                 <input type="radio" name="graphtype" value="summarycounts">Summary Counts<br>
                 <input type="radio" name="graphtype" value="corelation">Corelation<br>
+                <input type="radio" name="graphtype" value="actualgpvsassessed">Num GP Vs Assessed GP<br>
+                <input type="radio" name="graphtype" value="mappedschoolvsassessed">Mapped School Vs Assessed Schools<br>
 	    </div>
 	<!--/form-->
     </div>
@@ -78,18 +80,18 @@
     <div class="sect-parent">
         <div class="sect-parent">
             <div class="educational box sect-parent">
-                <div class="sect-quarter">
+                <div class="sect-half" id='divdistrict'>
                     <input type="text" placeholder="{% trans 'District'%}" class="js-example-basic-single input-text full-width" id="selectdistrict">
                 </div>
-                <div class="sect-quarter">
+                <div class="sect-half" id='divblock'>
                     <input type="text" placeholder="{% trans 'Block'%}" class="js-example-basic-single input-text full-width" id="selectblock">
                 </div>
-                <div class="sect-quarter">
+                <!--div class="sect-quarter">
                     <input type="text" placeholder="{% trans 'Cluster'%}" class="js-example-basic-single input-text full-width" id="selectcluster">
                 </div>
                 <div class="sect-quarter">
                     <input type="text" placeholder="{% trans 'School'%}" class="js-example-basic-single input-text full-width" id="selectschool">
-                </div>
+                </div-->
             </div>
         </div>
     </div>
