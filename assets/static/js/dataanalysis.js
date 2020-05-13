@@ -104,6 +104,13 @@
 		{
 			url += '?graph_type='+graphtype
 		}
+		if(["corelation","actualgpvsassessed","mappedschoolvsassessed","outliers","questionperformance"].includes(graphtype))
+		{
+			if(! year)
+			{
+			    year = '2019-2020';
+			}
+		}
 		if(year)
 		{
 			url += '&year='+year
