@@ -14,6 +14,8 @@
         }
 
 	$('#divyear').hide()
+	$('#divdistrict').hide()
+	$('#divblock').hide()
 
         // All GKA related data are stored in GKA
         klp.GKA = {};
@@ -57,26 +59,33 @@
 
 	    if(radioValue == 'corelation'|| radioValue=='actualgpvsassessed' || radioValue == 'mappedschoolvsassessed')
 	    {
-		$('#divyear').show()
-		$('#divblock').hide()
-		//$('#start').addClass("chart-full-item").removeClass("chart-half-item")
-		//document.getElementById("startlabel").innerHTML = "Select Year";
+		$('#divyear').show();
+		$('#divblock').show();
+		$('#divdistrict').show();
+	    }
+	    if(radioValue == 'cohorts')
+	    {
+		$('#divyear').hide();
+                $("#year").val("");
+		$('#divblock').hide();
+                $("#selectblock").val("");
+		$('#divdistrict').hide();
+                $("#selectdistrict").val("");
 	    }
 	    if(radioValue == 'summarycounts')
 	    {
-		$('#divyear').hide()
-	    }
-	    if(radioValue =='actualgpvsassessed' || radioValue == 'mappedschoolvsassessed')
-	    {
-		$('#divblock').hide()
+		$('#divyear').hide();
+		$('#year').val("");
+		$('#divblock').show();
+		$('#divdistrict').show();
 	    }
 	    if(radioValue == 'outliers'|| radioValue=='questionperformance')
 	    {
 		$('#divyear').show()
 		$('#divblock').hide()
+		$('#selectblock').val("");
 		$('#divdistrict').hide()
-		//$('#start').addClass("chart-full-item").removeClass("chart-half-item")
-		//document.getElementById("startlabel").innerHTML = "Select Year";
+                $("#selectdistrict").val("");
 	    }
 	
 
@@ -89,8 +98,6 @@
 
             var district_id = $("#selectdistrict").val(),
                 block_id = $("#selectblock").val(),
-                cluster_id = $("#selectcluster").val(),
-                institution_id = $("#selectschool").val(),
                 year = $('#year').val(),
                 graphtype = $("input[name='graphtype']:checked").val(),
                 url = 'backoffice/analysis/';
@@ -115,17 +122,12 @@
 		{
 			url += '&year='+year
 		}
-                if(institution_id) {
-                    url += '&institution_id=' + institution_id;
-                } else {
-                    if(cluster_id) {
-                        url += '&boundary_id=' + cluster_id;
-                    } else if(block_id) {
+                if(block_id) {
                         url += '&boundary_id=' + block_id;
-                    } else if(district_id) {
+                } else if(district_id) {
                         url += '&boundary_id=' + district_id;
-                    }
                 }
+                
 
             var $search = klp.api.do(url);
             $search.done(function(data) {
@@ -181,6 +183,13 @@
 	parentdiv.appendChild(document.createElement("br"));
 	return [tabbutton, tabdiv];
 
+    }
+
+    function createErrorDiv(errormsg)
+    {
+	var errorDiv = document.createElement("div");
+	errorDiv.innerHTML = errormsg;
+	return errorDiv
     }
 
     function createGraphs(tabtitle, tabcount, graphcount, image)
@@ -241,12 +250,12 @@
 
 	    if("subtabs" in maintabs[tab])
 	    {
-		createsubtab(tabdiv, tabbutton, tabcount, maintabs[tab]["subtabs"], commonsubtabpresent, commonsubtabs, subtabcount,"","", images, names, yearid, boundaryid, 1);
+		createsubtab(tabdiv, tabbutton, tabcount, maintabs[tab]["subtabs"],maintabs[tab]["usecommontab"], commonsubtabpresent, commonsubtabs, subtabcount,"","", images, names, yearid, boundaryid, 1);
 		subtabcount += 1;
 	    }
-	    else if(commonsubtabpresent)
+	    else if(commonsubtabpresent && maintabs[tab]["usecommontab"])
 	    {
-		createsubtab(tabdiv, tabbutton, tabcount, {}, commonsubtabpresent, commonsubtabs, subtabcount, tabtitle , tabname, images, names, yearid, boundaryid, 1);
+                createsubtab(tabdiv, tabbutton, tabcount, {}, true, commonsubtabpresent, commonsubtabs, subtabcount, tabtitle , tabname, images, names, yearid, boundaryid, 1);
 		subtabcount += 1;
 	    }
 	    else
@@ -262,9 +271,17 @@
 		}
 		var index = names[imagename]
 		var image = images[index]
-	        var chartdiv = createGraphs(tabtitle, tabcount, graphcount, image);
-	        tabdiv.appendChild(chartdiv);
-	        graphcount +=1 ;
+		if( image == null )
+		{
+		    var errorDiv = createErrorDiv("No image");
+	            tabdiv.appendChild(errorDiv);
+		}
+		else
+		{
+	            var chartdiv = createGraphs(tabtitle, tabcount, graphcount, image);
+	            tabdiv.appendChild(chartdiv);
+	            graphcount +=1 ;
+		}
 	    }
 	    tabcount+=1 ;
 	}
@@ -275,13 +292,13 @@
     }
 
 
-    function createsubtab(parentdiv, parentbutton, parentcount, subtabs, commonsubtrabpresent, commonsubtabs, subtabcount, currenttitle, currentname, images, names, yearid, boundaryid, level)
+    function createsubtab(parentdiv, parentbutton, parentcount, subtabs, usecommontab, commonsubtrabpresent, commonsubtabs, subtabcount, currenttitle, currentname, images, names, yearid, boundaryid, level)
     {
 	var subtabpresent = false
 	if( isEmpty(subtabs) )
 	{
             var subtabnames = commonsubtabs["names"];
-            if ("subtabs" in commonsubtabs)
+            if ("subtabs" in commonsubtabs && usecommontab)
 	    {
 	        subtabpresent = true;
 		var sub_subtabs = commonsubtabs["subtabs"];
@@ -319,7 +336,7 @@
 	    subtabcount += 1;
 	    if( subtabpresent == true)
 	    {
-                createsubtab(subtabdiv, subtabbutton, subtabcount, sub_subtabs, false, {}, subtabcount, subtabtitle, subtabname, images, names, yearid, boundaryid, level+1)
+                createsubtab(subtabdiv, subtabbutton, subtabcount, sub_subtabs, usecommontab, false, {}, subtabcount, subtabtitle, subtabname, images, names, yearid, boundaryid, level+1)
 	    }
 	    else
 	    {
@@ -337,9 +354,17 @@
 		}
 		var index = names[imagename]
 		var image = images[index]
-	        var chartdiv = createGraphs(tabtitle, subtabcount, graphcount, image);
-	        subtabdiv.appendChild(chartdiv);
-	        graphcount +=1 ;
+                if( image == null )
+		{
+		    var errorDiv = createErrorDiv("No image");
+	            subtabdiv.appendChild(errorDiv);
+		}
+		else
+		{
+	            var chartdiv = createGraphs(tabtitle, subtabcount, graphcount, image);
+	            subtabdiv.appendChild(chartdiv);
+	            graphcount +=1 ;
+		}
 	        subtabdiv.appendChild(document.createElement("br"));
 		subtabtitle = currenttitle;
 		subtabname = currentname;
@@ -364,7 +389,7 @@
             //This is a reload of localhost:8001/gka
             //No Query Params
             if(window.location.hash == '#resetButton') {
-                window.location.href = '/backoffice';
+                window.location.href = '/backoffice/dataanalysis';
             }
             //This is to prevent server calls when just the modal actions are called
             //This condition is triggered for eg: for localhost:8001/gka#datemodal?from=12/03/2016&to12/06/2016

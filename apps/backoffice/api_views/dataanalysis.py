@@ -47,8 +47,8 @@ class DataAnalysis(ListAPIView):
                   "summarycounts": {"type": "Summary Counts",
                                     "path": "SummaryYearCounts",
                                     "tabs": {
-                                        "names": [{"substr": "ClassWise", "title": "Class Wise", 
-                                            "subtabs": {"names": [{"substr":"Class4","title": "Class 4"}, {"substr":"Class5","title": "Class 5"}, {"substr":"Class6","title": "Class 6"}]}},{"substr": "All", "title": "All Assessments"}],
+                                        "names": [{"substr": "NumGPContests", "title": "Number of GP Contests", "usecommontab": False},{"substr": "NumSchools", "title": "Number of Schools Assessed", "usecommontab": False},{"substr": "All", "title": "All Assessments", "usecommontab": True},{"substr": "ClassWise", "title": "Class Wise", 
+                                            "subtabs": {"names": [{"substr":"Class4","title": "Class 4"}, {"substr":"Class5","title": "Class 5"}, {"substr":"Class6","title": "Class 6"}]}, "usecommontab": True}],
                                         "commonsubtabs": {"names": [{"substr": "All", "title": "All Areas"},
                                                               {"substr": "Phase1", "title": "Phase 1"},
                                                               {"substr": "Phase2", "title": "Phase 2"}],
@@ -73,6 +73,10 @@ class DataAnalysis(ListAPIView):
                   "outliers": {"type": "Outliers",
                       "path": "OutlierBoxPlots",
                       "tabs": {"names": [{"title":"Class 4", "substr": "Class4Outliers"}, {"substr": "Class5Outliers", "title": "Class 5"}, {"substr": "Class6Outliers", "title": "Class 6"}] }
+                      },
+                  "cohorts": {"type": "Cohorts",
+                      "path": "cohorts",
+                      "tabs": {"names": [{"title": "Cohorts Phase1 Group 1", "substr":"CohortsPhase1Group1"}, {"title": "Cohorts Phase1 Group 2", "substr": "CohortsPhase1Group2"}, {"title": "Cohorts Phase2 Group 1", "substr": "CohortsPhase2Group1"}]}
                       }
                   }
           
