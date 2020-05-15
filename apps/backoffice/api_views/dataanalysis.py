@@ -39,7 +39,7 @@ class DataAnalysis(ListAPIView):
     basepath = "~/csvs/dataanalysis/"
     alldata = "allanswers"
     dfs = {}
-    graphtypes = {"corelation":{"type": "Corelation Heat Map",
+    graphtypes = {"corelation":{"type": "Correlation Heat Map",
                                 "path": "corelation",
                                 "tabs": {"names": [{"substr": "ClassWise","title": "Class Wise",
                                     "subtabs": {"names": [{"substr":"Class4", "title": "Class 4"}, {"substr":"Class5", "title": "Class 5"}, {"substr":"Class6", "title": "Class 6"}]}}]
@@ -119,6 +119,7 @@ class DataAnalysis(ListAPIView):
                 'tabs': self.graphtypes[graphtype]['tabs'],
                 'charttype':self.graphtypes[graphtype]["type"],
                 'year': year_id,
+                'year_char': year,
                 'boundaryid': boundaryid,
                 'boundary': {}
                 }

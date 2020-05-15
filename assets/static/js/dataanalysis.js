@@ -226,6 +226,7 @@
 	var images = retdata["data"];
 	var names = retdata["names"];
 	var yearid = retdata["year"].toString();
+	var year_char = retdata["year_char"].toString();
 	var boundaryid = retdata["boundaryid"].toString();
 	if( "commonsubtabs" in tabs )
 	{
@@ -244,7 +245,7 @@
 	    }
 	    if( yearid != "")
 	    {
-                tabtitle += " (For year:"+yearid+")";
+                tabtitle += " (For year: "+year_char+")";
 	    }
 	    const [tabbutton, tabdiv] = createtab(chartArea, tabname, tabcount, tabtitle, 0);
 
