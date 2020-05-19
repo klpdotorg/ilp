@@ -93,6 +93,7 @@ class DataAnalysis(ListAPIView):
                 year_id = AcademicYear.objects.get(year=year).char_id
             else:
                 year_id = ""
+                year = ""
             boundaryid = request.GET.get('boundary_id')
             if boundaryid is not None:
                 print(boundaryid)
