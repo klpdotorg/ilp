@@ -75,8 +75,18 @@ class DataAnalysis(ListAPIView):
                       "tabs": {"names": [{"title":"Class 4", "substr": "Class4Outliers"}, {"substr": "Class5Outliers", "title": "Class 5"}, {"substr": "Class6Outliers", "title": "Class 6"}] }
                       },
                   "cohorts": {"type": "Cohorts",
-                      "path": "cohorts",
-                      "tabs": {"names": [{"title": "Cohorts Phase1 Group 1", "substr":"CohortsPhase1Group1"}, {"title": "Cohorts Phase1 Group 2", "substr": "CohortsPhase1Group2"}, {"title": "Cohorts Phase2 Group 1", "substr": "CohortsPhase2Group1"}]}
+                      "path": "CohortsSummary",
+                      "tabs": {"names": [{"title": "Class Wise", "substr":"classwise", 
+                               "subtabs": {"names": [
+                                              {"title": "Class 6", "substr":"class6",
+                                                  "subtabs":{"names":[{"title": "Phase 1 (2016-17 to 2018-19)", "substr":"phase1", "usecommon": True},{"title": "Phase 2 (2017-18 to 2019-20)", "substr": "phase2","usecommon":True}] }
+                                               }, 
+                                               {"title": "Class 5", "substr": "class5",
+                                                   "subtabs": {"names":[{"title":"Phase 1 (2016-17 to 2017-18)","substr":"phase1", "usecommon": True},{"title": "Phase 2 (2017-18 to 2018-19)", "substr": "phase2_1", "usecommon": True},{"title": "Phase 2 (2018-19 to 2019-20)", "substr":"phase2_2", "usecommon": True}]}
+                                                }]
+                                           }}],
+                               "commonsubtabs": {"names": [{"title": "Percentage Average", "substr":"average"}, {"title": "Number of Assessments", "substr": "numassessments"}]}}
+                            
                       }
                   }
           

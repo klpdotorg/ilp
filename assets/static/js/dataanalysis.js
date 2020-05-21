@@ -256,7 +256,7 @@
 	    }
 	    else if(commonsubtabpresent && maintabs[tab]["usecommontab"])
 	    {
-                createsubtab(tabdiv, tabbutton, tabcount, {}, true, commonsubtabpresent, commonsubtabs, subtabcount, tabtitle , tabname, images, names, yearid, boundaryid, 1);
+                createsubtab(tabdiv, tabbutton, tabcount, {}, true, commonsubtabpresent, commonsubtabs, subtabcount, "", "", images, names, yearid, boundaryid, 1);
 		subtabcount += 1;
 	    }
 	    else
@@ -289,38 +289,60 @@
     }
 
     function isEmpty(obj) {
+	    if(obj == null)
+	    {
+		    return true
+	    }
 	      return Object.keys(obj).length === 0;
     }
 
 
-    function createsubtab(parentdiv, parentbutton, parentcount, subtabs, usecommontab, commonsubtrabpresent, commonsubtabs, subtabcount, currenttitle, currentname, images, names, yearid, boundaryid, level)
+    function createsubtab(parentdiv, parentbutton, parentcount, subtabs, usecommontab, commonsubtabpresent, commonsubtabs, subtabcount, currenttitle, currentname, images, names, yearid, boundaryid, level)
     {
-	var subtabpresent = false
+	var subtabpresent = false;
+        var usingcommonsubtab = false;
 	if( isEmpty(subtabs) )
 	{
             var subtabnames = commonsubtabs["names"];
             if ("subtabs" in commonsubtabs && usecommontab)
 	    {
 	        subtabpresent = true;
-		var sub_subtabs = commonsubtabs["subtabs"];
+		//var sub_subtabs = commonsubtabs["subtabs"];
+		commonsubtabs = commonsubtabs["subtabs"];
 	    }
+	    else
+	    {
+	        commonsubtabs={}
+	    }
+	    usingcommonsubtab = true;
 	}
 	else
 	{
             var subtabnames = subtabs["names"];
-            if ("subtabs" in subtabs)
-	    {
-	        subtabpresent = true;
-		var sub_subtabs = subtabs["subtabs"];
-	    }
-	    else if( ! isEmpty(commonsubtabs) )
-	    {
-	        subtabpresent = true;
-		var sub_subtabs = commonsubtabs;
-	    }
+	    
 	}
         for(var index in subtabnames)
 	{
+	    var commonsubsubtabs = commonsubtabs;
+            if ("subtabs" in subtabnames[index])
+	    {
+	        subtabpresent = true;
+		var sub_subtabs = subtabnames[index]["subtabs"];
+		
+	    }
+            else if( ! isEmpty(commonsubtabs) && !(usingcommonsubtab))
+	    {
+	        subtabpresent = true;
+		var sub_subtabs = commonsubtabs;
+		if("subtabs" in commonsubtabs)
+		{
+		    commonsubsubtabs = commonsubtabs["subtabs"];
+		}
+		else
+		{
+		    commonsubsubtabs = {}
+		}
+	    }
 	    var graphcount = 0;
             var subtabname = subtabnames[index]["substr"];
 	    var subtabtitle = subtabnames[index]["title"];
@@ -337,7 +359,7 @@
 	    subtabcount += 1;
 	    if( subtabpresent == true)
 	    {
-                createsubtab(subtabdiv, subtabbutton, subtabcount, sub_subtabs, usecommontab, false, {}, subtabcount, subtabtitle, subtabname, images, names, yearid, boundaryid, level+1)
+                createsubtab(subtabdiv, subtabbutton, subtabcount, sub_subtabs, usecommontab, commonsubtabpresent, commonsubsubtabs, subtabcount, subtabtitle, subtabname, images, names, yearid, boundaryid, level+1)
 	    }
 	    else
 	    {
