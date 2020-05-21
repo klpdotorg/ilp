@@ -76,7 +76,7 @@
 	    {
 		$('#divyear').hide();
 		$('#year').val("");
-		$('#divblock').show();
+		$('#divblock').hide();
 		$('#divdistrict').show();
 	    }
 	    if(radioValue == 'outliers'|| radioValue=='questionperformance')
