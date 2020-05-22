@@ -82,7 +82,7 @@ class DataAnalysis(ListAPIView):
                                                   "subtabs":{"names":[{"title": "Group 1 (2016-17 to 2018-19)", "substr":"phase1", "usecommon": True},{"title": "Group 2 (2017-18 to 2019-20)", "substr": "phase2","usecommon":True}] }
                                                }, 
                                                {"title": "Class 5", "substr": "class5",
-                                                   "subtabs": {"names":[{"title":"Group 1 (2016-17 to 2017-18)","substr":"phase1", "usecommon": True},{"title": "Group 2 (2017-18 to 2018-19)", "substr": "phase2_1", "usecommon": True},{"title": "Phase 2 (2018-19 to 2019-20)", "substr":"phase2_2", "usecommon": True}]}
+                                                   "subtabs": {"names":[{"title":"Group 1 (2016-17 to 2017-18)","substr":"phase1", "usecommon": True},{"title": "Group 2 (2017-18 to 2018-19)", "substr": "phase2_1", "usecommon": True},{"title": "Group 3 (2018-19 to 2019-20)", "substr":"phase2_2", "usecommon": True}]}
                                                 }]
                                            }}],
                                "commonsubtabs": {"names": [{"title": "Percentage Average", "substr":"average"}, {"title": "Number of Assessments", "substr": "numassessments"}]}}
