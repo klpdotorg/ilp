@@ -414,13 +414,13 @@ class BaseReport(ABC):
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Male')\
-                .aggregate(male_correct=Sum('num_assessments'))
+                .aggregate(male_correct=Sum('numcorrect'))
             female_correct_ans_per_gp = SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg.objects.filter(
                 eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Female')\
-                .aggregate(female_correct=Sum('num_assessments'))
+                .aggregate(female_correct=Sum('numcorrect'))
             male_total_ans_per_gp = SurveyEBoundaryQuestionGroupGenderAgg.objects.filter(
                 eboundary_id=gp_obj, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
@@ -439,13 +439,13 @@ class BaseReport(ABC):
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Male')\
-                .aggregate(male_correct=Sum('num_assessments'))
+                .aggregate(male_correct=Sum('numcorrect'))
             female_correct_ans_per_gp = SurveyInstitutionQuestionGroupGenderCorrectAnsAgg.objects.filter(
                 institution_id=boundary, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
                 .filter(yearmonth__lte = report_to)\
                 .filter(gender='Female')\
-                .aggregate(female_correct=Sum('num_assessments'))
+                .aggregate(female_correct=Sum('numcorrect'))
             male_total_ans_per_gp = SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
                 institution_id=boundary, survey_id=self.gpcontest_survey_id)\
                 .filter(yearmonth__gte = report_from)\
@@ -486,23 +486,23 @@ class BaseReport(ABC):
         if isinstance(boundary, Boundary):
             if boundary.boundary_type.char_id == 'SC':
                 correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id__admin3=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
-                    .annotate(total = Sum('num_assessments'))
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'numcorrect')\
+                    .annotate(total = Sum('numcorrect'))
                 total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id__admin3=boundary, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, ElectionBoundary):
             if boundary.const_ward_type_id == 'GP':
                 correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id__gp=boundary, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_name','institution_id', 'num_assessments')\
-                    .annotate(total = Sum('num_assessments'))
+                    .values('question_key', 'questiongroup_name','institution_id', 'numcorrect')\
+                    .annotate(total = Sum('numcorrect'))
                 total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id__gp=boundary, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
         elif isinstance(boundary, Institution):
             correct_answers_agg = SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id=boundary.id, yearmonth__range=dates)\
-                    .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
-                    .annotate(total = Sum('num_assessments'))
+                    .values('question_key', 'questiongroup_name', 'institution_id', 'numcorrect')\
+                    .annotate(total = Sum('numcorrect'))
             total_assessments = SurveyInstitutionQuestionGroupQuestionKeyAgg.objects.filter(survey_id=self.gpcontest_survey_id, institution_id=boundary.id, yearmonth__range=dates)\
                     .values('question_key', 'questiongroup_name', 'institution_id', 'num_assessments')\
                     .annotate(Sum('num_assessments'))
@@ -588,7 +588,7 @@ class BaseReport(ABC):
                     .filter(yearmonth__gte = report_from)\
                     .filter(yearmonth__lte = report_to)\
                     .values('question_key', 'questiongroup_name')\
-                    .annotate(correct_answers = Sum('num_assessments'))
+                    .annotate(correct_answers = Sum('numcorrect'))
             total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
                     .filter(survey_id=self.gpcontest_survey_id, boundary_id=boundary, survey_tag='gka')\
                     .filter(yearmonth__gte = report_from)\
@@ -605,7 +605,7 @@ class BaseReport(ABC):
                         .filter(yearmonth__gte = report_from)\
                         .filter(yearmonth__lte = report_to)\
                         .values('question_key',  'questiongroup_name')\
-                        .annotate(correct_answers = Sum('num_assessments'))
+                        .annotate(correct_answers = Sum('numcorrect'))
             except SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
                 pass
             try:
@@ -685,7 +685,7 @@ class BaseReport(ABC):
                 .filter(yearmonth__gte = dates[0])\
                 .filter(yearmonth__lte = dates[1])\
                 .values('question_key', 'questiongroup_name', 'boundary_id')\
-                .annotate(total = Sum('num_assessments'))
+                .annotate(total = Sum('numcorrect'))
             total_assessments = SurveyBoundaryQuestionGroupQuestionKeyAgg.objects\
                 .filter(survey_id=self.gpcontest_survey_id, boundary_id=child_boundary, survey_tag='gka')\
                 .filter(yearmonth__gte = dates[0])\
