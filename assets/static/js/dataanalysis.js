@@ -72,7 +72,7 @@
                 $("#year").val("");
 		$('#divblock').hide();
                 $("#selectblock").val("");
-		$('#divdistrict').show();
+		$('#divdistrict').hide();
                 $("#selectdistrict").val("");
 	    }
 	    if(radioValue == 'summarycounts')
