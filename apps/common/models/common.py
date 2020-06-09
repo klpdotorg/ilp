@@ -17,7 +17,7 @@ class AcademicYear(models.Model):
     """ Academic years in Schools """
     char_id = models.CharField(max_length=300, primary_key=True)
     year = models.CharField(max_length=10)
-    active = models.ForeignKey('Status')
+    active = models.ForeignKey('Status', on_delete=models.DO_NOTHING)
 
     class Meta:
         unique_together = (('year'), )
@@ -132,5 +132,5 @@ class StudentCategory(models.Model):
 class RespondentType(models.Model):
     char_id = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=100)
-    state_code = models.ForeignKey('boundary.BoundaryStateCode', null=True)
-    active = models.ForeignKey('Status', default='AC')
+    state_code = models.ForeignKey('boundary.BoundaryStateCode', null=True, on_delete=models.DO_NOTHING)
+    active = models.ForeignKey('Status', default='AC', on_delete=models.DO_NOTHING)

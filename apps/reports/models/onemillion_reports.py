@@ -12,10 +12,13 @@ class Reports(models.Model):
     link_id = models.CharField(max_length=10,unique=True,null=True)
     parameters = JSONField()
     data = JSONField()
-    state = models.ForeignKey('boundary.Boundary', db_column="state_id", default=get_default_state)
+    state = models.ForeignKey('boundary.Boundary', db_column="state_id", 
+                              default=get_default_state, 
+                              on_delete=models.DO_NOTHING)
 
 class Tracking(models.Model):
-    report_id = models.ForeignKey('Reports', db_column="link_id")
+    report_id = models.ForeignKey('Reports', db_column="link_id", 
+                                  on_delete=models.DO_NOTHING)
     report_type = models.CharField(max_length=100, null=True)
     track_id = models.CharField(max_length=10)
     recipient = models.CharField(max_length=100,null=True)
