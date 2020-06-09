@@ -50,8 +50,8 @@ class DataAnalysis(ListAPIView):
                                         "names": [{"substr": "NumGPContests", "title": "Number of GP Contests", "usecommontab": False},{"substr": "NumSchools", "title": "Number of Schools Assessed", "usecommontab": False},{"substr": "All", "title": "All Assessments", "usecommontab": True},{"substr": "ClassWise", "title": "Class Wise", 
                                             "subtabs": {"names": [{"substr":"Class4","title": "Class 4"}, {"substr":"Class5","title": "Class 5"}, {"substr":"Class6","title": "Class 6"}]}, "usecommontab": True}],
                                         "commonsubtabs": {"names": [{"substr": "All", "title": "All Areas"},
-                                                              {"substr": "Phase1", "title": "Phase 1"},
-                                                              {"substr": "Phase2", "title": "Phase 2"}],
+                                                              {"substr": "Phase1", "title": "Areas assessed in 2016-17"},
+                                                              {"substr": "Phase2", "title": "Areas assessed in 2017-18"}],
                                                     "subtabs": {"names": [{"substr":"NumAssessments","title": "Number of Assessments"},
                                                                           {"substr": "AverageScore", "title": "Average Score"}]
                                                                }
@@ -74,15 +74,15 @@ class DataAnalysis(ListAPIView):
                       "path": "OutlierBoxPlots",
                       "tabs": {"names": [{"title":"Class 4", "substr": "Class4Outliers"}, {"substr": "Class5Outliers", "title": "Class 5"}, {"substr": "Class6Outliers", "title": "Class 6"}] }
                       },
-                  "cohorts": {"type": "Cohorts",
+                  "cohorts": {"type": "School Cohorts",
                       "path": "CohortsSummary",
                       "tabs": {"names": [{"title": "Class Wise", "substr":"classwise", 
                                "subtabs": {"names": [
                                               {"title": "Class 6", "substr":"class6",
-                                                  "subtabs":{"names":[{"title": "Phase 1 (2016-17 to 2018-19)", "substr":"phase1", "usecommon": True},{"title": "Phase 2 (2017-18 to 2019-20)", "substr": "phase2","usecommon":True}] }
+                                                  "subtabs":{"names":[{"title": "Group 1 (2016-17 to 2018-19)", "substr":"phase1", "usecommon": True},{"title": "Group 2 (2017-18 to 2019-20)", "substr": "phase2","usecommon":True}] }
                                                }, 
                                                {"title": "Class 5", "substr": "class5",
-                                                   "subtabs": {"names":[{"title":"Phase 1 (2016-17 to 2017-18)","substr":"phase1", "usecommon": True},{"title": "Phase 2 (2017-18 to 2018-19)", "substr": "phase2_1", "usecommon": True},{"title": "Phase 2 (2018-19 to 2019-20)", "substr":"phase2_2", "usecommon": True}]}
+                                                   "subtabs": {"names":[{"title":"Group 1 (2016-17 to 2017-18)","substr":"phase1", "usecommon": True},{"title": "Group 2 (2017-18 to 2018-19)", "substr": "phase2_1", "usecommon": True},{"title": "Group 3 (2018-19 to 2019-20)", "substr":"phase2_2", "usecommon": True}]}
                                                 }]
                                            }}],
                                "commonsubtabs": {"names": [{"title": "Percentage Average", "substr":"average"}, {"title": "Number of Assessments", "substr": "numassessments"}]}}

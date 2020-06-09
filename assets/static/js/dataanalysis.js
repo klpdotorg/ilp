@@ -60,8 +60,11 @@
 	    if(radioValue == 'corelation'|| radioValue=='actualgpvsassessed' || radioValue == 'mappedschoolvsassessed')
 	    {
 		$('#divyear').show();
+                $("#year").val("");
 		$('#divblock').show();
+                $("#selectblock").val("");
 		$('#divdistrict').show();
+                $("#selectdistrict").val("");
 	    }
 	    if(radioValue == 'cohorts')
 	    {
@@ -74,14 +77,17 @@
 	    }
 	    if(radioValue == 'summarycounts')
 	    {
-		$('#divyear').hide();
 		$('#year').val("");
+		$('#divyear').hide();
 		$('#divblock').hide();
+                $("#selectblock").val("");
+                $("#selectdistrict").val("");
 		$('#divdistrict').show();
 	    }
 	    if(radioValue == 'outliers'|| radioValue=='questionperformance')
 	    {
 		$('#divyear').show()
+		$('#year').val("");
 		$('#divblock').hide()
 		$('#selectblock').val("");
 		$('#divdistrict').hide()
@@ -412,7 +418,7 @@
             //This is a reload of localhost:8001/gka
             //No Query Params
             if(window.location.hash == '#resetButton') {
-                window.location.href = '/backoffice/dataanalysis';
+                window.location.href = '/backoffice/analysis/';
             }
             //This is to prevent server calls when just the modal actions are called
             //This condition is triggered for eg: for localhost:8001/gka#datemodal?from=12/03/2016&to12/06/2016
