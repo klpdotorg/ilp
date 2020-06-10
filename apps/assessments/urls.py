@@ -36,19 +36,19 @@ simple_router = routers.DefaultRouter()
 simple_router.register(
     r'surveys/questions',
     QuestionViewSet,
-    base_name='survey-questions'
+    basename='survey-questions'
 )
 #survey/partner URL
 simple_router.register(
     r'surveys/partners',
     SurveyPartnersViewSet,
-    base_name='survey-partners'
+    basename='survey-partners'
 )
 
 simple_router.register(
     r'surveys/sources',
     SurveySourceViewSet,
-    base_name='survey-sources'
+    basename='survey-sources'
 )
 
 # surveys -> questiongroup -> questions
@@ -57,28 +57,28 @@ questiongroup_router = \
     nested_router.register(
         r'surveys',
         SurveysViewSet,
-        base_name='survey').register(
+        basename='survey').register(
             r'questiongroup',
             QuestionGroupViewSet,
-            base_name='survey-questiongroup',
+            basename='survey-questiongroup',
             parents_query_lookups=['survey']
         )
 
 questiongroup_router.register(
     r'questions', QuestionGroupQuestions,
-    base_name="survey-questiongroup-question",
+    basename="survey-questiongroup-question",
     parents_query_lookups=[
         'survey', 'questiongroup']
 )
 
 questiongroup_router.register(
     r'answergroups', AnswerGroupViewSet,
-    base_name='survey-questiongroup-answergroups',
+    basename='survey-questiongroup-answergroups',
     parents_query_lookups=[
         'survey_id', 'questiongroup_id'
     ]).register(
         r'answers', AnswerViewSet,
-        base_name='survey-questiongroup-answergroup-answers',
+        basename='survey-questiongroup-answergroup-answers',
         parents_query_lookups=[
             'survey_id', 'questiongroup_id', 'answergroup_id'
         ])
@@ -196,3 +196,5 @@ urlpatterns = [
         SurveyQuestionGroupQuestionKeyYearComparisonAPIView.as_view(),
         name='survey_comparision_year')
 ] + simple_router.urls + nested_router.urls
+
+app_name = "assessments"

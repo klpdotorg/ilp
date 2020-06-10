@@ -9,3 +9,5 @@ urlpatterns = [
     url(r'^academicyear/$', AcademicYearView.as_view(), name='academicyear'),
     url(r'^respondenttype/$', RespondentTypeView.as_view(), name='respondenttype')
 ]
+
+app_name = "common"

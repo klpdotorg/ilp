@@ -15,8 +15,8 @@ parliamentaryBoundariesListView = ParliamentBoundariesViewSet.as_view({'get': 'l
 parliamentaryBoundariesDetailView = ParliamentBoundariesViewSet.as_view({'get': 'retrieve'})
 
 router = routers.DefaultRouter()
-router.register(r'boundaries', BoundaryViewSet, base_name='boundary')
-router.register(r'boundarytype', BoundaryTypeViewSet, base_name='boundarytype')
+router.register(r'boundaries', BoundaryViewSet, basename='boundary')
+router.register(r'boundarytype', BoundaryTypeViewSet, basename='boundarytype')
 urlpatterns = [
     url(r'^states/', StateListAPIView.as_view(), name='states-boundary'),
     url(r'^boundary/states$', StateList.as_view(), name='states-boundary'),
@@ -40,3 +40,4 @@ urlpatterns = [
     url(r'^aggregation/boundary/(?P<id>[0-9]+)/schools/$',
         BasicBoundaryAggView.as_view(), name='api_aggregation_boundary_schools')
     ] +  router.urls
+app_name='boundary'

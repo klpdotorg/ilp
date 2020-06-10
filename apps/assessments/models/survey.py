@@ -63,7 +63,7 @@ class SurveyTagMapping(models.Model):
 
 class SurveyTagInstitutionMapping(models.Model):
     """Mapping Survey Tag to Insitutions in which it is active"""
-    tag = models.ForeignKey('SurveyTag')
+    tag = models.ForeignKey('SurveyTag',on_delete=models.DO_NOTHING)
     institution = models.ForeignKey('schools.Institution', on_delete=models.DO_NOTHING)
     academic_year = models.ForeignKey('common.AcademicYear', null=True, on_delete=models.DO_NOTHING)
 
@@ -73,7 +73,7 @@ class SurveyTagInstitutionMapping(models.Model):
 
 class SurveyTagClassMapping(models.Model):
     """Mapping SurveyTag to list of classes"""
-    tag = models.ForeignKey('SurveyTag')
+    tag = models.ForeignKey('SurveyTag', on_delete=models.DO_NOTHING)
     sg_name = models.CharField(max_length=20)
     academic_year = models.ForeignKey('common.AcademicYear', null=True, on_delete=models.DO_NOTHING)
 
@@ -114,7 +114,7 @@ class QuestionGroup(models.Model):
                                 null=True,
                                 on_delete=models.DO_NOTHING)
     double_entry = models.BooleanField(default=True)
-    created_by = models.ForeignKey(User, null=True)
+    created_by = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True)
     status = models.ForeignKey(
@@ -174,11 +174,13 @@ class Question(models.Model):
     display_text = models.CharField(max_length=300)
     lang_name = models.CharField(max_length=300, null=True, blank=True)
     key = models.CharField(max_length=50, null=True, blank=True)
-    question_type = models.ForeignKey('QuestionType', null=True)
+    question_type = models.ForeignKey('QuestionType', null=True,
+                                      on_delete=models.DO_NOTHING)
     options = models.CharField(max_length=750, null=True)
     lang_options = models.CharField(max_length=750, null=True)
     is_featured = models.BooleanField()
-    status = models.ForeignKey('common.Status')
+    status = models.ForeignKey('common.Status',
+                               on_delete=models.DO_NOTHING)
     max_score = models.IntegerField(null=True)
     pass_score = models.CharField(max_length=100, null=True)
     concept = models.ForeignKey(

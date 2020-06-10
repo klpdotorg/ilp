@@ -170,11 +170,13 @@ class SurveyInstitutionUserTypeAgg(models.Model):
 
 class SurveyBoundaryQuestionKeyAgg(models.Model):
     """Survey QuestionKey Agg"""
-    survey_id = models.ForeignKey('Survey', db_column="survey_id")
+    survey_id = models.ForeignKey('Survey', db_column="survey_id", 
+                                  on_delete=models.DO_NOTHING)
     survey_tag = models.ForeignKey(
-        'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHIN)
+        'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id",
+        on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -195,7 +197,8 @@ class SurveyInstitutionQuestionKeyAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id",
+        on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -216,13 +219,15 @@ class SurveyEBoundaryQuestionGroupQuestionKeyAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", 
+        on_delete=models.DO_NOTHING)
     const_ward_type = models.ForeignKey(
-        'boundary.BoundaryType', db_column="const_ward_type_id")
+        'boundary.BoundaryType', db_column="const_ward_type_id", 
+        on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -243,11 +248,11 @@ class SurveyBoundaryQuestionGroupQuestionKeyAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -268,11 +273,11 @@ class SurveyInstitutionQuestionGroupQuestionKeyAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -293,12 +298,12 @@ class SurveyEBoundaryQuestionGroupGenderAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey(
@@ -317,12 +322,12 @@ class SurveyBoundaryQuestionGroupGenderAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey(
@@ -341,12 +346,12 @@ class SurveyInstitutionQuestionGroupGenderAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey(
@@ -365,7 +370,7 @@ class SurveyEBoundaryQuestionKeyCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     question_key = models.CharField(max_length=100, db_column="question_key")
@@ -388,7 +393,7 @@ class SurveyBoundaryQuestionKeyCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     question_key = models.CharField(max_length=100, db_column="question_key")
@@ -411,7 +416,7 @@ class SurveyInstitutionQuestionKeyCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     question_key = models.CharField(max_length=100, db_column="question_key")
@@ -434,11 +439,11 @@ class SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
@@ -462,11 +467,11 @@ class SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
@@ -490,11 +495,11 @@ class SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     question_key = models.CharField(max_length=100, db_column="question_key")
@@ -518,11 +523,11 @@ class SurveyEBoundaryQuestionGroupGenderCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey(
@@ -542,11 +547,11 @@ class SurveyBoundaryQuestionGroupGenderCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey(
@@ -566,11 +571,11 @@ class SurveyInstitutionQuestionGroupGenderCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     gender = models.ForeignKey(
@@ -590,11 +595,11 @@ class SurveyEBoundaryQuestionGroupAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_id = models.ForeignKey(
         'Question', db_column="question_id", on_delete=models.DO_NOTHING)
@@ -614,11 +619,11 @@ class SurveyBoundaryQuestionGroupAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_id = models.ForeignKey(
         'Question', db_column="question_id", on_delete=models.DO_NOTHING)
@@ -638,11 +643,11 @@ class SurveyInstitutionQuestionGroupAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     question_id = models.ForeignKey(
         'Question', db_column="question_id", on_delete=models.DO_NOTHING)
@@ -664,9 +669,9 @@ class SurveyInstitutionQuestionGroupAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_assessments = models.IntegerField(db_column="num_assessments")
     num_children = models.IntegerField(db_column="num_children")
@@ -685,9 +690,9 @@ class SurveyEBoundaryQuestionGroupAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_schools = models.IntegerField(db_column="num_schools")
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -707,9 +712,9 @@ class SurveyBoundaryQuestionGroupAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     num_schools = models.IntegerField(db_column="num_schools")
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -726,9 +731,9 @@ class SurveyTagMappingAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     academic_year_id = models.ForeignKey(
-        'common.AcademicYear', db_column="academic_year_id")
+        'common.AcademicYear', db_column="academic_year_id", on_delete=models.DO_NOTHING)
     num_schools = models.IntegerField(db_column="num_schools")
     num_students = models.IntegerField(db_column="num_students")
 
@@ -744,10 +749,10 @@ class SurveyBoundaryElectionTypeCount(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     const_ward_type = models.ForeignKey(
-        'boundary.BoundaryType', db_column="const_ward_type")
+        'boundary.BoundaryType', db_column="const_ward_type", on_delete=models.DO_NOTHING)
     electionboundary_count = models.IntegerField(
         db_column="electionboundary_count")
 
@@ -763,10 +768,10 @@ class SurveyEBoundaryElectionTypeCount(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     const_ward_type = models.ForeignKey(
-        'boundary.BoundaryType', db_column="const_ward_type")
+        'boundary.BoundaryType', db_column="const_ward_type", on_delete=models.DO_NOTHING)
     electionboundary_count = models.IntegerField(
         db_column="electionboundary_count")
 
@@ -782,10 +787,10 @@ class SurveyInstitutionElectionTypeCount(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="institution_id")
+        'schools.Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     const_ward_type = models.ForeignKey(
-        'boundary.BoundaryType', db_column="const_ward_type")
+        'boundary.BoundaryType', db_column="const_ward_type", on_delete=models.DO_NOTHING)
     electionboundary_count = models.IntegerField(
         db_column="electionboundary_count")
 
@@ -802,14 +807,14 @@ class SurveyEBoundaryQDetailsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -827,14 +832,14 @@ class SurveyBoundaryQDetailsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -852,14 +857,14 @@ class SurveyInstitutionQDetailsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="boundary_id")
+        'schools.Institution', db_column="boundary_id", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -877,18 +882,18 @@ class SurveyEBoundaryQuestionGroupQDetailsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -906,18 +911,18 @@ class SurveyBoundaryQuestionGroupQDetailsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -939,14 +944,14 @@ class SurveyInstitutionQuestionGroupQDetailsAgg(models.Model):
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     num_assessments = models.IntegerField(db_column="num_assessments")
@@ -963,13 +968,13 @@ class SurveyEBoundaryQDetailsCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -989,13 +994,13 @@ class SurveyBoundaryQDetailsCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -1015,13 +1020,13 @@ class SurveyInstitutionQDetailsCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     institution_id = models.ForeignKey(
-        'schools.Institution', db_column="boundary_id")
+        'schools.Institution', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -1042,18 +1047,18 @@ class SurveyEBoundaryQuestionGroupQDetailsCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     eboundary_id = models.ForeignKey(
-        'boundary.ElectionBoundary', db_column="eboundary_id")
+        'boundary.ElectionBoundary', db_column="eboundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -1073,18 +1078,18 @@ class SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg(models.Model):
     survey_tag = models.ForeignKey(
         'SurveyTag', db_column="survey_tag", on_delete=models.DO_NOTHING)
     boundary_id = models.ForeignKey(
-        'boundary.Boundary', db_column="boundary_id")
+        'boundary.Boundary', db_column="boundary_id", on_delete=models.DO_NOTHING)
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")
@@ -1108,14 +1113,14 @@ class SurveyInstitutionQuestionGroupQDetailsCorrectAnsAgg(models.Model):
     source = models.ForeignKey(
         'Source', db_column="source", on_delete=models.DO_NOTHING)
     questiongroup_id = models.ForeignKey(
-        'QuestionGroup', db_column="questiongroup_id")
+        'QuestionGroup', db_column="questiongroup_id", on_delete=models.DO_NOTHING)
     questiongroup_name = models.CharField(
         max_length=100, db_column="questiongroup_name")
     yearmonth = models.IntegerField(db_column="yearmonth")
     concept = models.ForeignKey(
         'Concept', db_column="concept", on_delete=models.DO_NOTHING)
     microconcept_group = models.ForeignKey(
-        'MicroConceptGroup', db_column="microconcept_group")
+        'MicroConceptGroup', db_column="microconcept_group", on_delete=models.DO_NOTHING)
     microconcept = models.ForeignKey(
         'MicroConcept', db_column="microconcept", on_delete=models.DO_NOTHING)
     yearmonth = models.IntegerField(db_column="yearmonth")

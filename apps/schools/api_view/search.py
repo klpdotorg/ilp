@@ -2,7 +2,7 @@ from boundary.models import Boundary, ElectionBoundary
 from schools.models import Institution
 from urllib.parse import urlparse 
 from common.views import ILPAPIView
-from django.core.urlresolvers import resolve, Resolver404
+from django.urls import resolve, Resolver404
 from rest_framework.response import Response
 from schools.serializers import LeanInstitutionSummarySerializer
 from boundary.serializers import (
