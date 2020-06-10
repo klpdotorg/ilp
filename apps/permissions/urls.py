@@ -10,3 +10,5 @@ urlpatterns = [
     ),
     
 ]
+
+app_name = "permissions"

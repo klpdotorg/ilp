@@ -20,26 +20,26 @@ from schools.views import SchoolPageView
 nested_router = ExtendedSimpleRouter()
 router = DefaultRouter()
 
-router.register(r'teachers', StaffViewSet, base_name='teacher')
-router.register(r'institutestudents', InstituteStudentsViewSet, base_name='institutestudent')
-router.register(r'institutestudentgroups', InstituteStudentGroupViewSet, base_name='institutestudentgroup')
+router.register(r'teachers', StaffViewSet, basename='teacher')
+router.register(r'institutestudents', InstituteStudentsViewSet, basename='institutestudent')
+router.register(r'institutestudentgroups', InstituteStudentGroupViewSet, basename='institutestudentgroup')
 
 # Institution -> StudentGroup -> Students
 institution_routes = nested_router.register(
     r'institutions',
     InstitutionViewSet,
-    base_name='institution'
+    basename='institution'
 )
 institution_routes.register(
     r'studentgroups',
     StudentGroupViewSet,
-    base_name='institution-studentgroup',
+    basename='institution-studentgroup',
     parents_query_lookups=['institution']
 )
 institution_routes.register(
     r'students',
     StudentViewSet,
-    base_name='institution-student',
+    basename='institution-student',
     parents_query_lookups=['institution']
 )
 
@@ -47,21 +47,21 @@ institution_routes.register(
 nested_router.register(
     r'studentgroups',
     StudentGroupViewSet,
-    base_name='studentgroup',
+    basename='studentgroup',
     ).register(
         r'students',
         StudentViewSet,
-        base_name='studentgroup-student',
+        basename='studentgroup-student',
         parents_query_lookups=['studentgroups']
         ).register(
             r'enrollment',
             StudentStudentGroupViewSet,
-            base_name='studentstudentgrouprelation',
+            basename='studentstudentgrouprelation',
             parents_query_lookups=['student__studentgroups', 'student']
         )
 
 # Programme
-nested_router.register(r'programmes', ProgrammeViewSet, base_name='programme')
+nested_router.register(r'programmes', ProgrammeViewSet, basename='programme')
 
 urlpatterns = [
     url(r'^merge$', MergeEndpoints.as_view(), name='api_merge'),
@@ -88,3 +88,5 @@ urlpatterns = [
         InstitutionFinance.as_view(),
         name='inst-finance'),
 ] + router.urls + nested_router.urls
+
+app_name="institution"

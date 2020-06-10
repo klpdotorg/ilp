@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import list_route, detail_route
+from rest_framework.decorators import action
 from users.models import ( 
     User,
     UserBoundary
@@ -113,10 +113,10 @@ class UsersViewSet(ILPViewSet):
         headers = self.get_success_headers(response_data.data)
         return Response(response_data.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    @detail_route(
-        methods=['put', 'patch', 'options', 'head'], 
-        serializer_class=PasswordSerializer, 
-        url_path='reset-password')
+    @action(detail=True,
+            methods=['put', 'patch', 'options', 'head'], 
+            serializer_class=PasswordSerializer,
+            url_path='reset-password')
     def set_password(self, request, pk=None):
         if request.method in ('OPTIONS', 'HEAD'):
             return Response({
@@ -135,7 +135,8 @@ class UsersViewSet(ILPViewSet):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-    @detail_route(
+    @action(
+        detail=True,
         methods=['put', 'patch', 'options', 'head'],
         serializer_class=ChangePasswordSerializer,
         url_path='change-password',
