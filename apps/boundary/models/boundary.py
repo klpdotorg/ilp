@@ -85,7 +85,7 @@ class BoundaryHierarchy(models.Model):
     """boundary hierarchy details"""
     admin3_id = models.OneToOneField(
         'Boundary', related_name='admin3_id',
-        db_column='admin3_id', primary_key=True)
+        db_column='admin3_id', primary_key=True, on_delete=models.DO_NOTHING)
     admin3_name = models.CharField(max_length=300)
 
     admin2_id = models.ForeignKey(
