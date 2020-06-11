@@ -43,15 +43,6 @@ database:
   pre:
     - mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
 
-
-test:
-  override:
-    - . venv/bin/activate && coverage run --source='.' --omit='venv/*' manage.py test boundary users assessments
-    - . venv/bin/activate && coverage report
-    - . venv/bin/activate && coverage html
-    - mkdir -p /tmp/artifacts
-    - mv htmlcov /tmp/artifacts
-
   post:
     - git clean -dxf            # clean up for deployment
 
