@@ -1636,7 +1636,7 @@ var topSummaryData = {};
             var total = getTotal(question.answers);
             var percent = getPercent(score, total);
             var questionObj = question.question;
-            result={
+            var result={
                 'question': questionObj? questionObj.display_text: '',
                 'key': questionObj? questionObj.key: '',
                 'score': score,
