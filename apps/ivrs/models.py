@@ -17,10 +17,12 @@ class State(models.Model):
     telephone = models.CharField(max_length=50, blank=True)
     is_processed = models.BooleanField(default=False)
     is_invalid = models.BooleanField(default=False)
-    qg_type = models.ForeignKey('QuestionGroupType', blank=True, null=True)
+    qg_type = models.ForeignKey('QuestionGroupType', blank=True, null=True,
+                                on_delete=models.DO_NOTHING)
     raw_data = models.TextField(null=True, blank=True)
     comments = models.TextField(null=True, blank=True)
-    user = models.ForeignKey('users.User', blank=True, null=True)
+    user = models.ForeignKey('users.User', blank=True, null=True,
+                             on_delete=models.DO_NOTHING)
 
     def __unicode__(self):
         return str(self.date_of_visit) + " - " + str(self.qg_type.questiongroup.source.name)
@@ -29,7 +31,7 @@ class State(models.Model):
 class QuestionGroupType(models.Model):
     name = models.CharField(max_length=25)
     is_active = models.BooleanField(default=True)
-    questiongroup = models.OneToOneField(QuestionGroup)
+    questiongroup = models.OneToOneField(QuestionGroup,on_delete=models.DO_NOTHING)
 
     def __unicode__(self):
         return self.name
@@ -38,7 +40,8 @@ class QuestionGroupType(models.Model):
 class IncomingNumber(models.Model):
     name = models.CharField(max_length=50)
     number = models.CharField(max_length=50)
-    qg_type = models.ForeignKey(QuestionGroupType, blank=True, null=True)
+    qg_type = models.ForeignKey(QuestionGroupType, blank=True, null=True,
+                                on_delete=models.DO_NOTHING)
 
     def __unicode__(self):
         return self.qg_type.name + ":" + self.number

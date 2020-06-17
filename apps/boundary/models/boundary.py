@@ -30,14 +30,14 @@ class BoundaryType(models.Model):
 
 class Boundary(models.Model):
     """ educational boundaries """
-    parent = models.ForeignKey('self', null=True)
+    parent = models.ForeignKey('self', null=True, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=300)
     lang_name = models.CharField(max_length=300, null=True)
-    boundary_type = models.ForeignKey('BoundaryType')
-    type = models.ForeignKey('common.InstitutionType', null=True)
+    boundary_type = models.ForeignKey('BoundaryType', on_delete=models.DO_NOTHING)
+    type = models.ForeignKey('common.InstitutionType', null=True, on_delete=models.DO_NOTHING)
     dise_slug = models.CharField(max_length=300, blank=True)
     geom = models.GeometryField(null=True)
-    status = models.ForeignKey('common.Status')
+    status = models.ForeignKey('common.Status', on_delete=models.DO_NOTHING)
     objects = common.StatusManager()
 
     def get_geometry(self):
@@ -73,9 +73,9 @@ class Boundary(models.Model):
 
 class BoundaryNeighbours(models.Model):
     """Neighbouring boundaries"""
-    boundary = models.ForeignKey('Boundary')
+    boundary = models.ForeignKey('Boundary', on_delete=models.DO_NOTHING)
     neighbour = models.ForeignKey(
-        'Boundary', related_name='boundary_neighbour')
+        'Boundary', related_name='boundary_neighbour', on_delete=models.DO_NOTHING)
 
     class Meta:
         unique_together = (('boundary', 'neighbour'), )
@@ -85,23 +85,23 @@ class BoundaryHierarchy(models.Model):
     """boundary hierarchy details"""
     admin3_id = models.OneToOneField(
         'Boundary', related_name='admin3_id',
-        db_column='admin3_id', primary_key=True)
+        db_column='admin3_id', primary_key=True, on_delete=models.DO_NOTHING)
     admin3_name = models.CharField(max_length=300)
 
     admin2_id = models.ForeignKey(
         'Boundary', related_name='admin2_id',
-        db_column='admin2_id')
+        db_column='admin2_id', on_delete=models.DO_NOTHING)
     admin2_name = models.CharField(max_length=300)
 
     admin1_id = models.ForeignKey(
-        'Boundary', related_name='admin1_id', db_column='admin1_id')
+        'Boundary', related_name='admin1_id', db_column='admin1_id', on_delete=models.DO_NOTHING)
     admin1_name = models.CharField(max_length=300)
 
     admin0_id = models.ForeignKey(
-        'Boundary', related_name='admin0_id', db_column='admin0_id')
+        'Boundary', related_name='admin0_id', db_column='admin0_id', on_delete=models.DO_NOTHING)
     admin0_name = models.CharField(max_length=300)
 
-    type_id = models.ForeignKey('common.InstitutionType', db_column='type_id')
+    type_id = models.ForeignKey('common.InstitutionType', db_column='type_id', on_delete=models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -111,8 +111,8 @@ class BoundaryHierarchy(models.Model):
 class BoundaryStateCode(models.Model):
     """stores the state codes"""
     char_id = models.CharField(max_length=10, primary_key=True)
-    boundary = models.ForeignKey('Boundary')
-    language = models.ForeignKey('common.Language')
+    boundary = models.ForeignKey('Boundary', on_delete=models.DO_NOTHING)
+    language = models.ForeignKey('common.Language', on_delete=models.DO_NOTHING)
 
     class Meta:
         ordering = ['char_id', ]

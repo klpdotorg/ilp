@@ -4,13 +4,19 @@ from common.models import (AcademicYear)
 
 class InstitutionAggregation(models.Model):
     """Data aggregation per institution"""
-    institution = models.ForeignKey('Institution')
-    institution_name = models.CharField(max_length=300, db_column="institution_name")
-    academic_year = models.ForeignKey('common.AcademicYear')
-    gender = models.ForeignKey('common.Gender', db_column="gender")
-    mt = models.ForeignKey('common.Language', related_name='inst_agg_mt', db_column="mt")
-    religion = models.ForeignKey('common.Religion', db_column="religion")
-    inst_category = models.ForeignKey('common.StudentCategory', db_column="category")
+    institution = models.ForeignKey('Institution', on_delete=models.DO_NOTHING)
+    institution_name = models.CharField(
+        max_length=300, db_column="institution_name")
+    academic_year = models.ForeignKey(
+        'common.AcademicYear', on_delete=models.DO_NOTHING)
+    gender = models.ForeignKey(
+        'common.Gender', db_column="gender", on_delete=models.DO_NOTHING)
+    mt = models.ForeignKey('common.Language', related_name='inst_agg_mt',
+                           db_column="mt", on_delete=models.DO_NOTHING)
+    religion = models.ForeignKey(
+        'common.Religion', db_column="religion", on_delete=models.DO_NOTHING)
+    inst_category = models.ForeignKey(
+        'common.StudentCategory', db_column="category", on_delete=models.DO_NOTHING)
     num = models.IntegerField()
 
     class Meta:
@@ -19,8 +25,9 @@ class InstitutionAggregation(models.Model):
 
 
 class InstitutionStuGenderCount(models.Model):
-    institution = models.ForeignKey('Institution')
-    academic_year = models.ForeignKey('common.AcademicYear')
+    institution = models.ForeignKey('Institution', on_delete=models.DO_NOTHING)
+    academic_year = models.ForeignKey(
+        'common.AcademicYear', on_delete=models.DO_NOTHING)
     num_boys = models.IntegerField(
         blank=True, null=True, db_column='num_boys')
     num_girls = models.IntegerField(
@@ -32,9 +39,11 @@ class InstitutionStuGenderCount(models.Model):
 
 
 class InstitutionClassYearStuCount(models.Model):
-    institution = models.ForeignKey('Institution', db_column="institution_id")
+    institution = models.ForeignKey(
+        'Institution', db_column="institution_id", on_delete=models.DO_NOTHING)
     studentgroup = models.CharField(max_length=300, db_column="studentgroup")
-    academic_year = models.ForeignKey('common.AcademicYear', db_column="academic_year")
+    academic_year = models.ForeignKey(
+        'common.AcademicYear', db_column="academic_year", on_delete=models.DO_NOTHING)
     num = models.IntegerField(blank=True, null=True, db_column='num')
 
     class Meta:

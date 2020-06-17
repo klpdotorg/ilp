@@ -16,7 +16,7 @@ from .views import (
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'tada/users', UsersViewSet, base_name='tada-users')
+router.register(r'tada/users', UsersViewSet, basename='tada-users')
 
 urlpatterns = [
     url(
@@ -76,4 +76,6 @@ urlpatterns = [
     #     name='tada-users'       
     # )
 ] + router.urls
+
+app_name = "users"
 

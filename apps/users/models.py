@@ -13,7 +13,7 @@ from django.contrib.auth.models import (
 )
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from common.utils import send_templated_mail
 from django.contrib.sites.models import Site
 from django.conf import settings
@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     mobile_no1 = models.CharField(max_length=32, null=True)
     first_name = models.CharField(max_length=64, blank=True)
     last_name = models.CharField(max_length=64, blank=True, null=True)
-    user_type = models.ForeignKey('common.RespondentType', null=True)
+    user_type = models.ForeignKey('common.RespondentType', null=True, on_delete=models.SET_NULL)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -156,8 +156,8 @@ def user_created_verify_email(sender, instance=None, created=False, **kwargs):
 
 
 class UserBoundary(models.Model):
-    user = models.ForeignKey('User', null=True, related_name="userboundaries")
-    boundary = models.ForeignKey('boundary.Boundary')
+    user = models.ForeignKey('User', null=True, related_name="userboundaries", on_delete=models.DO_NOTHING)
+    boundary = models.ForeignKey('boundary.Boundary', on_delete=models.DO_NOTHING)
 
     class Meta:
         unique_together = (('user', 'boundary'), )
@@ -174,7 +174,7 @@ class PreGroupUser(models.Model):
 
     mobile_no = models.CharField(max_length=32)
     source = models.CharField(max_length=32)
-    group = models.ForeignKey(Group)
+    group = models.ForeignKey(Group, on_delete=models.DO_NOTHING)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
