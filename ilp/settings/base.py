@@ -335,6 +335,21 @@ LOGGING = {
     }
 }
 
+# Setting a default state ID and templates dir for admin apps to work
+# without a ka_settings or other state settings files
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 import django.conf.locale
 from django.conf import global_settings
 LANG_INFO = {**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO}
