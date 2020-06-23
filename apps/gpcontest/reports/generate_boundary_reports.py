@@ -126,8 +126,9 @@ def generate_boundary_report(
             boundary_numschools = boundary_counts.annotate(schools=Sum('num_schools'))[0]
             boundary_numstudents = boundary_counts.annotate(students=Sum('num_students'))[0]
             boundary_numgps = boundary_counts.annotate(gps=Sum('num_gps'))[0]
-        except:
+        except Exception as e:
             print("No boundary counts for boundary id %s in DB" % b.id)
+            print(e)
         else:
             boundary_report["parent_boundary_name"] = b.parent.name
             boundary_report["parent_langname"] = b.parent.lang_name

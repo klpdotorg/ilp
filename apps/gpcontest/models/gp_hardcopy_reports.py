@@ -49,7 +49,7 @@ class BoundaryCountsAgg(models.Model):
     boundary_name = models.CharField(max_length=150, db_column="boundary_name")
     boundary_lang_name = models.CharField(
         max_length=150, db_column="boundary_lang_name")
-    academic_year = models.CharField(max_length=4, db_column="year")
+    yearmonth = models.IntegerField(db_column="yearmonth")
     boundary_type_id = models.ForeignKey(
         'boundary.BoundaryType', db_column="boundary_type_id", on_delete=models.DO_NOTHING)
     num_students = models.IntegerField(db_column="num_students")
