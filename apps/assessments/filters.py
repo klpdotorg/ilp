@@ -8,8 +8,8 @@ from .models import (
 
 
 class AnswersSurveyTypeFilter(django_filters.FilterSet):
-    survey_id = django_filters.CharFilter(name="questiongroup__survey__id")
-    is_verified = django_filters.BooleanFilter(name='is_verified')
+    survey_id = django_filters.CharFilter(field_name="questiongroup__survey__id")
+    is_verified = django_filters.BooleanFilter(field_name='is_verified')
 
     class Meta:
         model = AnswerGroup_Institution
@@ -17,7 +17,7 @@ class AnswersSurveyTypeFilter(django_filters.FilterSet):
 
 
 class SurveyTagFilter(django_filters.FilterSet):
-    survey_tag = django_filters.CharFilter(name="surveytagmapping__tag")
+    survey_tag = django_filters.CharFilter(field_name="surveytagmapping__tag")
 
     class Meta:
         model = Survey
