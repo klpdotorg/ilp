@@ -1,0 +1,4 @@
+--Class 4 competency to key mapping
+insert into assessments_competencyquestionmap(key, question_id,questiongroup_id, max_score)  select mc.description, q.id, qg.id,1 from assessments_question q, assessments_microconceptgroup mc, assessments_questiongroup_questions qmap, assessments_questiongroup qg where qmap.questiongroup_id=qg.id and qmap.question_id=q.id and qg.id=79 and q.id NOT in (291,130) and q.microconcept_group_id=mc.char_id;
+--Class 5 competency to key mapping
+insert into assessments_competencyquestionmap(key, question_id,questiongroup_id, max_score)  select mc.description, q.id, qg.id,1 from assessments_question q, assessments_microconceptgroup mc, assessments_questiongroup_questions qmap, assessments_questiongroup qg where qmap.questiongroup_id=qg.id and qmap.question_id=q.id and qg.id=80 and q.id NOT in (291,130) and q.microconcept_group_id=mc.char_id;

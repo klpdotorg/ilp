@@ -61,6 +61,7 @@ FROM(
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
+ AGGREGATED FOR INSTITUTION AND STUDENT SURVEYS
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_agg AS
@@ -99,6 +100,40 @@ FROM(
         and survey.id = surveytag.survey_id
         --and survey.id in (1, 2, 4, 5, 6, 7, 11)
         and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        qg.source_id,
+        ag.is_verified,
+        b.id,
+        yearmonth
+UNION
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        qg.source_id as source,
+        b.id as boundary_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        count(distinct ag.id) as num_assessments,
+        count(distinct stu.institution_id) as num_schools,
+        case survey.id when 36 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children,
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        schools_institution s,
+        schools_student stu,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        --and survey.id in (1, 2, 4, 5, 6, 7, 11)
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
         and ag.is_verified=true
     GROUP BY survey.id,
@@ -415,6 +450,7 @@ FROM(
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
+ AGGREGATES BOTH INSTITUTION AND STUDENT ANSWERS
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questionkey_agg AS
@@ -435,7 +471,7 @@ FROM(
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         qmap.key as question_key,
-	qmap.lang_key as lang_question_key,
+	    qmap.lang_key as lang_question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
         assessments_questiongroup qg,
@@ -464,7 +500,48 @@ FROM(
         qg.source_id,
         qmap.key,
 	qmap.lang_key,
-        yearmonth)data
+        yearmonth
+    UNION
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        qmap.key as question_key,
+	    qmap.lang_key as lang_question_key,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        schools_student stu,
+        assessments_competencyquestionmap qmap,
+        assessments_question q,
+        schools_institution s,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and qg.id = qmap.questiongroup_id
+        and q.id = qmap.question_id
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id=stu.id 
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        b.id,
+        qg.source_id,
+        qmap.key,
+	    qmap.lang_key,
+        yearmonth
+    )data
 ;
 
 
@@ -534,6 +611,7 @@ FROM(
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
+ AGGREGATES FOR INSTITUTION AND STUDENT TABLES
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_questionkey_agg AS
@@ -558,7 +636,7 @@ FROM(
         qg.name as questiongroup_name,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         qmap.key as question_key,
-	qmap.lang_key as lang_question_key,
+	    qmap.lang_key as lang_question_key,
         count(distinct ag.id) as num_assessments
     FROM assessments_survey survey,
         assessments_questiongroup qg,
@@ -588,7 +666,51 @@ FROM(
         qg.name,qg.id,
         qmap.key,
 	qmap.lang_key,
-        yearmonth)data
+        yearmonth
+    UNION
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        b.id as boundary_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        qmap.key as question_key,
+	    qmap.lang_key as lang_question_key,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        schools_student stu,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        assessments_question q,
+        schools_institution s,
+        assessments_competencyquestionmap qmap,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and qmap.questiongroup_id = qg.id
+        and qmap.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+        and ag.student_id=stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        b.id,
+        qg.source_id,
+        qg.name,qg.id,
+        qmap.key,
+	    qmap.lang_key,
+        yearmonth
+    )data
 ;
 
 
@@ -671,6 +793,7 @@ FROM(
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
+ AGGREGATES FOR SCHOOL & STUDENT ASSESSMENTS
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_institution_questiongroup_questionkey_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_institution_questiongroup_questionkey_agg AS
@@ -721,7 +844,46 @@ FROM(
         qg.name,qg.id,
         qmap.key,
 	qmap.lang_key,
-        yearmonth)data
+        yearmonth
+    UNION
+    SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        ag.institution_id as institution_id,
+        qg.source_id as source,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        qmap.key as question_key,
+	    qmap.lang_key as lang_question_key,
+        count(distinct ag.id) as num_assessments
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        schools_student stu,
+        assessments_surveytagmapping surveytag,
+        assessments_answerstudent ans,
+        assessments_competencyquestionmap qmap,
+        assessments_question q
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and ag.id = ans.answergroup_id
+        and ans.question_id = q.id
+        and qmap.questiongroup_id = qg.id
+        and qmap.question_id = q.id
+        and q.is_featured = true
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        ag.institution_id,
+        qg.source_id,
+        qg.name,qg.id,
+        qmap.key,
+	    qmap.lang_key,
+        yearmonth
+    )data
 ;
 
 
@@ -826,6 +988,36 @@ from
         and stmap.survey_id=qg.survey_id
         and qg.survey_id in (2,18)
         and ag.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    group by ag.id,qg.survey_id,b.id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer
+    UNION
+    select distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        ans1.answer as gender,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        ag.id as ag_id
+    from assessments_answergroup_student ag inner join assessments_answerstudent ans1 on (ag.id=ans1.answergroup_id and ans1.question_id=291),
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        schools_institution s,
+        schools_student stu,
+        boundary_boundary b
+    where
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and ans.question_id=q.id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.survey_id in (36)
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
     group by ag.id,qg.survey_id,b.id,stmap.tag_id,yearmonth,source,qg.id, ans1.answer)data
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,questiongroup_id,questiongroup_name,gender ;
@@ -960,6 +1152,7 @@ GROUP BY survey_id,survey_tag,eboundary_id,source,yearmonth,question_key,lang_qu
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
+ AGG for student and institutional assessments
  */
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questionkey_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questionkey_correctans_agg AS
@@ -1005,7 +1198,42 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY qmap.key,qmap.lang_key,b.id,qg.survey_id,stmap.tag_id,yearmonth,source)agg
+    GROUP BY qmap.key,qmap.lang_key,b.id,qg.survey_id,stmap.tag_id,yearmonth,source
+    UNION
+    SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        qmap.key as question_key,
+	qmap.lang_key as lang_question_key,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+	count(ans.id) filter (where answer in ('Yes','1')) as numcorrectans, 
+	count(ans.id) as numtotalans
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        schools_student stu,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        assessments_competencyquestionmap qmap, --table for scoring max score
+        schools_institution s,
+        boundary_boundary b
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qmap.questiongroup_id
+        and ans.question_id=q.id
+        and q.id = qmap.question_id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY qmap.key,qmap.lang_key,b.id,qg.survey_id,stmap.tag_id,yearmonth,source
+    )agg
 GROUP BY survey_id,survey_tag,boundary_id,source,yearmonth,question_key,lang_question_key,numcorrectans,numtotalans ;
 
 
@@ -1204,7 +1432,44 @@ FROM
         and ag.is_verified=true
         and ag.institution_id = s.id
         and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
-    GROUP BY qmap.key,qmap.lang_key,b.id,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name)agg
+    GROUP BY qmap.key,qmap.lang_key,b.id,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    UNION
+    SELECT distinct
+        qg.survey_id as survey_id, 
+        stmap.tag_id as survey_tag, 
+        b.id as boundary_id,
+        qg.id as questiongroup_id,
+        qg.name as questiongroup_name,
+        qmap.key as question_key,
+	qmap.lang_key as lang_question_key,
+        qg.source_id as source,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+	count(ans.id) filter (where answer in ('Yes','1')) as numcorrectans, 
+	count(ans.id) as numtotalans
+    FROM assessments_answergroup_student ag,
+        assessments_answerstudent ans,
+        assessments_surveytagmapping stmap,
+        assessments_questiongroup qg,
+        assessments_question q,
+        schools_student stu,
+        assessments_competencyquestionmap qmap, --table for max score
+        schools_institution s,
+        boundary_boundary b
+    WHERE
+        ans.answergroup_id=ag.id
+        and ag.questiongroup_id=qg.id
+        and qg.id=qmap.questiongroup_id
+        and ans.question_id=q.id
+        and q.id = qmap.question_id
+        and q.is_featured=true
+        and stmap.survey_id=qg.survey_id
+        and qg.type_id='assessment'
+        and ag.is_verified=true
+        and ag.student_id = stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+    GROUP BY qmap.key,qmap.lang_key,b.id,qg.survey_id,stmap.tag_id,yearmonth,source,qg.id,qg.name
+    )agg
 GROUP BY survey_id, survey_tag,boundary_id,source,yearmonth,question_key,lang_question_key,questiongroup_id,questiongroup_name,numcorrectans,numtotalans;
 
 
@@ -1710,6 +1975,7 @@ FROM(
  * Please note that if same survey id has multiple survey tags that are used 
  * across sources then the survey_tag should be specified in the query else 
  * the count will be doubled.
+ AGG for both institution and student assessments. There's a union.
  */ 
 DROP MATERIALIZED VIEW IF EXISTS mvw_survey_boundary_questiongroup_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_survey_boundary_questiongroup_agg AS
@@ -1754,7 +2020,41 @@ FROM(
         qg.id,
         ag.is_verified,
         b.id,
-        yearmonth)data
+        yearmonth
+    UNION
+      SELECT
+        survey.id as survey_id,
+        surveytag.tag_id as survey_tag,
+        qg.id as questiongroup_id,
+        b.id as boundary_id,
+        to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
+        count(distinct ag.id) as num_assessments,
+        count(distinct ag.institution_id) as num_schools,
+        case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children, --For GP Contest
+        count(distinct ag.created_by_id) as num_users,
+        max(ag.date_of_visit) as last_assessment
+    FROM assessments_survey survey,
+        assessments_questiongroup qg,
+        assessments_answergroup_student ag,
+        schools_student stu,
+        assessments_surveytagmapping surveytag,
+        schools_institution s,
+        boundary_boundary b
+    WHERE 
+        survey.id = qg.survey_id
+        and qg.id = ag.questiongroup_id
+        and survey.id = surveytag.survey_id
+        and ag.student_id=stu.id
+        and stu.institution_id = s.id
+        and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id) 
+        and ag.is_verified=true
+    GROUP BY survey.id,
+        surveytag.tag_id,
+        qg.id,
+        ag.is_verified,
+        b.id,
+        yearmonth
+    )data
 ;
 
 

@@ -20,13 +20,16 @@ class Command(BaseCommand):
     help = """python3 manage.py loadgpc [--filename=filename] [--grade=4] [--qgroup=47]"""
     gender_qid = 291
     grade_qid = 130
-    cols = {"grade":1, "district":2, "block":3, "ddmmyyyy":5,"instid":6,
-            "disecode":7, "gpid":9, "gpname":10, 
-            "childname": 11, "gender":12, "volunteername":31,
-            "father_name": 13, "mother_name":14}
+    '''SL NO	DEO NAME	CLASS	DISTRICT	BLOCK	CLUSTER NAME	DATE	KLP ID	DISE CODE	VILLAGE NAME	
+    GP ID	GRAMA PANCHAYAT	STUDENT NAME	SEX ( MALE / FEMALE )	FATHER NAME 	MOTHER NAME	Q1	Q2	Q3	Q4	Q5	Q6	Q7	Q8	Q9	Q10	Q11	Q12	Q13	Q14	Q15	TOTAL	VOLUNTEER NAME	LOT DETAILS
+    '''
+    cols = {"grade":2, "district":3, "block":4, "ddmmyyyy":6,"instid":7,
+            "disecode":8, "village": 9, "gpid":10, "gpname":11, 
+            "childname": 12, "gender":13, "volunteername":32,
+            "father_name": 14, "mother_name":15}
     q_seq_start = 3
     q_seq_end = 17
-    ans_col_start = 15
+    ans_col_start = 16
     validanswers = {"0", "1"}
     validgenders = {"male", "female", "unknown"}
     rowcounter = 0
@@ -34,6 +37,8 @@ class Command(BaseCommand):
     datainserted = {}
     districtgpmap = {}
     onlycheck = False
+    inst_village_map = {}
+    inst_gp_mismatch = {}
 
     def add_arguments(self, parser):
         parser.add_argument('--filename')
@@ -88,8 +93,37 @@ class Command(BaseCommand):
         try:
             inst = Institution.objects.get(id=inst_id, dise_id__school_code=dise_code,gp_id=gpid, admin1_id__name=district, admin2_id__name=block)
         except Institution.DoesNotExist:
-            print("["+str(self.rowcounter)+"] Institution does not exist for id :"
-                    + str(inst_id)+", disecode :"+str(dise_code)+", gpid :"+str(gpid)+", district :"+district+", block :"+block)
+            if inst_id not in self.inst_gp_mismatch:
+                self.inst_gp_mismatch[inst_id] = {
+                    "institution_id": inst_id,
+                    "dise_code": dise_code,
+                    "gp_id": gpid,
+                    "district": district,
+                    "block": block
+                }
+                print("["+str(self.rowcounter)+"] Institution does not exist for id :"
+                        + str(inst_id)+", disecode :"+str(dise_code)+", gpid :"+str(gpid)+", district :"+district+", block :"+block)
+            return False
+        return True
+    
+    def checkInstitutionVillageValidity(self, inst_id, dise_code, gpid, village,
+                                        district, block):
+        try:
+            inst = Institution.objects.get(id=inst_id, dise_id__school_code=dise_code,village__iexact=village, gp_id=gpid, admin1_id__name=district, admin2_id__name=block)
+        except Institution.DoesNotExist:
+            if inst_id not in self.inst_village_map:
+                try:
+                    inst = Institution.objects.get(id=inst_id, dise_id__school_code=dise_code)
+                    village_lower=inst.village
+                    if village_lower:
+                        village_lower=village_lower.lower()
+                    else:
+                        village_lower=''
+                    self.inst_village_map[inst_id]={"institution_id": inst_id, "dise_code": dise_code, "district": district, "block": block, "gp_id": gpid, "village": village, "db_village": village_lower}
+                except Institution.DoesNotExist:
+                    return False    
+                # print("["+str(self.rowcounter)+"] Institution to VILLAGE mapping not matching for id :"
+                #         + str(inst_id)+", disecode :"+str(dise_code)+", gpid :"+str(gpid)+", village: " + village + ",district :"+district+", block :"+block)
             return False
         return True
 
@@ -181,6 +215,8 @@ class Command(BaseCommand):
                     gpid = int(float(row[self.cols["gpid"]].strip()))
                     gpname = row[self.cols["gpname"]].strip().lower()
                     gpname = re.sub("[\(].*?[\)]", "", gpname)
+                    village = row[self.cols["gpname"]].strip().lower()
+                    village = re.sub("[\(].*?[\)]", "", village)
                     #questionseries = row[self.cols["questionseries"]].strip()
                     child_name = row[self.cols["childname"]].strip()
                     father_name = row[self.cols["father_name"]].strip()
@@ -198,7 +234,7 @@ class Command(BaseCommand):
 
                 if not self.checkGradeValidity(grade, csv_grade, qgroup) and not self.onlycheck:
                     continue
-
+                
                 if not self.checkGPValidity(gpid, gpname) and not self.onlycheck:
                     continue
 
@@ -206,6 +242,14 @@ class Command(BaseCommand):
                                                      dise_code, gpid,
                                                      district, block) and not self.onlycheck:
                     continue
+                
+                if village and self.checkInstitutionVillageValidity(schoolid,
+                                                     dise_code, gpid, village,
+                                                     district, block) and not self.onlycheck: 
+                    continue
+                
+              
+                    
 
                 if not self.checkChildNameValidity(child_name) and not self.onlycheck:
                     continue
@@ -225,7 +269,10 @@ class Command(BaseCommand):
                 
                 student = self.createStudent(child_name, father_name, mother_name, schoolid, gender, 'kan')
                 # Map student to studentgroup
-                studentgroup = StudentGroup.objects.get(institution_id=schoolid, name=grade)
+                try:
+                    studentgroup = StudentGroup.objects.get(institution_id=schoolid, name=grade, section='')
+                except:
+                    print("FIXIT: Error in getting student group because multiples returned for school ID" + str(schoolid))
                 StudentStudentGroupRelation.objects.get_or_create(student=student, student_group=studentgroup, academic_year_id='2021', status_id='AC')
                 #Create answer group row
                 answergroup = AnswerGroup_Student.objects.create(
@@ -276,21 +323,34 @@ class Command(BaseCommand):
                         else:
                             self.datainserted[district]["gps"][gpid]["schools"][schoolid] = {"disecode":dise_code,"grades":{grade:1}}
                     else:
-                        self.datainserted[district]["gps"][gpid]= {"gpname":gpname,"schools": {schoolid: {"disecode":dise_code,"grades":{grade:1}}}}
+                        self.datainserted[district]["gps"][gpid]= {"village": village, "gpname":gpname,"schools": {schoolid: {"disecode":dise_code,"grades":{grade:1}}}}
                 else:
-                    self.datainserted[district]={"gps":{gpid: {"gpname":gpname,"schools": {schoolid: {"disecode":dise_code,"grades":{grade:1}}}}}}
+                    self.datainserted[district]={"gps":{gpid: {"village": village, "gpname":gpname,"schools": {schoolid: {"disecode":dise_code,"grades":{grade:1}}}}}}
 
         if self.onlycheck:
             print("Check Done")
+            print("Mismatch of institution to village")
+            with open('school_village_mismatch.csv', 'w') as f:
+                f.write("institution_id, dise_code, district, block, gp_id, village, village in DB")
+                for value in self.inst_village_map.values():
+                    f.write("%s,%s,%s,%s,%s,%s,%s\n"%(value["institution_id"],value["dise_code"], value["district"], value["block"],value["gp_id"], value["village"], value["db_village"]))
+        
+        if self.onlycheck:
+            print("Mistmatch of institution to GP")
+            with open('school_gp_mismatch.csv', 'w') as f:
+                f.write("institution_id, dise_code, district, block, gp_id")
+                for value in self.inst_gp_mismatch.values():
+                    f.write("%s,%s,%s,%s,%s,%s,%s\n"%(value["institution_id"],value["dise_code"], value["district"], value["block"],value["gp_id"]))
             return
            
 
-        print("District, GPID, GPNAME, SCHOOLID, DISE_CODE, GRADE COUNTS")
+        print("District, GPID, GPNAME, VILLAGE, SCHOOLID, DISE_CODE, GRADE COUNTS")
         gpinfo = {}
         for district in self.datainserted:
             for gpid in self.datainserted[district]["gps"]:
                 gpname = self.datainserted[district]["gps"][gpid]["gpname"]
-                gpinfo[gpid]={"name":gpname,"grades":{}}
+                villagename = self.datainserted[district]["gps"][gpid]["village"]
+                gpinfo[gpid]={"name":gpname, "village": villagename, "grades":{}}
                 for schoolid in self.datainserted[district]["gps"][gpid]["schools"]:
                     print(str(district)+", "+str(gpid)+", "+str(self.datainserted[district]["gps"][gpid]["gpname"])+", "+str(schoolid)+", "+str(self.datainserted[district]["gps"][gpid]["schools"][schoolid]["disecode"])+", "+str(self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"]))
                     for grade in self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"]:
@@ -300,9 +360,9 @@ class Command(BaseCommand):
                             gpinfo[gpid]["grades"][grade] = self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"][grade]
 
 
-        print("\n\nGPID, GPNAME, GRADE, ENTRY")
+        print("\n\nGPID, GPNAME, VILLAGE, GRADE, ENTRY")
         for gpid in gpinfo:
-            row_str = str(gpid)+","+gpinfo[gpid]["name"]+","
+            row_str = str(gpid)+","+gpinfo[gpid]["name"]+"," + gpinfo[gpid]["village"] + ","
             for grade in gpinfo[gpid]["grades"]:
                 row_str = row_str+str(grade)+","+str(gpinfo[gpid]["grades"][grade])
             print(row_str)
