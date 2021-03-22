@@ -5,10 +5,9 @@ from django.contrib.contenttypes.models import ContentType
 
 from easyaudit.models import CRUDEvent
 from users.models import User
-from backoffice.surveyutils import utilsData
+from backoffice.surveyutils import InstitutionUtils, StudentUtils
 
-
-class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
+class Command(BaseCommand):
     help = 'Gets entered data for a survey'
     surveyinfo = None
 
@@ -29,6 +28,14 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
         if self.surveyinfo == None:
             print("Pass valid surveyid")
             return False
+        self.surveyUtil = None
+        # Check the type of survey it is
+        if(self.surveyinfo.survey_on.char_id == 'student'):
+            # Create a student utils object
+            self.surveyUtil = StudentUtils.studentAssessmentDataUtils()
+        elif(self.surveyinfo.survey_on.char_id == 'institution'):
+            self.surveyUtil = InstitutionUtils.institutionAssessmentDataUtils()
+            
         # Add validations for district/block/cluster etc..
         self.district = options.get('districtid', None)
         self.block = options.get('blockid', None)
@@ -57,5 +64,5 @@ class Command(BaseCommand, utilsData.commonAssessmentDataUtils):
             filename = options.get('filename')
         else:
             filename = self.surveyinfo.name.replace(' ', '') # + "_" + str(now)
-        self.dumpData(self.surveyinfo, from_yearmonth, to_yearmonth, filename, skip_xls_creation)
+        self.surveyUtil.dumpData(self.surveyinfo, from_yearmonth, to_yearmonth, filename, skip_xls_creation)
         return filename
