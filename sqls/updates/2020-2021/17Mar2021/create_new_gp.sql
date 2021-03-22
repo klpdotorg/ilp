@@ -1,6 +1,6 @@
 insert into boundary_electionboundary (const_ward_name, dise_slug, const_ward_type_id, state_id, status_id, const_ward_lang_name) VALUES('aarji','','GP', 2, 'AC', 'ಆರ್ಜಿ');
 update schools_institution set gp_id=5729 where id=34262;
-update schools_institution set gp_id=213009047 where id=51921;
+update schools_institution set gp_id=213009046 where id=51921;
 -- Create new school for Kanaganahally. This was there in 12-13 but vanished in later years
 INSERT INTO dise_basicdata(
     school_name,

@@ -1106,12 +1106,13 @@ FROM
         stmap.tag_id as survey_tag, 
         eb.id as eboundary_id,
         qmap.key as question_key,
-	qmap.lang_key as lang_question_key,
+	    qmap.lang_key as lang_question_key,
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-	count(ans.id) filter (where answer in ('Yes','1')) as numcorrectans, 
-	count(ans.id) as numtotalans
-    FROM assessments_answergroup_institution ag,
+	    count(ans.id) filter (where answer in ('Yes','1')) as numcorrectans, 
+	    count(ans.id) as numtotalans
+    FROM 
+        assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
         assessments_questiongroup qg,
