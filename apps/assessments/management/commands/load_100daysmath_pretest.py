@@ -13,6 +13,7 @@ from schools.models import Institution
 from schools.models import Student, StudentStudentGroupRelation, StudentGroup
 from boundary.models import ElectionBoundary
 from common.models import Language, Gender
+from django.db.models import Q
 
 class Command(BaseCommand):
 
@@ -243,9 +244,10 @@ class Command(BaseCommand):
                                                      district, block) and not self.onlycheck:
                     continue
                 
-                if village and self.checkInstitutionVillageValidity(schoolid,
+                if village and self.onlycheck: 
+                    self.checkInstitutionVillageValidity(schoolid,
                                                      dise_code, gpid, village,
-                                                     district, block) and not self.onlycheck: 
+                                                     district, block)
                     continue
                 
               
@@ -270,7 +272,7 @@ class Command(BaseCommand):
                 student = self.createStudent(child_name, father_name, mother_name, schoolid, gender, 'kan')
                 # Map student to studentgroup
                 try:
-                    studentgroup = StudentGroup.objects.get(institution_id=schoolid, name=grade, section='')
+                    studentgroup = StudentGroup.objects.filter(institution_id=schoolid, name=grade).get(Q(section__isnull=True) | Q(section=''))
                 except:
                     print("FIXIT: Error in getting student group because multiples returned for school ID" + str(schoolid))
                 StudentStudentGroupRelation.objects.get_or_create(student=student, student_group=studentgroup, academic_year_id='2021', status_id='AC')
@@ -340,7 +342,7 @@ class Command(BaseCommand):
             with open('school_gp_mismatch.csv', 'w') as f:
                 f.write("institution_id, dise_code, district, block, gp_id")
                 for value in self.inst_gp_mismatch.values():
-                    f.write("%s,%s,%s,%s,%s,%s,%s\n"%(value["institution_id"],value["dise_code"], value["district"], value["block"],value["gp_id"]))
+                    f.write("%s,%s,%s,%s,%s\n"%(value["institution_id"],value["dise_code"], value["district"], value["block"],value["gp_id"]))
             return
            
 
