@@ -33,7 +33,7 @@ class Command(BaseCommand):
                 print("Please specify a filename with the --"+fileoption+" argument")
                 return False
             f = open(file_name, encoding='utf-8')
-            self.csv_files[fileoption] = csv.reader(f,delimiter='|')
+            self.csv_files[fileoption] = csv.reader(f,delimiter=',')
         return True
 
     def check_value(self, value, default=None):
