@@ -22,7 +22,18 @@ class Command(BaseCommand):
         parser.add_argument('--clusterid', nargs='?')
         parser.add_argument('--schoolid', nargs='?')
         parser.add_argument('--gpid', nargs='?')
-
+ 
+    def validateSurvey(self, surveyid):
+        if surveyid == None:
+            print("Mandatory parameter surveyid not passed")
+            return None
+        try:
+            survey = Survey.objects.get(id=surveyid)
+        except Survey.DoesNotExist:
+            print("Invalid Survey id passed: "+str(surveyid)+", please enter a valid one")
+            return None
+        return survey
+    
     def validateParams(self, options):
         self.surveyinfo = self.validateSurvey(options.get('surveyid',None))
         if self.surveyinfo == None:

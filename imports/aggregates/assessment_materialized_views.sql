@@ -2030,7 +2030,7 @@ FROM(
         b.id as boundary_id,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         count(distinct ag.id) as num_assessments,
-        count(distinct ag.institution_id) as num_schools,
+        count(distinct stu.institution_id) as num_schools,
         case survey.id when 2 then count(distinct ag.id) when 18 then count(distinct ag.id) else 0 end as num_children, --For GP Contest
         count(distinct ag.created_by_id) as num_users,
         max(ag.date_of_visit) as last_assessment

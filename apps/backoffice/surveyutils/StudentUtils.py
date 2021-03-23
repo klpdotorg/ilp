@@ -6,9 +6,10 @@ import calendar
 from assessments.models import Survey, QuestionGroup, QuestionGroup_Questions, Question, AnswerGroup_Student, AnswerStudent, SurveyBoundaryAgg
 import shutil
 import sys, traceback
+from apps.backoffice.surveyutils.BaseUtils import BaseUtils
 
 
-class studentAssessmentDataUtils():
+class studentAssessmentDataUtils(BaseUtils):
 
     def getQuestionGroups(self, surveyid, from_yearmonth, to_yearmonth):
         list_questiongroups = []

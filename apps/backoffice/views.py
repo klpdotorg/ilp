@@ -28,7 +28,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .surveyutils.utilsData import commonAssessmentDataUtils as datautils
+from .surveyutils.BaseUtils import BaseUtils as datautils
 import concurrent.futures
 
 
