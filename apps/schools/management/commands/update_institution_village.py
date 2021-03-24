@@ -23,7 +23,7 @@ class Command(BaseCommand):
     villageMapCheck = []
     
     def add_arguments(self, parser):
-        parser.add_argument('filename')
+        parser.add_argument('--filename')
     
     def handle(self, *args, **options):
         file_name = options['filename']
