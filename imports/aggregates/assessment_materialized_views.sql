@@ -849,7 +849,7 @@ FROM(
     SELECT
         survey.id as survey_id,
         surveytag.tag_id as survey_tag,
-        ag.institution_id as institution_id,
+        stu.institution_id as institution_id,
         qg.source_id as source,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
@@ -870,6 +870,7 @@ FROM(
         and qg.id = ag.questiongroup_id
         and survey.id = surveytag.survey_id
         and ag.id = ans.answergroup_id
+        and ag.student_id=stu.id
         and ans.question_id = q.id
         and qmap.questiongroup_id = qg.id
         and qmap.question_id = q.id
@@ -877,7 +878,7 @@ FROM(
         and ag.is_verified=true
     GROUP BY survey.id,
         surveytag.tag_id,
-        ag.institution_id,
+        stu.institution_id,
         qg.source_id,
         qg.name,qg.id,
         qmap.key,
