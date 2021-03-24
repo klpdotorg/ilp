@@ -24,7 +24,15 @@ class Command(BaseCommand):
     
     def add_arguments(self, parser):
         parser.add_argument('filename')
-
+    
+    def handle(self, *args, **options):
+        file_name = options['filename']
+        if not file_name:
+            print("Please specify a filename with the --filename argument")
+            return False
+        self.parseFile(file_name)
+        self.printData()
+        
     def validateSchool(self, count, row, disecode, schoolname):
         try:
             school = Institution.objects.get(
@@ -36,18 +44,18 @@ class Command(BaseCommand):
             return None
 
 
-def assignVillage(self, school, village):
-    if school.village is None or school.village is "":
-        self.villageNewMapped.append({school.id: village})
-        school.village = village
-        school.save()
-        return True
-    if school.village.lower() == village.lower():
-        self.villageAlreadyMapped.append({school.id: village})
-        return False
-    else:
-        self.villageMapCheck.append({school.id: village})
-        return False
+    def assignVillage(self, school, village):
+        if school.village is None or school.village is "":
+            self.villageNewMapped.append({school.id: village})
+            school.village = village
+            school.save()
+            return True
+        if school.village.lower() == village.lower():
+            self.villageAlreadyMapped.append({school.id: village})
+            return False
+        else:
+            self.villageMapCheck.append({school.id: village})
+            return False
 
     def parseFile(self, file_name):
         f = open(file_name, encoding='utf-8')
@@ -86,11 +94,5 @@ def assignVillage(self, school, village):
             (school, village), = schoolinfo.items()
             print(str(school)+","+str(village))
 
-    def handle(self, *args, **options):
-        file_name = options['filename']
-        if not file_name:
-            print("Please specify a filename with the --filename argument")
-            return False
-        self.parseFile(file_name)
-        self.printData()
+    
 
