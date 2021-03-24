@@ -36,8 +36,7 @@ class Command(BaseCommand):
     def validateSchool(self, count, row, disecode, schoolname):
         try:
             school = Institution.objects.get(
-                    dise__school_code=disecode,
-                    name__iexact=schoolname)
+                    dise__school_code=disecode)
             return school
         except Institution.DoesNotExist:
             print(str(count)+"|"+str(row)+"| Error: Institution object does not exist")
