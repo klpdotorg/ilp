@@ -6,6 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from easyaudit.models import CRUDEvent
 from users.models import User
 from backoffice.surveyutils import InstitutionUtils, StudentUtils
+from assessments.models import Survey
 
 class Command(BaseCommand):
     help = 'Gets entered data for a survey'
