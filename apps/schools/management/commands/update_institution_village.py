@@ -12,16 +12,7 @@ from dise.models import BasicData
 from schools.models import Institution
 
 
-'''
-Given a CSV file with disecode and village names (columns 9 and 10 respectively),
-this command sets the village name in the schools_institution table.
-If the col numbers are different, kindly modify them before use.
-CSV used to test this is inside csvs/100days_village_school_mapping_fixes.csv
-'''
-
-
 class Command(BaseCommand):
-    help = """python3 manage.py update_institution_village [--filename=filename]"""
     active_status = Status.objects.get(char_id='AC')
     disecode = 9
     schoolid = 8
@@ -101,6 +92,3 @@ class Command(BaseCommand):
         for schoolinfo in self.villageMapCheck:
             (school, village), = schoolinfo.items()
             print(str(school)+","+str(village))
-
-    
-
