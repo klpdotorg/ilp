@@ -1,0 +1,40 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=2cm,landscape]{geometry}
+\usepackage{makecell}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage[table,gray]{xcolor}
+\usepackage{setspace}
+\pagestyle{fancy}
+
+
+
+%% Headers and footers
+\chead{ \large 100 Days of Alternative Math Learning Programme Community - 2020-21	 \\[1\baselineskip] \normalsize GP Name: {{ boundaryinfo.gpname}}\\ GP ID: {{ boundaryinfo.gpid }}}
+\lhead{ \hfill\break  District: {{ boundaryinfo.district }} \\ Block : {{ boundaryinfo.block }}}
+\rhead{ \hfill\break Cluster Name: {{ boundaryinfo.cluster }} \\ Village Name: {{ boundaryinfo.village}}}
+
+\setlength{\headheight}{3.0cm}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\newcommand{\instruct}[1]{\textbf{#1}}
+\newcommand{\question}[1]{\textbf{#1}}
+
+
+\begin{document}
+\begin{longtable}{|l|p{2.5cm}|p{4cm}|p{2.5cm}|p{4cm}|p{2.75cm}|p{2.5cm}|l|l|l|}
+\hline
+SL No & School Name & DISE CODE & Child Name & Father Name & Mother Name & Gender & Class & Volunteer Name & Suvega1 & Suvega2 & Smartphone\\ \endhead \hline
+{% for child in children %}
+{{loop.index}} & {{ school.schoolname }} & {{ school.disecode }} & {{ child.name }}  & {{ child.father_name }} & {{ child.mother_name }} & {{ child.gender }} & {{ child.class }}& & & & \\ \hline
+{% endfor %}
+	& & & & & & & & &  \\ \hline
+	& & & & & & & & &  \\ \hline
+	& & & & & & & & &  \\ \hline
+	& & & & & & & & &  \\ \hline
+	& & & & & & & & &  \\ \hline
+\multicolumn{7}{|c|}{Total}&&& \\ \hline
+
+\end{longtable}
+
+\end{document}
