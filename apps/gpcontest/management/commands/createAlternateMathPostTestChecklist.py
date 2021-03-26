@@ -78,6 +78,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 dise = BasicData.objects.get(id=school.dise_id)
                 eb = ElectionBoundary.objects.get(id=village["gp_id"])
                 school_name = school.name.replace("_"," ")
+                #Some children may not have one or the other. So concatenante both
+                parent_name = stu.father_name + " " + stu.mother_name
                 #print("SCHOOL NAME IS: "+school["name"])
                 if village["district"] not in self.childinfo:
                     self.childinfo[village["district"]] = {
@@ -87,7 +89,10 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                 "gp_name": eb.const_ward_name,
                                 "cluster": village["cluster"],
                                 "children": [
-                                    {"child_name": stu.first_name, 
+                                    {
+                                     "child_id": stu.id,   
+                                     "child_name": stu.first_name, 
+                                     "parent_name": parent_name,
                                      "father_name": stu.father_name, 
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
@@ -102,7 +107,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                 "gp_name": eb.const_ward_name,
                                 "cluster": village["cluster"],
                                 "children": [
-                                    {"child_name": stu.first_name, 
+                                    {"child_id": stu.id, 
+                                     "child_name": stu.first_name, 
+                                     "parent_name": parent_name,
                                      "father_name": stu.father_name, 
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
@@ -118,7 +125,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                 "gp_name": eb.const_ward_name,
                                 "cluster": village["cluster"],
                                 "children": [
-                                    {"child_name": stu.first_name, 
+                                    { "child_id": stu.id, 
+                                     "child_name": stu.first_name, 
+                                     "parent_name": parent_name,
                                      "father_name": stu.father_name, 
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
@@ -130,8 +139,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                 }
                 else:
                     self.childinfo[village["district"]][village["block"]][village["village"]]["children"].append(
-                            {
+                            {"child_id": stu.id,
                                 "child_name": stu.first_name,
+                                "parent_name": parent_name,
                                 "father_name": stu.father_name,
                                 "mother_name": stu.mother_name, 
                                 "schoolname": school.name,
