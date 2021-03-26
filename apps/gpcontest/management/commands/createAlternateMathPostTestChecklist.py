@@ -6,9 +6,13 @@ from datetime import datetime, date
 from django.db.models import Q, F
 import shutil
 import sys
-from schools.models import Institution
+from schools.models import Institution, Student
+from dise.models import BasicData
+from boundary.models import ElectionBoundary
 from django.core.management.base import BaseCommand
 from . import baseReport 
+from assessments.models import AnswerGroup_Student
+
 
 
 class Command(BaseCommand, baseReport.CommonUtils):
@@ -16,7 +20,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     basefiledir = os.getcwd()
     pdfsdir = "/generated_files/alternatemath/"+str(now)+"/"
     templatedir = "/apps/gpcontest/templates/"
-    out_file = "GPSummarysheet"
+    out_file = "PostTestChildCheckList"
     build_d = basefiledir+"/build"
     gpids = None
     outputdir = "summarysheets"
@@ -58,90 +62,101 @@ class Command(BaseCommand, baseReport.CommonUtils):
         #             'name', 'dise_id__school_code', 'id', 'gp_id').distinct()
         for village in villages:
             #Child is linked through answergroup student table
-            children_in_village = AnswerGroup_Student.filter(
+            children_in_village = AnswerGroup_Student.objects.filter(
                 student_id__institution_id__village=village["village"],
                 student_id__institution_id__admin2_id__name=village["block"],
                 questiongroup_id=79).values('student_id')
             # This is the school name
             for child in children_in_village:
                 # Put each child's info into the dict.
-                village["village"] = village["village"].replace("&","\&")
+                #village["village"] = village["village"].replace("&","\&")
                 #Add a try catch here
-                stu = Student.objects.get(id=child)
+                stu = Student.objects.get(id=child["student_id"])
+                #print("Gender is: " + stu.gender.name)
                 #Add a try catch here
                 school = Institution.objects.get(id=stu.institution_id)
                 dise = BasicData.objects.get(id=school.dise_id)
+                eb = ElectionBoundary.objects.get(id=village["gp_id"])
                 school_name = school.name.replace("_"," ")
                 #print("SCHOOL NAME IS: "+school["name"])
                 if village["district"] not in self.childinfo:
-                    self.childinfo[school["district"]] = {
+                    self.childinfo[village["district"]] = {
                         village["block"]:{
                             village["village"]: {
                                 "gp_id": village["gp_id"], 
-                                "gp_name": school.gp_name,
+                                "gp_name": eb.const_ward_name,
+                                "cluster": village["cluster"],
                                 "children": [
-                                    {"child_name": stu.name, 
+                                    {"child_name": stu.first_name, 
                                      "father_name": stu.father_name, 
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
                                      "disecode": dise.school_code, 
-                                     "gender": stu.gender,
+                                     "gender": stu.gender.name[0:1],
                                      "class": "4",
                                      "cluster": village["cluster"]}]}}}
                 elif village["block"] not in self.childinfo[village["district"]]:
                     self.childinfo[village["district"]][village["block"]] = {
                             village["village"]: {
                                 "gp_id": village["gp_id"], 
-                                "gp_name": school.gp_name,
+                                "gp_name": eb.const_ward_name,
+                                "cluster": village["cluster"],
                                 "children": [
-                                    {"child_name": stu.name, 
+                                    {"child_name": stu.first_name, 
                                      "father_name": stu.father_name, 
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
                                      "class": "4",
                                      "disecode": dise.school_code, 
-                                     "gender": stu.gender,
+                                     "gender": stu.gender.name[0:1],
                                      "cluster": village["cluster"]
                                      }]
                                 }}
                 elif village["village"] not in self.childinfo[village["district"]][village["block"]]:
                     self.childinfo[village["district"]][village["block"]][village["village"]] = {
                                 "gp_id": village["gp_id"], 
-                                "gp_name": school.gp_name,
+                                "gp_name": eb.const_ward_name,
+                                "cluster": village["cluster"],
                                 "children": [
-                                    {"child_name": stu.name, 
+                                    {"child_name": stu.first_name, 
                                      "father_name": stu.father_name, 
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
                                      "disecode": dise.school_code, 
                                      "class": "4",
-                                     "gender": stu.gender,
+                                     "gender": stu.gender.name[0:1],
                                      "cluster": village["cluster"]
                                      }]
                                 }
                 else:
                     self.childinfo[village["district"]][village["block"]][village["village"]]["children"].append(
                             {
-                                "child_name": stu.name,
+                                "child_name": stu.first_name,
                                 "father_name": stu.father_name,
                                 "mother_name": stu.mother_name, 
                                 "schoolname": school.name,
                                 "class": "4",
                                 "disecode": dise.school_code,
-                                "gender": stu.gender,
+                                "gender": stu.gender.name[0:1],
                                 "cluster": village["cluster"]
                             })
-        import pdb; pdb.set_trace()
 
     def createSummaryReports(self):
         for district in self.childinfo:
             for block in self.childinfo[district]:
                 for village in self.childinfo[district][block]:
+                    print("Processing village %s in district %s, block %s" % (village, district, block))
                     gpid = str(self.childinfo[district][block][village]["gp_id"])
                     gp_name = str(self.childinfo[district][block][village]["gp_name"])
-                    out_file = self.out_file+"_"+village
+                    cluster = str(self.childinfo[district][block][village]["cluster"])
+                    village_fname = village.replace(" ","")
+                    # Replace brackets in village name
+                    village_fname = village_fname.replace("(","_").replace(")", "_")
+                    
+                    print("Village name is: " + village)
+                    out_file = self.out_file+"_"+village_fname
                     #print(district+" "+block+" "+gpid+" "+gp)
-                    boundaryinfo = {"district": district.title(), "block": block.title(), "village": village.title(), "gpid":gpid, "gpname":gp_name.title()}
+                    boundaryinfo = {"district": district.title(), "block": block.title(), "cluster": cluster.title(), "village": village.title(), "gpid":gpid, "gpname":gp_name.title()}
                     childinfo = self.childinfo[district][block][village]["children"]
 
                     outputdir = self.basefiledir+self.pdfsdir+self.outputdir+"/"+district+"/"+block+"/"

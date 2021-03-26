@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[8pt]{article}
 \usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=2cm,landscape]{geometry}
 \usepackage{makecell}
 \usepackage{longtable}
@@ -22,11 +22,12 @@
 
 
 \begin{document}
-\begin{longtable}{|l|p{2.5cm}|p{4cm}|p{2.5cm}|p{4cm}|p{2.75cm}|p{2.5cm}|l|l|l|}
+%%\begin{longtable}{|l|p{2.5cm}|p{4cm}|p{2.5cm}|p{4cm}|p{2.75cm}|p{2.5cm}|l|l|l|}
+\begin{longtable}{|l|p{2.5cm}|p{4cm}|p{3cm}|p{3cm}|p{1cm}|p{1cm}|p{2.5cm}|l|l|l|}
 \hline
-SL No & School Name & DISE CODE & Child Name & Father Name & Mother Name & Gender & Class & Volunteer Name & Suvega1 & Suvega2 & Smartphone\\ \endhead \hline
+SL No & DISE CODE & SchoolName & Child Name & Father Name  & Gender & Class & Volunteer Name & Suvega 2 No. Pages Completed 1 & Suvega 2 No. Pages Completed & Is there a Smartphone in the house?\\ \endhead \hline
 {% for child in children %}
-{{loop.index}} & {{ school.schoolname }} & {{ school.disecode }} & {{ child.name }}  & {{ child.father_name }} & {{ child.mother_name }} & {{ child.gender }} & {{ child.class }}& & & & \\ \hline
+{{loop.index}} & {{ child.disecode }} & {{child.schoolname}} & {{ child.child_name }}  & {{ child.father_name }} & {{ child.gender }} & {{ child.class }}& & & &\\ \hline
 {% endfor %}
 	& & & & & & & & &  \\ \hline
 	& & & & & & & & &  \\ \hline
