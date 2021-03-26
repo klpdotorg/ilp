@@ -25,7 +25,7 @@
 %%\begin{longtable}{|l|p{2.5cm}|p{4cm}|p{2.5cm}|p{4cm}|p{2.75cm}|p{2.5cm}|l|l|l|}
 \begin{longtable}{|l|p{2.5cm}|p{4cm}|p{3cm}|p{3cm}|p{1cm}|p{1cm}|p{2.5cm}|l|l|l|}
 \hline
-SL No & CHILD ID & DISE CODE & SchoolName & Child Name & Parent(s) Name  & Gender & Class & Volunteer Name & Suvega 1 No. Pages Completed 1 & Suvega 2 No. Pages Completed & Is there a Smartphone in the house?\\ \endhead \hline
+SL No & CHILD ID & DISE CODE & SchoolName & Child Name & Parent(s) Name  & Gender & Class & Volunteer Name & Suvega1 Pg & Suvega2 Pg & Smartphone(Y/N)?\\ \endhead \hline
 {% for child in children %}
 {{loop.index}} & {{child.child_id}} & {{ child.disecode }} & {{child.schoolname}} & {{ child.child_name }}  & {{ child.father_name }} & {{ child.gender }} & {{ child.class }}& & & &\\ \hline
 {% endfor %}
