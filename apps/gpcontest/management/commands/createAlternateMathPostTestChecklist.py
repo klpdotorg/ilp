@@ -70,10 +70,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
             for child in children_in_village:
                 # Put each child's info into the dict.
                 if village["village"] is not None:
-                    village["village"] = village["village"].replace("&","\&")
+                    village["village"] = village["village"].replace("&","_AND_")
                 #Add a try catch here
                 stu = Student.objects.get(id=child["student_id"])
-                stu_stugroup=StudentStudentGroupRelation.objects.get(student=stu)
+                try:
+                    stu_stugroup=StudentStudentGroupRelation.objects.get(student=stu,status='AC',academic_year='2021')
+                except Exception as e:
+                    print("Multiples returned for student id %s, institution id %s " % (stu.id, stu.institution_id))
                 #Add a try catch here
                 school = Institution.objects.get(id=stu.institution_id)
                 dise = BasicData.objects.get(id=school.dise_id)

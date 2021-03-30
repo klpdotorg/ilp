@@ -149,7 +149,7 @@ class Command(BaseCommand):
 
     def checkGenderValidity(self, gender):
         if gender == '':
-            print("["+str(self.rowcounter)+"] No gender entered (ignoring row)")
+            print("["+str(self.rowcounter)+"] No gender entered. (ignoring row)")
             return False
         if gender not in self.validgenders:
             print("["+str(self.rowcounter)+"] Invalid gender :"+gender +
@@ -169,6 +169,8 @@ class Command(BaseCommand):
         gender = Gender.objects.get(char_id=gender)
         mt = Language.objects.get(char_id=mt)
         s, created = Student.objects.get_or_create(first_name=child_name, father_name=father_name, mother_name=mother_name, institution_id=institution_id, gender=gender,mt=mt, status_id='AC');
+        if not created:
+            print("Child already exists name: %s, father: %s, mother: %s, institution_id: %s": %(child_name, father_name, mother_name, institution_id))
         return s
 
     def convertxlstocsv(self, inputfile):
@@ -224,6 +226,10 @@ class Command(BaseCommand):
                     mother_name = row[self.cols["mother_name"]].strip()
                     volunteer_name = row[self.cols["volunteername"]].strip()
                     gender = row[self.cols["gender"]].strip().lower()
+                    # If no gender entered, assign a gender so we don't lose
+                    # the student
+                    if(gender == ''):
+                        gender = 'unknown'
                     enteredat = localtz.localize(datetime.now())
                 except ValueError as e:
                     print("["+str(self.rowcounter)+"] "+str(e)+" : "+str(row))
@@ -272,10 +278,12 @@ class Command(BaseCommand):
                 student = self.createStudent(child_name, father_name, mother_name, schoolid, gender, 'kan')
                 # Map student to studentgroup
                 try:
-                    studentgroup = StudentGroup.objects.filter(institution_id=schoolid, name=grade).get(Q(section__isnull=True) | Q(section=''))
+                    studentgroup = StudentGroup.objects.filter(institution_id=schoolid, name=grade).get(Q(section__isnull=True) | Q(section='')|Q(section=' '))
                 except:
                     print("FIXIT: Error in getting student group because multiples returned for school ID" + str(schoolid))
-                StudentStudentGroupRelation.objects.get_or_create(student=student, student_group=studentgroup, academic_year_id='2021', status_id='AC')
+                relation, c = StudentStudentGroupRelation.objects.get_or_create(student=student, student_group=studentgroup, academic_year_id='2021', status_id='AC')
+                if not c:
+                    print("WARNING: Student student group relation already exists. ")
                 #Create answer group row
                 answergroup = AnswerGroup_Student.objects.create(
                                 student=student,

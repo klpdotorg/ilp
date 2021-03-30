@@ -23,13 +23,13 @@
 \begin{document}
 %%\begin{longtable}{|l|p{2.5cm}|p{4cm}|p{2.5cm}|p{4cm}|p{2.75cm}|p{2.5cm}|l|l|l|}
 %%\begin{longtable}{|l|p{2cm}|p{2.5cm}|p{4cm}|p{3cm}|p{3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{0.5cm}|}
-\begin{longtable}{|c|P{2cm}|P{2.5cm}|P{4cm}|p{3cm}|p{3cm}|p{1cm}|p{1cm}|p{1cm}|p{1.15cm}|p{1.15cm}|p{0.5cm}|}
-\hline (CONTINUED ON NEXT PAGE)\\
+\begin{longtable}{|p{0.35cm}|P{2cm}|P{2.5cm}|P{4cm}|p{3cm}|p{3cm}|p{1cm}|p{1cm}|p{1cm}|p{1.25cm}|p{1.25cm}|p{0.5cm}|}
+\multicolumn{11}{l}{CONTINUED...} \\ 
 \endfoot
 \multicolumn{11}{l}{VOLUNTEER NAME: } \\ 
 \endlastfoot
 \hline
-{\centering\textbf {SL No}} & {\centering\textbf{Child ID}} & {\centering\textbf{DISE Code}} & {\centering\textbf{School Name}} & {\centering\textbf{Child Name}} & {\centering\textbf{Parent(s) Name}}  & {\textbf{Gender}} & {\textbf{Class}} & {\textbf{Suvega1 num pages completed}} & {\textbf{Suvega2 num pages completed}} & {\textbf{Parent has Smartphone? (Y or N)}}\\ \endhead \hline
+{\textbf{SNo}} & {\centering\textbf{Child ID}} & {\centering\textbf{DISE Code}} & {\centering\textbf{School Name}} & {\centering\textbf{Child Name}} & {\centering\textbf{Parent(s) Name}}  & {\textbf{Gender}} & {\textbf{Class}} & {\textbf{Suvega1 num pages completed}} & {\textbf{Suvega2 num pages completed}} & {\textbf{Parent has Smartphone? (Y or N)}}\\ \endhead \hline
 {% for child in children %}
 {{loop.index}} & {{child.child_id}} & {{ child.disecode }} & {{child.schoolname}} & {{ child.child_name }}  & {{ child.father_name }} & {{ child.gender }} & {{ child.class }}& & & \\ \hline
 {% endfor %}
