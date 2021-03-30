@@ -1,18 +1,17 @@
 \documentclass[8pt]{article}
-\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=2cm,landscape]{geometry}
+\usepackage[a4paper,top=2cm,left=1cm,right=1cm,bottom=3cm,landscape]{geometry}
 \usepackage{makecell}
 \usepackage{longtable}
 \usepackage{fancyhdr}
 \usepackage[table,gray]{xcolor}
 \usepackage{setspace}
 \pagestyle{fancy}
-
-
-
+\usepackage{array}
+	\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 %% Headers and footers
-\chead{ \large 100 Days of Alternative Math Learning Programme Community - 2020-21	 \\[1\baselineskip] \normalsize GP Name: {{ boundaryinfo.gpname}}\\ GP ID: {{ boundaryinfo.gpid }}}
-\lhead{ \hfill\break  District: {{ boundaryinfo.district }} \\ Block : {{ boundaryinfo.block }}}
-\rhead{ \hfill\break Cluster Name: {{ boundaryinfo.cluster }} \\ Village Name: {{ boundaryinfo.village}}}
+\chead{ \large\textbf {100 Days of Alternative Math Learning Programme 2020-2021}	 \\[1\baselineskip] \normalsize \textbf{GP Name}: {{ boundaryinfo.gpname.upper()}}\\ \textbf{GP ID}: {{ boundaryinfo.gpid }}}
+\lhead{ \hfill\break  \textbf{District}: {{ boundaryinfo.district.upper() }} \\ \textbf{Block} : {{ boundaryinfo.block.upper() }}}
+\rhead{ \hfill\break \textbf{Cluster}: {{ boundaryinfo.cluster.upper() }} \\ \textbf{Village}: {{ boundaryinfo.village.upper()}}}
 
 \setlength{\headheight}{3.0cm}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -23,19 +22,22 @@
 
 \begin{document}
 %%\begin{longtable}{|l|p{2.5cm}|p{4cm}|p{2.5cm}|p{4cm}|p{2.75cm}|p{2.5cm}|l|l|l|}
-\begin{longtable}{|l|p{2.5cm}|p{4cm}|p{3cm}|p{3cm}|p{1cm}|p{1cm}|p{2.5cm}|l|l|l|}
+%%\begin{longtable}{|l|p{2cm}|p{2.5cm}|p{4cm}|p{3cm}|p{3cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{0.5cm}|}
+\begin{longtable}{|c|P{2cm}|P{2.5cm}|P{4cm}|p{3cm}|p{3cm}|p{1cm}|p{1cm}|p{1cm}|p{1.15cm}|p{1.15cm}|p{0.5cm}|}
+\hline (CONTINUED ON NEXT PAGE)\\
+\endfoot
+\multicolumn{11}{l}{VOLUNTEER NAME: } \\ 
+\endlastfoot
 \hline
-SL No & CHILD ID & DISE CODE & SchoolName & Child Name & Parent(s) Name  & Gender & Class & Volunteer Name & Suvega1 Pg & Suvega2 Pg & Smartphone(Y/N)?\\ \endhead \hline
+{\centering\textbf {SL No}} & {\centering\textbf{Child ID}} & {\centering\textbf{DISE Code}} & {\centering\textbf{School Name}} & {\centering\textbf{Child Name}} & {\centering\textbf{Parent(s) Name}}  & {\textbf{Gender}} & {\textbf{Class}} & {\textbf{Suvega1 num pages completed}} & {\textbf{Suvega2 num pages completed}} & {\textbf{Parent has Smartphone? (Y or N)}}\\ \endhead \hline
 {% for child in children %}
-{{loop.index}} & {{child.child_id}} & {{ child.disecode }} & {{child.schoolname}} & {{ child.child_name }}  & {{ child.father_name }} & {{ child.gender }} & {{ child.class }}& & & &\\ \hline
+{{loop.index}} & {{child.child_id}} & {{ child.disecode }} & {{child.schoolname}} & {{ child.child_name }}  & {{ child.father_name }} & {{ child.gender }} & {{ child.class }}& & & \\ \hline
 {% endfor %}
 	& & & & & & & & &  \\ \hline
+	& & & & & & & & & \\ \hline
 	& & & & & & & & &  \\ \hline
 	& & & & & & & & &  \\ \hline
 	& & & & & & & & &  \\ \hline
-	& & & & & & & & &  \\ \hline
-\multicolumn{7}{|c|}{Total}&&& \\ \hline
-
+\multicolumn{11}{|c|}{Total} \\ \hline
 \end{longtable}
-
 \end{document}

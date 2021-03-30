@@ -6,7 +6,7 @@ from datetime import datetime, date
 from django.db.models import Q, F
 import shutil
 import sys
-from schools.models import Institution, Student
+from schools.models import Institution, Student, StudentStudentGroupRelation
 from dise.models import BasicData
 from boundary.models import ElectionBoundary
 from django.core.management.base import BaseCommand
@@ -65,14 +65,15 @@ class Command(BaseCommand, baseReport.CommonUtils):
             children_in_village = AnswerGroup_Student.objects.filter(
                 student_id__institution_id__village=village["village"],
                 student_id__institution_id__admin2_id__name=village["block"],
-                questiongroup_id=79).values('student_id')
+                questiongroup_id__in=[79,80]).values('student_id').order_by('questiongroup_id')
             # This is the school name
             for child in children_in_village:
                 # Put each child's info into the dict.
-                #village["village"] = village["village"].replace("&","\&")
+                if village["village"] is not None:
+                    village["village"] = village["village"].replace("&","\&")
                 #Add a try catch here
                 stu = Student.objects.get(id=child["student_id"])
-                #print("Gender is: " + stu.gender.name)
+                stu_stugroup=StudentStudentGroupRelation.objects.get(student=stu)
                 #Add a try catch here
                 school = Institution.objects.get(id=stu.institution_id)
                 dise = BasicData.objects.get(id=school.dise_id)
@@ -98,7 +99,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "schoolname": school.name, 
                                      "disecode": dise.school_code, 
                                      "gender": stu.gender.name[0:1],
-                                     "class": "4",
+                                     "class": stu_stugroup.student_group.name,
                                      "cluster": village["cluster"]}]}}}
                 elif village["block"] not in self.childinfo[village["district"]]:
                     self.childinfo[village["district"]][village["block"]] = {
@@ -113,7 +114,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "father_name": stu.father_name, 
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
-                                     "class": "4",
+                                     "class": stu_stugroup.student_group.name,
                                      "disecode": dise.school_code, 
                                      "gender": stu.gender.name[0:1],
                                      "cluster": village["cluster"]
@@ -132,7 +133,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
                                      "disecode": dise.school_code, 
-                                     "class": "4",
+                                     "class": stu_stugroup.student_group.name,
                                      "gender": stu.gender.name[0:1],
                                      "cluster": village["cluster"]
                                      }]
@@ -145,7 +146,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                 "father_name": stu.father_name,
                                 "mother_name": stu.mother_name, 
                                 "schoolname": school.name,
-                                "class": "4",
+                                "class": stu_stugroup.student_group.name,
                                 "disecode": dise.school_code,
                                 "gender": stu.gender.name[0:1],
                                 "cluster": village["cluster"]
@@ -160,10 +161,11 @@ class Command(BaseCommand, baseReport.CommonUtils):
                     gp_name = str(self.childinfo[district][block][village]["gp_name"])
                     cluster = str(self.childinfo[district][block][village]["cluster"])
                     village_fname = village.replace(" ","")
+                    
+                    village_fname = village_fname.replace("&","_")
                     # Replace brackets in village name
                     village_fname = village_fname.replace("(","_").replace(")", "_")
-                    
-                    print("Village name is: " + village)
+                    print("Village name is: " + village_fname)
                     out_file = self.out_file+"_"+village_fname
                     #print(district+" "+block+" "+gpid+" "+gp)
                     boundaryinfo = {"district": district.title(), "block": block.title(), "cluster": cluster.title(), "village": village.title(), "gpid":gpid, "gpname":gp_name.title()}
