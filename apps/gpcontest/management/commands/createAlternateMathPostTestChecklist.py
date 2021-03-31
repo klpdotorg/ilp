@@ -39,13 +39,14 @@ class Command(BaseCommand, baseReport.CommonUtils):
     def getchildinfo(self, boundaries=None, gpids=None ):
         if boundaries is not None:
             # Get all villages for that particular boundary
-            villages = AnswerGroup_Student.objects\
-                .filter(questiongroup_id=79)\
+            qs = AnswerGroup_Student.objects\
+                .filter(questiongroup_id__in=[79,80])\
                 .filter(
                     Q(student_id__institution_id__admin1_id__in=boundaries) |
                     Q(student_id__institution_id__admin2_id__in=boundaries),
                     student_id__institution_id__gp_id__isnull=False
-                    ).values(
+                    )
+            villages = qs.values(
                     district=F('student_id__institution__admin1_id__name'), 
                     block=F('student_id__institution__admin2_id__name'),
                     cluster=F('student_id__institution__admin3_id__name'), 
@@ -65,18 +66,23 @@ class Command(BaseCommand, baseReport.CommonUtils):
             children_in_village = AnswerGroup_Student.objects.filter(
                 student_id__institution_id__village=village["village"],
                 student_id__institution_id__admin2_id__name=village["block"],
-                questiongroup_id__in=[79,80]).values('student_id').order_by('questiongroup_id')
+                questiongroup_id__in=[79,80]).values('questiongroup_id', 'student_id').order_by('questiongroup_id')
             # This is the school name
             for child in children_in_village:
                 # Put each child's info into the dict.
                 if village["village"] is not None:
-                    village["village"] = village["village"].replace("&","_AND_")
+                    village["village"] = village["village"].replace("&","")
                 #Add a try catch here
                 stu = Student.objects.get(id=child["student_id"])
                 try:
                     stu_stugroup=StudentStudentGroupRelation.objects.get(student=stu,status='AC',academic_year='2021')
                 except Exception as e:
                     print("Multiples returned for student id %s, institution id %s " % (stu.id, stu.institution_id))
+                # Initialize class to 4. based on q group Id, select the grade because there may be
+                # multiples in the DB since our child master is not upto date.
+                grade = "4"
+                if child['questiongroup_id'] == 80:
+                    grade = "5"
                 #Add a try catch here
                 school = Institution.objects.get(id=stu.institution_id)
                 dise = BasicData.objects.get(id=school.dise_id)
@@ -102,7 +108,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "schoolname": school.name, 
                                      "disecode": dise.school_code, 
                                      "gender": stu.gender.name[0:1],
-                                     "class": stu_stugroup.student_group.name,
+                                     "class": grade,
                                      "cluster": village["cluster"]}]}}}
                 elif village["block"] not in self.childinfo[village["district"]]:
                     self.childinfo[village["district"]][village["block"]] = {
@@ -117,7 +123,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "father_name": stu.father_name, 
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
-                                     "class": stu_stugroup.student_group.name,
+                                     "class": grade,
                                      "disecode": dise.school_code, 
                                      "gender": stu.gender.name[0:1],
                                      "cluster": village["cluster"]
@@ -136,7 +142,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "mother_name": stu.mother_name, 
                                      "schoolname": school.name, 
                                      "disecode": dise.school_code, 
-                                     "class": stu_stugroup.student_group.name,
+                                     "class": grade,
                                      "gender": stu.gender.name[0:1],
                                      "cluster": village["cluster"]
                                      }]
@@ -149,7 +155,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                 "father_name": stu.father_name,
                                 "mother_name": stu.mother_name, 
                                 "schoolname": school.name,
-                                "class": stu_stugroup.student_group.name,
+                                "class": grade,
                                 "disecode": dise.school_code,
                                 "gender": stu.gender.name[0:1],
                                 "cluster": village["cluster"]
@@ -217,7 +223,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
 
         self.initiatelatex()
         self.createSummaryReports()
-
+        print("Tarring now..")
         os.system('tar -cvf '+self.basefiledir+self.pdfsdir+'/'+self.outputdir+'.tar '+self.basefiledir+self.pdfsdir+self.outputdir+'/')
 
         if os.path.exists(self.build_d):
