@@ -7,6 +7,7 @@ from schools.models import Institution
 from assessments.models import (AnswerGroup_Institution, InstitutionImages)
 from assessments.utils import get_surveys
 from django.conf import settings
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 
 class SYSView(DetailView):
@@ -24,6 +25,7 @@ class SYSView(DetailView):
         return context
 
 
+@xframe_options_exempt
 def gka_dashboard(request):
     """ Renders the GKA dashboard """
 
