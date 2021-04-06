@@ -170,7 +170,7 @@ class Command(BaseCommand):
         mt = Language.objects.get(char_id=mt)
         s, created = Student.objects.get_or_create(first_name=child_name, father_name=father_name, mother_name=mother_name, institution_id=institution_id, gender=gender,mt=mt, status_id='AC');
         if not created:
-            print("Child already exists name: %s, father: %s, mother: %s, institution_id: %s": %(child_name, father_name, mother_name, institution_id))
+            print("Child already exists name: %s, father: %s, mother: %s, institution_id: %s"%(child_name, father_name, mother_name, institution_id))
         return s
 
     def convertxlstocsv(self, inputfile):
