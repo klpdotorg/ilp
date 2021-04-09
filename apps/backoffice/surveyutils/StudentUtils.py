@@ -35,7 +35,7 @@ class studentAssessmentDataUtils(BaseUtils):
             sheet = book.add_sheet("AssessmentData")
             with open(csvfile, mode='w') as datafile:
                 filewriter = csv.writer(datafile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                row = ['State', 'District','Block','Cluster','GPName', 'GP Id', 'Village', 'SchoolName','SchoolId','DiseCode','QuestionGroup Id','QuestionGroupName', 'Source Name', 'Date of Visit', 'Academic Year of Visit', 'Group Value', 'RespondentType', 'UserType','UserMobileNumber']
+                row = ['State', 'District','Block','Cluster','GPName', 'GP Id', 'Village', 'SchoolName','SchoolId','DiseCode','QuestionGroup Id','QuestionGroupName', 'Source Name', 'Student ID', 'Student Name', 'Fathers Name', 'Mothers Name', 'Date of Visit', 'Academic Year of Visit', 'Group Value', 'RespondentType', 'UserType','UserMobileNumber']
                 #for i in range(1, numquestions+1):
                     #row = row+['QuestionText_'+str(i),'Answer_'+str(i)]
                 questions_list = questioninfo[questiongroup_id]["questions"]
@@ -53,7 +53,7 @@ class studentAssessmentDataUtils(BaseUtils):
                                 for qgid in schooldata["questiongroups"]:
                                     for agid in schooldata["questiongroups"][qgid]["answergroups"]:
                                         answergroup = schooldata["questiongroups"][qgid]["answergroups"][agid]
-                                        row = [state,district,block,schooldata["cluster"],schooldata["gpname"],schooldata["gpid"],schooldata["villagename"],schooldata["schoolname"],schoolid,schooldata["disecode"],qgid,questioninfo[qgid]["name"],questioninfo[qgid]["source"],answergroup["dateofvisit"],answergroup["academicyear"],answergroup["groupvalue"],answergroup["respondenttype"],answergroup["usertype"],answergroup["usermobilenumber"]]
+                                        row = [state,district,block,schooldata["cluster"],schooldata["gpname"],schooldata["gpid"],schooldata["villagename"],schooldata["schoolname"],schoolid,schooldata["disecode"],qgid,questioninfo[qgid]["name"],questioninfo[qgid]["source"],answergroup["student_id"], answergroup["student_name"], answergroup["father_name"], answergroup["mother_name"], answergroup["dateofvisit"],answergroup["academicyear"],answergroup["groupvalue"],answergroup["respondenttype"],answergroup["usertype"],answergroup["usermobilenumber"]]
                                         for answer in answergroup["answers"]:
                                             # row = row+[answer["questiontext"],answer["answer"]]
                                             row = row+[answer["answer"]]
@@ -91,7 +91,7 @@ class studentAssessmentDataUtils(BaseUtils):
             if to_date is not None:
                 answergroups = answergroups.filter(date_of_visit__lte=to_date)
 
-            answergroups = answergroups.values_list('student__institution__admin0__name','student__institution__admin1__name', 'student__institution__admin2__name', 'student__institution__admin3__name', 'student__institution__gp__const_ward_name', 'student__institution__gp__id','student__institution__name', 'student__institution__dise__school_code', 'questiongroup__id','date_of_visit','group_value', 'respondent_type', 'created_by__user_type','id','student__institution__id','created_by__mobile_no', 'student__institution__village').distinct()
+            answergroups = answergroups.values_list('student__institution__admin0__name','student__institution__admin1__name', 'student__institution__admin2__name', 'student__institution__admin3__name', 'student__institution__gp__const_ward_name', 'student__institution__gp__id','student__institution__name', 'student__institution__dise__school_code', 'questiongroup__id','date_of_visit','group_value', 'respondent_type', 'created_by__user_type','id','student__institution__id','created_by__mobile_no', 'student__institution__village','student__id', 'student__first_name', 'student__father_name', 'student__mother_name').distinct()
             print("Got data")
             for answergroup in answergroups:
                 state= answergroup[0]
@@ -112,6 +112,10 @@ class studentAssessmentDataUtils(BaseUtils):
                 schoolid=answergroup[14]
                 usermobilenumber=answergroup[15]
                 village=answergroup[16]
+                student_id=answergroup[17]
+                student_name=answergroup[18]
+                father_name=answergroup[19]
+                mother_name=answergroup[20]
                 if state not in assessmentdata:
                     assessmentdata[state] = {district:{block:{schoolid:{"schoolname":schoolname, "disecode":disecode,"cluster":cluster, "gpid":gpid, "gpname":gpname, "villagename":village, "questiongroups":{qgid:{"answergroups":{agid:{"dateofvisit":dateofvisit,"academicyear":academicyear,"groupvalue":groupvalue,"respondenttype":respondenttype,"usertype":usertype,"usermobilenumber":usermobilenumber, "answers":[]}}}}}}}}
                 else:
@@ -125,9 +129,9 @@ class studentAssessmentDataUtils(BaseUtils):
                                 assessmentdata[state][district][block][schoolid] = {"schoolname":schoolname, "disecode":disecode, "cluster":cluster, "gpid":gpid, "gpname":gpname, "villagename":village, "questiongroups":{qgid:{"answergroups":{agid:{"dateofvisit":dateofvisit,"academicyear":academicyear,"groupvalue":groupvalue,"respondenttype":respondenttype,"usertype":usertype,"usermobilenumber":usermobilenumber,"answers":[]}}}}}
                             else:
                                 if qgid not in assessmentdata[state][district][block][schoolid]["questiongroups"]:
-                                    assessmentdata[state][district][block][schoolid]["questiongroups"][qgid]={"answergroups":{agid:{"dateofvisit":dateofvisit,"academicyear":academicyear,"groupvalue":groupvalue,"respondenttype":respondenttype,"usertype":usertype,"usermobilenumber":usermobilenumber,"answers":[]}}}
+                                    assessmentdata[state][district][block][schoolid]["questiongroups"][qgid]={"answergroups":{agid:{"student_id": student_id, "student_name": student_name, "father_name": father_name, "mother_name": mother_name,"dateofvisit":dateofvisit,"academicyear":academicyear,"groupvalue":groupvalue,"respondenttype":respondenttype,"usertype":usertype,"usermobilenumber":usermobilenumber,"answers":[]}}}
                                 else:
-                                    assessmentdata[state][district][block][schoolid]["questiongroups"][qgid]["answergroups"][agid]={"dateofvisit":dateofvisit,"academicyear":academicyear,"groupvalue":groupvalue,"respondenttype":respondenttype,"usertype":usertype,"usermobilenumber":usermobilenumber,"answers":[]}
+                                    assessmentdata[state][district][block][schoolid]["questiongroups"][qgid]["answergroups"][agid]={"student_id": student_id, "student_name": student_name, "father_name": father_name, "mother_name": mother_name,"dateofvisit":dateofvisit,"academicyear":academicyear,"groupvalue":groupvalue,"respondenttype":respondenttype,"usertype":usertype,"usermobilenumber":usermobilenumber,"answers":[]}
                 answers = AnswerStudent.objects.filter(answergroup=agid).values('question__id','answer')
                 for question in questioninfo[qgid]["questions"]:
                     found=0
