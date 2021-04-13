@@ -49,7 +49,6 @@ class Command(BaseCommand, baseReport.CommonUtils):
             villages = qs.values(
                     district=F('student_id__institution__admin1_id__name'), 
                     block=F('student_id__institution__admin2_id__name'),
-                    cluster=F('student_id__institution__admin3_id__name'), 
                     gp_id=F('student_id__institution_id__gp_id'),
                     village=F('student_id__institution_id__village')).distinct()
                     
@@ -62,6 +61,9 @@ class Command(BaseCommand, baseReport.CommonUtils):
         #             'gp_id__const_ward_name',
         #             'name', 'dise_id__school_code', 'id', 'gp_id').distinct()
         for village in villages:
+            if(village["village"] == 'RAYAPURA'):
+                print("Village is RAYAPURA")
+                import pdb; pdb.set_trace()
             #Child is linked through answergroup student table
             children_in_village = AnswerGroup_Student.objects.filter(
                 student_id__institution_id__village=village["village"],
@@ -97,7 +99,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                             village["village"]: {
                                 "gp_id": village["gp_id"], 
                                 "gp_name": eb.const_ward_name,
-                                "cluster": village["cluster"],
+                                "cluster": "TEMP",#village["cluster"],
                                 "children": [
                                     {
                                      "child_id": stu.id,   
@@ -109,13 +111,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "disecode": dise.school_code, 
                                      "gender": stu.gender.name[0:1],
                                      "class": grade,
-                                     "cluster": village["cluster"]}]}}}
+                                     "cluster": "TEMP"}]}}}
                 elif village["block"] not in self.childinfo[village["district"]]:
                     self.childinfo[village["district"]][village["block"]] = {
                             village["village"]: {
                                 "gp_id": village["gp_id"], 
                                 "gp_name": eb.const_ward_name,
-                                "cluster": village["cluster"],
+                                "cluster": "TEMP",
                                 "children": [
                                     {"child_id": stu.id, 
                                      "child_name": stu.first_name, 
@@ -126,14 +128,14 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "class": grade,
                                      "disecode": dise.school_code, 
                                      "gender": stu.gender.name[0:1],
-                                     "cluster": village["cluster"]
+                                     "cluster": "TEMP" #village["cluster"]
                                      }]
                                 }}
                 elif village["village"] not in self.childinfo[village["district"]][village["block"]]:
                     self.childinfo[village["district"]][village["block"]][village["village"]] = {
                                 "gp_id": village["gp_id"], 
                                 "gp_name": eb.const_ward_name,
-                                "cluster": village["cluster"],
+                                "cluster": "TEMP",
                                 "children": [
                                     { "child_id": stu.id, 
                                      "child_name": stu.first_name, 
@@ -144,7 +146,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                      "disecode": dise.school_code, 
                                      "class": grade,
                                      "gender": stu.gender.name[0:1],
-                                     "cluster": village["cluster"]
+                                     "cluster": "TEMP" #village["cluster"]
                                      }]
                                 }
                 else:
@@ -158,7 +160,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                                 "class": grade,
                                 "disecode": dise.school_code,
                                 "gender": stu.gender.name[0:1],
-                                "cluster": village["cluster"]
+                                "cluster": "TEMP"
                             })
 
     def createSummaryReports(self):
