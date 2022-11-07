@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 from django.views.generic import TemplateView
 
 from backoffice.views import (
@@ -12,15 +12,15 @@ from backoffice.api_views import ( DataAnalysis, DataAnalysisSearch )
 
 
 urlpatterns = [
-    url(r'login/$', BackOfficeLoginView.as_view(), name='login'),
-    url(r'logout/$', BackOfficeLogoutView.as_view(), name='logout'),
-    url(r'export/$', BackOfficeView.as_view(), name='backoffice'),
-    url(
+    re_path(r'login/$', BackOfficeLoginView.as_view(), name='login'),
+    re_path(r'logout/$', BackOfficeLogoutView.as_view(), name='logout'),
+    re_path(r'export/$', BackOfficeView.as_view(), name='backoffice'),
+    re_path(
         r'import/test/$',
         GPContestValidatorView.as_view(),
         name='gpcontest_validator'
     ),
-    # url(r'analysis/$', DataAnalysisSearch.as_view(), name='search'),
-    # url(r'/api/v1/backoffice/analysis/*', DataAnalysis.as_view(), name='analyse'),
-    # url('', TemplateView.as_view(template_name='backoffice/index.html'), name='index'),
+    # re_path(r'analysis/$', DataAnalysisSearch.as_view(), name='search'),
+    # re_path(r'/api/v1/backoffice/analysis/*', DataAnalysis.as_view(), name='analyse'),
+    # re_path('', TemplateView.as_view(template_name='backoffice/index.html'), name='index'),
 ]

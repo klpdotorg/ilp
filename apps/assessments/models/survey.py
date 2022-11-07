@@ -120,9 +120,9 @@ class QuestionGroup(models.Model):
     status = models.ForeignKey(
                                 'common.Status',
                                 on_delete=models.DO_NOTHING)
-    image_required = models.NullBooleanField(default=False)
-    comments_required = models.NullBooleanField(default=False)
-    respondenttype_required = models.NullBooleanField(default=False)
+    image_required = models.BooleanField(null=True, default=False)
+    comments_required = models.BooleanField(null=True, default=False)
+    respondenttype_required = models.BooleanField(null=True, default=False)
     default_respondent_type = models.ForeignKey(
                                                 'common.RespondentType',
                                                 null=True,

@@ -26,7 +26,7 @@ admin.site.register(User, UserAdmin)
 # Unregister all unwanted models
 # admin.site.unregister(Group)
 admin.site.unregister(Site)
-admin.site.unregister(Token)
+# admin.site.unregister(Token)
 admin.site.unregister(CRUDEvent)
 admin.site.unregister(LoginEvent)
 admin.site.unregister(RequestEvent)
