@@ -1,14 +1,14 @@
 version: 2
-jobs:
+jobs: #defines a job which will be fired when the workflow is called with that particular job
   build:
     working_directory: ~/klpdotorg/ilp
-    parallelism: 1
-    environment:
-      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+    parallelism: 1  #number of executors running at a time
+    environment: #enviroment is used for defining the variables for configuration purposes
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts            #artifacts are used to store the result of the build process
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
     shell: /bin/bash --login
-    docker:
-      - image: circleci/python:3.6-stretch
+    docker: #docker a container
+      - image: circleci/python:3.6-stretch #python programming language under circleci
         environment:
           DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
       - image: mdillon/postgis:9.6 # database image for service container available at `localhost:<port>`
@@ -16,8 +16,8 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: test_ilp
     steps:
-    - checkout
-    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+    - checkout #Checkout is a special step used to check out source code to the configured path. (The path defaults to the working directory.) It is more of a helper function designed to make checking out code easy for you.
+    - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS #run is used to run set of instructions #create a new directory
     - run:
         working_directory: ~/klpdotorg/ilp
         command: 'echo ''Asia/Kolkata'' | sudo tee -a /etc/timezone; sudo dpkg-reconfigure -f noninteractive tzdata;'
@@ -26,9 +26,9 @@ jobs:
     - run: mv ilp/settings/ci_settings.py.sample ilp/settings/ci_settings.py
     - run: sudo python -m pip --no-cache install coverage requests
     - run: git clean -dxf
-    - store_test_results:
+    - store_test_results: #stores the result of the build
         path: /tmp/circleci-test-results
-    - store_artifacts:
+    - store_artifacts: #stores the output of the build process
         path: /tmp/artifacts
     
   deploy:
@@ -39,8 +39,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install pip & Install awscli
-          command: 'sudo apt-get update && sudo apt-get install python-pip && sudo pip install awscli'
+          name: Install pip & Install awscli #name is used for giving names to different versions of same service or it can be used for title of the steps
+          command: 'sudo apt-get update && sudo apt-get install python-pip && sudo pip install awscli' #command used for overriding the container's entry point or used as executor
       - run:
           name: Deploy using CodeDeploy
           command: |
@@ -53,21 +53,23 @@ jobs:
             --ignore-application-stop-failures \
             --description 'ILP GitHub deployment' \
             --github-location repository=klpdotorg/ilp,commitId=${CIRCLE_SHA1} --region ap-south-1
-workflows:
+workflows: #set of instruction for running the jobs
   version: 2
-  build_and_deploy:
+  build_and_deploy: #name of the workflow
     jobs:
       - build:
-          filters:
-            branches:
-              only: 
+          filters:  #for choosing particular branch name
+            branches: #to specify the name of the branch
+              only:  #particular
+                - 4EdgeIT-07112022
                 - development
                 - master
       - deploy:
           filters:
             branches:
-              only: 
+              only:
+                - 4EdgeIT-07112022
                 - development
                 - master
-          requires:
+          requires: #It is used for specifying dependence of the job
             - build
