@@ -39,6 +39,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: list all files
+          command: ls -a
+      - run:
           name: Install pip & Install awscli
           command: 'sudo apt-get update && sudo apt-get install python-pip && sudo pip install awscli'
       - run:
