@@ -60,13 +60,15 @@ workflows:
       - build:
           filters:
             branches:
-              only: 
+              only:
+                - 4EdgeIT-NovDev
                 - development
                 - master
       - deploy:
           filters:
             branches:
-              only: 
+              only:
+                - 4EdgeIT-NovDev
                 - development
                 - master
           requires:
