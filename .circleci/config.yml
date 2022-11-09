@@ -10,11 +10,11 @@ jobs:
     docker:
       - image: circleci/python:3.6-stretch
         environment:
-          DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/ilp2022
+          DATABASE_URL: postgresql://ubuntu:@127.0.0.1:5432/test_ilp
       - image: mdillon/postgis:9.6 # database image for service container available at `localhost:<port>`
         environment: # environment variables for database
-          POSTGRES_USER: ilp
-          POSTGRES_DB: ilp2022
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: test_ilp
     steps:
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
