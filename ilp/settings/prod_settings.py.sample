@@ -6,10 +6,10 @@ ALLOWED_HOSTS = ['*', ]
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'ilp_production',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'ilp2022',
+        'USER': 'ilp',
+        'PASSWORD': 'ilp',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }

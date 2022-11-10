@@ -62,7 +62,7 @@ deployment:
             bucket: klpdeployments
             key_pattern: ilpdev/{BRANCH}
   staging:
-    branch: master
+    branch: 4EdgeIT-NovStaging
     codedeploy:
       ilpdev:
         application_root: /
