@@ -1,7 +1,8 @@
 DEBUG = False
 # * is the least secure setting but it allows everyone to access. Tighten it 
 # to limit access
-
+# * is the least secure setting but it allows everyone to access. Tighten it
+# to limit access
 ALLOWED_HOSTS = ['*', ]
 
 DATABASES = {
