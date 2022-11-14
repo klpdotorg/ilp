@@ -3,9 +3,9 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'ilp2022',
-        'USER': 'ilp',
-        'PASSWORD': 'ilp',
+        'NAME': 'test_ilp',
+        'USER': 'ubuntu',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
