@@ -2507,6 +2507,654 @@ GROUP BY
 data.survey_tag,
 data.boundary_id,
 data.academic_year_id
+
+union
+SELECT distinct format('A%s_%s_%s', data.survey_tag, data.boundary_id, data.academic_year_id) as id,
+    data.survey_tag as survey_tag,
+    data.boundary_id as boundary_id,
+    data.academic_year_id as academic_year_id,
+    count(distinct school_id) as num_schools,
+    count(case when student_id!=0 then student_id end) as num_students
+FROM
+(
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2021' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1617'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+ union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2021' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1718'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2021' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1819'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2021' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1920'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2021' as academic_year_id,
+    instmap.institution_id as school_id,
+    0 as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    boundary_boundary b
+WHERE
+    instmap.institution_id = s.id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and s.id not in (select distinct institution_id from schools_studentgroup)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1920'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2021' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2021'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2021' as academic_year_id,
+    instmap.institution_id as school_id,
+    0 as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    boundary_boundary b
+WHERE
+    instmap.institution_id = s.id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and s.id not in (select distinct institution_id from schools_studentgroup)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2021'
+)data
+GROUP BY
+data.survey_tag,
+data.boundary_id,
+data.academic_year_id
+
+union
+SELECT distinct format('A%s_%s_%s', data.survey_tag, data.boundary_id, data.academic_year_id) as id,
+    data.survey_tag as survey_tag,
+    data.boundary_id as boundary_id,
+    data.academic_year_id as academic_year_id,
+    count(distinct school_id) as num_schools,
+    count(case when student_id!=0 then student_id end) as num_students
+FROM
+(
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2122' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1617'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+ union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2122' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1718'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2122' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1819'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2122' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1920'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2122' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2021'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2122' as academic_year_id,
+    instmap.institution_id as school_id,
+    0 as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    boundary_boundary b
+WHERE
+    instmap.institution_id = s.id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and s.id not in (select distinct institution_id from schools_studentgroup)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2021'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2122' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2122'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2122' as academic_year_id,
+    instmap.institution_id as school_id,
+    0 as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    boundary_boundary b
+WHERE
+    instmap.institution_id = s.id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and s.id not in (select distinct institution_id from schools_studentgroup)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2122'
+)data
+GROUP BY
+data.survey_tag,
+data.boundary_id,
+data.academic_year_id
+
+union
+SELECT distinct format('A%s_%s_%s', data.survey_tag, data.boundary_id, data.academic_year_id) as id,
+    data.survey_tag as survey_tag,
+    data.boundary_id as boundary_id,
+    data.academic_year_id as academic_year_id,
+    count(distinct school_id) as num_schools,
+    count(case when student_id!=0 then student_id end) as num_students
+FROM
+(
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1617'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+ union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1718'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1819'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '1920'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2021'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2122'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    0 as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    boundary_boundary b
+WHERE
+    instmap.institution_id = s.id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and s.id not in (select distinct institution_id from schools_studentgroup)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2122'
+union
+SELECT distinct
+    instmap.tag_id as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    stu.id as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    schools_student stu,
+    schools_studentstudentgrouprelation stusg,
+    schools_studentgroup sg,
+    boundary_boundary b,
+    assessments_surveytagclassmapping sgmap
+WHERE
+    instmap.institution_id = s.id
+    and s.id = sg.institution_id
+    and sg.id = stusg.student_group_id
+    and sgmap.academic_year_id = instmap.academic_year_id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2223'
+    and instmap.tag_id = sgmap.tag_id
+    and stusg.academic_year_id = instmap.academic_year_id
+    and sg.name = sgmap.sg_name
+    and stusg.status_id !='DL' and stusg.student_id=stu.id
+    and stu.status_id !='DL'
+union
+ SELECT distinct
+    instmap.tag_id  as  survey_tag,
+    b.id as boundary_id,
+    '2223' as academic_year_id,
+    instmap.institution_id as school_id,
+    0 as student_id
+FROM
+    assessments_surveytaginstitutionmapping instmap,
+    schools_institution s,
+    boundary_boundary b
+WHERE
+    instmap.institution_id = s.id
+    and (s.admin0_id = b.id or s.admin1_id = b.id or s.admin2_id = b.id or s.admin3_id = b.id)
+    and s.id not in (select distinct institution_id from schools_studentgroup)
+    and instmap.tag_id = 'gka'
+    and instmap.academic_year_id = '2223'
+)data
+GROUP BY
+data.survey_tag,
+data.boundary_id,
+data.academic_year_id
 ;
 
 
