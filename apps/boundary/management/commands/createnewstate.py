@@ -49,7 +49,8 @@ class Command(BaseCommand):
             print("Please specify a language argument")
             return False
         try:
-            lang_code = Language.objects.get(name=lang.title())
+            # lang_code = Language.objects.get(name=lang.title())
+            lang_code = Language.objects.get(char_id=lang)  # changed by 4Edge
         except Exception as e:
             print(e)
             print("Enter a valid lanaguage")
