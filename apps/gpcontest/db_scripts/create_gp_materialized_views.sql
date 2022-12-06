@@ -26,13 +26,13 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
                 boundary_electionboundary as eboundary,
                 schools_institution as schools
             WHERE
-                questiongroup.survey_id IN (2,18) AND
+                questiongroup.survey_id IN (1,18) AND
                 questiongroup.id = answergroup.questiongroup_id AND
                 answers.answergroup_id = answergroup.id AND
                 answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
                 answergroup.institution_id = schools.id AND
                 schools.gp_id = eboundary.id AND
-                answers.question_id NOT IN (130,291)
+                answers.question_id NOT IN (61,80)
             GROUP BY
                 questiongroup.survey_id,
                 questiongroup.id,
@@ -66,7 +66,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
         assessments_questiongroup as qg,
         schools_institution as schools
     WHERE 
-        qg.survey_id IN (2,18) AND 
+        qg.survey_id IN (1,18) AND
         qg.id=ag.questiongroup_id AND 
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
@@ -114,8 +114,8 @@ FROM
         ans.answergroup_id=ag.id
         and ag.questiongroup_id=qg.id
         and ag.date_of_visit BETWEEN :from_date AND :to_date
-        and qg.survey_id IN (2,18)
-        and q.id NOT IN (130,291)
+        and qg.survey_id IN (1,18)
+        and q.id NOT IN (61,80)
         and ans.question_id=q.id
         and stmap.survey_id=qg.survey_id
         and ag.is_verified=true
@@ -149,7 +149,7 @@ WITH table1 as (
         mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg t2
     ON t1.id=t2.id
     WHERE
-        t1.survey_id IN (2,18) and
+        t1.survey_id IN (1,18) and
         t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
         t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int
 )
@@ -192,7 +192,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
         assessments_answergroup_institution ag,
         assessments_questiongroup qg 
     WHERE 
-        qg.survey_id IN (2,18) AND 
+        qg.survey_id IN (1,18) AND
         ag.questiongroup_id=qg.id AND 
         ag.date_of_visit BETWEEN :from_date AND :to_date 
     GROUP BY ag.institution_id, qg.id, yearmonth;
@@ -219,7 +219,7 @@ WITH subquery1 AS (
         mvw_survey_institution_questiongroup_questionkey_correctans_agg t2
     ON t1.id=t2.id
     WHERE
-        t1.survey_id IN (2,18) and
+        t1.survey_id IN (1,18) and
         t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
         t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int
     GROUP BY t1.institution_id, t1.questiongroup_id, t1.question_key, t1.lang_question_key, t1.yearmonth
@@ -271,7 +271,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
             boundary_boundary as boundary3,
             schools_institution as schools
         WHERE
-            questiongroup.survey_id IN (2,18) AND
+            questiongroup.survey_id IN (1,18) AND
             questiongroup.id = answergroup.questiongroup_id AND
             answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
             answergroup.institution_id = schools.id AND
@@ -313,13 +313,13 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
                 boundary_boundary as boundary,
                 schools_institution as schools
             WHERE
-                questiongroup.survey_id IN (2,18) AND
+                questiongroup.survey_id IN (1,18) AND
                 questiongroup.id = answergroup.questiongroup_id AND
                 answers.answergroup_id = answergroup.id AND
                 answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
                 answergroup.institution_id = schools.id AND
                 (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id) AND
-                answers.question_id NOT IN (130,291)
+                answers.question_id NOT IN (61,80)
             GROUP BY
                 questiongroup.id,
                 questiongroup.name,
@@ -359,7 +359,7 @@ WITH schools_count AS (
         assessments_questiongroup as qg,
         schools_institution as schools
     WHERE 
-        qg.survey_id IN (2,18) AND 
+        qg.survey_id IN (1,18) AND
         qg.id=ag.questiongroup_id AND 
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
