@@ -10,7 +10,7 @@
         var selectedCoverageTab = '2018';
         var selectedPerformanceTab = 'basic';
         var selectedComparisonTab = 'year';
-        var years = ["2016", "2017", "2018"];
+        var years = ["2016", "2017", "2018","2019","2020","2021","2022"];
         var performanceTabs = [
             {
                 text: 'Basic',
@@ -70,8 +70,8 @@
         });
         klp.router.start();
 
-        $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
-        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019']});
+        $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019','2020','2021','2022']});
+        $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019','2020','2021','2022']});
         $('#startDate').yearMonthSelect("setDate", moment("20180601", "YYYYMMDD"));
         $('#endDate').yearMonthSelect("setDate", moment("20190331", "YYYYMMDD"));
 
