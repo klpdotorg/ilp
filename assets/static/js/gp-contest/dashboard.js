@@ -261,8 +261,8 @@
             var selectedYearInfo = tabs.find(function(tab) {
                 return tab.value === selectedCoverageTab;
             });
-            var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
-            var fetchGPUrl = checkForUrlParams(`survey/detail/electionboundary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+            var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=1&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+            var fetchGPUrl = checkForUrlParams(`survey/detail/electionboundary/?survey_id=1&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
             var $coverageXHR = klp.api.do(
                 coverageUrl
             );
@@ -436,7 +436,7 @@
             }
 
             if (selectedPerformanceTab === 'basic') {
-                var basicPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/key/?survey_id=2&from=${dateParams.from}&to=${dateParams.to}`);
+                var basicPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/key/?survey_id=1&from=${dateParams.from}&to=${dateParams.to}`);
                 var $performanceXHR = klp.api.do(basicPerformanceUrl);
 
                 $performanceXHR.done(function(result) {
@@ -489,7 +489,7 @@
                     $("#gp-performance-class-6").stopLoading();
                 });
             } else {
-                var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+                var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=1&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
                 var $performanceXHR = klp.api.do(detailsPerformanceUrl);
                 
                 $performanceXHR.done(function(performanceResult) {
