@@ -101,7 +101,7 @@ var topSummaryData = {};
                 e.originalEvent.currentTarget.href = url;
 
         });
-        
+
         loadData(premodalQueryParams);
     }
 
@@ -243,7 +243,7 @@ var topSummaryData = {};
         //     "surveys/boundaryneighbour/detail/?survey_tag=gka&survey_ids=2&survey_ids=7", params
         // );
         // $assessmentComparisonXHR.done(function(chartComparisonData){
-    
+
         //     renderComparisonCharts(params, chartComparisonData.results);
         // });
     }
@@ -251,7 +251,7 @@ var topSummaryData = {};
     function renderComparisonCharts(params, chartComparisonData){
 
         var ekstepValues = {},
-            gpSurveyId = 1,
+            gpSurveyId = 2,
             gpContestValues = {},
             gpLabels = [
                 "Addition",
@@ -282,8 +282,8 @@ var topSummaryData = {};
                     }
                 );
             } catch(e) { console.log('error building qgs', e); }
-            
-            // Add the keys together for each gp labels and store it in 
+
+            // Add the keys together for each gp labels and store it in
             // an array for each district
             gpContestValues['n' + (districtIndex + 1)] = _.map(gpLabels, function(label){
                 var total = 0,
@@ -293,7 +293,7 @@ var topSummaryData = {};
                 // Add each labels across all question groups
                 _.each(qgs, function(qg){
                     var keys = district['surveys'][gpSurveyId]['questiongroups'][qg]['question_keys'];
-                    
+
                     for(var key in keys) {
                         if(key === label) {
                             score += keys[key]['score'];
@@ -637,7 +637,7 @@ var topSummaryData = {};
                 "surveys/usercount/?survey_tag=gka", params
             );
             $usersXHR.done(function(usersCountData) {
-                topSummary.active_users = usersCountData.count; 
+                topSummary.active_users = usersCountData.count;
 
                 klp.GKA.topSummaryData = topSummary;
                 renderTopSummary(topSummary);
@@ -688,7 +688,7 @@ var topSummaryData = {};
                 "ivrss-group-work"
             ],
             data = combineDataSources(
-                detailsData.source, 
+                detailsData.source,
                 ['sms', 'mobile', 'konnectsms'],
                 SMSQuestionKeys
             ),
@@ -698,7 +698,7 @@ var topSummaryData = {};
             questions = getQuestionsArray(questionObjects),
             regroup = {},
             tplResponses = swig.compile($('#tpl-smsResponses').html());
-        
+
         for (var each in questions) {
             regroup[questions[each]["key"]] = questions[each];
         }
@@ -875,7 +875,7 @@ var topSummaryData = {};
         $('#assmtCompetancy-5').startLoading();
 
         var assessmentId = getSurveyId('Ganitha Kalika Andolana');
-        
+
         // Load summary first
         var $summaryXHR = klp.api.do("survey/summary/?survey_id=" + assessmentId, params);
         $summaryXHR.done(function(summaryData) {
@@ -1230,7 +1230,7 @@ var topSummaryData = {};
             renderBarChart('#gpcGraph_class6', class6competancies, "Average % of Children");
         } else {
             $('#gpcGraph_class6').hide();
-        }        
+        }
     }
 
     function OBSgenCompetancyChartObj(aggCompetancies) {
@@ -1685,7 +1685,7 @@ var topSummaryData = {};
                     combinedData.answers.Yes = yes
                     if(!isNaN(data.answers.Yes)) {
                         combinedData.answers.Yes += data.answers.Yes;
-                    } 
+                    }
                     if (!isNaN(data.answers["1"])) {
                         combinedData.answers.Yes = combinedData.answers.Yes + data.answers["1"];
                     }

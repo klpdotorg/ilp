@@ -10,7 +10,7 @@
         var selectedCoverageTab = '2018';
         var selectedPerformanceTab = 'basic';
         var selectedComparisonTab = 'year';
-        var years = ["2016", "2017", "2018","2019","2020","2021","2022"];
+        var years = ["2016", "2017", "2018"];
         var performanceTabs = [
             {
                 text: 'Basic',
@@ -39,7 +39,7 @@
         var $select_school_cont = $("#select-school-cont");
         var $select_cluster_cont = $("#select-cluster-cont");
         var $select_gp_cont = $("#select-gp-cont");
-            
+
         // This function is used as a callback to accordion init function
         // to determine which section to load when a user clicks a
         // section
@@ -52,7 +52,7 @@
                 "class-6-performance": loadPerformance,
             };
             if (!isSectionVisible) { return; }
-    
+
             if (typeof(functionMap[elId]) === 'function') {
                 functionMap[elId](klp.GP.routerParams);
             } else {
@@ -83,7 +83,7 @@
 
             loadPerformance();
             loadCoverage();
-                
+
             if (window.location.hash) {
                 if (window.location.hash == '#resetButton') {
                     window.location.href = '/gp-contest';
@@ -117,7 +117,7 @@
             var yearTabHTML = tplYearTab({ tabs: _.map(tabs, function(tab) {
                 return { text: tab.value, value: tab.value };
             })});
-            
+
             $('#year-tabs').html(yearTabHTML);
         }
 
@@ -182,7 +182,7 @@
             } else {
                 // url += 'default_date=true';
             }
-            
+
             if (searchByGPs) {
                 if (gp_id) {
                     url += '&electionboundary_id=' + gp_id;
@@ -215,7 +215,7 @@
 
             e.originalEvent.currentTarget.href = url;
         });
-        
+
         // This returns search entity type and entity Id
         function getSearchedEntityInfo() {
             var routerParams = klp.GP.routerParams;
@@ -257,12 +257,12 @@
         // Fetch coverage information
         function loadCoverage() {
             $("#gp-coverage").startLoading();
-        
+
             var selectedYearInfo = tabs.find(function(tab) {
                 return tab.value === selectedCoverageTab;
             });
-            var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=1&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
-            var fetchGPUrl = checkForUrlParams(`survey/detail/electionboundary/?survey_id=1&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+            var coverageUrl = checkForUrlParams(`survey/summary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+            var fetchGPUrl = checkForUrlParams(`survey/detail/electionboundary/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
             var $coverageXHR = klp.api.do(
                 coverageUrl
             );
@@ -275,7 +275,7 @@
                 $gpXHR.done(function(gpData) {
                     var tplCoverage = swig.compile($('#tpl-coverage').html());
                     var coverageHTML = tplCoverage({ data: result.summary, gp: gpData.GP });
-                    
+
                     $('#gp-coverage').html(coverageHTML);
                     $("#gp-coverage").stopLoading();
                 });
@@ -328,7 +328,7 @@
             var selectedConceptIndex = seriesValues.indexOf(Number(clickedConceptValue));
 
             var concepts = getConcepts(performanceResult, classNumber);
-            var conceptGroupChartData = getConceptGroupChartData(concepts[selectedConceptIndex]); 
+            var conceptGroupChartData = getConceptGroupChartData(concepts[selectedConceptIndex]);
 
             if ($(`#gp-performance-class-${classNumber}-concept-group`).length !== 0) {
                 $(`#gp-performance-class-${classNumber}-concept-group`).remove();
@@ -345,7 +345,7 @@
                 $(`#close-concept-group-class-${classNumber}`).css('display', 'none');
                 $(`#concept-group-header-class-${classNumber}`).css('display', 'none');
             })
-            
+
             $(`#gp-performance-class-${classNumber}-concept-group`).click(function(conceptGroupEvent) {
                 var clickedConceptGroupValue = conceptGroupEvent.target.getAttribute('ct:value');
                 var conceptGroups = getConceptGroups(concepts, selectedConceptIndex);
@@ -354,7 +354,7 @@
                 var microConceptChartData = getConceptGroupChartData(selectedConceptGroup);
 
                 if ($(`#gp-performance-class-${classNumber}-micro-concept`).length !== 0) {
-                    $(`#gp-performance-class-${classNumber}-micro-concept`).remove(); 
+                    $(`#gp-performance-class-${classNumber}-micro-concept`).remove();
                 }
                 createGraphElement(`gp-performance-class-${classNumber}-micro-concept`, `micro-concepts-class-${classNumber}`);
 
@@ -419,7 +419,7 @@
             $("#gp-performance-class-5").startLoading();
             $("#gp-performance-class-6").startLoading();
 
-            var routerParams = klp.GP.routerParams;	
+            var routerParams = klp.GP.routerParams;
             var dateParams = {};
 
             var selectedYearInfo = tabs.find(function(tab) {
@@ -432,11 +432,11 @@
             } else {
                 var defaultDateParams = getDefaultAcademicYear();
                 dateParams.from = defaultDateParams.from;
-                dateParams.to = defaultDateParams.to; 
+                dateParams.to = defaultDateParams.to;
             }
 
             if (selectedPerformanceTab === 'basic') {
-                var basicPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/key/?survey_id=1&from=${dateParams.from}&to=${dateParams.to}`);
+                var basicPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/key/?survey_id=2&from=${dateParams.from}&to=${dateParams.to}`);
                 var $performanceXHR = klp.api.do(basicPerformanceUrl);
 
                 $performanceXHR.done(function(result) {
@@ -461,7 +461,7 @@
                             labels = [];
                             series = [];
                         }
-                        
+
 
                         chartData['class' + i] = {labels: [], series: [[]]};
                         _.forEach(sortedLabels, function(l, index) {
@@ -489,9 +489,9 @@
                     $("#gp-performance-class-6").stopLoading();
                 });
             } else {
-                var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=1&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
+                var detailsPerformanceUrl = checkForUrlParams(`survey/detail/questiongroup/qdetails/?survey_id=2&from=${selectedYearInfo.start_date}&to=${selectedYearInfo.end_date}`);
                 var $performanceXHR = klp.api.do(detailsPerformanceUrl);
-                
+
                 $performanceXHR.done(function(performanceResult) {
                     var chartData = {};
                     for(var i = 4; i <= 6; i++) {

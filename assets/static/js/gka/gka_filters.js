@@ -7,7 +7,7 @@
         $trigger,
         template;
 
-    var surveyId = 2;
+    var surveyId = 1;
     var questionGroupId = 7;
 
     t.init = function() {
@@ -19,7 +19,7 @@
         $(document).ready(function(){
             initEduSearch();
         });
-        
+
     }
 
     function format(item) {
@@ -70,13 +70,13 @@
         // $search_button.attr('href', '/gka/#searchmodal?' + attr);
     }
 
-       
+
     function initEduSearch(school_type) {
         var $select_district = $("#select-district");
         var $select_block = $("#select-block");
         var $select_cluster = $("#select-cluster");
         var $select_school = $("#select-school");
-        
+
         clearSelect($select_district);
         clearSelect($select_block);
         clearSelect($select_cluster);
@@ -166,7 +166,7 @@
         });
     }
 
-  
+
 })();
 
 
