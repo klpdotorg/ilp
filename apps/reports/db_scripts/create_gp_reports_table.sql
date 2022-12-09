@@ -24,7 +24,7 @@ CREATE MATERIALIZED VIEW mvw_survey_eboundary_answers_agg AS
                 questiongroup.survey_id = 1 AND
                 questiongroup.id = answergroup.questiongroup_id AND
                 answers.answergroup_id = answergroup.id AND
-                answergroup.date_of_visit BETWEEN '2022-11-01' AND '2022-11-30' AND
+                answergroup.date_of_visit BETWEEN '2018-06-01' AND '2019-03-31' AND
                 answergroup.institution_id = schools.id AND
                 schools.gp_id = eboundary.id AND
                 answers.question_id NOT IN (61,80)
