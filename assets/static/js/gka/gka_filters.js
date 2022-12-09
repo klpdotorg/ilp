@@ -7,7 +7,7 @@
         $trigger,
         template;
 
-    var surveyId = 1;
+    var surveyId = 2;
     var questionGroupId = 7;
 
     t.init = function() {
