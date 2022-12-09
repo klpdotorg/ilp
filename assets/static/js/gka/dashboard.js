@@ -251,7 +251,7 @@ var topSummaryData = {};
     function renderComparisonCharts(params, chartComparisonData){
 
         var ekstepValues = {},
-            gpSurveyId = 2,
+            gpSurveyId = 1,
             gpContestValues = {},
             gpLabels = [
                 "Addition",
