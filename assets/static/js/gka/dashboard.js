@@ -208,7 +208,7 @@ var topSummaryData = {};
                 } catch (e) {}
 
                 try {
-                    data.contests = c.surveys['2']['electioncount']['GP'];
+                    data.contests = c.surveys['1']['electioncount']['GP'];
                 } catch (e) {}
 
                 try {
