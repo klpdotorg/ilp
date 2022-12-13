@@ -1454,7 +1454,7 @@ var topSummaryData = {};
     }
 
     function renderBarChart(elementId, data, yTitle=' ') {
-        console.log(elementId,data);
+        console.log("renderbarchart",elementId,data);
         var options = {
             seriesBarDistance: 10,
             axisX: {
@@ -1516,6 +1516,7 @@ var topSummaryData = {};
                 })
             }
         });
+        $chart_element.update(data);
     }
 
     function renderLineChart(elementId, data) {
