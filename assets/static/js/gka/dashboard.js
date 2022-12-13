@@ -1024,6 +1024,7 @@ var topSummaryData = {};
         $('#gpcGender_class6').startLoading();
 
         var gpContestId = getSurveyId('GP Contest');
+        console.log(gpContestId);
 
         var $summaryXHR = klp.api.do("api/v1/survey/summary/?survey_id=" + gpContestId, params);
         $summaryXHR.done(function(summaryData) {
