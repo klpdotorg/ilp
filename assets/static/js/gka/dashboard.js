@@ -1519,7 +1519,7 @@ var topSummaryData = {};
                 })
             }
         });
-        $chart_element.update(data);
+//        $chart_element.update(data);
     }
 
     function renderLineChart(elementId, data) {
