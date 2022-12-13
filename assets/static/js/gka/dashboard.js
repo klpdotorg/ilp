@@ -1149,7 +1149,7 @@ var topSummaryData = {};
     }
 
     function renderGPContestCharts(data) {
-
+        console.log("renderGPContestCharts");
         function genCompetancyChartObj(classData) {
             var result = {
                 labels: Object.keys(classData),
