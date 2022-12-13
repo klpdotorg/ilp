@@ -1226,7 +1226,7 @@ var topSummaryData = {};
         }
 
 
-        if(class6competancies.labels && class5competancies.series) {
+        if(class6competancies.labels && class6competancies.series) {
             renderBarChart('#gpcGraph_class6', class6competancies, "Average % of Children");
         } else {
             $('#gpcGraph_class6').hide();
