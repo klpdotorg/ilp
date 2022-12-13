@@ -1504,6 +1504,7 @@ var topSummaryData = {};
         ];
 
         var $chart_element = Chartist.Bar(elementId, data, options, responsiveOptions).on('draw', function(chartData) {
+            console.log(chartData);
             if (chartData.type === 'bar') {
                 chartData.element.attr({
                     style: 'stroke-width: 15px;'
