@@ -1215,12 +1215,14 @@ var topSummaryData = {};
 	console.log(class4competancies, class5competancies, class6competancies)
 
         if(class4competancies.labels && class4competancies.series) {
+            console.log(class4competancies.labels,class4competancies.series);
             renderBarChart('#gpcGraph_class4', class4competancies, "Average % of Children");
         } else {
             $('#gpcGraph_class4').hide();
         }
 
         if(class5competancies.labels && class5competancies.series) {
+            console.log(class5competancies.labels,class5competancies.series);
             renderBarChart('#gpcGraph_class5', class5competancies, "Average % of Children");
         } else {
             $('#gpcGraph_class5').hide();
@@ -1228,6 +1230,7 @@ var topSummaryData = {};
 
 
         if(class6competancies.labels && class6competancies.series) {
+            console.log(class6competancies.labels,class6competancies.series);
             renderBarChart('#gpcGraph_class6', class6competancies, "Average % of Children");
         } else {
             $('#gpcGraph_class6').hide();
@@ -1451,7 +1454,7 @@ var topSummaryData = {};
     }
 
     function renderBarChart(elementId, data, yTitle=' ') {
-
+        console.log(elementId,data);
         var options = {
             seriesBarDistance: 10,
             axisX: {
