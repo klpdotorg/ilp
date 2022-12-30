@@ -254,7 +254,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
             if self.assessmentnames[assessment]["name"] in gpdata:
                 gpdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(gpdata[self.assessmentnames[assessment]["name"]])
-        # print(assessmentinfo)
+        print(assessmentinfo)
         year, month = self.getYearMonth(str(self.now))
         info = {"imagesdir": self.imagesdir, "acadyear": self.academicyear, "year":year, "month": month}
         percent_scores = {}
