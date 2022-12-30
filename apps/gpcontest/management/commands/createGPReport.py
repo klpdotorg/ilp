@@ -278,7 +278,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
             #percent_scores = gpdata["percent_scores"]
         print(percent_scores)
         renderer_template = template.render(gpinfo=gpinfo,
-                                            assessmentinfo=assessmentinfo,
+                                            assessmentinfo=assessmentinfo[:10],
                                             info=info,
                                             percent_scores=percent_scores)
 

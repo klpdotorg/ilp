@@ -74,7 +74,7 @@
 \multicolumn{4}{|c|}{ {\large \bf {{info.classname}} } \kn{ನೇ ತರಗತಿ}} \\ \hline
 \multicolumn{4}{|c|}{\kn{ಮಕ್ಕಳ ಒಟ್ಟು ಸಂಖ್ಯೆ} : {{assessmentinfo.num_students}}} \\ \hline
 \textbf{\kn{ಕ್ರಮ ಸಂಖ್ಯೆ}} & \textbf{\kn{ಪ್ರಶ್ನೆಗಳು}} & \textbf{\kn{ಸರಿಯಾಗಿ ಉತ್ತರಿಸಿದ ಒಟ್ಟು ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \textbf{\kn{ಶೇಕಡಾವಾರು ಫಲಿತಾಂಶ}} \\ \hline \endhead
-{% for question in assessmentinfo.question_answers|slice:":20" %}
+{% for question in assessmentinfo.question_answers %}
 {{loop.index}} & \kn{ {{ question.lang_name }} }& {{ question.num_correct }} & {{question.percent}} \\ \hline
 {% endfor %}
 \end{longtable}
