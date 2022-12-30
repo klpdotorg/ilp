@@ -57,7 +57,7 @@ var topSummaryData = {};
         klp.router.start();
         premodalQueryParams = klp.router.getHash().queryParams;
 
-        $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019', '2020','2021','2022']});
+        $('#startDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019', '2020','2021','2022','2023']});
         $('#endDate').yearMonthSelect("init", {validYears: ['2016', '2017', '2018', '2019', '2020','2021','2022','2023']});
         $('#startDate').yearMonthSelect("setDate", moment("20190601", "YYYYMMDD"));
         $('#endDate').yearMonthSelect("setDate", moment("20200331", "YYYYMMDD"));
