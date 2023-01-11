@@ -107,7 +107,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                         self.endyearmonth)
 
         # print("All GPs data is")
-        # print(data, file=self.utf8stdout)
+        print(data, file=self.utf8stdout)
         for gp in data["gp_info"]:
             datafound = False
             num_contests = len(data["gp_info"][gp])
