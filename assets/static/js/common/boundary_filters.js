@@ -78,7 +78,7 @@
         clearSelect($select_school);
         clearSelect($select_gp);
 
-        var url = "boundary/admin1s/?per_page=0&survey_id=1&school_type=primary";
+        var url = "boundary/admin1s/?per_page=0&survey_id=2&school_type=primary";
         var districtsXHR = klp.api.do(url);
         districtsXHR.done(function(data) {
             var districts = {};
@@ -99,7 +99,7 @@
             clearSelect($select_school);
             setBoundaryAttributes('boundary_id=' + selected.val);
 
-            var blockXHR = klp.api.do('boundary/admin1/' + selected.val + '/admin2/?survey_id=1&per_page=0');
+            var blockXHR = klp.api.do('boundary/admin1/' + selected.val + '/admin2/?survey_id=2&per_page=0');
             blockXHR.done(function (data) {
                 data.features = data.results;
                 populateSelect($select_block, data);
@@ -113,14 +113,14 @@
             setBoundaryAttributes('boundary_id=' + selected.val);
 
             // Populate the cluster select box
-            var clusterXHR = klp.api.do('boundary/admin2/' + selected.val + '/admin3/?survey_id=1&per_page=0');
+            var clusterXHR = klp.api.do('boundary/admin2/' + selected.val + '/admin3/?survey_id=2&per_page=0');
             clusterXHR.done(function (data) {
                 data.features = data.results;
                 populateSelect($select_cluster, data);
             });
 
             // Populate the GP select box
-            var clusterXHR = klp.api.do('survey/gp/?&survey_id=1&admin2_id=' + selected.val);
+            var clusterXHR = klp.api.do('survey/gp/?&survey_id=2&admin2_id=' + selected.val);
             clusterXHR.done(function (data) {
                 data.features = data.results;
                 populateSelect($select_gp, data);
