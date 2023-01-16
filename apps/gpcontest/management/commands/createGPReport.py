@@ -276,7 +276,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
             percent_scores["num_competencies"] = numcompetency
 
             #percent_scores = gpdata["percent_scores"]
-        print(percent_scores)
+        print("percent_scores",percent_scores)
         renderer_template = template.render(gpinfo=gpinfo,
                                             assessmentinfo=assessmentinfo,
                                             info=info,
