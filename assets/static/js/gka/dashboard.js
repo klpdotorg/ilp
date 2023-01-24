@@ -208,7 +208,7 @@ var topSummaryData = {};
                 } catch (e) {}
 
                 try {
-                    data.contests = c.surveys['2']['electioncount']['GP'];
+                    data.contests = c.surveys['1']['electioncount']['GP'];
                 } catch (e) {}
 
                 try {
@@ -251,7 +251,7 @@ var topSummaryData = {};
     function renderComparisonCharts(params, chartComparisonData){
 
         var ekstepValues = {},
-            gpSurveyId = 2,
+            gpSurveyId = 1,
             gpContestValues = {},
             gpLabels = [
                 "Addition",

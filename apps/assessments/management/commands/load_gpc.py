@@ -17,8 +17,8 @@ class Command(BaseCommand):
 
     args = ""
     help = """python3 manage.py loadgpc [--filename=filename] [--grade=4] [--qgroup=47]"""
-    gender_qid = 291
-    grade_qid = 130
+    gender_qid = 80
+    grade_qid = 61
     cols = {"grade":1, "district":2, "block":3, "ddmmyyyy":4,"instid":5,
             "disecode":6, "gpid":7, "gpname":8, "questionseries": 9,
             "childname": 10, "gender":11}

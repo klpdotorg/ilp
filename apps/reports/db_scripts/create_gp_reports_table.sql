@@ -21,13 +21,13 @@ CREATE MATERIALIZED VIEW mvw_survey_eboundary_answers_agg AS
                 boundary_electionboundary as eboundary,
                 schools_institution as schools
             WHERE
-                questiongroup.survey_id = 2 AND
+                questiongroup.survey_id = 1 AND
                 questiongroup.id = answergroup.questiongroup_id AND
                 answers.answergroup_id = answergroup.id AND
                 answergroup.date_of_visit BETWEEN '2018-06-01' AND '2019-03-31' AND
                 answergroup.institution_id = schools.id AND
                 schools.gp_id = eboundary.id AND
-                answers.question_id NOT IN (130,291)
+                answers.question_id NOT IN (61,80)
             GROUP BY
                 questiongroup.id,
                 answers.answergroup_id,
