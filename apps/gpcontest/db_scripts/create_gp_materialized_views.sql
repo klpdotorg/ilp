@@ -32,7 +32,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
                 answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
                 answergroup.institution_id = schools.id AND
                 schools.gp_id = eboundary.id AND
-                answers.question_id NOT IN (61,80)
+                answers.question_id NOT IN (62,81)
             GROUP BY
                 questiongroup.survey_id,
                 questiongroup.id,
@@ -115,7 +115,7 @@ FROM
         and ag.questiongroup_id=qg.id
         and ag.date_of_visit BETWEEN :from_date AND :to_date
         and qg.survey_id IN (1,18)
-        and q.id NOT IN (61,80)
+        and q.id NOT IN (62,81)
         and ans.question_id=q.id
         and stmap.survey_id=qg.survey_id
         and ag.is_verified=true
@@ -319,7 +319,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
                 answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
                 answergroup.institution_id = schools.id AND
                 (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id) AND
-                answers.question_id NOT IN (61,80)
+                answers.question_id NOT IN (62,81)
             GROUP BY
                 questiongroup.id,
                 questiongroup.name,
