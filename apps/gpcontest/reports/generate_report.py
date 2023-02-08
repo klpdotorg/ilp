@@ -5,6 +5,7 @@ from assessments.models import (
     CompetencyOrder)
 from .utils import *
 import locale
+
 # This is to add the commas in the right places in the numbers
 # SEtting it to OR because that's installed in almost all our systems
 # If locale is not installed, please install first
@@ -12,18 +13,19 @@ import locale
 
 locale.setlocale(locale.LC_NUMERIC, "en_IN")
 
+
 def get_gps_for_academic_year(
         gpcontest_survey_id,
         from_yearmonth,
         to_yearmonth):
-    """ Returns a list of distinct gp_ids for the academic year 
+    """ Returns a list of distinct gp_ids for the academic year
     where gp contest happened """
     return SurveyEBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
         survey_id=gpcontest_survey_id
     ).filter(yearmonth__gte=from_yearmonth).filter(const_ward_type='GP').filter(
         yearmonth__lte=to_yearmonth).order_by(
-            'eboundary_id').distinct().values_list(
-            'eboundary_id', flat=True)
+        'eboundary_id').distinct().values_list(
+        'eboundary_id', flat=True)
 
 
 def generate_all_reports(gp_survey_id, from_yearmonth, to_yearmonth):
@@ -45,8 +47,8 @@ def generate_for_gps_list(list_of_gps, gp_survey_id, from_yearmonth, to_yearmont
         "count": len(list_of_gps),
     }
     schoolcount_by_assessment = get_schoolcount_classes_gplist(
-                                    gp_survey_id, list_of_gps,
-                                    from_yearmonth, to_yearmonth)
+        gp_survey_id, list_of_gps,
+        from_yearmonth, to_yearmonth)
     all_gps["class4_num_schools"] = schoolcount_by_assessment["Class 4 Assessment"]
     all_gps["class5_num_schools"] = schoolcount_by_assessment["Class 5 Assessment"]
     all_gps["class6_num_schools"] = schoolcount_by_assessment["Class 6 Assessment"]
@@ -66,16 +68,16 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     """
         Take a gp contest survey id and date range in the format of
         YYYYMM and return a dictionary with GP summary data.
-        Dict format is:    
+        Dict format is:
     """
     contest_dates, yearmonth_dates = get_date_of_contest(gp_survey_id, from_yearmonth, to_yearmonth, gp_id=gp_id)
     # Get basic GP info such as district/block/cluster/num students/schools
     #  etc..
     # Get participating schools count categorized by date of contest
     num_schools_by_contest_date = get_participating_school_count(
-                                                gp_id,
-                                                gp_survey_id,
-                                                yearmonth_dates)
+        gp_id,
+        gp_survey_id,
+        yearmonth_dates)
     try:
         gp = ElectionBoundary.objects.get(id=gp_id)
     except:
@@ -84,7 +86,7 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     else:
         gp_name = gp.const_ward_name.capitalize()
         gp_lang_name = gp.const_ward_lang_name
-    
+
     # Get general GP info. Needs to be calculated per GP because block/cluster
     # info might be different per GP
     schools = Institution.objects.filter(gp_id=gp_id)
@@ -99,8 +101,8 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
         district_name = ""
         block_name = ""
         cluster_name = ""
-    
-    ## Get all possible questiongroups for the given time frame and use that to 
+
+    ## Get all possible questiongroups for the given time frame and use that to
     # compute aggregates for score buckets
     qgroups = get_all_qgroups_survey(gp_survey_id, from_yearmonth, to_yearmonth)
 
@@ -113,14 +115,14 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
     class6 = None
     gp_num_students = 0  # Variable to hold total # of students in GP contest
     schoolcount_by_assessment_date = get_schoolcount_classes_count(
-                                gp_survey_id, gp_id, from_yearmonth,
-                                to_yearmonth,
-                                yearmonth_dates)
+        gp_survey_id, gp_id, from_yearmonth,
+        to_yearmonth,
+        yearmonth_dates)
     data_by_contest_date = {}
     for index, date in enumerate(yearmonth_dates):
-        # Get q groups applicable to just this contest date. One contest on a 
+        # Get q groups applicable to just this contest date. One contest on a
         # particular date can have just one set of qgroup ids mapped to it
-        # for Class 4,5,6 respectively. 
+        # for Class 4,5,6 respectively.
         applicable_qgroup_ids = get_questiongroups_survey_for_contestdate(gp_survey_id, gp_id, date)
         print(applicable_qgroup_ids)
         print("Date for which report is generated is: ", date)
@@ -135,29 +137,32 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
             "cluster": cluster_name,
             "date": contest_dates[index]
         }
-        num_schools = locale.format("%d",num_schools_by_contest_date[date],grouping=True)
+        num_schools = locale.format("%d", num_schools_by_contest_date[date], grouping=True)
         all_scores_for_gp["num_schools"] = num_schools
         if "Class 4 Assessment" in schoolcount_by_assessment_date[date]:
-            all_scores_for_gp["class4_num_schools"] = locale.format("%d",schoolcount_by_assessment_date[date]["Class 4 Assessment"],grouping=True)
+            all_scores_for_gp["class4_num_schools"] = locale.format("%d", schoolcount_by_assessment_date[date][
+                "Class 4 Assessment"], grouping=True)
         if "Class 5 Assessment" in schoolcount_by_assessment_date[date]:
-            all_scores_for_gp["class5_num_schools"] = locale.format("%d",schoolcount_by_assessment_date[date]["Class 5 Assessment"],grouping=True)
+            all_scores_for_gp["class5_num_schools"] = locale.format("%d", schoolcount_by_assessment_date[date][
+                "Class 5 Assessment"], grouping=True)
         if "Class 6 Assessment" in schoolcount_by_assessment_date[date]:
-            all_scores_for_gp["class6_num_schools"] = locale.format("%d",schoolcount_by_assessment_date[date]["Class 6 Assessment"], grouping=True)
+            all_scores_for_gp["class6_num_schools"] = locale.format("%d", schoolcount_by_assessment_date[date][
+                "Class 6 Assessment"], grouping=True)
 
         for questiongroup in applicable_qgroup_ids:
             print("iterating through questiongroup ", questiongroup)
-            qgroup = QuestionGroup.objects.get(id=questiongroup) 
+            qgroup = QuestionGroup.objects.get(id=questiongroup)
             total_answers = get_total_assessments_for_grade(gp_id, questiongroup,
-                                                                gp_survey_id,
-                                                                from_yearmonth,
-                                                                to_yearmonth)
+                                                            gp_survey_id,
+                                                            from_yearmonth,
+                                                            to_yearmonth)
             answers = get_grade_competency_correctscores(
-                        gp_id, questiongroup, gp_survey_id, from_yearmonth, to_yearmonth
-                        )
-        
+                gp_id, questiongroup, gp_survey_id, from_yearmonth, to_yearmonth
+            )
+            print(answers)
             all_scores_for_gp[qgroup.name] = {}
             total_for_date = total_answers.filter(yearmonth=date)
-            answers_for_contest = answers.filter(yearmonth=date)      
+            answers_for_contest = answers.filter(yearmonth=date)
             # We've got answers and assessments for this particular GP for this
             # questiongroup ID
             if total_for_date is not None and answers_for_contest is not None:
@@ -174,10 +179,10 @@ def generate_gp_summary(gp_id, gp_survey_id, from_yearmonth, to_yearmonth):
                 # summary page format. So calculate below only for that
                 if "class 6" in qgroup.name.lower():
                     percentage = get_grade_competency_percentages(
-                                                    gp_id, questiongroup,
-                                                    gp_survey_id,
-                                                    from_yearmonth,
-                                                    to_yearmonth, yearmonth_dates)
+                        gp_id, questiongroup,
+                        gp_survey_id,
+                        from_yearmonth,
+                        to_yearmonth, yearmonth_dates)
                     all_scores_for_gp["percent_scores"] = \
                         {"Class 6 Assessment": {}}
                     all_scores_for_gp["percent_scores"][qgroup.name] = \
@@ -200,8 +205,9 @@ def format_answers(questiongroup_id, correct_ans_queryset):
     # score.
 
     competencies = ["Addition", "Subtraction", "Number Recognition",
-                    "Place Value", "Multiplication", "Division"]            
-    competencies_in_db = CompetencyOrder.objects.filter(questiongroup=questiongroup_id).order_by('sequence').values_list('key', flat=True)
+                    "Place Value", "Multiplication", "Division"]
+    competencies_in_db = CompetencyOrder.objects.filter(questiongroup=questiongroup_id).order_by(
+        'sequence').values_list('key', flat=True)
     competency_scores = {}
     for competency in competencies:
         # This competency is NA for this class. Hence assign NA to it
@@ -210,13 +216,14 @@ def format_answers(questiongroup_id, correct_ans_queryset):
         else:
             try:
                 each_row = correct_ans_queryset.get(question_key=competency)
+                print("each_row", round(each_row["correct_answers"], 2))
             except:
                 each_row = None
             if each_row is not None:
-                correctans = each_row["correct_answers"]
+                correctans = round(each_row["correct_answers"], 2)
                 if correctans is None:
                     correctans = 0
-                competency_scores[competency] =\
+                competency_scores[competency] = \
                     correctans
             # No one got this answer right, send 0 back
             else:
