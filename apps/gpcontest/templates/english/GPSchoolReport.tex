@@ -55,10 +55,10 @@
 \setlength{\parindent}{0in}
 
 District : {{schoolinfo.district}} \hfill  GP Id : {{schoolinfo.gpid}} \\
-Block : {{schoolinfo.block}} \hfill DISE Code : {{schoolinfo.disecode}} \\
+Taluk : {{schoolinfo.block}} \hfill DISE Code : {{schoolinfo.disecode}} \\
 GP Name : {{schoolinfo.gpname}} \hfill School Name : {{schoolinfo.schoolname}} \\
 
-The results of the GP level math contest held on {{schoolinfo.contestdate}} under the leadership of GP president in partnership with the education department, community and Akshara Foundation for your school is as follows:
+The results of the GP level math contest held on {{schoolinfo.contestdate}} under the leadership of GP president in partnership with the education department, community and Akshara Foundation for your school is as follows
 
 \begingroup
 \fontsize{9}{12}
@@ -67,8 +67,8 @@ The results of the GP level math contest held on {{schoolinfo.contestdate}} unde
 \setlength\LTright{-.7cm}
 \renewcommand\arraystretch{1.45}
 \begin{longtable}{|P{1cm}|p{10cm}|P{3cm}|P{3cm}|} \hline
-	\multicolumn{4}{|c|}{ {\large \bf {{info.classname}}  Grade}} \\ \hline
-\multicolumn{4}{|c|}{Total Children : {{assessmentinfo.num_students}}} \\ \hline
+	\multicolumn{4}{|c|}{ {\large \bf {{info.classname}}th  Grade}} \\ \hline
+\multicolumn{4}{|c|}{Total No. of children: {{assessmentinfo.num_students}}} \\ \hline
 \textbf{Sr. No.} & \textbf{Question} & \textbf{Total Right Answers} & \textbf{Result(Percentage)} \\ \hline \endhead
 {% for question in assessmentinfo.question_answers %}
 {{loop.index}} & {{ question.name}}& {{ question.num_correct }} & {{question.percent}} \\ \hline
@@ -78,27 +78,28 @@ The results of the GP level math contest held on {{schoolinfo.contestdate}} unde
 \endgroup
 
 \begin{flushleft}
-To improve the above results, we request the school HM, SDMC, parents and the math teachers to sit together and plan suitable actions for quality math learning. For more information please contact us on 9845079590 \\[2ex]
+We hope that the school headmaster, SMC, parents and school teachers will formulate a suitable plan to improve the above results. \\[2ex]
 \end{flushleft}
+\centering{\kn{Suggestion}}\\
 
 {% for num in assessmentinfo.deficiencies %}
 \ifnum {{loop.index}} = 1
     \begin{tabular}[t]{ll}
     \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}}  &
-	    \fcolorbox{black}{gray}{\parbox[t][1.5cm]{4.5cm}{\centering{To improve on {{num.name}} concept, scan this QR code}}}
+	    \fcolorbox{black}{gray}{\parbox[t][1.5cm]{4.5cm}{\centering{Scan this QR code to improve the {{num.name}} concept's results for students.}}}
     \end{tabular}
  \else 
      \ifnum {{loop.index}} = 2
      \hfill 
      \begin{tabular}[t]{ll}
      \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}} &
-	     \fcolorbox{black}{lightgray}{\parbox[t][1.5cm]{4.5cm}{\centering{To improve on {{num.name}} concept, scan this QR code}}}
+	     \fcolorbox{black}{lightgray}{\parbox[t][1.5cm]{4.5cm}{\centering{Scan this QR code to improve the {{num.name}} concept's results for students.}}}
      \end{tabular}
      \else
      \begin{center} 
      \begin{tabular}[t]{ll}
      \raisebox{-1.2cm}{\includegraphicsifexists[height=1.5cm]{"{{info.imagesqrdir}}{{num.competency}}_qrcode.png"}} &
-	     \fbox{\parbox[t][1.5cm]{4.5cm}{\centering{To improve on {{num.name}} concept, scan this QR code}}}
+	     \fbox{\parbox[t][1.5cm]{4.5cm}{\centering{Scan this QR code to improve the {{num.name}} concept's results for students.}}
      \end{tabular}
      \end{center}
      \fi
@@ -110,7 +111,7 @@ To improve the above results, we request the school HM, SDMC, parents and the ma
     ~\\~\\~\\
 \fi
 Sign \hfill Sign \rule{2.0cm}{0cm} \\
-District Manager, Akshara Foundation \hfill GP President \rule{0.5cm}{0cm}
+District Manager, Akshara Foundation \hfill GP Sarpanch \rule{0.5cm}{0cm}
 }
 
 \end{document}

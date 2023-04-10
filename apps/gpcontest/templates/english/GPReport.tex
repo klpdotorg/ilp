@@ -117,25 +117,30 @@
 \setlength{\parindent}{0in}
 ~\\~\\~\\
 To, \hfill  {{info.month}} {{info.year}} \\ [2ex]
-The GP President,\\ [1ex]
+The GP Sarpanch,\\ [1ex]
 {{gpinfo.gpname}} GP,\\ [1ex]
-{{gpinfo.block}} Block,\\ [1ex]
+{{gpinfo.block}} Taluk,\\ [1ex]
 {{gpinfo.district}} District.
 \\~\\ [2ex]
-Sir/Madame,
+Sir/Madam,
 \\~\\
-Subject: Congratulations and thank you to the {{gpinfo.gpname}} Gram Panchayat on behalf of the Ganitha Kalika Andolana (GKA) team.
+Subject: A hearty congratulations and thank you to the {{gpinfo.gpname}} Gram Panchayat on behalf of the Ganitha Kalika Andolana (GKA) team.
 \\~\\
-Hearty congratulations to the Gram Panchayat members, Community members and the respective school HMs for successfully conducting the Gram Panchayat level Math Contest under the able leadership of the GP president on {{gpinfo.contestdate}}. By facilitating this contest in your Gram Panchayat, you have taken a major step towards improving learning outcomes among your children in your villages.
+A hearty congratulations to the Gram Panchayat members, Community members and the respective school HMs for successfully conducting the Gram Panchayat level Math Contest for 4 th , 5 th & 6 th grade under the able leadership of the GP sarpanch on {{gpinfo.contestdate}}. By facilitating this contest in your Gram Panchayat, you have taken a major step towards improving learning outcomes among your children in your villages.
 \\~\\
-{{gpinfo.totalstudents}} students from all the schools in the villages under your GP have participated in this contest. We would like to thank all the stakeholders - GP members, Parents, SDMC president and members, village volunteers, local leaders, local organisations and children for helping with their resources, cooperation, participation and making this a successful event.
+As part of the GKA GP level math contest, {{gpinfo.totalstudents}} students from all the schools in all villages under your GP have participated. We would like to thank all the stakeholders – GP members, Parents, SMC president and members, village volunteers, local leaders, local organization and children for making this a successful event who helped with their resources, cooperation and participation.
 \\~\\
-Under the leadership of the GP president, we request you conduct such events and programmes for quality education and better learning outcomes.
+Under the leadership of the GP sarpanch, we request you conduct such events and programmes for quality education and better learning outcomes.
 \\~\\
-Attached along with this letter is the brief summary of the result of the GP level math contest. Please take the necessary and suitable action based on the school-level result.
+Attached along with this letter is the brief summary of the result of the GP level math contest. Please take the necessary and suitable action based on the school level result.
 \\~\\~\\
-Thank You,
-\\~\\~\\~\\
+Thank You,\\~\\~\\~\\
+\\
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=0.1cm,xshift=3.1cm]
+{\includegraphics[width=3cm,height=1.3cm]{"{{info.imagesdir}}Ashoks_signature.png"}};
+\end{tikzpicture}
+\\
 Ashok Kamath,\\
 Chairman, Akshara Foundation\\
 Bangalore\\
@@ -149,16 +154,18 @@ Bangalore\\
 {
 \setlength{\parindent}{0in}
 
-Gram Panchayat : {{gpinfo.gpname}} \hfill District : {{gpinfo.district}}\ \\ [1ex] 
-Block : {{gpinfo.block}}\hfill Total Schools : {{gpinfo.school_count}} \\~\\~\\~\\
+GP Name : {{gpinfo.gpname}} \hfill District : {{gpinfo.district}}\ \\ [1ex]
+Taluk : {{gpinfo.block}}\hfill Total Schools : {{gpinfo.school_count}} \\~\\~\\~\\
 {% if percent_scores is none %}
 ~\\~\\
 {% endif %}
-A brief summary of the GP level math contest report that was held on {{gpinfo.contestdate}} for the students of grades 4, 5 and 6 from the government primary school under the {{gpinfo.gpname}} GP is as follows. The contest was held under the leadership of GP president and in partnership with education department, community and Akshara Foundation.
+The following is the short report of the 4th ,5 th and 6 th grade math competition held at Gram Panchayat level on {{gpinfo.contestdate}} by the Gram Panchayat, Education Department in collaboration with the Community and Akshara Foundation.
+\\~\\
+A total of {{gpinfo.totalstudents}} children from classes 4 th , 5 th and 6 th from government schools in this grama panchayat area participated in the grama panchayat level mathematics competition.
 \\~\\
 Grade-wise report of the GP level math contest is as follows:\\
 \begin{longtable}{|P{3cm}|P{4cm}|P{2.2cm}|P{2.2cm}|P{2.2cm}|P{2.2cm}|} \hline
-\textbf{Grades} & \textbf{Total Children} & \multicolumn{4}{|c|}{\textbf{Marks obtained (percentage)}}\\ \cline{3-6}
+\textbf{Grades} & \textbf{Total number of Children} & \multicolumn{4}{|c|}{\textbf{Number of children scored (percentage)}}\\ \cline{3-6}
 \rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{35\%-59\%}  & \textbf{60\%-74\%} & \textbf{75\%-100\%} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
 \rule{0cm}{0.3cm} {{ assessment["class"] }} Grade & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to59"]}} & {{assessment["overall_scores"]["60to74"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
@@ -171,7 +178,7 @@ Grade-wise report of the GP level math contest is as follows:\\
 \setlength\LTleft{-0.1cm}
 \setlength\LTright{-0.1cm}
 \begin{longtable}{|P{2.5cm}|P{3.25cm}|c|c|c|c|c|c|} \hline
-	\textbf{Grades} & \textbf{\makecell{Total\\ Children}} & \multicolumn{6}{|c|}{\textbf{Children who can do basic arithmetic operations}} \\ \cline{3-8}
+	\textbf{Grades} & \textbf{\makecell{Total number \\of Children}} & \multicolumn{6}{|c|}{\textbf{Average percentage marks scored by children in basic operation}} \\ \cline{3-8}
 	\rule{0cm}{0.3cm} &&\textbf{\makecell{Number \\Sense}}&\textbf{\makecell{Place\\ Value}}&\textbf{Addition}&\textbf{Subtraction}&\textbf{Multiplication}&\textbf{Division} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
 \rule{0cm}{0.3cm} {{assessment["class"]}} Grade & {{assessment["competency_scores"]["total"]}} & {{assessment["competency_scores"]["Number Recognition"]}}  & {{assessment["competency_scores"]["Place Value"]}} & {{assessment["competency_scores"]["Addition"]}} & {{assessment["competency_scores"]["Subtraction"]}} & {{assessment["competency_scores"]["Multiplication"]}} & {{assessment["competency_scores"]["Division"]}} \\ \hline
@@ -183,7 +190,7 @@ Grade-wise report of the GP level math contest is as follows:\\
 {% if percent_scores is not none %}
 {
 ~\\
-\centering{Result: After completion of 5 years of study in the school, grade 6 students can do the following math operation (percentage)} \\[2ex]
+\centering{Following are the overall percentage-wise results of children who have completed 5 years of school (Grade 6). \\[2ex]
  
 \begingroup
 \fontsize{8.75}{12}
@@ -192,7 +199,7 @@ Grade-wise report of the GP level math contest is as follows:\\
 {
 \centering{
 \begin{longtable}{|c|c|c|c|c|c|} \hline
-\cellcolor{gray}{\textbf{\makecell[b]{Number\\Sense}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{Place\\Value}}} & \textbf{\makecell[b]{Addition}} & \cellcolor{gray}{\textbf{\makecell[b]{Subtraction}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{Multiplication}}} & \textbf{\makecell[b]{Division}} \\ \hline \endhead
+\cellcolor{white}{\textbf{\makecell[b]{Children who can do \\number recognition correctly}}} & \cellcolor{white}{\textbf{\makecell[b]{Children who can do \\place value correctly}}} & \textbf{\makecell[b]{Children who can do \\addition correctly}} & \cellcolor{white}{\textbf{\makecell[b]{Subtraction}}} & \cellcolor{white}{\textbf{\makecell[b]{Children who can do \\multiplication correctly}}} & \textbf{\makecell[b]{Children who can do \\division correctly}} \\ \hline \endhead
 {% for assessment in percent_scores["assessments"] %}
 \rule{0cm}{0.3cm} {{percent_scores["assessments"][assessment]["Number Recognition"]}}&  {{percent_scores["assessments"][assessment]["Place Value"]}} & {{percent_scores["assessments"][assessment]["Addition"]}} & {{percent_scores["assessments"][assessment]["Subtraction"]}} & {{percent_scores["assessments"][assessment]["Multiplication"]}} &  {{percent_scores["assessments"][assessment]["Division"]}}  \\ \hline
 {% endfor %}
@@ -203,7 +210,7 @@ Grade-wise report of the GP level math contest is as follows:\\
 {
 \centering{
 \begin{longtable}{|c|c|c|c|} \hline
- \textbf{\makecell[b]{Addition}} & \cellcolor{gray}{\textbf{\makecell[b]{Subtraction}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{Multiplication}}} & \textbf{\makecell[b]{Division}} \\ \hline \endhead
+ \textbf{\makecell[b]{Children who can do \\addition correctly}} & \cellcolor{white}{\textbf{\makecell[b]{Children who can do \\subtraction correctly}}} & \cellcolor{white}{\textbf{\makecell[b]{Children who can do \\multiplication correctly}}} & \textbf{\makecell[b]{Children who can do \\division correctly}} \\ \hline \endhead
 {% for assessment in percent_scores["assessments"] %}
 \rule{0cm}{0.3cm} {{percent_scores["assessments"][assessment]["Addition"]}} & {{percent_scores["assessments"][assessment]["Subtraction"]}} & {{percent_scores["assessments"][assessment]["Multiplication"]}} &  {{percent_scores["assessments"][assessment]["Division"]}}  \\ \hline
 {% endfor %}	
@@ -218,7 +225,9 @@ Grade-wise report of the GP level math contest is as follows:\\
 {% endif %}
 
 \begin{flushleft}
-There is abundant scope to improve the above results for the teachers and parents. We hope that the schools can work with the Parents, Village education volunteers, Grama Panchayat, SDMC and Civil amenities committee to improve the learning outcome in their respective schools by drawing up a strategic plan for mathematics teaching. \\[5ex]
+Note: Addition with decimal, subtraction with decimal, and division with remainder are considered for analysis in the tables of this report.
+~\\~\\
+To improve the above results, we hope that the Gram Panchayat will collaborate with other stakeholders such as the CIVIL Amenities Committee, the SMC, parents, educational volunteers, and school teachers. \\[5ex]
 \end{flushleft}
 
 
@@ -228,8 +237,8 @@ There is abundant scope to improve the above results for the teachers and parent
 {% endif %}
 
 \begin{flushleft}
-Sign,\\
-District Manager, Akshara Foundation
+From\\
+Akshara Foundation
 \end{flushleft}
 }
 \end{document}
