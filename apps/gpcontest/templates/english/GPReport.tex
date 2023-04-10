@@ -165,7 +165,7 @@ A total of {{gpinfo.totalstudents}} children from classes 4 th , 5 th and 6 th f
 \\~\\
 Grade-wise report of the GP level math contest is as follows:\\
 \begin{longtable}{|P{3cm}|P{4cm}|P{2.2cm}|P{2.2cm}|P{2.2cm}|P{2.2cm}|} \hline
-\textbf{\\Grades} & \textbf{Total number of Children} & \multicolumn{4}{|c|}{\textbf{Number of children scored (percentage)}}\\ \cline{3-6}
+\textbf{Grades} & \textbf{Total number of Children} & \multicolumn{4}{|c|}{\textbf{Number of children scored (percentage)}}\\ \cline{3-6}
 \rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{35\%-59\%}  & \textbf{60\%-74\%} & \textbf{75\%-100\%} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
 \rule{0cm}{0.3cm} {{ assessment["class"] }} Grade & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to59"]}} & {{assessment["overall_scores"]["60to74"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
