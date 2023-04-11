@@ -168,7 +168,7 @@ Grade-wise report of the GP level math contest is as follows:\\
 \textbf{Grades} & \textbf{Total number of Children} & \multicolumn{4}{|c|}{\textbf{Number of children scored (percentage)}}\\ \cline{3-6}
 \rule{0cm}{0.3cm}& &  \textbf{<35\%} & \textbf{35\%-59\%}  & \textbf{60\%-74\%} & \textbf{75\%-100\%} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
-\rule{0cm}{0.3cm} {{ assessment["class"] }} Grade & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to59"]}} & {{assessment["overall_scores"]["60to74"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
+\rule{0cm}{0.3cm} {{ assessment["class"] }}th Grade & {{ assessment["overall_scores"]["total"]}} & {{assessment["overall_scores"]["below35"]}} & {{assessment["overall_scores"]["35to59"]}} & {{assessment["overall_scores"]["60to74"]}} & {{assessment["overall_scores"]["75to100"]}} \\ \hline
 {% endfor %}
 \end{longtable}
 
@@ -181,7 +181,7 @@ Grade-wise report of the GP level math contest is as follows:\\
 	\textbf{Grades} & \textbf{\makecell{Total number \\of Children}} & \multicolumn{6}{|c|}{\textbf{Average percentage marks scored by children in basic operation}} \\ \cline{3-8}
 	\rule{0cm}{0.3cm} &&\textbf{\makecell{Number \\Sense}}&\textbf{\makecell{Place\\ Value}}&\textbf{Addition}&\textbf{Subtraction}&\textbf{Multiplication}&\textbf{Division} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
-\rule{0cm}{0.3cm} {{assessment["class"]}} Grade & {{assessment["competency_scores"]["total"]}} & {{assessment["competency_scores"]["Number Recognition"]}}  & {{assessment["competency_scores"]["Place Value"]}} & {{assessment["competency_scores"]["Addition"]}} & {{assessment["competency_scores"]["Subtraction"]}} & {{assessment["competency_scores"]["Multiplication"]}} & {{assessment["competency_scores"]["Division"]}} \\ \hline
+\rule{0cm}{0.3cm} {{assessment["class"]}}th Grade & {{assessment["competency_scores"]["total"]}} & {{assessment["competency_scores"]["Number Recognition"]}}  & {{assessment["competency_scores"]["Place Value"]}} & {{assessment["competency_scores"]["Addition"]}} & {{assessment["competency_scores"]["Subtraction"]}} & {{assessment["competency_scores"]["Multiplication"]}} & {{assessment["competency_scores"]["Division"]}} \\ \hline
 {% endfor %}
 \end{longtable}
 }
@@ -190,7 +190,7 @@ Grade-wise report of the GP level math contest is as follows:\\
 {% if percent_scores is not none %}
 {
 ~\\
-\centering{Following are the overall percentage-wise results of children who have completed 5 years of school (Grade 6). \\[2ex]
+Following are the overall percentage-wise results of children who have completed 5 years of school (Grade 6). \\[2ex]
  
 \begingroup
 \fontsize{8.75}{12}
@@ -230,7 +230,7 @@ Note: Addition with decimal, subtraction with decimal, and division with remaind
 To improve the above results, we hope that the Gram Panchayat will collaborate with other stakeholders such as the CIVIL Amenities Committee, the SMC, parents, educational volunteers, and school teachers. \\[5ex]
 \end{flushleft}
 
-\centering{Thank You} \\[5ex]
+\centering{Thank You!} \\[5ex]
 
 \begin{flushleft}
 From\\
