@@ -71,7 +71,7 @@ The results of the GP level math contest held on {{schoolinfo.contestdate}} unde
 \multicolumn{4}{|c|}{Total No. of children: {{assessmentinfo.num_students}}} \\ \hline
 \textbf{Sr. No.} & \textbf{Question} & \textbf{Total number of children who answered correctly} & \textbf{Percentage result} \\ \hline \endhead
 {% for question in assessmentinfo.question_answers %}
-{{loop.index}} & {{ question.lang_name}}& {{ question.num_correct }} & {{question.percent}} \\ \hline
+{{loop.index}} & {{ question.name}}& {{ question.num_correct }} & {{question.percent}} \\ \hline
 {% endfor %}
 \end{longtable}
 }
