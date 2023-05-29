@@ -134,8 +134,13 @@
 \\~\\
 ಈ ಪತ್ರದೊಂದಿಗೆ ತಮ್ಮ ಜಿಲ್ಲೆಯ {{districtinfo.num_blocks}} ತಾಲೂಕಿನ, ಎಲ್ಲ ಪಂಚಾಯತಿಗಳ ಗಣಿತ ಸ್ಪರ್ಧೆಯ ಕ್ರೂಢ್ರೀಕೃತ ವರದಿಯನ್ನು ಮುಂದಿನ ಯೋಜನೆ ಮತ್ತು ಸೂಕ್ತ ಕ್ರಮಕ್ಕಾಗಿ ಲಗತ್ತಿಸಲಾಗಿದೆ.
 \\~\\~\\~\\
-ವಂದನೆಗಳೊಂದಿಗೆ
-\\~\\~\\~\\
+ವಂದನೆಗಳೊಂದಿಗೆ\\~\\~\\
+\\
+\begin{tikzpicture}[overlay]
+\node[anchor=south east,yshift=0.1cm,xshift=3.1cm]
+{\includegraphics[width=3cm,height=1.3cm]{"{{info.imagesdir}}Ashoks_signature.png"}};
+\end{tikzpicture}
+\\
 ಅಶೋಕ್ ಕಾಮತ್,\\
 ಅಧ್ಯಕ್ಷರು ,ಅಕ್ಷರ ಫೌಂಡೇಶನ್\\
 ಬೆಂಗಳೂರು\\
@@ -178,7 +183,7 @@
 \setlength\LTleft{-0.1cm}
 \setlength\LTright{-0.1cm}
 \begin{longtable}{|P{2.5cm}|P{3.25cm}|c|c|c|c|c|c|} \hline
-\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಭಾಗವಹಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{6}{|c|}{\textbf{\kn{ಮೂಲ ಕ್ರಿಯೆಗಳನ್ನು ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \cline{3-8}
+\textbf{\kn{ತರಗತಿ}} & \textbf{\kn{ಭಾಗವಹಿಸಿದ ಮಕ್ಕಳ ಸಂಖ್ಯೆ}} & \multicolumn{6}{|c|}{\textbf{\kn{ಮೂಲಕ್ರಿಯೆಗಳಲ್ಲಿ ಮಕ್ಕಳು ಗಳಿಸಿದ ಸರಾಸರಿ ಶೇಕಡಾವಾರು ಅಂಕ}}} \\ \cline{3-8}
 \rule{0cm}{0.3cm} &&\textbf{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯ}}&\textbf{\kn{ಸ್ಥಾನ ಬೆಲೆ}}&\textbf{\kn{ಸಂಕಲನ}}&\textbf{\kn{ವ್ಯವಕಲನ}}&\textbf{\kn{ಗುಣಾಕಾರ}}&\textbf{\kn{ಭಾಗಾಕಾರ}} \\ \hline \endhead
 {% for assessment in assessmentinfo %}
 \rule{0cm}{0.3cm} {{assessment["class"]}}\kn{ನೇ ತರಗತಿ} & {{assessment["competency_scores"]["total"]}} & {{assessment["competency_scores"]["Number Recognition"]}}  & {{assessment["competency_scores"]["Place Value"]}} & {{assessment["competency_scores"]["Addition"]}} & {{assessment["competency_scores"]["Subtraction"]}} & {{assessment["competency_scores"]["Multiplication"]}} & {{assessment["competency_scores"]["Division"]}} \\ \hline
@@ -198,7 +203,7 @@
 {
 \centering{
 \begin{longtable}{|c|c|c|c|c|c|} \hline
-\cellcolor{gray}{\textbf{\makecell[b]{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯವನ್ನು} \\ \kn{ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{\kn{ಸ್ಥಾನ ಬೆಲೆಯನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} & \cellcolor{gray}{\textbf{\makecell[b]{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \hline \endhead
+\cellcolor{white}{\textbf{\makecell[b]{\kn{ಸಂಖ್ಯಾ ಪರಿಚಯವನ್ನು} \\ \kn{ಸರಿಯಾಗಿ ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{white}{\textbf{\makecell[b]{\kn{ಸ್ಥಾನ ಬೆಲೆಯನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} & \cellcolor{white}{\textbf{\makecell[b]{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{white}{\textbf{\makecell[b]{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \hline \endhead
 {% for assessment in percent_scores["assessments"] %}
 \rule{0cm}{0.3cm} {{percent_scores["assessments"][assessment]["Number Recognition"]}}&  {{percent_scores["assessments"][assessment]["Place Value"]}} & {{percent_scores["assessments"][assessment]["Addition"]}} & {{percent_scores["assessments"][assessment]["Subtraction"]}} & {{percent_scores["assessments"][assessment]["Multiplication"]}} &  {{percent_scores["assessments"][assessment]["Division"]}}  \\ \hline
 {% endfor %}
@@ -209,7 +214,7 @@
 {
 \centering{
 \begin{longtable}{|c|c|c|c|} \hline
- \textbf{\makecell[b]{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} & \cellcolor{gray}{\textbf{\makecell[b]{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{lightgray}{\textbf{\makecell[b]{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \hline \endhead
+ \textbf{\makecell[b]{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} & \cellcolor{white}{\textbf{\makecell[b]{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \cellcolor{white}{\textbf{\makecell[b]{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} \\ \hline \endhead
 {% for assessment in percent_scores["assessments"] %}
 \rule{0cm}{0.3cm} {{percent_scores["assessments"][assessment]["Addition"]}} & {{percent_scores["assessments"][assessment]["Subtraction"]}} & {{percent_scores["assessments"][assessment]["Multiplication"]}} &  {{percent_scores["assessments"][assessment]["Division"]}}  \\ \hline
 {% endfor %}	
