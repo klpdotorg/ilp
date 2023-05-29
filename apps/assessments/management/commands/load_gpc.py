@@ -284,7 +284,7 @@ class Command(BaseCommand):
                             gpinfo[gpid]["grades"][grade] = self.datainserted[district]["gps"][gpid]["schools"][schoolid]["grades"][grade]
 
 
-        print("\n\nGPID, GPNAME, GRADE, ENTRY   ")
+        print("\n\nGPID, GPNAME, GRADE, ENTRY")
         for gpid in gpinfo:
             row_str = str(gpid)+","+gpinfo[gpid]["name"]+","
             for grade in gpinfo[gpid]["grades"]:
