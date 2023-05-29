@@ -214,9 +214,9 @@
 {
 \centering{
 \begin{longtable}{|c|c|c|c|} \hline
- \textbf{\makecell[b]{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} & \textbf{\makecell[b]{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}} & \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} \\ \hline \endhead
+ \textbf{\makecell[b]{\kn{ಸಂಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} & \textbf{\makecell[b]{\kn{ವ್ಯವಕಲನವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}}& \textbf{\makecell[b]{\kn{ಗುಣಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}}& \textbf{\makecell[b]{\kn{ಭಾಗಾಕಾರವನ್ನು ಸರಿಯಾಗಿ}\\ \kn{ಮಾಡಬಲ್ಲ ಮಕ್ಕಳು}}}} \\ \hline \endhead
 {% for assessment in percent_scores["assessments"] %}
-\rule{0cm}{0.3cm} {{round(percent_scores["assessments"][assessment]["Addition"], 2)}} & {{round(percent_scores["assessments"][assessment]["Subtraction"],2)}} & {{percent_scores["assessments"][assessment]["Multiplication"]}} &  {{percent_scores["assessments"][assessment]["Division"]}}  \\ \hline
+\rule{0cm}{0.3cm} {{percent_scores["assessments"][assessment]["Addition"]}} & {{percent_scores["assessments"][assessment]["Subtraction"]}} & {{percent_scores["assessments"][assessment]["Multiplication"]}} &  {{percent_scores["assessments"][assessment]["Division"]}}  \\ \hline
 {% endfor %}
 \end{longtable}
 }
