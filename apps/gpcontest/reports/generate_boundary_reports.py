@@ -167,8 +167,8 @@ def generate_boundary_report(
                     overall_scores
 
                 # Find the competency scores
-                competencies = competency_scores.filter(
-                                    questiongroup_name=each_row["questiongroup_name"])
+                competencies = round(competency_scores.filter(
+                                    questiongroup_name=each_row["questiongroup_name"]), 2)
                 concept_scores = format_answers(each_row["questiongroup_id"], competencies)
                 concept_scores["total"] = each_row["total_num_students"]
                 boundary_report[each_row["questiongroup_name"]]["competency_scores"] = \
@@ -211,15 +211,12 @@ def get_grade_competency_percentages(
             current_question_key = each_row['question_key']
             sum_total = each_row['total_answers']
             try:
-                sum_correct_ans = correct_ans_for_date.get(
-                    question_key=current_question_key)['correct_answers']
+                sum_correct_ans = correct_ans_for_date
             except:
                 sum_correct_ans = None
-            if sum_correct_ans is None:
-                sum_correct_ans = 0
             percentage = 0
-            if sum_total is not None:
-                percentage = round((sum_correct_ans / sum_total)*100, 2)
+            if sum_correct_ans is not None:
+                percentage = round(sum_correct_ans, 2)
             else:
                 percentage = 0
             concept_scores[current_question_key] = percentage
