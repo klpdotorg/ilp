@@ -218,7 +218,7 @@ def get_grade_competency_percentages(
                 sum_correct_ans = None
             percentage = 0
             if sum_correct_ans is not None:
-                percentage = round(sum_correct_ans, 2)
+                percentage = sum_correct_ans
             else:
                 percentage = 0
             concept_scores[current_question_key] = percentage
@@ -242,7 +242,7 @@ def get_competency_scores_for_all_qgroups(
             .filter(yearmonth__gte=from_yearmonth)\
             .filter(yearmonth__lte=to_yearmonth)\
             .values('question_key', 'questiongroup_name')\
-            .annotate(correct_answers=Avg('average'))
+            .annotate(correct_answers=round(Avg('average'), 2))
     except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
