@@ -169,7 +169,8 @@ def generate_boundary_report(
                 # Find the competency scores
                 competencies = competency_scores.filter(
                                     questiongroup_name=each_row["questiongroup_name"])
-                concept_scores = format_answers(each_row["questiongroup_id"], round(competencies, 2))
+                print("competencies",round(competencies, 2))
+                concept_scores = format_answers(each_row["questiongroup_id"], competencies)
                 concept_scores["total"] = each_row["total_num_students"]
                 boundary_report[each_row["questiongroup_name"]]["competency_scores"] = \
                     concept_scores
