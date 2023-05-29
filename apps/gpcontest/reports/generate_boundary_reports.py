@@ -10,9 +10,9 @@ from assessments.models import (
 from boundary.models import (
     Boundary
 )
-from django.db.models import {
+from django.db.models import (
     Sum, Avg
-}
+)
 from collections import OrderedDict
 from .utils import convert_to_academicyear
 import locale
