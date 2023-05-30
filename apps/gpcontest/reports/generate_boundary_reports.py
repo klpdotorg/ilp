@@ -213,12 +213,13 @@ def get_grade_competency_percentages(
             current_question_key = each_row['question_key']
             sum_total = each_row['total_answers']
             try:
-                sum_correct_ans = correct_ans_for_date
+                sum_correct_ans = correct_ans_for_date.get(
+                    question_key=current_question_key)['correct_answers']
             except:
                 sum_correct_ans = None
             percentage = 0
             if sum_correct_ans is not None:
-                percentage = sum_correct_ans
+                percentage = round(sum_correct_ans, 2)
             else:
                 percentage = 0
             concept_scores[current_question_key] = percentage
