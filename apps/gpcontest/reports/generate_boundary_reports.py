@@ -23,6 +23,10 @@ import locale
 # TODO: Should be added to our terraform, ansible config scripts
 
 locale.setlocale(locale.LC_NUMERIC, "en_IN")
+from django.db.models import Func
+
+class RoundWithPlaces(Func):
+    function = 'ROUND'
 
 def generate_all_district_reports(
         gp_survey_id, from_yearmonth, 
@@ -245,7 +249,7 @@ def get_competency_scores_for_all_qgroups(
             .filter(yearmonth__gte=from_yearmonth)\
             .filter(yearmonth__lte=to_yearmonth)\
             .values('question_key', 'questiongroup_name')\
-            .annotate(correct_answers=Round(Avg('average')))
+            .annotate(correct_answers=RoundWithPlaces(Avg('average'), 2))
     except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
