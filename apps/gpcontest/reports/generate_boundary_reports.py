@@ -13,6 +13,7 @@ from boundary.models import (
 from django.db.models import (
     Sum, Avg
 )
+from django.db.models.functions import Round
 from collections import OrderedDict
 from .utils import convert_to_academicyear
 import locale
@@ -175,7 +176,7 @@ def generate_boundary_report(
                 concept_scores["total"] = each_row["total_num_students"]
                 boundary_report[each_row["questiongroup_name"]]["competency_scores"] = \
                     concept_scores
-                print("##",boundary_report["competency_scores"])
+
                 if each_row["questiongroup_name"] == "Class 6 Assessment":
                     boundary_report["percent_scores"] = {"Class 6 Assessment": {}}
                     percs = get_grade_competency_percentages(
@@ -244,7 +245,7 @@ def get_competency_scores_for_all_qgroups(
             .filter(yearmonth__gte=from_yearmonth)\
             .filter(yearmonth__lte=to_yearmonth)\
             .values('question_key', 'questiongroup_name')\
-            .annotate(correct_answers=Avg('average'))
+            .annotate(correct_answers=Round(Avg('average'), 2))
     except SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.DoesNotExist:
         pass
     return correct_answers_agg
