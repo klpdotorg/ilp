@@ -175,8 +175,7 @@ def generate_boundary_report(
                 concept_scores["total"] = each_row["total_num_students"]
                 boundary_report[each_row["questiongroup_name"]]["competency_scores"] = \
                     concept_scores
-                print("##",boundary_report[each_row["questiongroup_name"]]["competency_scores"])
-                print("boundary_report",boundary_report)
+                print("##",boundary_report["competency_scores"])
                 if each_row["questiongroup_name"] == "Class 6 Assessment":
                     boundary_report["percent_scores"] = {"Class 6 Assessment": {}}
                     percs = get_grade_competency_percentages(
