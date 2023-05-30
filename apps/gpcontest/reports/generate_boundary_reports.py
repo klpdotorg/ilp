@@ -154,7 +154,7 @@ def generate_boundary_report(
             competency_scores = get_competency_scores_for_all_qgroups(
                 gp_survey_id, boundary_id, from_yearmonth, to_yearmonth
             )
-            print("competency scores",competency_scores)
+            # print("competency scores",competency_scores)
             # Each row is basically a questiongroup or class
             for each_row in boundary_stu_score_groups:
                 boundary_report[each_row["questiongroup_name"]] = {}
@@ -170,9 +170,10 @@ def generate_boundary_report(
                 # Find the competency scores
                 competencies = competency_scores.filter(
                                     questiongroup_name=each_row["questiongroup_name"])
-                print("competencies",competencies)
+                # print("competencies",competencies)
                 concept_scores = format_answers(each_row["questiongroup_id"], competencies)
                 concept_scores["total"] = each_row["total_num_students"]
+                print("concept_score",concept_scores)
                 boundary_report[each_row["questiongroup_name"]]["competency_scores"] = \
                     concept_scores
                 if each_row["questiongroup_name"] == "Class 6 Assessment":
