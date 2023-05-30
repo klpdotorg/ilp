@@ -28,10 +28,10 @@ class Command(BaseCommand, baseReport.CommonUtils):
         "brc":{"langname":"ಕ್ಷೇತ್ರ ಸಮನ್ವಯಾಧಿಕಾರಿಗಳು","name":"Block Resource Centers"} },
         "district": {
             "deputycommissioner":{"langname":"ಜಿಲ್ಲಾದಿಕಾರಿಗಳು","name":"The Deputy Commissioner"},
-            "ceo":{"langname":"ಮುಖ್ಯ  ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು","name":"The chief executive officer"},
-            "president":{"langname":"ಜಿಲ್ಲಾ ಪಂಚಾಯತ್  ಅಧ್ಯಕ್ಷರು", "name":"The President"},
-            "ddpi_dev":{"langname":"ಉಪ ನಿರ್ದೇಶಕರು (ಅಭಿವೃಧ್ಧಿ)", "name":"DDPI (Development)"},
-            "ddpi_admin":{"langname":"ಜಿಲ್ಲಾ ಉಪ ನಿರ್ದೇಶಕರು (ಆಡಳಿತ)","name":"DDPI (Administrator)"}}}
+            "ceo":{"langname":"ಮುಖ್ಯ ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು","name":"The chief executive officer"},
+            "president":{"langname":"ಜಿಲ್ಲಾ ಪಂಚಾಯತ್ ಅಧ್ಯಕ್ಷರು", "name":"The President"},
+            "ddpi":{"langname":"ಉಪ ನಿರ್ದೇಶಕರು", "name":"DDPI"},
+            "mp":{"langname":"ಮಾನ್ಯ ಸಂಸದರು","name":"Member of the Parliament"}}}
     now = date.today()
     basefiledir = os.getcwd()
     templatedir = "/apps/gpcontest/templates/"
