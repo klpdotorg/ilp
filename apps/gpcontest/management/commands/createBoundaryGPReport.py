@@ -220,7 +220,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     def createBlockPdfs(self, blockid, blockdata, outputdir, build_dir):
         template = self.templates["block"]["latex"]
 
-        if blockdata["parent_langname"] == "":
+        if blockdata["parent_langname"] == ""or blockdata["parent_langname"] == None:
            districtname = blockdata["parent_boundary_name"].capitalize()
         else:
             districtname = "("+blockdata["parent_boundary_name"].capitalize()+")"
