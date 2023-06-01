@@ -61,7 +61,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
     blockids = None
     colour = "bw"
     imagesdir = basefiledir+"/apps/gpcontest/images/"
-    translatedmonth = {1:'ಜನವರಿ',2:'ಫೆಬ್ರವರಿ',3:'ಮಾರ್ಚ್',4:'ಎಪ್ರಿಲ್',5:'ಮೇ',6:'ಜೂನ್',7:'ಜುಲೈ',8:'ಆಗಸ್ಟ್',9:'ಸೆಪ್ಟಂಬರ್',10:'ಅಕ್ಟೋಬರ್',11:'ನವೆಂಬರ್',12:'ಡಿಸೆಂಬರ್'}
+    translatedmonth = {
+        'kannada': {1: 'ಜನವರಿ', 2: 'ಫೆಬ್ರವರಿ', 3: 'ಮಾರ್ಚ್', 4: 'ಎಪ್ರಿಲ್', 5: 'ಮೇ', 6: 'ಜೂನ್', 7: 'ಜುಲೈ', 8: 'ಆಗಸ್ಟ್',
+                    9: 'ಸೆಪ್ಟಂಬರ್', 10: 'ಅಕ್ಟೋಬರ್', 11: 'ನವೆಂಬರ್', 12: 'ಡಿಸೆಂಬರ್'},
+        'english': {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August',
+                    9: 'September',
+                    10: 'October', 11: 'November', 12: 'December'}}
     language = 'kannada'
 
     def add_arguments(self, parser):
@@ -151,7 +156,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                   "num_gps": districtdata["num_gps"],
                   "num_schools": districtdata["num_schools"],
                   "totalstudents": districtdata["num_students"]}
-
+        print("district info",districtinfo)
         assessmentinfo = []
         for assessment in self.assessmentorder:
             if self.assessmentnames[assessment]["name"] in districtdata:
