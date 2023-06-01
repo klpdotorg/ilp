@@ -159,7 +159,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 assessmentinfo.append(districtdata[self.assessmentnames[assessment]["name"]])
         year, month = self.getYearMonth(str(self.now))
         info = {"imagesdir": self.imagesdir, "acadyear": self.academicyear, "year":year, "month": month}
-        print("info month",info.month)
+        print("info month",info)
         percent_scores = {}
         if "percent_scores" not in districtdata:
             percent_scores = None
