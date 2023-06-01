@@ -225,7 +225,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         else:
             districtname = "("+blockdata["parent_boundary_name"].capitalize()+")"
 
-        if blockdata["boundary_langname"] == "":
+        if blockdata["boundary_langname"] == "" or blockdata["boundary_langname"] == None:
             blockname = blockdata["boundary_name"].capitalize()
         else:
             blockname = "("+blockdata["boundary_name"].capitalize()+")"
