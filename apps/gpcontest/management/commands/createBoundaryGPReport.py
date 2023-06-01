@@ -158,7 +158,6 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 districtdata[self.assessmentnames[assessment]["name"]]["class"] = self.assessmentnames[assessment]["class"]
                 assessmentinfo.append(districtdata[self.assessmentnames[assessment]["name"]])
         year, month = self.getYearMonth(str(self.now))
-        print("info",info)
         info = {"imagesdir": self.imagesdir, "acadyear": self.academicyear, "year":year, "month": month}
         print("info month",info.month)
         percent_scores = {}
