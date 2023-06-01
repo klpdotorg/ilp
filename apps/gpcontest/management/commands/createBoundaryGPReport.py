@@ -144,8 +144,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
         template = self.templates["district"]["latex"]
         if type(districtdata) is int or type(districtdata) is str:
             return
-
-        if districtdata["boundary_langname"] == "":
+        print("districtdata",districtdata)
+        if districtdata["boundary_langname"] == ""or districtdata["boundary_langname"] == None:
             districtname = districtdata["boundary_name"].capitalize()
         else:
             districtname = "("+districtdata["boundary_name"].capitalize()+")"
@@ -298,7 +298,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     def getYearMonth(self, inputdate):
         print(inputdate)
         year = int(inputdate[0:4])
-        month = self.translatedmonth[int(inputdate[5:7])]
+        month = self.translatedmonth[self.language][int(inputdate[5:7])]
         return year, month
         
 
