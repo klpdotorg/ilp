@@ -22,15 +22,21 @@ class Command(BaseCommand, baseReport.CommonUtils):
                        "class6": {"name": "Class 6 Assessment", "class": 6}}
     sendto = {"block": {
         "executiveofficer":{"langname":"ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು", "name":"Executive Officer"},
+        "peo": {"langname": "", "name": "Panchyath Executive Officer"},
         "blockeducationofficer":{"langname":"ಕ್ಷೇತ್ರ ಶಿಕ್ಷಣಾಧಿಕಾರಿಗಳು", "name": "Block Education Officer"},
+        "bdo": {"langname": "", "name": "Block Development Officer"},
+        "bpp": {"langname": "", "name": "Block Panchyat President"},
         "mla":{"langname":" ಮಾನ್ಯ ಶಾಸಕರು","name":"Honorable MLA"},
-        "president":{"langname":"ತಾಲೂಕು ಪಂಚಾಯತಿ ಅಧ್ಯಕ್ಷರು","name":"Taluk Panchayath President"},
+        "president":{"langname":"ತಾಲೂಕು ಪಂಚಾಯತಿ ಅಧ್ಯಕ್ಷರು","name":"Taluk Panchyath President"},
         "brc":{"langname":"ಕ್ಷೇತ್ರ ಸಮನ್ವಯಾಧಿಕಾರಿಗಳು","name":"Block Resource Centers"} },
         "district": {
             "deputycommissioner":{"langname":"ಜಿಲ್ಲಾದಿಕಾರಿಗಳು","name":"The Deputy Commissioner"},
-            "ceo":{"langname":"ಮುಖ್ಯ ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು","name":"Chief Executive Officer"},
+            "ceo":{"langname":"ಮುಖ್ಯ ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು","name":"Project Director ,DRDA"},
             "president":{"langname":"ಜಿಲ್ಲಾ ಪಂಚಾಯತ್ ಅಧ್ಯಕ್ಷರು", "name":"Zilla Panchayath President"},
-            "ddpi":{"langname":"ಉಪ ನಿರ್ದೇಶಕರು", "name":"DDPI"},
+            "ddpi":{"langname":"ಉಪ ನಿರ್ದೇಶಕರು", "name":"District Education officer"},
+            "dc":{"langname":"", "name":"District Collector"},
+            "diet": {"langname": "", "name": "DIET Principal"},
+            "dwo": {"langname": "", "name": "District Welfare Officer"},
             "mp":{"langname":"ಮಾನ್ಯ ಸಂಸದರು","name":"Honorable MP"}}}
     now = date.today()
     basefiledir = os.getcwd()
