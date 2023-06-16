@@ -203,7 +203,7 @@ var topSummaryData = {};
                     surveys: 'NA'
                 };
                 console.log("data",data);
-                console.log("comparisonData"comparisonData);
+                console.log("comparisonData",comparisonData);
                 try {
                     data.sms = c.surveys['11']['total_assessments'];
                 } catch (e) {}
