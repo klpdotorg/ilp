@@ -228,7 +228,7 @@ var topSummaryData = {};
                         data.sms_govt_percent = 'NA';
                     }
                 }
-                console.log("data contests",data.contests);
+                console.log("after data",data);
                 // COMEBACK
                 return data;
             });
