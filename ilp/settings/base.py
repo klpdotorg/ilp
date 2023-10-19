@@ -218,7 +218,7 @@ DISE_ACADEMIC_YEAR = '21-22'
 # DISE app endpoints.When the above changes, this also has to change
 DISE_FRONTEND_ACADEMIC_YEAR = '21-22'
 # This is the year KLP uses to query data in the DB
-DEFAULT_ACADEMIC_YEAR ='2122'
+DEFAULT_ACADEMIC_YEAR ='2223'
 
 DISE_API_BASE_URL = 'https://dise.dev.ilp.org.in/api/'
 
