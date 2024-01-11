@@ -28,7 +28,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         "president":{"langname":"ತಾಲೂಕು ಪಂಚಾಯತಿ ಅಧ್ಯಕ್ಷರು","name":"Block Panchayat President"},
         "brc":{"langname":"ಕ್ಷೇತ್ರ ಸಮನ್ವಯಾಧಿಕಾರಿಗಳು","name":"Block Resource Centers"} },
         "district": {
-            "deputycommissioner":{"langname":"ಜಿಲ್ಲಾದಿಕಾರಿಗಳು","name":"The Deputy Commissioner"},
+            "deputycommissioner":{"langname":"ಜಿಲ್ಲಾಧಿಕಾರಿಗಳು","name":"The Deputy Commissioner"},
             "ceo":{"langname":"ಮುಖ್ಯ ಕಾರ್ಯನಿರ್ವಾಹಕ ಅಧಿಕಾರಿಗಳು","name":"Project Director ,DRDA"},
             "president":{"langname":"ಜಿಲ್ಲಾ ಪಂಚಾಯತ್ ಅಧ್ಯಕ್ಷರು", "name":"Zilla Panchayath President"},
             "ddpiAdministration":{"langname":"ಉಪನಿರ್ದೇಶಕರು (ಆಡಳಿತ)", "name":"District Education officer"},

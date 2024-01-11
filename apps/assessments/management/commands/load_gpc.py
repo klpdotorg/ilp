@@ -22,8 +22,8 @@ class Command(BaseCommand):
     cols = {"grade":1, "district":2, "block":3, "ddmmyyyy":4,"instid":5,
             "disecode":6, "gpid":7, "gpname":8, "questionseries": 9,
             "childname": 10, "gender":11}
-    q_seq_start = 1
-    q_seq_end = 20
+    q_seq_start = 3
+    q_seq_end = 22
     ans_col_start = 12
     validanswers = {"0", "1"}
     validgenders = {"male", "female", "unknown"}
