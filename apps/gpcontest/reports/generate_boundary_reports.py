@@ -29,12 +29,12 @@ class RoundWithPlaces(Func):
     function = 'ROUND'
 
 def generate_all_district_reports(
-        gp_survey_id, from_yearmonth, 
+        gp_survey_id, from_yearmonth,
         to_yearmonth, include_childboundary_reports=False):
     """
     For a given survey ID, generate reports for all districts that participated
     in a time frame and include block reports if include_childboundary_reports
-    is True. 
+    is True.
     """
     district_ids = get_districts_for_survey(gp_survey_id, from_yearmonth,
                                             to_yearmonth)
@@ -45,7 +45,7 @@ def generate_all_district_reports(
 
 
 def generate_all_block_reports(
-        gp_survey_id, from_yearmonth, 
+        gp_survey_id, from_yearmonth,
         to_yearmonth):
     """ Generate ONLY block reports for a given time frame and survey ID """
     block_ids = get_blocks_for_survey(
@@ -58,7 +58,7 @@ def generate_all_block_reports(
 
 
 def generate_block_reports_for_district(
-        gp_survey_id, list_district_ids, from_yearmonth, 
+        gp_survey_id, list_district_ids, from_yearmonth,
         to_yearmonth):
     """ Generate ONLY block reports for a given district """
     block_ids = []
@@ -73,9 +73,9 @@ def generate_block_reports_for_district(
     return reports
 
 def generate_boundary_reports(
-    gp_survey_id, list_boundary_ids, from_yearmonth, 
+    gp_survey_id, list_boundary_ids, from_yearmonth,
         to_yearmonth, include_childboundary_reports=False):
-    """ Generate district and associated block reports if 
+    """ Generate district and associated block reports if
     include_childboundary_reports = True and return all in a giant dict.
     Else just generate district reports in dict and return """
     final_report = {}
@@ -87,7 +87,7 @@ def generate_boundary_reports(
             return None
         else:
             boundary_type_id = boundary_obj.boundary_type_id
-            boundary_dict = generate_boundary_report(gp_survey_id, 
+            boundary_dict = generate_boundary_report(gp_survey_id,
                                     boundary, from_yearmonth, to_yearmonth)
             # IF its a district and the flag is True, generate block reports
             if include_childboundary_reports and boundary_type_id == 'SD' and boundary_dict:
@@ -108,6 +108,7 @@ def generate_boundary_report(
     # Identify the type of boundary - SD(district) or SB (block)
     try:
         b = Boundary.objects.get(id=boundary_id)
+
     except:
         print("boundary id %s does not exist in DB " % boundary_id)
         return
@@ -133,9 +134,10 @@ def generate_boundary_report(
             boundary_numschools = boundary_counts.annotate(schools=Sum('num_schools'))[0]
             boundary_numstudents = boundary_counts.annotate(students=Sum('num_students'))[0]
             boundary_numgps = boundary_counts.annotate(gps=Sum('num_gps'))[0]
+            print("boundary counts", boundary_numschools,boundary_numstudents,boundary_numgps)
         except Exception as e:
             print("No boundary counts for boundary id %s in DB" % b.id)
-            print(e)
+            print(e,"exception")
         else:
             boundary_report["parent_boundary_name"] = b.parent.name
             boundary_report["parent_langname"] = b.parent.lang_name
@@ -143,9 +145,26 @@ def generate_boundary_report(
             boundary_report["num_gps"] = "NA"
             boundary_report["num_schools"] = "NA"
             boundary_report["num_students"] = "NA"
+            boundary_report["num_districts"] = "NA"
             if boundary_type == 'SD':
+                block_list = []
                 block_ids = get_blocks_for_district(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
-                boundary_report["num_blocks"] = locale.format("%d", block_ids.count(), grouping=True)
+                for blockids in block_ids:
+                    bid = Boundary.objects.get(id=blockids)
+                    if bid.boundary_type_id == 'SB':
+                        block_list.append(blockids)
+                boundary_report["num_blocks"] = locale.format("%d", len(block_list), grouping=True)
+            if boundary_type == 'DV':
+                block_list = []
+                district_ids = get_districts_for_division(boundary_id, gp_survey_id, from_yearmonth, to_yearmonth)
+                for districtids in district_ids:
+                    block_ids = get_blocks_for_district(districtids, gp_survey_id, from_yearmonth, to_yearmonth)
+                    for blockids in block_ids:
+                        bid = Boundary.objects.get(id=blockids)
+                        if bid.boundary_type_id == 'SB':
+                            block_list.append(blockids)
+                boundary_report["num_blocks"] = locale.format("%d", len(block_list), grouping=True)
+                boundary_report["num_districts"] = locale.format("%d",  district_ids.count(), grouping=True)
             if boundary_numgps:
                 boundary_report["num_gps"] = locale.format("%d", boundary_numgps["gps"], grouping=True)
             if boundary_numschools:
@@ -159,7 +178,7 @@ def generate_boundary_report(
             competency_scores = get_competency_scores_for_all_qgroups(
                 gp_survey_id, boundary_id, from_yearmonth, to_yearmonth
             )
-            # print("competency scores",competency_scores)
+            print("competency scores",competency_scores)
             # Each row is basically a questiongroup or class
             for each_row in boundary_stu_score_groups:
                 boundary_report[each_row["questiongroup_name"]] = {}
@@ -213,7 +232,7 @@ def get_grade_competency_percentages(
             "Multiplication": 0,
             "Division": 0
         }
-    if total_assessments is not None and correct_answers_agg is not None: 
+    if total_assessments is not None and correct_answers_agg is not None:
         correct_ans_for_date = correct_answers_agg.filter(questiongroup_name=qgroup_name)
         for each_row in total_assessments:
             current_question_key = each_row['question_key']
@@ -258,8 +277,8 @@ def get_competency_scores_for_all_qgroups(
 def get_total_assessments_for_grade(boundary_id, qgroup_name, gpcontest_survey_id,
                                     report_from, report_to):
     """
-        Returns total assessments for a given questiongroup name or class. 
-        Currently only computed for Class 6 (qgroup_name param). report_from 
+        Returns total assessments for a given questiongroup name or class.
+        Currently only computed for Class 6 (qgroup_name param). report_from
         and report_to are yearmonth formats
     """
     total_assessments = None
@@ -284,7 +303,7 @@ def format_answers(questiongroup_id, correct_ans_queryset):
     # score.
 
     competencies = ["Addition", "Subtraction", "Number Recognition",
-                    "Place Value", "Multiplication", "Division"]            
+                    "Place Value", "Multiplication", "Division"]
     competencies_in_db = CompetencyOrder.objects.filter(questiongroup=questiongroup_id).order_by('sequence').values_list('key', flat=True)
     competency_scores = {}
     for competency in competencies:
@@ -335,5 +354,14 @@ def get_blocks_for_district(district_id, survey_id, from_yearmonth, to_yearmonth
             yearmonth__lte=to_yearmonth).filter(
                 survey_id=survey_id).filter(
                     boundary_id__parent=district_id).distinct('boundary_id').values_list(
+                        'boundary_id', flat=True
+                    )
+
+def get_districts_for_division(division_id, survey_id, from_yearmonth, to_yearmonth):
+    return SurveyBoundaryQuestionGroupQuestionKeyAgg.objects.filter(
+        yearmonth__gte=from_yearmonth).filter(
+            yearmonth__lte=to_yearmonth).filter(
+                survey_id=survey_id).filter(
+                    boundary_id__parent=division_id).distinct('boundary_id').values_list(
                         'boundary_id', flat=True
                     )

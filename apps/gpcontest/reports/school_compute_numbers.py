@@ -21,6 +21,7 @@ from django.db.models import (
     Case, Value, Sum, F, ExpressionWrapper, Count)
 from django.db.models.functions import Cast
 from django.db import models
+from boundary.models import (ElectionBoundary, Boundary, BoundaryType)
 from .utils import *
 from heapq import nsmallest
 import time
@@ -35,7 +36,7 @@ def compute_deficient_competencies(school_id, questiongroup_id, survey_id,
         {
             "Class 4 Assessment": [
                 {"competency": 'Addition', "local_name": "xxx in Kannada"}
-                {"competency":'Subtraction', "local_name": "xxx in Kannada"}, 
+                {"competency":'Subtraction', "local_name": "xxx in Kannada"},
                 {"competency": 'Multiplication', "local_name": "xxx in Kannada}
             ],
             Questiongroup2_Name: [xx,yy,xx],
@@ -96,7 +97,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
     to_datetime_obj = datetime.datetime.strptime(str(to_yearmonth), format_str)
 
     date_of_contest, yearmonth_dates = get_date_of_contest(
-        survey_id, from_yearmonth, to_yearmonth, school_id=school_id)  
+        survey_id, from_yearmonth, to_yearmonth, school_id=school_id)
     result = {}
     try:
         school_info = GPContestSchoolDetails.objects.get(
@@ -110,7 +111,7 @@ def get_school_report(school_id, survey_id, from_yearmonth, to_yearmonth):
             #import pdb; pdb.set_trace()
             queryset = GPInstitutionClassQDetailsAgg.objects.filter(
                 institution_id=school_info.institution_id).filter(yearmonth=date)
-            # Get questiongroups applicable for this survey ID 
+            # Get questiongroups applicable for this survey ID
             # for the given contest date
             questiongroup_ids = get_questiongroups_survey_for_contestdate(
                 survey_id,
@@ -190,11 +191,11 @@ def get_gp_schools_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
                     questiongroup1_name:{
                         'question_answers': [
                             {
-                            'question': 'subtraction_without_borrow(abstract)', 
-                            'lang_name': None, 
-                            'num_correct': 0, 
+                            'question': 'subtraction_without_borrow(abstract)',
+                            'lang_name': None,
+                            'num_correct': 0,
                             'percent': 0.0}
-                            }, 
+                            },
                             {question2},
                             ..........,
                             ..........
@@ -246,3 +247,19 @@ def get_gp_schools_report(gp_id, survey_id, from_yearmonth, to_yearmonth):
     print("Total time to compute report for GP ID %s with %s schools = %s"
           % (gp_id, schools.count(), end-start))
     return schools_info
+
+def get_all_districts(district_id):
+    try:
+        schoolids = []
+        for districtid in district_id:
+            print(districtid)
+            districtinfo = Boundary.objects.get(id=413)
+            print("districtinfo", districtinfo,districtinfo.name)
+            school_id = Institution.objects.filter(admin1_id=districtid)
+            for id in school_id:
+                schoolids.append(id.id)
+            return schoolids
+
+    except:
+        print("unable to fetch school info for district ID %s" % district_id)
+

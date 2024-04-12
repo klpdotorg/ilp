@@ -18,7 +18,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
     help = 'Creates GP and School Reports, pass --gpid [commaseparated gpids]\
             surveyid startyearmonth endyearmonth--onlygp (True/False) \
-            --sid [comma separated schoolids]'
+            --sid [comma separated schoolids] --onlyschool (True/False)'
     assessmentorder = ["class4", "class5", "class6"]
     assessmentnames = {"class4": {"name": "Class 4 Assessment", "class": 4},
                        "class5": {"name": "Class 5 Assessment", "class": 5},
@@ -53,6 +53,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
     gpids = None
     surveyid = None
     onlygp = False
+    onlyschool = False
     schoolids = None
     districtids = None
     colour = "bw"
@@ -72,6 +73,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         parser.add_argument('endyearmonth')
         parser.add_argument('--gpid', nargs='?')
         parser.add_argument('--onlygp', nargs='?')
+        parser.add_argument('--onlyschool', nargs='?')
         parser.add_argument('--sid', nargs='?')
         parser.add_argument('--districtid', nargs='?')
         parser.add_argument('--mergereport', nargs='?', default=True)
@@ -403,27 +405,33 @@ class Command(BaseCommand, baseReport.CommonUtils):
         print("1")
         school_outputdir = self.outputdir + "/schools/"
         datafound = False
-        for school in self.schoolids:
-            print("school", school)
-            schooldata = school_compute_numbers.get_school_report(
-                school, self.surveyid,
-                self.startyearmonth, self.endyearmonth)
-            print("schooldata", schooldata)
-            school_builddir = self.build_d + str(self.now) + \
-                              "/schools/" + str(school)
-            suffix = ""
-            count = 0
-            num_contests = len(schooldata)
-            for contestdate in schooldata:
-                dataFound = True
-                count += 1
-                if num_contests > 1:
-                    suffix = "_" + str(count)
-                self.createSchoolPdfs(schooldata[contestdate], school_builddir,
-                                      school_outputdir, suffix)
-        if datafound:
-            self.createSchoolsSummary(school_outputdir)
-        return datafound
+        if self.districtids is not None and self.onlyschool:
+            schoolids = school_compute_numbers.get_all_districts(
+                self.districtids)
+            self.schoolids = schoolids
+        print( self.schoolids)
+        if self.schoolids:
+            for school in self.schoolids:
+                print("school", school)
+                schooldata = school_compute_numbers.get_school_report(
+                    school, self.surveyid,
+                    self.startyearmonth, self.endyearmonth)
+                print("schooldata", schooldata)
+                school_builddir = self.build_d + str(self.now) + \
+                                  "/schools/" + str(school)
+                suffix = ""
+                count = 0
+                num_contests = len(schooldata)
+                for contestdate in schooldata:
+                    dataFound = True
+                    count += 1
+                    if num_contests > 1:
+                        suffix = "_" + str(count)
+                    self.createSchoolPdfs(schooldata[contestdate], school_builddir,
+                                          school_outputdir, suffix)
+                    if datafound:
+                        self.createSchoolsSummary(school_outputdir)
+                    return datafound
 
     def createSchoolPdfs(self, schooldata, builddir, outputdir, suffix):
         info = {"imagesdir": self.imagesdir, "imagesqrdir": self.imagesqrdir, "year": self.academicyear}
@@ -560,7 +568,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
         self.endyearmonth = options.get("endyearmonth", None)
         self.academicyear = self.getAcademicYear(self.startyearmonth,
                                                  self.endyearmonth)
-        self.onlygp = options.get("onlygp", False)
+        self.onlygp = options.get("onlygp", True)
         schoolids = options.get("sid", None)
         print(schoolids)
         self.mergereport = options.get("mergereport")
@@ -586,9 +594,12 @@ class Command(BaseCommand, baseReport.CommonUtils):
         if not os.path.exists(self.outputdir):
             os.makedirs(self.outputdir)
 
-        if self.schoolids is not None:
+        self.onlyschool = options.get("onlyschool")
+        if self.schoolids is not None and self.onlyschool :
             created = self.createOnlySchoolReports()
-        elif self.districtids is not None:
+        elif self.districtids is not None and self.onlyschool:
+            created = self.createOnlySchoolReports()
+        elif self.districtids is not None and self.onlyschool is not True:
             created = self.createGPReportsPerBoundary()
         else:
             created = self.createGPReports()

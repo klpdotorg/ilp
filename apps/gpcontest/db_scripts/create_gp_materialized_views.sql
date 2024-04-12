@@ -1,4 +1,4 @@
--- Input: 
+-- Input:
 -- from_date, to_date -- Format is YYYY-MM-DD
 --  mvw_gpcontest_eboundary_answers_agg -- Stores student scoring
 -- categories at the class level per GP
@@ -16,7 +16,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
                 to_char(answergroup.date_of_visit,'YYYYMM')::int as yearmonth,
                 SUM(
                     CASE WHEN answers.answer~'^\d+(\.\d+)?$' THEN CASE WHEN answers.answer::decimal>0 then answers.answer::decimal ELSE 0
-                END ELSE 0 END) AS total_score, 
+                END ELSE 0 END) AS total_score,
                 (SUM(CASE WHEN answers.answer~'^\d+(\.\d+)?$' THEN CASE
                     WHEN answers.answer::decimal>0 THEN answers.answer::decimal ELSE 0 END ELSE 0 END)/20)*100 AS total_percent
             FROM
@@ -54,31 +54,31 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_answers_agg AS
 -- Clear the tables first
 -- Re-populate the tables
 CREATE MATERIALIZED VIEW mvw_gpcontest_eboundary_schoolcount_agg AS
-   SELECT 
+   SELECT
         format('A%s_%s', qg.survey_id,eboundary.id) as id,
         qg.survey_id as survey_id,
         eboundary.id as gp_id,
         Count(distinct ag.institution_id) as num_schools,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth
-    FROM 
+    FROM
         boundary_electionboundary as eboundary,
         assessments_answergroup_institution as ag,
         assessments_questiongroup as qg,
         schools_institution as schools
-    WHERE 
+    WHERE
         qg.survey_id IN (1,18) AND
-        qg.id=ag.questiongroup_id AND 
+        qg.id=ag.questiongroup_id AND
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
         schools.gp_id=eboundary.id
     GROUP BY survey_id, eboundary.id, ag.date_of_visit;
 -- END mvw_gpcontest_eboundary_schoolcount_agg
 
--- MVW to calculate aggregates for all answers 
+-- MVW to calculate aggregates for all answers
 -- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg CASCADE;
 CREATE MATERIALIZED VIEW mvw_gpcontest_institution_questiongroup_qdetails_correctans_agg AS
 SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution_id,source,questiongroup_id,question_id,concept,microconcept_group,microconcept,yearmonth) as id,
-    survey_id, 
+    survey_id,
     survey_tag,
     institution_id,
     source,
@@ -92,8 +92,8 @@ SELECT format('A%s_%s_%s_%s_%s_%s_%s_%s_%s_%s', survey_id,survey_tag,institution
     count(ag_id) as num_assessments
 FROM
     (SELECT distinct
-        qg.survey_id as survey_id, 
-        stmap.tag_id as survey_tag, 
+        qg.survey_id as survey_id,
+        stmap.tag_id as survey_tag,
         ag.institution_id as institution_id,
         qg.id as questiongroup_id,
         qg.name as questiongroup_name,
@@ -104,7 +104,7 @@ FROM
         qg.source_id as source,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
         ag.id as ag_id
-    FROM 
+    FROM
         assessments_answergroup_institution ag,
         assessments_answerinstitution ans,
         assessments_surveytagmapping stmap,
@@ -150,10 +150,10 @@ WITH table1 as (
     ON t1.id=t2.id
     WHERE
         t1.survey_id IN (1,18) and
-        t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
+        t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and
         t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int
 )
-SELECT 
+SELECT
     table1.id as id,
     table1.survey_id as survey_id,
     table1.institution_id as institution_id,
@@ -167,7 +167,7 @@ SELECT
     q.lang_name as question_lang_name,
     qg_qns.sequence as question_sequence
 FROM
-    table1, 
+    table1,
     assessments_questiongroup_questions qg_qns,
     assessments_question q
 WHERE
@@ -181,27 +181,27 @@ WHERE
 -- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_institution_stucount_agg CASCADE;
 -- Re-populate the tables
 CREATE MATERIALIZED VIEW mvw_gpcontest_institution_stucount_agg AS
-   SELECT 
+   SELECT
         format('A%s_%s_%s', qg.survey_id,ag.institution_id,qg.id) as id,
-        ag.institution_id as institution_id, 
-        qg.id as questiongroup_id, 
+        ag.institution_id as institution_id,
+        qg.id as questiongroup_id,
         qg.name as questiongroup_name,
         to_char(ag.date_of_visit,'YYYYMM')::int as yearmonth,
-        count(distinct ag.id) as num_students 
-    FROM 
+        count(distinct ag.id) as num_students
+    FROM
         assessments_answergroup_institution ag,
-        assessments_questiongroup qg 
-    WHERE 
+        assessments_questiongroup qg
+    WHERE
         qg.survey_id IN (1,18) AND
-        ag.questiongroup_id=qg.id AND 
-        ag.date_of_visit BETWEEN :from_date AND :to_date 
+        ag.questiongroup_id=qg.id AND
+        ag.date_of_visit BETWEEN :from_date AND :to_date
     GROUP BY ag.institution_id, qg.id, yearmonth;
 
 ---- CREATE THE DEFICIENCY COMPUTATION TABLES-----------
 -- Drop the tables first
 -- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_concept_percentages_agg;
 CREATE MATERIALIZED VIEW mvw_gpcontest_concept_percentages_agg AS
---- Create a subquery with total answers and correct answers -- 
+--- Create a subquery with total answers and correct answers --
 WITH subquery1 AS (
     SELECT
         format('A%s_%s_%s', t1.institution_id,t1.questiongroup_id,t1.question_key) as id,
@@ -220,14 +220,14 @@ WITH subquery1 AS (
     ON t1.id=t2.id
     WHERE
         t1.survey_id IN (1,18) and
-        t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and 
+        t1.yearmonth>=to_char(:from_date::date,'YYYYMM')::int and
         t1.yearmonth<=to_char(:to_date::date,'YYYYMM')::int
     GROUP BY t1.institution_id, t1.questiongroup_id, t1.question_key, t1.lang_question_key, t1.yearmonth
 )
 -- Now compute percent scores from the above subquery and select only
 -- those percentages below 60%
-SELECT 
-    *, ROUND((correct_answers*1.0/total_answers*1.0)*100,2) AS percent_score 
+SELECT
+    *, ROUND((correct_answers*1.0/total_answers*1.0)*100,2) AS percent_score
 FROM subquery1
 WHERE ROUND((correct_answers*1.0/total_answers*1.0)*100,2)<60.00;
 
@@ -235,30 +235,38 @@ WHERE ROUND((correct_answers*1.0/total_answers*1.0)*100,2)<60.00;
 -- QUERIES --
 -- DROP MATERIALIZED VIEW IF EXISTS mvw_gpcontest_school_details;
 CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
-    SELECT 
+    SELECT
         table1.institution_id as institution_id,
         table1.id as id,
         table1.institution_name as institution_name,
         dise.school_code as dise_code,
+        table1.division_name as division_name,
+        table1.division_lang_name as division_lang_name,
         table1.district_name as district_name,
         table1.district_lang_name as district_lang_name,
         table1.block_name as block_name,
         table1.block_lang_name as block_lang_name,
         table1.cluster_name as cluster_name,
+        table1.taluk_name as taluk_name,
+        table1.taluk_lang_name as taluk_lang_name,
         table1.gp_id as gp_id,
         table1.gp_name as gp_name,
         table1.gp_lang_name as gp_lang_name
     FROM
-        (SELECT 
+        (SELECT
             distinct schools.id as institution_id,
             format('A%s_%s', schools.id, schools.dise_id) as id,
             REGEXP_REPLACE(schools.name,'[^a-zA-Z0-9]+',' ', 'g') as institution_name,
             schools.dise_id as dise_id,
+            boundary1.name as division_name,
+            boundary1.lang_name as division_lang_name,
             boundary1.name as district_name,
             boundary1.lang_name as district_lang_name,
             boundary2.name as block_name,
             boundary2.lang_name as block_lang_name,
             boundary3.name as cluster_name,
+            boundary1.name as taluk_name,
+            boundary1.lang_name as taluk_lang_name,
             eboundary.id as gp_id,
             eboundary.const_ward_name as gp_name,
             eboundary.const_ward_lang_name as gp_lang_name
@@ -266,9 +274,11 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
             assessments_questiongroup as questiongroup,
             assessments_answergroup_institution as answergroup,
             boundary_electionboundary as eboundary,
+            boundary_boundary as boundary5,
             boundary_boundary as boundary1,
             boundary_boundary as boundary2,
             boundary_boundary as boundary3,
+            boundary_boundary as boundary4,
             schools_institution as schools
         WHERE
             questiongroup.survey_id IN (1,18) AND
@@ -278,7 +288,9 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
             schools.gp_id = eboundary.id AND
             schools.admin1_id = boundary1.id AND
             schools.admin2_id = boundary2.id AND
-            schools.admin3_id = boundary3.id
+            schools.admin3_id = boundary3.id AND
+            schools.admin4_id = boundary4.id AND
+            schools.admin5_id = boundary5.id
         )table1
     LEFT JOIN
         dise_basicdata dise
@@ -303,7 +315,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
                 questiongroup.name as questiongroup_name,
                 SUM(
                     CASE WHEN answers.answer~'^\d+(\.\d+)?$' THEN CASE WHEN answers.answer::decimal>0 then answers.answer::decimal ELSE 0
-                END ELSE 0 END) AS total_score, 
+                END ELSE 0 END) AS total_score,
                 (SUM(CASE WHEN answers.answer~'^\d+(\.\d+)?$' THEN CASE
                     WHEN answers.answer::decimal>0 THEN answers.answer::decimal ELSE 0 END ELSE 0 END)/20)*100 AS total_percent
             FROM
@@ -318,7 +330,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
                 answers.answergroup_id = answergroup.id AND
                 answergroup.date_of_visit BETWEEN :from_date AND :to_date AND
                 answergroup.institution_id = schools.id AND
-                (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id) AND
+                (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id or schools.admin4_id = boundary.id or schools.admin5_id = boundary.id) AND
                 answers.question_id NOT IN (62,81)
             GROUP BY
                 questiongroup.id,
@@ -342,7 +354,7 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_answers_agg AS
 -- Re-populate the tables
 CREATE MATERIALIZED VIEW mvw_gpcontest_boundary_counts_agg AS
 WITH schools_count AS (
-   SELECT 
+   SELECT
         format('A%s_%s',qg.survey_id,boundary.id) as id,
         boundary.id as boundary_id,
         boundary.name as boundary_name,
@@ -353,20 +365,20 @@ WITH schools_count AS (
         Count(distinct ag.id) as num_students,
 	    Count(distinct schools.gp_id) as num_gps,
 	(CASE WHEN boundary.boundary_type_id = 'SD' THEN Count(distinct schools.admin2_id) ELSE 0 END) as num_blocks
-    FROM 
+    FROM
         boundary_boundary as boundary,
         assessments_answergroup_institution as ag,
         assessments_questiongroup as qg,
         schools_institution as schools
-    WHERE 
+    WHERE
         qg.survey_id IN (1,18) AND
-        qg.id=ag.questiongroup_id AND 
+        qg.id=ag.questiongroup_id AND
         ag.date_of_visit BETWEEN :from_date AND :to_date AND
         ag.institution_id=schools.id AND
-        (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id)
+        (schools.admin0_id = boundary.id or schools.admin1_id = boundary.id or schools.admin2_id = boundary.id or schools.admin3_id = boundary.id or schools.admin4_id = boundary.id or schools.admin5_id = boundary.id)
     GROUP BY qg.survey_id,boundary.id, yearmonth
 )
-SELECT 
+SELECT
    id, yearmonth, boundary_id, boundary_name, boundary_lang_name, boundary_type_id, num_schools, num_students, num_gps, num_blocks
 FROM schools_count;
 

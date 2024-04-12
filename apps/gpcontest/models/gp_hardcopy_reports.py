@@ -56,6 +56,7 @@ class BoundaryCountsAgg(models.Model):
     num_schools = models.IntegerField(db_column="num_schools")
     num_gps = models.IntegerField(db_column="num_gps")
     num_blocks = models.IntegerField(db_column="num_blocks")
+    num_districts = models.IntegerField(db_column="num_districts")
 
     class Meta:
         managed = False

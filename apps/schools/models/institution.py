@@ -6,6 +6,7 @@ from common.models import (Status, AcademicYear)
 from django.conf import settings
 from assessments.models import InstitutionImages
 
+
 class InstitutionCategory(models.Model):
     """ Category for institution """
     name = models.CharField(max_length=300)
@@ -53,6 +54,12 @@ class Institution(models.Model):
         max_length=1000, null=True, blank=True)
     route_information = models.CharField(
         max_length=1000, null=True, blank=True)
+    admin5 = models.ForeignKey(
+        'boundary.Boundary', related_name='institution_admin5',
+        on_delete=models.DO_NOTHING, null=True, blank=True)
+    admin4 = models.ForeignKey(
+        'boundary.Boundary', related_name='institution_admin4',
+        on_delete=models.DO_NOTHING, null=True, blank=True)
     admin3 = models.ForeignKey(
         'boundary.Boundary', related_name='institution_admin3',
         on_delete=models.DO_NOTHING)
@@ -76,23 +83,24 @@ class Institution(models.Model):
         on_delete=models.DO_NOTHING)
     ward = models.ForeignKey(
         'boundary.ElectionBoundary', related_name='institution_ward',
-        null=True,on_delete=models.DO_NOTHING)
+        null=True, on_delete=models.DO_NOTHING)
     coord = models.GeometryField(null=True)
-    last_verified_year = models.ForeignKey('common.AcademicYear', null=True, 
+    last_verified_year = models.ForeignKey('common.AcademicYear', null=True,
                                            on_delete=models.DO_NOTHING)
     status = models.ForeignKey(
         'common.Status', default=Status.ACTIVE,
         on_delete=models.DO_NOTHING)
 
     '''Returns images associated via SYS. Note questiongroup_id is hardcoded to SYS'''
+
     def get_images(self):
         images_queryset = InstitutionImages.objects.filter(
             is_verified=True, answergroup__institution=self).filter(
-                Q(answergroup__questiongroup_id=6) | 
-                Q(answergroup__questiongroup_id=1)
+            Q(answergroup__questiongroup_id=6) |
+            Q(answergroup__questiongroup_id=1)
         )
         print("Queryset count: ", images_queryset.count())
-        images=[]
+        images = []
         for image in images_queryset:
             print("Image URL is: ", image.image.url)
             images.append(image.image.url)
@@ -100,10 +108,10 @@ class Institution(models.Model):
 
     def get_grades(self):
         from .student_staff import (Student, StudentStudentGroupRelation, StudentGroup)
-        group_queryset = StudentGroup.objects.filter(institution_id = self, status='AC', group_type='class')
-        grades=[]
+        group_queryset = StudentGroup.objects.filter(institution_id=self, status='AC', group_type='class')
+        grades = []
         for grp in group_queryset:
-            gradesdict={}
+            gradesdict = {}
             gradesdict['grpid'] = grp.id
             gradesdict['grpname'] = grp.name
             grades.append(gradesdict)
@@ -114,7 +122,7 @@ class Institution(models.Model):
             return json.loads(self.coord.geojson)
         else:
             return {}
-    
+
     def get_mt_profile(self):
         profile = {}
         aggregation = self.institutionaggregation_set.filter(academic_year=settings.DEFAULT_ACADEMIC_YEAR)
@@ -126,7 +134,7 @@ class Institution(models.Model):
         return profile
 
     class Meta:
-        unique_together = (('name', 'dise', 'admin3'), )
+        unique_together = (('name', 'dise', 'admin3'),)
         permissions = (
             ('crud_student_class_staff', 'CRUD Student Class and Staff'),
         )
@@ -142,7 +150,7 @@ class InstitutionLanguage(models.Model):
     moi = models.ForeignKey('common.Language', on_delete=models.DO_NOTHING)
 
     class Meta:
-        unique_together = (('institution', 'moi'), )
+        unique_together = (('institution', 'moi'),)
 
 
 

@@ -13,7 +13,9 @@ class BoundaryType(models.Model):
     these will also have to
     change
     '''
+    SCHOOL_DIVISION = 'DV'
     SCHOOL_DISTRICT = 'SD'
+    SCHOOL_TALUK = 'TA'
     SCHOOL_BLOCK = 'SB'
     SCHOOL_CLUSTER = 'SC'
     PRESCHOOL_DISTRICT = 'PD'
@@ -83,6 +85,11 @@ class BoundaryNeighbours(models.Model):
 
 class BoundaryHierarchy(models.Model):
     """boundary hierarchy details"""
+    admin5_id = models.OneToOneField(
+        'Boundary', related_name='admin5_id',
+        db_column='admin5_id', on_delete=models.DO_NOTHING)
+    admin5_name = models.CharField(max_length=300)
+
     admin3_id = models.OneToOneField(
         'Boundary', related_name='admin3_id',
         db_column='admin3_id', primary_key=True, on_delete=models.DO_NOTHING)
