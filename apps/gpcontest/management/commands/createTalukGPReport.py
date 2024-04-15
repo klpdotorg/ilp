@@ -84,6 +84,13 @@ class Command(BaseCommand, baseReport.CommonUtils):
         else:
             talukname = "(" + talukdata["boundary_name"].capitalize() + ")"
 
+        if talukdata["boundary_langname"].startswith('"') and talukdata["boundary_langname"].endswith('"'):
+            talukdata["boundary_langname"] = talukdata["boundary_langname"][1:-1]
+        elif talukdata["boundary_langname"].startswith("'") and talukdata["boundary_langname"].endswith("'"):
+            talukdata["boundary_langname"] = talukdata["boundary_langname"][1:-1]
+        else :
+            talukdata["boundary_langname"] = talukdata["boundary_langname"]
+
         talukinfo = {"talukname": talukname,
                      "taluk_langname": talukdata["boundary_langname"],
                      "districtname": districtname,
