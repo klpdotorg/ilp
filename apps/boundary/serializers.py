@@ -38,7 +38,8 @@ class BoundaryHierarchySerializer(ILPSerializer):
         model = BoundaryHierarchy()
         fields = (
             'admin0_name', 'admin0_id', 'admin1_name', 'admin1_id',
-            'admin2_name', 'admin2_id', 'admin3_name', 'admin3_id'
+            'admin2_name', 'admin2_id', 'admin3_name', 'admin3_id',
+            'admin4_name', 'admin4_id', 'admin5_name', 'admin5_id'
         )
 
 

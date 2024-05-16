@@ -69,21 +69,27 @@
       </div>
     </form>
   </div>
-  
+
 
   <div class="sect-parent">
     <div class="sect-parent">
       <div class="educational box sect-parent">
-        <div class="sect-quarter">
+        <div class="sect-sixth">
+          <input type="text" placeholder="{% trans 'Division'%}" class="js-example-basic-single input-text full-width" id="select-division">
+        </div>
+        <div class="sect-sixth">
           <input type="text" placeholder="{% trans 'District'%}" class="js-example-basic-single input-text full-width" id="select-district">
         </div>
-        <div class="sect-quarter">
+        <div class="sect-sixth">
+          <input type="text" placeholder="{% trans 'Taluk'%}" class="js-example-basic-single input-text full-width" id="select-taluk">
+        </div>
+        <div class="sect-sixth">
           <input type="text" placeholder="{% trans 'Block'%}" class="js-example-basic-single input-text full-width" id="select-block">
         </div>
-        <div class="sect-quarter">
+        <div class="sect-sixth">
           <input type="text" placeholder="{% trans 'Cluster'%}" class="js-example-basic-single input-text full-width" id="select-cluster">
         </div>
-        <div class="sect-quarter">
+        <div class="sect-sixth">
           <input type="text" placeholder="{% trans 'School'%}" class="js-example-basic-single input-text full-width" id="select-school">
         </div>
       </div>
@@ -116,19 +122,19 @@
 
         <section class="content container" id="sms">
           <div id="smsSummary" class="js-detail-container"></div>
-          
+
           <div class="base-spacing-mid"></div>
-          
+
           <div class="brand-blue font-large font-light center-text uppercase">Volume By Users</div>
           <div id="smsSender" class="ct-chart ct-minor-seventh js-detail-container chartist-container line-chart one-row-chart"></div>
-          
+
           <div class="base-spacing-mid"></div>
 
           <div class="brand-blue font-large font-light center-text uppercase">Survey Volumes</div>
           <div id="smsVolume" class="ct-chart ct-major-eleventh js-detail-container chartist-container bar-chart"></div>
           <div class="base-spacing-mid"></div>
           <div id="smsLegend"></div>
-         
+
           <div id="smsQuestions" class="js-detail-container"></div>
 
           <div class="base-spacing-mid"></div>
@@ -141,7 +147,7 @@
         <section class="content container" id="gpcontest">
           <div id="gpcSummary"></div>
 
-          <div class="base-spacing-mid"></div>          
+          <div class="base-spacing-mid"></div>
           <div class="brand-blue center-text font-large font-light uppercase">Class 4 Summary</div>
           <div class="center-text" id="gpcGender_class4"></div>
           <div id="gpcGraph_class4" class="ct-chart ct-double-octave js-detail-container chartist-container line-chart"></div>

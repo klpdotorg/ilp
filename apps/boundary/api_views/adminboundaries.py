@@ -20,6 +20,30 @@ from common.filters import ILPInBBOXFilter
 from common.state_codes import STATES
 
 
+class Admin5sBoundary(ILPListAPIView, ILPStateMixin):
+    ''' Returns all top level division boundaries for pre-schools
+    and schools '''
+    serializer_class = BoundarySerializer
+    filter_backends = [BoundarySurveyFilter, ]
+
+    def get_queryset(self):
+        state = self.get_state()
+        queryset = Boundary.objects.filter(parent=state.id)
+        school_type = self.request.query_params.get('school_type', None)
+        boundarytype = BoundaryType.SCHOOL_DIVISION
+        if school_type is not None:
+            # Hack to accomodate KLP dubdubdub URLs
+            if school_type == "primaryschools":
+                school_type = InstitutionType.PRIMARY_SCHOOL
+            # End of hack
+            queryset = queryset.filter(type=school_type)
+        else:
+            queryset = queryset.filter(
+                Q(boundary_type=BoundaryType.SCHOOL_DIVISION)
+            )
+        return queryset
+
+
 class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
     ''' Returns all top level district boundaries for pre-schools
     and schools '''
@@ -28,7 +52,10 @@ class Admin1sBoundary(ILPListAPIView, ILPStateMixin):
 
     def get_queryset(self):
         state = self.get_state()
-        queryset = Boundary.objects.filter(parent=state.id)
+        # Get all the admin2 boundary ids for a particular state as a list
+        admin1boundaries = self.get_state_boundaries(). \
+            values_list('admin1_id', flat=True).distinct()
+        queryset = Boundary.objects.filter(id__in=admin1boundaries)
         school_type = self.request.query_params.get('school_type', None)
         boundarytype = BoundaryType.SCHOOL_DISTRICT
         if school_type is not None:
@@ -54,10 +81,10 @@ class Admin2sBoundary(ILPListAPIView, ILPStateMixin):
     ''' Returns blocks/projects for schools/preschools respectively '''
     serializer_class = BoundaryWithParentSerializer
     filter_backends = [BoundarySurveyFilter, ILPInBBOXFilter]
-    
+
     def get_queryset(self):
         # Get all the admin2 boundary ids for a particular state as a list
-        admin2boundaries = self.get_state_boundaries().\
+        admin2boundaries = self.get_state_boundaries(). \
             values_list('admin2_id', flat=True).distinct()
         # Now, filter boundary table ids which are there in the above list and
         # then look for Blocks or clusters
@@ -87,7 +114,7 @@ class Admin3sBoundary(ILPListAPIView, ILPStateMixin):
 
     def get_queryset(self):
         # Get all the admin2 boundary ids for a particular state as a list
-        admin3boundaries = self.get_state_boundaries()\
+        admin3boundaries = self.get_state_boundaries() \
             .values_list('admin3_id', flat=True)
 
         # Now, filter boundary table ids which are there in the above list
@@ -113,6 +140,47 @@ class Admin3sBoundary(ILPListAPIView, ILPStateMixin):
         return queryset
 
 
+class Admin4sBoundary(ILPListAPIView, ILPStateMixin):
+    ''' Returns taluks for schools respectively '''
+    serializer_class = BoundaryWithParentSerializer
+    filter_backends = [BoundarySurveyFilter, ILPInBBOXFilter]
+
+    def get_queryset(self):
+        # Get all the admin2 boundary ids for a particular state as a list
+        admin4boundaries = self.get_state_boundaries(). \
+            values_list('admin4_id', flat=True).distinct()
+        # Now, filter boundary table ids which are there in the above list and
+        # then look for Blocks or clusters
+        result = Boundary.objects.filter(id__in=admin4boundaries).filter(
+            Q(boundary_type=BoundaryType.SCHOOL_TALUK))
+        school_type = self.request.query_params.get('school_type', None)
+        if school_type is not None:
+            # Hack to accomodate KLP dubdubdub URLs
+            if school_type == "primaryschools":
+                school_type = InstitutionType.PRIMARY_SCHOOL
+            elif school_type == "preschools":
+                school_type = InstitutionType.PRE_SCHOOL
+            # END OF HACK
+            boundary_type = BoundaryType.SCHOOL_TALUK
+            result = result.filter(type=school_type)
+            if school_type == InstitutionType.PRE_SCHOOL:
+                boundary_type = BoundaryType.PRESCHOOL_PROJECT
+            result = result.filter(boundary_type__exact=boundary_type)
+        return result
+
+
+class Admin1sInsideAdmin5(ILPListAPIView):
+    ''' Returns a list of all blocks/projects inside a given district id '''
+    serializer_class = BoundaryWithParentSerializer
+    filter_backends = [BoundarySurveyFilter, ]
+
+    def get_queryset(self):
+        parent_division_id = self.kwargs.get('id', 0)
+        return Boundary.objects.filter(
+            parent=parent_division_id, status=Status.ACTIVE
+        )
+
+
 class Admin2sInsideAdmin1(ILPListAPIView):
     ''' Returns a list of all blocks/projects inside a given district id '''
     serializer_class = BoundaryWithParentSerializer
@@ -121,7 +189,19 @@ class Admin2sInsideAdmin1(ILPListAPIView):
     def get_queryset(self):
         parent_district_id = self.kwargs.get('id', 0)
         return Boundary.objects.filter(
-            parent=parent_district_id, status=Status.ACTIVE
+            parent=parent_district_id, status=Status.ACTIVE, boundary_type=BoundaryType.SCHOOL_BLOCK
+        )
+
+
+class Admin4sInsideAdmin1(ILPListAPIView):
+    ''' Returns a list of all blocks/projects inside a given district id '''
+    serializer_class = BoundaryWithParentSerializer
+    filter_backends = [BoundarySurveyFilter, ]
+
+    def get_queryset(self):
+        parent_district_id = self.kwargs.get('id', 0)
+        return Boundary.objects.filter(
+            parent=parent_district_id, status=Status.ACTIVE, boundary_type=BoundaryType.SCHOOL_TALUK
         )
 
 
@@ -188,7 +268,6 @@ class StateList(APIView):
         return RespondentTypeSerializer(respondent_types, many=True).data
 
     def get(self, request):
-
         # Konnect expects the below data in a certain format
         # So we have to build a response in the format -
         # {

@@ -8,7 +8,7 @@
         template;
 
     var surveyId = 1;
-    var questionGroupId = 7;
+    var questionGroupId = 8;
 
     t.init = function() {
         klp.router = new KLPRouter();
@@ -72,33 +72,72 @@
 
 
     function initEduSearch(school_type) {
+        var $select_division = $("#select-division");
         var $select_district = $("#select-district");
+        var $select_taluk = $("#select-taluk");
         var $select_block = $("#select-block");
         var $select_cluster = $("#select-cluster");
         var $select_school = $("#select-school");
 
+        clearSelect($select_division);
         clearSelect($select_district);
+        clearSelect($select_taluk);
         clearSelect($select_block);
         clearSelect($select_cluster);
         clearSelect($select_school);
 
-        var url = "boundary/admin1s/?per_page=0&school_type=primary"
-        var districtsXHR = klp.api.do(url);
-        districtsXHR.done(function(data) {
-            var districts = {};
-            districts.features = _.map(data.results, function(d){
-                var district = {
+        var url = "boundary/admin5s/?per_page=0&school_type=primary";
+        var divisionsXHR = klp.api.do(url);
+        divisionsXHR.done(function(data) {
+            var divisions = {};
+            divisions.features = _.map(data.results, function(d){
+                var division = {
                     id: d.id,
                     name: d.name
                 };
-                return district;
+                return division;
             });
-            populateSelect($select_district, districts);
+            populateSelect($select_division, divisions);
+
+            var districtsXHR = klp.api.do('boundary/admin5/' + selected.val + '/admin1/?per_page=0');
+            districtsXHR.done(function (data) {
+                data.features = data.results;
+                populateSelect($select_district, data);
+            });
+        });
+
+//        var url = "boundary/admin1s/?per_page=0&school_type=primary"
+//        var districtsXHR = klp.api.do(url);
+//        districtsXHR.done(function(data) {
+//            var districts = {};
+//            districts.features = _.map(data.results, function(d){
+//                var district = {
+//                    id: d.id,
+//                    name: d.name
+//                };
+//                return district;
+//            });
+//            populateSelect($select_district, districts);
+//        });
+        $select_division.on("change", function(selected) {
+
+            clearSelect($select_district);
+            clearSelect($select_block);
+            clearSelect($select_taluk);
+            clearSelect($select_cluster);
+            clearSelect($select_school);
+
+            var districtsXHR = klp.api.do('boundary/admin5/' + selected.val + '/admin1/?per_page=0');
+            districtsXHR.done(function (data) {
+                data.features = data.results;
+                populateSelect($select_district, data);
+            });
         });
 
         $select_district.on("change", function(selected) {
 
             clearSelect($select_block);
+            clearSelect($select_taluk);
             clearSelect($select_cluster);
             clearSelect($select_school);
             setBoundaryAttributes('boundary_id=' + selected.val);
@@ -108,10 +147,16 @@
                 data.features = data.results;
                 populateSelect($select_block, data);
             });
+
+            var talukXHR = klp.api.do('boundary/admin1/' + selected.val + '/admin4/?per_page=0');
+            talukXHR.done(function (data) {
+                data.features = data.results;
+                populateSelect($select_taluk, data);
+            });
         });
 
         $select_block.on("change", function(selected) {
-
+            clearSelect($select_taluk);
             clearSelect($select_cluster);
             clearSelect($select_school);
             setBoundaryAttributes('boundary_id=' + selected.val);
@@ -120,6 +165,19 @@
             clusterXHR.done(function (data) {
                 data.features = data.results;
                 populateSelect($select_cluster, data);
+            });
+        });
+
+        $select_taluk.on("change", function(selected) {
+            clearSelect($select_block);
+            clearSelect($select_cluster);
+            clearSelect($select_school);
+            setBoundaryAttributes('boundary_id=' + selected.val);
+
+            var schoolXHR = klp.api.do('institutions/', {'admin4':selected.val, 'per_page': 0});
+            schoolXHR.done(function (data) {
+                data.features = data.results
+                populateSelect($select_school, data);
             });
         });
 
@@ -143,15 +201,15 @@
 
 
     function makeResults(array, type) {
-        var schoolDistrictMap = {
+        var schoolDivisionMap = {
             'primaryschool': 'Primary School',
             'preschool': 'Preschool'
         };
         return _(array).map(function(obj) {
             var name = obj.properties.name;
             if (type === 'boundary') {
-                if (obj.properties.type === 'district') {
-                    name = obj.properties.name + ' - ' + schoolDistrictMap[obj.properties.school_type] + ' ' + obj.properties.type;
+                if (obj.properties.type === 'division') {
+                    name = obj.properties.name + ' - ' + schoolDivisionMap[obj.properties.school_type] + ' ' + obj.properties.type;
                 } else {
                     name = obj.properties.name + ' - ' + obj.properties.type;
                 }

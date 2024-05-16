@@ -64,7 +64,9 @@ var topSummaryData = {};
         var startDate = $('#startDate').yearMonthSelect("getFirstDay");
 
         $('#search_button').click(function(e){
-            var district_id = $("#select-district").val(),
+            var division_id = $("#select-division").val(),
+                district_id = $("#select-district").val(),
+                taluk_id = $("#select-taluk").val(),
                 block_id = $("#select-block").val(),
                 cluster_id = $("#select-cluster").val(),
                 institution_id = $("#select-school").val(),
@@ -93,8 +95,12 @@ var topSummaryData = {};
                         url += '&boundary_id=' + cluster_id;
                     } else if(block_id) {
                         url += '&boundary_id=' + block_id;
-                    } else if(district_id) {
+                    }else if(taluk_id) {
+                        url += '&boundary_id=' + taluk_id;
+                    }else if(district_id) {
                         url += '&boundary_id=' + district_id;
+                    } else if(division_id) {
+                        url += '&boundary_id=' + division_id;
                     }
                 }
 
