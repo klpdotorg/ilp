@@ -258,15 +258,15 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
             format('A%s_%s', schools.id, schools.dise_id) as id,
             REGEXP_REPLACE(schools.name,'[^a-zA-Z0-9]+',' ', 'g') as institution_name,
             schools.dise_id as dise_id,
-            boundary1.name as division_name,
-            boundary1.lang_name as division_lang_name,
+            boundary5.name as division_name,
+            boundary5.lang_name as division_lang_name,
             boundary1.name as district_name,
             boundary1.lang_name as district_lang_name,
             boundary2.name as block_name,
             boundary2.lang_name as block_lang_name,
             boundary3.name as cluster_name,
-            boundary1.name as taluk_name,
-            boundary1.lang_name as taluk_lang_name,
+            boundary4.name as taluk_name,
+            boundary4.lang_name as taluk_lang_name,
             eboundary.id as gp_id,
             eboundary.const_ward_name as gp_name,
             eboundary.const_ward_lang_name as gp_lang_name
@@ -289,7 +289,6 @@ CREATE MATERIALIZED VIEW mvw_gpcontest_school_details AS
             schools.admin1_id = boundary1.id AND
             schools.admin2_id = boundary2.id AND
             schools.admin3_id = boundary3.id AND
-            schools.admin4_id = boundary4.id AND
             schools.admin5_id = boundary5.id
         )table1
     LEFT JOIN

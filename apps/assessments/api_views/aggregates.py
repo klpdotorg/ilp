@@ -31,7 +31,7 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
         boundary_id = self.request.query_params.get('boundary_id', state_id)
         eboundary_id = self.request.query_params.get('electionboundary_id', None)
         if eboundary_id:
-           institution_qs = SurveyInstitutionAgg.objects.filter(
+            institution_qs = SurveyInstitutionAgg.objects.filter(
                 Q(institution_id__gp_id=eboundary_id) |
                 Q(institution_id__mp_id=eboundary_id) |
                 Q(institution_id__mla_id=eboundary_id) |
@@ -42,7 +42,9 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
                 Q(institution_id__admin0_id=boundary_id) |
                 Q(institution_id__admin1_id=boundary_id) |
                 Q(institution_id__admin2_id=boundary_id) |
-                Q(institution_id__admin3_id=boundary_id)
+                Q(institution_id__admin3_id=boundary_id) |
+                Q(institution_id__admin4_id=boundary_id) |
+                Q(institution_id__admin5_id=boundary_id)
             )
         return self.filter_queryset(institution_qs)
 
@@ -56,11 +58,11 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
                     "num_users": 0,
                     "children_impacted": 0,
                     "total_assessments": 0,
-                    "last_assessment": 0, 
+                    "last_assessment": 0,
                 }
             }
             return summary_response
- 
+
         institution_id = self.request.query_params.get('institution_id', None)
         if institution_id:
             qs_agg = queryset.aggregate(
@@ -105,7 +107,7 @@ class SurveySummaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
         response.update(**summary_response)
 
         res_surveys = []
-        survey_ids = queryset.distinct('survey_id').\
+        survey_ids = queryset.distinct('survey_id'). \
             values_list('survey_id', flat=True)
         for sid in survey_ids:
             survey = Survey.objects.get(id=sid)
@@ -127,7 +129,6 @@ class SurveyVolumeAPIView(AggMixin, ListAPIView, ILPStateMixin):
     institution_queryset = SurveyInstitutionAgg.objects.all()
     boundary_queryset = SurveyBoundaryAgg.objects.all()
     eboundary_queryset = SurveyElectionBoundaryAgg.objects.all()
-    
 
     def list(self, request, *args, **kwargs):
         """
@@ -135,7 +136,7 @@ class SurveyVolumeAPIView(AggMixin, ListAPIView, ILPStateMixin):
         """
         queryset = self.filter_queryset(self.get_queryset())
         years = queryset.values_list('yearmonth', flat=True)
-        years = set([year//100 for year in years])
+        years = set([year // 100 for year in years])
         months = {
             "01": "Jan", "02": "Feb", "03": "Mar",
             "04": "Apr", "05": "May", "06": "Jun",
@@ -148,7 +149,7 @@ class SurveyVolumeAPIView(AggMixin, ListAPIView, ILPStateMixin):
             year_res = {}
             y_agg = queryset.filter(yearmonth__startswith=year)
             for month in months:
-                num_assess = y_agg.filter(yearmonth__endswith=month).\
+                num_assess = y_agg.filter(yearmonth__endswith=month). \
                     aggregate(Sum('num_assessments'))['num_assessments__sum']
                 year_res[months[month]] = num_assess if num_assess else 0
             volume_res[year] = year_res
@@ -157,7 +158,7 @@ class SurveyVolumeAPIView(AggMixin, ListAPIView, ILPStateMixin):
 
 class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
     filter_backends = [SurveyFilter, ]
-    
+
     def get_survey_type(self):
         survey_id = self.request.query_params.get('survey_id', None)
         return Survey.objects.get(id=survey_id).survey_on.char_id
@@ -165,19 +166,19 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
     def get_queryset(self):
         survey_type = self.get_survey_type()
         state_id = BoundaryStateCode.objects.get(
-                    char_id=settings.ILP_STATE_ID).boundary_id
+            char_id=settings.ILP_STATE_ID).boundary_id
         institution_id = self.request.query_params.get('institution_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
-            
+
         if survey_type == 'institution':
             if institution_id:
                 return SurveyInstitutionQuestionGroupGenderAgg.objects.filter(
-                            institution_id=institution_id)
+                    institution_id=institution_id)
             elif boundary_id:
                 return SurveyBoundaryQuestionGroupGenderAgg.objects.filter(
-                                                    boundary_id=boundary_id)
+                    boundary_id=boundary_id)
             return SurveyBoundaryQuestionGroupGenderAgg.objects.filter(
-                                                boundary_id=state_id)
+                boundary_id=state_id)
 
     def get_answer_queryset(self):
         survey_type = self.get_survey_type()
@@ -187,24 +188,24 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
         boundary_id = self.request.query_params.get('boundary_id', None)
         if survey_type == 'institution':
             if institution_id:
-                return SurveyInstitutionQuestionGroupGenderCorrectAnsAgg.\
-                             objects.filter(institution_id=institution_id)
+                return SurveyInstitutionQuestionGroupGenderCorrectAnsAgg. \
+                    objects.filter(institution_id=institution_id)
             elif boundary_id:
-                return SurveyBoundaryQuestionGroupGenderCorrectAnsAgg.\
-                       objects.filter(boundary_id=boundary_id)
-            return SurveyBoundaryQuestionGroupGenderCorrectAnsAgg.\
-                   objects.filter(boundary_id=state_id)
+                return SurveyBoundaryQuestionGroupGenderCorrectAnsAgg. \
+                    objects.filter(boundary_id=boundary_id)
+            return SurveyBoundaryQuestionGroupGenderCorrectAnsAgg. \
+                objects.filter(boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         group_res = {}
         qs = self.filter_queryset(self.get_queryset())
         ans_qs = self.filter_queryset(self.get_answer_queryset())
-        
+
         group_field = 'sg_name'
         if self.get_survey_type() == 'institution':
             group_field = 'questiongroup_name'
-        
-        group_names = qs\
+
+        group_names = qs \
             .distinct(group_field).values_list(group_field, flat=True)
         genders = qs.distinct('gender').values_list('gender', flat=True)
 
@@ -214,20 +215,20 @@ class SurveyInfoClassGenderAPIView(ListAPIView, ILPStateMixin):
                 # Gender is sometimes in cap case or small case or mixed
                 # Causes problems in JS. Making it consistent by including
                 # check here regardless of what's in DB
-                display_gender=gender.lower()
+                display_gender = gender.lower()
                 group_param = {'sg_name': group_name}
                 if group_field == 'questiongroup_name':
                     group_param = {'questiongroup_name': group_name}
-             
-                gender_agg = qs.filter(gender=gender, **group_param)\
+
+                gender_agg = qs.filter(gender=gender, **group_param) \
                     .aggregate(Sum('num_assessments'))
-                gender_ans_agg = ans_qs.filter(gender=gender, **group_param)\
+                gender_ans_agg = ans_qs.filter(gender=gender, **group_param) \
                     .aggregate(Sum('num_assessments'))
-                
+
                 gender_res[display_gender] = {
                     "total_count": gender_agg['num_assessments__sum'] or 0,
                     "perfect_score_count": gender_ans_agg[
-                        'num_assessments__sum'] or 0
+                                               'num_assessments__sum'] or 0
                 }
             group_res[group_name] = {
                 "gender": gender_res
@@ -251,11 +252,11 @@ class SurveyInfoSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
             char_id=settings.ILP_STATE_ID).boundary_id
         boundary_id = self.request.query_params.get('boundary_id', state_id)
         institution_qs = SurveyInstitutionAgg.objects.filter(
-                Q(institution_id__admin0_id=boundary_id) |
-                Q(institution_id__admin1_id=boundary_id) |
-                Q(institution_id__admin2_id=boundary_id) |
-                Q(institution_id__admin3_id=boundary_id)
-            )
+            Q(institution_id__admin0_id=boundary_id) |
+            Q(institution_id__admin1_id=boundary_id) |
+            Q(institution_id__admin2_id=boundary_id) |
+            Q(institution_id__admin3_id=boundary_id)
+        )
         return self.filter_queryset(institution_qs)
 
     def get_qs_agg(self, queryset, source_id):
@@ -316,11 +317,11 @@ class SurveyInfoUserAPIView(AggMixin, ListAPIView, ILPStateMixin):
 
         response = {}
         user_response = {}
-            
-        user_types = queryset.distinct('user_type')\
+
+        user_types = queryset.distinct('user_type') \
             .values_list('user_type', flat=True)
         for user_type in user_types:
-            user_type_agg = queryset.filter(user_type=user_type)\
+            user_type_agg = queryset.filter(user_type=user_type) \
                 .aggregate(Sum('num_assessments'))
             user_response[user_type] = user_type_agg['num_assessments__sum']
         response['users'] = user_response
@@ -328,7 +329,7 @@ class SurveyInfoUserAPIView(AggMixin, ListAPIView, ILPStateMixin):
 
 
 class SurveyInfoRespondentAPIView(
-        AggMixin, ListAPIView, ILPStateMixin
+    AggMixin, ListAPIView, ILPStateMixin
 ):
     filter_backends = [SurveyFilter, ]
     institution_queryset = SurveyInstitutionRespondentTypeAgg.objects.all()
@@ -342,11 +343,11 @@ class SurveyInfoRespondentAPIView(
         response = {}
         respondent_res = {}
 
-        respondent_types = queryset.distinct('respondent_type')\
+        respondent_types = queryset.distinct('respondent_type') \
             .values_list('respondent_type', flat=True)
         for respondent_type in respondent_types:
-            respondent_type_agg = queryset\
-                .filter(respondent_type=respondent_type)\
+            respondent_type_agg = queryset \
+                .filter(respondent_type=respondent_type) \
                 .aggregate(Sum('num_assessments'))
             respondent_res[respondent_type] = respondent_type_agg[
                 'num_assessments__sum']
@@ -365,13 +366,13 @@ class SurveyInfoSchoolAPIView(ListAPIView, ILPStateMixin):
         institution_id = self.request.query_params.get('school_id', None)
         if institution_id:
             queryset = queryset.filter(institution_id=institution_id)
-        survey_ids = queryset\
+        survey_ids = queryset \
             .distinct('survey_id').values_list('survey_id', flat=True)
         # Now find all survey ids who actually have
         # type_id assessment in questiongroup table
-        surveys_assessment_types = QuestionGroup.objects.\
-            filter(type__char_id='assessment').\
-            filter(survey_id__in=survey_ids).\
+        surveys_assessment_types = QuestionGroup.objects. \
+            filter(type__char_id='assessment'). \
+            filter(survey_id__in=survey_ids). \
             values_list('survey_id', flat=True)
         return Survey.objects.filter(id__in=surveys_assessment_types)
 
@@ -387,7 +388,7 @@ class SurveyInfoBoundaryAPIView(ListAPIView, ILPStateMixin):
         boundary_id = self.request.query_params.get('boundary_id', None)
         if boundary_id:
             queryset = queryset.filter(boundary_id=boundary_id)
-        survey_ids = queryset\
+        survey_ids = queryset \
             .distinct('survey_id').values_list('survey_id', flat=True)
 
         return Survey.objects.filter(id__in=survey_ids)
@@ -418,11 +419,11 @@ class SurveyDetailSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
 
         response = {}
         sources_res = {}
-          
+
         for s_id in source_ids:
             source = Source.objects.get(id=s_id)
             source_agg = queryset.filter(source=s_id)
-            question_ids = source_agg\
+            question_ids = source_agg \
                 .distinct('question_id').values_list('question_id', flat=True)
             question_list = []
             for q_id in question_ids:
@@ -442,7 +443,7 @@ class SurveyDetailSourceAPIView(AggMixin, ListAPIView, ILPStateMixin):
                         question.question_type.display.char_id
 
                 question_agg = source_agg.filter(question_id=q_id)
-                ans_agg = question_agg.\
+                ans_agg = question_agg. \
                     values('answer_option').annotate(Sum('num_answers'))
                 for ans in ans_agg:
                     question_res['answers'][ans['answer_option']] = \
@@ -482,30 +483,30 @@ class SurveyDetailKeyAPIView(AggMixin, ListAPIView, ILPStateMixin):
         response = {}
         scores_res = {}
         ans_qs = self.filter_queryset(self.get_answer_queryset())
-        question_keys = qs.distinct('question_key')\
+        question_keys = qs.distinct('question_key') \
             .values_list('question_key', flat=True)
         for q_key in question_keys:
-            key_agg = qs.filter(question_key=q_key)\
+            key_agg = qs.filter(question_key=q_key) \
                 .aggregate(Sum('num_assessments'))
-            key_ans_agg = ans_qs.filter(question_key=q_key)\
+            key_ans_agg = ans_qs.filter(question_key=q_key) \
                 .aggregate(Sum('numcorrect'), Sum('numtotal'))
             scores_res[q_key] = {
                 "total": key_agg['num_assessments__sum'],
-                "average": key_ans_agg['numcorrect__sum']*100/ken_ans_agg['numtotal__sum']
+                "average": key_ans_agg['numcorrect__sum'] * 100 / ken_ans_agg['numtotal__sum']
             }
         response['scores'] = scores_res
         return Response(response)
 
 
 class SurveyQuestionGroupQuestionKeyAPIView(
-        AggMixin, ListAPIView, ILPStateMixin
+    AggMixin, ListAPIView, ILPStateMixin
 ):
     filter_backends = [SurveyFilter, ]
-    institution_queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.\
+    institution_queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg. \
         objects.all()
-    boundary_queryset = SurveyBoundaryQuestionGroupQuestionKeyAgg.\
+    boundary_queryset = SurveyBoundaryQuestionGroupQuestionKeyAgg. \
         objects.all()
-    eboundary_queryset = SurveyEBoundaryQuestionGroupQuestionKeyAgg.\
+    eboundary_queryset = SurveyEBoundaryQuestionGroupQuestionKeyAgg. \
         objects.all()
 
     def get_answer_queryset(self):
@@ -513,18 +514,18 @@ class SurveyQuestionGroupQuestionKeyAPIView(
         boundary_id = self.request.query_params.get('boundary_id', None)
         eboundary_id = self.request.query_params.get('electionboundary_id', None)
         if institution_id:
-            return SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.\
+            return SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg. \
                 objects.filter(institution_id=institution_id)
         if boundary_id:
-            return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
+            return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg. \
                 objects.filter(boundary_id=boundary_id)
         if eboundary_id:
-            return SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
+            return SurveyEBoundaryQuestionGroupQuestionKeyCorrectAnsAgg. \
                 objects.filter(eboundary_id=eboundary_id)
 
         state_id = BoundaryStateCode.objects.get(
             char_id=settings.ILP_STATE_ID).boundary_id
-        return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects.\
+        return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects. \
             filter(boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
@@ -541,7 +542,7 @@ class SurveyQuestionGroupQuestionKeyAPIView(
 
         ans_qs = self.filter_queryset(self.get_answer_queryset())
 
-        qgroups = qs.distinct('questiongroup_id')\
+        qgroups = qs.distinct('questiongroup_id') \
             .values_list('questiongroup_id', 'questiongroup_name')
 
         for qgroup_id, qgroup_name in qgroups:
@@ -550,9 +551,9 @@ class SurveyQuestionGroupQuestionKeyAPIView(
             key_agg = qgroup_qs.values(
                 'question_key').annotate(num_assess=Sum('num_assessments'))
             ans_key_agg = qgroup_ans_qs.values(
-                'question_key').annotate(numcorrect=Sum('numcorrect'),numtotal=Sum('numtotal'))
+                'question_key').annotate(numcorrect=Sum('numcorrect'), numtotal=Sum('numtotal'))
 
-            question_keys = key_agg.values_list('question_key', flat=True)           
+            question_keys = key_agg.values_list('question_key', flat=True)
             qgroup_res[qgroup_name] = qgroup_res.get(qgroup_name, {})
 
             numkeycount = 0
@@ -570,8 +571,8 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                 )
                 if qgroup_res[qgroup_name].get(q_key, None):
                     qgroup_res[qgroup_name][q_key]["total"] += total
-                    qgroup_res[qgroup_name][q_key]["numcorrect"] +=  score_qs['numcorrect']
-                    qgroup_res[qgroup_name][q_key]["numtotal"] +=  score_qs['numtotal']
+                    qgroup_res[qgroup_name][q_key]["numcorrect"] += score_qs['numcorrect']
+                    qgroup_res[qgroup_name][q_key]["numtotal"] += score_qs['numtotal']
                 else:
                     qgroup_res[qgroup_name][q_key] = {
                         "total": total,
@@ -581,7 +582,8 @@ class SurveyQuestionGroupQuestionKeyAPIView(
                     }
         for qgroupname in qgroup_res:
             for qkey in qgroup_res[qgroupname]:
-                qgroup_res[qgroupname][qkey]["average"] = qgroup_res[qgroupname][qkey]["numcorrect"]*100/qgroup_res[qgroupname][qkey]["numtotal"]
+                qgroup_res[qgroupname][qkey]["average"] = qgroup_res[qgroupname][qkey]["numcorrect"] * 100 / \
+                                                          qgroup_res[qgroupname][qkey]["numtotal"]
         return Response(qgroup_res)
 
 
@@ -610,18 +612,18 @@ class SurveyInfoEBoundaryAPIView(ListAPIView, ILPStateMixin):
 
         response = {}
         source_res = {}
-        boundary_type_ids = queryset\
-            .distinct('boundary_id__const_ward_type')\
+        boundary_type_ids = queryset \
+            .distinct('boundary_id__const_ward_type') \
             .values_list('boundary_id__const_ward_type', flat=True)
 
         boundary_list = []
         for b_type_id in boundary_type_ids:
-            boundary_qs_agg = queryset\
-                .filter(boundary_id__const_ward_type=b_type_id)\
+            boundary_qs_agg = queryset \
+                .filter(boundary_id__const_ward_type=b_type_id) \
                 .aggregate(
-                    Sum('num_children'),
-                    Sum('num_assessments'),
-                )
+                Sum('num_children'),
+                Sum('num_assessments'),
+            )
 
             boundary_res = {
                 "id": b_type_id,
@@ -662,14 +664,14 @@ class SurveyDetailEBoundaryAPIView(AggMixin, ListAPIView, ILPStateMixin):
 
 
 class SurveyQuestionGroupQDetailsAPIView(
-        AggMixin, ListAPIView, ILPStateMixin
+    AggMixin, ListAPIView, ILPStateMixin
 ):
     filter_backends = [SurveyFilter, ]
-    institution_queryset = SurveyInstitutionQuestionGroupQDetailsAgg.\
+    institution_queryset = SurveyInstitutionQuestionGroupQDetailsAgg. \
         objects.all()
-    boundary_queryset = SurveyBoundaryQuestionGroupQDetailsAgg.\
+    boundary_queryset = SurveyBoundaryQuestionGroupQDetailsAgg. \
         objects.all()
-    eboundary_queryset = SurveyEBoundaryQuestionGroupQDetailsAgg.\
+    eboundary_queryset = SurveyEBoundaryQuestionGroupQDetailsAgg. \
         objects.all()
 
     def get_answer_queryset(self):
@@ -677,25 +679,25 @@ class SurveyQuestionGroupQDetailsAPIView(
         boundary_id = self.request.query_params.get('boundary_id', None)
         eboundary_id = self.request.query_params.get('electionboundary_id', None)
         if institution_id:
-            return SurveyInstitutionQuestionGroupQDetailsCorrectAnsAgg.\
+            return SurveyInstitutionQuestionGroupQDetailsCorrectAnsAgg. \
                 objects.filter(institution_id=institution_id)
         if boundary_id:
-            return SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg.\
+            return SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg. \
                 objects.filter(boundary_id=boundary_id)
         if eboundary_id:
-            return SurveyEBoundaryQuestionGroupQDetailsCorrectAnsAgg.\
+            return SurveyEBoundaryQuestionGroupQDetailsCorrectAnsAgg. \
                 objects.filter(eboundary_id=eboundary_id)
 
         state_id = BoundaryStateCode.objects.get(
             char_id=settings.ILP_STATE_ID).boundary_id
-        return SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg.objects.\
+        return SurveyBoundaryQuestionGroupQDetailsCorrectAnsAgg.objects. \
             filter(boundary_id=state_id)
 
     def list(self, request, *args, **kwargs):
         """
         Returns questiongroups.
         Each questiongroups contains dicts.
-        Each concept dict contains microconceptgroup dict that contains 
+        Each concept dict contains microconceptgroup dict that contains
         microconcept dict that contains answer_total, answer_score.
 
         Question Details is fetched from `self.get_queryset()` and,
@@ -706,7 +708,7 @@ class SurveyQuestionGroupQDetailsAPIView(
 
         ans_qs = self.filter_queryset(self.get_answer_queryset())
 
-        qgroups = qs.distinct('questiongroup_id')\
+        qgroups = qs.distinct('questiongroup_id') \
             .values_list('questiongroup_id', 'questiongroup_name')
 
         for qgroup_id, qgroup_name in qgroups:
@@ -714,11 +716,11 @@ class SurveyQuestionGroupQDetailsAPIView(
             qgroup_qs = qs.filter(questiongroup_id=qgroup_id)
             qgroup_ans_qs = ans_qs.filter(questiongroup_id=qgroup_id)
             qdetails = qgroup_qs.values(
-                'concept__description','microconcept_group__description','microconcept__description').annotate(
-                    Sum('num_assessments'))
+                'concept__description', 'microconcept_group__description', 'microconcept__description').annotate(
+                Sum('num_assessments'))
             ans_qdetails = qgroup_ans_qs.values(
-                'concept__description','microconcept_group__description','microconcept__description').annotate(
-                    Sum('numcorrect'), Sum('numtotal'))
+                'concept__description', 'microconcept_group__description', 'microconcept__description').annotate(
+                Sum('numcorrect'), Sum('numtotal'))
 
             for row in qdetails:
                 concept = row['concept__description']
@@ -731,18 +733,22 @@ class SurveyQuestionGroupQDetailsAPIView(
                             q_res[concept]["total"] += row['num_assessments__sum']
                             q_res[concept][microconcept_group]["total"] += row['num_assessments__sum']
                         else:
-                            q_res[concept][microconcept_group][microconcept] = {"total": row['num_assessments__sum'], "score":0}
+                            q_res[concept][microconcept_group][microconcept] = {"total": row['num_assessments__sum'],
+                                                                                "score": 0}
                             q_res[concept]["total"] += row['num_assessments__sum']
                             q_res[concept][microconcept_group]["total"] += row['num_assessments__sum']
                     else:
-                        q_res[concept][microconcept_group] = {microconcept:{"total": row['num_assessments__sum'], "score":0}, "total":0, "score":0}
+                        q_res[concept][microconcept_group] = {
+                            microconcept: {"total": row['num_assessments__sum'], "score": 0}, "total": 0, "score": 0}
                         q_res[concept]["total"] += row['num_assessments__sum']
                         q_res[concept][microconcept_group]["total"] += row['num_assessments__sum']
                 else:
-                    q_res[concept] = {microconcept_group: {microconcept:{"total":row['num_assessments__sum'],"score":0},"total":0, "score":0}, "total":0, "score":0}
+                    q_res[concept] = {
+                        microconcept_group: {microconcept: {"total": row['num_assessments__sum'], "score": 0},
+                                             "total": 0, "score": 0}, "total": 0, "score": 0}
                     q_res[concept]["total"] += row['num_assessments__sum']
                     q_res[concept][microconcept_group]["total"] += row['num_assessments__sum']
- 
+
             for row in ans_qdetails:
                 concept = row['concept__description']
                 microconcept_group = row['microconcept_group__description']
@@ -750,69 +756,85 @@ class SurveyQuestionGroupQDetailsAPIView(
                 if concept in q_res:
                     if microconcept_group in q_res[concept]["microconceptgroup"]:
                         if microconcept in q_res[concept]["microconceptgroup"][microconcept_group]["microconcept"]:
-                            q_res[concept]["microconceptgroup"][microconcept_group]["microconcept"][microconcept]["numcorrect"] += row['numcorrect__sum']
-                            q_res[concept]["microconceptgroup"][microconcept_group]["microconcept"][microconcept]["numtotal"] += row['numcount__sum']
+                            q_res[concept]["microconceptgroup"][microconcept_group]["microconcept"][microconcept][
+                                "numcorrect"] += row['numcorrect__sum']
+                            q_res[concept]["microconceptgroup"][microconcept_group]["microconcept"][microconcept][
+                                "numtotal"] += row['numcount__sum']
                             q_res[concept]["numcorrect"] += row['numcorrect__sum']
                             q_res[concept]["numtotal"] += row['numtotal__sum']
-                            q_res[concept]["microconceptgroup"][microconcept_group]["numcorrect"] += row['numcorrect__sum']
+                            q_res[concept]["microconceptgroup"][microconcept_group]["numcorrect"] += row[
+                                'numcorrect__sum']
                             q_res[concept]["microconceptgroup"][microconcept_group]["numtotal"] += row['numtotal__sum']
                         else:
-                            q_res[concept]["microconceptgroup"][microconcept_group]["microconcept"][microconcept] = {"numcorrect": row['numcorrect__sum'], "total":0, "numtotal": row['numtotal__sum']}
+                            q_res[concept]["microconceptgroup"][microconcept_group]["microconcept"][microconcept] = {
+                                "numcorrect": row['numcorrect__sum'], "total": 0, "numtotal": row['numtotal__sum']}
                             q_res[concept]["numcorrect"] += row['numcorrect__sum']
                             q_res[concept]["numtotal"] += row['numtotal__sum']
-                            q_res[concept]["microconceptgroup"][microconcept_group]["numcorrect"] += row['numcorrect__sum']
+                            q_res[concept]["microconceptgroup"][microconcept_group]["numcorrect"] += row[
+                                'numcorrect__sum']
                             q_res[concept]["microconceptgroup"][microconcept_group]["numtotal"] += row['numtotal__sum']
                     else:
-                        q_res[concept]["microconceptgroup"][microconcept_group] = {"microconcept":{microconcept:{"numcorrect": row['numcorrect__sum'], "numtotal": row['numtotal__sum']}, "numtotal":0, "numcorrect":0}}
+                        q_res[concept]["microconceptgroup"][microconcept_group] = {"microconcept": {
+                            microconcept: {"numcorrect": row['numcorrect__sum'], "numtotal": row['numtotal__sum']},
+                            "numtotal": 0, "numcorrect": 0}}
                         q_res[concept]["numcorrect"] += row['numcorrect__sum']
                         q_res[concept]["numtotal"] += row['numtotal__sum']
                         q_res[concept]["microconceptgroup"][microconcept_group]["numcorrect"] += row['numcorrect__sum']
                         q_res[concept]["microconceptgroup"][microconcept_group]["numtotal"] += row['numtotal__sum']
                 else:
-                    q_res[concept] = {"microconceptgroup":{microconcept_group: {"microconcept":{microconcept:{"numcorrect":row['numcorrect__sum'],"total":0,"numtotal":row['numtotal__sum']},"total":0, "numcorrect":0, "numtotal":0}, "total":0, "numcorrect":0, "numtotal":0}}}
+                    q_res[concept] = {"microconceptgroup": {microconcept_group: {"microconcept": {
+                        microconcept: {"numcorrect": row['numcorrect__sum'], "total": 0,
+                                       "numtotal": row['numtotal__sum']}, "total": 0, "numcorrect": 0, "numtotal": 0},
+                                                                                 "total": 0, "numcorrect": 0,
+                                                                                 "numtotal": 0}}}
                     q_res[concept]["numcorrect"] += row['numcorrect__sum']
                     q_res[concept]["numtotal"] += row['numtotal__sum']
                     q_res[concept]["microconceptgroup"][microconcept_group]["numcorrect"] += row['numcorrect__sum']
                     q_res[concept]["microconceptgroup"][microconcept_group]["numtotal"] += row['numtotal__sum']
 
-
             for concept in q_res:
-                q_res[concept]["average"] = q_res[concept]["numcorrect"]*100/ q_res[concept]["numtotal"]
+                q_res[concept]["average"] = q_res[concept]["numcorrect"] * 100 / q_res[concept]["numtotal"]
                 for microconceptgroup in q_res[concept]["microconceptgroup"]:
-                    q_res[concept]["microconceptgroup"][microconceptgroup]["average"] = q_res[concept]["microconceptgroup"][microconceptgroup]["numcorrect"]*100/q_res[concept]["microconceptgroup"][microconceptgroup]["numtotal"]
+                    q_res[concept]["microconceptgroup"][microconceptgroup]["average"] = \
+                    q_res[concept]["microconceptgroup"][microconceptgroup]["numcorrect"] * 100 / \
+                    q_res[concept]["microconceptgroup"][microconceptgroup]["numtotal"]
                     for microconcept in q_res[concept]["microconceptgroup"][microconceptgroup]["microconcept"]:
-                        q_res[concept]["microconceptgroup"][microconceptgroup]["microconcept"][microconcept]["average"] = q_res[concept]["microconceptgroup"][microconceptgroup]["microconcept"][microconcept]["numcorrect"]*100/q_res[concept]["microconceptgroup"][microconceptgroup]["microconcept"][microconcept]["numtotal"]
+                        q_res[concept]["microconceptgroup"][microconceptgroup]["microconcept"][microconcept][
+                            "average"] = \
+                        q_res[concept]["microconceptgroup"][microconceptgroup]["microconcept"][microconcept][
+                            "numcorrect"] * 100 / \
+                        q_res[concept]["microconceptgroup"][microconceptgroup]["microconcept"][microconcept]["numtotal"]
 
             qgroup_res[qgroup_name] = q_res
         return Response(qgroup_res)
 
 
 class SurveyQuestionGroupQuestionKeyYearComparisonAPIView(
-        AggMixin, ListAPIView, ILPStateMixin
+    AggMixin, ListAPIView, ILPStateMixin
 ):
-    institution_queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg.\
+    institution_queryset = SurveyInstitutionQuestionGroupQuestionKeyAgg. \
         objects.all()
-    boundary_queryset = SurveyBoundaryQuestionGroupQuestionKeyAgg.\
+    boundary_queryset = SurveyBoundaryQuestionGroupQuestionKeyAgg. \
         objects.all()
 
     def get_answer_queryset(self):
         institution_id = self.request.query_params.get('institution_id', None)
         boundary_id = self.request.query_params.get('boundary_id', None)
         if institution_id:
-            return SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg.\
+            return SurveyInstitutionQuestionGroupQuestionKeyCorrectAnsAgg. \
                 objects.filter(institution_id=institution_id)
         if boundary_id:
-            return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.\
+            return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg. \
                 objects.filter(boundary_id=boundary_id)
 
         state_id = BoundaryStateCode.objects.get(
             char_id=settings.ILP_STATE_ID).boundary_id
-        return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects.\
+        return SurveyBoundaryQuestionGroupQuestionKeyCorrectAnsAgg.objects. \
             filter(boundary_id=state_id)
 
     def getYearData(self, year, survey_id, survey_tag):
-        qgroup_res = {} 
-            
+        qgroup_res = {}
+
         qs = self.filter_queryset(self.get_queryset())
         if survey_id:
             qs = qs.filter(survey_id=survey_id)
@@ -820,11 +842,10 @@ class SurveyQuestionGroupQuestionKeyYearComparisonAPIView(
         if survey_tag:
             qs = qs.filter(survey_tag=survey_tag)
 
-        to_yearmonth = year.split('-')[1]+'04'
-        from_yearmonth = year.split('-')[0]+'06'
-        print('to_yearmonth: '+to_yearmonth+", from_yearmonth: "+from_yearmonth)
+        to_yearmonth = year.split('-')[1] + '04'
+        from_yearmonth = year.split('-')[0] + '06'
+        print('to_yearmonth: ' + to_yearmonth + ", from_yearmonth: " + from_yearmonth)
         qs = qs.filter(yearmonth__lte=to_yearmonth, yearmonth__gte=from_yearmonth)
-
 
         ans_qs = self.filter_queryset(self.get_answer_queryset())
         if survey_id:
@@ -835,7 +856,7 @@ class SurveyQuestionGroupQuestionKeyYearComparisonAPIView(
 
         ans_qs = ans_qs.filter(yearmonth__lte=to_yearmonth, yearmonth__gte=from_yearmonth)
 
-        qgroups = qs.distinct('questiongroup_id')\
+        qgroups = qs.distinct('questiongroup_id') \
             .values_list('questiongroup_id', 'questiongroup_name')
 
         for qgroup_id, qgroup_name in qgroups:
@@ -847,17 +868,17 @@ class SurveyQuestionGroupQuestionKeyYearComparisonAPIView(
             ans_key_agg = qgroup_ans_qs.values(
                 'question_key').annotate(numcorrect=Sum('numcorrect'), numtotal=Sum('numtotal'))
 
-            question_keys = key_agg.values_list('question_key', flat=True)           
+            question_keys = key_agg.values_list('question_key', flat=True)
             for q_key in question_keys:
                 total = key_agg.get(question_key=q_key)['num_assess']
                 try:
                     score_qs = ans_key_agg.get(question_key=q_key)
-                    average = score_qs['numcorrect']*100/score_qs['numtotal']
+                    average = score_qs['numcorrect'] * 100 / score_qs['numtotal']
                 except ObjectDoesNotExist:
                     average = 0
                 q_res[q_key] = {
                     "total": total,
-                    "average": average 
+                    "average": average
                 }
             qgroup_res[qgroup_name] = q_res
         return qgroup_res
@@ -877,15 +898,15 @@ class SurveyQuestionGroupQuestionKeyYearComparisonAPIView(
         survey_id = request.query_params.get('survey_id', None)
         year = request.query_params.get('year', None)
 
-        if year==None:
+        if year == None:
             raise ParseError("Mandatory param year is not passed.")
-        
-        startyear = int('20'+year[0]+year[1])
-        endyear = int('20'+year[2]+year[3])
-        current_year = str(startyear)+"-"+str(endyear)
-        pre_startyear = int('20'+year[0]+year[1])-1
-        pre_endyear = int('20'+year[2]+year[3])-1
-        pre_year = str(pre_startyear)+"-"+str(pre_endyear)
+
+        startyear = int('20' + year[0] + year[1])
+        endyear = int('20' + year[2] + year[3])
+        current_year = str(startyear) + "-" + str(endyear)
+        pre_startyear = int('20' + year[0] + year[1]) - 1
+        pre_endyear = int('20' + year[2] + year[3]) - 1
+        pre_year = str(pre_startyear) + "-" + str(pre_endyear)
 
         qgroup_res[current_year] = self.getYearData(current_year, survey_id, survey_tag)
         qgroup_res[pre_year] = self.getYearData(pre_year, survey_id, survey_tag)
