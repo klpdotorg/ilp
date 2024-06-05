@@ -409,7 +409,7 @@ class Command(BaseCommand, baseReport.CommonUtils):
             schoolids = school_compute_numbers.get_all_districts(
                 self.districtids)
             self.schoolids = schoolids
-        print( self.schoolids)
+        print("schools",self.schoolids)
         if self.schoolids:
             for school in self.schoolids:
                 print("school", school)
@@ -417,23 +417,25 @@ class Command(BaseCommand, baseReport.CommonUtils):
                     school, self.surveyid,
                     self.startyearmonth, self.endyearmonth)
                 print("schooldata", schooldata)
-                school_builddir = self.build_d + str(self.now) + \
-                                  "/schools/" + str(school)
-                suffix = ""
-                count = 0
-                num_contests = len(schooldata)
-                for contestdate in schooldata:
-                    dataFound = True
-                    count += 1
-                    if num_contests > 1:
-                        suffix = "_" + str(count)
-                    self.createSchoolPdfs(schooldata[contestdate], school_builddir,
-                                          school_outputdir, suffix)
-                    if datafound:
-                        self.createSchoolsSummary(school_outputdir)
-                    return datafound
+                if schooldata:
+                    school_builddir = self.build_d + str(self.now) + \
+                                      "/schools/" + str(school)
+                    suffix = ""
+                    count = 0
+                    num_contests = len(schooldata)
+                    for contestdate in schooldata:
+                        dataFound = True
+                        count += 1
+                        if num_contests > 1:
+                            suffix = "_" + str(count)
+                        self.createSchoolPdfs(schooldata[contestdate], school_builddir,
+                                              school_outputdir, suffix)
+                        if datafound:
+                            self.createSchoolsSummary(school_outputdir)
+                            return datafound
 
     def createSchoolPdfs(self, schooldata, builddir, outputdir, suffix):
+        schooloutputdir = outputdir + str(schooldata["dise_code"]) + "/"
         info = {"imagesdir": self.imagesdir, "imagesqrdir": self.imagesqrdir, "year": self.academicyear}
         contestdate = schooldata["date"]
         # print(schooldata, file=self.utf8stdout)
@@ -462,8 +464,8 @@ class Command(BaseCommand, baseReport.CommonUtils):
                       "gpid": schooldata["gp_id"],
                       "disecode": schooldata["dise_code"],
                       "contestdate": contestdate}
-        if not os.path.exists(outputdir):
-            os.makedirs(outputdir)
+        if not os.path.exists(schooloutputdir):
+            os.makedirs(schooloutputdir)
         if not os.path.exists(builddir):
             os.makedirs(builddir)
 
@@ -496,9 +498,11 @@ class Command(BaseCommand, baseReport.CommonUtils):
                 pdfscreated.append(os.path.realpath(builddir + "/" +
                                                     school_out_file + ".pdf"))
                 self.deleteTempFiles([school_out_file + ".tex"])
-
-        school_file = self.school_out_file_prefix + "_" + str(schoolinfo["klpid"]) + suffix + ".pdf"
-        self.combinePdfs(pdfscreated, school_file, outputdir)
+        if self.onlyschool:
+            school_file = self.school_out_file_prefix + suffix + ".pdf"
+        else:
+            school_file = self.school_out_file_prefix + "_" + str(schoolinfo["klpid"]) + suffix + ".pdf"
+        self.combinePdfs(pdfscreated, school_file, schooloutputdir)
         self.deleteTempFiles(pdfscreated)
         self.schoolsummary.append(summary)
         print(self.reportsummary)
